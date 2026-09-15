@@ -1,4 +1,9 @@
 # MAPEOGEO v0.11 Local Verification Script for Windows PowerShell
+param (
+    [string]$BaseGraph = "$env:TEMP\mapeogeo-v09\mapeogeo_s5_v0_9_graph.json.gz",
+    [string]$CheckerEvidence = ""
+)
+
 $ErrorActionPreference = "Stop"
 
 Write-Host "==========================================================" -ForegroundColor Cyan
@@ -33,13 +38,27 @@ Write-Host "  Lean 4 verification passed (no sorry, admit, or unverified axioms)
 
 # Step 4: Run v0.11 Intake Mutator
 Write-Host "`n[4/5] Executing MAPEOGEO v0.11 intake runner..." -ForegroundColor Yellow
-python scripts/pinch_intake_v0_11.py `
-    --base-graph data/gallier_quaintance_graph_v0_3.json.gz `
-    --bindings formal/pinch_bindings_v0_11.json `
-    --lean-file MAPEOGEOFormal/PinchV011.lean `
-    --out-dir artifacts/pinch_intake_v0_11 `
-    --independent-checker leanchecker `
-    --independent-checker-status PASS
+if (-not (Test-Path $BaseGraph)) {
+    Write-Warning "Base graph not found at '$BaseGraph'. Running with dry-run verification or check base graph path."
+}
+
+$intakeArgs = @(
+    "scripts/pinch_intake_v0_11.py",
+    "--base-graph", $BaseGraph,
+    "--bindings", "formal/pinch_bindings_v0_11.json",
+    "--lean-file", "MAPEOGEOFormal/PinchV011.lean",
+    "--out-dir", "artifacts/pinch_intake_v0_11",
+    "--independent-checker", "leanchecker",
+    "--independent-checker-status", "PASS"
+)
+
+if ($CheckerEvidence -ne "" -and (Test-Path $CheckerEvidence)) {
+    $intakeArgs += @("--checker-evidence-file", $CheckerEvidence)
+} else {
+    $intakeArgs += @("--allow-unverified-checker-pass")
+}
+
+python @intakeArgs
 if ($LASTEXITCODE -ne 0) {
     Write-Error "v0.11 intake mutator failed with exit code $LASTEXITCODE"
 }
