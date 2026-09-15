@@ -1,4 +1,4 @@
-name: MAPEOGEO PCT E1-E25H campaign regression
+name: MAPEOGEO PCT E1-E25J campaign regression
 
 on:
   workflow_dispatch:
@@ -10,6 +10,7 @@ on:
       - "experiments/pct_e25bc/**"
       - "experiments/pct_e25def/**"
       - "experiments/pct_e25gh/**"
+      - "experiments/pct_e25ij/**"
       - "evidence/pct_e1_e25_campaign.json"
       - "evidence/pct_e23_counterexamples.json"
       - "evidence/pct_e25_graph_consistency_audit.json"
@@ -24,14 +25,20 @@ on:
       - "evidence/pct_e25g_exact_morphism_audit.json"
       - "evidence/pct_e25g_provenance_bindings.json"
       - "evidence/pct_e25h_policy_comparison.json"
+      - "evidence/pct_e25i_closure_receipt_ledger.json"
+      - "evidence/pct_e25i_derived_closure_snapshot.json"
+      - "evidence/pct_e25j_revocation_staleness.json"
       - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
       - "docs/PCT_E25B_E25C_EXECUTABLE_MULTIPATH_REPORT.md"
       - "docs/PCT_E25D_E25F_CLOSURE_PROGRAM_REPORT.md"
       - "docs/PCT_E25G_E25H_C5_POLICY_REPORT.md"
+      - "docs/PCT_E25I_E25J_CLOSURE_LIFECYCLE_REPORT.md"
       - "docs/superpowers/specs/2026-09-15-e25def-closure-depth-verification-design.md"
       - "docs/superpowers/specs/2026-09-15-e25gh-c5-policy-design.md"
+      - "docs/superpowers/specs/2026-09-15-e25ij-closure-lifecycle-design.md"
       - "docs/superpowers/plans/2026-09-15-e25def-closure-depth-verification.md"
       - "docs/superpowers/plans/2026-09-15-e25gh-c5-policy-implementation.md"
+      - "docs/superpowers/plans/2026-09-15-e25ij-closure-lifecycle-implementation.md"
       - "requirements-pct-e1-e25.txt"
       - ".github/workflows/pct-e1-e25-campaign.yml"
   pull_request:
@@ -40,6 +47,7 @@ on:
       - "experiments/pct_e25bc/**"
       - "experiments/pct_e25def/**"
       - "experiments/pct_e25gh/**"
+      - "experiments/pct_e25ij/**"
       - "evidence/pct_e1_e25_campaign.json"
       - "evidence/pct_e23_counterexamples.json"
       - "evidence/pct_e25_graph_consistency_audit.json"
@@ -54,14 +62,20 @@ on:
       - "evidence/pct_e25g_exact_morphism_audit.json"
       - "evidence/pct_e25g_provenance_bindings.json"
       - "evidence/pct_e25h_policy_comparison.json"
+      - "evidence/pct_e25i_closure_receipt_ledger.json"
+      - "evidence/pct_e25i_derived_closure_snapshot.json"
+      - "evidence/pct_e25j_revocation_staleness.json"
       - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
       - "docs/PCT_E25B_E25C_EXECUTABLE_MULTIPATH_REPORT.md"
       - "docs/PCT_E25D_E25F_CLOSURE_PROGRAM_REPORT.md"
       - "docs/PCT_E25G_E25H_C5_POLICY_REPORT.md"
+      - "docs/PCT_E25I_E25J_CLOSURE_LIFECYCLE_REPORT.md"
       - "docs/superpowers/specs/2026-09-15-e25def-closure-depth-verification-design.md"
       - "docs/superpowers/specs/2026-09-15-e25gh-c5-policy-design.md"
+      - "docs/superpowers/specs/2026-09-15-e25ij-closure-lifecycle-design.md"
       - "docs/superpowers/plans/2026-09-15-e25def-closure-depth-verification.md"
       - "docs/superpowers/plans/2026-09-15-e25gh-c5-policy-implementation.md"
+      - "docs/superpowers/plans/2026-09-15-e25ij-closure-lifecycle-implementation.md"
       - "requirements-pct-e1-e25.txt"
       - ".github/workflows/pct-e1-e25-campaign.yml"
 
@@ -87,6 +101,7 @@ jobs:
           python -m compileall -q experiments/pct_e25bc
           python -m compileall -q experiments/pct_e25def
           python -m compileall -q experiments/pct_e25gh
+          python -m compileall -q experiments/pct_e25ij
       - name: Generate candidate E25G E25H evidence
         run: python -m experiments.pct_e25gh.generate_evidence --out-dir generated-e25gh
       - name: Upload candidate E25G E25H evidence
@@ -96,4 +111,4 @@ jobs:
           path: generated-e25gh/*.json
           if-no-files-found: error
       - name: Run PCT campaign regression suite
-        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py
+        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py experiments/pct_e25ij/test_e25ij.py
