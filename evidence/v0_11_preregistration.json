@@ -1,7 +1,7 @@
 {
   "stage": "v0.11",
   "run_id": "MAPEOGEO-MATH-INTAKE-V0.11",
-  "description": "Preregistered mathematical intake specification for MAPEOGEO v0.11",
+  "description": "Preregistered mathematical intake specification and frozen scopes for MAPEOGEO v0.11",
   "toolchain": {
     "lean": "leanprover/lean4:v4.33.1",
     "mathlib": "v4.33.1"
@@ -15,7 +15,11 @@
         "srcdecl:proposition:3_13",
         "srcdecl:proposition:4_4"
       ],
-      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011"
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "formal_scope": "Finsupp/basis unique coordinate representation for linear combinations",
+      "scope_status": "FROZEN",
+      "s3_test_state": "UNTESTED",
+      "s3_contract_id": null
     },
     {
       "source_id": "srcdecl:proposition:3_13",
@@ -27,7 +31,11 @@
         "srcdecl:proposition:2_3",
         "srcdecl:proposition:4_4"
       ],
-      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011"
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "formal_scope": "Linear independence equivalence with non-containment in span of remainder",
+      "scope_status": "FROZEN",
+      "s3_test_state": "EXECUTABLE_CONTRACT",
+      "s3_contract_id": "linear_independence_not_in_span_q"
     },
     {
       "source_id": "srcdecl:theorem:27_10",
@@ -36,7 +44,11 @@
       "explicit_dependencies": [
         "srcdecl:theorem:6_16"
       ],
-      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011"
+      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "formal_scope": "Self-adjoint operator / symmetric matrix orthogonal eigenspace decomposition",
+      "scope_status": "FROZEN",
+      "s3_test_state": "EXECUTABLE_CONTRACT",
+      "s3_contract_id": "spectral_decomposition_symmetric_matrix"
     },
     {
       "source_id": "srcdecl:proposition:4_4",
@@ -45,7 +57,11 @@
       "explicit_dependencies": [
         "srcdecl:proposition:4_3"
       ],
-      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011"
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "formal_scope": "Internal submodule direct sum characterization via trivial intersection (disjoint kernel)",
+      "scope_status": "FROZEN",
+      "s3_test_state": "EXECUTABLE_CONTRACT",
+      "s3_contract_id": "subspace_disjoint_intersection_q"
     }
   ]
 }
