@@ -1,0 +1,50 @@
+{
+  "stage": "v0.15.2",
+  "type": "FROZEN_CONFIRMATORY_PREREGISTRATION",
+  "pilot_reference": "v0.15-EXPLORATORY / v0.15.1-PILOT",
+  "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
+  "description": "Frozen confirmatory preregistration for clean-room replay of Real Analysis and Multivariable Differential Calculus Quad-Source Mathematics Expansion across Gallier, Axler, VMLS, and CVX with strict fail-closed provenance and disjoint source partitioning.",
+  "epistemic_status": "Frozen in repository history prior to confirmatory execution. Enforces strict fail-closed provenance invariants on top of the established cross-domain bounds.",
+  "pipeline_dependency_chain": [
+    {"stage": "v0.12", "script": "scripts/cross_source_intake_v0_12.py", "artifact": "artifacts/cross_source_v0_12/mapeogeo_v0_12_graph.json.gz"},
+    {"stage": "v0.13", "script": "scripts/tri_source_intake_v0_13.py", "artifact": "artifacts/tri_source_v0_13/mapeogeo_v0_13_graph.json.gz"},
+    {"stage": "v0.14", "script": "scripts/convex_intake_v0_14.py", "artifact": "artifacts/convex_v0_14/mapeogeo_v0_14_graph.json.gz"},
+    {"stage": "v0.15.2", "script": "scripts/analysis_intake_v0_15_2.py", "artifact": "artifacts/analysis_v0_15_2/mapeogeo_v0_15_2_graph.json.gz"}
+  ],
+  "sources": {
+    "source_a": "GALLIER_QUAINTANCE_2020",
+    "source_b": "AXLER_LADR4E_2026_08_16",
+    "source_c": "BOYD_VANDENBERGHE_VMLS_2018",
+    "source_d": "BOYD_VANDENBERGHE_CVX_2004"
+  },
+  "bounds": {
+    "min_total_source_declarations": 400,
+    "min_canonical_objects": 85,
+    "min_two_source_supported": 45,
+    "min_three_source_supported": 30,
+    "min_four_source_supported": 8,
+    "min_domains": 4,
+    "min_average_representation_richness": 2.75,
+    "min_same_semantics_bridges": 300,
+    "min_total_cross_source_bridges": 400,
+    "min_inherited_formal_links": 6,
+    "disjoint_source_partition": true,
+    "zero_synthesized_nodes": true,
+    "namespace_consistency": true,
+    "zero_prose_policy": "fail-closed, no copyrighted prose or page images persisted in graph artifacts"
+  },
+  "representation_modalities": [
+    "abstract",
+    "algebraic",
+    "geometric",
+    "computational",
+    "formal",
+    "applied"
+  ],
+  "expected_domains": [
+    "Applied Linear Algebra",
+    "Convex Analysis & Optimization",
+    "Differential Calculus & Real Analysis",
+    "Linear Algebra"
+  ]
+}
