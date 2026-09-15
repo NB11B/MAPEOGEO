@@ -1,4 +1,4 @@
-name: MAPEOGEO PCT E1-E25C campaign regression
+name: MAPEOGEO PCT E1-E25F campaign regression
 
 on:
   workflow_dispatch:
@@ -8,6 +8,7 @@ on:
     paths:
       - "experiments/pct_e1_e25/**"
       - "experiments/pct_e25bc/**"
+      - "experiments/pct_e25def/**"
       - "evidence/pct_e1_e25_campaign.json"
       - "evidence/pct_e23_counterexamples.json"
       - "evidence/pct_e25_graph_consistency_audit.json"
@@ -15,14 +16,22 @@ on:
       - "evidence/pct_e25b_multipath_audit.json"
       - "evidence/pct_e25c_executable_cycle_audit.json"
       - "evidence/pct_e25bc_synthetic_attacks.json"
+      - "evidence/pct_e25d_real_component_manifest.json"
+      - "evidence/pct_e25d_closure_atlas.json"
+      - "evidence/pct_e25e_upgrade_plan.json"
+      - "evidence/pct_e25f_fault_coverage.json"
       - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
       - "docs/PCT_E25B_E25C_EXECUTABLE_MULTIPATH_REPORT.md"
+      - "docs/PCT_E25D_E25F_CLOSURE_PROGRAM_REPORT.md"
+      - "docs/superpowers/specs/2026-09-15-e25def-closure-depth-verification-design.md"
+      - "docs/superpowers/plans/2026-09-15-e25def-closure-depth-verification.md"
       - "requirements-pct-e1-e25.txt"
       - ".github/workflows/pct-e1-e25-campaign.yml"
   pull_request:
     paths:
       - "experiments/pct_e1_e25/**"
       - "experiments/pct_e25bc/**"
+      - "experiments/pct_e25def/**"
       - "evidence/pct_e1_e25_campaign.json"
       - "evidence/pct_e23_counterexamples.json"
       - "evidence/pct_e25_graph_consistency_audit.json"
@@ -30,8 +39,15 @@ on:
       - "evidence/pct_e25b_multipath_audit.json"
       - "evidence/pct_e25c_executable_cycle_audit.json"
       - "evidence/pct_e25bc_synthetic_attacks.json"
+      - "evidence/pct_e25d_real_component_manifest.json"
+      - "evidence/pct_e25d_closure_atlas.json"
+      - "evidence/pct_e25e_upgrade_plan.json"
+      - "evidence/pct_e25f_fault_coverage.json"
       - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
       - "docs/PCT_E25B_E25C_EXECUTABLE_MULTIPATH_REPORT.md"
+      - "docs/PCT_E25D_E25F_CLOSURE_PROGRAM_REPORT.md"
+      - "docs/superpowers/specs/2026-09-15-e25def-closure-depth-verification-design.md"
+      - "docs/superpowers/plans/2026-09-15-e25def-closure-depth-verification.md"
       - "requirements-pct-e1-e25.txt"
       - ".github/workflows/pct-e1-e25-campaign.yml"
 
@@ -55,5 +71,6 @@ jobs:
         run: |
           python -m py_compile experiments/pct_e1_e25/campaign.py experiments/pct_e1_e25/test_campaign.py
           python -m compileall -q experiments/pct_e25bc
+          python -m compileall -q experiments/pct_e25def
       - name: Run PCT campaign regression suite
-        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py
+        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py
