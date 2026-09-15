@@ -62,16 +62,36 @@ V0.3 FIXTURE ONTOLOGY RECOVERY: 20 / 20
 GRAPH: 2,183 nodes / 18,189 edges
 ```
 
-The parser repair added Unicode NFKC normalization and split-line declaration recognition; this recovered 463 numbered definitions that v0.4 had missed.
+`DUAL_CANDIDATE` is intentionally weaker than `SAME_SEMANTICS`: it means the controlled ontology supplies both EO and GEO candidate operator families for the declaration. It does not claim theorem-level executable equivalence.
 
-`DUAL_CANDIDATE` is intentionally weaker than `SAME_SEMANTICS`: it means the controlled ontology supplies both EO and GEO candidate operator families for the declaration. It does **not** claim theorem-level executable equivalence.
+## v0.6 — independent dual-view audit
+
+v0.6 removes the shared concept-to-view crosswalk from the pass metrics. EO and GEO are detected by separately authored, identifier-disjoint detector banks using statement text only; proof text and chapter priors are excluded from the coverage gates.
+
+```text
+OVERALL: PASS
+DECLARATIONS: 1,355
+EO STATEMENT-DIRECT COVERAGE: 87.68%
+GEO STATEMENT-DIRECT COVERAGE: 81.48%
+INDEPENDENT DUAL-DIRECT COVERAGE: 73.43%
+EO-ONLY DIRECT: 14.24%
+GEO-ONLY DIRECT: 8.04%
+NO DIRECT VIEW: 4.28%
+V0.3 FIXTURE INDEPENDENT RECOVERY: 20 / 20
+GRAPH: 2,214 nodes / 23,289 edges
+
+EO PROOF-DEPENDENCY ALIGNMENT DELTA: +0.09148, p=0.001996
+GEO PROOF-DEPENDENCY ALIGNMENT DELTA: +0.11368, p=0.001996
+```
+
+The proof-dependency control fixes the source declaration and compares its actual referenced target against random targets from the same target chapter over 500 deterministic permutations. Both independently derived representation spaces show significantly greater similarity on real source dependency edges than on the matched random control.
 
 See:
 
-- `docs/V0_5_CORPUS_DUALIZATION_SPEC.md`
-- `docs/V0_5_CORPUS_DUALIZATION_REPORT.md`
-- `evidence/v0_5_acceptance_manifest.json`
-- `.github/workflows/corpus-dualization.yml`
+- `docs/V0_6_INDEPENDENT_DUAL_VIEW_SPEC.md`
+- `docs/V0_6_INDEPENDENT_DUAL_VIEW_REPORT.md`
+- `evidence/v0_6_acceptance_manifest.json`
+- `.github/workflows/independent-dual-view.yml`
 
 ## Reproduce
 
@@ -111,15 +131,36 @@ python scripts/corpus_dualize_v0_5.py /path/to/math-deep.pdf \
 python tests/validate_corpus_dualization_v0_5.py artifacts/corpus_dualization_v0_5
 ```
 
-## Claim boundary
+v0.6 independent dual-view audit:
 
-The project has now demonstrated:
+```bash
+python scripts/independent_dual_view_v0_6.py /path/to/math-deep.pdf \
+  --base-graph data/gallier_quaintance_graph_v0_3.json.gz \
+  --out-dir artifacts/independent_dual_view_v0_6 \
+  --min-declarations 1355 \
+  --min-definitions 463 \
+  --min-proofs 609 \
+  --min-resolved-deps 638 \
+  --max-unresolved-rate 0.0938 \
+  --min-eo-direct 0.70 \
+  --min-geo-direct 0.70 \
+  --min-dual-direct 0.60 \
+  --max-no-direct 0.15 \
+  --max-permutation-p 0.05
+python tests/validate_independent_dual_view_v0_6.py artifacts/independent_dual_view_v0_6
+```
 
-- executable EO↔GEO equivalence for the 20 registered v0.3 fixtures;
-- source-grounded declaration/proof-reference ingestion over a broad real mathematics corpus;
-- broad simultaneous EO/GEO **candidate** representability under a fixed controlled ontology.
+## Current claim boundary
 
-It has not yet established executable EO/GEO equivalence for all 1,355 imported declarations, universal mathematical closure, complete implicit proof reconstruction, or automatic Lean proof generation/kernel verification.
+The project has demonstrated:
+
+- executable EO↔GEO equivalence for 20 registered cross-domain fixtures;
+- source-grounded declaration/proof-reference ingestion over a large real mathematics corpus;
+- broad candidate EO/GEO representability under a controlled ontology;
+- broad **independently derived** EO and GEO evidence directly in source declaration statements;
+- statistically significant within-view alignment between both independent representation spaces and explicit proof dependencies.
+
+It has not yet established executable EO↔GEO equivalence for all 1,355 imported declarations, universal mathematical closure, complete implicit proof reconstruction, or automatic Lean proof generation/kernel verification.
 
 ## Licensing
 

@@ -1,0 +1,98 @@
+{
+  "evidence_id": "MAPEOGEO-V0.6-ACCEPTANCE",
+  "status": "PASS",
+  "scientific_preregistration_commit": "e8302407eb1e06fc9e82099847cb55bbc5476c2b",
+  "accepted_ci_head": "1d4739b959fa86174205793872dceffdbb7d50a9",
+  "github_actions_run_id": 34925243825,
+  "github_actions_job_id": 104241796667,
+  "github_actions_artifact_id": 10379556657,
+  "artifact_name": "mapeogeo-independent-dual-view-v0.6",
+  "artifact_zip_sha256": "bd2ae00a3329ec59e77c1a5e517e1cf6e1355cf3b8a3e22bafa995d071ff1b9d",
+  "source_pdf": {
+    "url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+    "sha256": "a1f91e337445851d27f2f4adb61e8ccc0f8fac941f9e0254ad94ba6b91c7c49b",
+    "bytes": 24629575,
+    "pages": 2204,
+    "redistributed": false
+  },
+  "measured": {
+    "declarations": 1355,
+    "definitions": 463,
+    "proof_blocks": 609,
+    "proof_cross_references": 704,
+    "resolved_dependency_references": 638,
+    "unresolved_dependency_references": 66,
+    "unresolved_reference_rate": 0.09375,
+    "eo_statement_direct": 1188,
+    "eo_statement_direct_coverage": 0.8767527675276753,
+    "geo_statement_direct": 1104,
+    "geo_statement_direct_coverage": 0.814760147601476,
+    "independent_dual_direct": 995,
+    "independent_dual_direct_coverage": 0.7343173431734318,
+    "eo_only_direct": 193,
+    "geo_only_direct": 109,
+    "no_direct_view": 58,
+    "no_direct_view_rate": 0.042804428044280446,
+    "v0_3_fixture_independent_recovery": "20/20",
+    "dependency_alignment": {
+      "edges": 638,
+      "permutations": 500,
+      "eo": {
+        "actual_mean_jaccard": 0.5921081809347115,
+        "matched_random_mean_jaccard": 0.5006314266152043,
+        "delta": 0.09147675431950719,
+        "one_sided_permutation_p": 0.001996007984031936,
+        "edges_with_evidence": 490
+      },
+      "geo": {
+        "actual_mean_jaccard": 0.5195130683852488,
+        "matched_random_mean_jaccard": 0.40583751009583524,
+        "delta": 0.11367555828941356,
+        "one_sided_permutation_p": 0.001996007984031936,
+        "edges_with_evidence": 399
+      }
+    },
+    "graph_nodes": 2214,
+    "graph_edges": 23289
+  },
+  "artifact_file_sha256": {
+    "V0_6_SUMMARY.md": "d588dcb4752efda2dfc854f39e75505c6b0cac0a9c9623dfae939c3f2187c10f",
+    "independent_dual_view_report.json": "cd4127c27884b98db1b935efe4f9f5adafc348a68605b94d12cd2aa75eedb808",
+    "independent_statement_profiles.json": "d22357f5a097ea5c64907221eb0ddbeb8ab6c8f17fe6938373002c30128088dd",
+    "mapeogeo_independent_graph.json": "39e1abbb0b5eb6fcf9d29f030f40601b76d08df222f81e353185256131c69b19"
+  },
+  "validator_harness_repairs_after_preregistration": [
+    {
+      "commit": "58720635a9866f38d909d337a533c3055ae9fb80",
+      "scope": "artifact validator filename correction only"
+    },
+    {
+      "commit": "89f10d260d5db2a33ab5086a4e170253cf30cb37",
+      "scope": "artifact validator report-key/schema correction only"
+    },
+    {
+      "commit": "1d4739b959fa86174205793872dceffdbb7d50a9",
+      "scope": "artifact validator profile-shape correction only"
+    }
+  ],
+  "scientific_code_changed_after_full_corpus_observation": false,
+  "gates": {
+    "declarations_stable": true,
+    "definitions_stable": true,
+    "proofs_stable": true,
+    "resolved_dependencies_stable": true,
+    "unresolved_rate_stable": true,
+    "eo_statement_direct_coverage": true,
+    "geo_statement_direct_coverage": true,
+    "independent_dual_statement_coverage": true,
+    "no_direct_view_rate": true,
+    "v0_3_fixture_independent_recovery": true,
+    "eo_dependency_alignment": true,
+    "geo_dependency_alignment": true,
+    "unique_node_ids": true,
+    "unique_edge_ids": true,
+    "all_edge_endpoints_exist": true,
+    "copyright_payload_policy": true
+  },
+  "claim_boundary": "Independent direct EO/GEO evidence and dependency alignment are supported; theorem-level SAME_SEMANTICS equivalence for the full corpus is not yet established."
+}
