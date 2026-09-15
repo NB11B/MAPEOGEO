@@ -23,7 +23,7 @@ def main():
     assert all(e["source"] in by and e["target"] in by for e in edges)
     assert all(not (FORBIDDEN & set(n.get("attributes",{}))) for n in nodes)
     print("MAPEOGEO_V0_7_ARTIFACT_VALIDATION: PASS "
-          f"holdout={report['holdout']['edges']} dual_mrr={report['retrieval']['dual_max']['mrr']:.5f} "
+          f"holdout={report['holdout']['edges']} dual_mrr={report['retrieval']['dual']['mrr']:.5f} "
           f"recall={report['candidate_filter']['recall']:.4f} reduction={report['candidate_filter']['mean_candidate_reduction']:.4f} "
           f"same={report['same_semantics_promotions']} graph={len(nodes)}/{len(edges)}")
     return 0
