@@ -38,6 +38,17 @@ def test_e26_counts_come_from_graph() -> None:
     }
 
 
+def test_e26_records_acceptance_manifest_discrepancies_without_substitution() -> None:
+    manifest = build_e26_manifest(FROZEN_MAIN, ROOT)
+    kinds = {row["kind"] for row in manifest["discrepancies"]}
+    assert "ARTIFACT_DIGEST_MISMATCH" in kinds
+    assert "REPORT_COUNT_MISMATCH" in kinds
+    assert manifest["status"] == "PASS"
+    assert manifest["validity_gates"]["sealed_confirmatory_artifact_loaded"] is True
+    assert manifest["validity_gates"]["acceptance_manifest_graph_digest_match"] is False
+    assert manifest["artifact_provenance"]["source"] == "SUCCESSFUL_CONFIRMATORY_ACTIONS_RUN"
+
+
 def test_frozen_solver_checkout_is_present_and_separate() -> None:
     assert FROZEN_SOLVER.exists()
     assert FROZEN_MAIN.exists()
