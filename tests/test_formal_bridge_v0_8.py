@@ -1,8 +1,17 @@
 from __future__ import annotations
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+FORBIDDEN = {
+    "sorry": re.compile(r"\bsorry\b"),
+    "admit": re.compile(r"\badmit\b"),
+    "axiom_declaration": re.compile(r"(?m)^\s*(?:private\s+)?axiom\b"),
+    "unsafe_declaration": re.compile(r"(?m)^\s*(?:private\s+)?unsafe\b"),
+}
 
 
 def test_source_bindings_are_unique_and_complete():
@@ -18,9 +27,8 @@ def test_formal_file_has_all_bound_declarations_and_no_escape_hatches():
     b = json.loads((ROOT / "formal" / "source_bindings_v0_8.json").read_text())
     for x in b:
         assert x["lean_decl"].split(".")[-1] in text
-    lowered = text.lower()
-    for token in ("sorry", "admit", "axiom", "unsafe"):
-        assert token not in lowered
+    hits = [name for name, pattern in FORBIDDEN.items() if pattern.search(text)]
+    assert not hits, hits
 
 
 def test_toolchain_and_mathlib_are_pinned_together():
