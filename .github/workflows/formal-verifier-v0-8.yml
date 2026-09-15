@@ -1,0 +1,118 @@
+name: MAPEOGEO v0.8 formal verifier bridge
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "MAPEOGEOFormal.lean"
+      - "MAPEOGEOFormal/**"
+      - "formal/source_bindings_v0_8.json"
+      - "scripts/formal_bridge_v0_8.py"
+      - "tests/test_formal_bridge_v0_8.py"
+      - "tests/validate_formal_bridge_v0_8.py"
+      - "docs/V0_8_FORMAL_VERIFIER_BRIDGE_SPEC.md"
+      - "lakefile.toml"
+      - "lean-toolchain"
+      - ".github/workflows/formal-verifier-v0-8.yml"
+
+permissions:
+  contents: read
+
+env:
+  SOURCE_URL: https://www.cis.upenn.edu/~jean/math-deep.pdf
+
+jobs:
+  formal-verifier-bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-map-goal-v0-7.txt
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements-map-goal-v0-7.txt
+      - name: Unit-test bridge metadata
+        run: python -m pytest -q tests/test_formal_bridge_v0_8.py
+
+      - name: Download reference PDF transiently
+        run: |
+          mkdir -p "$RUNNER_TEMP/mapeogeo-source"
+          curl --fail --location --retry 4 --retry-all-errors \
+            --connect-timeout 20 --max-time 180 \
+            "$SOURCE_URL" -o "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+          test -s "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+
+      - name: Regenerate accepted v0.6 representation
+        run: |
+          rm -rf "$RUNNER_TEMP/mapeogeo-v06"
+          python scripts/independent_dual_view_v0_6.py \
+            "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" \
+            --base-graph data/gallier_quaintance_graph_v0_3.json.gz \
+            --out-dir "$RUNNER_TEMP/mapeogeo-v06" \
+            --min-declarations 1355 \
+            --min-definitions 463 \
+            --min-proofs 609 \
+            --min-resolved-deps 638 \
+            --max-unresolved-rate 0.0938 \
+            --min-eo-direct 0.70 \
+            --min-geo-direct 0.70 \
+            --min-dual-direct 0.60 \
+            --max-no-direct 0.15 \
+            --max-permutation-p 0.05
+
+      - name: Regenerate accepted v0.7 graph
+        run: |
+          rm -rf "$RUNNER_TEMP/mapeogeo-v07"
+          python scripts/map_goal_v0_7.py \
+            "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" \
+            --v06-dir "$RUNNER_TEMP/mapeogeo-v06" \
+            --out-dir "$RUNNER_TEMP/mapeogeo-v07" \
+            --min-holdout-edges 100 \
+            --min-dual-filter-recall 0.75 \
+            --min-dual-filter-reduction 0.20 \
+            --max-retrieval-p 0.05 \
+            --min-same-semantics-promotions 2 \
+            --min-total-certificates 4
+
+      - name: Install Lean, Mathlib cache, build, and independently type-check
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: true
+          use-github-cache: true
+          nanoda: true
+          nanoda-allow-sorry: false
+
+      - name: Run formal bridge and emit graph certificates
+        run: |
+          rm -rf artifacts/formal_bridge_v0_8
+          python scripts/formal_bridge_v0_8.py \
+            --base-graph "$RUNNER_TEMP/mapeogeo-v07/mapeogeo_map_goal_v0_7_graph.json" \
+            --bindings formal/source_bindings_v0_8.json \
+            --lean-file MAPEOGEOFormal/SourceBound.lean \
+            --out-dir artifacts/formal_bridge_v0_8
+
+      - name: Validate v0.8 artifact and copyright boundary
+        run: python tests/validate_formal_bridge_v0_8.py artifacts/formal_bridge_v0_8
+
+      - name: Remove transient source PDF
+        if: always()
+        run: rm -f "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+
+      - name: Upload derived v0.8 evidence
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-formal-verifier-v0.8
+          path: artifacts/formal_bridge_v0_8/
+          if-no-files-found: error
+          retention-days: 30
