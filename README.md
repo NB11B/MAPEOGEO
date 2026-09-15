@@ -7,6 +7,8 @@ A canonical mathematical object `M` can carry simultaneous:
 - **EO** — operator/algebraic representation;
 - **GEO** — geometric/relational representation.
 
+The project goal is broader than comparing those views: build a source-grounded mathematical graph in which EO and GEO help organize and navigate mathematical structure, then progressively promote claims through executable/formal certificates toward trusted proof verification.
+
 The core invariant is:
 
 ```text
@@ -84,14 +86,55 @@ EO PROOF-DEPENDENCY ALIGNMENT DELTA: +0.09148, p=0.001996
 GEO PROOF-DEPENDENCY ALIGNMENT DELTA: +0.11368, p=0.001996
 ```
 
-The proof-dependency control fixes the source declaration and compares its actual referenced target against random targets from the same target chapter over 500 deterministic permutations. Both independently derived representation spaces show significantly greater similarity on real source dependency edges than on the matched random control.
+Both independently derived representation spaces show significantly greater similarity on real source dependency edges than on chapter-matched random controls.
+
+See `docs/V0_6_INDEPENDENT_DUAL_VIEW_REPORT.md` and `evidence/v0_6_acceptance_manifest.json`.
+
+## v0.7 — MAP-goal utility + equivalence promotion
+
+v0.7 keeps the overall MAP objective explicit. It freezes the v0.6 EO/GEO views, tests them on held-out explicit source proof dependencies, measures a dual-view candidate filter, and promotes four real source declarations through preregistered executable cross-view contracts.
+
+```text
+OVERALL: PASS
+HELD-OUT PROOF DEPENDENCIES: 126
+HELD-OUT QUERIES: 113
+
+EO MRR: 0.02331       matched-random delta +0.00990, p=0.01996
+GEO MRR: 0.02620      matched-random delta +0.01018, p=0.01597
+DUAL-MAX MRR: 0.02129 matched-random delta +0.00770, p=0.01198
+SOURCE-PAGE PROXIMITY MRR: 0.23816
+
+DUAL-UNION FILTER RECALL: 88.89%
+MEAN CANDIDATE REDUCTION: 36.03%
+SOURCE-BOUND CERTIFICATES: 4 / 4 PASS
+SAME_SEMANTICS PROMOTIONS: 2
+GRAPH: 2,226 nodes / 23,305 edges
+```
+
+The EO/GEO signals are statistically non-random but weak as stand-alone global rankers. Source/proof locality is much stronger. The dual union is useful as a routing filter, reducing candidates by 36.03% while retaining 88.89% of held-out true dependencies, but it is **not exact-safe pruning** and must retain a fallback path.
+
+This result sharpens the architecture rather than changing the goal:
+
+```text
+source/proof topology
+        +
+EO operator structure
+        +
+GEO relational geometry
+        +
+executable/formal certificates
+        ↓
+trusted mathematical graph / proof verification
+```
+
+The source-bound promotion set included Theorem 6.16, Definition 44.6, Theorem 47.9, and Definition 53.4. All four executable contracts passed. Definition 44.6 and Definition 53.4 were promoted to `SAME_SEMANTICS`; the two theorem contracts remain scoped `EQUIVALENT_TO` because their executable test domains are bounded subsets of the full theorem domains.
 
 See:
 
-- `docs/V0_6_INDEPENDENT_DUAL_VIEW_SPEC.md`
-- `docs/V0_6_INDEPENDENT_DUAL_VIEW_REPORT.md`
-- `evidence/v0_6_acceptance_manifest.json`
-- `.github/workflows/independent-dual-view.yml`
+- `docs/V0_7_MAP_GOAL_SPEC.md`
+- `docs/V0_7_MAP_GOAL_REPORT.md`
+- `evidence/v0_7_acceptance_manifest.json`
+- `.github/workflows/map-goal-v0-7.yml`
 
 ## Reproduce
 
@@ -150,17 +193,23 @@ python scripts/independent_dual_view_v0_6.py /path/to/math-deep.pdf \
 python tests/validate_independent_dual_view_v0_6.py artifacts/independent_dual_view_v0_6
 ```
 
+v0.7 is reproducible through `.github/workflows/map-goal-v0-7.yml` or by regenerating the frozen v0.6 representation and running `scripts/map_goal_v0_7.py` with the preregistered gates in `docs/V0_7_MAP_GOAL_SPEC.md`.
+
 ## Current claim boundary
 
 The project has demonstrated:
 
 - executable EO↔GEO equivalence for 20 registered cross-domain fixtures;
 - source-grounded declaration/proof-reference ingestion over a large real mathematics corpus;
-- broad candidate EO/GEO representability under a controlled ontology;
-- broad **independently derived** EO and GEO evidence directly in source declaration statements;
-- statistically significant within-view alignment between both independent representation spaces and explicit proof dependencies.
+- broad independently derived EO and GEO evidence directly in source declaration statements;
+- statistically significant alignment between both independent representation spaces and explicit proof dependencies;
+- non-random held-out proof-navigation utility from EO, GEO, and their dual-max representation;
+- useful but non-exact dual-view candidate reduction;
+- source-bound promotion of real declarations into executable `EQUIVALENT_TO` / `SAME_SEMANTICS` graph relations.
 
-It has not yet established executable EO↔GEO equivalence for all 1,355 imported declarations, universal mathematical closure, complete implicit proof reconstruction, or automatic Lean proof generation/kernel verification.
+It has **not** established universal mathematical closure, exact-safe pruning from the current semantic filter, complete proof synthesis, executable equivalence for all 1,355 declarations, or automatic whole-corpus Lean/kernel verification.
+
+The next major stage should move toward the actual MAP endpoint: formal-verifier-backed graph nodes and proof paths, while retaining source topology, EO, GEO, and certificate evidence as distinct but interoperable layers.
 
 ## Licensing
 
