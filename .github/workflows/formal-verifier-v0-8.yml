@@ -12,7 +12,7 @@ on:
       - "tests/test_formal_bridge_v0_8.py"
       - "tests/validate_formal_bridge_v0_8.py"
       - "docs/V0_8_FORMAL_VERIFIER_BRIDGE_SPEC.md"
-      - "lakefile.toml"
+      - "lakefile.lean"
       - "lake-manifest.json"
       - "lean-toolchain"
       - ".github/workflows/formal-verifier-v0-8.yml"
