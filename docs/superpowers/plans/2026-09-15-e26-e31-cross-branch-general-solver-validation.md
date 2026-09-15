@@ -16,10 +16,11 @@
 - Knowledge baseline is immutable input `fd2d90c00cb71951fdfd7cd1e7e22a8f0552f97f`.
 - `main` is read-only: no merge, cherry-pick, push, graph mutation, or semantic promotion.
 - The frozen `main` checkout is never imported into the experimental Python process.
-- Main-side PCT execution occurs only through a JSON subprocess boundary whose `PYTHONPATH` points to the frozen main checkout.
+- Main-side PCT execution occurs only through a JSON subprocess boundary whose `PYTHONPATH` contains frozen `main` plus normal site-packages, never the experimental branch root.
 - `SAME_SEMANTICS`, `SCOPED_OVERLAP`, and `RELATED_TO` remain distinct classes.
 - `FORMAL_LINKED` must never be promoted to `KERNEL_VERIFIED` without independent kernel evidence.
 - Ambiguity is represented by an exact candidate set; no confidence score may override non-uniqueness.
+- `campaign_harness_sha` means the deterministic SHA-256 digest of the executable E26–E31 harness source set, not the mutable branch HEAD. `compute_harness_sha()` hashes sorted relative paths plus exact bytes for the production `.py` files under `experiments/pct_e26_e31`, excluding `test_*.py`, generated evidence, caches, and documentation. This avoids a circular identity when evidence/report commits advance the branch.
 - Every result binds `solver_baseline_sha`, `knowledge_baseline_sha`, `campaign_harness_sha`, `solver_recipe_sha256`, sanitized input hash, output hash, and sealed answer hash.
 - Frozen evidence is generated to an uncommitted candidate directory first and committed only after deterministic comparison tests exist.
 - Prior E1–E25J implementation/evidence are immutable inputs. If they require modification, stop this campaign and preregister a new solver baseline.
@@ -31,75 +32,79 @@
 **Files:**
 - Create: `experiments/pct_e26_e31/__init__.py`
 - Create: `experiments/pct_e26_e31/constants.py`
+- Create: `experiments/pct_e26_e31/identity.py`
 - Create: `experiments/pct_e26_e31/corpus.py`
 - Create: `experiments/pct_e26_e31/test_e26.py`
 - Modify: `.github/workflows/pct-e1-e25-campaign.yml`
 
 **Interfaces:**
-- `load_knowledge_corpus(main_root: Path) -> KnowledgeCorpus`
-- `build_e26_manifest(main_root: Path, repo_root: Path, harness_sha: str) -> dict`
+- `compute_harness_sha(repo_root: Path) -> str`
 - `verify_frozen_checkout(path: Path, expected_sha: str) -> None`
+- `load_knowledge_corpus(main_root: Path) -> KnowledgeCorpus`
+- `build_e26_manifest(main_root: Path, repo_root: Path) -> dict`
 - `KnowledgeCorpus` contains full graph, direct graph counts, semantic edges, canonical/source/domain indexes, artifact digests, and eligibility indexes. It is verifier-side only.
 
-- [ ] **Step 1: Write the RED tests for pinned checkouts and direct graph reconstruction**
+- [ ] **Step 1: Write the RED tests for pinned checkouts, harness hashing, and graph reconstruction**
 
 ```python
 from experiments.pct_e26_e31.constants import KNOWLEDGE_BASELINE_SHA, SOLVER_BASELINE_SHA
 from experiments.pct_e26_e31.corpus import build_e26_manifest
+from experiments.pct_e26_e31.identity import compute_harness_sha
 
 
-def test_e26_manifest_binds_both_frozen_shas(main_checkout, repo_root):
-    m = build_e26_manifest(main_checkout, repo_root, "HARNESS_TEST_SHA")
+def test_harness_sha_is_content_derived(repo_root):
+    h = compute_harness_sha(repo_root)
+    assert len(h) == 64
+    assert int(h, 16) >= 0
+
+
+def test_e26_manifest_binds_frozen_inputs(main_checkout, repo_root):
+    m = build_e26_manifest(main_checkout, repo_root)
     assert m["solver_baseline_sha"] == SOLVER_BASELINE_SHA
     assert m["knowledge_baseline_sha"] == KNOWLEDGE_BASELINE_SHA
-    assert m["campaign_harness_sha"] == "HARNESS_TEST_SHA"
+    assert m["campaign_harness_sha"] == compute_harness_sha(repo_root)
 
 
-def test_e26_reconstructs_graph_counts_from_artifact(main_checkout, repo_root):
-    m = build_e26_manifest(main_checkout, repo_root, "HARNESS_TEST_SHA")
+def test_e26_counts_come_from_graph(main_checkout, repo_root):
+    m = build_e26_manifest(main_checkout, repo_root)
     assert m["direct_graph_counts"]["source_declarations"] > 0
     assert m["direct_graph_counts"]["canonical_objects"] > 0
     assert m["direct_graph_counts"]["semantic_bridges"] > 0
     assert set(m["semantic_relation_types"]) >= {"SAME_SEMANTICS", "SCOPED_OVERLAP", "RELATED_TO"}
 ```
 
-- [ ] **Step 2: Run the new tests and confirm RED**
+- [ ] **Step 2: Run RED gate**
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e26.py`
 
-Expected: collection/import failure because `experiments.pct_e26_e31.corpus` does not yet exist.
+Expected: collection/import failure because the package does not yet exist.
 
-- [ ] **Step 3: Implement deterministic corpus discovery and hashing**
+- [ ] **Step 3: Implement identity and corpus reconstruction**
 
-Use `git rev-parse HEAD` in each checkout for identity, locate `artifacts/analysis_v0_15_1/mapeogeo_v0_15_1_graph.json.gz`, hash raw artifact bytes with SHA-256, load the gzip JSON, and build indexes without trusting report totals. Represent any report/manifest mismatch as a `discrepancies` record; do not repair source files.
+`verify_frozen_checkout()` runs `git -C <path> rev-parse HEAD`. `compute_harness_sha()` hashes sorted production file paths and bytes with length-delimited framing. `load_knowledge_corpus()` locates `artifacts/analysis_v0_15_1/mapeogeo_v0_15_1_graph.json.gz`, hashes the raw artifact bytes, loads it, and builds direct indexes. Report/manifest disagreement is recorded under `discrepancies`; source files are never repaired.
 
-- [ ] **Step 4: Add CI separate checkouts**
-
-Add pinned read-only checkouts beneath the branch workspace:
+- [ ] **Step 4: Add two pinned read-only CI checkouts**
 
 ```yaml
+permissions:
+  contents: read
+
 - name: Checkout frozen solver baseline
   uses: actions/checkout@v4
   with:
     ref: 6c9333ed3ec48a298ad943a74e72a01fa1ffcd78
-    path: frozen-solver
+    path: .crossbranch/frozen-solver
 
 - name: Checkout frozen knowledge baseline
   uses: actions/checkout@v4
   with:
     ref: fd2d90c00cb71951fdfd7cd1e7e22a8f0552f97f
-    path: frozen-main
+    path: .crossbranch/frozen-main
 ```
 
-Keep workflow permissions `contents: read`.
-
-- [ ] **Step 5: Run Task 1 GREEN gate**
+- [ ] **Step 5: Run GREEN gate and commit**
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e26.py`
-
-Expected: all E26 tests PASS and direct corpus counts are emitted from the pinned graph.
-
-- [ ] **Step 6: Commit Task 1**
 
 ```bash
 git add experiments/pct_e26_e31 .github/workflows/pct-e1-e25-campaign.yml
@@ -125,7 +130,7 @@ git commit -m "test: bind frozen cross-branch solver corpus"
 - `run_baseline(name: Literal["B0","B1","B2","B3"], case: SanitizedCase) -> SolverResult`
 - `SolverResult(verdict, predicted_relation, ambiguity_set, evidence_keys, trace_digest)`.
 
-- [ ] **Step 1: Write answer-isolation and exact-ambiguity RED tests**
+- [ ] **Step 1: Write answer-isolation and ambiguity RED tests**
 
 ```python
 def test_sanitized_case_removes_direct_target_edge(corpus, r1_case):
@@ -134,7 +139,7 @@ def test_sanitized_case_removes_direct_target_edge(corpus, r1_case):
     assert r1_case.sealed_relation not in s.direct_target_labels
 
 
-def test_solver_refuses_when_two_relation_classes_remain_consistent(ambiguous_case):
+def test_solver_refuses_nonunique_case(ambiguous_case):
     out = solve_case(ambiguous_case)
     assert out.verdict == "NOT_ESTABLISHED"
     assert len(out.ambiguity_set) >= 2
@@ -144,27 +149,21 @@ def test_solver_refuses_when_two_relation_classes_remain_consistent(ambiguous_ca
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e27_core.py`
 
-Expected: FAIL because case/probe/solver modules are absent.
-
 - [ ] **Step 3: Implement immutable held-out case records and sanitization**
 
-Build case IDs from canonical JSON hashes. Keep sealed answer fields on verifier objects only. `SanitizedCase` must contain no target edge, answer relation, verifier grouping key, or answer-manifest path.
+Case IDs are SHA-256 hashes of canonical JSON. Sealed relation, cluster grouping, answer manifest paths, and verifier-only metadata never appear in `SanitizedCase`.
 
 - [ ] **Step 4: Implement the frozen discrete probe bank**
 
-Probe families must include endpoint node types, source identities, visible representation profile, typed one-hop neighborhoods, typed path signatures up to the frozen depth, dependency orientation, multipath signatures, and available cross-view evidence. Return sorted immutable key/value tuples so probe vectors hash deterministically.
+Probe families: endpoint node types, source identities, visible representation profile, typed one-hop neighborhoods, dependency orientation, typed path signatures, multipath signatures, and available cross-view evidence. Return sorted immutable key/value tuples.
 
-- [ ] **Step 5: Implement exact candidate-set solver and B0–B3 controls**
+- [ ] **Step 5: Implement B4 exact candidate-set solving and B0–B3 controls**
 
-For B4, enumerate all candidate relation classes and retain only classes consistent with the sanitized evidence and fail-closed rules. Emit a positive class only when one candidate remains. B0–B3 operate on the same cases but with restricted evidence surfaces.
+Enumerate candidate relation classes and retain only those compatible with visible evidence and fail-closed rules. Positive output requires a singleton ambiguity set. B0–B3 use the same cases with progressively restricted information.
 
-- [ ] **Step 6: Run GREEN gate**
+- [ ] **Step 6: Run GREEN gate and commit**
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e27_core.py`
-
-Expected: PASS, including refusal on constructed ambiguity.
-
-- [ ] **Step 7: Commit Task 2**
 
 ```bash
 git add experiments/pct_e26_e31
@@ -173,7 +172,7 @@ git commit -m "feat: add sealed relational solver core"
 
 ---
 
-### Task 3: E27 R1–R4 Campaign, Cluster/Domain Holdouts, and Solver-Signal Metrics
+### Task 3: E27 R1–R4 Campaign and Solver-Signal Metrics
 
 **Files:**
 - Create: `experiments/pct_e26_e31/e27.py`
@@ -183,10 +182,10 @@ git commit -m "feat: add sealed relational solver core"
 - `build_r2_cluster_cases(corpus: KnowledgeCorpus) -> list[HeldoutCase]`
 - `build_r3_domain_cases(corpus: KnowledgeCorpus) -> list[HeldoutCase]`
 - `build_r4_controls(corpus: KnowledgeCorpus) -> list[HeldoutCase]`
-- `run_e27(corpus: KnowledgeCorpus, harness_sha: str) -> dict`
-- `evaluate_solver_signal(report: dict) -> dict` returning explicit H1 support gates.
+- `run_e27(corpus: KnowledgeCorpus, repo_root: Path) -> dict`
+- `evaluate_solver_signal(report: dict) -> dict`
 
-- [ ] **Step 1: Write RED tests for verifier-only grouping and corruption refusal**
+- [ ] **Step 1: Write RED tests for verifier-only grouping and refusal controls**
 
 ```python
 def test_r2_group_key_is_not_solver_visible(corpus):
@@ -195,8 +194,8 @@ def test_r2_group_key_is_not_solver_visible(corpus):
     assert "canonical_holdout_group" not in s.metadata
 
 
-def test_r4_false_certainty_is_zero(corpus):
-    report = run_e27(corpus, "HARNESS_TEST_SHA")
+def test_r4_false_certainty_is_zero(corpus, repo_root):
+    report = run_e27(corpus, repo_root)
     assert report["R4"]["false_certainty_count"] == 0
 ```
 
@@ -204,23 +203,17 @@ def test_r4_false_certainty_is_zero(corpus):
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e27_campaign.py`
 
-Expected: FAIL because campaign builders do not exist.
+- [ ] **Step 3: Implement exhaustive R1, cluster R2, leave-one-domain-out R3, and deterministic R4**
 
-- [ ] **Step 3: Implement exhaustive R1, canonical-cluster R2, leave-one-domain-out R3, and deterministic R4 controls**
+R4 includes endpoint swap, source-binding corruption, scope corruption, relation-type corruption, and deliberate evidence-erasure ambiguity. Holdout grouping is generated on the verifier side and stripped before solving.
 
-Generate the holdout blocks from verifier-side metadata, then construct solver-visible sanitized graphs. R4 must include endpoint swap, source-binding corruption, scope corruption, relation-type corruption, and evidence-erasure ambiguity controls.
+- [ ] **Step 4: Implement paired B0–B4 metrics and frozen H1 gates**
 
-- [ ] **Step 4: Implement paired B0–B4 scoring**
+Record totals, answered, `NOT_ESTABLISHED`, exact class accuracy, selective accuracy, false certainty, confusion matrices, ambiguity histograms, per-case baseline outputs, and stratification by domain/relation/source multiplicity/richness. Tests verify deterministic metric calculation, not a desired scientific outcome.
 
-For each tier, record total, answered, `NOT_ESTABLISHED`, exact class accuracy, selective accuracy, false certainty, confusion matrix, ambiguity-set histogram, and per-case baseline outputs. Evaluate the frozen solver-signal criterion exactly as written in the spec.
-
-- [ ] **Step 5: Run GREEN gate**
+- [ ] **Step 5: Run GREEN gate and commit**
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e27_campaign.py`
-
-Expected: PASS of validity tests. Scientific H1 support may be true or false; tests assert deterministic calculation, not a desired scientific outcome.
-
-- [ ] **Step 6: Commit Task 3**
 
 ```bash
 git add experiments/pct_e26_e31
@@ -237,18 +230,18 @@ git commit -m "feat: run sealed held-out solver campaign"
 
 **Interfaces:**
 - `certify_minimum_evidence(case: SanitizedCase, result: SolverResult, probe_bank: tuple[str, ...], max_exact_bank: int) -> MinimumEvidenceResult`
-- `run_e28(e27_report: dict, corpus: KnowledgeCorpus, harness_sha: str) -> dict`
+- `run_e28(e27_report: dict, corpus: KnowledgeCorpus, repo_root: Path) -> dict`
 
-- [ ] **Step 1: Write RED tests that prevent false exact-minimum claims**
+- [ ] **Step 1: Write RED tests that forbid false exact-minimum claims**
 
 ```python
-def test_minimum_is_exact_only_after_all_smaller_sizes_excluded(small_case):
+def test_exact_minimum_requires_all_smaller_sizes_excluded(small_case):
     r = certify_minimum_evidence(small_case.case, small_case.result, small_case.bank, 64)
     assert r.status == "EXACT_MINIMUM_CERTIFIED"
     assert all(r.infeasible_by_size[k] for k in range(r.minimum_size))
 
 
-def test_resource_bound_returns_inconclusive_not_exact(large_case):
+def test_resource_bound_is_inconclusive(large_case):
     r = certify_minimum_evidence(large_case.case, large_case.result, large_case.bank, 4)
     assert r.status == "INCONCLUSIVE_MINIMUM"
 ```
@@ -257,11 +250,9 @@ def test_resource_bound_returns_inconclusive_not_exact(large_case):
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e28.py`
 
-Expected: FAIL because E28 does not exist.
+- [ ] **Step 3: Implement deterministic subset search and erasure/null-space analysis**
 
-- [ ] **Step 3: Implement deterministic subset search, erasure tolerance, and ambiguity/null-space reporting**
-
-Enumerate subset cardinalities from 0 upward for exact-sized banks. For larger banks, keep the best upper bound and return `INCONCLUSIVE_MINIMUM` unless every smaller size is excluded. Re-run the exact ambiguity solver after every critical evidence removal.
+Enumerate subset cardinalities from zero upward when exact certification is feasible. For larger banks retain only an upper bound and `INCONCLUSIVE_MINIMUM`. Re-run the exact ambiguity solver after every critical evidence removal.
 
 - [ ] **Step 4: Run GREEN gate and commit**
 
@@ -283,18 +274,18 @@ git commit -m "feat: audit minimal evidence and graph null spaces"
 **Interfaces:**
 - `enumerate_candidate_rules(training_cases: list[SanitizedCase], max_width: int = 3, min_support_edges: int = 3, min_canonical_objects: int = 2) -> list[CandidateRule]`
 - `falsify_rule(rule: CandidateRule, visible_cases: list[SanitizedCase]) -> RuleAudit`
-- `run_e29(corpus: KnowledgeCorpus, e27_report: dict, harness_sha: str) -> dict`
+- `run_e29(corpus: KnowledgeCorpus, e27_report: dict, repo_root: Path) -> dict`
 
 - [ ] **Step 1: Write RED tests for support threshold and counterexample precedence**
 
 ```python
-def test_rule_requires_three_edges_and_two_canonical_objects(training_cases):
+def test_rule_support_threshold(training_cases):
     rules = enumerate_candidate_rules(training_cases)
     assert all(r.support_edge_count >= 3 for r in rules)
     assert all(r.support_canonical_count >= 2 for r in rules)
 
 
-def test_one_counterexample_defeats_universal_rule(rule_with_counterexample, cases):
+def test_counterexample_defeats_rule(rule_with_counterexample, cases):
     audit = falsify_rule(rule_with_counterexample, cases)
     assert audit.status == "DEFEATED_BY_COUNTEREXAMPLE"
 ```
@@ -303,11 +294,9 @@ def test_one_counterexample_defeats_universal_rule(rule_with_counterexample, cas
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e29.py`
 
-Expected: FAIL because E29 does not exist.
+- [ ] **Step 3: Implement frozen one-to-three-predicate rule enumeration and exhaustive visible-corpus falsification**
 
-- [ ] **Step 3: Implement frozen low-complexity rule enumeration and exhaustive visible-corpus falsification**
-
-Candidate antecedents are conjunctions of one to three probe predicates. Freeze candidates before sealed holdout evaluation. Record rescued scope restrictions separately; never rewrite an overbroad rule into success without showing the counterexample that forced narrowing.
+Freeze candidate rules before sealed evaluation. Record counterexamples and any narrower rescued scope explicitly. Survivors remain `CANDIDATE_SURVIVED_VISIBLE_SEARCH`, never theorem status.
 
 - [ ] **Step 4: Run GREEN gate and commit**
 
@@ -330,20 +319,20 @@ git commit -m "feat: add relational rule discovery and falsification"
 
 **Interfaces:**
 - `classify_main_capabilities(main_root: Path) -> dict[str, str]`
-- `invoke_main_pct(main_root: Path, request: dict) -> dict`
-- `run_e30(main_root: Path, harness_sha: str) -> dict`
+- `invoke_main_pct(repo_root: Path, main_root: Path, request: dict) -> dict`
+- `run_e30(repo_root: Path, main_root: Path) -> dict`
 
 - [ ] **Step 1: Write RED tests for process isolation and adapter honesty**
 
 ```python
-def test_main_invocation_runs_in_separate_process(frozen_main):
-    out = invoke_main_pct(frozen_main, {"op": "runtime_identity"})
+def test_main_invocation_is_frozen_and_isolated(repo_root, frozen_main):
+    out = invoke_main_pct(repo_root, frozen_main, {"op": "runtime_identity"})
     assert out["checkout_sha"] == KNOWLEDGE_BASELINE_SHA
-    assert "experiments.pct_e25" not in out["loaded_modules"]
+    assert out["experimental_branch_on_sys_path"] is False
 
 
-def test_capability_not_exposed_is_not_scored_failure(frozen_main):
-    report = run_e30(frozen_main, "HARNESS_TEST_SHA")
+def test_unexposed_capability_is_not_scored_failure(repo_root, frozen_main):
+    report = run_e30(repo_root, frozen_main)
     for row in report["replays"]:
         if row["classification"] == "CAPABILITY_NOT_EXPOSED":
             assert row["scored"] is False
@@ -353,15 +342,22 @@ def test_capability_not_exposed_is_not_scored_failure(frozen_main):
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e30.py`
 
-Expected: FAIL because the subprocess protocol is absent.
+- [ ] **Step 3: Implement the JSON subprocess boundary without importing branch code into main**
 
-- [ ] **Step 3: Implement JSON subprocess protocol**
+Invoke the protocol by absolute file path, not `-m`:
 
-Launch `sys.executable -m experiments.pct_e26_e31.main_runner_protocol` with environment containing only the frozen-main root plus required site-packages on `PYTHONPATH`. The protocol may translate request payloads into existing `mapeogeo.pct` calls but must not reimplement the tested mathematics.
+```python
+cmd = [sys.executable, str(repo_root / "experiments/pct_e26_e31/main_runner_protocol.py")]
+env = os.environ.copy()
+env["PYTHONPATH"] = str(main_root)
+subprocess.run(cmd, input=json.dumps(request), text=True, cwd=main_root, env=env, ...)
+```
 
-- [ ] **Step 4: Implement the preregistered E5/E9/E11/E14/E16/E17/E18/E23/E24 replay matrix**
+`main_runner_protocol.py` imports only stdlib plus `mapeogeo.pct` from the frozen main checkout. It returns runtime identity and operation results as JSON. The adapter may translate data representation only; it may not implement the tested capability.
 
-Classify every row before scoring as `DIRECT_REPLAY`, `ADAPTER_REQUIRED`, `NOT_APPLICABLE`, or `CAPABILITY_NOT_EXPOSED`. Preserve branch-oracle expected behavior as immutable test fixtures.
+- [ ] **Step 4: Implement the E5/E9/E11/E14/E16/E17/E18/E23/E24 replay matrix**
+
+Classify each row first as `DIRECT_REPLAY`, `ADAPTER_REQUIRED`, `NOT_APPLICABLE`, or `CAPABILITY_NOT_EXPOSED`; only the first two are scored pass/fail.
 
 - [ ] **Step 5: Run GREEN gate and commit**
 
@@ -382,41 +378,39 @@ git commit -m "feat: replay E-series adversaries against frozen main PCT"
 - Reuse without modification: `experiments/pct_e25ij/receipts.py`, `experiments/pct_e25ij/lifecycle.py`
 
 **Interfaces:**
-- `build_e31_receipts(e27: dict, e28: dict, e29: dict, e30: dict, harness_sha: str) -> dict`
+- `build_e31_receipts(e27: dict, e28: dict, e29: dict, e30: dict, repo_root: Path) -> dict`
 - `derive_e31_closure(receipts: dict) -> dict`
 - `run_e31(...) -> dict`
 
-- [ ] **Step 1: Write RED tests for complete bindings and explicit C3/C4 applicability**
+- [ ] **Step 1: Write RED tests for complete cryptographic bindings and explicit applicability**
 
 ```python
-def test_every_scored_case_binds_both_baselines_recipe_harness_and_hashes(e31):
+def test_every_scored_case_has_complete_bindings(e31):
     for receipt in e31["receipts"]:
         p = receipt["payload"]
         assert p["solver_baseline_sha"] == SOLVER_BASELINE_SHA
         assert p["knowledge_baseline_sha"] == KNOWLEDGE_BASELINE_SHA
-        assert p["campaign_harness_sha"]
+        assert len(p["campaign_harness_sha"]) == 64
         assert p["solver_recipe_sha256"]
         assert p["input_sha256"] and p["output_sha256"] and p["answer_sha256"]
 
 
 def test_c3_c4_are_never_implicit_pass(e31):
-    assert all(x["C3"] in {"PASS", "NOT_APPLICABLE", "NOT_ESTABLISHED"} for x in e31["closure"])
-    assert all(x["C4"] in {"PASS", "NOT_APPLICABLE", "NOT_ESTABLISHED"} for x in e31["closure"])
+    allowed = {"PASS", "NOT_APPLICABLE", "NOT_ESTABLISHED"}
+    assert all(x["C3"] in allowed and x["C4"] in allowed for x in e31["closure"])
 ```
 
 - [ ] **Step 2: Run RED gate**
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_e31.py`
 
-Expected: FAIL because E31 does not exist.
+- [ ] **Step 3: Implement receipts using existing E25I/J immutable semantics**
 
-- [ ] **Step 3: Implement receipts using existing E25I/J immutable receipt semantics**
+Direction A binds branch solver outputs to sealed-main answer evidence. Direction B binds main-PCT replay outputs to branch adversarial oracle evidence. C3/C4 appear only where chain/homology contracts are meaningful.
 
-Direction A binds solver output to sealed-main answer evidence. Direction B binds main-PCT replay output to branch adversarial oracle evidence. Use C3/C4 only for actually applicable chain/homology cases; otherwise store explicit `NOT_APPLICABLE`.
+- [ ] **Step 4: Add lifecycle invalidation tests**
 
-- [ ] **Step 4: Add stale-input lifecycle test**
-
-Create a synthetic event that changes one required artifact digest or harness SHA and assert dependent E31 receipts become stale without reactivating historical descendants.
+Change one synthetic artifact digest, recipe digest, or harness digest and assert dependent E31 receipts become stale without historical reactivation.
 
 - [ ] **Step 5: Run GREEN gate and commit**
 
@@ -445,57 +439,52 @@ git commit -m "feat: bind bidirectional solver verification receipts"
 - Modify: `.github/workflows/pct-e1-e25-campaign.yml`
 
 **Interfaces:**
-- `generate_all(repo_root: Path, frozen_main_root: Path, frozen_solver_root: Path, out_dir: Path, harness_sha: str) -> dict[str, Path]`
+- `generate_all(repo_root: Path, frozen_main_root: Path, frozen_solver_root: Path, out_dir: Path) -> dict[str, Path]`
 
-- [ ] **Step 1: Write frozen-evidence RED test before committing evidence files**
+- [ ] **Step 1: Write the frozen-evidence RED test before evidence exists**
 
 ```python
-def test_frozen_e26_e31_evidence_matches_fresh_generation(tmp_path, frozen_main, frozen_solver, repo_root):
-    generated = generate_all(repo_root, frozen_main, frozen_solver, tmp_path, current_head_sha(repo_root))
+def test_frozen_e26_e31_matches_fresh_generation(tmp_path, frozen_main, frozen_solver, repo_root):
+    generated = generate_all(repo_root, frozen_main, frozen_solver, tmp_path)
     for name, path in generated.items():
         frozen = repo_root / "evidence" / name
-        assert json.loads(frozen.read_text()) == json.loads(path.read_text())
+        assert frozen.read_bytes() == path.read_bytes()
 ```
 
 - [ ] **Step 2: Run RED gate**
 
 Run: `python -m pytest -q experiments/pct_e26_e31/test_evidence.py`
 
-Expected: FAIL with missing frozen E26 evidence files.
+Expected: missing frozen E26–E31 evidence files.
 
-- [ ] **Step 3: Add CI candidate generation and upload without writes**
+- [ ] **Step 3: Add read-only CI candidate generation/upload**
 
-Generate to `generated-e26-e31/`, upload as an Actions artifact, and keep workflow `contents: read`. Do not copy generated files into tracked `evidence/` in CI.
+Generate to `generated-e26-e31/`, upload that directory as an artifact, and keep `contents: read`. CI must also run `compute_harness_sha()` and include it in all generated files.
 
 - [ ] **Step 4: Run candidate campaign and inspect scientific outputs before freezing**
 
-Run:
-
 ```bash
 python -m experiments.pct_e26_e31.generate_evidence \
-  --main-root frozen-main \
-  --solver-root frozen-solver \
-  --out-dir generated-e26-e31 \
-  --harness-sha "$(git rev-parse HEAD)"
+  --main-root .crossbranch/frozen-main \
+  --solver-root .crossbranch/frozen-solver \
+  --out-dir generated-e26-e31
 ```
 
-Inspect E26 discrepancies, E27 H1 gates, E28 exact/inconclusive minimum counts, E29 defeated/surviving candidate rules, E30 replay classifications, and E31 closure. Do not alter solver rules based on sealed outcomes.
+Inspect E26 discrepancies, E27 H1 gates, E28 exact/inconclusive minimum counts, E29 defeated/surviving rules, E30 replay classifications, and E31 closure. Do not tune solver rules after seeing sealed outcomes.
 
-- [ ] **Step 5: Freeze exact generated JSON and rerun evidence regression**
+- [ ] **Step 5: Freeze exact generated bytes and rerun evidence regression**
 
-Copy the inspected candidate JSON bytes into the six tracked evidence paths, then run:
+Copy the six inspected candidate JSON files into the six tracked evidence paths. Because `campaign_harness_sha` is source-content-derived, later evidence/report commits do not alter it unless executable harness code changes.
 
-`python -m pytest -q experiments/pct_e26_e31/test_evidence.py`
+Run: `python -m pytest -q experiments/pct_e26_e31/test_evidence.py`
 
-Expected: PASS with byte/semantic equivalence to fresh deterministic generation.
+Expected: PASS with byte-equivalence.
 
 - [ ] **Step 6: Write the final report from frozen evidence only**
 
-The report must give three separate conclusions: solver transfer, main implementation replay, and bidirectional trust. It must report negative/inconclusive outcomes without averaging them into an aggregate score and preserve the claim boundary from the spec.
+Report three separate conclusions: solver transfer, main implementation replay, and bidirectional trust. Preserve negative/inconclusive results and the spec claim boundary.
 
-- [ ] **Step 7: Run the complete branch regression suite**
-
-Run:
+- [ ] **Step 7: Run complete regression**
 
 ```bash
 python -m pytest -q \
@@ -515,13 +504,22 @@ python -m pytest -q \
   experiments/pct_e26_e31/test_evidence.py
 ```
 
-Expected: zero failures. Scientific hypothesis support is read from frozen evidence, not inferred from test pass count.
+Expected: zero failures. Test pass count validates machinery; scientific hypothesis support comes only from frozen evidence.
 
-- [ ] **Step 8: Commit report/evidence/workflow and verify remote CI on exact head**
+- [ ] **Step 8: Commit exact files and verify remote CI on exact head**
 
 ```bash
-git add experiments/pct_e26_e31 evidence/pct_e2*.json docs/PCT_E26_E31_CROSS_BRANCH_SOLVER_VALIDATION_REPORT.md .github/workflows/pct-e1-e25-campaign.yml
+git add \
+  experiments/pct_e26_e31 \
+  evidence/pct_e26_cross_branch_manifest.json \
+  evidence/pct_e27_heldout_relational_recovery.json \
+  evidence/pct_e28_minimal_evidence_nullspace.json \
+  evidence/pct_e29_rule_discovery_falsification.json \
+  evidence/pct_e30_main_pct_adversarial_replay.json \
+  evidence/pct_e31_bidirectional_closure.json \
+  docs/PCT_E26_E31_CROSS_BRANCH_SOLVER_VALIDATION_REPORT.md \
+  .github/workflows/pct-e1-e25-campaign.yml
 git commit -m "feat: complete E26-E31 cross-branch solver validation"
 ```
 
-Verify the workflow on the exact resulting branch SHA and read the full job log before claiming completion.
+Read the full CI job log for the exact resulting SHA before any completion claim.
