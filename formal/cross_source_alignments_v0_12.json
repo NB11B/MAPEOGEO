@@ -396,7 +396,7 @@
       "description": "Vector space of affine cosets modulo a subspace",
       "alignments": [
         {
-          "source": "srcdecl:definition:4_6",
+          "source": "srcdecl:definition:4_5",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -478,7 +478,7 @@
       "description": "Basis of mutually orthogonal unit vectors in an inner product space",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -496,7 +496,7 @@
       "description": "Algorithm transforming a linearly independent set into an orthonormal set with identical spans",
       "alignments": [
         {
-          "source": "srcdecl:theorem:10_2",
+          "source": "srcdecl:theorem:14_6",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -514,7 +514,7 @@
       "description": "Subspace of all vectors orthogonal to every vector in a given subspace",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_3",
+          "source": "srcdecl:definition:14_8",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -537,7 +537,7 @@
       "description": "Idempotent self-adjoint linear map projecting onto a subspace along its orthogonal complement",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_4",
+          "source": "srcdecl:definition:14_11",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },

@@ -131,7 +131,7 @@
       "description": "Positive-definite symmetric bilinear form inducing geometry on vector spaces",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -154,7 +154,7 @@
       "description": "Square root of inner product of vector with itself, measuring length and separation",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -182,7 +182,7 @@
       "description": "|<u, v>| <= ||u|| * ||v|| with equality iff u and v are linearly dependent",
       "alignments": [
         {
-          "source": "srcdecl:proposition:10_1",
+          "source": "srcdecl:proposition:14_2",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -205,7 +205,7 @@
       "description": "Vanishing inner product (<u, v> = 0) and cosine angle formulation",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -571,7 +571,7 @@
       "description": "Vector space of affine cosets modulo a subspace",
       "alignments": [
         {
-          "source": "srcdecl:definition:4_6",
+          "source": "srcdecl:definition:4_5",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -653,7 +653,7 @@
       "description": "Basis of mutually orthogonal unit vectors in an inner product space",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -676,7 +676,7 @@
       "description": "Algorithm transforming a linearly independent set into an orthonormal set with identical spans",
       "alignments": [
         {
-          "source": "srcdecl:theorem:10_2",
+          "source": "srcdecl:theorem:14_6",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -699,7 +699,7 @@
       "description": "Subspace of all vectors orthogonal to every vector in a given subspace",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_3",
+          "source": "srcdecl:definition:14_8",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -722,7 +722,7 @@
       "description": "Idempotent self-adjoint linear map projecting onto a subspace along its orthogonal complement, minimizing distance",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_4",
+          "source": "srcdecl:definition:14_11",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -788,7 +788,7 @@
       "description": "Decomposition of matrix A into orthogonal matrix Q and upper-triangular matrix R via Gram-Schmidt",
       "alignments": [
         {
-          "source": "srcdecl:theorem:10_2",
+          "source": "srcdecl:theorem:14_6",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
@@ -811,7 +811,7 @@
       "description": "Matrix of pairwise inner products G = A^T A, symmetric positive semi-definite",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },

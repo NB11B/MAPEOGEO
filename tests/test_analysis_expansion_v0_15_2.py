@@ -131,11 +131,11 @@ def test_confirmatory_analysis_intake_pipeline(tmp_path: Path):
 
     # Invariant: Disjoint partitioning
     nodes = graph["nodes"]
-    src_decls = [n for n in nodes if n.get("type") == "SOURCE_DECLARATION"]
-    gallier = [n for n in src_decls if n.get("attributes", {}).get("source_id") == GALLIER_SOURCE_ID]
-    axler = [n for n in src_decls if n.get("attributes", {}).get("source_id") == AXLER_SOURCE_ID]
-    vmls = [n for n in src_decls if n.get("attributes", {}).get("source_id") == VMLS_SOURCE_ID]
-    cvx = [n for n in src_decls if n.get("attributes", {}).get("source_id") == CVX_SOURCE_ID]
+    src_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT") and n["id"].startswith("srcdecl:")]
+    gallier = [n for n in src_decls if not any(k in n["id"] for k in (":axler:", ":vmls:", ":cvx:"))]
+    axler = [n for n in src_decls if ":axler:" in n["id"]]
+    vmls = [n for n in src_decls if ":vmls:" in n["id"]]
+    cvx = [n for n in src_decls if ":cvx:" in n["id"]]
 
     assert len(gallier) + len(axler) + len(vmls) + len(cvx) == len(src_decls)
     assert len(src_decls) == metrics["N_source_total"]

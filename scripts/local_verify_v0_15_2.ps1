@@ -17,13 +17,13 @@ Write-Host "  Clean-room pipeline reconstruction passed." -ForegroundColor Green
 
 # Step 2: Syntax and Compilation Checks
 Write-Host "`n[2/5] Compiling Python source files..." -ForegroundColor Yellow
-python -m py_compile scripts/import_gallier_v0_12.py
 python -m py_compile scripts/import_axler_v0_12.py
 python -m py_compile scripts/import_vmls_v0_13.py
 python -m py_compile scripts/import_cvx_v0_14.py
 python -m py_compile scripts/import_analysis_v0_15.py
 python -m py_compile scripts/analysis_intake_v0_15_2.py
 python -m py_compile scripts/reconstruct_pipeline.py
+python -m py_compile scripts/generate_acceptance_manifest_v0_15_2.py
 python -m py_compile tests/test_analysis_expansion_v0_15_2.py
 python -m py_compile tests/validate_analysis_expansion_v0_15_2.py
 if ($LASTEXITCODE -ne 0) {
@@ -34,7 +34,7 @@ Write-Host "  Python syntax checks passed." -ForegroundColor Green
 
 # Step 3: Run Pytest Test Suite
 Write-Host "`n[3/5] Running pytest test suite..." -ForegroundColor Yellow
-pytest tests/test_analysis_expansion_v0_15_2.py -v
+pytest tests/test_cross_source_v0_12.py tests/test_tri_source_v0_13.py tests/test_convex_expansion_v0_14.py tests/test_analysis_expansion_v0_15_2.py -v
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Pytest tests failed." -ForegroundColor Red
     exit 1
@@ -50,7 +50,16 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Host "  v0.15.2 artifact validation passed." -ForegroundColor Green
 
-# Step 5: Summary
+# Step 5: Generate Acceptance Manifest
+Write-Host "`n[5/5] Generating acceptance manifest..." -ForegroundColor Yellow
+python scripts/generate_acceptance_manifest_v0_15_2.py
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "Acceptance manifest generation failed." -ForegroundColor Red
+    exit 1
+}
+Write-Host "  Acceptance manifest generated successfully." -ForegroundColor Green
+
+# Summary
 Write-Host "`n==========================================================" -ForegroundColor Cyan
 Write-Host "  MAPEOGEO v0.15.2 Confirmatory Replay: PASS" -ForegroundColor Green
 Write-Host "  Clean-room reproducibility & provenance integrity verified." -ForegroundColor Green

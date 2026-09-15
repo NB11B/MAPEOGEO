@@ -1,8 +1,8 @@
 {
   "stage": "v0.15",
-  "N_source_total": 436,
+  "N_source_total": 404,
   "source_breakdown": {
-    "S_A_gallier": 36,
+    "S_A_gallier": 4,
     "S_B_axler": 235,
     "S_C_vmls": 81,
     "S_D_cvx": 84
@@ -38,19 +38,19 @@
     }
   },
   "representation_views": {
-    "N_EO_candidates": 276,
+    "N_EO_candidates": 269,
     "N_GEO_candidates": 36,
-    "N_DUAL_candidates": 160
+    "N_DUAL_candidates": 135
   },
   "N_formal_linked": 7,
   "edges_summary": {
-    "total_edges": 1709,
-    "SAME_SEMANTICS_bridges": 366,
+    "total_edges": 24832,
+    "SAME_SEMANTICS_bridges": 367,
     "SCOPED_OVERLAP_bridges": 108,
     "RELATED_TO_bridges": 6,
-    "total_cross_source_bridges": 480,
+    "total_cross_source_bridges": 481,
     "REPRESENTS": 338,
-    "DEPENDS_ON": 363,
-    "SOURCED_FROM": 451
+    "DEPENDS_ON": 999,
+    "SOURCED_FROM": 1775
   }
 }

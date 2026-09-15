@@ -337,7 +337,7 @@ def compute_tri_source_metrics(
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
 
-    source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "DECLARATION")]
+    source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "DECLARATION", "STATEMENT") and n["id"].startswith("srcdecl:")]
     canonical_nodes = [n for n in nodes if n.get("type") == "CANONICAL_OBJECT"]
     formal_nodes = [n for n in nodes if n.get("type") == "REPRESENTATION" and n.get("view") == "FORMAL"]
     cert_nodes = [n for n in nodes if n.get("type") == "CERTIFICATE" and n.get("attributes", {}).get("status") == "PASS"]
@@ -347,9 +347,9 @@ def compute_tri_source_metrics(
     geo_candidates = 0
     for n in source_decls:
         attrs = n.get("attributes", {})
-        status = attrs.get("direct_status", "")
-        eo_tags = attrs.get("eo_tags", [])
-        geo_tags = attrs.get("geo_tags", [])
+        status = attrs.get("direct_status") or attrs.get("independent_profile", {}).get("direct_status", "")
+        eo_tags = attrs.get("eo_tags", []) or attrs.get("independent_profile", {}).get("eo_direct_families", [])
+        geo_tags = attrs.get("geo_tags", []) or attrs.get("independent_profile", {}).get("geo_direct_families", [])
         if status in ("EO_ONLY_DIRECT", "DUAL_DIRECT") or eo_tags:
             eo_candidates += 1
         if status in ("GEO_ONLY_DIRECT", "DUAL_DIRECT") or geo_tags:

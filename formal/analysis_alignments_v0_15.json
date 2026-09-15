@@ -517,7 +517,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -552,7 +552,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -592,7 +592,7 @@
       "formal_decl": "MAPEOGEOFormal.cauchy_schwarz_v011",
       "alignments": [
         {
-          "source": "srcdecl:proposition:10_1",
+          "source": "srcdecl:proposition:14_2",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -626,7 +626,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -665,7 +665,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -693,7 +693,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:theorem:10_2",
+          "source": "srcdecl:theorem:14_6",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -725,7 +725,7 @@
       "formal_decl": "MAPEOGEOFormal.orthogonal_projection_idempotent_v011",
       "alignments": [
         {
-          "source": "srcdecl:definition:10_4",
+          "source": "srcdecl:definition:14_11",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -763,7 +763,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -791,7 +791,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:theorem:10_2",
+          "source": "srcdecl:theorem:14_6",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
@@ -900,7 +900,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:definition:10_1",
+          "source": "srcdecl:definition:14_1",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SAME"
         },
@@ -2068,7 +2068,7 @@
       ],
       "alignments": [
         {
-          "source": "srcdecl:definition:10_4",
+          "source": "srcdecl:definition:14_11",
           "corpus": "GALLIER",
           "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },

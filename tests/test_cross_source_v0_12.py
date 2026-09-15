@@ -119,14 +119,12 @@ def test_cross_source_alignments_schema():
 
 
 def test_cross_source_intake_pipeline(tmp_path: Path):
-    base_graph_path = ROOT / "data" / "gallier_quaintance_graph_v0_3.json.gz"
-    if base_graph_path.exists():
-        from scripts.cross_source_intake_v0_12 import load_json_or_gz
-        graph = load_json_or_gz(base_graph_path)
-    else:
-        graph = {"nodes": [], "edges": []}
-    from scripts.import_gallier_v0_12 import ingest_gallier_declarations
-    graph = ingest_gallier_declarations(graph)
+    from scripts.cross_source_intake_v0_12 import load_json_or_gz
+    base_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
+    if not base_graph_path.exists():
+        base_graph_path = ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json"
+    assert base_graph_path.exists(), "Gallier base graph missing from artifacts/source_v0_6"
+    graph = load_json_or_gz(base_graph_path)
     decls = get_axler_declarations()
 
     # Ingest Axler

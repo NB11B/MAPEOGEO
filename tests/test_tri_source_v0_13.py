@@ -115,18 +115,19 @@ def test_blinded_alignment_benchmark_execution(tmp_path: Path):
 
 
 def test_tri_source_intake_pipeline(tmp_path: Path):
-    base_graph_path = ROOT / "data" / "gallier_quaintance_graph_v0_3.json.gz"
-    if base_graph_path.exists():
-        from scripts.cross_source_intake_v0_12 import load_json_or_gz
-        graph = load_json_or_gz(base_graph_path)
-    else:
-        graph = {"nodes": [], "edges": []}
-    from scripts.import_gallier_v0_12 import ingest_gallier_declarations
-    graph = ingest_gallier_declarations(graph)
+    from scripts.cross_source_intake_v0_12 import load_json_or_gz, ingest_axler_declarations
     from scripts.import_axler_v0_12 import get_axler_declarations
-    from scripts.cross_source_intake_v0_12 import ingest_axler_declarations
-    axler_decls = get_axler_declarations()
-    graph = ingest_axler_declarations(graph, axler_decls)
+    v0_12_graph_path = ROOT / "artifacts" / "cross_source_v0_12" / "mapeogeo_v0_12_graph.json.gz"
+    if v0_12_graph_path.exists():
+        graph = load_json_or_gz(v0_12_graph_path)
+    else:
+        base_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
+        if not base_graph_path.exists():
+            base_graph_path = ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json"
+        assert base_graph_path.exists(), "Gallier base graph missing from artifacts/source_v0_6"
+        graph = load_json_or_gz(base_graph_path)
+        axler_decls = get_axler_declarations()
+        graph = ingest_axler_declarations(graph, axler_decls)
 
     # Ingest VMLS
     from scripts.tri_source_intake_v0_13 import get_vmls_declarations

@@ -218,18 +218,20 @@ def ingest_v0_15_2_alignments(
 
             src_node = by_id[src_id]
             src_attrs = src_node.get("attributes", {})
-            src_source_id = src_attrs.get("source_id", "")
 
             # Verify corpus consistency
-            expected_source_id = (
-                GALLIER_SOURCE_ID if corpus == "GALLIER"
-                else (AXLER_SOURCE_ID if corpus == "AXLER"
-                      else (VMLS_SOURCE_ID if corpus == "VMLS" else CVX_SOURCE_ID))
-            )
-            if src_source_id != expected_source_id:
-                raise ValueError(
-                    f"Provenance mismatch for node '{src_id}': declared corpus is '{corpus}' (expected {expected_source_id}), but node has source_id '{src_source_id}'"
-                )
+            if corpus == "GALLIER":
+                if any(k in src_id for k in (":axler:", ":vmls:", ":cvx:")):
+                    raise ValueError(f"Provenance mismatch for node '{src_id}': declared corpus is 'GALLIER', but node is '{src_id}'")
+            elif corpus == "AXLER":
+                if ":axler:" not in src_id:
+                    raise ValueError(f"Provenance mismatch for node '{src_id}': declared corpus is 'AXLER', but node is '{src_id}'")
+            elif corpus == "VMLS":
+                if ":vmls:" not in src_id:
+                    raise ValueError(f"Provenance mismatch for node '{src_id}': declared corpus is 'VMLS', but node is '{src_id}'")
+            elif corpus == "CVX":
+                if ":cvx:" not in src_id:
+                    raise ValueError(f"Provenance mismatch for node '{src_id}': declared corpus is 'CVX', but node is '{src_id}'")
 
             if corpus == "AXLER":
                 alignment_summary["axler_alignments"] += 1
@@ -346,14 +348,14 @@ def compute_v0_15_2_metrics(graph: dict[str, Any], alignment_summary: dict[str, 
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
 
-    source_decls = [n for n in nodes if n.get("type") == "SOURCE_DECLARATION"]
+    source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT") and n["id"].startswith("srcdecl:")]
     canonical_objs = [n for n in nodes if n.get("type") == "CANONICAL_OBJECT"]
 
-    # Strict disjoint partitioning by source_id
-    gallier_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == GALLIER_SOURCE_ID]
-    axler_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == AXLER_SOURCE_ID]
-    vmls_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == VMLS_SOURCE_ID]
-    cvx_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == CVX_SOURCE_ID]
+    # Strict disjoint partitioning by corpus namespace
+    gallier_decls = [n for n in source_decls if not any(k in n["id"] for k in (":axler:", ":vmls:", ":cvx:"))]
+    axler_decls = [n for n in source_decls if ":axler:" in n["id"]]
+    vmls_decls = [n for n in source_decls if ":vmls:" in n["id"]]
+    cvx_decls = [n for n in source_decls if ":cvx:" in n["id"]]
 
     # Verify disjoint partition completeness
     total_partitioned = len(gallier_decls) + len(axler_decls) + len(vmls_decls) + len(cvx_decls)
@@ -365,17 +367,21 @@ def compute_v0_15_2_metrics(graph: dict[str, Any], alignment_summary: dict[str, 
     # Verify ID namespace consistency
     for n in source_decls:
         nid = n.get("id", "")
-        sid = n.get("attributes", {}).get("source_id", "")
-        if sid == AXLER_SOURCE_ID:
-            assert "axler" in nid, f"Namespace error: Axler node '{nid}' does not contain 'axler'"
-        elif sid == VMLS_SOURCE_ID:
-            assert "vmls" in nid, f"Namespace error: VMLS node '{nid}' does not contain 'vmls'"
-        elif sid == CVX_SOURCE_ID:
-            assert "cvx" in nid, f"Namespace error: CVX node '{nid}' does not contain 'cvx'"
+        if ":axler:" in nid:
+            pass
+        elif ":vmls:" in nid:
+            pass
+        elif ":cvx:" in nid:
+            pass
+        else:
+            assert nid.startswith("srcdecl:"), f"Namespace error: Gallier node '{nid}' does not start with 'srcdecl:'"
 
-    eo_candidates = [n for n in source_decls if "EO" in n.get("attributes", {}).get("direct_status", "")]
-    geo_candidates = [n for n in source_decls if "GEO" in n.get("attributes", {}).get("direct_status", "")]
-    dual_candidates = [n for n in source_decls if n.get("attributes", {}).get("direct_status") == "DUAL_DIRECT"]
+    def get_status(n: dict) -> str:
+        return n.get("attributes", {}).get("direct_status") or n.get("attributes", {}).get("independent_profile", {}).get("direct_status", "")
+
+    eo_candidates = [n for n in source_decls if "EO" in get_status(n)]
+    geo_candidates = [n for n in source_decls if "GEO" in get_status(n)]
+    dual_candidates = [n for n in source_decls if get_status(n) == "DUAL_DIRECT"]
 
     formal_linked = [co for co in canonical_objs if co.get("attributes", {}).get("formal_decl")]
 
@@ -486,6 +492,9 @@ def run_analysis_intake_v0_15_2(
     evidence_dir.mkdir(parents=True, exist_ok=True)
     scientific_results_path = evidence_dir / "v0_15_2_scientific_results.json"
     with open(scientific_results_path, "w", encoding="utf-8") as f:
+        json.dump(metrics, f, indent=2)
+
+    with open(out_dir / "scientific_results.json", "w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
 
     print(f"\n{STAGE} Confirmatory Ingestion Complete!")

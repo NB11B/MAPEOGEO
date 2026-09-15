@@ -4,16 +4,19 @@
   "status": "PASS",
   "engine_validity": "VALID",
   "scientific_result": "PASS",
+  "runner_commit_sha": "644d95019b843822cec194754c72a65d2e5eca43",
+  "workflow_run_id": "local-run",
   "preregistration_commit_sha": "c97b16afb3ca27eda723ce31040da72566d204de",
   "description": "Real Analysis and Multivariable Differential Calculus Quad-Source Mathematics Expansion frozen confirmatory replay acceptance manifest for MAPEOGEO v0.15.2 across Gallier, Axler, Boyd/Vandenberghe VMLS, and Boyd/Vandenberghe CVX with strict fail-closed provenance.",
   "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
-  "pipeline_reconstruction": "scripts/reconstruct_pipeline.py --target-stage v0.15.2 from clean checkout data/gallier_quaintance_graph_v0_3.json.gz -> v0.12 -> v0.13 -> v0.14 -> v0.15.2",
+  "pipeline_reconstruction": "scripts/reconstruct_pipeline.py --target-stage v0.15.2 from clean checkout data/gallier_quaintance_graph_v0_3.json.gz + data/math-deep.pdf -> v0.6 -> v0.12 -> v0.13 -> v0.14 -> v0.15.2",
   "formal_link_status": "INHERITED_FORMAL_LINKS (FORMAL_LINKED != KERNEL_VERIFIED, certificate verification deferred)",
   "provenance_invariants": {
     "disjoint_partition_verified": true,
     "zero_synthesized_nodes": true,
     "namespace_consistency_verified": true,
-    "represents_corpus_consistency_verified": true
+    "represents_corpus_consistency_verified": true,
+    "source_hash_invariant_verified": true
   },
   "sources": {
     "source_a": {
@@ -55,9 +58,9 @@
     }
   },
   "primary_dashboard": {
-    "N_source": 436,
+    "N_source": 1760,
     "source_breakdown": {
-      "S_A_gallier": 36,
+      "S_A_gallier": 1360,
       "S_B_axler": 235,
       "S_C_vmls": 81,
       "S_D_cvx": 84
@@ -66,9 +69,9 @@
     "N_2_source": 53,
     "N_3_source": 37,
     "N_4_source": 15,
-    "N_EO_candidate": 276,
-    "N_GEO_candidate": 36,
-    "N_DUAL_candidate": 160,
+    "N_EO_candidate": 571,
+    "N_GEO_candidate": 145,
+    "N_DUAL_candidate": 1131,
     "N_formal_linked": 7,
     "D_domains_count": 4,
     "D_domains": [
@@ -79,38 +82,46 @@
     ],
     "average_richness_r_bar": 3.382,
     "edges_summary": {
-      "total_edges": 1710,
+      "total_edges": 24832,
       "SAME_SEMANTICS_bridges": 367,
       "SCOPED_OVERLAP_bridges": 108,
       "RELATED_TO_bridges": 6,
       "total_cross_source_bridges": 481,
       "REPRESENTS": 338,
-      "DEPENDS_ON": 363,
-      "SOURCED_FROM": 451
+      "DEPENDS_ON": 999,
+      "SOURCED_FROM": 1775
     }
   },
   "representation_diversity": {
-    "average_richness_r_bar": 3.382,
-    "modality_counts": {
+    "counts": {
       "abstract": 52,
       "algebraic": 85,
       "geometric": 62,
       "computational": 61,
       "formal": 7,
       "applied": 34
+    },
+    "average_richness_r_bar": 3.382,
+    "richness_distribution": {
+      "richness_1": 0,
+      "richness_2": 12,
+      "richness_3": 39,
+      "richness_4": 31,
+      "richness_5": 6,
+      "richness_6": 1
     }
   },
   "artifacts": {
-    "mapeogeo_v0_15_2_graph.json.gz": "7df31f110ab3dcad38ab91281038aa06bf14d842d0fbadf0091303d4524b840e",
-    "analysis_expansion_dashboard.json": "822eaae2feb07e13055ada729b504f4b2223a0968c9114ad8c04558ffb859a07",
+    "mapeogeo_v0_15_2_graph.json.gz": "bb199c6bec802f96fe8bef13051eb7928e633f5b739292b954229e1271df885e",
+    "analysis_expansion_dashboard.json": "03571693e8384d28f61f6f672adb87241ec5473ca0c66820812b7bbc54c099bf",
     "representation_diversity_report.json": "cee3f174362666181892110462e17cfb2d8cdc63b7e04e95fa42b9628a51764f",
-    "scientific_results.json": "822eaae2feb07e13055ada729b504f4b2223a0968c9114ad8c04558ffb859a07",
-    "analysis_alignments_v0_15.json": "31f6c14e98b8a3922ad38a3764f318b0887659efb16b4c1b84f96429e4e295be"
+    "scientific_results.json": "03571693e8384d28f61f6f672adb87241ec5473ca0c66820812b7bbc54c099bf",
+    "analysis_alignments_v0_15.json": "f52d605979b91b97a491f9c1636e405879c3e38396637c4b4e1ff5bc48ef6f6a"
   },
   "preregistered_checks": {
     "min_total_source_declarations": {
       "expected": ">= 400",
-      "actual": 436,
+      "actual": 1760,
       "pass": true
     },
     "min_canonical_objects": {
@@ -159,12 +170,17 @@
       "pass": true
     },
     "disjoint_source_partition": {
-      "expected": "36 S_A + 235 S_B + 81 S_C + 84 S_D = 436",
+      "expected": "1360 S_A + 235 S_B + 81 S_C + 84 S_D = 1760",
       "actual": "Pass",
       "pass": true
     },
     "zero_prose_policy": {
       "expected": "No copyrighted prose persisted",
+      "actual": "Pass",
+      "pass": true
+    },
+    "frozen_source_hash_invariant": {
+      "expected": "All 4 frozen Gallier quartet hashes verified identically to v0.11",
       "actual": "Pass",
       "pass": true
     }

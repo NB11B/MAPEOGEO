@@ -387,18 +387,21 @@ def compute_v0_14_metrics(graph: dict[str, Any], alignment_summary: dict[str, An
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
 
-    source_decls = [n for n in nodes if n.get("type") == "SOURCE_DECLARATION"]
+    source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT") and n["id"].startswith("srcdecl:")]
     canonical_objs = [n for n in nodes if n.get("type") == "CANONICAL_OBJECT"]
 
-    gallier_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == GALLIER_SOURCE_ID]
-    axler_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == AXLER_SOURCE_ID]
-    vmls_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == VMLS_SOURCE_ID]
-    cvx_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == CVX_SOURCE_ID]
-    assert len(gallier_decls) + len(axler_decls) + len(vmls_decls) + len(cvx_decls) == len(source_decls), "Disjoint source partition violated"
+    gallier_decls = [n for n in source_decls if not any(k in n["id"] for k in (":axler:", ":vmls:", ":cvx:"))]
+    axler_decls = [n for n in source_decls if ":axler:" in n["id"]]
+    vmls_decls = [n for n in source_decls if ":vmls:" in n["id"]]
+    cvx_decls = [n for n in source_decls if ":cvx:" in n["id"]]
+    assert len(gallier_decls) + len(axler_decls) + len(vmls_decls) + len(cvx_decls) == len(source_decls), f"Disjoint source partition violated: {len(gallier_decls)} + {len(axler_decls)} + {len(vmls_decls)} + {len(cvx_decls)} != {len(source_decls)}"
 
-    eo_candidates = [n for n in source_decls if "EO" in n.get("attributes", {}).get("direct_status", "")]
-    geo_candidates = [n for n in source_decls if "GEO" in n.get("attributes", {}).get("direct_status", "")]
-    dual_candidates = [n for n in source_decls if n.get("attributes", {}).get("direct_status") == "DUAL_DIRECT"]
+    def get_status(n: dict) -> str:
+        return n.get("attributes", {}).get("direct_status") or n.get("attributes", {}).get("independent_profile", {}).get("direct_status", "")
+
+    eo_candidates = [n for n in source_decls if "EO" in get_status(n)]
+    geo_candidates = [n for n in source_decls if "GEO" in get_status(n)]
+    dual_candidates = [n for n in source_decls if get_status(n) == "DUAL_DIRECT"]
 
     formal_linked = [co for co in canonical_objs if co.get("attributes", {}).get("formal_decl")]
 

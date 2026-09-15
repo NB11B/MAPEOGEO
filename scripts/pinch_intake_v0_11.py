@@ -239,27 +239,35 @@ def main() -> int:
     lean_version = "NOT_RUN"
     if pre_identity_ok and escape_ok and declarations_ok:
         lake_cmd = find_lake_cmd()
-        proc = subprocess.run(
-            [lake_cmd, "env", "lean", str(args.lean_file)],
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        kernel_ok = (proc.returncode == 0)
+        try:
+            proc = subprocess.run(
+                [lake_cmd, "env", "lean", str(args.lean_file)],
+                cwd=str(ROOT),
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=30,
+            )
+            kernel_ok = (proc.returncode == 0)
+        except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
+            kernel_ok = False
 
-        version_proc = subprocess.run(
-            [lake_cmd, "env", "lean", "--version"],
-            cwd=str(ROOT),
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        lean_version = (
-            (version_proc.stdout or version_proc.stderr).strip().splitlines()[0]
-            if version_proc.returncode == 0
-            else "UNKNOWN"
-        )
+        try:
+            version_proc = subprocess.run(
+                [lake_cmd, "env", "lean", "--version"],
+                cwd=str(ROOT),
+                capture_output=True,
+                text=True,
+                check=False,
+                timeout=15,
+            )
+            lean_version = (
+                (version_proc.stdout or version_proc.stderr).strip().splitlines()[0]
+                if version_proc.returncode == 0
+                else "UNKNOWN"
+            )
+        except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
+            lean_version = "UNKNOWN"
 
     # Gate 6: Independent Checker Evidence
     checker_evidence_ok = True

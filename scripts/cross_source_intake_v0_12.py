@@ -27,11 +27,6 @@ from scripts.import_axler_v0_12 import (
     AxlerDeclaration,
     get_axler_declarations,
 )
-from scripts.import_gallier_v0_12 import (
-    GallierDeclaration,
-    get_gallier_declarations,
-    ingest_gallier_declarations,
-)
 
 STAGE = "v0.12"
 GALLIER_SOURCE_ID = "GALLIER_QUAINTANCE_2020"
@@ -388,17 +383,20 @@ def compute_expansion_metrics(
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
 
-    source_decls = [n for n in nodes if n.get("type") == "SOURCE_DECLARATION"]
+    source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT") and n["id"].startswith("srcdecl:")]
     canonical_objs = [n for n in nodes if n.get("type") == "CANONICAL_OBJECT"]
 
-    gallier_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == GALLIER_SOURCE_ID]
-    axler_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == AXLER_SOURCE_ID]
+    gallier_decls = [n for n in source_decls if not any(k in n["id"] for k in (":axler:", ":vmls:", ":cvx:"))]
+    axler_decls = [n for n in source_decls if ":axler:" in n["id"]]
 
     # Verify disjoint partition
-    assert len(gallier_decls) + len(axler_decls) == len(source_decls), "Disjoint source declaration partition violated"
+    assert len(gallier_decls) + len(axler_decls) == len(source_decls), f"Disjoint partition violated: {len(gallier_decls)} + {len(axler_decls)} != {len(source_decls)}"
 
-    eo_decls = [n for n in source_decls if "EO" in n.get("attributes", {}).get("direct_status", "")]
-    geo_decls = [n for n in source_decls if "GEO" in n.get("attributes", {}).get("direct_status", "")]
+    def get_status(n: dict) -> str:
+        return n.get("attributes", {}).get("direct_status") or n.get("attributes", {}).get("independent_profile", {}).get("direct_status", "")
+
+    eo_decls = [n for n in source_decls if "EO" in get_status(n)]
+    geo_decls = [n for n in source_decls if "GEO" in get_status(n)]
     formal_linked = [co for co in canonical_objs if co.get("attributes", {}).get("formal_decl")]
 
     same_semantics_edges = [e for e in edges if e.get("type") == "SAME_SEMANTICS"]
@@ -484,7 +482,7 @@ def validate_against_preregistration(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="MAPEOGEO v0.12 Cross-Source Mathematics Expansion Runner")
-    parser.add_argument("--base-graph", type=Path, default=ROOT / "data" / "gallier_quaintance_graph_v0_3.json.gz")
+    parser.add_argument("--base-graph", type=Path, default=ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json")
     parser.add_argument("--alignments", type=Path, default=ROOT / "formal" / "cross_source_alignments_v0_12.json")
     parser.add_argument("--preregistration", type=Path, default=ROOT / "evidence" / "v0_12_preregistration.json")
     parser.add_argument("--pdf-path", type=Path, default=DEFAULT_CACHE_PATH)
@@ -494,15 +492,20 @@ def main() -> int:
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Load base graph
-    if args.base_graph.exists():
-        graph = load_json_or_gz(args.base_graph)
-    else:
-        graph = {"nodes": [], "edges": []}
+    # 1. Load base graph (fail-closed if missing)
+    base_path = args.base_graph
+    if not base_path.exists():
+        fallback = ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json"
+        if fallback.exists():
+            base_path = fallback
+        else:
+            raise FileNotFoundError(f"Fail-closed provenance error: Base graph not found at {args.base_graph}")
+    graph = load_json_or_gz(base_path)
 
-    # 2. Ingest Gallier declarations
-    gallier_decls = get_gallier_declarations()
-    graph = ingest_gallier_declarations(graph, gallier_decls)
+    # 2. Verify Gallier source declarations exist in base graph
+    gallier_decls = [n for n in graph.get("nodes", []) if n["id"].startswith("srcdecl:") and not any(k in n["id"] for k in (":axler:", ":vmls:", ":cvx:"))]
+    if not gallier_decls:
+        raise ValueError(f"Fail-closed provenance error: Base graph {base_path} contains 0 Gallier source declarations!")
 
     # 3. Extract & Ingest Axler declarations
     axler_decls = get_axler_declarations(

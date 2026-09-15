@@ -102,11 +102,13 @@ def validate_tri_source_artifacts(
     for n in nodes:
         attrs = n.get("attributes", {})
         sid = attrs.get("source_id", "")
-        if "GALLIER" in sid:
+        corp = attrs.get("corpus", "")
+        nid = n.get("id", "")
+        if "GALLIER" in sid or "GALLIER" in corp or (nid.startswith("srcdecl:") and not any(k in nid for k in (":axler:", ":vmls:", ":cvx:"))):
             source_corpora.add("GALLIER")
-        elif "AXLER" in sid:
+        if "AXLER" in sid or "AXLER" in corp or ":axler:" in nid:
             source_corpora.add("AXLER")
-        elif "VMLS" in sid:
+        if "VMLS" in sid or "VMLS" in corp or ":vmls:" in nid:
             source_corpora.add("VMLS")
 
     for corp in ["GALLIER", "AXLER", "VMLS"]:
