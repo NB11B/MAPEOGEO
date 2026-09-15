@@ -21,8 +21,10 @@ class GraphIndex:
 def _freeze_value(value: Any) -> Any:
     if isinstance(value, dict):
         return tuple((k, _freeze_value(v)) for k, v in sorted(value.items()))
-    if isinstance(value, (list, tuple, set, frozenset)):
-        return tuple(sorted(_freeze_value(v) for v in value))
+    if isinstance(value, (list, tuple)):
+        return tuple(_freeze_value(v) for v in value)
+    if isinstance(value, (set, frozenset)):
+        return tuple(sorted((_freeze_value(v) for v in value), key=repr))
     return value
 
 
