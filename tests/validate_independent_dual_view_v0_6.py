@@ -13,8 +13,8 @@ def main()->int:
     assert report["status"]=="PASS", report.get("gates")
     assert all(report["gates"].values())
     assert report["source"]["redistributed"] is False
-    assert report["source"]["copyright_payload_policy"]=="INDEPENDENT_METADATA_ONLY"
-    assert report["fixture_recovery"]=={"total":20,"recovered":20,"missing":[]}
+    assert report["source"]["copyright_payload_policy"]=="HASHED_STATEMENT_METADATA_ONLY"
+    assert report["independent_views"]["fixture_recovery"]=={"total":20,"recovered":20,"missing":[]}
     assert profiles
     for p in profiles:
         assert "source_segment_sha256" in p
@@ -30,12 +30,12 @@ def main()->int:
         assert not FORBIDDEN.intersection(n.get("attributes",{})), (n["id"],FORBIDDEN.intersection(n.get("attributes",{})))
     print(
         "MAPEOGEO_V0_6_ARTIFACT_VALIDATION: PASS "
-        f"declarations={report['extraction']['deduplicated_declarations']} "
-        f"eo_direct={report['coverage']['eo_direct_coverage']:.4f} "
-        f"geo_direct={report['coverage']['geo_direct_coverage']:.4f} "
-        f"dual_direct={report['coverage']['independent_dual_direct_coverage']:.4f} "
-        f"eo_p={report['dependency_alignment']['eo']['permutation_p_one_sided']:.4g} "
-        f"geo_p={report['dependency_alignment']['geo']['permutation_p_one_sided']:.4g}"
+        f"declarations={report['extraction']['declarations']} "
+        f"eo_direct={report['independent_views']['eo_direct_coverage']:.4f} "
+        f"geo_direct={report['independent_views']['geo_direct_coverage']:.4f} "
+        f"dual_direct={report['independent_views']['dual_direct_coverage']:.4f} "
+        f"eo_p={report['dependency_alignment']['eo']['one_sided_permutation_p']:.4g} "
+        f"geo_p={report['dependency_alignment']['geo']['one_sided_permutation_p']:.4g}"
     )
     return 0
 
