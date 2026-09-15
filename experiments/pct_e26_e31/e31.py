@@ -560,7 +560,7 @@ def run_e31(
     repo_root: Path,
 ) -> dict[str, Any]:
     harness = compute_harness_sha(repo_root)
-    graph_artifact_sha = corpus.artifact_digests[KNOWLEDGE_GRAPH_BASENAME]
+    graph_artifact_sha = corpus.artifact_digests["sealed_graph_observed_sha256"]
     specs_a = _direction_a_specs(corpus, e27_report, harness, graph_artifact_sha)
     specs_b = _direction_b_specs(e30_report, harness)
     ledger = _build_ledger(specs_a + specs_b)
