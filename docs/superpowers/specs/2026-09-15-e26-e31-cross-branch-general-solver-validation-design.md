@@ -40,6 +40,8 @@ The `main` checkout is never imported into the experimental branch tree. CI or t
 
 Any future movement of either named branch does not alter this experiment. A new commit requires a new campaign baseline rather than silently changing the answer corpus.
 
+The E26–E31 harness itself will necessarily be implemented after `B_solver`. Every generated result therefore also records the exact `campaign_harness_sha` of the code that produced it. A later harness revision cannot claim byte-equivalent continuity without rerunning and rebinding the evidence.
+
 ## 3. Knowledge corpus under test
 
 The frozen v0.15.1 confirmatory corpus reports:
@@ -124,6 +126,7 @@ solver_output_sha256
 sealed_answer_sha256
 knowledge_baseline_sha
 solver_baseline_sha
+campaign_harness_sha
 ```
 
 The inference result is generated before the answer is loaded for scoring.
@@ -203,13 +206,17 @@ The full corpus reports 444 cross-source bridges; E26 determines the exact eligi
 
 ### R2 — canonical-cluster holdout
 
-Group bridge records by their sealed canonical object. Remove all semantic bridge labels belonging to one canonical cluster at a time while preserving non-answer structural evidence that would legitimately exist for a new object.
+Group bridge records by their sealed canonical object. The grouping map is constructed from the verifier-only answer corpus and is used only to select the block to hide; if the grouping record itself would reveal the target label or canonical answer, it is absent from the solver-visible sanitized input.
+
+Remove all semantic bridge labels belonging to one canonical cluster at a time while preserving non-answer structural evidence that would legitimately exist for a new object.
 
 This prevents trivial recovery from redundant sibling edges and tests transfer of relational rules to a previously unlabeled canonical cluster.
 
 ### R3 — leave-one-domain-out transfer
 
-Hold out semantic labels for one mathematical domain and derive the relation rules only from the other domains. Repeat for each eligible domain.
+Hold out semantic labels for one mathematical domain and derive the relation rules only from the other domains. Domain membership used to define the held-out evaluation block is verifier metadata; solver-visible domain metadata may remain only where it is ordinary non-answer graph data and does not directly disclose the target relation.
+
+Repeat for each eligible domain.
 
 The newest `Differential Calculus & Real Analysis` domain is a particularly important confirmatory transfer test because it was added independently on `main` after the original E-series campaign.
 
@@ -239,9 +246,10 @@ For every tier E27 reports:
 A positive E27 solver signal requires all of the following:
 
 1. zero false certainty on the preregistered R4 corruption/underdetermination controls
-2. B4 strictly exceeds the strongest simpler baseline on exact recovery in at least the canonical-cluster holdout (R2) and domain-transfer holdout (R3)
-3. any increased answer coverage does not come from a higher wrong-positive count
-4. every positive result has a reproducible evidence trace
+2. B4 has more correct cases than the strongest simpler baseline on both the canonical-cluster holdout (R2) and domain-transfer holdout (R3)
+3. B4 has no higher wrong-positive count than that strongest simpler baseline in either R2 or R3
+4. any increased answer coverage does not come from a higher wrong-positive count
+5. every positive result has a reproducible evidence trace
 
 If these conditions are not met, H1 is not supported regardless of R1 performance.
 
@@ -252,11 +260,12 @@ E28 applies the E2/E3/E10/E11/E15 principles to real graph problems successfully
 For each eligible correctly recovered R2/R3 target:
 
 1. Freeze the finite evidence/probe bank used by the solver.
-2. Find a smallest subset that still uniquely identifies the same target relation within that bank.
-3. Certify minimality by exact bounded search or exact integer optimization.
-4. Measure erasure tolerance: how many evidence elements may be removed before uniqueness is lost.
-5. Remove each critical item in turn and recompute the ambiguity set.
-6. Report the resulting null space / unresolved candidate set rather than forcing an answer.
+2. Find a candidate smallest subset that still uniquely identifies the same target relation within that bank.
+3. Certify minimality only by explicitly excluding every smaller subset size within the frozen bank. Exhaustive deterministic enumeration is preferred. An integer optimizer may propose a candidate minimum, but the result is called `EXACT_MINIMUM_CERTIFIED` only after all smaller cardinalities are proven infeasible by the campaign verifier.
+4. If resource bounds prevent exclusion of all smaller subsets, report `INCONCLUSIVE_MINIMUM` and retain only the best upper bound found; do not call it exact.
+5. Measure erasure tolerance: how many evidence elements may be removed before uniqueness is lost.
+6. Remove each critical item in turn and recompute the ambiguity set.
+7. Report the resulting null space / unresolved candidate set rather than forcing an answer.
 
 The claim is explicitly bounded to the frozen probe bank. E28 does not claim globally minimal mathematical evidence over all possible representations.
 
@@ -268,7 +277,9 @@ E29 tests the E21–E23 transition from analysis to search.
 
 ### Discovery
 
-Using solver-visible training structure only, enumerate low-complexity candidate relational rules composed of at most three typed probes/path predicates. A candidate rule must have multiple independent supporting instances; singleton rules are not eligible.
+Using solver-visible training structure only, enumerate low-complexity candidate relational rules composed of at most three typed probes/path predicates.
+
+A candidate rule is eligible only if it has at least **three distinct supporting target edges spanning at least two canonical objects**. If a relation class or scope cannot satisfy that minimum independent support, rule discovery for that stratum is `NOT_APPLICABLE` rather than weakened post hoc.
 
 Example rule shape:
 
@@ -276,7 +287,7 @@ Example rule shape:
 probe_A AND probe_B -> candidate_relation_type
 ```
 
-The implementation may discover different rule content; rule syntax and search depth are frozen before sealed evaluation.
+The implementation may discover different rule content; rule syntax, maximum conjunction width, and support threshold are frozen before sealed evaluation.
 
 ### Falsification
 
@@ -359,9 +370,11 @@ Every scored case receives immutable evidence receipts for:
 - C5b provenance-bound correspondence
 - strict C5 eligibility policy
 
+Each receipt chain also binds the producing `campaign_harness_sha` and `solver_recipe_sha256` so experimental orchestration cannot change invisibly.
+
 `NOT_APPLICABLE` C3/C4 layers remain explicit and are never rewritten as `PASS`.
 
-The E25I/J lifecycle semantics remain binding. If either frozen branch SHA or a required artifact digest changes, affected E31 receipts become stale. They do not silently update or reactivate.
+The E25I/J lifecycle semantics remain binding. If either frozen branch SHA, the campaign harness SHA, the solver recipe digest, or a required artifact digest changes, affected E31 receipts become stale. They do not silently update or reactivate.
 
 ## 15. Fail-closed verdict vocabulary
 
@@ -391,12 +404,12 @@ The campaign is invalid unless all applicable gates pass:
 - **V27.1 — Determinism:** identical sanitized inputs produce identical outputs and evidence traces.
 - **V27.2 — Typed semantics:** semantic relation classes remain distinct.
 - **V27.3 — Refusal integrity:** ambiguity cannot be converted to positive output by fallback heuristics.
-- **V28.0 — Bounded-minimum honesty:** all minimality claims identify their frozen candidate bank.
+- **V28.0 — Bounded-minimum honesty:** all minimality claims identify their frozen candidate bank and exact certification status.
 - **V29.0 — Discovery separation:** candidate generation occurs before sealed-answer evaluation.
 - **V29.1 — Counterexample precedence:** one valid counterexample defeats an overbroad rule.
 - **V30.0 — Runtime isolation:** main PCT executes in its own pinned subprocess environment.
 - **V30.1 — Adapter honesty:** adapters translate only; they do not supply missing mathematical functionality.
-- **V31.0 — Receipt completeness:** every scored result has identity, input, output, answer, and baseline bindings.
+- **V31.0 — Receipt completeness:** every scored result has identity, input, output, answer, baseline, recipe, and harness bindings.
 - **V31.1 — No semantic mutation:** the campaign cannot modify `main` or auto-promote graph relations.
 - **V31.2 — Lifecycle replay:** derived closure is reproducible from immutable receipts.
 
@@ -430,11 +443,12 @@ CI must:
 1. check out the experimental branch normally
 2. obtain `B_solver` and `B_knowledge` as separate read-only checkouts/directories
 3. verify their exact SHAs
-4. regenerate the cross-branch corpus manifest
-5. run E27–E31 deterministically
-6. upload generated evidence separately
-7. compare generated evidence with frozen branch evidence
-8. run the complete prior PCT regression suite
+4. record the executing `campaign_harness_sha`
+5. regenerate the cross-branch corpus manifest
+6. run E27–E31 deterministically
+7. upload generated evidence separately
+8. compare generated evidence with frozen branch evidence
+9. run the complete prior PCT regression suite
 
 The workflow receives read-only repository permissions in normal operation. It must never push to `main`, never merge refs, and never create semantic graph mutations.
 
