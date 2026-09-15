@@ -3,6 +3,18 @@
   "stage": "S5_PROOF_PATH",
   "source": "GALLIER_QUAINTANCE_MATH_DEEP",
   "license_note": "MAPEOGEO repository content is governed by LICENSE.md. External source prose is not redistributed.",
+  "carry_forward_metrics": {
+    "source_declarations": 1355,
+    "source_proof_blocks": 609,
+    "unresolved_reference_rate": 0.0938,
+    "eo_direct_coverage": 0.8768,
+    "geo_direct_coverage": 0.8148,
+    "dual_direct_coverage": 0.7343,
+    "dual_union_holdout_dependency_recall": 0.8889,
+    "dual_union_mean_candidate_reduction": 0.3603,
+    "fallback_required": true,
+    "evidence": "ACCEPTED_V0_6_V0_7"
+  },
   "targets": [
     {
       "source_id": "srcdecl:theorem:6_16",
