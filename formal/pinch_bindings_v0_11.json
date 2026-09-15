@@ -1,0 +1,67 @@
+{
+  "schema_version": "0.11",
+  "stage": "v0.11",
+  "description": "Frozen mathematical intake quartet bindings and schema for MAPEOGEO v0.11",
+  "targets": [
+    {
+      "source_id": "srcdecl:proposition:3_14",
+      "statement_sha256": "6e09e18756aefdaf8cdd2c03aca61548d1126fb3d30d70b49c58359f37c64b8e",
+      "expected_direct_status": "EO_ONLY_DIRECT",
+      "explicit_dependencies": [
+        "srcdecl:proposition:3_13",
+        "srcdecl:proposition:4_4"
+      ],
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
+      "scope_status": "REFUSED_SCOPE_MISMATCH",
+      "s3_test_state": "UNTESTED",
+      "s3_contract_id": null,
+      "s3_scope": null
+    },
+    {
+      "source_id": "srcdecl:proposition:3_13",
+      "statement_sha256": "0eef6ce3b699ddef7c209eb28b500b75aab07d9e540b7746b631f8db653addac",
+      "expected_direct_status": "EO_ONLY_DIRECT",
+      "explicit_dependencies": [
+        "srcdecl:proposition:3_21",
+        "srcdecl:proposition:2_2",
+        "srcdecl:proposition:2_3",
+        "srcdecl:proposition:4_4"
+      ],
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
+      "scope_status": "REFUSED_SCOPE_MISMATCH",
+      "s3_test_state": "UNTESTED",
+      "s3_contract_id": null,
+      "s3_scope": null
+    },
+    {
+      "source_id": "srcdecl:theorem:27_10",
+      "statement_sha256": "d205d7c5313b841e6afafc9d619fa059dfe50a2f6c11a48ca2cff466cc84d4fa",
+      "expected_direct_status": "DUAL_DIRECT",
+      "explicit_dependencies": [
+        "srcdecl:theorem:6_16"
+      ],
+      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
+      "scope_status": "REFUSED_SCOPE_MISMATCH",
+      "s3_test_state": "UNTESTED",
+      "s3_contract_id": null,
+      "s3_scope": null
+    },
+    {
+      "source_id": "srcdecl:proposition:4_4",
+      "statement_sha256": "37e5dc6afdbd3d026c4f7ef71c3531fc74eaeb04bf21ed45c4a9add39fcb6ecf",
+      "expected_direct_status": "EO_ONLY_DIRECT",
+      "explicit_dependencies": [
+        "srcdecl:proposition:4_3"
+      ],
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
+      "scope_status": "REFUSED_SCOPE_MISMATCH",
+      "s3_test_state": "UNTESTED",
+      "s3_contract_id": null,
+      "s3_scope": null
+    }
+  ]
+}
