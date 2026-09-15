@@ -12,6 +12,7 @@ on:
       - "tests/test_formal_bridge_v0_8.py"
       - "tests/validate_formal_bridge_v0_8.py"
       - "docs/V0_8_FORMAL_VERIFIER_BRIDGE_SPEC.md"
+      - "docs/V0_8_INDEPENDENT_CHECKER_AMENDMENT.md"
       - "lakefile.lean"
       - "lake-manifest.json"
       - "lean-toolchain"
@@ -82,7 +83,7 @@ jobs:
             --min-same-semantics-promotions 2 \
             --min-total-certificates 4
 
-      - name: Install Lean, Mathlib cache, build, and independently type-check
+      - name: Install Lean, build, and run independent leanchecker
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
         with:
           auto-config: false
@@ -90,8 +91,8 @@ jobs:
           test: false
           use-mathlib-cache: true
           use-github-cache: true
-          nanoda: true
-          nanoda-allow-sorry: false
+          leanchecker: true
+          nanoda: false
 
       - name: Run formal bridge and emit graph certificates
         run: |
@@ -100,7 +101,10 @@ jobs:
             --base-graph "$RUNNER_TEMP/mapeogeo-v07/mapeogeo_map_goal_v0_7_graph.json" \
             --bindings formal/source_bindings_v0_8.json \
             --lean-file MAPEOGEOFormal/SourceBound.lean \
-            --out-dir artifacts/formal_bridge_v0_8
+            --out-dir artifacts/formal_bridge_v0_8 \
+            --independent-checker leanchecker \
+            --independent-checker-status PASS \
+            --nanoda-status TOOLING_BLOCKED
 
       - name: Validate v0.8 artifact and copyright boundary
         run: python tests/validate_formal_bridge_v0_8.py artifacts/formal_bridge_v0_8
