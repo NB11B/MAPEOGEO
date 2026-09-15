@@ -1,0 +1,69 @@
+{
+  "stage": "v0.14",
+  "run_id": "MAPEOGEO-CONVEX-EXPANSION-V0.14",
+  "description": "Preregistered specification for convex analysis and optimization expansion with Boyd and Vandenberghe Convex Optimization as Source D",
+  "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
+  "sources": {
+    "source_a": {
+      "source_id": "GALLIER_QUAINTANCE_2020",
+      "title": "Algebra, Topology, Differential Calculus, and Optimization Theory for Computer Science and Machine Learning",
+      "authors": ["Jean Gallier", "Jocelyn Quaintance"]
+    },
+    "source_b": {
+      "source_id": "AXLER_LADR4E_2026_08_16",
+      "title": "Linear Algebra Done Right",
+      "author": "Sheldon Axler",
+      "edition": "Fourth Edition",
+      "version_date": "2026-08-16",
+      "url": "https://linear.axler.net/LADR4e.pdf",
+      "license": "CC BY-NC 4.0"
+    },
+    "source_c": {
+      "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+      "title": "Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares",
+      "authors": ["Stephen Boyd", "Lieven Vandenberghe"],
+      "publisher": "Cambridge University Press",
+      "year": 2018,
+      "url": "https://web.stanford.edu/~boyd/vmls/vmls.pdf"
+    },
+    "source_d": {
+      "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+      "title": "Convex Optimization",
+      "authors": ["Stephen Boyd", "Lieven Vandenberghe"],
+      "publisher": "Cambridge University Press",
+      "year": 2004,
+      "url": "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf",
+      "target_slice": [
+        "Chapter 2: Convex sets",
+        "Chapter 3: Convex functions",
+        "Chapter 4: Convex optimization problems",
+        "Chapter 5: Duality",
+        "Chapter 6: Approximation and fitting",
+        "Chapter 8: Geometric problems"
+      ]
+    }
+  },
+  "representation_kinds": [
+    "abstract",
+    "algebraic",
+    "geometric",
+    "computational",
+    "formal",
+    "applied"
+  ],
+  "tolerances": {
+    "min_cvx_declarations": 70,
+    "min_total_source_declarations": 400,
+    "min_canonical_objects": 60,
+    "min_2_source_bridges": 40,
+    "min_3_source_bridges": 20,
+    "min_4_source_bridges": 8,
+    "min_domains": 3,
+    "min_average_representation_richness": 2.50,
+    "max_unresolved_rate": 0.35
+  },
+  "persistence_policy": {
+    "redistribute_source_prose": false,
+    "persist_page_images": false
+  }
+}

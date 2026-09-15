@@ -1,0 +1,51 @@
+{
+  "stage": "v0.14",
+  "N_source_total": 369,
+  "source_breakdown": {
+    "S_A_gallier": 29,
+    "S_B_axler": 220,
+    "S_C_vmls": 81,
+    "S_D_cvx": 40
+  },
+  "N_canonical_total": 71,
+  "N_2_source_bridges": 43,
+  "N_3_source_bridges": 29,
+  "N_4_source_bridges": 11,
+  "D_domains_count": 3,
+  "domains_list": [
+    "Applied Linear Algebra",
+    "Convex Analysis & Optimization",
+    "Linear Algebra"
+  ],
+  "representation_diversity": {
+    "counts": {
+      "abstract": 45,
+      "algebraic": 61,
+      "geometric": 47,
+      "computational": 31,
+      "formal": 6,
+      "applied": 20
+    },
+    "average_richness_r_bar": 3.281,
+    "richness_distribution": {
+      "richness_1": 0,
+      "richness_2": 7,
+      "richness_3": 33,
+      "richness_4": 23,
+      "richness_5": 1,
+      "richness_6": 0
+    }
+  },
+  "representation_views": {
+    "N_EO_candidates": 221,
+    "N_GEO_candidates": 20,
+    "N_DUAL_candidates": 148
+  },
+  "N_formal_linked": 6,
+  "edges_summary": {
+    "total_edges": 1212,
+    "SAME_SEMANTICS_bridges": 343,
+    "REPRESENTS": 235,
+    "DEPENDS_ON": 194
+  }
+}
