@@ -56,7 +56,7 @@
     },
     {
       "source_id": "srcdecl:proposition:6_7",
-      "statement_sha256": "ed9e437c8a539615e0759d0f6ccfea972afe87ad106a304c780d9e6ff59895d3",
+      "statement_sha256": "0f2d0462d0ac9a3b3b60cecd6b95fa4519e50731cb1b9655f8d5bc690588971c",
       "lean_decl": "MAPEOGEOFormal.proposition_6_7_finite_direct_sum_finrank",
       "formal_scope": "FINITE_EXTERNAL_DIRECT_SUM_PRODUCT_FINRANK"
     },
@@ -74,7 +74,7 @@
     },
     {
       "source_id": "srcdecl:lemma:3_6",
-      "statement_sha256": "8c777553c7ec6a145870e89011cdfa811bd9fbb7d04b666620c963849224cbb3",
+      "statement_sha256": "9da1df3b82262e2b3fa0019e0bfb9b76b04f222c8a329c6c3c96a57c881bf07b",
       "lean_decl": "MAPEOGEOFormal.lemma_3_6_insert_linear_independent",
       "formal_scope": "LINEAR_INDEPENDENCE_INSERTION"
     }

@@ -1,0 +1,80 @@
+{
+  "schema_version": "0.10",
+  "stage": "S4_PINCH_QUARTET_PROMOTION",
+  "source": "GALLIER_QUAINTANCE_MATH_DEEP",
+  "license_note": "MAPEOGEO repository content is governed by LICENSE.md. External source prose is not redistributed.",
+  "carry_forward_metrics": {
+    "source_declarations": 1355,
+    "source_proof_blocks": 609,
+    "unresolved_reference_rate": 0.0938,
+    "eo_direct_coverage": 0.8768,
+    "geo_direct_coverage": 0.8148,
+    "dual_direct_coverage": 0.7343,
+    "dual_union_holdout_dependency_recall": 0.8889,
+    "dual_union_mean_candidate_reduction": 0.3603,
+    "fallback_required": true,
+    "evidence": "ACCEPTED_V0_6_V0_7_V0_9"
+  },
+  "pinch_targets": [
+    {
+      "source_id": "srcdecl:proposition:3_14",
+      "kind": "Proposition",
+      "number": "3.14",
+      "chapter": 3,
+      "pdf_page_start": 88,
+      "pdf_page_end": 89,
+      "statement_sha256": "6e09e18756aefdaf8cdd2c03aca61548d1126fb3d30d70b49c58359f37c64b8e",
+      "lean_decl": "MAPEOGEOFormal.proposition_3_14_matrix_invertible_iff_columns_linear_independent",
+      "formal_scope": "SQUARE_MATRIX_INVERTIBLE_IFF_COLUMNS_LINEAR_INDEPENDENT",
+      "baseline_direct_status": "EO_ONLY_DIRECT",
+      "view_shear_resolution": "PRESERVED_EO_ONLY",
+      "promoted_view_status": "EO_ONLY_DIRECT",
+      "certificate_class": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:proposition:3_13",
+      "kind": "Proposition",
+      "number": "3.13",
+      "chapter": 3,
+      "pdf_page_start": 87,
+      "pdf_page_end": 88,
+      "statement_sha256": "0eef6ce3b699ddef7c209eb28b500b75aab07d9e540b7746b631f8db653addac",
+      "lean_decl": "MAPEOGEOFormal.proposition_3_13_square_matrix_one_sided_inverse_is_two_sided",
+      "formal_scope": "SQUARE_MATRIX_ONE_SIDED_INVERSE_IS_TWO_SIDED",
+      "baseline_direct_status": "EO_ONLY_DIRECT",
+      "view_shear_resolution": "PRESERVED_EO_ONLY",
+      "promoted_view_status": "EO_ONLY_DIRECT",
+      "certificate_class": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:theorem:27_10",
+      "kind": "Theorem",
+      "number": "27.10",
+      "chapter": 27,
+      "pdf_page_start": 975,
+      "pdf_page_end": 979,
+      "statement_sha256": "b99a4e9f7dcafc31774208c2d21485e59a23b3ae76f6fd3748babdefd41093e2",
+      "lean_decl": "MAPEOGEOFormal.theorem_27_10_affine_isometry_canonical_decomposition",
+      "formal_scope": "EUCLIDEAN_AFFINE_ISOMETRY_CANONICAL_DECOMPOSITION",
+      "baseline_direct_status": "DUAL_DIRECT",
+      "view_shear_resolution": "CONFIRMED_DUAL_DIRECT",
+      "promoted_view_status": "DUAL_DIRECT",
+      "certificate_class": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:proposition:4_4",
+      "kind": "Proposition",
+      "number": "4.4",
+      "chapter": 4,
+      "pdf_page_start": 126,
+      "pdf_page_end": 127,
+      "statement_sha256": "37e5dc6afdbd3d026c4f7ef71c3531fc74eaeb04bf21ed45c4a9add39fcb6ecf",
+      "lean_decl": "MAPEOGEOFormal.proposition_4_4_matrix_invertible_iff_columns_form_basis",
+      "formal_scope": "SQUARE_MATRIX_INVERTIBLE_IFF_COLUMNS_FORM_BASIS",
+      "baseline_direct_status": "EO_ONLY_DIRECT",
+      "view_shear_resolution": "PRESERVED_EO_ONLY",
+      "promoted_view_status": "EO_ONLY_DIRECT",
+      "certificate_class": "KERNEL_VERIFIED"
+    }
+  ]
+}
