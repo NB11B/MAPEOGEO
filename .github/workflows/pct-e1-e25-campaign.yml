@@ -1,4 +1,4 @@
-name: MAPEOGEO PCT E1-E25J campaign regression
+name: MAPEOGEO PCT E1-E31 campaign regression
 
 on:
   workflow_dispatch:
@@ -11,6 +11,7 @@ on:
       - "experiments/pct_e25def/**"
       - "experiments/pct_e25gh/**"
       - "experiments/pct_e25ij/**"
+      - "experiments/pct_e26_e31/**"
       - "evidence/pct_e1_e25_campaign.json"
       - "evidence/pct_e23_counterexamples.json"
       - "evidence/pct_e25_graph_consistency_audit.json"
@@ -28,17 +29,26 @@ on:
       - "evidence/pct_e25i_closure_receipt_ledger.json"
       - "evidence/pct_e25i_derived_closure_snapshot.json"
       - "evidence/pct_e25j_revocation_staleness.json"
+      - "evidence/pct_e26_cross_branch_manifest.json"
+      - "evidence/pct_e27_heldout_relational_recovery.json"
+      - "evidence/pct_e28_minimal_evidence_nullspace.json"
+      - "evidence/pct_e29_rule_discovery_falsification.json"
+      - "evidence/pct_e30_main_pct_adversarial_replay.json"
+      - "evidence/pct_e31_bidirectional_closure.json"
       - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
       - "docs/PCT_E25B_E25C_EXECUTABLE_MULTIPATH_REPORT.md"
       - "docs/PCT_E25D_E25F_CLOSURE_PROGRAM_REPORT.md"
       - "docs/PCT_E25G_E25H_C5_POLICY_REPORT.md"
       - "docs/PCT_E25I_E25J_CLOSURE_LIFECYCLE_REPORT.md"
+      - "docs/PCT_E26_E31_CROSS_BRANCH_SOLVER_VALIDATION_REPORT.md"
       - "docs/superpowers/specs/2026-09-15-e25def-closure-depth-verification-design.md"
       - "docs/superpowers/specs/2026-09-15-e25gh-c5-policy-design.md"
       - "docs/superpowers/specs/2026-09-15-e25ij-closure-lifecycle-design.md"
+      - "docs/superpowers/specs/2026-09-15-e26-e31-cross-branch-general-solver-validation-design.md"
       - "docs/superpowers/plans/2026-09-15-e25def-closure-depth-verification.md"
       - "docs/superpowers/plans/2026-09-15-e25gh-c5-policy-implementation.md"
       - "docs/superpowers/plans/2026-09-15-e25ij-closure-lifecycle-implementation.md"
+      - "docs/superpowers/plans/2026-09-15-e26-e31-cross-branch-general-solver-validation.md"
       - "requirements-pct-e1-e25.txt"
       - ".github/workflows/pct-e1-e25-campaign.yml"
   pull_request:
@@ -48,6 +58,7 @@ on:
       - "experiments/pct_e25def/**"
       - "experiments/pct_e25gh/**"
       - "experiments/pct_e25ij/**"
+      - "experiments/pct_e26_e31/**"
       - "evidence/pct_e1_e25_campaign.json"
       - "evidence/pct_e23_counterexamples.json"
       - "evidence/pct_e25_graph_consistency_audit.json"
@@ -65,17 +76,26 @@ on:
       - "evidence/pct_e25i_closure_receipt_ledger.json"
       - "evidence/pct_e25i_derived_closure_snapshot.json"
       - "evidence/pct_e25j_revocation_staleness.json"
+      - "evidence/pct_e26_cross_branch_manifest.json"
+      - "evidence/pct_e27_heldout_relational_recovery.json"
+      - "evidence/pct_e28_minimal_evidence_nullspace.json"
+      - "evidence/pct_e29_rule_discovery_falsification.json"
+      - "evidence/pct_e30_main_pct_adversarial_replay.json"
+      - "evidence/pct_e31_bidirectional_closure.json"
       - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
       - "docs/PCT_E25B_E25C_EXECUTABLE_MULTIPATH_REPORT.md"
       - "docs/PCT_E25D_E25F_CLOSURE_PROGRAM_REPORT.md"
       - "docs/PCT_E25G_E25H_C5_POLICY_REPORT.md"
       - "docs/PCT_E25I_E25J_CLOSURE_LIFECYCLE_REPORT.md"
+      - "docs/PCT_E26_E31_CROSS_BRANCH_SOLVER_VALIDATION_REPORT.md"
       - "docs/superpowers/specs/2026-09-15-e25def-closure-depth-verification-design.md"
       - "docs/superpowers/specs/2026-09-15-e25gh-c5-policy-design.md"
       - "docs/superpowers/specs/2026-09-15-e25ij-closure-lifecycle-design.md"
+      - "docs/superpowers/specs/2026-09-15-e26-e31-cross-branch-general-solver-validation-design.md"
       - "docs/superpowers/plans/2026-09-15-e25def-closure-depth-verification.md"
       - "docs/superpowers/plans/2026-09-15-e25gh-c5-policy-implementation.md"
       - "docs/superpowers/plans/2026-09-15-e25ij-closure-lifecycle-implementation.md"
+      - "docs/superpowers/plans/2026-09-15-e26-e31-cross-branch-general-solver-validation.md"
       - "requirements-pct-e1-e25.txt"
       - ".github/workflows/pct-e1-e25-campaign.yml"
 
@@ -85,9 +105,19 @@ permissions:
 jobs:
   regression:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout frozen solver baseline
+        uses: actions/checkout@v4
+        with:
+          ref: 6c9333ed3ec48a298ad943a74e72a01fa1ffcd78
+          path: .crossbranch/frozen-solver
+      - name: Checkout frozen knowledge baseline
+        uses: actions/checkout@v4
+        with:
+          ref: fd2d90c00cb71951fdfd7cd1e7e22a8f0552f97f
+          path: .crossbranch/frozen-main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -119,4 +149,4 @@ jobs:
           path: generated-e25ij/*.json
           if-no-files-found: error
       - name: Run PCT campaign regression suite
-        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py experiments/pct_e25ij/test_e25ij.py experiments/pct_e25ij/test_evidence.py
+        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py experiments/pct_e25ij/test_e25ij.py experiments/pct_e25ij/test_evidence.py experiments/pct_e26_e31/test_e26.py
