@@ -36,11 +36,11 @@ theorem theorem_3_7_basis_extension
 
 /--
 Scoped source-bound contract for Gallier–Quaintance Proposition 3.15:
-a basis determines a unique linear map from its values on basis vectors.
+over a field, a basis determines a unique linear map from its values on basis vectors.
 -/
 theorem proposition_3_15_basis_determines_linear_map
     {K E F ι : Type*}
-    [DivisionRing K]
+    [Field K]
     [AddCommGroup E] [Module K E]
     [AddCommGroup F] [Module K F]
     (b : Module.Basis ι K E) (v : ι → F) :
@@ -49,9 +49,7 @@ theorem proposition_3_15_basis_determines_linear_map
   · intro i
     exact b.constr_basis K v i
   · intro g hg
-    apply b.ext
-    intro i
-    simpa using hg i
+    exact b.ext fun i => by simpa using hg i
 
 /--
 Source-bound contract for Gallier–Quaintance Proposition 6.11:
