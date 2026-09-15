@@ -1,3 +1,6 @@
+from pathlib import Path
+import json
+
 from experiments.pct_e25gh.morphisms import run_c5a_audit
 from experiments.pct_e25gh.provenance import run_c5b_audit
 from experiments.pct_e25gh.policies import run_e25h_policy_comparison
@@ -54,3 +57,16 @@ def test_every_contract_has_both_single_axis_fault_classes():
         cases = {x["fault_class"] for x in contract["adversarial_cases"]}
         assert "CORRECT_MAP_WRONG_PROVENANCE" in cases
         assert "WRONG_MAP_CORRECT_PROVENANCE" in cases
+
+
+def test_frozen_e25gh_evidence_matches_fresh_execution():
+    root = Path(__file__).resolve().parents[2]
+    assert json.loads((root / "evidence/pct_e25g_exact_morphism_audit.json").read_text()) == run_c5a_audit()
+    assert json.loads((root / "evidence/pct_e25g_provenance_bindings.json").read_text()) == run_c5b_audit()
+    assert json.loads((root / "evidence/pct_e25h_policy_comparison.json").read_text()) == run_e25h_policy_comparison()
+
+
+def test_strict_c5_eligibility_requires_both_component_and_policy_success():
+    result = run_e25h_policy_comparison()
+    assert result["strict_policy_acceptable"] is True
+    assert all(c["strict_c5_eligible"] for c in result["contracts"])
