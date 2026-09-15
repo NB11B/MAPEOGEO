@@ -2,6 +2,7 @@ from copy import deepcopy
 
 from experiments.pct_e25ij.receipts import make_event, make_receipt
 from experiments.pct_e25ij.lifecycle import build_baseline_ledger, replay_lifecycle, run_e25i_audit
+from experiments.pct_e25ij.scenarios import run_e25j_scenarios
 
 
 def _component(snapshot, component_id):
@@ -188,3 +189,35 @@ def test_shared_policy_supersession_drops_all_four_to_c2():
     )
     snapshot = replay_lifecycle(ledger, [event])
     assert snapshot["frontier_histogram"] == {"C2": 4}
+
+
+def test_e25j_runs_exactly_21_preregistered_scenarios():
+    result = run_e25j_scenarios()
+    assert result["status"] == "PASS"
+    assert result["scenario_count"] == 21
+    assert result["component_scenario_count"] == 20
+    assert result["shared_policy_scenario_count"] == 1
+
+
+def test_e25j_downgrades_to_exact_remaining_frontier_and_recovers():
+    result = run_e25j_scenarios()
+    expected = {
+        "J1_C5A_SUPERSEDED": "C2",
+        "J2_C5B_REVOKED": "C2",
+        "J3_C2_SUPERSEDED": "C1",
+        "J4_C1_REVOKED": "C0",
+        "J5_IDENTITY_CONFLICT": None,
+    }
+    for scenario in result["scenarios"]:
+        if scenario["scenario_type"] in expected:
+            assert scenario["observed_frontier"] == expected[scenario["scenario_type"]]
+            assert scenario["recovered_frontier"] == "C5"
+            assert scenario["old_downstream_receipts_reactivated"] is False
+
+
+def test_shared_policy_replacement_drops_all_four_then_requires_new_eligibility():
+    result = run_e25j_scenarios()
+    j6 = next(x for x in result["scenarios"] if x["scenario_type"] == "J6_STRICT_POLICY_SUPERSEDED")
+    assert j6["downgrade_frontiers"] == {"C2": 4}
+    assert j6["recovery_frontiers"] == {"C5": 4}
+    assert j6["old_downstream_receipts_reactivated"] is False
