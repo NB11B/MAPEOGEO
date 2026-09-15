@@ -44,13 +44,16 @@ python tests/run_v0_3.py
 python tests/validate_v0_3.py
 ```
 
+`tests/run_v0_3.py` executes the preserved compressed implementation and regenerates the plain JSON graph and results. The repository also stores the accepted graph snapshot as `data/gallier_quaintance_graph_v0_3.json.gz`; the validator reads either the plain or compressed form.
+
 ## Layout
 
 - `schema/mapeogeo-core.schema.json`
-- `data/gallier_quaintance_graph_v0_3.json`
+- `data/gallier_quaintance_graph_v0_3.json.gz`
 - `data/gallier_quaintance_results_v0_3.json`
 - `docs/V0_3_CROSS_DOMAIN_REPORT.md`
 - `tests/run_v0_3.py`
+- `tests/run_v0_3_impl.py.gz`
 - `tests/validate_v0_3.py`
 
 ## Claim boundary
