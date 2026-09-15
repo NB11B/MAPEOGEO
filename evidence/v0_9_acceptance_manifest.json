@@ -1,0 +1,89 @@
+{
+  "evidence_id": "MAPEOGEO-V0.9-ACCEPTANCE",
+  "status": "PASS",
+  "scientific_preregistration_commit": "5b36f699ee7017646a782161b4db1b13fcadff89",
+  "accepted_ci_head": "9420f19989fe6704173256ea0c0422119c43d7c5",
+  "formal_stack": {
+    "lean": "4.33.1",
+    "lean_commit": "819816b2e0a3bf405af45ae5c7af2491d8f5bee6",
+    "mathlib": "v4.33.1",
+    "kernel_check": "PASS",
+    "independent_checker": "leanchecker",
+    "independent_checker_status": "PASS"
+  },
+  "source_pdf": {
+    "url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+    "sha256": "a1f91e337445851d27f2f4adb61e8ccc0f8fac941f9e0254ad94ba6b91c7c49b",
+    "redistributed": false
+  },
+  "proof_paths": [
+    {
+      "root_source_id": "srcdecl:theorem:6_16",
+      "path_status": "KERNEL_ACCEPTED_WITH_REPAIRED_WOUND",
+      "support_count": 6,
+      "support_frontier_verified": true
+    }
+  ],
+  "support_frontier": [
+    {
+      "source_id": "srcdecl:proposition:6_15",
+      "statement_sha256": "f220fd23c008fb1b97eab4d3f5ecc7b36015706df0fed674aedae09fa882c76d",
+      "lean_decl": "MAPEOGEOFormal.proposition_6_15_section_split",
+      "status": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:proposition:6_11",
+      "statement_sha256": "b0c1b1d047fb0c9f72fdf14c944b4c9f196eef618a4c601b750c4225a323309b",
+      "lean_decl": "MAPEOGEOFormal.proposition_6_11_retraction_section",
+      "status": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:proposition:6_7",
+      "statement_sha256": "0f2d0462d0ac9a3b3b60cecd6b95fa4519e50731cb1b9655f8d5bc690588971c",
+      "lean_decl": "MAPEOGEOFormal.proposition_6_7_finite_direct_sum_finrank",
+      "status": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:proposition:3_15",
+      "statement_sha256": "aea9aaad4de59e0fe41689744e318fda319d916a94a7c8c95d5cd5b3c51fa455",
+      "lean_decl": "MAPEOGEOFormal.proposition_3_15_basis_determines_linear_map",
+      "status": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:theorem:3_7",
+      "statement_sha256": "308a9240278368e4f17acc97d6385aa540d05688bda5d8aae87a5b75a11333de",
+      "lean_decl": "MAPEOGEOFormal.theorem_3_7_basis_extension",
+      "status": "KERNEL_VERIFIED"
+    },
+    {
+      "source_id": "srcdecl:lemma:3_6",
+      "statement_sha256": "9da1df3b82262e2b3fa0019e0bfb9b76b04f222c8a329c6c3c96a57c881bf07b",
+      "lean_decl": "MAPEOGEOFormal.lemma_3_6_insert_linear_independent",
+      "status": "KERNEL_VERIFIED"
+    }
+  ],
+  "wounds": [
+    {
+      "source_id": "srcdecl:proposition:6_11",
+      "wound_class": "REPAIRED_CITATION_MISMATCH",
+      "legacy_target": "srcdecl:proposition:3_18",
+      "corrected_target": "srcdecl:proposition:3_15",
+      "status": "REPAIRED_VISIBLE"
+    },
+    {
+      "source_id": "srcdecl:theorem:47_9",
+      "wound_class": "WOUND_NO_PARSED_SOURCE_PROOF_PATH",
+      "status": "PRESERVED_VISIBLE"
+    }
+  ],
+  "pinch_quartet": [
+    {"source_id": "srcdecl:proposition:3_14", "score": 0.000305, "direct_status": "EO_ONLY_DIRECT"},
+    {"source_id": "srcdecl:proposition:3_13", "score": 0.000216, "direct_status": "EO_ONLY_DIRECT"},
+    {"source_id": "srcdecl:theorem:27_10", "score": 0.000084, "direct_status": "DUAL_DIRECT"},
+    {"source_id": "srcdecl:proposition:4_4", "score": 0.000038, "direct_status": "EO_ONLY_DIRECT"}
+  ],
+  "graph": {
+    "nodes": 2251,
+    "edges": 23362
+  }
+}

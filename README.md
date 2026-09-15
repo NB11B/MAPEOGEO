@@ -171,18 +171,71 @@ See:
 - `MAPEOGEOFormal/SourceBound.lean`
 - `.github/workflows/formal-verifier-v0-8.yml`
 
+## v0.9 — S5 proof-path and pinch audit
+
+v0.9 tests whether the cited support structure of a source theorem can itself become a verified path rather than leaving isolated verified endpoints.
+
+```text
+OVERALL: PASS
+S5 AUDITED PROOF PATHS: 1 (Theorem 6.16 rank-nullity)
+PATH STATUS: KERNEL_ACCEPTED_WITH_REPAIRED_WOUND
+SUPPORT NODES VERIFIED: 6 / 6
+LEAN KERNEL CHECK: PASS
+INDEPENDENT CHECKER: leanchecker — PASS
+PROHIBITED PROOF ESCAPE HATCHES: 0
+REPAIRED CITATION WOUNDS: 1 (Proposition 6.11 -> Proposition 3.15)
+PRESERVED PARSED-PATH WOUNDS: 1 (Theorem 47.9)
+GRAPH: 2,251 nodes / 23,362 edges
+```
+
+The multi-hop verified proof path for Theorem 6.16 traverses:
+
+$$\text{Thm 6.16} \longrightarrow \{\text{Prop 6.15},\ \text{Prop 6.7}\} \longrightarrow \text{Prop 6.11} \longrightarrow \{\text{Prop 3.15},\ \text{Thm 3.7}\} \longrightarrow \text{Lemma 3.6}$$
+
+See:
+- `docs/V0_9_S5_PROOF_PATH_AND_PINCH_SPEC.md`
+- `docs/V0_9_S5_PROOF_PATH_AND_PINCH_REPORT.md`
+- `evidence/v0_9_acceptance_manifest.json`
+- `MAPEOGEOFormal/ProofPaths.lean`
+- `.github/workflows/proof-path-v0-9.yml`
+
+## v0.10 — pinch quartet promotion
+
+v0.10 promotes the graph's top four pinch bottlenecks (selected by $\text{Betweenness} \times \text{View Shear}$) to kernel-verified status, auditing whether formalization repairs view shear.
+
+```text
+OVERALL: PASS
+PINCH TARGETS CERTIFIED: 4 / 4
+LEAN KERNEL CHECK: PASS
+INDEPENDENT CHECKER: leanchecker — PASS
+PROHIBITED PROOF ESCAPE HATCHES: 0
+VIEW SHEAR RESOLUTIONS:
+  - Proposition 3.14: PRESERVED_EO_ONLY (0 artificial GEO inflation)
+  - Proposition 3.13: PRESERVED_EO_ONLY (0 artificial GEO inflation)
+  - Theorem 27.10:    CONFIRMED_DUAL_DIRECT (Algebraic rotation + Affine geometry)
+  - Proposition 4.4:  PRESERVED_EO_ONLY (0 artificial GEO inflation)
+GRAPH: 2,259 nodes / 23,370 edges
+```
+
+See:
+- `docs/V0_10_PINCH_QUARTET_PROMOTION_SPEC.md`
+- `docs/V0_10_PINCH_QUARTET_PROMOTION_REPORT.md`
+- `evidence/v0_10_acceptance_manifest.json`
+- `MAPEOGEOFormal/PinchQuartet.lean`
+- `.github/workflows/pinch-quartet-v0-10.yml`
+
 ## Reproduce
 
-Earlier stages are reproducible from their corresponding workflow/spec files. The v0.8 formal layer is pinned by `lean-toolchain`, `lakefile.lean`, and `lake-manifest.json`.
-
-The accepted CI path regenerates v0.6 and v0.7 from a transient source PDF, builds the Lean project, runs bundled `leanchecker`, emits FORMAL/certificate graph nodes, validates graph integrity, deletes the source PDF, and uploads only derived evidence.
+Earlier stages are reproducible from their corresponding workflow/spec files. The formal layer is pinned by `lean-toolchain`, `lakefile.lean`, and `lake-manifest.json`.
 
 For the formal library itself:
 
 ```bash
+lake exe cache get
 lake build
 lake env lean MAPEOGEOFormal/SourceBound.lean
-lake env leanchecker
+lake env lean MAPEOGEOFormal/ProofPaths.lean
+lake env lean MAPEOGEOFormal/PinchQuartet.lean
 ```
 
 ## Current claim boundary
@@ -195,11 +248,13 @@ The project has demonstrated:
 - statistically significant alignment between both representation spaces and explicit proof dependencies;
 - non-random held-out proof-navigation utility plus useful but non-exact dual-view candidate reduction;
 - source-bound executable `EQUIVALENT_TO` / `SAME_SEMANTICS` promotion;
-- a working source → EO/GEO → certificate → FORMAL/Lean → kernel-verification bridge in the same graph.
+- a working source → EO/GEO → certificate → FORMAL/Lean → kernel-verification bridge in the same graph;
+- multi-hop source-bound proof path verification under S5 with explicit wound preservation;
+- pinch bottleneck promotion with view shear preservation (zero artificial GEO inflation).
 
 It has **not** established universal mathematical closure, exact-safe pruning from the current semantic filter, complete proof synthesis, executable/formal equivalence for all 1,355 declarations, or whole-corpus autoformalization.
 
-The next major stage is therefore not another representation layer. It is the central remaining MAP problem: **automatically formalize a substantial stratified subset of the source graph and candidate proof paths, measure kernel-accepted coverage, and identify the residual mathematical structures that require new EO/GEO primitives, better translation, or additional formal context.**
+The next major stage is **cross-source linear-algebra ingestion**: testing whether two distinct mathematical provenances converge on the same canonical mathematical objects without collapsing source identities.
 
 ## Licensing
 
