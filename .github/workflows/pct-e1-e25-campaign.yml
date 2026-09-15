@@ -89,39 +89,6 @@ jobs:
           python -m compileall -q experiments/pct_e25gh
       - name: Generate candidate E25G E25H evidence
         run: python -m experiments.pct_e25gh.generate_evidence --out-dir generated-e25gh
-      - name: Diagnose frozen provenance mismatch
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          frozen = json.loads(Path('evidence/pct_e25g_provenance_bindings.json').read_text())
-          fresh = json.loads(Path('generated-e25gh/pct_e25g_provenance_bindings.json').read_text())
-
-          def walk(a, b, path='$'):
-              if type(a) is not type(b):
-                  print(f'{path}: TYPE {type(a).__name__} != {type(b).__name__}')
-                  return
-              if isinstance(a, dict):
-                  for key in sorted(set(a) | set(b)):
-                      if key not in a:
-                          print(f'{path}.{key}: MISSING_FROZEN fresh={b[key]!r}')
-                      elif key not in b:
-                          print(f'{path}.{key}: EXTRA_FROZEN frozen={a[key]!r}')
-                      else:
-                          walk(a[key], b[key], f'{path}.{key}')
-              elif isinstance(a, list):
-                  if len(a) != len(b):
-                      print(f'{path}: LENGTH {len(a)} != {len(b)}')
-                  for i, (x, y) in enumerate(zip(a, b)):
-                      walk(x, y, f'{path}[{i}]')
-              elif a != b:
-                  print(f'{path}: {a!r} != {b!r}')
-
-          walk(frozen, fresh)
-          PY
-          echo "Frozen blob:" && git hash-object evidence/pct_e25g_provenance_bindings.json
-          echo "Generated blob:" && git hash-object generated-e25gh/pct_e25g_provenance_bindings.json
       - name: Upload candidate E25G E25H evidence
         uses: actions/upload-artifact@v4
         with:
