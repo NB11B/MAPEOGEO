@@ -115,13 +115,25 @@ def test_blinded_alignment_benchmark_execution(tmp_path: Path):
 
 
 def test_tri_source_intake_pipeline(tmp_path: Path):
-    graph = {"nodes": [], "edges": []}
-    mock_decls = generate_mock_vmls_declarations()
+    base_graph_path = ROOT / "data" / "gallier_quaintance_graph_v0_3.json.gz"
+    if base_graph_path.exists():
+        from scripts.cross_source_intake_v0_12 import load_json_or_gz
+        graph = load_json_or_gz(base_graph_path)
+    else:
+        graph = {"nodes": [], "edges": []}
+    from scripts.import_gallier_v0_12 import ingest_gallier_declarations
+    graph = ingest_gallier_declarations(graph)
+    from scripts.import_axler_v0_12 import get_axler_declarations
+    from scripts.cross_source_intake_v0_12 import ingest_axler_declarations
+    axler_decls = get_axler_declarations()
+    graph = ingest_axler_declarations(graph, axler_decls)
 
     # Ingest VMLS
-    graph = ingest_vmls_declarations(graph, mock_decls)
+    from scripts.tri_source_intake_v0_13 import get_vmls_declarations
+    vmls_decls = get_vmls_declarations()
+    graph = ingest_vmls_declarations(graph, vmls_decls)
     vmls_nodes = [n for n in graph["nodes"] if n["id"].startswith("srcdecl:vmls:")]
-    assert len(vmls_nodes) == len(mock_decls)
+    assert len(vmls_nodes) == len(vmls_decls)
 
     # Ingest Tri-Source Alignments
     align_path = ROOT / "formal" / "tri_source_alignments_v0_13.json"

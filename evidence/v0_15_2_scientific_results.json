@@ -1,5 +1,5 @@
 {
-  "stage": "v0.15.1",
+  "stage": "v0.15.2",
   "N_source_total": 436,
   "source_breakdown": {
     "S_A_gallier": 36,
@@ -44,11 +44,11 @@
   },
   "N_formal_linked": 7,
   "edges_summary": {
-    "total_edges": 1709,
-    "SAME_SEMANTICS_bridges": 366,
+    "total_edges": 1710,
+    "SAME_SEMANTICS_bridges": 367,
     "SCOPED_OVERLAP_bridges": 108,
     "RELATED_TO_bridges": 6,
-    "total_cross_source_bridges": 480,
+    "total_cross_source_bridges": 481,
     "REPRESENTS": 338,
     "DEPENDS_ON": 363,
     "SOURCED_FROM": 451

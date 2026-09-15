@@ -255,26 +255,10 @@ def ingest_tri_source_alignments(
             elif status == "UNRESOLVED":
                 alignment_summary["unresolved"] += 1
 
-            # Ensure source declaration node exists in graph
+            # Fail-closed provenance check
             if src_id not in by_id:
-                label_parts = src_id.split(":")
-                kind = label_parts[1] if len(label_parts) > 2 else "declaration"
-                num = label_parts[2].replace("_", ".") if len(label_parts) > 2 else ""
-                src_id_attr = GALLIER_SOURCE_ID if corpus == "GALLIER" else (AXLER_SOURCE_ID if corpus == "AXLER" else VMLS_SOURCE_ID)
-                add_node(
-                    nodes,
-                    by_id,
-                    {
-                        "id": src_id,
-                        "type": "SOURCE_DECLARATION",
-                        "label": f"{corpus} {kind.capitalize()} {num}",
-                        "attributes": {
-                            "source_id": src_id_attr,
-                            "corpus": corpus,
-                            "direct_status": "EO_ONLY_DIRECT",
-                            "stage": STAGE,
-                        },
-                    },
+                raise ValueError(
+                    f"Fail-closed provenance error: Source declaration '{src_id}' referenced in canonical object '{cid}' ({corpus}) is not present in graph!"
                 )
 
             # REPRESENTS edge: Source Declaration -> Canonical Object

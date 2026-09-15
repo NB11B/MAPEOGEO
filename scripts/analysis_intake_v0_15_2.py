@@ -1,12 +1,17 @@
 #!/usr/bin/env python3
-"""MAPEOGEO v0.14 Convex Analysis and Optimization Expansion Runner.
+"""MAPEOGEO v0.15.2 Confirmatory Real Analysis and Differential Calculus Expansion Runner.
 
-Ingests Boyd & Vandenberghe's "Convex Optimization" (2004) as Source D (S_D) alongside
-Gallier-Quaintance (S_A), Sheldon Axler's LADR4e (S_B), and Boyd & Vandenberghe's VMLS (S_C),
-establishes the quad-source convergence ontology (Source Declarations -> Canonical Objects -> Views),
-evaluates the Representation Diversity Profile R(M) and richness r_bar, computes primary dashboard
-metrics (N_source, N_canonical, N_2-source, N_3-source, N_4-source, D_domains, r_bar),
-and emits scientific evidence artifacts.
+Confirmatory clean-room replay of the Real Analysis and Multivariable Differential Calculus
+Quad-Source Mathematics Expansion across Gallier (S_A), Axler (S_B), VMLS (S_C), and CVX (S_D)
+with strict fail-closed provenance, mutually exclusive source partitioning, and exact typed semantic bridges.
+
+Dashboard Metrics:
+- N_source_total: Total source declarations across S_A, S_B, S_C, S_D (disjoint partition)
+- N_canonical_total: Total canonical mathematical objects
+- N_2_source_bridges, N_3_source_bridges, N_4_source_bridges: Multi-source convergence
+- D_domains_count, domains_list: Distinct mathematical domains
+- representation_diversity: Average representation richness r_bar across 6 modalities
+- edges_summary: Exact typed semantic bridge counts (SAME_SEMANTICS, SCOPED_OVERLAP, RELATED_TO)
 """
 
 from __future__ import annotations
@@ -23,18 +28,24 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from scripts.import_cvx_v0_14 import (
-    DEFAULT_CACHE_PATH as DEFAULT_CVX_PDF,
+from scripts.import_analysis_v0_15 import (
     FORBIDDEN_PERSISTED_KEYS,
-    CvxDeclaration,
-    get_cvx_declarations,
+    AnalysisDeclaration,
+    generate_additional_analysis_declarations,
 )
 
-STAGE = "v0.14"
+STAGE = "v0.15.2"
 GALLIER_SOURCE_ID = "GALLIER_QUAINTANCE_2020"
 AXLER_SOURCE_ID = "AXLER_LADR4E_2026_08_16"
 VMLS_SOURCE_ID = "BOYD_VANDENBERGHE_VMLS_2018"
 CVX_SOURCE_ID = "BOYD_VANDENBERGHE_CVX_2004"
+
+VALID_SOURCE_IDS = {
+    GALLIER_SOURCE_ID,
+    AXLER_SOURCE_ID,
+    VMLS_SOURCE_ID,
+    CVX_SOURCE_ID,
+}
 
 
 def load_json_or_gz(path: Path) -> dict[str, Any]:
@@ -78,43 +89,24 @@ def add_edge(edges: list[dict], edge_ids: set[str], edge: dict) -> bool:
     return False
 
 
-def ingest_cvx_declarations(
+def ingest_analysis_declarations(
     graph: dict[str, Any],
-    declarations: list[CvxDeclaration],
+    declarations: list[AnalysisDeclaration],
 ) -> dict[str, Any]:
     nodes: list[dict] = graph.setdefault("nodes", [])
     edges: list[dict] = graph.setdefault("edges", [])
     by_id = {n["id"]: n for n in nodes}
     edge_ids = {e["id"] for e in edges if "id" in e}
 
-    # Register CVX source book container
-    cvx_book_id = "src:cvx_book"
-    add_node(
-        nodes,
-        by_id,
-        {
-            "id": cvx_book_id,
-            "type": "SOURCE",
-            "label": "Convex Optimization (Boyd & Vandenberghe, 2004)",
-            "attributes": {
-                "source_id": CVX_SOURCE_ID,
-                "authors": ["Stephen Boyd", "Lieven Vandenberghe"],
-                "publisher": "Cambridge University Press",
-                "year": 2004,
-                "url": "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf",
-                "stage": STAGE,
-            },
-        },
-    )
-
-    # Ingest individual CVX declarations
     for decl in declarations:
+        corpus = "GALLIER" if decl.source_id == GALLIER_SOURCE_ID else "CVX"
         node_dict = {
             "id": decl.node_id,
             "type": "SOURCE_DECLARATION",
             "label": decl.label,
             "attributes": {
                 "source_id": decl.source_id,
+                "corpus": corpus,
                 "decl_type": decl.decl_type,
                 "chapter_section": decl.chapter_section,
                 "page": decl.page,
@@ -131,54 +123,10 @@ def ingest_cvx_declarations(
         }
         add_node(nodes, by_id, node_dict)
 
-        # Connect to CVX book container
-        edge_id = f"e:src:{decl.node_id}:{cvx_book_id}"
-        add_edge(
-            edges,
-            edge_ids,
-            {
-                "id": edge_id,
-                "type": "SOURCED_FROM",
-                "source": decl.node_id,
-                "target": cvx_book_id,
-                "attributes": {
-                    "corpus": "CVX",
-                    "chapter_section": decl.chapter_section,
-                    "stage": STAGE,
-                },
-            },
-        )
-
-    # Establish internal structural dependency edges for CVX
-    cvx_node_map = {
-        d.node_id.split(":")[-1].replace("_", "."): d.node_id
-        for d in declarations
-    }
-    for decl in declarations:
-        for ref_num in decl.structural_refs:
-            if ref_num in cvx_node_map:
-                target_node_id = cvx_node_map[ref_num]
-                dep_edge_id = f"e:dep:{decl.node_id}:{target_node_id}"
-                add_edge(
-                    edges,
-                    edge_ids,
-                    {
-                        "id": dep_edge_id,
-                        "type": "DEPENDS_ON",
-                        "source": decl.node_id,
-                        "target": target_node_id,
-                        "attributes": {
-                            "corpus": "CVX",
-                            "reference_type": "STRUCTURAL_CITATION",
-                            "stage": STAGE,
-                        },
-                    },
-                )
-
     return graph
 
 
-def ingest_quad_source_alignments(
+def ingest_v0_15_2_alignments(
     graph: dict[str, Any],
     alignments_data: dict[str, Any],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
@@ -262,15 +210,26 @@ def ingest_quad_source_alignments(
 
             alignment_summary["total_alignments"] += 1
 
-            # Fail-closed provenance check: do not manufacture missing source declarations
+            # Fail-closed provenance check: verify source declaration node exists in graph
             if src_id not in by_id:
-                alignment_summary.setdefault("ungrounded_sources", []).append({
-                    "canonical_object": cid,
-                    "corpus": corpus,
-                    "source": src_id,
-                    "status": status,
-                })
-                continue
+                raise ValueError(
+                    f"Fail-closed provenance error: Source declaration '{src_id}' referenced in canonical object '{cid}' ({corpus}) is not present in graph!"
+                )
+
+            src_node = by_id[src_id]
+            src_attrs = src_node.get("attributes", {})
+            src_source_id = src_attrs.get("source_id", "")
+
+            # Verify corpus consistency
+            expected_source_id = (
+                GALLIER_SOURCE_ID if corpus == "GALLIER"
+                else (AXLER_SOURCE_ID if corpus == "AXLER"
+                      else (VMLS_SOURCE_ID if corpus == "VMLS" else CVX_SOURCE_ID))
+            )
+            if src_source_id != expected_source_id:
+                raise ValueError(
+                    f"Provenance mismatch for node '{src_id}': declared corpus is '{corpus}' (expected {expected_source_id}), but node has source_id '{src_source_id}'"
+                )
 
             if corpus == "AXLER":
                 alignment_summary["axler_alignments"] += 1
@@ -383,18 +342,36 @@ def ingest_quad_source_alignments(
     return graph, alignment_summary
 
 
-def compute_v0_14_metrics(graph: dict[str, Any], alignment_summary: dict[str, Any]) -> dict[str, Any]:
+def compute_v0_15_2_metrics(graph: dict[str, Any], alignment_summary: dict[str, Any]) -> dict[str, Any]:
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
 
     source_decls = [n for n in nodes if n.get("type") == "SOURCE_DECLARATION"]
     canonical_objs = [n for n in nodes if n.get("type") == "CANONICAL_OBJECT"]
 
+    # Strict disjoint partitioning by source_id
     gallier_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == GALLIER_SOURCE_ID]
     axler_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == AXLER_SOURCE_ID]
     vmls_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == VMLS_SOURCE_ID]
     cvx_decls = [n for n in source_decls if n.get("attributes", {}).get("source_id") == CVX_SOURCE_ID]
-    assert len(gallier_decls) + len(axler_decls) + len(vmls_decls) + len(cvx_decls) == len(source_decls), "Disjoint source partition violated"
+
+    # Verify disjoint partition completeness
+    total_partitioned = len(gallier_decls) + len(axler_decls) + len(vmls_decls) + len(cvx_decls)
+    if total_partitioned != len(source_decls):
+        raise ValueError(
+            f"Provenance integrity violation: disjoint partition sum ({total_partitioned}) != total source declarations ({len(source_decls)})"
+        )
+
+    # Verify ID namespace consistency
+    for n in source_decls:
+        nid = n.get("id", "")
+        sid = n.get("attributes", {}).get("source_id", "")
+        if sid == AXLER_SOURCE_ID:
+            assert "axler" in nid, f"Namespace error: Axler node '{nid}' does not contain 'axler'"
+        elif sid == VMLS_SOURCE_ID:
+            assert "vmls" in nid, f"Namespace error: VMLS node '{nid}' does not contain 'vmls'"
+        elif sid == CVX_SOURCE_ID:
+            assert "cvx" in nid, f"Namespace error: CVX node '{nid}' does not contain 'cvx'"
 
     eo_candidates = [n for n in source_decls if "EO" in n.get("attributes", {}).get("direct_status", "")]
     geo_candidates = [n for n in source_decls if "GEO" in n.get("attributes", {}).get("direct_status", "")]
@@ -456,48 +433,42 @@ def compute_v0_14_metrics(graph: dict[str, Any], alignment_summary: dict[str, An
     }
 
 
-def run_convex_intake(
+def run_analysis_intake_v0_15_2(
     base_graph_path: Path,
     alignments_path: Path,
     out_dir: Path,
-    pdf_path: Path | None = None,
-    use_mock: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
-    print(f"=== Running MAPEOGEO {STAGE} Convex Optimization Expansion ===")
+    print(f"=== Running MAPEOGEO {STAGE} Confirmatory Analysis Expansion ===")
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Load base graph (v0.13 tri-source graph)
+    # 1. Load base graph (v0.14 convex graph)
     print(f"Loading base graph from {base_graph_path}...")
     graph = load_json_or_gz(base_graph_path)
     print(f"Base graph loaded: {len(graph.get('nodes', []))} nodes, {len(graph.get('edges', []))} edges.")
 
-    # 2. Extract CVX declarations
-    print("Extracting Convex Optimization declarations...")
-    cvx_decls = get_cvx_declarations(pdf_path=pdf_path, use_mock=use_mock)
-    print(f"Extracted {len(cvx_decls)} CVX declarations.")
+    # 2. Extract and ingest analysis declarations
+    print("Ingesting Analysis and Differential Calculus declarations...")
+    analysis_decls = generate_additional_analysis_declarations()
+    graph = ingest_analysis_declarations(graph, analysis_decls)
 
-    # 3. Ingest CVX declarations into graph
-    print("Ingesting CVX declarations into graph...")
-    graph = ingest_cvx_declarations(graph, cvx_decls)
-
-    # 4. Load quad-source alignments
-    print(f"Loading quad-source alignments from {alignments_path}...")
+    # 3. Load v0.15 alignments
+    print(f"Loading alignments from {alignments_path}...")
     alignments_data = json.loads(alignments_path.read_text(encoding="utf-8"))
 
-    # 5. Ingest alignments & canonical objects
-    print("Ingesting quad-source canonical alignments...")
-    graph, alignment_summary = ingest_quad_source_alignments(graph, alignments_data)
+    # 4. Ingest alignments & canonical objects
+    print("Ingesting canonical objects and typed semantic bridge edges...")
+    graph, alignment_summary = ingest_v0_15_2_alignments(graph, alignments_data)
 
-    # 6. Compute metrics
-    metrics = compute_v0_14_metrics(graph, alignment_summary)
+    # 5. Compute metrics
+    metrics = compute_v0_15_2_metrics(graph, alignment_summary)
 
-    # 7. Save graph artifact
-    out_graph_gz = out_dir / "mapeogeo_v0_14_graph.json.gz"
+    # 6. Save graph artifact
+    out_graph_gz = out_dir / "mapeogeo_v0_15_2_graph.json.gz"
     print(f"Saving graph artifact to {out_graph_gz}...")
     save_graph_gz(graph, out_graph_gz)
 
-    # 8. Save dashboard & diversity reports
-    dashboard_path = out_dir / "convex_expansion_dashboard.json"
+    # 7. Save dashboard & diversity reports
+    dashboard_path = out_dir / "analysis_expansion_dashboard.json"
     diversity_report_path = out_dir / "representation_diversity_report.json"
     with open(dashboard_path, "w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
@@ -510,14 +481,14 @@ def run_convex_intake(
             "canonical_details": alignment_summary["canonical_details"],
         }, f, indent=2)
 
-    # 9. Save scientific evidence
+    # 8. Save scientific evidence
     evidence_dir = ROOT / "evidence"
     evidence_dir.mkdir(parents=True, exist_ok=True)
-    scientific_results_path = evidence_dir / "v0_14_scientific_results.json"
+    scientific_results_path = evidence_dir / "v0_15_2_scientific_results.json"
     with open(scientific_results_path, "w", encoding="utf-8") as f:
         json.dump(metrics, f, indent=2)
 
-    print(f"\n{STAGE} Ingestion Complete!")
+    print(f"\n{STAGE} Confirmatory Ingestion Complete!")
     print(f"  Total Source Declarations: {metrics['N_source_total']}")
     print(f"    - Gallier (S_A): {metrics['source_breakdown']['S_A_gallier']}")
     print(f"    - Axler (S_B):   {metrics['source_breakdown']['S_B_axler']}")
@@ -530,7 +501,7 @@ def run_convex_intake(
     print(f"  Distinct Domains:          {metrics['D_domains_count']} ({', '.join(metrics['domains_list'])})")
     print(f"  Avg Representation Richness r_bar: {metrics['representation_diversity']['average_richness_r_bar']}")
     print(f"  Candidate Views: EO={metrics['representation_views']['N_EO_candidates']}, GEO={metrics['representation_views']['N_GEO_candidates']}, Dual={metrics['representation_views']['N_DUAL_candidates']}")
-    print(f"  Formal Proof Linked:       {metrics['N_formal_linked']}")
+    print(f"  Formal Links Attached:     {metrics['N_formal_linked']}")
     print(f"  Total Graph Edges:         {metrics['edges_summary']['total_edges']}")
     print(f"    - SAME_SEMANTICS:        {metrics['edges_summary']['SAME_SEMANTICS_bridges']}")
     print(f"    - SCOPED_OVERLAP:        {metrics['edges_summary']['SCOPED_OVERLAP_bridges']}")
@@ -541,44 +512,31 @@ def run_convex_intake(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Run MAPEOGEO v0.14 Convex Optimization Expansion")
+    parser = argparse.ArgumentParser(description="Run MAPEOGEO v0.15.2 Confirmatory Analysis Expansion")
     parser.add_argument(
         "--base-graph",
         type=Path,
-        default=ROOT / "artifacts" / "tri_source_v0_13" / "mapeogeo_v0_13_graph.json.gz",
-        help="Path to base v0.13 graph",
+        default=ROOT / "artifacts" / "convex_v0_14" / "mapeogeo_v0_14_graph.json.gz",
+        help="Path to base v0.14 graph",
     )
     parser.add_argument(
         "--alignments",
         type=Path,
-        default=ROOT / "formal" / "convex_alignments_v0_14.json",
-        help="Path to quad-source convex alignments JSON",
+        default=ROOT / "formal" / "analysis_alignments_v0_15.json",
+        help="Path to analysis alignments JSON",
     )
     parser.add_argument(
         "--out-dir",
         type=Path,
-        default=ROOT / "artifacts" / "convex_v0_14",
-        help="Output directory for v0.14 artifacts",
-    )
-    parser.add_argument(
-        "--pdf-path",
-        type=Path,
-        default=DEFAULT_CVX_PDF,
-        help="Path to Convex Optimization PDF",
-    )
-    parser.add_argument(
-        "--mock",
-        action="store_true",
-        help="Use deterministic mock declarations instead of PDF",
+        default=ROOT / "artifacts" / "analysis_v0_15_2",
+        help="Output directory for v0.15.2 artifacts",
     )
     args = parser.parse_args()
 
-    run_convex_intake(
+    run_analysis_intake_v0_15_2(
         base_graph_path=args.base_graph,
         alignments_path=args.alignments,
         out_dir=args.out_dir,
-        pdf_path=args.pdf_path,
-        use_mock=args.mock,
     )
     return 0
 

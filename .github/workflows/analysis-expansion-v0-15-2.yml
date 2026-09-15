@@ -1,0 +1,96 @@
+name: MAPEOGEO v0.15.2 Confirmatory Real Analysis Expansion Replay
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, agent/math-expansion-v0-15-2]
+    paths:
+      - "formal/analysis_alignments_v0_15.json"
+      - "evidence/v0_15_2_preregistration.json"
+      - "evidence/v0_15_2_acceptance_manifest.json"
+      - "scripts/import_gallier_v0_12.py"
+      - "scripts/import_axler_v0_12.py"
+      - "scripts/import_vmls_v0_13.py"
+      - "scripts/import_cvx_v0_14.py"
+      - "scripts/import_analysis_v0_15.py"
+      - "scripts/analysis_intake_v0_15_2.py"
+      - "scripts/reconstruct_pipeline.py"
+      - "tests/test_analysis_expansion_v0_15_2.py"
+      - "tests/validate_analysis_expansion_v0_15_2.py"
+      - "docs/V0_15_2_CONFIRMATORY_SPEC.md"
+      - "docs/V0_15_2_CONFIRMATORY_REPORT.md"
+      - ".github/workflows/analysis-expansion-v0-15-2.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "formal/analysis_alignments_v0_15.json"
+      - "evidence/v0_15_2_preregistration.json"
+      - "evidence/v0_15_2_acceptance_manifest.json"
+      - "scripts/import_gallier_v0_12.py"
+      - "scripts/import_axler_v0_12.py"
+      - "scripts/import_vmls_v0_13.py"
+      - "scripts/import_cvx_v0_14.py"
+      - "scripts/import_analysis_v0_15.py"
+      - "scripts/analysis_intake_v0_15_2.py"
+      - "scripts/reconstruct_pipeline.py"
+      - "tests/test_analysis_expansion_v0_15_2.py"
+      - "tests/validate_analysis_expansion_v0_15_2.py"
+      - "docs/V0_15_2_CONFIRMATORY_SPEC.md"
+      - "docs/V0_15_2_CONFIRMATORY_REPORT.md"
+      - ".github/workflows/analysis-expansion-v0-15-2.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  confirmatory-analysis-expansion-v0-15-2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-map-goal-v0-7.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf pytest
+
+      - name: Python compilation checks
+        run: |
+          python -m py_compile scripts/import_gallier_v0_12.py
+          python -m py_compile scripts/import_axler_v0_12.py
+          python -m py_compile scripts/import_vmls_v0_13.py
+          python -m py_compile scripts/import_cvx_v0_14.py
+          python -m py_compile scripts/import_analysis_v0_15.py
+          python -m py_compile scripts/analysis_intake_v0_15_2.py
+          python -m py_compile scripts/reconstruct_pipeline.py
+          python -m py_compile tests/test_analysis_expansion_v0_15_2.py
+          python -m py_compile tests/validate_analysis_expansion_v0_15_2.py
+
+      - name: Reconstruct clean-room mathematical dependency chain
+        run: |
+          python scripts/reconstruct_pipeline.py --target-stage v0.15.2
+
+      - name: Run Pytest test suite
+        run: |
+          pytest tests/test_analysis_expansion_v0_15_2.py -v
+
+      - name: Validate v0.15.2 Artifacts and Preregistered Bounds
+        run: |
+          python tests/validate_analysis_expansion_v0_15_2.py \
+            --graph artifacts/analysis_v0_15_2/mapeogeo_v0_15_2_graph.json.gz \
+            --dashboard artifacts/analysis_v0_15_2/analysis_expansion_dashboard.json \
+            --prereg evidence/v0_15_2_preregistration.json
+
+      - name: Upload v0.15.2 Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-v0-15-2-analysis-expansion-artifacts
+          path: artifacts/analysis_v0_15_2/

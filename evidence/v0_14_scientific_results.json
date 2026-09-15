@@ -1,14 +1,14 @@
 {
   "stage": "v0.14",
-  "N_source_total": 411,
+  "N_source_total": 431,
   "source_breakdown": {
-    "S_A_gallier": 28,
-    "S_B_axler": 220,
+    "S_A_gallier": 32,
+    "S_B_axler": 235,
     "S_C_vmls": 81,
     "S_D_cvx": 83
   },
   "N_canonical_total": 71,
-  "N_2_source_bridges": 40,
+  "N_2_source_bridges": 43,
   "N_3_source_bridges": 29,
   "N_4_source_bridges": 11,
   "D_domains_count": 3,
@@ -37,19 +37,19 @@
     }
   },
   "representation_views": {
-    "N_EO_candidates": 256,
-    "N_GEO_candidates": 27,
-    "N_DUAL_candidates": 155
+    "N_EO_candidates": 275,
+    "N_GEO_candidates": 36,
+    "N_DUAL_candidates": 156
   },
   "N_formal_linked": 6,
   "edges_summary": {
-    "total_edges": 1421,
-    "SAME_SEMANTICS_bridges": 310,
-    "SCOPED_OVERLAP_bridges": 31,
+    "total_edges": 1486,
+    "SAME_SEMANTICS_bridges": 325,
+    "SCOPED_OVERLAP_bridges": 33,
     "RELATED_TO_bridges": 6,
-    "total_cross_source_bridges": 347,
-    "REPRESENTS": 232,
-    "DEPENDS_ON": 359,
-    "SOURCED_FROM": 402
+    "total_cross_source_bridges": 364,
+    "REPRESENTS": 231,
+    "DEPENDS_ON": 363,
+    "SOURCED_FROM": 451
   }
 }

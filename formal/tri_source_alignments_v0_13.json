@@ -9,9 +9,21 @@
       "domain": "Linear Algebra",
       "description": "Collection of objects closed under vector addition and scalar multiplication over a field",
       "alignments": [
-        {"source": "srcdecl:definition:2_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:1_20", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:1_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+        {
+          "source": "srcdecl:definition:2_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:1_20",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:1_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
+        }
       ]
     },
     {
@@ -20,9 +32,21 @@
       "domain": "Linear Algebra",
       "description": "Subset of a vector space closed under addition and scalar multiplication",
       "alignments": [
-        {"source": "srcdecl:definition:2_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:1_33", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:1_34", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:2_2",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:1_33",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:1_34",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -32,9 +56,21 @@
       "description": "Decomposition of vector space into independent subspaces with trivial pairwise intersection",
       "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
       "alignments": [
-        {"source": "srcdecl:proposition:4_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:1_41", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:1_45", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:proposition:4_4",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:1_41",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:1_45",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -43,9 +79,21 @@
       "domain": "Linear Algebra",
       "description": "Finite sum of vectors weighted by scalar coefficients",
       "alignments": [
-        {"source": "srcdecl:definition:3_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:2_2", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:2_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:3_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:2_2",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:2_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -54,10 +102,26 @@
       "domain": "Linear Algebra",
       "description": "Smallest subspace containing a given subset of vectors, consisting of all linear combinations",
       "alignments": [
-        {"source": "srcdecl:definition:3_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:2_4", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:2_6", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:2_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:3_2",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:2_4",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:2_6",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:2_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -66,9 +130,21 @@
       "domain": "Linear Algebra",
       "description": "Positive-definite symmetric bilinear form inducing geometry on vector spaces",
       "alignments": [
-        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:6_22", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:1_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:10_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:6_1",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:1_4",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -77,10 +153,26 @@
       "domain": "Linear Algebra",
       "description": "Square root of inner product of vector with itself, measuring length and separation",
       "alignments": [
-        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:6_22", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:3_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:3_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:10_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:6_7",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:3_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:3_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -89,9 +181,21 @@
       "domain": "Linear Algebra",
       "description": "|<u, v>| <= ||u|| * ||v|| with equality iff u and v are linearly dependent",
       "alignments": [
-        {"source": "srcdecl:proposition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:6_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:3_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:proposition:10_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:6_14",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:3_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -100,9 +204,21 @@
       "domain": "Linear Algebra",
       "description": "Vanishing inner product (<u, v> = 0) and cosine angle formulation",
       "alignments": [
-        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:6_22", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:3_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:10_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:6_10",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:3_3",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -112,11 +228,31 @@
       "description": "Property that no vector in a set can be written as a linear combination of the remaining vectors",
       "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
       "alignments": [
-        {"source": "srcdecl:proposition:3_13", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:lemma:3_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_RELATED_NOT_SAME"},
-        {"source": "srcdecl:axler:definition:2_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:2_19", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:5_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:proposition:3_13",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:lemma:3_6",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_RELATED_NOT_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:2_15",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:lemma:2_19",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:5_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -126,11 +262,31 @@
       "description": "Linearly independent spanning set providing unique coordinate representations for all vectors",
       "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
       "alignments": [
-        {"source": "srcdecl:proposition:3_14", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:proposition:3_15", "corpus": "GALLIER", "status": "CROSS_SOURCE_RELATED_NOT_SAME"},
-        {"source": "srcdecl:axler:definition:2_26", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:2_28", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:5_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:proposition:3_14",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:proposition:3_15",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_RELATED_NOT_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:2_26",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:2_28",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:5_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -140,8 +296,16 @@
       "description": "Every linearly independent set can be extended to a basis in a finite-dimensional space",
       "formal_decl": "MAPEOGEOFormal.theorem_3_7_basis_extension",
       "alignments": [
-        {"source": "srcdecl:theorem:3_7", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:2_32", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:theorem:3_7",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:2_32",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -150,21 +314,49 @@
       "domain": "Linear Algebra",
       "description": "Number of elements in any basis of a finite-dimensional vector space",
       "alignments": [
-        {"source": "srcdecl:definition:3_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:2_35", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:2_37", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:2_38", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:5_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:3_5",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:2_35",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:2_37",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:2_38",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:5_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
       "id": "canonical:linear_algebra:dimension_sum_formula",
       "name": "Subspace Dimension Sum Formula",
       "domain": "Linear Algebra",
-      "description": "dim(U1 + U2) = dim U1 + dim U2 - dim(U1 ∩ U2)",
+      "description": "dim(U1 + U2) = dim U1 + dim U2 - dim(U1 \u2229 U2)",
       "alignments": [
-        {"source": "srcdecl:proposition:4_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:2_43", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:proposition:4_5",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:2_43",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -173,10 +365,26 @@
       "domain": "Linear Algebra",
       "description": "Structure-preserving function between vector spaces over the same field",
       "alignments": [
-        {"source": "srcdecl:definition:5_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_1", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_5", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:6_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:5_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_1",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_5",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:6_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -185,11 +393,31 @@
       "domain": "Linear Algebra",
       "description": "Subspace of domain vectors mapped to zero by a linear map or matrix",
       "alignments": [
-        {"source": "srcdecl:definition:5_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_11", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:3_13", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:3_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:8_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:5_2",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_11",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:3_13",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:3_15",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:8_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -198,10 +426,26 @@
       "domain": "Linear Algebra",
       "description": "Subspace of codomain vectors attained by a linear map or span of matrix columns",
       "alignments": [
-        {"source": "srcdecl:definition:5_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_16", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:3_18", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:6_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:5_3",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_16",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:3_18",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:6_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -211,8 +455,16 @@
       "description": "dim V = dim null T + dim range T for any linear map T : V -> W on finite-dimensional V",
       "formal_decl": "MAPEOGEOFormal.theorem_6_16_rank_nullity",
       "alignments": [
-        {"source": "srcdecl:theorem:6_16", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:3_21", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:theorem:6_16",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:3_21",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -221,10 +473,26 @@
       "domain": "Linear Algebra",
       "description": "Matrix whose columns are coordinates of basis images under a linear map and composition of maps",
       "alignments": [
-        {"source": "srcdecl:definition:5_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_31", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:6_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:10_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:5_4",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_31",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:6_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:10_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -233,10 +501,26 @@
       "domain": "Linear Algebra",
       "description": "Unique matrix A^{-1} such that A * A^{-1} = A^{-1} * A = I for non-singular square matrices",
       "alignments": [
-        {"source": "srcdecl:definition:5_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_59", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:11_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:11_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:5_5",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_59",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:11_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:11_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -245,9 +529,21 @@
       "domain": "Linear Algebra",
       "description": "Bijective linear map between vector spaces establishing structural equivalence",
       "alignments": [
-        {"source": "srcdecl:definition:5_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_59", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_69", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:5_5",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_59",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_69",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -256,8 +552,16 @@
       "domain": "Linear Algebra",
       "description": "Two finite-dimensional vector spaces are isomorphic iff they have equal dimension",
       "alignments": [
-        {"source": "srcdecl:proposition:6_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:3_70", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:proposition:6_6",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:3_70",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -266,8 +570,16 @@
       "domain": "Linear Algebra",
       "description": "Vector space of affine cosets modulo a subspace",
       "alignments": [
-        {"source": "srcdecl:definition:4_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:3_99", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:4_6",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:3_99",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -276,9 +588,21 @@
       "domain": "Linear Algebra",
       "description": "Scalar lambda and non-zero vector v such that T(v) = lambda * v",
       "alignments": [
-        {"source": "srcdecl:definition:14_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:5_5", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:5_8", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:14_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:5_5",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:5_8",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -287,8 +611,16 @@
       "domain": "Linear Algebra",
       "description": "Eigenvectors corresponding to distinct eigenvalues are linearly independent",
       "alignments": [
-        {"source": "srcdecl:proposition:14_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:5_10", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:proposition:14_2",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:5_10",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -297,9 +629,21 @@
       "domain": "Linear Algebra",
       "description": "Operator possesses a basis consisting entirely of eigenvectors",
       "alignments": [
-        {"source": "srcdecl:definition:14_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:5_50", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:5_55", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:14_3",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:5_50",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:5_55",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -308,9 +652,21 @@
       "domain": "Linear Algebra",
       "description": "Basis of mutually orthogonal unit vectors in an inner product space",
       "alignments": [
-        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:6_27", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:5_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:10_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:6_27",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:5_3",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -319,9 +675,21 @@
       "domain": "Linear Algebra",
       "description": "Algorithm transforming a linearly independent set into an orthonormal set with identical spans",
       "alignments": [
-        {"source": "srcdecl:theorem:10_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:6_32", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:5_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:theorem:10_2",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:6_32",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:5_4",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -330,9 +698,21 @@
       "domain": "Linear Algebra",
       "description": "Subspace of all vectors orthogonal to every vector in a given subspace",
       "alignments": [
-        {"source": "srcdecl:definition:10_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:6_46", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:6_48", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:10_3",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:6_46",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:6_48",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -341,10 +721,26 @@
       "domain": "Linear Algebra",
       "description": "Idempotent self-adjoint linear map projecting onto a subspace along its orthogonal complement, minimizing distance",
       "alignments": [
-        {"source": "srcdecl:definition:10_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:6_55", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:6_57", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:12_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:10_4",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:6_55",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:6_57",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:12_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -353,12 +749,36 @@
       "domain": "Linear Algebra",
       "description": "Generalization of inverse for non-invertible or rectangular linear maps / matrices satisfying (A^T A)^{-1} A^T",
       "alignments": [
-        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-        {"source": "srcdecl:axler:definition:6_68", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:6_69", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:6_70", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:11_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:12_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:15_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
+        },
+        {
+          "source": "srcdecl:axler:definition:6_68",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:6_69",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:6_70",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:11_3",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:12_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -367,9 +787,21 @@
       "domain": "Applied Linear Algebra & Optimization",
       "description": "Decomposition of matrix A into orthogonal matrix Q and upper-triangular matrix R via Gram-Schmidt",
       "alignments": [
-        {"source": "srcdecl:theorem:10_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-        {"source": "srcdecl:vmls:section:5_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:11_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:theorem:10_2",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
+        },
+        {
+          "source": "srcdecl:vmls:section:5_4",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:11_4",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -378,8 +810,16 @@
       "domain": "Applied Linear Algebra & Optimization",
       "description": "Matrix of pairwise inner products G = A^T A, symmetric positive semi-definite",
       "alignments": [
-        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-        {"source": "srcdecl:vmls:section:5_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:10_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
+        },
+        {
+          "source": "srcdecl:vmls:section:5_3",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -388,8 +828,16 @@
       "domain": "Applied Linear Algebra & Optimization",
       "description": "Minimization of residual Euclidean norm squared ||A x - b||^2 over x",
       "alignments": [
-        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:12_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:15_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:12_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -398,8 +846,16 @@
       "domain": "Applied Linear Algebra & Optimization",
       "description": "Necessary and sufficient optimality condition A^T A x = A^T b for least squares",
       "alignments": [
-        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:12_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:15_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:12_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -408,9 +864,21 @@
       "domain": "Applied Linear Algebra & Optimization",
       "description": "Multi-objective least squares objective minimizing ||A x - b||^2 + lambda * ||x||^2",
       "alignments": [
-        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-        {"source": "srcdecl:vmls:section:15_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:15_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:15_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
+        },
+        {
+          "source": "srcdecl:vmls:section:15_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:15_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -419,8 +887,16 @@
       "domain": "Applied Linear Algebra & Optimization",
       "description": "Fitting linear parameter models to empirical measurement data via least-squares loss",
       "alignments": [
-        {"source": "srcdecl:vmls:section:13_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:vmls:section:13_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:vmls:section:13_1",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:vmls:section:13_2",
+          "corpus": "VMLS",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -429,9 +905,21 @@
       "domain": "Linear Algebra",
       "description": "Linear operator equal to its adjoint, having real eigenvalues and orthogonal eigenspaces",
       "alignments": [
-        {"source": "srcdecl:definition:16_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:definition:7_10", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:7_12", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+        {
+          "source": "srcdecl:definition:16_1",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:definition:7_10",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:7_12",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        }
       ]
     },
     {
@@ -441,9 +929,21 @@
       "description": "Orthogonal decomposition of a vector space into eigenspaces of a self-adjoint operator",
       "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
       "alignments": [
-        {"source": "srcdecl:theorem:27_10", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:7_29", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
-        {"source": "srcdecl:axler:theorem:7_31", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+        {
+          "source": "srcdecl:theorem:27_10",
+          "corpus": "GALLIER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:7_29",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SAME"
+        },
+        {
+          "source": "srcdecl:axler:theorem:7_31",
+          "corpus": "AXLER",
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
+        }
       ]
     }
   ]

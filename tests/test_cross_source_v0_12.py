@@ -119,13 +119,20 @@ def test_cross_source_alignments_schema():
 
 
 def test_cross_source_intake_pipeline(tmp_path: Path):
-    graph = {"nodes": [], "edges": []}
-    mock_decls = generate_mock_axler_declarations()
+    base_graph_path = ROOT / "data" / "gallier_quaintance_graph_v0_3.json.gz"
+    if base_graph_path.exists():
+        from scripts.cross_source_intake_v0_12 import load_json_or_gz
+        graph = load_json_or_gz(base_graph_path)
+    else:
+        graph = {"nodes": [], "edges": []}
+    from scripts.import_gallier_v0_12 import ingest_gallier_declarations
+    graph = ingest_gallier_declarations(graph)
+    decls = get_axler_declarations()
 
     # Ingest Axler
-    graph = ingest_axler_declarations(graph, mock_decls)
+    graph = ingest_axler_declarations(graph, decls)
     axler_nodes = [n for n in graph["nodes"] if n["id"].startswith("srcdecl:axler:")]
-    assert len(axler_nodes) == len(mock_decls)
+    assert len(axler_nodes) == len(decls)
 
     # Ingest Canonical Alignments
     align_path = ROOT / "formal" / "cross_source_alignments_v0_12.json"

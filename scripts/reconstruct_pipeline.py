@@ -6,7 +6,7 @@ Reconstructs the complete mathematical graph dependency chain from clean checkou
   -> v0.12 (Cross-Source: Axler LADR4e)
   -> v0.13 (Tri-Source: Boyd & Vandenberghe VMLS)
   -> v0.14 (Quad-Source: Boyd & Vandenberghe CVX)
-  -> v0.15.1 (Confirmatory Quad-Source: Real Analysis & Multivariable Differential Calculus)
+  -> v0.15.2 (Confirmatory Quad-Source: Real Analysis & Multivariable Differential Calculus)
 
 Ensures zero dependency on dirty local workspace artifacts and provides 100% clean-room reproducibility.
 """
@@ -39,7 +39,7 @@ def run_stage(name: str, cmd: list[str]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain from scratch")
-    parser.add_argument("--target-stage", choices=["v0.12", "v0.13", "v0.14", "v0.15.1"], default="v0.15.1")
+    parser.add_argument("--target-stage", choices=["v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2"], default="v0.15.2")
     args = parser.parse_args()
 
     print("==========================================================")
@@ -72,10 +72,17 @@ def main() -> int:
     if args.target_stage == "v0.14":
         return 0
 
-    # Stage v0.15.1
+    if args.target_stage == "v0.15.1":
+        run_stage(
+            "v0.15.1 Confirmatory Real Analysis & Calculus Expansion",
+            [sys.executable, str(ROOT / "scripts" / "analysis_intake_v0_15_1.py")]
+        )
+        return 0
+
+    # Stage v0.15.2
     run_stage(
-        "v0.15.1 Confirmatory Real Analysis & Calculus Expansion",
-        [sys.executable, str(ROOT / "scripts" / "analysis_intake_v0_15_1.py")]
+        "v0.15.2 Confirmatory Real Analysis & Calculus Expansion",
+        [sys.executable, str(ROOT / "scripts" / "analysis_intake_v0_15_2.py")]
     )
 
     total_time = time.time() - t_start
