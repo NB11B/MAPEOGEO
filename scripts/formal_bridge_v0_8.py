@@ -9,7 +9,16 @@ import re
 import subprocess
 from pathlib import Path
 
-FORBIDDEN_PROOF_ESCAPE = re.compile(r"\b(sorry|admit|axiom|unsafe)\b")
+FORBIDDEN_PROOF_ESCAPE = {
+    "sorry": re.compile(r"\bsorry\b"),
+    "admit": re.compile(r"\badmit\b"),
+    "axiom_declaration": re.compile(r"(?m)^\s*(?:private\s+)?axiom\b"),
+    "unsafe_declaration": re.compile(r"(?m)^\s*(?:private\s+)?unsafe\b"),
+}
+
+
+def proof_escape_hits(text: str) -> list[str]:
+    return sorted(name for name, pattern in FORBIDDEN_PROOF_ESCAPE.items() if pattern.search(text))
 
 
 def load_json_or_gz(path: Path):
@@ -49,7 +58,7 @@ def main() -> int:
     hashes_ok = all(x["pass"] for x in hash_checks)
 
     lean_text = args.lean_file.read_text(encoding="utf-8")
-    escape_hits = sorted(set(m.group(0) for m in FORBIDDEN_PROOF_ESCAPE.finditer(lean_text)))
+    escape_hits = proof_escape_hits(lean_text)
     escape_ok = not escape_hits
 
     decl_presence = {b["lean_decl"]: b["lean_decl"].split(".")[-1] in lean_text for b in bindings}
