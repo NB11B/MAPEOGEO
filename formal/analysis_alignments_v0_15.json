@@ -1,0 +1,1033 @@
+{
+  "schema_version": "0.15",
+  "stage": "v0.15",
+  "description": "Canonical mathematical object definitions, representation diversity profiles R(M), and cross-source alignments across Gallier (S_A), Axler (S_B), VMLS (S_C), and Boyd & Vandenberghe Convex Optimization (S_D) for Differential Calculus and Real Analysis Expansion",
+  "canonical_objects": [
+    {
+      "id": "canonical:linear_algebra:vector_space",
+      "name": "Vector Space / Vector Representation",
+      "domain": "Linear Algebra",
+      "description": "Collection of objects closed under vector addition and scalar multiplication over a field",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:2_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:1_20", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:1_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:subspace",
+      "name": "Subspace",
+      "domain": "Linear Algebra",
+      "description": "Subset of a vector space closed under addition and scalar multiplication",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:2_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:1_33", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:1_34", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:direct_sum",
+      "name": "Internal Direct Sum of Subspaces",
+      "domain": "Linear Algebra",
+      "description": "Decomposition of vector space into independent subspaces with trivial pairwise intersection",
+      "representation_kinds": ["abstract", "algebraic", "formal"],
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "alignments": [
+        {"source": "srcdecl:proposition:4_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:1_41", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:1_45", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:linear_combination",
+      "name": "Linear Combination",
+      "domain": "Linear Algebra",
+      "description": "Finite sum of vectors weighted by scalar coefficients",
+      "representation_kinds": ["algebraic", "computational", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:3_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_2", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:2_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:span",
+      "name": "Linear Span / Set of Linear Combinations",
+      "domain": "Linear Algebra",
+      "description": "Set of all linear combinations of a subset of vectors",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:3_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_4", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:5_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:linear_independence",
+      "name": "Linear Independence",
+      "domain": "Linear Algebra",
+      "description": "Family of vectors whose only vanishing linear combination has all zero coefficients",
+      "representation_kinds": ["abstract", "algebraic", "computational", "formal"],
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "alignments": [
+        {"source": "srcdecl:proposition:3_13", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:lemma:3_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_RELATED_NOT_SAME"},
+        {"source": "srcdecl:axler:theorem:2_19", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:5_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:basis",
+      "name": "Basis of Vector Space",
+      "domain": "Linear Algebra",
+      "description": "Linearly independent spanning set of a vector space",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational", "formal"],
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "alignments": [
+        {"source": "srcdecl:proposition:3_14", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_26", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:5_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:dimension",
+      "name": "Dimension of Vector Space",
+      "domain": "Linear Algebra",
+      "description": "Invariant cardinality of any basis for a finite-dimensional vector space",
+      "representation_kinds": ["abstract", "algebraic"],
+      "alignments": [
+        {"source": "srcdecl:definition:3_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_35", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_34", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:5_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:linear_map",
+      "name": "Linear Map / Homomorphism",
+      "domain": "Linear Algebra",
+      "description": "Structure-preserving function between vector spaces over the same field",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:5_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_1", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:2_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:null_space",
+      "name": "Null Space / Kernel of Linear Map",
+      "domain": "Linear Algebra",
+      "description": "Subspace of domain vectors mapped to zero by a linear transformation",
+      "representation_kinds": ["abstract", "algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:5_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_11", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_13", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:8_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:range",
+      "name": "Range / Image of Linear Map",
+      "domain": "Linear Algebra",
+      "description": "Subspace of codomain vectors reachable by a linear map",
+      "representation_kinds": ["abstract", "algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:5_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_16", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_18", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:6_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:rank_nullity_theorem",
+      "name": "Fundamental Theorem of Linear Maps / Rank-Nullity",
+      "domain": "Linear Algebra",
+      "description": "dim(V) = dim(null T) + dim(range T) for linear map T on finite-dimensional V",
+      "representation_kinds": ["abstract", "algebraic", "computational", "formal"],
+      "alignments": [
+        {"source": "srcdecl:theorem:6_16", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_21", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:8_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:matrix_representation",
+      "name": "Matrix Representation of Linear Map",
+      "domain": "Linear Algebra",
+      "description": "Isomorphism between linear maps between finite-dimensional spaces and matrix spaces",
+      "representation_kinds": ["algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:5_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_31", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:6_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:1_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:matrix_multiplication",
+      "name": "Matrix Multiplication as Composition",
+      "domain": "Linear Algebra",
+      "description": "Matrix product corresponding to composition of linear maps",
+      "representation_kinds": ["algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:5_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_40", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_42", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:10_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:invertibility",
+      "name": "Invertible Linear Map / Isomorphism",
+      "domain": "Linear Algebra",
+      "description": "Bijective linear map with two-sided linear inverse",
+      "representation_kinds": ["abstract", "algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:proposition:6_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_59", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_60", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:11_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:11_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:inner_product",
+      "name": "Inner Product / Dot Product",
+      "domain": "Linear Algebra",
+      "description": "Positive-definite symmetric/conjugate-symmetric bilinear/sesquilinear form",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_1", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:1_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:norm_and_distance",
+      "name": "Norm and Metric Distance",
+      "domain": "Linear Algebra",
+      "description": "Positive homogeneous subadditive length metric induced by inner product or general norm",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_8", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:3_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:3_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:cauchy_schwarz",
+      "name": "Cauchy-Schwarz Inequality",
+      "domain": "Linear Algebra",
+      "description": "|<u, v>| <= ||u|| ||v|| for all vectors in an inner product space",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "formal"],
+      "formal_decl": "MAPEOGEOFormal.cauchy_schwarz_v011",
+      "alignments": [
+        {"source": "srcdecl:proposition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:3_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:orthogonality",
+      "name": "Orthogonality and Orthogonal Complements",
+      "domain": "Linear Algebra",
+      "description": "Zero inner product condition <u, v> = 0 and subspace orthogonal complement U_perp",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_12", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_45", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:3_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_5", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:orthonormal_basis",
+      "name": "Orthonormal Basis",
+      "domain": "Linear Algebra",
+      "description": "Basis consisting of mutually orthogonal unit vectors",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_23", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:5_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:gram_schmidt",
+      "name": "Gram-Schmidt Orthogonalization Procedure",
+      "domain": "Linear Algebra",
+      "description": "Algorithmic conversion of linearly independent list into orthonormal list with same spans",
+      "representation_kinds": ["algebraic", "computational", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:theorem:10_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_26", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:5_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:orthogonal_projection",
+      "name": "Orthogonal Projection onto Subspaces / Sets",
+      "domain": "Linear Algebra",
+      "description": "Idempotent self-adjoint linear operator minimizing distance to a subspace or convex set",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational", "applied", "formal"],
+      "formal_decl": "MAPEOGEOFormal.orthogonal_projection_idempotent_v011",
+      "alignments": [
+        {"source": "srcdecl:definition:10_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_53", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_55", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:12_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:8_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:gram_matrix",
+      "name": "Gram Matrix / Inner Product Matrix",
+      "domain": "Linear Algebra",
+      "description": "Matrix G_ij = <vi, vj> of pairwise inner products, symmetric positive semidefinite",
+      "representation_kinds": ["algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:5_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:qr_factorization",
+      "name": "QR Factorization / Decomposition",
+      "domain": "Linear Algebra",
+      "description": "Decomposition A = Q R into orthogonal/unitary Q and upper-triangular R",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:theorem:10_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:axler:theorem:6_32", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:vmls:section:5_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:11_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:positive_semidefinite_cone",
+      "name": "Positive Semidefinite Matrices and Operators",
+      "domain": "Linear Algebra",
+      "description": "Self-adjoint operators T satisfying <T v, v> >= 0 for all v; convex cone S_+^n",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:16_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:7_10", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:7_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:15_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:spectral_theorem",
+      "name": "Spectral Theorem for Self-Adjoint Operators",
+      "domain": "Linear Algebra",
+      "description": "Orthogonal diagonalization of self-adjoint operators into real eigenspaces",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational", "formal"],
+      "formal_decl": "MAPEOGEOFormal.spectral_theorem_v011",
+      "alignments": [
+        {"source": "srcdecl:theorem:27_10", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:7_22", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+
+    {
+      "id": "canonical:analysis:metric_space_normed_vector_space",
+      "name": "Metric Space and Normed Vector Space",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Vector space equipped with a norm ||x|| inducing a metric topology d(x, y) = ||x - y||",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_8", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:3_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:analysis:open_closed_sets",
+      "name": "Open Sets, Closed Sets, and Metric Topology",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Subsets characterized by metric balls B(x, r): open sets containing balls around every point; closed sets containing limit points",
+      "representation_kinds": ["abstract", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:analysis:continuity_and_limits",
+      "name": "Continuity and Limits in Normed Spaces",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Epsilon-delta characterization of continuous mappings between normed vector spaces: ||f(x) - f(x0)|| -> 0 as ||x - x0|| -> 0",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:analysis:bounded_linear_operators",
+      "name": "Bounded Linear Operators and Operator Norm",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Continuous linear maps T: V -> W between normed spaces with finite operator norm ||T||_op = sup_{||x||<=1} ||T(x)||",
+      "representation_kinds": ["abstract", "algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:axler:definition:3_1", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:vmls:section:6_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:frechet_derivative",
+      "name": "Fréchet Derivative / Total Derivative",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Unique bounded linear map Df(x): V -> W satisfying lim_{||h||->0} ||f(x+h) - f(x) - Df(x)(h)|| / ||h|| = 0",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:axler:definition:3_1", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:directional_gateaux_derivative",
+      "name": "Directional and Gâteaux Derivative",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Rate of change of f along vector v: grad_v f(x) = lim_{t->0} (f(x + t v) - f(x)) / t = Df(x)(v)",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:gradient_vector",
+      "name": "Gradient Vector and Riesz Dual Representation",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Unique vector grad f(x) in inner product space satisfying <grad f(x), v> = Df(x)(v) for all directions v",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:axler:definition:6_1", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:vmls:section:2_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:jacobian_matrix",
+      "name": "Jacobian Matrix",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Matrix J_f(x) in R^{m x n} of partial derivatives [del fi / del xj] representing the Fréchet derivative Df(x) in standard bases",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:5_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:axler:definition:3_31", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:vmls:section:6_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:multivariable_chain_rule",
+      "name": "Multivariable Chain Rule",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Derivative of composition: D(g o f)(x) = Dg(f(x)) o Df(x), represented by matrix multiplication J_{g o f}(x) = J_g(f(x)) J_f(x)",
+      "representation_kinds": ["abstract", "algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:5_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:axler:definition:3_40", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:mean_value_theorem",
+      "name": "Mean Value Inequality and Lipschitz Continuity",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "||f(y) - f(x)|| <= sup_{t in [0,1]} ||Df(x + t(y-x))||_op ||y - x||, guaranteeing L-Lipschitz continuity for bounded derivatives",
+      "representation_kinds": ["abstract", "algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:higher_order_derivatives",
+      "name": "Higher-Order Fréchet Derivatives",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Second Fréchet derivative D^2 f(x) as a continuous symmetric bilinear map V x V -> R",
+      "representation_kinds": ["abstract", "algebraic"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:hessian_matrix",
+      "name": "Hessian Matrix",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Symmetric n x n matrix grad^2 f(x) = [del^2 f / del xi del xj] representing the second Fréchet derivative as a quadratic form",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:schwarz_theorem_mixed_partials",
+      "name": "Schwarz Theorem / Symmetry of Mixed Partial Derivatives",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Equality of mixed partial derivatives del^2 f / del xi del xj = del^2 f / del xj del xi for C^2 functions, ensuring Hessian symmetry",
+      "representation_kinds": ["abstract", "algebraic"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:taylor_expansion_first_second_order",
+      "name": "Multivariable Taylor Approximations",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "First-order f(x+h) approx f(x) + grad f(x)^T h and second-order f(x+h) approx f(x) + grad f(x)^T h + (1/2) h^T grad^2 f(x) h",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:2_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:fermat_critical_point_condition",
+      "name": "Fermat's Critical Point Condition",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "First-order necessary condition for interior local extrema: grad f(x*) = 0",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:12_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:4_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:5_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:second_order_optimality_conditions",
+      "name": "Second-Order Optimality Conditions",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Local minimum implies grad^2 f(x*) >= 0 (necessary); grad f(x*) = 0 and grad^2 f(x*) > 0 implies strict local minimum (sufficient)",
+      "representation_kinds": ["algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:16_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:axler:definition:7_10", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:4_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:saddle_point_classification",
+      "name": "Saddle Point and Extrema Classification",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "Classification of critical points via Hessian eigenvalues: positive definite (minimum), negative definite (maximum), indefinite (saddle)",
+      "representation_kinds": ["algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:5_4", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    },
+    {
+      "id": "canonical:calculus:lagrange_multipliers_equality_constraints",
+      "name": "Lagrange Multiplier Rule for Constrained Extrema",
+      "domain": "Differential Calculus & Real Analysis",
+      "description": "First-order optimality for equality constraints: grad f(x*) + sum nu_i grad h_i(x*) = 0",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:16_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:5_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:5_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:subgradient_subdifferential",
+      "name": "Subgradient and Subdifferential",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Vector g satisfying f(y) >= f(x) + g^T (y-x) for non-smooth convex function f; subdifferential del f(x) is closed convex set",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:5_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+
+    {
+      "id": "canonical:convex:affine_set",
+      "name": "Affine Set and Affine Hull",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Set containing the line through any two distinct points in the set",
+      "representation_kinds": ["abstract", "geometric", "algebraic"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:8_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:convex_set",
+      "name": "Convex Set and Convex Combination",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Set containing line segment between any two points: theta x + (1-theta) y in C for 0 <= theta <= 1",
+      "representation_kinds": ["abstract", "geometric", "algebraic"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:hyperplane_halfspace",
+      "name": "Hyperplanes and Halfspaces",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Hyperplane {x | a^T x = b} and halfspace {x | a^T x <= b} for nonzero vector a",
+      "representation_kinds": ["algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:7_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:euclidean_ball_ellipsoid",
+      "name": "Euclidean Balls and Ellipsoids",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Ball B(xc, r) = {x | ||x - xc|| <= r} and ellipsoid E = {x | (x - xc)^T P^{-1} (x - xc) <= 1}",
+      "representation_kinds": ["algebraic", "geometric", "applied"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:3_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:norm_cone",
+      "name": "Norm Balls and Norm Cones",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Cone {(x, t) | ||x|| <= t} in R^{n+1}, called second-order cone or Lorentz cone for l2-norm",
+      "representation_kinds": ["algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:polyhedron",
+      "name": "Polyhedra and Simplices",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Intersection of finite number of halfspaces and hyperplanes: {x | A x <= b, C x = d}",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:psd_cone",
+      "name": "Positive Semidefinite Cone",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Convex cone S_+^n of symmetric positive semidefinite n x n matrices",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:16_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:axler:definition:7_10", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:2_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:convex_preserving_operations",
+      "name": "Convexity Preserving Set Operations",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Operations that preserve convexity: intersection, affine functions, perspective, and linear-fractional functions",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:2_3", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:proper_cone_generalized_inequality",
+      "name": "Proper Cones and Generalized Inequalities",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Partial ordering x <=_K y defined by a convex, closed, solid, pointed cone K",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:2_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:separating_hyperplane_theorem",
+      "name": "Separating Hyperplane Theorem",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Two disjoint convex sets can be separated by a hyperplane: a^T x <= b for all x in C and a^T x >= b for all x in D",
+      "representation_kinds": ["abstract", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:2_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:supporting_hyperplane_theorem",
+      "name": "Supporting Hyperplane Theorem",
+      "domain": "Convex Analysis & Optimization",
+      "description": "For any boundary point x0 of a convex set C, there exists a supporting hyperplane containing x0",
+      "representation_kinds": ["abstract", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:2_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:dual_cone",
+      "name": "Dual Cones and Dual Generalized Inequalities",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Dual cone K* = {y | x^T y >= 0 for all x in K}, self-dual for nonnegative orthant and PSD cone",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:2_6", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:convex_function",
+      "name": "Convex Function and First-Order Condition",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Function f where f(lambda x + (1-lambda) y) <= lambda f(x) + (1-lambda) f(y), with f(y) >= f(x) + grad f(x)^T (y-x)",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:second_order_convexity",
+      "name": "Second-Order Convexity Condition",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Twice differentiable function f is convex iff its Hessian is positive semidefinite: grad^2 f(x) >= 0",
+      "representation_kinds": ["algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:epigraph",
+      "name": "Epigraph and Sublevel Sets",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Epigraph epi f = {(x, t) | f(x) <= t} is a convex set iff f is a convex function",
+      "representation_kinds": ["abstract", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:operations_preserving_function_convexity",
+      "name": "Operations Preserving Function Convexity",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Nonnegative weighted sums, composition with affine mapping, pointwise maximum and supremum",
+      "representation_kinds": ["abstract", "algebraic", "computational"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:fenchel_conjugate",
+      "name": "Fenchel Conjugate Function",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Convex conjugate f*(y) = sup_{x in dom f} (y^T x - f(x)), always convex and satisfies Fenchel-Young inequality",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_3", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:convex:quasiconvex_function",
+      "name": "Quasiconvex and Log-Convex Functions",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Functions with convex sublevel sets {x | f(x) <= alpha} or log f(x) convex",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:3_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:standard_convex_problem",
+      "name": "Standard Convex Optimization Problem",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Minimization of convex objective f0(x) subject to convex inequality constraints fi(x) <= 0 and affine equality constraints Ax = b",
+      "representation_kinds": ["abstract", "algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:4_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:4_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:linear_program",
+      "name": "Linear Programming (LP)",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Convex optimization with affine objective c^T x and polyhedral constraints G x <= h, A x = b",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:4_3", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:convex_quadratic_program",
+      "name": "Quadratic Programming (QP)",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Minimization of convex quadratic objective (1/2) x^T P x + q^T x subject to affine constraints",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:12_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:4_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:qcqp",
+      "name": "Quadratically Constrained Quadratic Programming (QCQP)",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Convex optimization with quadratic objective and convex quadratic inequality constraints",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:4_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:second_order_cone_program",
+      "name": "Second-Order Cone Programming (SOCP)",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Linear objective minimized subject to second-order cone constraints ||Ai x + bi|| <= ci^T x + di",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:4_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:semidefinite_program",
+      "name": "Semidefinite Programming (SDP)",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Linear objective minimized subject to linear matrix inequality (LMI) constraints x1 F1 + ... + xn Fn <= G",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:4_6", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:lagrangian_dual_function",
+      "name": "Lagrangian and Lagrange Dual Function",
+      "domain": "Convex Analysis & Optimization",
+      "description": "L(x, lambda, nu) = f0(x) + sum lambda_i fi(x) + sum nu_i hi(x) and g(lambda, nu) = inf_x L(x, lambda, nu)",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:5_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:weak_strong_duality",
+      "name": "Weak and Strong Duality",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Weak duality d* <= p* always holds; strong duality d* = p* holds under constraint qualifications",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:5_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:slaters_condition",
+      "name": "Slater's Constraint Qualification",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Existence of strictly feasible point x in relint D satisfying fi(x) < 0 guarantees strong duality",
+      "representation_kinds": ["abstract", "algebraic", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:5_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:kkt_conditions",
+      "name": "Karush-Kuhn-Tucker (KKT) Conditions",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Primal feasibility, dual feasibility, complementary slackness lambda_i fi(x*) = 0, and gradient of Lagrangian vanishing",
+      "representation_kinds": ["abstract", "algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:5_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:least_squares_problem",
+      "name": "Linear Least Squares Problem",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Minimization of residual Euclidean norm squared ||A x - b||^2 over x",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:12_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:6_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:normal_equations",
+      "name": "Normal Equations",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Necessary and sufficient optimality condition A^T A x = A^T b for linear least squares",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:12_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:6_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:regularized_least_squares",
+      "name": "Regularized Least Squares and Tikhonov Regularization",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Minimization of ||A x - b||^2 + delta ||x||^2 yielding solution (A^T A + delta I)^{-1} A^T b",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:15_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:6_3", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:constrained_least_squares",
+      "name": "Constrained Least Squares Problem",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Minimization of ||A x - b||^2 subject to C x = d via KKT system [2 A^T A, C^T; C, 0] [x; nu] = [2 A^T b; d]",
+      "representation_kinds": ["algebraic", "computational", "applied", "geometric"],
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:vmls:section:16_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:4_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:robust_approximation",
+      "name": "Robust Approximation and Estimation",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Worst-case error minimization sup_{u in U} ||A(u) x - b(u)|| over uncertainty sets U",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:6_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:projection_convex_set",
+      "name": "Projection onto a Convex Set",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Unique nearest point P_C(x) in closed convex set C satisfying (x - P_C(x))^T (y - P_C(x)) <= 0 for all y in C",
+      "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:definition:10_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:axler:definition:6_53", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:vmls:section:12_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:cvx:section:8_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:distance_between_sets",
+      "name": "Distance Between Convex Sets and Separation",
+      "domain": "Convex Analysis & Optimization",
+      "description": "dist(C, D) = inf{||x - y|| | x in C, y in D}, computed as convex quadratic problem with separating hyperplane (x* - y*)^T z = c",
+      "representation_kinds": ["algebraic", "geometric", "computational"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:8_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:loewner_john_ellipsoid",
+      "name": "Extremal Volume Ellipsoids (Loewner-John)",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Minimum volume enclosing ellipsoid and maximum volume inscribed ellipsoid for convex bodies",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:8_4", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:analytic_center",
+      "name": "Analytic Centering and Barrier Functions",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Point maximizing log barrier sum log(-fi(x)) over a bounded polyhedron or convex set",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:8_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:linear_classification_hyperplane",
+      "name": "Linear Classification via Separating Hyperplanes",
+      "domain": "Applied Linear Algebra",
+      "description": "Finding separating hyperplane a^T x + b = 0 for two point clusters via LP, QP, or Support Vector Machines",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:vmls:section:14_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:8_6", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:unconstrained_descent_method",
+      "name": "Descent Methods for Unconstrained Minimization",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Iterative scheme x^{(k+1)} = x^{(k)} + t^{(k)} Delta x^{(k)} with descent direction grad f(x)^T Delta x < 0",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:9_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:gradient_descent_method",
+      "name": "Gradient Descent Method",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Descent algorithm choosing step direction Delta x_sd = -grad f(x) with backtracking line search",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:9_3", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:newtons_method_optimization",
+      "name": "Newton's Method for Optimization",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Second-order descent algorithm with Newton step Delta x_nt = -(grad^2 f(x))^{-1} grad f(x) and Newton decrement lambda(x)",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:9_5", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:equality_constrained_newton",
+      "name": "Newton's Method with Equality Constraints",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Newton step for equality constrained minimization solving KKT system [grad^2 f(x), A^T; A, 0] [Delta x_nt; w] = [-grad f(x); 0]",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:10_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:barrier_method_interior_point",
+      "name": "Logarithmic Barrier Method and Central Path",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Interior-point algorithm solving sequence of equality constrained problems with barrier objective t f0(x) + phi(x) as t -> infty",
+      "representation_kinds": ["algebraic", "geometric", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:11_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:cvx:section:11_3", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:optimization:primal_dual_interior_point",
+      "name": "Primal-Dual Interior-Point Methods",
+      "domain": "Convex Analysis & Optimization",
+      "description": "Simultaneous update of primal and dual variables along modified Newton directions with duality gap stopping criterion",
+      "representation_kinds": ["algebraic", "computational", "applied"],
+      "alignments": [
+        {"source": "srcdecl:cvx:section:11_7", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+      ]
+    }
+  ]
+}

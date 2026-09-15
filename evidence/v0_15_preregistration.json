@@ -1,0 +1,44 @@
+{
+  "stage": "v0.15",
+  "preregistration_id": "MAPEOGEO-V0.15-PREREG",
+  "objective": "Real Analysis and Multivariable Differential Calculus Expansion connecting linear maps, Fréchet derivatives, gradients, Jacobians, Hessians, and convex optimization",
+  "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
+  "canonical_spine": "Linear Maps L(V, W) -> Fréchet Derivatives Df(x) -> Gradients grad f(x) -> Hessians grad^2 f(x) -> Convexity grad^2 f(x) >= 0 -> Optimization",
+  "representation_diversity_modalities": [
+    "abstract",
+    "algebraic",
+    "geometric",
+    "computational",
+    "formal",
+    "applied"
+  ],
+  "sources": {
+    "source_a": {
+      "source_id": "GALLIER_QUAINTANCE_2020",
+      "scope": "Chapters 1-16, 27, 37, 39, 40, 41 (Topology, Differential Calculus, Extrema, Newton's Method)"
+    },
+    "source_b": {
+      "source_id": "AXLER_LADR4E_2026_08_16",
+      "scope": "Chapters 1-3, 5-7 (Vector spaces, Linear maps, Dual spaces, Inner product spaces, Self-adjoint operators)"
+    },
+    "source_c": {
+      "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+      "scope": "Chapters 1-16 (Vectors, Matrices, Linear functions, Taylor approximations, Least squares optimality)"
+    },
+    "source_d": {
+      "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+      "scope": "Appendix A.4, Chapters 2-6, 8-11 (Derivatives, Gradients, Hessians, Chain rule, Convexity conditions, Optimality)"
+    }
+  },
+  "preregistered_bounds": {
+    "min_total_source_declarations": 400,
+    "min_canonical_objects": 85,
+    "min_two_source_supported": 45,
+    "min_three_source_supported": 30,
+    "min_four_source_supported": 8,
+    "min_domains": 4,
+    "min_average_representation_richness": 2.75,
+    "min_formal_proof_linked": 6,
+    "zero_prose_policy": true
+  }
+}
