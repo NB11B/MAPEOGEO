@@ -78,3 +78,21 @@ def test_all_v011_target_contracts_execute_cleanly():
         elif target["s3_test_state"] == "EXECUTABLE_CONTRACT":
             assert res.verdict == "PASS"
             assert res.measured.get("all_checks_passed") is True
+
+
+def test_negative_escape_hatch_detection():
+    assert proof_escape_hits("lemma foo : 1 = 1 := by sorry") == ["sorry"]
+    assert proof_escape_hits("lemma bar : 1 = 1 := by admit") == ["admit"]
+    assert proof_escape_hits("axiom bad_axiom : False") == ["axiom_declaration"]
+    assert proof_escape_hits("unsafe def bad_fn : Nat := 0") == ["unsafe_declaration"]
+    assert proof_escape_hits("theorem good : 1 = 1 := rfl") == []
+
+
+def test_negative_forbidden_prose_keys_detected():
+    from tests.validate_pinch_intake_v0_11 import FORBIDDEN_PERSISTED_KEYS
+    test_node_attrs = {
+        "statement_text": "Let V be a finite dimensional vector space...",
+        "formal_scope": "Valid scope",
+    }
+    assert bool(FORBIDDEN_PERSISTED_KEYS.intersection(test_node_attrs)) is True
+
