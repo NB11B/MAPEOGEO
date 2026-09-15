@@ -49,7 +49,7 @@ FORMAL remains responsible for proof-assistant statements and trusted kernel ver
 
 The first implementation is a Python reference subsystem inside MAPEOGEO. It must support analytically controlled 2-D fixtures and the interfaces required to extend to 3-D, graphs, meshes, voxels, and other relational objects later.
 
-The first stage does **not** attempt universal topology, arbitrary CAD robustness, whole-corpus application, GPU acceleration, or automatic Lean theorem generation.
+The first stage does **not** attempt universal topology, arbitrary CAD robustness, whole-corpus application, GPU acceleration, automatic Lean theorem generation, or integer-homology torsion recovery.
 
 ## Mathematical core
 
@@ -281,10 +281,12 @@ INCONCLUSIVE
 
 ## Exact and numerical backends
 
-The reference chain engine must support at least:
+The authoritative v0.10 chain/homology backends are fields:
 
 - `GF(2)` for fast orientation-independent topology controls;
-- an oriented exact backend over `Q` or exact integer matrices for tests that require signs, degrees, and correspondence orientation.
+- `Q` for oriented exact calculations that require signs, induced maps, degrees, or exact rational rank.
+
+Boundary incidence may be serialized with integer coefficients, but v0.10 does not claim integral homology or torsion detection. A later stage may add a `Z`/Smith-normal-form backend under a separate contract.
 
 The implementation may use established sparse linear-algebra libraries, but exact contract checks must not be reduced to approximate floating comparisons.
 
@@ -409,7 +411,9 @@ B4 chain-valued PCT without map edges
 B5 full chain-valued PCT with map edges and provenance
 ```
 
-The full architecture is scientifically justified only if B5 adds measurable capability on at least one preregistered task that the simpler baseline cannot solve under the same information budget or if it materially improves fault localization / robustness.
+For fairness, B0-B5 are derived from the **same frozen objects and probe schedule** whenever the baseline is defined. The distinction is the amount of structure retained, not a more favorable set of probes for the richer model. Where a baseline intrinsically uses no parameterized probes (for example a single global Euler characteristic), that limitation is explicit in the result table rather than repaired after inspection.
+
+The full architecture is scientifically justified only if B5 adds measurable capability on at least one preregistered task that the simpler baseline cannot solve under the same declared object/probe/equivalence contract, or if it materially improves preregistered fault localization or robustness.
 
 If B3 or B2 solves all preregistered tasks with no material disadvantage, the claim must narrow accordingly.
 
@@ -619,7 +623,7 @@ The initial null hypothesis is intentionally strong:
 
 The alternative is:
 
-> **H1:** Retaining parameterized chain structure and transition maps solves at least one preregistered task that simpler invariant channels cannot solve under the same declared information/equivalence contract, while preserving required invariances and stability.
+> **H1:** Retaining parameterized chain structure and transition maps solves at least one preregistered task that simpler invariant channels cannot solve under the same declared object/probe/equivalence contract, while preserving required invariances and stability.
 
 The architecture passes engineering validity independently of whether H1 is supported.
 
