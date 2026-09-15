@@ -43,7 +43,7 @@ theorem proposition_3_15_basis_determines_linear_map
     [DivisionRing K]
     [AddCommGroup E] [Module K E]
     [AddCommGroup F] [Module K F]
-    (b : Basis ι K E) (v : ι → F) :
+    (b : Module.Basis ι K E) (v : ι → F) :
     ∃! f : E →ₗ[K] F, ∀ i, f (b i) = v i := by
   refine ⟨b.constr K v, ?_, ?_⟩
   · intro i
