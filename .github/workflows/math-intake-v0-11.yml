@@ -1,0 +1,190 @@
+name: MAPEOGEO v0.11 Pinch-Driven Mathematics Intake
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, agent/math-intake-v0-11]
+    paths:
+      - "MAPEOGEOFormal.lean"
+      - "MAPEOGEOFormal/**"
+      - "formal/pinch_bindings_v0_11.json"
+      - "scripts/audit_pinch_source_v0_11.py"
+      - "scripts/pinch_contracts_v0_11.py"
+      - "scripts/pinch_intake_v0_11.py"
+      - "tests/test_pinch_source_audit_v0_11.py"
+      - "tests/test_pinch_intake_v0_11.py"
+      - "tests/validate_pinch_intake_v0_11.py"
+      - "docs/V0_11_MATHEMATICS_INTAKE_SPEC.md"
+      - "lakefile.lean"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - ".github/workflows/math-intake-v0-11.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "MAPEOGEOFormal.lean"
+      - "MAPEOGEOFormal/**"
+      - "formal/pinch_bindings_v0_11.json"
+      - "scripts/audit_pinch_source_v0_11.py"
+      - "scripts/pinch_contracts_v0_11.py"
+      - "scripts/pinch_intake_v0_11.py"
+      - "tests/test_pinch_source_audit_v0_11.py"
+      - "tests/test_pinch_intake_v0_11.py"
+      - "tests/validate_pinch_intake_v0_11.py"
+      - "docs/V0_11_MATHEMATICS_INTAKE_SPEC.md"
+      - "lakefile.lean"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - ".github/workflows/math-intake-v0-11.yml"
+
+permissions:
+  contents: read
+
+env:
+  SOURCE_URL: https://www.cis.upenn.edu/~jean/math-deep.pdf
+
+jobs:
+  math-intake-v0-11:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-map-goal-v0-7.txt
+
+      - name: Install Python dependencies
+        run: python -m pip install -r requirements-map-goal-v0-7.txt pytest sympy
+
+      - name: Static-check and run unit tests
+        run: |
+          python -m py_compile scripts/audit_pinch_source_v0_11.py
+          python -m py_compile scripts/pinch_contracts_v0_11.py
+          python -m py_compile scripts/pinch_intake_v0_11.py
+          python -m py_compile tests/test_pinch_source_audit_v0_11.py
+          python -m py_compile tests/test_pinch_intake_v0_11.py
+          python -m py_compile tests/validate_pinch_intake_v0_11.py
+          pytest
+
+      - name: Download reference PDF transiently
+        run: |
+          mkdir -p "$RUNNER_TEMP/mapeogeo-source"
+          curl --fail --location --retry 4 --retry-all-errors \
+            --connect-timeout 20 --max-time 180 \
+            "$SOURCE_URL" -o "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+          test -s "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+
+      - name: Audit source PDF against bindings and preregistration
+        run: python scripts/audit_pinch_source_v0_11.py "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+
+      - name: Regenerate accepted v0.6 representation
+        run: |
+          rm -rf "$RUNNER_TEMP/mapeogeo-v06"
+          python scripts/independent_dual_view_v0_6.py \
+            "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" \
+            --base-graph data/gallier_quaintance_graph_v0_3.json.gz \
+            --out-dir "$RUNNER_TEMP/mapeogeo-v06" \
+            --min-declarations 1355 \
+            --min-definitions 463 \
+            --min-proofs 609 \
+            --min-resolved-deps 638 \
+            --max-unresolved-rate 0.0938 \
+            --min-eo-direct 0.70 \
+            --min-geo-direct 0.70 \
+            --min-dual-direct 0.60 \
+            --max-no-direct 0.15 \
+            --max-permutation-p 0.05
+
+      - name: Regenerate accepted v0.7 graph
+        run: |
+          rm -rf "$RUNNER_TEMP/mapeogeo-v07"
+          python scripts/map_goal_v0_7.py \
+            "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" \
+            --v06-dir "$RUNNER_TEMP/mapeogeo-v06" \
+            --out-dir "$RUNNER_TEMP/mapeogeo-v07" \
+            --min-holdout-edges 100 \
+            --min-dual-filter-recall 0.75 \
+            --min-dual-filter-reduction 0.20 \
+            --max-retrieval-p 0.05 \
+            --min-same-semantics-promotions 2 \
+            --min-total-certificates 4
+
+      - name: Install Lean, build all formalizations, and run leanchecker
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: true
+          use-github-cache: true
+          leanchecker: true
+          nanoda: false
+
+      - name: Regenerate accepted v0.8 formal graph
+        run: |
+          rm -rf "$RUNNER_TEMP/mapeogeo-v08"
+          python scripts/formal_bridge_v0_8.py \
+            --base-graph "$RUNNER_TEMP/mapeogeo-v07/mapeogeo_map_goal_v0_7_graph.json" \
+            --bindings formal/source_bindings_v0_8.json \
+            --lean-file MAPEOGEOFormal/SourceBound.lean \
+            --out-dir "$RUNNER_TEMP/mapeogeo-v08" \
+            --independent-checker leanchecker \
+            --independent-checker-status PASS \
+            --nanoda-status TOOLING_BLOCKED
+          python tests/validate_formal_bridge_v0_8.py "$RUNNER_TEMP/mapeogeo-v08"
+
+      - name: Regenerate v0.9 S5 proof-path graph
+        run: |
+          rm -rf "$RUNNER_TEMP/mapeogeo-v09"
+          python scripts/proof_paths_v0_9.py \
+            --base-graph "$RUNNER_TEMP/mapeogeo-v08/mapeogeo_formal_v0_8_graph.json.gz" \
+            --bindings formal/proof_paths_v0_9.json \
+            --lean-file MAPEOGEOFormal/ProofPaths.lean \
+            --out-dir "$RUNNER_TEMP/mapeogeo-v09" \
+            --independent-checker leanchecker \
+            --independent-checker-status PASS
+          python tests/validate_proof_paths_v0_9.py "$RUNNER_TEMP/mapeogeo-v09"
+
+      - name: Regenerate v0.10 Pinch Quartet graph
+        run: |
+          rm -rf "$RUNNER_TEMP/mapeogeo-v10"
+          python scripts/pinch_quartet_v0_10.py \
+            --base-graph "$RUNNER_TEMP/mapeogeo-v09/mapeogeo_s5_v0_9_graph.json.gz" \
+            --bindings formal/pinch_quartet_v0_10.json \
+            --lean-file MAPEOGEOFormal/PinchQuartet.lean \
+            --out-dir "$RUNNER_TEMP/mapeogeo-v10" \
+            --independent-checker leanchecker \
+            --independent-checker-status PASS
+          python tests/validate_pinch_quartet_v0_10.py "$RUNNER_TEMP/mapeogeo-v10"
+
+      - name: Run v0.11 Pinch-Driven Mathematics Intake
+        run: |
+          rm -rf artifacts/pinch_intake_v0_11
+          python scripts/pinch_intake_v0_11.py \
+            --base-graph "$RUNNER_TEMP/mapeogeo-v10/mapeogeo_v0_10_graph.json.gz" \
+            --bindings formal/pinch_bindings_v0_11.json \
+            --lean-file MAPEOGEOFormal/PinchV011.lean \
+            --out-dir artifacts/pinch_intake_v0_11 \
+            --independent-checker leanchecker \
+            --independent-checker-status PASS
+
+      - name: Validate v0.11 artifact and source boundary
+        run: python tests/validate_pinch_intake_v0_11.py artifacts/pinch_intake_v0_11
+
+      - name: Remove transient source PDF
+        if: always()
+        run: rm -f "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+
+      - name: Upload derived v0.11 evidence
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-pinch-intake-v0.11
+          path: artifacts/pinch_intake_v0_11/
+          if-no-files-found: error
+          retention-days: 30
