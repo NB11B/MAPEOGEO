@@ -158,5 +158,13 @@ jobs:
           name: pct-e25ij-generated-evidence
           path: generated-e25ij/*.json
           if-no-files-found: error
+      - name: Generate candidate E26 E31 evidence
+        run: python -m experiments.pct_e26_e31.generate_evidence --out-dir generated-e26-e31
+      - name: Upload candidate E26 E31 evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pct-e26-e31-generated-evidence
+          path: generated-e26-e31/*.json
+          if-no-files-found: error
       - name: Run PCT campaign regression suite
         run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py experiments/pct_e25ij/test_e25ij.py experiments/pct_e25ij/test_evidence.py experiments/pct_e26_e31/test_e26.py experiments/pct_e26_e31/test_e27_core.py experiments/pct_e26_e31/test_e27_campaign.py experiments/pct_e26_e31/test_e28.py experiments/pct_e26_e31/test_e29.py experiments/pct_e26_e31/test_e30.py experiments/pct_e26_e31/test_e31.py experiments/pct_e26_e31/test_evidence.py
