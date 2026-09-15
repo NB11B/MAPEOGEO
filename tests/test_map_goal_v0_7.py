@@ -17,8 +17,10 @@ def test_average_rank_ties():
 
 def test_exact_contracts():
     for name in mod.CONTRACTS:
-        ok, checks, details = mod.CONTRACTS[name]()
-        assert ok, (name, details)
+        result = mod.CONTRACTS[name]()
+        assert len(result) >= 2
+        ok, checks = result[:2]
+        assert ok, name
         assert checks > 0
 
 def test_holdout_deterministic():
