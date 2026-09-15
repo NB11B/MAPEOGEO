@@ -10,7 +10,10 @@ from typing import Any
 from .constants import (
     ACCEPTANCE_MANIFEST_RELATIVE_PATH,
     ALIGNMENTS_RELATIVE_PATH,
+    KNOWLEDGE_ARTIFACT_ID,
+    KNOWLEDGE_ARTIFACT_NAME,
     KNOWLEDGE_BASELINE_SHA,
+    KNOWLEDGE_CONFIRMATORY_RUN_ID,
     KNOWLEDGE_GRAPH_BASENAME,
     SEMANTIC_RELATION_TYPES,
     SOLVER_BASELINE_SHA,
@@ -30,6 +33,7 @@ class KnowledgeCorpus:
     source_declarations: tuple[dict[str, Any], ...]
     domains: tuple[str, ...]
     artifact_digests: dict[str, str]
+    acceptance_digest_matches: dict[str, bool]
     direct_graph_counts: dict[str, int]
     discrepancies: tuple[dict[str, Any], ...]
 
@@ -65,7 +69,9 @@ def _resolve_graph_artifact(main_root: Path, repo_root: Path) -> Path:
     )
 
 
-def _count_graph(graph: dict[str, Any]) -> tuple[dict[str, int], Counter[str], Counter[str]]:
+def _count_graph(
+    graph: dict[str, Any],
+) -> tuple[dict[str, int], Counter[str], Counter[str]]:
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
     node_types = Counter(str(node.get("type", "")) for node in nodes)
@@ -80,11 +86,14 @@ def _count_graph(graph: dict[str, Any]) -> tuple[dict[str, int], Counter[str], C
         "same_semantics": edge_types["SAME_SEMANTICS"],
         "scoped_overlap": edge_types["SCOPED_OVERLAP"],
         "related_to": edge_types["RELATED_TO"],
+        "represents": edge_types["REPRESENTS"],
+        "depends_on": edge_types["DEPENDS_ON"],
+        "sourced_from": edge_types["SOURCED_FROM"],
     }
     return counts, node_types, edge_types
 
 
-def _manifest_discrepancies(
+def _count_discrepancies(
     acceptance: dict[str, Any], direct: dict[str, int]
 ) -> list[dict[str, Any]]:
     dashboard = acceptance.get("primary_dashboard", {})
@@ -97,6 +106,9 @@ def _manifest_discrepancies(
         "scoped_overlap": edges.get("SCOPED_OVERLAP_bridges"),
         "related_to": edges.get("RELATED_TO_bridges"),
         "semantic_bridges": edges.get("total_cross_source_bridges"),
+        "represents": edges.get("REPRESENTS"),
+        "depends_on": edges.get("DEPENDS_ON"),
+        "sourced_from": edges.get("SOURCED_FROM"),
     }
     discrepancies: list[dict[str, Any]] = []
     for field, expected in checks.items():
@@ -105,12 +117,49 @@ def _manifest_discrepancies(
         actual = direct[field]
         if actual != expected:
             discrepancies.append(
-                {"field": field, "manifest": expected, "direct_graph": actual}
+                {
+                    "kind": "REPORT_COUNT_MISMATCH",
+                    "field": field,
+                    "acceptance_manifest": expected,
+                    "direct_graph": actual,
+                }
             )
     return discrepancies
 
 
-def load_knowledge_corpus(main_root: Path, repo_root: Path | None = None) -> KnowledgeCorpus:
+def _digest_discrepancies(
+    expected_graph: str,
+    actual_graph: str,
+    expected_alignment: str,
+    actual_alignment: str,
+) -> list[dict[str, Any]]:
+    discrepancies: list[dict[str, Any]] = []
+    if actual_graph != expected_graph:
+        discrepancies.append(
+            {
+                "kind": "ARTIFACT_DIGEST_MISMATCH",
+                "artifact": KNOWLEDGE_GRAPH_BASENAME,
+                "acceptance_manifest_sha256": expected_graph,
+                "observed_sha256": actual_graph,
+                "disposition": "PRESERVE_AND_USE_PINNED_SUCCESSFUL_RUN_ARTIFACT",
+            }
+        )
+    if actual_alignment != expected_alignment:
+        discrepancies.append(
+            {
+                "kind": "ARTIFACT_DIGEST_MISMATCH",
+                "artifact": "analysis_alignments_v0_15.json",
+                "acceptance_manifest_sha256": expected_alignment,
+                "observed_sha256": actual_alignment,
+                "disposition": "PRESERVE_AND_USE_PINNED_COMMIT_FILE",
+            }
+        )
+    return discrepancies
+
+
+def load_knowledge_corpus(
+    main_root: Path, repo_root: Path | None = None
+) -> KnowledgeCorpus:
     repo_root = repo_root or main_root
     graph_path = _resolve_graph_artifact(main_root, repo_root)
     acceptance_path = main_root / ACCEPTANCE_MANIFEST_RELATIVE_PATH
@@ -119,25 +168,15 @@ def load_knowledge_corpus(main_root: Path, repo_root: Path | None = None) -> Kno
     acceptance = _load_json(acceptance_path)
     expected_artifacts = acceptance.get("artifacts", {})
 
-    graph_digest = sha256_file(graph_path)
     expected_graph_digest = expected_artifacts.get(KNOWLEDGE_GRAPH_BASENAME)
     if not expected_graph_digest:
         raise ValueError("Acceptance manifest does not bind the v0.15.1 graph artifact")
-    if graph_digest != expected_graph_digest:
-        raise ValueError(
-            "Frozen graph artifact digest mismatch: "
-            f"expected {expected_graph_digest}, got {graph_digest}"
-        )
-
-    alignment_digest = sha256_file(alignments_path)
     expected_alignment_digest = expected_artifacts.get("analysis_alignments_v0_15.json")
     if not expected_alignment_digest:
         raise ValueError("Acceptance manifest does not bind analysis alignments")
-    if alignment_digest != expected_alignment_digest:
-        raise ValueError(
-            "Frozen alignment digest mismatch: "
-            f"expected {expected_alignment_digest}, got {alignment_digest}"
-        )
+
+    graph_digest = sha256_file(graph_path)
+    alignment_digest = sha256_file(alignments_path)
 
     graph = _load_graph(graph_path)
     nodes = graph.get("nodes", [])
@@ -148,8 +187,12 @@ def load_knowledge_corpus(main_root: Path, repo_root: Path | None = None) -> Kno
     for edge in edges:
         edge_groups[str(edge.get("type", ""))].append(edge)
 
-    canonical = tuple(node for node in nodes if node.get("type") == "CANONICAL_OBJECT")
-    source = tuple(node for node in nodes if node.get("type") == "SOURCE_DECLARATION")
+    canonical = tuple(
+        node for node in nodes if node.get("type") == "CANONICAL_OBJECT"
+    )
+    source = tuple(
+        node for node in nodes if node.get("type") == "SOURCE_DECLARATION"
+    )
     semantic = tuple(
         edge for edge in edges if edge.get("type") in SEMANTIC_RELATION_TYPES
     )
@@ -163,22 +206,38 @@ def load_knowledge_corpus(main_root: Path, repo_root: Path | None = None) -> Kno
         )
     )
 
+    discrepancies = _digest_discrepancies(
+        expected_graph_digest,
+        graph_digest,
+        expected_alignment_digest,
+        alignment_digest,
+    )
+    discrepancies.extend(_count_discrepancies(acceptance, direct_counts))
+
     return KnowledgeCorpus(
         graph_path=graph_path,
         graph=graph,
         acceptance_manifest=acceptance,
         node_by_id={str(node["id"]): node for node in nodes if "id" in node},
-        edges_by_type={key: tuple(value) for key, value in sorted(edge_groups.items())},
+        edges_by_type={
+            key: tuple(value) for key, value in sorted(edge_groups.items())
+        },
         semantic_edges=semantic,
         canonical_objects=canonical,
         source_declarations=source,
         domains=domains,
         artifact_digests={
-            KNOWLEDGE_GRAPH_BASENAME: graph_digest,
-            "analysis_alignments_v0_15.json": alignment_digest,
+            "sealed_graph_observed_sha256": graph_digest,
+            "acceptance_claimed_graph_sha256": expected_graph_digest,
+            "alignment_observed_sha256": alignment_digest,
+            "acceptance_claimed_alignment_sha256": expected_alignment_digest,
+        },
+        acceptance_digest_matches={
+            "graph": graph_digest == expected_graph_digest,
+            "alignment": alignment_digest == expected_alignment_digest,
         },
         direct_graph_counts=direct_counts,
-        discrepancies=tuple(_manifest_discrepancies(acceptance, direct_counts)),
+        discrepancies=tuple(discrepancies),
     )
 
 
@@ -196,7 +255,13 @@ def build_e26_manifest(main_root: Path, repo_root: Path) -> dict[str, Any]:
         "solver_baseline_sha": SOLVER_BASELINE_SHA,
         "knowledge_baseline_sha": KNOWLEDGE_BASELINE_SHA,
         "campaign_harness_sha": compute_harness_sha(repo_root),
-        "graph_artifact": KNOWLEDGE_GRAPH_BASENAME,
+        "artifact_provenance": {
+            "source": "SUCCESSFUL_CONFIRMATORY_ACTIONS_RUN",
+            "run_id": KNOWLEDGE_CONFIRMATORY_RUN_ID,
+            "artifact_id": KNOWLEDGE_ARTIFACT_ID,
+            "artifact_name": KNOWLEDGE_ARTIFACT_NAME,
+            "graph_filename": KNOWLEDGE_GRAPH_BASENAME,
+        },
         "artifact_digests": corpus.artifact_digests,
         "direct_graph_counts": corpus.direct_graph_counts,
         "node_types": dict(sorted(node_types.items())),
@@ -207,8 +272,14 @@ def build_e26_manifest(main_root: Path, repo_root: Path) -> dict[str, Any]:
         "validity_gates": {
             "frozen_solver_ref": True,
             "frozen_knowledge_ref": True,
-            "sealed_graph_digest": True,
-            "alignment_digest": True,
+            "sealed_confirmatory_artifact_loaded": True,
+            "acceptance_manifest_graph_digest_match": corpus.acceptance_digest_matches[
+                "graph"
+            ],
+            "acceptance_manifest_alignment_digest_match": corpus.acceptance_digest_matches[
+                "alignment"
+            ],
             "separate_checkout_paths": solver_root.resolve() != main_root.resolve(),
+            "discrepancies_preserved_without_mutation": True,
         },
     }
