@@ -2,13 +2,13 @@
 
 **Date:** 2026-09-15  
 **Branch:** `agent/pct-computational-architecture`  
-**Status:** Approved design, frozen before implementation
+**Status:** Approved design, self-reviewed and frozen before implementation
 
 ## Purpose
 
-E25D–E25F established a closure hierarchy C0–C5 and showed that different fault classes are first detectable at different layers. For the four real source-bound EO/GEO/FORMAL contracts, C0–C2 currently pass, C3/C4 are not applicable, and C5 is not established because exact morphism/provenance evidence has not yet been serialized.
+E25D–E25F established the C0–C5 closure hierarchy. For the four real source-bound EO/GEO/FORMAL contracts, C0–C2 pass, C3/C4 are not applicable, and C5 is not established because exact morphism/provenance evidence has not been serialized.
 
-E25G and E25H define what C5 means and test whether a permissive policy can safely substitute for the recommended strict policy.
+E25G and E25H define C5 and test whether either half of C5 can safely substitute for the recommended strict conjunction.
 
 The governing recommendation is:
 
@@ -18,15 +18,24 @@ C5b = provenance-bound correspondence
 C5  = AND of all applicable C5 subgates
 ```
 
-If a subgate is genuinely not applicable, it is recorded `NOT_APPLICABLE`; it is never silently counted as evidence. The alternative policies are experimental counterfactuals only.
+If a subgate genuinely does not apply, it is `NOT_APPLICABLE`; it is never silently counted as evidence.
 
-## Governing C5 semantics
+## C5 semantics
 
 ### C5a — Exact morphism equality
 
-C5a asks whether independent EO/GEO/FORMAL routes induce the same **normalized witness-bearing transformation**, not merely the same final scalar or Boolean result.
+C5a asks whether independent EO, GEO, and FORMAL routes induce the same **normalized witness-bearing transformation**, not merely the same final scalar or Boolean result.
 
-A C5a adapter must therefore return a canonical record whose equality is exact under the declared bounded contract domain. Endpoint equality without witness equality is insufficient.
+The three route implementations must be algorithmically independent at the witness-generation layer. They may share only:
+
+- immutable input fixtures;
+- canonical serialization;
+- exact equality comparison; and
+- common primitive data types.
+
+They may **not** call one shared helper that computes the mathematical witness being compared. Otherwise C5a would test one implementation three times.
+
+A C5a adapter returns an exact canonical record. Endpoint equality without witness equality is insufficient.
 
 Allowed verdicts remain:
 
@@ -34,46 +43,57 @@ Allowed verdicts remain:
 
 ### C5b — Provenance-bound correspondence
 
-C5b asks whether the exact morphism record is bound to the correct source identity and evidence lineage. A passing record must bind at least:
+C5b asks whether the C5a morphism is bound to the correct source identity and evidence lineage. A passing record must bind:
 
+- component id;
 - source statement SHA-256;
 - contract name;
 - formal scope;
 - source artifact digest and audited source commit;
 - EO/GEO/FORMAL representation ids;
 - relevant certificate ids;
-- exact adapter identifier/version;
-- adapter/content digest;
-- E25C/E25G evidence lineage.
+- adapter id/version;
+- adapter/content SHA-256; and
+- predecessor evidence ids from the C1/C2 chain.
 
-A mathematically correct morphism copied from the wrong source object, wrong formal scope, or altered adapter lineage fails C5b even if C5a passes.
+A mathematically correct morphism copied from the wrong source object, wrong formal scope, or altered adapter lineage fails C5b even when C5a passes.
+
+Canonical provenance JSON uses sorted keys, UTF-8, no timestamps or machine paths, and compact separators before hashing.
 
 ## Strict C5 policy
 
-The production candidate policy is:
+The production candidate is:
 
 ```text
 STRICT_AND:
     C5 = PASS iff every applicable C5 subgate is PASS.
 ```
 
-For the four current real source-bound contracts, both C5a and C5b are applicable, so both must pass.
+For all four current real contracts, both C5a and C5b are applicable.
 
-No C5 result changes repository semantic edge types automatically. A passing E25G/E25H stage produces only `strict_c5_eligible=true` evidence for later closure-atlas promotion.
+E25G/E25H do not rewrite semantic edge types or the E25D closure atlas. A component becomes `strict_c5_eligible=true` only if:
+
+1. its own C5a passes;
+2. its own C5b passes; and
+3. E25H finds `STRICT_AND` acceptable under the preregistered policy safety criterion.
+
+That flag is evidence for a later atlas update, not automatic promotion.
 
 # E25G — Exact Morphism Contract Audit
 
-E25G executes C5a and C5b independently for each of the four real source-bound contracts.
+## Inputs
 
-## 1. Rank-nullity contract
+E25G consumes only the four `REAL_SOURCE_BOUND` entries from `evidence/pct_e25d_real_component_manifest.json`, plus the existing source/certificate/formal lineage and E25C executable evidence. Synthetic E25B calibration triangles are excluded from real C5 coverage.
 
-### Bounded execution domain
+## 1. Rank-nullity
 
-Reuse the E25C finite GF(2) matrix domain: all matrices with `1 <= m,n <= 3`.
+### Domain
 
-### Canonical exact morphism
+All GF(2) matrices with `1 <= m,n <= 3`, matching the bounded E25C contract.
 
-For each matrix `A`, every route must return the same normalized record:
+### Canonical morphism
+
+For every matrix `A`:
 
 ```text
 {
@@ -86,21 +106,25 @@ For each matrix `A`, every route must return the same normalized record:
 }
 ```
 
-The RREF and nullspace basis are exact over GF(2). The nullspace basis ordering is canonical: free columns ascending, basis vectors serialized in ascending free-column order.
+The nullspace basis is canonical: free columns ascending, basis vectors serialized in that order.
 
-C5a passes only if EO, GEO, and FORMAL adapters produce identical normalized records for every bounded input.
+### Independent routes
 
-This is stronger than E25C, which compared the rank-nullity identity result rather than the full canonical witness structure.
+- **EO:** exact GF(2) row elimination directly computes RREF, pivots, rank, and free-variable kernel basis.
+- **GEO:** enumerate the linear map on all domain vectors to determine image size/kernel points, then reconstruct a canonical kernel basis independently; RREF is independently reconstructed from row-space closure rather than calling EO elimination.
+- **FORMAL:** a separate exact matrix routine computes canonical RREF/kernel witnesses from the formal matrix object.
 
-## 2. Convexity contract
+Shared code may serialize the final record but may not compute the witness.
 
-### Bounded execution domain
+## 2. Convexity
 
-Reuse the E25C finite one-dimensional real-rational control family: nonempty subsets of `{-2,-1,0,1,2}` and half-integer query points in `[-2,2]`.
+### Domain
 
-### Canonical exact morphism
+Every nonempty subset of `{-2,-1,0,1,2}` and every half-integer query in `[-2,2]`, matching E25C.
 
-For each `(point_set, x)`, every route returns:
+### Canonical morphism
+
+For `(point_set, x)`:
 
 ```text
 {
@@ -112,7 +136,7 @@ For each `(point_set, x)`, every route returns:
 }
 ```
 
-If `member=true` and the hull is nondegenerate, `witness` is the exact reduced rational barycentric record:
+If membership is true and `lo < hi`:
 
 ```text
 lambda = (x-lo)/(hi-lo)
@@ -120,60 +144,89 @@ coefficients = [1-lambda, lambda]
 endpoints = [lo, hi]
 ```
 
-For a singleton hull, the canonical witness is the singleton identity witness.
+All rationals are reduced exactly. A singleton hull uses the singleton identity witness. A rejected point records `LEFT` or `RIGHT` plus the exact rational gap to the nearest endpoint.
 
-If `member=false`, the witness records the canonical side (`LEFT` or `RIGHT`) and exact rational gap to the nearest hull endpoint.
+### Independent routes
 
-C5a therefore distinguishes equal membership decisions from different or malformed witness maps.
+- **EO:** solve exact barycentric coefficients and validate their simplex constraints.
+- **GEO:** construct the one-dimensional convex hull interval first, decide containment geometrically, then derive the canonical geometric witness.
+- **FORMAL:** decide the pair of endpoint inequalities and derive the witness from those exact inequalities.
 
-## 3. Positive one-dimensional LP duality contract
+No route may call another route's witness generator.
 
-### Bounded execution domain
+## 3. Positive one-dimensional LP duality
 
-Reuse the E25C domain with positive integer coefficients in `{1,2,3}` and dimensions `m in {1,2,3}`.
+### Domain
 
-### Canonical exact morphism
+Positive integer coefficients in `{1,2,3}` with dimensions `m in {1,2,3}`, matching E25C.
 
-For each `(a,b,c)`, return:
+### Canonical morphism
+
+For `(a,b,c)` define exact ratios `r_i=b_i/a_i` and `r*=min_i r_i`. Return:
 
 ```text
 {
-  ratios = [b_i/a_i],
-  optimum,
-  active_indices,
+  ratios,
+  optimum = c*r*,
+  active_indices = [i : r_i = r*],
   canonical_active_witnesses
 }
 ```
 
-`active_indices` contains **all** minimizers, sorted ascending; the exact morphism must not depend on an arbitrary first-minimizer choice. `canonical_active_witnesses` contains the exact primal/dual equality witness for every active index, serialized by ascending index.
+For each active index `i`, the witness is exactly:
 
-This explicitly tests a stronger notion than E25C's scalar optimum agreement.
+```text
+{
+  index: i,
+  ratio: b_i/a_i,
+  dual_multiplier: c/a_i,
+  primal_value: c*(b_i/a_i),
+  dual_value: b_i*(c/a_i),
+  equality_holds: true
+}
+```
 
-## 4. Gaussian exponent identity contract
+`active_indices` contains **all** minimizers sorted ascending. `canonical_active_witnesses` uses the same index order. An arbitrary first-minimizer choice is not a valid C5a morphism.
 
-### Exact symbolic domain
+### Independent routes
 
-Use the persisted scalar real Gaussian exponent identity.
+- **EO:** calculate all exact ratios and their algebraic minimum directly.
+- **GEO:** identify every active supporting constraint/facet and compute its equality witness from the active geometry.
+- **FORMAL:** independently evaluate the finite exact objective candidate set and construct all minimizer certificates.
 
-### Canonical exact morphism
+## 4. Gaussian exponent identity
 
-Normalize all three routes into the exact rational coefficient map over basis
+### Domain
+
+The persisted scalar real Gaussian exponent identity.
+
+### Canonical morphism
+
+Normalize every route over basis:
 
 ```text
 [nx/s2, ny/s2, dot/s2]
 ```
 
-with canonical vector
+with exact coefficient vector:
 
 ```text
 [-1/2, -1/2, 1]
 ```
 
-and an exact symbolic normal-form expression. C5a requires equality of both canonical coefficient vector and normalized expression.
+and canonical normal-form expression ordered by that basis.
+
+### Independent routes
+
+- **EO:** collect exact algebraic coefficients from the expanded bilinear form.
+- **GEO:** expand the squared-distance geometry `-(nx+ny-2dot)/(2s2)` independently.
+- **FORMAL:** normalize the symbolic equality through a separate exact simplification route.
+
+C5a requires equality of both coefficient vector and canonical expression.
 
 ## C5b provenance record
 
-For each of the four contracts, E25G creates a canonical provenance record:
+For each component:
 
 ```text
 {
@@ -193,7 +246,9 @@ For each of the four contracts, E25G creates a canonical provenance record:
 }
 ```
 
-The record is hashed canonically. C5b passes only if all expected bindings are present, internally consistent, and tied to the same component identity as the C5a record.
+`adapter_sha256` is computed from the exact UTF-8 bytes of the route-adapter source participating in E25G, not from a manually entered digest. The canonical provenance record is then separately hashed.
+
+C5b passes only when all required bindings exist, agree on component identity, and point back to the frozen audited source lineage.
 
 ## E25G outputs
 
@@ -202,26 +257,25 @@ evidence/pct_e25g_exact_morphism_audit.json
 evidence/pct_e25g_provenance_bindings.json
 ```
 
-Each component records C5a and C5b separately. E25G does not mutate `pct_e25d_closure_atlas.json`.
+Each component records C5a and C5b separately. E25G never mutates `pct_e25d_closure_atlas.json`.
 
 ## E25G acceptance
 
-E25G passes only when:
+E25G passes only if:
 
-1. all four real source-bound components are evaluated;
-2. each C5a comparison is exact and witness-bearing;
-3. each C5b record is source-bound and digest-bound;
-4. valid controls have zero EO/GEO/FORMAL exact-morphism disagreements;
-5. no synthetic control is counted as real C5 evidence; and
-6. fresh execution reproduces frozen evidence exactly.
+1. all four real components are evaluated;
+2. all three route implementations are independent at witness generation;
+3. every C5a comparison is exact and witness-bearing;
+4. every C5b record is source-, scope-, certificate-, artifact-, and adapter-digest-bound;
+5. valid controls have zero exact-morphism disagreement;
+6. no synthetic fixture contributes real C5 evidence; and
+7. fresh execution reproduces frozen evidence byte-for-byte after canonical serialization.
 
 # E25H — C5 Policy Comparison
 
-E25H tests the recommended strict policy against permissive alternatives.
+E25H tests the strict recommendation against permissive alternatives instead of assuming the recommendation is correct.
 
 ## Policies
-
-Three policies are evaluated for every contract:
 
 ### STRICT_AND
 
@@ -235,7 +289,7 @@ PASS iff C5a == PASS and C5b == PASS
 PASS iff C5a == PASS
 ```
 
-This models any type-dependent policy that elects to trust exact map equality without provenance.
+This represents any contract policy that omits provenance as a required C5 axis.
 
 ### PROVENANCE_ONLY
 
@@ -243,19 +297,25 @@ This models any type-dependent policy that elects to trust exact map equality wi
 PASS iff C5b == PASS
 ```
 
-This models any type-dependent policy that elects to trust provenance lineage without exact map equality.
+This represents any contract policy that omits exact-morphism equality.
 
-For completeness, the report may also include the explicitly unsafe `ANY_AXIS` policy (`C5a OR C5b`), but it is never a production candidate.
+### ANY_AXIS — diagnostic only
 
-A type-dependent single-axis policy is considered safe only if the selected axis has zero false acceptance for that contract's adversarial controls. E25H does not preselect an axis to make the result favorable; it evaluates both single-axis possibilities independently for all four contracts.
+```text
+PASS iff C5a == PASS or C5b == PASS
+```
 
-## Required adversarial controls
+`ANY_AXIS` is never a production candidate; it quantifies the weakness of treating either axis as sufficient.
 
-Every real contract receives at least these controls:
+A type-dependent single-axis policy can be considered safe for a contract only if the selected axis has zero false accepts on **that contract's complete preregistered adversarial set**. E25H evaluates MAP_ONLY and PROVENANCE_ONLY separately for every contract; it does not choose an axis after seeing results.
 
-### A. Correct exact morphism + wrong provenance
+## Adversarial controls per contract
 
-The exact C5a record is unchanged, while one provenance binding is altered to a different source hash/component/scope or adapter lineage.
+Every real contract receives all five control families.
+
+### A. Correct morphism + wrong provenance
+
+Keep C5a unchanged; alter source hash, component binding, formal scope, certificate lineage, or adapter digest.
 
 Expected:
 
@@ -267,9 +327,9 @@ MAP_ONLY false-accepts
 PROVENANCE_ONLY rejects
 ```
 
-### B. Wrong exact morphism + correct provenance
+### B. Wrong morphism + correct provenance
 
-Provenance is unchanged, while a canonical witness field is altered without changing the lower-layer endpoint result where possible.
+Keep provenance valid while corrupting one canonical witness field without changing the C2 endpoint when possible.
 
 Expected:
 
@@ -281,32 +341,30 @@ MAP_ONLY rejects
 PROVENANCE_ONLY false-accepts
 ```
 
-### C. Same endpoint value + wrong witness map
+### C. Same endpoint + wrong witness map
 
-Contract-specific witness corruption preserves the C2 result but alters C5a structure. Examples:
-
-- rank: rank/nullity unchanged but RREF/nullspace witness corrupted;
-- convexity: membership unchanged but barycentric or separation witness corrupted;
-- LP: optimum unchanged but active-index/witness set corrupted;
-- Gaussian: semantically equivalent endpoint evaluation on a sampled point is not sufficient if canonical coefficient/normal-form map differs.
+- rank: preserve rank/nullity but corrupt RREF, pivot, or kernel witness;
+- convexity: preserve membership but corrupt barycentric/separation witness;
+- LP: preserve optimum but corrupt the complete active-index/witness set;
+- Gaussian: preserve one sampled endpoint evaluation while altering the canonical coefficient/normal-form map.
 
 Expected first failure: C5a.
 
-### D. Correct source lineage + altered executable transformation
+### D. Correct lineage + altered transformation
 
-The source/certificate/provenance chain remains valid while the exact adapter transformation is altered.
+Keep all source/certificate/provenance bindings valid while altering the executable exact transformation.
 
 Expected first failure: C5a.
 
-### E. Exact map copied across identities
+### E. Exact map rebound across identities
 
-A valid C5a record from one contract/component is rebound to a different source identity.
+Use a valid exact record but bind it to another source component/contract identity.
 
 Expected first failure: C5b.
 
-## Policy metrics
+## Metrics
 
-For each policy and contract, record:
+For every `(contract, policy)` pair:
 
 ```text
 valid_accepts
@@ -318,11 +376,11 @@ false_accept_rate
 false_reject_rate
 ```
 
-The primary safety criterion is:
+Primary production-policy criterion:
 
 ```text
-A production C5 policy is acceptable only if false_accepts == 0
-on every preregistered single-axis adversarial control.
+false_accepts == 0
+for every contract on every preregistered adversarial case
 ```
 
 Secondary criterion:
@@ -331,7 +389,7 @@ Secondary criterion:
 valid_rejects == 0
 ```
 
-A strict policy is considered empirically justified over a permissive policy if both accept the valid controls but the permissive policy false-accepts at least one preregistered adversarial control that STRICT_AND rejects.
+`STRICT_AND` is empirically preferred only if it meets both criteria and one or more permissive policies false-accept a case that STRICT_AND rejects. If a single-axis policy genuinely has zero false accepts for a contract, the report must state that rather than forcing a strict-policy victory.
 
 ## E25H outputs
 
@@ -340,16 +398,17 @@ evidence/pct_e25h_policy_comparison.json
 docs/PCT_E25G_E25H_C5_POLICY_REPORT.md
 ```
 
-The report must show results per contract and per policy, not only aggregate totals.
+Results are reported per contract and per policy, not only in aggregate.
 
 # Architecture and files
-
-Implementation extends the experimental surface only:
 
 ```text
 experiments/pct_e25gh/
     __init__.py
-    morphisms.py
+    rank_morphism.py
+    convex_morphism.py
+    lp_morphism.py
+    gaussian_morphism.py
     provenance.py
     policies.py
     adversaries.py
@@ -364,52 +423,53 @@ docs/
     PCT_E25G_E25H_C5_POLICY_REPORT.md
 ```
 
-The existing PCT CI workflow is extended to compile and execute the E25G/H suite.
+Separate morphism files make route independence inspectable and keep each contract small enough to review. The existing PCT CI workflow compiles and executes the new suite.
 
 # Data flow
 
 ```text
 E25D real component manifest
         |
-        +--> exact contract adapters --> C5a exact morphism records
+        +--> independent EO/GEO/FORMAL exact adapters --> C5a
         |
-        +--> source/cert/formal lineage --> C5b provenance bindings
-                                         |
-                                         v
-                              E25G C5a/C5b audit
-                                         |
-                    +--------------------+--------------------+
-                    |                    |                    |
-                 STRICT_AND           MAP_ONLY          PROVENANCE_ONLY
-                    |                    |                    |
-                    +---------- adversarial matrix ----------+
-                                         |
-                                         v
-                              E25H policy comparison
+        +--> source/certificate/formal/adapter lineage --> C5b
+                                                        |
+                                                        v
+                                             E25G C5a/C5b audit
+                                                        |
+                         +------------------------------+------------------------------+
+                         |                              |                              |
+                      STRICT_AND                     MAP_ONLY                  PROVENANCE_ONLY
+                         |                              |                              |
+                         +------------- preregistered adversarial matrix -------------+
+                                                        |
+                                                        v
+                                             E25H policy comparison
 ```
 
 # Fail-closed rules
 
-1. Missing exact witness data yields `NOT_ESTABLISHED`, never `PASS`.
-2. Missing provenance binding yields `NOT_ESTABLISHED` or `FAIL` according to whether evidence is absent or contradictory.
+1. Missing exact witness data yields `NOT_ESTABLISHED`, never inferred `PASS`.
+2. Missing provenance yields `NOT_ESTABLISHED`; contradictory provenance yields `FAIL`.
 3. Endpoint equality cannot substitute for exact witness equality.
-4. Correct provenance cannot repair a wrong exact morphism.
-5. Correct exact morphism cannot repair wrong provenance.
-6. C5 does not imply applicability of C3 or C4.
-7. Synthetic adversarial controls validate the policy but never promote real component closure.
-8. E25G/H may mark a component `strict_c5_eligible`; they do not automatically rewrite the E25D atlas or semantic graph.
-9. All arithmetic remains exact where the contract is exact; no floating tolerance is introduced into C5a equality.
+4. Correct provenance cannot repair a wrong morphism.
+5. Correct morphism cannot repair wrong provenance.
+6. C5 does not imply C3/C4 applicability.
+7. Synthetic controls validate policy behavior but never promote real component closure.
+8. E25G/H may mark `strict_c5_eligible`; they do not rewrite the atlas or graph.
+9. No floating tolerance is introduced into exact C5a equality.
+10. EO/GEO/FORMAL witness generators must remain independent; a shared witness-producing implementation invalidates the C5a test.
 
-# Expected scientific question
+# Scientific question
 
-E25H is designed to answer, not assume:
+E25H answers:
 
 ```text
 Can a contract safely omit either exact-morphism equality or provenance binding at C5?
 ```
 
-The recommendation is `STRICT_AND`, but the result is not predetermined. If a single-axis policy achieves zero false acceptance on all preregistered controls for a contract, the report must state that rather than forcing a strict-policy victory.
+The recommendation is `STRICT_AND`, but the result is not predetermined.
 
 # Claim boundary
 
-A passing E25G/E25H stage establishes exact witness-bearing C5 adapters and a policy comparison on the four frozen source-bound contracts and their synthetic adversarial controls. It does not establish universal categorical equality of all MAPEOGEO paths, universal completeness of the witness normal forms, whole-repository C5 closure, or permission to promote semantic relations without the existing evidence/formalization process.
+A passing E25G/E25H stage establishes exact witness-bearing C5 adapters and a policy comparison on the four frozen source-bound contracts and their synthetic adversarial controls. It does not establish universal categorical equality of all MAPEOGEO paths, universal completeness of the chosen normal forms, whole-repository C5 closure, or permission to promote semantic relations without the existing evidence/formalization process.
