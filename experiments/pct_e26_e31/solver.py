@@ -8,7 +8,7 @@ from typing import Any, Iterable
 
 from .cases import SanitizedCase
 from .constants import SEMANTIC_RELATION_TYPES
-from .probes import B4_PROBE_KEYS, build_graph_index, pair_probe_values
+from .probes import B4_PROBE_KEYS, GraphIndex, build_graph_index, pair_probe_values
 
 
 @dataclass(frozen=True)
@@ -19,6 +19,14 @@ class SolverResult:
     evidence_keys: tuple[str, ...]
     unsupported_probe_keys: tuple[str, ...]
     trace_digest: str
+
+
+@dataclass
+class SolverModel:
+    selected_keys: tuple[str, ...]
+    index: GraphIndex
+    supports: dict[str, dict[Any, frozenset[str]]]
+    counts: dict[str, dict[Any, int]]
 
 
 def _canonical_digest(payload: Any) -> str:
@@ -42,13 +50,11 @@ def _eligible_training_edge(
     return bool(a and b and a != b)
 
 
-def _training_supports(
+def fit_solver_model(
     case: SanitizedCase,
-    selected_keys: tuple[str, ...],
-) -> tuple[
-    dict[str, dict[Any, frozenset[str]]],
-    dict[str, dict[Any, int]],
-]:
+    probe_keys: Iterable[str] | None = None,
+) -> SolverModel:
+    selected_keys = tuple(B4_PROBE_KEYS if probe_keys is None else probe_keys)
     graph = case.visible_graph
     index = build_graph_index(graph)
     nodes = index.nodes
@@ -56,7 +62,9 @@ def _training_supports(
     class_support: dict[str, dict[Any, set[str]]] = {
         key: defaultdict(set) for key in selected_keys
     }
-    value_counts: dict[str, Counter[Any]] = {key: Counter() for key in selected_keys}
+    value_counts: dict[str, Counter[Any]] = {
+        key: Counter() for key in selected_keys
+    }
 
     for edge in graph.get("edges", []):
         if not _eligible_training_edge(edge, nodes):
@@ -65,7 +73,9 @@ def _training_supports(
         target = str(edge["target"])
         pair = tuple(sorted((source, target)))
         if pair not in pair_cache:
-            pair_cache[pair] = pair_probe_values(graph, source, target, index=index)
+            pair_cache[pair] = pair_probe_values(
+                graph, source, target, index=index
+            )
         features = pair_cache[pair]
         relation = str(edge["type"])
         for key in selected_keys:
@@ -73,22 +83,28 @@ def _training_supports(
             class_support[key][value].add(relation)
             value_counts[key][value] += 1
 
-    frozen_support = {
-        key: {value: frozenset(classes) for value, classes in values.items()}
-        for key, values in class_support.items()
-    }
-    frozen_counts = {
-        key: dict(counts) for key, counts in value_counts.items()
-    }
-    return frozen_support, frozen_counts
+    return SolverModel(
+        selected_keys=selected_keys,
+        index=index,
+        supports={
+            key: {
+                value: frozenset(classes)
+                for value, classes in values.items()
+            }
+            for key, values in class_support.items()
+        },
+        counts={key: dict(counts) for key, counts in value_counts.items()},
+    )
 
 
 def compute_probe_vector(
     case: SanitizedCase,
     probe_keys: Iterable[str] | None = None,
+    *,
+    index: GraphIndex | None = None,
 ) -> tuple[tuple[str, Any], ...]:
     keys = tuple(B4_PROBE_KEYS if probe_keys is None else probe_keys)
-    index = build_graph_index(case.visible_graph)
+    index = index or build_graph_index(case.visible_graph)
     values = pair_probe_values(
         case.visible_graph,
         case.source_id,
@@ -98,49 +114,117 @@ def compute_probe_vector(
     return tuple((key, values[key]) for key in keys)
 
 
-def solve_case(
+def _precondition(
+    case: SanitizedCase, index: GraphIndex
+) -> tuple[str, str] | None:
+    if case.direct_target_labels:
+        return "INVALID", "DIRECT_TARGET_SEMANTIC_LABEL_PRESENT"
+
+    source = index.nodes.get(case.source_id)
+    target = index.nodes.get(case.target_id)
+    if not source or not target:
+        return "INVALID", "MISSING_TARGET_ENDPOINT"
+    if source.get("type") != "SOURCE_DECLARATION" or target.get("type") != "SOURCE_DECLARATION":
+        return "INVALID", "ENDPOINT_TYPE_MISMATCH"
+
+    source_corpus = source.get("attributes", {}).get("source_id")
+    target_corpus = target.get("attributes", {}).get("source_id")
+    if not source_corpus or not target_corpus:
+        return "INVALID", "MISSING_SOURCE_BINDING"
+    if source_corpus == target_corpus:
+        return "INVALID", "NOT_CROSS_SOURCE"
+
+    shared_canonical = (
+        index.rep_targets.get(case.source_id, frozenset())
+        & index.rep_targets.get(case.target_id, frozenset())
+    )
+    if not shared_canonical:
+        return "NOT_ESTABLISHED", "NO_SHARED_CANONICAL_SUPPORT"
+    return None
+
+
+def _early_result(
     case: SanitizedCase,
+    selected_keys: tuple[str, ...],
+    verdict: str,
+    reason: str,
+) -> SolverResult:
+    ambiguity = (
+        tuple(SEMANTIC_RELATION_TYPES)
+        if verdict == "NOT_ESTABLISHED"
+        else ()
+    )
+    return SolverResult(
+        verdict=verdict,
+        predicted_relation=None,
+        ambiguity_set=ambiguity,
+        evidence_keys=(),
+        unsupported_probe_keys=(),
+        trace_digest=_canonical_digest(
+            {
+                "case_id": case.case_id,
+                "source_id": case.source_id,
+                "target_id": case.target_id,
+                "probe_keys": list(selected_keys),
+                "verdict": verdict,
+                "reason": reason,
+            }
+        ),
+    )
+
+
+def solve_with_model(
+    case: SanitizedCase,
+    model: SolverModel,
     probe_keys: Iterable[str] | None = None,
 ) -> SolverResult:
-    selected_keys = tuple(B4_PROBE_KEYS if probe_keys is None else probe_keys)
+    selected_keys = tuple(model.selected_keys if probe_keys is None else probe_keys)
+    unknown = set(selected_keys) - set(model.selected_keys)
+    if unknown:
+        raise ValueError(f"Model does not contain requested probe keys: {sorted(unknown)}")
+
+    blocked = _precondition(case, model.index)
+    if blocked is not None:
+        return _early_result(case, selected_keys, blocked[0], blocked[1])
+
     candidates = set(SEMANTIC_RELATION_TYPES)
     evidence_keys: list[str] = []
     unsupported: list[str] = []
     trace_rows: list[dict[str, Any]] = []
 
-    if selected_keys:
-        supports, counts = _training_supports(case, selected_keys)
-        target_vector = dict(compute_probe_vector(case, selected_keys))
-        for key in selected_keys:
-            value = target_vector[key]
-            supported_classes = set(supports[key].get(value, frozenset()))
-            support_count = counts[key].get(value, 0)
-            if not supported_classes:
-                unsupported.append(key)
-                trace_rows.append(
-                    {
-                        "key": key,
-                        "value": repr(value),
-                        "support_count": 0,
-                        "supported_classes": [],
-                        "binding": False,
-                    }
-                )
-                continue
-
-            binding = supported_classes != set(SEMANTIC_RELATION_TYPES)
-            if binding:
-                evidence_keys.append(key)
-                candidates &= supported_classes
+    target_vector = dict(
+        compute_probe_vector(case, selected_keys, index=model.index)
+    )
+    for key in selected_keys:
+        value = target_vector[key]
+        supported_classes = set(model.supports[key].get(value, frozenset()))
+        support_count = model.counts[key].get(value, 0)
+        if not supported_classes:
+            unsupported.append(key)
             trace_rows.append(
                 {
                     "key": key,
                     "value": repr(value),
-                    "support_count": support_count,
-                    "supported_classes": sorted(supported_classes),
-                    "binding": binding,
+                    "support_count": 0,
+                    "supported_classes": [],
+                    "binding": False,
                 }
             )
+            continue
+
+        binding = supported_classes != set(SEMANTIC_RELATION_TYPES)
+        if binding:
+            evidence_keys.append(key)
+            candidates &= supported_classes
+        trace_rows.append(
+            {
+                "key": key,
+                "value": repr(value),
+                "support_count": support_count,
+                "supported_classes": sorted(supported_classes),
+                "binding": binding,
+            }
+        )
 
     ambiguity = tuple(sorted(candidates))
     if len(ambiguity) == 1:
@@ -169,3 +253,12 @@ def solve_case(
         unsupported_probe_keys=tuple(unsupported),
         trace_digest=trace_digest,
     )
+
+
+def solve_case(
+    case: SanitizedCase,
+    probe_keys: Iterable[str] | None = None,
+) -> SolverResult:
+    selected_keys = tuple(B4_PROBE_KEYS if probe_keys is None else probe_keys)
+    model = fit_solver_model(case, selected_keys)
+    return solve_with_model(case, model, selected_keys)
