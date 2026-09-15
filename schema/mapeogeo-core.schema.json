@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NB11B/MAPEOGEO/schema/mapeogeo-core.schema.json",
+  "title": "MAPEOGEO Core Graph",
+  "type": "object",
+  "required": [
+    "graph_id",
+    "schema_version",
+    "required_views",
+    "nodes",
+    "edges"
+  ],
+  "properties": {
+    "graph_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object"
+    },
+    "required_views": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "EO",
+          "GEO",
+          "FORMAL",
+          "NATURAL"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "nodes": {
+      "type": "array"
+    },
+    "edges": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

@@ -56,3 +56,9 @@ python tests/validate_v0_3.py
 ## Claim boundary
 
 v0.3 demonstrates dual representability and executable equivalence for the registered fixtures. It does **not** yet claim full-book autoformalization, universal EO/GEO closure, native GEO-kernel execution for every fixture, automatic Lean generation, or full proof-dependency extraction.
+
+## Licensing
+
+The v0.3 repository snapshot is copyright © 2026 NB11B and is currently distributed with **all rights reserved**; see `LICENSE.md`.
+
+The Gallier/Quaintance reference book is an external copyrighted work and is not redistributed here. The April 14, 2025 source displays `© Jean Gallier`; no separate permissive license was identified for the source used in this milestone. See `THIRD_PARTY_NOTICES.md` for provenance and reuse boundaries.

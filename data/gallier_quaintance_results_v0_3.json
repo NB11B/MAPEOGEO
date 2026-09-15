@@ -1,0 +1,262 @@
+{
+  "test_id": "MAPEOGEO-CROSS-DOMAIN-V0.3",
+  "seed": 20260914,
+  "overall_status": "PASS",
+  "source_chapters_scaffolded": 57,
+  "chapters_with_direct_executable_fixtures": 20,
+  "tested_semantic_objects": 20,
+  "total_executable_checks": 23711,
+  "graph_nodes": 138,
+  "graph_edges": 159,
+  "structural_checks": {
+    "unique_node_ids": true,
+    "unique_edge_ids": true,
+    "edge_endpoints_exist": true,
+    "all_57_chapters_present": true,
+    "all_tested_semantics_have_both_views": true,
+    "same_semantics_edges_match": true
+  },
+  "evidence_classes": {
+    "A": "Direct native project parity already established in EO/GEO repositories.",
+    "B": "Independent executable mathematical equivalence of operator and geometric/relational views.",
+    "C": "Graph-only representability without executable equivalence witness."
+  },
+  "claim_boundary": {
+    "supported": [
+      "The tested mathematical semantic objects can be stored with simultaneous EO and GEO views in one graph.",
+      "The dual-view ontology remains coherent across the registered cross-domain fixtures.",
+      "All registered fixtures satisfy their declared executable equivalence contracts.",
+      "The full 57-chapter source hierarchy fits the same graph ontology."
+    ],
+    "not_supported_yet": [
+      "Full semantic extraction of every definition, theorem, and proof in the book.",
+      "Universal EO closure over all mathematics.",
+      "Universal GEO closure over all mathematics.",
+      "Current native GEO-kernel execution for every registered fixture.",
+      "Automatic Lean generation or proof-kernel acceptance.",
+      "Full reconstruction of the book's proof-dependency graph."
+    ]
+  },
+  "tests": [
+    {
+      "case": "Cyclic group composition",
+      "chapter": 2,
+      "checks": 8554,
+      "status": "PASS",
+      "max_error": 0.0,
+      "eo_view": "binary group operator a*b",
+      "geo_view": "Cayley-graph generator path",
+      "contract": "operator result equals relational path endpoint",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Rank-nullity",
+      "chapter": 3,
+      "checks": 350,
+      "status": "PASS",
+      "max_error": 0.0,
+      "eo_view": "dimension/rank/nullity operators",
+      "geo_view": "kernel-image decomposition geometry",
+      "contract": "dim(domain)=rank+nullity",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Determinant as oriented volume",
+      "chapter": 7,
+      "checks": 600,
+      "status": "PASS",
+      "max_error": 2.6645352591003757e-15,
+      "eo_view": "det(A)",
+      "geo_view": "oriented volume / triple product",
+      "contract": "determinant equals oriented volume",
+      "evidence_class": "B"
+    },
+    {
+      "case": "QR decomposition",
+      "chapter": 13,
+      "checks": 500,
+      "status": "PASS",
+      "max_error": 2.6645352591003757e-15,
+      "eo_view": "A=QR factorization",
+      "geo_view": "coordinates in an orthonormal frame",
+      "contract": "factorization and frame geometry agree",
+      "evidence_class": "B"
+    },
+    {
+      "case": "SO(3) rotation",
+      "chapter": 16,
+      "checks": 3000,
+      "status": "PASS",
+      "max_error": 1.5543122344752192e-15,
+      "eo_view": "3x3 rotation matrix",
+      "geo_view": "unit-quaternion / Spin(3) sandwich",
+      "contract": "same rotated vector",
+      "evidence_class": "A/B"
+    },
+    {
+      "case": "Eigenpairs",
+      "chapter": 15,
+      "checks": 2250,
+      "status": "PASS",
+      "max_error": 7.105427357601002e-15,
+      "eo_view": "Av=lambda v",
+      "geo_view": "invariant directions with scalar stretch",
+      "contract": "operator eigen-equation equals invariant-direction geometry",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Graph Laplacian",
+      "chapter": 20,
+      "checks": 700,
+      "status": "PASS",
+      "max_error": 0.0,
+      "eo_view": "L=D-A",
+      "geo_view": "incidence geometry L=B B^T",
+      "contract": "same Laplacian operator",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Singular value decomposition",
+      "chapter": 22,
+      "checks": 1637,
+      "status": "PASS",
+      "max_error": 1.1324274851176597e-14,
+      "eo_view": "A=U Sigma V^T",
+      "geo_view": "principal axes and stretches of the image ellipsoid",
+      "contract": "singular-vector equations match principal-axis geometry",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Projective homogeneous equivalence",
+      "chapter": 26,
+      "checks": 900,
+      "status": "PASS",
+      "max_error": 2.7625901566352695e-11,
+      "eo_view": "linear action on homogeneous coordinates",
+      "geo_view": "projective point as a scale-equivalence class",
+      "contract": "scaling a representative does not change the projective result",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Tensor/Kronecker composition",
+      "chapter": 33,
+      "checks": 500,
+      "status": "PASS",
+      "max_error": 3.552713678800501e-15,
+      "eo_view": "Kronecker linear operator",
+      "geo_view": "tensor-product composition of two maps",
+      "contract": "vec(A X B^T)=(B kron A)vec(X)",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Exterior product / area",
+      "chapter": 34,
+      "checks": 1000,
+      "status": "PASS",
+      "max_error": 1.354472090042691e-14,
+      "eo_view": "wedge product u^v",
+      "geo_view": "oriented parallelogram area",
+      "contract": "|u^v|^2=det(Gram(u,v))",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Frechet derivative",
+      "chapter": 39,
+      "checks": 450,
+      "status": "PASS",
+      "max_error": 0.00044567085286986225,
+      "eo_view": "linear operator Df(a)",
+      "geo_view": "tangent-linear local geometry",
+      "contract": "normalized nonlinear remainder contracts toward zero",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Newton step",
+      "chapter": 41,
+      "checks": 600,
+      "status": "PASS",
+      "max_error": 0.0,
+      "eo_view": "x_next=x-f/f'",
+      "geo_view": "x-intercept of the tangent line",
+      "contract": "operator update equals tangent-intersection geometry",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Strict quadratic minimization",
+      "chapter": 42,
+      "checks": 400,
+      "status": "PASS",
+      "max_error": 4.9960036108132044e-15,
+      "eo_view": "solve Qx=b",
+      "geo_view": "unique minimum of a positive-definite quadratic bowl",
+      "contract": "stationary operator solution equals geometric minimum",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Schur complement elimination",
+      "chapter": 43,
+      "checks": 350,
+      "status": "PASS",
+      "max_error": 2.220446049250313e-16,
+      "eo_view": "block linear-system elimination",
+      "geo_view": "projection/elimination onto a reduced subspace",
+      "contract": "full solve equals Schur-reduced solve",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Convex hull",
+      "chapter": 44,
+      "checks": 450,
+      "status": "PASS",
+      "max_error": -0.027836669524343605,
+      "eo_view": "convex-combination operator sum(lambda_i a_i)",
+      "geo_view": "membership in the generated convex region",
+      "contract": "convex combinations lie inside the hull",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Linear-programming duality",
+      "chapter": 47,
+      "checks": 220,
+      "status": "PASS",
+      "max_error": 1.1546319456101628e-14,
+      "eo_view": "primal/dual matrix inequality programs",
+      "geo_view": "paired feasible polyhedra with equal supporting optimum",
+      "contract": "strong-duality optimum equality",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Orthogonal projection",
+      "chapter": 48,
+      "checks": 500,
+      "status": "PASS",
+      "max_error": 1.199040866595169e-14,
+      "eo_view": "projection operator P",
+      "geo_view": "nearest point in a subspace with orthogonal residual",
+      "contract": "operator projection equals nearest-point geometry",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Ridge regression",
+      "chapter": 53,
+      "checks": 400,
+      "status": "PASS",
+      "max_error": 6.494804694057166e-15,
+      "eo_view": "(X^T X + lambda I) beta = X^T y",
+      "geo_view": "least-squares projection in an augmented geometry",
+      "contract": "closed-form and augmented-space solutions agree",
+      "evidence_class": "B"
+    },
+    {
+      "case": "Gaussian positive-definite kernel",
+      "chapter": 54,
+      "checks": 350,
+      "status": "PASS",
+      "max_error": 4.551914400963142e-15,
+      "eo_view": "kernel / Gram operator",
+      "geo_view": "pairwise-distance geometry exp(-||x-y||^2/(2 sigma^2))",
+      "contract": "distance and inner-product forms agree; Gram matrix is PSD",
+      "evidence_class": "B"
+    }
+  ]
+}
