@@ -39,7 +39,7 @@ This stage does **not**:
 - introduce a blended trust score;
 - use wall-clock age alone as a scientific invalidation criterion.
 
-# 2. Separate mathematical verdict from lifecycle authority
+# 2. Mathematical verdict and lifecycle authority are separate
 
 Existing mathematical verdicts remain unchanged:
 
@@ -53,7 +53,7 @@ ERROR
 INCONCLUSIVE
 ```
 
-Lifecycle authority is a separate axis:
+Lifecycle authority is a derived, separate axis:
 
 ```text
 ACTIVE       evidence may contribute to current closure
@@ -63,9 +63,9 @@ SUPERSEDED   a newer receipt replaces this receipt for the same role
 INVALID      the receipt is internally contradictory or bound to the wrong identity
 ```
 
-A mathematically `PASS` receipt may therefore be lifecycle `STALE`. This distinction is required so dependency changes do not rewrite historical mathematical results as failures.
+A mathematically `PASS` receipt may therefore be lifecycle `STALE`. Dependency changes do not rewrite historical mathematical results as failures.
 
-# 3. Evidence receipts
+# 3. Immutable evidence receipts
 
 Every lifecycle-relevant item is represented by an immutable canonical receipt.
 
@@ -79,7 +79,6 @@ Minimum receipt schema:
   layer,
   role,
   mathematical_verdict,
-  authority_state,
   content_sha256,
   dependency_receipt_ids,
   source_statement_sha256,
@@ -91,9 +90,9 @@ Minimum receipt schema:
 
 `receipt_id` is the SHA-256 of the canonical receipt payload excluding `receipt_id` itself. `issuance_revision` is a deterministic integer revision within the experiment ledger; no wall-clock timestamp participates in state derivation.
 
-Receipts are append-only. A receipt is never edited to become stale, revoked, or superseded; instead a lifecycle event changes its **authority interpretation** in the derived snapshot while the original receipt remains immutable.
+Receipts are append-only. They never contain a mutable authority field. `ACTIVE`, `STALE`, `REVOKED`, `SUPERSEDED`, and `INVALID` are computed by replaying lifecycle events over the immutable receipt graph.
 
-# 4. Lifecycle events
+# 4. Lifecycle events and authority derivation
 
 Lifecycle changes are append-only canonical events:
 
@@ -111,57 +110,80 @@ Lifecycle changes are append-only canonical events:
 }
 ```
 
-Allowed event classes for this stage:
+Allowed direct event classes for this stage:
 
 ```text
 ISSUE
 REVOKE
 SUPERSEDE
-DEPENDENCY_INVALIDATE
 IDENTITY_CONFLICT
 IDENTITY_REBIND
 REVALIDATE
 ```
 
-Events do not mutate semantic graph edges. They affect only the derived lifecycle view.
+`STALE` is not directly assigned by an event. It is derived when an otherwise usable receipt depends on a receipt that is no longer authoritative, or when its `component_epoch` no longer matches the current identity epoch.
 
-# 5. Closure dependency model
-
-For the four current scalar/decision contracts, the dependency graph is:
+Direct authority precedence for a receipt is deterministic:
 
 ```text
-C0 identity
-  |
-  v
-C1 certificate/formal binding
-  |
-  v
-C2 executable route agreement
-  |
-  +---------------------+
-  |                     |
-  v                     v
-C5a exact morphism   C5b provenance binding
-  |                     |
-  +----------+----------+
-             |
-             v
-       E25H STRICT_AND
-             |
-             v
-          C5 closure
+IDENTITY_CONFLICT / invalid binding -> INVALID
+explicit REVOKE                    -> REVOKED
+explicit SUPERSEDE                 -> SUPERSEDED
+otherwise, dependency mismatch     -> STALE
+otherwise                          -> ACTIVE
 ```
+
+A later replacement receipt does not change the state of an older stale/superseded receipt. New authority is carried by a distinct new receipt.
+
+Events do not mutate semantic graph edges. They affect only the derived lifecycle view.
+
+# 5. Closure dependency graph
+
+For the four current scalar/decision contracts, receipt dependencies are frozen as follows:
+
+```text
+C0_IDENTITY
+    |
+    v
+C1_CERTIFICATE_BINDING
+    |
+    v
+C2_EXECUTABLE_CONTRACT
+    |
+    +-----------------------+
+    |                       |
+    v                       v
+C5A_EXACT_MORPHISM     C5B_PROVENANCE_BINDING
+    \                       /
+     \                     /
+      +--- GLOBAL_C5_STRICT_POLICY
+                    |
+                    v
+              C5_ELIGIBILITY
+```
+
+Explicit dependency rules:
+
+```text
+C1 depends on C0.
+C2 depends on C0 and C1.
+C5a depends on C2.
+C5b depends on C0, C1, and C2.
+C5 eligibility depends on C0, C1, C2, C5a, C5b, and GLOBAL_C5_STRICT_POLICY.
+```
+
+C5a and C5b remain independent sibling evidence axes. Neither depends on the other. Their conjunction occurs only at C5 eligibility.
 
 C3 and C4 remain `NOT_APPLICABLE` for these four contracts. Their absence is explicit and does not block C5 because applicability masks govern the path.
 
-A C5 receipt is authoritative only when all of the following are true:
+A C5 result is authoritative only when all of the following are true:
 
-1. C0, C1, and C2 are currently authoritative and `PASS`;
+1. C0, C1, and C2 are currently `ACTIVE` and mathematically `PASS`;
 2. C3 and C4 are either `PASS` or explicitly `NOT_APPLICABLE` under the component applicability mask;
-3. C5a is authoritative and `PASS`;
-4. C5b is authoritative and `PASS`;
-5. the E25H strict-policy receipt is authoritative and marks the policy acceptable;
-6. the C5 eligibility receipt explicitly depends on the exact active receipt ids above.
+3. C5a is `ACTIVE` and `PASS`;
+4. C5b is `ACTIVE` and `PASS`;
+5. the E25H strict-policy receipt is `ACTIVE` and marks `STRICT_AND` acceptable;
+6. the active C5 eligibility receipt explicitly names the exact active dependency receipt ids above.
 
 No lower-layer evidence may manufacture or infer a missing higher-layer receipt.
 
@@ -177,10 +199,12 @@ Per-component output:
   component_epoch,
   closure_vector,
   effective_frontier,
+  receipt_authority,
   authoritative_receipt_ids,
   stale_receipt_ids,
   revoked_receipt_ids,
   superseded_receipt_ids,
+  invalid_receipt_ids,
   blocking_reason,
   state_digest
 }
@@ -188,7 +212,7 @@ Per-component output:
 
 The `effective_frontier` is the highest **applicable** closure level whose required evidence is currently authoritative and whose dependencies are satisfied.
 
-For the current applicability mask, a valid component may move directly in the reporting frontier from C2 to C5 while retaining:
+For the current applicability mask, a valid component may move in the reporting frontier from C2 to C5 while retaining:
 
 ```text
 C3 = NOT_APPLICABLE
@@ -232,7 +256,7 @@ One shared receipt represents the frozen E25H `STRICT_AND` policy result:
 GLOBAL_C5_STRICT_POLICY
 ```
 
-The C5 eligibility receipt must depend on the component's active C0/C1/C2/C5a/C5b receipts plus the shared strict-policy receipt.
+C5 eligibility must depend on the component's exact active C0/C1/C2/C5a/C5b receipt ids plus the exact active shared strict-policy receipt id.
 
 ## 9. E25I acceptance criteria
 
@@ -243,7 +267,7 @@ E25I passes only if:
 3. no synthetic component enters the real ledger;
 4. all four derive C5 after C5a, C5b, and strict-policy receipts are issued;
 5. C3/C4 remain `NOT_APPLICABLE` and are never rewritten as `PASS`;
-6. removing any required active receipt from a reconstruction prevents C5;
+6. removing any required active receipt from reconstruction prevents C5;
 7. replaying the same ordered receipt/event ledger produces the same state digests byte-for-byte;
 8. no lifecycle output mutates the semantic graph or E25D atlas.
 
@@ -266,11 +290,11 @@ evidence/pct_e25i_derived_closure_snapshot.json
 
 ## 11. Core downgrade rule
 
-A direct evidence withdrawal affects only the receipt explicitly targeted. All descendants that depended on that receipt become `STALE`; they are not rewritten as mathematical failures.
+A direct evidence withdrawal affects only the receipt explicitly targeted. Descendants become `STALE` through dependency evaluation; they are not rewritten as mathematical failures.
 
 The derived frontier is then recomputed from currently authoritative evidence.
 
-The preregistered downgrade expectations are:
+Preregistered downgrade expectations:
 
 ```text
 C5a or C5b withdrawal          C5 -> C2
@@ -279,15 +303,15 @@ C1 certificate withdrawal     C5 -> C0
 C0 identity conflict          C5 -> INVALID / no authoritative frontier
 ```
 
-These expectations are tested, not encoded as special-case outputs; they should emerge from the dependency graph.
+These outcomes must emerge from the dependency graph rather than from special-case frontier assignments.
 
-## 12. Per-component adversarial scenarios
+## 12. Per-component synthetic lifecycle scenarios
 
 Each of the four real components receives five isolated synthetic lifecycle scenarios.
 
-### J1 — exact-morphism adapter superseded
+### J1 — exact-morphism evidence superseded
 
-Target: `C5A_EXACT_MORPHISM`.
+Target: `C5A_EXACT_MORPHISM` only. The adapter identity/provenance lineage is held fixed so this scenario isolates the C5a evidence axis.
 
 Expected:
 
@@ -300,6 +324,8 @@ frontier -> C2
 ```
 
 A replacement C5a receipt alone is insufficient to reactivate old C5 eligibility. A new C5 eligibility receipt bound to the replacement C5a is required.
+
+If adapter identity/version itself changes in future work, C5b must also be replaced or revalidated; that broader case is outside J1's isolated-axis control.
 
 ### J2 — provenance binding revoked
 
@@ -365,11 +391,11 @@ component state -> INVALID
 no authoritative closure frontier
 ```
 
-Recovery from identity conflict requires an explicit `IDENTITY_REBIND` event that increments `component_epoch`. Every downstream receipt must then be reissued or revalidated against the new epoch. Evidence from the prior epoch remains historical and can never become authoritative in the new epoch.
+Recovery requires an explicit `IDENTITY_REBIND` event that increments `component_epoch`. Every downstream receipt must then be reissued or revalidated against the new epoch. Evidence from the prior epoch remains historical and can never become authoritative in the new epoch.
 
 ## 13. Shared-policy invalidation scenario
 
-E25J also includes one global scenario:
+E25J also includes one global scenario.
 
 ### J6 — strict-policy receipt superseded
 
@@ -378,13 +404,14 @@ Target: `GLOBAL_C5_STRICT_POLICY`.
 Expected across all four components:
 
 ```text
+old policy receipt -> SUPERSEDED
 C5 eligibility receipts -> STALE
 C5a/C5b remain ACTIVE
 C0/C1/C2 remain ACTIVE
 all frontiers -> C2
 ```
 
-A new policy receipt does not resurrect old C5 eligibility receipts. Each component requires a new C5 eligibility receipt that explicitly depends on the replacement policy receipt.
+A replacement policy receipt does not resurrect old C5 eligibility receipts. Each component requires a new C5 eligibility receipt that explicitly depends on the replacement policy receipt.
 
 This tests cross-component staleness propagation from a shared dependency.
 
@@ -395,7 +422,7 @@ Every J1–J5 scenario is followed by explicit recovery. J6 is also recovered gl
 Recovery acceptance requires:
 
 1. the pre-fault receipt remains present in the ledger;
-2. its historical authority state remains visible;
+2. its derived historical authority state remains visible;
 3. the replacement/revalidation receipt has a distinct `receipt_id`;
 4. downstream stale receipts remain stale;
 5. new downstream receipts depend only on currently authoritative ancestors;
@@ -410,8 +437,8 @@ Preregistered lifecycle scenarios:
 
 ```text
 4 components x 5 isolated component scenarios = 20
-1 shared strict-policy scenario             = 1
-TOTAL                                        = 21
+1 shared strict-policy scenario                = 1
+TOTAL                                           = 21
 ```
 
 Each scenario includes both downgrade and recovery checkpoints.
@@ -420,7 +447,7 @@ Each scenario includes both downgrade and recovery checkpoints.
 
 Synthetic lifecycle scenarios are `SYNTHETIC_CONTROL` and do not imply a real defect in MAPEOGEO's current graph. They validate state-machine behavior only.
 
-Directly targeted receipts use the scenario's explicit authority transition (`REVOKED`, `SUPERSEDED`, or `INVALID`). Descendants use `STALE` unless independently contradicted. This preserves the distinction between:
+Directly targeted receipts receive the event-derived authority transition (`REVOKED`, `SUPERSEDED`, or `INVALID`). Descendants become `STALE` through dependency evaluation unless independently contradicted. This preserves the distinction between:
 
 ```text
 "this evidence is wrong"
