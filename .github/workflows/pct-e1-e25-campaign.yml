@@ -1,0 +1,45 @@
+name: MAPEOGEO PCT E1-E25 campaign regression
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/pct-computational-architecture
+    paths:
+      - "experiments/pct_e1_e25/**"
+      - "evidence/pct_e1_e25_campaign.json"
+      - "evidence/pct_e23_counterexamples.json"
+      - "evidence/pct_e25_graph_consistency_audit.json"
+      - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
+      - "requirements-pct-e1-e25.txt"
+      - ".github/workflows/pct-e1-e25-campaign.yml"
+  pull_request:
+    paths:
+      - "experiments/pct_e1_e25/**"
+      - "evidence/pct_e1_e25_campaign.json"
+      - "evidence/pct_e23_counterexamples.json"
+      - "evidence/pct_e25_graph_consistency_audit.json"
+      - "docs/PCT_E1_E25_CAMPAIGN_REPORT.md"
+      - "requirements-pct-e1-e25.txt"
+      - ".github/workflows/pct-e1-e25-campaign.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-pct-e1-e25.txt
+      - name: Install campaign dependencies
+        run: python -m pip install -r requirements-pct-e1-e25.txt
+      - name: Static check
+        run: python -m py_compile experiments/pct_e1_e25/campaign.py experiments/pct_e1_e25/test_campaign.py
+      - name: Run E1-E25 regression suite
+        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py

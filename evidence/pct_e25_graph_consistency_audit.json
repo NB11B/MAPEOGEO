@@ -1,0 +1,60 @@
+{
+  "audited_remote_state": {
+    "artifact_digest": "sha256:d487602dd3c0b3a3c5302edde108758eda2b11975f5e0c2c4e659db63da2aabc",
+    "artifact_id": 10382242654,
+    "artifact_name": "mapeogeo-s5-proof-path-v0.9",
+    "branch": "main",
+    "commit_sha": "9420f19953f56198630f86eb25fa5d6eb0828ea7",
+    "workflow_conclusion": "success",
+    "workflow_run_id": 34933361147
+  },
+  "checks": {
+    "all_certificate_nodes_pass": true,
+    "all_edge_endpoints_exist": true,
+    "all_equivalence_certificate_refs_exist_and_pass": true,
+    "all_equivalence_cycles_identity_consistent": true,
+    "all_formal_representations_have_kernel_verified_cert": true,
+    "all_proof_path_verified_vertices_kernel_backed": true,
+    "equivalence_components_have_consistent_source_hash": true,
+    "equivalence_components_have_single_identity_anchor": true,
+    "no_forbidden_source_payload_fields": true,
+    "proof_paths_exclude_rejected_reference_edges": true,
+    "reference_wound_has_corrected_edge": true,
+    "reference_wound_has_rejected_legacy_edge": true,
+    "representation_hashes_match_source_anchors": true,
+    "theorem_47_9_missing_path_remains_visible_wound": true,
+    "unique_edge_ids": true,
+    "unique_node_ids": true
+  },
+  "claim_boundary": "Audit applies to the latest successful committed v0.9 CI artifact identified above, not to unpushed local additions or future MAPEOGEO commits.",
+  "conflicts": {
+    "equivalence_cycle_conflicts": [],
+    "forbidden_source_payload_keys": [],
+    "formal_verification_gaps": [],
+    "frontier_kernel_gaps": [],
+    "identity_anchor_conflicts": [],
+    "path_uses_rejected_edges": [],
+    "representation_hash_mismatches": [],
+    "source_hash_conflicts": []
+  },
+  "cycle_records": [
+    {"component": 20, "consistent": true, "cycle_nodes": ["formal:lean:theorem_6_16", "repr:eo:theorem:6_16", "repr:geo:theorem:6_16"], "identity_anchors": ["srcdecl:theorem:6_16"], "source_hash_count": 1},
+    {"component": 21, "consistent": true, "cycle_nodes": ["formal:lean:definition_44_6", "repr:eo:definition:44_6", "repr:geo:definition:44_6"], "identity_anchors": ["srcdecl:definition:44_6"], "source_hash_count": 1},
+    {"component": 22, "consistent": true, "cycle_nodes": ["formal:lean:theorem_47_9", "repr:eo:theorem:47_9", "repr:geo:theorem:47_9"], "identity_anchors": ["srcdecl:theorem:47_9"], "source_hash_count": 1},
+    {"component": 23, "consistent": true, "cycle_nodes": ["formal:lean:definition_53_4", "repr:eo:definition:53_4", "repr:geo:definition:53_4"], "identity_anchors": ["srcdecl:definition:53_4"], "source_hash_count": 1}
+  ],
+  "experiment_id": "E25_MAPEOGEO_GRAPH_CONSISTENCY_AUDIT",
+  "finding": "All four multi-path equivalence cycles are consistent at the identity-anchor, source-hash, and certificate layers. No semantic equivalence component crosses two represented source objects. The repaired v0.9 reference wound remains visible and rejected from proof-path use.",
+  "graph": {
+    "certificate_nodes": 35,
+    "edges": 23338,
+    "equivalence_components": 24,
+    "equivalence_cycles": 4,
+    "equivalence_edges": 32,
+    "formal_representations": 10,
+    "nodes": 2250,
+    "wound_nodes": 2
+  },
+  "important_limit": "The current graph serializes semantic relations, scopes, hashes, and certificates, but not executable morphisms for every EO/GEO/FORMAL edge. Therefore this audit can test graph/path identity consistency, not numerical commutativity of every mathematical diagram. E16 demonstrates the stronger executable diagram test that PCT can add.",
+  "status": "PASS"
+}
