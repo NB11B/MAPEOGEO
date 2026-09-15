@@ -39,18 +39,18 @@
     }
   },
   "primary_dashboard": {
-    "N_source": 412,
+    "N_source": 411,
     "source_breakdown": {
-      "S_A_gallier": 29,
+      "S_A_gallier": 28,
       "S_B_axler": 220,
       "S_C_vmls": 81,
       "S_D_cvx": 83
     },
     "N_canonical": 71,
-    "N_2_source": 43,
+    "N_2_source": 40,
     "N_3_source": 29,
     "N_4_source": 11,
-    "N_EO_candidate": 257,
+    "N_EO_candidate": 256,
     "N_GEO_candidate": 27,
     "N_DUAL_candidate": 155,
     "N_formal_linked": 6,
@@ -62,10 +62,14 @@
     ],
     "average_richness_r_bar": 3.281,
     "edges_summary": {
-      "total_edges": 1420,
-      "SAME_SEMANTICS_bridges": 343,
-      "REPRESENTS": 178,
-      "DEPENDS_ON": 489
+      "total_edges": 1421,
+      "SAME_SEMANTICS_bridges": 310,
+      "SCOPED_OVERLAP_bridges": 31,
+      "RELATED_TO_bridges": 6,
+      "total_cross_source_bridges": 347,
+      "REPRESENTS": 175,
+      "DEPENDS_ON": 489,
+      "SOURCED_FROM": 410
     }
   },
   "representation_diversity": {
@@ -80,16 +84,16 @@
     }
   },
   "artifacts": {
-    "mapeogeo_v0_14_graph.json.gz": "b63753e7311cf787595ac1159b565d94261c1848fcb3e3f29caa6b863f2ceb72",
-    "convex_expansion_dashboard.json": "158ea8a1d72e86535e9a1845fa71f884ab4295cca5e8024d57efeb586c48a939",
-    "representation_diversity_report.json": "39cb8492b4a797f93274ffeb3c8f002bed3071f7caf2a3fa0c7fc8edc33b68b0",
-    "scientific_results.json": "158ea8a1d72e86535e9a1845fa71f884ab4295cca5e8024d57efeb586c48a939",
-    "convex_alignments_v0_14.json": "0409058c7a90b3929294d06c8896563db461ee44847977067c388708c4c39dc1"
+    "mapeogeo_v0_14_graph.json.gz": "0ee55b795c3095e7f368d12a4ffedec4b6be41d75d43122212e879d7cfb465ed",
+    "convex_expansion_dashboard.json": "12b0d97a8cc9d008f675c35179fe894f4b63749197278028689a1ce92be69098",
+    "representation_diversity_report.json": "6898db00f79798225a08b191437805c5252f8eb936e7be66fb87894e6d9e9bd3",
+    "scientific_results.json": "12b0d97a8cc9d008f675c35179fe894f4b63749197278028689a1ce92be69098",
+    "convex_alignments_v0_14.json": "8ce03f8e57ecd2b7f224452c83a961dbd8b483ab2f622fb58f241bf2771b107a"
   },
   "preregistered_checks": {
-    "min_total_source_declarations": {"expected": ">= 400", "actual": 412, "pass": true},
+    "min_total_source_declarations": {"expected": ">= 400", "actual": 411, "pass": true},
     "min_canonical_objects": {"expected": ">= 60", "actual": 71, "pass": true},
-    "min_two_source_supported": {"expected": ">= 40", "actual": 43, "pass": true},
+    "min_two_source_supported": {"expected": ">= 40", "actual": 40, "pass": true},
     "min_three_source_supported": {"expected": ">= 20", "actual": 29, "pass": true},
     "min_four_source_supported": {"expected": ">= 8", "actual": 11, "pass": true},
     "min_domains": {"expected": ">= 3", "actual": 3, "pass": true},

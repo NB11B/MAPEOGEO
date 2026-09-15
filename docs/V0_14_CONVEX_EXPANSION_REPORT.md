@@ -20,23 +20,38 @@ $$
 
 | Metric | Symbol | Preregistered Bound | Actual v0.14 Value | Status |
 | :--- | :---: | :---: | :---: | :---: |
-| **Total Source Declarations** | $N_{\text{source}}$ | $\ge 400$ | **412** (83 $S_D$ + 81 $S_C$ + 220 $S_B$ + 29 $S_A$) | **PASS** |
+| **Total Source Declarations** | $N_{\text{source}}$ | $\ge 400$ | **411** (83 $S_D$ + 81 $S_C$ + 220 $S_B$ + 28 $S_A$) | **PASS** |
 | **Canonical Mathematical Objects** | $N_{\text{canonical}}$ | $\ge 60$ | **71** | **PASS** |
-| **Two-Source Multi-Bridges** | $N_{\text{2-source}}$ | $\ge 40$ | **43** (60.6% of canonical $M$) | **PASS** |
+| **Two-Source Multi-Bridges** | $N_{\text{2-source}}$ | $\ge 40$ | **40** (56.3% of canonical $M$) | **PASS** |
 | **Three-Source Multi-Bridges** | $N_{\text{3-source}}$ | $\ge 20$ | **29** (40.8% of canonical $M$) | **PASS** |
 | **Quad-Source Convergence** | $N_{\text{4-source}}$ | $\ge 8$ | **11** ($S_A \cap S_B \cap S_C \cap S_D$) | **PASS** |
 | **Distinct Mathematical Domains** | $D_{\text{domains}}$ | $\ge 3$ | **3** (*Linear Algebra*, *Applied Linear Algebra*, *Convex Analysis & Optimization*) | **PASS** |
 | **Average Representation Richness** | $\bar{r}$ | $\ge 2.5$ | **3.281** | **PASS** |
-| **Candidate EO Views** | $N_{\text{EO-candidate}}$ | $> 0$ | **257** | **PASS** |
+| **Candidate EO Views** | $N_{\text{EO-candidate}}$ | $> 0$ | **256** | **PASS** |
 | **Candidate GEO Views** | $N_{\text{GEO-candidate}}$ | $> 0$ | **27** | **PASS** |
 | **Candidate Dual Views** | $N_{\text{DUAL-candidate}}$ | $> 0$ | **155** | **PASS** |
 | **Formal Coverage Links** | $N_{\text{formal-linked}}$ | $\ge 5$ | **6** (Lean 4 kernel-verified theorems) | **PASS** |
-| **Total Graph Edges** | $N_{\text{edges}}$ | $> 500$ | **1420** | **PASS** |
-| **Cross-Source Semantic Bridges** | $N_{\text{SAME\_SEMANTICS}}$ | $\ge 200$ | **343** | **PASS** |
+| **Total Graph Edges** | $N_{\text{edges}}$ | $> 500$ | **1421** | **PASS** |
+| **Same-Semantics Semantic Bridges** | $N_{\text{SAME\_SEMANTICS}}$ | $\ge 200$ | **310** | **PASS** |
+| **Scoped-Overlap Semantic Bridges** | $N_{\text{SCOPED\_OVERLAP}}$ | $> 0$ | **31** | **PASS** |
+| **Related-To Semantic Bridges** | $N_{\text{RELATED\_TO}}$ | $> 0$ | **6** | **PASS** |
+| **Total Cross-Source Bridges** | $N_{\text{cross-bridges}}$ | $\ge 250$ | **347** | **PASS** |
 
 ---
 
-## 2. Representation Diversity Profile $R(M)$ and Metric $\bar{r}$
+## 2. Semantic Edge Taxonomy & Provenance Correction
+
+In accordance with fail-closed mathematical governance:
+1. **Zero Node Manufacturing**: Source declarations are never synthesized from alignment records. Only ingested and grounded declarations exist in the graph and contribute to multi-source convergence.
+2. **Typed Semantic Correspondence Edges**:
+   - `CROSS_SOURCE_SAME` $\longrightarrow$ `SAME_SEMANTICS` (310 edges): exact mathematical identity across distinct source presentations.
+   - `CROSS_SOURCE_SCOPED_OVERLAP` $\longrightarrow$ `SCOPED_OVERLAP` (31 edges): domain/subspace specific realization (e.g. Euclidean $\mathbb{R}^n$ vectors in VMLS vs abstract vector spaces in Gallier/Axler).
+   - `CROSS_SOURCE_RELATED_NOT_SAME` $\longrightarrow$ `RELATED_TO` (6 edges): related conceptual definitions (e.g. Gallier Lemma 3.6 to linear independence).
+   - `UNRESOLVED`: omitted from pairwise bridge emission.
+
+---
+
+## 3. Representation Diversity Profile $R(M)$ and Metric $\bar{r}$
 
 To move beyond one-dimensional declaration counting, v0.14 introduces the **Representation Diversity Profile**:
 
@@ -61,16 +76,10 @@ The mathematical richness of canonical objects is evaluated across these 6 disti
   - `computational`: 31 objects (43.7%)
   - `applied`: 20 objects (28.2%)
   - `formal`: 6 objects (8.5%)
-- **Distribution**:
-  - Richness 5: 11 objects (15.5%)
-  - Richness 4: 21 objects (29.6%)
-  - Richness 3: 20 objects (28.2%)
-  - Richness 2: 15 objects (21.1%)
-  - Richness 1: 4 objects (5.6%)
 
 ---
 
-## 3. Quad-Source Convergence ($S_A \cap S_B \cap S_C \cap S_D$)
+## 4. Quad-Source Convergence ($S_A \cap S_B \cap S_C \cap S_D$)
 
 The following fundamental mathematical objects are grounded across all four independent sources:
 
@@ -84,13 +93,13 @@ The following fundamental mathematical objects are grounded across all four inde
 | **Orthogonality & Angles** | Def 10.1 | Def 6.22 | Sec 3.3 | Sec 2.5, 8.3 | geometric, algebraic, abstract, applied |
 | **Orthogonal Projection onto Subspaces/Sets** | Def 10.4 | Def 6.55 | Sec 12.2 | Sec 8.1 | geometric, algebraic, computational, applied, formal |
 | **Gram Matrix / Inner Product Matrix** | Def 10.1 | Def 6.22 | Sec 5.3 | Sec 2.2, 8.3 | algebraic, geometric, computational |
-| **Positive Semidefinite Cone / Matrices** | Def 10.1 | Def 7.15 | Sec 15.1 | Sec 2.2, 2.4, 4.6 | algebraic, geometric, abstract, computational, applied |
+| **Positive Semidefinite Cone / Matrices** | Def 16.1 | Def 7.15 | Sec 15.1 | Sec 2.2, 2.4, 4.6 | algebraic, geometric, abstract, computational, applied |
 | **Least Squares Problem & Normal Equations** | Def 10.4, 15.1 | Def 6.55 | Sec 12.1, 12.2 | Sec 4.4, 6.1 | algebraic, geometric, computational, applied |
 | **Constrained Optimization & Optimality Conditions** | Def 10.4 | Def 6.55 | Sec 16.1 | Sec 4.1, 5.5 | algebraic, computational, applied, geometric |
 
 ---
 
-## 4. Domain Expansion: Convex Analysis & Mathematical Optimization
+## 5. Domain Expansion: Convex Analysis & Mathematical Optimization
 
 Source D brings deep coverage of convex geometry and duality:
 - **Convex Sets & Cones**: Affine sets, convex sets, polyhedra, proper cones, dual cones, generalized inequalities.
@@ -102,7 +111,7 @@ Source D brings deep coverage of convex geometry and duality:
 
 ---
 
-## 5. Formal Verification & Zero-Prose Policy
+## 6. Formal Verification & Zero-Prose Policy
 
 1. **Formal Proofs**: 6 canonical objects retain Lean 4 kernel-verified proof bindings inherited from `formal/MathIntakeV011.lean`.
 2. **Zero-Prose Policy**: Verified clean via automated AST and graph traversal; no copyrighted text, proof prose, or page images are stored in graph artifacts.

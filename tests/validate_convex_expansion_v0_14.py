@@ -148,9 +148,15 @@ def validate_v0_14(
         errors.append(f"Formal proof linked canonical objects {formal_linked} < 5")
 
     # 9. Validate bridge edges
-    bridges = dashboard.get("edges_summary", {}).get("SAME_SEMANTICS_bridges", 0)
-    if bridges < 200:
-        errors.append(f"SAME_SEMANTICS bridge edges {bridges} < 200")
+    same_sem = dashboard.get("edges_summary", {}).get("SAME_SEMANTICS_bridges", 0)
+    scoped_ov = dashboard.get("edges_summary", {}).get("SCOPED_OVERLAP_bridges", 0)
+    rel_to = dashboard.get("edges_summary", {}).get("RELATED_TO_bridges", 0)
+    tot_bridges = dashboard.get("edges_summary", {}).get("total_cross_source_bridges", 0)
+
+    if same_sem < 200:
+        errors.append(f"SAME_SEMANTICS bridge edges {same_sem} < 200")
+    if tot_bridges < 250:
+        errors.append(f"Total cross-source bridge edges {tot_bridges} < 250")
 
     # Print summary
     if errors:
@@ -162,6 +168,7 @@ def validate_v0_14(
         print("\nALL v0.14 CONVEX EXPANSION VALIDATION CHECKS PASSED!")
         print(f"  - Quad-Source Coverage: {len(source_decls)} declarations across 4 sources")
         print(f"  - Canonical Objects: {len(canonical_objs)} ({n_2_source} 2-source, {n_3_source} 3-source, {n_4_source} 4-source)")
+        print(f"  - Semantic Bridges: {same_sem} SAME_SEMANTICS, {scoped_ov} SCOPED_OVERLAP, {rel_to} RELATED_TO (Total: {tot_bridges})")
         print(f"  - Representation Richness r_bar: {r_bar} >= {min_r_bar}")
         print(f"  - Distinct Domains: {domains_count} >= {min_domains}")
         print(f"  - Formal Proofs Linked: {formal_linked}")

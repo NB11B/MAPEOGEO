@@ -139,6 +139,8 @@ def test_convex_intake_mock_pipeline(tmp_path: Path):
     assert metrics["D_domains_count"] >= 3
     assert metrics["representation_diversity"]["average_richness_r_bar"] >= 2.5
     assert metrics["edges_summary"]["SAME_SEMANTICS_bridges"] >= 200
+    assert metrics["edges_summary"]["SCOPED_OVERLAP_bridges"] >= 10
+    assert metrics["edges_summary"]["total_cross_source_bridges"] >= 250
 
     out_graph = out_dir / "mapeogeo_v0_14_graph.json.gz"
     assert out_graph.exists()

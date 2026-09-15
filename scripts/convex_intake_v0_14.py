@@ -261,6 +261,17 @@ def ingest_quad_source_alignments(
             status = al.get("status", "CROSS_SOURCE_SAME")
 
             alignment_summary["total_alignments"] += 1
+
+            # Fail-closed provenance check: do not manufacture missing source declarations
+            if src_id not in by_id:
+                alignment_summary.setdefault("ungrounded_sources", []).append({
+                    "canonical_object": cid,
+                    "corpus": corpus,
+                    "source": src_id,
+                    "status": status,
+                })
+                continue
+
             if corpus == "AXLER":
                 alignment_summary["axler_alignments"] += 1
                 axler_sources.append((src_id, status))
@@ -283,36 +294,6 @@ def ingest_quad_source_alignments(
             elif status == "UNRESOLVED":
                 alignment_summary["unresolved"] += 1
 
-            # Ensure source declaration node exists in graph
-            if src_id not in by_id:
-                label_parts = src_id.split(":")
-                kind = label_parts[1] if len(label_parts) > 2 else "declaration"
-                num = label_parts[2].replace("_", ".") if len(label_parts) > 2 else ""
-                if corpus == "GALLIER":
-                    src_id_attr = GALLIER_SOURCE_ID
-                elif corpus == "AXLER":
-                    src_id_attr = AXLER_SOURCE_ID
-                elif corpus == "VMLS":
-                    src_id_attr = VMLS_SOURCE_ID
-                else:
-                    src_id_attr = CVX_SOURCE_ID
-
-                add_node(
-                    nodes,
-                    by_id,
-                    {
-                        "id": src_id,
-                        "type": "SOURCE_DECLARATION",
-                        "label": f"{corpus} {kind.capitalize()} {num}",
-                        "attributes": {
-                            "source_id": src_id_attr,
-                            "corpus": corpus,
-                            "direct_status": "EO_ONLY_DIRECT",
-                            "stage": STAGE,
-                        },
-                    },
-                )
-
             # REPRESENTS edge: Source Declaration -> Canonical Object
             rep_edge_id = f"e:rep:{src_id}:{cid}"
             add_edge(
@@ -331,7 +312,7 @@ def ingest_quad_source_alignments(
                 },
             )
 
-        # Multi-Source Bridge Counting
+        # Multi-Source Bridge Counting over grounded source declarations
         represented_sources = sum([
             1 if len(gallier_sources) > 0 else 0,
             1 if len(axler_sources) > 0 else 0,
@@ -345,30 +326,44 @@ def ingest_quad_source_alignments(
         if represented_sources >= 4:
             alignment_summary["four_source_canonical_objects"] += 1
 
-        # Emit SAME_SEMANTICS bridge edges across all pairs of sources
-        all_aligned_sources = [(s, "GALLIER") for s, _ in gallier_sources] + \
-                              [(s, "AXLER") for s, _ in axler_sources] + \
-                              [(s, "VMLS") for s, _ in vmls_sources] + \
-                              [(s, "CVX") for s, _ in cvx_sources]
+        # Emit typed semantic bridge edges across all pairs of grounded sources
+        all_aligned_sources = [(s, "GALLIER", st) for s, st in gallier_sources] + \
+                              [(s, "AXLER", st) for s, st in axler_sources] + \
+                              [(s, "VMLS", st) for s, st in vmls_sources] + \
+                              [(s, "CVX", st) for s, st in cvx_sources]
 
         for i in range(len(all_aligned_sources)):
             for j in range(i + 1, len(all_aligned_sources)):
-                src_a, corp_a = all_aligned_sources[i]
-                src_b, corp_b = all_aligned_sources[j]
+                src_a, corp_a, stat_a = all_aligned_sources[i]
+                src_b, corp_b, stat_b = all_aligned_sources[j]
                 if corp_a != corp_b:
-                    bridge_edge_id = f"e:same:{src_a}:{src_b}"
+                    if stat_a == "UNRESOLVED" or stat_b == "UNRESOLVED":
+                        continue
+
+                    if stat_a == "CROSS_SOURCE_SAME" and stat_b == "CROSS_SOURCE_SAME":
+                        edge_type = "SAME_SEMANTICS"
+                    elif stat_a == "CROSS_SOURCE_RELATED_NOT_SAME" or stat_b == "CROSS_SOURCE_RELATED_NOT_SAME":
+                        edge_type = "RELATED_TO"
+                    elif stat_a == "CROSS_SOURCE_SCOPED_OVERLAP" or stat_b == "CROSS_SOURCE_SCOPED_OVERLAP":
+                        edge_type = "SCOPED_OVERLAP"
+                    else:
+                        edge_type = "RELATED_TO"
+
+                    bridge_edge_id = f"e:{edge_type.lower()}:{src_a}:{src_b}"
                     add_edge(
                         edges,
                         edge_ids,
                         {
                             "id": bridge_edge_id,
-                            "type": "SAME_SEMANTICS",
+                            "type": edge_type,
                             "source": src_a,
                             "target": src_b,
                             "attributes": {
                                 "canonical_object": cid,
                                 "corpus_a": corp_a,
                                 "corpus_b": corp_b,
+                                "status_a": stat_a,
+                                "status_b": stat_b,
                                 "stage": STAGE,
                             },
                         },
@@ -409,9 +404,14 @@ def compute_v0_14_metrics(graph: dict[str, Any], alignment_summary: dict[str, An
     richness_scores = alignment_summary.get("richness_scores", [])
     avg_richness = sum(richness_scores) / len(richness_scores) if richness_scores else 0.0
 
-    bridge_edges = [e for e in edges if e.get("type") == "SAME_SEMANTICS"]
+    same_semantics_edges = [e for e in edges if e.get("type") == "SAME_SEMANTICS"]
+    scoped_overlap_edges = [e for e in edges if e.get("type") == "SCOPED_OVERLAP"]
+    related_to_edges = [e for e in edges if e.get("type") == "RELATED_TO"]
     represents_edges = [e for e in edges if e.get("type") == "REPRESENTS"]
     depends_on_edges = [e for e in edges if e.get("type") == "DEPENDS_ON"]
+    sourced_from_edges = [e for e in edges if e.get("type") == "SOURCED_FROM"]
+
+    total_bridge_edges = len(same_semantics_edges) + len(scoped_overlap_edges) + len(related_to_edges)
 
     return {
         "stage": STAGE,
@@ -444,9 +444,13 @@ def compute_v0_14_metrics(graph: dict[str, Any], alignment_summary: dict[str, An
         "N_formal_linked": len(formal_linked),
         "edges_summary": {
             "total_edges": len(edges),
-            "SAME_SEMANTICS_bridges": len(bridge_edges),
+            "SAME_SEMANTICS_bridges": len(same_semantics_edges),
+            "SCOPED_OVERLAP_bridges": len(scoped_overlap_edges),
+            "RELATED_TO_bridges": len(related_to_edges),
+            "total_cross_source_bridges": total_bridge_edges,
             "REPRESENTS": len(represents_edges),
             "DEPENDS_ON": len(depends_on_edges),
+            "SOURCED_FROM": len(sourced_from_edges),
         },
     }
 
@@ -526,7 +530,11 @@ def run_convex_intake(
     print(f"  Avg Representation Richness r_bar: {metrics['representation_diversity']['average_richness_r_bar']}")
     print(f"  Candidate Views: EO={metrics['representation_views']['N_EO_candidates']}, GEO={metrics['representation_views']['N_GEO_candidates']}, Dual={metrics['representation_views']['N_DUAL_candidates']}")
     print(f"  Formal Proof Linked:       {metrics['N_formal_linked']}")
-    print(f"  Total Graph Edges:         {metrics['edges_summary']['total_edges']} (Bridges: {metrics['edges_summary']['SAME_SEMANTICS_bridges']})")
+    print(f"  Total Graph Edges:         {metrics['edges_summary']['total_edges']}")
+    print(f"    - SAME_SEMANTICS:        {metrics['edges_summary']['SAME_SEMANTICS_bridges']}")
+    print(f"    - SCOPED_OVERLAP:        {metrics['edges_summary']['SCOPED_OVERLAP_bridges']}")
+    print(f"    - RELATED_TO:            {metrics['edges_summary']['RELATED_TO_bridges']}")
+    print(f"    - Total Cross-Bridges:   {metrics['edges_summary']['total_cross_source_bridges']}")
 
     return graph, metrics, alignment_summary
 
