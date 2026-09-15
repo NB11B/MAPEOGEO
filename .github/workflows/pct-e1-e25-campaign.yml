@@ -111,4 +111,4 @@ jobs:
           path: generated-e25gh/*.json
           if-no-files-found: error
       - name: Run PCT campaign regression suite
-        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py experiments/pct_e25ij/test_e25ij.py
+        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py experiments/pct_e25ij/test_e25ij.py experiments/pct_e25ij/test_evidence.py
