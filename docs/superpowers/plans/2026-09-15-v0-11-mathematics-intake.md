@@ -2,67 +2,66 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Promote the four graph-selected v0.9 pinch nodes through a source-bound, fail-closed intake cycle that preserves detector history, records explicit computational/UNTESTED state, attempts scoped Lean formalization for all four, and emits graph/certificate/wound artifacts without altering the architecture.
+**Goal:** Promote the four graph-selected v0.9 pinch nodes through a source-bound, fail-closed intake cycle that preserves detector history, records explicit computational or `UNTESTED` state, attempts scoped Lean formalization for every auditable scope, and emits graph/certificate/wound artifacts without changing the MAPEOGEO architecture.
 
-**Architecture:** v0.11 consumes the accepted v0.9 graph as its base. It first regenerates and hash-checks the four source declarations, then freezes a per-node source-audited scope record before any scientific execution, keeps EO/GEO detector output immutable, runs only preregistered executable contracts where justified, attempts Lean formalization for every node, and extends the graph only with evidence actually earned. PCT v0.10 remains an optional S3 provider and is not a dependency of v0.11.
+**Architecture:** v0.11 consumes the accepted v0.9 graph as its base. It regenerates and hash-checks the four source declarations, freezes a per-node source-audited formal scope before scientific execution, preserves EO/GEO detector output unchanged, runs only preregistered executable contracts where justified, attempts Lean formalization, and extends the graph only with evidence actually earned. PCT v0.10 remains an optional S3 provider and is not a dependency of this plan.
 
-**Tech Stack:** Python 3.12; `pytest>=8,<9`; existing PyMuPDF/SymPy source-analysis stack; Lean `leanprover/lean4:v4.33.1`; Mathlib `v4.33.1`; GitHub Actions `ubuntu-latest`; local Windows verification through the same pinned repository toolchain.
+**Tech Stack:** Python 3.12; `pytest>=8,<9`; existing PyMuPDF/SymPy ingestion stack; Lean `leanprover/lean4:v4.33.1`; Mathlib `v4.33.1`; GitHub Actions `ubuntu-latest`; local Windows verification through the same pinned repository toolchain.
 
 **Spec:** `docs/superpowers/specs/2026-09-15-v0-11-mathematics-intake-design.md`
 
 ## Global Constraints
 
-- Work only on `agent/math-intake-v0-11` until the v0.11 acceptance artifact is green.
-- Frozen source IDs and statement SHA-256 values are exactly:
+- Work only on `agent/math-intake-v0-11` until v0.11 acceptance is sealed.
+- Frozen source identities are:
   - `srcdecl:proposition:3_14` — `6e09e18756aefdaf8cdd2c03aca61548d1126fb3d30d70b49c58359f37c64b8e`
   - `srcdecl:proposition:3_13` — `0eef6ce3b699ddef7c209eb28b500b75aab07d9e540b7746b631f8db653addac`
   - `srcdecl:theorem:27_10` — `d205d7c5313b841e6afafc9d619fa059dfe50a2f6c11a48ca2cff466cc84d4fa`
   - `srcdecl:proposition:4_4` — `37e5dc6afdbd3d026c4f7ef71c3531fc74eaeb04bf21ed45c4a9add39fcb6ecf`
-- Existing v0.9 direct-view states are immutable historical evidence: 3.14 EO-only, 3.13 EO-only, 27.10 dual-direct, 4.4 EO-only.
-- Only explicit source references become source `DEPENDS_ON` edges. Formal/library prerequisites are separate metadata and must not be rewritten as source citations.
-- Every accepted node has explicit `Test` state: scoped executable/PCT contract, `KERNEL_VERIFIED`, or `UNTESTED`.
+- Historical direct-view states remain immutable: 3.14 EO-only, 3.13 EO-only, 27.10 dual-direct, 4.4 EO-only.
+- Only explicit source references become source `DEPENDS_ON` edges.
+- Formal/library prerequisites are metadata, not invented source citations.
+- Every accepted node finishes with explicit `Test` state: scoped executable/PCT contract, `KERNEL_VERIFIED`, or `UNTESTED`.
 - `DUAL_CANDIDATE`, `EQUIVALENT_TO`, `SAME_SEMANTICS`, `KERNEL_VERIFIED`, `KERNEL_ACCEPTED_PATH`, `WOUND`, and `UNTESTED` remain distinct.
-- Lean success must not create or rewrite EO/GEO detector evidence.
-- No `sorry`, `admit`, custom `axiom`, or `unsafe` declaration is allowed in accepted formalization source.
-- Source prose/page images are transient only and are never committed or uploaded as v0.11 artifacts.
-- The repository remains all-rights-reserved under `LICENSE.md`; external Gallier/Quaintance source material remains external under `THIRD_PARTY_NOTICES.md`.
-- Existing v0.6/v0.7 routing metrics are carried forward as historical values; v0.11 does not tune their thresholds.
-- A failed or refused formalization is a valid scientific result and leaves the source node unpromoted.
-
----
+- Lean success cannot create or rewrite EO/GEO detector evidence.
+- No accepted Lean source may contain `sorry`, `admit`, a custom `axiom`, or an `unsafe` declaration.
+- Source prose/page images are transient only and never enter repository or CI artifacts.
+- Existing v0.6/v0.7 routing metrics are carried forward as historical values; v0.11 does not tune them.
+- A refused or failed formalization is valid scientific output and leaves the source node unpromoted.
 
 ## File Structure
 
-Create or modify these focused units:
+Create or modify:
 
 ```text
-formal/pinch_bindings_v0_11.json          # frozen identities, audited scopes, deps, test plans
-MAPEOGEOFormal/PinchV011.lean             # four scoped source-bound formal candidates
-MAPEOGEOFormal.lean                       # import PinchV011
-scripts/audit_pinch_source_v0_11.py        # transient source/hash/dependency audit; no prose artifacts
-scripts/pinch_intake_v0_11.py              # state transitions, certificates, wounds, graph emission
-scripts/local_verify_v0_11.ps1             # reproducible Windows kernel/test command bundle
-tests/test_pinch_source_audit_v0_11.py     # binding/hash/dependency policy tests
-tests/test_pinch_intake_v0_11.py           # graph-state and promotion discipline tests
-tests/validate_pinch_intake_v0_11.py       # artifact validator
-evidence/v0_11_preregistration.json        # scientific freeze, no result values
-.github/workflows/math-intake-v0-11.yml     # Linux CI run and artifact upload
-docs/V0_11_MATHEMATICS_INTAKE_SPEC.md      # human-readable preregistration mirror
+formal/pinch_bindings_v0_11.json
+MAPEOGEOFormal/PinchV011.lean
+MAPEOGEOFormal.lean
+scripts/audit_pinch_source_v0_11.py
+scripts/pinch_contracts_v0_11.py
+scripts/pinch_intake_v0_11.py
+scripts/local_verify_v0_11.ps1
+tests/test_pinch_source_audit_v0_11.py
+tests/test_pinch_intake_v0_11.py
+tests/validate_pinch_intake_v0_11.py
+evidence/v0_11_preregistration.json
+docs/V0_11_MATHEMATICS_INTAKE_SPEC.md
+.github/workflows/math-intake-v0-11.yml
 ```
 
-Create only after an accepted CI run:
+Create only after an accepted CI artifact exists:
 
 ```text
 evidence/v0_11_acceptance_manifest.json
 docs/V0_11_MATHEMATICS_INTAKE_REPORT.md
-README.md                                  # add v0.11 accepted result summary
+README.md
 ```
 
-Do not modify `MAPEOGEOFormal/SourceBound.lean`, `MAPEOGEOFormal/ProofPaths.lean`, or v0.8/v0.9 acceptance evidence except for import wiring that leaves those files byte-for-byte unchanged.
+Do not edit `MAPEOGEOFormal/SourceBound.lean` or `MAPEOGEOFormal/ProofPaths.lean`.
 
 ---
 
-### Task 1: Freeze the executable v0.11 manifest and binding schema
+### Task 1: Freeze identities, dependency expectations, and intake-state schema
 
 **Files:**
 - Create: `formal/pinch_bindings_v0_11.json`
@@ -71,13 +70,11 @@ Do not modify `MAPEOGEOFormal/SourceBound.lean`, `MAPEOGEOFormal/ProofPaths.lean
 - Create: `tests/test_pinch_source_audit_v0_11.py`
 
 **Interfaces:**
-- Produces: JSON binding records consumed by `audit_pinch_source_v0_11.py`, `pinch_intake_v0_11.py`, and CI.
-- Required record fields:
-  `source_id`, `statement_sha256`, `expected_direct_status`, `explicit_dependencies`, `formal_decl`, `formal_scope`, `s3_test_state`, `s3_contract_id`, `s3_scope`, `scope_status`.
-- `scope_status` is one of `FROZEN`, `REFUSED_SCOPE_MISMATCH`.
-- `s3_test_state` is one of `EXECUTABLE_CONTRACT`, `PCT_CONTRACT`, `UNTESTED`.
+- Binding record fields: `source_id`, `statement_sha256`, `expected_direct_status`, `explicit_dependencies`, `formal_decl`, `formal_scope`, `scope_status`, `s3_test_state`, `s3_contract_id`, `s3_scope`.
+- Allowed `scope_status`: `FROZEN`, `REFUSED_SCOPE_MISMATCH`.
+- Allowed `s3_test_state`: `EXECUTABLE_CONTRACT`, `PCT_CONTRACT`, `UNTESTED`.
 
-- [ ] **Step 1: Write a failing binding-schema test**
+- [ ] **Step 1: Write the failing identity test**
 
 ```python
 import json
@@ -93,101 +90,56 @@ FROZEN = {
 
 def test_v011_bindings_freeze_exact_quartet():
     cfg = json.loads(Path("formal/pinch_bindings_v0_11.json").read_text(encoding="utf-8"))
-    got = {x["source_id"]: x["statement_sha256"] for x in cfg["targets"]}
-    assert got == FROZEN
+    assert {x["source_id"]: x["statement_sha256"] for x in cfg["targets"]} == FROZEN
     assert len(cfg["targets"]) == 4
     for item in cfg["targets"]:
         assert item["s3_test_state"] in {"EXECUTABLE_CONTRACT", "PCT_CONTRACT", "UNTESTED"}
         assert item["scope_status"] in {"FROZEN", "REFUSED_SCOPE_MISMATCH"}
 ```
 
-- [ ] **Step 2: Run the test and confirm the expected failure**
+- [ ] **Step 2: Run and confirm failure**
 
 Run: `python -m pytest -q tests/test_pinch_source_audit_v0_11.py::test_v011_bindings_freeze_exact_quartet`
 
-Expected: FAIL because `formal/pinch_bindings_v0_11.json` does not yet exist.
+Expected: FAIL because the binding file does not yet exist.
 
-- [ ] **Step 3: Create the initial bindings with immutable identities and detector history**
+- [ ] **Step 3: Create the initial bindings**
 
-Use exactly this outer structure:
+Use these explicit dependency expectations from accepted v0.9:
 
-```json
-{
-  "schema_version": "0.11",
-  "stage": "PINCH_DRIVEN_MATHEMATICS_INTAKE",
-  "source": "GALLIER_QUAINTANCE_MATH_DEEP",
-  "targets": [
-    {
-      "source_id": "srcdecl:proposition:3_14",
-      "statement_sha256": "6e09e18756aefdaf8cdd2c03aca61548d1126fb3d30d70b49c58359f37c64b8e",
-      "expected_direct_status": "EO_ONLY_DIRECT",
-      "explicit_dependencies": ["srcdecl:proposition:3_13", "srcdecl:proposition:4_4"],
-      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
-      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
-      "s3_test_state": "UNTESTED",
-      "s3_contract_id": null,
-      "s3_scope": null,
-      "scope_status": "REFUSED_SCOPE_MISMATCH"
-    },
-    {
-      "source_id": "srcdecl:proposition:3_13",
-      "statement_sha256": "0eef6ce3b699ddef7c209eb28b500b75aab07d9e540b7746b631f8db653addac",
-      "expected_direct_status": "EO_ONLY_DIRECT",
-      "explicit_dependencies": ["srcdecl:proposition:3_21", "srcdecl:proposition:2_2", "srcdecl:proposition:2_3", "srcdecl:proposition:4_4"],
-      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
-      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
-      "s3_test_state": "UNTESTED",
-      "s3_contract_id": null,
-      "s3_scope": null,
-      "scope_status": "REFUSED_SCOPE_MISMATCH"
-    },
-    {
-      "source_id": "srcdecl:theorem:27_10",
-      "statement_sha256": "d205d7c5313b841e6afafc9d619fa059dfe50a2f6c11a48ca2cff466cc84d4fa",
-      "expected_direct_status": "DUAL_DIRECT",
-      "explicit_dependencies": ["srcdecl:theorem:6_16"],
-      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
-      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
-      "s3_test_state": "UNTESTED",
-      "s3_contract_id": null,
-      "s3_scope": null,
-      "scope_status": "REFUSED_SCOPE_MISMATCH"
-    },
-    {
-      "source_id": "srcdecl:proposition:4_4",
-      "statement_sha256": "37e5dc6afdbd3d026c4f7ef71c3531fc74eaeb04bf21ed45c4a9add39fcb6ecf",
-      "expected_direct_status": "EO_ONLY_DIRECT",
-      "explicit_dependencies": ["srcdecl:proposition:4_3"],
-      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
-      "formal_scope": "SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION",
-      "s3_test_state": "UNTESTED",
-      "s3_contract_id": null,
-      "s3_scope": null,
-      "scope_status": "REFUSED_SCOPE_MISMATCH"
-    }
-  ]
+```python
+EXPECTED_DEPS = {
+    "srcdecl:proposition:3_14": ["srcdecl:proposition:3_13", "srcdecl:proposition:4_4"],
+    "srcdecl:proposition:3_13": ["srcdecl:proposition:3_21", "srcdecl:proposition:2_2", "srcdecl:proposition:2_3", "srcdecl:proposition:4_4"],
+    "srcdecl:theorem:27_10": ["srcdecl:theorem:6_16"],
+    "srcdecl:proposition:4_4": ["srcdecl:proposition:4_3"],
 }
 ```
 
-This initial file intentionally refuses formal scope until Task 2 audits the current source. It is not an accepted scientific manifest yet.
-
-- [ ] **Step 4: Create preregistration JSON and human-readable spec**
-
-The preregistration must copy the four frozen identities, the immutable historical direct-view states, toolchain pins, forbidden proof escapes, the exact allowed verdicts, and these acceptance rules:
+Initial formal scope is refused until source audit:
 
 ```text
-all four identities must match
-all four FORMAL candidates must be attempted after scope freeze
-successful kernel certificates require lean build + leanchecker
-failed/refused scopes remain source-only and emit a wound/refusal
-no detector history may be rewritten
-all four nodes must finish with an explicit Test state
-previous v0.9 wounds remain visible
+formal_scope = SOURCE_AUDIT_REQUIRED_BEFORE_EXECUTION
+scope_status = REFUSED_SCOPE_MISMATCH
+s3_test_state = UNTESTED
+s3_contract_id = null
+s3_scope = null
 ```
 
-Do not include expected numerical results, expected pass counts, or post-run thresholds.
+Fixed declaration names are:
 
-- [ ] **Step 5: Run the schema test**
+```text
+MAPEOGEOFormal.proposition_3_14_v011
+MAPEOGEOFormal.proposition_3_13_v011
+MAPEOGEOFormal.theorem_27_10_v011
+MAPEOGEOFormal.proposition_4_4_v011
+```
+
+- [ ] **Step 4: Create the preregistration record**
+
+Freeze the four identities, historical detector states, dependency expectations, Lean/Mathlib versions, proof-escape policy, graph-integrity rules, and fail-closed acceptance law. Do not record expected result counts.
+
+- [ ] **Step 5: Run tests**
 
 Run: `python -m pytest -q tests/test_pinch_source_audit_v0_11.py`
 
@@ -202,7 +154,7 @@ git commit -m "Preregister v0.11 pinch mathematics intake"
 
 ---
 
-### Task 2: Audit the exact current source statements and freeze formal scopes before execution
+### Task 2: Audit the current source and freeze faithful formal scopes before any result run
 
 **Files:**
 - Create: `scripts/audit_pinch_source_v0_11.py`
@@ -211,111 +163,98 @@ git commit -m "Preregister v0.11 pinch mathematics intake"
 - Modify: `tests/test_pinch_source_audit_v0_11.py`
 
 **Interfaces:**
-- Consumes: transient current Gallier/Quaintance PDF plus a regenerated v0.6/v0.7 graph.
-- Produces: metadata-only `pinch_source_audit_v0_11.json` containing ID/hash/page/dependency/direct-view/scope-status data; never source prose.
-- CLI:
+- `audit_targets(graph: dict, bindings: dict) -> dict`
+- CLI accepts source PDF, regenerated graph, bindings, and output path.
+- Serialized audit output is metadata-only: source ID/hash/page locator/character counts/direct status/dependency IDs/scope state/test state.
 
-```text
-python scripts/audit_pinch_source_v0_11.py SOURCE_PDF \
-  --graph PATH_TO_REGENERATED_GRAPH \
-  --bindings formal/pinch_bindings_v0_11.json \
-  --out PINCH_AUDIT_JSON
-```
-
-- [ ] **Step 1: Add a failing unit test for hash/direct-status/dependency auditing**
+- [ ] **Step 1: Write failing audit tests**
 
 ```python
 from scripts.audit_pinch_source_v0_11 import audit_targets
 
 
-def test_audit_rejects_hash_or_detector_drift(sample_graph, sample_bindings):
+def test_audit_accepts_frozen_identity_and_dependencies(sample_graph, sample_bindings):
     result = audit_targets(sample_graph, sample_bindings)
     assert result["all_hashes_match"] is True
     assert result["all_direct_states_match"] is True
     assert result["all_explicit_dependencies_present"] is True
+
+
+def test_audit_rejects_hash_drift(sample_graph, sample_bindings):
+    sample_bindings["targets"][0]["statement_sha256"] = "0" * 64
+    assert audit_targets(sample_graph, sample_bindings)["all_hashes_match"] is False
 ```
 
-Add a second test that mutates one hash and asserts `all_hashes_match is False`.
-
-- [ ] **Step 2: Run tests to verify failure**
+- [ ] **Step 2: Run and confirm failure**
 
 Run: `python -m pytest -q tests/test_pinch_source_audit_v0_11.py`
 
-Expected: FAIL because `audit_targets` does not exist.
+Expected: FAIL because the audit module does not exist.
 
 - [ ] **Step 3: Implement metadata-only auditing**
 
-`audit_targets(graph, bindings)` must:
+Core logic:
 
 ```python
-by_id = {node["id"]: node for node in graph["nodes"]}
-for target in bindings["targets"]:
-    node = by_id[target["source_id"]]
-    profile = node["attributes"]["independent_profile"]
-    assert_or_record(profile["statement_sha256"] == target["statement_sha256"])
-    assert_or_record(profile["direct_status"] == target["expected_direct_status"])
-    deps = {
-        e["target"] for e in graph["edges"]
-        if e.get("type") == "DEPENDS_ON" and e.get("source") == target["source_id"]
+def audit_targets(graph, bindings):
+    by_id = {n["id"]: n for n in graph["nodes"]}
+    dep_map = {}
+    for edge in graph["edges"]:
+        if edge.get("type") == "DEPENDS_ON":
+            dep_map.setdefault(edge["source"], set()).add(edge["target"])
+
+    rows = []
+    for target in bindings["targets"]:
+        node = by_id.get(target["source_id"])
+        profile = None if node is None else node.get("attributes", {}).get("independent_profile", {})
+        rows.append({
+            "source_id": target["source_id"],
+            "hash_match": bool(profile) and profile.get("statement_sha256") == target["statement_sha256"],
+            "direct_state_match": bool(profile) and profile.get("direct_status") == target["expected_direct_status"],
+            "dependencies_present": set(target["explicit_dependencies"]) <= dep_map.get(target["source_id"], set()),
+        })
+    return {
+        "targets": rows,
+        "all_hashes_match": all(r["hash_match"] for r in rows),
+        "all_direct_states_match": all(r["direct_state_match"] for r in rows),
+        "all_explicit_dependencies_present": all(r["dependencies_present"] for r in rows),
     }
-    assert_or_record(set(target["explicit_dependencies"]) <= deps)
 ```
 
-Serialized output may include only source ID, statement hash, page locator, statement/proof character counts, detector state, dependency IDs, and scope/test metadata. It must not include statement or proof text.
+- [ ] **Step 4: Regenerate the accepted source graph and run the audit**
 
-- [ ] **Step 4: Run the transient source audit locally before writing any Lean theorem**
+Use the existing v0.6/v0.7 regeneration path against the current source PDF. Stop immediately if any frozen hash/direct state/dependency check fails.
 
-Regenerate the accepted source graph using the existing v0.6/v0.7 path, then run the new audit script. Stop if any frozen hash or direct-view state differs.
+- [ ] **Step 5: Inspect the exact four source statements transiently and freeze scope decisions**
 
-The executor must inspect the four exact source statements transiently from the current PDF and choose the narrowest faithful formal scope for each. Store only independently authored scope labels/descriptions, not copied source prose.
+For each node, choose the narrowest faithful formal scope from the current PDF. Store only an independently authored uppercase scope identifier and a short independently written scope description. Do not store copied source prose.
 
-The required decision rule is:
+Decision law:
 
 ```text
-If a faithful formal statement can be written for the source claim or an explicitly named proper sub-scope:
-    scope_status = FROZEN
-    formal_scope = stable uppercase identifier
-else:
-    scope_status = REFUSED_SCOPE_MISMATCH
-    formal_scope = reason code
+faithful source-level or explicitly narrower formal statement available -> scope_status FROZEN
+no faithful scope without changing the source claim -> scope_status REFUSED_SCOPE_MISMATCH
 ```
 
-The four Lean declaration names remain fixed even if a scope is refused.
+- [ ] **Step 6: Freeze S3 selection before execution**
 
-- [ ] **Step 5: Freeze S3 test selection at the same time**
-
-For each target, choose exactly one:
+Choose exactly one per target:
 
 ```text
-EXECUTABLE_CONTRACT  only if an exact/scoped executable test is justified
-PCT_CONTRACT         only if PCT v0.10 has merged and the object satisfies a declared PCT applicability contract
+EXECUTABLE_CONTRACT  when an exact/scoped computational contract is justified
+PCT_CONTRACT         only when PCT is merged and its applicability contract is satisfied
 UNTESTED             otherwise
 ```
 
-Do not create a computational test merely to avoid `UNTESTED`.
+No node requires an S3 contract in order to proceed to S4.
 
-If `EXECUTABLE_CONTRACT` is selected, add a stable `s3_contract_id` and exact domain description now, before observing its outcome.
+- [ ] **Step 7: Commit the scope/test freeze before formal execution**
 
-- [ ] **Step 6: Amend preregistration with the frozen scope/test choices**
-
-The amendment must contain no outcome values. Record the commit as `scope_freeze_commit` later in the runner output.
-
-- [ ] **Step 7: Run source-audit tests and commit the freeze**
-
-Run:
-
-```bash
-python -m pytest -q tests/test_pinch_source_audit_v0_11.py
-python scripts/audit_pinch_source_v0_11.py <current-pdf> --graph <regenerated-graph> --bindings formal/pinch_bindings_v0_11.json --out artifacts/pinch_source_audit_v0_11.json
-```
-
-Expected: PASS with four exact hash matches and no prose in the artifact.
-
-Commit the audited bindings and preregistration amendment before Task 3.
+Run source-audit tests again, then commit the audited binding file and preregistration amendment. Record that commit SHA as the v0.11 scope-freeze commit.
 
 ---
 
-### Task 3: Add fail-closed Lean formal candidates for the frozen scopes
+### Task 3: Implement the four scoped Lean candidates or explicit refusals
 
 **Files:**
 - Create: `MAPEOGEOFormal/PinchV011.lean`
@@ -323,17 +262,13 @@ Commit the audited bindings and preregistration amendment before Task 3.
 - Create: `tests/test_pinch_intake_v0_11.py`
 
 **Interfaces:**
-- Consumes: `formal/pinch_bindings_v0_11.json` after Task 2 scope freeze.
-- Produces fixed declaration names:
-  - `MAPEOGEOFormal.proposition_3_14_v011`
-  - `MAPEOGEOFormal.proposition_3_13_v011`
-  - `MAPEOGEOFormal.theorem_27_10_v011`
-  - `MAPEOGEOFormal.proposition_4_4_v011`
-- A refused scope is represented in metadata, not by a fake Lean theorem. The runner must treat missing declaration + `REFUSED_SCOPE_MISMATCH` as an intentional refusal rather than a kernel failure.
+- A target with `scope_status=FROZEN` must have its fixed declaration name in `PinchV011.lean`.
+- A target with `scope_status=REFUSED_SCOPE_MISMATCH` must not receive a substitute theorem.
 
-- [ ] **Step 1: Write tests for fixed declaration names and forbidden proof escapes**
+- [ ] **Step 1: Write failing Lean-policy tests**
 
 ```python
+import json
 from pathlib import Path
 from scripts.formal_bridge_v0_8 import proof_escape_hits
 
@@ -343,50 +278,30 @@ def test_v011_lean_file_has_no_escape_hatches():
     assert proof_escape_hits(text) == []
 
 
-def test_v011_decl_names_follow_frozen_bindings():
-    import json
+def test_all_frozen_scopes_have_fixed_decl_names():
     cfg = json.loads(Path("formal/pinch_bindings_v0_11.json").read_text(encoding="utf-8"))
     text = Path("MAPEOGEOFormal/PinchV011.lean").read_text(encoding="utf-8")
-    for item in cfg["targets"]:
-        if item["scope_status"] == "FROZEN":
-            assert item["formal_decl"].split(".")[-1] in text
+    expected = [x["formal_decl"].split(".")[-1] for x in cfg["targets"] if x["scope_status"] == "FROZEN"]
+    assert all(name in text for name in expected)
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [ ] **Step 2: Run and confirm failure**
 
 Run: `python -m pytest -q tests/test_pinch_intake_v0_11.py`
 
 Expected: FAIL because `PinchV011.lean` does not exist.
 
-- [ ] **Step 3: Implement one theorem per `FROZEN` source scope**
+- [ ] **Step 3: Write each frozen theorem from the already-committed Task-2 scope record**
 
-Rules for each theorem:
+Every theorem must include only source ID, source statement hash, and the independently authored formal-scope identifier in its doc comment. The theorem statement must implement exactly the scope that was frozen before this task. Use Mathlib lemmas freely, but do not broaden or narrow the scope after observing proof difficulty.
 
-```text
-- theorem name exactly matches the binding
-- theorem statement is the narrowest Task-2-frozen formal scope
-- proof may use Mathlib but no escape hatch
-- add a source-ID/hash comment, not copied source prose
-- add `#print axioms <decl>` after the theorem
-```
+- [ ] **Step 4: Add `#print axioms` for every implemented declaration**
 
-Example header pattern:
+Accepted output may contain standard Lean/Mathlib axioms such as `propext`, `Classical.choice`, and `Quot.sound`; it must not contain `sorryAx` or a project-defined axiom.
 
-```lean
-/--
-MAPEOGEO source binding: srcdecl:proposition:3_14
-statement_sha256: 6e09e18756aefdaf8cdd2c03aca61548d1126fb3d30d70b49c58359f37c64b8e
-formal_scope: <the frozen uppercase scope identifier from the JSON binding>
--/
-theorem proposition_3_14_v011 ... := by
-  ...
-```
+- [ ] **Step 5: Import the new file at the library root**
 
-The placeholder shown above is a documentation pattern only: during implementation the executor must substitute the already-frozen scope identifier and complete Lean statement from Task 2 in the same commit. No `<...>` token may remain in the repository.
-
-- [ ] **Step 4: Import the file at the library root**
-
-`MAPEOGEOFormal.lean` must become:
+`MAPEOGEOFormal.lean` becomes:
 
 ```lean
 import MAPEOGEOFormal.SourceBound
@@ -394,42 +309,36 @@ import MAPEOGEOFormal.ProofPaths
 import MAPEOGEOFormal.PinchV011
 ```
 
-- [ ] **Step 5: Run direct kernel verification**
-
-Run:
+- [ ] **Step 6: Run direct local verification**
 
 ```powershell
 lake env lean MAPEOGEOFormal\PinchV011.lean
 lake build
+python -m pytest -q tests/test_pinch_intake_v0_11.py
 ```
 
-Expected: every `FROZEN` declaration compiles and `#print axioms` contains no `sorryAx` or custom axiom. A scope that cannot be made faithful must be changed to `REFUSED_SCOPE_MISMATCH` in the bindings through a visible preregistration amendment **before** re-running the scientific runner; do not weaken the theorem post-result.
-
-- [ ] **Step 6: Run unit tests**
-
-Run: `python -m pytest -q tests/test_pinch_intake_v0_11.py`
-
-Expected: PASS.
+Expected: every frozen declaration compiles; every refusal remains explicit in bindings rather than being replaced by a weaker theorem.
 
 - [ ] **Step 7: Commit**
 
 ```bash
-git add MAPEOGEOFormal/PinchV011.lean MAPEOGEOFormal.lean tests/test_pinch_intake_v0_11.py formal/pinch_bindings_v0_11.json evidence/v0_11_preregistration.json
+git add MAPEOGEOFormal/PinchV011.lean MAPEOGEOFormal.lean tests/test_pinch_intake_v0_11.py
 git commit -m "Add v0.11 pinch formal candidates"
 ```
 
 ---
 
-### Task 4: Implement preregistered S3 executable contracts without forcing coverage
+### Task 4: Implement explicit S3 state without forcing computational coverage
 
 **Files:**
 - Create: `scripts/pinch_contracts_v0_11.py`
 - Modify: `tests/test_pinch_intake_v0_11.py`
 
 **Interfaces:**
-- Produces:
 
 ```python
+from dataclasses import dataclass
+
 @dataclass(frozen=True)
 class ContractResult:
     source_id: str
@@ -439,161 +348,138 @@ class ContractResult:
     verdict: str
     scope: str | None
     measured: dict
-    refused: list[str]
+    refused: tuple[str, ...]
 
 
-def run_contract(target: dict) -> ContractResult
+def run_contract(target: dict) -> ContractResult:
+    ...
 ```
 
-- `UNTESTED` targets return `verdict="UNTESTED"`, `applicability="NOT_RUN"`, an empty `measured`, and a nonempty `refused` explaining what was not claimed.
-- `PCT_CONTRACT` is legal only if the PCT package is present and the frozen applicability contract passes; otherwise return fail-closed `NOT_APPLICABLE`, not PASS.
-- `EXECUTABLE_CONTRACT` dispatches only by preregistered `s3_contract_id`.
+`run_contract` behavior is fully determined by the Task-2-frozen binding record.
 
-- [ ] **Step 1: Add failing tests for UNTESTED and unknown contracts**
+- [ ] **Step 1: Write failing state tests**
 
 ```python
 from scripts.pinch_contracts_v0_11 import run_contract
 
 
-def test_untested_is_explicit_not_pass():
-    r = run_contract({
+def test_untested_is_not_pass():
+    result = run_contract({
         "source_id": "srcdecl:proposition:3_14",
         "s3_test_state": "UNTESTED",
         "s3_contract_id": None,
         "s3_scope": None,
     })
-    assert r.verdict == "UNTESTED"
-    assert r.refused
+    assert result.verdict == "UNTESTED"
+    assert result.refused
 
 
-def test_unknown_executable_contract_fails_closed():
-    r = run_contract({
-        "source_id": "x",
+def test_unknown_contract_is_invalid():
+    result = run_contract({
+        "source_id": "synthetic:test",
         "s3_test_state": "EXECUTABLE_CONTRACT",
-        "s3_contract_id": "DOES_NOT_EXIST",
-        "s3_scope": "X",
+        "s3_contract_id": "UNKNOWN_CONTRACT",
+        "s3_scope": "SYNTHETIC",
     })
-    assert r.verdict == "INVALID"
+    assert result.verdict == "INVALID"
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [ ] **Step 2: Run and confirm failure**
 
 Run: `python -m pytest -q tests/test_pinch_intake_v0_11.py`
 
-Expected: FAIL because the contract runner does not exist.
+Expected: FAIL because the contract module does not exist.
 
-- [ ] **Step 3: Implement the minimal explicit dispatcher**
+- [ ] **Step 3: Implement `UNTESTED`, `PCT_CONTRACT`, and explicit contract dispatch**
 
-Use a dictionary keyed only by contract IDs frozen in Task 2. If Task 2 froze no executable/PCT contracts, the dispatcher intentionally contains no scientific contract implementation and all four nodes remain computationally `UNTESTED`; that is a valid implementation, not missing work.
+`UNTESTED` returns `verdict="UNTESTED"`, `applicability="NOT_RUN"`, empty measurements, and a nonempty refusal list. `PCT_CONTRACT` returns `NOT_APPLICABLE` unless the exact frozen PCT applicability contract is available and satisfied. `EXECUTABLE_CONTRACT` dispatches only to contract IDs already frozen in Task 2.
 
-- [ ] **Step 4: Implement each frozen executable contract exactly as preregistered**
+- [ ] **Step 4: Implement only the contracts actually frozen in Task 2**
 
-For every contract actually selected in Task 2:
+Each implemented contract gets deterministic inputs, exact arithmetic when mathematical structure permits, one positive unit test, one mutation/negative control, an explicit domain, and an explicit statement of what remains untested.
 
-```text
-- deterministic input domain
-- exact arithmetic wherever the contract is algebraic/discrete
-- explicit applicability
-- exact expected rule or preregistered tolerance
-- explicit refused/untested remainder
-```
-
-Add one positive and one mutation/negative-control unit test per implemented contract.
-
-- [ ] **Step 5: Run contract tests**
-
-Run: `python -m pytest -q tests/test_pinch_intake_v0_11.py`
-
-Expected: PASS without changing any Task-2-frozen contract ID/domain.
-
-- [ ] **Step 6: Commit**
+- [ ] **Step 5: Run tests and commit**
 
 ```bash
+python -m pytest -q tests/test_pinch_intake_v0_11.py
 git add scripts/pinch_contracts_v0_11.py tests/test_pinch_intake_v0_11.py
 git commit -m "Add scoped v0.11 computational test states"
 ```
 
 ---
 
-### Task 5: Build the v0.11 graph-state transition runner
+### Task 5: Implement the sole v0.11 graph mutator and state-transition report
 
 **Files:**
 - Create: `scripts/pinch_intake_v0_11.py`
 - Modify: `tests/test_pinch_intake_v0_11.py`
 
 **Interfaces:**
-- CLI:
 
 ```text
 python scripts/pinch_intake_v0_11.py \
-  --base-graph BASE_V09_GRAPH \
+  --base-graph BASE_GRAPH \
   --bindings formal/pinch_bindings_v0_11.json \
   --lean-file MAPEOGEOFormal/PinchV011.lean \
   --out-dir artifacts/pinch_intake_v0_11 \
   --independent-checker leanchecker \
   --independent-checker-status PASS \
-  --scope-freeze-commit COMMIT_SHA
+  --scope-freeze-commit SCOPE_FREEZE_SHA
 ```
 
-- Produces:
-  - `pinch_v0_11_results.json`
-  - `pinch_v0_11_certificates.json`
-  - `pinch_v0_11_wounds.json`
-  - `mapeogeo_v0_11_graph.json.gz`
-  - `V0_11_SUMMARY.md`
+Outputs:
 
-- [ ] **Step 1: Add failing transition tests**
-
-Test these exact rules:
-
-```python
-# kernel verification never changes historical independent_profile.direct_status
-# successful FORMAL creates FORMAL representation + KERNEL_VERIFIED certificate
-# failed/refused FORMAL creates WOUND/refusal and no KERNEL_VERIFIED edge
-# UNTESTED is serialized explicitly
-# EQUIVALENT_TO/SAME_SEMANTICS are never created merely from Lean success
-# previous v0.9 WOUND nodes/edges remain present
+```text
+pinch_v0_11_results.json
+pinch_v0_11_certificates.json
+pinch_v0_11_wounds.json
+mapeogeo_v0_11_graph.json.gz
+V0_11_SUMMARY.md
 ```
 
-- [ ] **Step 2: Run tests to verify failure**
+- [ ] **Step 1: Write failing transition-policy tests**
+
+Cover these rules:
+
+```text
+hash mismatch stops promotion
+direct-status mismatch stops promotion
+missing expected explicit dependency stops promotion
+Lean success never changes historical direct-status fields
+frozen+present+kernel+leanchecker creates FORMAL + KERNEL_VERIFIED
+refused/failed target creates wound/refusal and no KERNEL_VERIFIED
+UNTESTED remains explicit
+Lean success alone creates neither EQUIVALENT_TO nor SAME_SEMANTICS
+all v0.9 wounds remain present
+```
+
+- [ ] **Step 2: Run and confirm failure**
 
 Run: `python -m pytest -q tests/test_pinch_intake_v0_11.py`
 
-Expected: FAIL because the runner functions do not exist.
+Expected: FAIL because runner helpers do not exist.
 
-- [ ] **Step 3: Implement frozen identity and graph-integrity gates**
+- [ ] **Step 3: Implement identity/dependency/integrity gates**
 
-The runner must fail before promotion when:
+Fail before promotion on source-node absence, hash drift, detector drift, expected dependency absence, duplicate node IDs, duplicate edge IDs, or missing edge endpoints.
 
-```python
-actual_hash != expected_hash
-actual_direct_status != expected_direct_status
-missing explicit dependency
-source node missing
-duplicate node or edge IDs
-edge endpoint missing
-```
+- [ ] **Step 4: Attach one S3 result to every target**
 
-- [ ] **Step 4: Execute S3 state for every node**
+Call `run_contract` once per target. Only a passing declared contract may create an executable certificate node. `UNTESTED`, `NOT_APPLICABLE`, `FAIL`, and `INVALID` are serialized but create no semantic-promotion edge.
 
-Call `run_contract(target)` and attach a `TEST_STATE` record to the result table. Only add executable certificate nodes for `PASS` results under a declared contract. `UNTESTED`, `NOT_APPLICABLE`, `FAIL`, and `INVALID` remain visible and do not create semantic-promotion edges.
+- [ ] **Step 5: Attach S4 state**
 
-- [ ] **Step 5: Execute S4 kernel status**
-
-Run `lake env lean MAPEOGEOFormal/PinchV011.lean` once. Declaration presence is checked per target.
-
-Promotion rule:
+A target earns `KERNEL_VERIFIED` only when all conditions hold:
 
 ```text
 scope_status == FROZEN
-AND declaration present
-AND Lean file compiles
-AND independent_checker_status == PASS
-AND no forbidden proof escapes
-=> add FORMAL representation + KERNEL_VERIFIED certificate
+fixed declaration name present
+PinchV011.lean compiles
+independent checker status == PASS
+proof escape scan empty
 ```
 
-Otherwise emit a wound/refusal with one of:
+Otherwise record one of:
 
 ```text
 REFUSED_SCOPE_MISMATCH
@@ -603,9 +489,9 @@ INDEPENDENT_CHECKER_FAIL
 PROOF_ESCAPE_HATCH
 ```
 
-- [ ] **Step 6: Preserve view history exactly**
+- [ ] **Step 6: Preserve historical detector data exactly**
 
-The source node's `independent_profile` must remain byte-equivalent at the JSON-object level to the base graph for:
+For each source node, compare these fields before and after mutation and fail if any differ:
 
 ```text
 statement_sha256
@@ -615,96 +501,42 @@ geo_direct_families
 direct_status
 ```
 
-New EO/GEO candidate representations may be added only if separately introduced by an explicit evidence record; the v0.11 runner itself must not infer one from FORMAL success.
+- [ ] **Step 7: Emit a per-node transition row**
 
-- [ ] **Step 7: Emit the state-transition table**
+Each row records source ID, identity verdict, dependency verdict, historical direct state, S3 state/verdict/scope, S4 scope/kernel/certificate state, final graph state, and explicit refused/not-tested claims.
 
-Each target result must contain:
+- [ ] **Step 8: Carry forward the five intake metric families**
 
-```json
-{
-  "source_id": "...",
-  "identity": "MATCH|FAIL",
-  "deps": "PASS|WOUND",
-  "historical_direct_status": "...",
-  "s3": {"test_state": "...", "verdict": "...", "scope": "..."},
-  "s4": {"scope_status": "...", "kernel": "PASS|FAIL|REFUSED", "certificate": "KERNEL_VERIFIED|null"},
-  "final_state": "SOURCE_ONLY|SOURCE_PLUS_FORMAL|WOUND",
-  "refused": []
-}
-```
+Report historical corpus topology/view/routing numbers separately from new certificate counts and kernel-accepted path count.
 
-- [ ] **Step 8: Carry forward the five batch-metric families**
-
-Report historical v0.6/v0.7 values separately from new v0.11 counts:
-
-```text
-source declarations/proofs/unresolved-ref rate
-EO/GEO/dual direct historical coverage
-dual-union held-out recall + fallback-required flag
-new certificates by class
-kernel-accepted path count
-```
-
-Do not recompute old values with modified data and label them as historical.
-
-- [ ] **Step 9: Run tests**
-
-Run: `python -m pytest -q tests/test_pinch_intake_v0_11.py`
-
-Expected: PASS.
-
-- [ ] **Step 10: Commit**
+- [ ] **Step 9: Run tests and commit**
 
 ```bash
+python -m pytest -q tests/test_pinch_intake_v0_11.py
 git add scripts/pinch_intake_v0_11.py tests/test_pinch_intake_v0_11.py
 git commit -m "Add v0.11 fail-closed intake runner"
 ```
 
 ---
 
-### Task 6: Add independent artifact validation and local Windows reproduction
+### Task 6: Add independent artifact validation and Windows reproduction
 
 **Files:**
 - Create: `tests/validate_pinch_intake_v0_11.py`
 - Create: `scripts/local_verify_v0_11.ps1`
+- Modify: `tests/test_pinch_intake_v0_11.py`
 
-**Interfaces:**
-- Validator CLI: `python tests/validate_pinch_intake_v0_11.py ARTIFACT_DIR`
-- PowerShell output directory: `artifacts/local_windows_v0_11/`
+- [ ] **Step 1: Implement independent artifact checks**
 
-- [ ] **Step 1: Write the artifact validator**
+Validator must re-check four frozen IDs/hashes, explicit Test state, no historical view mutation, certificate-to-FORMAL-to-source linkage, no kernel certificate on refused/failed targets, graph IDs/endpoints, retained v0.9 wounds, and absence of persisted source/proof text payload fields.
 
-It must independently re-check:
+- [ ] **Step 2: Add mutation tests**
 
-```text
-four exact source IDs/hashes
-all four explicit Test states
-no silent direct-view mutation
-certificate -> FORMAL -> source linkage
-KERNEL_VERIFIED only on kernel+leanchecker PASS
-no KERNEL_VERIFIED on refused/failed targets
-unique graph IDs/endpoints
-previous v0.9 wound retained
-no stored source prose/page-image payload
-summary/result/certificate/graph SHA-256 availability
-```
+Validator must fail after independently mutating each of these in a temporary artifact copy: one source hash, one `direct_status`, one refused target certificate, one edge endpoint, and one injected `source_text` field.
 
-- [ ] **Step 2: Add validator mutation tests**
+- [ ] **Step 3: Add Windows verification script**
 
-Create temporary artifact copies and verify the validator fails if:
-
-```text
-one source hash changes
-one `direct_status` changes
-one refused node is given KERNEL_VERIFIED
-one edge endpoint is missing
-one artifact record contains a `source_text` or `proof_text` field
-```
-
-- [ ] **Step 3: Create the Windows verification script**
-
-Use explicit UTF-8 and repository pins:
+Script runs:
 
 ```powershell
 $ErrorActionPreference = "Stop"
@@ -717,11 +549,9 @@ lake build
 python tests\validate_pinch_intake_v0_11.py artifacts\pinch_intake_v0_11
 ```
 
-The script writes a metadata-only JSON containing commit SHA, Lean/Lake versions, test exit codes, and hashes of `PinchV011.lean`, bindings, and result artifacts. It must not create a stronger certificate class than `KERNEL_VERIFIED`.
+It writes metadata only: commit SHA, tool versions, exit states, and hashes of Lean/binding/result files.
 
-- [ ] **Step 4: Run tests locally**
-
-Run:
+- [ ] **Step 4: Run full local regression**
 
 ```powershell
 pytest
@@ -729,7 +559,7 @@ python tests\validate_v0_3.py
 lake build
 ```
 
-Expected: all existing tests plus v0.11 tests pass.
+Expected: all existing and v0.11 tests pass.
 
 - [ ] **Step 5: Commit**
 
@@ -740,57 +570,48 @@ git commit -m "Add v0.11 artifact and Windows verification"
 
 ---
 
-### Task 7: Add sealed CI execution from accepted v0.9 to v0.11
+### Task 7: Add sealed Linux CI from v0.9 base to v0.11 evidence
 
 **Files:**
 - Create: `.github/workflows/math-intake-v0-11.yml`
 
-**Interfaces:**
-- CI artifact name: `mapeogeo-math-intake-v0.11`
-- CI reconstructs v0.6 -> v0.7 -> v0.8 -> v0.9 before v0.11, rather than trusting an unverified local graph snapshot.
-
-- [ ] **Step 1: Create the workflow with read-only repository permissions**
-
-Use:
+- [ ] **Step 1: Use read-only repository permission**
 
 ```yaml
 permissions:
   contents: read
 ```
 
-and pinned Python 3.12.
+- [ ] **Step 2: Install Python 3.12 and the existing v0.9 dependencies**
 
-- [ ] **Step 2: Install the existing Python dependency set**
+Do not add PCT dependencies unless the frozen Task-2 binding actually contains a `PCT_CONTRACT`.
 
-Use the same requirements required by v0.9 and do not add PCT dependencies unless PCT has actually merged and the frozen v0.11 binding uses `PCT_CONTRACT`.
+- [ ] **Step 3: Download the source PDF only into runner temporary storage**
 
-- [ ] **Step 3: Download the Gallier/Quaintance PDF transiently**
+Cleanup runs under `if: always()` and deletes the PDF before artifact upload.
 
-Store only in `$RUNNER_TEMP`; delete it in an `if: always()` cleanup step.
+- [ ] **Step 4: Reconstruct accepted upstream evidence**
 
-- [ ] **Step 4: Regenerate accepted upstream states**
+Run the existing frozen v0.6, v0.7, v0.8, and v0.9 commands to obtain the base v0.9 graph in runner temporary storage.
 
-Run the frozen commands used by v0.6, v0.7, v0.8, and v0.9 to produce the base v0.9 graph in `$RUNNER_TEMP`.
+- [ ] **Step 5: Run v0.11 source audit before Lean**
 
-- [ ] **Step 5: Audit v0.11 identities before Lean execution**
+A frozen identity/direct-state/dependency mismatch terminates the job.
 
-Run:
+- [ ] **Step 6: Install Lean/Mathlib and run build plus `leanchecker`**
+
+Use the repository-pinned `v4.33.1` stack and the same `leanprover/lean-action` pattern as v0.9.
+
+- [ ] **Step 7: Resolve the scope-freeze commit deterministically from Git history**
 
 ```bash
-python scripts/audit_pinch_source_v0_11.py \
-  "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" \
-  --graph "$RUNNER_TEMP/mapeogeo-v09/mapeogeo_s5_v0_9_graph.json.gz" \
-  --bindings formal/pinch_bindings_v0_11.json \
-  --out "$RUNNER_TEMP/pinch_source_audit_v0_11.json"
+SCOPE_FREEZE_COMMIT="$(git log -n 1 --format=%H -- formal/pinch_bindings_v0_11.json evidence/v0_11_preregistration.json)"
+test -n "$SCOPE_FREEZE_COMMIT"
 ```
 
-A hash/direct-state/dependency mismatch stops the job.
+Pass that value to the v0.11 runner. This avoids hard-coding a future commit value in the plan.
 
-- [ ] **Step 6: Install Lean/Mathlib and run `lake build` + `leanchecker`**
-
-Use the existing `leanprover/lean-action` pattern, with repository toolchain `v4.33.1`, `build: true`, and `leanchecker: true`.
-
-- [ ] **Step 7: Run v0.11 intake and validator**
+- [ ] **Step 8: Run runner and validator**
 
 ```bash
 python scripts/pinch_intake_v0_11.py \
@@ -800,18 +621,16 @@ python scripts/pinch_intake_v0_11.py \
   --out-dir artifacts/pinch_intake_v0_11 \
   --independent-checker leanchecker \
   --independent-checker-status PASS \
-  --scope-freeze-commit <the committed Task-2 freeze SHA>
+  --scope-freeze-commit "$SCOPE_FREEZE_COMMIT"
 
 python tests/validate_pinch_intake_v0_11.py artifacts/pinch_intake_v0_11
 ```
 
-When implementing the workflow, replace the angle-bracket token with the literal Task-2 freeze SHA before committing; no placeholder may remain.
+- [ ] **Step 9: Upload derived evidence only**
 
-- [ ] **Step 8: Upload only derived evidence**
+Artifact name: `mapeogeo-math-intake-v0.11`.
 
-Upload `artifacts/pinch_intake_v0_11/`; never upload the source PDF.
-
-- [ ] **Step 9: Commit and let CI run**
+- [ ] **Step 10: Commit workflow**
 
 ```bash
 git add .github/workflows/math-intake-v0-11.yml
@@ -820,66 +639,38 @@ git commit -m "Add v0.11 mathematics intake CI"
 
 ---
 
-### Task 8: Accept results without outcome-driven repair
+### Task 8: Seal accepted evidence without outcome-driven scientific changes
 
 **Files:**
 - Create after green CI: `evidence/v0_11_acceptance_manifest.json`
 - Create after green CI: `docs/V0_11_MATHEMATICS_INTAKE_REPORT.md`
 - Modify after green CI: `README.md`
 
-**Interfaces:**
-- Acceptance manifest records immutable CI provenance and artifact hashes.
-- Report presents one row per pinch node and preserves refusals/wounds.
+- [ ] **Step 1: Inspect the first complete scientific run without changing frozen mathematics**
 
-- [ ] **Step 1: Inspect the first complete scientific run**
+Formal scope, source binding, S3 domain, detector history, and acceptance law cannot be changed because of an unfavorable result. Mechanical packaging/validator corrections are allowed only when they do not change computed scientific evidence and are documented.
 
-Do not change formal scope, S3 contract domain, source binding, detector history, or acceptance gates in response to an unfavorable mathematical result.
+- [ ] **Step 2: Require a green complete workflow**
 
-Allowed post-run fixes without scientific amendment are limited to mechanical artifact-validator or packaging defects that do not change computed evidence. Document any such fix explicitly.
+The workflow may be green with explicit mathematical refusals because refusal is a valid preregistered state; the runner and validator themselves must pass.
 
-- [ ] **Step 2: Require a green complete run**
+- [ ] **Step 3: Create acceptance manifest**
 
-Every CI step through artifact validation and upload must succeed. If a mathematical target is refused or fails formalization, the *workflow* may still be green only when the runner/validator correctly records that fail-closed state according to the preregistered rules.
+Record preregistration commit, scope-freeze commit, accepted CI head, workflow/job/artifact IDs, artifact ZIP hash, Lean/Mathlib versions, per-target transition states, certificate counts by class, path count, wound/refusal counts, result-file hashes, copyright boundary, and claim boundary.
 
-- [ ] **Step 3: Create the acceptance manifest**
+- [ ] **Step 4: Write the report as a state-transition table**
 
-Record:
-
-```text
-scientific_preregistration_commit
-scope_freeze_commit
-accepted_ci_head
-workflow_run_id
-job_id
-artifact_id
-artifact_zip_sha256
-Lean/Mathlib versions
-per-target identity/deps/direct-state/S3/S4/final-state
-certificate counts by class
-kernel-accepted path count
-wound/refusal counts
-result artifact SHA-256 values
-copyright/source-payload boundary
-claim boundary
-```
-
-- [ ] **Step 4: Write the report**
-
-The main table must have exactly these conceptual columns:
+Columns:
 
 ```text
 source node | historical views | S3 state/verdict | formal scope | kernel result | final graph state | refused/not-tested
 ```
 
-Interpretation must answer whether formalization repaired anything legitimately, not merely how many Lean declarations passed.
+- [ ] **Step 5: Update README only with accepted facts**
 
-- [ ] **Step 5: Update README only with accepted evidence**
+Keep PCT described as optional computational evidence and Lean as kernel verifier.
 
-Add v0.11 after v0.10/v0.9 sections as appropriate to actual merge order. Preserve the project-level statement that PCT is optional computational evidence and Lean remains the kernel verifier.
-
-- [ ] **Step 6: Run final local verification**
-
-Run:
+- [ ] **Step 6: Run final local regression and validator**
 
 ```powershell
 pytest
@@ -888,8 +679,6 @@ lake build
 python tests\validate_pinch_intake_v0_11.py artifacts\pinch_intake_v0_11
 ```
 
-Expected: PASS.
-
 - [ ] **Step 7: Commit accepted evidence**
 
 ```bash
@@ -897,35 +686,10 @@ git add evidence/v0_11_acceptance_manifest.json docs/V0_11_MATHEMATICS_INTAKE_RE
 git commit -m "Record accepted v0.11 mathematics intake"
 ```
 
----
+## Self-Review
 
-## Plan Self-Review
+**Spec coverage:** The tasks cover frozen identities, explicit source dependencies, immutable EO/GEO history, explicit Test state, scoped Lean, refusal handling, graph-integrity gates, five intake metric families, Windows/Linux reproducibility, previous-wound preservation, transient-source handling, and delayed second-source ingestion.
 
-### Spec coverage
+**Completeness:** Every generated scientific choice is frozen before the result run. Future values such as the scope-freeze commit are resolved deterministically from repository history rather than left as unbound text.
 
-- Two-lane PCT/intake separation: Tasks 1, 4, 7.
-- Frozen quartet/identity hashes: Tasks 1, 2, 5, 6.
-- Explicit dependencies only: Tasks 1, 2, 5.
-- Immutable EO/GEO detector history: Tasks 2, 5, 6.
-- Explicit Test state including legal `UNTESTED`: Tasks 1, 4, 5.
-- Scoped Lean for all attempted frozen scopes: Task 3.
-- Fail-closed refusal: Tasks 2, 3, 5, 8.
-- `KERNEL_VERIFIED` authority: Tasks 3, 5, 7.
-- Separate promotion edge meanings: Tasks 5, 6.
-- Previous wounds retained: Tasks 5, 6.
-- Five batch-metric families: Task 5.
-- Windows/Linux reproducibility: Tasks 6, 7.
-- Copyright/transient-source boundary: Tasks 2, 6, 7.
-- No second-source ingestion: explicitly outside this plan, per spec.
-
-### Placeholder scan
-
-The only angle-bracket examples in this plan are explanatory command templates. Each task explicitly requires replacing them with literal values before commit. Repository files must contain no `TBD`, `TODO`, `<...>`, or unbound scientific threshold.
-
-### Type/interface consistency
-
-- `formal/pinch_bindings_v0_11.json` is the single source of target identities, declaration names, formal scopes, and S3 plan.
-- `ContractResult` feeds `pinch_intake_v0_11.py` exactly once per target.
-- `pinch_intake_v0_11.py` is the only graph mutator for v0.11.
-- `validate_pinch_intake_v0_11.py` is independent of the runner and checks serialized artifacts rather than trusting runner return values.
-- Lean declaration names are fixed in Task 1 and consumed unchanged in Tasks 3 and 5.
+**Interface consistency:** `formal/pinch_bindings_v0_11.json` is the single source of target identities/scopes/S3 selection. `run_contract` is the sole S3 dispatcher. `pinch_intake_v0_11.py` is the sole v0.11 graph mutator. `validate_pinch_intake_v0_11.py` independently checks serialized evidence. Lean declaration names are fixed before formalization and consumed unchanged by the runner.
