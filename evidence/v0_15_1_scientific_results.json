@@ -1,0 +1,56 @@
+{
+  "stage": "v0.15.1",
+  "N_source_total": 416,
+  "source_breakdown": {
+    "S_A_gallier": 32,
+    "S_B_axler": 220,
+    "S_C_vmls": 81,
+    "S_D_cvx": 84
+  },
+  "N_canonical_total": 109,
+  "N_2_source_bridges": 53,
+  "N_3_source_bridges": 33,
+  "N_4_source_bridges": 9,
+  "D_domains_count": 4,
+  "domains_list": [
+    "Applied Linear Algebra",
+    "Convex Analysis & Optimization",
+    "Differential Calculus & Real Analysis",
+    "Linear Algebra"
+  ],
+  "representation_diversity": {
+    "counts": {
+      "abstract": 52,
+      "algebraic": 85,
+      "geometric": 62,
+      "computational": 61,
+      "formal": 7,
+      "applied": 34
+    },
+    "average_richness_r_bar": 3.382,
+    "richness_distribution": {
+      "richness_1": 0,
+      "richness_2": 12,
+      "richness_3": 39,
+      "richness_4": 31,
+      "richness_5": 6,
+      "richness_6": 1
+    }
+  },
+  "representation_views": {
+    "N_EO_candidates": 257,
+    "N_GEO_candidates": 27,
+    "N_DUAL_candidates": 159
+  },
+  "N_formal_linked": 7,
+  "edges_summary": {
+    "total_edges": 1616,
+    "SAME_SEMANTICS_bridges": 341,
+    "SCOPED_OVERLAP_bridges": 97,
+    "RELATED_TO_bridges": 6,
+    "total_cross_source_bridges": 444,
+    "REPRESENTS": 330,
+    "DEPENDS_ON": 359,
+    "SOURCED_FROM": 402
+  }
+}
