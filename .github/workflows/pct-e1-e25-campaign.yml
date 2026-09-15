@@ -80,7 +80,7 @@ on:
       - ".github/workflows/pct-e1-e25-campaign.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   regression:
@@ -112,6 +112,20 @@ jobs:
           if-no-files-found: error
       - name: Generate candidate E25I E25J evidence
         run: python -m experiments.pct_e25ij.generate_evidence --out-dir generated-e25ij
+      - name: Freeze exact E25I E25J evidence
+        run: |
+          cmp generated-e25ij/pct_e25i_closure_receipt_ledger.json evidence/pct_e25i_closure_receipt_ledger.json
+          cmp generated-e25ij/pct_e25i_derived_closure_snapshot.json evidence/pct_e25i_derived_closure_snapshot.json
+          if [ -f evidence/pct_e25j_revocation_staleness.json ]; then
+            cmp generated-e25ij/pct_e25j_revocation_staleness.json evidence/pct_e25j_revocation_staleness.json
+          else
+            cp generated-e25ij/pct_e25j_revocation_staleness.json evidence/pct_e25j_revocation_staleness.json
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add evidence/pct_e25j_revocation_staleness.json
+            git commit -m "evidence: freeze exact E25J revocation staleness matrix"
+            git push origin HEAD:agent/pct-computational-architecture
+          fi
       - name: Upload candidate E25I E25J evidence
         uses: actions/upload-artifact@v4
         with:
