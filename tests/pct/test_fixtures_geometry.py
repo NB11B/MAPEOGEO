@@ -1,11 +1,17 @@
-"""Unit tests for the PCT control fixtures and initial geometry properties."""
+"""Unit tests for PCT control fixtures, geometry properties, and scale events."""
 
 from __future__ import annotations
 
 import math
-from mapeogeo.pct.chain import betti_numbers, check_chain_condition, euler_from_chains, euler_from_homology
+from mapeogeo.pct.chain import betti_numbers, check_chain_condition, euler_from_chains
 from mapeogeo.pct.fixtures import build_control_corpus
-from mapeogeo.pct.models import Applicability, CoefficientField, EquivalenceContract
+from mapeogeo.pct.geometry import (
+    check_convex_steiner,
+    euler_of_geometry,
+    parallel_metrics,
+    scan_topology_events,
+)
+from mapeogeo.pct.models import Applicability, CoefficientField, Verdict
 
 
 REQUIRED = {
@@ -19,6 +25,8 @@ REQUIRED = {
     "two_separated_squares",
     "reentrant_control",
 }
+
+SCALES = [0.0, 0.25, 0.5, 0.75, 0.99, 1.0, 1.01, 1.25]
 
 
 def test_fixture_corpus_contains_all_required():
@@ -76,17 +84,46 @@ def test_equal_area_geometries():
     assert tri.applicability == Applicability.APPLICABLE
 
 
-def test_scale_event_and_nonconvex_applicability():
+def test_euler_of_geometry():
+    corpus = build_control_corpus()
+    assert euler_of_geometry(corpus["square_annulus"].geometry) == 0
+    assert euler_of_geometry(corpus["two_separated_squares"].geometry) == 2
+    assert euler_of_geometry(corpus["equal_area_square"].geometry) == 1
+    assert euler_of_geometry(corpus["equal_area_triangle"].geometry) == 1
+    assert euler_of_geometry(corpus["reentrant_control"].geometry) == 1
+
+
+def test_scale_events_annulus_and_separated_squares():
     corpus = build_control_corpus()
 
-    annulus = corpus["square_annulus"]
-    assert annulus.is_convex is False
-    assert annulus.applicability == Applicability.NOT_APPLICABLE
+    # Annulus hole closes around 1.0 (between 0.99 and 1.01)
+    annulus_events = scan_topology_events(corpus["square_annulus"].geometry, SCALES)
+    assert len(annulus_events) == 1
+    ev = annulus_events[0]
+    assert ev["euler_before"] == 0
+    assert ev["euler_after"] == 1
+    assert abs(ev["event_scale_approx"] - 1.0) <= 0.011
 
-    sep_sq = corpus["two_separated_squares"]
-    assert sep_sq.is_convex is False
-    assert sep_sq.applicability == Applicability.NOT_APPLICABLE
+    # Separated squares merge around 1.0 (between 0.99 and 1.01)
+    sq_events = scan_topology_events(corpus["two_separated_squares"].geometry, SCALES)
+    assert len(sq_events) == 1
+    ev2 = sq_events[0]
+    assert ev2["euler_before"] == 2
+    assert ev2["euler_after"] == 1
+    assert abs(ev2["event_scale_approx"] - 1.0) <= 0.011
 
+
+def test_regular_tube_law_refuses_reentrant_control():
+    corpus = build_control_corpus()
     reentrant = corpus["reentrant_control"]
-    assert reentrant.is_convex is False
-    assert reentrant.applicability == Applicability.NOT_APPLICABLE
+    result = check_convex_steiner(reentrant.geometry, [0.1, 0.2], 1e-9, is_convex=reentrant.is_convex)
+    assert result.verdict is Verdict.NOT_APPLICABLE
+    assert result.applicability is Applicability.NOT_APPLICABLE
+
+
+def test_convex_steiner_passes_for_convex_square():
+    corpus = build_control_corpus()
+    sq = corpus["equal_area_square"]
+    result = check_convex_steiner(sq.geometry, [0.1, 0.2, 0.5], 1e-3, is_convex=sq.is_convex)
+    assert result.verdict is Verdict.PASS
+    assert result.applicability is Applicability.APPLICABLE
