@@ -110,5 +110,13 @@ jobs:
           name: pct-e25gh-generated-evidence
           path: generated-e25gh/*.json
           if-no-files-found: error
+      - name: Generate candidate E25I E25J evidence
+        run: python -m experiments.pct_e25ij.generate_evidence --out-dir generated-e25ij
+      - name: Upload candidate E25I E25J evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: pct-e25ij-generated-evidence
+          path: generated-e25ij/*.json
+          if-no-files-found: error
       - name: Run PCT campaign regression suite
         run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py experiments/pct_e25def/test_e25def.py experiments/pct_e25gh/test_e25gh.py experiments/pct_e25ij/test_e25ij.py experiments/pct_e25ij/test_evidence.py
