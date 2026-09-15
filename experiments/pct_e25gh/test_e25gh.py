@@ -1,5 +1,6 @@
 from experiments.pct_e25gh.morphisms import run_c5a_audit
 from experiments.pct_e25gh.provenance import run_c5b_audit
+from experiments.pct_e25gh.policies import run_e25h_policy_comparison
 
 
 def test_c5a_all_four_real_contracts_agree_exactly():
@@ -28,3 +29,28 @@ def test_c5b_binds_every_real_component_to_source_and_adapter():
         assert c["formal_scope"]
         assert c["certificate_ids"]
         assert c["adapter_sha256"]
+
+
+def test_strict_policy_has_zero_false_accepts():
+    result = run_e25h_policy_comparison()
+    strict = result["policies"]["STRICT_AND"]
+    assert strict["false_accepts"] == 0
+    assert strict["valid_rejects"] == 0
+
+
+def test_single_axis_policies_are_exposed_by_axis_specific_faults():
+    result = run_e25h_policy_comparison()
+    assert result["policies"]["MAP_ONLY"]["false_accepts"] > 0
+    assert result["policies"]["PROVENANCE_ONLY"]["false_accepts"] > 0
+    assert result["policies"]["ANY_AXIS"]["false_accepts"] >= max(
+        result["policies"]["MAP_ONLY"]["false_accepts"],
+        result["policies"]["PROVENANCE_ONLY"]["false_accepts"],
+    )
+
+
+def test_every_contract_has_both_single_axis_fault_classes():
+    result = run_e25h_policy_comparison()
+    for contract in result["contracts"]:
+        cases = {x["fault_class"] for x in contract["adversarial_cases"]}
+        assert "CORRECT_MAP_WRONG_PROVENANCE" in cases
+        assert "WRONG_MAP_CORRECT_PROVENANCE" in cases
