@@ -1,0 +1,104 @@
+{
+  "evidence_id": "MAPEOGEO-V0.7-ACCEPTANCE",
+  "status": "PASS",
+  "scientific_preregistration_commit": "40ecceb359ec62b675804e136f1dc85385a7c703",
+  "first_full_scientific_result_head": "6d3518f481ced65423f3d355a4db84e07e07152e",
+  "first_full_scientific_result_run_id": 34926832447,
+  "accepted_ci_head": "4bb0dbf1f149e4ce1cfc5fec08ac4bfab0e5e3ce",
+  "github_actions_run_id": 34927089194,
+  "github_actions_job_id": 104247320981,
+  "github_actions_artifact_id": 10379718607,
+  "artifact_name": "mapeogeo-map-goal-v0.7",
+  "artifact_zip_sha256": "8d42bcdf9e226bbc67f5eb0b2a715a7894356d199a8501014aaca2c1919708c2",
+  "source_pdf": {
+    "url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+    "sha256": "a1f91e337445851d27f2f4adb61e8ccc0f8fac941f9e0254ad94ba6b91c7c49b",
+    "bytes": 24629575,
+    "pages": 2204,
+    "redistributed": false
+  },
+  "measured": {
+    "holdout_dependency_edges": 126,
+    "holdout_queries": 113,
+    "retrieval": {
+      "eo": {
+        "mrr": 0.0233076296134104,
+        "hits10": 0.0873015873015873,
+        "hits50": 0.25396825396825395,
+        "median_rank": 210.75,
+        "matched_random_mean_mrr": 0.013408892220714171,
+        "delta": 0.009898737392696227,
+        "one_sided_permutation_p": 0.01996007984031936
+      },
+      "geo": {
+        "mrr": 0.026200268096447203,
+        "hits10": 0.09523809523809523,
+        "hits50": 0.2222222222222222,
+        "median_rank": 677.5,
+        "matched_random_mean_mrr": 0.01601662531474576,
+        "delta": 0.010183642781701443,
+        "one_sided_permutation_p": 0.015968063872255488
+      },
+      "dual_max": {
+        "mrr": 0.02129114823023509,
+        "hits10": 0.07142857142857142,
+        "hits50": 0.29365079365079366,
+        "median_rank": 164.0,
+        "matched_random_mean_mrr": 0.013592418563820124,
+        "delta": 0.007698729666414966,
+        "one_sided_permutation_p": 0.011976047904191617
+      },
+      "source_page_proximity": {
+        "mrr": 0.23816268725180378,
+        "hits10": 0.5,
+        "hits50": 0.7777777777777778,
+        "median_rank": 10.25
+      }
+    },
+    "dual_union_candidate_filter": {
+      "recall": 0.8888888888888888,
+      "mean_candidate_reduction": 0.36026705118285623,
+      "median_candidate_reduction": 0.2810192023633678
+    },
+    "source_bound_certificates_passed": 4,
+    "same_semantics_promotions": 2,
+    "certificate_checks": {
+      "theorem_6_16_rank_nullity": 682,
+      "definition_44_6_convex_hull": 279,
+      "theorem_47_9_lp_duality": 2457,
+      "definition_53_4_gaussian_kernel": 1
+    },
+    "graph_nodes": 2226,
+    "graph_edges": 23305
+  },
+  "artifact_file_sha256": {
+    "V0_7_SUMMARY.md": "18d935d34d888f879fd46f767cdd75171557c4e90097420fadb55bc705dfbede",
+    "map_goal_v0_7_report.json": "aa277ea2028d614bcd1cbd56d610d1ee1944af28868a92c3ede1a12871cf06a7",
+    "mapeogeo_map_goal_v0_7_graph.json": "9fa7e507502c8827fb57d94f6424f3acc7a83e6ea342d564fd58cd880fa097f7",
+    "v0_7_equivalence_certificates.json": "7549f3abc92e260e55c046c7209e3bb59634d249793ef39053b9f82431252052"
+  },
+  "post_result_validator_repairs": [
+    {
+      "commit": "4bb0dbf1f149e4ce1cfc5fec08ac4bfab0e5e3ce",
+      "scope": "artifact-validator output-key correction only: emitted retrieval key 'dual' instead of validator's 'dual_max'"
+    }
+  ],
+  "scientific_code_changed_after_first_full_result": false,
+  "gates": {
+    "v06_input_pass": true,
+    "holdout_size": true,
+    "dual_filter_recall": true,
+    "dual_filter_reduction": true,
+    "eo_retrieval_nonrandom": true,
+    "geo_retrieval_nonrandom": true,
+    "dual_retrieval_nonrandom": true,
+    "same_semantics_promotions": true,
+    "total_source_bound_certificates": true,
+    "unique_node_ids": true,
+    "unique_edge_ids": true,
+    "all_edge_endpoints_exist": true,
+    "no_copyright_payload_fields": true
+  },
+  "overall_goal": "Source-grounded mathematics with simultaneous EO/GEO views, useful graph navigation/composition, progressively certified cross-view equivalence, and eventual trusted formal proof verification.",
+  "claim_boundary": "Held-out navigation utility and selected source-bound cross-view promotion are supported. Current EO/GEO similarity filtering is not exact-safe pruning, and whole-corpus theorem equivalence or proof-kernel verification is not established."
+}
