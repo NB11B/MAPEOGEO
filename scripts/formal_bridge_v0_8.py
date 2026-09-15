@@ -42,6 +42,9 @@ def main() -> int:
     ap.add_argument("--bindings", type=Path, required=True)
     ap.add_argument("--lean-file", type=Path, required=True)
     ap.add_argument("--out-dir", type=Path, required=True)
+    ap.add_argument("--independent-checker", default="leanchecker")
+    ap.add_argument("--independent-checker-status", choices=("PASS", "FAIL"), required=True)
+    ap.add_argument("--nanoda-status", choices=("PASS", "FAIL", "TOOLING_BLOCKED", "NOT_RUN"), default="TOOLING_BLOCKED")
     args = ap.parse_args()
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
@@ -73,6 +76,7 @@ def main() -> int:
     kernel_ok = proc.returncode == 0
     version_proc = subprocess.run(["lake", "env", "lean", "--version"], capture_output=True, text=True, check=False)
     lean_version = (version_proc.stdout or version_proc.stderr).strip().splitlines()[0] if version_proc.returncode == 0 else "UNKNOWN"
+    independent_ok = args.independent_checker_status == "PASS"
 
     nodes = graph["nodes"]
     edges = graph["edges"]
@@ -80,7 +84,7 @@ def main() -> int:
     existing_edge_ids = {e["id"] for e in edges}
 
     certificates = []
-    if kernel_ok and hashes_ok and escape_ok and declarations_ok:
+    if kernel_ok and independent_ok and hashes_ok and escape_ok and declarations_ok:
         for b in bindings:
             slug = b["source_id"].replace("srcdecl:", "").replace(":", "_")
             formal_id = f"formal:lean:{slug}"
@@ -107,6 +111,9 @@ def main() -> int:
                     "status": "PASS",
                     "certificate_class": "KERNEL_VERIFIED",
                     "verifier": "Lean 4 kernel",
+                    "independent_checker": args.independent_checker,
+                    "independent_checker_status": args.independent_checker_status,
+                    "nanoda_status": args.nanoda_status,
                     "lean_version": lean_version,
                     "lean_decl": b["lean_decl"],
                     "formal_scope": b["formal_scope"],
@@ -148,6 +155,9 @@ def main() -> int:
                 "formal_scope": b["formal_scope"],
                 "status": "PASS",
                 "certificate_class": "KERNEL_VERIFIED",
+                "independent_checker": args.independent_checker,
+                "independent_checker_status": args.independent_checker_status,
+                "nanoda_status": args.nanoda_status,
                 "source_statement_sha256": b["statement_sha256"],
             })
 
@@ -166,6 +176,7 @@ def main() -> int:
         "no_proof_escape_hatches": escape_ok,
         "formal_declarations_present": declarations_ok,
         "lean_kernel_check": kernel_ok,
+        "independent_checker_pass": independent_ok,
         "four_kernel_certificates": len(certificates) == 4,
         **graph_checks,
     }
@@ -187,6 +198,10 @@ def main() -> int:
             "kernel_stdout_sha256": hashlib.sha256(proc.stdout.encode()).hexdigest(),
             "kernel_stderr_sha256": hashlib.sha256(proc.stderr.encode()).hexdigest(),
             "proof_escape_hits": escape_hits,
+            "independent_checker": args.independent_checker,
+            "independent_checker_status": args.independent_checker_status,
+            "nanoda_status": args.nanoda_status,
+            "nanoda_note": "Original preregistered Nanoda backstop was attempted and is recorded as TOOLING_BLOCKED after a 6.07 GB / 107.8M-line Mathlib export failed in the external checker parser; see docs/V0_8_INDEPENDENT_CHECKER_AMENDMENT.md.",
         },
         "source_hash_checks": hash_checks,
         "formal_declaration_presence": decl_presence,
@@ -194,7 +209,7 @@ def main() -> int:
         "formal_coverage_of_v07_source_bound_set": len(certificates) / len(bindings),
         "graph": {"nodes": len(nodes), "edges": len(edges)},
         "gates": gates,
-        "claim_boundary": "v0.8 demonstrates a working source->EO/GEO->certificate->Lean formal representation->kernel verification bridge for the four v0.7 source-bound declarations. It does not establish whole-corpus autoformalization or universal EO/GEO equivalence.",
+        "claim_boundary": "v0.8 demonstrates a working source->EO/GEO->certificate->Lean formal representation->kernel verification bridge for the four v0.7 source-bound declarations, with a separately executed independent environment checker. It does not establish whole-corpus autoformalization or universal EO/GEO equivalence.",
     }
 
     (args.out_dir / "formal_bridge_v0_8_report.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
@@ -202,10 +217,10 @@ def main() -> int:
     with gzip.open(args.out_dir / "mapeogeo_formal_v0_8_graph.json.gz", "wt", encoding="utf-8") as f:
         json.dump(graph, f, separators=(",", ":"), sort_keys=True)
 
-    summary = f"""# MAPEOGEO v0.8 — Formal-Verifier Bridge\n\n**Status: {status}**\n\n- Source-bound declarations: {len(bindings)}\n- Source hashes matched: {sum(x['pass'] for x in hash_checks)} / {len(bindings)}\n- Lean kernel check: {'PASS' if kernel_ok else 'FAIL'}\n- Prohibited proof escape hatches: {len(escape_hits)}\n- Kernel-verified certificates: {len(certificates)} / {len(bindings)}\n- Formal coverage of v0.7 source-bound set: {len(certificates)/len(bindings):.2%}\n- Graph: {len(nodes)} nodes / {len(edges)} edges\n- Lean: {lean_version}\n\nThis stage establishes the formal-verifier bridge only. Whole-corpus autoformalization remains the next major problem.\n"""
+    summary = f"""# MAPEOGEO v0.8 — Formal-Verifier Bridge\n\n**Status: {status}**\n\n- Source-bound declarations: {len(bindings)}\n- Source hashes matched: {sum(x['pass'] for x in hash_checks)} / {len(bindings)}\n- Lean kernel check: {'PASS' if kernel_ok else 'FAIL'}\n- Independent checker: {args.independent_checker} — {args.independent_checker_status}\n- Nanoda preregistered backstop: {args.nanoda_status}\n- Prohibited proof escape hatches: {len(escape_hits)}\n- Kernel-verified certificates: {len(certificates)} / {len(bindings)}\n- Formal coverage of v0.7 source-bound set: {len(certificates)/len(bindings):.2%}\n- Graph: {len(nodes)} nodes / {len(edges)} edges\n- Lean: {lean_version}\n\nThis stage establishes the formal-verifier bridge only. Whole-corpus autoformalization remains the next major problem.\n"""
     (args.out_dir / "V0_8_SUMMARY.md").write_text(summary, encoding="utf-8")
 
-    print(f"MAPEOGEO_V0_8: {status} hashes={sum(x['pass'] for x in hash_checks)}/{len(bindings)} kernel={'PASS' if kernel_ok else 'FAIL'} certs={len(certificates)}/{len(bindings)} graph={len(nodes)}/{len(edges)}")
+    print(f"MAPEOGEO_V0_8: {status} hashes={sum(x['pass'] for x in hash_checks)}/{len(bindings)} kernel={'PASS' if kernel_ok else 'FAIL'} checker={args.independent_checker}:{args.independent_checker_status} certs={len(certificates)}/{len(bindings)} graph={len(nodes)}/{len(edges)}")
     return 0 if status == "PASS" else 1
 
 
