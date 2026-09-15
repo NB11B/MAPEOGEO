@@ -5,19 +5,28 @@ MAPEOGEO is a dual-representation mathematical knowledge graph.
 A canonical mathematical object `M` can carry simultaneous:
 
 - **EO** — operator/algebraic representation;
-- **GEO** — geometric/relational representation.
+- **GEO** — geometric/relational representation;
+- **FORMAL** — proof-assistant representation tied to a trusted verifier.
 
-The project goal is broader than comparing those views: build a source-grounded mathematical graph in which EO and GEO help organize and navigate mathematical structure, then progressively promote claims through executable/formal certificates toward trusted proof verification.
+The project goal is broader than comparing those views: build a source-grounded mathematical graph in which source/proof topology, EO, and GEO help organize and navigate mathematical structure, then progressively promote claims through executable and formal certificates toward trusted proof verification.
 
-The core invariant is:
+The current architectural target is:
 
 ```text
-semantic object M
-├── EO(M)
-└── GEO(M)
+source / proof topology
+        +
+EO operator structure
+        +
+GEO relational geometry
+        +
+executable certificates
+        +
+FORMAL proof representations
+        ↓
+trusted mathematical graph / proof verification
 ```
 
-An explicit `SAME_SEMANTICS` edge is reserved for representations that have passed a declared equivalence contract.
+`SAME_SEMANTICS` is reserved for representations that have passed an explicit equivalence contract. Formal-verifier evidence is carried separately so that source provenance, semantic structure, executable evidence, and proof-kernel acceptance are not collapsed into one confidence label.
 
 ## v0.3 — executable cross-domain fixtures
 
@@ -92,7 +101,7 @@ See `docs/V0_6_INDEPENDENT_DUAL_VIEW_REPORT.md` and `evidence/v0_6_acceptance_ma
 
 ## v0.7 — MAP-goal utility + equivalence promotion
 
-v0.7 keeps the overall MAP objective explicit. It freezes the v0.6 EO/GEO views, tests them on held-out explicit source proof dependencies, measures a dual-view candidate filter, and promotes four real source declarations through preregistered executable cross-view contracts.
+v0.7 freezes the v0.6 EO/GEO views, tests them on held-out explicit source proof dependencies, measures a dual-view candidate filter, and promotes four real source declarations through preregistered executable cross-view contracts.
 
 ```text
 OVERALL: PASS
@@ -113,87 +122,68 @@ GRAPH: 2,226 nodes / 23,305 edges
 
 The EO/GEO signals are statistically non-random but weak as stand-alone global rankers. Source/proof locality is much stronger. The dual union is useful as a routing filter, reducing candidates by 36.03% while retaining 88.89% of held-out true dependencies, but it is **not exact-safe pruning** and must retain a fallback path.
 
-This result sharpens the architecture rather than changing the goal:
+See `docs/V0_7_MAP_GOAL_REPORT.md` and `evidence/v0_7_acceptance_manifest.json`.
+
+## v0.8 — formal-verifier bridge
+
+v0.8 establishes the correctness layer that the MAP endpoint requires. It takes the four source-bound v0.7 declarations through the existing graph into pinned Lean/Mathlib `v4.33.1`, while keeping the formal representation separate from EO/GEO and source provenance.
 
 ```text
-source/proof topology
-        +
-EO operator structure
-        +
-GEO relational geometry
-        +
-executable/formal certificates
-        ↓
-trusted mathematical graph / proof verification
+OVERALL: PASS
+SOURCE-BOUND DECLARATIONS: 4
+SOURCE HASHES MATCHED: 4 / 4
+LEAN KERNEL CHECK: PASS
+INDEPENDENT CHECKER: leanchecker — PASS
+PROHIBITED PROOF ESCAPE HATCHES: 0
+KERNEL-VERIFIED CERTIFICATES: 4 / 4
+FORMAL COVERAGE OF V0.7 SOURCE-BOUND SET: 100.00%
+GRAPH: 2,234 nodes / 23,321 edges
 ```
 
-The source-bound promotion set included Theorem 6.16, Definition 44.6, Theorem 47.9, and Definition 53.4. All four executable contracts passed. Definition 44.6 and Definition 53.4 were promoted to `SAME_SEMANTICS`; the two theorem contracts remain scoped `EQUIVALENT_TO` because their executable test domains are bounded subsets of the full theorem domains.
+The formalized set is:
+
+- Theorem 6.16 — general finite-dimensional rank-nullity over a division ring;
+- Definition 44.6 — exact two-point real convex-combination interval scope;
+- Theorem 47.9 — exact positive one-dimensional LP scope;
+- Definition 53.4 — exact scalar Gaussian-exponent identity.
+
+All four Lean declarations compile. Their `#print axioms` output contains only `propext`, `Classical.choice`, and `Quot.sound`. The source-bound Lean file contains no `sorry`, `admit`, custom `axiom`, or `unsafe` declarations. Lean's bundled `leanchecker` independently checks the compiled environment.
+
+The original preregistration named Nanoda as the independent checker. That path was actually attempted after successful Lean compilation, but the current external checker failed on an approximately 6.07 GB / 107.8-million-line Mathlib export with `invalid digit found in string`. This is explicitly recorded as `TOOLING_BLOCKED`, not PASS or a mathematical failure. The documented tooling amendment substitutes bundled `leanchecker` without changing the four formal statements, source hashes, formal scopes, or project claims.
+
+The graph now supports the full bridge:
+
+```text
+source declaration
+  ├── EO representation
+  ├── GEO representation
+  ├── executable certificate
+  └── FORMAL / Lean representation
+          └── KERNEL_VERIFIED certificate
+```
 
 See:
 
-- `docs/V0_7_MAP_GOAL_SPEC.md`
-- `docs/V0_7_MAP_GOAL_REPORT.md`
-- `evidence/v0_7_acceptance_manifest.json`
-- `.github/workflows/map-goal-v0-7.yml`
+- `docs/V0_8_FORMAL_VERIFIER_BRIDGE_SPEC.md`
+- `docs/V0_8_INDEPENDENT_CHECKER_AMENDMENT.md`
+- `docs/V0_8_FORMAL_VERIFIER_BRIDGE_REPORT.md`
+- `evidence/v0_8_acceptance_manifest.json`
+- `MAPEOGEOFormal/SourceBound.lean`
+- `.github/workflows/formal-verifier-v0-8.yml`
 
 ## Reproduce
 
-v0.3:
+Earlier stages are reproducible from their corresponding workflow/spec files. The v0.8 formal layer is pinned by `lean-toolchain`, `lakefile.lean`, and `lake-manifest.json`.
+
+The accepted CI path regenerates v0.6 and v0.7 from a transient source PDF, builds the Lean project, runs bundled `leanchecker`, emits FORMAL/certificate graph nodes, validates graph integrity, deletes the source PDF, and uploads only derived evidence.
+
+For the formal library itself:
 
 ```bash
-python tests/run_v0_3.py
-python tests/validate_v0_3.py
+lake build
+lake env lean MAPEOGEOFormal/SourceBound.lean
+lake env leanchecker
 ```
-
-v0.4 source ingestion:
-
-```bash
-python -m pip install -r requirements-source-ingest.txt
-python scripts/import_math_deep.py /path/to/math-deep.pdf \
-  --base-graph data/gallier_quaintance_graph_v0_3.json.gz \
-  --out-dir artifacts/source_ingest \
-  --min-declarations 100 \
-  --min-chapters 30
-python tests/validate_source_ingest.py artifacts/source_ingest
-```
-
-v0.5 corpus dualization:
-
-```bash
-python -m pip install -r requirements-corpus-dualization.txt
-python scripts/corpus_dualize_v0_5.py /path/to/math-deep.pdf \
-  --base-graph data/gallier_quaintance_graph_v0_3.json.gz \
-  --out-dir artifacts/corpus_dualization_v0_5 \
-  --min-declarations 891 \
-  --min-chapters 55 \
-  --min-proofs 587 \
-  --min-resolved-deps 626 \
-  --max-unresolved-rate 0.101 \
-  --min-direct-tag-coverage 0.60 \
-  --min-dual-candidate-coverage 0.95
-python tests/validate_corpus_dualization_v0_5.py artifacts/corpus_dualization_v0_5
-```
-
-v0.6 independent dual-view audit:
-
-```bash
-python scripts/independent_dual_view_v0_6.py /path/to/math-deep.pdf \
-  --base-graph data/gallier_quaintance_graph_v0_3.json.gz \
-  --out-dir artifacts/independent_dual_view_v0_6 \
-  --min-declarations 1355 \
-  --min-definitions 463 \
-  --min-proofs 609 \
-  --min-resolved-deps 638 \
-  --max-unresolved-rate 0.0938 \
-  --min-eo-direct 0.70 \
-  --min-geo-direct 0.70 \
-  --min-dual-direct 0.60 \
-  --max-no-direct 0.15 \
-  --max-permutation-p 0.05
-python tests/validate_independent_dual_view_v0_6.py artifacts/independent_dual_view_v0_6
-```
-
-v0.7 is reproducible through `.github/workflows/map-goal-v0-7.yml` or by regenerating the frozen v0.6 representation and running `scripts/map_goal_v0_7.py` with the preregistered gates in `docs/V0_7_MAP_GOAL_SPEC.md`.
 
 ## Current claim boundary
 
@@ -202,14 +192,14 @@ The project has demonstrated:
 - executable EO↔GEO equivalence for 20 registered cross-domain fixtures;
 - source-grounded declaration/proof-reference ingestion over a large real mathematics corpus;
 - broad independently derived EO and GEO evidence directly in source declaration statements;
-- statistically significant alignment between both independent representation spaces and explicit proof dependencies;
-- non-random held-out proof-navigation utility from EO, GEO, and their dual-max representation;
-- useful but non-exact dual-view candidate reduction;
-- source-bound promotion of real declarations into executable `EQUIVALENT_TO` / `SAME_SEMANTICS` graph relations.
+- statistically significant alignment between both representation spaces and explicit proof dependencies;
+- non-random held-out proof-navigation utility plus useful but non-exact dual-view candidate reduction;
+- source-bound executable `EQUIVALENT_TO` / `SAME_SEMANTICS` promotion;
+- a working source → EO/GEO → certificate → FORMAL/Lean → kernel-verification bridge in the same graph.
 
-It has **not** established universal mathematical closure, exact-safe pruning from the current semantic filter, complete proof synthesis, executable equivalence for all 1,355 declarations, or automatic whole-corpus Lean/kernel verification.
+It has **not** established universal mathematical closure, exact-safe pruning from the current semantic filter, complete proof synthesis, executable/formal equivalence for all 1,355 declarations, or whole-corpus autoformalization.
 
-The next major stage should move toward the actual MAP endpoint: formal-verifier-backed graph nodes and proof paths, while retaining source topology, EO, GEO, and certificate evidence as distinct but interoperable layers.
+The next major stage is therefore not another representation layer. It is the central remaining MAP problem: **automatically formalize a substantial stratified subset of the source graph and candidate proof paths, measure kernel-accepted coverage, and identify the residual mathematical structures that require new EO/GEO primitives, better translation, or additional formal context.**
 
 ## Licensing
 
