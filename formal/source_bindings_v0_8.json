@@ -1,0 +1,38 @@
+[
+  {
+    "source_id": "srcdecl:theorem:6_16",
+    "kind": "Theorem",
+    "number": "6.16",
+    "statement_sha256": "9bb700afa17cb554b5d6962f561b2a75778073461cf7836eb19d894d06005a98",
+    "lean_decl": "MAPEOGEOFormal.theorem_6_16_rank_nullity",
+    "formal_scope": "GENERAL_FINITE_DIMENSIONAL_DIVISION_RING",
+    "v07_relation": "EQUIVALENT_TO"
+  },
+  {
+    "source_id": "srcdecl:definition:44_6",
+    "kind": "Definition",
+    "number": "44.6",
+    "statement_sha256": "98a05b33d579fb592b4b6cd34be92d14088eee7b7cdc4c20e0024a8a55cbad3a",
+    "lean_decl": "MAPEOGEOFormal.definition_44_6_two_point_convex_interval",
+    "formal_scope": "TWO_POINT_REAL_CONVEX_COMBINATION",
+    "v07_relation": "SAME_SEMANTICS"
+  },
+  {
+    "source_id": "srcdecl:theorem:47_9",
+    "kind": "Theorem",
+    "number": "47.9",
+    "statement_sha256": "40f6f2ced2811e74cf5ba7e189488b6f415e0e3980e06d3806aaddcfd364bbfb",
+    "lean_decl": "MAPEOGEOFormal.theorem_47_9_one_dim_positive_lp",
+    "formal_scope": "POSITIVE_ONE_DIMENSIONAL_LINEAR_PROGRAM",
+    "v07_relation": "EQUIVALENT_TO"
+  },
+  {
+    "source_id": "srcdecl:definition:53_4",
+    "kind": "Definition",
+    "number": "53.4",
+    "statement_sha256": "7fd9b72cf464870a2a937fc0ae981b170ac307e935ca034aaa31867ef7f12514",
+    "lean_decl": "MAPEOGEOFormal.definition_53_4_gaussian_exponent_identity",
+    "formal_scope": "SCALAR_REAL_GAUSSIAN_EXPONENT_IDENTITY",
+    "v07_relation": "SAME_SEMANTICS"
+  }
+]
