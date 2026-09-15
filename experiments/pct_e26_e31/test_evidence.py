@@ -36,7 +36,7 @@ def test_fresh_generation_matches_frozen_evidence_byte_for_byte(tmp_path: Path) 
 def test_frozen_evidence_is_valid_json_and_self_identifies() -> None:
     expected_ids = {
         "pct_e26_cross_branch_manifest.json": "E26_CROSS_BRANCH_CORPUS_BINDING",
-        "pct_e27_heldout_relational_recovery.json": "E27_HELDOUT_RELATIONAL_RECOVERY",
+        "pct_e27_heldout_relational_recovery.json": "E27_SEALED_HELDOUT_RELATIONAL_RECOVERY",
         "pct_e28_minimal_evidence_nullspace.json": "E28_MINIMAL_EVIDENCE_ERASURE_NULLSPACE",
         "pct_e29_rule_discovery_falsification.json": "E29_STRUCTURAL_RULE_DISCOVERY_FALSIFICATION",
         "pct_e30_main_pct_adversarial_replay.json": "E30_MAIN_PCT_ADVERSARIAL_REPLAY",
