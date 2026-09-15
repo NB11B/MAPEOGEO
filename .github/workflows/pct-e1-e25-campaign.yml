@@ -54,6 +54,6 @@ jobs:
       - name: Static check
         run: |
           python -m py_compile experiments/pct_e1_e25/campaign.py experiments/pct_e1_e25/test_campaign.py
-          python -m py_compile experiments/pct_e25bc/audit.py experiments/pct_e25bc/test_audit.py
+          python -m compileall -q experiments/pct_e25bc
       - name: Run PCT campaign regression suite
         run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py experiments/pct_e25bc/test_audit.py
