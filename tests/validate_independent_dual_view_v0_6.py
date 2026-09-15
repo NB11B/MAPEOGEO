@@ -7,9 +7,9 @@ FORBIDDEN={"text","excerpt","statement_text","proof_text","source_text","body","
 
 def main()->int:
     ap=argparse.ArgumentParser(); ap.add_argument("artifact_dir",type=Path); a=ap.parse_args()
-    report=json.loads((a.artifact_dir/"independent_dual_view_report.json").read_text())
-    profiles=json.loads((a.artifact_dir/"independent_statement_profiles.json").read_text())
-    graph=json.loads((a.artifact_dir/"mapeogeo_independent_graph.json").read_text())
+    report=json.loads((a.artifact_dir/"independent_dual_view_report.json").read_text(encoding="utf-8"))
+    profiles=json.loads((a.artifact_dir/"independent_statement_profiles.json").read_text(encoding="utf-8"))
+    graph=json.loads((a.artifact_dir/"mapeogeo_independent_graph.json").read_text(encoding="utf-8"))
     assert report["status"]=="PASS", report.get("gates")
     assert all(report["gates"].values())
     assert report["source"]["redistributed"] is False

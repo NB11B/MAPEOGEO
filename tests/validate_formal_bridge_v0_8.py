@@ -7,8 +7,8 @@ FORBIDDEN={"text","excerpt","statement_text","proof_text","source_text","body","
 
 def main()->int:
     ap=argparse.ArgumentParser(); ap.add_argument("artifact_dir",type=Path); a=ap.parse_args()
-    report=json.loads((a.artifact_dir/"formal_bridge_v0_8_report.json").read_text())
-    certs=json.loads((a.artifact_dir/"formal_kernel_certificates_v0_8.json").read_text())
+    report=json.loads((a.artifact_dir/"formal_bridge_v0_8_report.json").read_text(encoding="utf-8"))
+    certs=json.loads((a.artifact_dir/"formal_kernel_certificates_v0_8.json").read_text(encoding="utf-8"))
     with gzip.open(a.artifact_dir/"mapeogeo_formal_v0_8_graph.json.gz","rt",encoding="utf-8") as f:
         graph=json.load(f)
     assert report["status"]=="PASS", report["gates"]
