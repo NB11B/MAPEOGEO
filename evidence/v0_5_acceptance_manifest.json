@@ -1,0 +1,59 @@
+{
+  "evidence_id": "MAPEOGEO-V0.5-ACCEPTANCE",
+  "status": "PASS",
+  "repository_commit_under_test": "c4a999ca50a0eaf8e3932c8687c1474d7a2e07bb",
+  "github_actions_run_id": 34924201134,
+  "github_actions_job_id": 104238627697,
+  "github_actions_artifact_id": 10379127060,
+  "artifact_name": "mapeogeo-corpus-dualization-v0.5",
+  "artifact_zip_sha256": "2b18271dc87132a20efa2de547b29f31e52457d1b0a3428de4bec4abcec25269",
+  "source_pdf": {
+    "url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+    "sha256": "a1f91e337445851d27f2f4adb61e8ccc0f8fac941f9e0254ad94ba6b91c7c49b",
+    "bytes": 24629575,
+    "pages": 2204,
+    "redistributed": false
+  },
+  "measured": {
+    "deduplicated_declarations": 1355,
+    "definitions": 463,
+    "propositions": 654,
+    "theorems": 195,
+    "lemmas": 14,
+    "corollaries": 29,
+    "chapters_with_declarations": 55,
+    "proof_blocks": 609,
+    "proof_cross_references": 704,
+    "resolved_dependency_references": 638,
+    "unresolved_dependency_references": 66,
+    "unresolved_reference_rate": 0.09375,
+    "direct_semantic_tag_coverage": 0.985239852398524,
+    "dual_candidate_coverage": 1.0,
+    "v0_3_fixture_ontology_recovery": "20/20",
+    "graph_nodes": 2183,
+    "graph_edges": 18189
+  },
+  "artifact_file_sha256": {
+    "corpus_dualization_report.json": "6d86720dd34a2d2d7e3f0c45886507b2cb5baf3ae637391fe5c6d897cf24b0b5",
+    "semantic_profiles.json": "c2335c16112060169c95a78b47f28dd7600f82e828be801f86945a3d61b44a14",
+    "duplicate_declaration_audit.json": "70e5cac0f8f829361d7551d0fdfbb3254d1aa75792c350a58e00794096fbf295",
+    "mapeogeo_corpus_graph.json": "67e132a996ad5ec34093b7381a69ffeac3c497f4d51d39b4d4ec1ebc76580261",
+    "V0_5_SUMMARY.md": "81ea5beeda4204623fd9357ade2a37c1db2e02318fa0e57e1b9174e2de379118"
+  },
+  "gates": {
+    "declarations_not_regressed": true,
+    "chapter_coverage_not_regressed": true,
+    "proof_blocks_not_regressed": true,
+    "resolved_dependencies_not_regressed": true,
+    "unresolved_reference_rate_not_worse": true,
+    "definition_parser_recovered_definitions": true,
+    "direct_semantic_tag_coverage": true,
+    "dual_candidate_coverage": true,
+    "v0_3_fixture_ontology_recovery": true,
+    "unique_node_ids": true,
+    "unique_edge_ids": true,
+    "all_edge_endpoints_exist": true,
+    "copyright_payload_policy": true
+  },
+  "claim_boundary": "DUAL_CANDIDATE is controlled-ontology candidate representability, not theorem-level SAME_SEMANTICS verification."
+}
