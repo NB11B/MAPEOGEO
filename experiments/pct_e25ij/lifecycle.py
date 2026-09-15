@@ -198,11 +198,51 @@ def build_baseline_ledger() -> dict[str, Any]:
     }
 
 
-def _base_authority_states(ledger: dict[str, Any]) -> dict[str, str]:
-    receipts = ledger["receipts"]
+def apply_event_state(
+    receipts: list[dict[str, Any]],
+    events: list[dict[str, Any]],
+    component_epochs: dict[str, int] | None = None,
+) -> dict[str, Any]:
+    """Derive lifecycle authority without mutating immutable receipt payloads."""
     receipt_by_id = {r["receipt_id"]: r for r in receipts}
-    component_epoch = {c["component_id"]: c["component_epoch"] for c in ledger["components"]}
+    epochs = dict(component_epochs or {})
     states = {r["receipt_id"]: "ACTIVE" for r in receipts}
+    invalid_components: set[str] = set()
+
+    for event in sorted(events, key=lambda e: (e["revision"], e["event_id"])):
+        event_type = event["event_type"]
+        target_id = event["target_receipt_id"]
+        component_id = event["component_id"]
+
+        if event_type in {"REVOKE", "DEPENDENCY_INVALIDATE", "SUPERSEDE", "IDENTITY_CONFLICT"} and target_id not in receipt_by_id:
+            raise ValueError(f"event target receipt does not exist: {target_id}")
+
+        if event_type == "REVOKE":
+            states[target_id] = "REVOKED"
+        elif event_type == "SUPERSEDE":
+            states[target_id] = "SUPERSEDED"
+            replacement_id = event.get("replacement_receipt_id")
+            if replacement_id is not None and replacement_id not in receipt_by_id:
+                raise ValueError(f"replacement receipt does not exist: {replacement_id}")
+        elif event_type == "DEPENDENCY_INVALIDATE":
+            states[target_id] = "INVALID"
+        elif event_type == "IDENTITY_CONFLICT":
+            states[target_id] = "INVALID"
+            invalid_components.add(component_id)
+        elif event_type == "IDENTITY_REBIND":
+            new_epoch = event.get("new_component_epoch")
+            if new_epoch is None:
+                raise ValueError("IDENTITY_REBIND requires new_component_epoch")
+            if component_id not in epochs:
+                raise ValueError(f"unknown component for IDENTITY_REBIND: {component_id}")
+            if new_epoch <= epochs[component_id]:
+                raise ValueError("IDENTITY_REBIND must increase component_epoch")
+            epochs[component_id] = new_epoch
+            invalid_components.discard(component_id)
+        elif event_type in {"ISSUE", "REVALIDATE"}:
+            pass
+        else:
+            raise ValueError(f"unsupported lifecycle event type: {event_type}")
 
     changed = True
     while changed:
@@ -211,16 +251,22 @@ def _base_authority_states(ledger: dict[str, Any]) -> dict[str, str]:
             rid = receipt["receipt_id"]
             if states[rid] != "ACTIVE":
                 continue
-            if receipt["component_id"] != GLOBAL_COMPONENT and receipt["component_epoch"] != component_epoch[receipt["component_id"]]:
-                states[rid] = "STALE"
-                changed = True
-                continue
-            for dep_id in receipt["dependency_receipt_ids"]:
-                if dep_id not in receipt_by_id or states.get(dep_id) != "ACTIVE":
+            component_id = receipt["component_id"]
+            if component_id != GLOBAL_COMPONENT:
+                current_epoch = epochs.get(component_id)
+                if current_epoch is None or receipt["component_epoch"] != current_epoch:
                     states[rid] = "STALE"
                     changed = True
-                    break
-    return states
+                    continue
+            if any(dep_id not in receipt_by_id or states.get(dep_id) != "ACTIVE" for dep_id in receipt["dependency_receipt_ids"]):
+                states[rid] = "STALE"
+                changed = True
+
+    return {
+        "receipt_states": states,
+        "component_epochs": epochs,
+        "invalid_components": sorted(invalid_components),
+    }
 
 
 def _role_receipt(
@@ -240,15 +286,18 @@ def _role_receipt(
 
 
 def replay_lifecycle(ledger: dict[str, Any], events: list[dict[str, Any]] | None = None) -> dict[str, Any]:
-    if events:
-        raise NotImplementedError("event replay is introduced in E25J Task 2")
-
     receipts = ledger["receipts"]
-    states = _base_authority_states(ledger)
+    all_events = list(ledger.get("events", [])) + list(events or [])
+    initial_epochs = {c["component_id"]: c["component_epoch"] for c in ledger["components"]}
+    authority = apply_event_state(receipts, all_events, initial_epochs)
+    states: dict[str, str] = authority["receipt_states"]
+    component_epochs: dict[str, int] = authority["component_epochs"]
+    invalid_components = set(authority["invalid_components"])
     components_out: list[dict[str, Any]] = []
 
     for metadata in sorted(ledger["components"], key=lambda x: x["component_id"]):
         component_id = metadata["component_id"]
+        is_invalid = component_id in invalid_components
         closure: dict[str, dict[str, Any]] = {}
         role_for_layer = {
             "C0": "C0_IDENTITY",
@@ -257,10 +306,13 @@ def replay_lifecycle(ledger: dict[str, Any], events: list[dict[str, Any]] | None
         }
         for layer, role in role_for_layer.items():
             receipt = _role_receipt(receipts, states, component_id, role)
-            closure[layer] = {
-                "state": "PASS" if receipt and receipt["mathematical_verdict"] == "PASS" else "NOT_ESTABLISHED",
-                "receipt_id": receipt["receipt_id"] if receipt else None,
-            }
+            if is_invalid and layer == "C0":
+                closure[layer] = {"state": "INVALID", "receipt_id": None}
+            else:
+                closure[layer] = {
+                    "state": "PASS" if receipt and receipt["mathematical_verdict"] == "PASS" else "NOT_ESTABLISHED",
+                    "receipt_id": receipt["receipt_id"] if receipt else None,
+                }
 
         for layer in ("C3", "C4"):
             if metadata["applicability_mask"].get(layer) is False:
@@ -273,29 +325,30 @@ def replay_lifecycle(ledger: dict[str, Any], events: list[dict[str, Any]] | None
 
         c5 = _role_receipt(receipts, states, component_id, "C5_ELIGIBILITY")
         closure["C5"] = {
-            "state": "PASS" if c5 and c5["mathematical_verdict"] == "PASS" else "NOT_ESTABLISHED",
-            "receipt_id": c5["receipt_id"] if c5 else None,
+            "state": "PASS" if (not is_invalid and c5 and c5["mathematical_verdict"] == "PASS") else "NOT_ESTABLISHED",
+            "receipt_id": c5["receipt_id"] if (not is_invalid and c5) else None,
         }
 
         frontier = None
-        for layer in ("C5", "C4", "C3", "C2", "C1", "C0"):
-            if closure[layer]["state"] == "PASS":
-                frontier = layer
-                break
+        if not is_invalid:
+            for layer in ("C5", "C4", "C3", "C2", "C1", "C0"):
+                if closure[layer]["state"] == "PASS":
+                    frontier = layer
+                    break
 
         component_receipts = [r for r in receipts if r["component_id"] == component_id]
         base = {
             "component_id": component_id,
             "contract": metadata["contract"],
-            "component_epoch": metadata["component_epoch"],
-            "component_state": "VALID",
+            "component_epoch": component_epochs[component_id],
+            "component_state": "INVALID" if is_invalid else "VALID",
             "closure": closure,
             "effective_frontier": frontier,
             "authoritative_receipt_ids": sorted(r["receipt_id"] for r in component_receipts if states[r["receipt_id"]] == "ACTIVE"),
             "stale_receipt_ids": sorted(r["receipt_id"] for r in component_receipts if states[r["receipt_id"]] == "STALE"),
-            "revoked_receipt_ids": [],
-            "superseded_receipt_ids": [],
-            "invalid_receipt_ids": [],
+            "revoked_receipt_ids": sorted(r["receipt_id"] for r in component_receipts if states[r["receipt_id"]] == "REVOKED"),
+            "superseded_receipt_ids": sorted(r["receipt_id"] for r in component_receipts if states[r["receipt_id"]] == "SUPERSEDED"),
+            "invalid_receipt_ids": sorted(r["receipt_id"] for r in component_receipts if states[r["receipt_id"]] == "INVALID"),
         }
         base["state_digest"] = canonical_sha256(base)
         components_out.append(base)
@@ -311,6 +364,7 @@ def replay_lifecycle(ledger: dict[str, Any], events: list[dict[str, Any]] | None
         "component_count": len(components_out),
         "components": components_out,
         "frontier_histogram": histogram,
+        "event_ids": [e["event_id"] for e in sorted(all_events, key=lambda e: (e["revision"], e["event_id"]))],
     }
     snapshot["state_digest"] = canonical_sha256(snapshot)
     return snapshot
