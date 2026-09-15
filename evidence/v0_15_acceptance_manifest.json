@@ -1,10 +1,10 @@
 {
   "evidence_id": "MAPEOGEO-V0.15-ACCEPTANCE",
   "stage": "v0.15",
-  "status": "PASS",
+  "status": "EXPLORATORY_CANDIDATE",
   "engine_validity": "VALID",
-  "scientific_result": "PASS",
-  "description": "Real Analysis and Multivariable Differential Calculus Quad-Source Mathematics Expansion acceptance manifest for MAPEOGEO v0.15 across Gallier, Axler, Boyd/Vandenberghe VMLS, and Boyd/Vandenberghe CVX",
+  "scientific_result": "EXPLORATORY_PASS",
+  "description": "Real Analysis and Multivariable Differential Calculus Quad-Source Mathematics Expansion exploratory pilot manifest for MAPEOGEO v0.15. Confirmatory clean-room replay executed in v0.15.1.",
   "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
   "sources": {
     "source_a": {
@@ -78,7 +78,8 @@
       "REPRESENTS": 330,
       "DEPENDS_ON": 359,
       "SOURCED_FROM": 402
-    }
+    },
+    "formal_status": "INHERITED_FORMAL_LINKS"
   },
   "representation_diversity": {
     "average_richness_r_bar": 3.382,

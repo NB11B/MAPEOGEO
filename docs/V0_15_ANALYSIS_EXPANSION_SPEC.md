@@ -58,5 +58,5 @@ Preregistered threshold: $\\bar{r} \\ge 2.75$.
 5. **Quad-Source Convergence Objects**: {\\text{4-source}} \\ge 8$
 6. **Distinct Mathematical Domains**: {\\text{domains}} \\ge 4$
 7. **Representation Richness**: $\\bar{r} \\ge 2.75$
-8. **Inherited Formal Proof Bindings**: {\\text{formal-linked}} \\ge 6$ (Lean 4 kernel-verified theorems)
+8. **Inherited Formal Proof Bindings**: {\\text{formal-linked}} \\ge 6$ (inherited formal links (FORMAL_LINKED, certificate verification deferred))
 9. **Zero-Prose Persistence Policy**: Strict fail-closed verification that no raw copyrighted text, proof text, source prose, or page images are persisted in graph artifacts.

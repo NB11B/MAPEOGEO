@@ -39,7 +39,7 @@ S_C\\ (\\text{VMLS: Computational / Multi-Variable}) & \\longrightarrow & & \\lo
 | **Candidate EO Views** | {\\text{EO-candidate}}$ | $> 0$ | **257** | **PASS** |
 | **Candidate GEO Views** | {\\text{GEO-candidate}}$ | $> 0$ | **27** | **PASS** |
 | **Candidate Dual Views** | {\\text{DUAL-candidate}}$ | $> 0$ | **159** | **PASS** |
-| **Formal Coverage Links** | {\\text{formal-linked}}$ | $\\ge 6$ | **7** (Lean 4 kernel-verified theorems) | **PASS** |
+| **Formal Coverage Links** | {\\text{formal-linked}}$ | $\\ge 6$ | **7** (inherited formal links (FORMAL_LINKED, certificate verification deferred)) | **PASS** |
 | **Total Graph Edges** | {\\text{edges}}$ | $> 1000$ | **1616** | **PASS** |
 | **Same-Semantics Semantic Bridges** | {\\text{SAME\\_SEMANTICS}}$ | $\\ge 300$ | **341** | **PASS** |
 | **Scoped-Overlap Semantic Bridges** | {\\text{SCOPED\\_OVERLAP}}$ | $> 0$ | **97** | **PASS** |
@@ -106,7 +106,7 @@ The following canonical mathematical objects achieve full four-source convergenc
 
 ## 5. Formal Verification & Lean 4 Alignments
 
-Kernel-verified Lean 4 formal declarations sit at the boundary, providing foundational correctness for key canonical objects:
+Inherited formal link declarations sit at the boundary, providing foundational correctness for key canonical objects:
 1. MATH_OBJ_CAUCHY_SCHWARZ $\\leftrightarrow$ Real.cauchy_schwarz_inequality
 2. MATH_OBJ_PYTHAGOREAN_THEOREM $\\leftrightarrow$ Real.pythagorean_orthogonal
 3. MATH_OBJ_ORTHOGONAL_PROJECTION $\\leftrightarrow$ Submodule.orthogonalProjection
