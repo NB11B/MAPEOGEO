@@ -1,0 +1,57 @@
+name: MAPEOGEO v0.10 PCT audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "mapeogeo/pct/**"
+      - "scripts/pct_v0_10.py"
+      - "scripts/validate_pct_v0_10.py"
+      - "tests/pct/**"
+      - "tests/validate_pct_v0_10.py"
+      - "evidence/v0_10_pct_preregistration.json"
+      - "docs/V0_10_PCT_SPEC.md"
+      - "requirements-pct-v0-10.txt"
+      - ".github/workflows/pct-v0-10.yml"
+  push:
+    branches: [main]
+    paths:
+      - "mapeogeo/pct/**"
+      - "scripts/pct_v0_10.py"
+      - "scripts/validate_pct_v0_10.py"
+      - "tests/pct/**"
+      - "tests/validate_pct_v0_10.py"
+      - "evidence/v0_10_pct_preregistration.json"
+      - "docs/V0_10_PCT_SPEC.md"
+      - "requirements-pct-v0-10.txt"
+      - ".github/workflows/pct-v0-10.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  pct-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-pct-v0-10.txt
+      - run: python -m pip install -r requirements-pct-v0-10.txt
+      - run: python -m pytest -q tests/pct
+      - run: |
+          rm -rf artifacts/pct_v0_10
+          python scripts/pct_v0_10.py \
+            --manifest evidence/v0_10_pct_preregistration.json \
+            --out-dir artifacts/pct_v0_10 \
+            --repository-commit "${GITHUB_SHA}"
+      - run: python tests/validate_pct_v0_10.py artifacts/pct_v0_10
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-pct-v0.10
+          path: artifacts/pct_v0_10/
+          if-no-files-found: error
+          retention-days: 30
