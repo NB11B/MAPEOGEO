@@ -33,5 +33,9 @@ def test_formal_file_has_all_bound_declarations_and_no_escape_hatches():
 
 def test_toolchain_and_mathlib_are_pinned_together():
     assert (ROOT / "lean-toolchain").read_text().strip() == "leanprover/lean4:v4.33.1"
-    lake = (ROOT / "lakefile.toml").read_text()
-    assert 'rev = "v4.33.1"' in lake
+    lake = (ROOT / "lakefile.lean").read_text()
+    assert 'package MAPEOGEOFormal' in lake
+    assert 'require mathlib from git "https://github.com/leanprover-community/mathlib4.git" @ "v4.33.1"' in lake
+    manifest = json.loads((ROOT / "lake-manifest.json").read_text())
+    mathlib = next(p for p in manifest["packages"] if p["name"] == "mathlib")
+    assert mathlib["inputRev"] == "v4.33.1"
