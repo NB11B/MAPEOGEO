@@ -18,9 +18,10 @@ def main()->int:
     assert profiles
     for p in profiles:
         assert "source_segment_sha256" in p
-        ip=p["independent_profile"]
-        assert isinstance(ip["eo_direct_families"],list)
-        assert isinstance(ip["geo_direct_families"],list)
+        assert "statement_sha256" in p
+        assert isinstance(p["eo_direct_families"],list)
+        assert isinstance(p["geo_direct_families"],list)
+        assert p["direct_status"] in {"DUAL_DIRECT","EO_ONLY_DIRECT","GEO_ONLY_DIRECT","NO_DIRECT_VIEW"}
     nodes,edges=graph["nodes"],graph["edges"]
     by={n["id"]:n for n in nodes}
     assert len(by)==len(nodes)
