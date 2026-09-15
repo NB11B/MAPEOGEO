@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.9",
+  "stage": "S5_PROOF_PATH",
+  "source": "GALLIER_QUAINTANCE_MATH_DEEP",
+  "license_note": "MAPEOGEO repository content is governed by LICENSE.md. External source prose is not redistributed.",
+  "targets": [
+    {
+      "source_id": "srcdecl:theorem:6_16",
+      "statement_sha256": "9bb700afa17cb554b5d6962f561b2a75778073461cf7836eb19d894d06005a98",
+      "s5_role": "ROOT",
+      "expected_status": "KERNEL_ACCEPTED_WITH_REPAIRED_WOUND"
+    },
+    {
+      "source_id": "srcdecl:definition:44_6",
+      "statement_sha256": "98a05b33d579fb592b4b6cd34be92d14088eee7b7cdc4c20e0024a8a55cbad3a",
+      "s5_role": "LEAF",
+      "expected_status": "LEAF_NO_CITED_PROOF_PATH"
+    },
+    {
+      "source_id": "srcdecl:theorem:47_9",
+      "statement_sha256": "40f6f2ced2811e74cf5ba7e189488b6f415e0e3980e06d3806aaddcfd364bbfb",
+      "s5_role": "WOUND",
+      "expected_status": "WOUND_NO_PARSED_SOURCE_PROOF_PATH"
+    },
+    {
+      "source_id": "srcdecl:definition:53_4",
+      "statement_sha256": "7fd9b72cf464870a2a937fc0ae981b170ac307e935ca034aaa31867ef7f12514",
+      "s5_role": "LEAF",
+      "expected_status": "LEAF_NO_CITED_PROOF_PATH"
+    }
+  ],
+  "support_frontier": [
+    {
+      "source_id": "srcdecl:proposition:6_15",
+      "statement_sha256": "f220fd23c008fb1b97eab4d3f5ecc7b36015706df0fed674aedae09fa882c76d",
+      "lean_decl": "MAPEOGEOFormal.proposition_6_15_section_split",
+      "formal_scope": "SECTION_INDUCES_KERNEL_RANGE_COMPLEMENT"
+    },
+    {
+      "source_id": "srcdecl:proposition:6_11",
+      "statement_sha256": "b0c1b1d047fb0c9f72fdf14c944b4c9f196eef618a4c601b750c4225a323309b",
+      "lean_decl": "MAPEOGEOFormal.proposition_6_11_retraction_section",
+      "formal_scope": "LINEAR_RETRACTION_AND_SECTION_EXISTENCE"
+    },
+    {
+      "source_id": "srcdecl:proposition:6_7",
+      "statement_sha256": "ed9e437c8a539615e0759d0f6ccfea972afe87ad106a304c780d9e6ff59895d3",
+      "lean_decl": "MAPEOGEOFormal.proposition_6_7_finite_direct_sum_finrank",
+      "formal_scope": "FINITE_EXTERNAL_DIRECT_SUM_PRODUCT_FINRANK"
+    },
+    {
+      "source_id": "srcdecl:proposition:3_15",
+      "statement_sha256": "aea9aaad4de59e0fe41689744e318fda319d916a94a7c8c95d5cd5b3c51fa455",
+      "lean_decl": "MAPEOGEOFormal.proposition_3_15_basis_determines_linear_map",
+      "formal_scope": "BASIS_DETERMINES_UNIQUE_LINEAR_MAP"
+    },
+    {
+      "source_id": "srcdecl:theorem:3_7",
+      "statement_sha256": "308a9240278368e4f17acc97d6385aa540d05688bda5d8aae87a5b75a11333de",
+      "lean_decl": "MAPEOGEOFormal.theorem_3_7_basis_extension",
+      "formal_scope": "INDEPENDENT_SUBSET_TO_BASIS_WITHIN_SPANNING_SET"
+    },
+    {
+      "source_id": "srcdecl:lemma:3_6",
+      "statement_sha256": "8c777553c7ec6a145870e89011cdfa811bd9fbb7d04b666620c963849224cbb3",
+      "lean_decl": "MAPEOGEOFormal.lemma_3_6_insert_linear_independent",
+      "formal_scope": "LINEAR_INDEPENDENCE_INSERTION"
+    }
+  ],
+  "path_edges": [
+    ["srcdecl:theorem:6_16", "srcdecl:proposition:6_15"],
+    ["srcdecl:theorem:6_16", "srcdecl:proposition:6_7"],
+    ["srcdecl:proposition:6_15", "srcdecl:proposition:6_11"],
+    ["srcdecl:proposition:6_11", "srcdecl:proposition:3_15"],
+    ["srcdecl:proposition:6_11", "srcdecl:theorem:3_7"],
+    ["srcdecl:theorem:3_7", "srcdecl:lemma:3_6"]
+  ],
+  "known_reference_wounds": [
+    {
+      "wound_id": "wound:v09:proposition_6_11_ref_3_15",
+      "source": "srcdecl:proposition:6_11",
+      "legacy_resolved_target": "srcdecl:proposition:3_18",
+      "audited_target": "srcdecl:proposition:3_15",
+      "status": "REPAIR_REQUIRED",
+      "evidence_class": "DIRECT_SOURCE_REFERENCE_AUDIT",
+      "source_page_start": 178,
+      "source_page_end": 179
+    }
+  ]
+}
