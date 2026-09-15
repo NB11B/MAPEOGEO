@@ -6,7 +6,7 @@ on:
     branches: [main]
     paths:
       - "scripts/map_goal_v0_7.py"
-      - "scripts/map_goal_v0_7_impl.py.gz"
+      - "scripts/map_goal_v0_7_impl.py.b64"
       - "tests/test_map_goal_v0_7.py"
       - "tests/validate_map_goal_v0_7.py"
       - "docs/V0_7_MAP_GOAL_SPEC.md"
