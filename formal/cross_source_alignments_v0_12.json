@@ -1,0 +1,316 @@
+{
+  "schema_version": "0.12",
+  "stage": "v0.12",
+  "description": "Canonical mathematical object definitions and cross-source alignments for Gallier (S_A) and Axler LADR4e (S_B)",
+  "canonical_objects": [
+    {
+      "id": "canonical:linear_algebra:vector_space",
+      "name": "Vector Space",
+      "domain": "Linear Algebra",
+      "description": "Abelian group under addition equipped with compatible scalar multiplication over a field",
+      "alignments": [
+        {"source": "srcdecl:definition:2_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:1_20", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:subspace",
+      "name": "Subspace",
+      "domain": "Linear Algebra",
+      "description": "Subset of a vector space closed under addition and scalar multiplication",
+      "alignments": [
+        {"source": "srcdecl:definition:2_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:1_33", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:1_34", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:direct_sum",
+      "name": "Internal Direct Sum of Subspaces",
+      "domain": "Linear Algebra",
+      "description": "Decomposition of vector space into independent subspaces with trivial pairwise intersection",
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "alignments": [
+        {"source": "srcdecl:proposition:4_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:1_41", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:1_45", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:linear_combination",
+      "name": "Linear Combination",
+      "domain": "Linear Algebra",
+      "description": "Finite sum of vectors weighted by scalar coefficients",
+      "alignments": [
+        {"source": "srcdecl:definition:3_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_2", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:span",
+      "name": "Linear Span",
+      "domain": "Linear Algebra",
+      "description": "Smallest subspace containing a given subset of vectors, consisting of all linear combinations",
+      "alignments": [
+        {"source": "srcdecl:definition:3_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_4", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_6", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_7", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:linear_independence",
+      "name": "Linear Independence",
+      "domain": "Linear Algebra",
+      "description": "Property that no vector in a set can be written as a linear combination of the remaining vectors",
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "alignments": [
+        {"source": "srcdecl:proposition:3_13", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:lemma:3_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_RELATED_NOT_SAME"},
+        {"source": "srcdecl:axler:definition:2_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_19", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:basis",
+      "name": "Basis",
+      "domain": "Linear Algebra",
+      "description": "Linearly independent spanning set providing unique coordinate representations for all vectors",
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "alignments": [
+        {"source": "srcdecl:proposition:3_14", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:proposition:3_15", "corpus": "GALLIER", "status": "CROSS_SOURCE_RELATED_NOT_SAME"},
+        {"source": "srcdecl:axler:definition:2_26", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_28", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:basis_extension",
+      "name": "Basis Extension Theorem",
+      "domain": "Linear Algebra",
+      "description": "Every linearly independent set can be extended to a basis in a finite-dimensional space",
+      "formal_decl": "MAPEOGEOFormal.theorem_3_7_basis_extension",
+      "alignments": [
+        {"source": "srcdecl:theorem:3_7", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_32", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:dimension",
+      "name": "Dimension",
+      "domain": "Linear Algebra",
+      "description": "Number of elements in any basis of a finite-dimensional vector space",
+      "alignments": [
+        {"source": "srcdecl:definition:3_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:2_35", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_37", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_38", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:dimension_sum_formula",
+      "name": "Subspace Dimension Sum Formula",
+      "domain": "Linear Algebra",
+      "description": "dim(U1 + U2) = dim U1 + dim U2 - dim(U1 ∩ U2)",
+      "alignments": [
+        {"source": "srcdecl:proposition:4_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:2_43", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:linear_map",
+      "name": "Linear Map",
+      "domain": "Linear Algebra",
+      "description": "Structure-preserving function between vector spaces over the same field",
+      "alignments": [
+        {"source": "srcdecl:definition:5_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_1", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_5", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:kernel",
+      "name": "Kernel / Null Space",
+      "domain": "Linear Algebra",
+      "description": "Subspace of domain vectors mapped to zero by a linear map",
+      "alignments": [
+        {"source": "srcdecl:definition:5_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_11", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_13", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_15", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:range",
+      "name": "Range / Image",
+      "domain": "Linear Algebra",
+      "description": "Subspace of codomain vectors attained by a linear map",
+      "alignments": [
+        {"source": "srcdecl:definition:5_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_16", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_18", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:rank_nullity_theorem",
+      "name": "Rank-Nullity Theorem / Fundamental Theorem of Linear Maps",
+      "domain": "Linear Algebra",
+      "description": "dim V = dim null T + dim range T for any linear map T : V -> W on finite-dimensional V",
+      "formal_decl": "MAPEOGEOFormal.theorem_6_16_rank_nullity",
+      "alignments": [
+        {"source": "srcdecl:theorem:6_16", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_21", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:matrix_representation",
+      "name": "Matrix Representation of a Linear Map",
+      "domain": "Linear Algebra",
+      "description": "Matrix whose columns are coordinates of basis images under a linear map",
+      "alignments": [
+        {"source": "srcdecl:definition:5_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_31", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:isomorphism",
+      "name": "Vector Space Isomorphism",
+      "domain": "Linear Algebra",
+      "description": "Bijective linear map between vector spaces establishing structural equivalence",
+      "alignments": [
+        {"source": "srcdecl:definition:5_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_59", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_69", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:isomorphic_equal_dim",
+      "name": "Isomorphic Spaces Have Equal Dimension",
+      "domain": "Linear Algebra",
+      "description": "Two finite-dimensional vector spaces are isomorphic iff they have equal dimension",
+      "alignments": [
+        {"source": "srcdecl:proposition:6_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:3_70", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:quotient_space",
+      "name": "Quotient Vector Space",
+      "domain": "Linear Algebra",
+      "description": "Vector space of affine cosets modulo a subspace",
+      "alignments": [
+        {"source": "srcdecl:definition:4_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:3_99", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:eigenvalue",
+      "name": "Eigenvalues and Eigenvectors",
+      "domain": "Linear Algebra",
+      "description": "Scalar lambda and non-zero vector v such that T(v) = lambda * v",
+      "alignments": [
+        {"source": "srcdecl:definition:14_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:5_5", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:5_8", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:distinct_eigenvalues_independent",
+      "name": "Linear Independence of Eigenvectors for Distinct Eigenvalues",
+      "domain": "Linear Algebra",
+      "description": "Eigenvectors corresponding to distinct eigenvalues are linearly independent",
+      "alignments": [
+        {"source": "srcdecl:proposition:14_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:5_10", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:diagonalizability",
+      "name": "Diagonalizability",
+      "domain": "Linear Algebra",
+      "description": "Operator possesses a basis consisting entirely of eigenvectors",
+      "alignments": [
+        {"source": "srcdecl:definition:14_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:5_50", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:5_55", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:orthonormal_basis",
+      "name": "Orthonormal Basis",
+      "domain": "Linear Algebra",
+      "description": "Basis of mutually orthogonal unit vectors in an inner product space",
+      "alignments": [
+        {"source": "srcdecl:definition:10_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_27", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:gram_schmidt",
+      "name": "Gram-Schmidt Orthogonalization Procedure",
+      "domain": "Linear Algebra",
+      "description": "Algorithm transforming a linearly independent set into an orthonormal set with identical spans",
+      "alignments": [
+        {"source": "srcdecl:theorem:10_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_32", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:orthogonal_complement",
+      "name": "Orthogonal Complement",
+      "domain": "Linear Algebra",
+      "description": "Subspace of all vectors orthogonal to every vector in a given subspace",
+      "alignments": [
+        {"source": "srcdecl:definition:10_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_46", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_48", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:orthogonal_projection",
+      "name": "Orthogonal Projection",
+      "domain": "Linear Algebra",
+      "description": "Idempotent self-adjoint linear map projecting onto a subspace along its orthogonal complement",
+      "alignments": [
+        {"source": "srcdecl:definition:10_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:6_55", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_57", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:pseudoinverse",
+      "name": "Moore-Penrose Pseudoinverse",
+      "domain": "Linear Algebra",
+      "description": "Generalization of inverse for non-invertible or rectangular linear maps",
+      "alignments": [
+        {"source": "srcdecl:definition:15_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
+        {"source": "srcdecl:axler:definition:6_68", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_69", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:6_70", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:self_adjoint",
+      "name": "Self-Adjoint Operator",
+      "domain": "Linear Algebra",
+      "description": "Linear operator equal to its adjoint, having real eigenvalues and orthogonal eigenspaces",
+      "alignments": [
+        {"source": "srcdecl:definition:16_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:definition:7_10", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:7_12", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"}
+      ]
+    },
+    {
+      "id": "canonical:linear_algebra:spectral_theorem",
+      "name": "Spectral Theorem for Self-Adjoint Operators",
+      "domain": "Linear Algebra",
+      "description": "Orthogonal decomposition of a vector space into eigenspaces of a self-adjoint operator",
+      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "alignments": [
+        {"source": "srcdecl:theorem:27_10", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:7_29", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
+        {"source": "srcdecl:axler:theorem:7_31", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
+      ]
+    }
+  ]
+}

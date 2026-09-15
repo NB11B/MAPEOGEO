@@ -1,0 +1,59 @@
+{
+  "evidence_id": "MAPEOGEO-V0.12-ACCEPTANCE",
+  "stage": "v0.12",
+  "status": "PASS",
+  "engine_validity": "VALID",
+  "scientific_result": "PASS",
+  "description": "Cross-Source Mathematics Expansion acceptance manifest for MAPEOGEO v0.12",
+  "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
+  "source_a": {
+    "source_id": "GALLIER_QUAINTANCE_2020",
+    "title": "Algebra, Topology, Differential Calculus, and Optimization Theory for Computer Science and Machine Learning",
+    "authors": ["Jean Gallier", "Jocelyn Quaintance"]
+  },
+  "source_b": {
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "title": "Linear Algebra Done Right",
+    "author": "Sheldon Axler",
+    "edition": "Fourth Edition",
+    "version_date": "2026-08-16",
+    "url": "https://linear.axler.net/LADR4e.pdf",
+    "license": "CC BY-NC 4.0",
+    "sha256": "5c9eb92f6230491029c788647c0780295ebfe74f2604e389e02c502b4d834927",
+    "redistributed": false
+  },
+  "primary_dashboard": {
+    "N_source": 249,
+    "N_canonical": 28,
+    "N_cross_source": 28,
+    "N_EO": 194,
+    "N_GEO": 92,
+    "N_formal": 28,
+    "N_paths": 126,
+    "D_domains": ["Linear Algebra"],
+    "D_domains_count": 1
+  },
+  "coverage_metrics": {
+    "cross_source_coverage_rate": 1.0,
+    "unresolved_rate": 0.0,
+    "total_alignments": 79,
+    "axler_alignments": 49,
+    "gallier_alignments": 30,
+    "cross_source_same": 75,
+    "cross_source_scoped_overlap": 2,
+    "cross_source_related": 2
+  },
+  "artifacts": {
+    "mapeogeo_v0_12_graph.json.gz": "259a317993265f9d3e59d5627a50f3763ab518ead6363111b04a8cfde8cf606b",
+    "cross_source_alignments.json": "6834610c476c7438974055a99c9969289e9623f38989225fc9d27c48e613862c",
+    "expansion_metrics.json": "5ecfe1a7a4845806dc0c0b21b734a32c5c35afe8de6c1947c8d506bc1a873b64",
+    "scientific_results.json": "3cc87828108b21aa29388a109448b9779feb244163d6921e912a98819b82b341"
+  },
+  "preregistered_checks": {
+    "min_source_declarations": {"expected": ">= 30", "actual": 249, "pass": true},
+    "min_canonical_objects": {"expected": ">= 25", "actual": 28, "pass": true},
+    "min_cross_source_matches": {"expected": ">= 15", "actual": 28, "pass": true},
+    "max_unresolved_rate": {"expected": "<= 0.50", "actual": 0.0, "pass": true},
+    "zero_prose_policy": {"expected": "No copyrighted prose persisted", "actual": "Pass", "pass": true}
+  }
+}

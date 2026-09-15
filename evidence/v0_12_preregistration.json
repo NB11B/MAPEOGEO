@@ -1,0 +1,38 @@
+{
+  "stage": "v0.12",
+  "run_id": "MAPEOGEO-CROSS-SOURCE-V0.12",
+  "description": "Preregistered specification for cross-source mathematics expansion with Sheldon Axler LADR4e as Source B",
+  "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
+  "source_a": {
+    "source_id": "GALLIER_QUAINTANCE_2020",
+    "title": "Algebra, Topology, Differential Calculus, and Optimization Theory for Computer Science and Machine Learning",
+    "authors": ["Jean Gallier", "Jocelyn Quaintance"]
+  },
+  "source_b": {
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "title": "Linear Algebra Done Right",
+    "author": "Sheldon Axler",
+    "edition": "Fourth Edition",
+    "version_date": "2026-08-16",
+    "url": "https://linear.axler.net/LADR4e.pdf",
+    "license": "CC BY-NC 4.0",
+    "target_slice": [
+      "1A", "1B", "1C",
+      "2A", "2B", "2C",
+      "3A", "3B", "3C", "3D", "3E",
+      "5A", "5D",
+      "6B", "6C",
+      "7A", "7B"
+    ]
+  },
+  "tolerances": {
+    "min_axler_declarations": 30,
+    "min_canonical_objects": 25,
+    "min_cross_source_matches": 15,
+    "max_unresolved_rate": 0.50
+  },
+  "persistence_policy": {
+    "redistribute_source_prose": false,
+    "persist_page_images": false
+  }
+}
