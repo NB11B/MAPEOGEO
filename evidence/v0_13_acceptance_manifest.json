@@ -1,0 +1,82 @@
+{
+  "evidence_id": "MAPEOGEO-V0.13-ACCEPTANCE",
+  "stage": "v0.13",
+  "status": "PASS",
+  "engine_validity": "VALID",
+  "scientific_result": "PASS",
+  "description": "Tri-Source Mathematics Expansion acceptance manifest for MAPEOGEO v0.13 with Boyd & Vandenberghe VMLS as Source C",
+  "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
+  "sources": {
+    "source_a": {
+      "source_id": "GALLIER_QUAINTANCE_2020",
+      "title": "Algebra, Topology, Differential Calculus, and Optimization Theory for Computer Science and Machine Learning",
+      "authors": ["Jean Gallier", "Jocelyn Quaintance"]
+    },
+    "source_b": {
+      "source_id": "AXLER_LADR4E_2026_08_16",
+      "title": "Linear Algebra Done Right",
+      "author": "Sheldon Axler",
+      "edition": "Fourth Edition",
+      "version_date": "2026-08-16"
+    },
+    "source_c": {
+      "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+      "title": "Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares",
+      "authors": ["Stephen Boyd", "Lieven Vandenberghe"],
+      "publisher": "Cambridge University Press",
+      "year": 2018,
+      "url": "https://web.stanford.edu/~boyd/vmls/vmls.pdf",
+      "sha256": "3cbddbba6e70ebfa721665a50e5015ecb7fa4fe5d76d4948a4747eb4bb579c3f",
+      "redistributed": false
+    }
+  },
+  "primary_dashboard": {
+    "N_source": 332,
+    "N_canonical": 39,
+    "N_2_source": 38,
+    "N_3_source": 19,
+    "N_new_canonical": 1,
+    "N_EO_candidate": 277,
+    "N_GEO_candidate": 135,
+    "N_formal_linked": 6,
+    "N_paths": 367,
+    "D_domains": ["Applied Linear Algebra & Optimization", "Linear Algebra"],
+    "D_domains_count": 2
+  },
+  "blinded_benchmark": {
+    "holdout_count": 25,
+    "top_1_accuracy": 0.360,
+    "top_3_recall": 0.360,
+    "unresolved_rate": 0.080,
+    "status": "PASS",
+    "non_blocking": true
+  },
+  "coverage_metrics": {
+    "two_source_coverage_rate": 0.9744,
+    "three_source_convergence_rate": 0.4872,
+    "unresolved_rate": 0.0,
+    "total_alignments": 125,
+    "gallier_alignments": 30,
+    "axler_alignments": 49,
+    "vmls_alignments": 46,
+    "cross_source_same": 118,
+    "cross_source_scoped_overlap": 5,
+    "cross_source_related": 2
+  },
+  "artifacts": {
+    "mapeogeo_v0_13_graph.json.gz": "db359f8663db1028ebd9dc9d8c4a7148aff31df5b1a49acb86cf1bcc1f7681b7",
+    "tri_source_alignments.json": "0fac3e9101f8c5de9457cc3cd06b753d5a25c1a0f550b9204f8e89a6b1b6665a",
+    "expansion_metrics.json": "894d9ec51c5fd8f7d27106fd316fe1a61169bb9fc72f671783e75f8f1f94ff9d",
+    "scientific_results.json": "bbf4f2d33c781267534fd00c7355db5cc722a290541716fe7202ebfe7c4eaa47",
+    "blinded_alignment_results.json": "baea07eeebb6dc4e34cba5216673f324e73d261ac7b59068ba09398fc895e0dd"
+  },
+  "preregistered_checks": {
+    "min_source_declarations": {"expected": ">= 100", "actual": 332, "pass": true},
+    "min_canonical_objects": {"expected": ">= 35", "actual": 39, "pass": true},
+    "min_2_source_bridges": {"expected": ">= 25", "actual": 38, "pass": true},
+    "min_3_source_bridges": {"expected": ">= 10", "actual": 19, "pass": true},
+    "min_domains": {"expected": ">= 2", "actual": 2, "pass": true},
+    "max_unresolved_rate": {"expected": "<= 0.40", "actual": 0.0, "pass": true},
+    "zero_prose_policy": {"expected": "No copyrighted prose persisted", "actual": "Pass", "pass": true}
+  }
+}

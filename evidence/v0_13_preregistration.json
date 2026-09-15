@@ -1,0 +1,62 @@
+{
+  "stage": "v0.13",
+  "run_id": "MAPEOGEO-TRI-SOURCE-V0.13",
+  "description": "Preregistered specification for tri-source mathematics expansion with Boyd and Vandenberghe VMLS as Source C",
+  "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
+  "source_a": {
+    "source_id": "GALLIER_QUAINTANCE_2020",
+    "title": "Algebra, Topology, Differential Calculus, and Optimization Theory for Computer Science and Machine Learning",
+    "authors": ["Jean Gallier", "Jocelyn Quaintance"]
+  },
+  "source_b": {
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "title": "Linear Algebra Done Right",
+    "author": "Sheldon Axler",
+    "edition": "Fourth Edition",
+    "version_date": "2026-08-16",
+    "url": "https://linear.axler.net/LADR4e.pdf",
+    "license": "CC BY-NC 4.0"
+  },
+  "source_c": {
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "title": "Introduction to Applied Linear Algebra – Vectors, Matrices, and Least Squares",
+    "authors": ["Stephen Boyd", "Lieven Vandenberghe"],
+    "publisher": "Cambridge University Press",
+    "year": 2018,
+    "url": "https://web.stanford.edu/~boyd/vmls/vmls.pdf",
+    "target_slice": [
+      "Chapter 1: Vectors",
+      "Chapter 2: Linear combinations",
+      "Chapter 3: Norm and distance",
+      "Chapter 5: Linear independence",
+      "Chapter 6: Matrices",
+      "Chapter 7: Matrix examples",
+      "Chapter 8: Linear equations",
+      "Chapter 10: Matrix multiplication",
+      "Chapter 11: Matrix inverses",
+      "Chapter 12: Least squares",
+      "Chapter 13: Least squares data fitting",
+      "Chapter 14: Least squares classification",
+      "Chapter 15: Multi-objective least squares (Regularization)"
+    ]
+  },
+  "tolerances": {
+    "min_vmls_declarations": 30,
+    "min_total_source_declarations": 100,
+    "min_canonical_objects": 35,
+    "min_2_source_bridges": 25,
+    "min_3_source_bridges": 10,
+    "min_domains": 2,
+    "max_unresolved_rate": 0.40
+  },
+  "blinded_benchmark": {
+    "holdout_ratio": 0.20,
+    "random_seed": 42,
+    "top_k": 3,
+    "non_blocking": true
+  },
+  "persistence_policy": {
+    "redistribute_source_prose": false,
+    "persist_page_images": false
+  }
+}
