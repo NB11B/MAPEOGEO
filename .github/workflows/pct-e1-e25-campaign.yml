@@ -101,6 +101,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   regression:
@@ -118,6 +119,14 @@ jobs:
         with:
           ref: fd2d90c00cb71951fdfd7cd1e7e22a8f0552f97f
           path: .crossbranch/frozen-main
+      - name: Download frozen v0.15.1 confirmatory artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: mapeogeo-v0-15-1-analysis-expansion-artifacts
+          path: .crossbranch/frozen-main-artifact
+          github-token: ${{ github.token }}
+          repository: NB11B/MAPEOGEO
+          run-id: 35026462131
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -132,6 +141,7 @@ jobs:
           python -m compileall -q experiments/pct_e25def
           python -m compileall -q experiments/pct_e25gh
           python -m compileall -q experiments/pct_e25ij
+          python -m compileall -q experiments/pct_e26_e31
       - name: Generate candidate E25G E25H evidence
         run: python -m experiments.pct_e25gh.generate_evidence --out-dir generated-e25gh
       - name: Upload candidate E25G E25H evidence
