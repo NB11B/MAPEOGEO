@@ -3,10 +3,11 @@ from __future__ import annotations
 from pathlib import Path
 
 from experiments.pct_e26_e31.corpus import load_knowledge_corpus
-from experiments.pct_e26_e31.e27 import run_e27
+from experiments.pct_e26_e31.e27 import build_r2_cluster_cases, build_r3_domain_cases, run_e27
 from experiments.pct_e26_e31.e29 import (
     CandidateRule,
     TrainingRow,
+    build_visible_training_rows,
     enumerate_candidate_rules,
     falsify_rule,
     run_e29,
@@ -88,6 +89,15 @@ def test_surviving_rule_is_candidate_not_theorem() -> None:
     assert audit.theorem_status is False
 
 
+def test_sealed_transfer_training_excludes_every_hidden_edge() -> None:
+    corpus = load_knowledge_corpus(FROZEN_MAIN, ROOT)
+    for case in (build_r2_cluster_cases(corpus)[0], build_r3_domain_cases(corpus)[0]):
+        rows = build_visible_training_rows(corpus, case)
+        training_ids = {row.edge_id for row in rows}
+        assert training_ids.isdisjoint(case.hidden_edge_ids)
+        assert case.edge_id not in training_ids
+
+
 def test_e29_actual_corpus_run_is_deterministic_and_fail_closed() -> None:
     corpus = load_knowledge_corpus(FROZEN_MAIN, ROOT)
     e27 = run_e27(corpus, ROOT)
@@ -97,3 +107,6 @@ def test_e29_actual_corpus_run_is_deterministic_and_fail_closed() -> None:
     assert first["status"] == "PASS"
     assert first["candidate_rules_generated"] >= first["rules_survived_visible_search"]
     assert all(row["theorem_status"] is False for row in first["surviving_rules"])
+    assert first["sealed_transfer_protocol"] == "PER_HOLDOUT_VISIBLE_TRAINING_ONLY"
+    for tier in ("R2", "R3"):
+        assert all(row["training_hidden_overlap_count"] == 0 for row in first["sealed_transfer"][tier]["cases"])
