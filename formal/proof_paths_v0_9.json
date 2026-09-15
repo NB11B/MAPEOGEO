@@ -64,7 +64,7 @@
       "source_id": "srcdecl:proposition:3_15",
       "statement_sha256": "aea9aaad4de59e0fe41689744e318fda319d916a94a7c8c95d5cd5b3c51fa455",
       "lean_decl": "MAPEOGEOFormal.proposition_3_15_basis_determines_linear_map",
-      "formal_scope": "BASIS_DETERMINES_UNIQUE_LINEAR_MAP"
+      "formal_scope": "BASIS_DETERMINES_UNIQUE_LINEAR_MAP_OVER_FIELD"
     },
     {
       "source_id": "srcdecl:theorem:3_7",
