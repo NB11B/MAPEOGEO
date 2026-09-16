@@ -4,6 +4,7 @@ import sympy as sp
 
 from experiments.pct_goal_solver.campaign import score_trace
 from experiments.pct_goal_solver.compatibility import CompatibilityModel
+from experiments.pct_goal_solver.macros import synthesize_macros
 from experiments.pct_goal_solver.model import OperatorFailure
 from experiments.pct_goal_solver.planner import solve
 from experiments.pct_goal_solver.v2 import (
@@ -36,6 +37,18 @@ def _cross_class(trace, registry):
     exactness = {registry[operator_id].exactness_class for operator_id in path}
     representations = {registry[operator_id].representation_class for operator_id in path}
     return len(exactness) > 1 or len(representations) > 1
+
+
+def _calibration_state():
+    corpus = build_v2_corpus()
+    registry = build_v2_operator_registry()
+    calibration_traces = tuple(
+        solve(goal.solver_visible(), registry, typing_mode="EXPLICIT")
+        for goal in corpus["CALIBRATION_V2"]
+    )
+    model = CompatibilityModel.fit(corpus["CALIBRATION_V2"], calibration_traces, registry)
+    macros = synthesize_macros(corpus["CALIBRATION_V2"], calibration_traces, registry)
+    return corpus, registry, calibration_traces, model, macros
 
 
 def test_v2_corpus_is_fresh_and_carries_frozen_evidence_obligations():
@@ -101,13 +114,7 @@ def test_v2_validation_reaches_frozen_composition_targets_before_sealed_executio
 
 
 def test_v2_validation_type_blinding_routes_all_families_without_sealed_data():
-    corpus = build_v2_corpus()
-    registry = build_v2_operator_registry()
-    calibration_traces = tuple(
-        solve(goal.solver_visible(), registry, typing_mode="EXPLICIT")
-        for goal in corpus["CALIBRATION_V2"]
-    )
-    model = CompatibilityModel.fit(corpus["CALIBRATION_V2"], calibration_traces, registry)
+    corpus, registry, _, model, _ = _calibration_state()
     failures = {}
     for goal in corpus["VALIDATION_V2"]:
         trace = solve(
@@ -120,3 +127,40 @@ def test_v2_validation_type_blinding_routes_all_families_without_sealed_data():
         if not score["correct"]:
             failures[goal.family] = (trace.final_verdict, trace.failure_reason, trace.operator_path)
     assert failures == {}
+
+
+def test_v2_hybrid_blinded_validation_preserves_family_coverage_and_safety():
+    corpus, registry, _, model, _ = _calibration_state()
+    failures = {}
+    for goal in corpus["VALIDATION_V2"]:
+        trace = solve(
+            _blind(goal.solver_visible()),
+            registry,
+            typing_mode="HYBRID",
+            compatibility_model=model,
+        )
+        score = score_trace(goal, trace)
+        if not score["correct"]:
+            failures[goal.family] = (trace.final_verdict, trace.failure_reason, trace.operator_path)
+    assert failures == {}
+
+
+def test_v2_macros_preserve_validation_answers_and_reduce_search_before_sealing():
+    corpus, registry, _, _, macros = _calibration_state()
+    assert macros
+    reductions = 0
+    changes = {}
+    for goal in corpus["VALIDATION_V2"]:
+        primitive = solve(goal.solver_visible(), registry, typing_mode="EXPLICIT")
+        synthesized = solve(goal.solver_visible(), registry, typing_mode="EXPLICIT", macros=macros)
+        primitive_score = score_trace(goal, primitive)
+        synthesized_score = score_trace(goal, synthesized)
+        if primitive_score["correct"] != synthesized_score["correct"]:
+            changes[goal.family] = (primitive.final_verdict, synthesized.final_verdict)
+        if primitive.candidate_artifact is not None and synthesized.candidate_artifact is not None:
+            if primitive.candidate_artifact.value != synthesized.candidate_artifact.value:
+                changes[goal.family] = (primitive.candidate_artifact.value, synthesized.candidate_artifact.value)
+        if synthesized.expanded_state_count < primitive.expanded_state_count:
+            reductions += 1
+    assert changes == {}
+    assert reductions >= 1
