@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import copy
+import gzip
 import importlib.util
+import json
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -124,3 +126,30 @@ def test_quarantined_intake_fails_on_node_id_collision():
     row = _row(node_id="canonical:existing")
     with pytest.raises(ValueError, match="node ID collision"):
         module.integrate_quarantined_sources(graph, [_spec()], [row])
+
+
+def test_build_v0_21_graph_accepts_frozen_gzip_declaration_manifest(tmp_path: Path):
+    module = _load_module()
+    registry = tmp_path / "registry.json"
+    registry.write_text(
+        json.dumps({
+            "schema_version": "v0.21",
+            "sources": [{
+                "source_id": "SRC",
+                "repository": "owner/repo",
+                "revision": "1" * 40,
+                "parser": "latex",
+                "license": "CC-BY-4.0",
+                "status": "ACTIVE",
+                "scope": "test_scope",
+                "include_globs": ["**/*.tex"],
+                "exclude_globs": [],
+            }],
+        }),
+        encoding="utf-8",
+    )
+    declarations = tmp_path / "declarations.json.gz"
+    with gzip.open(declarations, "wt", encoding="utf-8") as handle:
+        json.dump({"schema_version": "v0.21", "declarations": [_row()]}, handle)
+    graph = module.build_v0_21_graph(_base_graph(), registry, declarations)
+    assert any(node["id"] == "srcdecl:v0_21:src:abc" for node in graph["nodes"])
