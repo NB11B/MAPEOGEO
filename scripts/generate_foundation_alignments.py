@@ -1,0 +1,679 @@
+#!/usr/bin/env python3
+"""Generate curated foundation alignments and upward dependency mappings for MAPEOGEO Foundation Backfill."""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+FOUNDATION_CANONICAL_OBJECTS = [
+    # =========================================================================
+    # LAYER 1: LOGIC & PROOFS
+    # =========================================================================
+    {
+        "id": "canonical:foundation:logic:propositional_calculus",
+        "name": "Propositional Calculus and Boolean Connectives",
+        "domain": "Mathematical Foundations & Logic",
+        "description": "Formal propositional logic, logical connectives, truth tables, and boolean dualities",
+        "representation_kinds": ["abstract", "algebraic", "formal"],
+        "alignments": [
+            {"source": "srcdecl:foundation:logic:proposition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:negation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:conjunction", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:disjunction", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:implication", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:biconditional", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:truth_table", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:de_morgan_logic", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:distributive_logic", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:law_of_excluded_middle", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:vector_space",
+            "canonical:topology:topological_space",
+            "canonical:measure:sigma_algebra"
+        ]
+    },
+    {
+        "id": "canonical:foundation:logic:deductive_inference_and_proofs",
+        "name": "Deductive Inference and Proof Methods",
+        "domain": "Mathematical Foundations & Logic",
+        "description": "Rules of deductive inference including Modus Ponens, Modus Tollens, direct proof, contraposition, and contradiction",
+        "representation_kinds": ["abstract", "formal"],
+        "alignments": [
+            {"source": "srcdecl:foundation:logic:modus_ponens", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:modus_tollens", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:direct_proof", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:contrapositive_proof", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:proof_by_contradiction", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:hypothetical_syllogism", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:tautology", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:rank_nullity_theorem",
+            "canonical:topology:heine_borel_theorem",
+            "canonical:measure:caratheodory_extension"
+        ]
+    },
+    {
+        "id": "canonical:foundation:logic:predicate_quantification",
+        "name": "Predicate Logic and Quantifiers",
+        "domain": "Mathematical Foundations & Logic",
+        "description": "First-order predicate logic, universal and existential quantifiers, and quantifier negation dualities",
+        "representation_kinds": ["abstract", "formal"],
+        "alignments": [
+            {"source": "srcdecl:foundation:logic:universal_quantifier", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:existential_quantifier", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:logic:quantifier_negation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:topological_space",
+            "canonical:topology:continuous_function",
+            "canonical:topology:cauchy_sequence"
+        ]
+    },
+
+    # =========================================================================
+    # LAYER 2: SET THEORY
+    # =========================================================================
+    {
+        "id": "canonical:foundation:set:set_operations_and_boolean_algebra",
+        "name": "Set Operations and Set Boolean Algebra",
+        "domain": "Set Theory & Relations",
+        "description": "Elementary set theory, membership, subset, union, intersection, set difference, complement, and De Morgan laws",
+        "representation_kinds": ["abstract", "algebraic", "geometric"],
+        "alignments": [
+            {"source": "srcdecl:foundation:set:element_membership", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:empty_set", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:subset_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:proper_subset", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:union", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:intersection", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:set_difference", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:complement", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:de_morgan_sets", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:distributive_laws_sets", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:arbitrary_union_intersection", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:axiom_of_extensionality", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:topological_space",
+            "canonical:topology:interior",
+            "canonical:topology:closure",
+            "canonical:measure:sigma_algebra",
+            "canonical:measure:borel_sigma_algebra",
+            "canonical:convex:convex_set"
+        ]
+    },
+    {
+        "id": "canonical:foundation:set:power_set_and_cartesian_product",
+        "name": "Power Set, Ordered Pairs, and Cartesian Products",
+        "domain": "Set Theory & Relations",
+        "description": "Kuratowski ordered pairs, Cartesian products of sets, power sets, and collection indexing",
+        "representation_kinds": ["abstract", "algebraic", "geometric"],
+        "alignments": [
+            {"source": "srcdecl:foundation:set:power_set", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:ordered_pair", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:cartesian_product", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:axiom_of_specification", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:axiom_of_choice_primitive", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:product_topology",
+            "canonical:measure:product_measure_fubini_tonelli",
+            "canonical:linear_algebra:vector_space"
+        ]
+    },
+    {
+        "id": "canonical:foundation:set:indicator_and_partitions",
+        "name": "Indicator Functions, Disjoint Sets, and Partitions",
+        "domain": "Set Theory & Relations",
+        "description": "Characteristic indicator functions of sets, pairwise disjoint families, inclusion-exclusion, and set partitions",
+        "representation_kinds": ["abstract", "algebraic", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:set:disjoint_sets", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:set_partition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:inclusion_exclusion_finite", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:indicator_function", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:set:indicator_algebra", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:measure:measurable_function",
+            "canonical:measure:simple_function_approximation",
+            "canonical:measure:lebesgue_integral",
+            "canonical:measure:probability_space_and_random_variables",
+            "canonical:measure:martingales_and_convergence"
+        ]
+    },
+
+    # =========================================================================
+    # LAYER 3: RELATIONS & FUNCTIONS
+    # =========================================================================
+    {
+        "id": "canonical:foundation:rel:equivalence_relations_and_quotients",
+        "name": "Equivalence Relations and Quotient Sets",
+        "domain": "Set Theory & Relations",
+        "description": "Reflexive, symmetric, transitive relations, equivalence classes, and fundamental theorem of equivalence relations",
+        "representation_kinds": ["abstract", "geometric", "algebraic"],
+        "alignments": [
+            {"source": "srcdecl:foundation:rel:binary_relation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:reflexive_relation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:symmetric_relation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:transitive_relation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:antisymmetric_relation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:equivalence_relation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:equivalence_class", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:quotient_set", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:fundamental_theorem_equivalence", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:quotient_space",
+            "canonical:diffgeom:homogeneous_spaces_actions",
+            "canonical:diffgeom:submanifold_and_embedding",
+            "canonical:measure:lp_banach_space"
+        ]
+    },
+    {
+        "id": "canonical:foundation:rel:orders_posets_and_lattices",
+        "name": "Partial Orders and Total Orders",
+        "domain": "Set Theory & Relations",
+        "description": "Partial orderings, poset structure, total linear orderings, and comparability",
+        "representation_kinds": ["abstract", "algebraic"],
+        "alignments": [
+            {"source": "srcdecl:foundation:rel:partial_order", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:total_order", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:completeness",
+            "canonical:convex:convex_set",
+            "canonical:convex:dual_cone"
+        ]
+    },
+    {
+        "id": "canonical:foundation:rel:functions_morphisms_and_composition",
+        "name": "Functions, Invertibility, and Morphisms",
+        "domain": "Set Theory & Relations",
+        "description": "Functional mappings, domain/codomain/image, preimages/fibers, injectivity, surjectivity, bijectivity, composition, and inverse functions",
+        "representation_kinds": ["abstract", "algebraic", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:rel:function_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:domain_codomain_image", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:preimage_fiber", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:injective_function", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:surjective_function", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:bijective_function", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:function_composition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:associativity_composition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:identity_function", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:inverse_function", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:rel:invertibility_criterion", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:linear_map",
+            "canonical:linear_algebra:isomorphism",
+            "canonical:topology:continuous_function",
+            "canonical:topology:homeomorphism",
+            "canonical:diffgeom:smooth_map_and_diffeomorphism",
+            "canonical:diffgeom:pushforward_differential"
+        ]
+    },
+
+    # =========================================================================
+    # LAYER 4: NUMBER SYSTEMS
+    # =========================================================================
+    {
+        "id": "canonical:foundation:num:natural_numbers_and_induction",
+        "name": "Natural Numbers, Peano Axioms, and Induction",
+        "domain": "Number Systems & Arithmetic",
+        "description": "Peano axiomatic foundations, principle of mathematical induction, and well-ordering of natural numbers",
+        "representation_kinds": ["abstract", "formal", "algebraic"],
+        "alignments": [
+            {"source": "srcdecl:foundation:num:peano_axioms_naturals", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:principle_induction", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:well_ordering_principle", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:dimension",
+            "canonical:linear_algebra:dimension_sum_formula",
+            "canonical:calculus:taylor_expansion_first_second_order"
+        ]
+    },
+    {
+        "id": "canonical:foundation:num:integers_and_divisibility",
+        "name": "Integers and Division Algorithm",
+        "domain": "Number Systems & Arithmetic",
+        "description": "Ring of integers Z, divisibility, and the Euclidean division algorithm",
+        "representation_kinds": ["abstract", "algebraic", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:num:integers_construction", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:integer_divisibility", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:euclidean_division_algorithm", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:matrix_multiplication",
+            "canonical:diffgeom:matrix_lie_groups"
+        ]
+    },
+    {
+        "id": "canonical:foundation:num:rational_numbers_and_irrationals",
+        "name": "Rational Numbers and Density in the Real Line",
+        "domain": "Number Systems & Arithmetic",
+        "description": "Field of rational numbers Q as field of fractions, irrationality of sqrt(2), and topological density",
+        "representation_kinds": ["abstract", "algebraic", "geometric"],
+        "alignments": [
+            {"source": "srcdecl:foundation:num:rational_numbers_construction", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:rational_density", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:irrationality_sqrt_2", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:density_irrationals", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:metric_space",
+            "canonical:topology:closure",
+            "canonical:measure:measure_space"
+        ]
+    },
+    {
+        "id": "canonical:foundation:num:real_numbers_and_completeness",
+        "name": "Real Numbers, Completeness, and Dedekind Cuts",
+        "domain": "Number Systems & Arithmetic",
+        "description": "Axiomatic complete ordered field R, Dedekind cuts, Cauchy sequence completion, Archimedean property, and supremum axiom",
+        "representation_kinds": ["abstract", "algebraic", "geometric", "formal"],
+        "alignments": [
+            {"source": "srcdecl:foundation:num:real_numbers_axioms", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:completeness_supremum", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:dedekind_cut_construction", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:cauchy_sequence_reals", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:archimedean_property", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:normed_vector_space",
+            "canonical:topology:completeness",
+            "canonical:topology:banach_space",
+            "canonical:linear_algebra:vector_space"
+        ]
+    },
+    {
+        "id": "canonical:foundation:num:complex_numbers_and_field",
+        "name": "Complex Numbers and Imaginary Unit",
+        "domain": "Number Systems & Arithmetic",
+        "description": "Complex field C, imaginary unit i, complex conjugation, modulus, polar form, and algebraic closure",
+        "representation_kinds": ["abstract", "algebraic", "geometric", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:num:complex_numbers_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:imaginary_unit", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:complex_conjugate_modulus", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:polar_form_complex", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:num:algebraic_closure_c_primitive", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:spectral_theorem",
+            "canonical:linear_algebra:eigenvalue",
+            "canonical:diffgeom:matrix_lie_groups",
+            "canonical:topology:inner_product_space"
+        ]
+    },
+
+    # =========================================================================
+    # LAYER 5: ELEMENTARY ARITHMETIC & ALGEBRA
+    # =========================================================================
+    {
+        "id": "canonical:foundation:alg:field_group_and_ring_axioms",
+        "name": "Groups, Rings, and Fields Algebraic Foundations",
+        "domain": "Elementary Algebra",
+        "description": "Algebraic operations, associativity, commutativity, distributivity, identities/inverses, groups, rings, and fields",
+        "representation_kinds": ["abstract", "algebraic", "formal"],
+        "alignments": [
+            {"source": "srcdecl:foundation:alg:addition_operation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:multiplication_operation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:commutative_law", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:associative_law", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:distributive_law", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:identity_and_inverses", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:group_axioms", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:abelian_group", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:ring_axioms", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:field_axioms", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:subgroup_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:group_homomorphism", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:vector_space",
+            "canonical:diffgeom:lie_group_and_algebra",
+            "canonical:diffgeom:matrix_lie_groups",
+            "canonical:linear_algebra:isomorphism"
+        ]
+    },
+    {
+        "id": "canonical:foundation:alg:polynomial_algebra_and_roots",
+        "name": "Polynomials, Division Algorithm, and Roots",
+        "domain": "Elementary Algebra",
+        "description": "Polynomial rings F[x], polynomial degree, division algorithm, remainder and factor theorems, and quadratic formula",
+        "representation_kinds": ["abstract", "algebraic", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:alg:polynomial_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:polynomial_degree", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:polynomial_division_algorithm", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:remainder_factor_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:quadratic_formula", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:eigenvalue",
+            "canonical:linear_algebra:diagonalizability"
+        ]
+    },
+    {
+        "id": "canonical:foundation:alg:combinatorics_and_binomial_theorem",
+        "name": "Combinatorics and the Binomial Theorem",
+        "domain": "Elementary Algebra",
+        "description": "Binomial coefficients, Pascal's recurrence identity, and the binomial expansion theorem",
+        "representation_kinds": ["algebraic", "computational", "applied"],
+        "alignments": [
+            {"source": "srcdecl:foundation:alg:binomial_coefficients", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:pascals_identity", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:binomial_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:calculus:taylor_expansion_first_second_order",
+            "canonical:measure:probability_space_and_random_variables"
+        ]
+    },
+    {
+        "id": "canonical:foundation:alg:primitive_vector_spaces",
+        "name": "Vector Space Axioms and Linear Span",
+        "domain": "Elementary Algebra",
+        "description": "Vector space axioms over arbitrary fields, linear combinations, and vector span",
+        "representation_kinds": ["abstract", "algebraic", "geometric"],
+        "alignments": [
+            {"source": "srcdecl:foundation:alg:vector_space_axioms_primitive", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:alg:linear_combination_span", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:vector_space",
+            "canonical:linear_algebra:subspace",
+            "canonical:linear_algebra:span",
+            "canonical:linear_algebra:linear_independence",
+            "canonical:diffgeom:tangent_space_derivation"
+        ]
+    },
+
+    # =========================================================================
+    # LAYER 6: ORDER, METRICS & SEQUENCES
+    # =========================================================================
+    {
+        "id": "canonical:foundation:seq:order_bounds_and_absolute_value",
+        "name": "Order Bounds, Supremum, and Absolute Value",
+        "domain": "Order, Metrics & Sequences",
+        "description": "Bounded sets in R, supremum and infimum, absolute value function, and the triangle inequality",
+        "representation_kinds": ["abstract", "algebraic", "geometric"],
+        "alignments": [
+            {"source": "srcdecl:foundation:seq:bounded_set_reals", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:supremum_infimum", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:absolute_value", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:triangle_inequality_reals", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:reverse_triangle_inequality", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:normed_vector_space",
+            "canonical:topology:metric_space",
+            "canonical:topology:triangle_inequality",
+            "canonical:convex:convex_set"
+        ]
+    },
+    {
+        "id": "canonical:foundation:seq:sequence_convergence_and_limits",
+        "name": "Sequence Convergence and Limit Theorems",
+        "domain": "Order, Metrics & Sequences",
+        "description": "Real sequence definitions, epsilon-N limit formalization, uniqueness, boundedness, algebraic limit theorem, and squeeze theorem",
+        "representation_kinds": ["abstract", "algebraic", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:seq:real_sequence_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:sequence_limit_epsilon_N", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:uniqueness_sequence_limit", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:convergent_implies_bounded", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:algebraic_limit_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:squeeze_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:cauchy_sequence",
+            "canonical:topology:continuous_function",
+            "canonical:measure:lp_banach_space"
+        ]
+    },
+    {
+        "id": "canonical:foundation:seq:monotone_sequences_and_cauchy_criterion",
+        "name": "Monotone Convergence and Cauchy Sequences",
+        "domain": "Order, Metrics & Sequences",
+        "description": "Monotone convergence theorem, subsequences, Bolzano-Weierstrass theorem, Cauchy sequence criterion, and metric completeness",
+        "representation_kinds": ["abstract", "algebraic", "geometric", "formal"],
+        "alignments": [
+            {"source": "srcdecl:foundation:seq:monotone_convergence_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:subsequence_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:bolzano_weierstrass_primitive", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:cauchy_sequence_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:cauchy_criterion_convergence", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:metric_space_axioms_primitive", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:open_ball_metric", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:completeness",
+            "canonical:topology:banach_space",
+            "canonical:topology:heine_borel_theorem",
+            "canonical:measure:monotone_convergence_theorem"
+        ]
+    },
+    {
+        "id": "canonical:foundation:seq:infinite_series_and_convergence_tests",
+        "name": "Infinite Series and Convergence Tests",
+        "domain": "Order, Metrics & Sequences",
+        "description": "Partial sums, geometric series summation, divergence test, and direct comparison test",
+        "representation_kinds": ["abstract", "algebraic", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:seq:infinite_series_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:geometric_series_sum", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:divergence_test", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:seq:comparison_test_series", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:diffgeom:lie_group_exponential_bch",
+            "canonical:measure:l2_hilbert_space",
+            "canonical:calculus:taylor_expansion_first_second_order"
+        ]
+    },
+
+    # =========================================================================
+    # LAYER 7: EUCLIDEAN GEOMETRY & TRIGONOMETRY
+    # =========================================================================
+    {
+        "id": "canonical:foundation:geom:euclidean_space_and_metrics",
+        "name": "Euclidean Space and Distance Formulas",
+        "domain": "Euclidean Geometry & Trigonometry",
+        "description": "Euclidean space R^n, distance formulas in R^2 and R^n, vector representation, and Euclidean metric topology",
+        "representation_kinds": ["abstract", "geometric", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:geom:euclidean_plane_R2", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:euclidean_space_Rn", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:distance_formula_R2", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:distance_formula_Rn", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:norm_and_distance",
+            "canonical:convex:convex_set",
+            "canonical:topology:metric_space",
+            "canonical:diffgeom:submanifold_and_embedding",
+            "canonical:optimization:linear_program",
+            "canonical:optimization:barrier_method_interior_point",
+            "canonical:optimization:primal_dual_interior_point"
+        ]
+    },
+    {
+        "id": "canonical:foundation:geom:dot_product_and_pythagoras",
+        "name": "Dot Product, Norm, and Pythagorean Theorem",
+        "domain": "Euclidean Geometry & Trigonometry",
+        "description": "Standard inner product on R^n, Euclidean norm, Cauchy-Schwarz inequality, orthogonality, and the Pythagorean theorem",
+        "representation_kinds": ["abstract", "geometric", "algebraic", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:geom:dot_product_Rn", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:euclidean_norm_length", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:cauchy_schwarz_elementary", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:triangle_inequality_Rn", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:orthogonality_vectors", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:pythagorean_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:angle_between_vectors", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:cross_product_R3", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:inner_product",
+            "canonical:linear_algebra:cauchy_schwarz",
+            "canonical:linear_algebra:orthogonal_projection",
+            "canonical:diffgeom:riemannian_metric_and_manifold",
+            "canonical:diffgeom:riemann_and_ricci_curvature"
+        ]
+    },
+    {
+        "id": "canonical:foundation:geom:trigonometry_and_rotations",
+        "name": "Unit Circle Trigonometry and Planar Rotations",
+        "domain": "Euclidean Geometry & Trigonometry",
+        "description": "Unit circle S^1, sine/cosine/tangent definitions, Pythagorean identities, angle sum formulas, law of cosines/sines, and 2D rotation matrices",
+        "representation_kinds": ["geometric", "algebraic", "computational", "applied"],
+        "alignments": [
+            {"source": "srcdecl:foundation:geom:unit_circle_equation", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:sine_cosine_unit_circle", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:tangent_trig_definition", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:pythagorean_trig_identities", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:angle_sum_formulas", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:double_angle_formulas", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:law_of_cosines", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:law_of_sines", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:polar_coordinates_R2", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:geom:rotation_matrix_2d", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:linear_algebra:orthonormal_basis",
+            "canonical:diffgeom:matrix_lie_groups",
+            "canonical:diffgeom:differential_forms"
+        ]
+    },
+
+    # =========================================================================
+    # LAYER 8: ELEMENTARY CALCULUS
+    # =========================================================================
+    {
+        "id": "canonical:foundation:calc:limits_and_continuity_one_var",
+        "name": "Limits and Continuity of Single-Variable Functions",
+        "domain": "Elementary Calculus",
+        "description": "Epsilon-delta limits, one-sided limits, continuity at points and on intervals, Intermediate Value Theorem (IVT), and Extreme Value Theorem (EVT)",
+        "representation_kinds": ["abstract", "geometric", "computational"],
+        "alignments": [
+            {"source": "srcdecl:foundation:calc:function_limit_epsilon_delta", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:one_sided_limits", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:continuity_at_point", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:continuity_on_interval", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:intermediate_value_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:extreme_value_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:topology:continuous_function",
+            "canonical:topology:weierstrass_extreme_value_theorem",
+            "canonical:topology:uniform_continuity",
+            "canonical:topology:compact_set",
+            "canonical:topology:path_connected_space"
+        ]
+    },
+    {
+        "id": "canonical:foundation:calc:derivative_and_differentiation_rules",
+        "name": "Derivatives and Differentiation Rules",
+        "domain": "Elementary Calculus",
+        "description": "Difference quotients, differentiability, power rule, linearity, product rule, quotient rule, chain rule, and trigonometric/exponential derivatives",
+        "representation_kinds": ["abstract", "algebraic", "computational", "geometric"],
+        "alignments": [
+            {"source": "srcdecl:foundation:calc:derivative_difference_quotient", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:differentiability_implies_continuity", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:derivative_power_rule", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:derivative_linearity", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:derivative_product_rule", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:derivative_quotient_rule", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:derivative_chain_rule", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:derivative_trig_functions", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:derivative_exponential_log", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:calculus:multivariable_chain_rule",
+            "canonical:diffgeom:tangent_space_derivation",
+            "canonical:diffgeom:pushforward_differential",
+            "canonical:diffgeom:frobenius_theorem",
+            "canonical:diffgeom:pullback_forms",
+            "canonical:diffgeom:poincare_lemma_cohomology"
+        ]
+    },
+    {
+        "id": "canonical:foundation:calc:mean_value_theorems_and_extrema",
+        "name": "Mean Value Theorems and Extrema Analysis",
+        "domain": "Elementary Calculus",
+        "description": "Rolle's theorem, Mean Value Theorem (MVT), first derivative test for extrema, second derivative test for concavity, and Taylor's theorem",
+        "representation_kinds": ["abstract", "geometric", "computational", "applied"],
+        "alignments": [
+            {"source": "srcdecl:foundation:calc:rolles_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:mean_value_theorem", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:first_derivative_test", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:second_derivative_test", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:taylors_theorem_primitive", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:calculus:mean_value_theorem",
+            "canonical:calculus:taylor_expansion_first_second_order",
+            "canonical:convex:convex_function",
+            "canonical:convex:conjugate_function",
+            "canonical:convex:fenchel_conjugate",
+            "canonical:convex:quasiconvex_function",
+            "canonical:optimization:gradient_descent_method",
+            "canonical:optimization:unconstrained_descent_method",
+            "canonical:optimization:newtons_method_optimization",
+            "canonical:optimization:equality_constrained_newton"
+        ]
+    },
+    {
+        "id": "canonical:foundation:calc:riemann_integral_and_fundamental_theorem",
+        "name": "Riemann Integration and the Fundamental Theorem of Calculus",
+        "domain": "Elementary Calculus",
+        "description": "Riemann partitions, Riemann sums, definite integrals, FTC Part 1 (derivative of accumulation), FTC Part 2 (evaluation), integration by parts, and substitution",
+        "representation_kinds": ["abstract", "geometric", "computational", "applied"],
+        "alignments": [
+            {"source": "srcdecl:foundation:calc:riemann_partition_sum", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:riemann_definite_integral", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:ftc_part1", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:ftc_part2", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:integration_by_parts", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:foundation:calc:integration_by_substitution", "corpus": "FOUNDATION", "status": "CROSS_SOURCE_SAME"}
+        ],
+        "upward_dependencies": [
+            "canonical:measure:lebesgue_integral",
+            "canonical:measure:product_measure_fubini_tonelli",
+            "canonical:diffgeom:integration_and_stokes",
+            "canonical:diffgeom:exterior_derivative"
+        ]
+    }
+]
+
+
+def generate_alignments() -> dict[str, Any]:
+    return {
+        "stage": "foundation",
+        "source": "FOUNDATION_MATHEMATICS_BASE",
+        "total_canonical_objects": len(FOUNDATION_CANONICAL_OBJECTS),
+        "canonical_objects": FOUNDATION_CANONICAL_OBJECTS,
+    }
+
+
+def main() -> int:
+    out_path = ROOT / "formal" / "foundation_alignments.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    data = generate_alignments()
+    out_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+    print(f"Generated {len(FOUNDATION_CANONICAL_OBJECTS)} foundation canonical objects to {out_path}")
+    return 0
+
+
+if __name__ == "__main__":
+    main()

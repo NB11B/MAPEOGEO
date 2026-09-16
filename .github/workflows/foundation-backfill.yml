@@ -1,0 +1,69 @@
+name: MAPEOGEO Foundation Backfill
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, agent/foundation-backfill, agent/math-expansion-v0-18]
+    paths:
+      - "data/**"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/foundation-backfill.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/foundation-backfill.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  foundation-backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-map-goal-v0-7.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf pytest
+
+      - name: Python compilation checks
+        run: |
+          python -m py_compile scripts/import_foundation_backfill.py
+          python -m py_compile scripts/generate_foundation_alignments.py
+          python -m py_compile scripts/foundation_contracts.py
+          python -m py_compile scripts/compute_foundation_depth.py
+          python -m py_compile scripts/foundation_intake.py
+          python -m py_compile scripts/reconstruct_pipeline.py
+          python -m py_compile tests/test_foundation_backfill.py
+
+      - name: Reconstruct mathematical dependency chain through Foundation Backfill
+        run: |
+          python scripts/reconstruct_pipeline.py --target-stage foundation
+
+      - name: Run Pytest test suite
+        run: |
+          pytest tests/test_foundation_backfill.py tests/test_diffgeom_expansion_v0_18.py -v
+
+      - name: Upload Foundation Backfill Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-foundation-backfill-artifacts
+          path: artifacts/foundation_backfill/

@@ -1,0 +1,149 @@
+{
+  "stage": "foundation",
+  "total_nodes": 3212,
+  "total_edges": 26432,
+  "N_source_total": 2067,
+  "N_source_breakdown": {
+    "foundation_base_S0": 176,
+    "gallier_quaintance_SA": 1360,
+    "axler_ladr4e_SB": 235,
+    "boyd_vmls_SC": 81,
+    "boyd_cvx_SD": 84,
+    "billingsley_SE": 64,
+    "lee_diffgeom_SF": 67,
+    "disjoint_partition_sum": 2067,
+    "disjoint_partition_status": "EXACT_EQUALITY"
+  },
+  "foundation_layers_breakdown": {
+    "logic": 20,
+    "sets": 22,
+    "relations_functions": 22,
+    "number_systems": 20,
+    "arithmetic_algebra": 22,
+    "order_sequences": 22,
+    "geometry_trig": 22,
+    "elementary_calculus": 26
+  },
+  "N_section_anchors_total": 5,
+  "N_canonical_total": 234,
+  "canonical_breakdown": {
+    "foundation_canonical_objects": 29,
+    "advanced_canonical_objects": 205
+  },
+  "foundation_metrics": {
+    "foundation_primitives_count": 205,
+    "foundation_source_declarations": 176,
+    "foundation_canonical_objects": 29,
+    "advanced_canonical_objects_total": 205,
+    "advanced_canonical_objects_reachable": 205,
+    "advanced_canonical_objects_unreachable": 0,
+    "foundation_reachability_pct": 100.0,
+    "vertical_depth_stats": {
+      "min_depth": 1,
+      "max_depth": 8,
+      "avg_depth": 2.439
+    },
+    "depth_by_domain": {
+      "Applied Linear Algebra": {
+        "count": 1,
+        "avg_depth": 5.0,
+        "min_depth": 5,
+        "max_depth": 5
+      },
+      "Applied Linear Algebra & Optimization": {
+        "count": 1,
+        "avg_depth": 5.0,
+        "min_depth": 5,
+        "max_depth": 5
+      },
+      "Convex Analysis & Optimization": {
+        "count": 49,
+        "avg_depth": 2.86,
+        "min_depth": 1,
+        "max_depth": 6
+      },
+      "Differential Calculus & Real Analysis": {
+        "count": 18,
+        "avg_depth": 2.72,
+        "min_depth": 1,
+        "max_depth": 4
+      },
+      "Differential Geometry & Lie Groups": {
+        "count": 26,
+        "avg_depth": 1.88,
+        "min_depth": 1,
+        "max_depth": 4
+      },
+      "Linear Algebra": {
+        "count": 40,
+        "avg_depth": 2.23,
+        "min_depth": 1,
+        "max_depth": 5
+      },
+      "Measure Theory & Probability": {
+        "count": 28,
+        "avg_depth": 2.25,
+        "min_depth": 1,
+        "max_depth": 5
+      },
+      "Topology & Metric Spaces": {
+        "count": 42,
+        "avg_depth": 2.38,
+        "min_depth": 1,
+        "max_depth": 8
+      }
+    }
+  },
+  "contracts_verification": {
+    "all_contracts_passing": true,
+    "domain_results": {
+      "logic_contracts": true,
+      "set_contracts": true,
+      "relation_function_contracts": true,
+      "number_contracts": true,
+      "algebra_contracts": true,
+      "sequence_metric_contracts": true,
+      "geometry_trig_contracts": true,
+      "calculus_contracts": true
+    }
+  },
+  "representation_diversity": {
+    "average_richness_r_bar": 3.145,
+    "modalities_distribution": {
+      "abstract": 27,
+      "algebraic": 23,
+      "geometric": 16,
+      "computational": 15,
+      "applied": 4,
+      "formal": 7
+    }
+  },
+  "domains_count": 15,
+  "domains_list": [
+    "Applied Linear Algebra",
+    "Applied Linear Algebra & Optimization",
+    "Convex Analysis & Optimization",
+    "Differential Calculus & Real Analysis",
+    "Differential Geometry & Lie Groups",
+    "Elementary Algebra",
+    "Elementary Calculus",
+    "Euclidean Geometry & Trigonometry",
+    "Linear Algebra",
+    "Mathematical Foundations & Logic",
+    "Measure Theory & Probability",
+    "Number Systems & Arithmetic",
+    "Order, Metrics & Sequences",
+    "Set Theory & Relations",
+    "Topology & Metric Spaces"
+  ],
+  "edges_summary": {
+    "UPWARD_FOUNDATION_DEPENDENCY": 119,
+    "SAME_SEMANTICS": 533,
+    "SCOPED_OVERLAP": 373,
+    "RELATED_TO": 6,
+    "total_typed_cross_bridges": 912,
+    "REPRESENTS": 924,
+    "PROOF_DEPENDENCY": 351,
+    "other_edges": 24126
+  }
+}

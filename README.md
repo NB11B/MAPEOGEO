@@ -67,60 +67,76 @@ shared canonical neighborhood != proof of equivalence
 
 ## Current mathematical coverage snapshot
 
-The accepted expansion baseline on `main` is at **v0.18** (Differential Geometry, Lie Groups & Smooth Manifolds Expansion). The latest replay graph reports:
+The accepted expansion baseline on `main` is at **v0.18 + Foundation Backfill** (Differential Geometry, Lie Groups & Smooth Manifolds + Complete 8-Layer Primitive Grounding Substrate). The latest replay graph reports:
 
-| Metric | Accepted v0.18 Baseline |
+| Metric | Foundation Backfill + v0.18 Baseline |
 |---|---:|
-| Total Source Declarations | **1,891** |
+| Total Source Declarations ($N_{\text{source}}$) | **2,067** |
+| Foundation Base (`S_0`) | **176** |
 | Gallier & Quaintance (`S_A`) | **1,360** |
 | Axler LADR4e (`S_B`) | **235** |
 | Boyd & Vandenberghe VMLS (`S_C`) | **81** |
 | Boyd & Vandenberghe CVX (`S_D`) | **84** |
 | Patrick Billingsley (`S_E`) | **64** |
 | John M. Lee (`S_F`) | **67** |
+| Disjoint Partition Invariant | **2,067 == 2,067 (Exact Equality)** |
 | Source Section Anchors (segregated) | **5** |
-| Canonical mathematical objects | **205** |
-| Objects with >=2-source support | **131** (63.9%) |
-| Objects with >=3-source support | **72** (35.1%) |
-| Objects with >=4-source support | **32** (15.6%) |
-| Objects with >=5-source support | **12** (5.9%) |
-| Objects with 6-source support | **1** (0.5%) |
-| Mathematical domains | **7** |
-| Candidate EO views | **598** |
-| Candidate GEO views | **162** |
-| Candidate Dual views | **1,198** |
+| Canonical mathematical objects ($N_{\text{canonical}}$) | **234** |
+| Foundation Canonical Objects | **29** |
+| Advanced Canonical Objects | **205** |
+| Foundation Reachability | **100.0%** (205 / 205) |
+| Vertical Mathematical Depth ($d_{\text{foundation}}$) | $\min=1,\; \bar{d}=2.439,\; \max=8$ |
+| Upward Foundation Structural Bridges | **119** |
+| Objects with >=2-source support | **131** (63.9% of advanced) |
+| Objects with >=3-source support | **72** (35.1% of advanced) |
+| Objects with >=4-source support | **32** (15.6% of advanced) |
+| Objects with >=5-source support | **12** (5.9% of advanced) |
+| Objects with 6-source universal convergence | **1** (0.5% of advanced) |
+| Mathematical domains | **7 Advanced + 8 Foundational Layers** |
+| Candidate EO views | **609** |
+| Candidate GEO views | **170** |
+| Candidate Dual views | **1,209** |
 | Inherited formal links | **8** |
 | Average representation richness `r_bar` | **3.141** |
-| Total graph edges | **25,880** |
-| `SAME_SEMANTICS` bridges | **533** |
-| `SCOPED_OVERLAP` bridges | **373** |
-| `RELATED_TO` bridges | **6** |
 | Total typed cross-source bridges | **912** |
+| Total graph nodes | **3,212** |
+| Total graph edges | **26,432** |
+| Executable Dual Contracts | **100% Pass (8/8 Domains)** |
 
-Current domains are:
+### Foundational Layers & Upward Grounding
 
-1. Linear Algebra
-2. Applied Linear Algebra
-3. Convex Analysis & Optimization
-4. Differential Calculus & Real Analysis
-5. Topology & Metric Spaces
-6. Measure Theory & Probability
-7. Differential Geometry & Lie Groups
+The 8 foundational layers establish an unbroken mathematical dependency chain upwards into advanced mathematics:
 
-Representation richness is tracked as
-
-```text
-R(M) subset of {
-  abstract,
-  algebraic,
-  geometric,
-  computational,
-  formal,
-  applied
+$$
+\boxed{
+\text{logic}
+\longrightarrow
+\text{sets}
+\longrightarrow
+\text{relations/functions}
+\longrightarrow
+\text{numbers}
+\longrightarrow
+\text{arithmetic/algebra}
+\longrightarrow
+\text{order/sequences}
+\longrightarrow
+\text{Euclidean geometry/trig}
+\longrightarrow
+\text{elementary calculus}
 }
-```
+$$
 
-so that a canonical object can accumulate qualitatively different mathematical realizations rather than simply a larger count of nearly identical textbook statements.
+| Layer | Declarations | Canonical Objects | Upward Connections into Advanced Graph |
+|---|---|---|---|
+| **1. Logic & Proofs** | 20 | 3 | Propositional calculus, inference rules (Modus Ponens/Tollens), quantifiers $\forall, \exists \longrightarrow$ Vector spaces, Topologies, Measurable spaces |
+| **2. Set Theory** | 22 | 3 | Set algebra, power sets, Cartesian products, partitions, indicator functions $\longrightarrow$ Product topology, Borel $\sigma$-algebras, $L^p$ spaces |
+| **3. Relations & Functions** | 22 | 3 | Equivalence relations, quotient sets, partial/total orders, function composition, invertibility $\longrightarrow$ Quotient spaces, Linear maps, Diffeomorphisms |
+| **4. Number Systems** | 20 | 5 | Peano axioms & $\mathbb{N}$, induction, $\mathbb{Z}$, division algorithm, $\mathbb{Q}$, $\mathbb{R}$ completeness/Dedekind cuts, $\mathbb{C}$ & $i \longrightarrow$ Normed spaces, Banach spaces, Spectral theorems |
+| **5. Elementary Algebra** | 22 | 4 | Groups, rings, fields, polynomials $F[x]$, division algorithm, roots, binomial theorem $\longrightarrow$ Lie groups & algebras, Matrix groups, Eigenvalues |
+| **6. Order & Sequences** | 22 | 4 | Bounds, $\sup/\inf$, absolute value, triangle inequality, sequence convergence $\epsilon-N$, Cauchy sequences, series $\longrightarrow$ Completeness, Heine-Borel, Matrix exponential |
+| **7. Euclidean Geometry & Trig** | 22 | 3 | Euclidean space $\mathbb{R}^n$, distance, dot product $\langle u, v \rangle$, norm, Cauchy-Schwarz, Pythagorean theorem, unit circle, $\sin/\cos$, rotations $R_\theta \longrightarrow$ Riemannian metrics, $O(n)$, $SO(n)$ |
+| **8. Elementary Calculus** | 26 | 4 | Limits $\epsilon-\delta$, continuity, IVT, EVT, difference quotients, product/chain rules, MVT, Riemann sums, FTC Parts 1 & 2 $\longrightarrow$ Multivariable differentials, Stokes' Theorem |
 
 ### Provenance & Substrate Architecture
 
@@ -149,16 +165,21 @@ v0.16 Topology, Metric Spaces & Functional Structure
 v0.17 Measure Theory, Integration & Probability
         ↓
 v0.18 Differential Geometry, Lie Groups & Smooth Manifolds
+        │
+        ↓
+FOUNDATION BACKFILL (8 Primitive Grounding Layers)
 ```
 
 Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~18 seconds locally and ~50 seconds on GitHub Actions runners with strict fail-closed checking:
 
 ```text
-MATHEMATICAL COVERAGE:          PASS (1,891 declarations, 5 section anchors, 205 canonical objects, 7 domains)
-CLEAN REPLAY OF CURRENT CHAIN:  PASS (~50s in GitHub Actions)
+MATHEMATICAL COVERAGE:          PASS (2,067 declarations, 5 section anchors, 234 canonical objects, 7 domains + 8 foundation layers)
+FOUNDATION GROUNDING:           PASS (100.0% reachability across all 205 advanced objects, 119 upward bridges)
+DUAL EXECUTABLE CONTRACTS:      PASS (100% pass across all 8 foundational domains)
+CLEAN REPLAY OF CURRENT CHAIN:  PASS (~18s locally, ~50s in GitHub Actions)
 CROSS-SOURCE STRUCTURE:         PASS (912 bridges across 6 sources)
 SOURCE-IDENTITY PRESERVATION:   PASS (0 drift; sealed v0.11 checkpoint + audited amendments)
-FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.18 green on main)
+FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.18 + Foundation Backfill green on main)
 ```
 
 ---

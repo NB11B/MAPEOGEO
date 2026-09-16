@@ -44,13 +44,13 @@
   },
   "N_formal_linked": 7,
   "edges_summary": {
-    "total_edges": 24832,
-    "SAME_SEMANTICS_bridges": 367,
+    "total_edges": 24889,
+    "SAME_SEMANTICS_bridges": 369,
     "SCOPED_OVERLAP_bridges": 108,
     "RELATED_TO_bridges": 6,
-    "total_cross_source_bridges": 481,
-    "REPRESENTS": 338,
-    "DEPENDS_ON": 999,
+    "total_cross_source_bridges": 483,
+    "REPRESENTS": 360,
+    "DEPENDS_ON": 1000,
     "SOURCED_FROM": 1775
   }
 }
