@@ -37,6 +37,13 @@ FAMILY_CLASS = {
     "G10": "NUMERICAL",
     "G11": "NUMERICAL",
     "G12": "SYMBOLIC",
+    "F1": "EXACT",
+    "F2": "EXACT",
+    "F3": "EXACT",
+    "C1": "SYMBOLIC",
+    "C2": "SYMBOLIC",
+    "X1": "NUMERICAL",
+    "X2": "NUMERICAL",
 }
 
 
