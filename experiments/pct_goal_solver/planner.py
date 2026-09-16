@@ -24,6 +24,7 @@ class _SearchNode:
     verifiers: tuple[VerificationResult, ...]
     cost: int
     primitive_executions: int
+    macro_ids: tuple[str, ...] = ()
 
     def mapping(self) -> dict[str, Artifact]:
         return dict(self.artifacts)
@@ -186,14 +187,12 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
             cumulative = goal.inputs["cumulative"].value
             passed = _zeta(tuple(int(v) for v in candidate.value)) == tuple(cumulative)
             return VerificationResult(passed, "INDEPENDENT_ZETA_ROUND_TRIP", "round trip" if passed else "round trip mismatch")
-
         if goal.family == "G2":
             matrix = _matrix(goal.inputs["observation_matrix"].value)
             nullity = len(matrix.nullspace())
             value = candidate.value
             passed = isinstance(value, dict) and int(value.get("nullity", -1)) == nullity and bool(value.get("unique")) == (nullity == 0)
             return VerificationResult(passed, "INDEPENDENT_NULLSPACE", f"nullity={nullity}")
-
         if goal.family == "G3":
             ds = _matrix(goal.inputs["source_boundary"].value)
             dt = _matrix(goal.inputs["target_boundary"].value)
@@ -201,23 +200,19 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
             f1 = _matrix(goal.inputs["edge_map"].value)
             expected = dt * f1 == f0 * ds
             return VerificationResult(bool(candidate.value) == bool(expected), "INDEPENDENT_CHAIN_COMMUTATION", f"expected={bool(expected)}")
-
         if goal.family == "G4":
             value = candidate.value
             passed = isinstance(value, dict) and value.get("level") in {"EULER", "BETTI", "BARCODE", "NONE"}
             return VerificationResult(passed, "INDEPENDENT_INFORMATION_ORDER", str(value))
-
         if goal.family == "G5":
             ga = nx.Graph(); ga.add_edges_from(goal.inputs["graph_a"].value)
             gb = nx.Graph(); gb.add_edges_from(goal.inputs["graph_b"].value)
             expected = not nx.is_isomorphic(ga, gb)
             observed = bool(candidate.value.get("distinct")) if isinstance(candidate.value, dict) else bool(candidate.value)
             return VerificationResult(observed == expected, "INDEPENDENT_GRAPH_ISOMORPHISM", f"expected_distinct={expected}")
-
         if goal.family == "G6":
             rank = int(_matrix(goal.inputs["exact_matrix"].value).rank())
             return VerificationResult(int(candidate.value) == rank, "INDEPENDENT_EXACT_RANK", f"rank={rank}")
-
         if goal.family == "G7":
             A, P, c = sp.symbols("A P c")
             invariant = sp.sympify(goal.inputs["candidate_invariant"].value, locals={"A": A, "P": P, "c": c})
@@ -225,35 +220,30 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
             gradient = sp.Matrix([sp.diff(invariant, variable) for variable in (A, P, c)])
             expected = sp.simplify((gradient.T * vector_field)[0]) == 0
             return VerificationResult(bool(candidate.value) == bool(expected), "INDEPENDENT_LIE_DERIVATIVE", f"conserved={expected}")
-
         if goal.family == "G8":
             k = float(candidate.value)
             trajectory = goal.inputs["trajectory"].value
             values = [p * p + k * c * area for _, area, p, c in trajectory]
             residual = max(abs(v - values[0]) for v in values)
             return VerificationResult(residual <= goal.allowed_numeric_tolerance, "INDEPENDENT_TRAJECTORY_RESIDUAL", f"residual={residual}", residual=residual)
-
         if goal.family == "G9":
             poly = Polygon(goal.inputs["body"].value)
             s = float(goal.inputs["offset"].value)
             reference = float(poly.buffer(s, quad_segs=256).area)
             residual = abs(float(candidate.value) - reference)
             return VerificationResult(residual <= goal.allowed_numeric_tolerance, "INDEPENDENT_BUFFER_AREA", f"residual={residual}", residual=residual)
-
         if goal.family == "G10":
             observed = candidate.value.get("order") if isinstance(candidate.value, dict) else candidate.value
             poly = Polygon(goal.inputs["body"].value)
             expected = len(list(poly.exterior.coords)[:-1])
             passed = int(observed) == expected if observed is not None else False
             return VerificationResult(passed, "INDEPENDENT_ROTATIONAL_VERTEX_ORBIT", f"expected={expected}")
-
         if goal.family == "G11":
             observed = candidate.value.get("homothetic") if isinstance(candidate.value, dict) else bool(candidate.value)
             a = Polygon(goal.inputs["body_a"].value)
             b = Polygon(goal.inputs["body_b"].value)
             expected = len(list(a.exterior.coords)[:-1]) == len(list(b.exterior.coords)[:-1])
             return VerificationResult(bool(observed) == expected, "INDEPENDENT_POLYGON_COMBINATORICS", f"expected={expected}")
-
         if goal.family == "G12":
             lhs = sp.sympify(goal.inputs["lhs"].value)
             rhs = sp.sympify(goal.inputs["rhs"].value)
@@ -290,7 +280,7 @@ def _make_trace(
         operator_path=node.path + path_suffix,
         expanded_state_count=expanded,
         primitive_execution_count=node.primitive_executions,
-        macro_ids=(),
+        macro_ids=node.macro_ids,
         candidate_artifact=candidate,
         verifier_chain=verifiers,
         falsification_events=(),
@@ -299,17 +289,61 @@ def _make_trace(
     )
 
 
-def _ordered_operator_ids(
-    typing_mode: str,
-    registry: Mapping[str, OperatorSpec],
-    artifacts: Mapping[str, Artifact],
-    compatibility_model: Any | None,
-) -> tuple[str, ...]:
+def _ordered_operator_ids(typing_mode: str, registry: Mapping[str, OperatorSpec], artifacts: Mapping[str, Artifact], compatibility_model: Any | None) -> tuple[str, ...]:
     if typing_mode == "EXPLICIT":
         return tuple(sorted(registry))
     if compatibility_model is None:
         raise ValueError(f"{typing_mode} mode requires a compatibility model")
     return tuple(compatibility_model.ordered_operator_ids(registry, artifacts))
+
+
+def _apply_macro(
+    macro: Any,
+    node: _SearchNode,
+    registry: Mapping[str, OperatorSpec],
+    bindings: tuple[tuple[str, Any], ...],
+    typing_mode: str,
+) -> _SearchNode | None:
+    artifacts = node.mapping()
+    path = node.path
+    verifiers = node.verifiers
+    cost = node.cost
+    executions = node.primitive_executions
+    for operator_id in tuple(macro.primitive_ids):
+        spec = registry.get(operator_id)
+        if spec is None or operator_id in _META_OPERATOR_IDS:
+            return None
+        if typing_mode in {"EXPLICIT", "HYBRID"} and not _requirements_met(spec, artifacts):
+            return None
+        applied = False
+        for invocation in _invocations(spec, artifacts):
+            applicability = spec.applicability(invocation, bindings)
+            if not applicability.applicable:
+                continue
+            output = spec.execute(invocation, bindings)
+            executions += 1
+            if isinstance(output, OperatorFailure):
+                continue
+            step_verifier = spec.verify(tuple(invocation.values()), output)
+            if not step_verifier.passed or _has_equivalent(output, artifacts):
+                continue
+            artifacts = dict(artifacts)
+            artifacts[_derived_key(operator_id, output, artifacts)] = output
+            path = path + (operator_id,)
+            verifiers = verifiers + (step_verifier,)
+            cost += spec.cost
+            applied = True
+            break
+        if not applied:
+            return None
+    return _SearchNode(
+        artifacts=tuple(sorted(artifacts.items())),
+        path=path,
+        verifiers=verifiers,
+        cost=cost,
+        primitive_executions=executions,
+        macro_ids=node.macro_ids + (str(macro.macro_id),),
+    )
 
 
 def solve(
@@ -320,20 +354,14 @@ def solve(
     compatibility_model: Any | None = None,
     macros: Iterable[Any] = (),
 ) -> SolveTrace:
-    """Deterministic best-first operator search over explicit, inferred, or hybrid typing.
-
-    INFERRED uses calibration-learned structural descriptors to rank transitions; semantic
-    types are not used by the ranking model. Operator applicability remains an executable
-    safety contract after a transition is proposed. HYBRID adds the explicit hard type
-    barrier before execution while retaining inferred ordering.
-    """
     if typing_mode not in {"EXPLICIT", "INFERRED", "HYBRID"}:
         raise ValueError(f"unknown typing mode: {typing_mode}")
     if typing_mode != "EXPLICIT" and compatibility_model is None:
         raise ValueError(f"{typing_mode} mode requires a compatibility model")
 
-    mode = f"{typing_mode}/{'SYNTHESIZED' if tuple(macros) else 'PRIMITIVE'}"
-    initial = _SearchNode(tuple(sorted(goal.inputs.items())), (), (), 0, 0)
+    macro_bank = tuple(sorted(tuple(macros), key=lambda macro: str(macro.macro_id)))
+    mode = f"{typing_mode}/{'SYNTHESIZED' if macro_bank else 'PRIMITIVE'}"
+    initial = _SearchNode(tuple(sorted(goal.inputs.items())), (), (), 0, 0, ())
     if goal.search_budget <= 0:
         return _make_trace(goal, mode, initial, expanded=0, candidate=None, verdict="NOT_ESTABLISHED", reason="SEARCH_BUDGET_EXHAUSTED")
 
@@ -354,48 +382,48 @@ def solve(
         if candidate is not None:
             terminal = _verify_goal(goal, candidate)
             if terminal.passed:
-                return _make_trace(
-                    goal, mode, node, expanded=expanded, candidate=candidate,
-                    verdict="PASS", terminal_verifier=terminal,
-                    path_suffix=("VERIFY_CANDIDATE",),
-                )
+                return _make_trace(goal, mode, node, expanded=expanded, candidate=candidate, verdict="PASS", terminal_verifier=terminal, path_suffix=("VERIFY_CANDIDATE",))
+
+        # Macros are expanded to the exact primitive sequence and checked at every
+        # internal step. They skip intermediate search states, not primitive work.
+        for macro in macro_bank:
+            child = _apply_macro(macro, node, registry, bindings, typing_mode)
+            if child is None:
+                continue
+            signature = _state_signature(child.mapping())
+            if signature in seen:
+                continue
+            seen.add(signature)
+            heapq.heappush(queue, (_node_priority(goal, child), next(serial), child))
 
         for operator_id in _ordered_operator_ids(typing_mode, registry, artifacts, compatibility_model):
             spec = registry[operator_id]
             if operator_id in _META_OPERATOR_IDS:
                 continue
-            # Explicit and hybrid modes use a hard type barrier. Inferred mode proposes
-            # from structural ranking first and lets the executable applicability contract
-            # reject incompatible proposals.
             if typing_mode in {"EXPLICIT", "HYBRID"} and not _requirements_met(spec, artifacts):
                 continue
-
             invocations = _invocations(spec, artifacts)
             if not invocations and typing_mode == "INFERRED":
-                # No structural binding could be formed; this is an inferred miss, not an error.
                 continue
             for invocation in invocations:
                 applicability = spec.applicability(invocation, bindings)
                 if not applicability.applicable:
                     if applicability.verdict == "NOT_APPLICABLE" and spec.output_type == goal.target.semantic_type:
-                        probe_node = _SearchNode(node.artifacts, node.path + (operator_id,), node.verifiers, node.cost + spec.cost, node.primitive_executions)
+                        probe_node = _SearchNode(node.artifacts, node.path + (operator_id,), node.verifiers, node.cost + spec.cost, node.primitive_executions, node.macro_ids)
                         if first_relevant_not_applicable is None:
                             first_relevant_not_applicable = (probe_node, applicability.reason)
                     continue
-
                 output = spec.execute(invocation, bindings)
                 executions = node.primitive_executions + 1
                 if isinstance(output, OperatorFailure):
                     if output.verdict == "NOT_APPLICABLE" and spec.output_type == goal.target.semantic_type:
-                        probe_node = _SearchNode(node.artifacts, node.path + (operator_id,), node.verifiers, node.cost + spec.cost, executions)
+                        probe_node = _SearchNode(node.artifacts, node.path + (operator_id,), node.verifiers, node.cost + spec.cost, executions, node.macro_ids)
                         if first_relevant_not_applicable is None:
                             first_relevant_not_applicable = (probe_node, output.reason)
                     continue
-
                 step_verifier = spec.verify(tuple(invocation.values()), output)
                 if not step_verifier.passed or _has_equivalent(output, artifacts):
                     continue
-
                 new_artifacts = dict(artifacts)
                 new_artifacts[_derived_key(operator_id, output, artifacts)] = output
                 signature = _state_signature(new_artifacts)
@@ -408,14 +436,11 @@ def solve(
                     node.verifiers + (step_verifier,),
                     node.cost + spec.cost,
                     executions,
+                    node.macro_ids,
                 )
                 heapq.heappush(queue, (_node_priority(goal, child), next(serial), child))
 
     if first_relevant_not_applicable is not None:
         node, reason = first_relevant_not_applicable
         return _make_trace(goal, mode, node, expanded=expanded, candidate=None, verdict="NOT_APPLICABLE", reason=reason)
-    return _make_trace(
-        goal, mode, initial, expanded=expanded, candidate=None,
-        verdict="NOT_ESTABLISHED",
-        reason="SEARCH_BUDGET_EXHAUSTED" if expanded >= goal.search_budget else "NO_ADMISSIBLE_PATH",
-    )
+    return _make_trace(goal, mode, initial, expanded=expanded, candidate=None, verdict="NOT_ESTABLISHED", reason="SEARCH_BUDGET_EXHAUSTED" if expanded >= goal.search_budget else "NO_ADMISSIBLE_PATH")
