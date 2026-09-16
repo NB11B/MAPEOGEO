@@ -1,0 +1,66 @@
+name: MAPEOGEO v0.16 Topology & Functional Structure Expansion
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, agent/math-expansion-v0-16, agent/math-expansion-v0-15-2]
+    paths:
+      - "data/**"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/topology-expansion-v0-16.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/topology-expansion-v0-16.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  topology-expansion-v0-16:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-map-goal-v0-7.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf pytest
+
+      - name: Python compilation checks
+        run: |
+          python -m py_compile scripts/import_topology_v0_16.py
+          python -m py_compile scripts/topology_intake_v0_16.py
+          python -m py_compile scripts/reconstruct_pipeline.py
+          python -m py_compile tests/test_topology_expansion_v0_16.py
+
+      - name: Reconstruct mathematical dependency chain through v0.16
+        run: |
+          python scripts/reconstruct_pipeline.py --target-stage v0.16
+
+      - name: Run Pytest test suite
+        run: |
+          pytest tests/test_analysis_expansion_v0_15_2.py tests/test_topology_expansion_v0_16.py -v
+
+      - name: Upload v0.16 Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-v0-16-topology-expansion-artifacts
+          path: artifacts/topology_v0_16/
