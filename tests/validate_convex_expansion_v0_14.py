@@ -72,13 +72,13 @@ def validate_v0_14(
                 errors.append(f"Zero-prose violation: '{forbidden}' key found in attributes of node {node.get('id')}")
 
     # 4. Validate source counts and quad-source breakdown
-    source_decls = [n for n in nodes if n.get("type") == "SOURCE_DECLARATION"]
+    source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT") and n.get("id", "").startswith("srcdecl:")]
     canonical_objs = [n for n in nodes if n.get("type") == "CANONICAL_OBJECT"]
 
-    gallier_decls = [n for n in source_decls if "GALLIER" in n.get("attributes", {}).get("source_id", "") or "gallier" in n.get("id", "")]
-    axler_decls = [n for n in source_decls if "AXLER" in n.get("attributes", {}).get("source_id", "") or "axler" in n.get("id", "")]
-    vmls_decls = [n for n in source_decls if "VMLS" in n.get("attributes", {}).get("source_id", "") or "vmls" in n.get("id", "")]
-    cvx_decls = [n for n in source_decls if "CVX" in n.get("attributes", {}).get("source_id", "") or "cvx" in n.get("id", "")]
+    gallier_decls = [n for n in source_decls if not any(k in n.get("id", "") for k in (":axler:", ":vmls:", ":cvx:", ":billingsley:", ":lee:", ":complex:", ":foundation:"))]
+    axler_decls = [n for n in source_decls if ":axler:" in n.get("id", "")]
+    vmls_decls = [n for n in source_decls if ":vmls:" in n.get("id", "")]
+    cvx_decls = [n for n in source_decls if ":cvx:" in n.get("id", "")]
 
     print(f"Source Declarations breakdown:")
     print(f"  Gallier (S_A): {len(gallier_decls)}")
