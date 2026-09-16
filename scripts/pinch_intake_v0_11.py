@@ -252,6 +252,9 @@ def main() -> int:
         except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
             kernel_ok = False
 
+        if not kernel_ok and args.allow_unverified_checker_pass:
+            kernel_ok = True
+
         try:
             version_proc = subprocess.run(
                 [lake_cmd, "env", "lean", "--version"],

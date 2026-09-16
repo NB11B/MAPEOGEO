@@ -5,36 +5,20 @@ on:
   push:
     branches: [main, agent/math-expansion-v0-15-2]
     paths:
-      - "formal/analysis_alignments_v0_15.json"
-      - "evidence/v0_15_2_preregistration.json"
-      - "evidence/v0_15_2_acceptance_manifest.json"
-      - "scripts/import_axler_v0_12.py"
-      - "scripts/import_vmls_v0_13.py"
-      - "scripts/import_cvx_v0_14.py"
-      - "scripts/import_analysis_v0_15.py"
-      - "scripts/analysis_intake_v0_15_2.py"
-      - "scripts/reconstruct_pipeline.py"
-      - "scripts/generate_acceptance_manifest_v0_15_2.py"
-      - "tests/test_analysis_expansion_v0_15_2.py"
-      - "tests/validate_analysis_expansion_v0_15_2.py"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
       - "docs/V0_15_2_CONFIRMATORY_SPEC.md"
       - "docs/V0_15_2_CONFIRMATORY_REPORT.md"
       - ".github/workflows/analysis-expansion-v0-15-2.yml"
   pull_request:
     branches: [main]
     paths:
-      - "formal/analysis_alignments_v0_15.json"
-      - "evidence/v0_15_2_preregistration.json"
-      - "evidence/v0_15_2_acceptance_manifest.json"
-      - "scripts/import_axler_v0_12.py"
-      - "scripts/import_vmls_v0_13.py"
-      - "scripts/import_cvx_v0_14.py"
-      - "scripts/import_analysis_v0_15.py"
-      - "scripts/analysis_intake_v0_15_2.py"
-      - "scripts/reconstruct_pipeline.py"
-      - "scripts/generate_acceptance_manifest_v0_15_2.py"
-      - "tests/test_analysis_expansion_v0_15_2.py"
-      - "tests/validate_analysis_expansion_v0_15_2.py"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
       - "docs/V0_15_2_CONFIRMATORY_SPEC.md"
       - "docs/V0_15_2_CONFIRMATORY_REPORT.md"
       - ".github/workflows/analysis-expansion-v0-15-2.yml"
@@ -64,6 +48,15 @@ jobs:
 
       - name: Python compilation checks
         run: |
+          python -m py_compile scripts/independent_dual_view_v0_6.py
+          python -m py_compile scripts/map_goal_v0_7.py
+          python -m py_compile scripts/formal_bridge_v0_8.py
+          python -m py_compile scripts/proof_paths_v0_9.py
+          python -m py_compile scripts/pinch_intake_v0_11.py
+          python -m py_compile scripts/audit_pinch_source_v0_11.py
+          python -m py_compile scripts/cross_source_intake_v0_12.py
+          python -m py_compile scripts/tri_source_intake_v0_13.py
+          python -m py_compile scripts/convex_intake_v0_14.py
           python -m py_compile scripts/import_axler_v0_12.py
           python -m py_compile scripts/import_vmls_v0_13.py
           python -m py_compile scripts/import_cvx_v0_14.py

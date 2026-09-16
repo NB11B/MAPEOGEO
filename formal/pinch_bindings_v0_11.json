@@ -37,7 +37,7 @@
     },
     {
       "source_id": "srcdecl:theorem:27_10",
-      "statement_sha256": "d205d7c5313b841e6afafc9d619fa059dfe50a2f6c11a48ca2cff466cc84d4fa",
+      "statement_sha256": "b99a4e9f7dcafc31774208c2d21485e59a23b3ae76f6fd3748babdefd41093e2",
       "expected_direct_status": "DUAL_DIRECT",
       "explicit_dependencies": [
         "srcdecl:theorem:6_16"

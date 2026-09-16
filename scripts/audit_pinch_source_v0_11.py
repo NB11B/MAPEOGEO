@@ -85,12 +85,25 @@ def audit_targets(graph: dict[str, Any], bindings: dict[str, Any]) -> dict[str, 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Audit v0.11 source targets against graph.")
     parser.add_argument("source_pdf", nargs="?", default=None, help="Optional path to source PDF for transient audit")
-    parser.add_argument("--graph", required=True, help="Path to base graph JSON or JSON.GZ")
-    parser.add_argument("--bindings", required=True, help="Path to formal/pinch_bindings_v0_11.json")
+    parser.add_argument(
+        "--graph",
+        default=Path(__file__).resolve().parents[1] / "artifacts" / "proof_paths_v0_9" / "mapeogeo_s5_v0_9_graph.json.gz",
+        help="Path to base graph JSON or JSON.GZ",
+    )
+    parser.add_argument(
+        "--bindings",
+        default=Path(__file__).resolve().parents[1] / "formal" / "pinch_bindings_v0_11.json",
+        help="Path to formal/pinch_bindings_v0_11.json",
+    )
     parser.add_argument("--out", required=False, help="Path to output audit JSON")
     args = parser.parse_args()
 
-    graph = load_graph(args.graph)
+    graph_path = Path(args.graph)
+    if not graph_path.exists():
+        fallback = Path(__file__).resolve().parents[1] / "data" / "gallier_quaintance_graph_v0_3.json.gz"
+        if fallback.exists():
+            graph_path = fallback
+    graph = load_graph(graph_path)
     bindings = json.loads(Path(args.bindings).read_text(encoding="utf-8"))
 
     results = audit_targets(graph, bindings)

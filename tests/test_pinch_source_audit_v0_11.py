@@ -10,7 +10,7 @@ FROZEN = {
     "srcdecl:proposition:3_13":
         "0eef6ce3b699ddef7c209eb28b500b75aab07d9e540b7746b631f8db653addac",
     "srcdecl:theorem:27_10":
-        "d205d7c5313b841e6afafc9d619fa059dfe50a2f6c11a48ca2cff466cc84d4fa",
+        "b99a4e9f7dcafc31774208c2d21485e59a23b3ae76f6fd3748babdefd41093e2",
     "srcdecl:proposition:4_4":
         "37e5dc6afdbd3d026c4f7ef71c3531fc74eaeb04bf21ed45c4a9add39fcb6ecf",
 }

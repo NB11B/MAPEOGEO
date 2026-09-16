@@ -4,12 +4,12 @@
   "status": "PASS",
   "engine_validity": "VALID",
   "scientific_result": "PASS",
-  "runner_commit_sha": "644d95019b843822cec194754c72a65d2e5eca43",
+  "runner_commit_sha": "a54481f9b55767d98b9796eb84766d132cc24ddc",
   "workflow_run_id": "local-run",
   "preregistration_commit_sha": "c97b16afb3ca27eda723ce31040da72566d204de",
   "description": "Real Analysis and Multivariable Differential Calculus Quad-Source Mathematics Expansion frozen confirmatory replay acceptance manifest for MAPEOGEO v0.15.2 across Gallier, Axler, Boyd/Vandenberghe VMLS, and Boyd/Vandenberghe CVX with strict fail-closed provenance.",
   "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
-  "pipeline_reconstruction": "scripts/reconstruct_pipeline.py --target-stage v0.15.2 from clean checkout data/gallier_quaintance_graph_v0_3.json.gz + data/math-deep.pdf -> v0.6 -> v0.12 -> v0.13 -> v0.14 -> v0.15.2",
+  "pipeline_reconstruction": "scripts/reconstruct_pipeline.py --target-stage v0.15.2 from clean checkout data/gallier_quaintance_graph_v0_3.json.gz + data/math-deep.pdf -> v0.6 -> v0.7 -> v0.8 -> v0.9 -> v0.11 -> v0.12 -> v0.13 -> v0.14 -> v0.15.2",
   "formal_link_status": "INHERITED_FORMAL_LINKS (FORMAL_LINKED != KERNEL_VERIFIED, certificate verification deferred)",
   "provenance_invariants": {
     "disjoint_partition_verified": true,
@@ -82,13 +82,13 @@
     ],
     "average_richness_r_bar": 3.382,
     "edges_summary": {
-      "total_edges": 24832,
-      "SAME_SEMANTICS_bridges": 367,
+      "total_edges": 24889,
+      "SAME_SEMANTICS_bridges": 369,
       "SCOPED_OVERLAP_bridges": 108,
       "RELATED_TO_bridges": 6,
-      "total_cross_source_bridges": 481,
-      "REPRESENTS": 338,
-      "DEPENDS_ON": 999,
+      "total_cross_source_bridges": 483,
+      "REPRESENTS": 360,
+      "DEPENDS_ON": 1000,
       "SOURCED_FROM": 1775
     }
   },
@@ -112,10 +112,10 @@
     }
   },
   "artifacts": {
-    "mapeogeo_v0_15_2_graph.json.gz": "bb199c6bec802f96fe8bef13051eb7928e633f5b739292b954229e1271df885e",
-    "analysis_expansion_dashboard.json": "03571693e8384d28f61f6f672adb87241ec5473ca0c66820812b7bbc54c099bf",
+    "mapeogeo_v0_15_2_graph.json.gz": "01c00da32726b4f47200e89b8b9b8ac74afbf050d0f7e084f9bdf139f62bc4e8",
+    "analysis_expansion_dashboard.json": "81894924a7ec99f4330af409498242fe59e50d61c0734e2b9a651f333b8b512a",
     "representation_diversity_report.json": "cee3f174362666181892110462e17cfb2d8cdc63b7e04e95fa42b9628a51764f",
-    "scientific_results.json": "03571693e8384d28f61f6f672adb87241ec5473ca0c66820812b7bbc54c099bf",
+    "scientific_results.json": "81894924a7ec99f4330af409498242fe59e50d61c0734e2b9a651f333b8b512a",
     "analysis_alignments_v0_15.json": "f52d605979b91b97a491f9c1636e405879c3e38396637c4b4e1ff5bc48ef6f6a"
   },
   "preregistered_checks": {
@@ -156,12 +156,12 @@
     },
     "min_same_semantics_bridges": {
       "expected": ">= 300",
-      "actual": 367,
+      "actual": 369,
       "pass": true
     },
     "min_total_cross_source_bridges": {
       "expected": ">= 400",
-      "actual": 481,
+      "actual": 483,
       "pass": true
     },
     "min_inherited_formal_links": {

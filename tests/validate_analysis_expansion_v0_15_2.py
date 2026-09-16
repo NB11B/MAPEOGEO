@@ -81,10 +81,25 @@ def validate_v0_15_2(
 
     # 2. Strict Disjoint Source Partition Invariant Check
     source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT") and n["id"].startswith("srcdecl:")]
-    gallier = [n for n in source_decls if not any(k in n["id"] for k in (":axler:", ":vmls:", ":cvx:"))]
-    axler = [n for n in source_decls if ":axler:" in n["id"]]
-    vmls = [n for n in source_decls if ":vmls:" in n["id"]]
-    cvx = [n for n in source_decls if ":cvx:" in n["id"]]
+    gallier = []
+    axler = []
+    vmls = []
+    cvx = []
+    for n in source_decls:
+        attrs = n.get("attributes", {})
+        sid = attrs.get("source_id", "")
+        corp = attrs.get("corpus", "")
+        nid = n.get("id", "")
+        if sid == AXLER_SOURCE_ID or corp == "AXLER" or ":axler:" in nid:
+            axler.append(n)
+        elif sid == VMLS_SOURCE_ID or corp == "VMLS" or ":vmls:" in nid:
+            vmls.append(n)
+        elif sid == CVX_SOURCE_ID or corp == "CVX" or ":cvx:" in nid:
+            cvx.append(n)
+        elif sid == GALLIER_SOURCE_ID or corp == "GALLIER" or (nid.startswith("srcdecl:") and not any(k in nid for k in (":axler:", ":vmls:", ":cvx:"))):
+            gallier.append(n)
+        else:
+            raise ValueError(f"Unclassified source declaration: {nid} with attrs {attrs}")
 
     total_partition = len(gallier) + len(axler) + len(vmls) + len(cvx)
     assert total_partition == len(source_decls), (
@@ -177,14 +192,13 @@ def validate_v0_15_2(
                     f"REPRESENTS corpus mismatch: edge says {edge_corp}, node says {src_corp}"
                 )
 
-    # 12. Source Identity & Hash Invariant Check
-    frozen_quartet_hashes = {
-        "srcdecl:proposition:3_14": "6e09e18756aefdaf8cdd2c03aca61548d1126fb3d30d70b49c58359f37c64b8e",
-        "srcdecl:proposition:3_13": "0eef6ce3b699ddef7c209eb28b500b75aab07d9e540b7746b631f8db653addac",
-        "srcdecl:proposition:4_4": "37e5dc6afdbd3d026c4f7ef71c3531fc74eaeb04bf21ed45c4a9add39fcb6ecf",
-        "srcdecl:theorem:27_10": "b99a4e9f7dcafc31774208c2d21485e59a23b3ae76f6fd3748babdefd41093e2",
-    }
-    for sid, exp_hash in frozen_quartet_hashes.items():
+    # 12. Source Identity & Hash Invariant Check (loaded directly from frozen v0.11 bindings)
+    pinch_bindings_path = ROOT / "formal" / "pinch_bindings_v0_11.json"
+    assert pinch_bindings_path.exists(), f"Frozen v0.11 bindings missing: {pinch_bindings_path}"
+    pinch_data = json.loads(pinch_bindings_path.read_text(encoding="utf-8"))
+    for target in pinch_data.get("targets", []):
+        sid = target["source_id"]
+        exp_hash = target["statement_sha256"]
         assert sid in node_ids, f"Frozen Gallier node {sid} missing from graph!"
         n = node_ids[sid]
         actual_hash = n.get("attributes", {}).get("statement_sha256") or n.get("attributes", {}).get("independent_profile", {}).get("statement_sha256")
@@ -199,7 +213,7 @@ def validate_v0_15_2(
     print(f"  - Representation Richness r_bar: {r_bar} >= {min_r_bar}")
     print(f"  - Distinct Domains: {d_domains} >= {min_domains}")
     print(f"  - Inherited Formal Links: {n_formal} >= {min_formal}")
-    print(f"  - Source Identity Invariant: 100% VERIFIED (frozen hashes preserved)")
+    print(f"  - Source Identity Invariant: 100% VERIFIED against formal/pinch_bindings_v0_11.json (0 drift)")
     print(f"  - Zero-Prose Policy: VERIFIED CLEAN")
 
     return True

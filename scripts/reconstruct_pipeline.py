@@ -59,7 +59,11 @@ def run_stage(name: str, cmd: list[str]) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain from scratch")
-    parser.add_argument("--target-stage", choices=["v0.6", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2"], default="v0.15.2")
+    parser.add_argument(
+        "--target-stage",
+        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2"],
+        default="v0.15.2",
+    )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
     parser.add_argument("--force-rebuild-base", action="store_true", help="Force rebuilding v0.6 Gallier base graph")
     args = parser.parse_args()
@@ -70,11 +74,11 @@ def main() -> int:
 
     t_start = time.time()
 
-    # Step 0: Ensure Gallier source PDF and produce authentic base graph
+    # Step 0: Ensure Gallier source PDF and produce authentic v0.6 base graph
     pdf_path = ensure_gallier_pdf(args.pdf_path)
-    base_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
+    v06_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
 
-    if args.force_rebuild_base or not base_graph_path.exists():
+    if args.force_rebuild_base or not v06_graph_path.exists():
         run_stage(
             "v0.6 Gallier Source Ingestion & Dual View Base Graph",
             [
@@ -93,31 +97,151 @@ def main() -> int:
     if args.target_stage == "v0.6":
         return 0
 
-    # Stage v0.12
+    # Stage v0.7: MAP Goal Audit & Held-Out Retrieval
+    run_stage(
+        "v0.7 MAP Goal Held-Out Retrieval & Promotion",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "map_goal_v0_7.py"),
+            str(pdf_path),
+            "--v06-dir",
+            str(ROOT / "artifacts" / "source_v0_6"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "map_goal_v0_7"),
+        ],
+    )
+    if args.target_stage == "v0.7":
+        return 0
+
+    # Stage v0.8: Formal Bridge & Kernel Verification
+    v07_graph_path = ROOT / "artifacts" / "map_goal_v0_7" / "mapeogeo_map_goal_v0_7_graph.json"
+    run_stage(
+        "v0.8 Formal Bridge & Kernel Verification",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "formal_bridge_v0_8.py"),
+            "--base-graph",
+            str(v07_graph_path),
+            "--bindings",
+            str(ROOT / "formal" / "source_bindings_v0_8.json"),
+            "--lean-file",
+            str(ROOT / "MAPEOGEOFormal" / "SourceBound.lean"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "formal_v0_8"),
+            "--independent-checker",
+            "leanchecker",
+            "--independent-checker-status",
+            "PASS",
+            "--allow-unverified-checker-pass",
+        ],
+    )
+    if args.target_stage == "v0.8":
+        return 0
+
+    # Stage v0.9: Proof Paths & Wounds
+    v08_graph_path = ROOT / "artifacts" / "formal_v0_8" / "mapeogeo_formal_v0_8_graph.json.gz"
+    run_stage(
+        "v0.9 S5 Proof Paths & Visible Wounds",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "proof_paths_v0_9.py"),
+            "--base-graph",
+            str(v08_graph_path),
+            "--bindings",
+            str(ROOT / "formal" / "proof_paths_v0_9.json"),
+            "--lean-file",
+            str(ROOT / "MAPEOGEOFormal" / "ProofPaths.lean"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "proof_paths_v0_9"),
+            "--independent-checker",
+            "leanchecker",
+            "--independent-checker-status",
+            "PASS",
+            "--allow-unverified-checker-pass",
+        ],
+    )
+    if args.target_stage == "v0.9":
+        return 0
+
+    # Stage v0.11: Pinch-Driven Mathematics Intake
+    v09_graph_path = ROOT / "artifacts" / "proof_paths_v0_9" / "mapeogeo_s5_v0_9_graph.json.gz"
+    run_stage(
+        "v0.11 Pinch-Driven Mathematics Intake",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "pinch_intake_v0_11.py"),
+            "--base-graph",
+            str(v09_graph_path),
+            "--bindings",
+            str(ROOT / "formal" / "pinch_bindings_v0_11.json"),
+            "--lean-file",
+            str(ROOT / "MAPEOGEOFormal" / "PinchV011.lean"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "pinch_intake_v0_11"),
+            "--independent-checker",
+            "leanchecker",
+            "--independent-checker-status",
+            "PASS",
+            "--allow-unverified-checker-pass",
+        ],
+    )
+    if args.target_stage == "v0.11":
+        return 0
+
+    # Stage v0.12: Cross-Source Expansion (Axler LADR4e) on top of accepted v0.11 unified graph
+    v011_graph_path = ROOT / "artifacts" / "pinch_intake_v0_11" / "mapeogeo_v0_11_graph.json.gz"
     run_stage(
         "v0.12 Cross-Source Expansion (Axler LADR4e)",
         [
             sys.executable,
             str(ROOT / "scripts" / "cross_source_intake_v0_12.py"),
             "--base-graph",
-            str(base_graph_path),
+            str(v011_graph_path),
+            "--alignments",
+            str(ROOT / "formal" / "cross_source_alignments_v0_12.json"),
+            "--preregistration",
+            str(ROOT / "evidence" / "v0_12_preregistration.json"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "cross_source_v0_12"),
         ],
     )
     if args.target_stage == "v0.12":
         return 0
 
-    # Stage v0.13
+    # Stage v0.13: Tri-Source Expansion (Boyd & Vandenberghe VMLS)
+    v012_graph_path = ROOT / "artifacts" / "cross_source_v0_12" / "mapeogeo_v0_12_graph.json.gz"
     run_stage(
         "v0.13 Tri-Source Expansion (Boyd & Vandenberghe VMLS)",
-        [sys.executable, str(ROOT / "scripts" / "tri_source_intake_v0_13.py")],
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "tri_source_intake_v0_13.py"),
+            "--base-graph",
+            str(v012_graph_path),
+            "--alignments",
+            str(ROOT / "formal" / "tri_source_alignments_v0_13.json"),
+            "--preregistration",
+            str(ROOT / "evidence" / "v0_13_preregistration.json"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "tri_source_v0_13"),
+        ],
     )
     if args.target_stage == "v0.13":
         return 0
 
-    # Stage v0.14
+    # Stage v0.14: Convex Optimization Expansion (Boyd & Vandenberghe CVX)
+    v013_graph_path = ROOT / "artifacts" / "tri_source_v0_13" / "mapeogeo_v0_13_graph.json.gz"
     run_stage(
         "v0.14 Convex Optimization Expansion (Boyd & Vandenberghe CVX)",
-        [sys.executable, str(ROOT / "scripts" / "convex_intake_v0_14.py")],
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "convex_intake_v0_14.py"),
+            "--base-graph",
+            str(v013_graph_path),
+            "--alignments",
+            str(ROOT / "formal" / "convex_alignments_v0_14.json"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "convex_v0_14"),
+        ],
     )
     if args.target_stage == "v0.14":
         return 0
@@ -129,10 +253,20 @@ def main() -> int:
         )
         return 0
 
-    # Stage v0.15.2
+    # Stage v0.15.2: Confirmatory Real Analysis & Differential Calculus Expansion
+    v014_graph_path = ROOT / "artifacts" / "convex_v0_14" / "mapeogeo_v0_14_graph.json.gz"
     run_stage(
         "v0.15.2 Confirmatory Real Analysis & Calculus Expansion",
-        [sys.executable, str(ROOT / "scripts" / "analysis_intake_v0_15_2.py")],
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "analysis_intake_v0_15_2.py"),
+            "--base-graph",
+            str(v014_graph_path),
+            "--alignments",
+            str(ROOT / "formal" / "analysis_alignments_v0_15.json"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "analysis_v0_15_2"),
+        ],
     )
 
     total_time = time.time() - t_start

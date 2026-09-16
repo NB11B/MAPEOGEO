@@ -194,7 +194,7 @@ def main() -> int:
         "preregistration_commit_sha": "c97b16afb3ca27eda723ce31040da72566d204de",
         "description": "Real Analysis and Multivariable Differential Calculus Quad-Source Mathematics Expansion frozen confirmatory replay acceptance manifest for MAPEOGEO v0.15.2 across Gallier, Axler, Boyd/Vandenberghe VMLS, and Boyd/Vandenberghe CVX with strict fail-closed provenance.",
         "governing_law": "build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object",
-        "pipeline_reconstruction": "scripts/reconstruct_pipeline.py --target-stage v0.15.2 from clean checkout data/gallier_quaintance_graph_v0_3.json.gz + data/math-deep.pdf -> v0.6 -> v0.12 -> v0.13 -> v0.14 -> v0.15.2",
+        "pipeline_reconstruction": "scripts/reconstruct_pipeline.py --target-stage v0.15.2 from clean checkout data/gallier_quaintance_graph_v0_3.json.gz + data/math-deep.pdf -> v0.6 -> v0.7 -> v0.8 -> v0.9 -> v0.11 -> v0.12 -> v0.13 -> v0.14 -> v0.15.2",
         "formal_link_status": "INHERITED_FORMAL_LINKS (FORMAL_LINKED != KERNEL_VERIFIED, certificate verification deferred)",
         "provenance_invariants": {
             "disjoint_partition_verified": True,
