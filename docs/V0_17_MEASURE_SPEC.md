@@ -10,7 +10,7 @@ $$
 
 v0.17 introduces **Source E** ($S_E$):
 - **Source Corpus**: Patrick Billingsley, *Probability and Measure*, 3rd ed. (1995), John Wiley & Sons (`BILLINGSLEY_PROB_MEASURE_1995`).
-- **Mathematical Coverage**: 64 declaration-level mathematical statements spanning 7 foundational chapters:
+- **Source Grounding Mode**: 64 curated, source-attributed Billingsley declaration transcriptions with cryptographic statement SHA-256 hashes, covering definitions, theorems, propositions, and lemmas across 7 foundational chapters:
   1. *Sets, Fields, and Measures* ($\sigma$-algebras, probability measures, Borel sets, Dynkin $\pi$-$\lambda$ theorem, Carathéodory extension, Lebesgue measure)
   2. *Random Variables and Measurable Maps* (measurable functions, simple functions, random variables, distribution functions, independence)
   3. *Integration and Expectation* (Lebesgue integral, Monotone Convergence Theorem, Fatou's Lemma, Dominated Convergence Theorem, product measures, Fubini-Tonelli theorems)

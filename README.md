@@ -192,7 +192,7 @@ This source extends the graph into convex sets, cones, duality, KKT conditions, 
 
 Patrick Billingsley, *Probability and Measure*, 3rd edition (1995), John Wiley & Sons.
 
-This source provides the rigorous foundation for measure theory, Lebesgue integration, $L^p$ spaces, probability triples, random variables, conditional expectations, and limit theorems (LLN, CLT).
+Source E introduces 64 curated, source-attributed declaration transcriptions with cryptographic statement hashes, providing the foundation for measure theory, Lebesgue integration, $L^p$ spaces, probability triples, random variables, conditional expectations, and limit theorems (LLN, CLT).
 
 Source prose and page images are not intended to persist in graph artifacts.
 
@@ -649,7 +649,7 @@ See:
 
 ## v0.17 — Measure Theory, Integration & Probability Expansion
 
-v0.17 introduced **Source E** ($S_E$, Patrick Billingsley, *Probability and Measure*, 3rd ed., 1995), expanding MAPEOGEO into measure spaces, Lebesgue integration, $L^p$ spaces, probability triples, conditional expectations, and limit theorems.
+v0.17 introduced **Source E** ($S_E$, Patrick Billingsley, *Probability and Measure*, 3rd ed., 1995) via 64 curated, source-attributed declaration transcriptions with cryptographic statement hashes, expanding MAPEOGEO into measure spaces, Lebesgue integration, $L^p$ spaces, probability triples, conditional expectations, and limit theorems.
 
 v0.17 achieves the first **5-source universal convergence** in MAPEOGEO across Cauchy-Schwarz, Inner Product / Hilbert Spaces, Normed Spaces, Orthogonal Projections, and Triangle Inequalities.
 
