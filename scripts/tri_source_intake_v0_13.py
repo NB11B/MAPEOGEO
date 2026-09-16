@@ -493,9 +493,14 @@ def main() -> int:
     if args.base_graph.exists():
         graph = load_json_or_gz(args.base_graph)
     else:
-        fallback = ROOT / "artifacts" / "pinch_intake_v0_11" / "mapeogeo_v0_11_graph.json.gz"
+        fallback = ROOT / "artifacts" / "cross_source_v0_12" / "mapeogeo_v0_12_graph.json.gz"
         if fallback.exists():
             graph = load_json_or_gz(fallback)
+        elif (ROOT / "data" / "mapeogeo_v0_11_graph.json.gz").exists():
+            graph = load_json_or_gz(ROOT / "data" / "mapeogeo_v0_11_graph.json.gz")
+            from scripts.cross_source_intake_v0_12 import ingest_axler_declarations
+            from scripts.import_axler_v0_12 import get_axler_declarations
+            graph = ingest_axler_declarations(graph, get_axler_declarations())
         else:
             graph = {"nodes": [], "edges": []}
 

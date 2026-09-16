@@ -471,6 +471,17 @@ def run_convex_intake(
 
     # 1. Load base graph (v0.13 tri-source graph)
     print(f"Loading base graph from {base_graph_path}...")
+    if not base_graph_path.exists():
+        import subprocess
+        reconstruct_script = ROOT / "scripts" / "reconstruct_pipeline.py"
+        res = subprocess.run(
+            [sys.executable, str(reconstruct_script), "--target-stage", "v0.13"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if res.returncode != 0:
+            raise FileNotFoundError(f"Base graph not found at {base_graph_path} and auto-reconstruction failed: {res.stderr}")
     graph = load_json_or_gz(base_graph_path)
     print(f"Base graph loaded: {len(graph.get('nodes', []))} nodes, {len(graph.get('edges', []))} edges.")
 

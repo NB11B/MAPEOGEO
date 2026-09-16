@@ -482,7 +482,7 @@ def validate_against_preregistration(
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="MAPEOGEO v0.12 Cross-Source Mathematics Expansion Runner")
-    parser.add_argument("--base-graph", type=Path, default=ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json")
+    parser.add_argument("--base-graph", type=Path, default=ROOT / "data" / "mapeogeo_v0_11_graph.json.gz")
     parser.add_argument("--alignments", type=Path, default=ROOT / "formal" / "cross_source_alignments_v0_12.json")
     parser.add_argument("--preregistration", type=Path, default=ROOT / "evidence" / "v0_12_preregistration.json")
     parser.add_argument("--pdf-path", type=Path, default=DEFAULT_CACHE_PATH)
@@ -495,9 +495,13 @@ def main() -> int:
     # 1. Load base graph (fail-closed if missing)
     base_path = args.base_graph
     if not base_path.exists():
-        fallback = ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json"
+        fallback = ROOT / "data" / "mapeogeo_v0_11_graph.json.gz"
         if fallback.exists():
             base_path = fallback
+        elif (ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json").exists():
+            base_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
+        elif (ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json").exists():
+            base_path = ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json"
         else:
             raise FileNotFoundError(f"Fail-closed provenance error: Base graph not found at {args.base_graph}")
     graph = load_json_or_gz(base_path)

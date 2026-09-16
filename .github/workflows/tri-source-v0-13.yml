@@ -58,6 +58,10 @@ jobs:
           python -m py_compile tests/test_tri_source_v0_13.py
           python -m py_compile tests/validate_tri_source_v0_13.py
 
+      - name: Reconstruct mathematical dependency chain through v0.12
+        run: |
+          python scripts/reconstruct_pipeline.py --target-stage v0.12
+
       - name: Run Pytest test suite
         run: |
           pytest tests/test_tri_source_v0_13.py -v
