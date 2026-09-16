@@ -4,6 +4,7 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 import heapq
 import itertools
+import math
 from typing import Any, Iterable, Mapping
 
 import networkx as nx
@@ -267,9 +268,25 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
         if goal.family == "G9":
             poly = Polygon(goal.inputs["body"].value)
             s = float(goal.inputs["offset"].value)
-            reference = float(poly.buffer(s, quad_segs=256).area)
+            tolerance = max(float(goal.allowed_numeric_tolerance), 1e-12)
+            quad_segs = 256
+            approximation_bound = float("inf")
+            while quad_segs <= 65536:
+                approximation_bound = s * s * (
+                    math.pi - 2.0 * quad_segs * math.sin(math.pi / (2.0 * quad_segs))
+                )
+                if approximation_bound <= tolerance / 4.0:
+                    break
+                quad_segs *= 2
+            reference = float(poly.buffer(s, quad_segs=quad_segs).area)
             residual = abs(float(candidate.value) - reference)
-            return VerificationResult(residual <= goal.allowed_numeric_tolerance, "INDEPENDENT_BUFFER_AREA", f"residual={residual}", residual=residual)
+            passed = residual <= tolerance + max(0.0, approximation_bound)
+            return VerificationResult(
+                passed,
+                "INDEPENDENT_BUFFER_AREA",
+                f"residual={residual}; approximation_bound={approximation_bound}; quad_segs={quad_segs}",
+                residual=residual,
+            )
         if goal.family == "G10":
             observed = candidate.value.get("order") if isinstance(candidate.value, dict) else candidate.value
             poly = Polygon(goal.inputs["body"].value)
@@ -424,8 +441,6 @@ def solve(
             if terminal.passed:
                 return _make_trace(goal, mode, node, expanded=expanded, candidate=candidate, verdict="PASS", terminal_verifier=terminal, path_suffix=("VERIFY_CANDIDATE",))
 
-        # Macros are expanded to the exact primitive sequence and checked at every
-        # internal step. They skip intermediate search states, not primitive work.
         for macro in macro_bank:
             child = _apply_macro(macro, node, registry, bindings, typing_mode)
             if child is None:
