@@ -67,33 +67,35 @@ shared canonical neighborhood != proof of equivalence
 
 ## Current mathematical coverage snapshot
 
-The accepted expansion baseline on `main` is at **v0.17** (Measure Theory, Integration & Probability Expansion). The latest replay graph reports:
+The accepted expansion baseline on `main` is at **v0.18** (Differential Geometry, Lie Groups & Smooth Manifolds Expansion). The latest replay graph reports:
 
-| Metric | Accepted v0.17 Baseline |
+| Metric | Accepted v0.18 Baseline |
 |---|---:|
-| Total Source Declarations | **1,824** |
+| Total Source Declarations | **1,891** |
 | Gallier & Quaintance (`S_A`) | **1,360** |
 | Axler LADR4e (`S_B`) | **235** |
 | Boyd & Vandenberghe VMLS (`S_C`) | **81** |
 | Boyd & Vandenberghe CVX (`S_D`) | **84** |
 | Patrick Billingsley (`S_E`) | **64** |
+| John M. Lee (`S_F`) | **67** |
 | Source Section Anchors (segregated) | **5** |
-| Canonical mathematical objects | **179** |
-| Objects with >=2-source support | **113** (63.1%) |
-| Objects with >=3-source support | **63** (35.2%) |
-| Objects with >=4-source support | **28** (15.6%) |
-| Objects with 5-source support | **5** (2.8%) |
-| Mathematical domains | **6** |
-| Candidate EO views | **571** |
-| Candidate GEO views | **145** |
-| Candidate Dual views | **1,131** |
+| Canonical mathematical objects | **205** |
+| Objects with >=2-source support | **131** (63.9%) |
+| Objects with >=3-source support | **72** (35.1%) |
+| Objects with >=4-source support | **32** (15.6%) |
+| Objects with >=5-source support | **12** (5.9%) |
+| Objects with 6-source support | **1** (0.5%) |
+| Mathematical domains | **7** |
+| Candidate EO views | **598** |
+| Candidate GEO views | **162** |
+| Candidate Dual views | **1,198** |
 | Inherited formal links | **8** |
-| Average representation richness `r_bar` | **3.214** |
-| Total graph edges | **25,556** |
-| `SAME_SEMANTICS` bridges | **470** |
-| `SCOPED_OVERLAP` bridges | **312** |
+| Average representation richness `r_bar` | **3.141** |
+| Total graph edges | **25,880** |
+| `SAME_SEMANTICS` bridges | **533** |
+| `SCOPED_OVERLAP` bridges | **373** |
 | `RELATED_TO` bridges | **6** |
-| Total typed cross-source bridges | **788** |
+| Total typed cross-source bridges | **912** |
 
 Current domains are:
 
@@ -103,6 +105,7 @@ Current domains are:
 4. Differential Calculus & Real Analysis
 5. Topology & Metric Spaces
 6. Measure Theory & Probability
+7. Differential Geometry & Lie Groups
 
 Representation richness is tracked as
 
@@ -144,16 +147,18 @@ v0.15.2 Analysis / Calculus
 v0.16 Topology, Metric Spaces & Functional Structure
         ↓
 v0.17 Measure Theory, Integration & Probability
+        ↓
+v0.18 Differential Geometry, Lie Groups & Smooth Manifolds
 ```
 
-Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~15 seconds locally and ~45 seconds on GitHub Actions runners with strict fail-closed checking:
+Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~18 seconds locally and ~50 seconds on GitHub Actions runners with strict fail-closed checking:
 
 ```text
-MATHEMATICAL COVERAGE:          PASS (1,824 declarations, 5 section anchors, 179 canonical objects, 6 domains)
-CLEAN REPLAY OF CURRENT CHAIN:  PASS (~45s in GitHub Actions)
-CROSS-SOURCE STRUCTURE:         PASS (788 bridges across 5 sources)
+MATHEMATICAL COVERAGE:          PASS (1,891 declarations, 5 section anchors, 205 canonical objects, 7 domains)
+CLEAN REPLAY OF CURRENT CHAIN:  PASS (~50s in GitHub Actions)
+CROSS-SOURCE STRUCTURE:         PASS (912 bridges across 6 sources)
 SOURCE-IDENTITY PRESERVATION:   PASS (0 drift; sealed v0.11 checkpoint + audited amendments)
-FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.17 green on main)
+FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.18 green on main)
 ```
 
 ---
@@ -193,6 +198,12 @@ This source extends the graph into convex sets, cones, duality, KKT conditions, 
 Patrick Billingsley, *Probability and Measure*, 3rd edition (1995), John Wiley & Sons.
 
 Source E introduces 64 curated, source-attributed declaration transcriptions with cryptographic statement hashes, providing the foundation for measure theory, Lebesgue integration, $L^p$ spaces, probability triples, random variables, conditional expectations, and limit theorems (LLN, CLT).
+
+### Source F — Lee
+
+John M. Lee, *Introduction to Smooth Manifolds*, 2nd edition (2013), Springer GTM 218 / Jean Gallier & Jocelyn Quaintance, *Differential Geometry and Lie Groups* (2020), Springer.
+
+Source F introduces 67 curated, source-attributed declaration transcriptions with cryptographic statement hashes, providing the foundation for smooth manifolds, tangent bundles, vector fields, Lie brackets, exterior calculus, Generalized Stokes' Theorem, Riemannian metrics, connections, geodesics, curvature, and matrix Lie groups.
 
 Source prose and page images are not intended to persist in graph artifacts.
 
@@ -680,6 +691,40 @@ See:
 
 ---
 
+## v0.18 — Differential Geometry, Lie Groups & Smooth Manifolds Expansion
+
+v0.18 introduced **Source F** ($S_F$, John M. Lee, *Introduction to Smooth Manifolds*, 2nd ed., 2013 / Gallier-Quaintance 2020) via 67 curated, source-attributed declaration transcriptions with cryptographic statement hashes, expanding MAPEOGEO into smooth manifolds, tangent bundles, vector fields, Lie brackets, exterior calculus, Generalized Stokes' Theorem, Riemannian metrics, connections, geodesics, curvature, and matrix Lie groups.
+
+v0.18 achieves the first **6-source universal convergence** in MAPEOGEO on Riemannian metric tensors and inner product spaces ($S_A, S_B, S_C, S_D, S_E, S_F$).
+
+```text
+SOURCE DECLARATIONS: 1,891 (1360 S_A + 235 S_B + 81 S_C + 84 S_D + 64 S_E + 67 S_F)
+SOURCE SECTION ANCHORS: 5 (segregated)
+CANONICAL OBJECTS: 205 (+14.5% expansion)
+2-SOURCE OBJECTS: 131 (63.9%)
+3-SOURCE OBJECTS: 72 (35.1%)
+4-SOURCE OBJECTS: 32 (15.6%)
+5-SOURCE OBJECTS: 12 (5.9%)
+6-SOURCE OBJECTS: 1 (0.5%)
+DOMAINS: 7
+AVERAGE REPRESENTATION RICHNESS: 3.141
+SAME_SEMANTICS: 533
+SCOPED_OVERLAP: 373
+RELATED_TO: 6
+TOTAL CROSS-SOURCE BRIDGES: 912
+TOTAL GRAPH EDGES: 25,880
+```
+
+See:
+
+- `docs/V0_18_DIFFGEOM_SPEC.md`
+- `docs/V0_18_DIFFGEOM_REPORT.md`
+- `evidence/v0_18_scientific_results.json`
+- `artifacts/diffgeom_v0_18/diffgeom_expansion_dashboard.json`
+- `.github/workflows/diffgeom-expansion-v0-18.yml`
+
+---
+
 # Reproduction
 
 ## Trusted Source Pipeline
@@ -694,12 +739,13 @@ SEALED v0.11 TRUSTED SUBSTRATE
   -> v0.15.2 Analysis / Differential Calculus
   -> v0.16 Topology, Metric Spaces & Functional Structure
   -> v0.17 Measure Theory, Integration & Probability
+  -> v0.18 Differential Geometry, Lie Groups & Smooth Manifolds
 ```
 
 Execute full clean reconstruction with:
 
 ```bash
-python scripts/reconstruct_pipeline.py --target-stage v0.17
+python scripts/reconstruct_pipeline.py --target-stage v0.18
 ```
 
 ## Formal library
@@ -739,10 +785,10 @@ MAPEOGEO has demonstrated:
 - fail-closed intake for selected graph pinch points without artificial GEO inflation;
 - canonical mathematical objects shared across independent textbooks and presentation styles;
 - typed cross-source relationships separating identity, scoped overlap, and related-but-not-same structure;
-- multi-source convergence across abstract, geometric, computational, optimization, and measure-theoretic presentations (113 2-source, 63 3-source, 28 4-source, 5 5-source);
-- representation-diversity tracking across abstract, algebraic, geometric, computational, formal, and applied modalities ($\bar{r} = 3.214$);
-- clean-room reproducible six-domain expansion pipeline running in ~15 seconds;
-- a 179-object cross-domain map spanning linear algebra, applied linear algebra, convex optimization, differential calculus / real analysis, topology / metric spaces, and measure theory / probability.
+- multi-source convergence across abstract, geometric, computational, optimization, measure-theoretic, and differential-geometric presentations (131 2-source, 72 3-source, 32 4-source, 12 5-source, 1 6-source);
+- representation-diversity tracking across abstract, algebraic, geometric, computational, formal, and applied modalities ($\bar{r} = 3.141$);
+- clean-room reproducible seven-domain expansion pipeline running in ~18 seconds;
+- a 205-object cross-domain map spanning linear algebra, applied linear algebra, convex optimization, differential calculus / real analysis, topology / metric spaces, measure theory / probability, and differential geometry / Lie groups.
 
 ---
 
@@ -762,27 +808,27 @@ MAPEOGEO has **not** established:
 
 ---
 
-# Active direction: v0.18 Differential Geometry, Lie Groups, and Manifolds
+# Active direction: v0.19 Complex Analysis, Several Complex Variables & Riemann Surfaces
 
-With the v0.17 six-domain measure-theoretic and probabilistic baseline settled and accepted, the project advances to **v0.18**:
+With the v0.18 seven-domain differential-geometric and Lie-theoretic baseline settled and accepted, the project advances to **v0.19**:
 
-$$\boxed{\text{v0.18 — Differential Geometry, Lie Groups, and Manifolds}}$$
+$$\boxed{\text{v0.19 — Complex Analysis, Several Complex Variables & Riemann Surfaces}}$$
 
-This wave incorporates a dedicated geometric source (e.g., John M. Lee, *Introduction to Smooth Manifolds* / Gallier Vol II / Tu) to build smooth structures, tangent bundles, differential forms, Lie groups/algebras, and Stokes' theorem on manifolds:
+This wave incorporates a dedicated complex-analytic source (e.g., Lars Ahlfors, *Complex Analysis* / Steven G. Krantz / Gallier & Quaintance) to build holomorphic functions, Cauchy-Riemann systems, conformal geometry, contour integration, Cauchy integral formula, residue calculus, harmonic functions, several complex variables ($\mathbb{C}^n$, Hartogs' phenomenon), and 1D complex manifolds (Riemann surfaces):
 
 $$
-\text{smooth manifold} \longrightarrow \text{tangent bundle } TM \longrightarrow \text{differential forms } \Omega^k(M) \longrightarrow \text{exterior derivative } d \longrightarrow \text{Stokes' Theorem} \longrightarrow \text{Lie groups / algebras}
+\text{holomorphic } f(z) \longrightarrow \bar{\partial} f = 0 \longrightarrow \oint_\gamma f(z)\,dz = 0 \longrightarrow \text{Residue Calculus} \longrightarrow \text{Riemann Surfaces } X \longrightarrow \text{Sheaf Cohomology}
 $$
 
 The canonical expansion targets:
-- Smooth manifolds, smooth atlases, partitions of unity;
-- Tangent vectors, derivations, tangent spaces $T_p M$, tangent bundle $TM$;
-- Vector fields, Lie brackets $[X, Y]$, integral curves, flows;
-- Cotangent spaces $T_p^* M$, differential 1-forms, tensor fields, differential $k$-forms $\Omega^k(M)$;
-- Exterior derivative $d$, wedge product $\wedge$, closed and exact forms, Poincaré Lemma;
-- Orientability, integration of forms, generalized Stokes' Theorem $\int_{\partial M} \omega = \int_M d\omega$;
-- Riemannian metrics, Levi-Civita connection, geodesics, curvature tensors;
-- Lie groups ($GL(n), SO(n), SE(3)$), Lie algebras ($\mathfrak{gl}(n), \mathfrak{so}(n)$), exponential map $\exp: \mathfrak{g} \to G$, adjoint representation.
+- Holomorphic functions, Cauchy-Riemann equations $\partial f / \partial \bar{z} = 0$, Wirtinger derivatives;
+- Conformal mappings, Möbius transformations $PSL(2, \mathbb{C})$;
+- Cauchy's integral theorem, Cauchy's integral formula, Morera's theorem, Liouville's theorem;
+- Power series, Laurent series, isolated singularities, residue theorem, argument principle, Rouché's theorem;
+- Harmonic functions, maximum modulus principle, Dirichlet problem, Poisson integral formula;
+- Riemann mapping theorem, Schwarz lemma, hyperbolic metric on unit disk $\mathbb{D}$;
+- Several complex variables, Cauchy-Riemann equations in $\mathbb{C}^n$, Hartogs' extension theorem, domains of holomorphy;
+- Riemann surfaces as 1D complex manifolds, holomorphic 1-forms, genus, Euler characteristic, Riemann-Roch theorem.
 
 ---
 

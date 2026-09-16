@@ -1,0 +1,67 @@
+name: MAPEOGEO v0.18 Differential Geometry & Lie Groups Expansion
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main, agent/math-expansion-v0-18, agent/math-expansion-v0-17]
+    paths:
+      - "data/**"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/diffgeom-expansion-v0-18.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "formal/**"
+      - "evidence/**"
+      - "scripts/**"
+      - "tests/**"
+      - ".github/workflows/diffgeom-expansion-v0-18.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  diffgeom-expansion-v0-18:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements-map-goal-v0-7.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pymupdf pytest
+
+      - name: Python compilation checks
+        run: |
+          python -m py_compile scripts/import_diffgeom_v0_18.py
+          python -m py_compile scripts/generate_alignments_v0_18.py
+          python -m py_compile scripts/diffgeom_intake_v0_18.py
+          python -m py_compile scripts/reconstruct_pipeline.py
+          python -m py_compile tests/test_diffgeom_expansion_v0_18.py
+
+      - name: Reconstruct mathematical dependency chain through v0.18
+        run: |
+          python scripts/reconstruct_pipeline.py --target-stage v0.18
+
+      - name: Run Pytest test suite
+        run: |
+          pytest tests/test_measure_expansion_v0_17.py tests/test_diffgeom_expansion_v0_18.py -v
+
+      - name: Upload v0.18 Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-v0-18-diffgeom-expansion-artifacts
+          path: artifacts/diffgeom_v0_18/

@@ -1,0 +1,66 @@
+{
+  "stage": "v0.18",
+  "total_nodes": 3007,
+  "total_edges": 25880,
+  "N_source_total": 1891,
+  "N_source_breakdown": {
+    "gallier_quaintance_SA": 1360,
+    "axler_ladr4e_SB": 235,
+    "boyd_vmls_SC": 81,
+    "boyd_cvx_SD": 84,
+    "billingsley_SE": 64,
+    "lee_diffgeom_SF": 67,
+    "disjoint_partition_sum": 1891,
+    "disjoint_partition_status": "EXACT_EQUALITY"
+  },
+  "N_section_anchors_total": 5,
+  "N_canonical_total": 205,
+  "multi_source_convergence": {
+    "two_source_canonical_objects": 131,
+    "three_source_canonical_objects": 72,
+    "four_source_canonical_objects": 32,
+    "five_source_canonical_objects": 12,
+    "six_source_canonical_objects": 1,
+    "two_source_coverage_pct": 63.9,
+    "three_source_coverage_pct": 35.1,
+    "four_source_coverage_pct": 15.6,
+    "five_source_coverage_pct": 5.9,
+    "six_source_coverage_pct": 0.5
+  },
+  "representation_diversity": {
+    "average_richness_r_bar": 3.141,
+    "modalities_distribution": {
+      "abstract": 147,
+      "algebraic": 140,
+      "geometric": 137,
+      "computational": 101,
+      "applied": 57,
+      "formal": 9
+    }
+  },
+  "candidate_views": {
+    "EO_ONLY_DIRECT": 659,
+    "GEO_ONLY_DIRECT": 181,
+    "DUAL_DIRECT": 1174,
+    "THEORETIC_DIRECT": 61
+  },
+  "domains_count": 7,
+  "domains_list": [
+    "Applied Linear Algebra",
+    "Convex Analysis & Optimization",
+    "Differential Calculus & Real Analysis",
+    "Differential Geometry & Lie Groups",
+    "Linear Algebra",
+    "Measure Theory & Probability",
+    "Topology & Metric Spaces"
+  ],
+  "edges_summary": {
+    "SAME_SEMANTICS": 533,
+    "SCOPED_OVERLAP": 373,
+    "RELATED_TO": 6,
+    "total_typed_cross_bridges": 912,
+    "REPRESENTS": 748,
+    "PROOF_DEPENDENCY": 94,
+    "other_edges": 24126
+  }
+}

@@ -61,8 +61,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain")
     parser.add_argument(
         "--target-stage",
-        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17"],
-        default="v0.17",
+        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18"],
+        default="v0.18",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
     parser.add_argument("--from-scratch", action="store_true", help="Re-derive historical v0.6-v0.11 stages from raw source PDF")
@@ -317,6 +317,28 @@ def main() -> int:
             str(ROOT / "formal" / "cross_source_alignments_v0_17.json"),
             "--out-dir",
             str(ROOT / "artifacts" / "measure_v0_17"),
+        ],
+    )
+    if args.target_stage == "v0.17":
+        total_time = time.time() - t_start
+        print("==========================================================")
+        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
+        print("==========================================================")
+        return 0
+
+    # Stage v0.18: Differential Geometry, Lie Groups & Smooth Manifolds Expansion
+    v017_graph_path = ROOT / "artifacts" / "measure_v0_17" / "mapeogeo_v0_17_graph.json.gz"
+    run_stage(
+        "v0.18 Differential Geometry, Lie Groups & Smooth Manifolds Expansion",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "diffgeom_intake_v0_18.py"),
+            "--base-graph",
+            str(v017_graph_path),
+            "--alignments",
+            str(ROOT / "formal" / "cross_source_alignments_v0_18.json"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "diffgeom_v0_18"),
         ],
     )
 
