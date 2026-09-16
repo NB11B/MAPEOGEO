@@ -16,6 +16,16 @@ def _calibrated_model():
     return corpus, registry, traces, CompatibilityModel.fit(corpus["CALIBRATION"], traces, registry)
 
 
+def _blind_input_types(visible):
+    return replace(
+        visible,
+        inputs={
+            key: replace(artifact, semantic_type="BLINDED_INPUT_TYPE")
+            for key, artifact in visible.inputs.items()
+        },
+    )
+
+
 def test_inferred_model_never_reads_sealed_goals():
     corpus, _, _, model = _calibrated_model()
     assert not model.goal_ids & {g.goal_id for g in corpus["SEALED"]}
@@ -53,18 +63,29 @@ def test_inferred_mode_transfers_across_exact_symbolic_numeric():
 def test_inferred_mode_can_solve_with_input_semantic_types_blinded():
     _, registry, _, model = _calibrated_model()
     visible = goals_for("SEALED", "G8")[0].solver_visible()
-    blinded = replace(
-        visible,
-        inputs={
-            key: replace(artifact, semantic_type="BLINDED_INPUT_TYPE")
-            for key, artifact in visible.inputs.items()
-        },
-    )
+    blinded = _blind_input_types(visible)
     explicit = solve(blinded, registry, typing_mode="EXPLICIT")
     inferred = solve(blinded, registry, typing_mode="INFERRED", compatibility_model=model)
     assert explicit.final_verdict == "NOT_ESTABLISHED"
     assert inferred.final_verdict == "PASS"
     assert "NUMERIC_RELATION_FIT" in inferred.operator_path
+
+
+def test_inferred_mode_solves_each_family_with_all_input_types_blinded():
+    _, registry, _, model = _calibrated_model()
+    failures = {}
+    for index in range(1, 13):
+        family = f"G{index}"
+        visible = goals_for("SEALED", family)[0].solver_visible()
+        trace = solve(
+            _blind_input_types(visible),
+            registry,
+            typing_mode="INFERRED",
+            compatibility_model=model,
+        )
+        if trace.final_verdict != "PASS":
+            failures[family] = (trace.final_verdict, trace.failure_reason, trace.operator_path)
+    assert failures == {}
 
 
 def test_hybrid_mode_preserves_hard_compatibility_barrier():
