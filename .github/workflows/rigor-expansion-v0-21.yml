@@ -6,10 +6,11 @@ on:
     branches: [agent/rigor-first-expansion-v0-21]
     paths:
       - "formal/source_registry_v0_21.json"
-      - "formal/source_declarations_v0_21.json"
+      - "formal/source_declarations_v0_21.json.gz"
       - "scripts/source_registry_v0_21.py"
       - "scripts/structured_source_parsers_v0_21.py"
       - "scripts/source_admission_v0_21.py"
+      - "scripts/freeze_v0_21_admission.py"
       - "scripts/rigor_expansion_v0_21.py"
       - "scripts/reconstruct_pipeline.py"
       - "tests/test_*v0_21.py"
@@ -40,6 +41,7 @@ jobs:
           tests/test_structured_source_parsers_v0_21.py
           tests/test_source_admission_v0_21.py
           tests/test_rigor_expansion_v0_21.py
+          tests/test_freeze_v0_21_admission.py
           -q
       - name: Verify real pinned upstream sources
         env:
