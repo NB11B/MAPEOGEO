@@ -148,7 +148,7 @@ def integrate_quarantined_sources(graph: dict, specs, metadata_rows: list[dict])
 
 def build_v0_21_graph(base_graph: dict, registry_path: Path, declarations_path: Path) -> dict:
     specs = load_source_registry(registry_path)
-    payload = json.loads(declarations_path.read_text(encoding="utf-8"))
+    payload = _load_json_or_gz(declarations_path)
     if payload.get("schema_version") != "v0.21":
         raise ValueError("v0.21 declaration manifest schema mismatch")
     rows = payload.get("declarations")
@@ -172,7 +172,7 @@ def main() -> int:
     parser.add_argument(
         "--declarations",
         type=Path,
-        default=ROOT / "formal" / "source_declarations_v0_21.json",
+        default=ROOT / "formal" / "source_declarations_v0_21.json.gz",
     )
     parser.add_argument(
         "--out",
