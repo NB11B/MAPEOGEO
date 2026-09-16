@@ -89,6 +89,14 @@ def test_alignments_schema_v0_17():
 def test_measure_intake_pipeline(tmp_path: Path):
     """Integration test for full v0.17 expansion."""
     base_graph_path = ROOT / "artifacts" / "topology_v0_16" / "mapeogeo_v0_16_graph.json.gz"
+    if not base_graph_path.exists():
+        import subprocess, sys
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "reconstruct_pipeline.py"), "--target-stage", "v0.16"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
     alignments_path = ROOT / "formal" / "cross_source_alignments_v0_17.json"
     out_dir = tmp_path / "measure_v0_17"
 

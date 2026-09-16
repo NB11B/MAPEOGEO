@@ -89,6 +89,14 @@ def test_alignments_schema_v0_18():
 def test_diffgeom_intake_pipeline(tmp_path: Path):
     """Integration test for full v0.18 expansion."""
     base_graph_path = ROOT / "artifacts" / "measure_v0_17" / "mapeogeo_v0_17_graph.json.gz"
+    if not base_graph_path.exists():
+        import subprocess, sys
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "reconstruct_pipeline.py"), "--target-stage", "v0.17"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
     alignments_path = ROOT / "formal" / "cross_source_alignments_v0_18.json"
     out_dir = tmp_path / "diffgeom_v0_18"
 

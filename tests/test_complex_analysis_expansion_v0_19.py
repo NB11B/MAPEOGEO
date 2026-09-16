@@ -103,6 +103,14 @@ def test_alignments_schema_v0_19():
 def test_complex_analysis_intake_pipeline(tmp_path: Path):
     """Integration test for full v0.19 intake pipeline."""
     base_graph_path = ROOT / "artifacts" / "diffgeom_v0_18" / "mapeogeo_v0_18_graph.json.gz"
+    if not base_graph_path.exists():
+        import subprocess, sys
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "reconstruct_pipeline.py"), "--target-stage", "v0.18"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
     alignments_path = ROOT / "formal" / "cross_source_alignments_v0_19.json"
     out_dir = tmp_path / "complex_analysis_v0_19"
 

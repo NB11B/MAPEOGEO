@@ -121,6 +121,14 @@ def test_foundation_alignments_schema():
 def test_foundation_intake_pipeline(tmp_path: Path):
     """Integration test for full Foundation Backfill pipeline."""
     base_graph_path = ROOT / "artifacts" / "complex_analysis_v0_19" / "mapeogeo_v0_19_graph.json.gz"
+    if not base_graph_path.exists():
+        import subprocess, sys
+        subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "reconstruct_pipeline.py"), "--target-stage", "v0.19"],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        )
     alignments_path = ROOT / "formal" / "foundation_alignments.json"
     out_dir = tmp_path / "foundation_backfill"
     with gzip.open(base_graph_path, "rt", encoding="utf-8") as f:
