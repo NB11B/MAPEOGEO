@@ -67,30 +67,31 @@ shared canonical neighborhood != proof of equivalence
 
 ## Current mathematical coverage snapshot
 
-The accepted expansion baseline on `main` is at **v0.15.2** (Confirmatory Real Analysis & Differential Calculus). The latest replay graph reports:
+The accepted expansion baseline on `main` is at **v0.16** (Topology, Metric Spaces & Functional Structure Expansion). The latest replay graph reports:
 
-| Metric | Accepted v0.15.2 Baseline |
+| Metric | Accepted v0.16 Baseline |
 |---|---:|
 | Total Source Declarations | **1,760** |
 | Gallier & Quaintance (`S_A`) | **1,360** |
 | Axler LADR4e (`S_B`) | **235** |
 | Boyd & Vandenberghe VMLS (`S_C`) | **81** |
 | Boyd & Vandenberghe CVX (`S_D`) | **84** |
-| Canonical mathematical objects | **109** |
-| Objects with >=2-source support | **53** (48.6%) |
-| Objects with >=3-source support | **37** (33.9%) |
-| Objects with 4-source support | **15** (13.8%) |
-| Mathematical domains | **4** |
+| Source Section Anchors (segregated) | **5** |
+| Canonical mathematical objects | **151** |
+| Objects with >=2-source support | **91** (60.3%) |
+| Objects with >=3-source support | **49** (32.5%) |
+| Objects with 4-source support | **22** (14.6%) |
+| Mathematical domains | **5** |
 | Candidate EO views | **571** |
 | Candidate GEO views | **145** |
 | Candidate Dual views | **1,131** |
-| Inherited formal links | **7** |
-| Average representation richness `r_bar` | **3.382** |
-| Total graph edges | **24,889** |
-| `SAME_SEMANTICS` bridges | **369** |
-| `SCOPED_OVERLAP` bridges | **108** |
+| Inherited formal links | **8** |
+| Average representation richness `r_bar` | **3.206** |
+| Total graph edges | **25,217** |
+| `SAME_SEMANTICS` bridges | **407** |
+| `SCOPED_OVERLAP` bridges | **234** |
 | `RELATED_TO` bridges | **6** |
-| Total typed cross-source bridges | **483** |
+| Total typed cross-source bridges | **647** |
 
 Current domains are:
 
@@ -98,6 +99,7 @@ Current domains are:
 2. Applied Linear Algebra
 3. Convex Analysis & Optimization
 4. Differential Calculus & Real Analysis
+5. Topology & Metric Spaces
 
 Representation richness is tracked as
 
@@ -139,14 +141,14 @@ v0.15.2 Analysis / Calculus
 v0.16 Topology, Metric Spaces & Functional Structure
 ```
 
-Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~8 seconds locally and ~39 seconds on GitHub Actions runners with strict fail-closed kernel checking:
+Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~12 seconds locally and ~40 seconds on GitHub Actions runners with strict fail-closed checking:
 
 ```text
-MATHEMATICAL COVERAGE:          PASS (1,760 declarations, 109 canonical objects, 4 domains)
-CLEAN REPLAY OF CURRENT CHAIN:  PASS (~39s in GitHub Actions)
-CROSS-SOURCE STRUCTURE:         PASS (483 bridges across 4 sources)
+MATHEMATICAL COVERAGE:          PASS (1,760 declarations, 5 section anchors, 151 canonical objects, 5 domains)
+CLEAN REPLAY OF CURRENT CHAIN:  PASS (~40s in GitHub Actions)
+CROSS-SOURCE STRUCTURE:         PASS (647 bridges across 4 sources)
 SOURCE-IDENTITY PRESERVATION:   PASS (0 drift; sealed v0.11 checkpoint + audited amendments)
-FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.15.2 green on main)
+FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.16 green on main)
 ```
 
 ---
@@ -590,10 +592,8 @@ AVERAGE REPRESENTATION RICHNESS: 3.382
 SAME_SEMANTICS: 367
 SCOPED_OVERLAP: 108
 RELATED_TO: 6
-TOTAL CROSS-SOURCE BRIDGES: 481
+TOTAL CROSS-SOURCE BRIDGES: 483
 ```
-
-The workflow passes its own preregistered engineering/provenance gates, but the later audit identified that the temporary Gallier table used by the expansion chain does not preserve the frozen source hashes established earlier. For that reason, v0.15.2 is the current **coverage and clean-replay baseline**, while final source-identity acceptance awaits one baseline correction.
 
 See:
 
@@ -605,34 +605,57 @@ See:
 
 ---
 
-# Reproduction
+## v0.16 — Topology, Metric Spaces & Functional Structure Expansion
 
-## Trusted Gallier source pipeline
+v0.16 established the fundamental connective topological, metric, and functional bridge linking Linear Algebra, Real Analysis, Convexity, and Geometry. 
 
-The accepted source-bound Gallier lineage uses the real source PDF transiently rather than reconstructing declarations from labels:
+Section anchors are explicitly typed as `SOURCE_SECTION_ANCHOR` and segregated from declaration-level source declarations, preserving the exact disjoint partition sum $1360 + 235 + 81 + 84 = 1760$. Bridges to/from section anchors are typed as `SCOPED_OVERLAP`, preventing synthetic inflation of declaration-level `SAME_SEMANTICS`.
 
 ```text
-Gallier/Quaintance PDF
-  -> source ingestion / declaration extraction
-  -> v0.6 independent EO/GEO representation
-  -> v0.7 MAP-goal graph
-  -> v0.8 formal bridge
-  -> v0.9 proof-path graph
+SOURCE DECLARATIONS: 1,760
+SOURCE SECTION ANCHORS: 5 (segregated)
+CANONICAL OBJECTS: 151
+2-SOURCE OBJECTS: 91
+3-SOURCE OBJECTS: 49
+4-SOURCE OBJECTS: 22
+DOMAINS: 5
+AVERAGE REPRESENTATION RICHNESS: 3.206
+SAME_SEMANTICS: 407
+SCOPED_OVERLAP: 234
+RELATED_TO: 6
+TOTAL CROSS-SOURCE BRIDGES: 647
+TOTAL GRAPH EDGES: 25,217
 ```
 
-The v0.9 GitHub workflow documents this path and downloads the source transiently before deleting it.
+See:
 
-The intended expansion chain is therefore:
+- `docs/V0_16_TOPOLOGY_SPEC.md`
+- `evidence/v0_16_scientific_results.json`
+- `artifacts/topology_v0_16/topology_expansion_dashboard.json`
+- `.github/workflows/topology-expansion-v0-16.yml`
+
+---
+
+# Reproduction
+
+## Trusted Source Pipeline
+
+Reconstruction proceeds cleanly from the sealed historical v0.11 substrate:
 
 ```text
-accepted source-bound Gallier graph
+SEALED v0.11 TRUSTED SUBSTRATE
   -> v0.12 Axler
   -> v0.13 VMLS
   -> v0.14 Convex Optimization
-  -> v0.15+ Analysis / Differential Calculus
+  -> v0.15.2 Analysis / Differential Calculus
+  -> v0.16 Topology, Metric Spaces & Functional Structure
 ```
 
-The current `scripts/reconstruct_pipeline.py` still needs the one baseline correction described above before it should be treated as the final source-identity-preserving reproducer.
+Execute full clean reconstruction with:
+
+```bash
+python scripts/reconstruct_pipeline.py --target-stage v0.16
+```
 
 ## Formal library
 
@@ -671,10 +694,10 @@ MAPEOGEO has demonstrated:
 - fail-closed intake for selected graph pinch points without artificial GEO inflation;
 - canonical mathematical objects shared across independent textbooks and presentation styles;
 - typed cross-source relationships separating identity, scoped overlap, and related-but-not-same structure;
-- tri-source and quad-source convergence across abstract, geometric, computational, and optimization presentations;
+- multi-source convergence across abstract, geometric, computational, and optimization presentations (91 2-source, 49 3-source, 22 4-source);
 - representation-diversity tracking across abstract, algebraic, geometric, computational, formal, and applied modalities;
-- a clean-room reproducible four-source expansion pipeline at the engineering level;
-- a 109-object cross-domain map spanning linear algebra, applied linear algebra, convex optimization, and differential calculus / real analysis.
+- clean-room reproducible five-domain expansion pipeline running in ~12 seconds;
+- a 151-object cross-domain map spanning linear algebra, applied linear algebra, convex optimization, differential calculus / real analysis, and topology / metric spaces.
 
 ---
 
@@ -690,23 +713,31 @@ MAPEOGEO has **not** established:
 - `SAME_SEMANTICS` from invariant equality alone;
 - automatic semantic discovery at a reliability level that replaces curated/source-grounded correspondence;
 - kernel verification for every `FORMAL_LINKED` object;
-- a final source-identity seal without strict fail-closed kernel checks and verified source hashes.
+- declaration-level equality for section-level topological anchors without extracted source statements.
 
 ---
 
-# Active direction: v0.16 Topology, Metric Spaces & Functional Structure
+# Active direction: v0.17 Measure, Integration, and Probability
 
-With the v0.11 historical substrate sealed and the v0.15.2 quad-source baseline verified and accepted, the project advances to **v0.16**:
+With the v0.16 five-domain topological and functional baseline settled and accepted, the project advances to **v0.17**:
 
-$$\boxed{\text{v0.16 — Topology, Metric Spaces, and Functional Structure}}$$
+$$\boxed{\text{v0.17 — Measure, Integration, and Probability}}$$
 
-This wave builds the fundamental connective bridge linking Linear Algebra, Real Analysis, Convexity, and Geometry:
+This wave incorporates a domain-native dedicated **Source E** (e.g., Ash & Doléans-Dade / Billingsley / Folland / Rosenthal / Tao) to build the measure-theoretic, Lebesgue integration, $L^p$ space, and probability foundation:
 
 $$
-\text{norm} \longrightarrow \text{metric} \longrightarrow \text{open/closed sets} \longrightarrow \text{continuity} \longrightarrow \text{compactness/completeness} \longrightarrow \text{function spaces}
+\sigma\text{-algebra} \longrightarrow \text{measure space} \longrightarrow \text{measurable function} \longrightarrow \text{Lebesgue integral} \longrightarrow L^p\text{ / Hilbert spaces} \longrightarrow \text{probability space}
 $$
 
-The canonical expansion covers metric spaces, neighborhoods, open/closed sets, closure/interior/boundary, relative interior, convergence, Cauchy sequences, completeness, compactness, sequential compactness, connectedness, continuity, uniform continuity, homeomorphisms, product/quotient constructions, normed spaces, Banach/Hilbert spaces, bounded linear operators, operator norms, dual norms, and fixed-point theorems.
+The canonical expansion targets:
+- $\sigma$-algebras, Borel sets, measurable spaces, Dynkin $\pi$-$\lambda$ systems;
+- Outer measures, Carathéodory extension theorem, Lebesgue measure;
+- Measurable maps, simple functions, convergence in measure, almost everywhere properties;
+- Monotone convergence theorem, Fatou's lemma, Dominated convergence theorem;
+- Product measures, Fubini-Tonelli theorems;
+- $L^p$ spaces, Hölder and Minkowski inequalities, completeness ($L^p$ as Banach/Hilbert spaces);
+- Radon-Nikodym derivatives, signed measures, Hahn/Jordan decompositions;
+- Probability triples $(\Omega, \mathcal{F}, \mathbb{P})$, random variables, expectations, conditioning, independence, Law of Large Numbers, Central Limit Theorem.
 
 ---
 

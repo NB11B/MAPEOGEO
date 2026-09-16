@@ -2363,7 +2363,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_1",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2470,7 +2470,7 @@
         {
           "source": "srcdecl:gallier:chapter:48",
           "corpus": "GALLIER",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
         {
           "source": "srcdecl:axler:definition:6_4",
@@ -2535,7 +2535,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
         {
           "source": "srcdecl:vmls:section:3_2",
@@ -2573,7 +2573,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_1",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2632,7 +2632,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2664,7 +2664,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2696,7 +2696,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2724,7 +2724,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2815,7 +2815,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2875,7 +2875,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -2899,7 +2899,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
         {
           "source": "srcdecl:cvx:section:11_9",
@@ -2986,7 +2986,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_2",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -3117,7 +3117,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_1",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
         {
           "source": "srcdecl:vmls:section:6_3",
@@ -3151,7 +3151,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_1",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
         {
           "source": "srcdecl:cvx:section:6_1",
@@ -3310,7 +3310,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_1",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -3349,7 +3349,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_1",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         }
       ]
     },
@@ -3519,7 +3519,7 @@
         {
           "source": "srcdecl:cvx:appendix:A_3",
           "corpus": "CVX",
-          "status": "CROSS_SOURCE_SAME"
+          "status": "CROSS_SOURCE_SCOPED_OVERLAP"
         },
         {
           "source": "srcdecl:cvx:section:11_9",

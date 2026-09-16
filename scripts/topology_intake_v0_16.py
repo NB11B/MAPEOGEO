@@ -30,8 +30,8 @@ sys.path.insert(0, str(ROOT))
 
 from scripts.import_topology_v0_16 import (
     FORBIDDEN_PERSISTED_KEYS,
-    TopologyDeclaration,
-    generate_supplementary_topology_declarations,
+    TopologySectionAnchor,
+    generate_supplementary_topology_anchors,
 )
 
 STAGE = "v0.16"
@@ -89,36 +89,37 @@ def add_edge(edges: list[dict], edge_ids: set[str], edge: dict) -> bool:
     return False
 
 
-def ingest_topology_declarations(
+def ingest_topology_anchors(
     graph: dict[str, Any],
-    declarations: list[TopologyDeclaration],
+    anchors: list[TopologySectionAnchor],
 ) -> dict[str, Any]:
     nodes: list[dict] = graph.setdefault("nodes", [])
     edges: list[dict] = graph.setdefault("edges", [])
     by_id = {n["id"]: n for n in nodes}
     edge_ids = {e["id"] for e in edges if "id" in e}
 
-    for decl in declarations:
-        corpus = "GALLIER" if decl.source_id == GALLIER_SOURCE_ID else "CVX"
+    for anch in anchors:
+        corpus = "GALLIER" if anch.source_id == GALLIER_SOURCE_ID else "CVX"
         node_dict = {
-            "id": decl.node_id,
-            "type": "SOURCE_DECLARATION",
-            "label": decl.label,
+            "id": anch.node_id,
+            "type": "SOURCE_SECTION_ANCHOR",
+            "label": anch.label,
             "attributes": {
-                "source_id": decl.source_id,
+                "source_id": anch.source_id,
                 "corpus": corpus,
-                "decl_type": decl.decl_type,
-                "chapter_section": decl.chapter_section,
-                "page": decl.page,
-                "statement_sha256": decl.statement_sha256,
-                "statement_chars": decl.char_count,
-                "direct_status": decl.representation_profile.get("direct_status", "THEORETIC_DIRECT"),
-                "eo_tags": decl.representation_profile.get("eo_tags", []),
-                "geo_tags": decl.representation_profile.get("geo_tags", []),
-                "representation_kinds": decl.representation_profile.get("representation_kinds", []),
-                "diversity_count": decl.representation_profile.get("diversity_count", 1),
-                "structural_refs": decl.structural_refs,
+                "decl_type": anch.decl_type,
+                "chapter_section": anch.chapter_section,
+                "page": anch.page,
+                "statement_sha256": anch.statement_sha256,
+                "statement_chars": anch.char_count,
+                "direct_status": anch.representation_profile.get("direct_status", "THEORETIC_DIRECT"),
+                "eo_tags": anch.representation_profile.get("eo_tags", []),
+                "geo_tags": anch.representation_profile.get("geo_tags", []),
+                "representation_kinds": anch.representation_profile.get("representation_kinds", []),
+                "diversity_count": anch.representation_profile.get("diversity_count", 1),
+                "structural_refs": anch.structural_refs,
                 "stage": STAGE,
+                "is_section_anchor": True,
             },
         }
         add_node(nodes, by_id, node_dict)
@@ -301,7 +302,10 @@ def ingest_v0_16_alignments(
                         continue
 
                     if stat_a == "CROSS_SOURCE_SAME" and stat_b == "CROSS_SOURCE_SAME":
-                        edge_type = "SAME_SEMANTICS"
+                        if by_id[src_a].get("type") == "SOURCE_SECTION_ANCHOR" or by_id[src_b].get("type") == "SOURCE_SECTION_ANCHOR":
+                            edge_type = "SCOPED_OVERLAP"
+                        else:
+                            edge_type = "SAME_SEMANTICS"
                     elif stat_a == "CROSS_SOURCE_RELATED_NOT_SAME" or stat_b == "CROSS_SOURCE_RELATED_NOT_SAME":
                         edge_type = "RELATED_TO"
                     elif stat_a == "CROSS_SOURCE_SCOPED_OVERLAP" or stat_b == "CROSS_SOURCE_SCOPED_OVERLAP":
@@ -351,7 +355,13 @@ def compute_v0_16_dashboard(
     nodes = graph.get("nodes", [])
     edges = graph.get("edges", [])
 
-    source_decls = [n for n in nodes if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT") and n["id"].startswith("srcdecl:")]
+    source_decls = [
+        n for n in nodes
+        if n.get("type") in ("SOURCE_DECLARATION", "STATEMENT")
+        and n["id"].startswith("srcdecl:")
+        and n.get("type") != "SOURCE_SECTION_ANCHOR"
+    ]
+    section_anchors = [n for n in nodes if n.get("type") == "SOURCE_SECTION_ANCHOR"]
     canonical_objs = [n for n in nodes if n.get("type") == "CANONICAL_OBJECT"]
 
     # Strict disjoint partitioning by corpus namespace
@@ -391,6 +401,7 @@ def compute_v0_16_dashboard(
     return {
         "stage": STAGE,
         "N_source_total": len(source_decls),
+        "N_section_anchors_total": len(section_anchors),
         "source_breakdown": {
             "S_A_gallier": len(gallier_decls),
             "S_B_axler": len(axler_decls),
@@ -442,10 +453,10 @@ def run_topology_intake_v0_16(
     print(f"Loading base graph from {base_graph_path}...")
     graph = load_json_or_gz(base_graph_path)
 
-    # 2. Ingest supplementary topology declarations
-    print("Ingesting supplementary topology declarations...")
-    decls = generate_supplementary_topology_declarations()
-    graph = ingest_topology_declarations(graph, decls)
+    # 2. Ingest supplementary topology section anchors
+    print("Ingesting supplementary topology section anchors...")
+    anchors = generate_supplementary_topology_anchors()
+    graph = ingest_topology_anchors(graph, anchors)
 
     # 3. Ingest alignments and build canonical objects / semantic bridges
     print(f"Ingesting alignments from {alignments_path}...")

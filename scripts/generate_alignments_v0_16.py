@@ -35,7 +35,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:axler:definition:6_7", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:axler:theorem:6_9", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:vmls:section:3_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -76,7 +76,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
         "alignments": [
             {"source": "srcdecl:definition:48_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:theorem:48_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:gallier:chapter:48", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:gallier:chapter:48", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
             {"source": "srcdecl:axler:definition:6_4", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
@@ -102,7 +102,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:37_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_2", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
             {"source": "srcdecl:vmls:section:3_2", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
@@ -116,7 +116,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:37_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:axler:definition:6_7", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
             {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -141,7 +141,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:37_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_5", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -154,7 +154,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:37_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -167,7 +167,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:37_3", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -179,7 +179,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
         "alignments": [
             {"source": "srcdecl:definition:44_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:cvx:section:2_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -217,7 +217,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:37_7", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_24", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_28", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -242,7 +242,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
         "alignments": [
             {"source": "srcdecl:proposition:37_25", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_26", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -253,7 +253,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
         "representation_kinds": ["abstract", "geometric", "computational", "applied"],
         "alignments": [
             {"source": "srcdecl:proposition:37_32", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
             {"source": "srcdecl:cvx:section:11_9", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
@@ -290,7 +290,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:37_4", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_9", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_10", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_2", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -342,7 +342,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:proposition:9_8", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:37_56", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:axler:theorem:7_20", "corpus": "AXLER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
             {"source": "srcdecl:vmls:section:6_3", "corpus": "VMLS", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
@@ -355,7 +355,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
         "alignments": [
             {"source": "srcdecl:definition:11_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:proposition:9_8", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
             {"source": "srcdecl:cvx:section:6_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
@@ -412,7 +412,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:proposition:14_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:axler:theorem:6_14", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:vmls:section:3_4", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -426,7 +426,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
             {"source": "srcdecl:definition:9_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:axler:theorem:6_17", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:vmls:section:3_1", "corpus": "VMLS", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"}
+            {"source": "srcdecl:cvx:appendix:A_1", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
     {
@@ -499,7 +499,7 @@ TOPOLOGY_CANONICAL_OBJECTS = [
         "representation_kinds": ["abstract", "geometric", "applied"],
         "alignments": [
             {"source": "srcdecl:proposition:40_1", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
-            {"source": "srcdecl:cvx:appendix:A_3", "corpus": "CVX", "status": "CROSS_SOURCE_SAME"},
+            {"source": "srcdecl:cvx:appendix:A_3", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"},
             {"source": "srcdecl:cvx:section:11_9", "corpus": "CVX", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },

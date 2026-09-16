@@ -11,21 +11,21 @@ ROOT = Path(__file__).resolve().parents[1]
 
 from scripts.import_topology_v0_16 import (
     FORBIDDEN_PERSISTED_KEYS,
-    TopologyDeclaration,
+    TopologySectionAnchor,
     detect_topology_representation_profile,
-    generate_supplementary_topology_declarations,
+    generate_supplementary_topology_anchors,
 )
 from scripts.topology_intake_v0_16 import (
     compute_v0_16_dashboard,
-    ingest_topology_declarations,
+    ingest_topology_anchors,
     ingest_v0_16_alignments,
     run_topology_intake_v0_16,
 )
 
 
-def test_topology_declaration_dataclass():
-    """Verify zero-prose persistence policy on TopologyDeclaration."""
-    decl = TopologyDeclaration(
+def test_topology_section_anchor_dataclass():
+    """Verify zero-prose persistence policy on TopologySectionAnchor."""
+    anch = TopologySectionAnchor(
         node_id="srcdecl:cvx:appendix:A_1",
         source_id="BOYD_VANDENBERGHE_CVX_2004",
         label="CVX Appendix A.1 Norms",
@@ -37,7 +37,7 @@ def test_topology_declaration_dataclass():
         structural_refs=[],
         representation_profile={"direct_status": "DUAL_DIRECT"},
     )
-    d = decl.to_dict()
+    d = anch.to_dict()
     for forbidden in FORBIDDEN_PERSISTED_KEYS:
         assert forbidden not in d
 

@@ -73,7 +73,7 @@ REPRESENTATION_KINDS = {
 
 
 @dataclass
-class TopologyDeclaration:
+class TopologySectionAnchor:
     node_id: str
     source_id: str
     label: str
@@ -84,6 +84,7 @@ class TopologyDeclaration:
     char_count: int
     structural_refs: list[str] = field(default_factory=list)
     representation_profile: dict[str, Any] = field(default_factory=dict)
+    node_type: str = "SOURCE_SECTION_ANCHOR"
 
     def to_dict(self) -> dict[str, Any]:
         d = asdict(self)
@@ -119,19 +120,19 @@ def detect_topology_representation_profile(text: str, title: str) -> dict[str, A
     }
 
 
-def generate_supplementary_topology_declarations() -> list[TopologyDeclaration]:
-    """Provides supplementary declarations for topology, metric spaces, and functional analysis."""
+def generate_supplementary_topology_anchors() -> list[TopologySectionAnchor]:
+    """Provides supplementary section anchors for topology, metric spaces, and functional analysis."""
     data = [
-        # CVX Appendix A declarations for topology, norms, and analysis
+        # CVX Appendix A section anchors for topology, norms, and analysis
         ("srcdecl:cvx:appendix:A_1", "BOYD_VANDENBERGHE_CVX_2004", "CVX Appendix A.1 Norms, Vector Norms, Matrix Norms, and Dual Norms", "APPENDIX", "Appendix A", 633, ["operator_norm", "dual_norm", "metric_distance"], ["open_ball", "closed_ball"], ["abstract", "algebraic", "geometric", "computational"]),
         ("srcdecl:cvx:appendix:A_2", "BOYD_VANDENBERGHE_CVX_2004", "CVX Appendix A.2 Analysis: Open and Closed Sets, Interior, Boundary, Closure, Compact Sets, Continuity", "APPENDIX", "Appendix A", 637, ["bounded_linear_map"], ["open_set", "closed_set", "interior", "closure", "boundary", "compact_set"], ["abstract", "geometric"]),
         ("srcdecl:cvx:appendix:A_3", "BOYD_VANDENBERGHE_CVX_2004", "CVX Appendix A.3 Functions: Coercivity, Sublevel Sets, and Compactness", "APPENDIX", "Appendix A", 643, ["contraction_mapping"], ["compact_set", "closed_set"], ["abstract", "algebraic", "geometric", "applied"]),
         ("srcdecl:cvx:appendix:A_5", "BOYD_VANDENBERGHE_CVX_2004", "CVX Appendix A.5 Linear Algebra, Matrix Inverses, and Quadratic Forms", "APPENDIX", "Appendix A", 647, ["operator_norm", "inner_product_functional"], ["dual_cone"], ["abstract", "algebraic", "computational"]),
-        # Gallier chapter anchors for topology and functional analysis
+        # Gallier chapter anchor for Hilbert spaces and projection lemma
         ("srcdecl:gallier:chapter:48", "GALLIER_QUAINTANCE_2020", "Gallier Chapter 48 Basics of Hilbert Spaces and Projection Lemma", "CHAPTER", "Chapter 48", 1649, ["projection_operator", "riesz_functional", "adjoint_operator", "inner_product_functional"], ["closed_set", "hyperplane_separation"], ["abstract", "algebraic", "geometric", "formal"]),
     ]
 
-    decls: list[TopologyDeclaration] = []
+    anchors: list[TopologySectionAnchor] = []
     for nid, sid, label, dtype, chap, pno, eo_t, geo_t, kinds in data:
         raw_text = f"{label} in {chap}"
         h = hashlib.sha256(raw_text.encode("utf-8")).hexdigest()
@@ -143,8 +144,8 @@ def generate_supplementary_topology_declarations() -> list[TopologyDeclaration]:
             "representation_kinds": sorted(kinds),
             "diversity_count": len(kinds),
         }
-        decls.append(
-            TopologyDeclaration(
+        anchors.append(
+            TopologySectionAnchor(
                 node_id=nid,
                 source_id=sid,
                 label=label,
@@ -155,22 +156,23 @@ def generate_supplementary_topology_declarations() -> list[TopologyDeclaration]:
                 char_count=len(raw_text),
                 structural_refs=[],
                 representation_profile=profile,
+                node_type="SOURCE_SECTION_ANCHOR",
             )
         )
-    return decls
+    return anchors
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Extract Topology and Functional Analysis declarations for MAPEOGEO v0.16")
+    parser = argparse.ArgumentParser(description="Extract Topology and Functional Analysis section anchors for MAPEOGEO v0.16")
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
 
-    decls = generate_supplementary_topology_declarations()
-    print(f"Loaded {len(decls)} Topology & Functional Analysis declarations.")
+    anchors = generate_supplementary_topology_anchors()
+    print(f"Loaded {len(anchors)} Topology & Functional Analysis section anchors.")
     if args.out:
         args.out.parent.mkdir(parents=True, exist_ok=True)
         with open(args.out, "w", encoding="utf-8") as f:
-            json.dump([d.to_dict() for d in decls], f, indent=2)
+            json.dump([a.to_dict() for a in anchors], f, indent=2)
         print(f"Saved to {args.out}")
     return 0
 
