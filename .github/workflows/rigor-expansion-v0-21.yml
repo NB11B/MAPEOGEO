@@ -48,10 +48,19 @@ jobs:
           MAPEOGEO_RUN_NETWORK_SOURCE_TESTS: "1"
           V0_21_LIVE_REPORT: artifacts/rigor_v0_21/source_admission_live.json
         run: python -m pytest tests/test_v0_21_real_source_integration.py -q -s
-      - name: Upload live zero-prose source admission report
+      - name: Freeze exact zero-prose admission identities
+        run: >-
+          python scripts/freeze_v0_21_admission.py
+          artifacts/rigor_v0_21/source_admission_live.json
+          --declarations-out artifacts/rigor_v0_21/source_declarations_v0_21.json.gz
+          --evidence-out artifacts/rigor_v0_21/v0_21_source_admission_manifest.json
+      - name: Upload frozen v0.21 source admission artifacts
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: v0-21-source-admission-live
-          path: artifacts/rigor_v0_21/source_admission_live.json
-          if-no-files-found: ignore
+          name: v0-21-source-admission-frozen
+          path: |
+            artifacts/rigor_v0_21/source_admission_live.json
+            artifacts/rigor_v0_21/source_declarations_v0_21.json.gz
+            artifacts/rigor_v0_21/v0_21_source_admission_manifest.json
+          if-no-files-found: warn
