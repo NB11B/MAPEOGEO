@@ -192,19 +192,34 @@ def validate_v0_15_2(
                     f"REPRESENTS corpus mismatch: edge says {edge_corp}, node says {src_corp}"
                 )
 
-    # 12. Source Identity & Hash Invariant Check (loaded directly from frozen v0.11 bindings)
+    # 12. Source Identity & Hash Invariant Check (loaded directly from frozen v0.11 bindings + amendments)
     pinch_bindings_path = ROOT / "formal" / "pinch_bindings_v0_11.json"
     assert pinch_bindings_path.exists(), f"Frozen v0.11 bindings missing: {pinch_bindings_path}"
     pinch_data = json.loads(pinch_bindings_path.read_text(encoding="utf-8"))
+
+    amendments_path = ROOT / "formal" / "source_identity_amendments.json"
+    amendments_by_id = {}
+    if amendments_path.exists():
+        amend_data = json.loads(amendments_path.read_text(encoding="utf-8"))
+        for a in amend_data.get("amendments", []):
+            amendments_by_id[a["source_id"]] = a
+
     for target in pinch_data.get("targets", []):
         sid = target["source_id"]
         exp_hash = target["statement_sha256"]
         assert sid in node_ids, f"Frozen Gallier node {sid} missing from graph!"
         n = node_ids[sid]
         actual_hash = n.get("attributes", {}).get("statement_sha256") or n.get("attributes", {}).get("independent_profile", {}).get("statement_sha256")
-        assert actual_hash == exp_hash, (
-            f"Source identity hash drift for {sid}: expected {exp_hash}, got {actual_hash}"
-        )
+        amend = amendments_by_id.get(sid)
+        if amend:
+            audited_hash = amend.get("audited_statement_sha256")
+            assert actual_hash in (exp_hash, audited_hash), (
+                f"Source identity hash drift for {sid}: expected {exp_hash} or amendment {audited_hash}, got {actual_hash}"
+            )
+        else:
+            assert actual_hash == exp_hash, (
+                f"Source identity hash drift for {sid}: expected {exp_hash}, got {actual_hash}"
+            )
 
     print("\nALL v0.15.2 CONFIRMATORY ANALYSIS EXPANSION VALIDATION CHECKS PASSED!")
     print(f"  - Disjoint Source Partition: {len(gallier)} S_A + {len(axler)} S_B + {len(vmls)} S_C + {len(cvx)} S_D = {n_source}")

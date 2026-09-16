@@ -80,8 +80,8 @@ def main() -> int:
         )
         kernel_ok = proc.returncode == 0
     except (FileNotFoundError, OSError, subprocess.TimeoutExpired):
-        kernel_ok = args.allow_unverified_checker_pass
-        proc = subprocess.CompletedProcess([lake_cmd], 0 if kernel_ok else 1, stdout="", stderr="")
+        kernel_ok = False
+        proc = subprocess.CompletedProcess([lake_cmd], 1, stdout="", stderr="Lean process not found or timed out")
 
     try:
         version_proc = subprocess.run([lake_cmd, "env", "lean", "--version"], capture_output=True, text=True, check=False, timeout=10)
@@ -234,6 +234,10 @@ def main() -> int:
     (args.out_dir / "V0_8_SUMMARY.md").write_text(summary, encoding="utf-8")
 
     print(f"MAPEOGEO_V0_8: {status} hashes={sum(x['pass'] for x in hash_checks)}/{len(bindings)} kernel={'PASS' if kernel_ok else 'FAIL'} checker={args.independent_checker}:{args.independent_checker_status} certs={len(certificates)}/{len(bindings)} graph={len(nodes)}/{len(edges)}")
+    for check in hash_checks:
+        print(f"  - {check['source_id']}: pass={check['pass']} (actual={check['actual'][:12] if check['actual'] else None} exp={check['expected'][:12]})")
+    if not kernel_ok:
+        print(f"  - Lean kernel execution failed or lake not found (proc returncode={proc.returncode})")
     return 0 if status == "PASS" else 1
 
 

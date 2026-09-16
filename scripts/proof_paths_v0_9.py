@@ -139,8 +139,8 @@ def main() -> int:
         )
         kernel_ok = proc.returncode == 0
     except (FileNotFoundError, OSError, subprocess.TimeoutExpired):
-        kernel_ok = args.allow_unverified_checker_pass
-        proc = subprocess.CompletedProcess([lake_cmd], 0 if kernel_ok else 1, stdout="", stderr="")
+        kernel_ok = False
+        proc = subprocess.CompletedProcess([lake_cmd], 1, stdout="", stderr="Lean process not found or timed out")
 
     try:
         vproc = subprocess.run(
@@ -481,6 +481,18 @@ def main() -> int:
         f"support={len(support_certs)}/6 path={rank_status} wounds={len(wounds)} "
         f"pinch={','.join(x['source_id'] for x in pinch_quartet)} graph={len(nodes)}/{len(edges)}"
     )
+    print("  --- v0.9 Hash Checks ---")
+    for check in hash_checks:
+        print(f"  - {check['source_id']}: pass={check['pass']} (actual={check['actual'][:12] if check['actual'] else None} exp={check['expected'][:12]})")
+    if not kernel_ok:
+        print(f"  - Lean kernel check failed or lake not found (proc returncode={proc.returncode})")
+    for source, target in cfg["path_edges"]:
+        edge_pass = any(
+            e.get("type") == "DEPENDS_ON" and e.get("source") == source and e.get("target") == target
+            and e.get("attributes", {}).get("v0_9_path_status") != "REJECTED_REFERENCE_MISMATCH"
+            for e in edges
+        )
+        print(f"  - Path edge {source} -> {target}: pass={edge_pass}")
     return 0 if status == "PASS" else 1
 
 

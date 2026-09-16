@@ -5,6 +5,7 @@ on:
   push:
     branches: [main, agent/math-expansion-v0-15-2]
     paths:
+      - "data/**"
       - "formal/**"
       - "evidence/**"
       - "scripts/**"
@@ -15,6 +16,7 @@ on:
   pull_request:
     branches: [main]
     paths:
+      - "data/**"
       - "formal/**"
       - "evidence/**"
       - "scripts/**"

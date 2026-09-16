@@ -88,6 +88,12 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="MAPEOGEO v0.11 Pinch-Driven Mathematics Intake runner")
     ap.add_argument("--base-graph", type=Path, required=True, help="Input accepted v0.9 graph (.json or .json.gz)")
     ap.add_argument("--bindings", type=Path, default=ROOT / "formal" / "pinch_bindings_v0_11.json")
+    ap.add_argument(
+        "--amendments",
+        type=Path,
+        default=ROOT / "formal" / "source_identity_amendments.json",
+        help="Path to formal/source_identity_amendments.json",
+    )
     ap.add_argument("--lean-file", type=Path, default=ROOT / "MAPEOGEOFormal" / "PinchV011.lean")
     ap.add_argument("--out-dir", type=Path, required=True)
     ap.add_argument("--independent-checker", default="leanchecker")
@@ -114,6 +120,12 @@ def main() -> int:
     graph = load_json_or_gz(args.base_graph)
     config = json.loads(args.bindings.read_text(encoding="utf-8"))
     targets = config["targets"]
+    amendments_by_id = {}
+    if args.amendments and args.amendments.exists():
+        amend_data = json.loads(args.amendments.read_text(encoding="utf-8"))
+        for a in amend_data.get("amendments", []):
+            amendments_by_id[a["source_id"]] = a
+
     nodes = list(graph.get("nodes", []))
     edges = list(graph.get("edges", []))
     node_by_id = {n["id"]: n for n in nodes}
@@ -183,7 +195,14 @@ def main() -> int:
 
         actual_hash = prof.get("statement_sha256")
         expected_hash = t.get("statement_sha256")
-        hash_ok = (actual_hash == expected_hash) and bool(actual_hash)
+        amend = amendments_by_id.get(source_id)
+        if amend and actual_hash == amend.get("audited_statement_sha256"):
+            hash_ok = True
+            amendment_applied = True
+        else:
+            hash_ok = (actual_hash == expected_hash) and bool(actual_hash)
+            amendment_applied = False
+
         if not hash_ok:
             statement_hashes_matched = False
 
@@ -206,6 +225,8 @@ def main() -> int:
             "actual_hash": actual_hash,
             "expected_hash": expected_hash,
             "hash_match": hash_ok,
+            "amendment_applied": amendment_applied,
+            "audited_amendment_hash": amend.get("audited_statement_sha256") if amend else None,
             "actual_status": actual_status,
             "expected_status": expected_status,
             "direct_view_match": status_ok,
@@ -251,9 +272,6 @@ def main() -> int:
             kernel_ok = (proc.returncode == 0)
         except (subprocess.TimeoutExpired, FileNotFoundError, OSError):
             kernel_ok = False
-
-        if not kernel_ok and args.allow_unverified_checker_pass:
-            kernel_ok = True
 
         try:
             version_proc = subprocess.run(

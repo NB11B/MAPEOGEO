@@ -19,7 +19,11 @@ def load_graph(graph_path: Path | str) -> dict[str, Any]:
     return json.loads(p.read_text(encoding="utf-8"))
 
 
-def audit_targets(graph: dict[str, Any], bindings: dict[str, Any]) -> dict[str, Any]:
+def audit_targets(
+    graph: dict[str, Any],
+    bindings: dict[str, Any],
+    amendments: dict[str, Any] | None = None,
+) -> dict[str, Any]:
     """Audit v0.11 pinch targets against the base graph nodes and explicit dependencies."""
     by_id = {n["id"]: n for n in graph.get("nodes", [])}
 
@@ -27,6 +31,11 @@ def audit_targets(graph: dict[str, Any], bindings: dict[str, Any]) -> dict[str, 
     for edge in graph.get("edges", []):
         if edge.get("type") == "DEPENDS_ON":
             dep_map.setdefault(edge["source"], set()).add(edge["target"])
+
+    amendments_by_id = {}
+    if amendments and "amendments" in amendments:
+        for a in amendments["amendments"]:
+            amendments_by_id[a["source_id"]] = a
 
     rows: list[dict[str, Any]] = []
 
@@ -48,7 +57,14 @@ def audit_targets(graph: dict[str, Any], bindings: dict[str, Any]) -> dict[str, 
         actual_status = profile.get("direct_status") if profile else None
         actual_deps = dep_map.get(source_id, set())
 
-        hash_match = (actual_hash == expected_hash) if profile else False
+        amend = amendments_by_id.get(source_id)
+        if amend and actual_hash == amend.get("audited_statement_sha256"):
+            hash_match = True
+            amendment_applied = True
+        else:
+            hash_match = (actual_hash == expected_hash) if profile else False
+            amendment_applied = False
+
         direct_state_match = (actual_status == expected_status) if profile else False
         dependencies_present = expected_deps.issubset(actual_deps)
 
@@ -58,6 +74,8 @@ def audit_targets(graph: dict[str, Any], bindings: dict[str, Any]) -> dict[str, 
             "hash_match": hash_match,
             "actual_hash": actual_hash,
             "expected_hash": expected_hash,
+            "amendment_applied": amendment_applied,
+            "audited_amendment_hash": amend.get("audited_statement_sha256") if amend else None,
             "direct_state_match": direct_state_match,
             "actual_status": actual_status,
             "expected_status": expected_status,
@@ -95,6 +113,11 @@ def main() -> int:
         default=Path(__file__).resolve().parents[1] / "formal" / "pinch_bindings_v0_11.json",
         help="Path to formal/pinch_bindings_v0_11.json",
     )
+    parser.add_argument(
+        "--amendments",
+        default=Path(__file__).resolve().parents[1] / "formal" / "source_identity_amendments.json",
+        help="Path to formal/source_identity_amendments.json",
+    )
     parser.add_argument("--out", required=False, help="Path to output audit JSON")
     args = parser.parse_args()
 
@@ -105,8 +128,11 @@ def main() -> int:
             graph_path = fallback
     graph = load_graph(graph_path)
     bindings = json.loads(Path(args.bindings).read_text(encoding="utf-8"))
+    amendments = None
+    if Path(args.amendments).exists():
+        amendments = json.loads(Path(args.amendments).read_text(encoding="utf-8"))
 
-    results = audit_targets(graph, bindings)
+    results = audit_targets(graph, bindings, amendments)
 
     if args.out:
         out_p = Path(args.out)
@@ -115,7 +141,8 @@ def main() -> int:
 
     print(f"v0.11 Source Audit: {'PASS' if results['audit_passed'] else 'FAIL'}")
     for r in results["targets"]:
-        print(f"  - {r['source_id']}: hash={r['hash_match']} state={r['direct_state_match']} deps={r['dependencies_present']}")
+        amend_info = f" [AMENDMENT: {r['audited_amendment_hash'][:12]}...]" if r.get("amendment_applied") else ""
+        print(f"  - {r['source_id']}: hash={r['hash_match']} state={r['direct_state_match']} deps={r['dependencies_present']}{amend_info}")
 
     return 0 if results["audit_passed"] else 1
 

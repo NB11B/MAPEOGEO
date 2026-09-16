@@ -58,14 +58,14 @@ def run_stage(name: str, cmd: list[str]) -> None:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain from scratch")
+    parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain")
     parser.add_argument(
         "--target-stage",
         choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2"],
         default="v0.15.2",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
-    parser.add_argument("--force-rebuild-base", action="store_true", help="Force rebuilding v0.6 Gallier base graph")
+    parser.add_argument("--from-scratch", action="store_true", help="Re-derive historical v0.6-v0.11 stages from raw source PDF")
     args = parser.parse_args()
 
     print("==========================================================")
@@ -73,12 +73,14 @@ def main() -> int:
     print("==========================================================")
 
     t_start = time.time()
+    sealed_v011_path = ROOT / "data" / "mapeogeo_v0_11_graph.json.gz"
+    v011_artifact_path = ROOT / "artifacts" / "pinch_intake_v0_11" / "mapeogeo_v0_11_graph.json.gz"
 
-    # Step 0: Ensure Gallier source PDF and produce authentic v0.6 base graph
-    pdf_path = ensure_gallier_pdf(args.pdf_path)
-    v06_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
+    if args.from_scratch or (not sealed_v011_path.exists() and not v011_artifact_path.exists()):
+        print("[Pipeline] Running full from-scratch derivation of historical stages v0.6-v0.11...")
+        pdf_path = ensure_gallier_pdf(args.pdf_path)
+        v06_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
 
-    if args.force_rebuild_base or not v06_graph_path.exists():
         run_stage(
             "v0.6 Gallier Source Ingestion & Dual View Base Graph",
             [
@@ -93,103 +95,108 @@ def main() -> int:
                 str(pdf_path),
             ],
         )
+        if args.target_stage == "v0.6":
+            return 0
 
-    if args.target_stage == "v0.6":
-        return 0
+        # Stage v0.7: MAP Goal Audit & Held-Out Retrieval
+        run_stage(
+            "v0.7 MAP Goal Held-Out Retrieval & Promotion",
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "map_goal_v0_7.py"),
+                str(pdf_path),
+                "--v06-dir",
+                str(ROOT / "artifacts" / "source_v0_6"),
+                "--out-dir",
+                str(ROOT / "artifacts" / "map_goal_v0_7"),
+            ],
+        )
+        if args.target_stage == "v0.7":
+            return 0
 
-    # Stage v0.7: MAP Goal Audit & Held-Out Retrieval
-    run_stage(
-        "v0.7 MAP Goal Held-Out Retrieval & Promotion",
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "map_goal_v0_7.py"),
-            str(pdf_path),
-            "--v06-dir",
-            str(ROOT / "artifacts" / "source_v0_6"),
-            "--out-dir",
-            str(ROOT / "artifacts" / "map_goal_v0_7"),
-        ],
-    )
-    if args.target_stage == "v0.7":
-        return 0
+        # Stage v0.8: Formal Bridge & Kernel Verification
+        v07_graph_path = ROOT / "artifacts" / "map_goal_v0_7" / "mapeogeo_map_goal_v0_7_graph.json"
+        run_stage(
+            "v0.8 Formal Bridge & Kernel Verification",
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "formal_bridge_v0_8.py"),
+                "--base-graph",
+                str(v07_graph_path),
+                "--bindings",
+                str(ROOT / "formal" / "source_bindings_v0_8.json"),
+                "--lean-file",
+                str(ROOT / "MAPEOGEOFormal" / "SourceBound.lean"),
+                "--out-dir",
+                str(ROOT / "artifacts" / "formal_v0_8"),
+                "--independent-checker",
+                "leanchecker",
+                "--independent-checker-status",
+                "PASS",
+            ],
+        )
+        if args.target_stage == "v0.8":
+            return 0
 
-    # Stage v0.8: Formal Bridge & Kernel Verification
-    v07_graph_path = ROOT / "artifacts" / "map_goal_v0_7" / "mapeogeo_map_goal_v0_7_graph.json"
-    run_stage(
-        "v0.8 Formal Bridge & Kernel Verification",
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "formal_bridge_v0_8.py"),
-            "--base-graph",
-            str(v07_graph_path),
-            "--bindings",
-            str(ROOT / "formal" / "source_bindings_v0_8.json"),
-            "--lean-file",
-            str(ROOT / "MAPEOGEOFormal" / "SourceBound.lean"),
-            "--out-dir",
-            str(ROOT / "artifacts" / "formal_v0_8"),
-            "--independent-checker",
-            "leanchecker",
-            "--independent-checker-status",
-            "PASS",
-            "--allow-unverified-checker-pass",
-        ],
-    )
-    if args.target_stage == "v0.8":
-        return 0
+        # Stage v0.9: Proof Paths & Wounds
+        v08_graph_path = ROOT / "artifacts" / "formal_v0_8" / "mapeogeo_formal_v0_8_graph.json.gz"
+        run_stage(
+            "v0.9 S5 Proof Paths & Visible Wounds",
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "proof_paths_v0_9.py"),
+                "--base-graph",
+                str(v08_graph_path),
+                "--bindings",
+                str(ROOT / "formal" / "proof_paths_v0_9.json"),
+                "--lean-file",
+                str(ROOT / "MAPEOGEOFormal" / "ProofPaths.lean"),
+                "--out-dir",
+                str(ROOT / "artifacts" / "proof_paths_v0_9"),
+                "--independent-checker",
+                "leanchecker",
+                "--independent-checker-status",
+                "PASS",
+            ],
+        )
+        if args.target_stage == "v0.9":
+            return 0
 
-    # Stage v0.9: Proof Paths & Wounds
-    v08_graph_path = ROOT / "artifacts" / "formal_v0_8" / "mapeogeo_formal_v0_8_graph.json.gz"
-    run_stage(
-        "v0.9 S5 Proof Paths & Visible Wounds",
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "proof_paths_v0_9.py"),
-            "--base-graph",
-            str(v08_graph_path),
-            "--bindings",
-            str(ROOT / "formal" / "proof_paths_v0_9.json"),
-            "--lean-file",
-            str(ROOT / "MAPEOGEOFormal" / "ProofPaths.lean"),
-            "--out-dir",
-            str(ROOT / "artifacts" / "proof_paths_v0_9"),
-            "--independent-checker",
-            "leanchecker",
-            "--independent-checker-status",
-            "PASS",
-            "--allow-unverified-checker-pass",
-        ],
-    )
-    if args.target_stage == "v0.9":
-        return 0
-
-    # Stage v0.11: Pinch-Driven Mathematics Intake
-    v09_graph_path = ROOT / "artifacts" / "proof_paths_v0_9" / "mapeogeo_s5_v0_9_graph.json.gz"
-    run_stage(
-        "v0.11 Pinch-Driven Mathematics Intake",
-        [
-            sys.executable,
-            str(ROOT / "scripts" / "pinch_intake_v0_11.py"),
-            "--base-graph",
-            str(v09_graph_path),
-            "--bindings",
-            str(ROOT / "formal" / "pinch_bindings_v0_11.json"),
-            "--lean-file",
-            str(ROOT / "MAPEOGEOFormal" / "PinchV011.lean"),
-            "--out-dir",
-            str(ROOT / "artifacts" / "pinch_intake_v0_11"),
-            "--independent-checker",
-            "leanchecker",
-            "--independent-checker-status",
-            "PASS",
-            "--allow-unverified-checker-pass",
-        ],
-    )
-    if args.target_stage == "v0.11":
-        return 0
+        # Stage v0.11: Pinch-Driven Mathematics Intake
+        v09_graph_path = ROOT / "artifacts" / "proof_paths_v0_9" / "mapeogeo_s5_v0_9_graph.json.gz"
+        run_stage(
+            "v0.11 Pinch-Driven Mathematics Intake",
+            [
+                sys.executable,
+                str(ROOT / "scripts" / "pinch_intake_v0_11.py"),
+                "--base-graph",
+                str(v09_graph_path),
+                "--bindings",
+                str(ROOT / "formal" / "pinch_bindings_v0_11.json"),
+                "--amendments",
+                str(ROOT / "formal" / "source_identity_amendments.json"),
+                "--lean-file",
+                str(ROOT / "MAPEOGEOFormal" / "PinchV011.lean"),
+                "--out-dir",
+                str(ROOT / "artifacts" / "pinch_intake_v0_11"),
+                "--independent-checker",
+                "leanchecker",
+                "--independent-checker-status",
+                "PASS",
+            ],
+        )
+        if args.target_stage == "v0.11":
+            return 0
+    else:
+        # Expanding from sealed historical v0.11 baseline checkpoint
+        print(f"[Pipeline] Using sealed v0.11 baseline checkpoint: {sealed_v011_path}")
+        v011_artifact_path.parent.mkdir(parents=True, exist_ok=True)
+        if not v011_artifact_path.exists() and sealed_v011_path.exists():
+            import shutil
+            shutil.copy2(sealed_v011_path, v011_artifact_path)
 
     # Stage v0.12: Cross-Source Expansion (Axler LADR4e) on top of accepted v0.11 unified graph
-    v011_graph_path = ROOT / "artifacts" / "pinch_intake_v0_11" / "mapeogeo_v0_11_graph.json.gz"
+    v011_graph_path = v011_artifact_path if v011_artifact_path.exists() else sealed_v011_path
     run_stage(
         "v0.12 Cross-Source Expansion (Axler LADR4e)",
         [

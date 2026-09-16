@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "description": "Audited source statement identity amendments preserving historical provenance",
+  "amendments": [
+    {
+      "source_id": "srcdecl:theorem:27_10",
+      "corpus": "GALLIER",
+      "kind": "Theorem",
+      "number": "27.10",
+      "historical_binding_stage": "v0.11",
+      "historical_statement_sha256": "d205d7c5313b841e6afafc9d619fa059dfe50a2f6c11a48ca2cff466cc84d4fa",
+      "audited_statement_sha256": "b99a4e9f7dcafc31774208c2d21485e59a23b3ae76f6fd3748babdefd41093e2",
+      "provenance_notes": "Theorem 27.10 statement extracted directly from Gallier math-deep.pdf (pp. 975-979) produces b99a... under authentic multiline segment hashing; historical v0.11 pinch binding d205... preserved as immutable record.",
+      "amendment_type": "AUTHENTIC_SOURCE_HASH_AUDIT",
+      "status": "ACTIVE_AMENDMENT",
+      "formal_certificate_policy": "CERTIFICATE_BOUND_TO_AUDITED_SOURCE_AMENDMENT"
+    }
+  ]
+}

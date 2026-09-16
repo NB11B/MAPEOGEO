@@ -4,7 +4,7 @@
   "status": "PASS",
   "engine_validity": "VALID",
   "scientific_result": "PASS",
-  "runner_commit_sha": "a54481f9b55767d98b9796eb84766d132cc24ddc",
+  "runner_commit_sha": "5075ec7f24a533baa59b557636cea93d18701865",
   "workflow_run_id": "local-run",
   "preregistration_commit_sha": "c97b16afb3ca27eda723ce31040da72566d204de",
   "description": "Real Analysis and Multivariable Differential Calculus Quad-Source Mathematics Expansion frozen confirmatory replay acceptance manifest for MAPEOGEO v0.15.2 across Gallier, Axler, Boyd/Vandenberghe VMLS, and Boyd/Vandenberghe CVX with strict fail-closed provenance.",
@@ -112,7 +112,7 @@
     }
   },
   "artifacts": {
-    "mapeogeo_v0_15_2_graph.json.gz": "01c00da32726b4f47200e89b8b9b8ac74afbf050d0f7e084f9bdf139f62bc4e8",
+    "mapeogeo_v0_15_2_graph.json.gz": "166b68eb433c131b2749ee9c687ba01d6697483421758e34c83ffa108e504820",
     "analysis_expansion_dashboard.json": "81894924a7ec99f4330af409498242fe59e50d61c0734e2b9a651f333b8b512a",
     "representation_diversity_report.json": "cee3f174362666181892110462e17cfb2d8cdc63b7e04e95fa42b9628a51764f",
     "scientific_results.json": "81894924a7ec99f4330af409498242fe59e50d61c0734e2b9a651f333b8b512a",
