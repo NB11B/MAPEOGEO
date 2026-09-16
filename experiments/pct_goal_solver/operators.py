@@ -1071,15 +1071,89 @@ def _exec_numeric_rank(inputs: Mapping[str, Artifact], bindings: Bindings) -> Ar
     return _out("NUMERIC_MATRIX_RANK", inputs, "MATRIX_RANK", "MATRIX", value, "NUMERICAL")
 
 
+def _exact_infinity_condition_number(value: Any) -> Fraction | None:
+    """Return the exact infinity-norm condition number of a binary64 matrix.
+
+    None represents positive infinity for a singular matrix. Each float is
+    converted through as_integer_ratio(), binding the calculation to the
+    supplied IEEE-754 value without platform-dependent BLAS behavior.
+    """
+
+    rows = tuple(tuple(row) for row in value)
+    if not rows or any(len(row) != len(rows) for row in rows):
+        raise ValueError("condition number requires a nonempty square matrix")
+    if len(rows) > 16:
+        raise ValueError("condition matrix exceeds the 16x16 resource limit")
+
+    exact_rows: list[list[sp.Rational]] = []
+    for row in rows:
+        exact_row: list[sp.Rational] = []
+        for item in row:
+            if type(item) is bool:
+                raise TypeError("matrix entries must be real numbers")
+            if isinstance(item, (int, np.integer)):
+                numerator, denominator = int(item), 1
+            elif isinstance(item, (float, np.floating)):
+                scalar = float(item)
+                if not math.isfinite(scalar):
+                    raise ValueError("matrix entries must be finite")
+                numerator, denominator = scalar.as_integer_ratio()
+            else:
+                raise TypeError(
+                    "matrix entries must be integers or binary floating-point values"
+                )
+            exact_row.append(sp.Rational(numerator, denominator))
+        exact_rows.append(exact_row)
+
+    matrix = sp.Matrix(exact_rows)
+    if matrix.det() == 0:
+        return None
+
+    inverse = matrix.inv()
+
+    def infinity_norm(candidate: sp.Matrix) -> sp.Expr:
+        return max(
+            sum(
+                abs(candidate[row, column])
+                for column in range(candidate.cols)
+            )
+            for row in range(candidate.rows)
+        )
+
+    condition = sp.cancel(infinity_norm(matrix) * infinity_norm(inverse))
+    if condition.is_Rational is not True or condition < 0:
+        raise ValueError(
+            "exact condition number did not reduce to a nonnegative rational"
+        )
+
+    return Fraction(int(condition.p), int(condition.q))
+
+
 def _exec_conditioning(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
     try:
         art = _find(inputs, key="matrix") if "matrix" in inputs else next(a for a in inputs.values() if a.semantic_type == "FLOAT_MATRIX")
-        arr = np.asarray(art.value, dtype=float)
-        cond = float(np.linalg.cond(arr))
+        condition_number = _exact_infinity_condition_number(art.value)
         dtype = art.metadata_dict().get("dtype", "float64")
-        threshold = 1e6 if dtype == "float32" else 1e12
-        cond_val = cond if math.isfinite(cond) else 1e308
-        value = {"condition_number": cond_val, "requires_exact": (not math.isfinite(cond)) or cond > threshold, "threshold": threshold}
+        if dtype not in {"float32", "float64"}:
+            raise ValueError(f"unsupported matrix dtype: {dtype!r}")
+
+        threshold = (
+            1_000_000
+            if dtype == "float32"
+            else 1_000_000_000_000
+        )
+        finite = condition_number is not None
+        value = {
+            "condition_number": condition_number,
+            "condition_number_class": (
+                "FINITE" if finite else "POSITIVE_INFINITY"
+            ),
+            "condition_number_norm": "INFINITY",
+            "requires_exact": (
+                (not finite) or condition_number > threshold
+            ),
+            "threshold": threshold,
+        }
     except Exception as exc:
         return OperatorFailure("INVALID", str(exc), "CONDITIONING_RISK_CHECK")
     return _out("CONDITIONING_RISK_CHECK", inputs, "CONDITIONING_RISK", "NUMERICAL", value, "NUMERICAL")

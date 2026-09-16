@@ -1,6 +1,10 @@
 from __future__ import annotations
 
+from dataclasses import replace
+from fractions import Fraction
 import math
+
+import numpy as np
 
 from experiments.pct_goal_solver.goals import goals_for
 from experiments.pct_goal_solver.model import Artifact, OperatorFailure
@@ -46,7 +50,16 @@ def test_chain_map_check_catches_corruption():
     assert any(v != 0 for row in residual.value for v in row)
 
 
-def test_exact_rank_and_conditioning_guard_agree_on_hilbert_goal():
+def test_exact_rank_and_conditioning_guard_agree_on_hilbert_goal(monkeypatch):
+    def reject_blas_condition_number(*args, **kwargs):
+        raise AssertionError("conditioning certificate must not depend on BLAS")
+
+    monkeypatch.setattr(
+        np.linalg,
+        "cond",
+        reject_blas_condition_number,
+    )
+
     reg = build_operator_registry()
     goal = goals_for("CALIBRATION", "G6")[0]
     exact = reg["EXACT_MATRIX_RANK_Q"].execute({"matrix": goal.inputs["exact_matrix"]}, ())
@@ -54,8 +67,31 @@ def test_exact_rank_and_conditioning_guard_agree_on_hilbert_goal():
     assert not isinstance(exact, OperatorFailure)
     assert exact.value == goal.sealed_expected_result
     assert not isinstance(risk, OperatorFailure)
-    assert risk.value["condition_number"] > 1.0
-    assert isinstance(risk.value["requires_exact"], bool)
+    assert risk.value == {
+        "condition_number": None,
+        "condition_number_class": "POSITIVE_INFINITY",
+        "condition_number_norm": "INFINITY",
+        "requires_exact": True,
+        "threshold": 1_000_000,
+    }
+
+    finite_matrix = replace(
+        goal.inputs["numeric_matrix"],
+        value=((1.0, 1.0), (0.0, 1.0)),
+        metadata=(("dtype", "float64"),),
+    )
+    finite = reg["CONDITIONING_RISK_CHECK"].execute(
+        {"matrix": finite_matrix},
+        (),
+    )
+    assert not isinstance(finite, OperatorFailure)
+    assert finite.value == {
+        "condition_number": Fraction(4),
+        "condition_number_class": "FINITE",
+        "condition_number_norm": "INFINITY",
+        "requires_exact": False,
+        "threshold": 1_000_000_000_000,
+    }
 
 
 def test_barcode_to_betti_to_euler_is_executable():
