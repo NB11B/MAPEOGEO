@@ -44,21 +44,23 @@ def test_registry_is_exactly_pinned_to_reviewed_sources():
         assert row["status"] == "ACTIVE"
 
 
+def _invalid_row(*, revision: str = "0" * 40, parser: str = "latex") -> dict:
+    return {
+        "source_id": "BAD",
+        "repository": "owner/repo",
+        "revision": revision,
+        "parser": parser,
+        "license": "CC-BY-4.0",
+        "status": "ACTIVE",
+        "scope": "test_scope",
+        "include_globs": ["**/*.tex"],
+        "exclude_globs": [],
+    }
+
+
 def test_registry_validator_rejects_moving_refs(tmp_path: Path):
     module = _load_module()
-    bad = {
-        "schema_version": "v0.21",
-        "sources": [{
-            "source_id": "BAD",
-            "repository": "owner/repo",
-            "revision": "main",
-            "parser": "latex",
-            "license": "CC-BY-4.0",
-            "status": "ACTIVE",
-            "include_globs": ["**/*.tex"],
-            "exclude_globs": [],
-        }],
-    }
+    bad = {"schema_version": "v0.21", "sources": [_invalid_row(revision="main")]}
     path = tmp_path / "registry.json"
     path.write_text(json.dumps(bad), encoding="utf-8")
     with pytest.raises(ValueError, match="40-character commit SHA"):
@@ -67,19 +69,7 @@ def test_registry_validator_rejects_moving_refs(tmp_path: Path):
 
 def test_registry_validator_rejects_unknown_parser(tmp_path: Path):
     module = _load_module()
-    bad = {
-        "schema_version": "v0.21",
-        "sources": [{
-            "source_id": "BAD",
-            "repository": "owner/repo",
-            "revision": "0" * 40,
-            "parser": "llm",
-            "license": "CC-BY-4.0",
-            "status": "ACTIVE",
-            "include_globs": ["**/*"],
-            "exclude_globs": [],
-        }],
-    }
+    bad = {"schema_version": "v0.21", "sources": [_invalid_row(parser="llm")]}
     path = tmp_path / "registry.json"
     path.write_text(json.dumps(bad), encoding="utf-8")
     with pytest.raises(ValueError, match="unsupported parser"):
