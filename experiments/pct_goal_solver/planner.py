@@ -2,14 +2,11 @@ from __future__ import annotations
 
 from collections import Counter, defaultdict
 from dataclasses import dataclass
-from fractions import Fraction
 import heapq
 import itertools
-import math
 from typing import Any, Iterable, Mapping
 
 import networkx as nx
-import numpy as np
 import sympy as sp
 from shapely.geometry import Polygon
 
@@ -30,10 +27,6 @@ class _SearchNode:
 
     def mapping(self) -> dict[str, Artifact]:
         return dict(self.artifacts)
-
-
-def _constraint_dict(goal: SolverVisibleGoal) -> dict[str, Any]:
-    return dict(goal.constraints)
 
 
 def _value_signature(value: Any) -> str:
@@ -67,7 +60,7 @@ def _requirements_met(spec: OperatorSpec, artifacts: Mapping[str, Artifact]) -> 
 
 
 def _single_input_alias(operator_id: str) -> str | None:
-    aliases = {
+    return {
         "EXACT_MATRIX_RANK_Q": "matrix",
         "EXACT_NULLSPACE_Q": "matrix",
         "GF2_RANK": "matrix",
@@ -88,15 +81,14 @@ def _single_input_alias(operator_id: str) -> str | None:
         "SUPPORT_SPECTRUM": "samples",
         "CONVEXITY_CHECK": "body",
         "NUMERIC_RELATION_FIT": "trajectory",
-    }
-    return aliases.get(operator_id)
+    }.get(operator_id)
 
 
 def _invocations(spec: OperatorSpec, artifacts: Mapping[str, Artifact]) -> tuple[dict[str, Artifact], ...]:
     if len(spec.input_types) == 1:
         semantic = spec.input_types[0]
         alias = _single_input_alias(spec.operator_id)
-        rows = []
+        rows: list[dict[str, Artifact]] = []
         for key, artifact in sorted(artifacts.items()):
             if artifact.semantic_type != semantic:
                 continue
@@ -105,8 +97,6 @@ def _invocations(spec: OperatorSpec, artifacts: Mapping[str, Artifact]) -> tuple
                 invocation[alias] = artifact
             rows.append(invocation)
         return tuple(rows)
-    # Multi-input operators in the frozen registry use stable goal input names.
-    # Passing the complete state lets their applicability checks enforce the contract.
     return (dict(artifacts),)
 
 
@@ -122,17 +112,10 @@ def _has_equivalent(artifact: Artifact, artifacts: Mapping[str, Artifact]) -> bo
 
 
 def _candidate_from_state(goal: SolverVisibleGoal, artifacts: Mapping[str, Artifact]) -> Artifact | None:
-    for key, artifact in sorted(artifacts.items()):
+    for _, artifact in sorted(artifacts.items()):
         if artifact.semantic_type == goal.target.semantic_type:
             return artifact
-    comparison = _comparison_candidate(goal, artifacts)
-    if comparison is not None:
-        return comparison
-    return None
-
-
-def _source_provenance(artifact: Artifact, prefix: str) -> str | None:
-    return next((item for item in artifact.provenance if prefix in item), None)
+    return _comparison_candidate(goal, artifacts)
 
 
 def _comparison_candidate(goal: SolverVisibleGoal, artifacts: Mapping[str, Artifact]) -> Artifact | None:
@@ -141,7 +124,6 @@ def _comparison_candidate(goal: SolverVisibleGoal, artifacts: Mapping[str, Artif
         for artifact in artifacts.values():
             if artifact.semantic_type in {"BETTI_CURVE", "EULER_CURVE"}:
                 by_type[artifact.semantic_type].append(artifact)
-        # Wait until both coarser representations have actually been constructed.
         if len(by_type["BETTI_CURVE"]) < 2 or len(by_type["EULER_CURVE"]) < 2:
             return None
         euler = by_type["EULER_CURVE"][:2]
@@ -166,8 +148,7 @@ def _comparison_candidate(goal: SolverVisibleGoal, artifacts: Mapping[str, Artif
         signatures = [a for a in artifacts.values() if a.semantic_type == "GRAPH_SIGNATURE"]
         by_level: dict[str, list[Artifact]] = defaultdict(list)
         for artifact in signatures:
-            level = str(artifact.metadata_dict().get("level", "UNKNOWN"))
-            by_level[level].append(artifact)
+            by_level[str(artifact.metadata_dict().get("level", "UNKNOWN"))].append(artifact)
         for level in ("EULER_BETTI", "DEGREE", "LAPLACIAN", "WL"):
             rows = by_level[level]
             if len(rows) >= 2 and rows[0].value != rows[1].value:
@@ -219,8 +200,7 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
             f0 = _matrix(goal.inputs["vertex_map"].value)
             f1 = _matrix(goal.inputs["edge_map"].value)
             expected = dt * f1 == f0 * ds
-            passed = bool(candidate.value) == bool(expected)
-            return VerificationResult(passed, "INDEPENDENT_CHAIN_COMMUTATION", f"expected={bool(expected)}")
+            return VerificationResult(bool(candidate.value) == bool(expected), "INDEPENDENT_CHAIN_COMMUTATION", f"expected={bool(expected)}")
 
         if goal.family == "G4":
             value = candidate.value
@@ -239,8 +219,6 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
             return VerificationResult(int(candidate.value) == rank, "INDEPENDENT_EXACT_RANK", f"rank={rank}")
 
         if goal.family == "G7":
-            # The candidate operator has already constructed the flow; the independent
-            # check uses the Lie derivative of the invariant along the generator field.
             A, P, c = sp.symbols("A P c")
             invariant = sp.sympify(goal.inputs["candidate_invariant"].value, locals={"A": A, "P": P, "c": c})
             vector_field = sp.Matrix([P, 2 * sp.pi * c, 0])
@@ -253,16 +231,14 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
             trajectory = goal.inputs["trajectory"].value
             values = [p * p + k * c * area for _, area, p, c in trajectory]
             residual = max(abs(v - values[0]) for v in values)
-            passed = residual <= goal.allowed_numeric_tolerance
-            return VerificationResult(passed, "INDEPENDENT_TRAJECTORY_RESIDUAL", f"residual={residual}", residual=residual)
+            return VerificationResult(residual <= goal.allowed_numeric_tolerance, "INDEPENDENT_TRAJECTORY_RESIDUAL", f"residual={residual}", residual=residual)
 
         if goal.family == "G9":
             poly = Polygon(goal.inputs["body"].value)
             s = float(goal.inputs["offset"].value)
             reference = float(poly.buffer(s, quad_segs=256).area)
             residual = abs(float(candidate.value) - reference)
-            passed = residual <= goal.allowed_numeric_tolerance
-            return VerificationResult(passed, "INDEPENDENT_BUFFER_AREA", f"residual={residual}", residual=residual)
+            return VerificationResult(residual <= goal.allowed_numeric_tolerance, "INDEPENDENT_BUFFER_AREA", f"residual={residual}", residual=residual)
 
         if goal.family == "G10":
             observed = candidate.value.get("order") if isinstance(candidate.value, dict) else candidate.value
@@ -275,8 +251,6 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
             observed = candidate.value.get("homothetic") if isinstance(candidate.value, dict) else bool(candidate.value)
             a = Polygon(goal.inputs["body_a"].value)
             b = Polygon(goal.inputs["body_b"].value)
-            # Fixtures are centered regular polygons; equal vertex count is an independent
-            # combinatorial witness for the tested same-vs-different family.
             expected = len(list(a.exterior.coords)[:-1]) == len(list(b.exterior.coords)[:-1])
             return VerificationResult(bool(observed) == expected, "INDEPENDENT_POLYGON_COMBINATORICS", f"expected={expected}")
 
@@ -325,6 +299,19 @@ def _make_trace(
     )
 
 
+def _ordered_operator_ids(
+    typing_mode: str,
+    registry: Mapping[str, OperatorSpec],
+    artifacts: Mapping[str, Artifact],
+    compatibility_model: Any | None,
+) -> tuple[str, ...]:
+    if typing_mode == "EXPLICIT":
+        return tuple(sorted(registry))
+    if compatibility_model is None:
+        raise ValueError(f"{typing_mode} mode requires a compatibility model")
+    return tuple(compatibility_model.ordered_operator_ids(registry, artifacts))
+
+
 def solve(
     goal: SolverVisibleGoal,
     registry: Mapping[str, OperatorSpec],
@@ -333,34 +320,29 @@ def solve(
     compatibility_model: Any | None = None,
     macros: Iterable[Any] = (),
 ) -> SolveTrace:
-    """Deterministic best-first operator search for a structured mathematical goal.
+    """Deterministic best-first operator search over explicit, inferred, or hybrid typing.
 
-    This stage implements explicit typing. Inferred/hybrid candidate ordering is added by
-    the compatibility task; accepting the parameters now keeps the public interface stable.
+    INFERRED uses calibration-learned structural descriptors to rank transitions; semantic
+    types are not used by the ranking model. Operator applicability remains an executable
+    safety contract after a transition is proposed. HYBRID adds the explicit hard type
+    barrier before execution while retaining inferred ordering.
     """
-    if typing_mode != "EXPLICIT":
-        raise ValueError(f"typing mode not implemented yet: {typing_mode}")
+    if typing_mode not in {"EXPLICIT", "INFERRED", "HYBRID"}:
+        raise ValueError(f"unknown typing mode: {typing_mode}")
+    if typing_mode != "EXPLICIT" and compatibility_model is None:
+        raise ValueError(f"{typing_mode} mode requires a compatibility model")
 
     mode = f"{typing_mode}/{'SYNTHESIZED' if tuple(macros) else 'PRIMITIVE'}"
-    initial = _SearchNode(
-        artifacts=tuple(sorted(goal.inputs.items())),
-        path=(),
-        verifiers=(),
-        cost=0,
-        primitive_executions=0,
-    )
+    initial = _SearchNode(tuple(sorted(goal.inputs.items())), (), (), 0, 0)
     if goal.search_budget <= 0:
-        return _make_trace(
-            goal, mode, initial, expanded=0, candidate=None,
-            verdict="NOT_ESTABLISHED", reason="SEARCH_BUDGET_EXHAUSTED",
-        )
+        return _make_trace(goal, mode, initial, expanded=0, candidate=None, verdict="NOT_ESTABLISHED", reason="SEARCH_BUDGET_EXHAUSTED")
 
     queue: list[tuple[tuple[Any, ...], int, _SearchNode]] = []
     serial = itertools.count()
     heapq.heappush(queue, (_node_priority(goal, initial), next(serial), initial))
     seen = {_state_signature(initial.mapping())}
     expanded = 0
-    first_relevant_not_applicable: tuple[_SearchNode, str, str] | None = None
+    first_relevant_not_applicable: tuple[_SearchNode, str] | None = None
     bindings = tuple(goal.constraints)
 
     while queue and expanded < goal.search_budget:
@@ -378,46 +360,40 @@ def solve(
                     path_suffix=("VERIFY_CANDIDATE",),
                 )
 
-        for operator_id, spec in sorted(registry.items()):
+        for operator_id in _ordered_operator_ids(typing_mode, registry, artifacts, compatibility_model):
+            spec = registry[operator_id]
             if operator_id in _META_OPERATOR_IDS:
                 continue
-            if not _requirements_met(spec, artifacts):
+            # Explicit and hybrid modes use a hard type barrier. Inferred mode proposes
+            # from structural ranking first and lets the executable applicability contract
+            # reject incompatible proposals.
+            if typing_mode in {"EXPLICIT", "HYBRID"} and not _requirements_met(spec, artifacts):
                 continue
 
-            for invocation in _invocations(spec, artifacts):
+            invocations = _invocations(spec, artifacts)
+            if not invocations and typing_mode == "INFERRED":
+                # No structural binding could be formed; this is an inferred miss, not an error.
+                continue
+            for invocation in invocations:
                 applicability = spec.applicability(invocation, bindings)
                 if not applicability.applicable:
                     if applicability.verdict == "NOT_APPLICABLE" and spec.output_type == goal.target.semantic_type:
-                        probe_node = _SearchNode(
-                            artifacts=node.artifacts,
-                            path=node.path + (operator_id,),
-                            verifiers=node.verifiers,
-                            cost=node.cost + spec.cost,
-                            primitive_executions=node.primitive_executions,
-                        )
+                        probe_node = _SearchNode(node.artifacts, node.path + (operator_id,), node.verifiers, node.cost + spec.cost, node.primitive_executions)
                         if first_relevant_not_applicable is None:
-                            first_relevant_not_applicable = (probe_node, operator_id, applicability.reason)
+                            first_relevant_not_applicable = (probe_node, applicability.reason)
                     continue
 
                 output = spec.execute(invocation, bindings)
                 executions = node.primitive_executions + 1
                 if isinstance(output, OperatorFailure):
                     if output.verdict == "NOT_APPLICABLE" and spec.output_type == goal.target.semantic_type:
-                        probe_node = _SearchNode(
-                            artifacts=node.artifacts,
-                            path=node.path + (operator_id,),
-                            verifiers=node.verifiers,
-                            cost=node.cost + spec.cost,
-                            primitive_executions=executions,
-                        )
+                        probe_node = _SearchNode(node.artifacts, node.path + (operator_id,), node.verifiers, node.cost + spec.cost, executions)
                         if first_relevant_not_applicable is None:
-                            first_relevant_not_applicable = (probe_node, operator_id, output.reason)
+                            first_relevant_not_applicable = (probe_node, output.reason)
                     continue
 
                 step_verifier = spec.verify(tuple(invocation.values()), output)
-                if not step_verifier.passed:
-                    continue
-                if _has_equivalent(output, artifacts):
+                if not step_verifier.passed or _has_equivalent(output, artifacts):
                     continue
 
                 new_artifacts = dict(artifacts)
@@ -427,21 +403,19 @@ def solve(
                     continue
                 seen.add(signature)
                 child = _SearchNode(
-                    artifacts=tuple(sorted(new_artifacts.items())),
-                    path=node.path + (operator_id,),
-                    verifiers=node.verifiers + (step_verifier,),
-                    cost=node.cost + spec.cost,
-                    primitive_executions=executions,
+                    tuple(sorted(new_artifacts.items())),
+                    node.path + (operator_id,),
+                    node.verifiers + (step_verifier,),
+                    node.cost + spec.cost,
+                    executions,
                 )
                 heapq.heappush(queue, (_node_priority(goal, child), next(serial), child))
 
     if first_relevant_not_applicable is not None:
-        node, _, reason = first_relevant_not_applicable
-        return _make_trace(
-            goal, mode, node, expanded=expanded, candidate=None,
-            verdict="NOT_APPLICABLE", reason=reason,
-        )
+        node, reason = first_relevant_not_applicable
+        return _make_trace(goal, mode, node, expanded=expanded, candidate=None, verdict="NOT_APPLICABLE", reason=reason)
     return _make_trace(
         goal, mode, initial, expanded=expanded, candidate=None,
-        verdict="NOT_ESTABLISHED", reason="SEARCH_BUDGET_EXHAUSTED" if expanded >= goal.search_budget else "NO_ADMISSIBLE_PATH",
+        verdict="NOT_ESTABLISHED",
+        reason="SEARCH_BUDGET_EXHAUSTED" if expanded >= goal.search_budget else "NO_ADMISSIBLE_PATH",
     )
