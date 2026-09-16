@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 from experiments.pct_goal_solver.compatibility import CompatibilityModel, structural_descriptors
 from experiments.pct_goal_solver.goals import build_goal_corpus, goals_for
 from experiments.pct_goal_solver.operators import build_operator_registry
@@ -46,6 +48,23 @@ def test_inferred_mode_transfers_across_exact_symbolic_numeric():
         )
         assert trace.final_verdict in {"PASS", "NOT_ESTABLISHED", "NOT_APPLICABLE"}
         assert trace.final_verdict not in {"INVALID", "ERROR"}
+
+
+def test_inferred_mode_can_solve_with_input_semantic_types_blinded():
+    _, registry, _, model = _calibrated_model()
+    visible = goals_for("SEALED", "G8")[0].solver_visible()
+    blinded = replace(
+        visible,
+        inputs={
+            key: replace(artifact, semantic_type="BLINDED_INPUT_TYPE")
+            for key, artifact in visible.inputs.items()
+        },
+    )
+    explicit = solve(blinded, registry, typing_mode="EXPLICIT")
+    inferred = solve(blinded, registry, typing_mode="INFERRED", compatibility_model=model)
+    assert explicit.final_verdict == "NOT_ESTABLISHED"
+    assert inferred.final_verdict == "PASS"
+    assert "NUMERIC_RELATION_FIT" in inferred.operator_path
 
 
 def test_hybrid_mode_preserves_hard_compatibility_barrier():
