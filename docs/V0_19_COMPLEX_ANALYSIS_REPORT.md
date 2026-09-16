@@ -1,4 +1,6 @@
 # MAPEOGEO v0.19 Scientific Expansion Report
+
+> **Historical report — superseded.** Mathematical statements, counts, and alignment claims below are preserved as a historical record. The active corrections and wounds are in [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md).
 ## Complex Analysis, Several Complex Variables & Riemann Surfaces
 
 **Stage**: v0.19  

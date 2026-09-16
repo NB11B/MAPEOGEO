@@ -1,5 +1,7 @@
 # MAPEOGEO v0.15.2 — Confirmatory Real Analysis and Multivariable Differential Calculus Specification
 
+> **Historical report / specification — superseded.** Preserved preregistration counts are not current claims; see [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md).
+
 ## 1. Governing Law & Epistemic Framework
 
 $$\boxed{\text{Build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object.}}$$

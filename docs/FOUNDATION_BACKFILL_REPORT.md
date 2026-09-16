@@ -1,5 +1,7 @@
 # MAPEOGEO Foundation Backfill Completion Report
 
+> **Historical report — superseded.** The topology and former verification headlines below are preserved as a historical record. Current evidence is 1 / 176 executable, 0 / 176 kernel verified, and 0 / 235 proof-eligible grounding; see [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md) and the active [`FOUNDATION_MATHEMATICAL_AMENDMENT_V0_20.md`](FOUNDATION_MATHEMATICAL_AMENDMENT_V0_20.md).
+
 ## 1. Executive Summary
 
 MAPEOGEO has completed the **Foundation Backfill**, establishing an explicit, source-grounded mathematical substrate spanning 8 fundamental layers from propositional logic and set theory to elementary single-variable calculus:

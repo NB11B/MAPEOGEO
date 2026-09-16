@@ -1,5 +1,7 @@
 # MAPEOGEO v0.18 — Differential Geometry, Lie Groups & Smooth Manifolds Specification
 
+> **Historical report / specification — superseded.** Preserved preregistration counts are not current claims; see [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md).
+
 ## 1. Governing Objective
 
 $$

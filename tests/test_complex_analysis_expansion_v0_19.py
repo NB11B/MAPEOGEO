@@ -113,9 +113,9 @@ def test_complex_analysis_intake_pipeline(tmp_path: Path):
     )
 
     assert dashboard["stage"] == "v0.19"
-    assert dashboard["N_source_total"] == 1963
+    assert dashboard["N_source_total"] == 1959
     assert dashboard["source_breakdown"]["S_G_ahlfors"] == 72
-    assert dashboard["source_breakdown"]["S_A_gallier"] == 1360
+    assert dashboard["source_breakdown"]["S_A_gallier"] == 1356
     assert dashboard["source_breakdown"]["S_B_axler"] == 235
     assert dashboard["source_breakdown"]["S_C_vmls"] == 81
     assert dashboard["source_breakdown"]["S_D_cvx"] == 84

@@ -1,5 +1,7 @@
 # MAPEOGEO v0.17 — Measure Theory, Integration & Probability Expansion Report
 
+> **Historical report — superseded.** Counts and acceptance language below are preserved as a historical record. Current source counts and admissible evidence claims are in [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md).
+
 ## Executive Summary
 
 MAPEOGEO v0.17 introduces **Source E** ($S_E$), incorporating 64 curated, source-attributed mathematical declaration transcriptions from Patrick Billingsley's foundational text *Probability and Measure* (3rd Edition, 1995, John Wiley & Sons) into the knowledge graph. 

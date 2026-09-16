@@ -34,6 +34,7 @@ from scripts.import_diffgeom_v0_18 import (
     DiffGeomDeclaration,
     generate_diffgeom_declarations,
 )
+from scripts.io_utils import atomic_write_deterministic_json_gzip
 
 STAGE = "v0.18"
 GALLIER_SOURCE_ID = "GALLIER_QUAINTANCE_2020"
@@ -68,8 +69,7 @@ def save_graph_gz(graph: dict[str, Any], out_path: Path) -> None:
             if forbidden in node or forbidden in attrs:
                 raise ValueError(f"Zero-prose violation in node {node.get('id')}: found key '{forbidden}'")
 
-    with gzip.open(out_path, "wt", encoding="utf-8") as f:
-        json.dump(graph, f, indent=2)
+    atomic_write_deterministic_json_gzip(out_path, graph)
 
 
 def add_node(nodes: list[dict], by_id: dict[str, dict], node: dict) -> bool:

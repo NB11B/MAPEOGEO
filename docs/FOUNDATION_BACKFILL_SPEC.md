@@ -1,5 +1,7 @@
 # MAPEOGEO Foundation Backfill Specification
 
+> **Historical report / specification — superseded.** This preregistered design is preserved as history; it does not establish its former verification headlines. Current evidence and counts are in [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md), and corrected active foundation statements are recorded in [`FOUNDATION_MATHEMATICAL_AMENDMENT_V0_20.md`](FOUNDATION_MATHEMATICAL_AMENDMENT_V0_20.md).
+
 ## Governing Epistemic Objective
 
 $$

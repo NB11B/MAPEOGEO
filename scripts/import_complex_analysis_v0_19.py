@@ -117,6 +117,86 @@ def compute_statement_hash(statement_text: str) -> str:
     return hashlib.sha256(cleaned.encode("utf-8")).hexdigest()
 
 
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+
+
+def authoritative_complex_declaration_registry() -> dict[str, dict[str, Any]]:
+    """Rebuild exact declaration identities from the curated source statements."""
+    registry: dict[str, dict[str, Any]] = {}
+    for item in get_raw_declarations():
+        node_id = f"decl:{SOURCE_ID}:{item['decl_type']}:{item['number']}"
+        if node_id in registry:
+            raise ValueError(f"duplicate authoritative declaration identity: {node_id}")
+        registry[node_id] = {
+            "source_id": SOURCE_ID,
+            "decl_type": item["decl_type"],
+            "chapter_section": item["chapter_section"],
+            "page": item["page"],
+            "statement_sha256": compute_statement_hash(item["text"]),
+            "char_count": len(item["text"]),
+            "structural_refs": [
+                f"decl:{SOURCE_ID}:{target}" for target in item.get("refs", [])
+            ],
+            "node_type": "SOURCE_DECLARATION",
+        }
+    return registry
+
+
+def validate_complex_declarations(declarations: list[ComplexAnalysisDeclaration]) -> None:
+    """Validate declaration identities and structural references before graph mutation.
+
+    A structural reference is proof metadata, so accepting a dangling target would make
+    the resulting graph claim a dependency which cannot be inspected.  This validator
+    deliberately fails closed instead.
+    """
+
+    authoritative = authoritative_complex_declaration_registry()
+    by_id: dict[str, ComplexAnalysisDeclaration] = {}
+    for declaration in declarations:
+        if declaration.node_id in by_id:
+            raise ValueError(f"duplicate complex declaration identity: {declaration.node_id}")
+        expected_prefix = f"decl:{declaration.source_id}:{declaration.decl_type}:"
+        if declaration.source_id != SOURCE_ID or not declaration.node_id.startswith(expected_prefix):
+            raise ValueError(f"invalid source-bound declaration identity: {declaration.node_id}")
+        if declaration.node_type != "SOURCE_DECLARATION":
+            raise ValueError(f"invalid declaration node type for {declaration.node_id}")
+        if not _SHA256_RE.fullmatch(declaration.statement_sha256):
+            raise ValueError(f"invalid statement_sha256 for {declaration.node_id}")
+        if declaration.char_count <= 0:
+            raise ValueError(f"invalid statement character count for {declaration.node_id}")
+        expected = authoritative.get(declaration.node_id)
+        if expected is None:
+            raise ValueError(
+                f"declaration identity is absent from authoritative registry: {declaration.node_id}"
+            )
+        for field_name, expected_value in expected.items():
+            if field_name == "structural_refs":
+                continue
+            actual_value = getattr(declaration, field_name)
+            if actual_value != expected_value:
+                raise ValueError(
+                    f"authoritative {field_name} mismatch for {declaration.node_id}"
+                )
+        by_id[declaration.node_id] = declaration
+
+    if set(by_id) != set(authoritative):
+        missing = sorted(set(authoritative) - set(by_id))
+        raise ValueError(f"authoritative declaration registry is incomplete: {missing}")
+
+    for declaration in declarations:
+        for target_id in declaration.structural_refs:
+            if target_id not in by_id:
+                raise ValueError(
+                    "dangling structural reference: "
+                    f"{declaration.node_id} -> {target_id}"
+                )
+        expected_refs = authoritative[declaration.node_id]["structural_refs"]
+        if declaration.structural_refs != expected_refs:
+            raise ValueError(
+                f"authoritative structural_refs mismatch for {declaration.node_id}"
+            )
+
+
 def get_raw_declarations() -> list[dict[str, Any]]:
     """Curated raw mathematical statements across Ahlfors, Krantz, and Conway."""
     return [
@@ -174,7 +254,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Complex Derivative and Holomorphic Functions",
             "chapter_section": "Ahlfors Chapter 2.1",
             "page": 30,
-            "text": "A complex-valued function f: Omega -> C on open Omega subset C is complex differentiable (holomorphic) at z0 in Omega if f'(z0) = lim_{h -> 0} (f(z0+h) - f(z0))/h exists.",
+            "text": "A complex-valued function f: Omega -> C on an open set Omega subset C is complex differentiable at z0 in Omega if f'(z0) = lim_{h -> 0} (f(z0+h) - f(z0))/h exists. The function f is holomorphic on Omega if it is complex differentiable at every point of the open set Omega.",
             "refs": ["DEFINITION:1.1"],
         },
         {
@@ -239,7 +319,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Complex Logarithm and Branch Cuts",
             "chapter_section": "Ahlfors Chapter 2.3",
             "page": 52,
-            "text": "For z in C \\ {0}, the multi-valued logarithm is log(z) = ln|z| + i Arg(z) + 2 k pi i (k in Z). The principal branch Log(z) is holomorphic on the slit plane C \\ (-infinity, 0] with imaginary part in (-pi, pi].",
+            "text": "For z in C \\ {0}, the multi-valued logarithm is log(z) = ln|z| + i Arg(z) + 2 k pi i (k in Z). The principal branch Log(z) is holomorphic on the slit plane C \\ (-infinity, 0] and satisfies -pi < Im(Log z) < pi.",
             "refs": ["DEFINITION:3.3"],
         },
 
@@ -315,7 +395,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Higher Derivatives of Holomorphic Functions",
             "chapter_section": "Ahlfors Chapter 4.2",
             "page": 120,
-            "text": "A holomorphic function f is infinitely differentiable, with derivatives given by f^{(n)}(z0) = (n! / (2 pi i)) oint_gamma (f(z) / (z - z0)^{n+1}) dz for any circle gamma surrounding z0 in Omega.",
+            "text": "Let f be holomorphic on an open set Omega, let z0 belong to Omega, and let gamma be the positively oriented circle |z - z0| = r whose closed disk is contained in Omega. Then, for every integer n >= 0, f^{(n)}(z0) = (n! / (2 pi i)) oint_gamma (f(z) / (z - z0)^{n+1}) dz.",
             "refs": ["THEOREM:5.1"],
         },
         {
@@ -324,7 +404,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Cauchy's Estimates",
             "chapter_section": "Ahlfors Chapter 4.2",
             "page": 122,
-            "text": "If f is holomorphic on the closed disk B_bar(z0, R) and |f(z)| <= M on the boundary circle |z - z0| = R, then |f^{(n)}(z0)| <= (n! M) / R^n for all n >= 0.",
+            "text": "If f is holomorphic on an open neighborhood of the closed disk B_bar(z0, R) and |f(z)| <= M on the boundary circle |z - z0| = R, then |f^{(n)}(z0)| <= (n! M) / R^n for all n >= 0.",
             "refs": ["THEOREM:5.2"],
         },
         {
@@ -387,7 +467,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Schwarz Lemma",
             "chapter_section": "Ahlfors Chapter 4.3",
             "page": 135,
-            "text": "If f: D -> D is holomorphic on the unit disk D = {z in C : |z| < 1} with f(0) = 0, then |f(z)| <= |z| for all z in D and |f'(0)| <= 1, with equality holding if and only if f(z) = e^{i theta} z for some real theta.",
+            "text": "If f: D -> D is holomorphic on the unit disk D = {z in C : |z| < 1} and f(0) = 0, then |f(z)| <= |z| for every z in D and |f'(0)| <= 1. If |f(z0)| = |z0| for some nonzero z0 in D, or if |f'(0)| = 1, then f(z) = e^{i theta} z for some real theta; conversely, every such rotation attains equality.",
             "refs": ["THEOREM:5.9"],
         },
         {
@@ -405,7 +485,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Montel's Theorem on Normal Families",
             "chapter_section": "Ahlfors Chapter 5.5",
             "page": 225,
-            "text": "A family F of holomorphic functions on an open set Omega is normal (every sequence contains a subsequence converging uniformly on compact subsets) if and only if F is locally uniformly bounded.",
+            "text": "A family F of holomorphic functions on an open set Omega is locally uniformly bounded if and only if every sequence in F has a subsequence converging uniformly on compact subsets of Omega to a finite-valued holomorphic limit.",
             "refs": ["THEOREM:5.3"],
         },
         {
@@ -497,7 +577,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "The Argument Principle",
             "chapter_section": "Ahlfors Chapter 4.5",
             "page": 152,
-            "text": "If f is meromorphic on Omega and gamma is a cycle homologous to zero not passing through zeros or poles of f, then (1 / (2 pi i)) oint_gamma (f'(z) / f(z)) dz = sum_j Ind_gamma(z_j) - sum_k Ind_gamma(p_k) = N - P (zeros minus poles counted with multiplicity).",
+            "text": "If f is meromorphic on Omega and gamma is a cycle homologous to zero in Omega that avoids every zero and pole of f, then (1 / (2 pi i)) oint_gamma (f'(z) / f(z)) dz = sum_j m_j Ind_gamma(z_j) - sum_k n_k Ind_gamma(p_k), the index-weighted number of zeros minus poles, where each zero or pole a is weighted by Ind_gamma(a) and its multiplicity. This equals the plain count N - P only when gamma is a positively oriented simple closed contour and each enclosed zero and pole has index one.",
             "refs": ["THEOREM:6.7"],
         },
         {
@@ -553,7 +633,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Harnack's Inequality and Harnack's Principle",
             "chapter_section": "Ahlfors Chapter 6.1",
             "page": 247,
-            "text": "If u >= 0 is harmonic on B(z0, R), then ((R - r) / (R + r)) u(z0) <= u(z) <= ((R + r) / (R - r)) u(z0) for all |z - z0| = r < R. Every monotone sequence of harmonic functions converges to a harmonic function or diverges uniformly to infinity.",
+            "text": "If u >= 0 is harmonic on B(z0, R), then ((R - r) / (R + r)) u(z0) <= u(z) <= ((R + r) / (R - r)) u(z0) whenever |z - z0| = r < R. If (u_n) is an increasing sequence of positive harmonic functions on a connected domain Omega, then either it converges locally uniformly on Omega to a harmonic function, or it diverges locally uniformly to +infinity.",
             "refs": ["THEOREM:7.2"],
         },
         {
@@ -609,7 +689,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Weierstrass Factorization Theorem",
             "chapter_section": "Ahlfors Chapter 5.2",
             "page": 195,
-            "text": "Let {an} be any sequence of non-zero complex numbers with lim_{n -> infinity} |an| = infinity and m >= 0 an integer. Then there exist integers pn such that f(z) = z^m prod_{n=1}^infinity E_{pn}(z / an) defines an entire function whose zero set is precisely {an} with prescribed multiplicities.",
+            "text": "Let (a_n) be a sequence of nonzero complex numbers, repeated according to prescribed multiplicity, with no finite accumulation point, and let m >= 0 be an integer. There exist nonnegative integers p_n such that f(z) = z^m prod_{n=1}^infinity E_{p_n}(z / a_n) defines an entire function whose zeros are exactly 0 with multiplicity m and the points a_n with their prescribed multiplicities, with no other zeros.",
             "refs": ["DEFINITION:8.1"],
         },
         {
@@ -675,7 +755,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "chapter_section": "Krantz Chapter 2.1",
             "page": 35,
             "text": "The space of complex differential forms on C^n decomposes into types Omega^k = bigoplus_{p+q=k} Omega^{p,q}, with the exterior derivative splitting as d = partial + partial_bar, where partial: Omega^{p,q} -> Omega^{p+1,q} and partial_bar: Omega^{p,q} -> Omega^{p,q+1} satisfy partial^2 = 0, partial_bar^2 = 0, and partial partial_bar + partial_bar partial = 0.",
-            "refs": ["DEFINITION:2.2"],
+            "refs": ["THEOREM:2.2"],
         },
         {
             "decl_type": "THEOREM",
@@ -692,7 +772,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Domain of Holomorphy and Pseudoconvexity",
             "chapter_section": "Krantz Chapter 3.1",
             "page": 75,
-            "text": "A domain Omega subset C^n is a domain of holomorphy if there is no larger domain Omega' containing Omega such that all holomorphic functions on Omega extend to Omega'. For n >= 2, this is equivalent to pseudoconvexity of the boundary.",
+            "text": "A domain Omega subset C^n is a domain of holomorphy if there exists a holomorphic function on Omega that does not extend holomorphically to any strictly larger domain. The solution of the Levi problem states that Omega is a domain of holomorphy if and only if Omega is pseudoconvex.",
             "refs": ["THEOREM:9.3"],
         },
         {
@@ -701,7 +781,7 @@ def get_raw_declarations() -> list[dict[str, Any]]:
             "title": "Levi Form and Strict Pseudoconvexity",
             "chapter_section": "Krantz Chapter 3.3",
             "page": 88,
-            "text": "For a domain with smooth boundary {rho(z) = 0}, the Levi form L_rho(p, w) = sum_{j,k=1}^n (partial^2 rho / partial z_j partial z_bar_k)(p) w_j w_bar_k on the complex tangent space is positive semi-definite if and only if Omega is pseudoconvex.",
+            "text": "Let Omega have C^2 boundary and a C^2 defining function rho on a neighborhood of the boundary, with the fixed sign convention Omega = {rho < 0}, boundary Omega = {rho = 0}, and d rho nonzero on the boundary. The Levi form L_rho(p, w) = sum_{j,k=1}^n (partial^2 rho / partial z_j partial z_bar_k)(p) w_j w_bar_k is semipositive on complex tangent vectors w at every boundary point precisely when the boundary is Levi pseudoconvex; under these C^2 hypotheses this characterizes pseudoconvexity of Omega. Strict positivity on every nonzero complex tangent vector defines strict pseudoconvexity.",
             "refs": ["DEFINITION:9.6"],
         },
 
@@ -822,6 +902,7 @@ def build_complex_declarations() -> list[ComplexAnalysisDeclaration]:
         )
         declarations.append(decl)
 
+    validate_complex_declarations(declarations)
     return declarations
 
 

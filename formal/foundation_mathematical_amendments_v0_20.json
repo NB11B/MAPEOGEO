@@ -1,0 +1,3542 @@
+{
+  "amendments": [
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-associative_law",
+      "amendment_sha256": "ce079a10f2bb095e5ef964eca97971cd22a899264f3ff044d213fdbf10074c33",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Associative Property of Addition and Multiplication",
+        "statement_sha256": "57d4f3a975eafdfb893a09cc620dc77ac8e2aabee19a63be262cf4f12bca7604",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Associative Property of Addition and Multiplication",
+        "statement_sha256": "ea406614093a88c74c0f017b4d169ea2756f3701470218837388f96dbf93ba85",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "reason": "Associative Property of Addition and Multiplication: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:associative_law"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-binomial_theorem",
+      "amendment_sha256": "0913f8f11a2a291afc693de7136af4ba27fd8118ea1afd69cea39fe63daaa6ee",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Binomial Theorem",
+        "statement_sha256": "b70599db7d1f3ccaa5d704154d8e20aa245db09c03f8743e701db9e1f2fd28ca",
+        "structural_refs": [
+          "srcdecl:foundation:alg:binomial_coefficients",
+          "srcdecl:foundation:alg:pascals_identity",
+          "srcdecl:foundation:num:principle_induction",
+          "srcdecl:foundation:alg:ring_axioms",
+          "srcdecl:foundation:alg:commutative_law"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Binomial Theorem",
+        "statement_sha256": "348f6703297996d2d1be290b6c99260a8c9644e7dcda63eb09ee2f21a0e03341",
+        "structural_refs": [
+          "srcdecl:foundation:alg:pascals_identity",
+          "srcdecl:foundation:alg:distributive_law"
+        ]
+      },
+      "reason": "The Binomial Theorem: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:binomial_theorem"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-commutative_law",
+      "amendment_sha256": "a68cbf57f266acc7944cd17a56360c4b9eb33f0dc497d4eeaade3371405bb18e",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Commutative Property of Addition and Multiplication",
+        "statement_sha256": "8b0a5f47ef918fad096e3580379c2883ff1e3cb9bd4a20af90f3efa084328c82",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Commutative Property of Addition and Multiplication",
+        "statement_sha256": "d5d997f51e5ea17819b587f5051b40e783cf56e4572145098622b096a5364c90",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "reason": "Commutative Property of Addition and Multiplication: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:commutative_law"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-distributive_law",
+      "amendment_sha256": "a5e64132e8f127d6cc20ddc39e206b9102263a1fb935377bc2a7bb0da2fdd4fc",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Distributive Property of Multiplication over Addition",
+        "statement_sha256": "633dd4108e50bc143d75b37160ea0bde2db327978f2111de2e57929421b17e6d",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Distributive Property of Multiplication over Addition",
+        "statement_sha256": "b58d2ee586ee7708e07559ed0c48a759607eeacf4d822018de44efcc156758a6",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "reason": "Distributive Property of Multiplication over Addition: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:distributive_law"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-field_axioms",
+      "amendment_sha256": "61f353c993b4ca0147fe5001ca570885547282d61ad1b2b7fe0f1ff067ad2fda",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Field Axioms",
+        "statement_sha256": "fd95feba86a3b019a14dd781581630fe0195206b93173c93f3648857c0a2402b",
+        "structural_refs": [
+          "srcdecl:foundation:alg:ring_axioms",
+          "srcdecl:foundation:alg:commutative_law",
+          "srcdecl:foundation:alg:identity_and_inverses"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Field Axioms",
+        "statement_sha256": "fd95feba86a3b019a14dd781581630fe0195206b93173c93f3648857c0a2402b",
+        "structural_refs": [
+          "srcdecl:foundation:alg:ring_axioms",
+          "srcdecl:foundation:alg:identity_and_inverses"
+        ]
+      },
+      "reason": "Definition of Field Axioms: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:field_axioms"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-group_homomorphism",
+      "amendment_sha256": "30cd7a7d88c45e3831b8b758de4419363dd0917aed7333da89a5350e866bff2e",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Group Homomorphism and Kernel",
+        "statement_sha256": "259eac3062038077725396bcb83b26a48c700b9f171cb7bb2d2155b561117d24",
+        "structural_refs": [
+          "srcdecl:foundation:alg:group_axioms",
+          "srcdecl:foundation:rel:function_definition"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Group Homomorphism and Kernel",
+        "statement_sha256": "d1fc30ff602b267ed74237018ccc7f684386222e01bb816e225afb4f36658c00",
+        "structural_refs": [
+          "srcdecl:foundation:alg:group_axioms",
+          "srcdecl:foundation:rel:function_definition"
+        ]
+      },
+      "reason": "Definition of Group Homomorphism and Kernel: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:group_homomorphism"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-identity_and_inverses",
+      "amendment_sha256": "6de9247ed9d6cf8a25675ae8487bd31c0011f07e5ef94585e558ec43a888894b",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Additive and Multiplicative Identities and Inverses",
+        "statement_sha256": "fc0bf2ca558848574c9a7ecb800319b30121f2863eaf96a90c058578e32f895e",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Additive and Multiplicative Identities and Inverses",
+        "statement_sha256": "c39cdfb041f19bd29f1da1b1d65d871bb369ac603ae6e67dbafe308e74d60817",
+        "structural_refs": [
+          "srcdecl:foundation:alg:addition_operation",
+          "srcdecl:foundation:alg:multiplication_operation"
+        ]
+      },
+      "reason": "Additive and Multiplicative Identities and Inverses: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:identity_and_inverses"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-pascals_identity",
+      "amendment_sha256": "3977547143ff7cae2bbce8e392cb46fe4280bb8626735631c4fc7e87d5109510",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Pascal's Recurrence Identity",
+        "statement_sha256": "cec8a3aa1f2e6bbef36953fcfffef03b3a4d1abd0fb01423e83aa79025202b92",
+        "structural_refs": [
+          "srcdecl:foundation:alg:binomial_coefficients"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Pascal's Recurrence Identity",
+        "statement_sha256": "a4d07019c8e7221646f32329038f21573d76d5bf267bd01c6a026d983750672c",
+        "structural_refs": [
+          "srcdecl:foundation:alg:binomial_coefficients"
+        ]
+      },
+      "reason": "The prior admitted k=n while its binomial definition did not define C(n-1,n); the corrected interior range and boundary values are explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:pascals_identity"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-polynomial_definition",
+      "amendment_sha256": "e700a513b1b8e35dde955d41426f7b91dab614226f41acf2e3249af23ef3eb67",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Polynomial over a Field F",
+        "statement_sha256": "844727e7e46d6c4129c46e5d990290a9830a045d33d7e86c5f60d6695280f707",
+        "structural_refs": [
+          "srcdecl:foundation:alg:field_axioms"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Polynomial over a Field F",
+        "statement_sha256": "a3624744e49bd630ee6d8a4c676d047f7976d881523ec61c23933aa6f74ec249",
+        "structural_refs": [
+          "srcdecl:foundation:alg:field_axioms"
+        ]
+      },
+      "reason": "Definition of Polynomial over a Field F: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:polynomial_definition"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-polynomial_division_algorithm",
+      "amendment_sha256": "7da0afc4be198dccad6abaff2b79ff1f06b5f44e1e5269b932aa65d9b2d371f2",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Division Algorithm for Polynomials",
+        "statement_sha256": "3a43c5f5c14fe87d70d5cd5417f759cd8b1aa7ab162c6e3387b99ba4d3447ec0",
+        "structural_refs": [
+          "srcdecl:foundation:alg:polynomial_degree"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Division Algorithm for Polynomials",
+        "statement_sha256": "b2ce2a1ad012c7672e0411cc37b9294f477bc67561fcf733487077a751d15db1",
+        "structural_refs": [
+          "srcdecl:foundation:alg:polynomial_degree"
+        ]
+      },
+      "reason": "The prior degree condition was undefined for zero remainder; the correction gives the standard zero-or-lower-degree disjunction.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:polynomial_division_algorithm"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-quadratic_formula",
+      "amendment_sha256": "9cb577c9a0329106791363b5c028850b373ecab95e8b49a9a5dde1f6740068f3",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Quadratic Formula for Second-Degree Equations",
+        "statement_sha256": "d2b1f779d94c3824f053c0c5dd0bc47548c1c8cbc31f61a95b2e1eb5aae3a861",
+        "structural_refs": [
+          "srcdecl:foundation:alg:polynomial_definition",
+          "srcdecl:foundation:num:complex_numbers_definition",
+          "srcdecl:foundation:num:algebraic_closure_c_primitive"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Quadratic Formula for Second-Degree Equations",
+        "statement_sha256": "932880d0e308dd4eb943fb9db12de056764fbb1b925706574d567f69f639268b",
+        "structural_refs": [
+          "srcdecl:foundation:alg:polynomial_definition",
+          "srcdecl:foundation:num:imaginary_unit"
+        ]
+      },
+      "reason": "Quadratic Formula for Second-Degree Equations: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:quadratic_formula"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-remainder_factor_theorem",
+      "amendment_sha256": "84f8b7c8ef0f9bc8e9a8923cf64b0b7a3284f7908e9c05077b9a450dbc3c7c27",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Polynomial Remainder Theorem and Factor Theorem",
+        "statement_sha256": "a6d129c0cdc21cf89800cc0516f6118b5d046f58feb44c859291130d5e8c0fc0",
+        "structural_refs": [
+          "srcdecl:foundation:alg:polynomial_division_algorithm"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Polynomial Remainder Theorem and Factor Theorem",
+        "statement_sha256": "7f666482ab2a26161aab11b561f0ca90218ee69b5d03033c10820d1b4087ff92",
+        "structural_refs": [
+          "srcdecl:foundation:alg:polynomial_division_algorithm"
+        ]
+      },
+      "reason": "Polynomial Remainder Theorem and Factor Theorem: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:remainder_factor_theorem"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-ring_axioms",
+      "amendment_sha256": "ec9e92e614f6936f7a0f6f77566f6e1acac48de2081bcaf8c0ff8d279338dd82",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Ring Axioms",
+        "statement_sha256": "c4187c19f0728cedafda6260474ce953e817c4ad9b682b99b40c2c7fd0d4f159",
+        "structural_refs": [
+          "srcdecl:foundation:alg:abelian_group",
+          "srcdecl:foundation:alg:associative_law",
+          "srcdecl:foundation:alg:identity_and_inverses",
+          "srcdecl:foundation:alg:distributive_law"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Ring Axioms",
+        "statement_sha256": "158bb92499f2ac9d61735a5b9731dfcee66ed01ed1a1e3cfbca77ff83bebd94d",
+        "structural_refs": [
+          "srcdecl:foundation:alg:abelian_group",
+          "srcdecl:foundation:alg:distributive_law"
+        ]
+      },
+      "reason": "Definition of Ring Axioms: The prior algebraic row treated a conditional property as universal or omitted a necessary domain hypothesis; the corrected identity states the exact structure and scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:ring_axioms"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:alg-vector_space_axioms_primitive",
+      "amendment_sha256": "31890fe1ef0f108cd90223c62bb015d575695e0bcdea112323f21f8e7238024b",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Vector Space Axioms over Field F (Primitive Formulation)",
+        "statement_sha256": "d8db5a8b6868b5fafd873a29095ff61864e6d3d67c71e64a198d0ca9718bb322",
+        "structural_refs": [
+          "srcdecl:foundation:alg:abelian_group",
+          "srcdecl:foundation:alg:field_axioms",
+          "srcdecl:foundation:rel:function_definition"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Vector Space Axioms over Field F (Primitive Formulation)",
+        "statement_sha256": "be092cb3a82be5db04663f0fd077ac90905eb5b9d19839d339adddab23be18e3",
+        "structural_refs": [
+          "srcdecl:foundation:alg:abelian_group",
+          "srcdecl:foundation:alg:field_axioms"
+        ]
+      },
+      "reason": "The prior definition omitted the scalar identity axiom and accepted non-vector-space scalar actions; the full scalar axioms are now stated.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:alg:vector_space_axioms_primitive"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-continuity_at_point",
+      "amendment_sha256": "25d71bf19bc189a75911af88f696110244ffe45496e4e880df297c30aa69537f",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Continuity of a Function at a Point",
+        "statement_sha256": "5f96ad83a0e825480827ef7413757e0087d1a31d19c7771f1278f45bb0a0b4f9",
+        "structural_refs": [
+          "srcdecl:foundation:calc:function_limit_epsilon_delta"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Continuity of a Function at a Point",
+        "statement_sha256": "f0454b9e2defcb1fab1792e723cec768fe9281d5a3912976cb9e8c46abd1a08b",
+        "structural_refs": [
+          "srcdecl:foundation:calc:function_limit_epsilon_delta"
+        ]
+      },
+      "reason": "The prior limit-based wording mishandled isolated domain points under the corrected limit convention; direct relative-domain continuity is now used.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:continuity_at_point"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-continuity_on_interval",
+      "amendment_sha256": "e7a7bb306be656291b6b464226f0d823fb810aa0214ff4a0a21c544259b356ab",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Continuity on an Interval",
+        "statement_sha256": "24f2be769ed34eff3dfb45cd77013c8e9fecc7619edf22a88a6124b04e90417e",
+        "structural_refs": [
+          "srcdecl:foundation:calc:continuity_at_point"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Continuity on an Interval",
+        "statement_sha256": "2a16c3dd7f6fa7af5f3dbef97c33cdb67998bb29e911554670ee97f3b8ba0b5b",
+        "structural_refs": [
+          "srcdecl:foundation:calc:continuity_at_point"
+        ]
+      },
+      "reason": "Definition of Continuity on an Interval: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:continuity_on_interval"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-derivative_difference_quotient",
+      "amendment_sha256": "52a2914053b75fdbee5007f6d9882634178bbbd1ba6acb5626da0960d56f5f00",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Derivative via Difference Quotient Limit",
+        "statement_sha256": "04b5fe91bbd4d0c0e1cdae5c72f2969cbdb4baf54e13e4b9f11f8c18fdaaba4a",
+        "structural_refs": [
+          "srcdecl:foundation:calc:function_limit_epsilon_delta"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Derivative via Difference Quotient Limit",
+        "statement_sha256": "965f046a78c41b64780f9db724cce125956d9ef01f75d3b3e925965db6f1b331",
+        "structural_refs": [
+          "srcdecl:foundation:calc:function_limit_epsilon_delta"
+        ]
+      },
+      "reason": "Definition of Derivative via Difference Quotient Limit: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:derivative_difference_quotient"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-derivative_exponential_log",
+      "amendment_sha256": "7b7e63ba2dd41131c546b97ebb17e40d213990fb5aec89aef71e8117f22d80c9",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Derivatives of Natural Exponential and Logarithm",
+        "statement_sha256": "5f44d49b51dc74e6aaf28c482f8cf2ddd17d571d415854005ecb8e9d145bfba7",
+        "structural_refs": [
+          "srcdecl:foundation:calc:ftc_part1",
+          "srcdecl:foundation:rel:inverse_function",
+          "srcdecl:foundation:calc:derivative_chain_rule"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Derivatives of Natural Exponential and Logarithm",
+        "statement_sha256": "f680920734c635b755b46adc06ad97e7440cde74cb2fa51e2950ccd8add2f927",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient"
+        ]
+      },
+      "reason": "Derivatives of Natural Exponential and Logarithm: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:derivative_exponential_log"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-derivative_linearity",
+      "amendment_sha256": "4f7a408312650235f435fb86cfcbfe593663e184ce8e65adb24063e72bf4947d",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Linearity (Sum and Constant Multiple Rule) of Differentiation",
+        "statement_sha256": "e6cc3b7161e288f6221649d6e51b91466b99a954aa326c035d4abcb4a0572d56",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Linearity (Sum and Constant Multiple Rule) of Differentiation",
+        "statement_sha256": "1ff40a086c7869b83ea153651ca55f8eb48e37fb61f4fe151a86defd40820ff4",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient"
+        ]
+      },
+      "reason": "Linearity (Sum and Constant Multiple Rule) of Differentiation: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:derivative_linearity"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-derivative_power_rule",
+      "amendment_sha256": "f1ca0222632e71bb0389acffdee2d3864a9f2d4da61d72189016fd5bf6d09417",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Power Rule for Derivatives",
+        "statement_sha256": "6e1ed59c02ab1568a9b8ab20ae6c229074c3845758e4c7fdf6abfc491ae2a292",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:alg:binomial_theorem"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Power Rule for Derivatives",
+        "statement_sha256": "dfb8958af0bd3d5752cc542a7dbd5e62e90155c51d7fa0547e8242d473297693",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:alg:binomial_theorem"
+        ]
+      },
+      "reason": "The prior theorem claimed arbitrary real powers without a real-domain condition; the correction gives an exact integer-power theorem and separate constant case.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:derivative_power_rule"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-derivative_product_rule",
+      "amendment_sha256": "b2d5c2f845f82fc5bebb4bb96233f3d37ea0cfa861624dd80ab7fcce07744d4a",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Product Rule (Leibniz Rule) for Derivatives",
+        "statement_sha256": "45668bc662f8c781e60f6e18e35b8c1ade79e7bd6e65ba6f7c1737bf02911069",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:calc:differentiability_implies_continuity"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Product Rule (Leibniz Rule) for Derivatives",
+        "statement_sha256": "bca939d6132aa6f0b6ca583cf736c98042e6180e993e28f596cfba9b0c1eb883",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:calc:differentiability_implies_continuity"
+        ]
+      },
+      "reason": "Product Rule (Leibniz Rule) for Derivatives: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:derivative_product_rule"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-derivative_quotient_rule",
+      "amendment_sha256": "527acc0efa8b06481dd1a06ce75f3f72fc4ff8a3ccd8bb14f76a43ed489086b9",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Quotient Rule for Derivatives",
+        "statement_sha256": "f779c3b98ed38d4a95c3248b77646bf52d6c98742e79747ed995fbd2d3b16d54",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_product_rule",
+          "srcdecl:foundation:calc:derivative_chain_rule",
+          "srcdecl:foundation:calc:derivative_power_rule"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Quotient Rule for Derivatives",
+        "statement_sha256": "1cbc0965ba616712bc3483bf0a69ff50eab01d9dfd4b7bbc0c9261554c6d57ad",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_product_rule"
+        ]
+      },
+      "reason": "Quotient Rule for Derivatives: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:derivative_quotient_rule"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-derivative_trig_functions",
+      "amendment_sha256": "3e673f83354c535b64ab32765dc355331ae3ba36bae707ec3b80efec3501520e",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Derivatives of Elementary Trigonometric Functions",
+        "statement_sha256": "6cecaa2afeedb22cfb8f2c707dcdaaa73b0c00b24383faf5c96617e1bb5a153f",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:geom:sine_cosine_unit_circle",
+          "srcdecl:foundation:geom:angle_sum_formulas"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Derivatives of Elementary Trigonometric Functions",
+        "statement_sha256": "822a4e4d7900f69e71daba3c33f6c2ceb73cfbd932db308928e5d6f05573066e",
+        "structural_refs": [
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:geom:angle_sum_formulas"
+        ]
+      },
+      "reason": "Derivatives of Elementary Trigonometric Functions: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:derivative_trig_functions"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-extreme_value_theorem",
+      "amendment_sha256": "71c9a10e3d94c261cfc551dd9b63aff2d7cd65cc821cd73c6e85f690b81eaaad",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Extreme Value Theorem (EVT)",
+        "statement_sha256": "231c0b854e1eb262d51c7afe012ff458342df841b28c4083a8cbc14c3af22769",
+        "structural_refs": [
+          "srcdecl:foundation:calc:continuity_on_interval",
+          "srcdecl:foundation:seq:bolzano_weierstrass_primitive"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Extreme Value Theorem (EVT)",
+        "statement_sha256": "1234595bd8d20755be3e90184e4e892713548ffb85213d28b56c5888e2ccb4cb",
+        "structural_refs": [
+          "srcdecl:foundation:calc:continuity_at_point",
+          "srcdecl:foundation:seq:bolzano_weierstrass_primitive"
+        ]
+      },
+      "reason": "The Extreme Value Theorem (EVT): The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:extreme_value_theorem"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-first_derivative_test",
+      "amendment_sha256": "26f9db4dbbd6359368f5e7f72ee33b9e5a7e5f53d2cc7df7852ffb444bb237ac",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "First Derivative Test for Local Extrema",
+        "statement_sha256": "33896fe4e3e1c49533232921c04b5ab7f8b1babf25057c371021eef6b93f7d6c",
+        "structural_refs": [
+          "srcdecl:foundation:calc:mean_value_theorem",
+          "srcdecl:foundation:calc:continuity_at_point"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "First Derivative Test for Local Extrema",
+        "statement_sha256": "d26efdbe60aa5eb0289e3578a99b3f6f7684af5cead8b94b2db66480c49acf90",
+        "structural_refs": [
+          "srcdecl:foundation:calc:mean_value_theorem"
+        ]
+      },
+      "reason": "The prior sign-change test allowed discontinuous values at the critical point; continuity and punctured-neighborhood hypotheses are now explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:first_derivative_test"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-ftc_part1",
+      "amendment_sha256": "1c1a4cc9b2a63fc7c390e9f41511214ddb7d1b994b01fc5ba1aa9b7638bccdfc",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Theorem of Calculus (Part 1: Accumulation Derivative)",
+        "statement_sha256": "100e63bb2db24826fbe023577b57ec86b8bd2d9bb49613d89707a4422638ab47",
+        "structural_refs": [
+          "srcdecl:foundation:calc:riemann_definite_integral",
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:calc:continuity_on_interval"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Theorem of Calculus (Part 1: Accumulation Derivative)",
+        "statement_sha256": "21634d20c160123e2ae384dbe8bb29a7a311dd67d04413250835f3db0aac5b8a",
+        "structural_refs": [
+          "srcdecl:foundation:calc:riemann_definite_integral",
+          "srcdecl:foundation:calc:derivative_difference_quotient"
+        ]
+      },
+      "reason": "Fundamental Theorem of Calculus (Part 1: Accumulation Derivative): The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:ftc_part1"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-ftc_part2",
+      "amendment_sha256": "2fda7594257adc6ef81a4277263d17af7c3154dd5293cd5a12ac7a573d5ec613",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Theorem of Calculus (Part 2: Evaluation)",
+        "statement_sha256": "5f80eaa8575058b5e671fea9039d1eaffe38b61ed5208fc64b0398e2b3bdacf9",
+        "structural_refs": [
+          "srcdecl:foundation:calc:ftc_part1",
+          "srcdecl:foundation:calc:mean_value_theorem"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Theorem of Calculus (Part 2: Evaluation)",
+        "statement_sha256": "7c42d07f277a7b7c5ce32a5b7e21bd66ca2b4f819366b00a7366dd0f909b9261",
+        "structural_refs": [
+          "srcdecl:foundation:calc:ftc_part1"
+        ]
+      },
+      "reason": "Fundamental Theorem of Calculus (Part 2: Evaluation): The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:ftc_part2"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-function_limit_epsilon_delta",
+      "amendment_sha256": "22fe7d4d5ac546dded9d2b6efb432b1324353b83c4b069c62bb0f212026eab26",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Epsilon-Delta Definition of Limit of a Function",
+        "statement_sha256": "343bc82c50fa67851cbdb786b536136f2e3bc47e40b445a9771356b96565b849",
+        "structural_refs": [
+          "srcdecl:foundation:rel:function_definition",
+          "srcdecl:foundation:seq:absolute_value"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Epsilon-Delta Definition of Limit of a Function",
+        "statement_sha256": "c250a9aa118a5d805163e437b695f304158bf73d5f2d9f2eb14920588b7ace5b",
+        "structural_refs": [
+          "srcdecl:foundation:rel:function_definition",
+          "srcdecl:foundation:seq:absolute_value"
+        ]
+      },
+      "reason": "The prior limit definition allowed vacuous limits at isolated points; an accumulation-point hypothesis is now explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:function_limit_epsilon_delta"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-integration_by_parts",
+      "amendment_sha256": "408bb8cd3b4a09c0b621671e301b8fa4b8a3d729a872ebf378dc9b8830cca7e6",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Integration by Parts Formula",
+        "statement_sha256": "99c11a5fd08292a5e26b2ddab3f189cdf52eb7568096522c74893268a525e5a6",
+        "structural_refs": [
+          "srcdecl:foundation:calc:ftc_part2",
+          "srcdecl:foundation:calc:derivative_product_rule"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Integration by Parts Formula",
+        "statement_sha256": "992677b7f146c519e1726ebe2278d6d58e7c7e0fde96d4b6ce0a62823bc0c58f",
+        "structural_refs": [
+          "srcdecl:foundation:calc:ftc_part2",
+          "srcdecl:foundation:calc:derivative_product_rule"
+        ]
+      },
+      "reason": "Differentiability alone did not ensure Riemann integrability and indefinite constants were omitted; the correction gives a definite C1 formula.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:integration_by_parts"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-integration_by_substitution",
+      "amendment_sha256": "2d41a80d5f631dfc532e5f0cac92349fb2e9af1a07c49e5d5b1f9af7a9b0a83b",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Integration by Substitution (u-Substitution)",
+        "statement_sha256": "b23236f5513628a6a86b19e3e28fbd68c92b32120f8e5fdf71fb46b29e7c223a",
+        "structural_refs": [
+          "srcdecl:foundation:calc:ftc_part2",
+          "srcdecl:foundation:calc:derivative_chain_rule"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Integration by Substitution (u-Substitution)",
+        "statement_sha256": "b8e91569e0bba369eee7ba4123c3aa9731f6c42e6b0066efa10164f4c85673a1",
+        "structural_refs": [
+          "srcdecl:foundation:calc:ftc_part2",
+          "srcdecl:foundation:calc:derivative_chain_rule"
+        ]
+      },
+      "reason": "The prior substitution identity omitted regularity and integrability hypotheses; the correction supplies continuous and C1 domains.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:integration_by_substitution"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-intermediate_value_theorem",
+      "amendment_sha256": "959b64354482efd4793e440a18c5bb1065958e2aa43d0d24665f810e40bf2038",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Intermediate Value Theorem (IVT)",
+        "statement_sha256": "f4a26df67e4a34ad31aa2762f0fcced6b7579f834b83c453c3ed88bb96e7968a",
+        "structural_refs": [
+          "srcdecl:foundation:calc:continuity_on_interval",
+          "srcdecl:foundation:num:completeness_supremum"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Intermediate Value Theorem (IVT)",
+        "statement_sha256": "9a3be9c2dee279147f90310dc4827f01e79d01f0ad5fc8ea35df47ac70568b81",
+        "structural_refs": [
+          "srcdecl:foundation:calc:continuity_at_point",
+          "srcdecl:foundation:num:completeness_supremum"
+        ]
+      },
+      "reason": "The Intermediate Value Theorem (IVT): The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:intermediate_value_theorem"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-mean_value_theorem",
+      "amendment_sha256": "9a1f312c2f1ad9de2a13b93dd03f86ac55ffa9463443c36f99e4773aa3b8a5d8",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Mean Value Theorem (MVT)",
+        "statement_sha256": "33122fdea426a38cb76808c03a99e0cc590241af91b395ceed15706ebd6af220",
+        "structural_refs": [
+          "srcdecl:foundation:calc:rolles_theorem"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Mean Value Theorem (MVT)",
+        "statement_sha256": "b8bf8e19db4d83c3e903fa3b20e78bad590ecbf48192c4cf517ab1597c12d071",
+        "structural_refs": [
+          "srcdecl:foundation:calc:rolles_theorem"
+        ]
+      },
+      "reason": "The Mean Value Theorem (MVT): The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:mean_value_theorem"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-one_sided_limits",
+      "amendment_sha256": "5d9c940b5c3f99682200716ce7f0a842a5215e4e08ff0e36cd4fb5d5f7735501",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Left-Hand and Right-Hand Limits",
+        "statement_sha256": "583db1e303693cd6aec579f8c4ac5792b876279a5fb42e2e1fe0b9de686a6e58",
+        "structural_refs": [
+          "srcdecl:foundation:calc:function_limit_epsilon_delta"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Left-Hand and Right-Hand Limits",
+        "statement_sha256": "25fc36dbe03f1a485839c92a987050de7f9e8ce916af07c9e4da9e320a0ac1d8",
+        "structural_refs": [
+          "srcdecl:foundation:calc:function_limit_epsilon_delta"
+        ]
+      },
+      "reason": "Definition of Left-Hand and Right-Hand Limits: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:one_sided_limits"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-riemann_definite_integral",
+      "amendment_sha256": "56e8f19f9c9224f796db2d486a582c81b8ce8b066c1b47fb77f215cf605955a8",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Definite Riemann Integral",
+        "statement_sha256": "65cdfd2bf2f2122d8c48ae9ee34dd0bbb3c0fbd652bfe4ee0b08b929bb010f1f",
+        "structural_refs": [
+          "srcdecl:foundation:calc:riemann_partition_sum"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Definite Riemann Integral",
+        "statement_sha256": "1777f0764db93205aa8b6a3f52595979e7da10c0dd1315326f8a2df16914e304",
+        "structural_refs": [
+          "srcdecl:foundation:calc:riemann_partition_sum"
+        ]
+      },
+      "reason": "The prior phrase the limit did not require independence of tags and partitions; the corrected sequential criterion does.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:riemann_definite_integral"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-riemann_partition_sum",
+      "amendment_sha256": "60d12a8b0faa7a2ca48537acdd915dc634c604049d61184758228fdd3f1eae8b",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Riemann Partition and Riemann Sum",
+        "statement_sha256": "d237627bd46d474608183b0c66e9ce87bb0482b0f0f22818d0c1cddecebcde5b",
+        "structural_refs": [
+          "srcdecl:foundation:num:real_numbers_axioms"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Riemann Partition and Riemann Sum",
+        "statement_sha256": "36ca9019eaced06228a342195e377dbe0f5daded44085217bec865d47cf340e0",
+        "structural_refs": [
+          "srcdecl:foundation:num:real_numbers_axioms"
+        ]
+      },
+      "reason": "Definition of Riemann Partition and Riemann Sum: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:riemann_partition_sum"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-rolles_theorem",
+      "amendment_sha256": "f27ae895172c884a2fccd4f2b97fcbcea41e459e0b18a3f9c903199dc51987d4",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Rolle's Theorem",
+        "statement_sha256": "fb5ed967bd3a48af568e721a013ff20fa7c3a66460cb0bd98ee42f3b218df11d",
+        "structural_refs": [
+          "srcdecl:foundation:calc:extreme_value_theorem",
+          "srcdecl:foundation:calc:derivative_difference_quotient",
+          "srcdecl:foundation:calc:continuity_on_interval"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Rolle's Theorem",
+        "statement_sha256": "447ab1f1dc9f283a9fb5e0f8cc64948df8fc7a75ac652d32c2db333b6bcce786",
+        "structural_refs": [
+          "srcdecl:foundation:calc:extreme_value_theorem",
+          "srcdecl:foundation:calc:derivative_difference_quotient"
+        ]
+      },
+      "reason": "Rolle's Theorem: The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:rolles_theorem"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:calc-taylors_theorem_primitive",
+      "amendment_sha256": "882dded158739e8e5b918d032d582825416666165cad62712cb21b64803dfb7d",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Taylor's Theorem with Lagrange Remainder (Primitive Formulation)",
+        "statement_sha256": "641b4208d71b63a00d8c96f83fc06ae83ef0e1b45d12edb4ba21af99d195b007",
+        "structural_refs": [
+          "srcdecl:foundation:calc:mean_value_theorem",
+          "srcdecl:foundation:calc:derivative_power_rule"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Taylor's Theorem with Lagrange Remainder (Primitive Formulation)",
+        "statement_sha256": "a719d061f587d6927a4a59d3b04f03d28a4962408b5c696d75d0307c93c79943",
+        "structural_refs": [
+          "srcdecl:foundation:calc:mean_value_theorem",
+          "srcdecl:foundation:calc:derivative_power_rule"
+        ]
+      },
+      "reason": "Taylor's Theorem with Lagrange Remainder (Primitive Formulation): The prior calculus row omitted a domain, regularity, endpoint, or differentiability hypothesis; the corrected identity states the theorem with explicit scope.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:calc:taylors_theorem_primitive"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-angle_sum_formulas",
+      "amendment_sha256": "67ee6e12ba3bafe8d6128f63bc28804593bc80ae77e9b13be5deb5ec0f87bf08",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Angle Sum and Difference Formulas for Sine and Cosine",
+        "statement_sha256": "67216d2a62e6a325eae500a052c8e39ec6b85fda2aae2a53afa428056eac6c2e",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle",
+          "srcdecl:foundation:geom:distance_formula_R2"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Angle Sum and Difference Formulas for Sine and Cosine",
+        "statement_sha256": "67216d2a62e6a325eae500a052c8e39ec6b85fda2aae2a53afa428056eac6c2e",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle"
+        ]
+      },
+      "reason": "Angle Sum and Difference Formulas for Sine and Cosine: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:angle_sum_formulas"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-euclidean_plane_R2",
+      "amendment_sha256": "82aa0d5b80d299ff1be5027a02c3bb7478f7dbaa2f9e239ac53793c79396a6e3",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Euclidean Plane R^2",
+        "statement_sha256": "eaf524871c07dc34d910dc4dc08556dfc6bb0a10fb76fba05ee487f4ef7f5ae0",
+        "structural_refs": [
+          "srcdecl:foundation:set:cartesian_product",
+          "srcdecl:foundation:num:real_numbers_axioms"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Euclidean Plane R^2",
+        "statement_sha256": "e6a497cfd65d7d050c14ae93f771653d10c00c974177048917f78846b6e1cc7f",
+        "structural_refs": [
+          "srcdecl:foundation:set:cartesian_product",
+          "srcdecl:foundation:num:real_numbers_axioms"
+        ]
+      },
+      "reason": "Definition of Euclidean Plane R^2: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:euclidean_plane_R2"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-euclidean_space_Rn",
+      "amendment_sha256": "92023b1fad46f1cba4c447645f1c616806d7ea7fdac6da42f29bf05feaf92330",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Euclidean Space R^n",
+        "statement_sha256": "77792c0eae786c1eb7110f681d6de7dff0ba793da5bc6172555aee2f31a9cb5c",
+        "structural_refs": [
+          "srcdecl:foundation:set:cartesian_product",
+          "srcdecl:foundation:num:real_numbers_axioms",
+          "srcdecl:foundation:alg:vector_space_axioms_primitive"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Euclidean Space R^n",
+        "statement_sha256": "36b2988b6ce67d65a30d3483ae6b0acb49c6a80c3ccf683f66d846a8a75be49c",
+        "structural_refs": [
+          "srcdecl:foundation:geom:euclidean_plane_R2"
+        ]
+      },
+      "reason": "Definition of Euclidean Space R^n: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:euclidean_space_Rn"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-law_of_cosines",
+      "amendment_sha256": "53fd35c9c851cfb5fe5f0f1cb9072f2f9e858a81deaaf778961e55daa223744e",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Law of Cosines for Triangles",
+        "statement_sha256": "5539ce0b2c964d31ac974faf41b8c1739061463e906ea77220689056b1a802ff",
+        "structural_refs": [
+          "srcdecl:foundation:geom:dot_product_Rn",
+          "srcdecl:foundation:geom:pythagorean_theorem"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Law of Cosines for Triangles",
+        "statement_sha256": "7dede577724cbf9fa5297fbbac52a86b73e2bd9c72038e80a238c5f6c3e4c883",
+        "structural_refs": [
+          "srcdecl:foundation:geom:dot_product_Rn",
+          "srcdecl:foundation:geom:pythagorean_theorem"
+        ]
+      },
+      "reason": "The prior row did not state the nondegenerate Euclidean-triangle domain or identify the angle opposite the named side; the correction makes both hypotheses explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:law_of_cosines"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-law_of_sines",
+      "amendment_sha256": "ede73c3b88e8664ae78f84f9e52ab07e23bacdacb331c2ee4543b81d13fbae24",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Law of Sines for Triangles",
+        "statement_sha256": "189d60e41ca04fa037e1db7be8718b82f717a5532a9fbc7803545798c7d3d2e9",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "The Law of Sines for Triangles",
+        "statement_sha256": "def792b9938d0a91c73bebca445726c9e69a2e93047bf0a245f323f60cd70483",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle"
+        ]
+      },
+      "reason": "The Law of Sines for Triangles: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:law_of_sines"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-polar_coordinates_R2",
+      "amendment_sha256": "9ec069a5ca56998d098259d6c5504b6428d21660635905c038588a3b93bc55cd",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Polar Coordinates in R^2",
+        "statement_sha256": "7c52caab4509c578426938f36dd265b6d9200316904c33a7b9ebfb2f140d77bc",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Polar Coordinates in R^2",
+        "statement_sha256": "f994387da0cae4a47c794b742b1c5966e68c900b15f204adb4c0e04882a4ab6f",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle"
+        ]
+      },
+      "reason": "The prior formula applied atan2 at the origin; the correction separates the nonzero branch from the nonunique origin angle.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:polar_coordinates_R2"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-pythagorean_trig_identities",
+      "amendment_sha256": "cc78fe07b4159cf893d4b13331492c45f152bc3618cc7e410e5e6f6b9800139c",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Pythagorean Trigonometric Identities",
+        "statement_sha256": "960386c348d43ceadfa353844250c3d2fe265e4b3c24692022a90d219fd64525",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle",
+          "srcdecl:foundation:geom:tangent_trig_definition"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Pythagorean Trigonometric Identities",
+        "statement_sha256": "b45a63618d6bbb7002f562708c8b7267e85309f45b9bb70501e04e208d5ef33f",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle",
+          "srcdecl:foundation:geom:tangent_trig_definition"
+        ]
+      },
+      "reason": "Fundamental Pythagorean Trigonometric Identities: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:pythagorean_trig_identities"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-rotation_matrix_2d",
+      "amendment_sha256": "f51b7d51f5d527706da6899191968b0d87eb9d87638ee16921b72734532796ba",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "2D Planar Rotation Transformation Matrix",
+        "statement_sha256": "b0e22a073b5e9820d19c258245a517fcefbbdc7784a85b7b113d87b6ace645b3",
+        "structural_refs": [
+          "srcdecl:foundation:geom:euclidean_plane_R2",
+          "srcdecl:foundation:geom:sine_cosine_unit_circle",
+          "srcdecl:foundation:alg:vector_space_axioms_primitive"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "2D Planar Rotation Transformation Matrix",
+        "statement_sha256": "b0e22a073b5e9820d19c258245a517fcefbbdc7784a85b7b113d87b6ace645b3",
+        "structural_refs": [
+          "srcdecl:foundation:geom:angle_sum_formulas"
+        ]
+      },
+      "reason": "2D Planar Rotation Transformation Matrix: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:rotation_matrix_2d"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-sine_cosine_unit_circle",
+      "amendment_sha256": "ce01866bfd1521f1414622afab9a61bed0185f049e1d662deb6b37eec68b92e8",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Geometric Definition of Sine and Cosine via Unit Circle",
+        "statement_sha256": "4e9a77456731fa3dad087cc1f5e3b3d5f22bcb596375d50ca84d9746db985a2e",
+        "structural_refs": [
+          "srcdecl:foundation:geom:unit_circle_equation"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Geometric Definition of Sine and Cosine via Unit Circle",
+        "statement_sha256": "4d6d39e2a74b107b638ccbc6883f96f18305865a17bbded43106dcacfa983037",
+        "structural_refs": [
+          "srcdecl:foundation:geom:unit_circle_equation"
+        ]
+      },
+      "reason": "Geometric Definition of Sine and Cosine via Unit Circle: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:sine_cosine_unit_circle"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:geom-tangent_trig_definition",
+      "amendment_sha256": "82c6c24d4e11bc0cbdf269ea910f2f9c0b2517bc67c7189657cf50c5aa9c587a",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Tangent and Reciprocal Trigonometric Functions",
+        "statement_sha256": "23accac13afdebcaa789440e23b38197beaa7a4efe05d8926b4b45e616a7cac7",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle",
+          "srcdecl:foundation:geom:unit_circle_equation",
+          "srcdecl:foundation:geom:law_of_cosines"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Tangent and Reciprocal Trigonometric Functions",
+        "statement_sha256": "224c17c954131443f570db795c2b156ad212835f1006fc557eebfb4344491dc7",
+        "structural_refs": [
+          "srcdecl:foundation:geom:sine_cosine_unit_circle"
+        ]
+      },
+      "reason": "Definition of Tangent and Reciprocal Trigonometric Functions: The prior geometry or trigonometry row omitted Euclidean structure, radian convention, nondegeneracy, or function domains; the corrected identity supplies them.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:geom:tangent_trig_definition"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:logic-contrapositive_proof",
+      "amendment_sha256": "76a036dfde8fff000448a642bf2b94016a86c5262946c7ce7b8658fa4671c6a7",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Contrapositive Equivalence and Proof Method",
+        "statement_sha256": "9f09bc29737f36d68978cf38bb425376c1c4e9579e1e7263a646cadd20b5a274",
+        "structural_refs": [
+          "srcdecl:foundation:logic:implication",
+          "srcdecl:foundation:logic:negation"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Contrapositive Equivalence and Proof Method",
+        "statement_sha256": "b55e7b1a427c0b4595b724eb3c56dc49bcf37ba017ddcaa64f7e7ea36645539c",
+        "structural_refs": [
+          "srcdecl:foundation:logic:implication",
+          "srcdecl:foundation:logic:negation"
+        ]
+      },
+      "reason": "The prior equivalence was unqualified; the correction records the classical scope of the reverse contraposition principle.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:logic:contrapositive_proof"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:logic-law_of_excluded_middle",
+      "amendment_sha256": "e13d6aa0895f095fad72e56a6b8023c2ec8a144ee55b2e6bd4d290769cdfd17f",
+      "corrected_identity": {
+        "decl_type": "AXIOM",
+        "label": "Classical Law of Excluded Middle",
+        "statement_sha256": "8de0a60e4c4146b38a0d84c6b80ea467522ec4917c7374bcc8351a596a4cf7f9",
+        "structural_refs": [
+          "srcdecl:foundation:logic:negation",
+          "srcdecl:foundation:logic:disjunction",
+          "srcdecl:foundation:logic:conjunction"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Law of Excluded Middle and Non-Contradiction",
+        "statement_sha256": "87b629729eef8d819bc54f56207a4f10e9212e4c362aa3999f95df24470e1471",
+        "structural_refs": [
+          "srcdecl:foundation:logic:negation",
+          "srcdecl:foundation:logic:disjunction",
+          "srcdecl:foundation:logic:conjunction"
+        ]
+      },
+      "reason": "The prior node bundled excluded middle with noncontradiction; the correction records only the classical axiom schema and separates the theorem.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:logic:law_of_excluded_middle"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:logic-proof_by_contradiction",
+      "amendment_sha256": "bd7929ab0d5e91274677e55fec0e73a88c7235dc601318fa94e9fe7db94b0a59",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Proof by Contradiction (Reductio ad Absurdum)",
+        "statement_sha256": "611f378d84e70d57ce9e18505e0660d39992f58ebc7fcf484370eb3360ba7a24",
+        "structural_refs": [
+          "srcdecl:foundation:logic:negation",
+          "srcdecl:foundation:logic:tautology"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Proof by Contradiction (Reductio ad Absurdum)",
+        "statement_sha256": "9bda74b15a01f1e6788ea19b85e62d0880f6895ea7b5b9ef7b939bf61f868996",
+        "structural_refs": [
+          "srcdecl:foundation:logic:negation",
+          "srcdecl:foundation:logic:tautology"
+        ]
+      },
+      "reason": "The prior rule silently used double-negation elimination; the correction distinguishes classical reductio from its intuitionistic consequence.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:logic:proof_by_contradiction"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:logic-proposition",
+      "amendment_sha256": "ce9e39b08be7b3bcb29222f14e0f0f31ddfee4880c55ee764a9ad479b2573713",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Proposition / Statement",
+        "statement_sha256": "2448814cb1e75e5b5f0c5751b98f36ebeac8a33ea823e13de07b757692f9eb99",
+        "structural_refs": []
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Proposition / Statement",
+        "statement_sha256": "e13e41fbb70a0dbb9b458d80468edbd70e6e1454305fa946c55cb570981af1c9",
+        "structural_refs": []
+      },
+      "reason": "The prior declaration silently assumed bivalence; the correction explicitly fixes classical bivalent valuation semantics.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:logic:proposition"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:logic-quantifier_negation",
+      "amendment_sha256": "a682d717233612fa9a4f25999a0de230123c53cad7d658ee768aa87ac7b973df",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Quantifier Negation Dualities",
+        "statement_sha256": "a50af0c60c24929fc4d21529f8b1a2bbeca15f90be11fe79d5b38b4f6a502a02",
+        "structural_refs": [
+          "srcdecl:foundation:logic:universal_quantifier",
+          "srcdecl:foundation:logic:existential_quantifier",
+          "srcdecl:foundation:logic:negation"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Quantifier Negation Dualities",
+        "statement_sha256": "f08747adadb86cd2dd11b80582926570f2790c1424efecd4889ef37dea35f79f",
+        "structural_refs": [
+          "srcdecl:foundation:logic:universal_quantifier",
+          "srcdecl:foundation:logic:existential_quantifier",
+          "srcdecl:foundation:logic:negation"
+        ]
+      },
+      "reason": "The prior dualities omitted their fixed domain and classical scope; both are now explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:logic:quantifier_negation"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-algebraic_closure_c_primitive",
+      "amendment_sha256": "a583bb31dbe9a4ab4764f7a4af31c0cb07b20c1b59792c80ddf4be8ef970c68a",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Algebraic Closure of Complex Numbers (Primitive Formulation)",
+        "statement_sha256": "45edef3ed464cd8eb1936b2a56283fc4e72ba441342c7a4058d1c7b409fe1129",
+        "structural_refs": [
+          "srcdecl:foundation:num:complex_numbers_definition",
+          "srcdecl:foundation:alg:polynomial_definition"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Algebraic Closure of Complex Numbers (Primitive Formulation)",
+        "statement_sha256": "e752a0871df4dfea93f706d448e9b35211fc42089fa7ec69608948ba0520305e",
+        "structural_refs": [
+          "srcdecl:foundation:num:complex_numbers_definition"
+        ]
+      },
+      "reason": "The prior Fundamental Theorem of Algebra carried only a definition reference; corrected references remain unverified object references, never proof evidence.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:algebraic_closure_c_primitive"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-cauchy_sequence_reals",
+      "amendment_sha256": "c04592c2b6944aed16a220dc0996d66b94916ec8aa98930a7ad06f47c7993a36",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Cauchy Sequence Metric Completion Construction of R",
+        "statement_sha256": "9ed77769b8493815992c7616d171284446611d4b7211ef9ab39ac3cc76d659ac",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:num:rational_numbers_construction"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Cauchy Sequence Metric Completion Construction of R",
+        "statement_sha256": "8b1dfdc3a96ac9cf8d12699e95434170b798c16225bafb3822dd4fbabe5f01c5",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:num:rational_numbers_construction"
+        ]
+      },
+      "reason": "Cauchy Sequence Metric Completion Construction of R: The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:cauchy_sequence_reals"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-complex_conjugate_modulus",
+      "amendment_sha256": "0a5dd4ea679fc0c73a8a1664a9b9c6bf2831cf624dcb21effd31d1dce4990793",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Complex Conjugate and Absolute Value (Modulus)",
+        "statement_sha256": "849a3656d68ca76879b17763c556b24d42c6c22a28464cded9bdb42abd928f3e",
+        "structural_refs": [
+          "srcdecl:foundation:num:imaginary_unit"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Complex Conjugate and Absolute Value (Modulus)",
+        "statement_sha256": "78c03de491e3cb634b098bd1f924dcabbec53f6b46ce9247051701d963ae3737",
+        "structural_refs": [
+          "srcdecl:foundation:num:imaginary_unit"
+        ]
+      },
+      "reason": "Complex Conjugate and Absolute Value (Modulus): The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:complex_conjugate_modulus"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-dedekind_cut_construction",
+      "amendment_sha256": "e859048d4dd51b9a3fd249f8b9ac2299c81a77d1d37d4504a64e0816a1c29688",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Dedekind Cut Construction of Real Numbers",
+        "statement_sha256": "10c642a6c449a91d50d6fc9cdd4e6803ef7cba8efd1612b871720e62a2152a9e",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Dedekind Cut Construction of Real Numbers",
+        "statement_sha256": "25e9d9e31d40166762fa37c3c2dc9b053462c7ecf7225a2ce1fdf1bec25e1852",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction"
+        ]
+      },
+      "reason": "Dedekind Cut Construction of Real Numbers: The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:dedekind_cut_construction"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-euclidean_division_algorithm",
+      "amendment_sha256": "bf2bdeec195b3eb20066f9ec610efdbd66df999e2937c60578c8de2c382c513d",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Euclidean Division Algorithm for Integers",
+        "statement_sha256": "0df5dd3b254ad635d8561ef50c3aa4fb960b8ba0becc3295945dedf47c7dbe3d",
+        "structural_refs": [
+          "srcdecl:foundation:num:integers_construction",
+          "srcdecl:foundation:num:well_ordering_principle"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Euclidean Division Algorithm for Integers",
+        "statement_sha256": "0df5dd3b254ad635d8561ef50c3aa4fb960b8ba0becc3295945dedf47c7dbe3d",
+        "structural_refs": [
+          "srcdecl:foundation:num:well_ordering_principle"
+        ]
+      },
+      "reason": "Euclidean Division Algorithm for Integers: The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:euclidean_division_algorithm"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-integer_divisibility",
+      "amendment_sha256": "2f792bebbd929674acc1469efce07f84d978239701c7297aaca9a7dbb54c98fe",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Divisibility in Integers",
+        "statement_sha256": "bc975557c3d26cf26582579b00fa483e9698cf416df94369ae719919b3df27bf",
+        "structural_refs": [
+          "srcdecl:foundation:num:integers_construction"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Divisibility in Integers",
+        "statement_sha256": "e453f3b19c398b6d3709e6c91ac7c1832b86ba93a04f3af8bbbc3fa6186669a9",
+        "structural_refs": [
+          "srcdecl:foundation:num:integers_construction"
+        ]
+      },
+      "reason": "The prior definition unnecessarily excluded zero; divisibility is total in both integer arguments and zero divides only zero.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:integer_divisibility"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-integers_construction",
+      "amendment_sha256": "399e7fb38622734b040cc3badc74381109556292da25851a25fcd1f7c1fc353c",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Construction of Integers as Quotient of N × N",
+        "statement_sha256": "e1f3ac151c8e66d338d17e082e8ffb455a447bb8c3f6c672b4205f4623c47e0b",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:num:peano_axioms_naturals",
+          "srcdecl:foundation:rel:fundamental_theorem_equivalence"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Construction of Integers as Quotient of N × N",
+        "statement_sha256": "80bea91f37c22c961ec6dc2b10f4b938317c2cc0deadfe7175a704b793024393",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:num:peano_axioms_naturals"
+        ]
+      },
+      "reason": "Construction of Integers as Quotient of N × N: The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:integers_construction"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-irrationality_sqrt_2",
+      "amendment_sha256": "28bc5384cd9dbdf846ec127059fd34ab9bf9736bc88432fc91117446789dfe3c",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Existence of Irrationals: Irrationality of sqrt(2)",
+        "statement_sha256": "6963a97104b1ef4d860979418b97a522070282ef4390597c773dd9a5f25eece8",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction",
+          "srcdecl:foundation:num:completeness_supremum",
+          "srcdecl:foundation:logic:proof_by_contradiction"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Existence of Irrationals: Irrationality of sqrt(2)",
+        "statement_sha256": "1339d8866a06560d28e2f9614c0bcd2fa11021422e849d353dbc39f19b7d6b4c",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction",
+          "srcdecl:foundation:logic:proof_by_contradiction"
+        ]
+      },
+      "reason": "The prior row conflated rational nonexistence with an undefined real square root; the correction separately establishes real existence and rational nonexistence.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:irrationality_sqrt_2"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-peano_axioms_naturals",
+      "amendment_sha256": "e1d112659e00a8dcaa1b68206ada0a974887b61b1a0671248e4e50944170963d",
+      "corrected_identity": {
+        "decl_type": "AXIOM",
+        "label": "Peano Axioms for Natural Numbers",
+        "statement_sha256": "59dfc6df3115b7ba2cec6e8259c67cba103d8aaa240b80f8a16f9af4d22785c0",
+        "structural_refs": []
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Peano Axioms for Natural Numbers",
+        "statement_sha256": "29f415cc9aa4b8fad164dc935666b025feb9beb64fd04f6c9e8fdee1c4f94f3a",
+        "structural_refs": []
+      },
+      "reason": "Peano Axioms for Natural Numbers: The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:peano_axioms_naturals"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-polar_form_complex",
+      "amendment_sha256": "f15ce5d0f9bdafc407ed9ec2665214a7c6b07a667cda045c5079bab0f2d49648",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Polar Representation of Complex Numbers",
+        "statement_sha256": "20a1ce4767e38cf0a7c46d320b9c9b3afd181d3fc7a1b49c6441b13d2f7441c5",
+        "structural_refs": [
+          "srcdecl:foundation:num:complex_conjugate_modulus",
+          "srcdecl:foundation:geom:sine_cosine_unit_circle"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Polar Representation of Complex Numbers",
+        "statement_sha256": "e1e4956ab7cf9cbc74fff84abaeb4f8b300428c1cd51758a8a38a6e7e100efbc",
+        "structural_refs": [
+          "srcdecl:foundation:num:complex_conjugate_modulus"
+        ]
+      },
+      "reason": "The prior polar form used trigonometric functions before declaring the dependency and did not state the nonzero domain or angle uniqueness.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:polar_form_complex"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-rational_density",
+      "amendment_sha256": "0c5303ef6f7f95d23449ffc506d8e0e242a04bd6a36a1d11e2e316b675775251",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Density of Rational Numbers in Real Line",
+        "statement_sha256": "ea8db4fd81ba292a02488f81cbd3a6af8a35fb2d7eab6310dee6f2fa3597a511",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction",
+          "srcdecl:foundation:num:archimedean_property"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Density of Rational Numbers in Real Line",
+        "statement_sha256": "04345b64cf1c4c08d6187263cb9afc416f0fb1804344f447b3fd457bfcf89168",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction"
+        ]
+      },
+      "reason": "The prior density claim lacked its Archimedean dependency; the corrected identity states it explicitly.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:rational_density"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-rational_numbers_construction",
+      "amendment_sha256": "faebb4212cc24435871d1aff075f14f6657a0dde4a577fa5132d8b59c5addf33",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Construction of Rational Numbers as Field of Fractions",
+        "statement_sha256": "83c2a1930f2869194db261a85e6e4d274579727540ec9cf40e1ee69fd52a6740",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:num:integers_construction"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Construction of Rational Numbers as Field of Fractions",
+        "statement_sha256": "04374fb3c881a484e47f557b59d4993a0ce59de9b2772462108516ae297c1a86",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:num:integers_construction"
+        ]
+      },
+      "reason": "Construction of Rational Numbers as Field of Fractions: The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:rational_numbers_construction"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:num-real_numbers_axioms",
+      "amendment_sha256": "f86ad27bdfb049d765eb1aba77c3c3dd55d3d2c0a85409ab297d6f23844054cb",
+      "corrected_identity": {
+        "decl_type": "AXIOM",
+        "label": "Axiomatic Definition of Real Numbers (Complete Ordered Field)",
+        "statement_sha256": "4b87ba4d8259527ef47b41ad3fc45b7c8ee5d1f931f4d4cd544c08a18021a86d",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Axiomatic Definition of Real Numbers (Complete Ordered Field)",
+        "statement_sha256": "ea94b978e58861ad178110fde1728f502d5f376398a17a189543264d9b58c007",
+        "structural_refs": [
+          "srcdecl:foundation:num:rational_numbers_construction"
+        ]
+      },
+      "reason": "Axiomatic Definition of Real Numbers (Complete Ordered Field): The prior number-system row omitted construction operations, order, uniqueness, or completeness scope; the corrected identity supplies those mathematical conditions.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:num:real_numbers_axioms"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:rel-fundamental_theorem_equivalence",
+      "amendment_sha256": "01b2fd272ba3a4e5598b360558e89838f909548c035f78c1ea56ec8222567eb1",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Theorem of Equivalence Relations",
+        "statement_sha256": "13a2330dc9cf436f6829a96c7ae2f2e80c8e2ab45b3abd523b08b3788be54b6d",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:set:set_partition"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Fundamental Theorem of Equivalence Relations",
+        "statement_sha256": "21f6a8f3cb272e64678977dc65ac48eb67d448d6840178f836325be2c4a7d64c",
+        "structural_refs": [
+          "srcdecl:foundation:rel:quotient_set",
+          "srcdecl:foundation:set:set_partition"
+        ]
+      },
+      "reason": "The converse previously said a partition defines a relation without defining it; the corrected row gives the exact same-block relation.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:rel:fundamental_theorem_equivalence"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:seq-algebraic_limit_theorem",
+      "amendment_sha256": "4bcf608291851423a3fe6a0ce7ed7e519c23366e730d46320ad59787d24d029c",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Algebraic Limit Theorem for Sequences",
+        "statement_sha256": "24ae8f167c02b866c0df564fc821cb408a8256d2dc6110c42794441b10a38d70",
+        "structural_refs": [
+          "srcdecl:foundation:seq:sequence_limit_epsilon_N"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Algebraic Limit Theorem for Sequences",
+        "statement_sha256": "af7117a9c62ff1e706f2cb054f0e18ced972128182a78facc9a1c2d3f198d445",
+        "structural_refs": [
+          "srcdecl:foundation:seq:sequence_limit_epsilon_N"
+        ]
+      },
+      "reason": "The quotient sequence previously could be undefined at early indices; the correction states nonzero-denominator semantics.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:seq:algebraic_limit_theorem"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:seq-bolzano_weierstrass_primitive",
+      "amendment_sha256": "ca4b39b7355c92696e983cc7ecdad880dade25a02b8533c4d26ba676afcce2b8",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Bolzano-Weierstrass Theorem (Elementary)",
+        "statement_sha256": "d549b26b1ff954db7a8008d545ee5a6353a3504676de0172ce5213068bd1a98f",
+        "structural_refs": [
+          "srcdecl:foundation:seq:subsequence_definition",
+          "srcdecl:foundation:seq:monotone_convergence_theorem",
+          "srcdecl:foundation:seq:bounded_set_reals"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Bolzano-Weierstrass Theorem (Elementary)",
+        "statement_sha256": "9cda55d4f2fd387cf050ebf9b980f78bc294bb3030194a2933dd5556a4cdc537",
+        "structural_refs": [
+          "srcdecl:foundation:seq:subsequence_definition",
+          "srcdecl:foundation:seq:monotone_convergence_theorem"
+        ]
+      },
+      "reason": "Bolzano-Weierstrass Theorem (Elementary): The prior analysis row omitted an existence, boundedness, convergence, or dependency condition; the corrected identity makes it explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:seq:bolzano_weierstrass_primitive"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:seq-divergence_test",
+      "amendment_sha256": "20949c0c4dd2401598743aa5c35dd222727b739c2bfdd5558549af3129ee4ac4",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Divergence Test (n-th Term Test) for Series",
+        "statement_sha256": "7b8f543f380ced67f9b74201512ea52bdddbf91018adcdccda2793c3e6e02fd4",
+        "structural_refs": [
+          "srcdecl:foundation:seq:infinite_series_definition"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Divergence Test (n-th Term Test) for Series",
+        "statement_sha256": "9e5fca99c5d4b22ee9e917cd67630929e42fbd5e632b8eadf4e3777f4268f3f4",
+        "structural_refs": [
+          "srcdecl:foundation:seq:infinite_series_definition"
+        ]
+      },
+      "reason": "The claimed equivalence omitted sequences with no limit; the correction uses the exact condition of not converging to zero.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:seq:divergence_test"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:seq-metric_space_axioms_primitive",
+      "amendment_sha256": "6c05d9802fb325eaa2a6954db1569498479437ee6d9b16d5e1f407c71ca7d8c8",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Metric Space (Primitive Formulation)",
+        "statement_sha256": "1bbf7a67af41deaa995576354df73078cd273b659952b3b5c2f53b84bf6c218b",
+        "structural_refs": [
+          "srcdecl:foundation:rel:function_definition",
+          "srcdecl:foundation:num:real_numbers_axioms"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Metric Space (Primitive Formulation)",
+        "statement_sha256": "a39c4928839fd485387858901166b7410a2a6121f903182426efe60a6328769d",
+        "structural_refs": [
+          "srcdecl:foundation:seq:triangle_inequality_reals"
+        ]
+      },
+      "reason": "The prior arbitrary-metric definition pointed to the real absolute-value theorem; the metric axiom is now stated directly with type-level references.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:seq:metric_space_axioms_primitive"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:seq-supremum_infimum",
+      "amendment_sha256": "e5d38268026a86d60d8db82f2ad5f069ca3a8cc9de2bf01e38afc7bebe52c86f",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Supremum and Infimum",
+        "statement_sha256": "d8206553f605357f3303a1868074ed6cc0ee7349d3d32c62fdc7cf009ff71a76",
+        "structural_refs": [
+          "srcdecl:foundation:seq:bounded_set_reals",
+          "srcdecl:foundation:num:completeness_supremum"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Supremum and Infimum",
+        "statement_sha256": "729890aac5b3e0de39cb02799d4934770694f466bd926dde37ebbb5222c48841",
+        "structural_refs": [
+          "srcdecl:foundation:seq:bounded_set_reals"
+        ]
+      },
+      "reason": "Definition of Supremum and Infimum: The prior analysis row omitted an existence, boundedness, convergence, or dependency condition; the corrected identity makes it explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:seq:supremum_infimum"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-arbitrary_union_intersection",
+      "amendment_sha256": "232ec608824776f885a3c27eec9f7135d3b1fb4291d2fc22248483ccfcac4de5",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Arbitrary (Indexed) Union and Intersection",
+        "statement_sha256": "8a59250479342fd91d64cb559b3f8e73d7bfb56a38b378fe11ce50465a8f3b0b",
+        "structural_refs": [
+          "srcdecl:foundation:set:union",
+          "srcdecl:foundation:set:intersection"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Arbitrary (Indexed) Union and Intersection",
+        "statement_sha256": "3dd396cf23c5ee09f42bc20eb6c6bc6978f553edb00e7d5cb65aed13ef56b32b",
+        "structural_refs": [
+          "srcdecl:foundation:set:union",
+          "srcdecl:foundation:set:intersection"
+        ]
+      },
+      "reason": "Arbitrary (Indexed) Union and Intersection: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:arbitrary_union_intersection"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-axiom_of_choice_primitive",
+      "amendment_sha256": "2c5d91ce7482dce4bf0d988bd25e1cb37684ecbf0a23b4db6f23dfef99a270b1",
+      "corrected_identity": {
+        "decl_type": "AXIOM",
+        "label": "Axiom of Choice (Elementary Formulation)",
+        "statement_sha256": "b723dd87220e9bd332a56619508db1d624092088018f4407cd59a8209591c783",
+        "structural_refs": [
+          "srcdecl:foundation:set:cartesian_product",
+          "srcdecl:foundation:set:empty_set"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "AXIOM",
+        "label": "Axiom of Choice (Elementary Formulation)",
+        "statement_sha256": "3ed72c215047e429496c78ddea0a985e566acf1c97ec8cf0f264beccd6d728d5",
+        "structural_refs": [
+          "srcdecl:foundation:set:cartesian_product",
+          "srcdecl:foundation:set:empty_set"
+        ]
+      },
+      "reason": "Axiom of Choice (Elementary Formulation): The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:axiom_of_choice_primitive"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-cartesian_product",
+      "amendment_sha256": "edd3c53de4cbd0c9172deed8ce42eefa5a47a3c4abf94c0a11fa610a12498d57",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Cartesian Product",
+        "statement_sha256": "e6f1987960c2db1f0693fc87d690f04f1e0d1027855c89f3175b11ca92e17992",
+        "structural_refs": [
+          "srcdecl:foundation:set:ordered_pair",
+          "srcdecl:foundation:set:power_set",
+          "srcdecl:foundation:set:axiom_of_specification"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Cartesian Product",
+        "statement_sha256": "1a334af13b470b76b1a027ea38cfd8b11fefe58f49bc8983e6b171b75e632ac2",
+        "structural_refs": [
+          "srcdecl:foundation:set:ordered_pair"
+        ]
+      },
+      "reason": "Definition of Cartesian Product: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:cartesian_product"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-complement",
+      "amendment_sha256": "f55cd421bbc8e64adaea714b0cd80fb33959f5218c68c2a339a09ffa22a35b40",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Absolute Complement",
+        "statement_sha256": "14dce8b227a6a53d5a64291f1f5a1f306818078def2fe5b034378f0165fbeb81",
+        "structural_refs": [
+          "srcdecl:foundation:set:set_difference"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Absolute Complement",
+        "statement_sha256": "0782c32828a922f404702c7fc6a773dd86633e0f2c9b92e18593617296f52d4a",
+        "structural_refs": [
+          "srcdecl:foundation:set:set_difference"
+        ]
+      },
+      "reason": "Definition of Absolute Complement: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:complement"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-element_membership",
+      "amendment_sha256": "55f056b7b79876822424db1a507de641750d34155c9c6265cf315e92fc34700f",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Primitive Set Membership",
+        "statement_sha256": "2f38f95b983b6bb4392327a679ff6b9c647184fa511dc7376b1a74f4326fae0e",
+        "structural_refs": []
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Set Membership and Extensionality",
+        "statement_sha256": "a5ddeeaaaba94f1aee94dca41eff792bb3fd1ac08f9bd8943fc6b6a291f8491b",
+        "structural_refs": []
+      },
+      "reason": "Primitive Set Membership: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:element_membership"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-empty_set",
+      "amendment_sha256": "03337c299c268dc269c40d8d9a041232ef4f82bfbffe7fa5e68eca5063b2648c",
+      "corrected_identity": {
+        "decl_type": "AXIOM",
+        "label": "Empty Set Axiom and Definition",
+        "statement_sha256": "48e601e444297d5868e33d6f67b62881d38e0668b219b3378f3a6530d9145897",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of the Empty Set",
+        "statement_sha256": "f4c556308fb30d812ec5ae34624e590d00fd07314169b211fda885042d40968f",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership"
+        ]
+      },
+      "reason": "Empty Set Axiom and Definition: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:empty_set"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-indicator_algebra",
+      "amendment_sha256": "ad00fcffdb95fa75253734056bcac606f0f00c3cf7ed5a667e9c4cc8d86d6f7a",
+      "corrected_identity": {
+        "decl_type": "THEOREM",
+        "label": "Algebra of Indicator Functions",
+        "statement_sha256": "1e03172bd375b83cdfddceff56d8325da22a9f3a1f775b96ca25d246d25b8bd5",
+        "structural_refs": [
+          "srcdecl:foundation:set:indicator_function",
+          "srcdecl:foundation:set:intersection",
+          "srcdecl:foundation:set:union",
+          "srcdecl:foundation:set:complement"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "THEOREM",
+        "label": "Algebra of Indicator Functions",
+        "statement_sha256": "3012e9db93063a3162b2f937a348d5f899d62e496c662cf04f5a1eeabc01ee1e",
+        "structural_refs": [
+          "srcdecl:foundation:set:indicator_function",
+          "srcdecl:foundation:set:intersection",
+          "srcdecl:foundation:set:union",
+          "srcdecl:foundation:set:complement"
+        ]
+      },
+      "reason": "Algebra of Indicator Functions: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:indicator_algebra"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-intersection",
+      "amendment_sha256": "9c848951b7331e331e828498e139c1a5b1deab001886769036c3b6d04d8f8763",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Set Intersection",
+        "statement_sha256": "651d77093cb14612a3ba1857f59b2a4398b337dd76a6354373b0753ed433f801",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership",
+          "srcdecl:foundation:set:axiom_of_specification"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Set Intersection",
+        "statement_sha256": "fb9cbe97f073cfa9e794aaf2f501dd29117cd2a23df359a6b4251f41e2024a95",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership"
+        ]
+      },
+      "reason": "Definition of Set Intersection: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:intersection"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-ordered_pair",
+      "amendment_sha256": "6a52ffca94079feab1d10f8f575290f6182f4898386bd11c024fb2d2657dc327",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Kuratowski Ordered Pair",
+        "statement_sha256": "dff3cddf06edd9c1e9f262ea62831974583d7dc86455d3748dc95bb48f73ccd0",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership",
+          "srcdecl:foundation:set:union"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Kuratowski Ordered Pair",
+        "statement_sha256": "7452ef4132b85b94ece5a39aabd537c80a61de551d86691a5d5a5c5b5b3f2fec",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership"
+        ]
+      },
+      "reason": "Definition of Kuratowski Ordered Pair: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:ordered_pair"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-power_set",
+      "amendment_sha256": "2a104f2465b869e68d274c7c32dd734e904f9b9d39f812729d79c32e7b1b075f",
+      "corrected_identity": {
+        "decl_type": "AXIOM",
+        "label": "Power Set Axiom",
+        "statement_sha256": "8d68ac2e1c47a2599dc862a38a6b8fde1aed6b380712f0ab35b997d7060279c3",
+        "structural_refs": [
+          "srcdecl:foundation:set:subset_definition"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Power Set",
+        "statement_sha256": "d627f42f0f29c87054ae5001addce50401bed593f6aaf33d5d6b8ace2a93a0da",
+        "structural_refs": [
+          "srcdecl:foundation:set:subset_definition"
+        ]
+      },
+      "reason": "Power Set Axiom and Finite Cardinality: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:power_set"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-set_difference",
+      "amendment_sha256": "80203f8e8120b0bec7a3301e9bb1181919a837aa90d069b9e4fe7f7bccaff263",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Set Difference (Relative Complement)",
+        "statement_sha256": "b611495d8c3b329f6c37fa133d2a04ee2ea4e4957c6d3683e4ea97c2d604ddfd",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership",
+          "srcdecl:foundation:set:axiom_of_specification"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Set Difference (Relative Complement)",
+        "statement_sha256": "8f2fa3d538ca52983b936520b476476a48eba46eb8af1319ddf3ae5c1ca85deb",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership"
+        ]
+      },
+      "reason": "Definition of Set Difference (Relative Complement): The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:set_difference"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-set_partition",
+      "amendment_sha256": "8535b36887c278d852a7091f0ea51a708d92e8968c18d3ff7dbb9bd12e152ce3",
+      "corrected_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Set Partition",
+        "statement_sha256": "51ebfd76a2d9a1b3726d0228be29c73b704a4cd6f0bf138606d08548f766e699",
+        "structural_refs": [
+          "srcdecl:foundation:set:disjoint_sets",
+          "srcdecl:foundation:set:union"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Set Partition",
+        "statement_sha256": "9e536cc4d1067aa59b778be00693d5775b77d046b9281fd02135004269b91403",
+        "structural_refs": [
+          "srcdecl:foundation:set:disjoint_sets",
+          "srcdecl:foundation:set:union"
+        ]
+      },
+      "reason": "Definition of Set Partition: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:set_partition"
+    },
+    {
+      "amendment_id": "amendment:v0.20:foundation:set-union",
+      "amendment_sha256": "3d35f04898ef9a588746f1f716a4a9a0364479de08efb45b5ce7b80266cee8f0",
+      "corrected_identity": {
+        "decl_type": "AXIOM",
+        "label": "Pairing and Union Axioms; Binary Union",
+        "statement_sha256": "e7974bdcd52c7fdea2f9d7d70773fb6817783113c7f3cf49140df8d1259c80e4",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership",
+          "srcdecl:foundation:set:axiom_of_extensionality"
+        ]
+      },
+      "historical_identity": {
+        "decl_type": "DEFINITION",
+        "label": "Definition of Set Union",
+        "statement_sha256": "b05bc7038a7d128decd1d9b459758f096b868984145497a17008df56757528d5",
+        "structural_refs": [
+          "srcdecl:foundation:set:element_membership"
+        ]
+      },
+      "reason": "Pairing and Union Axioms; Binary Union: The prior set-theoretic row omitted an existence axiom, fixed universe, set-sized domain, or exact construction; the corrected identity makes that scope explicit.",
+      "status": "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED",
+      "subject_id": "srcdecl:foundation:set:union"
+    }
+  ],
+  "claim_boundary": "STATEMENT_CORRECTION_ONLY_NOT_PROOF",
+  "historical_rows": {
+    "srcdecl:foundation:alg:abelian_group": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Abelian (Commutative) Group",
+      "statement_sha256": "a81ac1b2974e6c5c4b2b0215698ee80f64f877d226d589c61fd2cc6535de9278",
+      "structural_refs": [
+        "srcdecl:foundation:alg:group_axioms",
+        "srcdecl:foundation:alg:commutative_law"
+      ]
+    },
+    "srcdecl:foundation:alg:addition_operation": {
+      "decl_type": "DEFINITION",
+      "label": "Binary Operation of Addition",
+      "statement_sha256": "856c5867c2f066cd905fbc548ec60cf7287c959eb1b661f1d59da784a2383a7e",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:alg:associative_law": {
+      "decl_type": "AXIOM",
+      "label": "Associative Property of Addition and Multiplication",
+      "statement_sha256": "ea406614093a88c74c0f017b4d169ea2756f3701470218837388f96dbf93ba85",
+      "structural_refs": [
+        "srcdecl:foundation:alg:addition_operation",
+        "srcdecl:foundation:alg:multiplication_operation"
+      ]
+    },
+    "srcdecl:foundation:alg:binomial_coefficients": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Binomial Coefficient n choose k",
+      "statement_sha256": "1b67872bb05b280e1289b6ef74b70c00de2754a708baa8c2a4caacf496f64873",
+      "structural_refs": [
+        "srcdecl:foundation:num:peano_axioms_naturals"
+      ]
+    },
+    "srcdecl:foundation:alg:binomial_theorem": {
+      "decl_type": "THEOREM",
+      "label": "The Binomial Theorem",
+      "statement_sha256": "348f6703297996d2d1be290b6c99260a8c9644e7dcda63eb09ee2f21a0e03341",
+      "structural_refs": [
+        "srcdecl:foundation:alg:pascals_identity",
+        "srcdecl:foundation:alg:distributive_law"
+      ]
+    },
+    "srcdecl:foundation:alg:commutative_law": {
+      "decl_type": "AXIOM",
+      "label": "Commutative Property of Addition and Multiplication",
+      "statement_sha256": "d5d997f51e5ea17819b587f5051b40e783cf56e4572145098622b096a5364c90",
+      "structural_refs": [
+        "srcdecl:foundation:alg:addition_operation",
+        "srcdecl:foundation:alg:multiplication_operation"
+      ]
+    },
+    "srcdecl:foundation:alg:distributive_law": {
+      "decl_type": "AXIOM",
+      "label": "Distributive Property of Multiplication over Addition",
+      "statement_sha256": "b58d2ee586ee7708e07559ed0c48a759607eeacf4d822018de44efcc156758a6",
+      "structural_refs": [
+        "srcdecl:foundation:alg:addition_operation",
+        "srcdecl:foundation:alg:multiplication_operation"
+      ]
+    },
+    "srcdecl:foundation:alg:field_axioms": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Field Axioms",
+      "statement_sha256": "fd95feba86a3b019a14dd781581630fe0195206b93173c93f3648857c0a2402b",
+      "structural_refs": [
+        "srcdecl:foundation:alg:ring_axioms",
+        "srcdecl:foundation:alg:identity_and_inverses"
+      ]
+    },
+    "srcdecl:foundation:alg:group_axioms": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Group Axioms",
+      "statement_sha256": "6cb8f704e20c141ec95f907f748463a9b2f266cfb7c118c0d021c3167da93a77",
+      "structural_refs": [
+        "srcdecl:foundation:alg:associative_law",
+        "srcdecl:foundation:alg:identity_and_inverses"
+      ]
+    },
+    "srcdecl:foundation:alg:group_homomorphism": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Group Homomorphism and Kernel",
+      "statement_sha256": "d1fc30ff602b267ed74237018ccc7f684386222e01bb816e225afb4f36658c00",
+      "structural_refs": [
+        "srcdecl:foundation:alg:group_axioms",
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:alg:identity_and_inverses": {
+      "decl_type": "AXIOM",
+      "label": "Additive and Multiplicative Identities and Inverses",
+      "statement_sha256": "c39cdfb041f19bd29f1da1b1d65d871bb369ac603ae6e67dbafe308e74d60817",
+      "structural_refs": [
+        "srcdecl:foundation:alg:addition_operation",
+        "srcdecl:foundation:alg:multiplication_operation"
+      ]
+    },
+    "srcdecl:foundation:alg:linear_combination_span": {
+      "decl_type": "DEFINITION",
+      "label": "Linear Combination and Span",
+      "statement_sha256": "82fe913c42199de23e5d70294db030465d9ac6db032c7c9dab250ff239cdee91",
+      "structural_refs": [
+        "srcdecl:foundation:alg:vector_space_axioms_primitive"
+      ]
+    },
+    "srcdecl:foundation:alg:multiplication_operation": {
+      "decl_type": "DEFINITION",
+      "label": "Binary Operation of Multiplication",
+      "statement_sha256": "4225f184495797d4fd76f9094e1721871eca3344441fc5f71bafef7877387817",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:alg:pascals_identity": {
+      "decl_type": "THEOREM",
+      "label": "Pascal's Recurrence Identity",
+      "statement_sha256": "a4d07019c8e7221646f32329038f21573d76d5bf267bd01c6a026d983750672c",
+      "structural_refs": [
+        "srcdecl:foundation:alg:binomial_coefficients"
+      ]
+    },
+    "srcdecl:foundation:alg:polynomial_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Polynomial over a Field F",
+      "statement_sha256": "a3624744e49bd630ee6d8a4c676d047f7976d881523ec61c23933aa6f74ec249",
+      "structural_refs": [
+        "srcdecl:foundation:alg:field_axioms"
+      ]
+    },
+    "srcdecl:foundation:alg:polynomial_degree": {
+      "decl_type": "DEFINITION",
+      "label": "Degree and Leading Coefficient of Polynomial",
+      "statement_sha256": "083e61df04121293ba1565c9f32a0d4080529f610c55e9dee964f3a9c85a0611",
+      "structural_refs": [
+        "srcdecl:foundation:alg:polynomial_definition"
+      ]
+    },
+    "srcdecl:foundation:alg:polynomial_division_algorithm": {
+      "decl_type": "THEOREM",
+      "label": "Division Algorithm for Polynomials",
+      "statement_sha256": "b2ce2a1ad012c7672e0411cc37b9294f477bc67561fcf733487077a751d15db1",
+      "structural_refs": [
+        "srcdecl:foundation:alg:polynomial_degree"
+      ]
+    },
+    "srcdecl:foundation:alg:quadratic_formula": {
+      "decl_type": "THEOREM",
+      "label": "Quadratic Formula for Second-Degree Equations",
+      "statement_sha256": "932880d0e308dd4eb943fb9db12de056764fbb1b925706574d567f69f639268b",
+      "structural_refs": [
+        "srcdecl:foundation:alg:polynomial_definition",
+        "srcdecl:foundation:num:imaginary_unit"
+      ]
+    },
+    "srcdecl:foundation:alg:remainder_factor_theorem": {
+      "decl_type": "THEOREM",
+      "label": "Polynomial Remainder Theorem and Factor Theorem",
+      "statement_sha256": "7f666482ab2a26161aab11b561f0ca90218ee69b5d03033c10820d1b4087ff92",
+      "structural_refs": [
+        "srcdecl:foundation:alg:polynomial_division_algorithm"
+      ]
+    },
+    "srcdecl:foundation:alg:ring_axioms": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Ring Axioms",
+      "statement_sha256": "158bb92499f2ac9d61735a5b9731dfcee66ed01ed1a1e3cfbca77ff83bebd94d",
+      "structural_refs": [
+        "srcdecl:foundation:alg:abelian_group",
+        "srcdecl:foundation:alg:distributive_law"
+      ]
+    },
+    "srcdecl:foundation:alg:subgroup_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Subgroup and Subgroup Criterion",
+      "statement_sha256": "1d8e0f3341e4374749020d4c1116bd33d158780682583a21c221d6c30bcf4ab6",
+      "structural_refs": [
+        "srcdecl:foundation:alg:group_axioms"
+      ]
+    },
+    "srcdecl:foundation:alg:vector_space_axioms_primitive": {
+      "decl_type": "DEFINITION",
+      "label": "Vector Space Axioms over Field F (Primitive Formulation)",
+      "statement_sha256": "be092cb3a82be5db04663f0fd077ac90905eb5b9d19839d339adddab23be18e3",
+      "structural_refs": [
+        "srcdecl:foundation:alg:abelian_group",
+        "srcdecl:foundation:alg:field_axioms"
+      ]
+    },
+    "srcdecl:foundation:calc:continuity_at_point": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Continuity of a Function at a Point",
+      "statement_sha256": "f0454b9e2defcb1fab1792e723cec768fe9281d5a3912976cb9e8c46abd1a08b",
+      "structural_refs": [
+        "srcdecl:foundation:calc:function_limit_epsilon_delta"
+      ]
+    },
+    "srcdecl:foundation:calc:continuity_on_interval": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Continuity on an Interval",
+      "statement_sha256": "2a16c3dd7f6fa7af5f3dbef97c33cdb67998bb29e911554670ee97f3b8ba0b5b",
+      "structural_refs": [
+        "srcdecl:foundation:calc:continuity_at_point"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_chain_rule": {
+      "decl_type": "THEOREM",
+      "label": "Chain Rule for Composite Functions",
+      "statement_sha256": "b830ddc06381b2990b713d02dfd3e6d290754bb05fef2b1d8bbb896be1c76464",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_difference_quotient",
+        "srcdecl:foundation:rel:function_composition"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_difference_quotient": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Derivative via Difference Quotient Limit",
+      "statement_sha256": "965f046a78c41b64780f9db724cce125956d9ef01f75d3b3e925965db6f1b331",
+      "structural_refs": [
+        "srcdecl:foundation:calc:function_limit_epsilon_delta"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_exponential_log": {
+      "decl_type": "THEOREM",
+      "label": "Derivatives of Natural Exponential and Logarithm",
+      "statement_sha256": "f680920734c635b755b46adc06ad97e7440cde74cb2fa51e2950ccd8add2f927",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_difference_quotient"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_linearity": {
+      "decl_type": "THEOREM",
+      "label": "Linearity (Sum and Constant Multiple Rule) of Differentiation",
+      "statement_sha256": "1ff40a086c7869b83ea153651ca55f8eb48e37fb61f4fe151a86defd40820ff4",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_difference_quotient"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_power_rule": {
+      "decl_type": "THEOREM",
+      "label": "Power Rule for Derivatives",
+      "statement_sha256": "dfb8958af0bd3d5752cc542a7dbd5e62e90155c51d7fa0547e8242d473297693",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_difference_quotient",
+        "srcdecl:foundation:alg:binomial_theorem"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_product_rule": {
+      "decl_type": "THEOREM",
+      "label": "Product Rule (Leibniz Rule) for Derivatives",
+      "statement_sha256": "bca939d6132aa6f0b6ca583cf736c98042e6180e993e28f596cfba9b0c1eb883",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_difference_quotient",
+        "srcdecl:foundation:calc:differentiability_implies_continuity"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_quotient_rule": {
+      "decl_type": "THEOREM",
+      "label": "Quotient Rule for Derivatives",
+      "statement_sha256": "1cbc0965ba616712bc3483bf0a69ff50eab01d9dfd4b7bbc0c9261554c6d57ad",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_product_rule"
+      ]
+    },
+    "srcdecl:foundation:calc:derivative_trig_functions": {
+      "decl_type": "THEOREM",
+      "label": "Derivatives of Elementary Trigonometric Functions",
+      "statement_sha256": "822a4e4d7900f69e71daba3c33f6c2ceb73cfbd932db308928e5d6f05573066e",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_difference_quotient",
+        "srcdecl:foundation:geom:angle_sum_formulas"
+      ]
+    },
+    "srcdecl:foundation:calc:differentiability_implies_continuity": {
+      "decl_type": "THEOREM",
+      "label": "Differentiability Implies Continuity",
+      "statement_sha256": "08b036700869e1b7cb2bde8f2e48a8a53b4ccf78c90c60f6d2be51daab14a41a",
+      "structural_refs": [
+        "srcdecl:foundation:calc:derivative_difference_quotient",
+        "srcdecl:foundation:calc:continuity_at_point"
+      ]
+    },
+    "srcdecl:foundation:calc:extreme_value_theorem": {
+      "decl_type": "THEOREM",
+      "label": "The Extreme Value Theorem (EVT)",
+      "statement_sha256": "1234595bd8d20755be3e90184e4e892713548ffb85213d28b56c5888e2ccb4cb",
+      "structural_refs": [
+        "srcdecl:foundation:calc:continuity_at_point",
+        "srcdecl:foundation:seq:bolzano_weierstrass_primitive"
+      ]
+    },
+    "srcdecl:foundation:calc:first_derivative_test": {
+      "decl_type": "THEOREM",
+      "label": "First Derivative Test for Local Extrema",
+      "statement_sha256": "d26efdbe60aa5eb0289e3578a99b3f6f7684af5cead8b94b2db66480c49acf90",
+      "structural_refs": [
+        "srcdecl:foundation:calc:mean_value_theorem"
+      ]
+    },
+    "srcdecl:foundation:calc:ftc_part1": {
+      "decl_type": "THEOREM",
+      "label": "Fundamental Theorem of Calculus (Part 1: Accumulation Derivative)",
+      "statement_sha256": "21634d20c160123e2ae384dbe8bb29a7a311dd67d04413250835f3db0aac5b8a",
+      "structural_refs": [
+        "srcdecl:foundation:calc:riemann_definite_integral",
+        "srcdecl:foundation:calc:derivative_difference_quotient"
+      ]
+    },
+    "srcdecl:foundation:calc:ftc_part2": {
+      "decl_type": "THEOREM",
+      "label": "Fundamental Theorem of Calculus (Part 2: Evaluation)",
+      "statement_sha256": "7c42d07f277a7b7c5ce32a5b7e21bd66ca2b4f819366b00a7366dd0f909b9261",
+      "structural_refs": [
+        "srcdecl:foundation:calc:ftc_part1"
+      ]
+    },
+    "srcdecl:foundation:calc:function_limit_epsilon_delta": {
+      "decl_type": "DEFINITION",
+      "label": "Epsilon-Delta Definition of Limit of a Function",
+      "statement_sha256": "c250a9aa118a5d805163e437b695f304158bf73d5f2d9f2eb14920588b7ace5b",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition",
+        "srcdecl:foundation:seq:absolute_value"
+      ]
+    },
+    "srcdecl:foundation:calc:integration_by_parts": {
+      "decl_type": "THEOREM",
+      "label": "Integration by Parts Formula",
+      "statement_sha256": "992677b7f146c519e1726ebe2278d6d58e7c7e0fde96d4b6ce0a62823bc0c58f",
+      "structural_refs": [
+        "srcdecl:foundation:calc:ftc_part2",
+        "srcdecl:foundation:calc:derivative_product_rule"
+      ]
+    },
+    "srcdecl:foundation:calc:integration_by_substitution": {
+      "decl_type": "THEOREM",
+      "label": "Integration by Substitution (u-Substitution)",
+      "statement_sha256": "b8e91569e0bba369eee7ba4123c3aa9731f6c42e6b0066efa10164f4c85673a1",
+      "structural_refs": [
+        "srcdecl:foundation:calc:ftc_part2",
+        "srcdecl:foundation:calc:derivative_chain_rule"
+      ]
+    },
+    "srcdecl:foundation:calc:intermediate_value_theorem": {
+      "decl_type": "THEOREM",
+      "label": "The Intermediate Value Theorem (IVT)",
+      "statement_sha256": "9a3be9c2dee279147f90310dc4827f01e79d01f0ad5fc8ea35df47ac70568b81",
+      "structural_refs": [
+        "srcdecl:foundation:calc:continuity_at_point",
+        "srcdecl:foundation:num:completeness_supremum"
+      ]
+    },
+    "srcdecl:foundation:calc:mean_value_theorem": {
+      "decl_type": "THEOREM",
+      "label": "The Mean Value Theorem (MVT)",
+      "statement_sha256": "b8bf8e19db4d83c3e903fa3b20e78bad590ecbf48192c4cf517ab1597c12d071",
+      "structural_refs": [
+        "srcdecl:foundation:calc:rolles_theorem"
+      ]
+    },
+    "srcdecl:foundation:calc:one_sided_limits": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Left-Hand and Right-Hand Limits",
+      "statement_sha256": "25fc36dbe03f1a485839c92a987050de7f9e8ce916af07c9e4da9e320a0ac1d8",
+      "structural_refs": [
+        "srcdecl:foundation:calc:function_limit_epsilon_delta"
+      ]
+    },
+    "srcdecl:foundation:calc:riemann_definite_integral": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Definite Riemann Integral",
+      "statement_sha256": "1777f0764db93205aa8b6a3f52595979e7da10c0dd1315326f8a2df16914e304",
+      "structural_refs": [
+        "srcdecl:foundation:calc:riemann_partition_sum"
+      ]
+    },
+    "srcdecl:foundation:calc:riemann_partition_sum": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Riemann Partition and Riemann Sum",
+      "statement_sha256": "36ca9019eaced06228a342195e377dbe0f5daded44085217bec865d47cf340e0",
+      "structural_refs": [
+        "srcdecl:foundation:num:real_numbers_axioms"
+      ]
+    },
+    "srcdecl:foundation:calc:rolles_theorem": {
+      "decl_type": "THEOREM",
+      "label": "Rolle's Theorem",
+      "statement_sha256": "447ab1f1dc9f283a9fb5e0f8cc64948df8fc7a75ac652d32c2db333b6bcce786",
+      "structural_refs": [
+        "srcdecl:foundation:calc:extreme_value_theorem",
+        "srcdecl:foundation:calc:derivative_difference_quotient"
+      ]
+    },
+    "srcdecl:foundation:calc:second_derivative_test": {
+      "decl_type": "THEOREM",
+      "label": "Second Derivative Test for Concavity and Extrema",
+      "statement_sha256": "2121328db63b94b8d2880d620f46f2bdfe30025f393e5339b82c9cd1cd09ab30",
+      "structural_refs": [
+        "srcdecl:foundation:calc:first_derivative_test"
+      ]
+    },
+    "srcdecl:foundation:calc:taylors_theorem_primitive": {
+      "decl_type": "THEOREM",
+      "label": "Taylor's Theorem with Lagrange Remainder (Primitive Formulation)",
+      "statement_sha256": "a719d061f587d6927a4a59d3b04f03d28a4962408b5c696d75d0307c93c79943",
+      "structural_refs": [
+        "srcdecl:foundation:calc:mean_value_theorem",
+        "srcdecl:foundation:calc:derivative_power_rule"
+      ]
+    },
+    "srcdecl:foundation:geom:angle_between_vectors": {
+      "decl_type": "DEFINITION",
+      "label": "Angle Between Vectors in Euclidean Space",
+      "statement_sha256": "041e8fc73132997608278eaf245ea99161ac780967b658b1ab4ee4720080cf10",
+      "structural_refs": [
+        "srcdecl:foundation:geom:dot_product_Rn",
+        "srcdecl:foundation:geom:cauchy_schwarz_elementary"
+      ]
+    },
+    "srcdecl:foundation:geom:angle_sum_formulas": {
+      "decl_type": "THEOREM",
+      "label": "Angle Sum and Difference Formulas for Sine and Cosine",
+      "statement_sha256": "67216d2a62e6a325eae500a052c8e39ec6b85fda2aae2a53afa428056eac6c2e",
+      "structural_refs": [
+        "srcdecl:foundation:geom:sine_cosine_unit_circle"
+      ]
+    },
+    "srcdecl:foundation:geom:cauchy_schwarz_elementary": {
+      "decl_type": "THEOREM",
+      "label": "Cauchy-Schwarz Inequality in Euclidean Space",
+      "statement_sha256": "5317a57dd352605f09453badb793e5cfed836e997f5215405ba7c3ef297eb122",
+      "structural_refs": [
+        "srcdecl:foundation:geom:dot_product_Rn",
+        "srcdecl:foundation:geom:euclidean_norm_length"
+      ]
+    },
+    "srcdecl:foundation:geom:cross_product_R3": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Vector Cross Product in R^3",
+      "statement_sha256": "4ee85f3e1326c63967c6d7709b73c928b6d1883764056d09256d3ccc65932302",
+      "structural_refs": [
+        "srcdecl:foundation:geom:euclidean_space_Rn",
+        "srcdecl:foundation:geom:orthogonality_vectors"
+      ]
+    },
+    "srcdecl:foundation:geom:distance_formula_R2": {
+      "decl_type": "DEFINITION",
+      "label": "Euclidean Distance Formula in R^2",
+      "statement_sha256": "6dff97176e728c3e9c54d77688a1e81fd394044d3c830d0f6cb0162c7a93617a",
+      "structural_refs": [
+        "srcdecl:foundation:geom:euclidean_plane_R2"
+      ]
+    },
+    "srcdecl:foundation:geom:distance_formula_Rn": {
+      "decl_type": "DEFINITION",
+      "label": "Euclidean Distance Formula in R^n",
+      "statement_sha256": "789e95b4afa44ba23488d8986d8462eaeb45dc804ad5a26770a0b0389f660a8f",
+      "structural_refs": [
+        "srcdecl:foundation:geom:euclidean_space_Rn"
+      ]
+    },
+    "srcdecl:foundation:geom:dot_product_Rn": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Standard Dot Product (Inner Product) on R^n",
+      "statement_sha256": "5fb67638996e3943631026f4f8137e7cf65ef11d57f7586f50a238e425620008",
+      "structural_refs": [
+        "srcdecl:foundation:geom:euclidean_space_Rn"
+      ]
+    },
+    "srcdecl:foundation:geom:double_angle_formulas": {
+      "decl_type": "THEOREM",
+      "label": "Double-Angle and Half-Angle Formulas",
+      "statement_sha256": "eb72343bf4dc6f28cf455397cf41cdf60242654a1c7adf8e0215479959133198",
+      "structural_refs": [
+        "srcdecl:foundation:geom:angle_sum_formulas"
+      ]
+    },
+    "srcdecl:foundation:geom:euclidean_norm_length": {
+      "decl_type": "DEFINITION",
+      "label": "Euclidean Norm (Length) of a Vector",
+      "statement_sha256": "85e0df363b41d428db60ea42c1bc5e403873e74c64bea271f937966fa8325a9b",
+      "structural_refs": [
+        "srcdecl:foundation:geom:dot_product_Rn"
+      ]
+    },
+    "srcdecl:foundation:geom:euclidean_plane_R2": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Euclidean Plane R^2",
+      "statement_sha256": "e6a497cfd65d7d050c14ae93f771653d10c00c974177048917f78846b6e1cc7f",
+      "structural_refs": [
+        "srcdecl:foundation:set:cartesian_product",
+        "srcdecl:foundation:num:real_numbers_axioms"
+      ]
+    },
+    "srcdecl:foundation:geom:euclidean_space_Rn": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Euclidean Space R^n",
+      "statement_sha256": "36b2988b6ce67d65a30d3483ae6b0acb49c6a80c3ccf683f66d846a8a75be49c",
+      "structural_refs": [
+        "srcdecl:foundation:geom:euclidean_plane_R2"
+      ]
+    },
+    "srcdecl:foundation:geom:law_of_cosines": {
+      "decl_type": "THEOREM",
+      "label": "The Law of Cosines for Triangles",
+      "statement_sha256": "7dede577724cbf9fa5297fbbac52a86b73e2bd9c72038e80a238c5f6c3e4c883",
+      "structural_refs": [
+        "srcdecl:foundation:geom:dot_product_Rn",
+        "srcdecl:foundation:geom:pythagorean_theorem"
+      ]
+    },
+    "srcdecl:foundation:geom:law_of_sines": {
+      "decl_type": "THEOREM",
+      "label": "The Law of Sines for Triangles",
+      "statement_sha256": "def792b9938d0a91c73bebca445726c9e69a2e93047bf0a245f323f60cd70483",
+      "structural_refs": [
+        "srcdecl:foundation:geom:sine_cosine_unit_circle"
+      ]
+    },
+    "srcdecl:foundation:geom:orthogonality_vectors": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Orthogonality (Perpendicularity)",
+      "statement_sha256": "588f10af819af2ec24dfd8e47560fc362990bce88074776cb2791db9dec40322",
+      "structural_refs": [
+        "srcdecl:foundation:geom:dot_product_Rn"
+      ]
+    },
+    "srcdecl:foundation:geom:polar_coordinates_R2": {
+      "decl_type": "DEFINITION",
+      "label": "Polar Coordinates in R^2",
+      "statement_sha256": "f994387da0cae4a47c794b742b1c5966e68c900b15f204adb4c0e04882a4ab6f",
+      "structural_refs": [
+        "srcdecl:foundation:geom:sine_cosine_unit_circle"
+      ]
+    },
+    "srcdecl:foundation:geom:pythagorean_theorem": {
+      "decl_type": "THEOREM",
+      "label": "The Pythagorean Theorem in R^n",
+      "statement_sha256": "51d10f29e489a286da321b4963bdf832555291ceb28ef32e30425ee50dc44ccf",
+      "structural_refs": [
+        "srcdecl:foundation:geom:orthogonality_vectors",
+        "srcdecl:foundation:geom:euclidean_norm_length"
+      ]
+    },
+    "srcdecl:foundation:geom:pythagorean_trig_identities": {
+      "decl_type": "THEOREM",
+      "label": "Fundamental Pythagorean Trigonometric Identities",
+      "statement_sha256": "b45a63618d6bbb7002f562708c8b7267e85309f45b9bb70501e04e208d5ef33f",
+      "structural_refs": [
+        "srcdecl:foundation:geom:sine_cosine_unit_circle",
+        "srcdecl:foundation:geom:tangent_trig_definition"
+      ]
+    },
+    "srcdecl:foundation:geom:rotation_matrix_2d": {
+      "decl_type": "DEFINITION",
+      "label": "2D Planar Rotation Transformation Matrix",
+      "statement_sha256": "b0e22a073b5e9820d19c258245a517fcefbbdc7784a85b7b113d87b6ace645b3",
+      "structural_refs": [
+        "srcdecl:foundation:geom:angle_sum_formulas"
+      ]
+    },
+    "srcdecl:foundation:geom:sine_cosine_unit_circle": {
+      "decl_type": "DEFINITION",
+      "label": "Geometric Definition of Sine and Cosine via Unit Circle",
+      "statement_sha256": "4d6d39e2a74b107b638ccbc6883f96f18305865a17bbded43106dcacfa983037",
+      "structural_refs": [
+        "srcdecl:foundation:geom:unit_circle_equation"
+      ]
+    },
+    "srcdecl:foundation:geom:tangent_trig_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Tangent and Reciprocal Trigonometric Functions",
+      "statement_sha256": "224c17c954131443f570db795c2b156ad212835f1006fc557eebfb4344491dc7",
+      "structural_refs": [
+        "srcdecl:foundation:geom:sine_cosine_unit_circle"
+      ]
+    },
+    "srcdecl:foundation:geom:triangle_inequality_Rn": {
+      "decl_type": "THEOREM",
+      "label": "Triangle Inequality in Euclidean Space R^n",
+      "statement_sha256": "15f69145f96a31843a451fd60e1e81a1105a661b3a4a12bd744844c9d7010212",
+      "structural_refs": [
+        "srcdecl:foundation:geom:cauchy_schwarz_elementary"
+      ]
+    },
+    "srcdecl:foundation:geom:unit_circle_equation": {
+      "decl_type": "DEFINITION",
+      "label": "Equation of the Unit Circle in R^2",
+      "statement_sha256": "df52d4727de2e475ef6b50538421b13968cb974834c18ce9b2abbc295999b948",
+      "structural_refs": [
+        "srcdecl:foundation:geom:euclidean_plane_R2",
+        "srcdecl:foundation:geom:distance_formula_R2"
+      ]
+    },
+    "srcdecl:foundation:logic:biconditional": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Logical Equivalence (Biconditional)",
+      "statement_sha256": "aba6cf733df156bf4d056f52c62de6e8f538092eb8be2f1785e68190a832ef95",
+      "structural_refs": [
+        "srcdecl:foundation:logic:implication",
+        "srcdecl:foundation:logic:conjunction"
+      ]
+    },
+    "srcdecl:foundation:logic:conjunction": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Logical Conjunction (AND)",
+      "statement_sha256": "8376ba2ea454b35fb944617a7a4e53db05676827e0047713da5209ded7029a4d",
+      "structural_refs": [
+        "srcdecl:foundation:logic:proposition"
+      ]
+    },
+    "srcdecl:foundation:logic:contrapositive_proof": {
+      "decl_type": "THEOREM",
+      "label": "Contrapositive Equivalence and Proof Method",
+      "statement_sha256": "b55e7b1a427c0b4595b724eb3c56dc49bcf37ba017ddcaa64f7e7ea36645539c",
+      "structural_refs": [
+        "srcdecl:foundation:logic:implication",
+        "srcdecl:foundation:logic:negation"
+      ]
+    },
+    "srcdecl:foundation:logic:de_morgan_logic": {
+      "decl_type": "THEOREM",
+      "label": "De Morgan's Laws for Propositional Logic",
+      "statement_sha256": "a45048e4567c3a6ba39ca5ed4674f68d2d1aef830429319c6e3754c7ab245152",
+      "structural_refs": [
+        "srcdecl:foundation:logic:negation",
+        "srcdecl:foundation:logic:conjunction",
+        "srcdecl:foundation:logic:disjunction"
+      ]
+    },
+    "srcdecl:foundation:logic:direct_proof": {
+      "decl_type": "DEFINITION",
+      "label": "Direct Proof Method",
+      "statement_sha256": "3d76b504b3b0e6d18f1a396e000d64b5e8b03ba110d305d34900a79d38b2acdb",
+      "structural_refs": [
+        "srcdecl:foundation:logic:implication",
+        "srcdecl:foundation:logic:modus_ponens"
+      ]
+    },
+    "srcdecl:foundation:logic:disjunction": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Logical Disjunction (OR)",
+      "statement_sha256": "680922ef67f0f0dd277453fc73d6f059f8a82d228a6958c98862aed669b88850",
+      "structural_refs": [
+        "srcdecl:foundation:logic:proposition"
+      ]
+    },
+    "srcdecl:foundation:logic:distributive_logic": {
+      "decl_type": "THEOREM",
+      "label": "Distributive Laws of Propositional Logic",
+      "statement_sha256": "38361a5994e621c40af426368b5f42db7e97098bd4ff825aa9256a8d94b8e20e",
+      "structural_refs": [
+        "srcdecl:foundation:logic:conjunction",
+        "srcdecl:foundation:logic:disjunction"
+      ]
+    },
+    "srcdecl:foundation:logic:existential_quantifier": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Existential Quantifier (THERE EXISTS)",
+      "statement_sha256": "8a302e8773937ba92d4bbeb4fc362c516fc8db9db750630ad19f529c4cedc282",
+      "structural_refs": [
+        "srcdecl:foundation:logic:proposition"
+      ]
+    },
+    "srcdecl:foundation:logic:hypothetical_syllogism": {
+      "decl_type": "THEOREM",
+      "label": "Rule of Hypothetical Syllogism (Transitivity of Implication)",
+      "statement_sha256": "6bbad5b65cd399266631e684020fb9ad2e61e36cd3048c62badecf7da1189638",
+      "structural_refs": [
+        "srcdecl:foundation:logic:implication"
+      ]
+    },
+    "srcdecl:foundation:logic:implication": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Material Implication (Conditional)",
+      "statement_sha256": "52d8b2970d24ca11b58b1b8659addfb732756f5e04a20470bf97ac7acbff4f26",
+      "structural_refs": [
+        "srcdecl:foundation:logic:proposition",
+        "srcdecl:foundation:logic:negation",
+        "srcdecl:foundation:logic:disjunction"
+      ]
+    },
+    "srcdecl:foundation:logic:law_of_excluded_middle": {
+      "decl_type": "AXIOM",
+      "label": "Law of Excluded Middle and Non-Contradiction",
+      "statement_sha256": "87b629729eef8d819bc54f56207a4f10e9212e4c362aa3999f95df24470e1471",
+      "structural_refs": [
+        "srcdecl:foundation:logic:negation",
+        "srcdecl:foundation:logic:disjunction",
+        "srcdecl:foundation:logic:conjunction"
+      ]
+    },
+    "srcdecl:foundation:logic:modus_ponens": {
+      "decl_type": "THEOREM",
+      "label": "Rule of Inference: Modus Ponens",
+      "statement_sha256": "04b1b671b54b11de64a8451acebc3aa124419ee9d0dcceeb07df1be4c1c1f383",
+      "structural_refs": [
+        "srcdecl:foundation:logic:implication"
+      ]
+    },
+    "srcdecl:foundation:logic:modus_tollens": {
+      "decl_type": "THEOREM",
+      "label": "Rule of Inference: Modus Tollens",
+      "statement_sha256": "45e4938b716d4b7d4f47b5951b869e199a1f29b4e7bd6bab7768da5a43bd8801",
+      "structural_refs": [
+        "srcdecl:foundation:logic:implication",
+        "srcdecl:foundation:logic:negation"
+      ]
+    },
+    "srcdecl:foundation:logic:negation": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Logical Negation (NOT)",
+      "statement_sha256": "41167f5775c61789080d55d62aef2bcada8107166f583caa83e8589540088cf7",
+      "structural_refs": [
+        "srcdecl:foundation:logic:proposition"
+      ]
+    },
+    "srcdecl:foundation:logic:proof_by_contradiction": {
+      "decl_type": "THEOREM",
+      "label": "Proof by Contradiction (Reductio ad Absurdum)",
+      "statement_sha256": "9bda74b15a01f1e6788ea19b85e62d0880f6895ea7b5b9ef7b939bf61f868996",
+      "structural_refs": [
+        "srcdecl:foundation:logic:negation",
+        "srcdecl:foundation:logic:tautology"
+      ]
+    },
+    "srcdecl:foundation:logic:proposition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Proposition / Statement",
+      "statement_sha256": "e13e41fbb70a0dbb9b458d80468edbd70e6e1454305fa946c55cb570981af1c9",
+      "structural_refs": []
+    },
+    "srcdecl:foundation:logic:quantifier_negation": {
+      "decl_type": "THEOREM",
+      "label": "Quantifier Negation Dualities",
+      "statement_sha256": "f08747adadb86cd2dd11b80582926570f2790c1424efecd4889ef37dea35f79f",
+      "structural_refs": [
+        "srcdecl:foundation:logic:universal_quantifier",
+        "srcdecl:foundation:logic:existential_quantifier",
+        "srcdecl:foundation:logic:negation"
+      ]
+    },
+    "srcdecl:foundation:logic:tautology": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Tautology and Contradiction",
+      "statement_sha256": "dbd8875395a9cf484f037382415346ee3537aa3ede0918dc8d8c9ff6d7493afc",
+      "structural_refs": [
+        "srcdecl:foundation:logic:truth_table"
+      ]
+    },
+    "srcdecl:foundation:logic:truth_table": {
+      "decl_type": "DEFINITION",
+      "label": "Truth Table Functional Semantics",
+      "statement_sha256": "9063cb0a0fb020ec24e68f8da999335c9c29f0aa190d3e6012de33dd5cf74e64",
+      "structural_refs": [
+        "srcdecl:foundation:logic:conjunction",
+        "srcdecl:foundation:logic:disjunction",
+        "srcdecl:foundation:logic:negation"
+      ]
+    },
+    "srcdecl:foundation:logic:universal_quantifier": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Universal Quantifier (FOR ALL)",
+      "statement_sha256": "5af9b08ed218259516f2bd1b00c34fc8038694265cdcfe6f2e52b10dc4859ebd",
+      "structural_refs": [
+        "srcdecl:foundation:logic:proposition"
+      ]
+    },
+    "srcdecl:foundation:num:algebraic_closure_c_primitive": {
+      "decl_type": "THEOREM",
+      "label": "Algebraic Closure of Complex Numbers (Primitive Formulation)",
+      "statement_sha256": "e752a0871df4dfea93f706d448e9b35211fc42089fa7ec69608948ba0520305e",
+      "structural_refs": [
+        "srcdecl:foundation:num:complex_numbers_definition"
+      ]
+    },
+    "srcdecl:foundation:num:archimedean_property": {
+      "decl_type": "THEOREM",
+      "label": "Archimedean Property of Real Numbers",
+      "statement_sha256": "9365e3f9000624e1459a164b257753d56b8f6faf1acfcc21a6cf72340dba901f",
+      "structural_refs": [
+        "srcdecl:foundation:num:completeness_supremum"
+      ]
+    },
+    "srcdecl:foundation:num:cauchy_sequence_reals": {
+      "decl_type": "DEFINITION",
+      "label": "Cauchy Sequence Metric Completion Construction of R",
+      "statement_sha256": "8b1dfdc3a96ac9cf8d12699e95434170b798c16225bafb3822dd4fbabe5f01c5",
+      "structural_refs": [
+        "srcdecl:foundation:rel:quotient_set",
+        "srcdecl:foundation:num:rational_numbers_construction"
+      ]
+    },
+    "srcdecl:foundation:num:completeness_supremum": {
+      "decl_type": "AXIOM",
+      "label": "Completeness Property: Least Upper Bound Axiom",
+      "statement_sha256": "79396dbf78d7c17413fdfa73bf0921e4970ebb2da2e62509f9793b7319d7fd64",
+      "structural_refs": [
+        "srcdecl:foundation:num:real_numbers_axioms"
+      ]
+    },
+    "srcdecl:foundation:num:complex_conjugate_modulus": {
+      "decl_type": "DEFINITION",
+      "label": "Complex Conjugate and Absolute Value (Modulus)",
+      "statement_sha256": "78c03de491e3cb634b098bd1f924dcabbec53f6b46ce9247051701d963ae3737",
+      "structural_refs": [
+        "srcdecl:foundation:num:imaginary_unit"
+      ]
+    },
+    "srcdecl:foundation:num:complex_numbers_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Complex Numbers C",
+      "statement_sha256": "b7e41acf36da4ff1864e340c334b3a2ebda8e16a51e74037261dc807b65a734d",
+      "structural_refs": [
+        "srcdecl:foundation:num:real_numbers_axioms",
+        "srcdecl:foundation:set:cartesian_product"
+      ]
+    },
+    "srcdecl:foundation:num:dedekind_cut_construction": {
+      "decl_type": "DEFINITION",
+      "label": "Dedekind Cut Construction of Real Numbers",
+      "statement_sha256": "25e9d9e31d40166762fa37c3c2dc9b053462c7ecf7225a2ce1fdf1bec25e1852",
+      "structural_refs": [
+        "srcdecl:foundation:num:rational_numbers_construction"
+      ]
+    },
+    "srcdecl:foundation:num:density_irrationals": {
+      "decl_type": "THEOREM",
+      "label": "Density of Irrational Numbers",
+      "statement_sha256": "26ae0f221e2c969e52aff503a556ab9e3071f220fbf1d44cb7ba584ed70a8d68",
+      "structural_refs": [
+        "srcdecl:foundation:num:rational_density",
+        "srcdecl:foundation:num:irrationality_sqrt_2"
+      ]
+    },
+    "srcdecl:foundation:num:euclidean_division_algorithm": {
+      "decl_type": "THEOREM",
+      "label": "Euclidean Division Algorithm for Integers",
+      "statement_sha256": "0df5dd3b254ad635d8561ef50c3aa4fb960b8ba0becc3295945dedf47c7dbe3d",
+      "structural_refs": [
+        "srcdecl:foundation:num:well_ordering_principle"
+      ]
+    },
+    "srcdecl:foundation:num:imaginary_unit": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Imaginary Unit i",
+      "statement_sha256": "7724d5cae56179116fc700ad39ac7f74a2030b710e24b1c3ecf8236769318bf3",
+      "structural_refs": [
+        "srcdecl:foundation:num:complex_numbers_definition"
+      ]
+    },
+    "srcdecl:foundation:num:integer_divisibility": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Divisibility in Integers",
+      "statement_sha256": "e453f3b19c398b6d3709e6c91ac7c1832b86ba93a04f3af8bbbc3fa6186669a9",
+      "structural_refs": [
+        "srcdecl:foundation:num:integers_construction"
+      ]
+    },
+    "srcdecl:foundation:num:integers_construction": {
+      "decl_type": "DEFINITION",
+      "label": "Construction of Integers as Quotient of N × N",
+      "statement_sha256": "80bea91f37c22c961ec6dc2b10f4b938317c2cc0deadfe7175a704b793024393",
+      "structural_refs": [
+        "srcdecl:foundation:rel:quotient_set",
+        "srcdecl:foundation:num:peano_axioms_naturals"
+      ]
+    },
+    "srcdecl:foundation:num:irrationality_sqrt_2": {
+      "decl_type": "THEOREM",
+      "label": "Existence of Irrationals: Irrationality of sqrt(2)",
+      "statement_sha256": "1339d8866a06560d28e2f9614c0bcd2fa11021422e849d353dbc39f19b7d6b4c",
+      "structural_refs": [
+        "srcdecl:foundation:num:rational_numbers_construction",
+        "srcdecl:foundation:logic:proof_by_contradiction"
+      ]
+    },
+    "srcdecl:foundation:num:peano_axioms_naturals": {
+      "decl_type": "AXIOM",
+      "label": "Peano Axioms for Natural Numbers",
+      "statement_sha256": "29f415cc9aa4b8fad164dc935666b025feb9beb64fd04f6c9e8fdee1c4f94f3a",
+      "structural_refs": []
+    },
+    "srcdecl:foundation:num:polar_form_complex": {
+      "decl_type": "THEOREM",
+      "label": "Polar Representation of Complex Numbers",
+      "statement_sha256": "e1e4956ab7cf9cbc74fff84abaeb4f8b300428c1cd51758a8a38a6e7e100efbc",
+      "structural_refs": [
+        "srcdecl:foundation:num:complex_conjugate_modulus"
+      ]
+    },
+    "srcdecl:foundation:num:principle_induction": {
+      "decl_type": "THEOREM",
+      "label": "Principle of Mathematical Induction",
+      "statement_sha256": "0bc09fea2331d2b3108b6587b59eb84601992e660eb7a2ec09dfeb25122c9267",
+      "structural_refs": [
+        "srcdecl:foundation:num:peano_axioms_naturals"
+      ]
+    },
+    "srcdecl:foundation:num:rational_density": {
+      "decl_type": "THEOREM",
+      "label": "Density of Rational Numbers in Real Line",
+      "statement_sha256": "04345b64cf1c4c08d6187263cb9afc416f0fb1804344f447b3fd457bfcf89168",
+      "structural_refs": [
+        "srcdecl:foundation:num:rational_numbers_construction"
+      ]
+    },
+    "srcdecl:foundation:num:rational_numbers_construction": {
+      "decl_type": "DEFINITION",
+      "label": "Construction of Rational Numbers as Field of Fractions",
+      "statement_sha256": "04374fb3c881a484e47f557b59d4993a0ce59de9b2772462108516ae297c1a86",
+      "structural_refs": [
+        "srcdecl:foundation:rel:quotient_set",
+        "srcdecl:foundation:num:integers_construction"
+      ]
+    },
+    "srcdecl:foundation:num:real_numbers_axioms": {
+      "decl_type": "AXIOM",
+      "label": "Axiomatic Definition of Real Numbers (Complete Ordered Field)",
+      "statement_sha256": "ea94b978e58861ad178110fde1728f502d5f376398a17a189543264d9b58c007",
+      "structural_refs": [
+        "srcdecl:foundation:num:rational_numbers_construction"
+      ]
+    },
+    "srcdecl:foundation:num:well_ordering_principle": {
+      "decl_type": "THEOREM",
+      "label": "Well-Ordering Principle of Natural Numbers",
+      "statement_sha256": "4f17806deac8850c99fab31a7c27c574a81e2ae173d67d668e3ff304fc1e15e6",
+      "structural_refs": [
+        "srcdecl:foundation:num:principle_induction"
+      ]
+    },
+    "srcdecl:foundation:rel:antisymmetric_relation": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Antisymmetric Relation",
+      "statement_sha256": "5b2504fceb04bfe6d5f0f8d0d0bf4ae270367d6db678b0caafa11d53421ce0c0",
+      "structural_refs": [
+        "srcdecl:foundation:rel:binary_relation"
+      ]
+    },
+    "srcdecl:foundation:rel:associativity_composition": {
+      "decl_type": "THEOREM",
+      "label": "Associativity of Function Composition",
+      "statement_sha256": "d646a34a5111c842904142d3c444dfceac787e9a46ff76c5c0d24522b5abcc60",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_composition"
+      ]
+    },
+    "srcdecl:foundation:rel:bijective_function": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Bijective (One-to-One and Onto) Function",
+      "statement_sha256": "041d7fc38cf3f670636c85876089ef6ff1f1e7fcb1d5c74d25914bf23b346356",
+      "structural_refs": [
+        "srcdecl:foundation:rel:injective_function",
+        "srcdecl:foundation:rel:surjective_function"
+      ]
+    },
+    "srcdecl:foundation:rel:binary_relation": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Binary Relation",
+      "statement_sha256": "af32f702f6367a690ffbc60f0af2e40d43cc063b3996e83e70ab796660061087",
+      "structural_refs": [
+        "srcdecl:foundation:set:cartesian_product"
+      ]
+    },
+    "srcdecl:foundation:rel:domain_codomain_image": {
+      "decl_type": "DEFINITION",
+      "label": "Domain, Codomain, and Range / Image",
+      "statement_sha256": "b855d6b81584d76e19f58811443d76c5367c09c693740855f3d994c79ccd3701",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:rel:equivalence_class": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Equivalence Class",
+      "statement_sha256": "729f4635cdfed56a85e03b5f50e062e2f9eee41bf576f635ecdbac61d899cd4d",
+      "structural_refs": [
+        "srcdecl:foundation:rel:equivalence_relation"
+      ]
+    },
+    "srcdecl:foundation:rel:equivalence_relation": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Equivalence Relation",
+      "statement_sha256": "c44446e0decd5f6de2cad476503e3844a40f5a6048e749af109ce9e4956b1e02",
+      "structural_refs": [
+        "srcdecl:foundation:rel:reflexive_relation",
+        "srcdecl:foundation:rel:symmetric_relation",
+        "srcdecl:foundation:rel:transitive_relation"
+      ]
+    },
+    "srcdecl:foundation:rel:function_composition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Function Composition",
+      "statement_sha256": "b629e13aca258f6780df1883cb869c2939dc5df43caf5121d58012380bfbb6b0",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:rel:function_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Function / Mapping",
+      "statement_sha256": "029d4b4f62c8e1d426936a0d06158509f818d80448e0e906cd38c61073ffff17",
+      "structural_refs": [
+        "srcdecl:foundation:rel:binary_relation"
+      ]
+    },
+    "srcdecl:foundation:rel:fundamental_theorem_equivalence": {
+      "decl_type": "THEOREM",
+      "label": "Fundamental Theorem of Equivalence Relations",
+      "statement_sha256": "21f6a8f3cb272e64678977dc65ac48eb67d448d6840178f836325be2c4a7d64c",
+      "structural_refs": [
+        "srcdecl:foundation:rel:quotient_set",
+        "srcdecl:foundation:set:set_partition"
+      ]
+    },
+    "srcdecl:foundation:rel:identity_function": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Identity Function",
+      "statement_sha256": "3a9e8198453657bb3b9ea7736f9cfc8927b060987c5690914424f58f32abcd7e",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:rel:injective_function": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Injective (One-to-One) Function",
+      "statement_sha256": "c013ca2317aa84e8c355e09f10bcddd3bd28d8bcfab2d44d74a2aeaa3d37540d",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:rel:inverse_function": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Inverse Function",
+      "statement_sha256": "c2864660e27df3418b01c8c13b69030eeb685126a7676129f1d2b9c57b34cc7b",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_composition",
+        "srcdecl:foundation:rel:identity_function"
+      ]
+    },
+    "srcdecl:foundation:rel:invertibility_criterion": {
+      "decl_type": "THEOREM",
+      "label": "Bijectivity and Invertibility Equivalence",
+      "statement_sha256": "529dcdf7fa4cd680d2370323d4c30f39e9c53c99236a2eb81a528da01c0dd80b",
+      "structural_refs": [
+        "srcdecl:foundation:rel:bijective_function",
+        "srcdecl:foundation:rel:inverse_function"
+      ]
+    },
+    "srcdecl:foundation:rel:partial_order": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Partial Order (Poset)",
+      "statement_sha256": "64fbed976356dc01b0d075d47578818bd6bca00afcb5753b3bb039e5f2072593",
+      "structural_refs": [
+        "srcdecl:foundation:rel:reflexive_relation",
+        "srcdecl:foundation:rel:antisymmetric_relation",
+        "srcdecl:foundation:rel:transitive_relation"
+      ]
+    },
+    "srcdecl:foundation:rel:preimage_fiber": {
+      "decl_type": "DEFINITION",
+      "label": "Preimage (Inverse Image) and Fiber",
+      "statement_sha256": "67f4f4f45d565c66868298a52b2ac17df83dafc4705d3a946c9a29dc9b03e17c",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition"
+      ]
+    },
+    "srcdecl:foundation:rel:quotient_set": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Quotient Set",
+      "statement_sha256": "5910e7c540396b4731975bc4d88e28564f8624128130e99d299bf503032135b1",
+      "structural_refs": [
+        "srcdecl:foundation:rel:equivalence_class"
+      ]
+    },
+    "srcdecl:foundation:rel:reflexive_relation": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Reflexive Relation",
+      "statement_sha256": "a312b0c03e31a28640cceffc1ee14c32b1ae4f563c533090c071d6fb47a5d57e",
+      "structural_refs": [
+        "srcdecl:foundation:rel:binary_relation"
+      ]
+    },
+    "srcdecl:foundation:rel:surjective_function": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Surjective (Onto) Function",
+      "statement_sha256": "a805dac6dc2ea5ed2c351a517abdc38b39a8b51e7514d06cd73e91e885fe1e7b",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition",
+        "srcdecl:foundation:rel:domain_codomain_image"
+      ]
+    },
+    "srcdecl:foundation:rel:symmetric_relation": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Symmetric Relation",
+      "statement_sha256": "49494b04b5da2d6dcdde8db2d3cfbae006aeab35d31a25b73b267287952e4a68",
+      "structural_refs": [
+        "srcdecl:foundation:rel:binary_relation"
+      ]
+    },
+    "srcdecl:foundation:rel:total_order": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Total Order",
+      "statement_sha256": "af12a39c01d0c567c654dbec80632e61d78fb2d28ab3d686ac3843ef60c3c988",
+      "structural_refs": [
+        "srcdecl:foundation:rel:partial_order"
+      ]
+    },
+    "srcdecl:foundation:rel:transitive_relation": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Transitive Relation",
+      "statement_sha256": "f99e5891e1aa1744c4acc534f932f7b685cd151df43977d55ea1d7600237274c",
+      "structural_refs": [
+        "srcdecl:foundation:rel:binary_relation"
+      ]
+    },
+    "srcdecl:foundation:seq:absolute_value": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Absolute Value Function on R",
+      "statement_sha256": "ab4f7b3b9d9b5cdb1eb1c5394383d962104834f5162919808ab16087f80b9136",
+      "structural_refs": [
+        "srcdecl:foundation:num:real_numbers_axioms"
+      ]
+    },
+    "srcdecl:foundation:seq:algebraic_limit_theorem": {
+      "decl_type": "THEOREM",
+      "label": "Algebraic Limit Theorem for Sequences",
+      "statement_sha256": "af7117a9c62ff1e706f2cb054f0e18ced972128182a78facc9a1c2d3f198d445",
+      "structural_refs": [
+        "srcdecl:foundation:seq:sequence_limit_epsilon_N"
+      ]
+    },
+    "srcdecl:foundation:seq:bolzano_weierstrass_primitive": {
+      "decl_type": "THEOREM",
+      "label": "Bolzano-Weierstrass Theorem (Elementary)",
+      "statement_sha256": "9cda55d4f2fd387cf050ebf9b980f78bc294bb3030194a2933dd5556a4cdc537",
+      "structural_refs": [
+        "srcdecl:foundation:seq:subsequence_definition",
+        "srcdecl:foundation:seq:monotone_convergence_theorem"
+      ]
+    },
+    "srcdecl:foundation:seq:bounded_set_reals": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Bounded Set in Real Line",
+      "statement_sha256": "330fec026aec1755402eed2513ea1df1339434bbfe26e9705f518cf357be5587",
+      "structural_refs": [
+        "srcdecl:foundation:num:real_numbers_axioms"
+      ]
+    },
+    "srcdecl:foundation:seq:cauchy_criterion_convergence": {
+      "decl_type": "THEOREM",
+      "label": "Cauchy Convergence Criterion in R",
+      "statement_sha256": "47dde4a0f83f5d271e0f8caecb7f694d492d4a59d6b40235255d5392e5add2f4",
+      "structural_refs": [
+        "srcdecl:foundation:seq:cauchy_sequence_definition",
+        "srcdecl:foundation:num:completeness_supremum"
+      ]
+    },
+    "srcdecl:foundation:seq:cauchy_sequence_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Cauchy Sequence",
+      "statement_sha256": "e59a287d200b04c9016b93db5f3189d3a70fa9f3178c19bfda2c52ed3df6f279",
+      "structural_refs": [
+        "srcdecl:foundation:seq:real_sequence_definition",
+        "srcdecl:foundation:seq:absolute_value"
+      ]
+    },
+    "srcdecl:foundation:seq:comparison_test_series": {
+      "decl_type": "THEOREM",
+      "label": "Direct Comparison Test for Non-Negative Series",
+      "statement_sha256": "6803e5e3b109982de4809aee30b5e5bb324e163b8d3e89ed50875811eeb7de65",
+      "structural_refs": [
+        "srcdecl:foundation:seq:infinite_series_definition",
+        "srcdecl:foundation:seq:monotone_convergence_theorem"
+      ]
+    },
+    "srcdecl:foundation:seq:convergent_implies_bounded": {
+      "decl_type": "THEOREM",
+      "label": "Boundedness of Convergent Sequences",
+      "statement_sha256": "3d2106af522a957913b257ece99aab5b3963c8510f148a9673cb908efbed4699",
+      "structural_refs": [
+        "srcdecl:foundation:seq:sequence_limit_epsilon_N",
+        "srcdecl:foundation:seq:bounded_set_reals"
+      ]
+    },
+    "srcdecl:foundation:seq:divergence_test": {
+      "decl_type": "THEOREM",
+      "label": "Divergence Test (n-th Term Test) for Series",
+      "statement_sha256": "9e5fca99c5d4b22ee9e917cd67630929e42fbd5e632b8eadf4e3777f4268f3f4",
+      "structural_refs": [
+        "srcdecl:foundation:seq:infinite_series_definition"
+      ]
+    },
+    "srcdecl:foundation:seq:geometric_series_sum": {
+      "decl_type": "THEOREM",
+      "label": "Sum Formula for Geometric Series",
+      "statement_sha256": "e9842f102866c26e3cc978db94e4e9a68ce736c2e92d9b008d2a0a6c73251eb0",
+      "structural_refs": [
+        "srcdecl:foundation:seq:infinite_series_definition"
+      ]
+    },
+    "srcdecl:foundation:seq:infinite_series_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Infinite Series and Partial Sums",
+      "statement_sha256": "5973a5fb32a49b2744116b14552ecc10550907ed4fb71a0e2c747ece306effad",
+      "structural_refs": [
+        "srcdecl:foundation:seq:real_sequence_definition"
+      ]
+    },
+    "srcdecl:foundation:seq:metric_space_axioms_primitive": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Metric Space (Primitive Formulation)",
+      "statement_sha256": "a39c4928839fd485387858901166b7410a2a6121f903182426efe60a6328769d",
+      "structural_refs": [
+        "srcdecl:foundation:seq:triangle_inequality_reals"
+      ]
+    },
+    "srcdecl:foundation:seq:monotone_convergence_theorem": {
+      "decl_type": "THEOREM",
+      "label": "Monotone Convergence Theorem for Sequences",
+      "statement_sha256": "7819442bd6cade4dd739fc7a2c3841915fa7c14aa2037b683a0f626127718544",
+      "structural_refs": [
+        "srcdecl:foundation:seq:sequence_limit_epsilon_N",
+        "srcdecl:foundation:num:completeness_supremum"
+      ]
+    },
+    "srcdecl:foundation:seq:open_ball_metric": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Open Ball and Neighborhood in Metric Space",
+      "statement_sha256": "f3616a9912dec63dec097b294ff8bd19f9fc3993ee860c2cee0266215173bd25",
+      "structural_refs": [
+        "srcdecl:foundation:seq:metric_space_axioms_primitive"
+      ]
+    },
+    "srcdecl:foundation:seq:real_sequence_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Real Sequence",
+      "statement_sha256": "d6083bfd298ccaf4d2a1adfa170a3baf9af3a61d6abcb6669a75c90b0435cef4",
+      "structural_refs": [
+        "srcdecl:foundation:rel:function_definition",
+        "srcdecl:foundation:num:peano_axioms_naturals"
+      ]
+    },
+    "srcdecl:foundation:seq:reverse_triangle_inequality": {
+      "decl_type": "THEOREM",
+      "label": "Reverse Triangle Inequality",
+      "statement_sha256": "8aa33327b394e6c5cd96ee0b04bdfd4151fa95b555dcdb0e46fa363fa677ecd4",
+      "structural_refs": [
+        "srcdecl:foundation:seq:triangle_inequality_reals"
+      ]
+    },
+    "srcdecl:foundation:seq:sequence_limit_epsilon_N": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Sequence Convergence (Epsilon-N Limit)",
+      "statement_sha256": "f899850b36a562cf8208cadb988f8dc2d90cf3833d419ecf04ff0405a27d543d",
+      "structural_refs": [
+        "srcdecl:foundation:seq:real_sequence_definition",
+        "srcdecl:foundation:seq:absolute_value"
+      ]
+    },
+    "srcdecl:foundation:seq:squeeze_theorem": {
+      "decl_type": "THEOREM",
+      "label": "Squeeze (Sandwich) Theorem for Sequences",
+      "statement_sha256": "39d8483bf627e67e40a128fb6efa1197e5ce4b01c5d202a8f5fa21da98030e25",
+      "structural_refs": [
+        "srcdecl:foundation:seq:sequence_limit_epsilon_N"
+      ]
+    },
+    "srcdecl:foundation:seq:subsequence_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Subsequence",
+      "statement_sha256": "0910b482945003d3e6a3ccf514be918c2c8038734092b9d22cbb0a70406602ff",
+      "structural_refs": [
+        "srcdecl:foundation:seq:real_sequence_definition"
+      ]
+    },
+    "srcdecl:foundation:seq:supremum_infimum": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Supremum and Infimum",
+      "statement_sha256": "729890aac5b3e0de39cb02799d4934770694f466bd926dde37ebbb5222c48841",
+      "structural_refs": [
+        "srcdecl:foundation:seq:bounded_set_reals"
+      ]
+    },
+    "srcdecl:foundation:seq:triangle_inequality_reals": {
+      "decl_type": "THEOREM",
+      "label": "Triangle Inequality for Real Numbers",
+      "statement_sha256": "7b402326ae471eca4be6480cc3d2b9c67e2867537563a8c0311c0d0233be30a6",
+      "structural_refs": [
+        "srcdecl:foundation:seq:absolute_value"
+      ]
+    },
+    "srcdecl:foundation:seq:uniqueness_sequence_limit": {
+      "decl_type": "THEOREM",
+      "label": "Uniqueness of Limits of Sequences",
+      "statement_sha256": "38e22fad6d31e47b6c527ce8c2918ac4b930e01ed2476be606a96a80f7089c36",
+      "structural_refs": [
+        "srcdecl:foundation:seq:sequence_limit_epsilon_N",
+        "srcdecl:foundation:seq:triangle_inequality_reals"
+      ]
+    },
+    "srcdecl:foundation:set:arbitrary_union_intersection": {
+      "decl_type": "DEFINITION",
+      "label": "Arbitrary (Indexed) Union and Intersection",
+      "statement_sha256": "3dd396cf23c5ee09f42bc20eb6c6bc6978f553edb00e7d5cb65aed13ef56b32b",
+      "structural_refs": [
+        "srcdecl:foundation:set:union",
+        "srcdecl:foundation:set:intersection"
+      ]
+    },
+    "srcdecl:foundation:set:axiom_of_choice_primitive": {
+      "decl_type": "AXIOM",
+      "label": "Axiom of Choice (Elementary Formulation)",
+      "statement_sha256": "3ed72c215047e429496c78ddea0a985e566acf1c97ec8cf0f264beccd6d728d5",
+      "structural_refs": [
+        "srcdecl:foundation:set:cartesian_product",
+        "srcdecl:foundation:set:empty_set"
+      ]
+    },
+    "srcdecl:foundation:set:axiom_of_extensionality": {
+      "decl_type": "AXIOM",
+      "label": "Axiom of Extensionality",
+      "statement_sha256": "519e08c8dd27e038a4720c73768af90aa1369913d34f3cdbe4312efba57f4e5b",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    },
+    "srcdecl:foundation:set:axiom_of_specification": {
+      "decl_type": "AXIOM",
+      "label": "Axiom Schema of Specification (Separation)",
+      "statement_sha256": "62796aa0c237ec90d5a84447cddd2575815c5a6efc1ac9b91fb1db991a71e4ce",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    },
+    "srcdecl:foundation:set:cartesian_product": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Cartesian Product",
+      "statement_sha256": "1a334af13b470b76b1a027ea38cfd8b11fefe58f49bc8983e6b171b75e632ac2",
+      "structural_refs": [
+        "srcdecl:foundation:set:ordered_pair"
+      ]
+    },
+    "srcdecl:foundation:set:complement": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Absolute Complement",
+      "statement_sha256": "0782c32828a922f404702c7fc6a773dd86633e0f2c9b92e18593617296f52d4a",
+      "structural_refs": [
+        "srcdecl:foundation:set:set_difference"
+      ]
+    },
+    "srcdecl:foundation:set:de_morgan_sets": {
+      "decl_type": "THEOREM",
+      "label": "De Morgan's Laws for Sets",
+      "statement_sha256": "78b5f8099bff13fc7843f534c51e316bff87edc034724199be4b7ed0edef3ce4",
+      "structural_refs": [
+        "srcdecl:foundation:set:complement",
+        "srcdecl:foundation:set:union",
+        "srcdecl:foundation:set:intersection"
+      ]
+    },
+    "srcdecl:foundation:set:disjoint_sets": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Disjoint Sets",
+      "statement_sha256": "a392fd9d85ae513f179d208babfab15858fdfd80d6250668044b5338cf522da8",
+      "structural_refs": [
+        "srcdecl:foundation:set:intersection",
+        "srcdecl:foundation:set:empty_set"
+      ]
+    },
+    "srcdecl:foundation:set:distributive_laws_sets": {
+      "decl_type": "THEOREM",
+      "label": "Distributive Laws of Set Operations",
+      "statement_sha256": "b59fefa9c071a3e623dca5a3d393e87c756d7e011fa7f3d6878d8f78cbb3a214",
+      "structural_refs": [
+        "srcdecl:foundation:set:union",
+        "srcdecl:foundation:set:intersection"
+      ]
+    },
+    "srcdecl:foundation:set:element_membership": {
+      "decl_type": "DEFINITION",
+      "label": "Set Membership and Extensionality",
+      "statement_sha256": "a5ddeeaaaba94f1aee94dca41eff792bb3fd1ac08f9bd8943fc6b6a291f8491b",
+      "structural_refs": []
+    },
+    "srcdecl:foundation:set:empty_set": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of the Empty Set",
+      "statement_sha256": "f4c556308fb30d812ec5ae34624e590d00fd07314169b211fda885042d40968f",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    },
+    "srcdecl:foundation:set:inclusion_exclusion_finite": {
+      "decl_type": "THEOREM",
+      "label": "Principle of Inclusion-Exclusion (Finite Sets)",
+      "statement_sha256": "cc182fd8fe934043c0bd864888f482e696c29664d331edb6406db77a243c6c9e",
+      "structural_refs": [
+        "srcdecl:foundation:set:union",
+        "srcdecl:foundation:set:intersection"
+      ]
+    },
+    "srcdecl:foundation:set:indicator_algebra": {
+      "decl_type": "THEOREM",
+      "label": "Algebra of Indicator Functions",
+      "statement_sha256": "3012e9db93063a3162b2f937a348d5f899d62e496c662cf04f5a1eeabc01ee1e",
+      "structural_refs": [
+        "srcdecl:foundation:set:indicator_function",
+        "srcdecl:foundation:set:intersection",
+        "srcdecl:foundation:set:union",
+        "srcdecl:foundation:set:complement"
+      ]
+    },
+    "srcdecl:foundation:set:indicator_function": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Characteristic / Indicator Function",
+      "statement_sha256": "65211e3acaf5a7e270437be857427961a8f0bf3665cb30b80b9498537b3fcd44",
+      "structural_refs": [
+        "srcdecl:foundation:set:subset_definition"
+      ]
+    },
+    "srcdecl:foundation:set:intersection": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Set Intersection",
+      "statement_sha256": "fb9cbe97f073cfa9e794aaf2f501dd29117cd2a23df359a6b4251f41e2024a95",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    },
+    "srcdecl:foundation:set:ordered_pair": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Kuratowski Ordered Pair",
+      "statement_sha256": "7452ef4132b85b94ece5a39aabd537c80a61de551d86691a5d5a5c5b5b3f2fec",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    },
+    "srcdecl:foundation:set:power_set": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Power Set",
+      "statement_sha256": "d627f42f0f29c87054ae5001addce50401bed593f6aaf33d5d6b8ace2a93a0da",
+      "structural_refs": [
+        "srcdecl:foundation:set:subset_definition"
+      ]
+    },
+    "srcdecl:foundation:set:proper_subset": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Proper Subset",
+      "statement_sha256": "d9c7bdb60beb39990252f1627e134fbb4d9b9da153b298875299a413d8f968f6",
+      "structural_refs": [
+        "srcdecl:foundation:set:subset_definition"
+      ]
+    },
+    "srcdecl:foundation:set:set_difference": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Set Difference (Relative Complement)",
+      "statement_sha256": "8f2fa3d538ca52983b936520b476476a48eba46eb8af1319ddf3ae5c1ca85deb",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    },
+    "srcdecl:foundation:set:set_partition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Set Partition",
+      "statement_sha256": "9e536cc4d1067aa59b778be00693d5775b77d046b9281fd02135004269b91403",
+      "structural_refs": [
+        "srcdecl:foundation:set:disjoint_sets",
+        "srcdecl:foundation:set:union"
+      ]
+    },
+    "srcdecl:foundation:set:subset_definition": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Subset and Superset",
+      "statement_sha256": "bb0a88d2ec0af1f7c72a7f7e9540a1c0c9b3e84df26e3880f2413b8906dd3c24",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    },
+    "srcdecl:foundation:set:union": {
+      "decl_type": "DEFINITION",
+      "label": "Definition of Set Union",
+      "statement_sha256": "b05bc7038a7d128decd1d9b459758f096b868984145497a17008df56757528d5",
+      "structural_refs": [
+        "srcdecl:foundation:set:element_membership"
+      ]
+    }
+  },
+  "historical_source": {
+    "file_sha256": "480f4c46f93d5fd03c2ee18e3ad8c95f8693b77b92f233b3add0739081d686d5",
+    "git_commit": "c286184781359ee5c88e8de704b95e4738397fb9",
+    "path": "scripts/import_foundation_backfill.py"
+  },
+  "schema_version": "1.0.0"
+}

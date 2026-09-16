@@ -5,8 +5,10 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
 
 SOURCE_ID = "AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979"
 
@@ -110,7 +112,6 @@ COMPLEX_CANONICAL_OBJECTS = [
         "alignments": [
             {"source": f"decl:{SOURCE_ID}:THEOREM:5.4", "corpus": "AHLFORS", "status": "CROSS_SOURCE_SAME"},
             {"source": f"decl:{SOURCE_ID}:THEOREM:5.5", "corpus": "AHLFORS", "status": "CROSS_SOURCE_SAME"},
-            {"source": "srcdecl:axler:definition:5_8", "corpus": "AXLER", "status": "CROSS_SOURCE_SAME"},
             {"source": "srcdecl:theorem:12_6", "corpus": "GALLIER", "status": "CROSS_SOURCE_SCOPED_OVERLAP"}
         ]
     },
@@ -423,6 +424,22 @@ def merge_and_generate_v0_19_alignments() -> dict:
             by_id[c_co["id"]] = c_co
 
     all_canonical = list(by_id.values())
+    for canonical in all_canonical:
+        unique_alignments = []
+        by_source = {}
+        for alignment in canonical.get("alignments", []):
+            source = alignment["source"]
+            contract = (alignment["corpus"], alignment["status"])
+            previous = by_source.get(source)
+            if previous is not None and previous != contract:
+                raise ValueError(
+                    f"conflicting alignment contract for {source} in {canonical['id']}: "
+                    f"{previous!r} versus {contract!r}"
+                )
+            if previous is None:
+                by_source[source] = contract
+                unique_alignments.append(alignment)
+        canonical["alignments"] = unique_alignments
     return {
         "schema_version": "v0.19",
         "description": "Curated Cross-Source Alignments spanning Gallier (S_A), Axler (S_B), VMLS (S_C), CVX (S_D), Billingsley (S_E), Lee (S_F), and Ahlfors/Krantz (S_G)",
@@ -431,11 +448,39 @@ def merge_and_generate_v0_19_alignments() -> dict:
     }
 
 
+def write_active_v0_20_alignment_projection(
+    out_path: Path,
+    *,
+    sealed_path: Path | None = None,
+    amendments_path: Path | None = None,
+) -> dict:
+    """Write only an additive active projection; the sealed v0.19 input is immutable."""
+    from scripts.complex_analysis_intake_v0_19 import (
+        DEFAULT_AMENDMENTS_PATH,
+        SEALED_V019_ALIGNMENT_PATH,
+        load_active_alignment_projection,
+    )
+
+    sealed = (sealed_path or SEALED_V019_ALIGNMENT_PATH).resolve()
+    output = out_path.resolve()
+    if output == sealed or output == SEALED_V019_ALIGNMENT_PATH.resolve():
+        raise ValueError("refusing to overwrite sealed v0.19 alignment artifact")
+    result = load_active_alignment_projection(
+        sealed,
+        amendments_path or DEFAULT_AMENDMENTS_PATH,
+    )
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    out_path.write_text(
+        json.dumps(result, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return result
+
+
 def main() -> int:
-    out_path = ROOT / "formal" / "cross_source_alignments_v0_19.json"
-    result = merge_and_generate_v0_19_alignments()
-    out_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
-    print(f"Generated {len(result['canonical_objects'])} canonical alignments for v0.19 at {out_path}")
+    out_path = ROOT / "formal" / "cross_source_alignments_v0_20_active.json"
+    result = write_active_v0_20_alignment_projection(out_path)
+    print(f"Generated {len(result['canonical_objects'])} active v0.20 canonical alignments at {out_path}")
     return 0
 
 

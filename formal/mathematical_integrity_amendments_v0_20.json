@@ -1,0 +1,140 @@
+{
+  "schema_version": "v0.20-mathematical-integrity-amendments",
+  "description": "Additive, source-bound corrections for active v0.20 reconstruction; sealed historical files remain immutable.",
+  "amendments": [
+    {
+      "amendment_id": "amendment:v0.20:complex:cauchy-higher-derivatives",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:5.2", "statement_sha256": "96ae8f6938c192f560301df371d22542d7a82526d52bdc08166d1a96c524ee21", "identity_sha256": "98ac5c94983cafcb5f71b56ad996a45720eb75acdbdb4a524d5800ca8ffbef04"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:5.2", "statement_sha256": "a9eab681d425833b6d71c51dc1c336e219e1542c4ec746aac41f4ae3b44f7e77", "identity_sha256": "f4a9c9fbe578a4422c7da71b4b63464d8269f995231b3c2b1dd139017284e1da"},
+      "reason": "The historical statement omitted the orientation and closed-disk containment hypotheses needed for the stated circle integral formula.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:schwarz-equality",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:LEMMA:5.10", "statement_sha256": "dddf8a062a54471fd53aa5c1cd3e3801840f48edd1274f2af9099a2315b5a311", "identity_sha256": "6a1c2436b2347fe72857d47e35918b3321f1a41004b00750fd40852ec5655871"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:LEMMA:5.10", "statement_sha256": "7c35e44d42045ec3635341883034ba669b17c6191e2630229d9f86bc96ece4da", "identity_sha256": "685fcb3e8912d8ef54083ea977fcb50ddcefdca8409999f083dcc0122bc8f731"},
+      "reason": "The equality clause must specify equality at a nonzero point, or equality in the derivative bound, before concluding that the map is a rotation.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:harnack-principle",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:7.4", "statement_sha256": "95dc59c607d97a7d76cbb8ccaa1a81a0ee4a06876f733398558f090feb70fa7a", "identity_sha256": "b6b5a50c7b6e3e54aefc2371a8317abf06e4f72f4838238774bace7fe8c91209"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:7.4", "statement_sha256": "65e2fc0485b7164b8a39f1aebf40945c5eb8b38d84fcae5f38f23f710eba3dac", "identity_sha256": "7965e84f4f7635c4fdf047097869d7dfb14e51f5adc608fffa9b939da3c28897"},
+      "reason": "Harnack's principle applies to an increasing sequence and its alternatives are local-uniform convergence or local-uniform divergence on a connected domain.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:weierstrass-zero-set",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:8.2", "statement_sha256": "fb70ab0244e99ddf8abf411aafc8ac6d26c7c440b48f876e53fb4a71f3590cc7", "identity_sha256": "574bd174065e7c6e99d425a01aff2a5fc9630a264d4b01ab188a5806bbccc042"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:8.2", "statement_sha256": "14e299755838ac421a9e8754073a8a735399a2deb4547a6e97daf35699805dc1", "identity_sha256": "80b6821c414b14ec289499b164cef2dc66f6cd95e1879de009a93691ba75ca2c"},
+      "reason": "The historical zero-set claim omitted the zero at the origin introduced by the factor z^m.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:holomorphic-definition",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:2.1", "statement_sha256": "a9459e3fad6ce45e93a2ae7680370f06b722713a5a05a6c3b26ad558aadb4ca5", "identity_sha256": "52c4e217cb480c3987ffc4885e9c45ef989e0fea0072c75b53070f8f6378c3aa"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:2.1", "statement_sha256": "9966c2d7c3ee1e3433ff582aadf6d494063956b53a0f2e03a0435a387792cf63", "identity_sha256": "d1477433f4c4b60fa70ac3ac0e8f1129bce50191819e2930dc730aaa0dc3f97d"},
+      "reason": "Complex differentiability at one point is not holomorphy; holomorphy requires complex differentiability at every point of an open set.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:principal-log-range",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:3.4", "statement_sha256": "3994a5074d8f6ea2a72a41f33c5965ea5724d01c6a09d45ca55b255dd06828c9", "identity_sha256": "a87b2fef3768192334e4e9bbcf32f1169f71514cadbe4c6a9b601122eb01d572"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:3.4", "statement_sha256": "68fb58f702d0b9a0c54c35748bc1737151fc0c7843b10c3e6cc2b63cdf049800", "identity_sha256": "d443c2fe855a0b89142a0b719ac1cc208ed5af885b5ddf6c216fee74c5023088"},
+      "reason": "The principal logarithm on the stated slit plane has imaginary part in the open interval (-pi, pi).",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:cauchy-estimate-neighborhood",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:5.3", "statement_sha256": "1a4395f086b83fd3850a2506d83f5d8fdb6c107b8371cb78205bedbb2c99af78", "identity_sha256": "133b9bc642083638981e79a187e5d2f9af3cf197d84f4766c563a2b48dd25087"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:5.3", "statement_sha256": "3f8ff49b4849c4ab74edfdc1bdb10e0ed34d26e91d706c2864afe6b8c8b52bdf", "identity_sha256": "0f86b3526027d02e0be725b49329684709255987e11fb975a2804f7632a56ba4"},
+      "reason": "Holomorphicity is defined on open sets; Cauchy's estimates require an open neighborhood of the closed disk.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:montel-finite-limit",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:5.12", "statement_sha256": "bc7cd6740122b5d201dfb94494a0fee056c6f5d288bcc0040673f3fd2c5d1bb6", "identity_sha256": "904c4171fd66139c1c95086bddebd7ce42aebf8516df92d5ac6d48f7c54c5964"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:5.12", "statement_sha256": "7e88df1b6bbc7ddb1717d3ed8791aa3bd38ea7c5d37867e35e3a4533fc60ec25", "identity_sha256": "84ac8c280db094d493d0b9d1afc2ec0b512596d2431aa44373a8e2aa63125d6b"},
+      "reason": "The compact-open limit in the locally bounded form of Montel's theorem must be a finite-valued holomorphic function.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:argument-principle-index",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:6.8", "statement_sha256": "337c874e953f43452c62a25f550e7dfd8554d35c57574fb9cffe943642103794", "identity_sha256": "d64985b9e38d14773581ff316169fbc7e59ec66e961b77c7edae24220711cbec"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:6.8", "statement_sha256": "0ed4477f39cace42d84da3a181f875910a21deea9fee34f3c7eaf062ec1b8181", "identity_sha256": "f63a9b077c875760cc4c6e73036b808c032e2bff368a46e551f0bfee5a466fd2"},
+      "reason": "A general cycle yields index-weighted zero and pole multiplicities; the unweighted N-P form needs an index-one simple contour.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:domain-of-holomorphy",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:9.6", "statement_sha256": "eebce280268c37a780fa37304cc0402dce944cd6267f26ff2c383fdb8db35e3f", "identity_sha256": "aff83811cd70e688bed8493f04956f64c42420b73566464bfba427c601e0935e"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:9.6", "statement_sha256": "3133fb203fda2c0531fb85739864cc4ae217e724fb8f227edb2bb7a2a2dabb92", "identity_sha256": "fae345211183befb1f1f3edda202758a18afcc16be8d20742017b2127d3833c5"},
+      "reason": "The Levi problem identifies domains of holomorphy with pseudoconvex domains, not with an unqualified boundary condition.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:levi-boundary-hypotheses",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:9.7", "statement_sha256": "400b717757ab374fbc9a2841b1a61ea57cdb9ea545ecf126738566fab8d21086", "identity_sha256": "e3cdb659e3382282e92415cc53c05467d6b9327bbe8eea3e804f359a0cb7ce16"},
+      "corrected_identity": {"kind": "SOURCE_STATEMENT", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:9.7", "statement_sha256": "336b01760e11ebe24619ab958bfc23ce4224e9984f977d63bca8b85491ccf4f7", "identity_sha256": "84d3d7cf179afcad3811292b25d9eaffdf4e3670c372f567f04a8166f0903785"},
+      "reason": "The Levi boundary criterion needs a C^2 defining function, a sign convention, nonvanishing differential, and restriction to complex tangents.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:axler-eigenvector-alignment",
+      "status": "REJECTED",
+      "wound_id": "wound:v0.20:rejected-v0.19-axler-eigenvector-liouville-alignment",
+      "historical_edge_id": "e:rep:srcdecl:axler:definition:5_8:canonical:complex:liouville_and_fundamental_theorem_algebra",
+      "active_policy": "PRESERVE_WOUND_EXCLUDE_FROM_ACTIVE_SEMANTIC_GRAPH",
+      "historical_identity": {"kind": "SEMANTIC_ALIGNMENT", "canonical_id": "canonical:complex:liouville_and_fundamental_theorem_algebra", "source_id": "srcdecl:axler:definition:5_8", "source_statement_sha256": "09fee4067b558b9cf2a096ffeb0ef468aeff193fba12a20c0f65a5d358940cbc", "corpus": "AXLER", "semantic_status": "CROSS_SOURCE_SAME", "identity_sha256": "1b3740501a30856bb14141f2bae888e2eeedba1ead3948a74da58984fd02739d"},
+      "corrected_identity": {"kind": "SEMANTIC_ALIGNMENT", "canonical_id": "canonical:complex:liouville_and_fundamental_theorem_algebra", "source_id": "srcdecl:axler:definition:5_8", "source_statement_sha256": "09fee4067b558b9cf2a096ffeb0ef468aeff193fba12a20c0f65a5d358940cbc", "corpus": "AXLER", "semantic_status": "REJECTED", "identity_sha256": "d3d843c52aedf085c01c69790821bfb4083e7ca961186f4d348025e0bbe06ebf"},
+      "reason": "Axler Definition 5.8 defines an eigenvector and is not semantically equivalent to Liouville's theorem or the Fundamental Theorem of Algebra.",
+      "evidence_scope": ["formal/cross_source_alignments_v0_19.json", "v0.20-active-alignment-projection"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:duplicate-axler-6-55-alignment",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "DUPLICATE_SEMANTIC_ALIGNMENT", "canonical_id": "canonical:linear_algebra:orthogonal_projection", "source_id": "srcdecl:axler:definition:6_55", "source_statement_sha256": "f99edef93de87e14400af3be4215b9b07b857f325c7bb1a50536c9f72c632532", "occurrence_count": 2, "identity_sha256": "08578758e92387279fd1d246b106eddf809b754fb25c7ae5e2843f428271f58e"},
+      "corrected_identity": {"kind": "DUPLICATE_SEMANTIC_ALIGNMENT", "canonical_id": "canonical:linear_algebra:orthogonal_projection", "source_id": "srcdecl:axler:definition:6_55", "source_statement_sha256": "f99edef93de87e14400af3be4215b9b07b857f325c7bb1a50536c9f72c632532", "occurrence_count": 1, "identity_sha256": "d766973725426b4ccb395261ca518f80446eacaf20937b43fc06d9b34dfb65b1"},
+      "reason": "The sealed v0.19 alignment lists the same source-bound Axler declaration twice in one canonical contract.",
+      "evidence_scope": ["formal/cross_source_alignments_v0_19.json", "v0.20-active-alignment-projection"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:global-relation-meet",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "RELATION_EMISSION_POLICY", "conflicting_pair_count": 33, "policy": "CONTEXT_LOCAL_RELATIONS_EMITTED_WITHOUT_GLOBAL_CONSISTENCY", "identity_sha256": "80fbe8f4a0861efaa0ef7bdb599eb9b2c79e7cce5f1d91c9937dae68affbe8d2"},
+      "corrected_identity": {"kind": "RELATION_EMISSION_POLICY", "conflicting_pair_count": 33, "policy": "CONSERVATIVE_GLOBAL_MEET", "ordering": ["RELATED_TO", "SCOPED_OVERLAP", "SAME_SEMANTICS"], "identity_sha256": "9ff7c5e5d3669c51ec582451e2b41ec4143b2b519c9cc840ae00d7375b271000"},
+      "reason": "Cross-canonical endpoint pairs carried incompatible relation strengths; active emission is bounded by the weakest observed relation and retains every context as a wound.",
+      "evidence_scope": ["formal/cross_source_alignments_v0_19.json", "v0.20-active-alignment-projection"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:complex:dolbeault-reference",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_identity": {"kind": "STRUCTURAL_REFERENCE", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:9.4", "subject_statement_sha256": "07a2f1ad2438a8959f74eb84dea91ee0ddf43d9e0087e72d439d30bc850e4d76", "structural_reference": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:2.2", "target_statement_sha256": null, "identity_sha256": "bcb03027490b857ffa91864ddc1a548ae515134251517cf6b2e42fd44a5bf091"},
+      "corrected_identity": {"kind": "STRUCTURAL_REFERENCE", "subject_id": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:DEFINITION:9.4", "subject_statement_sha256": "07a2f1ad2438a8959f74eb84dea91ee0ddf43d9e0087e72d439d30bc850e4d76", "structural_reference": "decl:AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979:THEOREM:2.2", "target_statement_sha256": "78de592fcbbb8053e56ce225096d702b57170d4feded22589fdfb2f2af2d2412", "identity_sha256": "989574e586ba5f9ff128eb7fa92e40c210a7563b718cca86411bf96747ea2a52"},
+      "reason": "The Cauchy-Riemann result numbered 2.2 is a theorem, not a definition; the historical reference was dangling.",
+      "evidence_scope": ["scripts/import_complex_analysis_v0_19.py", "v0.20-active-reconstruction"]
+    },
+    {
+      "amendment_id": "amendment:v0.20:source-count:gallier-v0.11",
+      "status": "ACTIVE_AMENDMENT",
+      "historical_count": 1360,
+      "corrected_count": 1356,
+      "sealed_graph_sha256": "409a648d8563bc4a027dc3dc29fc53722d11bc489462a0f3d1f71bd4f272544d",
+      "historical_identity": {"kind": "SOURCE_COUNT", "artifact": "data/mapeogeo_v0_11_graph.json.gz", "sealed_graph_sha256": "409a648d8563bc4a027dc3dc29fc53722d11bc489462a0f3d1f71bd4f272544d", "statement_count": 1360, "identity_sha256": "226e9193a77fc1140197a405bc222befb68d297f08b644c67198c6d921e17a09"},
+      "corrected_identity": {"kind": "SOURCE_COUNT", "artifact": "data/mapeogeo_v0_11_graph.json.gz", "sealed_graph_sha256": "409a648d8563bc4a027dc3dc29fc53722d11bc489462a0f3d1f71bd4f272544d", "statement_count": 1356, "identity_sha256": "75f7d8f917d298540eadb3ad4af4a649a2306b2e35bf3082afebac97e5000ba7"},
+      "reason": "The sealed v0.11 graph contains exactly 1,356 STATEMENT nodes; the historical 1,360 headline was not the executable artifact count.",
+      "evidence_scope": ["data/mapeogeo_v0_11_graph.json.gz", "current-count-reports"]
+    }
+  ]
+}

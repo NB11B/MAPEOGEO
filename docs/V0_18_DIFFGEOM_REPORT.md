@@ -1,5 +1,7 @@
 # MAPEOGEO v0.18 — Differential Geometry, Lie Groups & Smooth Manifolds Expansion Report
 
+> **Historical report — superseded.** Counts and acceptance language below are preserved as a historical record. Current source counts and admissible evidence claims are in [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md).
+
 ## Executive Summary
 
 MAPEOGEO v0.18 introduces **Source F** ($S_F$), incorporating 67 curated, source-attributed mathematical declaration transcriptions from John M. Lee's *Introduction to Smooth Manifolds* (2nd Edition, 2013, Springer GTM 218) and Gallier-Quaintance (2020) into the knowledge graph.

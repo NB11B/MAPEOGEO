@@ -1,0 +1,135 @@
+{
+  "alignment_projection": {
+    "duplicate_alignments_removed": 1,
+    "integrity_wounds": 35,
+    "rejected_false_alignments": 1,
+    "relation_conflicts_downgraded": 33,
+    "relation_meet_order": [
+      "RELATED_TO",
+      "SCOPED_OVERLAP",
+      "SAME_SEMANTICS"
+    ]
+  },
+  "amendment_manifest_sha256": "17f1d7f839d96c98aa0a31f8f8972afa695533aea1b512c4723e901021b479d8",
+  "foundation_evidence": {
+    "advanced_canonical_objects": 235,
+    "curated_declarations": 176,
+    "executable_verified_declarations": 1,
+    "kernel_verified_declarations": 0,
+    "proof_eligible_advanced_reachable": 0
+  },
+  "overall_status": "AMENDED_PARTIAL",
+  "policy": {
+    "raw_topology_is_proof": false,
+    "representative_helper_checks_promote_declarations": false,
+    "sealed_history_mutated": false,
+    "unregistered_edge_evidence_admissible": false
+  },
+  "provenance": {
+    "complex_amendment_manifest": {
+      "amendment_count": 16,
+      "path": "formal/mathematical_integrity_amendments_v0_20.json",
+      "raw_sha256": "17f1d7f839d96c98aa0a31f8f8972afa695533aea1b512c4723e901021b479d8"
+    },
+    "foundation_amendment_manifest": {
+      "amendment_count": 84,
+      "historical_row_count": 176,
+      "path": "formal/foundation_mathematical_amendments_v0_20.json",
+      "raw_sha256": "ffa3cbbc4b6a2b1f580df71d61ad24522d5aafcc1e5062de6cb559e28b16adae"
+    },
+    "foundation_contract_registry": {
+      "entry_count": 1,
+      "kernel_verified_subject_count": 0,
+      "sha256": "bb570dc7c133b3397fc5fb40d5faf46123a8636c29fee8637658b61c69b748d1",
+      "verified_subject_count": 1
+    },
+    "foundation_declaration_registry": {
+      "entry_count": 176,
+      "sha256": "d66d3dfe2d653b00cd968b9e5daceb231f8b4937d24463c88ffdc145ead1798d"
+    },
+    "identity_policy": {
+      "algorithm": "SHA-256",
+      "git_commit_claimed": false,
+      "raw_file_hashes_cover_exact_bytes": true,
+      "registry_hashes_are_domain_separated_canonical_json": true
+    },
+    "producer_source_tree": {
+      "file_count": 52,
+      "files": {
+        "MAPEOGEOFormal.lean": "f8b644abf6a9da022be42db30f19c5b0e9f4a8fde45dd36d5fa5b8d9644859fa",
+        "MAPEOGEOFormal/PinchQuartet.lean": "f50af08474725221147ae1a59edd4867004a238f88cc9ae0cf265c2344c4ce78",
+        "MAPEOGEOFormal/PinchV011.lean": "d3d6fb3f24001c17e55b55018f009932986d1541e0f562bd384e138dd94e245c",
+        "MAPEOGEOFormal/ProofPaths.lean": "319f9ce983653bf73435adec1688aa5d9464a27dc25c924c45edff45f85c1300",
+        "MAPEOGEOFormal/SourceBound.lean": "0a4f905e498e87ec6b429db69b6fdba86291e0e967cb2ba99747b3442845571c",
+        "lake-manifest.json": "b4382094843ee7d4262530eedc7bba4aa6057a03a75911ba5580ad085efc1073",
+        "lakefile.lean": "10d866aa705d815b2d546ebf169f780cd1c433ad5ae17070f0499701363fc2d0",
+        "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
+        "scripts/analysis_intake_v0_15.py": "b474321e8ed96b8545a2f618211cef493a89027d2db2c40152eef7861bd2493f",
+        "scripts/analysis_intake_v0_15_1.py": "fd31fdc5bd9b8eb2ec40a4e6c1fb2f013b8bca597bbd918fac0d6696eff6e68a",
+        "scripts/analysis_intake_v0_15_2.py": "7c3dca24431bba9d78fd97cdf0445c052d0c54a6b5d2645d1aa5e04822b9ec81",
+        "scripts/audit_pinch_source_v0_11.py": "fb75add676b92fb0f1c23f989c277c69042cba537c1821b5069de4ed1d8ed92c",
+        "scripts/blinded_alignment_benchmark_v0_13.py": "46335b9619bce6adad58f07ad27f0eb8a8f85ce54f5353546794e61f2f2bfcb8",
+        "scripts/complex_analysis_intake_v0_19.py": "74c8156f0afa47ae5b4e44f248528b903a5c697ee39ce409c6bfb0d51def7156",
+        "scripts/compute_foundation_depth.py": "edb0a644aebbfcc671dd0f4090d3fb31055638c002baf40196913fb7032a3384",
+        "scripts/convex_intake_v0_14.py": "1ff060106d29f0efc0ffad5f7a5807f9e110feb1a1532ec91dc30af25f904d65",
+        "scripts/corpus_dualize_v0_5.py": "daf4d347ff600090e23cf18100b24cb50a6f27ed5882b5a5b96d294fe7e2d2ab",
+        "scripts/cross_source_intake_v0_12.py": "d24abbfd9ca4755ad084d1153ec1f247bc57bb7ac02065d4ec5c18b78417d440",
+        "scripts/diffgeom_intake_v0_18.py": "09b3c985bcabb6ed5a8d96d96653e413432f62cfe7d189df087c34ef8f2244ec",
+        "scripts/formal_bridge_v0_8.py": "6d11efe8952b6820bfb0ddcbb7bd47b1f4ee9a6d0e2aff95d2331406f233d50e",
+        "scripts/foundation_contracts.py": "51ab90eb134525d8ee9c7d467d418742140fc659c832d5195e871444f87b451d",
+        "scripts/foundation_intake.py": "a5f6168d7b851a06c7cec303d2c176a0835ab8566f4473c6429c047b3d83a700",
+        "scripts/generate_acceptance_manifest_v0_15_2.py": "d1c2ae95932134f7fcd90fea7086d1a5ecf5c4b14a8911268562cac5c0b4fd0e",
+        "scripts/generate_alignments_v0_16.py": "d65c2373cc1021bd2594a77f77ec746f3c8c386984e035c38e1f351577c8345b",
+        "scripts/generate_alignments_v0_17.py": "99c1b96fec5e9650146f69a98a828471cdea9f2805ff50917c61a709018cccab",
+        "scripts/generate_alignments_v0_18.py": "ce48e5e4b19fb73f0e435550b406f000d9418beebd859d4a49bfd36d82c6b264",
+        "scripts/generate_alignments_v0_19.py": "627a105ccf1d4b325b005eaeadf6d9c53acaa0a5e3a0d7cbbd6b6f5872d3539d",
+        "scripts/generate_foundation_alignments.py": "1251460e3e8b48978db511573fb3710ef77022bbb252abefe0305ececc981974",
+        "scripts/generate_mathematical_integrity_report.py": "3b97eac63c76a2b5265354b8087b567584dc118b3eda88664e670ddcf96c18e2",
+        "scripts/import_analysis_v0_15.py": "d6022f5542d4fb1c119da0745863a1bceb27052c0352462e291410a8007e23d0",
+        "scripts/import_axler_v0_12.py": "c24efc73378e4f535d7b953b00fcab092374d7b78989aeaaba417e0587dab15d",
+        "scripts/import_billingsley_v0_17.py": "bd70cba08bbf93a86b6876d3d5977119a78ffd3e98fa618933d1a7acab8f5435",
+        "scripts/import_complex_analysis_v0_19.py": "e55addacba6823be962cf0436cbe403834f7cb1f6c307302b84009bf7ae679f0",
+        "scripts/import_cvx_v0_14.py": "fce22bb3aec665b08c52f87f927e7db35312673108effa365e2069854da0bf8f",
+        "scripts/import_diffgeom_v0_18.py": "418a1e0f50a6f3aa94a5cea9f5748b9c4c42d67149a41cadab5cca33bb17cefd",
+        "scripts/import_foundation_backfill.py": "0900a8c1e298015568804fb46e422090b9db319b07516cd2ff435362e72e94b6",
+        "scripts/import_math_deep.py": "4251a127b53997caee4357938a4fac78e186b8a538c2a19c10251015f451928f",
+        "scripts/import_topology_v0_16.py": "7203aeabce90eaa8fec4b86751b57aad28f7bc84d61b8d699f5b98d81bb21bc6",
+        "scripts/import_vmls_v0_13.py": "afa95d05fee1185a72b0a133efcb3969953bb7b38596ced8cc61e826f5d6bd27",
+        "scripts/independent_dual_view_v0_6.py": "9532969698222df02afcd74f84d2d600d639d8e5373dd415801fffbba7c05b12",
+        "scripts/io_utils.py": "5fac4b4f6398246c25a1e30ad7e5f2ab04d3ac3e63096d240abd4f648abdf462",
+        "scripts/map_goal_v0_7.py": "124f272fb0660d790e158b1deb64a96bd28f7ca69e5194e2bf8b295b056c9ff8",
+        "scripts/measure_intake_v0_17.py": "582efe28c95dd6e29bc54fc883fe4d42a374480c65a4c2685d2cfddadddeea74",
+        "scripts/pct_v0_10.py": "dd77a18c088fff7dc27b1ccb4287d49bb4f5a5ac04be11e9c10add356a7add2b",
+        "scripts/pinch_contracts_v0_11.py": "68ad36f8d6cd8cbe9dd9473db3bce016a1cf311e1c6a90337d7986ff6bfa94ec",
+        "scripts/pinch_intake_v0_11.py": "845ba6ae429cd0bdae75af604819aaee04406ae10b24b9968cc3f52c428dae50",
+        "scripts/pinch_quartet_v0_10.py": "7903a1873720d15f9de6593ac01aed4ccb640e81b2b91bcf80932defb80d3445",
+        "scripts/proof_paths_v0_9.py": "b1ca1887b9ac1945f6f53139c0e40d99b9cec0e78ce1b63f4b568ca7625ef6e7",
+        "scripts/reconstruct_pipeline.py": "486b96d23d67ebe6993b640999e4668a98bbe105b763b7dd5b0b4a4f510750e3",
+        "scripts/topology_intake_v0_16.py": "a05c73cd226f35a8f1eb03eafd17612699358ca80eeeee05fe75d5b0c5e7937e",
+        "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
+        "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
+      },
+      "sha256": "f9c1cdb5770d184b9bd1795b50a571a950e572908bb3259335bca7e8573813f8"
+    },
+    "runtime_dependency_lock": {
+      "path": "requirements-math-rigor-v0-20.lock",
+      "raw_sha256": "d04d5fc31fd029919377fd445048e3911bebb984e4fddec3e63eaaad268023f9"
+    }
+  },
+  "schema_version": "v0.20-mathematical-integrity-report",
+  "sealed_inputs": {
+    "v0_11_graph_sha256": "409a648d8563bc4a027dc3dc29fc53722d11bc489462a0f3d1f71bd4f272544d",
+    "v0_19_alignments_sha256": "ae2169f7edc3012d92c96c90c5d2707f5f08c62c89002287e90ce44a0e23f2c8",
+    "v0_19_scientific_results_sha256": "1302a3f1bae72ff3e797957eaaa4524d61920214a6320c1defcc865b9c8ef062"
+  },
+  "source_counts": {
+    "excluded_historical_count_artifacts": 4,
+    "section_anchors": 5,
+    "v0_16": 1756,
+    "v0_17": 1820,
+    "v0_18": 1887,
+    "v0_19": 1959,
+    "with_foundation": 2135,
+    "with_foundation_raw_records": 2144
+  }
+}

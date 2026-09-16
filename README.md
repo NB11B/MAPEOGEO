@@ -67,79 +67,36 @@ shared canonical neighborhood != proof of equivalence
 
 ## Current mathematical coverage snapshot
 
-The accepted expansion baseline on `main` is at **v0.19 + Foundation Backfill** (Complex Analysis, Several Complex Variables & Riemann Surfaces + Complete 8-Layer Primitive Grounding Substrate). The latest replay graph reports:
+The active v0.20 integrity projection starts from the sealed v0.11 and v0.19 historical inputs, validates their identities, and applies corrections in memory. The authoritative current counts come from the sealed graph rather than historical headlines.
 
-| Metric | Foundation Backfill + v0.19 Baseline |
+| Metric | Active result |
 |---|---:|
-| Total Source Declarations ($N_{\text{source}}$) | **2,139** |
+| Total source declarations | **2,135** |
 | Foundation Base (`S_0`) | **176** |
-| Gallier & Quaintance (`S_A`) | **1,360** |
+| Gallier & Quaintance (`S_A`) | **1,356** |
 | Axler LADR4e (`S_B`) | **235** |
 | Boyd & Vandenberghe VMLS (`S_C`) | **81** |
 | Boyd & Vandenberghe CVX (`S_D`) | **84** |
 | Patrick Billingsley (`S_E`) | **64** |
 | John M. Lee (`S_F`) | **67** |
-| Lars Ahlfors & Steven Krantz (`S_G`) | **72** |
-| Disjoint Partition Invariant | **2,139 == 2,139 (Exact Equality)** |
-| Source Section Anchors (segregated) | **5** |
-| Canonical mathematical objects ($N_{\text{canonical}}$) | **264** |
-| Foundation Canonical Objects | **29** |
-| Advanced Canonical Objects | **235** |
-| Foundation Reachability | **100.0%** (235 / 235) |
-| Upward Foundation Structural Bridges | **119** |
-| Objects with >=2-source support | **159** (67.7% of advanced) |
-| Objects with >=3-source support | **82** (34.9% of advanced) |
-| Objects with >=4-source support | **35** (14.9% of advanced) |
-| Objects with >=5-source support | **12** (5.1% of advanced) |
-| Objects with 6-source universal convergence | **1** (0.4% of advanced) |
-| Mathematical domains | **8 Advanced + 8 Foundational Layers** |
-| Average representation richness `r_bar` | **3.026** |
-| Total typed cross-source bridges | **1,485** |
-| - `SAME_SEMANTICS` | **749** |
-| - `SCOPED_OVERLAP` | **730** |
-| - `RELATED_TO` | **6** |
-| Total graph nodes | **3,109** (v0.19 graph) / **3,314** (with foundation backfill) |
-| Total graph edges | **26,635** (v0.19 graph) / **27,187** (with foundation backfill) |
-| Executable Dual Contracts | **100% Pass (8/8 Domains)** |
+| Lars Ahlfors / Steven Krantz / John Conway (`S_G`) | **72** |
+| Executable declaration evidence | **1 / 176** |
+| Kernel-verified foundation declarations | **0 / 176** |
+| Proof-eligible grounding | **0 / 235** advanced canonical objects |
+| Active alignment wounds | **35**: 1 false, 1 duplicate, 33 relation conflicts |
 
-### Foundational Layers & Upward Grounding
+Active downstream totals are v0.16: **1,756**, v0.17: **1,820**, v0.18: **1,887**, and v0.19: **1,959**. The foundation catalog adds 176 declarations for a total of **2,135**.
+The corresponding raw registry contains 2,144 records: 2,135 admissible declarations,
+five segregated section anchors, and four exact historical synthetic Gallier chapter
+records retained but excluded from declaration counts by the active amendment.
 
-The 8 foundational layers establish an unbroken mathematical dependency chain upwards into advanced mathematics:
+The eight foundation layers are a curated topology spanning logic, sets, relations/functions, number systems, elementary algebra, order/sequences, Euclidean geometry/trigonometry, and elementary calculus. Raw graph paths are reported as **raw topology reachability**. They are not proofs. **Proof-eligible grounding** accepts only explicitly validated source roots and registered endpoint-bound edge evidence; no such complete edge-certificate chain currently exists, so its honest reach is 0 / 235.
 
-$$
-\boxed{
-\text{logic}
-\longrightarrow
-\text{sets}
-\longrightarrow
-\text{relations/functions}
-\longrightarrow
-\text{numbers}
-\longrightarrow
-\text{arithmetic/algebra}
-\longrightarrow
-\text{order/sequences}
-\longrightarrow
-\text{Euclidean geometry/trig}
-\longrightarrow
-\text{elementary calculus}
-}
-$$
+The sole promoted executable declaration certificate is the exhaustive four-assignment Boolean verification of the named De Morgan declaration. Passing helper checks or representative numerical examples do not promote the other 175 declarations. No foundation declaration is currently kernel verified.
 
-| Layer | Source Declarations ($S_0$) | Canonical Objects | Canonical IDs & Scope | Grounded Advanced Domains |
-|---|---|---|---|---|
-| **1. Logic & Proofs** | 20 | 3 | Propositional calculus, inference rules (Modus Ponens/Tollens), quantifiers $\forall, \exists \longrightarrow$ Vector spaces, Topologies, Measurable spaces |
-| **2. Set Theory** | 22 | 3 | Set algebra, power sets, Cartesian products, partitions, indicator functions $\longrightarrow$ Product topology, Borel $\sigma$-algebras, $L^p$ spaces |
-| **3. Relations & Functions** | 22 | 3 | Equivalence relations, quotient sets, partial/total orders, function composition, invertibility $\longrightarrow$ Quotient spaces, Linear maps, Diffeomorphisms |
-| **4. Number Systems** | 20 | 5 | Peano axioms & $\mathbb{N}$, induction, $\mathbb{Z}$, division algorithm, $\mathbb{Q}$, $\mathbb{R}$ completeness/Dedekind cuts, $\mathbb{C}$ & $i \longrightarrow$ Normed spaces, Banach spaces, Spectral theorems, Holomorphic functions |
-| **5. Elementary Algebra** | 22 | 4 | Groups, rings, fields, polynomials $F[x]$, division algorithm, roots, binomial theorem $\longrightarrow$ Lie groups & algebras, Matrix groups, Eigenvalues, Divisors |
-| **6. Order & Sequences** | 22 | 4 | Bounds, $\sup/\inf$, absolute value, triangle inequality, sequence convergence $\epsilon-N$, Cauchy sequences, series $\longrightarrow$ Completeness, Heine-Borel, Power series, Radius of convergence |
-| **7. Euclidean Geometry & Trig** | 22 | 3 | Euclidean space $\mathbb{R}^n$, distance, dot product $\langle u, v \rangle$, norm, Cauchy-Schwarz, Pythagorean theorem, unit circle, $\sin/\cos$, rotations $R_\theta \longrightarrow$ Riemannian metrics, $O(n)$, $SO(n)$, Conformal mappings |
-| **8. Elementary Calculus** | 26 | 4 | Limits $\epsilon-\delta$, continuity, IVT, EVT, difference quotients, product/chain rules, MVT, Riemann sums, FTC Parts 1 & 2 $\longrightarrow$ Multivariable differentials, Stokes' Theorem, Contour integrals, Residues |
+### Provenance and active amendments
 
-### Provenance & Substrate Architecture
-
-The historical v0.11 substrate is preserved as an immutable sealed checkpoint (`data/mapeogeo_v0_11_graph.json.gz`), containing authentic Gallier source structure, formal certificates, proof paths, and visible wounds. All mathematical expansions proceed forward cleanly from this verified foundation without re-deriving historical stages:
+The historical v0.11 substrate is preserved as an immutable sealed checkpoint (`data/mapeogeo_v0_11_graph.json.gz`). The sealed v0.19 alignment file is likewise retained byte-for-byte. Active v0.20 reconstruction excludes the false Axler Definition 5.8 alignment, deduplicates the Axler Definition 6.55 occurrence, and applies the conservative global relation meet `RELATED_TO < SCOPED_OVERLAP < SAME_SEMANTICS` to 33 conflicting endpoint pairs while retaining all originals as wounds.
 
 ```text
 SEALED v0.11 TRUSTED SUBSTRATE
@@ -168,20 +125,10 @@ v0.18 Differential Geometry, Lie Groups & Smooth Manifolds
 v0.19 Complex Analysis, Several Complex Variables & Riemann Surfaces
         │
         ↓
-FOUNDATION BACKFILL (8 Primitive Grounding Layers)
+FOUNDATION BACKFILL (8 curated topology layers)
 ```
 
-Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~18 seconds locally and ~50 seconds on GitHub Actions runners with strict fail-closed checking:
-
-```text
-MATHEMATICAL COVERAGE:          PASS (2,139 declarations, 5 section anchors, 264 canonical objects, 8 domains + 8 foundation layers)
-FOUNDATION GROUNDING:           PASS (100.0% reachability across all 235 advanced objects, 119 upward bridges)
-DUAL EXECUTABLE CONTRACTS:      PASS (100% pass across all 8 foundational domains)
-CLEAN REPLAY OF CURRENT CHAIN:  PASS (~18s locally, ~50s in GitHub Actions)
-CROSS-SOURCE STRUCTURE:         PASS (1,485 bridges across 7 sources)
-SOURCE-IDENTITY PRESERVATION:   PASS (0 drift; sealed v0.11 checkpoint + audited amendments)
-FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.19 + Foundation Backfill green on main)
-```
+See [`docs/V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](docs/V0_20_MATHEMATICAL_INTEGRITY_REPORT.md) and [`formal/mathematical_integrity_amendments_v0_20.json`](formal/mathematical_integrity_amendments_v0_20.json) for exact hashes, correction identities, and non-promotion rules.
 
 ---
 
@@ -653,10 +600,10 @@ See:
 
 v0.16 established the fundamental connective topological, metric, and functional bridge linking Linear Algebra, Real Analysis, Convexity, and Geometry. 
 
-Section anchors are explicitly typed as `SOURCE_SECTION_ANCHOR` and segregated from declaration-level source declarations, preserving the exact disjoint partition sum $1360 + 235 + 81 + 84 = 1760$. Bridges to/from section anchors are typed as `SCOPED_OVERLAP`, preventing synthetic inflation of declaration-level `SAME_SEMANTICS`.
+Section anchors are explicitly typed as `SOURCE_SECTION_ANCHOR` and segregated from declaration-level source declarations. The corrected active partition is $1356 + 235 + 81 + 84 = 1756$. Bridges to/from section anchors are typed as `SCOPED_OVERLAP`, preventing synthetic inflation of declaration-level `SAME_SEMANTICS`.
 
 ```text
-SOURCE DECLARATIONS: 1,760
+SOURCE DECLARATIONS: 1,756
 SOURCE SECTION ANCHORS: 5 (segregated)
 CANONICAL OBJECTS: 151
 2-SOURCE OBJECTS: 91
@@ -687,7 +634,7 @@ v0.17 introduced **Source E** ($S_E$, Patrick Billingsley, *Probability and Meas
 v0.17 achieves the first **5-source universal convergence** in MAPEOGEO across Cauchy-Schwarz, Inner Product / Hilbert Spaces, Normed Spaces, Orthogonal Projections, and Triangle Inequalities.
 
 ```text
-SOURCE DECLARATIONS: 1,824 (1360 S_A + 235 S_B + 81 S_C + 84 S_D + 64 S_E)
+SOURCE DECLARATIONS: 1,820 (1356 S_A + 235 S_B + 81 S_C + 84 S_D + 64 S_E)
 SOURCE SECTION ANCHORS: 5 (segregated)
 CANONICAL OBJECTS: 179 (+18.5% expansion)
 2-SOURCE OBJECTS: 113 (63.1%)
@@ -720,7 +667,7 @@ v0.18 introduced **Source F** ($S_F$, John M. Lee, *Introduction to Smooth Manif
 v0.18 achieves the first **6-source universal convergence** in MAPEOGEO on Riemannian metric tensors and inner product spaces ($S_A, S_B, S_C, S_D, S_E, S_F$).
 
 ```text
-SOURCE DECLARATIONS: 1,891 (1360 S_A + 235 S_B + 81 S_C + 84 S_D + 64 S_E + 67 S_F)
+SOURCE DECLARATIONS: 1,887 (1356 S_A + 235 S_B + 81 S_C + 84 S_D + 64 S_E + 67 S_F)
 SOURCE SECTION ANCHORS: 5 (segregated)
 CANONICAL OBJECTS: 205 (+14.5% expansion)
 2-SOURCE OBJECTS: 131 (63.9%)

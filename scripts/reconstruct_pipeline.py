@@ -202,6 +202,7 @@ def main() -> int:
         [
             sys.executable,
             str(ROOT / "scripts" / "cross_source_intake_v0_12.py"),
+            "--mock",
             "--base-graph",
             str(v011_graph_path),
             "--alignments",
@@ -222,6 +223,7 @@ def main() -> int:
         [
             sys.executable,
             str(ROOT / "scripts" / "tri_source_intake_v0_13.py"),
+            "--mock",
             "--base-graph",
             str(v012_graph_path),
             "--alignments",
@@ -242,6 +244,7 @@ def main() -> int:
         [
             sys.executable,
             str(ROOT / "scripts" / "convex_intake_v0_14.py"),
+            "--mock",
             "--base-graph",
             str(v013_graph_path),
             "--alignments",
@@ -359,8 +362,12 @@ def main() -> int:
             str(v018_graph_path),
             "--alignments",
             str(ROOT / "formal" / "cross_source_alignments_v0_19.json"),
+            "--amendments",
+            str(ROOT / "formal" / "mathematical_integrity_amendments_v0_20.json"),
             "--out-dir",
             str(ROOT / "artifacts" / "complex_analysis_v0_19"),
+            "--evidence-out",
+            str(ROOT / "artifacts" / "complex_analysis_v0_19" / "v0_20_active_scientific_results.json"),
         ],
     )
     if args.target_stage == "v0.19":
@@ -383,6 +390,8 @@ def main() -> int:
             str(ROOT / "formal" / "foundation_alignments.json"),
             "--out-dir",
             str(ROOT / "artifacts" / "foundation_backfill"),
+            "--evidence-out",
+            str(ROOT / "artifacts" / "foundation_backfill" / "foundation_backfill_scientific_results.json"),
         ],
     )
 

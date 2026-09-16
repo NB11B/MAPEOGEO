@@ -15,7 +15,10 @@ from scripts.import_foundation_backfill import (
     detect_foundation_representation_profile,
     generate_foundation_declarations,
 )
-from scripts.foundation_contracts import run_all_foundation_contracts
+from scripts.foundation_contracts import (
+    build_foundation_contract_evidence,
+    validate_contract_evidence,
+)
 from scripts.compute_foundation_depth import compute_foundation_metrics
 from scripts.foundation_intake import (
     compute_foundation_dashboard,
@@ -84,12 +87,15 @@ def test_foundation_declarations_count_and_hashes():
         assert d.source_id == "FOUNDATION_MATHEMATICS_BASE"
 
 
-def test_foundation_contracts_all_pass():
-    """Verify that all 8 foundational domain dual verification contracts execute and pass 100%."""
-    results = run_all_foundation_contracts()
-    assert len(results) == 8
-    for domain, status in results.items():
-        assert status is True, f"Foundation contract failed for domain: {domain}"
+def test_foundation_contracts_are_declaration_bound_and_fail_closed():
+    """Only the exhaustively checked declaration is promoted."""
+    declarations = generate_foundation_declarations()
+    evidence = build_foundation_contract_evidence(declarations)
+    summary = validate_contract_evidence(evidence, declarations)
+    assert len(evidence) == 1
+    assert summary["verified_declarations"] == 1
+    assert summary["unverified_declarations"] == 175
+    assert summary["kernel_verified_declarations"] == 0
 
 
 def test_foundation_alignments_schema():
@@ -114,9 +120,16 @@ def test_foundation_alignments_schema():
 
 def test_foundation_intake_pipeline(tmp_path: Path):
     """Integration test for full Foundation Backfill pipeline."""
-    base_graph_path = ROOT / "artifacts" / "diffgeom_v0_18" / "mapeogeo_v0_18_graph.json.gz"
+    base_graph_path = ROOT / "artifacts" / "complex_analysis_v0_19" / "mapeogeo_v0_19_graph.json.gz"
     alignments_path = ROOT / "formal" / "foundation_alignments.json"
     out_dir = tmp_path / "foundation_backfill"
+    with gzip.open(base_graph_path, "rt", encoding="utf-8") as f:
+        base_graph = json.load(f)
+    base_canonical_count = sum(n.get("type") == "CANONICAL_OBJECT" for n in base_graph["nodes"])
+    base_bridge_count = sum(
+        e.get("type") in {"SAME_SEMANTICS", "SCOPED_OVERLAP", "RELATED_TO"}
+        for e in base_graph["edges"]
+    )
 
     graph, dashboard, summary = run_foundation_intake(
         base_graph_path=base_graph_path,
@@ -134,38 +147,40 @@ def test_foundation_intake_pipeline(tmp_path: Path):
         + sb["boyd_cvx_SD"]
         + sb["billingsley_SE"]
         + sb["lee_diffgeom_SF"]
+        + sb["ahlfors_krantz_SG"]
     )
     assert total_decls == dashboard["N_source_total"]
-    assert dashboard["N_source_total"] == 2067
+    assert dashboard["N_source_total"] == 2135
     assert sb["foundation_base_S0"] == 176
-    assert sb["gallier_quaintance_SA"] == 1360
+    assert sb["gallier_quaintance_SA"] == 1356
     assert sb["axler_ladr4e_SB"] == 235
     assert sb["boyd_vmls_SC"] == 81
     assert sb["boyd_cvx_SD"] == 84
     assert sb["billingsley_SE"] == 64
     assert sb["lee_diffgeom_SF"] == 67
+    assert sb["ahlfors_krantz_SG"] == 72
     assert dashboard["N_section_anchors_total"] == 5
 
     # 2. Canonical Objects & Foundation Breakdown
-    assert dashboard["N_canonical_total"] == 234
+    assert dashboard["N_canonical_total"] == base_canonical_count + 29
     cb = dashboard["canonical_breakdown"]
     assert cb["foundation_canonical_objects"] == 29
-    assert cb["advanced_canonical_objects"] == 205
+    assert cb["advanced_canonical_objects"] == 235
 
     # 3. Foundation Reachability & Vertical Depth
     fm = dashboard["foundation_metrics"]
-    assert fm["foundation_reachability_pct"] >= 95.0
-    assert fm["advanced_canonical_objects_reachable"] >= 195
-    assert fm["vertical_depth_stats"]["min_depth"] == 1
-    assert fm["vertical_depth_stats"]["avg_depth"] <= 3.5
+    assert fm["raw_topology_reachability"]["advanced_canonical_objects_total"] == 235
+    assert fm["proof_eligible_grounding"]["advanced_canonical_objects_reachable"] <= 235
 
     # 4. Dual Contracts Verification
-    assert dashboard["contracts_verification"]["all_contracts_passing"] is True
+    assert dashboard["contracts_verification"]["verified_declarations"] == 1
+    assert dashboard["contracts_verification"]["unverified_declarations"] == 175
+    assert dashboard["contracts_verification"]["kernel_verified_declarations"] == 0
 
     # 5. Upward Bridges and Semantic Bridges
     es = dashboard["edges_summary"]
     assert es["UPWARD_FOUNDATION_DEPENDENCY"] >= 100
-    assert es["total_typed_cross_bridges"] == 912
+    assert es["total_typed_cross_bridges"] == base_bridge_count
 
     # 6. Referential Integrity
     nodes = {n["id"] for n in graph["nodes"]}

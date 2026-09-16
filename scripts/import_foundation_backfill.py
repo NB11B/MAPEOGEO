@@ -39,6 +39,13 @@ sys.path.insert(0, str(ROOT))
 
 SOURCE_ID = "FOUNDATION_MATHEMATICS_BASE"
 STAGE = "foundation"
+FOUNDATION_AMENDMENTS_PATH = ROOT / "formal" / "foundation_mathematical_amendments_v0_20.json"
+FOUNDATION_HISTORICAL_ROWS_SHA256 = "8d6a1c2fcedbadebd8d808dce67afdb45b931ea698288a4122a06ec194922a87"
+FOUNDATION_HISTORICAL_SOURCE = {
+    "file_sha256": "480f4c46f93d5fd03c2ee18e3ad8c95f8693b77b92f233b3add0739081d686d5",
+    "git_commit": "c286184781359ee5c88e8de704b95e4738397fb9",
+    "path": "scripts/import_foundation_backfill.py",
+}
 
 FORBIDDEN_PERSISTED_KEYS = {"statement_text", "proof_text", "source_prose", "page_image"}
 
@@ -91,6 +98,8 @@ class FoundationDeclaration:
     structural_refs: list[str] = field(default_factory=list)
     representation_profile: dict[str, Any] = field(default_factory=dict)
     node_type: str = "SOURCE_DECLARATION"
+    amendment_id: str | None = None
+    amendment_status: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         d = asdict(self)
@@ -130,6 +139,106 @@ def detect_foundation_representation_profile(text: str, title: str) -> dict[str,
     }
 
 
+def _declaration_identity(declaration: FoundationDeclaration) -> dict[str, Any]:
+    return {
+        "label": declaration.label,
+        "decl_type": declaration.decl_type,
+        "statement_sha256": declaration.statement_sha256,
+        "structural_refs": declaration.structural_refs,
+    }
+
+
+def apply_foundation_mathematical_amendments(
+    declarations: list[FoundationDeclaration],
+    amendments_path: Path = FOUNDATION_AMENDMENTS_PATH,
+) -> None:
+    """Validate and annotate the exact active correction projection.
+
+    The registry records statement identity changes only.  It is not proof or
+    kernel evidence, and an omitted or falsely listed changed row fails closed.
+    """
+    payload = json.loads(amendments_path.read_text(encoding="utf-8"))
+    if payload.get("schema_version") != "1.0.0":
+        raise ValueError("unsupported foundation amendment schema")
+    if payload.get("claim_boundary") != "STATEMENT_CORRECTION_ONLY_NOT_PROOF":
+        raise ValueError("foundation amendment claim boundary is invalid")
+
+    by_id = {item.node_id: item for item in declarations}
+    if len(by_id) != len(declarations):
+        raise ValueError("duplicate foundation declaration identity")
+    historical = payload.get("historical_rows")
+    if not isinstance(historical, dict) or set(historical) != set(by_id):
+        raise ValueError("historical foundation registry is incomplete or overbroad")
+    historical_digest = hashlib.sha256(
+        json.dumps(
+            historical,
+            sort_keys=True,
+            separators=(",", ":"),
+            ensure_ascii=False,
+            allow_nan=False,
+        ).encode("utf-8")
+    ).hexdigest()
+    if historical_digest != FOUNDATION_HISTORICAL_ROWS_SHA256:
+        raise ValueError("historical foundation baseline digest mismatch")
+    if payload.get("historical_source") != FOUNDATION_HISTORICAL_SOURCE:
+        raise ValueError("historical foundation source identity mismatch")
+
+    changed_ids = {
+        node_id
+        for node_id, declaration in by_id.items()
+        if historical[node_id] != _declaration_identity(declaration)
+    }
+    records = payload.get("amendments")
+    if not isinstance(records, list):
+        raise ValueError("foundation amendments must be a list")
+    records_by_id: dict[str, dict[str, Any]] = {}
+    for record in records:
+        node_id = record.get("subject_id")
+        if not isinstance(node_id, str) or node_id in records_by_id:
+            raise ValueError("duplicate or invalid foundation amendment subject")
+        records_by_id[node_id] = record
+    if set(records_by_id) != changed_ids:
+        raise ValueError("foundation amendment registry omits or falsely lists a changed row")
+
+    for node_id, record in records_by_id.items():
+        declaration = by_id[node_id]
+        if record.get("status") != "ACTIVE_STATEMENT_AMENDMENT_UNVERIFIED":
+            raise ValueError(f"invalid foundation amendment status: {node_id}")
+        if record.get("historical_identity") != historical[node_id]:
+            raise ValueError(f"historical foundation identity mismatch: {node_id}")
+        if record.get("corrected_identity") != _declaration_identity(declaration):
+            raise ValueError(f"corrected foundation identity mismatch: {node_id}")
+        reason = record.get("reason")
+        if not isinstance(reason, str) or len(reason) < 20:
+            raise ValueError(f"foundation amendment reason is missing: {node_id}")
+        core = {
+            "subject_id": node_id,
+            "historical_identity": record["historical_identity"],
+            "corrected_identity": record["corrected_identity"],
+            "reason": reason,
+        }
+        digest = hashlib.sha256(
+            json.dumps(
+                core,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+                allow_nan=False,
+            ).encode("utf-8")
+        ).hexdigest()
+        if record.get("amendment_sha256") != digest:
+            raise ValueError(f"foundation amendment digest mismatch: {node_id}")
+        amendment_id = record.get("amendment_id")
+        expected_amendment_id = (
+            "amendment:v0.20:foundation:"
+            + node_id.removeprefix("srcdecl:foundation:").replace(":", "-")
+        )
+        if amendment_id != expected_amendment_id:
+            raise ValueError(f"foundation amendment ID is invalid: {node_id}")
+        declaration.amendment_id = amendment_id
+        declaration.amendment_status = record["status"]
+
+
 def generate_foundation_declarations() -> list[FoundationDeclaration]:
     """Generate curated, source-attributed foundational declarations across 8 layers.
 
@@ -147,7 +256,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "logic",
             "chapter_section": "Logic §1.1",
             "structural_refs": [],
-            "text": "A proposition is a declarative statement that is either strictly true or strictly false, but not both.",
+            "text": "In classical bivalent propositional semantics, a valuation assigns each atomic proposition exactly one truth value in {False, True}; compound propositions receive truth values from their truth-functional connectives.",
         },
         {
             "node_id": "srcdecl:foundation:logic:negation",
@@ -255,7 +364,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "logic",
             "chapter_section": "Logic §1.7",
             "structural_refs": ["srcdecl:foundation:logic:implication", "srcdecl:foundation:logic:negation"],
-            "text": "The conditional (P => Q) is logically equivalent to its contrapositive (¬Q => ¬P). Proof by contraposition proves P => Q by establishing ¬Q => ¬P.",
+            "text": "Under classical bivalent semantics, the material conditional (P => Q) is logically equivalent to its contrapositive (¬Q => ¬P); a proof by contraposition establishes the latter. The reverse implication from a contrapositive proof is not asserted here for weaker non-classical logics.",
         },
         {
             "node_id": "srcdecl:foundation:logic:proof_by_contradiction",
@@ -264,7 +373,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "logic",
             "chapter_section": "Logic §1.8",
             "structural_refs": ["srcdecl:foundation:logic:negation", "srcdecl:foundation:logic:tautology"],
-            "text": "To prove proposition P, assume ¬P and deduce a contradiction (R ∧ ¬R); conclude P must be true. Equivalently, (¬P => False) => P.",
+            "text": "In classical logic, reductio ad absurdum proves P by deriving False from ¬P and then applying double-negation elimination ¬¬P => P. Intuitionistically, the derivation establishes only ¬¬P unless P is stable.",
         },
         {
             "node_id": "srcdecl:foundation:logic:universal_quantifier",
@@ -291,7 +400,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "logic",
             "chapter_section": "Logic §1.9",
             "structural_refs": ["srcdecl:foundation:logic:universal_quantifier", "srcdecl:foundation:logic:existential_quantifier", "srcdecl:foundation:logic:negation"],
-            "text": "For predicate P(x): ¬(∀x P(x)) <=> ∃x ¬P(x), and ¬(∃x P(x)) <=> ∀x ¬P(x).",
+            "text": "For a predicate P over a fixed domain, classical logic validates ¬(∀x P(x)) <=> ∃x ¬P(x) and ¬(∃x P(x)) <=> ∀x ¬P(x); without classical principles the first left-to-right implication need not hold.",
         },
         {
             "node_id": "srcdecl:foundation:logic:distributive_logic",
@@ -304,12 +413,12 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
         },
         {
             "node_id": "srcdecl:foundation:logic:law_of_excluded_middle",
-            "label": "Law of Excluded Middle and Non-Contradiction",
+            "label": "Classical Law of Excluded Middle",
             "decl_type": "AXIOM",
             "layer": "logic",
             "chapter_section": "Logic §1.1",
             "structural_refs": ["srcdecl:foundation:logic:negation", "srcdecl:foundation:logic:disjunction", "srcdecl:foundation:logic:conjunction"],
-            "text": "For any proposition P, (P ∨ ¬P) is a tautology (Law of Excluded Middle), and ¬(P ∧ ¬P) is a tautology (Principle of Non-Contradiction).",
+            "text": "The classical Law of Excluded Middle is the axiom schema P ∨ ¬P for every proposition P. The constructively valid theorem ¬(P ∧ ¬P) is not the same assertion and is not bundled into this classical axiom schema.",
         },
         {
             "node_id": "srcdecl:foundation:logic:hypothetical_syllogism",
@@ -326,21 +435,21 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
         # =========================================================================
         {
             "node_id": "srcdecl:foundation:set:element_membership",
-            "label": "Set Membership and Extensionality",
+            "label": "Primitive Set Membership",
             "decl_type": "DEFINITION",
             "layer": "sets",
             "chapter_section": "Sets §2.1",
             "structural_refs": [],
-            "text": "A set is a collection of distinct mathematical objects; x in A denotes membership. Two sets A and B are equal (A = B) iff ∀x (x in A <=> x in B).",
+            "text": "Membership x in A is the primitive non-logical relation of the set theory used here; it is not defined by calling a set a collection. Equality of sets is governed separately by the Extensionality axiom.",
         },
         {
             "node_id": "srcdecl:foundation:set:empty_set",
-            "label": "Definition of the Empty Set",
-            "decl_type": "DEFINITION",
+            "label": "Empty Set Axiom and Definition",
+            "decl_type": "AXIOM",
             "layer": "sets",
             "chapter_section": "Sets §2.1",
             "structural_refs": ["srcdecl:foundation:set:element_membership"],
-            "text": "The empty set ∅ is the unique set containing no elements: ∀x (x not-in ∅).",
+            "text": "The Empty Set axiom asserts that there exists a set E with no elements. Extensionality makes it unique; this set is denoted ∅, so for every x, x not-in ∅.",
         },
         {
             "node_id": "srcdecl:foundation:set:subset_definition",
@@ -362,12 +471,12 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
         },
         {
             "node_id": "srcdecl:foundation:set:union",
-            "label": "Definition of Set Union",
-            "decl_type": "DEFINITION",
+            "label": "Pairing and Union Axioms; Binary Union",
+            "decl_type": "AXIOM",
             "layer": "sets",
             "chapter_section": "Sets §2.3",
-            "structural_refs": ["srcdecl:foundation:set:element_membership"],
-            "text": "The union A ∪ B is the set of all elements in A or in B: A ∪ B = {x | x in A ∨ x in B}.",
+            "structural_refs": ["srcdecl:foundation:set:element_membership", "srcdecl:foundation:set:axiom_of_extensionality"],
+            "text": "The Pairing axiom gives {A,B}, and the Union axiom gives a set containing exactly the members of members of {A,B}. Their binary union A ∪ B therefore exists and satisfies x in A ∪ B iff x in A or x in B.",
         },
         {
             "node_id": "srcdecl:foundation:set:intersection",
@@ -375,8 +484,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "sets",
             "chapter_section": "Sets §2.3",
-            "structural_refs": ["srcdecl:foundation:set:element_membership"],
-            "text": "The intersection A ∩ B is the set of all elements belonging to both A and B: A ∩ B = {x | x in A ∧ x in B}.",
+            "structural_refs": ["srcdecl:foundation:set:element_membership", "srcdecl:foundation:set:axiom_of_specification"],
+            "text": "For sets A and B, Separation applied to A gives the intersection A ∩ B = {x in A | x in B}; hence x in A ∩ B iff x in A and x in B.",
         },
         {
             "node_id": "srcdecl:foundation:set:set_difference",
@@ -384,8 +493,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "sets",
             "chapter_section": "Sets §2.3",
-            "structural_refs": ["srcdecl:foundation:set:element_membership"],
-            "text": "The set difference A \\ B (or A - B) is the set of elements in A that are not in B: A \\ B = {x | x in A ∧ x not-in B}.",
+            "structural_refs": ["srcdecl:foundation:set:element_membership", "srcdecl:foundation:set:axiom_of_specification"],
+            "text": "For sets A and B, Separation applied to A gives the difference A \\ B = {x in A | x not-in B}; hence x in A \\ B iff x in A and x not-in B.",
         },
         {
             "node_id": "srcdecl:foundation:set:complement",
@@ -394,16 +503,16 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "sets",
             "chapter_section": "Sets §2.3",
             "structural_refs": ["srcdecl:foundation:set:set_difference"],
-            "text": "With respect to universal set U, the complement A^c (or U \\ A) is the set of all elements in U not in A: A^c = {x in U | x not-in A}.",
+            "text": "Relative to a fixed set U and a subset A of U, the complement A^c means U \\ A = {x in U | x not-in A}. No absolute universal set is assumed.",
         },
         {
             "node_id": "srcdecl:foundation:set:power_set",
-            "label": "Definition of Power Set",
-            "decl_type": "DEFINITION",
+            "label": "Power Set Axiom",
+            "decl_type": "AXIOM",
             "layer": "sets",
             "chapter_section": "Sets §2.4",
             "structural_refs": ["srcdecl:foundation:set:subset_definition"],
-            "text": "The power set P(X) of a set X is the set of all subsets of X: P(X) = {S | S ⊆ X}. If |X| = n, then |P(X)| = 2^n.",
+            "text": "The Power Set axiom asserts that for every set X there exists a set P(X) whose elements are exactly the subsets of X.",
         },
         {
             "node_id": "srcdecl:foundation:set:ordered_pair",
@@ -411,8 +520,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "sets",
             "chapter_section": "Sets §2.5",
-            "structural_refs": ["srcdecl:foundation:set:element_membership"],
-            "text": "The ordered pair (a, b) is defined set-theoretically as {{a}, {a, b}}. Property: (a, b) = (c, d) iff a = c and b = d.",
+            "structural_refs": ["srcdecl:foundation:set:element_membership", "srcdecl:foundation:set:union"],
+            "text": "Using the Pairing axiom, the Kuratowski ordered pair is (a, b) = {{a}, {a, b}}; Extensionality proves (a, b) = (c, d) iff a = c and b = d.",
         },
         {
             "node_id": "srcdecl:foundation:set:cartesian_product",
@@ -420,8 +529,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "sets",
             "chapter_section": "Sets §2.5",
-            "structural_refs": ["srcdecl:foundation:set:ordered_pair"],
-            "text": "The Cartesian product A × B is the set of all ordered pairs (a, b) with a in A and b in B: A × B = {(a, b) | a in A, b in B}.",
+            "structural_refs": ["srcdecl:foundation:set:ordered_pair", "srcdecl:foundation:set:power_set", "srcdecl:foundation:set:axiom_of_specification"],
+            "text": "For sets A and B, Pairing, Union, Power Set, and Separation ensure that the Cartesian product A × B exists as {(a, b) | a in A and b in B}, a subset of P(P(A ∪ B)).",
         },
         {
             "node_id": "srcdecl:foundation:set:disjoint_sets",
@@ -439,7 +548,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "sets",
             "chapter_section": "Sets §2.6",
             "structural_refs": ["srcdecl:foundation:set:disjoint_sets", "srcdecl:foundation:set:union"],
-            "text": "A partition of set X is a collection P of non-empty pairwise disjoint subsets of X whose union is X: ∪_{S in P} S = X.",
+            "text": "A partition of a set X is a set P of nonempty subsets of X such that distinct members of P are disjoint and the union of the set P is X.",
         },
         {
             "node_id": "srcdecl:foundation:set:de_morgan_sets",
@@ -475,7 +584,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "sets",
             "chapter_section": "Sets §2.8",
             "structural_refs": ["srcdecl:foundation:set:union", "srcdecl:foundation:set:intersection"],
-            "text": "For an indexed family of sets {A_i}_{i in I}: ∪_{i in I} A_i = {x | ∃i in I (x in A_i)} and ∩_{i in I} A_i = {x | ∀i in I (x in A_i)}.",
+            "text": "For a set-sized indexed family {A_i}_{i in I}, the Union axiom gives union_{i in I} A_i = {x | exists i in I, x in A_i}. If I is nonempty, Separation from one A_i gives intersection_{i in I} A_i = {x | for every i in I, x in A_i}; an empty intersection requires a separately fixed universe.",
         },
         {
             "node_id": "srcdecl:foundation:set:axiom_of_specification",
@@ -502,7 +611,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "sets",
             "chapter_section": "Sets §2.9",
             "structural_refs": ["srcdecl:foundation:set:indicator_function", "srcdecl:foundation:set:intersection", "srcdecl:foundation:set:union", "srcdecl:foundation:set:complement"],
-            "text": "1_{A ∩ B} = 1_A · 1_B, 1_{A^c} = 1 - 1_A, and 1_{A ∪ B} = 1_A + 1_B - 1_A · 1_B.",
+            "text": "For subsets A and B of one fixed universe X, indicator functions on X satisfy 1_{A ∩ B} = 1_A · 1_B, 1_{X \\ A} = 1 - 1_A, and 1_{A ∪ B} = 1_A + 1_B - 1_A · 1_B.",
         },
         {
             "node_id": "srcdecl:foundation:set:axiom_of_extensionality",
@@ -520,7 +629,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "sets",
             "chapter_section": "Sets §2.10",
             "structural_refs": ["srcdecl:foundation:set:cartesian_product", "srcdecl:foundation:set:empty_set"],
-            "text": "For any non-empty collection of pairwise disjoint non-empty sets, there exists a choice set containing exactly one element from each set in the collection.",
+            "text": "For every set I and every set-indexed family (A_i)_{i in I} of nonempty sets, the Axiom of Choice asserts that there exists a function f with domain I such that f(i) in A_i for every i in I; pairwise disjointness is not required.",
         },
 
         # =========================================================================
@@ -605,7 +714,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "relations_functions",
             "chapter_section": "Relations §3.4",
             "structural_refs": ["srcdecl:foundation:rel:quotient_set", "srcdecl:foundation:set:set_partition"],
-            "text": "Every equivalence relation on X induces a partition X/~ of X, and conversely every partition of X defines an equivalence relation.",
+            "text": "Every equivalence relation ~ on X induces the partition X/~. Conversely, for a partition P of X define x ~_P y iff there exists A in P with x in A and y in A; this is an equivalence relation whose classes are exactly the members of P.",
         },
         {
             "node_id": "srcdecl:foundation:rel:partial_order",
@@ -735,7 +844,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "number_systems",
             "chapter_section": "Numbers §4.1",
             "structural_refs": [],
-            "text": "The natural numbers N are defined by Peano axioms: 0 in N; successor function S: N -> N is injective; 0 is not in im(S); and induction axiom holds.",
+            "text": "In the second-order Peano framework, 0 is in N, S: N -> N, S is injective, 0 is not a successor, and every subset containing 0 and closed under S equals N. Addition and multiplication are defined recursively, and m <= n iff there exists k in N with m + k = n.",
         },
         {
             "node_id": "srcdecl:foundation:num:principle_induction",
@@ -761,8 +870,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "number_systems",
             "chapter_section": "Numbers §4.2",
-            "structural_refs": ["srcdecl:foundation:rel:quotient_set", "srcdecl:foundation:num:peano_axioms_naturals"],
-            "text": "The ring of integers Z is constructed as quotient of N × N under equivalence relation (a, b) ~ (c, d) <=> a + d = b + c.",
+            "structural_refs": ["srcdecl:foundation:rel:quotient_set", "srcdecl:foundation:num:peano_axioms_naturals", "srcdecl:foundation:rel:fundamental_theorem_equivalence"],
+            "text": "The integers Z are equivalence classes [a,b] of N × N under (a,b) ~ (c,d) iff a + d = b + c. The well-defined operations are [a,b] + [c,d] = [a+c,b+d] and [a,b] * [c,d] = [ac+bd,ad+bc], with the induced total order.",
         },
         {
             "node_id": "srcdecl:foundation:num:integer_divisibility",
@@ -771,7 +880,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "number_systems",
             "chapter_section": "Numbers §4.2",
             "structural_refs": ["srcdecl:foundation:num:integers_construction"],
-            "text": "For a, b in Z with a ≠ 0, a divides b (a | b) iff ∃k in Z such that b = a · k.",
+            "text": "For all a, b in Z, including a = 0, a divides b (a | b) iff there exists k in Z such that b = a * k; consequently 0 divides only 0.",
         },
         {
             "node_id": "srcdecl:foundation:num:euclidean_division_algorithm",
@@ -779,7 +888,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "number_systems",
             "chapter_section": "Numbers §4.2",
-            "structural_refs": ["srcdecl:foundation:num:well_ordering_principle"],
+            "structural_refs": ["srcdecl:foundation:num:integers_construction", "srcdecl:foundation:num:well_ordering_principle"],
             "text": "For integers a and b > 0, there exist unique integers q (quotient) and r (remainder) such that a = b · q + r with 0 <= r < b.",
         },
         {
@@ -789,7 +898,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "number_systems",
             "chapter_section": "Numbers §4.3",
             "structural_refs": ["srcdecl:foundation:rel:quotient_set", "srcdecl:foundation:num:integers_construction"],
-            "text": "The field of rational numbers Q is the quotient of Z × (Z \\ {0}) under (a, b) ~ (c, d) <=> a · d = b · c.",
+            "text": "The rational numbers Q are equivalence classes [a,b] of Z × (Z \\ {0}) under (a,b) ~ (c,d) iff a*d = b*c. The well-defined field operations are [a,b] + [c,d] = [ad+bc,bd] and [a,b] * [c,d] = [ac,bd], with the induced order after choosing positive denominators.",
         },
         {
             "node_id": "srcdecl:foundation:num:rational_density",
@@ -797,8 +906,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "number_systems",
             "chapter_section": "Numbers §4.3",
-            "structural_refs": ["srcdecl:foundation:num:rational_numbers_construction"],
-            "text": "Between any two distinct real numbers x < y, there exists a rational number q in Q such that x < q < y.",
+            "structural_refs": ["srcdecl:foundation:num:rational_numbers_construction", "srcdecl:foundation:num:archimedean_property"],
+            "text": "By the Archimedean property of the ordered field R containing Q, for real x < y there exists q in Q with x < q < y.",
         },
         {
             "node_id": "srcdecl:foundation:num:irrationality_sqrt_2",
@@ -806,8 +915,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "number_systems",
             "chapter_section": "Numbers §4.3",
-            "structural_refs": ["srcdecl:foundation:num:rational_numbers_construction", "srcdecl:foundation:logic:proof_by_contradiction"],
-            "text": "There is no rational number q in Q such that q^2 = 2. Thus sqrt(2) is irrational.",
+            "structural_refs": ["srcdecl:foundation:num:rational_numbers_construction", "srcdecl:foundation:num:completeness_supremum", "srcdecl:foundation:logic:proof_by_contradiction"],
+            "text": "Completeness gives a unique nonnegative real r with r^2 = 2. The parity argument proves that no rational q satisfies q^2 = 2; hence this real r, denoted sqrt(2), is irrational.",
         },
         {
             "node_id": "srcdecl:foundation:num:real_numbers_axioms",
@@ -816,7 +925,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "number_systems",
             "chapter_section": "Numbers §4.4",
             "structural_refs": ["srcdecl:foundation:num:rational_numbers_construction"],
-            "text": "The real numbers R is the unique (up to isomorphism) complete ordered field containing Q as a subfield.",
+            "text": "The real numbers R form a Dedekind-complete ordered field containing Q as an ordered subfield. Any two such complete ordered fields are uniquely order-field isomorphic by an isomorphism fixing Q, which is the intended categoricity statement.",
         },
         {
             "node_id": "srcdecl:foundation:num:completeness_supremum",
@@ -834,7 +943,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "number_systems",
             "chapter_section": "Numbers §4.4",
             "structural_refs": ["srcdecl:foundation:num:rational_numbers_construction"],
-            "text": "A Dedekind cut is a partition (A, B) of Q where A is non-empty, A ≠ Q, A is downward closed, and A has no maximum. R is the set of all cuts.",
+            "text": "A Dedekind cut is a proper nonempty lower subset A of Q with no greatest element. Ordered by inclusion and equipped with the standard cut addition, additive inverse, positive-cut multiplication, and sign extension, the set of cuts has well-defined field operations and is a Dedekind-complete ordered field.",
         },
         {
             "node_id": "srcdecl:foundation:num:cauchy_sequence_reals",
@@ -843,7 +952,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "number_systems",
             "chapter_section": "Numbers §4.4",
             "structural_refs": ["srcdecl:foundation:rel:quotient_set", "srcdecl:foundation:num:rational_numbers_construction"],
-            "text": "R is constructed as quotient of the ring of Cauchy sequences of rationals under null sequences (x_n - y_n -> 0).",
+            "text": "Using the rational absolute-value metric, R is the quotient of the ring of rational Cauchy sequences by the null-sequence ideal: x ~ y iff x_n-y_n -> 0. Addition and multiplication are induced termwise, and the compatible order and completion embedding of Q are part of the construction.",
         },
         {
             "node_id": "srcdecl:foundation:num:archimedean_property",
@@ -888,7 +997,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "number_systems",
             "chapter_section": "Numbers §4.5",
             "structural_refs": ["srcdecl:foundation:num:imaginary_unit"],
-            "text": "For z = a + bi in C, complex conjugate is z_bar = a - bi, and modulus is |z| = sqrt(a^2 + b^2) = sqrt(z · z_bar).",
+            "text": "For z = a + bi in C, its conjugate is z_bar = a - bi. Its modulus |z| is the unique nonnegative real r satisfying r^2 = a^2 + b^2 = z*z_bar.",
         },
         {
             "node_id": "srcdecl:foundation:num:polar_form_complex",
@@ -896,8 +1005,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "number_systems",
             "chapter_section": "Numbers §4.5",
-            "structural_refs": ["srcdecl:foundation:num:complex_conjugate_modulus"],
-            "text": "Every non-zero complex number z in C can be represented in polar coordinates as z = r(cos θ + i sin θ) where r = |z| > 0 and θ in [0, 2π).",
+            "structural_refs": ["srcdecl:foundation:num:complex_conjugate_modulus", "srcdecl:foundation:geom:sine_cosine_unit_circle"],
+            "text": "After the trigonometric functions are defined, every nonzero complex number z has a polar form z = r(cos theta + i sin theta), where r = |z| > 0 and theta is unique modulo 2*pi; choosing theta in [0,2*pi) gives one representative.",
         },
         {
             "node_id": "srcdecl:foundation:num:algebraic_closure_c_primitive",
@@ -905,8 +1014,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "number_systems",
             "chapter_section": "Numbers §4.5",
-            "structural_refs": ["srcdecl:foundation:num:complex_numbers_definition"],
-            "text": "The complex field C is algebraically closed: every non-constant polynomial with complex coefficients has at least one root in C.",
+            "structural_refs": ["srcdecl:foundation:num:complex_numbers_definition", "srcdecl:foundation:alg:polynomial_definition"],
+            "text": "The Fundamental Theorem of Algebra states that every nonconstant polynomial with complex coefficients has at least one complex root. The listed structural references identify its objects but do not constitute proof evidence.",
         },
 
         # =========================================================================
@@ -933,38 +1042,38 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
         {
             "node_id": "srcdecl:foundation:alg:commutative_law",
             "label": "Commutative Property of Addition and Multiplication",
-            "decl_type": "AXIOM",
+            "decl_type": "DEFINITION",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.1",
             "structural_refs": ["srcdecl:foundation:alg:addition_operation", "srcdecl:foundation:alg:multiplication_operation"],
-            "text": "For all a, b: a + b = b + a (commutative addition), and a · b = b · a (commutative multiplication).",
+            "text": "A binary operation circle on S is called commutative iff a circle b = b circle a for all a,b in S. Thus addition or multiplication is commutative only in a structure that imposes the corresponding law.",
         },
         {
             "node_id": "srcdecl:foundation:alg:associative_law",
             "label": "Associative Property of Addition and Multiplication",
-            "decl_type": "AXIOM",
+            "decl_type": "DEFINITION",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.1",
             "structural_refs": ["srcdecl:foundation:alg:addition_operation", "srcdecl:foundation:alg:multiplication_operation"],
-            "text": "For all a, b, c: (a + b) + c = a + (b + c), and (a · b) · c = a · (b · c).",
+            "text": "A binary operation circle on S is called associative iff (a circle b) circle c = a circle (b circle c) for all a,b,c in S; arbitrary binary operations need not be associative.",
         },
         {
             "node_id": "srcdecl:foundation:alg:distributive_law",
             "label": "Distributive Property of Multiplication over Addition",
-            "decl_type": "AXIOM",
+            "decl_type": "DEFINITION",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.1",
             "structural_refs": ["srcdecl:foundation:alg:addition_operation", "srcdecl:foundation:alg:multiplication_operation"],
-            "text": "For all a, b, c: a · (b + c) = (a · b) + (a · c), and (a + b) · c = (a · c) + (b · c).",
+            "text": "Two binary operations + and * on S are distributive iff a*(b+c)=a*b+a*c and (a+b)*c=a*c+b*c for all a,b,c in S; this is a property imposed on the pair of operations.",
         },
         {
             "node_id": "srcdecl:foundation:alg:identity_and_inverses",
             "label": "Additive and Multiplicative Identities and Inverses",
-            "decl_type": "AXIOM",
+            "decl_type": "DEFINITION",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.1",
             "structural_refs": ["srcdecl:foundation:alg:addition_operation", "srcdecl:foundation:alg:multiplication_operation"],
-            "text": "Additive identity 0 satisfies a + 0 = a; additive inverse -a satisfies a + (-a) = 0. Multiplicative identity 1 satisfies a · 1 = a; inverse a^{-1} satisfies a · a^{-1} = 1 for a ≠ 0.",
+            "text": "An additive identity 0, additive inverse -a, multiplicative identity 1, and multiplicative inverse a^{-1} are elements satisfying the usual equations when they exist; their existence is required separately by group, monoid, ring, or field axioms and is not automatic for arbitrary operations.",
         },
         {
             "node_id": "srcdecl:foundation:alg:group_axioms",
@@ -990,8 +1099,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.3",
-            "structural_refs": ["srcdecl:foundation:alg:abelian_group", "srcdecl:foundation:alg:distributive_law"],
-            "text": "A ring (R, +, ·) is an Abelian group under + and a monoid under · satisfying distributive laws of multiplication over addition.",
+            "structural_refs": ["srcdecl:foundation:alg:abelian_group", "srcdecl:foundation:alg:associative_law", "srcdecl:foundation:alg:identity_and_inverses", "srcdecl:foundation:alg:distributive_law"],
+            "text": "Under the unital convention used here, a ring (R,+,*) is an Abelian group under +, multiplication is associative with identity 1, and multiplication distributes over addition; multiplication need not be commutative.",
         },
         {
             "node_id": "srcdecl:foundation:alg:field_axioms",
@@ -999,7 +1108,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.3",
-            "structural_refs": ["srcdecl:foundation:alg:ring_axioms", "srcdecl:foundation:alg:identity_and_inverses"],
+            "structural_refs": ["srcdecl:foundation:alg:ring_axioms", "srcdecl:foundation:alg:commutative_law", "srcdecl:foundation:alg:identity_and_inverses"],
             "text": "A field (F, +, ·) is a commutative ring with 1 ≠ 0 where every non-zero element has a multiplicative inverse.",
         },
         {
@@ -1018,7 +1127,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.2",
             "structural_refs": ["srcdecl:foundation:alg:group_axioms", "srcdecl:foundation:rel:function_definition"],
-            "text": "A map φ: G -> H is a homomorphism iff φ(a * b) = φ(a) * φ(b). Its kernel is ker(φ) = {g in G | φ(g) = e_H}.",
+            "text": "For groups (G,*_G) and (H,*_H), a map phi:G->H is a homomorphism iff phi(a *_G b)=phi(a) *_H phi(b). Its kernel is {g in G | phi(g)=e_H}.",
         },
         {
             "node_id": "srcdecl:foundation:alg:polynomial_definition",
@@ -1027,7 +1136,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.4",
             "structural_refs": ["srcdecl:foundation:alg:field_axioms"],
-            "text": "A polynomial P(x) in F[x] is a formal sum P(x) = a_n x^n + a_{n-1} x^{n-1} + ... + a_1 x + a_0 with coefficients a_i in F.",
+            "text": "A polynomial P in F[x] is a finite formal sum P(x) = sum_{i=0}^n a_i x^i for an integer n >= 0 and coefficients a_i in F; trailing zero coefficients do not change the polynomial.",
         },
         {
             "node_id": "srcdecl:foundation:alg:polynomial_degree",
@@ -1045,7 +1154,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.4",
             "structural_refs": ["srcdecl:foundation:alg:polynomial_degree"],
-            "text": "For P(x), D(x) in F[x] with D(x) ≠ 0, there exist unique Q(x), R(x) in F[x] such that P(x) = D(x)·Q(x) + R(x) with deg(R) < deg(D).",
+            "text": "For P(x), D(x) in F[x] with D(x) != 0, there exist unique Q(x), R(x) in F[x] such that P(x) = D(x)*Q(x) + R(x) and either R(x) = 0 or deg(R) < deg(D).",
         },
         {
             "node_id": "srcdecl:foundation:alg:remainder_factor_theorem",
@@ -1054,7 +1163,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.4",
             "structural_refs": ["srcdecl:foundation:alg:polynomial_division_algorithm"],
-            "text": "The remainder of P(x) divided by (x - c) is P(c). Consequently, (x - c) divides P(x) if and only if P(c) = 0 (c is a root).",
+            "text": "For P(x) in F[x] and c in F, the remainder on division by x-c is P(c). Consequently, x-c divides P(x) iff P(c)=0.",
         },
         {
             "node_id": "srcdecl:foundation:alg:binomial_coefficients",
@@ -1072,7 +1181,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.5",
             "structural_refs": ["srcdecl:foundation:alg:binomial_coefficients"],
-            "text": "For n >= k >= 1: C(n, k) = C(n-1, k-1) + C(n-1, k).",
+            "text": "For integers n >= 2 and 1 <= k <= n-1, C(n,k) = C(n-1,k-1) + C(n-1,k); the boundary values are C(n,0)=C(n,n)=1.",
         },
         {
             "node_id": "srcdecl:foundation:alg:binomial_theorem",
@@ -1080,8 +1189,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.5",
-            "structural_refs": ["srcdecl:foundation:alg:pascals_identity", "srcdecl:foundation:alg:distributive_law"],
-            "text": "For elements a, b in commutative ring and integer n >= 0: (a + b)^n = sum_{k=0}^n C(n, k) a^k b^{n-k}.",
+            "structural_refs": ["srcdecl:foundation:alg:binomial_coefficients", "srcdecl:foundation:alg:pascals_identity", "srcdecl:foundation:num:principle_induction", "srcdecl:foundation:alg:ring_axioms", "srcdecl:foundation:alg:commutative_law"],
+            "text": "For a and b in a commutative unital ring and an integer n >= 0, (a+b)^n=sum_{k=0}^n C(n,k)*a^k*b^{n-k}.",
         },
         {
             "node_id": "srcdecl:foundation:alg:quadratic_formula",
@@ -1089,8 +1198,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.4",
-            "structural_refs": ["srcdecl:foundation:alg:polynomial_definition", "srcdecl:foundation:num:imaginary_unit"],
-            "text": "For ax^2 + bx + c = 0 with a ≠ 0, the solutions in C are given by x = (-b ± sqrt(b^2 - 4ac)) / (2a).",
+            "structural_refs": ["srcdecl:foundation:alg:polynomial_definition", "srcdecl:foundation:num:complex_numbers_definition", "srcdecl:foundation:num:algebraic_closure_c_primitive"],
+            "text": "For a, b, c in C with a != 0, choose s in C with s^2 = b^2 - 4*a*c. The roots of a*x^2+b*x+c are exactly x=(-b+s)/(2*a) and x=(-b-s)/(2*a), counted with multiplicity.",
         },
         {
             "node_id": "srcdecl:foundation:alg:vector_space_axioms_primitive",
@@ -1098,8 +1207,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "arithmetic_algebra",
             "chapter_section": "Algebra §5.6",
-            "structural_refs": ["srcdecl:foundation:alg:abelian_group", "srcdecl:foundation:alg:field_axioms"],
-            "text": "A vector space V over F is an Abelian group (V, +) equipped with scalar multiplication F × V -> V satisfying distributivity and associativity of scalar scaling.",
+            "structural_refs": ["srcdecl:foundation:alg:abelian_group", "srcdecl:foundation:alg:field_axioms", "srcdecl:foundation:rel:function_definition"],
+            "text": "A vector space V over F is an Abelian group (V,+) with scalar multiplication satisfying alpha*(u+v)=alpha*u+alpha*v, (alpha+beta)*v=alpha*v+beta*v, (alpha*beta)*v=alpha*(beta*v), and 1_F v = v.",
         },
         {
             "node_id": "srcdecl:foundation:alg:linear_combination_span",
@@ -1129,8 +1238,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "order_sequences",
             "chapter_section": "Sequences §6.1",
-            "structural_refs": ["srcdecl:foundation:seq:bounded_set_reals"],
-            "text": "sup(S) is the least upper bound of S; inf(S) is the greatest lower bound of S.",
+            "structural_refs": ["srcdecl:foundation:seq:bounded_set_reals", "srcdecl:foundation:num:completeness_supremum"],
+            "text": "For a nonempty subset S of R bounded above, sup(S) is its least upper bound; for nonempty S bounded below, inf(S) is its greatest lower bound. Their existence in R follows from completeness.",
         },
         {
             "node_id": "srcdecl:foundation:seq:absolute_value",
@@ -1202,7 +1311,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "order_sequences",
             "chapter_section": "Sequences §6.4",
             "structural_refs": ["srcdecl:foundation:seq:sequence_limit_epsilon_N"],
-            "text": "If lim a_n = A and lim b_n = B, then lim (a_n + b_n) = A + B, lim (a_n · b_n) = A · B, and lim (a_n / b_n) = A / B (if B ≠ 0).",
+            "text": "If lim a_n=A and lim b_n=B, then sums and products converge to A+B and A*B. If additionally B != 0 and b_n != 0 for every n, then lim(a_n/b_n)=A/B; an eventually defined quotient may equivalently be completed at finitely many earlier indices.",
         },
         {
             "node_id": "srcdecl:foundation:seq:squeeze_theorem",
@@ -1237,8 +1346,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "order_sequences",
             "chapter_section": "Sequences §6.5",
-            "structural_refs": ["srcdecl:foundation:seq:subsequence_definition", "srcdecl:foundation:seq:monotone_convergence_theorem"],
-            "text": "Every bounded sequence of real numbers has a convergent subsequence.",
+            "structural_refs": ["srcdecl:foundation:seq:subsequence_definition", "srcdecl:foundation:seq:monotone_convergence_theorem", "srcdecl:foundation:seq:bounded_set_reals"],
+            "text": "Every real sequence has a monotone subsequence; consequently every bounded sequence of real numbers has a convergent subsequence by monotone convergence.",
         },
         {
             "node_id": "srcdecl:foundation:seq:cauchy_sequence_definition",
@@ -1283,7 +1392,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "order_sequences",
             "chapter_section": "Sequences §6.7",
             "structural_refs": ["srcdecl:foundation:seq:infinite_series_definition"],
-            "text": "If sum a_n converges, then lim_{n -> \\infty} a_n = 0. Equivalently, if lim a_n ≠ 0, then sum a_n diverges.",
+            "text": "If sum a_n converges, then a_n converges to 0. Equivalently by contraposition, if a_n does not converge to 0, including when it has no limit, then sum a_n diverges.",
         },
         {
             "node_id": "srcdecl:foundation:seq:comparison_test_series",
@@ -1300,8 +1409,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "order_sequences",
             "chapter_section": "Sequences §6.8",
-            "structural_refs": ["srcdecl:foundation:seq:triangle_inequality_reals"],
-            "text": "A metric space (M, d) is a set M with distance function d: M × M -> R satisfying non-negativity, identity of indiscernibles, symmetry, and triangle inequality.",
+            "structural_refs": ["srcdecl:foundation:rel:function_definition", "srcdecl:foundation:num:real_numbers_axioms"],
+            "text": "A metric space (M,d) is a set M with d: M x M -> R satisfying d(x,y)>=0, d(x,y)=0 iff x=y, d(x,y)=d(y,x), and d(x, z) <= d(x, y) + d(y, z) for all x,y,z in M.",
         },
         {
             "node_id": "srcdecl:foundation:seq:open_ball_metric",
@@ -1323,7 +1432,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "geometry_trig",
             "chapter_section": "Geometry §7.1",
             "structural_refs": ["srcdecl:foundation:set:cartesian_product", "srcdecl:foundation:num:real_numbers_axioms"],
-            "text": "The Euclidean plane R^2 is the Cartesian product R × R with points represented by Cartesian coordinates (x, y).",
+            "text": "The Euclidean plane is R^2 = R x R equipped with the standard inner product <(x,y),(u,v)>=x*u+y*v and its induced distance; points are represented by Cartesian coordinates.",
         },
         {
             "node_id": "srcdecl:foundation:geom:euclidean_space_Rn",
@@ -1331,8 +1440,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "geometry_trig",
             "chapter_section": "Geometry §7.1",
-            "structural_refs": ["srcdecl:foundation:geom:euclidean_plane_R2"],
-            "text": "Euclidean space R^n is the set of ordered n-tuples of real numbers (x_1, ..., x_n) equipped with standard vector addition and scalar multiplication.",
+            "structural_refs": ["srcdecl:foundation:set:cartesian_product", "srcdecl:foundation:num:real_numbers_axioms", "srcdecl:foundation:alg:vector_space_axioms_primitive"],
+            "text": "For an integer n >= 1, Euclidean space R^n is the real vector space of ordered n-tuples equipped with the standard inner product <x,y>=sum_{i=1}^n x_i*y_i and its induced norm and distance.",
         },
         {
             "node_id": "srcdecl:foundation:geom:distance_formula_R2",
@@ -1422,7 +1531,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "geometry_trig",
             "chapter_section": "Trigonometry §7.6",
             "structural_refs": ["srcdecl:foundation:geom:unit_circle_equation"],
-            "text": "For angle θ in standard position, point P on unit circle has coordinates (cos θ, sin θ). Thus cos^2 θ + sin^2 θ = 1.",
+            "text": "For a directed angle theta in standard position measured in radians, the oriented unit-circle parametrization assigns the point (cos theta, sin theta); hence cos^2 theta + sin^2 theta = 1.",
         },
         {
             "node_id": "srcdecl:foundation:geom:tangent_trig_definition",
@@ -1430,8 +1539,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "geometry_trig",
             "chapter_section": "Trigonometry §7.6",
-            "structural_refs": ["srcdecl:foundation:geom:sine_cosine_unit_circle"],
-            "text": "tan θ = sin θ / cos θ (for cos θ ≠ 0), sec θ = 1 / cos θ, csc θ = 1 / sin θ, cot θ = cos θ / sin θ.",
+            "structural_refs": ["srcdecl:foundation:geom:sine_cosine_unit_circle", "srcdecl:foundation:geom:unit_circle_equation", "srcdecl:foundation:geom:law_of_cosines"],
+            "text": "When cos theta != 0, tan theta = sin theta / cos theta and sec theta = 1/cos theta. When sin theta != 0, csc theta = 1/sin theta and cot theta = cos theta/sin theta.",
         },
         {
             "node_id": "srcdecl:foundation:geom:pythagorean_trig_identities",
@@ -1440,7 +1549,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "geometry_trig",
             "chapter_section": "Trigonometry §7.6",
             "structural_refs": ["srcdecl:foundation:geom:sine_cosine_unit_circle", "srcdecl:foundation:geom:tangent_trig_definition"],
-            "text": "sin^2 θ + cos^2 θ = 1, 1 + tan^2 θ = sec^2 θ, and 1 + cot^2 θ = csc^2 θ.",
+            "text": "For every real theta, sin^2 theta + cos^2 theta = 1. Also 1+tan^2 theta=sec^2 theta and 1+cot^2 theta=csc^2 theta where both sides are defined.",
         },
         {
             "node_id": "srcdecl:foundation:geom:angle_sum_formulas",
@@ -1448,7 +1557,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "geometry_trig",
             "chapter_section": "Trigonometry §7.7",
-            "structural_refs": ["srcdecl:foundation:geom:sine_cosine_unit_circle"],
+            "structural_refs": ["srcdecl:foundation:geom:sine_cosine_unit_circle", "srcdecl:foundation:geom:distance_formula_R2"],
             "text": "sin(α ± β) = sin α cos β ± cos α sin β, and cos(α ± β) = cos α cos β ∓ sin α sin β.",
         },
         {
@@ -1467,7 +1576,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "geometry_trig",
             "chapter_section": "Geometry §7.8",
             "structural_refs": ["srcdecl:foundation:geom:dot_product_Rn", "srcdecl:foundation:geom:pythagorean_theorem"],
-            "text": "In any triangle with sides a, b, c and opposite angle γ: c^2 = a^2 + b^2 - 2ab cos γ.",
+            "text": "In any nondegenerate Euclidean triangle with positive side lengths a, b, c and angle γ opposite c: c^2 = a^2 + b^2 - 2ab cos γ.",
         },
         {
             "node_id": "srcdecl:foundation:geom:law_of_sines",
@@ -1476,7 +1585,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "geometry_trig",
             "chapter_section": "Geometry §7.8",
             "structural_refs": ["srcdecl:foundation:geom:sine_cosine_unit_circle"],
-            "text": "In any triangle with sides a, b, c and opposite angles α, β, γ: a / sin α = b / sin β = c / sin γ = 2R.",
+            "text": "In a nondegenerate Euclidean triangle with positive side lengths a,b,c, opposite angles alpha,beta,gamma, and circumradius R, a/sin alpha = b/sin beta = c/sin gamma = 2R.",
         },
         {
             "node_id": "srcdecl:foundation:geom:polar_coordinates_R2",
@@ -1485,7 +1594,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "geometry_trig",
             "chapter_section": "Geometry §7.9",
             "structural_refs": ["srcdecl:foundation:geom:sine_cosine_unit_circle"],
-            "text": "Point (x, y) in R^2 is represented in polar coordinates (r, θ) where x = r cos θ, y = r sin θ, r = sqrt(x^2 + y^2), θ = atan2(y, x).",
+            "text": "For a nonzero point (x,y), polar coordinates satisfy r=sqrt(x^2+y^2)>0, theta=atan2(y,x) in a declared branch interval, x=r*cos theta, and y=r*sin theta. At the origin r=0 and the angle is not uniquely defined.",
         },
         {
             "node_id": "srcdecl:foundation:geom:rotation_matrix_2d",
@@ -1493,7 +1602,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "DEFINITION",
             "layer": "geometry_trig",
             "chapter_section": "Geometry §7.9",
-            "structural_refs": ["srcdecl:foundation:geom:angle_sum_formulas"],
+            "structural_refs": ["srcdecl:foundation:geom:euclidean_plane_R2", "srcdecl:foundation:geom:sine_cosine_unit_circle", "srcdecl:foundation:alg:vector_space_axioms_primitive"],
             "text": "Counterclockwise rotation by angle θ in R^2 is linear map given by matrix R_θ = [[cos θ, -sin θ], [sin θ, cos θ]].",
         },
         {
@@ -1516,7 +1625,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
         },
 
         # =========================================================================
-        # LAYER 8: ELEMENTARY CALCULUS (25 Declarations)
+        # LAYER 8: ELEMENTARY CALCULUS (26 Declarations)
         # =========================================================================
         {
             "node_id": "srcdecl:foundation:calc:function_limit_epsilon_delta",
@@ -1525,7 +1634,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.1",
             "structural_refs": ["srcdecl:foundation:rel:function_definition", "srcdecl:foundation:seq:absolute_value"],
-            "text": "lim_{x -> c} f(x) = L iff ∀ε > 0 ∃δ > 0 ∀x in domain (0 < |x - c| < δ => |f(x) - L| < ε).",
+            "text": "Let f:D subset R -> R and let c be an accumulation point of D. Then lim_{x->c} f(x)=L iff for every epsilon>0 there exists delta>0 such that x in D and 0<|x-c|<delta imply |f(x)-L|<epsilon.",
         },
         {
             "node_id": "srcdecl:foundation:calc:one_sided_limits",
@@ -1534,7 +1643,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.1",
             "structural_refs": ["srcdecl:foundation:calc:function_limit_epsilon_delta"],
-            "text": "lim_{x -> c^+} f(x) = L requires c < x < c + δ; lim_{x -> c^-} f(x) = L requires c - δ < x < c. Two-sided limit exists iff both one-sided limits are equal.",
+            "text": "At a right or left one-sided accumulation point of the domain, the corresponding epsilon-delta limit restricts x to c<x<c+delta or c-delta<x<c. When c is an accumulation point from both sides, the two-sided limit exists iff both one-sided limits exist and are equal.",
         },
         {
             "node_id": "srcdecl:foundation:calc:continuity_at_point",
@@ -1543,7 +1652,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.2",
             "structural_refs": ["srcdecl:foundation:calc:function_limit_epsilon_delta"],
-            "text": "f is continuous at c iff c is in domain of f, lim_{x -> c} f(x) exists, and lim_{x -> c} f(x) = f(c).",
+            "text": "For f:D subset R -> R and c in D, f is continuous at c iff for every epsilon>0 there exists delta>0 such that x in D and |x-c|<delta imply |f(x)-f(c)|<epsilon. This includes isolated domain points.",
         },
         {
             "node_id": "srcdecl:foundation:calc:continuity_on_interval",
@@ -1552,7 +1661,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.2",
             "structural_refs": ["srcdecl:foundation:calc:continuity_at_point"],
-            "text": "f is continuous on open interval (a, b) iff f is continuous at every c in (a, b); continuous on closed [a, b] if continuous on (a, b) with appropriate one-sided continuity at endpoints.",
+            "text": "A function is continuous on (a,b) iff it is continuous at every point there. For a<b, it is continuous on [a,b] iff it is continuous on (a,b), right-continuous at a, and left-continuous at b.",
         },
         {
             "node_id": "srcdecl:foundation:calc:intermediate_value_theorem",
@@ -1560,8 +1669,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.2",
-            "structural_refs": ["srcdecl:foundation:calc:continuity_at_point", "srcdecl:foundation:num:completeness_supremum"],
-            "text": "If f: [a, b] -> R is continuous and u is strictly between f(a) and f(b), then there exists c in (a, b) such that f(c) = u.",
+            "structural_refs": ["srcdecl:foundation:calc:continuity_on_interval", "srcdecl:foundation:num:completeness_supremum"],
+            "text": "If a < b, f:[a,b]->R is continuous, and u is strictly between f(a) and f(b), then there exists c in (a,b) such that f(c)=u.",
         },
         {
             "node_id": "srcdecl:foundation:calc:extreme_value_theorem",
@@ -1569,8 +1678,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.2",
-            "structural_refs": ["srcdecl:foundation:calc:continuity_at_point", "srcdecl:foundation:seq:bolzano_weierstrass_primitive"],
-            "text": "If f: [a, b] -> R is continuous on closed bounded interval [a, b], then f attains an absolute maximum and absolute minimum on [a, b].",
+            "structural_refs": ["srcdecl:foundation:calc:continuity_on_interval", "srcdecl:foundation:seq:bolzano_weierstrass_primitive"],
+            "text": "If a <= b and f:[a,b]->R is continuous, then f attains an absolute maximum and an absolute minimum on [a,b].",
         },
         {
             "node_id": "srcdecl:foundation:calc:derivative_difference_quotient",
@@ -1579,7 +1688,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.3",
             "structural_refs": ["srcdecl:foundation:calc:function_limit_epsilon_delta"],
-            "text": "The derivative of f at x is f'(x) = lim_{h -> 0} (f(x + h) - f(x)) / h, provided this limit exists.",
+            "text": "For f:D subset R -> R and an interior point x of D, f'(x)=lim_{h->0, h!=0, x + h in D} (f(x+h)-f(x))/h when this finite two-sided limit exists.",
         },
         {
             "node_id": "srcdecl:foundation:calc:differentiability_implies_continuity",
@@ -1597,7 +1706,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.4",
             "structural_refs": ["srcdecl:foundation:calc:derivative_difference_quotient", "srcdecl:foundation:alg:binomial_theorem"],
-            "text": "For any real constant n, d/dx (x^n) = n x^{n-1}.",
+            "text": "For every integer n >= 1 and real x, d/dx(x^n)=n*x^{n-1}. For n=0 the constant function x^0=1 has derivative 0, stated separately to avoid the undefined expression 0*x^{-1} at x=0.",
         },
         {
             "node_id": "srcdecl:foundation:calc:derivative_linearity",
@@ -1606,7 +1715,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.4",
             "structural_refs": ["srcdecl:foundation:calc:derivative_difference_quotient"],
-            "text": "d/dx (c f(x) + g(x)) = c f'(x) + g'(x).",
+            "text": "If f and g are differentiable at x and c is real, then (c*f+g)'(x)=c*f'(x)+g'(x).",
         },
         {
             "node_id": "srcdecl:foundation:calc:derivative_product_rule",
@@ -1615,7 +1724,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.4",
             "structural_refs": ["srcdecl:foundation:calc:derivative_difference_quotient", "srcdecl:foundation:calc:differentiability_implies_continuity"],
-            "text": "d/dx (f(x) g(x)) = f'(x) g(x) + f(x) g'(x).",
+            "text": "If f and g are differentiable at x, then (f*g)'(x)=f'(x)*g(x)+f(x)*g'(x).",
         },
         {
             "node_id": "srcdecl:foundation:calc:derivative_quotient_rule",
@@ -1623,8 +1732,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.4",
-            "structural_refs": ["srcdecl:foundation:calc:derivative_product_rule"],
-            "text": "d/dx (f(x) / g(x)) = (f'(x) g(x) - f(x) g'(x)) / (g(x))^2 for g(x) ≠ 0.",
+            "structural_refs": ["srcdecl:foundation:calc:derivative_product_rule", "srcdecl:foundation:calc:derivative_chain_rule", "srcdecl:foundation:calc:derivative_power_rule"],
+            "text": "If f and g are differentiable at x and g(x) != 0, then (f/g)'(x)=(f'(x)*g(x)-f(x)*g'(x))/(g(x))^2.",
         },
         {
             "node_id": "srcdecl:foundation:calc:derivative_chain_rule",
@@ -1641,8 +1750,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.4",
-            "structural_refs": ["srcdecl:foundation:calc:derivative_difference_quotient", "srcdecl:foundation:geom:angle_sum_formulas"],
-            "text": "d/dx (sin x) = cos x, d/dx (cos x) = -sin x, and d/dx (tan x) = sec^2 x.",
+            "structural_refs": ["srcdecl:foundation:calc:derivative_difference_quotient", "srcdecl:foundation:geom:sine_cosine_unit_circle", "srcdecl:foundation:geom:angle_sum_formulas"],
+            "text": "With angles measured in radians, (sin x)'=cos x and (cos x)'=-sin x for all real x; where cos x != 0, (tan x)'=sec^2 x.",
         },
         {
             "node_id": "srcdecl:foundation:calc:derivative_exponential_log",
@@ -1650,8 +1759,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.4",
-            "structural_refs": ["srcdecl:foundation:calc:derivative_difference_quotient"],
-            "text": "d/dx (e^x) = e^x, and d/dx (ln x) = 1 / x for x > 0.",
+            "structural_refs": ["srcdecl:foundation:calc:ftc_part1", "srcdecl:foundation:rel:inverse_function", "srcdecl:foundation:calc:derivative_chain_rule"],
+            "text": "Define ln x = int_1^x (1/t) dt for x > 0 and let exp be its inverse from R to (0,infinity). Then ln'(x)=1/x for x>0 and exp'(x)=exp(x) for every real x.",
         },
         {
             "node_id": "srcdecl:foundation:calc:rolles_theorem",
@@ -1659,8 +1768,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.5",
-            "structural_refs": ["srcdecl:foundation:calc:extreme_value_theorem", "srcdecl:foundation:calc:derivative_difference_quotient"],
-            "text": "If f: [a, b] -> R is continuous on [a, b], differentiable on (a, b), and f(a) = f(b), then there exists c in (a, b) such that f'(c) = 0.",
+            "structural_refs": ["srcdecl:foundation:calc:extreme_value_theorem", "srcdecl:foundation:calc:derivative_difference_quotient", "srcdecl:foundation:calc:continuity_on_interval"],
+            "text": "If a < b, f:[a,b]->R is continuous on [a,b], differentiable on (a,b), and f(a)=f(b), then there exists c in (a,b) such that f'(c)=0.",
         },
         {
             "node_id": "srcdecl:foundation:calc:mean_value_theorem",
@@ -1669,7 +1778,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.5",
             "structural_refs": ["srcdecl:foundation:calc:rolles_theorem"],
-            "text": "If f: [a, b] -> R is continuous on [a, b] and differentiable on (a, b), then there exists c in (a, b) such that f'(c) = (f(b) - f(a)) / (b - a).",
+            "text": "If a < b, f:[a,b]->R is continuous on [a,b] and differentiable on (a,b), then there exists c in (a,b) such that f'(c)=(f(b)-f(a))/(b-a).",
         },
         {
             "node_id": "srcdecl:foundation:calc:first_derivative_test",
@@ -1677,8 +1786,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.5",
-            "structural_refs": ["srcdecl:foundation:calc:mean_value_theorem"],
-            "text": "If f'(c) = 0 or f'(c) does not exist: if f' changes from + to - at c, f has a local max; if from - to +, local min.",
+            "structural_refs": ["srcdecl:foundation:calc:mean_value_theorem", "srcdecl:foundation:calc:continuity_at_point"],
+            "text": "Suppose f is continuous at c and differentiable on a punctured neighborhood of c. If there exists delta > 0 such that f'(x)>0 for c-delta<x<c and f'(x)<0 for c<x<c+delta, then f has a strict local maximum at c; the reversed inequalities give a strict local minimum.",
         },
         {
             "node_id": "srcdecl:foundation:calc:second_derivative_test",
@@ -1696,7 +1805,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.6",
             "structural_refs": ["srcdecl:foundation:num:real_numbers_axioms"],
-            "text": "A partition P of [a, b] is a = x_0 < x_1 < ... < x_n = b. A Riemann sum is R(f, P, t) = sum_{i=1}^n f(t_i) (x_i - x_{i-1}) with t_i in [x_{i-1}, x_i].",
+            "text": "For a < b and an integer n >= 1, a partition P of [a,b] is a=x_0<x_1<...<x_n=b. A tagged Riemann sum is sum_{i=1}^n f(t_i)*(x_i-x_{i-1}) with t_i in [x_{i-1},x_i].",
         },
         {
             "node_id": "srcdecl:foundation:calc:riemann_definite_integral",
@@ -1705,7 +1814,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.6",
             "structural_refs": ["srcdecl:foundation:calc:riemann_partition_sum"],
-            "text": "The definite integral int_a^b f(x) dx is the limit of Riemann sums as mesh ||P|| -> 0: int_a^b f(x) dx = lim_{||P|| -> 0} sum_{i=1}^n f(t_i) Δx_i.",
+            "text": "For a < b, a bounded f:[a,b]->R is Riemann integrable with integral I iff every sequence of tagged partitions whose mesh tends to 0 has Riemann sums tending to the same I, independently of tags and partitions; then I=int_a^b f(x) dx. Oriented integrals use int_b^a f=-int_a^b f and int_a^a f=0.",
         },
         {
             "node_id": "srcdecl:foundation:calc:ftc_part1",
@@ -1713,8 +1822,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.7",
-            "structural_refs": ["srcdecl:foundation:calc:riemann_definite_integral", "srcdecl:foundation:calc:derivative_difference_quotient"],
-            "text": "If f is continuous on [a, b] and F(x) = int_a^x f(t) dt, then F is continuous on [a, b], differentiable on (a, b), and F'(x) = f(x).",
+            "structural_refs": ["srcdecl:foundation:calc:riemann_definite_integral", "srcdecl:foundation:calc:derivative_difference_quotient", "srcdecl:foundation:calc:continuity_on_interval"],
+            "text": "If a < b, f is continuous on [a,b], and F(x)=int_a^x f(t)dt, then F is continuous on [a,b], differentiable on (a,b), and F'(x)=f(x).",
         },
         {
             "node_id": "srcdecl:foundation:calc:ftc_part2",
@@ -1722,8 +1831,8 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "decl_type": "THEOREM",
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.7",
-            "structural_refs": ["srcdecl:foundation:calc:ftc_part1"],
-            "text": "If f is continuous on [a, b] and F is any antiderivative of f (F' = f), then int_a^b f(x) dx = F(b) - F(a).",
+            "structural_refs": ["srcdecl:foundation:calc:ftc_part1", "srcdecl:foundation:calc:mean_value_theorem"],
+            "text": "If a < b, f is continuous on [a,b], and F is continuous on [a,b] with F'=f on (a,b), then int_a^b f(x)dx=F(b)-F(a).",
         },
         {
             "node_id": "srcdecl:foundation:calc:integration_by_parts",
@@ -1732,7 +1841,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.8",
             "structural_refs": ["srcdecl:foundation:calc:ftc_part2", "srcdecl:foundation:calc:derivative_product_rule"],
-            "text": "For differentiable functions u and v: int u(x) v'(x) dx = u(x) v(x) - int v(x) u'(x) dx.",
+            "text": "If u and v are continuously differentiable on [a,b], then int_a^b u(x)*v'(x) dx = u(b)v(b)-u(a)v(a)-int_a^b v(x)*u'(x) dx.",
         },
         {
             "node_id": "srcdecl:foundation:calc:integration_by_substitution",
@@ -1741,7 +1850,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.8",
             "structural_refs": ["srcdecl:foundation:calc:ftc_part2", "srcdecl:foundation:calc:derivative_chain_rule"],
-            "text": "int_a^b f(g(x)) g'(x) dx = int_{g(a)}^{g(b)} f(u) du.",
+            "text": "If g is continuously differentiable on [a,b] and f is continuous on an interval containing g([a,b]), then int_a^b f(g(x))*g'(x) dx = int_{g(a)}^{g(b)} f(u) du.",
         },
         {
             "node_id": "srcdecl:foundation:calc:taylors_theorem_primitive",
@@ -1750,7 +1859,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
             "layer": "elementary_calculus",
             "chapter_section": "Calculus §8.9",
             "structural_refs": ["srcdecl:foundation:calc:mean_value_theorem", "srcdecl:foundation:calc:derivative_power_rule"],
-            "text": "If f is (n+1)-times differentiable on interval around a, f(x) = sum_{k=0}^n (f^{(k)}(a)/k!) (x-a)^k + (f^{(n+1)}(c)/(n+1)!) (x-a)^{n+1} for some c between a and x.",
+            "text": "Let n be an integer n >= 0. Suppose f has continuous derivatives through order n on the closed interval joining a and x and has an (n+1)-st derivative on its interior. If x != a, then f(x)=sum_{k=0}^n f^{(k)}(a)(x-a)^k/k! + f^{(n+1)}(c)(x-a)^{n+1}/(n+1)! for some c strictly between a and x; x=a is immediate.",
         },
     ]
 
@@ -1776,6 +1885,7 @@ def generate_foundation_declarations() -> list[FoundationDeclaration]:
         )
         declarations.append(decl)
 
+    apply_foundation_mathematical_amendments(declarations)
     return declarations
 
 

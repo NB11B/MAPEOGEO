@@ -1,5 +1,7 @@
 # MAPEOGEO v0.15.2 — Confirmatory Real Analysis Expansion Report
 
+> **Historical report — superseded.** Counts and acceptance language below are preserved as a historical record. Current source counts and admissible evidence claims are in [`V0_20_MATHEMATICAL_INTEGRITY_REPORT.md`](V0_20_MATHEMATICAL_INTEGRITY_REPORT.md).
+
 ## Executive Summary
 
 $$\boxed{\text{Build a broad, source-grounded mathematical map with EO and GEO as executable views, FORMAL as a verified view, and relationships between mathematics as the primary object.}}$$
