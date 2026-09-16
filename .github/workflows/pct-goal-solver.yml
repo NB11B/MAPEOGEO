@@ -28,3 +28,13 @@ jobs:
         run: python -m compileall -q experiments/pct_goal_solver
       - name: Test goal solver
         run: python -m pytest -q experiments/pct_goal_solver
+      - name: Historical E1-E25 parity smoke
+        run: python -m pytest -q experiments/pct_e1_e25/test_campaign.py
+      - name: Generate scientific campaign report
+        run: python -m experiments.pct_goal_solver.generate_report --out-dir generated-goal-solver
+      - name: Upload goal solver results
+        uses: actions/upload-artifact@v4
+        with:
+          name: pct-goal-solver-results
+          path: generated-goal-solver/*
+          if-no-files-found: error
