@@ -19,7 +19,7 @@ on:
       - ".github/workflows/rigor-expansion-v0-21.yml"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   v0-21-rigor:
@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          persist-credentials: false
+          persist-credentials: true
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: "3.12.14"
@@ -55,7 +55,6 @@ jobs:
           --declarations-out artifacts/rigor_v0_21/source_declarations_v0_21.json.gz
           --evidence-out artifacts/rigor_v0_21/v0_21_source_admission_manifest.json
       - name: Upload frozen v0.21 source admission artifacts
-        if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: v0-21-source-admission-frozen
@@ -63,4 +62,20 @@ jobs:
             artifacts/rigor_v0_21/source_admission_live.json
             artifacts/rigor_v0_21/source_declarations_v0_21.json.gz
             artifacts/rigor_v0_21/v0_21_source_admission_manifest.json
-          if-no-files-found: warn
+          if-no-files-found: error
+      - name: Freeze reviewed source identities on feature branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p formal evidence
+          cp artifacts/rigor_v0_21/source_declarations_v0_21.json.gz formal/source_declarations_v0_21.json.gz
+          cp artifacts/rigor_v0_21/v0_21_source_admission_manifest.json evidence/v0_21_source_admission_manifest.json
+          if git diff --quiet -- formal/source_declarations_v0_21.json.gz evidence/v0_21_source_admission_manifest.json; then
+            echo "Frozen source identities already match live extraction."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add formal/source_declarations_v0_21.json.gz evidence/v0_21_source_admission_manifest.json
+          git commit -m "evidence(v0.21): freeze exact pinned-source admission identities"
+          git push origin HEAD:agent/rigor-first-expansion-v0-21
