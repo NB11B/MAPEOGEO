@@ -37,4 +37,5 @@ jobs:
           python -m pytest
           tests/test_source_registry_v0_21.py
           tests/test_structured_source_parsers_v0_21.py
+          tests/test_source_admission_v0_21.py
           -q
