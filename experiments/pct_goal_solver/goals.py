@@ -161,9 +161,10 @@ def _goal_g6(goal_id: str, index: int) -> GoalSpec:
 
 
 def _goal_g7(goal_id: str, index: int) -> GoalSpec:
-    scale = index + 1
-    generator = ((0, 1, 0), (0, 0, f"2*pi*{scale}"), (0, 0, 0))
-    state = (f"A{index}", f"P{index}", "1")
+    # E21 generator acts on [A, P, c] as A'=P, P'=2*pi*c, c'=0.
+    # The polynomial P**2 - 4*pi*c*A is therefore exactly conserved.
+    generator = ((0, 1, 0), (0, 0, "2*pi"), (0, 0, 0))
+    state = ("A", "P", "c")
     invariant = "P**2 - 4*pi*c*A"
     inputs = {
         "generator": _artifact(goal_id, "generator", "SYMBOLIC_GENERATOR", "SYMBOLIC", generator, "SYMBOLIC", nilpotency_bound=3),
