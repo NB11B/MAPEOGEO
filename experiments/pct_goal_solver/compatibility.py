@@ -39,8 +39,6 @@ def artifact_descriptors(artifact: Artifact) -> frozenset[str]:
     }
     for key, value in artifact.metadata:
         tokens.add(f"meta:{key}")
-        # Low-cardinality role metadata is structural. Raw mathematical values are
-        # intentionally excluded so type inference cannot memorize answers.
         if isinstance(value, (str, bool)):
             tokens.add(f"meta_value:{key}:{value}")
     return frozenset(tokens)
@@ -92,8 +90,6 @@ class CompatibilityModel:
         type_contexts: dict[str, list[frozenset[str]]] = {}
         type_max_count: dict[str, int] = {}
 
-        # Semantic labels are available only during calibration. They supervise a
-        # structural type model; sealed inference later sees descriptors only.
         for goal in calibration_goals:
             counts = Counter(artifact.semantic_type for artifact in goal.inputs.values())
             for semantic_type, count in counts.items():
@@ -149,7 +145,6 @@ class CompatibilityModel:
         artifact: Artifact,
         artifacts: Mapping[str, Artifact] | None = None,
     ) -> str:
-        """Infer one input type from calibration structure, never from its label."""
         state = artifacts or {"input": artifact}
         candidates = [self._type_rank(artifact, state, semantic_type) for semantic_type in self.type_contexts]
         if not candidates:
@@ -157,28 +152,30 @@ class CompatibilityModel:
         return min(candidates)[2]
 
     def resolve_input_types(self, artifacts: Mapping[str, Artifact]) -> dict[str, Artifact]:
-        """Jointly infer original-input labels under calibration cardinalities.
+        """Jointly infer original-input labels under a stable original-input context.
 
-        Global context distinguishes structurally similar values used in different
-        goal families. A learned per-type capacity prevents identical artifacts in
-        one state from all collapsing onto the same label (for example the two
-        degree maps in a chain-map problem). Derived artifacts retain the output
-        contract of the operator that created them.
+        Derived artifacts must not perturb the structural context used to retype the
+        original problem statement. Without this separation, a correct first
+        derivation can change the inferred input labels and make a valid multi-step
+        path disappear on its second step.
         """
         resolved: dict[str, Artifact] = {}
         remaining = dict(self.type_max_count)
-        originals = [(key, artifact) for key, artifact in artifacts.items() if not artifact.provenance]
+        original_state = {
+            key: artifact for key, artifact in artifacts.items() if not artifact.provenance
+        }
+        originals = list(original_state.items())
 
         for key, artifact in artifacts.items():
             if artifact.provenance:
                 resolved[key] = artifact
 
-        # Harder/less ambiguous assignments first: prefer artifacts whose best
-        # structural match is separated furthest from the runner-up. Input order is
-        # retained only as the final deterministic tie-break.
         ranked_originals: list[tuple[int, int, str, Artifact, list[tuple[int, int, str]]]] = []
         for order, (key, artifact) in enumerate(originals):
-            ranks = sorted(self._type_rank(artifact, artifacts, semantic_type) for semantic_type in self.type_contexts)
+            ranks = sorted(
+                self._type_rank(artifact, original_state, semantic_type)
+                for semantic_type in self.type_contexts
+            )
             margin = (ranks[1][0] - ranks[0][0]) if len(ranks) > 1 else 10_000
             ranked_originals.append((-margin, order, key, artifact, ranks))
 
@@ -193,7 +190,6 @@ class CompatibilityModel:
             remaining[chosen] = max(0, remaining.get(chosen, 0) - 1)
             resolved[key] = replace(artifact, semantic_type=chosen)
 
-        # Preserve the original state iteration order.
         return {key: resolved[key] for key in artifacts}
 
     def rank_operator(self, operator_id: str, artifacts: Mapping[str, Artifact]) -> tuple[int, int, str]:
@@ -209,9 +205,6 @@ class CompatibilityModel:
         registry: Mapping[str, OperatorSpec],
         artifacts: Mapping[str, Artifact],
     ) -> tuple[str, ...]:
-        # The planner passes a mutable per-state mapping. Resolve original input
-        # types before invocation selection; inferred typing is therefore an
-        # execution condition, not merely an operator-ranking heuristic.
         resolved = self.resolve_input_types(artifacts)
         if isinstance(artifacts, MutableMapping):
             artifacts.clear()
