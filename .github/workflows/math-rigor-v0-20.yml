@@ -65,10 +65,6 @@ jobs:
           leanchecker: false
           nanoda: false
 
-      - name: Run independent environment checker
-        continue-on-error: true
-        run: lake env leanchecker MAPEOGEOFormal || echo "Independent checker completed with status $?"
-
       - name: Run complete Python and real-Lean regression suite
         run: python -m pytest -q
 
@@ -119,3 +115,28 @@ jobs:
             formal/mathematical_integrity_amendments_v0_20.json \
             formal/foundation_mathematical_amendments_v0_20.json \
             evidence/v0_20_mathematical_integrity_report.json
+
+  independent-checker:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    continue-on-error: true
+    steps:
+      - name: Checkout exact branch revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Install Lean and kernel-build the pinned project
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: true
+          use-github-cache: true
+          leanchecker: false
+          nanoda: false
+
+      - name: Run independent environment checker
+        run: lake env leanchecker MAPEOGEOFormal || echo "Independent checker completed with status $?"
+
