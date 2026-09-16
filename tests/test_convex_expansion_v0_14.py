@@ -5,6 +5,8 @@ from __future__ import annotations
 import gzip
 import json
 from pathlib import Path
+import subprocess
+import sys
 import pytest
 
 from scripts.import_cvx_v0_14 import (
@@ -26,6 +28,20 @@ ROOT = Path(__file__).resolve().parents[1]
 ALIGNMENTS_PATH = ROOT / "formal" / "convex_alignments_v0_14.json"
 BASE_GRAPH_PATH = ROOT / "artifacts" / "tri_source_v0_13" / "mapeogeo_v0_13_graph.json.gz"
 OUTPUT_DIR = ROOT / "artifacts" / "convex_v0_14"
+
+
+def ensure_base_graph_exists():
+    """Ensure predecessor graph chain exists, reconstructing if absent."""
+    if not BASE_GRAPH_PATH.exists():
+        reconstruct_script = ROOT / "scripts" / "reconstruct_pipeline.py"
+        res = subprocess.run(
+            [sys.executable, str(reconstruct_script), "--target-stage", "v0.13"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert res.returncode == 0, f"Failed to reconstruct base graph: {res.stderr}"
+    assert BASE_GRAPH_PATH.exists()
 
 
 def test_cvx_declaration_dataclass():
@@ -122,6 +138,7 @@ def test_alignments_schema():
 
 def test_convex_intake_mock_pipeline(tmp_path: Path):
     """Run intake pipeline on mock declarations and verify output properties."""
+    ensure_base_graph_exists()
     out_dir = tmp_path / "artifacts" / "convex_v0_14"
     graph, metrics, summary = run_convex_intake(
         base_graph_path=BASE_GRAPH_PATH,

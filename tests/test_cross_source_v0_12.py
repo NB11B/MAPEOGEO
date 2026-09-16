@@ -120,10 +120,12 @@ def test_cross_source_alignments_schema():
 
 def test_cross_source_intake_pipeline(tmp_path: Path):
     from scripts.cross_source_intake_v0_12 import load_json_or_gz
-    base_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
+    base_graph_path = ROOT / "data" / "mapeogeo_v0_11_graph.json.gz"
+    if not base_graph_path.exists():
+        base_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
     if not base_graph_path.exists():
         base_graph_path = ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json"
-    assert base_graph_path.exists(), "Gallier base graph missing from artifacts/source_v0_6"
+    assert base_graph_path.exists(), "Gallier base graph missing"
     graph = load_json_or_gz(base_graph_path)
     decls = get_axler_declarations()
 

@@ -5,6 +5,8 @@ from __future__ import annotations
 import gzip
 import json
 from pathlib import Path
+import subprocess
+import sys
 import pytest
 
 from scripts.import_analysis_v0_15 import (
@@ -25,6 +27,20 @@ ROOT = Path(__file__).resolve().parents[1]
 ALIGNMENTS_PATH = ROOT / "formal" / "analysis_alignments_v0_15.json"
 BASE_GRAPH_PATH = ROOT / "artifacts" / "convex_v0_14" / "mapeogeo_v0_14_graph.json.gz"
 OUTPUT_DIR = ROOT / "artifacts" / "analysis_v0_15"
+
+
+def ensure_base_graph_exists():
+    """Ensure predecessor graph chain exists, reconstructing if absent."""
+    if not BASE_GRAPH_PATH.exists():
+        reconstruct_script = ROOT / "scripts" / "reconstruct_pipeline.py"
+        res = subprocess.run(
+            [sys.executable, str(reconstruct_script), "--target-stage", "v0.14"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+        )
+        assert res.returncode == 0, f"Failed to reconstruct base graph: {res.stderr}"
+    assert BASE_GRAPH_PATH.exists()
 
 
 def test_analysis_declaration_dataclass():
@@ -101,6 +117,7 @@ def test_alignments_schema_v0_15():
 
 def test_analysis_intake_pipeline(tmp_path: Path):
     """Run analysis intake pipeline and verify output properties."""
+    ensure_base_graph_exists()
     out_dir = tmp_path / "artifacts" / "analysis_v0_15"
     graph, metrics, summary = run_analysis_intake(
         base_graph_path=BASE_GRAPH_PATH,

@@ -121,10 +121,12 @@ def test_tri_source_intake_pipeline(tmp_path: Path):
     if v0_12_graph_path.exists():
         graph = load_json_or_gz(v0_12_graph_path)
     else:
-        base_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
+        base_graph_path = ROOT / "data" / "mapeogeo_v0_11_graph.json.gz"
+        if not base_graph_path.exists():
+            base_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
         if not base_graph_path.exists():
             base_graph_path = ROOT / "artifacts" / "test_v06" / "mapeogeo_independent_graph.json"
-        assert base_graph_path.exists(), "Gallier base graph missing from artifacts/source_v0_6"
+        assert base_graph_path.exists(), "Base graph missing"
         graph = load_json_or_gz(base_graph_path)
         axler_decls = get_axler_declarations()
         graph = ingest_axler_declarations(graph, axler_decls)
