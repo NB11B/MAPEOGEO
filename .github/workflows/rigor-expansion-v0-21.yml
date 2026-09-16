@@ -41,3 +41,15 @@ jobs:
           tests/test_source_admission_v0_21.py
           tests/test_rigor_expansion_v0_21.py
           -q
+      - name: Verify real pinned upstream sources
+        env:
+          MAPEOGEO_RUN_NETWORK_SOURCE_TESTS: "1"
+          V0_21_LIVE_REPORT: artifacts/rigor_v0_21/source_admission_live.json
+        run: python -m pytest tests/test_v0_21_real_source_integration.py -q -s
+      - name: Upload live zero-prose source admission report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: v0-21-source-admission-live
+          path: artifacts/rigor_v0_21/source_admission_live.json
+          if-no-files-found: ignore
