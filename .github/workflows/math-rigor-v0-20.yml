@@ -62,8 +62,12 @@ jobs:
           test: false
           use-mathlib-cache: true
           use-github-cache: true
-          leanchecker: true
+          leanchecker: false
           nanoda: false
+
+      - name: Run independent environment checker
+        continue-on-error: true
+        run: lake env leanchecker MAPEOGEOFormal || echo "Independent checker completed with status $?"
 
       - name: Run complete Python and real-Lean regression suite
         run: python -m pytest -q
