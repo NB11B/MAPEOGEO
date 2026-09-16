@@ -8,6 +8,12 @@ Reconstructs the complete mathematical graph dependency chain from clean checkou
   -> v0.13 (Tri-Source: Boyd & Vandenberghe VMLS)
   -> v0.14 (Quad-Source: Boyd & Vandenberghe CVX)
   -> v0.15.2 (Confirmatory Quad-Source: Real Analysis & Multivariable Differential Calculus)
+  -> v0.16 (Topology, Metric Spaces & Functional Structure)
+  -> v0.17 (Measure Theory, Integration & Probability)
+  -> v0.18 (Differential Geometry, Lie Groups & Smooth Manifolds)
+  -> v0.19 (Complex Analysis, Several Complex Variables & Riemann Surfaces)
+  -> Foundation Backfill
+  -> v0.21 (Rigor-First Quarantined Source Expansion)
 
 Ensures zero dependency on dirty local workspace artifacts and provides 100% clean-room reproducibility.
 """
@@ -57,11 +63,18 @@ def run_stage(name: str, cmd: list[str]) -> None:
         print(f"  {line}")
 
 
+def _print_success(t_start: float) -> None:
+    total_time = time.time() - t_start
+    print("==========================================================")
+    print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
+    print("==========================================================")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain")
     parser.add_argument(
         "--target-stage",
-        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation"],
+        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation", "v0.21"],
         default="v0.19",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
@@ -79,7 +92,6 @@ def main() -> int:
     if args.from_scratch or (not sealed_v011_path.exists() and not v011_artifact_path.exists()):
         print("[Pipeline] Running full from-scratch derivation of historical stages v0.6-v0.11...")
         pdf_path = ensure_gallier_pdf(args.pdf_path)
-        v06_graph_path = ROOT / "artifacts" / "source_v0_6" / "mapeogeo_independent_graph.json"
 
         run_stage(
             "v0.6 Gallier Source Ingestion & Dual View Base Graph",
@@ -98,7 +110,6 @@ def main() -> int:
         if args.target_stage == "v0.6":
             return 0
 
-        # Stage v0.7: MAP Goal Audit & Held-Out Retrieval
         run_stage(
             "v0.7 MAP Goal Held-Out Retrieval & Promotion",
             [
@@ -114,7 +125,6 @@ def main() -> int:
         if args.target_stage == "v0.7":
             return 0
 
-        # Stage v0.8: Formal Bridge & Kernel Verification
         v07_graph_path = ROOT / "artifacts" / "map_goal_v0_7" / "mapeogeo_map_goal_v0_7_graph.json"
         run_stage(
             "v0.8 Formal Bridge & Kernel Verification",
@@ -138,7 +148,6 @@ def main() -> int:
         if args.target_stage == "v0.8":
             return 0
 
-        # Stage v0.9: Proof Paths & Wounds
         v08_graph_path = ROOT / "artifacts" / "formal_v0_8" / "mapeogeo_formal_v0_8_graph.json.gz"
         run_stage(
             "v0.9 S5 Proof Paths & Visible Wounds",
@@ -162,7 +171,6 @@ def main() -> int:
         if args.target_stage == "v0.9":
             return 0
 
-        # Stage v0.11: Pinch-Driven Mathematics Intake
         v09_graph_path = ROOT / "artifacts" / "proof_paths_v0_9" / "mapeogeo_s5_v0_9_graph.json.gz"
         run_stage(
             "v0.11 Pinch-Driven Mathematics Intake",
@@ -188,14 +196,12 @@ def main() -> int:
         if args.target_stage == "v0.11":
             return 0
     else:
-        # Expanding from sealed historical v0.11 baseline checkpoint
         print(f"[Pipeline] Using sealed v0.11 baseline checkpoint: {sealed_v011_path}")
         v011_artifact_path.parent.mkdir(parents=True, exist_ok=True)
         if not v011_artifact_path.exists() and sealed_v011_path.exists():
             import shutil
             shutil.copy2(sealed_v011_path, v011_artifact_path)
 
-    # Stage v0.12: Cross-Source Expansion (Axler LADR4e) on top of accepted v0.11 unified graph
     v011_graph_path = v011_artifact_path if v011_artifact_path.exists() else sealed_v011_path
     run_stage(
         "v0.12 Cross-Source Expansion (Axler LADR4e)",
@@ -216,7 +222,6 @@ def main() -> int:
     if args.target_stage == "v0.12":
         return 0
 
-    # Stage v0.13: Tri-Source Expansion (Boyd & Vandenberghe VMLS)
     v012_graph_path = ROOT / "artifacts" / "cross_source_v0_12" / "mapeogeo_v0_12_graph.json.gz"
     run_stage(
         "v0.13 Tri-Source Expansion (Boyd & Vandenberghe VMLS)",
@@ -237,7 +242,6 @@ def main() -> int:
     if args.target_stage == "v0.13":
         return 0
 
-    # Stage v0.14: Convex Optimization Expansion (Boyd & Vandenberghe CVX)
     v013_graph_path = ROOT / "artifacts" / "tri_source_v0_13" / "mapeogeo_v0_13_graph.json.gz"
     run_stage(
         "v0.14 Convex Optimization Expansion (Boyd & Vandenberghe CVX)",
@@ -263,7 +267,6 @@ def main() -> int:
         )
         return 0
 
-    # Stage v0.15.2: Confirmatory Real Analysis & Differential Calculus Expansion
     v014_graph_path = ROOT / "artifacts" / "convex_v0_14" / "mapeogeo_v0_14_graph.json.gz"
     run_stage(
         "v0.15.2 Confirmatory Real Analysis & Calculus Expansion",
@@ -279,13 +282,9 @@ def main() -> int:
         ],
     )
     if args.target_stage == "v0.15.2":
-        total_time = time.time() - t_start
-        print("==========================================================")
-        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
-        print("==========================================================")
+        _print_success(t_start)
         return 0
 
-    # Stage v0.16: Topology, Metric Spaces & Functional Structure Expansion
     v015_graph_path = ROOT / "artifacts" / "analysis_v0_15_2" / "mapeogeo_v0_15_2_graph.json.gz"
     run_stage(
         "v0.16 Topology, Metric Spaces & Functional Structure Expansion",
@@ -301,13 +300,9 @@ def main() -> int:
         ],
     )
     if args.target_stage == "v0.16":
-        total_time = time.time() - t_start
-        print("==========================================================")
-        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
-        print("==========================================================")
+        _print_success(t_start)
         return 0
 
-    # Stage v0.17: Measure Theory, Integration & Probability Expansion
     v016_graph_path = ROOT / "artifacts" / "topology_v0_16" / "mapeogeo_v0_16_graph.json.gz"
     run_stage(
         "v0.17 Measure Theory, Integration & Probability Expansion",
@@ -323,13 +318,9 @@ def main() -> int:
         ],
     )
     if args.target_stage == "v0.17":
-        total_time = time.time() - t_start
-        print("==========================================================")
-        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
-        print("==========================================================")
+        _print_success(t_start)
         return 0
 
-    # Stage v0.18: Differential Geometry, Lie Groups & Smooth Manifolds Expansion
     v017_graph_path = ROOT / "artifacts" / "measure_v0_17" / "mapeogeo_v0_17_graph.json.gz"
     run_stage(
         "v0.18 Differential Geometry, Lie Groups & Smooth Manifolds Expansion",
@@ -345,13 +336,9 @@ def main() -> int:
         ],
     )
     if args.target_stage == "v0.18":
-        total_time = time.time() - t_start
-        print("==========================================================")
-        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
-        print("==========================================================")
+        _print_success(t_start)
         return 0
 
-    # Stage: v0.19 Complex Analysis, Several Complex Variables & Riemann Surfaces Expansion
     v018_graph_path = ROOT / "artifacts" / "diffgeom_v0_18" / "mapeogeo_v0_18_graph.json.gz"
     run_stage(
         "v0.19 Complex Analysis, Several Complex Variables & Riemann Surfaces Expansion",
@@ -371,13 +358,9 @@ def main() -> int:
         ],
     )
     if args.target_stage == "v0.19":
-        total_time = time.time() - t_start
-        print("==========================================================")
-        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
-        print("==========================================================")
+        _print_success(t_start)
         return 0
 
-    # Stage: Foundation Backfill (Logic -> Sets -> Relations/Functions -> Numbers -> Algebra -> Sequences -> Geometry -> Calculus)
     v019_graph_path = ROOT / "artifacts" / "complex_analysis_v0_19" / "mapeogeo_v0_19_graph.json.gz"
     run_stage(
         "Foundation Backfill (Logic -> Sets -> Relations -> Numbers -> Algebra -> Sequences -> Geometry -> Calculus)",
@@ -394,11 +377,32 @@ def main() -> int:
             str(ROOT / "artifacts" / "foundation_backfill" / "foundation_backfill_scientific_results.json"),
         ],
     )
+    if args.target_stage == "foundation":
+        _print_success(t_start)
+        return 0
 
-    total_time = time.time() - t_start
-    print("==========================================================")
-    print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
-    print("==========================================================")
+    # Stage: v0.21 Rigor-First Expansion.
+    # This stage is deliberately offline: exact source identities were frozen by
+    # the separate networked source-admission CI gate. Reconstruction consumes
+    # only zero-prose metadata committed to the repository.
+    foundation_graph_path = ROOT / "artifacts" / "foundation_backfill" / "mapeogeo_foundation_graph.json.gz"
+    run_stage(
+        "v0.21 Rigor-First Quarantined Source Expansion",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "rigor_expansion_v0_21.py"),
+            "--base-graph",
+            str(foundation_graph_path),
+            "--registry",
+            str(ROOT / "formal" / "source_registry_v0_21.json"),
+            "--declarations",
+            str(ROOT / "formal" / "source_declarations_v0_21.json.gz"),
+            "--out",
+            str(ROOT / "artifacts" / "rigor_v0_21" / "mapeogeo_v0_21_graph.json.gz"),
+        ],
+    )
+
+    _print_success(t_start)
     return 0
 
 
