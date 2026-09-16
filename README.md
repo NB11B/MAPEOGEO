@@ -67,31 +67,33 @@ shared canonical neighborhood != proof of equivalence
 
 ## Current mathematical coverage snapshot
 
-The accepted expansion baseline on `main` is at **v0.16** (Topology, Metric Spaces & Functional Structure Expansion). The latest replay graph reports:
+The accepted expansion baseline on `main` is at **v0.17** (Measure Theory, Integration & Probability Expansion). The latest replay graph reports:
 
-| Metric | Accepted v0.16 Baseline |
+| Metric | Accepted v0.17 Baseline |
 |---|---:|
-| Total Source Declarations | **1,760** |
+| Total Source Declarations | **1,824** |
 | Gallier & Quaintance (`S_A`) | **1,360** |
 | Axler LADR4e (`S_B`) | **235** |
 | Boyd & Vandenberghe VMLS (`S_C`) | **81** |
 | Boyd & Vandenberghe CVX (`S_D`) | **84** |
+| Patrick Billingsley (`S_E`) | **64** |
 | Source Section Anchors (segregated) | **5** |
-| Canonical mathematical objects | **151** |
-| Objects with >=2-source support | **91** (60.3%) |
-| Objects with >=3-source support | **49** (32.5%) |
-| Objects with 4-source support | **22** (14.6%) |
-| Mathematical domains | **5** |
+| Canonical mathematical objects | **179** |
+| Objects with >=2-source support | **113** (63.1%) |
+| Objects with >=3-source support | **63** (35.2%) |
+| Objects with >=4-source support | **28** (15.6%) |
+| Objects with 5-source support | **5** (2.8%) |
+| Mathematical domains | **6** |
 | Candidate EO views | **571** |
 | Candidate GEO views | **145** |
 | Candidate Dual views | **1,131** |
 | Inherited formal links | **8** |
-| Average representation richness `r_bar` | **3.206** |
-| Total graph edges | **25,217** |
-| `SAME_SEMANTICS` bridges | **407** |
-| `SCOPED_OVERLAP` bridges | **234** |
+| Average representation richness `r_bar` | **3.214** |
+| Total graph edges | **25,556** |
+| `SAME_SEMANTICS` bridges | **470** |
+| `SCOPED_OVERLAP` bridges | **312** |
 | `RELATED_TO` bridges | **6** |
-| Total typed cross-source bridges | **647** |
+| Total typed cross-source bridges | **788** |
 
 Current domains are:
 
@@ -100,6 +102,7 @@ Current domains are:
 3. Convex Analysis & Optimization
 4. Differential Calculus & Real Analysis
 5. Topology & Metric Spaces
+6. Measure Theory & Probability
 
 Representation richness is tracked as
 
@@ -139,16 +142,18 @@ v0.14 Convex Optimization
 v0.15.2 Analysis / Calculus
         ↓
 v0.16 Topology, Metric Spaces & Functional Structure
+        ↓
+v0.17 Measure Theory, Integration & Probability
 ```
 
-Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~12 seconds locally and ~40 seconds on GitHub Actions runners with strict fail-closed checking:
+Provenances and frozen statement identities are 100% verified (0 drift against `formal/pinch_bindings_v0_11.json` and `formal/source_identity_amendments.json`), and clean-room reconstruction runs in ~15 seconds locally and ~45 seconds on GitHub Actions runners with strict fail-closed checking:
 
 ```text
-MATHEMATICAL COVERAGE:          PASS (1,760 declarations, 5 section anchors, 151 canonical objects, 5 domains)
-CLEAN REPLAY OF CURRENT CHAIN:  PASS (~40s in GitHub Actions)
-CROSS-SOURCE STRUCTURE:         PASS (647 bridges across 4 sources)
+MATHEMATICAL COVERAGE:          PASS (1,824 declarations, 5 section anchors, 179 canonical objects, 6 domains)
+CLEAN REPLAY OF CURRENT CHAIN:  PASS (~45s in GitHub Actions)
+CROSS-SOURCE STRUCTURE:         PASS (788 bridges across 5 sources)
 SOURCE-IDENTITY PRESERVATION:   PASS (0 drift; sealed v0.11 checkpoint + audited amendments)
-FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.16 green on main)
+FINAL SOURCE-BOUND SEAL:        ACCEPTED (v0.17 green on main)
 ```
 
 ---
@@ -182,6 +187,12 @@ This source adds computational and applied formulations including least squares,
 Stephen Boyd and Lieven Vandenberghe, *Convex Optimization* (2004).
 
 This source extends the graph into convex sets, cones, duality, KKT conditions, PSD structure, projection, LP/QP/SDP families, and optimization geometry.
+
+### Source E — Billingsley
+
+Patrick Billingsley, *Probability and Measure*, 3rd edition (1995), John Wiley & Sons.
+
+This source provides the rigorous foundation for measure theory, Lebesgue integration, $L^p$ spaces, probability triples, random variables, conditional expectations, and limit theorems (LLN, CLT).
 
 Source prose and page images are not intended to persist in graph artifacts.
 
@@ -636,6 +647,39 @@ See:
 
 ---
 
+## v0.17 — Measure Theory, Integration & Probability Expansion
+
+v0.17 introduced **Source E** ($S_E$, Patrick Billingsley, *Probability and Measure*, 3rd ed., 1995), expanding MAPEOGEO into measure spaces, Lebesgue integration, $L^p$ spaces, probability triples, conditional expectations, and limit theorems.
+
+v0.17 achieves the first **5-source universal convergence** in MAPEOGEO across Cauchy-Schwarz, Inner Product / Hilbert Spaces, Normed Spaces, Orthogonal Projections, and Triangle Inequalities.
+
+```text
+SOURCE DECLARATIONS: 1,824 (1360 S_A + 235 S_B + 81 S_C + 84 S_D + 64 S_E)
+SOURCE SECTION ANCHORS: 5 (segregated)
+CANONICAL OBJECTS: 179 (+18.5% expansion)
+2-SOURCE OBJECTS: 113 (63.1%)
+3-SOURCE OBJECTS: 63 (35.2%)
+4-SOURCE OBJECTS: 28 (15.6%)
+5-SOURCE OBJECTS: 5 (2.8%)
+DOMAINS: 6
+AVERAGE REPRESENTATION RICHNESS: 3.214
+SAME_SEMANTICS: 470
+SCOPED_OVERLAP: 312
+RELATED_TO: 6
+TOTAL CROSS-SOURCE BRIDGES: 788
+TOTAL GRAPH EDGES: 25,556
+```
+
+See:
+
+- `docs/V0_17_MEASURE_SPEC.md`
+- `docs/V0_17_MEASURE_REPORT.md`
+- `evidence/v0_17_scientific_results.json`
+- `artifacts/measure_v0_17/measure_expansion_dashboard.json`
+- `.github/workflows/measure-expansion-v0-17.yml`
+
+---
+
 # Reproduction
 
 ## Trusted Source Pipeline
@@ -649,12 +693,13 @@ SEALED v0.11 TRUSTED SUBSTRATE
   -> v0.14 Convex Optimization
   -> v0.15.2 Analysis / Differential Calculus
   -> v0.16 Topology, Metric Spaces & Functional Structure
+  -> v0.17 Measure Theory, Integration & Probability
 ```
 
 Execute full clean reconstruction with:
 
 ```bash
-python scripts/reconstruct_pipeline.py --target-stage v0.16
+python scripts/reconstruct_pipeline.py --target-stage v0.17
 ```
 
 ## Formal library
@@ -694,10 +739,10 @@ MAPEOGEO has demonstrated:
 - fail-closed intake for selected graph pinch points without artificial GEO inflation;
 - canonical mathematical objects shared across independent textbooks and presentation styles;
 - typed cross-source relationships separating identity, scoped overlap, and related-but-not-same structure;
-- multi-source convergence across abstract, geometric, computational, and optimization presentations (91 2-source, 49 3-source, 22 4-source);
-- representation-diversity tracking across abstract, algebraic, geometric, computational, formal, and applied modalities;
-- clean-room reproducible five-domain expansion pipeline running in ~12 seconds;
-- a 151-object cross-domain map spanning linear algebra, applied linear algebra, convex optimization, differential calculus / real analysis, and topology / metric spaces.
+- multi-source convergence across abstract, geometric, computational, optimization, and measure-theoretic presentations (113 2-source, 63 3-source, 28 4-source, 5 5-source);
+- representation-diversity tracking across abstract, algebraic, geometric, computational, formal, and applied modalities ($\bar{r} = 3.214$);
+- clean-room reproducible six-domain expansion pipeline running in ~15 seconds;
+- a 179-object cross-domain map spanning linear algebra, applied linear algebra, convex optimization, differential calculus / real analysis, topology / metric spaces, and measure theory / probability.
 
 ---
 
@@ -717,27 +762,27 @@ MAPEOGEO has **not** established:
 
 ---
 
-# Active direction: v0.17 Measure, Integration, and Probability
+# Active direction: v0.18 Differential Geometry, Lie Groups, and Manifolds
 
-With the v0.16 five-domain topological and functional baseline settled and accepted, the project advances to **v0.17**:
+With the v0.17 six-domain measure-theoretic and probabilistic baseline settled and accepted, the project advances to **v0.18**:
 
-$$\boxed{\text{v0.17 — Measure, Integration, and Probability}}$$
+$$\boxed{\text{v0.18 — Differential Geometry, Lie Groups, and Manifolds}}$$
 
-This wave incorporates a domain-native dedicated **Source E** (e.g., Ash & Doléans-Dade / Billingsley / Folland / Rosenthal / Tao) to build the measure-theoretic, Lebesgue integration, $L^p$ space, and probability foundation:
+This wave incorporates a dedicated geometric source (e.g., John M. Lee, *Introduction to Smooth Manifolds* / Gallier Vol II / Tu) to build smooth structures, tangent bundles, differential forms, Lie groups/algebras, and Stokes' theorem on manifolds:
 
 $$
-\sigma\text{-algebra} \longrightarrow \text{measure space} \longrightarrow \text{measurable function} \longrightarrow \text{Lebesgue integral} \longrightarrow L^p\text{ / Hilbert spaces} \longrightarrow \text{probability space}
+\text{smooth manifold} \longrightarrow \text{tangent bundle } TM \longrightarrow \text{differential forms } \Omega^k(M) \longrightarrow \text{exterior derivative } d \longrightarrow \text{Stokes' Theorem} \longrightarrow \text{Lie groups / algebras}
 $$
 
 The canonical expansion targets:
-- $\sigma$-algebras, Borel sets, measurable spaces, Dynkin $\pi$-$\lambda$ systems;
-- Outer measures, Carathéodory extension theorem, Lebesgue measure;
-- Measurable maps, simple functions, convergence in measure, almost everywhere properties;
-- Monotone convergence theorem, Fatou's lemma, Dominated convergence theorem;
-- Product measures, Fubini-Tonelli theorems;
-- $L^p$ spaces, Hölder and Minkowski inequalities, completeness ($L^p$ as Banach/Hilbert spaces);
-- Radon-Nikodym derivatives, signed measures, Hahn/Jordan decompositions;
-- Probability triples $(\Omega, \mathcal{F}, \mathbb{P})$, random variables, expectations, conditioning, independence, Law of Large Numbers, Central Limit Theorem.
+- Smooth manifolds, smooth atlases, partitions of unity;
+- Tangent vectors, derivations, tangent spaces $T_p M$, tangent bundle $TM$;
+- Vector fields, Lie brackets $[X, Y]$, integral curves, flows;
+- Cotangent spaces $T_p^* M$, differential 1-forms, tensor fields, differential $k$-forms $\Omega^k(M)$;
+- Exterior derivative $d$, wedge product $\wedge$, closed and exact forms, Poincaré Lemma;
+- Orientability, integration of forms, generalized Stokes' Theorem $\int_{\partial M} \omega = \int_M d\omega$;
+- Riemannian metrics, Levi-Civita connection, geodesics, curvature tensors;
+- Lie groups ($GL(n), SO(n), SE(3)$), Lie algebras ($\mathfrak{gl}(n), \mathfrak{so}(n)$), exponential map $\exp: \mathfrak{g} \to G$, adjoint representation.
 
 ---
 
