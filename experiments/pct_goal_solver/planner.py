@@ -112,6 +112,44 @@ def _has_equivalent(artifact: Artifact, artifacts: Mapping[str, Artifact]) -> bo
     return any(_artifact_signature(existing) == signature for existing in artifacts.values())
 
 
+def _required_derived_types(goal: SolverVisibleGoal) -> Counter[str]:
+    raw = dict(goal.constraints).get("required_derived_types", ())
+    if raw is None:
+        return Counter()
+    if isinstance(raw, str):
+        return Counter((raw,))
+    return Counter(tuple(raw))
+
+
+def _missing_derived_evidence(goal: SolverVisibleGoal, artifacts: Mapping[str, Artifact]) -> Counter[str]:
+    required = _required_derived_types(goal)
+    if not required:
+        return Counter()
+    produced = Counter(
+        artifact.semantic_type
+        for artifact in artifacts.values()
+        if artifact.provenance
+    )
+    return Counter({
+        semantic_type: needed - produced[semantic_type]
+        for semantic_type, needed in required.items()
+        if produced[semantic_type] < needed
+    })
+
+
+def _evidence_obligations_satisfied(goal: SolverVisibleGoal, artifacts: Mapping[str, Artifact]) -> bool:
+    return not _missing_derived_evidence(goal, artifacts)
+
+
+def _required_evidence_needs_output(
+    goal: SolverVisibleGoal,
+    output: Artifact,
+    artifacts: Mapping[str, Artifact],
+) -> bool:
+    """Allow a provenance-bearing duplicate when it closes an evidence obligation."""
+    return _missing_derived_evidence(goal, artifacts)[output.semantic_type] > 0
+
+
 def _candidate_from_state(goal: SolverVisibleGoal, artifacts: Mapping[str, Artifact]) -> Artifact | None:
     for _, artifact in sorted(artifacts.items()):
         if artifact.semantic_type == goal.target.semantic_type:
@@ -256,7 +294,9 @@ def _verify_goal(goal: SolverVisibleGoal, candidate: Artifact) -> VerificationRe
 
 def _node_priority(goal: SolverVisibleGoal, node: _SearchNode) -> tuple[Any, ...]:
     mapping = node.mapping()
-    unresolved = 0 if _candidate_from_state(goal, mapping) is not None else 1
+    candidate_missing = int(_candidate_from_state(goal, mapping) is None)
+    evidence_missing = sum(_missing_derived_evidence(goal, mapping).values())
+    unresolved = candidate_missing + evidence_missing
     derived_count = sum(key.startswith("derived:") for key in mapping)
     return (unresolved, node.cost, derived_count, len(node.path), node.path)
 
@@ -379,7 +419,7 @@ def solve(
         artifacts = node.mapping()
 
         candidate = _candidate_from_state(goal, artifacts)
-        if candidate is not None:
+        if candidate is not None and _evidence_obligations_satisfied(goal, artifacts):
             terminal = _verify_goal(goal, candidate)
             if terminal.passed:
                 return _make_trace(goal, mode, node, expanded=expanded, candidate=candidate, verdict="PASS", terminal_verifier=terminal, path_suffix=("VERIFY_CANDIDATE",))
@@ -422,7 +462,8 @@ def solve(
                             first_relevant_not_applicable = (probe_node, output.reason)
                     continue
                 step_verifier = spec.verify(tuple(invocation.values()), output)
-                if not step_verifier.passed or _has_equivalent(output, artifacts):
+                equivalent = _has_equivalent(output, artifacts)
+                if not step_verifier.passed or (equivalent and not _required_evidence_needs_output(goal, output, artifacts)):
                     continue
                 new_artifacts = dict(artifacts)
                 new_artifacts[_derived_key(operator_id, output, artifacts)] = output
