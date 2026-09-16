@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections import defaultdict
+from collections import Counter, defaultdict
 from dataclasses import dataclass
 import hashlib
 from itertools import combinations
@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 from typing import Any, Iterable
 
-from .cases import HeldoutCase, build_r1_cases, sanitize_case
+from .cases import HeldoutCase, build_r1_cases
 from .constants import SEMANTIC_RELATION_TYPES
 from .corpus import KnowledgeCorpus
 from .e27 import build_r2_cluster_cases, build_r3_domain_cases
@@ -46,9 +46,178 @@ class RuleAudit:
     rescued_scopes: tuple[tuple[str, Any, int, int], ...] = ()
 
 
+@dataclass
+class _TrainingCache:
+    rows_by_edge: dict[str, TrainingRow]
+    r1_cases: tuple[HeldoutCase, ...]
+    semantic_edge_by_id: dict[str, tuple[str, str, str]]
+    semantic_node_totals: dict[str, Counter[str]]
+    semantic_pair_totals: dict[frozenset[str], Counter[str]]
+
+    @classmethod
+    def build(cls, corpus: KnowledgeCorpus) -> "_TrainingCache":
+        graph = _solver_visible_training_graph(corpus)
+        index = build_graph_index(graph)
+        edge_map = _edge_map(corpus)
+        cases = tuple(build_r1_cases(corpus))
+        rows_by_edge: dict[str, TrainingRow] = {}
+        for case in cases:
+            edge = edge_map[case.edge_id]
+            canonical = _canonical_id(
+                edge,
+                dict(case.verifier_metadata).get("canonical_hint", "UNKNOWN"),
+            )
+            probes = pair_probe_values(
+                graph,
+                case.source_id,
+                case.target_id,
+                index=index,
+            )
+            rows_by_edge[case.edge_id] = TrainingRow(
+                edge_id=case.edge_id,
+                canonical_id=canonical,
+                relation=case.sealed_relation,
+                probes=tuple(
+                    (key, probes[key])
+                    for key in B4_PROBE_KEYS
+                    if key in probes
+                ),
+                scope=(
+                    ("domain", _domain(corpus, canonical)),
+                    (
+                        "source_pair",
+                        _source_pair(corpus, case.source_id, case.target_id),
+                    ),
+                ),
+            )
+
+        semantic_edge_by_id: dict[str, tuple[str, str, str]] = {}
+        node_totals: dict[str, Counter[str]] = defaultdict(Counter)
+        pair_totals: dict[frozenset[str], Counter[str]] = defaultdict(Counter)
+        for edge in graph.get("edges", []):
+            relation = str(edge.get("type", ""))
+            if relation not in SEMANTIC_RELATION_TYPES:
+                continue
+            edge_id = str(edge.get("id", ""))
+            source_id = str(edge.get("source", ""))
+            target_id = str(edge.get("target", ""))
+            semantic_edge_by_id[edge_id] = (source_id, target_id, relation)
+            node_totals[source_id][relation] += 1
+            node_totals[target_id][relation] += 1
+            pair_totals[frozenset((source_id, target_id))][relation] += 1
+
+        return cls(
+            rows_by_edge=rows_by_edge,
+            r1_cases=cases,
+            semantic_edge_by_id=semantic_edge_by_id,
+            semantic_node_totals=dict(node_totals),
+            semantic_pair_totals=dict(pair_totals),
+        )
+
+    def _hidden_counts(
+        self, hidden_edge_ids: Iterable[str]
+    ) -> tuple[
+        frozenset[str],
+        dict[str, Counter[str]],
+        dict[frozenset[str], Counter[str]],
+    ]:
+        hidden = frozenset(str(edge_id) for edge_id in hidden_edge_ids)
+        hidden_node: dict[str, Counter[str]] = defaultdict(Counter)
+        hidden_pair: dict[frozenset[str], Counter[str]] = defaultdict(Counter)
+        for edge_id in hidden:
+            record = self.semantic_edge_by_id.get(edge_id)
+            if record is None:
+                continue
+            source_id, target_id, relation = record
+            hidden_node[source_id][relation] += 1
+            hidden_node[target_id][relation] += 1
+            hidden_pair[frozenset((source_id, target_id))][relation] += 1
+        return hidden, hidden_node, hidden_pair
+
+    def _semantic_profile_pair(
+        self,
+        source_id: str,
+        target_id: str,
+        hidden_node: dict[str, Counter[str]],
+        hidden_pair: dict[frozenset[str], Counter[str]],
+    ) -> tuple[tuple[int, ...], tuple[int, ...]]:
+        pair = frozenset((source_id, target_id))
+        direct_total = self.semantic_pair_totals.get(pair, Counter())
+        direct_hidden = hidden_pair.get(pair, Counter())
+        profiles: list[tuple[int, ...]] = []
+        for node_id in (source_id, target_id):
+            totals = self.semantic_node_totals.get(node_id, Counter())
+            removed = hidden_node.get(node_id, Counter())
+            profile = tuple(
+                int(totals.get(relation, 0))
+                - int(removed.get(relation, 0))
+                - (
+                    int(direct_total.get(relation, 0))
+                    - int(direct_hidden.get(relation, 0))
+                )
+                for relation in SEMANTIC_RELATION_TYPES
+            )
+            profiles.append(profile)
+        return tuple(sorted(profiles, key=repr))  # type: ignore[return-value]
+
+    def _adjusted_probes(
+        self,
+        case: HeldoutCase,
+        hidden_node: dict[str, Counter[str]],
+        hidden_pair: dict[frozenset[str], Counter[str]],
+    ) -> tuple[tuple[str, Any], ...]:
+        base = self.rows_by_edge[case.edge_id]
+        probes = dict(base.probes)
+        probes["semantic_degree_profile_pair"] = self._semantic_profile_pair(
+            case.source_id,
+            case.target_id,
+            hidden_node,
+            hidden_pair,
+        )
+        return tuple(
+            (key, probes[key]) for key in B4_PROBE_KEYS if key in probes
+        )
+
+    def rows_for_hidden(
+        self, hidden_edge_ids: Iterable[str]
+    ) -> list[TrainingRow]:
+        hidden, hidden_node, hidden_pair = self._hidden_counts(hidden_edge_ids)
+        rows: list[TrainingRow] = []
+        for case in self.r1_cases:
+            if case.edge_id in hidden:
+                continue
+            base = self.rows_by_edge[case.edge_id]
+            rows.append(
+                TrainingRow(
+                    edge_id=base.edge_id,
+                    canonical_id=base.canonical_id,
+                    relation=base.relation,
+                    probes=self._adjusted_probes(
+                        case,
+                        hidden_node,
+                        hidden_pair,
+                    ),
+                    scope=base.scope,
+                )
+            )
+        rows.sort(key=lambda row: row.edge_id)
+        return rows
+
+    def probes_for_case(
+        self,
+        case: HeldoutCase,
+        hidden_edge_ids: Iterable[str],
+    ) -> dict[str, Any]:
+        _, hidden_node, hidden_pair = self._hidden_counts(hidden_edge_ids)
+        return dict(self._adjusted_probes(case, hidden_node, hidden_pair))
+
+
 def _jsonable(value: Any) -> Any:
     if isinstance(value, dict):
-        return {str(k): _jsonable(v) for k, v in sorted(value.items(), key=lambda item: str(item[0]))}
+        return {
+            str(k): _jsonable(v)
+            for k, v in sorted(value.items(), key=lambda item: str(item[0]))
+        }
     if isinstance(value, tuple):
         return [_jsonable(v) for v in value]
     if isinstance(value, (list, set, frozenset)):
@@ -57,13 +226,22 @@ def _jsonable(value: Any) -> Any:
 
 
 def _digest(payload: Any) -> str:
-    raw = json.dumps(_jsonable(payload), sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    raw = json.dumps(
+        _jsonable(payload),
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=True,
+    )
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
-def _matches(antecedents: tuple[tuple[str, Any], ...], row: TrainingRow) -> bool:
+def _matches(
+    antecedents: tuple[tuple[str, Any], ...], row: TrainingRow
+) -> bool:
     probes = dict(row.probes)
-    return all(key in probes and probes[key] == value for key, value in antecedents)
+    return all(
+        key in probes and probes[key] == value for key, value in antecedents
+    )
 
 
 def enumerate_candidate_rules(
@@ -73,34 +251,79 @@ def enumerate_candidate_rules(
     min_canonical_objects: int = 2,
     probe_keys: Iterable[str] | None = None,
 ) -> list[CandidateRule]:
+    rules, _ = _enumerate_rules_and_relations(
+        training_cases,
+        max_width=max_width,
+        min_support_edges=min_support_edges,
+        min_canonical_objects=min_canonical_objects,
+        probe_keys=probe_keys,
+    )
+    return rules
+
+
+def _enumerate_rules_and_relations(
+    training_cases: list[TrainingRow],
+    *,
+    max_width: int,
+    min_support_edges: int,
+    min_canonical_objects: int,
+    probe_keys: Iterable[str] | None,
+) -> tuple[
+    list[CandidateRule],
+    dict[tuple[tuple[str, Any], ...], set[str]],
+]:
     if max_width < 1:
-        return []
+        return [], {}
     if min_support_edges < 1 or min_canonical_objects < 1:
         raise ValueError("Support thresholds must be positive")
 
-    allowed = tuple(probe_keys) if probe_keys is not None else tuple(
-        sorted({key for row in training_cases for key, _ in row.probes})
+    allowed = (
+        tuple(probe_keys)
+        if probe_keys is not None
+        else tuple(
+            sorted({key for row in training_cases for key, _ in row.probes})
+        )
     )
-    allowed_set = set(allowed)
+    support_edges: dict[
+        tuple[str, tuple[tuple[str, Any], ...]], set[str]
+    ] = defaultdict(set)
+    support_canonicals: dict[
+        tuple[str, tuple[tuple[str, Any], ...]], set[str]
+    ] = defaultdict(set)
+    antecedent_relations: dict[
+        tuple[tuple[str, Any], ...], set[str]
+    ] = defaultdict(set)
 
-    support_edges: dict[tuple[str, tuple[tuple[str, Any], ...]], set[str]] = defaultdict(set)
-    support_canonicals: dict[tuple[str, tuple[tuple[str, Any], ...]], set[str]] = defaultdict(set)
-
+    grouped: dict[
+        tuple[str, tuple[tuple[str, Any], ...]],
+        tuple[set[str], set[str]],
+    ] = {}
     for row in training_cases:
-        probe_map = dict(row.probes)
-        keys = tuple(key for key in allowed if key in probe_map and key in allowed_set)
+        group_key = (row.relation, row.probes)
+        if group_key not in grouped:
+            grouped[group_key] = (set(), set())
+        grouped[group_key][0].add(row.edge_id)
+        grouped[group_key][1].add(row.canonical_id)
+
+    for (relation, frozen_probes), (edge_ids, canonical_ids) in grouped.items():
+        probe_map = dict(frozen_probes)
+        keys = tuple(key for key in allowed if key in probe_map)
         width_limit = min(max_width, len(keys))
         for width in range(1, width_limit + 1):
             for key_subset in combinations(keys, width):
                 antecedents = tuple((key, probe_map[key]) for key in key_subset)
-                token = (row.relation, antecedents)
-                support_edges[token].add(row.edge_id)
-                support_canonicals[token].add(row.canonical_id)
+                token = (relation, antecedents)
+                support_edges[token].update(edge_ids)
+                support_canonicals[token].update(canonical_ids)
+                antecedent_relations[antecedents].add(relation)
 
     rules: list[CandidateRule] = []
     for (relation, antecedents), edge_ids in support_edges.items():
         canonical_ids = support_canonicals[(relation, antecedents)]
-        if len(edge_ids) < min_support_edges or len(canonical_ids) < min_canonical_objects:
+        if (
+            len(edge_ids) < min_support_edges
+            or len(canonical_ids) < min_canonical_objects
+        ):
             continue
         rule_id = "rule:" + _digest(
             {
@@ -123,11 +346,15 @@ def enumerate_candidate_rules(
             )
         )
 
-    rules.sort(key=lambda rule: (len(rule.antecedents), rule.consequent, rule.rule_id))
-    return rules
+    rules.sort(
+        key=lambda rule: (len(rule.antecedents), rule.consequent, rule.rule_id)
+    )
+    return rules, antecedent_relations
 
 
-def _rescued_scopes(rule: CandidateRule, matched: list[TrainingRow]) -> tuple[tuple[str, Any, int, int], ...]:
+def _rescued_scopes(
+    rule: CandidateRule, matched: list[TrainingRow]
+) -> tuple[tuple[str, Any, int, int], ...]:
     by_scope: dict[tuple[str, Any], list[TrainingRow]] = defaultdict(list)
     for row in matched:
         for key, value in row.scope:
@@ -145,10 +372,18 @@ def _rescued_scopes(rule: CandidateRule, matched: list[TrainingRow]) -> tuple[tu
     return tuple(rescued)
 
 
-def falsify_rule(rule: CandidateRule, visible_cases: list[TrainingRow]) -> RuleAudit:
-    matched = [row for row in visible_cases if _matches(rule.antecedents, row)]
+def falsify_rule(
+    rule: CandidateRule, visible_cases: list[TrainingRow]
+) -> RuleAudit:
+    matched = [
+        row for row in visible_cases if _matches(rule.antecedents, row)
+    ]
     counterexamples = tuple(
-        sorted(row.edge_id for row in matched if row.relation != rule.consequent)
+        sorted(
+            row.edge_id
+            for row in matched
+            if row.relation != rule.consequent
+        )
     )
     if counterexamples:
         return RuleAudit(
@@ -177,17 +412,23 @@ def _edge_map(corpus: KnowledgeCorpus) -> dict[str, dict[str, Any]]:
     }
 
 
-def _canonical_id(edge: dict[str, Any], fallback: str = "UNKNOWN") -> str:
+def _canonical_id(
+    edge: dict[str, Any], fallback: str = "UNKNOWN"
+) -> str:
     attrs = edge.get("attributes", {})
     value = attrs.get("canonical_object") or attrs.get("canonical_id")
     return str(value) if value else fallback
 
 
-def _source_pair(corpus: KnowledgeCorpus, source_id: str, target_id: str) -> tuple[str, str]:
+def _source_pair(
+    corpus: KnowledgeCorpus, source_id: str, target_id: str
+) -> tuple[str, str]:
     values: list[str] = []
     for node_id in (source_id, target_id):
         node = corpus.node_by_id.get(node_id, {})
-        values.append(str(node.get("attributes", {}).get("source_id", "UNKNOWN")))
+        values.append(
+            str(node.get("attributes", {}).get("source_id", "UNKNOWN"))
+        )
     return tuple(sorted(values))
 
 
@@ -211,45 +452,18 @@ def _solver_visible_training_graph(corpus: KnowledgeCorpus) -> dict[str, Any]:
             attrs.pop("cross_source_status", None)
             edge["attributes"] = attrs
         edges.append(edge)
-    graph = {key: value for key, value in corpus.graph.items() if key not in {"nodes", "edges"}}
+    graph = {
+        key: value
+        for key, value in corpus.graph.items()
+        if key not in {"nodes", "edges"}
+    }
     graph["nodes"] = nodes
     graph["edges"] = edges
     return graph
 
 
-def _training_rows_from_graph(
-    corpus: KnowledgeCorpus,
-    graph: dict[str, Any],
-    excluded_edge_ids: Iterable[str] = (),
-) -> list[TrainingRow]:
-    edge_map = _edge_map(corpus)
-    excluded = frozenset(str(edge_id) for edge_id in excluded_edge_ids)
-    index = build_graph_index(graph)
-    rows: list[TrainingRow] = []
-    for case in build_r1_cases(corpus):
-        if case.edge_id in excluded:
-            continue
-        edge = edge_map[case.edge_id]
-        canonical = _canonical_id(edge, dict(case.verifier_metadata).get("canonical_hint", "UNKNOWN"))
-        probes = pair_probe_values(graph, case.source_id, case.target_id, index=index)
-        rows.append(
-            TrainingRow(
-                edge_id=case.edge_id,
-                canonical_id=canonical,
-                relation=case.sealed_relation,
-                probes=tuple((key, probes[key]) for key in B4_PROBE_KEYS if key in probes),
-                scope=(
-                    ("domain", _domain(corpus, canonical)),
-                    ("source_pair", _source_pair(corpus, case.source_id, case.target_id)),
-                ),
-            )
-        )
-    rows.sort(key=lambda row: row.edge_id)
-    return rows
-
-
 def _training_rows(corpus: KnowledgeCorpus) -> list[TrainingRow]:
-    return _training_rows_from_graph(corpus, _solver_visible_training_graph(corpus))
+    return _TrainingCache.build(corpus).rows_for_hidden(())
 
 
 def build_visible_training_rows(
@@ -257,11 +471,8 @@ def build_visible_training_rows(
     heldout: HeldoutCase,
 ) -> list[TrainingRow]:
     """Build E29 training rows from exactly the graph visible for one sealed holdout."""
-    sanitized = sanitize_case(corpus, heldout)
-    rows = _training_rows_from_graph(
-        corpus,
-        sanitized.visible_graph,
-        excluded_edge_ids=heldout.hidden_edge_ids,
+    rows = _TrainingCache.build(corpus).rows_for_hidden(
+        heldout.hidden_edge_ids
     )
     hidden = set(heldout.hidden_edge_ids)
     if any(row.edge_id in hidden for row in rows):
@@ -272,7 +483,9 @@ def build_visible_training_rows(
 def _serialize_rule(rule: CandidateRule) -> dict[str, Any]:
     return {
         "rule_id": rule.rule_id,
-        "antecedents": [[key, _jsonable(value)] for key, value in rule.antecedents],
+        "antecedents": [
+            [key, _jsonable(value)] for key, value in rule.antecedents
+        ],
         "consequent": rule.consequent,
         "support_edge_count": rule.support_edge_count,
         "support_canonical_count": rule.support_canonical_count,
@@ -301,12 +514,19 @@ def _serialize_audit(audit: RuleAudit) -> dict[str, Any]:
     }
 
 
-def _heldout_case_map(cases: Iterable[HeldoutCase]) -> dict[str, HeldoutCase]:
+def _heldout_case_map(
+    cases: Iterable[HeldoutCase],
+) -> dict[str, HeldoutCase]:
     return {case.case_id: case for case in cases}
 
 
-def _rule_matches_probes(rule: CandidateRule, probes: dict[str, Any]) -> bool:
-    return all(key in probes and probes[key] == value for key, value in rule.antecedents)
+def _rule_matches_probes(
+    rule: CandidateRule, probes: dict[str, Any]
+) -> bool:
+    return all(
+        key in probes and probes[key] == value
+        for key, value in rule.antecedents
+    )
 
 
 def _discover_visible_survivors(
@@ -324,42 +544,89 @@ def _discover_visible_survivors(
     survivors = [
         rule
         for rule in rules
-        if audit_by_id[rule.rule_id].status == "CANDIDATE_SURVIVED_VISIBLE_SEARCH"
+        if audit_by_id[rule.rule_id].status
+        == "CANDIDATE_SURVIVED_VISIBLE_SEARCH"
     ]
     return rules, audits, survivors
+
+
+def _discover_transfer_survivors(
+    training: list[TrainingRow],
+) -> tuple[list[CandidateRule], list[CandidateRule]]:
+    rules, antecedent_relations = _enumerate_rules_and_relations(
+        training,
+        max_width=3,
+        min_support_edges=3,
+        min_canonical_objects=2,
+        probe_keys=B4_PROBE_KEYS,
+    )
+    survivors = [
+        rule
+        for rule in rules
+        if antecedent_relations.get(rule.antecedents, set())
+        == {rule.consequent}
+    ]
+    return rules, survivors
 
 
 def _transfer_tier(
     corpus: KnowledgeCorpus,
     tier_report: dict[str, Any],
     cases: dict[str, HeldoutCase],
+    training_cache: _TrainingCache,
 ) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     correct = wrong = ambiguous = refused = 0
     block_cache: dict[
         tuple[str, ...],
-        tuple[list[TrainingRow], list[CandidateRule], list[RuleAudit], list[CandidateRule], str],
+        tuple[
+            list[TrainingRow],
+            list[CandidateRule],
+            list[CandidateRule],
+            str,
+        ],
     ] = {}
 
-    for sealed in sorted(tier_report.get("cases", []), key=lambda row: row["case_id"]):
+    for sealed in sorted(
+        tier_report.get("cases", []), key=lambda row: row["case_id"]
+    ):
         heldout = cases[sealed["case_id"]]
         block_key = tuple(heldout.hidden_edge_ids)
         if block_key not in block_cache:
-            training = build_visible_training_rows(corpus, heldout)
-            rules, audits, survivors = _discover_visible_survivors(training)
-            candidate_sha = _digest([_serialize_rule(rule) for rule in rules])
-            block_cache[block_key] = (training, rules, audits, survivors, candidate_sha)
-        training, rules, _audits, survivors, candidate_sha = block_cache[block_key]
+            training = training_cache.rows_for_hidden(
+                heldout.hidden_edge_ids
+            )
+            rules, survivors = _discover_transfer_survivors(training)
+            candidate_sha = _digest(
+                [_serialize_rule(rule) for rule in rules]
+            )
+            block_cache[block_key] = (
+                training,
+                rules,
+                survivors,
+                candidate_sha,
+            )
+        training, rules, survivors, candidate_sha = block_cache[block_key]
 
         training_ids = {row.edge_id for row in training}
-        hidden_overlap_count = len(training_ids.intersection(heldout.hidden_edge_ids))
+        hidden_overlap_count = len(
+            training_ids.intersection(heldout.hidden_edge_ids)
+        )
         if hidden_overlap_count:
-            raise ValueError("E29 sealed transfer training overlaps hidden answer edges")
+            raise ValueError(
+                "E29 sealed transfer training overlaps hidden answer edges"
+            )
 
-        sanitized = sanitize_case(corpus, heldout)
-        probes = pair_probe_values(sanitized.visible_graph, heldout.source_id, heldout.target_id)
-        matched = [rule for rule in survivors if _rule_matches_probes(rule, probes)]
-        predictions = tuple(sorted({rule.consequent for rule in matched}))
+        probes = training_cache.probes_for_case(
+            heldout,
+            heldout.hidden_edge_ids,
+        )
+        matched = [
+            rule for rule in survivors if _rule_matches_probes(rule, probes)
+        ]
+        predictions = tuple(
+            sorted({rule.consequent for rule in matched})
+        )
         if len(predictions) == 1:
             verdict = "PASS"
             prediction = predictions[0]
@@ -402,13 +669,20 @@ def _transfer_tier(
         "wrong": wrong,
         "ambiguous": ambiguous,
         "refused": refused,
-        "selective_accuracy": correct / (correct + wrong) if (correct + wrong) else None,
+        "selective_accuracy": (
+            correct / (correct + wrong) if (correct + wrong) else None
+        ),
         "cases": rows,
     }
 
 
-def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path) -> dict[str, Any]:
-    training = _training_rows(corpus)
+def run_e29(
+    corpus: KnowledgeCorpus,
+    e27_report: dict[str, Any],
+    repo_root: Path,
+) -> dict[str, Any]:
+    training_cache = _TrainingCache.build(corpus)
+    training = training_cache.rows_for_hidden(())
     rules, audits, survivors = _discover_visible_survivors(training)
 
     # Freeze the visible-corpus discovery output. Sealed transfer below independently
@@ -419,8 +693,18 @@ def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path
     r2_cases = _heldout_case_map(build_r2_cluster_cases(corpus))
     r3_cases = _heldout_case_map(build_r3_domain_cases(corpus))
     transfer = {
-        "R2": _transfer_tier(corpus, e27_report["R2"], r2_cases),
-        "R3": _transfer_tier(corpus, e27_report["R3"], r3_cases),
+        "R2": _transfer_tier(
+            corpus,
+            e27_report["R2"],
+            r2_cases,
+            training_cache,
+        ),
+        "R3": _transfer_tier(
+            corpus,
+            e27_report["R3"],
+            r3_cases,
+            training_cache,
+        ),
     }
 
     relation_support: dict[str, dict[str, int | str]] = {}
@@ -440,11 +724,17 @@ def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path
     surviving_serialized = []
     for rule in survivors:
         row = _serialize_rule(rule)
-        row["visible_search_status"] = "CANDIDATE_SURVIVED_VISIBLE_SEARCH"
+        row["visible_search_status"] = (
+            "CANDIDATE_SURVIVED_VISIBLE_SEARCH"
+        )
         row["theorem_status"] = False
         surviving_serialized.append(row)
 
-    defeated = [audit for audit in audits if audit.status == "DEFEATED_BY_COUNTEREXAMPLE"]
+    defeated = [
+        audit
+        for audit in audits
+        if audit.status == "DEFEATED_BY_COUNTEREXAMPLE"
+    ]
     transfer_overlap_count = sum(
         row["training_hidden_overlap_count"]
         for tier in ("R2", "R3")
@@ -454,7 +744,9 @@ def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path
         "experiment_id": "E29_STRUCTURAL_RULE_DISCOVERY_FALSIFICATION",
         "status": "PASS" if transfer_overlap_count == 0 else "FAIL",
         "campaign_harness_sha": compute_harness_sha(repo_root),
-        "e27_solver_recipe_sha256": e27_report.get("solver_recipe_sha256"),
+        "e27_solver_recipe_sha256": e27_report.get(
+            "solver_recipe_sha256"
+        ),
         "rule_language": {
             "max_conjunction_width": 3,
             "min_support_edges": 3,
@@ -466,8 +758,12 @@ def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path
         "candidate_rules_generated": len(rules),
         "frozen_candidate_set_sha256": frozen_rule_sha256,
         "rules_defeated_by_counterexample": len(defeated),
-        "counterexamples_found": sum(len(audit.counterexample_edge_ids) for audit in defeated),
-        "rules_with_scope_rescues": sum(bool(audit.rescued_scopes) for audit in defeated),
+        "counterexamples_found": sum(
+            len(audit.counterexample_edge_ids) for audit in defeated
+        ),
+        "rules_with_scope_rescues": sum(
+            bool(audit.rescued_scopes) for audit in defeated
+        ),
         "rules_survived_visible_search": len(survivors),
         "surviving_rules": surviving_serialized,
         "rule_audits": [_serialize_audit(audit) for audit in audits],
