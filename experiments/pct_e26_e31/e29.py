@@ -13,7 +13,7 @@ from .constants import SEMANTIC_RELATION_TYPES
 from .corpus import KnowledgeCorpus
 from .e27 import build_r2_cluster_cases, build_r3_domain_cases
 from .identity import compute_harness_sha
-from .probes import B4_PROBE_KEYS, pair_probe_values
+from .probes import B4_PROBE_KEYS, build_graph_index, pair_probe_values
 
 
 @dataclass(frozen=True)
@@ -217,14 +217,21 @@ def _solver_visible_training_graph(corpus: KnowledgeCorpus) -> dict[str, Any]:
     return graph
 
 
-def _training_rows(corpus: KnowledgeCorpus) -> list[TrainingRow]:
+def _training_rows_from_graph(
+    corpus: KnowledgeCorpus,
+    graph: dict[str, Any],
+    excluded_edge_ids: Iterable[str] = (),
+) -> list[TrainingRow]:
     edge_map = _edge_map(corpus)
-    graph = _solver_visible_training_graph(corpus)
+    excluded = frozenset(str(edge_id) for edge_id in excluded_edge_ids)
+    index = build_graph_index(graph)
     rows: list[TrainingRow] = []
     for case in build_r1_cases(corpus):
+        if case.edge_id in excluded:
+            continue
         edge = edge_map[case.edge_id]
         canonical = _canonical_id(edge, dict(case.verifier_metadata).get("canonical_hint", "UNKNOWN"))
-        probes = pair_probe_values(graph, case.source_id, case.target_id)
+        probes = pair_probe_values(graph, case.source_id, case.target_id, index=index)
         rows.append(
             TrainingRow(
                 edge_id=case.edge_id,
@@ -238,6 +245,27 @@ def _training_rows(corpus: KnowledgeCorpus) -> list[TrainingRow]:
             )
         )
     rows.sort(key=lambda row: row.edge_id)
+    return rows
+
+
+def _training_rows(corpus: KnowledgeCorpus) -> list[TrainingRow]:
+    return _training_rows_from_graph(corpus, _solver_visible_training_graph(corpus))
+
+
+def build_visible_training_rows(
+    corpus: KnowledgeCorpus,
+    heldout: HeldoutCase,
+) -> list[TrainingRow]:
+    """Build E29 training rows from exactly the graph visible for one sealed holdout."""
+    sanitized = sanitize_case(corpus, heldout)
+    rows = _training_rows_from_graph(
+        corpus,
+        sanitized.visible_graph,
+        excluded_edge_ids=heldout.hidden_edge_ids,
+    )
+    hidden = set(heldout.hidden_edge_ids)
+    if any(row.edge_id in hidden for row in rows):
+        raise ValueError("E29 visible training contains a sealed hidden edge")
     return rows
 
 
@@ -281,16 +309,53 @@ def _rule_matches_probes(rule: CandidateRule, probes: dict[str, Any]) -> bool:
     return all(key in probes and probes[key] == value for key, value in rule.antecedents)
 
 
+def _discover_visible_survivors(
+    training: list[TrainingRow],
+) -> tuple[list[CandidateRule], list[RuleAudit], list[CandidateRule]]:
+    rules = enumerate_candidate_rules(
+        training,
+        max_width=3,
+        min_support_edges=3,
+        min_canonical_objects=2,
+        probe_keys=B4_PROBE_KEYS,
+    )
+    audits = [falsify_rule(rule, training) for rule in rules]
+    audit_by_id = {audit.rule_id: audit for audit in audits}
+    survivors = [
+        rule
+        for rule in rules
+        if audit_by_id[rule.rule_id].status == "CANDIDATE_SURVIVED_VISIBLE_SEARCH"
+    ]
+    return rules, audits, survivors
+
+
 def _transfer_tier(
     corpus: KnowledgeCorpus,
     tier_report: dict[str, Any],
     cases: dict[str, HeldoutCase],
-    survivors: list[CandidateRule],
 ) -> dict[str, Any]:
     rows: list[dict[str, Any]] = []
     correct = wrong = ambiguous = refused = 0
+    block_cache: dict[
+        tuple[str, ...],
+        tuple[list[TrainingRow], list[CandidateRule], list[RuleAudit], list[CandidateRule], str],
+    ] = {}
+
     for sealed in sorted(tier_report.get("cases", []), key=lambda row: row["case_id"]):
         heldout = cases[sealed["case_id"]]
+        block_key = tuple(heldout.hidden_edge_ids)
+        if block_key not in block_cache:
+            training = build_visible_training_rows(corpus, heldout)
+            rules, audits, survivors = _discover_visible_survivors(training)
+            candidate_sha = _digest([_serialize_rule(rule) for rule in rules])
+            block_cache[block_key] = (training, rules, audits, survivors, candidate_sha)
+        training, rules, _audits, survivors, candidate_sha = block_cache[block_key]
+
+        training_ids = {row.edge_id for row in training}
+        hidden_overlap_count = len(training_ids.intersection(heldout.hidden_edge_ids))
+        if hidden_overlap_count:
+            raise ValueError("E29 sealed transfer training overlaps hidden answer edges")
+
         sanitized = sanitize_case(corpus, heldout)
         probes = pair_probe_values(sanitized.visible_graph, heldout.source_id, heldout.target_id)
         matched = [rule for rule in survivors if _rule_matches_probes(rule, probes)]
@@ -323,10 +388,16 @@ def _transfer_tier(
                 "outcome": outcome,
                 "matched_rule_ids": [rule.rule_id for rule in matched],
                 "candidate_relations": list(predictions),
+                "training_edge_count": len(training),
+                "training_hidden_overlap_count": hidden_overlap_count,
+                "candidate_rules_generated": len(rules),
+                "rules_survived_visible_search": len(survivors),
+                "frozen_candidate_set_sha256": candidate_sha,
             }
         )
     return {
         "total": len(rows),
+        "block_count": len(block_cache),
         "correct": correct,
         "wrong": wrong,
         "ambiguous": ambiguous,
@@ -338,43 +409,30 @@ def _transfer_tier(
 
 def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path) -> dict[str, Any]:
     training = _training_rows(corpus)
-    rules = enumerate_candidate_rules(
-        training,
-        max_width=3,
-        min_support_edges=3,
-        min_canonical_objects=2,
-        probe_keys=B4_PROBE_KEYS,
-    )
+    rules, audits, survivors = _discover_visible_survivors(training)
 
-    # Freeze the discovery output before any sealed R2/R3 transfer evaluation.
+    # Freeze the visible-corpus discovery output. Sealed transfer below independently
+    # freezes a candidate set from each holdout block's visible complement.
     frozen_rule_payload = [_serialize_rule(rule) for rule in rules]
     frozen_rule_sha256 = _digest(frozen_rule_payload)
-
-    audits = [falsify_rule(rule, training) for rule in rules]
-    audit_by_id = {audit.rule_id: audit for audit in audits}
-    survivors = [
-        rule
-        for rule in rules
-        if audit_by_id[rule.rule_id].status == "CANDIDATE_SURVIVED_VISIBLE_SEARCH"
-    ]
 
     r2_cases = _heldout_case_map(build_r2_cluster_cases(corpus))
     r3_cases = _heldout_case_map(build_r3_domain_cases(corpus))
     transfer = {
-        "R2": _transfer_tier(corpus, e27_report["R2"], r2_cases, survivors),
-        "R3": _transfer_tier(corpus, e27_report["R3"], r3_cases, survivors),
+        "R2": _transfer_tier(corpus, e27_report["R2"], r2_cases),
+        "R3": _transfer_tier(corpus, e27_report["R3"], r3_cases),
     }
 
     relation_support: dict[str, dict[str, int | str]] = {}
     for relation in SEMANTIC_RELATION_TYPES:
-        rows = [row for row in training if row.relation == relation]
-        canonicals = {row.canonical_id for row in rows}
+        relation_rows = [row for row in training if row.relation == relation]
+        canonicals = {row.canonical_id for row in relation_rows}
         relation_support[relation] = {
-            "edge_count": len(rows),
+            "edge_count": len(relation_rows),
             "canonical_count": len(canonicals),
             "discovery_applicability": (
                 "APPLICABLE"
-                if len(rows) >= 3 and len(canonicals) >= 2
+                if len(relation_rows) >= 3 and len(canonicals) >= 2
                 else "NOT_APPLICABLE"
             ),
         }
@@ -387,9 +445,14 @@ def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path
         surviving_serialized.append(row)
 
     defeated = [audit for audit in audits if audit.status == "DEFEATED_BY_COUNTEREXAMPLE"]
+    transfer_overlap_count = sum(
+        row["training_hidden_overlap_count"]
+        for tier in ("R2", "R3")
+        for row in transfer[tier]["cases"]
+    )
     report = {
         "experiment_id": "E29_STRUCTURAL_RULE_DISCOVERY_FALSIFICATION",
-        "status": "PASS",
+        "status": "PASS" if transfer_overlap_count == 0 else "FAIL",
         "campaign_harness_sha": compute_harness_sha(repo_root),
         "e27_solver_recipe_sha256": e27_report.get("solver_recipe_sha256"),
         "rule_language": {
@@ -408,7 +471,9 @@ def run_e29(corpus: KnowledgeCorpus, e27_report: dict[str, Any], repo_root: Path
         "rules_survived_visible_search": len(survivors),
         "surviving_rules": surviving_serialized,
         "rule_audits": [_serialize_audit(audit) for audit in audits],
+        "sealed_transfer_protocol": "PER_HOLDOUT_VISIBLE_TRAINING_ONLY",
+        "sealed_transfer_hidden_overlap_count": transfer_overlap_count,
         "sealed_transfer": transfer,
-        "claim_boundary": "SURVIVING_RULES_ARE_BOUNDED_CANDIDATES_NOT_THEOREMS",
+        "claim_boundary": "SURVIVING_RULES_ARE_BOUNDED_CANDIDATES_NOT_THEOREMS; SEALED_TRANSFER_TRAINS_ONLY_ON_EACH_HOLDOUT_VISIBLE_COMPLEMENT",
     }
     return report
