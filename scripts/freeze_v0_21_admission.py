@@ -7,15 +7,18 @@ import argparse
 import hashlib
 import json
 import os
+import sys
 import tempfile
 from collections import Counter, defaultdict
 from pathlib import Path
 from typing import Any
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 from scripts.io_utils import atomic_write_deterministic_json_gzip
 from scripts.source_admission_v0_21 import validate_admitted_metadata
-
-ROOT = Path(__file__).resolve().parents[1]
 
 
 def _canonical_json_bytes(value: Any) -> bytes:
