@@ -5,70 +5,137 @@ on:
   push:
     branches: [agent/rigor-first-expansion-v0-21]
     paths:
-      - "formal/source_registry_v0_21.json"
-      - "formal/source_declarations_v0_21.json.gz"
-      - "scripts/source_registry_v0_21.py"
-      - "scripts/structured_source_parsers_v0_21.py"
-      - "scripts/source_admission_v0_21.py"
-      - "scripts/freeze_v0_21_admission.py"
-      - "scripts/rigor_expansion_v0_21.py"
-      - "scripts/reconstruct_pipeline.py"
-      - "tests/test_*v0_21.py"
-      - "evidence/v0_21_source_admission_manifest.json"
-      - "docs/superpowers/**"
+      - "MAPEOGEOFormal.lean"
+      - "MAPEOGEOFormal/**"
+      - "data/**"
+      - "docs/**"
+      - "evidence/**"
+      - "formal/**"
+      - "scripts/**"
+      - "tests/**"
+      - "lakefile.lean"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - "requirements-math-rigor-v0-20.lock"
       - ".github/workflows/rigor-expansion-v0-21.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   v0-21-rigor:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 120
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - name: Checkout exact feature revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          persist-credentials: true
-      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: "3.12.14"
-      - name: Install test dependency
-        run: python -m pip install pytest==8.4.2
-      - name: Run v0.21 unit contracts
-        run: python -m pytest tests/test_*v0_21.py -q
-      - name: Verify real pinned upstream sources
+          cache: pip
+          cache-dependency-path: requirements-math-rigor-v0-20.lock
+
+      - name: Install hash-locked Python dependencies
+        run: >-
+          python -m pip install --require-hashes --only-binary=:all:
+          -r requirements-math-rigor-v0-20.lock
+
+      - name: Compile v0.21 admission and reconstruction code
+        run: |
+          python -m py_compile \
+            scripts/source_registry_v0_21.py \
+            scripts/structured_source_parsers_v0_21.py \
+            scripts/source_admission_v0_21.py \
+            scripts/freeze_v0_21_admission.py \
+            scripts/rigor_expansion_v0_21.py \
+            scripts/reconstruct_pipeline.py
+
+      - name: Install Lean and kernel-build the pinned project
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: true
+          use-github-cache: true
+          leanchecker: false
+          nanoda: false
+
+      - name: Reconstruct v0.21 offline from frozen zero-prose identities
+        run: python scripts/reconstruct_pipeline.py --target-stage v0.21
+
+      - name: Run v0.21 formulation, quarantine, and artifact contracts
+        run: python -m pytest tests/test_*v0_21*.py -q
+
+      - name: Run complete repository regression suite
+        run: python -m pytest -q
+
+      - name: Verify real pinned upstream sources replay frozen identities exactly
         env:
           MAPEOGEO_RUN_NETWORK_SOURCE_TESTS: "1"
           V0_21_LIVE_REPORT: artifacts/rigor_v0_21/source_admission_live.json
         run: python -m pytest tests/test_v0_21_real_source_integration.py -q -s
-      - name: Freeze exact zero-prose admission identities
-        run: >-
-          python scripts/freeze_v0_21_admission.py
-          artifacts/rigor_v0_21/source_admission_live.json
-          --declarations-out artifacts/rigor_v0_21/source_declarations_v0_21.json.gz
-          --evidence-out artifacts/rigor_v0_21/v0_21_source_admission_manifest.json
-      - name: Upload frozen v0.21 source admission artifacts
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
-        with:
-          name: v0-21-source-admission-frozen
-          path: |
-            artifacts/rigor_v0_21/source_admission_live.json
-            artifacts/rigor_v0_21/source_declarations_v0_21.json.gz
-            artifacts/rigor_v0_21/v0_21_source_admission_manifest.json
-          if-no-files-found: error
-      - name: Freeze reviewed source identities on feature branch
+
+      - name: Regenerate and compare frozen source-admission evidence
+        run: |
+          python scripts/freeze_v0_21_admission.py \
+            artifacts/rigor_v0_21/source_admission_live.json \
+            --declarations-out "$RUNNER_TEMP/source_declarations_v0_21.json.gz" \
+            --evidence-out "$RUNNER_TEMP/v0_21_source_admission_manifest.json"
+          cmp "$RUNNER_TEMP/source_declarations_v0_21.json.gz" formal/source_declarations_v0_21.json.gz
+          cmp "$RUNNER_TEMP/v0_21_source_admission_manifest.json" evidence/v0_21_source_admission_manifest.json
+
+      - name: Reconstruct v0.21 twice from clean exported trees
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p formal evidence
-          cp artifacts/rigor_v0_21/source_declarations_v0_21.json.gz formal/source_declarations_v0_21.json.gz
-          cp artifacts/rigor_v0_21/v0_21_source_admission_manifest.json evidence/v0_21_source_admission_manifest.json
-          if [ -z "$(git status --porcelain -- formal/source_declarations_v0_21.json.gz evidence/v0_21_source_admission_manifest.json)" ]; then
-            echo "Frozen source identities already match live extraction."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add formal/source_declarations_v0_21.json.gz evidence/v0_21_source_admission_manifest.json
-          git commit -m "evidence(v0.21): freeze exact pinned-source admission identities"
-          git push origin HEAD:agent/rigor-first-expansion-v0-21
+          recon_a="$RUNNER_TEMP/mapeogeo-v021-a"
+          recon_b="$RUNNER_TEMP/mapeogeo-v021-b"
+          mkdir -p "$recon_a" "$recon_b"
+          git archive --format=tar HEAD | tar -xf - -C "$recon_a"
+          git archive --format=tar HEAD | tar -xf - -C "$recon_b"
+
+          (cd "$recon_a" && python scripts/reconstruct_pipeline.py --target-stage v0.21)
+          (cd "$recon_b" && python scripts/reconstruct_pipeline.py --target-stage v0.21)
+
+          sha256sum "$recon_a/artifacts/rigor_v0_21/mapeogeo_v0_21_graph.json.gz" | cut -d ' ' -f 1 \
+            > "$RUNNER_TEMP/v021-a.sha256"
+          sha256sum "$recon_b/artifacts/rigor_v0_21/mapeogeo_v0_21_graph.json.gz" | cut -d ' ' -f 1 \
+            > "$RUNNER_TEMP/v021-b.sha256"
+          cmp "$RUNNER_TEMP/v021-a.sha256" "$RUNNER_TEMP/v021-b.sha256"
+
+          for root in "$recon_a" "$recon_b"; do
+            test "$(sha256sum "$root/data/mapeogeo_v0_11_graph.json.gz" | cut -d ' ' -f 1)" = \
+              "409a648d8563bc4a027dc3dc29fc53722d11bc489462a0f3d1f71bd4f272544d"
+            test "$(sha256sum "$root/formal/cross_source_alignments_v0_19.json" | cut -d ' ' -f 1)" = \
+              "ae2169f7edc3012d92c96c90c5d2707f5f08c62c89002287e90ce44a0e23f2c8"
+            test "$(sha256sum "$root/evidence/v0_19_scientific_results.json" | cut -d ' ' -f 1)" = \
+              "1302a3f1bae72ff3e797957eaaa4524d61920214a6320c1defcc865b9c8ef062"
+            test "$(sha256sum "$root/formal/source_declarations_v0_21.json.gz" | cut -d ' ' -f 1)" = \
+              "80028e7a53da6a05c2badb669cc0a826bad609de0c2fd208a42fedc068ab8c41"
+          done
+
+      - name: Confirm sealed scientific inputs stayed unchanged
+        run: |
+          git diff --exit-code -- \
+            data/mapeogeo_v0_11_graph.json.gz \
+            formal/cross_source_alignments_v0_19.json \
+            evidence/v0_19_scientific_results.json \
+            formal/mathematical_integrity_amendments_v0_20.json \
+            formal/foundation_mathematical_amendments_v0_20.json
+          test "$(sha256sum formal/source_declarations_v0_21.json.gz | cut -d ' ' -f 1)" = \
+            "80028e7a53da6a05c2badb669cc0a826bad609de0c2fd208a42fedc068ab8c41"
+
+      - name: Upload v0.21 audit artifacts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: mapeogeo-v0-21-rigor-audit
+          path: |
+            artifacts/rigor_v0_21/mapeogeo_v0_21_graph.json.gz
+            artifacts/rigor_v0_21/source_admission_live.json
+          if-no-files-found: warn
