@@ -70,7 +70,7 @@ jobs:
           mkdir -p formal evidence
           cp artifacts/rigor_v0_21/source_declarations_v0_21.json.gz formal/source_declarations_v0_21.json.gz
           cp artifacts/rigor_v0_21/v0_21_source_admission_manifest.json evidence/v0_21_source_admission_manifest.json
-          if git diff --quiet -- formal/source_declarations_v0_21.json.gz evidence/v0_21_source_admission_manifest.json; then
+          if [ -z "$(git status --porcelain -- formal/source_declarations_v0_21.json.gz evidence/v0_21_source_admission_manifest.json)" ]; then
             echo "Frozen source identities already match live extraction."
             exit 0
           fi
