@@ -1,0 +1,4574 @@
+[
+  {
+    "node_id": "srcdecl:axler:definition:1_1",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.1 Definition complex numbers, \ud835\udc02",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1A",
+    "page": 16,
+    "statement_sha256": "be89b96267193e96d3af20c42e7e882a1dce40fa6ba2144e2c2151a0721c38b5",
+    "char_count": 1051,
+    "structural_refs": [
+      "1.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_3",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.3 Theorem properties of complex arithmetic",
+    "decl_type": "THEOREM",
+    "chapter_section": "1A",
+    "page": 17,
+    "statement_sha256": "c332a99e9c61e0e10a7d0474f116bed4f5ae808e7f38b6b333ab67719d15e6cf",
+    "char_count": 693,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_5",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.5 Definition \u2212\ud835\udefc, subtraction, 1/\ud835\udefc, division",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1A",
+    "page": 18,
+    "statement_sha256": "75a16394a7e3df587b1fb7774826230211357570ad805d60ec74a34dfe1caa5c",
+    "char_count": 510,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_8",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.8 Definition list, length",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1A",
+    "page": 19,
+    "statement_sha256": "1aef6c2d74e9cc2e6333355299e46bdd097e9370431da701ea4e24fc7da89ba5",
+    "char_count": 1189,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_11",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.11 Definition \ud835\udc05\ud835\udc5b, coordinate",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1A",
+    "page": 20,
+    "statement_sha256": "04117e073b71eb6a7a9c778fc7c8bc30f620a8d7bb3dcfb872083d2bf1d4dcae",
+    "char_count": 306,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_13",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.13 Definition addition in \ud835\udc05\ud835\udc5b",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1A",
+    "page": 20,
+    "statement_sha256": "bd70566abd6d0a1baacbc2a5f3fe4148db0f336448aeefe293d81683ec0f435b",
+    "char_count": 503,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_14",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.14 Theorem commutativity of addition in \ud835\udc05\ud835\udc5b",
+    "decl_type": "THEOREM",
+    "chapter_section": "1A",
+    "page": 21,
+    "statement_sha256": "ad176a695f23c791a333d7ec2cf4b715466943027de683434fbf9ca145429a30",
+    "char_count": 60,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_17",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.17 Definition additive inverse in \ud835\udc05\ud835\udc5b, \u2212\ud835\udc65",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1A",
+    "page": 23,
+    "statement_sha256": "5d37793a7d0f62c9df61518f23b2b4ba2373bc904dc2c33a39611d32d62f6a71",
+    "char_count": 1011,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_18",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.18 Definition scalar multiplication in \ud835\udc05\ud835\udc5b",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1A",
+    "page": 23,
+    "statement_sha256": "4f1d10b7e974245bb3a49f844207008837bb29945dab2ae5779129b69771ce96",
+    "char_count": 2273,
+    "structural_refs": [
+      "1.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product",
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_19",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.19 Definition addition, scalar multiplication",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1B",
+    "page": 26,
+    "statement_sha256": "175897c7de11344476e9158a775d42d938b62dad3676c1fdc0ca0711d8832c39",
+    "char_count": 302,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_20",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.20 Definition vector space",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1B",
+    "page": 26,
+    "statement_sha256": "9e10a5f4ca7fa184c140b06b64ad06e85d23ebb1bc197ab6c77c7d67b4103012",
+    "char_count": 605,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_21",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.21 Definition vector, point",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1B",
+    "page": 26,
+    "statement_sha256": "0be0ce4f91d58a695d27d972c59ad90ba8bc6ecb66c40d64baa6563c19204f29",
+    "char_count": 427,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_22",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.22 Definition real vector space, complex vector space",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1B",
+    "page": 27,
+    "statement_sha256": "e0bac20f86c7782a7f92c92055e02e9395e3d2a9da37fed3296ae5cbcdf73f37",
+    "char_count": 552,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_26",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.26 Theorem unique additive identity",
+    "decl_type": "THEOREM",
+    "chapter_section": "1B",
+    "page": 28,
+    "statement_sha256": "9e386dd74cacca1bd3c25f97c341dc44be75bcd4e93b6322c8f1594a86825a50",
+    "char_count": 71,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_27",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.27 Theorem unique additive inverse",
+    "decl_type": "THEOREM",
+    "chapter_section": "1B",
+    "page": 29,
+    "statement_sha256": "766d468996afd6c2d5d586bf03958634d7b56358fbb7a1ad7cf6d5d3f5749eb7",
+    "char_count": 86,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_30",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.30 Theorem the number 0 times a vector",
+    "decl_type": "THEOREM",
+    "chapter_section": "1B",
+    "page": 29,
+    "statement_sha256": "fa434df3490e3e4ccf4217e44fe329bc1eeb96a29eec3b13836dc8c554619257",
+    "char_count": 337,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_31",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.31 Theorem a number times the vector 0",
+    "decl_type": "THEOREM",
+    "chapter_section": "1B",
+    "page": 30,
+    "statement_sha256": "fe2143dfcfd6c41270bc2b92ae893dcb6333b167692dbffaea23d6f4312c9cce",
+    "char_count": 49,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_32",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.32 Theorem the number \u22121 times a vector",
+    "decl_type": "THEOREM",
+    "chapter_section": "1B",
+    "page": 30,
+    "statement_sha256": "5f17e0f937a11f064b1fd619d3e0a14cb3f12895045c55ac60e5e4478ae7079d",
+    "char_count": 52,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_33",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.33 Definition subspace",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1C",
+    "page": 32,
+    "statement_sha256": "ea55a37d5ba65e1fddac6f7e144545eab22d99eaf1b0adcfaaad6b6b238d78ce",
+    "char_count": 332,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_34",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.34 Theorem conditions for a subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "1C",
+    "page": 32,
+    "statement_sha256": "f8e1a701d4dd08e3f5ab512dfda3f9f6512ff58ac88c9c29adf4a8ecb311797c",
+    "char_count": 537,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_36",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.36 Definition sum of subspaces",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1C",
+    "page": 33,
+    "statement_sha256": "8522bd818212bccbc4e3b0d587878719f976f7ba8e2d3d9491208a178b38a836",
+    "char_count": 356,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_39",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.39 Theorem \ud835\udc48+ \ud835\udc4a\u2286{(\ud835\udc65, \ud835\udc65, \ud835\udc66, \ud835\udc67) \u2208\ud835\udc054 \u2236\ud835\udc65, \ud835\udc66, \ud835\udc67\u2208\ud835\udc05}.",
+    "decl_type": "THEOREM",
+    "chapter_section": "1C",
+    "page": 34,
+    "statement_sha256": "bc6e830a12f37f973a0e284cce6013c6ab7fe65b8218e64ff6b96a0cd30c6d98",
+    "char_count": 771,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_40",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.40 Theorem sum of subspaces is the smallest containing subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "1C",
+    "page": 35,
+    "statement_sha256": "b89d1ac5d8240339490c67e693036444626f6b762a7ad34129e580e549a02ea7",
+    "char_count": 157,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:1_41",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.41 Definition direct sum, \u2295",
+    "decl_type": "DEFINITION",
+    "chapter_section": "1C",
+    "page": 35,
+    "statement_sha256": "86d11f3aee317365a8105d7dc4cce8d49c38e6afd9271a50f39e70e53670418d",
+    "char_count": 330,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_45",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.45 Theorem condition for a direct sum",
+    "decl_type": "THEOREM",
+    "chapter_section": "1C",
+    "page": 37,
+    "statement_sha256": "0341c258100046349ed04e8c761a81d01b1c2a77b4cd63170a5ce53984b07454",
+    "char_count": 205,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:1_46",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 1.46 Theorem direct sum of two subspaces",
+    "decl_type": "THEOREM",
+    "chapter_section": "1C",
+    "page": 37,
+    "statement_sha256": "4b818f151bad835c9dd529af171f60cca78d49cf7726aa68b162dc2564537ed8",
+    "char_count": 97,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_2",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.2 Definition linear combination",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 42,
+    "statement_sha256": "6117b9642d0a305899ce6f0cfd9fd232c40967e801eb0ebb1993162c53c33351",
+    "char_count": 134,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_4",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.4 Definition span",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 43,
+    "statement_sha256": "5eaa5b4e40c5b09e30c8552705404dc0fd71e1ed217b6a6c8fefd5220aabe10c",
+    "char_count": 256,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_6",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.6 Theorem span is the smallest containing subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "2A",
+    "page": 43,
+    "statement_sha256": "a61043842b2cefeebaa8684d6ce4511beb2efcbbd45b62f1bb37a35329652bae",
+    "char_count": 139,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "span",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_7",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.7 Definition spans",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 43,
+    "statement_sha256": "981b6f951ed78443ee666c0427adcf1d1108ad54ca2a0b408c0b339ba0316cc7",
+    "char_count": 181,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_9",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.9 Definition finite-dimensional vector space",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 44,
+    "statement_sha256": "14a7ae7291ba10e3d43b0914a3719abf23bfc53f907f6ff211d00f002461386e",
+    "char_count": 344,
+    "structural_refs": [
+      "2.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "span"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_10",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.10 Definition polynomial, \ud835\udcab(\ud835\udc05)",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 44,
+    "statement_sha256": "b2389afa7418f1d6fa6cde5cc4df0fbf2f5d09417dc98a4429faf74314911223",
+    "char_count": 1040,
+    "structural_refs": [
+      "4.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_independence",
+        "span",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_11",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.11 Definition degree of a polynomial, deg \ud835\udc5d",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 45,
+    "statement_sha256": "df0bbc82a5650f027a6e694fb5af7e8ed6b1fcc57847aa549670d0458c9ac4d6",
+    "char_count": 405,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_13",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.13 Definition infinite-dimensional vector space",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 45,
+    "statement_sha256": "3eb16fdaf743f63c8c6e3381bc1cf1a03a99a81eaddc6cb697ad57c61ac6dd4c",
+    "char_count": 112,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_15",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.15 Definition linearly independent",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 46,
+    "statement_sha256": "d2bb22373770d0a663756e78c31677d2f7ba7c0127d735677dfbe85b1d4ceada",
+    "char_count": 411,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "linear_independence",
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_17",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.17 Definition linearly dependent",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2A",
+    "page": 47,
+    "statement_sha256": "a0f0beb80dbc4a83babedf8c2ae42b58e4e4b08b6c99d36dafc85618ad5f2051",
+    "char_count": 249,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:lemma:2_19",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.19 Lemma linear dependence lemma",
+    "decl_type": "LEMMA",
+    "chapter_section": "2A",
+    "page": 47,
+    "statement_sha256": "24e324f89cc1c61bcf7b32c66031f683fb863ca5cfe5e257a90c945e78d646a7",
+    "char_count": 296,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_20",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.20 Theorem \ud835\udc63\ud835\udc58= \ud835\udc4f1\ud835\udc631 + \u22ef+ \ud835\udc4f\ud835\udc58\u22121\ud835\udc63\ud835\udc58\u22121.",
+    "decl_type": "THEOREM",
+    "chapter_section": "2A",
+    "page": 48,
+    "statement_sha256": "9acee0e43a53255ebf0db70f8cd99d9be393a405847b24a6e1a0d6cae3dd1316",
+    "char_count": 860,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "span",
+        "subspace"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_22",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.22 Theorem length of linearly independent list \u2264length of spanning list",
+    "decl_type": "THEOREM",
+    "chapter_section": "2A",
+    "page": 49,
+    "statement_sha256": "ee1c442735e7944d6e7b62f67baef119e35dfd0303cd7b05c8557236ee234863",
+    "char_count": 226,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_independence",
+        "span"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_25",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.25 Theorem finite-dimensional subspaces",
+    "decl_type": "THEOREM",
+    "chapter_section": "2A",
+    "page": 50,
+    "statement_sha256": "db6e7cbde94c04da98e150b874cf081bd53ebb33f9b432dc7bf39ae99f920065",
+    "char_count": 103,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_26",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.26 Definition basis",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2B",
+    "page": 53,
+    "statement_sha256": "0d2cfb78bee95d026c90c152de895d7837c72abdc0f74061abf13260c3f51109",
+    "char_count": 84,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_independence",
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_28",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.28 Theorem criterion for basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "2B",
+    "page": 53,
+    "statement_sha256": "fd7bcbb3637928721b7938a9269f0823514ec9c60ca7d3a55495659607e75d21",
+    "char_count": 126,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_29",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.29 Theorem \ud835\udc63= \ud835\udc4e1\ud835\udc631 + \u22ef+ \ud835\udc4e\ud835\udc5b\ud835\udc63\ud835\udc5b,",
+    "decl_type": "THEOREM",
+    "chapter_section": "2B",
+    "page": 53,
+    "statement_sha256": "420e608304dce1b37b9a6e2a869f76fe46ce96e252cf4c54d10aedacefeb08f9",
+    "char_count": 250,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_independence"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_30",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.30 Theorem every spanning list contains a basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "2B",
+    "page": 54,
+    "statement_sha256": "929d347ef5cb6159b7e51c097f8fe106a2e7d4082d31363b605f2698ff60a335",
+    "char_count": 121,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_31",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.31 Theorem basis of finite-dimensional vector space",
+    "decl_type": "THEOREM",
+    "chapter_section": "2B",
+    "page": 55,
+    "statement_sha256": "0aaa448e774ba6ed51902e509f7c459bf0491e501d5376f1f50f3cd82bbdf7e1",
+    "char_count": 91,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_32",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.32 Theorem every linearly independent list extends to a basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "2B",
+    "page": 55,
+    "statement_sha256": "0aaff7268cc422cd835659b74672c15ddea4aaaf86de67e47456b41b9ce76b9e",
+    "char_count": 178,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_independence"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_33",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.33 Theorem every subspace of \ud835\udc49is part of a direct sum equal to \ud835\udc49",
+    "decl_type": "THEOREM",
+    "chapter_section": "2B",
+    "page": 56,
+    "statement_sha256": "2d929f00a6740c807ab23983b46b843c0d469f53afe92db21a735115d70ed533",
+    "char_count": 157,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_34",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.34 Theorem basis length does not depend on basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 58,
+    "statement_sha256": "2be11bffbc18be2344667104fded693a091d068900401625a0dde4ffb66aa5d3",
+    "char_count": 110,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:2_35",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.35 Definition dimension, dim \ud835\udc49",
+    "decl_type": "DEFINITION",
+    "chapter_section": "2C",
+    "page": 58,
+    "statement_sha256": "ebe35c27722d5aabde65ce7b455f49873bac08c17a3ea4fb8e008b6e772e0839",
+    "char_count": 192,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "dimension"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_37",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.37 Theorem dimension of a subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 59,
+    "statement_sha256": "e944a80024450962677cb6892ec50eda4277500f1615e1a83fa0efb3dc15472e",
+    "char_count": 92,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_38",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.38 Theorem linearly independent list of the right length is a basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 59,
+    "statement_sha256": "fc0fbe715a689c57a5b5f10c82c8a1eb6d4c1f8c9cd794955acd4a45a90e447a",
+    "char_count": 172,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_independence"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_39",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.39 Theorem subspace of full dimension equals the whole space",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 59,
+    "statement_sha256": "d56af25bd567d9bbf04ef59289b4784f1945113af5559a3d2f51f819faa42258",
+    "char_count": 143,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_42",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.42 Theorem spanning list of the right length is a basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 60,
+    "statement_sha256": "dc023b3ceb4483c67bc9fa57c35439a8a3b0e321356b0ed9bec2d567ff108f1d",
+    "char_count": 157,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "span"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_43",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.43 Theorem dimension of a sum",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 61,
+    "statement_sha256": "f1cddb46c21251562cb9f17d281b4bc790a81bf6750b4d2bab4156331077d20e",
+    "char_count": 133,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_44",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.44 Theorem \ud835\udc631, \u2026 , \ud835\udc63\ud835\udc5a, \ud835\udc621, \u2026 , \ud835\udc62\ud835\udc57, \ud835\udc641, \u2026 , \ud835\udc64\ud835\udc58",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 61,
+    "statement_sha256": "d536974e4569e9f75e28b32afd976e5f9fc1b317ad51a0ab0e13b9ad928adc79",
+    "char_count": 684,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_independence",
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:2_45",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 2.45 Theorem \ud835\udc501\ud835\udc641 + \u22ef+ \ud835\udc50\ud835\udc58\ud835\udc64\ud835\udc58= \u2212\ud835\udc4e1\ud835\udc631 \u2212\u22ef\u2212\ud835\udc4e\ud835\udc5a\ud835\udc63\ud835\udc5a\u2212\ud835\udc4f1\ud835\udc621 \u2212\u22ef\u2212\ud835\udc4f\ud835\udc57\ud835\udc62\ud835\udc57,",
+    "decl_type": "THEOREM",
+    "chapter_section": "2C",
+    "page": 61,
+    "statement_sha256": "502331d09d80103dd11580fa79f436f7c3555e7623d9dceb12d8a53da4fd7a98",
+    "char_count": 1746,
+    "structural_refs": [
+      "3.94"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "direct_sum",
+        "linear_independence",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_1",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.1 Definition linear map",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3A",
+    "page": 66,
+    "statement_sha256": "70a85f01aa982adb0a2ac5a7142afa587fc29ea9921f12fa0a1446151b4d2a5d",
+    "char_count": 369,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:lemma:3_4",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.4 Lemma linear map lemma",
+    "decl_type": "LEMMA",
+    "chapter_section": "3A",
+    "page": 68,
+    "statement_sha256": "e3194863119d4311cffcf4115d7ff26161c224ef06ee5a65ea9e341ff36a0c93",
+    "char_count": 150,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_5",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.5 Definition addition and scalar multiplication on \u2112(\ud835\udc49, \ud835\udc4a)",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3A",
+    "page": 69,
+    "statement_sha256": "b97cd60e7ffd078ab36040a5f985905dfc47106d943b51c48e5f91f3c63729fc",
+    "char_count": 725,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_6",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.6 Theorem \u2112(\ud835\udc49, \ud835\udc4a) is a vector space",
+    "decl_type": "THEOREM",
+    "chapter_section": "3A",
+    "page": 69,
+    "statement_sha256": "17af263495d81210921d52a32620b26e8c6d1f978b835b2b8fd9e08983fb7627",
+    "char_count": 444,
+    "structural_refs": [
+      "3.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_7",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.7 Definition product of linear maps",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3A",
+    "page": 69,
+    "statement_sha256": "0101069eec05c235c04ccdbedbc50561f13caceb2a99b976fa080285414a46e0",
+    "char_count": 582,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_8",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.8 Theorem algebraic properties of products of linear maps",
+    "decl_type": "THEOREM",
+    "chapter_section": "3A",
+    "page": 70,
+    "statement_sha256": "ead9bdf33bbffeaadba84b29a119138b944996071da262c66ecc42d4c969ca3b",
+    "char_count": 701,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_10",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.10 Theorem linear maps take 0 to 0",
+    "decl_type": "THEOREM",
+    "chapter_section": "3A",
+    "page": 70,
+    "statement_sha256": "6545553ac79c1244062b96d1306ca40b85bc88ebd36694854dd0042d24fc2c46",
+    "char_count": 75,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_11",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.11 Definition null space, null \ud835\udc47",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3B",
+    "page": 73,
+    "statement_sha256": "0990eeffd5994d42d79e2ccd8ec5dbf2c9049960d68eb7e527e386d14dd0616d",
+    "char_count": 158,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "null_space"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_13",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.13 Theorem the null space is a subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 73,
+    "statement_sha256": "4a02b5e8ee7c1e843c9b2878973b198a2f86752209b50fae3d64a3eb45783139",
+    "char_count": 163,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "null_space",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_14",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.14 Definition injective",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3B",
+    "page": 74,
+    "statement_sha256": "60a6203e967d09dfa0d9ea7ce51b9381ab7a532424748e5274e7b5b9ccbf3450",
+    "char_count": 642,
+    "structural_refs": [
+      "3.12"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_15",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.15 Theorem injectivity \u27fanull space equals {0}",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 74,
+    "statement_sha256": "830c7e5f2b0ecdc5fb145edf4f6345808cecc8914a513675845a1a0b614d53cc",
+    "char_count": 96,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "null_space"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_16",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.16 Definition range",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3B",
+    "page": 75,
+    "statement_sha256": "84b6b5dd90ff4acd4b1486490f8f894b13b7178f6c1fd6fb0b821d4380df7153",
+    "char_count": 133,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_18",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.18 Theorem the range is a subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 75,
+    "statement_sha256": "115e0e3cd7d77fd89f524e07612d94d1f501e3bce2416dbd7e9e5e62bc6c2bc7",
+    "char_count": 69,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "range",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_19",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.19 Definition surjective",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3B",
+    "page": 76,
+    "statement_sha256": "7bb29cce36b254e426c2354f4226ad47f1e5923a8ae850f6d37d69179438b56b",
+    "char_count": 442,
+    "structural_refs": [
+      "3.17"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_21",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.21 Theorem fundamental theorem of linear maps",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 76,
+    "statement_sha256": "93490d43733c4424491127c0da1e0cd8c0f6a517a7c68f3cbae4d0d5a4011bc8",
+    "char_count": 151,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "range",
+        "rank_nullity"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_22",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.22 Theorem linear map to a lower-dimensional space is not injective",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 77,
+    "statement_sha256": "dd615684acf83249309e2802d6fa5dd88f20b6a3d6417ebf5b45ddafaee3368f",
+    "char_count": 174,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_24",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.24 Theorem linear map to a higher-dimensional space is not surjective",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 78,
+    "statement_sha256": "a54776f94b463c924cd6fadcd31d7123a9fe8405c79a3743cae121a8591b458d",
+    "char_count": 177,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_25",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.25 Theorem \ud835\udc47(\ud835\udc651, \u2026 , \ud835\udc65\ud835\udc5b) = (",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 78,
+    "statement_sha256": "ada40444c2c3cbacb60814c66b6926592cbd31db78b1fa5b48cbfa1c25b08b3f",
+    "char_count": 527,
+    "structural_refs": [
+      "3.15"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_26",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.26 Theorem homogeneous system of linear equations",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 79,
+    "statement_sha256": "b5e235b7400b9f8198cad968f16ef90941faa822868cc4b9ebf3e7f872739a22",
+    "char_count": 137,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_27",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.27 Theorem \ud835\udc5b",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 79,
+    "statement_sha256": "d732223f20450c7f90bb7884b8be95d87915ca5c503b4e6528d769096ce6ea66",
+    "char_count": 729,
+    "structural_refs": [
+      "3.25",
+      "3.26",
+      "3.28"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_28",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.28 Theorem system of linear equations with more equations than variables",
+    "decl_type": "THEOREM",
+    "chapter_section": "3B",
+    "page": 79,
+    "statement_sha256": "d1d6ca37f7c256d62781b4b3d86004ab1a5921e7c8ea199f068d34f74c1a030b",
+    "char_count": 180,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_29",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.29 Definition matrix, \ud835\udc34\ud835\udc57,\ud835\udc58",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 83,
+    "statement_sha256": "78dfad0156faeec055236ad1417beaa001efe9f317b03ba1971b0959402351bc",
+    "char_count": 239,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_31",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.31 Definition matrix of a linear map, \u2133(\ud835\udc47)",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 83,
+    "statement_sha256": "ffde9cba6c04cefe5791e775fcd8fbf886798481bf53318b7d34b9840a1ae076",
+    "char_count": 1408,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_combination",
+        "linear_map",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_34",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.34 Definition matrix addition",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 85,
+    "statement_sha256": "d6e584f9166097fe1d6aa2cb5596bc069c6b0f4f0ba8c4cbc126c3eb8982adc3",
+    "char_count": 395,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_35",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.35 Theorem matrix of the sum of linear maps",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 85,
+    "statement_sha256": "016e409928a161c8363164e24af321d73b46025fd537542aff729129e4c1395d",
+    "char_count": 499,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_map",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_36",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.36 Definition scalar multiplication of a matrix",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 85,
+    "statement_sha256": "a7c28643509401e08e8f9da26f93dccd2af64562ca13a83de8bd80a7f76cd98a",
+    "char_count": 326,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_38",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.38 Theorem the matrix of a scalar times a linear map",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 86,
+    "statement_sha256": "487d792a207f08007f5a0dce6a5dfe4abbf0eadad5840ee7fe504c94edc29b6c",
+    "char_count": 435,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "linear_map",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_40",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.40 Theorem dim \ud835\udc05\ud835\udc5a,\ud835\udc5b= \ud835\udc5a\ud835\udc5b",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 86,
+    "statement_sha256": "66f33769131e778fd9b45bcf3cb9d38ebc089fa4c6715f9a66eb38ab70545096",
+    "char_count": 146,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_41",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.41 Definition matrix multiplication",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 87,
+    "statement_sha256": "ccc0bdf0ca884683e109af4453afb23c08ec949e03939532b07c733ceee9d0d9",
+    "char_count": 637,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_43",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.43 Theorem matrix of product of linear maps",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 88,
+    "statement_sha256": "df0d21e435febd4431efc16a69d5e8039445fe2ac26759ea21cfde9b0cab293c",
+    "char_count": 385,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_46",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.46 Theorem entry of matrix product equals row times column",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 89,
+    "statement_sha256": "3d2a66d7ee2d64045801ff3c9fe4c77ea4c8f4b205e52aa27471331689617b1c",
+    "char_count": 236,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_47",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.47 Theorem (\ud835\udc34\ud835\udc35)\ud835\udc57,\ud835\udc58= \ud835\udc34\ud835\udc57,1\ud835\udc351,\ud835\udc58+ \u22ef+ \ud835\udc34\ud835\udc57,\ud835\udc5b\ud835\udc35\ud835\udc5b,\ud835\udc58.",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 89,
+    "statement_sha256": "d276046c0f81d7bea58e80247a31771eaac7504bc87e4cc65c0d1ddf839aac7b",
+    "char_count": 710,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_48",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.48 Theorem column of matrix product equals matrix times column",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 89,
+    "statement_sha256": "8c1023a70cb8c83a5c3440793d7ee63fa943557544c65a23b623f38f97adecbf",
+    "char_count": 192,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_50",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.50 Theorem linear combination of columns",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 90,
+    "statement_sha256": "3487ac27cec0a3560f6d3746ff8d78fa6868a9933d3ad55758abbef87549a6ae",
+    "char_count": 257,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_51",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.51 Theorem matrix multiplication as linear combinations of columns or rows",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 90,
+    "statement_sha256": "33dd8052a66f007cdb8c041dba4349a0f59c5dd125f8d8045ec36b5b383028ea",
+    "char_count": 424,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_52",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.52 Definition column rank, row rank",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 91,
+    "statement_sha256": "98bea60a509abbb3e7f7aaefd70adbadd9c23cbad25809cd3f8b85e39f334b0e",
+    "char_count": 426,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "span"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_54",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.54 Definition transpose, \ud835\udc34t",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 91,
+    "statement_sha256": "f36e79e68f121f13adb4e74a13de680e7bab455c8580615ba4c4820cf76cd338",
+    "char_count": 327,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_56",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.56 Theorem column\u2013row factorization",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 92,
+    "statement_sha256": "8abe7eadc61aa9cc29e293a134ae1318f83e835b507831da2714d764ec155784",
+    "char_count": 187,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_57",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.57 Theorem column rank equals row rank",
+    "decl_type": "THEOREM",
+    "chapter_section": "3C",
+    "page": 92,
+    "statement_sha256": "e748f2ce3a08bc5f9e0496266475bb566df4dd8ef06fd6d2279a2de9a1393c11",
+    "char_count": 94,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_58",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.58 Definition rank",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3C",
+    "page": 93,
+    "statement_sha256": "c5ca8c0bddf37674f959a9c15b526f1cdc33318b436fc4dbcfe96e654de6bcd6",
+    "char_count": 1656,
+    "structural_refs": [
+      "3.33",
+      "3.35",
+      "3.38"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_59",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.59 Definition invertible, inverse",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3D",
+    "page": 96,
+    "statement_sha256": "0f105ed471d7e55971a53ffe2a3bea2b0ac5e46f9a44699c584c9dbe952c5b95",
+    "char_count": 493,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "linear_map",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_60",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.60 Theorem inverse is unique",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 96,
+    "statement_sha256": "1f752601ed53d66d5772757e44543dbec5456f6e3d61f3d92789ee196129d81b",
+    "char_count": 64,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_63",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.63 Theorem invertibility \u27fainjectivity and surjectivity",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 97,
+    "statement_sha256": "c38cae3e292670d4391e6d9c9b6476bc89ed4e1d855fa86758d5296380331804",
+    "char_count": 117,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_65",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.65 Theorem injectivity is equivalent to surjectivity (if dim \ud835\udc49= dim \ud835\udc4a< \u221e)",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 98,
+    "statement_sha256": "553e935a7be95f07ab28d5ca3a8d7467adba5986d379719be0a3af40318a8449",
+    "char_count": 200,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_66",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.66 Theorem dim \ud835\udc49= dim null \ud835\udc47+ dim range \ud835\udc47.",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 98,
+    "statement_sha256": "40fef9af11a1c8991430c857e61900e90641c65a37f6c477d8c4f2aa781e5405",
+    "char_count": 958,
+    "structural_refs": [
+      "2.39",
+      "3.15"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "range",
+        "rank_nullity"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_68",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.68 Theorem \ud835\udc46\ud835\udc47= \ud835\udc3c\u27fa\ud835\udc47\ud835\udc46= \ud835\udc3c(on vector spaces of the same dimension)",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 99,
+    "statement_sha256": "004f58c424b558d4678e50458e5cd81b04863a5822a0e2a7ad309f0815a5c55a",
+    "char_count": 183,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_69",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.69 Definition isomorphism, isomorphic",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3D",
+    "page": 100,
+    "statement_sha256": "90502a2ff9153e36b82a5f97462febfad4f828d1af61aeb2d436a03ead0c73a4",
+    "char_count": 840,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "isomorphism",
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_70",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.70 Theorem dimension shows whether vector spaces are isomorphic",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 100,
+    "statement_sha256": "5e735be49fe07dd0a7d7f94b29acd517e84ddd5282ad3bbd3df0a50d9d08f0c5",
+    "char_count": 155,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "isomorphism"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_71",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.71 Theorem \u2112(\ud835\udc49, \ud835\udc4a) and \ud835\udc05\ud835\udc5a,\ud835\udc5bare isomorphic",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 101,
+    "statement_sha256": "f2c89a36196f418e8887772c2a1a64a181ea7f481a45d15263aa7d1efb76a8bf",
+    "char_count": 144,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "isomorphism"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_72",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.72 Theorem dim \u2112(\ud835\udc49, \ud835\udc4a) = (dim \ud835\udc49)(dim \ud835\udc4a)",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 101,
+    "statement_sha256": "8194d2a29752149a1c345041748629e30e8e10f6bf143275c91516d0f85c1aa4",
+    "char_count": 135,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_73",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.73 Definition matrix of a vector, \u2133(\ud835\udc63)",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3D",
+    "page": 102,
+    "statement_sha256": "d19f0bbb1925bd73bfd85241296ed1e02b5c72d885928292fb55bea8bc6daab6",
+    "char_count": 403,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_75",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.75 Theorem \u2133(\ud835\udc47)\u22c5,\ud835\udc58= \u2133(\ud835\udc47\ud835\udc63\ud835\udc58)",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 103,
+    "statement_sha256": "3ffeca5730b92b7893a72f6442f80f8e9b9fa85505364ba2faf1a256a7e68c32",
+    "char_count": 178,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_76",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.76 Theorem linear maps act like matrix multiplication",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 103,
+    "statement_sha256": "12861bd8062c96e2886a665f185ffd9942e1c1cd29a95a13a4051717c204632b",
+    "char_count": 156,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_77",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.77 Theorem \ud835\udc47\ud835\udc63= \ud835\udc4f1\ud835\udc47\ud835\udc631 + \u22ef+ \ud835\udc4f\ud835\udc5b\ud835\udc47\ud835\udc63\ud835\udc5b.",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 103,
+    "statement_sha256": "15edf3310c5ade07d58a6348e1d66ff4789cdbd327251aca229f315e4968b8e4",
+    "char_count": 1698,
+    "structural_refs": [
+      "3.50",
+      "3.75"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_map",
+        "matrix",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_78",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.78 Theorem dimension of range \ud835\udc47equals column rank of \u2133(\ud835\udc47)",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 104,
+    "statement_sha256": "5d5bb6f25938b6144d8bfd3f886d307ce4696fa903c4ad81483b6c538d3001b5",
+    "char_count": 147,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_79",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.79 Definition identity matrix, I",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3D",
+    "page": 104,
+    "statement_sha256": "74c816dd5d82a1a0f25494df112eec3919dec65a1504999e6a5fc6aeaa35473b",
+    "char_count": 1093,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "isomorphism",
+        "matrix",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_80",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.80 Definition invertible, inverse, \ud835\udc34\u22121",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3D",
+    "page": 105,
+    "statement_sha256": "b0d43428858f327a8dd0768e1955426f0ad25806622471d57cfe64aad45bdb92",
+    "char_count": 906,
+    "structural_refs": [
+      "3.43",
+      "3.60"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "isomorphism",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_81",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.81 Theorem matrix of product of linear maps",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 105,
+    "statement_sha256": "0db8abd62b1e599dd5bc939fc38a9798f61f8ad9218ac036bace3cda1952f364",
+    "char_count": 733,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_combination",
+        "matrix",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_82",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.82 Theorem matrix of identity operator with respect to two bases",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 106,
+    "statement_sha256": "e39c62072b8208ba0078083f5e675421b88859230fb3d427db340e36c2f700dd",
+    "char_count": 248,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "isomorphism",
+        "matrix",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_84",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.84 Theorem change-of-basis formula",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 107,
+    "statement_sha256": "1eca96e4424d3fa3d9f1f2224335c60188626fb215d88cd1f594a83899a86f03",
+    "char_count": 195,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_85",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.85 Theorem \ud835\udc34= \ud835\udc36\u22121\u2133(\ud835\udc47, (\ud835\udc621, \u2026 , \ud835\udc62\ud835\udc5b), (\ud835\udc631, \u2026 , \ud835\udc63\ud835\udc5b)),",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 107,
+    "statement_sha256": "558dbcea6b13220385ff36bd99140e0c5d830ef29c4903a9f8e544463aaa3afc",
+    "char_count": 323,
+    "structural_refs": [
+      "3.81",
+      "3.82"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_86",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.86 Theorem matrix of inverse equals inverse of matrix",
+    "decl_type": "THEOREM",
+    "chapter_section": "3D",
+    "page": 107,
+    "statement_sha256": "af035e2fc69abf64043954def37f0ff76e75012b815091d417f4c20902df4c15",
+    "char_count": 1959,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "isomorphism",
+        "linear_map",
+        "matrix",
+        "range",
+        "rank_nullity",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_87",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.87 Definition product of vector spaces",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3E",
+    "page": 110,
+    "statement_sha256": "973bc05c2834b48573bafafb7d59c20657897132391d6a7024a897d73264ebb3",
+    "char_count": 327,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_89",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.89 Theorem product of vector spaces is a vector space",
+    "decl_type": "THEOREM",
+    "chapter_section": "3E",
+    "page": 110,
+    "statement_sha256": "9ddd24cd345ab58eb63aebce0ac44441dc1760c4255bf4e38ca9e72f567e951f",
+    "char_count": 481,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_92",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.92 Theorem dimension of a product is the sum of dimensions",
+    "decl_type": "THEOREM",
+    "chapter_section": "3E",
+    "page": 111,
+    "statement_sha256": "1f5faf341fe9d1b1a4a6693826a47e3a2ac3424583de4667449af55dbb78e621",
+    "char_count": 183,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_93",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.93 Theorem products and direct sums",
+    "decl_type": "THEOREM",
+    "chapter_section": "3E",
+    "page": 112,
+    "statement_sha256": "ffece1d0cb937ae94ccf70740f9bb4978d893c41016b59109ac41143240cf910",
+    "char_count": 204,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "linear_map",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:3_94",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.94 Theorem a sum is a direct sum if and only if dimensions add up",
+    "decl_type": "THEOREM",
+    "chapter_section": "3E",
+    "page": 112,
+    "statement_sha256": "7183b0d284f679086d937fc0d398b622ca14872262e1537041d49dfddaefcf36",
+    "char_count": 203,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_97",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.97 Definition translate",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3E",
+    "page": 113,
+    "statement_sha256": "4a105d17a7f6fd95458c63d47fdee27693b627f4827c5cffd6c1f23880b36b2c",
+    "char_count": 80,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:3_99",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 3.99 Definition quotient space, \ud835\udc49/\ud835\udc48",
+    "decl_type": "DEFINITION",
+    "chapter_section": "3E",
+    "page": 113,
+    "statement_sha256": "770c0e707e3100fbeff042cf3195120352207f60ed30ce17614d0b05857d837a",
+    "char_count": 763,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "quotient_space",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_1",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.1 Definition operator",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5A",
+    "page": 147,
+    "statement_sha256": "ef054a6a191844719a895be0b535ec430440afd33f5966118a2a45b574ee7471",
+    "char_count": 848,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map",
+        "operator",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_2",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.2 Definition invariant subspace",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5A",
+    "page": 147,
+    "statement_sha256": "0c38f63026cdbea450d338106fdcee1ee79b3ae200d6752a063fbab23201d822",
+    "char_count": 153,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "operator",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_5",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.5 Definition eigenvalue",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5A",
+    "page": 148,
+    "statement_sha256": "32f3a1cd4afae7355a33c342a8904822dd51298118df62688896f3dd65703edb",
+    "char_count": 456,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "eigenvalue",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_7",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.7 Theorem equivalent conditions to be an eigenvalue",
+    "decl_type": "THEOREM",
+    "chapter_section": "5A",
+    "page": 149,
+    "statement_sha256": "59082f3445aca07568421483c5ea3df2ef51afc30626ad23352f9dce81d83583",
+    "char_count": 299,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "eigenvalue",
+        "isomorphism",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_8",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.8 Definition eigenvector",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5A",
+    "page": 149,
+    "statement_sha256": "09fee4067b558b9cf2a096ffeb0ef468aeff193fba12a20c0f65a5d358940cbc",
+    "char_count": 385,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "eigenvalue",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_10",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.10 Theorem \u2212\ud835\udc67= \ud835\udf06\ud835\udc64,",
+    "decl_type": "THEOREM",
+    "chapter_section": "5A",
+    "page": 149,
+    "statement_sha256": "02e8bfb5189f386058b3ddb0c5f0ffeabfd93887b6aa5d2a35967cd5bd897df1",
+    "char_count": 794,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "eigenvalue"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_11",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.11 Theorem linearly independent eigenvectors",
+    "decl_type": "THEOREM",
+    "chapter_section": "5A",
+    "page": 150,
+    "statement_sha256": "fc1c1f7b4cc25138675d312f528e02cbc56a27aa26324671093676e33248b60d",
+    "char_count": 152,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_independence"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_12",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.12 Theorem operator cannot have more eigenvalues than dimension of vector space",
+    "decl_type": "THEOREM",
+    "chapter_section": "5A",
+    "page": 150,
+    "statement_sha256": "be4ab82b6ea42a0e84a240bf0fd3b762a2e282c7e58c8f2fa1b160bf4565d7ca",
+    "char_count": 163,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_16",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.16 Definition product of polynomials",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5A",
+    "page": 152,
+    "statement_sha256": "7f9bc53fd9cd79c624465783597306e4987b7ecaea40e1df8cb05be3b6b4ed8f",
+    "char_count": 228,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_17",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.17 Theorem multiplicative properties",
+    "decl_type": "THEOREM",
+    "chapter_section": "5A",
+    "page": 152,
+    "statement_sha256": "f8b028266a3ca96a682d19af7ee3083946dd1a9538f5f9c0b2a1e7ffeb9f2949",
+    "char_count": 250,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_18",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.18 Theorem null space and range of \ud835\udc5d(\ud835\udc47) are invariant under \ud835\udc47",
+    "decl_type": "THEOREM",
+    "chapter_section": "5A",
+    "page": 153,
+    "statement_sha256": "d010c5d4c76c0cbfd1aa4168fffa3ebaa822164a83521f89b9d7328a1db2ff54",
+    "char_count": 130,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "null_space",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_48",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.48 Definition diagonal matrix",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5D",
+    "page": 177,
+    "statement_sha256": "0b5dd1f66d170e14f23721660fa3150540a5bf822faae36c05cb3920298168e5",
+    "char_count": 106,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "diagonalizable",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_50",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.50 Definition diagonalizable",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5D",
+    "page": 177,
+    "statement_sha256": "4cc07cd8afb6767be27822de938496c83c897024699ed8b94e7c0932efe6d5a9",
+    "char_count": 126,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "matrix",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_52",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.52 Definition eigenspace, \ud835\udc38(\ud835\udf06, \ud835\udc47)",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5D",
+    "page": 178,
+    "statement_sha256": "cc50c39d00f4acb68c80a3c588ef7b4c251f2a89ef0083a71ccc0506f9136c5c",
+    "char_count": 448,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "eigenvalue",
+        "linear_map",
+        "null_space",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_54",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.54 Theorem sum of eigenspaces is a direct sum",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 178,
+    "statement_sha256": "6dd8b749a14cefa522b853e36fddf0e894cb54c5a7cb72fa3add84a9659de52a",
+    "char_count": 223,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_55",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.55 Theorem conditions equivalent to diagonalizability",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 179,
+    "statement_sha256": "d8db58cfb63d6f5b35e794567c1de86506b938d195e8f26b5c07a83af0a18651",
+    "char_count": 318,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_56",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.56 Theorem dim \ud835\udc49= dim \ud835\udc38(\ud835\udf061, \ud835\udc47) + \u22ef+ dim \ud835\udc38(\ud835\udf06\ud835\udc5a, \ud835\udc47).",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 179,
+    "statement_sha256": "f83895d427bb06d3e8ca7b3ca240fafae9e4d43888506d3221af5b958e66f315",
+    "char_count": 1307,
+    "structural_refs": [
+      "2.38",
+      "5.11",
+      "5.62"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "eigenvalue",
+        "linear_independence",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_58",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.58 Theorem enough eigenvalues implies diagonalizability",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 180,
+    "statement_sha256": "47eb4c02293cf21e1fb508d5a160c7a3a14fb5e98c618a81dc9f1348122cf690",
+    "char_count": 142,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "diagonalizable"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_62",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.62 Theorem necessary and sufficient condition for diagonalizability",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 183,
+    "statement_sha256": "bfcc220b3d0f27af5f02ca9f4ad49602b2296dc3603c10a4842a98a615f09db0",
+    "char_count": 235,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "diagonalizable"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_63",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.63 Theorem (\ud835\udc47\u2212\ud835\udf061\ud835\udc3c) \u22ef(\ud835\udc47\u2212\ud835\udf06\ud835\udc5a\ud835\udc3c) = 0.",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 183,
+    "statement_sha256": "a34a54c5d6ec252455c0d2ac4b569b13c1d4dcf2e0b8e03def6efc918f000aaf",
+    "char_count": 535,
+    "structural_refs": [
+      "5.18"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "diagonalizable",
+        "operator",
+        "range",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_64",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.64 Theorem (\ud835\udc47\u2212\ud835\udf061\ud835\udc3c) \u22ef(\ud835\udc47\u2212\ud835\udf06\ud835\udc5a\u22121\ud835\udc3c)\ud835\udc62= (\ud835\udc47\u2212\ud835\udf061\ud835\udc3c) \u22ef(\ud835\udc47\u2212\ud835\udf06\ud835\udc5a\ud835\udc3c)\ud835\udc63= 0.",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 183,
+    "statement_sha256": "68d39fb6b7327fe73760ae0af488d46aa5be4b8c3fc38e97027da6c8ca39a060",
+    "char_count": 1646,
+    "structural_refs": [
+      "1.46",
+      "3.21",
+      "3.94",
+      "5.29",
+      "5.62",
+      "5.76"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "dimension",
+        "direct_sum",
+        "eigenvalue",
+        "matrix",
+        "operator",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_65",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.65 Theorem restriction of diagonalizable operator to invariant subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 184,
+    "statement_sha256": "6cb5b88d290e2599e1f157ea12c11a0c9b6336c011793e37b86f1226c8a83b69",
+    "char_count": 186,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "diagonalizable",
+        "operator",
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:5_66",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.66 Definition Gershgorin disks",
+    "decl_type": "DEFINITION",
+    "chapter_section": "5D",
+    "page": 184,
+    "statement_sha256": "d5b9bc098b312e7a2d1d4efced54c4157e5895da0e942b6e98c01b74f2a76490",
+    "char_count": 1147,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "eigenvalue",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_67",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.67 Theorem Gershgorin disk theorem",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 185,
+    "statement_sha256": "a7b7626d872ea9c084343ee56420f02b1031d239ed9dd5ea758986d5f675e987",
+    "char_count": 174,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "eigenvalue"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_68",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.68 Theorem \ud835\udc64= \ud835\udc501\ud835\udc631 + \u22ef+ \ud835\udc50\ud835\udc5b\ud835\udc63\ud835\udc5b.",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 185,
+    "statement_sha256": "f19e1b3382ad7019dcb0ea5547416de757e80b7674276b6e098af26c85d063ef",
+    "char_count": 154,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_69",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.69 Theorem =",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 185,
+    "statement_sha256": "ac144954bebec0307ca790b1d78c2878cb60df33352a6e09fcd04ac0af85355a",
+    "char_count": 60,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:5_70",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 5.70 Theorem Let \ud835\udc57\u2208{1, \u2026 , \ud835\udc5b} be such that",
+    "decl_type": "THEOREM",
+    "chapter_section": "5D",
+    "page": 185,
+    "statement_sha256": "611ee7f94a86ac1793f03ff11666fd53a89a4995890cb9fb1a903dcd5c32f2f5",
+    "char_count": 1389,
+    "structural_refs": [
+      "5.68",
+      "5.69"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "matrix",
+        "operator"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_1",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.1 Definition dot product",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6A",
+    "page": 196,
+    "statement_sha256": "c5751c8a478896499f00b8ea46dde7a2f8c719801a44b62717be20cb16659b05",
+    "char_count": 2290,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "angle",
+        "inner_product",
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_2",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.2 Definition inner product",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6A",
+    "page": 197,
+    "statement_sha256": "63ab8c169aa121d828219ad9eae801592d7c5a38d0634ba6d00a35568a3b4475",
+    "char_count": 903,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_4",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.4 Definition inner product space",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6A",
+    "page": 198,
+    "statement_sha256": "efe932501df34f8b366e0be58a7b5af38fa6161c64d4ffa7406f426162774293",
+    "char_count": 603,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_6",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.6 Theorem basic properties of an inner product",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 199,
+    "statement_sha256": "e05b1602196fac1de0cce506bee53772d31a754766e2d081930d35d7abf96667",
+    "char_count": 277,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_7",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.7 Definition norm, \u2016\ud835\udc63\u2016",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6A",
+    "page": 200,
+    "statement_sha256": "2cad39d24651755f809f0de940d071e4e77211eb7bbef92def055c0b03eb7e25",
+    "char_count": 78,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_9",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.9 Theorem basic properties of the norm",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 200,
+    "statement_sha256": "46e8d9775316357cb1a89988533d00755651b17b53010edc0bc1bb938531b4d7",
+    "char_count": 106,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_10",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.10 Definition orthogonal",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6A",
+    "page": 201,
+    "statement_sha256": "e30018857c533f41aa6b3877d6fdc74dcb295f933cb520abc120fb5e9a0b145d",
+    "char_count": 924,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "angle",
+        "inner_product",
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_11",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.11 Theorem orthogonality and 0",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 201,
+    "statement_sha256": "98922a23cd51ed11044af69f79bc552d477ebdecfdea6c9cdb40349c7189b939",
+    "char_count": 120,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_12",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.12 Theorem Pythagorean theorem",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 201,
+    "statement_sha256": "7e425df8f2268fcbe2dac0b5e89ca5b610c5304097057afd6cc443ec44ca3e77",
+    "char_count": 88,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_13",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.13 Theorem an orthogonal decomposition",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 202,
+    "statement_sha256": "a3ed88a77a83e1344cf143dd071ecfec0f5f4c6de5c11a9c5ba2aa863bb15631",
+    "char_count": 407,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_14",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.14 Theorem Cauchy\u2013Schwarz inequality",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 203,
+    "statement_sha256": "890870de78ecc2f179aa1c44edaae10846435d3857d9345ca2a12704677cc5db",
+    "char_count": 157,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_15",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.15 Theorem Multiplying both sides of this inequality by \u2016\ud835\udc63\u20162 and then taking square roots",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 203,
+    "statement_sha256": "72e1bad0f0503b6394e6c3138dde8c6ca3e424a5e5d550027ece56aa88d24dc0",
+    "char_count": 844,
+    "structural_refs": [
+      "6.13",
+      "6.16"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_17",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.17 Theorem triangle inequality",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 204,
+    "statement_sha256": "33d478ccfee0f70fffaa0eb2b5441266ccf54b0bf8cbf70323fbbf49244d8533",
+    "char_count": 161,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_18",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.18 Theorem \u2264\u2016\ud835\udc62\u20162 + \u2016\ud835\udc63\u20162 + 2\u2016\ud835\udc62\u2016 \u2016\ud835\udc63\u2016",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 204,
+    "statement_sha256": "61523862b35bc718cbb40cb5d32cfb51643ab5deee1e83dde74fb4e2f745e1db",
+    "char_count": 23,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_19",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.19 Theorem = (\u2016\ud835\udc62\u2016 + \u2016\ud835\udc63\u2016)2,",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 204,
+    "statement_sha256": "c652e99c9f2bb6e920cf8a92e52e2cf22d6f38c2c9d518123a843e6ed003281e",
+    "char_count": 345,
+    "structural_refs": [
+      "6.14",
+      "6.18"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_20",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.20 Theorem \u27e8\ud835\udc62, \ud835\udc63\u27e9= \u2016\ud835\udc62\u2016 \u2016\ud835\udc63\u2016.",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 204,
+    "statement_sha256": "016ee7d6431be826bdcb60faa9fd36a5dd1b750f5b4e12dece8d6a708244fc6a",
+    "char_count": 875,
+    "structural_refs": [
+      "6.14"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_21",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.21 Theorem parallelogram equality",
+    "decl_type": "THEOREM",
+    "chapter_section": "6A",
+    "page": 205,
+    "statement_sha256": "ed8ea44ba44970732adac5f4581cc2ac1d57cbddbc58bd34934d0a42c51aaae5",
+    "char_count": 78,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_22",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.22 Definition orthonormal",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6B",
+    "page": 211,
+    "statement_sha256": "5f431fc05673e79b49066facdfd46fac566f7e882b0d249340eb2d599df1ced0",
+    "char_count": 277,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm",
+        "orthogonal",
+        "orthonormal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_24",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.24 Theorem norm of an orthonormal linear combination",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 212,
+    "statement_sha256": "beaf5ccbaf43088241b92bf7942139bc6314abb548037a4c3362ff27dac8fa98",
+    "char_count": 163,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination"
+      ],
+      "geo_tags": [
+        "norm",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_25",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.25 Theorem orthonormal lists are linearly independent",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 212,
+    "statement_sha256": "a07ef1101afe2424f9b64576a397d42f24630b919f1709096b0d5cfb462ad29b",
+    "char_count": 101,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_independence"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_26",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.26 Theorem Bessel\u2019s inequality",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 212,
+    "statement_sha256": "1151caed336194f20eb3d8ddc254e451fb41244982369ad1cd38aca7b0e01d3b",
+    "char_count": 122,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_27",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.27 Definition orthonormal basis",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6B",
+    "page": 213,
+    "statement_sha256": "9e2fcacace80487df850da145d91909dde4c672347cc94261c03516ff153a45e",
+    "char_count": 170,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_28",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.28 Theorem orthonormal lists of the right length are orthonormal bases",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 213,
+    "statement_sha256": "a34e0d06aad28f1fecd8e4d33cec4850476589fd101fc7262c084cc98faae780",
+    "char_count": 180,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [
+        "norm",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_30",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.30 Theorem writing a vector as a linear combination of an orthonormal basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 214,
+    "statement_sha256": "ef5dfb91595e629209fab5abb329f7ab57315814d1fcba18fb06be91c22716cd",
+    "char_count": 246,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_combination"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_32",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.32 Theorem Gram\u2013Schmidt procedure",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 215,
+    "statement_sha256": "b1be0bf3692b7b55cc4e3f7a79262b9cd5f37e5727303f0d387a11880dc584b7",
+    "char_count": 358,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_independence",
+        "span"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_33",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.33 Theorem span(\ud835\udc631, \u2026 , \ud835\udc63\ud835\udc58\u22121) = span(\ud835\udc521, \u2026 , \ud835\udc52\ud835\udc58\u22121).",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 215,
+    "statement_sha256": "c25fe4d5b2a4b562b189d0cf3180767e4124a24690bad6eaca649a2732a007a6",
+    "char_count": 1035,
+    "structural_refs": [
+      "6.25",
+      "6.32"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "linear_independence",
+        "span",
+        "subspace"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "norm",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_35",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.35 Theorem existence of orthonormal basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 216,
+    "statement_sha256": "fea1e81ed49d0b3ee79d561cad78de206797dee9e9fd1affe957eaaa13686ea0",
+    "char_count": 101,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_36",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.36 Theorem every orthonormal list extends to an orthonormal basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 217,
+    "statement_sha256": "ee7b0daf9c88961fa0b80ed6c85fb67c31f8bf21198eb2baa93c2d975007d902",
+    "char_count": 176,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_37",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.37 Theorem upper-triangular matrix with respect to some orthonormal basis",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 217,
+    "statement_sha256": "7179c999bebaf324d737a5bc4b780ac9732a4120fdd1b39cbe323f546bda8bf8",
+    "char_count": 273,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_38",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.38 Theorem Schur\u2019s theorem",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 218,
+    "statement_sha256": "e1096e4f5414bb22d2f2a75cc58179ca9a7d3bbbc7fd903054f1900b59641b9b",
+    "char_count": 153,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix",
+        "operator"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_39",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.39 Definition linear functional, dual space, \ud835\udc49\u2032",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6B",
+    "page": 218,
+    "statement_sha256": "39dff529a4001e1d348ead3fbbc985022b3c39ce7009c47ad4187c1b2912f78b",
+    "char_count": 207,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_42",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.42 Theorem Riesz representation theorem",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 219,
+    "statement_sha256": "da4a5b80504d59b1f33e1b13663512c540b026f805bfc9a451f7e512a893af7c",
+    "char_count": 165,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_43",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.43 Theorem \ud835\udc63= \ud835\udf11(\ud835\udc521)\ud835\udc521 + \u22ef+ \ud835\udf11(\ud835\udc52\ud835\udc5b)\ud835\udc52\ud835\udc5b,",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 219,
+    "statement_sha256": "344e6056d3219a6478aaca62224c521eb712fb6e186641308716f0dad9401c52",
+    "char_count": 466,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_45",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.45 Theorem \u222b",
+    "decl_type": "THEOREM",
+    "chapter_section": "6B",
+    "page": 220,
+    "statement_sha256": "6fe110312dcd3e974d488509ab44c993634335cfd01d81c9826f785ab7e327de",
+    "char_count": 1281,
+    "structural_refs": [
+      "6.34",
+      "6.43"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_46",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.46 Definition orthogonal complement, \ud835\udc48\u27c2",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6C",
+    "page": 225,
+    "statement_sha256": "7e7a893213e009aaafcfea3bb3983fb24c74095bac142761b690f710d84a4b8e",
+    "char_count": 383,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "complement",
+        "inner_product",
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_48",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.48 Theorem properties of orthogonal complement",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 225,
+    "statement_sha256": "64805b91991a1c97b79d048b9dfec391f811c9589ebe4fcd77cc4ff6b24285bd",
+    "char_count": 300,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [
+        "complement",
+        "inner_product",
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_49",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.49 Theorem direct sum of a subspace and its orthogonal complement",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 226,
+    "statement_sha256": "9d2354b70626f7cf4aed4daaed5a4ca921f50368c70982e363e5078c5211df25",
+    "char_count": 116,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "subspace"
+      ],
+      "geo_tags": [
+        "complement",
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_50",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.50 Theorem \ud835\udc63= \u27e8\ud835\udc63, \ud835\udc521\u27e9\ud835\udc521 + \u22ef+ \u27e8\ud835\udc63, \ud835\udc52\ud835\udc5a\u27e9\ud835\udc52\ud835\udc5a",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 227,
+    "statement_sha256": "73409416b110142763f979ea1aef129065be3a4215d0a1023566ced8077c4e59",
+    "char_count": 606,
+    "structural_refs": [
+      "1.46",
+      "6.26",
+      "6.48"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "span"
+      ],
+      "geo_tags": [
+        "orthogonal",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_51",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.51 Theorem dimension of orthogonal complement",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 227,
+    "statement_sha256": "fd12d457ad93ec6c434b06035625a43ee8f4b9428b62da16289b5f374853aff5",
+    "char_count": 116,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dimension",
+        "subspace"
+      ],
+      "geo_tags": [
+        "complement",
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_52",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.52 Theorem orthogonal complement of the orthogonal complement",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 227,
+    "statement_sha256": "0d7f0f9f2c8b5fa42dc142e4c835d0216d431fbd6526687b0120a89d79b0db99",
+    "char_count": 113,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [
+        "complement",
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_53",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.53 Theorem \ud835\udc48\u2286(\ud835\udc48\u27c2)\u27c2.",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 227,
+    "statement_sha256": "d0ad899ccb589d4c646d13f6e1e8fba5988b27bee47a6c40965c83fa47523152",
+    "char_count": 985,
+    "structural_refs": [
+      "6.48",
+      "6.49"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_54",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.54 Theorem \ud835\udc48\u27c2= {0} \u27fa\ud835\udc48= \ud835\udc49(for \ud835\udc48a finite-dimensional subspace of \ud835\udc49)",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 228,
+    "statement_sha256": "c71eb2a3131318862914c9aa025f64b74346d656ea4c70daf00c7d7bc67801f9",
+    "char_count": 122,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_55",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.55 Definition orthogonal projection, \ud835\udc43\ud835\udc48",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6C",
+    "page": 228,
+    "statement_sha256": "f99edef93de87e14400af3be4215b9b07b857f325c7bb1a50536c9f72c632532",
+    "char_count": 483,
+    "structural_refs": [
+      "6.49",
+      "6.61"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "direct_sum",
+        "operator",
+        "subspace"
+      ],
+      "geo_tags": [
+        "orthogonal",
+        "projection"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_57",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.57 Theorem properties of orthogonal projection \ud835\udc43\ud835\udc48",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 229,
+    "statement_sha256": "4e91fc77062c7d3fd21f479585b9bd63e347cf53481272121dbaf5b179a0970a",
+    "char_count": 352,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "range",
+        "subspace"
+      ],
+      "geo_tags": [
+        "orthogonal",
+        "orthonormal",
+        "projection"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_58",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.58 Theorem Riesz representation theorem, revisited",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 230,
+    "statement_sha256": "522ca977b9c6c6b68c41fe8e0a172212c45626cb962d19ea5c402ef839d0a5ad",
+    "char_count": 314,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_59",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.59 Theorem \ud835\udc63= \ud835\udf11(\ud835\udc64)",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 230,
+    "statement_sha256": "37c6373ecd5e34e758232868f02d2924d49ae50eda0455291560b8179ef7e138",
+    "char_count": 231,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm",
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_60",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.60 Theorem \u2016\ud835\udc63\u2016 = |\ud835\udf11(\ud835\udc64)|",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 231,
+    "statement_sha256": "2002c9b7c03c0c73cc2996a88e50352ddc98e76e92fa6cda5cb29a0ff7d26366",
+    "char_count": 920,
+    "structural_refs": [
+      "6.59"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_61",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.61 Theorem minimizing distance to a subspace",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 231,
+    "statement_sha256": "b14b42c873f6b73e183846330d16bfe38ffb8ee1e73e3430a7ac99a8dfbf2cea",
+    "char_count": 188,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "subspace"
+      ],
+      "geo_tags": [
+        "angle"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_62",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.62 Theorem = \u2225(\ud835\udc63\u2212\ud835\udc43\ud835\udc48\ud835\udc63) + (\ud835\udc43\ud835\udc48\ud835\udc63\u2212\ud835\udc62)\u22252",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 231,
+    "statement_sha256": "b7560a9844c95c6c5fece16a2ef02d6e0592f4fd78f12ee2a4b78e8db3938fae",
+    "char_count": 733,
+    "structural_refs": [
+      "6.57"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_64",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.64 Theorem \u27e8\ud835\udc53, \ud835\udc54\u27e9= \u222b",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 232,
+    "statement_sha256": "9d7900d46220ac716c4a915f42975f17299937a7bb5ec981a6d7287525731f18",
+    "char_count": 724,
+    "structural_refs": [
+      "6.57"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "subspace"
+      ],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_65",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.65 Theorem \ud835\udc62(\ud835\udc65) = 0.987862\ud835\udc65\u22120.155271\ud835\udc653 + 0.00564312\ud835\udc655,",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 232,
+    "statement_sha256": "d14a970f72c25da480ad88fca3442a89f1e61f9f589ddb1abd03d1d1e8a09c70",
+    "char_count": 1199,
+    "structural_refs": [
+      "6.61"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_66",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.66 Theorem \ud835\udc5d(\ud835\udc65) = \ud835\udc65\u2212\ud835\udc653",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 233,
+    "statement_sha256": "5d7e3f2db9454165e26ec4e8a8daa7cc1c3ad9e2bc1c6260064e13c7e27700c2",
+    "char_count": 2269,
+    "structural_refs": [
+      "0.4",
+      "6.65"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "pseudoinverse",
+        "range"
+      ],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_67",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.67 Theorem restriction of a linear map to obtain a one-to-one and onto map",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 234,
+    "statement_sha256": "0a458e7744e741f4b82053925da71dcf6e2fba0d4c99c74fd07ca8e572c9d261",
+    "char_count": 171,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:6_68",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.68 Definition pseudoinverse, \ud835\udc47\u2020",
+    "decl_type": "DEFINITION",
+    "chapter_section": "6C",
+    "page": 235,
+    "statement_sha256": "8c43a6f29a2a73dc7ead4ed46a056939115e4632fabeac0bfe9d3064ca3f2f3c",
+    "char_count": 436,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map",
+        "pseudoinverse",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_69",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.69 Theorem algebraic properties of the pseudoinverse",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 235,
+    "statement_sha256": "5c15ea38a3e52092dda8d7c90e33d3ca1969eb9fc5d452055439d817bfe34d9b",
+    "char_count": 256,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "pseudoinverse",
+        "range"
+      ],
+      "geo_tags": [
+        "orthogonal",
+        "projection"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_70",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.70 Theorem pseudoinverse provides best approximate solution or best solution",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 236,
+    "statement_sha256": "af1cab75d985b3611daca20c855bb6e922e8238c0defed47e3f7d982ae44e0d4",
+    "char_count": 273,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "pseudoinverse"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:6_72",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 6.72 Theorem \ud835\udc47\u2020(\ud835\udc65, \ud835\udc66, \ud835\udc67) = (\ud835\udc47|(null \ud835\udc47)\u27c2)\u22121\ud835\udc43range \ud835\udc47(\ud835\udc65, \ud835\udc66, \ud835\udc67) = (\ud835\udc47|(null \ud835\udc47)\u27c2)\u22121(\ud835\udc65, \ud835\udc66, 0).",
+    "decl_type": "THEOREM",
+    "chapter_section": "6C",
+    "page": 237,
+    "statement_sha256": "a97c44ec36183629610ee91dbfbf66c14b3383eb7f442ad8b457c34698edb2c8",
+    "char_count": 1726,
+    "structural_refs": [
+      "6.69"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "span",
+        "subspace"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "orthogonal",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:7_1",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.1 Definition adjoint, \ud835\udc47\u2217",
+    "decl_type": "DEFINITION",
+    "chapter_section": "7A",
+    "page": 242,
+    "statement_sha256": "44bb35a121d2d79fa0842e98fb94eab343d96feb6a5172940fa346494f8cd78a",
+    "char_count": 954,
+    "structural_refs": [
+      "6.42"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_4",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.4 Theorem adjoint of a linear map is a linear map",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 243,
+    "statement_sha256": "fd56744124d52ff0fb3b4030488fccd81c24fde5ec99e3358a97c522ada0e84a",
+    "char_count": 70,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_map"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_5",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.5 Theorem properties of the adjoint",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 244,
+    "statement_sha256": "c7775e8cbe2ed27ee8ee1591abb807b49fdd3e23c02088ad2ce1d4aaee937aae",
+    "char_count": 335,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "operator"
+      ],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_6",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.6 Theorem null space and range of \ud835\udc47\u2217",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 245,
+    "statement_sha256": "ca7a45ab5839cee77beae8c5659faa51cbce2a5b328c4c3431c14fe20e1f819f",
+    "char_count": 150,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "null_space",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:7_7",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.7 Definition conjugate transpose, \ud835\udc34\u2217",
+    "decl_type": "DEFINITION",
+    "chapter_section": "7A",
+    "page": 245,
+    "statement_sha256": "b974593331f23285636a6a294265585afa2eb11cf9ed8c643f8349e241ab75be",
+    "char_count": 260,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_9",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.9 Theorem matrix of \ud835\udc47\u2217equals conjugate transpose of matrix of \ud835\udc47",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 246,
+    "statement_sha256": "c3e139ac78bccb33b26131901617a8d292dc5f60f34fbde82395b6518ca9bfdb",
+    "char_count": 296,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "matrix"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:7_10",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.10 Definition self-adjoint",
+    "decl_type": "DEFINITION",
+    "chapter_section": "7A",
+    "page": 247,
+    "statement_sha256": "453fb184c1aecaff399b4d492620d65722939de6d63ba05b39bd71ac493e1d28",
+    "char_count": 218,
+    "structural_refs": [
+      "7.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "operator"
+      ],
+      "geo_tags": [
+        "orthonormal",
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_12",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.12 Theorem eigenvalues of self-adjoint operators",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 247,
+    "statement_sha256": "f0e79aa6ee1a10a5876463d033cae033d2f63df8628810cbaaf9532e09c34ed3",
+    "char_count": 90,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "eigenvalue",
+        "operator"
+      ],
+      "geo_tags": [
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_13",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.13 Theorem \ud835\udc47\ud835\udc63is orthogonal to \ud835\udc63for all \ud835\udc63\u27fa\ud835\udc47= 0 (assuming \ud835\udc05= \ud835\udc02)",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 248,
+    "statement_sha256": "6b44c81fdc5cd56fe4b3a6c881fb4f87fa1e6ec7f791dcd64f85b101c34f64c9",
+    "char_count": 140,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product",
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_14",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.14 Theorem \u27e8\ud835\udc47\ud835\udc63, \ud835\udc63\u27e9is real for all \ud835\udc63\u27fa\ud835\udc47is self-adjoint (assuming \ud835\udc05= \ud835\udc02)",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 248,
+    "statement_sha256": "6ac702c27b5a0b0072e12ce48e07ae9515658866d9fb5ca286de5913e62cce47",
+    "char_count": 158,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product",
+        "self_adjoint"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_15",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.15 Theorem \u27e8\ud835\udc47\u2217\ud835\udc63, \ud835\udc63\u27e9= \u27e8\ud835\udc63, \ud835\udc47\u2217\ud835\udc63\u27e9= \u27e8\ud835\udc47\ud835\udc63, \ud835\udc63\u27e9.",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 248,
+    "statement_sha256": "aa4757db4893214942dc15bf5bf36e87520e96ae47ae4bbf6a5a2db6f025a62b",
+    "char_count": 543,
+    "structural_refs": [
+      "7.13"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "operator"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_16",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.16 Theorem \ud835\udc47self-adjoint and \u27e8\ud835\udc47\ud835\udc63, \ud835\udc63\u27e9= 0 for all \ud835\udc63\u27fa\ud835\udc47= 0",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 249,
+    "statement_sha256": "6a08c381ab8ab8ba05a45921060735baa76c0ddc86b7959813741fde919089e5",
+    "char_count": 121,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "operator"
+      ],
+      "geo_tags": [
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_17",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.17 Theorem \u27e8\ud835\udc47\ud835\udc62, \ud835\udc64\u27e9= \u27e8\ud835\udc47(\ud835\udc62+ \ud835\udc64), \ud835\udc62+ \ud835\udc64\u27e9\u2212\u27e8\ud835\udc47(\ud835\udc62\u2212\ud835\udc64), \ud835\udc62\u2212\ud835\udc64\u27e9",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 249,
+    "statement_sha256": "5cc38e410c6056101f3292af1ba0d898d2dca8e15e3a5bc551f49eaa189d1d09",
+    "char_count": 533,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "inner_product",
+        "self_adjoint"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:definition:7_18",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.18 Definition normal",
+    "decl_type": "DEFINITION",
+    "chapter_section": "7A",
+    "page": 249,
+    "statement_sha256": "82282d2ec8bb094381c7209ef188a890c185338db552c28fa81aa21042e8523f",
+    "char_count": 251,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "operator"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_20",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.20 Theorem \ud835\udc47is normal if and only if \ud835\udc47\ud835\udc63and \ud835\udc47\u2217\ud835\udc63have the same norm",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 250,
+    "statement_sha256": "debf2fbacae5132abeaf819eae195ce2c34312ae86d1ed83fbed8b838c8a6a02",
+    "char_count": 114,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_21",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.21 Theorem range, null space, and eigenvectors of a normal operator",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 251,
+    "statement_sha256": "ff873566edd66ab610e6432d78f84f9ac05f41b5540b8317ef6aa1558afe4abc",
+    "char_count": 241,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "null_space",
+        "operator",
+        "range"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_22",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.22 Theorem orthogonal eigenvectors for normal operators",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 252,
+    "statement_sha256": "9d6ccb9e4ad6ca992b2e229f360017c5430472e90bd50816bc88dae73706df43",
+    "char_count": 146,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "orthogonal"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_23",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.23 Theorem \ud835\udc47is normal \u27fathe real and imaginary parts of \ud835\udc47commute",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 252,
+    "statement_sha256": "927c419c9420e1fba0f73324c8882e5bc2b4b55a94f1bed651933d84856a3872",
+    "char_count": 178,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "self_adjoint"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_24",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.24 Theorem \ud835\udc34= \ud835\udc47+ \ud835\udc47\u2217",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 252,
+    "statement_sha256": "650a83dc3ce0773b15ce4369e18215171360a651ffda4627113cfa80765d8199",
+    "char_count": 100,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "self_adjoint"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_25",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.25 Theorem \ud835\udc34\ud835\udc35\u2212\ud835\udc35\ud835\udc34= \ud835\udc47\u2217\ud835\udc47\u2212\ud835\udc47\ud835\udc47\u2217",
+    "decl_type": "THEOREM",
+    "chapter_section": "7A",
+    "page": 252,
+    "statement_sha256": "b48475af7c2bfa5e82440d19f37c8fe597bc99d96179904eb1342832e1727f54",
+    "char_count": 1946,
+    "structural_refs": [
+      "3.57",
+      "7.24"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "eigenvalue",
+        "range",
+        "rank_nullity",
+        "subspace"
+      ],
+      "geo_tags": [
+        "orthonormal",
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_26",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.26 Theorem invertible quadratic expressions",
+    "decl_type": "THEOREM",
+    "chapter_section": "7B",
+    "page": 257,
+    "statement_sha256": "10f5ea056c9935ffa9bb6ada66afdbdf13f518c8fd8edb8f289683f6fcfc2f5b",
+    "char_count": 248,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "isomorphism",
+        "operator"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_27",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.27 Theorem minimal polynomial of self-adjoint operator",
+    "decl_type": "THEOREM",
+    "chapter_section": "7B",
+    "page": 258,
+    "statement_sha256": "2ed799af10bc23a76d125117c202901dfdafbcaa661f05981a7aa31b91a5bcd3",
+    "char_count": 152,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "operator"
+      ],
+      "geo_tags": [
+        "self_adjoint"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_28",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.28 Theorem (\ud835\udc67\u2212\ud835\udf061) \u22ef(\ud835\udc67\u2212\ud835\udf06\ud835\udc5a)(\ud835\udc672 + \ud835\udc4f1\ud835\udc67+ \ud835\udc501) \u22ef(\ud835\udc672 + \ud835\udc4f\ud835\udc41\ud835\udc67+ \ud835\udc50\ud835\udc41);",
+    "decl_type": "THEOREM",
+    "chapter_section": "7B",
+    "page": 258,
+    "statement_sha256": "145ffd4080e8fa101e77f03f7e88085b4faf447df36241cc1ea4da240f6604b3",
+    "char_count": 1129,
+    "structural_refs": [
+      "5.27",
+      "7.26"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "eigenvalue",
+        "isomorphism",
+        "operator"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "self_adjoint",
+        "spectral"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_29",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.29 Theorem real spectral theorem",
+    "decl_type": "THEOREM",
+    "chapter_section": "7B",
+    "page": 259,
+    "statement_sha256": "b815aa8966d4621761551d18b36353e456479fb3730c067389ca191f6c1b5c92",
+    "char_count": 237,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "matrix"
+      ],
+      "geo_tags": [
+        "orthonormal",
+        "self_adjoint",
+        "spectral"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_31",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.31 Theorem complex spectral theorem",
+    "decl_type": "THEOREM",
+    "chapter_section": "7B",
+    "page": 260,
+    "statement_sha256": "97c6297a03e6ae34edb98c6e33f641ccee9e940a04096d637c8a0ef4f13feeb5",
+    "char_count": 234,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "matrix"
+      ],
+      "geo_tags": [
+        "orthonormal",
+        "spectral"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:axler:theorem:7_32",
+    "source_id": "AXLER_LADR4E_2026_08_16",
+    "label": "Axler 7.32 Theorem \u2133(\ud835\udc47, (\ud835\udc521, \u2026 , \ud835\udc52\ud835\udc5b)) = \u239b\u239c\u239c\u239c",
+    "decl_type": "THEOREM",
+    "chapter_section": "7B",
+    "page": 260,
+    "statement_sha256": "43f42ef6a53229f4ecf54a0a6d2a68c189e18bc4be5d7ea508237193000a32c7",
+    "char_count": 2023,
+    "structural_refs": [
+      "5.55",
+      "7.20"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "diagonalizable",
+        "direct_sum",
+        "matrix",
+        "operator"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "orthogonal",
+        "orthonormal",
+        "spectral"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  }
+]

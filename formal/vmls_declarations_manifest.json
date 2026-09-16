@@ -1,0 +1,2234 @@
+[
+  {
+    "node_id": "srcdecl:vmls:section:1_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 1.1 Vectors",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 13,
+    "statement_sha256": "c5d8180d1355c659b31b8bbda3ca9a0b201ad091aca85fda1157f0869a43aec2",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.0",
+      "1.3",
+      "3.6",
+      "7.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:1_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 1.2 Vector addition",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 21,
+    "statement_sha256": "b56b8da4721347e4ec390ada1370223cbf264a9b3077c62a1a676c75642b8194",
+    "char_count": 4000,
+    "structural_refs": [
+      "1.6",
+      "1.7",
+      "1.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:1_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 1.3 Scalar-vector multiplication",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 25,
+    "statement_sha256": "9f61e0ff11e27abe2be018963f7204b222fe723965f87e178aef6bfe2d47f73d",
+    "char_count": 4000,
+    "structural_refs": [
+      "1.10",
+      "1.5",
+      "1.9",
+      "13.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:1_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 1.4 Inner product",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 29,
+    "statement_sha256": "98dc47b741e493f4dfa5a68ae938b60d0192919c6e1d0e5905e509be2ce332c7",
+    "char_count": 3999,
+    "structural_refs": [
+      "0.4",
+      "1.12",
+      "1.13",
+      "1.2",
+      "10.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "inner_product",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:1_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 1.5 Complexity of vector computations",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 32,
+    "statement_sha256": "92003b493b3ac4f292218468c68ec6ac7af6e210d3c6408b7e7d5e61ea5a40b6",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.09"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "span",
+        "vector"
+      ],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:2_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 2.1 Linear functions",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 39,
+    "statement_sha256": "2a4c823ef4d1c507ad0f501759b07c3dde4685708c767d539c4454e4948eda73",
+    "char_count": 4000,
+    "structural_refs": [
+      "2.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "linear_combination",
+        "vector"
+      ],
+      "geo_tags": [
+        "angle",
+        "hyperplane",
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:2_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 2.2 Taylor approximation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 45,
+    "statement_sha256": "3dcdc186fd460423918ec3ef224e2f2fbbac9def158fbcaf16a1b11b12a21ab5",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.12",
+      "0.26",
+      "0.3",
+      "0.31",
+      "0.5",
+      "0.8",
+      "1.1",
+      "1.2",
+      "1.5",
+      "2.1",
+      "2.3",
+      "2.5",
+      "2.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:2_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 2.3 Regression model",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 48,
+    "statement_sha256": "5a15b84c53aa783aeef318c85a0594bca985092ab99d4ffe95cbab316c30fbb5",
+    "char_count": 4000,
+    "structural_refs": [
+      "2.7",
+      "2.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:3_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 3.1 Norm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 55,
+    "statement_sha256": "d7edaac4a2b6612dcc9efb7d666e3a77e87bc7cd84b1424050b36574b847e43f",
+    "char_count": 4000,
+    "structural_refs": [
+      "3.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [
+        "angle",
+        "distance",
+        "inner_product",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:3_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 3.2 Distance",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 58,
+    "statement_sha256": "b48c1db345d06bd34a2de4ff0af10f2be4d03b621d8eaa790d04e82efb786958",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.6",
+      "1.4",
+      "1.8",
+      "1.9",
+      "2.0",
+      "2.1",
+      "3.1",
+      "3.3",
+      "3.7",
+      "3.8",
+      "4.0",
+      "4.6",
+      "4.7"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [
+        "distance",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:3_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 3.3 Standard deviation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 62,
+    "statement_sha256": "d2667398e848601241841445f8e1769ce889fff69100d318eed1b6bb1252d547",
+    "char_count": 3999,
+    "structural_refs": [
+      "0.1",
+      "1.5",
+      "1.6",
+      "2.5",
+      "3.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [
+        "distance",
+        "inner_product",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:3_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 3.4 Angle",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 66,
+    "statement_sha256": "3a83e0ffcb8deca8c561d119fbcd488f4ab914dcb258dd8a62b864cbf4b36cd0",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.3",
+      "1.4",
+      "3.2",
+      "3.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [
+        "angle",
+        "distance",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:3_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 3.5 Complexity",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 73,
+    "statement_sha256": "ac536a1abcb080d8a65354f6dd470dbb0c4b687b539c13400d208dd497153fd3",
+    "char_count": 4000,
+    "structural_refs": [
+      "3.1",
+      "3.2",
+      "3.3",
+      "3.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [
+        "angle",
+        "distance",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:4_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 4.1 Clustering",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 79,
+    "statement_sha256": "96011bc80b49edf1b9f1e6d799ddfbf334cb8d163333f12eecc5b640742bf8df",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "clustering",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:4_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 4.2 A clustering objective",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 82,
+    "statement_sha256": "0916d5514f7f16f7776b8d71fdd475b4742395a97f8793cb9ce5f1d0969e3a09",
+    "char_count": 3999,
+    "structural_refs": [
+      "4.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "clustering",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:4_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 4.3 The k-means algorithm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 84,
+    "statement_sha256": "021c906947b0dc5cac401e63da914bb9a729deeb95b11097f7d9439ac9f17d85",
+    "char_count": 4000,
+    "structural_refs": [
+      "4.1",
+      "4.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "clustering",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:4_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 4.4 Examples",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 89,
+    "statement_sha256": "ff46925d99aa3c9562dacab021065ea3717e6b08849420077696e9f24750af23",
+    "char_count": 3999,
+    "structural_refs": [
+      "4.10",
+      "4.6",
+      "4.7",
+      "4.8",
+      "4.9",
+      "7.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "clustering",
+        "vector"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:4_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 4.5 Applications",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 95,
+    "statement_sha256": "12e499038189b0cc6679f120dc89a4cbc9d97edee0eb4a07f7c7efeb6767fd97",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "clustering",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:5_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 5.1 Linear dependence",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 99,
+    "statement_sha256": "db16c9969d3c4246dcb8ba079b4828af2e942e0b86b108a8bcf7c0ea21c5f5ae",
+    "char_count": 3588,
+    "structural_refs": [
+      "0.0",
+      "0.1",
+      "0.2",
+      "1.0",
+      "2.0",
+      "2.2",
+      "7.0",
+      "8.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "linear_combination",
+        "linear_independence",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:5_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 5.2 Basis",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 101,
+    "statement_sha256": "1fa003fd6ab632f5b7352381c522ee8b79b7451176b63bdc5cbff66f170eb7c3",
+    "char_count": 4000,
+    "structural_refs": [
+      "5.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_combination",
+        "linear_independence",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:5_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 5.3 Orthonormal vectors",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 105,
+    "statement_sha256": "982f31e304209510f3b477eaa7e3f80f6f836e451fd50b43980c13b78921f83c",
+    "char_count": 3999,
+    "structural_refs": [
+      "5.2",
+      "5.4",
+      "5.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_combination",
+        "linear_independence",
+        "vector"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "norm",
+        "orthogonal",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:5_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 5.4 Gram?Schmidt algorithm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 107,
+    "statement_sha256": "0e86ba9b91485b783dc5397ba50cf45344ce4883cf680ba46f42156dc18c9932",
+    "char_count": 4000,
+    "structural_refs": [
+      "5.1",
+      "5.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "basis",
+        "linear_combination",
+        "linear_independence",
+        "vector"
+      ],
+      "geo_tags": [
+        "norm",
+        "orthogonal",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:6_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 6.1 Matrices",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 117,
+    "statement_sha256": "e660b30f3af53e9cd0270d2b3869935a17c0d4f34fe01d2c4e63b822a9c0fc27",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.1",
+      "1.3",
+      "1.7",
+      "2.1",
+      "2.3",
+      "4.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:6_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 6.2 Zero and identity matrices",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 123,
+    "statement_sha256": "aca90998b9382033376607c34bfe2aa93335d9141b9563d707beb771909fe739",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.2",
+      "1.2",
+      "10.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:6_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 6.3 Transpose, addition, and norm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 125,
+    "statement_sha256": "9b8a5cd8fb456dcf0c4039681f17ee7286c4d5e58f4243c93e4db0ae5790dc66",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "clustering",
+        "linear_independence",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [
+        "inner_product",
+        "norm",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:6_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 6.4 Matrix-vector multiplication",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 128,
+    "statement_sha256": "72411660d1e3dcddc8aa660d7c07ebd85af24bec6540bc98bb7e080bdc1c2ef7",
+    "char_count": 4000,
+    "structural_refs": [
+      "6.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance",
+        "inner_product",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:6_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 6.5 Complexity",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 132,
+    "statement_sha256": "b9de6873ee05c50ca3f5e24154e5e2aaaba09b4929ddce888c425b535b49edcc",
+    "char_count": 4000,
+    "structural_refs": [
+      "4.3",
+      "6.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:7_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 7.1 Geometric transformations",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 139,
+    "statement_sha256": "2c5cac47c7db5af4fa738d410a06bfce4db6882b5d1d88c26be3a6e323e9d7ce",
+    "char_count": 3604,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "angle",
+        "projection"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:7_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 7.2 Selectors",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 141,
+    "statement_sha256": "f07b44987b31d2ae45b8338bb3bbf48dca916f5defaf1d1f38fcc9a95cbcf219",
+    "char_count": 1572,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:7_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 7.3 Incidence matrix",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 142,
+    "statement_sha256": "fbb6a586e73110aaa108d9a49b2239a0bd3a54c1affafb20f1b10a69cfa9dfb7",
+    "char_count": 3999,
+    "structural_refs": [
+      "7.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:7_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 7.4 Convolution",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 146,
+    "statement_sha256": "7511cce06a0ef97fae17ba7a324e9453d00f1bd6ace8c29b4425b82a995a11af",
+    "char_count": 4000,
+    "structural_refs": [
+      "1.14",
+      "6.5",
+      "7.2",
+      "7.3",
+      "7.5",
+      "8.99"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:8_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 8.1 Linear and affine functions",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 157,
+    "statement_sha256": "1436826149386f4b9604a5927cc6095f1d3c6975cb43cddb7f7f8528c64166c3",
+    "char_count": 3999,
+    "structural_refs": [
+      "2.1",
+      "2.3",
+      "7.2",
+      "8.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "linear_equations",
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:8_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 8.2 Linear function models",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 160,
+    "statement_sha256": "6e718c3bce37900f87322fb8d4d8c4e8add234638f985f060f1a2894a105be65",
+    "char_count": 3999,
+    "structural_refs": [
+      "0.2",
+      "0.4",
+      "2.2",
+      "8.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "linear_equations",
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:8_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 8.3 Systems of linear equations",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 162,
+    "statement_sha256": "d79789fd26b656edd8c4645d47120a6d1dcef11de2880db30bb89961296c3687",
+    "char_count": 4000,
+    "structural_refs": [
+      "8.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "linear_combination",
+        "linear_equations",
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:9_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 9.1 Linear dynamical systems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 173,
+    "statement_sha256": "ed256c7413a60c1775c079d6873b2da431d5d741d8516f522dbcf11fcbb88ed2",
+    "char_count": 1990,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:9_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 9.2 Population dynamics",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 174,
+    "statement_sha256": "29743f43c19d79d9111df74bbbb9399ae506657c68ceab7b55f8c0a9427cc1c4",
+    "char_count": 4000,
+    "structural_refs": [
+      "9.1",
+      "9.3",
+      "9.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:9_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 9.3 Epidemic dynamics",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 178,
+    "statement_sha256": "aaf162ce1fa1453446e2ebae854c7f896cb67726170ff52bb1c4ba662980c9eb",
+    "char_count": 2653,
+    "structural_refs": [
+      "0.01",
+      "0.04",
+      "0.05",
+      "0.10",
+      "0.75",
+      "0.85",
+      "0.95",
+      "9.1",
+      "9.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:9_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 9.4 Motion of a mass",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 179,
+    "statement_sha256": "00e268fd4902f5f4eec95cbd3402baceb5f59f9fb23ca35db0df66213c1e41e2",
+    "char_count": 2965,
+    "structural_refs": [
+      "0.2",
+      "0.4",
+      "0.6",
+      "0.8",
+      "9.2",
+      "9.5",
+      "9.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:9_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 9.5 Supply chain dynamics",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 181,
+    "statement_sha256": "ff9f4e303bde2091153257cf573065d395b0a96ce75ed54f039cd47907741269",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.0",
+      "0.01",
+      "0.05",
+      "0.1",
+      "0.15",
+      "0.2",
+      "0.4",
+      "0.5",
+      "1.0",
+      "1.3",
+      "1.4",
+      "1.5",
+      "7.3",
+      "9.2",
+      "9.7",
+      "9.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:10_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 10.1 Matrix-matrix multiplication",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 187,
+    "statement_sha256": "186082f1ba694536d563960bfda3d0f485580e3341607384d7984fa9f91d8df7",
+    "char_count": 3999,
+    "structural_refs": [
+      "1.4",
+      "1.5",
+      "3.5",
+      "4.5",
+      "6.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:10_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 10.2 Composition of linear functions",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 193,
+    "statement_sha256": "f97198f2e6e72989a7b473a77f9267b97971f6defef3dfd97a5bf905a6a87000",
+    "char_count": 3999,
+    "structural_refs": [
+      "6.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "inner_product"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:10_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 10.3 Matrix power",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 196,
+    "statement_sha256": "4bd022350232bd40433ea23e1236b82bf16f209980f00b43a8ba0cf7916a2e5a",
+    "char_count": 3999,
+    "structural_refs": [
+      "10.1",
+      "11.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "matrix_multiplication"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:10_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 10.4 QR factorization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 199,
+    "statement_sha256": "6cac39c1207ef710636534b897f5a492caf2fe171e7f22924b62d9fa236670e9",
+    "char_count": 4000,
+    "structural_refs": [
+      "10.2",
+      "5.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "basis",
+        "linear_independence",
+        "matrix",
+        "matrix_multiplication",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [
+        "angle",
+        "inner_product",
+        "norm",
+        "orthogonal",
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:11_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 11.1 Left and right inverses",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 209,
+    "statement_sha256": "da005999cb349d7947b4a53367356380687d5cc64ff8a2615dcc94038e5f67bd",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_combination",
+        "linear_equations",
+        "linear_independence",
+        "matrix",
+        "matrix_inverse",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [
+        "orthonormal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:11_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 11.2 Inverse",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 212,
+    "statement_sha256": "a8a8a5b847d45bb436a20c08141ad510f60ee2a6b32b83faa24c92f1157bd211",
+    "char_count": 4000,
+    "structural_refs": [
+      "11.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "linear_combination",
+        "linear_equations",
+        "linear_independence",
+        "matrix",
+        "matrix_inverse",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:11_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 11.3 Solving linear equations",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 217,
+    "statement_sha256": "7d50917d50ee22c5b4a78fcc722ab40951e2b1f81141c6a44b3770665b7649e8",
+    "char_count": 4000,
+    "structural_refs": [
+      "11.1",
+      "11.2",
+      "11.4",
+      "5.4",
+      "5.7"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "linear_equations",
+        "matrix",
+        "matrix_inverse",
+        "matrix_multiplication",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:11_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 11.4 Examples",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 220,
+    "statement_sha256": "394366233d9bdf360dbb5658e9bdfaeb52e2cdb0be91286375d31edc219ed6a6",
+    "char_count": 3999,
+    "structural_refs": [
+      "0.2",
+      "0.4",
+      "0.5",
+      "0.8",
+      "0.95",
+      "1.1",
+      "1.5",
+      "11.1",
+      "11.2",
+      "6.7"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "linear_equations",
+        "matrix",
+        "matrix_inverse",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:11_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 11.5 Pseudo-inverse",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 224,
+    "statement_sha256": "bd70639d7fe3acf40e3df4eb15a3054db2a13ba9bf4741155e6c5935051eb3dd",
+    "char_count": 3999,
+    "structural_refs": [
+      "0.2",
+      "0.4",
+      "0.6",
+      "0.8",
+      "11.3",
+      "11.6",
+      "15.11"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "linear_independence",
+        "matrix",
+        "matrix_inverse",
+        "pseudoinverse",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:12_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 12.1 Least squares problem",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 12",
+    "page": 235,
+    "statement_sha256": "dc3c15a1b1a980ae20420b788a2c23fb274427926b636557257704a0242d7499",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "least_squares",
+        "linear_combination",
+        "linear_equations",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:12_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 12.2 Solution",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 12",
+    "page": 237,
+    "statement_sha256": "2cf321c5a13039483259b292acb9107b07179fb64d7986f14a37dfeda403426b",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.5",
+      "1.5",
+      "11.5",
+      "12.1",
+      "12.3",
+      "12.4",
+      "12.5",
+      "12.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_combination",
+        "linear_independence",
+        "matrix",
+        "matrix_inverse",
+        "normal_equations",
+        "pseudoinverse",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:12_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 12.3 Solving least squares problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 12",
+    "page": 241,
+    "statement_sha256": "034b78ebbd86eba5be4777b98baae752d94540edfba2809f53f5eaf6683c73f7",
+    "char_count": 3999,
+    "structural_refs": [
+      "11.2",
+      "11.4",
+      "12.1",
+      "12.10",
+      "12.2",
+      "12.5",
+      "12.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "linear_combination",
+        "linear_equations",
+        "linear_independence",
+        "matrix",
+        "matrix_inverse",
+        "matrix_multiplication",
+        "normal_equations",
+        "pseudoinverse",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:12_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 12.4 Examples",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 12",
+    "page": 244,
+    "statement_sha256": "39f172c98025b5bc87f5a0b9d518fd7b8e687fcd37459e278c75be0804360681",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.12",
+      "0.16",
+      "0.22",
+      "0.26",
+      "0.34",
+      "0.41",
+      "0.48",
+      "0.51",
+      "0.53",
+      "0.54",
+      "0.62",
+      "0.67",
+      "0.69",
+      "0.71",
+      "0.80",
+      "0.87",
+      "0.97",
+      "0.98",
+      "1.10",
+      "1.23",
+      "1.24",
+      "1.29",
+      "1.86",
+      "1.92",
+      "12.3",
+      "12.5",
+      "13.2",
+      "2.18"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_combination",
+        "linear_independence",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:13_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 13.1 Least squares data fitting",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 13",
+    "page": 255,
+    "statement_sha256": "a58b6294c9f590d3a2d86ac96cdf9a12fdcce5c532e4762207e092a88ed823c3",
+    "char_count": 4000,
+    "structural_refs": [
+      "13.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "data_fitting",
+        "least_squares",
+        "linear_combination",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:13_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 13.2 Validation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 13",
+    "page": 270,
+    "statement_sha256": "a8919dbd8084a317f6dcbe4b109d7ff71f6919e58b93dc263c475b46001ccb05",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.05",
+      "0.15",
+      "13.16",
+      "13.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "least_squares"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:13_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 13.3 Feature engineering",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 13",
+    "page": 279,
+    "statement_sha256": "6a8e368f24f0e90473da133ca7db041a2ec8f31b57ce0803e88a5eb716c8a5bf",
+    "char_count": 3999,
+    "structural_refs": [
+      "13.1",
+      "3.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "data_fitting",
+        "least_squares"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:14_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 14.1 Classification",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 14",
+    "page": 295,
+    "statement_sha256": "fe4efe4a05b670193b7e0bd470a57f20926e0a9208fe7f91c5229f9cc7738f51",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "least_squares",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:14_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 14.2 Least squares classifier",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 14",
+    "page": 298,
+    "statement_sha256": "e29f44fc16e56766fa2b76074af7dc53a86a3f5993a312163ca586cbc65a456c",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.03",
+      "1.67",
+      "1.7",
+      "14.1",
+      "14.3",
+      "4.03",
+      "74.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "data_fitting",
+        "least_squares",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:14_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 14.3 Multi-class classifiers",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 14",
+    "page": 307,
+    "statement_sha256": "9a6babb533fd62fd15cc509dc157dd5789c9886151bf664b3b0fa6ee71182b90",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.05",
+      "0.1",
+      "0.15",
+      "0.2",
+      "0.25",
+      "0.7",
+      "0.8",
+      "0.9",
+      "14.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:15_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 15.1 Multi-objective least squares",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 15",
+    "page": 319,
+    "statement_sha256": "a53273104b958aa1300eed988686beeba31b75cbc84dee4d5c0253ef10c4ab3e",
+    "char_count": 4000,
+    "structural_refs": [
+      "12.1",
+      "12.2",
+      "15.2",
+      "15.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "qr_factorization",
+        "regularization",
+        "vector"
+      ],
+      "geo_tags": [
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:15_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 15.2 Control",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 15",
+    "page": 324,
+    "statement_sha256": "b018e2995a41f09d381d3e80ba929e73d191e5120deb76b3e4c44fd59c99e1d7",
+    "char_count": 4000,
+    "structural_refs": [
+      "15.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "least_squares",
+        "matrix",
+        "regularization",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:15_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 15.3 Estimation and inversion",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 15",
+    "page": 326,
+    "statement_sha256": "e07bd9b3203d45dbe4c27aaafb6b9d46c946a3b26359d66fa91e078f55026eb1",
+    "char_count": 4000,
+    "structural_refs": [
+      "15.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "regularization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:15_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 15.4 Regularized data fitting",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 15",
+    "page": 335,
+    "statement_sha256": "6dbf5d6d4be8528689cbd9623f7ed8c225d1ade6b988f45fe418bcf8f2720ff1",
+    "char_count": 4000,
+    "structural_refs": [
+      "13.2",
+      "15.10",
+      "15.6",
+      "15.7",
+      "15.8",
+      "15.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "basis",
+        "data_fitting",
+        "least_squares",
+        "regularization"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:15_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 15.5 Complexity",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 15",
+    "page": 340,
+    "statement_sha256": "a3a4cec1221f25119927528c66e518d313c7b34ff60885319560ceffadc4fccf",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.2",
+      "0.4",
+      "0.6",
+      "0.8",
+      "1.2",
+      "15.1",
+      "15.12",
+      "15.2",
+      "15.3",
+      "15.7",
+      "15.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "data_fitting",
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "qr_factorization",
+        "regularization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:16_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 16.1 Constrained least squares problem",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 16",
+    "page": 349,
+    "statement_sha256": "66136da6af3141406116f2c4c8c3a2bd00507b2a83f3b2facbdb7eb981c90be5",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_equations",
+        "matrix",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:16_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 16.2 Solution",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 16",
+    "page": 354,
+    "statement_sha256": "c54e79c922b66e31c4fc8c6044595a6f10706e35b73d096a11707ba0628ee936",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.05",
+      "0.5",
+      "12.2",
+      "12.4",
+      "16.1",
+      "16.3",
+      "16.4",
+      "16.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_equations",
+        "linear_independence",
+        "matrix",
+        "matrix_inverse",
+        "matrix_multiplication",
+        "normal_equations",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:16_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 16.3 Solving constrained least squares problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 16",
+    "page": 357,
+    "statement_sha256": "696618e9932955e1b5994a047589900fa22f499aff81483ac2362828f99a23a2",
+    "char_count": 4000,
+    "structural_refs": [
+      "12.1",
+      "16.1",
+      "16.10",
+      "16.2",
+      "16.4",
+      "16.5",
+      "16.6",
+      "16.7",
+      "16.8",
+      "16.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "qr_factorization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:17_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 17.1 Portfolio optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 17",
+    "page": 367,
+    "statement_sha256": "ff013208e028a1508fc288758747754170edf2eb54b49e5dbb00546dccb5bab8",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.0",
+      "0.02",
+      "0.03",
+      "0.2",
+      "1.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:17_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 17.2 Linear quadratic control",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 17",
+    "page": 376,
+    "statement_sha256": "f82fe2a40cbdbf91a204b34cc8587d8b7f93cbd20631714a61a679a1cd451560",
+    "char_count": 4000,
+    "structural_refs": [
+      "17.6",
+      "17.7",
+      "17.8",
+      "17.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_combination",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:17_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 17.3 Linear quadratic state estimation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 17",
+    "page": 382,
+    "statement_sha256": "8ceea103bb18e9edc5c865447b912e23b8a462eef3d425b528dfdf0671c2fc46",
+    "char_count": 4000,
+    "structural_refs": [
+      "0.1",
+      "0.2",
+      "0.4",
+      "17.10",
+      "17.11",
+      "17.2",
+      "17.7",
+      "17.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:18_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 18.1 Nonlinear equations and least squares",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 18",
+    "page": 391,
+    "statement_sha256": "30f3293d195770544bd8bf28ad12beaf45eabfaa36ae2b58b28cb96ecb5ba9ed",
+    "char_count": 4000,
+    "structural_refs": [
+      "18.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "linear_equations",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:18_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 18.2 Gauss?Newton algorithm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 18",
+    "page": 396,
+    "statement_sha256": "dd01ccd539f7a22d9767ccebdd1c1f5c83e3c505f3619dda21946c16eaaafdaf",
+    "char_count": 4000,
+    "structural_refs": [
+      "18.1",
+      "18.4",
+      "18.5",
+      "18.6",
+      "8.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "regularization",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance",
+        "hyperplane",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:18_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 18.3 Levenberg?Marquardt algorithm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 18",
+    "page": 401,
+    "statement_sha256": "19d32af9e417cf80ab7cb56d4b85fc4c9f6cb68b6313d9d58d0afc506d9fbeb6",
+    "char_count": 4000,
+    "structural_refs": [
+      "18.11",
+      "18.12"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "matrix_inverse",
+        "normal_equations",
+        "regularization"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:18_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 18.4 Nonlinear model fitting",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 18",
+    "page": 409,
+    "statement_sha256": "b711fc5a752ddae17725f7fcd83be652c881a1d383508476bb2edb72ba9a3ac6",
+    "char_count": 3595,
+    "structural_refs": [
+      "13.1",
+      "18.13",
+      "18.14"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "basis",
+        "data_fitting",
+        "least_squares",
+        "linear_combination",
+        "regularization",
+        "vector"
+      ],
+      "geo_tags": [
+        "distance",
+        "hyperplane",
+        "orthogonal"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:18_5",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 18.5 Nonlinear least squares classification",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 18",
+    "page": 411,
+    "statement_sha256": "80ced908d881c8f64593a9675dfce7c707e65704b03263c4c00bfb899a92f8f5",
+    "char_count": 4000,
+    "structural_refs": [
+      "18.14",
+      "18.15",
+      "18.16",
+      "18.17"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "regularization",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:19_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 19.1 Constrained nonlinear least squares",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 19",
+    "page": 429,
+    "statement_sha256": "00da3d73b42cfa719098aa829ae0042bf46c0e2ccb88c2129392ee92e25dec33",
+    "char_count": 4000,
+    "structural_refs": [
+      "18.2",
+      "18.3",
+      "19.2",
+      "19.3",
+      "19.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:19_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 19.2 Penalty algorithm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 19",
+    "page": 431,
+    "statement_sha256": "550db053ec55e3dad538506b59545a1a5e5bb1337dd1d6e4326c55c817c2142b",
+    "char_count": 2030,
+    "structural_refs": [
+      "19.1",
+      "19.5",
+      "19.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "linear_independence"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:19_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 19.3 Augmented Lagrangian algorithm",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 19",
+    "page": 432,
+    "statement_sha256": "d4740e548259c85180165425af574cc1c89c0daf4a4833e5ca2b5bafab0a5162",
+    "char_count": 3999,
+    "structural_refs": [
+      "19.1",
+      "19.10",
+      "19.11",
+      "19.2",
+      "19.4",
+      "19.5",
+      "19.7",
+      "19.8",
+      "19.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:19_4",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 19.4 Nonlinear control",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 19",
+    "page": 435,
+    "statement_sha256": "c5a1281acd77c731eef6e21cfa49fda098a50dc3299022a11efbedda6c629cc2",
+    "char_count": 3999,
+    "structural_refs": [
+      "0.5",
+      "19.1",
+      "19.10",
+      "19.2",
+      "19.3",
+      "19.5",
+      "19.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "algorithm",
+        "least_squares",
+        "vector"
+      ],
+      "geo_tags": [
+        "angle",
+        "hyperplane",
+        "norm"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:22_1",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 22.1 Derivatives",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 22",
+    "page": 453,
+    "statement_sha256": "d754c4d0d1309e1e6fdda4c0d5c95f8c9af7397dbce3054ec2485f240cd3596d",
+    "char_count": 4000,
+    "structural_refs": [
+      "1.1",
+      "1.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_combination",
+        "vector"
+      ],
+      "geo_tags": [
+        "hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:22_2",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 22.2 Optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 22",
+    "page": 457,
+    "statement_sha256": "ebfda8ac2444be375c01800b80c16800ad24aa32a2edb86a34f7e5f3495ec6fa",
+    "char_count": 2095,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix",
+        "matrix_multiplication",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  },
+  {
+    "node_id": "srcdecl:vmls:section:22_3",
+    "source_id": "BOYD_VANDENBERGHE_VMLS_2018",
+    "label": "VMLS 22.3 Lagrange multipliers",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 22",
+    "page": 458,
+    "statement_sha256": "059cdb3eaa617fa334a3962ce266380fa395d8508e1cff40c384d8282f407adf",
+    "char_count": 4000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares",
+        "linear_independence",
+        "matrix",
+        "vector"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT"
+    }
+  }
+]

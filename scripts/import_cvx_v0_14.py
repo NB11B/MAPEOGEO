@@ -233,8 +233,28 @@ def parse_cvx_declarations_from_pdf(
     return declarations
 
 
+MANIFEST_PATH = ROOT / "formal" / "cvx_declarations_manifest.json"
+
+
 def generate_mock_cvx_declarations() -> list[CvxDeclaration]:
     """Deterministic fallback mock declarations for testing environments without PDF access."""
+    if MANIFEST_PATH.exists():
+        data = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+        return [
+            CvxDeclaration(
+                node_id=item["node_id"],
+                source_id=item["source_id"],
+                label=item["label"],
+                decl_type=item["decl_type"],
+                chapter_section=item["chapter_section"],
+                page=item["page"],
+                statement_sha256=item["statement_sha256"],
+                char_count=item["char_count"],
+                structural_refs=item.get("structural_refs", []),
+                representation_profile=item.get("representation_profile", {}),
+            )
+            for item in data
+        ]
     mock_data = [
         # Chapter 2: Convex sets
         ("2.1", "Affine and convex sets", "Chapter 2", 21, ["affine_combination", "convex_combination"], ["hyperplane", "halfspace", "convex_set"], ["abstract", "geometric"]),

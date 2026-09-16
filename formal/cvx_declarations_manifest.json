@@ -1,0 +1,2659 @@
+[
+  {
+    "node_id": "srcdecl:cvx:section:1_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 1.1 Mathematical optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 15,
+    "statement_sha256": "dc9f1737292e936bd821eddf8d0a3495fec858a6d0e6537283187eceddb0a1c7",
+    "char_count": 5000,
+    "structural_refs": [
+      "1.2",
+      "1.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "applied"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:1_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 1.2 Least-squares and linear programming",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 18,
+    "statement_sha256": "fbc721fa366446bd734a7ebb04d5c1dd0dd9df6bd40a3b1ea8f89fb2bdd68548",
+    "char_count": 5000,
+    "structural_refs": [
+      "1.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares_cvx",
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:1_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 1.3 Convex optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 21,
+    "statement_sha256": "1ad504c2741a280fd43139d95bfa6bd223c7fb952380aa9b377ec2f13b5db2ff",
+    "char_count": 5000,
+    "structural_refs": [
+      "1.4",
+      "1.5",
+      "1.6",
+      "1.7",
+      "1.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "interior_point",
+        "least_squares_cvx",
+        "linear_program"
+      ],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "applied",
+        "computational",
+        "geometric"
+      ],
+      "diversity_count": 4
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:1_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 1.4 Nonlinear optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 1",
+    "page": 23,
+    "statement_sha256": "51f71cd0f611b4d4cbf539187f0ff66ac6de33f817b226771290503ee6d38c21",
+    "char_count": 5000,
+    "structural_refs": [
+      "1.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares_cvx",
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "applied",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:2_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 2.1 Affine and convex sets",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 35,
+    "statement_sha256": "bb7a6f385bccf266e0013a8023ef58a4ee0db270f19b5270039b46c6b4b27a88",
+    "char_count": 4999,
+    "structural_refs": [
+      "0.2",
+      "0.6",
+      "1.2",
+      "2.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "convex_set"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:2_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 2.2 Some important examples",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 41,
+    "statement_sha256": "9ae2845c9ed81151ef6cc174d4675a9acfc86b155305a4f67ab7c6cbc6d557a4",
+    "char_count": 4999,
+    "structural_refs": [
+      "1.2",
+      "2.1",
+      "2.3",
+      "2.4",
+      "2.6",
+      "2.7",
+      "2.8",
+      "2.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "cone",
+        "convex_set",
+        "ellipsoid",
+        "halfspace",
+        "hyperplane"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:2_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 2.3 Operations that preserve convexity",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 49,
+    "statement_sha256": "37ccfa85b71fa87f61baf7c48705b13aed4d270b3ea8e68576703aac0ede395e",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.5",
+      "2.10",
+      "2.11",
+      "2.12",
+      "2.13",
+      "2.14",
+      "2.16",
+      "2.2",
+      "2.5",
+      "2.6",
+      "2.7",
+      "2.8",
+      "2.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "matrix_inequality",
+        "semidefinite_program"
+      ],
+      "geo_tags": [
+        "cone",
+        "convex_set",
+        "halfspace",
+        "polyhedron"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:2_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 2.4 Generalized inequalities",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 57,
+    "statement_sha256": "ace5593237478ea04ffc8957e2e06584815b430c9d86b2b2f6ef16f436ef4234",
+    "char_count": 5000,
+    "structural_refs": [
+      "2.14",
+      "2.15",
+      "2.16",
+      "2.30"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix_inequality"
+      ],
+      "geo_tags": [
+        "cone",
+        "convex_set"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:2_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 2.5 Separating and supporting hyperplanes",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 60,
+    "statement_sha256": "5cbeeca1abaa6380c15dbff99dc07870cbce5ef7148d09b627076186f08094a9",
+    "char_count": 5000,
+    "structural_refs": [
+      "2.16",
+      "2.17",
+      "2.18",
+      "2.19",
+      "2.2",
+      "2.20",
+      "2.22",
+      "2.23"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "convex_set",
+        "ellipsoid",
+        "hyperplane",
+        "separating_hyperplane"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT",
+      "representation_kinds": [
+        "geometric"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:2_6",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 2.6 Dual cones and generalized inequalities",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 2",
+    "page": 65,
+    "statement_sha256": "92507d8457bc459b58392bbff52a36ff09b2227b3f6fccf4e79ec5e196830fdb",
+    "char_count": 5000,
+    "structural_refs": [
+      "1.1",
+      "1.6",
+      "2.19",
+      "2.20",
+      "2.21",
+      "2.22",
+      "2.23",
+      "2.24",
+      "2.25",
+      "2.27",
+      "2.31"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "cone",
+        "convex_set",
+        "dual_cone",
+        "halfspace",
+        "hyperplane",
+        "separating_hyperplane",
+        "supporting_hyperplane"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:3_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 3.1 Basic properties and examples",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 81,
+    "statement_sha256": "fc654be4bf97039a936269a63e0e40e6de4a291dbe9301cb65c0f026ddfaba5b",
+    "char_count": 5000,
+    "structural_refs": [
+      "3.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function"
+      ],
+      "geo_tags": [
+        "convex_set"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:3_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 3.2 Operations that preserve convexity",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 93,
+    "statement_sha256": "b68803ade20b94775b2e6ca1af20d468256e268b66e031f2ef6abc71a251ae7c",
+    "char_count": 4999,
+    "structural_refs": [
+      "3.19",
+      "3.29",
+      "3.5",
+      "3.6",
+      "3.7",
+      "3.8",
+      "3.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "least_squares_cvx"
+      ],
+      "geo_tags": [
+        "cone",
+        "convex_set",
+        "supporting_hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "geometric"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:3_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 3.3 The conjugate function",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 104,
+    "statement_sha256": "1cf14bbeb7c68c1d341c6ffba0938dd9257751640a83ed73b1c6ecbe4e61e87f",
+    "char_count": 4999,
+    "structural_refs": [
+      "3.13",
+      "3.17",
+      "3.18",
+      "3.19",
+      "3.20",
+      "3.21",
+      "3.22",
+      "3.23",
+      "3.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "fenchel_conjugate"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:3_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 3.4 Quasiconvex functions",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 109,
+    "statement_sha256": "297562747f2193d4b89a45992438c65d582decbf9da292b15ae51bd15f5b7d63",
+    "char_count": 5000,
+    "structural_refs": [
+      "3.29",
+      "3.30",
+      "3.31",
+      "3.32",
+      "3.33",
+      "3.34",
+      "3.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "fenchel_conjugate"
+      ],
+      "geo_tags": [
+        "convex_set",
+        "distance_to_set",
+        "halfspace"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:3_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 3.5 Log-concave and log-convex functions",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 118,
+    "statement_sha256": "90cbd6d2f7afa4e948925438fc420b8dc87adf8e58e99f5f3acacf5c94a7f876",
+    "char_count": 5000,
+    "structural_refs": [
+      "3.39",
+      "3.40",
+      "3.41",
+      "3.49",
+      "3.52",
+      "3.54"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function"
+      ],
+      "geo_tags": [
+        "convex_set"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:3_6",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 3.6 Convexity with respect to generalized inequalities",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 3",
+    "page": 122,
+    "statement_sha256": "aa52ee4899e07fba9d960f203c44501ebe5a5842f09c4d0a851691081076560f",
+    "char_count": 5000,
+    "structural_refs": [
+      "3.24",
+      "3.25",
+      "3.44",
+      "3.45",
+      "3.46",
+      "3.47",
+      "3.48"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "matrix_inequality"
+      ],
+      "geo_tags": [
+        "cone",
+        "dual_cone",
+        "polyhedron"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:4_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 4.1 Optimization problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 141,
+    "statement_sha256": "5a3396b2f460e537153cdbb4d5c4040deda9b1e0dee1bafac693194612af24af",
+    "char_count": 5000,
+    "structural_refs": [
+      "4.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "abstract"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:4_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 4.2 Convex optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 150,
+    "statement_sha256": "76b22df120efcac0ac3b87ed516908ac23812063d10eef752691db9f90446b1c",
+    "char_count": 5000,
+    "structural_refs": [
+      "4.1",
+      "4.15",
+      "4.16",
+      "4.17"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function"
+      ],
+      "geo_tags": [
+        "convex_set"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "applied"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:4_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 4.3 Linear optimization problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 160,
+    "statement_sha256": "630dafac08fc5c72b950e565adbcde7e3d57b1597888ba317156af8d566e9c9f",
+    "char_count": 5000,
+    "structural_refs": [
+      "4.1",
+      "4.10",
+      "4.26",
+      "4.27",
+      "4.28",
+      "4.29",
+      "4.4",
+      "8.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "linear_program"
+      ],
+      "geo_tags": [
+        "polyhedron"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "computational",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:4_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 4.4 Quadratic optimization problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 166,
+    "statement_sha256": "c6d63d1552d6e3815b5c3e16bb95bb8c8bc0422b8b9de3efa8ea9e64e5e17f4f",
+    "char_count": 4999,
+    "structural_refs": [
+      "4.15",
+      "4.32",
+      "4.34",
+      "4.35",
+      "4.5",
+      "4.7",
+      "5.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "least_squares_cvx",
+        "quadratic_program"
+      ],
+      "geo_tags": [
+        "ellipsoid",
+        "polyhedron"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "applied",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:4_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 4.5 Geometric programming",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 174,
+    "statement_sha256": "629b7541a5fddaf3123a2ee2406f5da76041e207517d36892c384abb9c1f6f91",
+    "char_count": 4999,
+    "structural_refs": [
+      "4.40",
+      "4.41",
+      "4.42",
+      "4.43"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:4_6",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 4.6 Generalized inequality constraints",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 181,
+    "statement_sha256": "9dad335ac83bc8f0bc2ab9306c061864f29f29c7256ac2c9508139662e47d962",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.3",
+      "0.5",
+      "2.10",
+      "4.15",
+      "4.2",
+      "4.28",
+      "4.29",
+      "4.48",
+      "4.49",
+      "4.50",
+      "4.51"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_program",
+        "matrix_inequality",
+        "semidefinite_program"
+      ],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:4_7",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 4.7 Vector optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 4",
+    "page": 188,
+    "statement_sha256": "152d314d574434f12b4e9eb15aafc45165d3771a4bd162e1b721b8552c183986",
+    "char_count": 5000,
+    "structural_refs": [
+      "2.4",
+      "4.1",
+      "4.53",
+      "4.54",
+      "4.55",
+      "4.56",
+      "4.57",
+      "4.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "semidefinite_program"
+      ],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.1 The Lagrange dual function",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 229,
+    "statement_sha256": "c4beaee93466ea90237d92f344beea1b664315eaf63ae3236d4cd6bdd7c8553e",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.1",
+      "0.2",
+      "0.4",
+      "0.46",
+      "0.5",
+      "0.6",
+      "0.8",
+      "1.0",
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.5",
+      "1.54",
+      "1.6",
+      "4.1",
+      "5.2",
+      "5.3",
+      "5.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "lagrangian"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "applied"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.2 The Lagrange dual problem",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 237,
+    "statement_sha256": "2b24db6d05860531240b08ee55cf0f4a9cc183c12a21f496da6dcdca1af33f23",
+    "char_count": 5000,
+    "structural_refs": [
+      "3.23",
+      "5.1",
+      "5.11",
+      "5.14",
+      "5.15",
+      "5.16",
+      "5.17",
+      "5.18",
+      "5.19",
+      "5.20",
+      "5.21",
+      "5.22",
+      "5.23"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "lagrangian",
+        "linear_program"
+      ],
+      "geo_tags": [
+        "ellipsoid"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "geometric"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.3 Geometric interpretation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 246,
+    "statement_sha256": "44099d615aaa05fb0561f42b57600326dacb89eacc2acbbee66c11d9da18b41a",
+    "char_count": 4999,
+    "structural_refs": [
+      "2.5",
+      "5.1",
+      "5.25",
+      "5.36",
+      "5.37",
+      "5.38",
+      "5.39",
+      "5.4",
+      "5.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "dual_problem"
+      ],
+      "geo_tags": [
+        "convex_set",
+        "hyperplane",
+        "separating_hyperplane",
+        "supporting_hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.4 Saddle-point interpretation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 251,
+    "statement_sha256": "9d720970bde659586824ae7d84bd7c27e9ea6f2211dbf547b8bb72f4681631c0",
+    "char_count": 5000,
+    "structural_refs": [
+      "4.62",
+      "4.7",
+      "5.37",
+      "5.43",
+      "5.44",
+      "5.45",
+      "5.46",
+      "5.47"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "lagrangian"
+      ],
+      "geo_tags": [
+        "hyperplane",
+        "supporting_hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "geometric"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.5 Optimality conditions",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 255,
+    "statement_sha256": "172b5a34f5d19a83f5730bd65297aab711fed7c262ddbd05587ee4c1af242c86",
+    "char_count": 4999,
+    "structural_refs": [
+      "5.1",
+      "5.48"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "kkt_conditions",
+        "lagrangian"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "computational"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_6",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.6 Perturbation and sensitivity analysis",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 263,
+    "statement_sha256": "dcf2574d29b727af7d988ac0a76505fb223db557f51909ba4a44baacce492148",
+    "char_count": 5000,
+    "structural_refs": [
+      "5.1",
+      "5.10",
+      "5.16",
+      "5.32",
+      "5.37",
+      "5.56",
+      "5.57"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "dual_problem",
+        "lagrangian"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_7",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.7 Examples",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 267,
+    "statement_sha256": "6c56291abca0c8ee035093e834d3ca08047d75606dbdf6fd8ceedb05f4b77525",
+    "char_count": 4999,
+    "structural_refs": [
+      "3.25",
+      "3.26",
+      "5.5",
+      "5.58",
+      "5.59",
+      "5.6",
+      "5.60",
+      "5.61",
+      "5.62",
+      "5.63",
+      "5.64",
+      "5.65",
+      "5.66"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "lagrangian"
+      ],
+      "geo_tags": [
+        "norm_ball"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "applied"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_8",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.8 Theorems of alternatives",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 272,
+    "statement_sha256": "931dbd8c1315a7fe0b246461344ce0c49b609163b465a01bba9e877a7ae3d9a0",
+    "char_count": 5000,
+    "structural_refs": [
+      "5.1",
+      "5.69",
+      "5.70",
+      "5.71",
+      "5.72",
+      "5.73",
+      "5.74",
+      "5.75",
+      "5.76",
+      "5.77",
+      "5.78",
+      "5.79",
+      "5.80"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:5_9",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 5.9 Generalized inequalities",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 5",
+    "page": 278,
+    "statement_sha256": "14ebbc0d5f985a3243f7c02747c701db54c20f85d5b481ea4ed402a60e0c6db2",
+    "char_count": 5000,
+    "structural_refs": [
+      "2.6",
+      "5.11",
+      "5.12",
+      "5.38",
+      "5.91",
+      "5.92",
+      "5.93"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "dual_problem",
+        "lagrangian",
+        "linear_program"
+      ],
+      "geo_tags": [
+        "cone",
+        "dual_cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:6_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 6.1 Norm approximation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 305,
+    "statement_sha256": "8dc28772b5f7da8c26687350a2cffee99c7eade4469ec35b38584fffbe9416b6",
+    "char_count": 5000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares_cvx"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:6_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 6.2 Least-norm problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 316,
+    "statement_sha256": "d9aa2345b1f42ebf3e89876887de4e4b2475bafb322a6956159910a495151f63",
+    "char_count": 5000,
+    "structural_refs": [
+      "6.3",
+      "6.5",
+      "7.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_combination",
+        "least_squares_cvx"
+      ],
+      "geo_tags": [
+        "norm_ball"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:6_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 6.3 Regularized approximation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 319,
+    "statement_sha256": "59814d00c5a9dd847d6517b89f25fd1dd96d387c948076a5522c5b12452f9c14",
+    "char_count": 4999,
+    "structural_refs": [
+      "4.7",
+      "5.4",
+      "6.10",
+      "6.4",
+      "6.7",
+      "6.8",
+      "6.9",
+      "7.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares_cvx"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:6_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 6.4 Robust approximation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 332,
+    "statement_sha256": "83f2c54b4a0cf66e71be6c0de68af20b5492b8a1dbbd0572cc70cef6862ffdf4",
+    "char_count": 5000,
+    "structural_refs": [
+      "6.1",
+      "6.10",
+      "6.13",
+      "6.14",
+      "6.15",
+      "6.5",
+      "6.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "least_squares_cvx",
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:6_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 6.5 Function fitting and interpolation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 6",
+    "page": 338,
+    "statement_sha256": "aec0ede312b1ce9cfa8cb71a7a049689b078d25ac2c504a8e0cb4344377dc721",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.05",
+      "0.1",
+      "0.15",
+      "0.2",
+      "0.25",
+      "0.52",
+      "2.0",
+      "2.6",
+      "4.9",
+      "5.2",
+      "6.15",
+      "6.16",
+      "6.17",
+      "6.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "lagrangian",
+        "least_squares_cvx",
+        "semidefinite_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:7_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 7.1 Parametric distribution estimation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 365,
+    "statement_sha256": "dad7d7b6363819bd748a0200e2955293d5c3f02aab71e3968de4cd7a8e35762d",
+    "char_count": 5000,
+    "structural_refs": [
+      "6.2",
+      "7.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "least_squares_cvx"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:7_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 7.2 Nonparametric distribution estimation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 373,
+    "statement_sha256": "6479e372a7852d40652bc8d1249cf68a5cebb4873846e2574f251e410325dedb",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.3",
+      "3.19",
+      "6.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "quadratic_program"
+      ],
+      "geo_tags": [
+        "polyhedron"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "applied"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:7_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 7.3 Optimal detector design and hypothesis testing",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 378,
+    "statement_sha256": "4c63e6151cb2326482d49366d87f2cfa58ab1c45dca4b1d42e0f379eafda99d2",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.2",
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.8",
+      "7.10",
+      "7.11",
+      "7.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:7_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 7.4 Chebyshev and Chernoff bounds",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 388,
+    "statement_sha256": "d9bc30bc32182f0d02be114ba117668ec989f1d5517f0df4a34a2c594c3f28f7",
+    "char_count": 5000,
+    "structural_refs": [
+      "7.1",
+      "7.17",
+      "7.18"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "applied"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:7_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 7.5 Experiment design",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 7",
+    "page": 398,
+    "statement_sha256": "25cccebbec9aafcdd01863a7bc89baec41ac999892456ffc7e53031f6f1986fc",
+    "char_count": 4999,
+    "structural_refs": [
+      "0.2",
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.9",
+      "0.95",
+      "7.23",
+      "7.24",
+      "7.25",
+      "7.8"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "least_squares_cvx"
+      ],
+      "geo_tags": [
+        "cone",
+        "ellipsoid"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.1 Projection on a set",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 411,
+    "statement_sha256": "569778f3a155a0e1ca2da15a89afec6d77c9a98558f9c6c990cf16a95ad3b43f",
+    "char_count": 5000,
+    "structural_refs": [
+      "8.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "kkt_conditions",
+        "quadratic_program"
+      ],
+      "geo_tags": [
+        "cone",
+        "convex_set",
+        "halfspace",
+        "hyperplane",
+        "polyhedron",
+        "projection_convex_set",
+        "separating_hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.2 Distance between sets",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 416,
+    "statement_sha256": "85dce7357b762563391de81ad418ce8e8b5e0953bca74a86931411387a153cb1",
+    "char_count": 4437,
+    "structural_refs": [
+      "8.3",
+      "8.4",
+      "8.5",
+      "8.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "quadratic_program"
+      ],
+      "geo_tags": [
+        "convex_set",
+        "distance_to_set",
+        "hyperplane",
+        "polyhedron",
+        "separating_hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "geometric"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.3 Euclidean distance and angle problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 419,
+    "statement_sha256": "e2e7914ee4ed7c91370accfd079921dd6fc1687660ac44fe98ad4bde39a85990",
+    "char_count": 5000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function"
+      ],
+      "geo_tags": [
+        "distance_to_set",
+        "hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.4 Extremal volume ellipsoids",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 424,
+    "statement_sha256": "7e1dab16de7bb6e9bd58c226868da4edccb32b50fc4120e91ffa5f118db3e5cb",
+    "char_count": 5000,
+    "structural_refs": [
+      "8.10",
+      "8.11",
+      "8.3",
+      "8.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix_inequality"
+      ],
+      "geo_tags": [
+        "convex_set",
+        "distance_to_set",
+        "ellipsoid",
+        "norm_ball",
+        "polyhedron"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "applied",
+        "geometric"
+      ],
+      "diversity_count": 4
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.5 Centering",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 430,
+    "statement_sha256": "895a4333abf593edc0a50e3ce2153a6e8c2bfb0616ad048d634eeae870e2473a",
+    "char_count": 5000,
+    "structural_refs": [
+      "8.15",
+      "8.16",
+      "8.17",
+      "8.18",
+      "8.4",
+      "8.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "linear_program",
+        "matrix_inequality",
+        "semidefinite_program"
+      ],
+      "geo_tags": [
+        "analytic_center",
+        "convex_set",
+        "ellipsoid",
+        "polyhedron",
+        "projection_convex_set"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_6",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.6 Classification",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 436,
+    "statement_sha256": "f4df5a02657934270c21bda704766488bfd38e98973c6b536df67100238c973d",
+    "char_count": 5000,
+    "structural_refs": [
+      "5.8",
+      "8.20",
+      "8.21",
+      "8.22",
+      "8.23",
+      "8.8",
+      "8.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix_inequality"
+      ],
+      "geo_tags": [
+        "analytic_center",
+        "cone",
+        "convex_set",
+        "distance_to_set",
+        "hyperplane",
+        "polyhedron",
+        "separating_hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_7",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.7 Placement and location",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 446,
+    "statement_sha256": "d1009505c22166b3ae11ceb8d41aa62b534fdacde7ea78803a467e85f894e3c2",
+    "char_count": 5000,
+    "structural_refs": [
+      "8.28",
+      "8.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function"
+      ],
+      "geo_tags": [
+        "convex_set",
+        "ellipsoid"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "applied",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:8_8",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 8.8 Floor planning",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 8",
+    "page": 452,
+    "statement_sha256": "72d81ffc8bdc52b591213b425b2e91198eccde61b8db586733e4ddee1e2cfd4b",
+    "char_count": 5000,
+    "structural_refs": [
+      "8.18",
+      "8.30",
+      "8.31",
+      "8.32",
+      "8.33"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "applied"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:9_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 9.1 Unconstrained minimization problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 471,
+    "statement_sha256": "85f4d89dad4368e1c064e1638597915fc9e86e18275cb2be55b5dbb0764a9b79",
+    "char_count": 5000,
+    "structural_refs": [
+      "3.3",
+      "4.2",
+      "9.2",
+      "9.3",
+      "9.4",
+      "9.5",
+      "9.6",
+      "9.7"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "kkt_conditions",
+        "least_squares_cvx",
+        "matrix_inequality"
+      ],
+      "geo_tags": [
+        "analytic_center"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:9_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 9.2 Descent methods",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 477,
+    "statement_sha256": "3f6c6537bc039cfc3f81e97c6b78fd4a6450bff12340cdb2e31288496d3ba10f",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.5",
+      "9.1",
+      "9.10",
+      "9.16",
+      "9.6",
+      "9.7",
+      "9.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "computational"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:9_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 9.3 Gradient descent method",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 480,
+    "statement_sha256": "3d94eefea17ecc47ed79a0e7ec2bd6e677f54b45108bd9b737c15500e26e2438",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.01",
+      "0.1",
+      "0.3",
+      "0.8",
+      "9.13",
+      "9.17",
+      "9.18",
+      "9.19",
+      "9.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "newton_method"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "computational"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:9_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 9.4 Steepest descent method",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 489,
+    "statement_sha256": "ef6108f606a21d83548c00d97d7c310add79d792a888d721dd51ec90744d1eb3",
+    "char_count": 4999,
+    "structural_refs": [
+      "9.23",
+      "9.24",
+      "9.25",
+      "9.7",
+      "9.9"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "newton_method"
+      ],
+      "geo_tags": [
+        "ellipsoid",
+        "norm_ball"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "applied",
+        "computational",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:9_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 9.5 Newton's method",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 498,
+    "statement_sha256": "23f018dd5a9da2be399d3b7c22c452cbdf60d63e78f3194c6f81f62b37361b15",
+    "char_count": 5000,
+    "structural_refs": [
+      "9.16",
+      "9.17",
+      "9.18",
+      "9.28"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "kkt_conditions",
+        "newton_method"
+      ],
+      "geo_tags": [
+        "ellipsoid"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "applied",
+        "computational",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:9_6",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 9.6 Self-concordance",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 510,
+    "statement_sha256": "0dd4bcea6daff332f981a83d2a3fb020332e6945379f79f17bdcb4b5d7066a5a",
+    "char_count": 4999,
+    "structural_refs": [
+      "11.13",
+      "9.3",
+      "9.40",
+      "9.41",
+      "9.5",
+      "9.7"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "interior_point",
+        "newton_method"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:9_7",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 9.7 Implementation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 9",
+    "page": 522,
+    "statement_sha256": "514a7f7b1613dcd6d10820e1391526b77cca7a2b1aff6b2c483e5462ce3da111",
+    "char_count": 5000,
+    "structural_refs": [
+      "9.59",
+      "9.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "matrix_inequality",
+        "newton_method"
+      ],
+      "geo_tags": [
+        "analytic_center"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:10_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 10.1 Equality constrained minimization problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 535,
+    "statement_sha256": "32855a434c7b82be5acd89aee97e74aeed3fce3827ced9c029f46d6f3e7f3d9b",
+    "char_count": 5000,
+    "structural_refs": [
+      "10.2",
+      "10.3",
+      "10.4",
+      "4.2",
+      "5.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "kkt_conditions"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:10_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 10.2 Newton's method with equality constraints",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 539,
+    "statement_sha256": "efbf6940280f64a8f48389de2206270a1e563b5e6d231ec9408b6ba3fb9dcf70",
+    "char_count": 5000,
+    "structural_refs": [
+      "10.1",
+      "10.10",
+      "10.11",
+      "10.12",
+      "10.13",
+      "10.6",
+      "10.7",
+      "10.8",
+      "10.9",
+      "5.5",
+      "9.29"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "kkt_conditions",
+        "newton_method"
+      ],
+      "geo_tags": [
+        "analytic_center"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied",
+        "computational"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:10_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 10.3 Infeasible start Newton method",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 545,
+    "statement_sha256": "3a05b1538db26d325b65a5cc9abe9e82a9a131c76150e735c0efec4808202b65",
+    "char_count": 5000,
+    "structural_refs": [
+      "10.11",
+      "10.18",
+      "10.19",
+      "10.2",
+      "10.20",
+      "10.21",
+      "10.22",
+      "4.1",
+      "9.56"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "kkt_conditions",
+        "newton_method"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "applied",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:10_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 10.4 Implementation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 10",
+    "page": 556,
+    "statement_sha256": "e01ba9f24890e4d74d4e4fb3a4b5b63ca76e59461608af232b3d73c5b8082816",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.01",
+      "0.1",
+      "0.2",
+      "0.3",
+      "0.5",
+      "10.1",
+      "10.13",
+      "10.2",
+      "10.3",
+      "10.32",
+      "10.33",
+      "10.5",
+      "3.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "kkt_conditions",
+        "newton_method"
+      ],
+      "geo_tags": [
+        "analytic_center"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_1",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.1 Inequality constrained minimization problems",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 575,
+    "statement_sha256": "3cc6ceb605cf6b9619c0a30c1d20b82e790ee8acd3895802db4fd58601f607cd",
+    "char_count": 1821,
+    "structural_refs": [
+      "11.2",
+      "11.7"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "interior_point",
+        "kkt_conditions"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_2",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.2 Logarithmic barrier function and central path",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 576,
+    "statement_sha256": "b53bb88d764cbff668374bfb80f30af6106a0d5244f1bbda729036257cca4eea",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.5",
+      "11.1",
+      "11.3",
+      "11.4",
+      "11.5",
+      "11.6",
+      "4.2",
+      "4.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "interior_point",
+        "linear_program"
+      ],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "applied",
+        "computational"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_3",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.3 The barrier method",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 582,
+    "statement_sha256": "d2f9b2a9d7aa1a30f3f2ac02897890259e6d12ba7e97bfe6d7775499a02c72a3",
+    "char_count": 5000,
+    "structural_refs": [
+      "11.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "interior_point",
+        "linear_program"
+      ],
+      "geo_tags": [
+        "hyperplane"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "computational",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_4",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.4 Feasibility and phase I methods",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 593,
+    "statement_sha256": "139e0df67b47bd8b443432c751d44ad00c718097add1655838415c86c2a54baa",
+    "char_count": 4999,
+    "structural_refs": [
+      "0.5",
+      "1.5",
+      "11.18",
+      "11.19",
+      "11.20",
+      "11.9",
+      "6.1",
+      "6.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "interior_point",
+        "linear_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_5",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.5 Complexity analysis via self-concordance",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 599,
+    "statement_sha256": "f907905fe5a80b4d3576523a69ae5e35806c904afed671b318c4713f47e64135",
+    "char_count": 5000,
+    "structural_refs": [
+      "0.01",
+      "0.3",
+      "10.2",
+      "11.1",
+      "11.12",
+      "11.13",
+      "11.14",
+      "11.23",
+      "11.3",
+      "9.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "interior_point"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_6",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.6 Problems with generalized inequalities",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 610,
+    "statement_sha256": "5e202035968a62991c44f6a6bec237080183d8555e06142ee7b6fbbe9a19fc24",
+    "char_count": 5000,
+    "structural_refs": [
+      "11.1",
+      "11.15",
+      "11.38",
+      "11.39",
+      "11.40",
+      "11.5",
+      "11.7",
+      "3.6"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function",
+        "interior_point",
+        "kkt_conditions"
+      ],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "computational",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_7",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.7 Primal-dual interior-point methods",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 623,
+    "statement_sha256": "3527878192882c397cb7a4dec538e7bc11fe094cbb567c65068b7dc2d54c34bd",
+    "char_count": 5000,
+    "structural_refs": [
+      "11.1",
+      "11.14",
+      "11.15",
+      "11.3",
+      "11.53",
+      "11.54",
+      "11.55",
+      "11.56",
+      "11.57",
+      "11.58"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "interior_point",
+        "kkt_conditions",
+        "newton_method"
+      ],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "computational",
+        "geometric"
+      ],
+      "diversity_count": 4
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_8",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.8 Implementation",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 629,
+    "statement_sha256": "129171f2d6135c705aca1878b169173c75b0564259b5f096ec69d804f657d746",
+    "char_count": 4999,
+    "structural_refs": [
+      "10.4",
+      "11.23",
+      "11.3",
+      "11.60",
+      "9.7"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "interior_point",
+        "kkt_conditions",
+        "least_squares_cvx",
+        "linear_program",
+        "newton_method"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "applied",
+        "computational"
+      ],
+      "diversity_count": 4
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_9",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.9 Norms",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 647,
+    "statement_sha256": "c5947ff79a3ed0ae85044b9e8540c2db5efe4a4a1f14feb048e8b819caf49563",
+    "char_count": 5000,
+    "structural_refs": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "ellipsoid",
+        "norm_ball"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_10",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.10 Analysis",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 651,
+    "statement_sha256": "ddf8d5b83d91d8e52b1ed6413b8bb53868b691fbcc20a7982cb42e879913f13d",
+    "char_count": 3858,
+    "structural_refs": [
+      "2.1",
+      "2.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "abstract"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_11",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.11 Functions",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 653,
+    "statement_sha256": "405889a77fa861845049242e09ad38a38e1a7f2de96e82b61828cdf15b66d369",
+    "char_count": 1773,
+    "structural_refs": [
+      "3.1",
+      "3.2",
+      "3.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "convex_function"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic"
+      ],
+      "diversity_count": 1
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_12",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.12 Derivatives",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 654,
+    "statement_sha256": "81b0d052792ebe754aedab7e3c6e51282751c7f39f99013ae1f85075a61e587a",
+    "char_count": 4999,
+    "structural_refs": [
+      "4.1",
+      "4.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "applied"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_13",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.13 Linear algebra",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 659,
+    "statement_sha256": "213e1da5e0897a2287349ee61f06bcc5e9bc0288d87e565595d0dd81b017a189",
+    "char_count": 5000,
+    "structural_refs": [
+      "4.4",
+      "5.1",
+      "5.2",
+      "5.3"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 3
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_14",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.14 Single constraint quadratic optimization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 667,
+    "statement_sha256": "f78e8dbc1da5fa0a2b73a9ce74251130b41ee0c5f539a079209fe17a1f1bd134",
+    "char_count": 3179,
+    "structural_refs": [
+      "5.4"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem",
+        "lagrangian",
+        "matrix_inequality",
+        "semidefinite_program"
+      ],
+      "geo_tags": [],
+      "direct_status": "EO_ONLY_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_15",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.15 The S-procedure",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 669,
+    "statement_sha256": "cd34ecd58f20bc6dda3c7f8f07451c3c8bbe911b16ca418f00045388d9c6558c",
+    "char_count": 1724,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [
+        "ellipsoid"
+      ],
+      "direct_status": "GEO_ONLY_DIRECT",
+      "representation_kinds": [
+        "abstract",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_16",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.16 The field of values of two symmetric matrices",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 670,
+    "statement_sha256": "efa0f9bebcea3c8adcad7082f9b2fbfdb0679ed47bbab0046d3a8c65a2e01708",
+    "char_count": 2118,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem"
+      ],
+      "geo_tags": [
+        "cone"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_17",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.17 Proofs of the strong duality results",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 671,
+    "statement_sha256": "6f9755083b686a0d21d6a4c1459f9fd0362506600f54d88ae629491fc1003643",
+    "char_count": 4045,
+    "structural_refs": [
+      "1.8",
+      "4.10",
+      "5.14"
+    ],
+    "representation_profile": {
+      "eo_tags": [
+        "dual_problem"
+      ],
+      "geo_tags": [
+        "cone",
+        "convex_set"
+      ],
+      "direct_status": "DUAL_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "geometric"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_18",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.18 Matrix structure and algorithm complexity",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 675,
+    "statement_sha256": "e48b57f079fce6efebaa6c9baa714008afef7cb35cc6b03d1294a9838b5fc7bf",
+    "char_count": 5000,
+    "structural_refs": [
+      "1.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_19",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.19 Solving linear equations with factored matrices",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 678,
+    "statement_sha256": "0079044d841e8e90614039e3e768755747d6fd82edfdc2e866324c8d80ff4b21",
+    "char_count": 5000,
+    "structural_refs": [
+      "2.1"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_20",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.20 LU, Cholesky, and LDLT factorization",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 682,
+    "statement_sha256": "065a0f66f74483b4843d23ad229eead02c351b890d659ee9f88016166eab0c5b",
+    "char_count": 5000,
+    "structural_refs": [
+      "3.1",
+      "3.2"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_21",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.21 Block elimination and Schur complements",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 686,
+    "statement_sha256": "1c7e48a6cda10e4259336014883e9bc545bdc8ff7bcf7ddb95bf2c2d3b364ee9",
+    "char_count": 5000,
+    "structural_refs": [
+      "2.2",
+      "4.1",
+      "5.5"
+    ],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "algebraic",
+        "computational"
+      ],
+      "diversity_count": 2
+    }
+  },
+  {
+    "node_id": "srcdecl:cvx:section:11_22",
+    "source_id": "BOYD_VANDENBERGHE_CVX_2004",
+    "label": "Convex Optimization 11.22 Solving underdetermined linear equations",
+    "decl_type": "SECTION",
+    "chapter_section": "Chapter 11",
+    "page": 695,
+    "statement_sha256": "38dfb081841183165f6933774b2cc344b9a956cf7b4b79fd9c4445622f4f3712",
+    "char_count": 5000,
+    "structural_refs": [],
+    "representation_profile": {
+      "eo_tags": [],
+      "geo_tags": [],
+      "direct_status": "THEORETIC_DIRECT",
+      "representation_kinds": [
+        "algebraic"
+      ],
+      "diversity_count": 1
+    }
+  }
+]
