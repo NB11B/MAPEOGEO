@@ -1078,7 +1078,8 @@ def _exec_conditioning(inputs: Mapping[str, Artifact], bindings: Bindings) -> Ar
         cond = float(np.linalg.cond(arr))
         dtype = art.metadata_dict().get("dtype", "float64")
         threshold = 1e6 if dtype == "float32" else 1e12
-        value = {"condition_number": cond, "requires_exact": (not math.isfinite(cond)) or cond > threshold, "threshold": threshold}
+        cond_val = cond if math.isfinite(cond) else 1e308
+        value = {"condition_number": cond_val, "requires_exact": (not math.isfinite(cond)) or cond > threshold, "threshold": threshold}
     except Exception as exc:
         return OperatorFailure("INVALID", str(exc), "CONDITIONING_RISK_CHECK")
     return _out("CONDITIONING_RISK_CHECK", inputs, "CONDITIONING_RISK", "NUMERICAL", value, "NUMERICAL")
