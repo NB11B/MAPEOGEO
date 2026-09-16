@@ -1,5 +1,11 @@
 # Goal-Directed Mixed-Domain Operator Solver Implementation Plan
 
+> **Historical implementation plan — not current v0.20 authority.** The macro
+> execution and support language below is preserved as a record of the original
+> V1/V2 design. It does not describe current v0.20 behavior: v0.20 treats macro
+> proposals as inert and grants them no execution, conservation, or efficiency
+> authority.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build and test a structured-goal mathematical solver that searches and composes exact, symbolic, and numerical operators, comparing explicit, inferred, and hybrid typing with and without validated macro synthesis.

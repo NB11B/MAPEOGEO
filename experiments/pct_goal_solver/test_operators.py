@@ -34,11 +34,13 @@ def test_mobius_round_trip_exact():
 
 def test_chain_map_check_catches_corruption():
     reg = build_operator_registry()
-    valid, _, corrupted = goals_for("CALIBRATION", "G3")
+    goals = goals_for("CALIBRATION", "G3")
+    valid = next(goal for goal in goals if goal.sealed_expected_result["is_chain_map"])
+    corrupted = next(goal for goal in goals if not goal.sealed_expected_result["is_chain_map"])
     good = reg["CHAIN_MAP_CHECK"].execute(valid.inputs, ())
     bad = reg["CHAIN_MAP_CHECK"].execute(corrupted.inputs, ())
-    assert not isinstance(good, OperatorFailure) and good.value is True
-    assert not isinstance(bad, OperatorFailure) and bad.value is False
+    assert not isinstance(good, OperatorFailure) and good.value["is_chain_map"] is True
+    assert not isinstance(bad, OperatorFailure) and bad.value["is_chain_map"] is False
     residual = reg["CHAIN_RESIDUAL"].execute(corrupted.inputs, ())
     assert not isinstance(residual, OperatorFailure)
     assert any(v != 0 for row in residual.value for v in row)
@@ -68,7 +70,7 @@ def test_barcode_to_betti_to_euler_is_executable():
 
 def test_symbolic_identity_and_invariant_checks_close():
     reg = build_operator_registry()
-    identity_goal = goals_for("CALIBRATION", "G12")[0]
+    identity_goal = next(goal for goal in goals_for("CALIBRATION", "G12") if goal.sealed_expected_result is True)
     identity = reg["SYMBOLIC_IDENTITY_CHECK"].execute(identity_goal.inputs, ())
     assert not isinstance(identity, OperatorFailure)
     assert identity.value is True
@@ -91,7 +93,7 @@ def test_steiner_refuses_nonconvex_control():
 
 def test_graph_signature_bank_can_separate_simple_pair():
     reg = build_operator_registry()
-    goal = goals_for("CALIBRATION", "G5")[0]
+    goal = next(goal for goal in goals_for("CALIBRATION", "G5") if goal.sealed_expected_result["distinct"])
     signatures = []
     for operator_id in (
         "GRAPH_EULER_BETTI",

@@ -1,5 +1,17 @@
 # Goal Solver V2 — Composition Stress and Cross-Representation Bridge Design
 
+> **Historical V2 protocol — superseded for current v0.20.** Support and
+> macro-preservation statements below are scoped to the frozen V2 implementation
+> and evidence. Current v0.20 disables runtime macro execution and must be judged
+> from its own freshly regenerated report.
+>
+> **Current disposition: `NOT_VALID_UNDER_CURRENT_STANDARD`.** Hardened review found
+> that G8/G9's bridge artifacts were not ancestors of the accepted candidates,
+> several frozen terminal checks were mathematically insufficient, and current
+> builders no longer reconstruct the frozen corpus. The frozen output remains a
+> provenance record, not accepted current capability evidence. Current-runtime
+> V2 report generation is intentionally quarantined.
+
 **Status:** FROZEN BEFORE V2 SEALED EXECUTION  
 **Date:** 2026-09-16  
 **Branch:** `agent/pct-computational-architecture`
@@ -136,4 +148,9 @@ Any later architectural change is V3.
 
 ## 9. Claim boundary
 
-A positive V2 result supports executable goal-directed composition over the frozen G1-G12 mixed mathematical operator universe. It does not establish unrestricted theorem proving, natural-language mathematical understanding, or correctness beyond the tested operator and verifier contracts.
+The protocol intended a positive result to support executable goal-directed
+composition over its frozen G1-G12 operator universe. The recorded result no
+longer meets the hardened evidentiary standard described above and must not be
+presented as a current support claim. Even as originally designed, it did not
+address unrestricted theorem proving, natural-language mathematical
+understanding, or correctness beyond its tested operator and verifier contracts.

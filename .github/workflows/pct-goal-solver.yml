@@ -38,11 +38,19 @@ jobs:
           name: pct-goal-solver-results
           path: generated-goal-solver/*
           if-no-files-found: error
-      - name: Generate V2 composition stress report
-        run: python -m experiments.pct_goal_solver.generate_v2_report --out-dir generated-goal-solver-v2
-      - name: Upload V2 composition stress results
-        uses: actions/upload-artifact@v4
-        with:
-          name: pct-goal-solver-v2-results
-          path: generated-goal-solver-v2/*
-          if-no-files-found: error
+      - name: Assert frozen V2 replay remains quarantined
+        run: |
+          python - <<'PY'
+          from experiments.pct_goal_solver.v2_campaign import (
+              FrozenV2ReplayError,
+              V2_FROZEN_EXECUTION_COMMIT,
+              run_v2_campaign,
+          )
+
+          try:
+              run_v2_campaign()
+          except FrozenV2ReplayError as exc:
+              assert V2_FROZEN_EXECUTION_COMMIT in str(exc)
+          else:
+              raise AssertionError("current runtime must not rescore frozen V2")
+          PY

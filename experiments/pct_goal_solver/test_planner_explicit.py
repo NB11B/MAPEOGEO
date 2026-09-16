@@ -19,16 +19,18 @@ def test_explicit_planner_solves_multistep_exact_goal():
     assert trace.candidate_artifact is not None
 
 
-def test_required_derived_evidence_keeps_search_open_after_candidate_exists():
+def test_legacy_statewide_derived_type_list_is_not_a_historical_contract_field():
     visible = _sealed("G1").solver_visible()
     visible = replace(
         visible,
         constraints=visible.constraints + (("required_derived_types", ("BOOLEAN_ZETA_SIGNAL",)),),
     )
     trace = solve(visible, build_operator_registry(), typing_mode="EXPLICIT")
-    assert trace.final_verdict == "PASS"
-    assert trace.operator_path[:2] == ("MOBIUS_INVERT_BOOLEAN", "ZETA_TRANSFORM_BOOLEAN")
-    assert trace.operator_path[-1] == "VERIFY_CANDIDATE"
+    assert trace.final_verdict == "INVALID"
+    assert trace.operator_path == ()
+    assert trace.derived_obligations == ()
+    assert trace.refusal is not None
+    assert trace.refusal.code == "INVALID_GOAL_CONTRACT"
 
 
 def test_explicit_planner_refuses_nonconvex_steiner_goal():

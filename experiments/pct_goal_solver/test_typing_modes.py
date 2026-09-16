@@ -66,12 +66,14 @@ def test_inferred_mode_can_solve_with_input_semantic_types_blinded():
     blinded = _blind_input_types(visible)
     explicit = solve(blinded, registry, typing_mode="EXPLICIT")
     inferred = solve(blinded, registry, typing_mode="INFERRED", compatibility_model=model)
-    assert explicit.final_verdict == "NOT_ESTABLISHED"
+    assert explicit.final_verdict == "INVALID"
+    assert explicit.refusal is not None
+    assert explicit.refusal.code == "INVALID_GOAL_CONTRACT"
     assert inferred.final_verdict == "PASS"
     assert "NUMERIC_RELATION_FIT" in inferred.operator_path
 
 
-def test_inferred_mode_solves_each_family_with_all_input_types_blinded():
+def test_inferred_mode_solves_identifiable_families_and_refuses_ambiguous_roles():
     _, registry, _, model = _calibrated_model()
     failures = {}
     for index in range(1, 13):
@@ -85,7 +87,16 @@ def test_inferred_mode_solves_each_family_with_all_input_types_blinded():
         )
         if trace.final_verdict != "PASS":
             failures[family] = (trace.final_verdict, trace.failure_reason, trace.operator_path)
-    assert failures == {}
+    assert set(failures) == {"G3"}
+    assert failures["G3"][0] == "INVALID"
+    ambiguous = solve(
+        _blind_input_types(goals_for("SEALED", "G3")[0].solver_visible()),
+        registry,
+        typing_mode="INFERRED",
+        compatibility_model=model,
+    )
+    assert ambiguous.refusal is not None
+    assert ambiguous.refusal.code == "AMBIGUOUS_TYPE_INFERENCE"
 
 
 def test_hybrid_mode_preserves_hard_compatibility_barrier():

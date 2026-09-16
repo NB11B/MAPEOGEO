@@ -1,5 +1,10 @@
 # Goal-Directed Mixed-Domain Operator Solver Design
 
+> **Historical V1 design — superseded for current v0.20.** Primitive-plus-macro
+> execution and macro-support criteria in this document apply only to the frozen
+> V1/V2 program. Current v0.20 macro proposals are inert and have no execution,
+> conservation, or efficiency authority.
+
 **Status:** APPROVED FOR EXECUTION  
 **Date:** 2026-09-16  
 **Branch:** `agent/pct-computational-architecture`  

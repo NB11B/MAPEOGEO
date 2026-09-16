@@ -1,57 +1,50 @@
-from experiments.pct_goal_solver.v2_campaign import V2_MODE_NAMES, run_v2_campaign
+import hashlib
+from pathlib import Path
 
+import pytest
 
-def test_v2_campaign_scores_frozen_six_modes_without_burying_family_results():
-    report = run_v2_campaign()
-    assert report["experiment_id"] == "PCT_GOAL_SOLVER_V2_COMPOSITION_STRESS"
-    assert report["protocol"] == "V2_CALIBRATION_VALIDATION_FREEZE_THEN_SEALED_NO_RETUNING"
-    assert set(report["modes"]) == set(V2_MODE_NAMES)
-    assert report["corpus_counts"] == {
-        "CALIBRATION_V2": 36,
-        "VALIDATION_V2": 12,
-        "SEALED_V2": 24,
-    }
-    for mode in report["modes"].values():
-        assert len(mode["cases"]) == 24
-        assert {case["family"] for case in mode["cases"]} == {f"G{i}" for i in range(1, 13)}
-        assert "wrong_positive_count" in mode
-        assert "by_family" in mode
+from experiments.pct_goal_solver.generate_v2_report import generate
+from experiments.pct_goal_solver.v2_campaign import (
+    FrozenV2ReplayError,
+    V2_FROZEN_IDENTITY,
+    V2_FROZEN_EXECUTION_COMMIT,
+    run_v2_campaign,
+)
 
-
-def test_v2_campaign_reports_each_scientific_conclusion_separately():
-    report = run_v2_campaign()
-    assert set(report["conclusions"]) == {
-        "COMPOSITION_DEPTH",
-        "CROSS_REPRESENTATION_COMPOSITION",
-        "TYPE_BLIND_ROUTING",
-        "MACRO_PRESERVATION",
-    }
-    assert set(report["gates"]) == {
-        "explicit_zero_wrong_positives",
-        "explicit_ten_multistep_families",
-        "three_cross_class_families",
-        "g6_g8_g9_cross_class",
-        "all_positive_results_independently_verified",
-        "inferred_all_12_families_type_blind",
-        "inferred_zero_control_wrong_positives",
-        "hybrid_preserves_controls_and_family_coverage",
-        "macro_preserves_correct_primitive_semantics",
-        "macro_reduces_search_on_correct_cases",
+def test_v2_replay_is_pinned_to_the_frozen_execution_commit():
+    assert V2_FROZEN_EXECUTION_COMMIT == "f2e8cc73ef6665e9329d9b3901f7f8672e4dc4e5"
+    assert dict(V2_FROZEN_IDENTITY) == {
+        "actions_run_id": "35059952763",
+        "artifact_archive_sha256": "baf020fa8007e3f721b44264c168249c4abf6689787f23db76f0ba4adee60235",
+        "artifact_expires_at": "2026-12-15T05:32:57Z",
+        "artifact_id": "10431654598",
+        "commit": V2_FROZEN_EXECUTION_COMMIT,
+        "current_validation_status": "NOT_VALID_UNDER_CURRENT_STANDARD",
+        "record_status": "RECORDED_LEGACY",
+        "repository_archive_path": "evidence/historical_invalid_v2/pct-goal-solver-v2-results.zip",
     }
 
 
-def test_v2_macro_credit_never_comes_from_an_incorrect_primitive_baseline():
-    report = run_v2_campaign()
-    for row in report["macro_comparison"]["credited_reductions"]:
-        assert row["primitive_correct"] is True
-        assert row["synthesized_correct"] is True
-        assert row["same_semantics"] is True
-        assert row["reduced_work"] is True
-        assert row["macro_ids"]
+def test_historical_v2_archive_is_preserved_by_content_digest():
+    root = Path(__file__).resolve().parents[2]
+    archive = root / V2_FROZEN_IDENTITY["repository_archive_path"]
+    assert archive.is_file()
+    assert hashlib.sha256(archive.read_bytes()).hexdigest() == (
+        V2_FROZEN_IDENTITY["artifact_archive_sha256"]
+    )
+    warning = (archive.parent / "README.md").read_text(encoding="utf-8")
+    assert V2_FROZEN_IDENTITY["current_validation_status"] in warning
+    assert V2_FROZEN_IDENTITY["artifact_archive_sha256"] in warning
+    assert "G8/G9" in warning and "G4/G10/G11" in warning
 
 
-def test_v2_inferred_and_hybrid_cases_are_marked_type_blind():
-    report = run_v2_campaign()
-    for mode_name, mode in report["modes"].items():
-        expected = not mode_name.startswith("EXPLICIT/")
-        assert all(case["input_semantic_types_blinded"] is expected for case in mode["cases"])
+def test_current_runtime_cannot_rescore_the_frozen_v2_protocol():
+    with pytest.raises(FrozenV2ReplayError, match=V2_FROZEN_EXECUTION_COMMIT):
+        run_v2_campaign()
+
+
+def test_v2_report_generator_refuses_before_writing_output(tmp_path):
+    output = tmp_path / "must-not-exist"
+    with pytest.raises(FrozenV2ReplayError, match=V2_FROZEN_EXECUTION_COMMIT):
+        generate(output)
+    assert not output.exists()

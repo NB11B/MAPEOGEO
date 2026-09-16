@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import math
+from decimal import Decimal
+from fractions import Fraction
 from typing import Any
 
 import sympy as sp
@@ -38,10 +40,22 @@ def symbolic_equivalent(lhs: Any, rhs: Any) -> VerificationResult:
 
 
 def finite_numeric(value: Any) -> bool:
-    if isinstance(value, (int, float)):
-        return math.isfinite(float(value))
+    if isinstance(value, bool):
+        return True
+    if isinstance(value, int):
+        return True
+    if isinstance(value, Fraction):
+        return True
+    if isinstance(value, Decimal):
+        return value.is_finite()
+    if isinstance(value, float):
+        return math.isfinite(value)
+    if isinstance(value, sp.Basic):
+        return not bool(value.has(sp.nan, sp.oo, -sp.oo, sp.zoo))
     if isinstance(value, dict):
-        return all(finite_numeric(v) for v in value.values() if isinstance(v, (int, float, dict, tuple, list)))
+        return all(finite_numeric(v) for v in value.values())
     if isinstance(value, (tuple, list)):
         return all(finite_numeric(v) for v in value)
-    return True
+    if isinstance(value, (str, bytes)) or value is None:
+        return True
+    return False

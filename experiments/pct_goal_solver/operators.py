@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, fields, is_dataclass
+import dis
 from fractions import Fraction
+import importlib.metadata
 from itertools import product
 import math
+import sys
+from types import CodeType, FunctionType, ModuleType
 from typing import Any, Callable, Mapping
 
 import networkx as nx
@@ -12,7 +16,8 @@ import numpy as np
 import sympy as sp
 from shapely.geometry import MultiPoint, Polygon
 
-from .model import Applicability, Artifact, OperatorFailure, VerificationResult
+from .canonical import CanonicalizationError, canonical_node, canonical_sha256
+from .model import Applicability, Artifact, ArtifactType, InputPort, OperatorFailure, VerificationResult
 from .verifiers import exact_value_verifier, finite_numeric, symbolic_equivalent
 
 
@@ -22,18 +27,648 @@ ApplicabilityFn = Callable[[Mapping[str, Artifact], Bindings], Applicability]
 VerifyFn = Callable[[tuple[Artifact, ...], Artifact], VerificationResult]
 
 
+def _code_contract_node(code: CodeType) -> dict[str, Any]:
+    def constant_node(value: Any) -> Any:
+        if isinstance(value, CodeType):
+            return {"code": _code_contract_node(value)}
+        if value is Ellipsis:
+            return {"constant": "ELLIPSIS"}
+        if value is NotImplemented:
+            return {"constant": "NOT_IMPLEMENTED"}
+        if isinstance(value, tuple):
+            return tuple(constant_node(item) for item in value)
+        return value
+
+    return {
+        "argcount": code.co_argcount,
+        "posonlyargcount": code.co_posonlyargcount,
+        "kwonlyargcount": code.co_kwonlyargcount,
+        "nlocals": code.co_nlocals,
+        "stacksize": code.co_stacksize,
+        "flags": code.co_flags,
+        "code": code.co_code,
+        "constants": tuple(constant_node(value) for value in code.co_consts),
+        "names": code.co_names,
+        "varnames": code.co_varnames,
+        "freevars": code.co_freevars,
+        "cellvars": code.co_cellvars,
+    }
+
+
+_RUNTIME_DEPENDENCIES = (
+    "networkx",
+    "numpy",
+    "scipy",
+    "shapely",
+    "sympy",
+)
+
+
+def runtime_dependency_versions() -> tuple[tuple[str, str], ...]:
+    """Return the live versions of numerical dependencies bound by the registry."""
+
+    return tuple(
+        (distribution, importlib.metadata.version(distribution))
+        for distribution in _RUNTIME_DEPENDENCIES
+    )
+
+
+def _module_dependency_node(module_name: str) -> dict[str, str]:
+    if type(module_name) is not str or not module_name:
+        raise ValueError("dependency module name must be a nonempty exact string")
+    root = module_name.partition(".")[0]
+    if module_name.startswith("experiments.pct_goal_solver"):
+        # Project functions are bound by their recursively hashed live source
+        # contracts below; a distribution lookup would add no identity and a
+        # missing-package exception for every helper is needlessly expensive.
+        version = "SOURCE_HASHED"
+    elif root in sys.stdlib_module_names:
+        version = f"python-{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
+    else:
+        try:
+            version = importlib.metadata.version(root)
+        except importlib.metadata.PackageNotFoundError:
+            version = "UNVERSIONED"
+    return {"module": module_name, "distribution_version": version}
+
+
+def _callable_module_name(value: Any) -> str:
+    module_name = getattr(value, "__module__", None)
+    if type(module_name) is str and module_name:
+        return module_name
+    fallback = type(value).__module__
+    if type(fallback) is str and fallback:
+        return fallback
+    raise ValueError("callable dependency has no auditable module name")
+
+
+def _contract_sort_key(value: Any) -> bytes:
+    import json
+
+    return json.dumps(value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def _walk_code_objects(code: CodeType) -> tuple[CodeType, ...]:
+    nested = tuple(
+        child
+        for constant in code.co_consts
+        if isinstance(constant, CodeType)
+        for child in _walk_code_objects(constant)
+    )
+    return (code,) + nested
+
+
+def _loaded_binding_names(
+    code: CodeType,
+    *,
+    opnames: frozenset[str],
+    include_nested: bool = True,
+) -> frozenset[str]:
+    code_objects = _walk_code_objects(code) if include_nested else (code,)
+    return frozenset(
+        instruction.argval
+        for child in code_objects
+        for instruction in dis.get_instructions(child)
+        if instruction.opname in opnames and type(instruction.argval) is str
+    )
+
+
+def _binding_attribute_paths(
+    code: CodeType,
+    binding_name: str,
+    *,
+    load_opnames: frozenset[str],
+) -> tuple[tuple[str, ...], ...]:
+    """Return statically resolved attribute chains loaded from one binding."""
+
+    paths: set[tuple[str, ...]] = set()
+    for child in _walk_code_objects(code):
+        instructions = tuple(dis.get_instructions(child))
+        for index, instruction in enumerate(instructions):
+            if (
+                instruction.opname not in load_opnames
+                or instruction.argval != binding_name
+            ):
+                continue
+            path: list[str] = []
+            for following in instructions[index + 1 :]:
+                if following.opname not in {"LOAD_ATTR", "LOAD_METHOD"}:
+                    break
+                if type(following.argval) is not str:
+                    break
+                path.append(following.argval)
+                # Bind every intermediate attribute too.  This detects proxy
+                # substitution in a chain such as ``np.linalg.matrix_rank``.
+                paths.add(tuple(path))
+    return tuple(sorted(paths))
+
+
+def _module_reference_node(
+    module: ModuleType,
+    *,
+    binding_name: str,
+    attribute_paths: tuple[tuple[str, ...], ...],
+    active: frozenset[int],
+    memo: dict[int, Any],
+) -> dict[str, Any]:
+    if not attribute_paths:
+        raise ValueError(
+            f"module binding {binding_name!r} is used without an auditable attribute path"
+        )
+    attributes: list[tuple[tuple[str, ...], Any]] = []
+    for path in attribute_paths:
+        value: Any = module
+        try:
+            for name in path:
+                value = getattr(value, name)
+        except Exception as exc:
+            dotted = ".".join((module.__name__,) + path)
+            raise ValueError(f"module attribute is unavailable: {dotted}") from exc
+        attributes.append(
+            (
+                path,
+                _module_attribute_value_node(
+                    value,
+                    active=active,
+                    memo=memo,
+                ),
+            )
+        )
+    return {
+        "module_dependency": _module_dependency_node(module.__name__),
+        "binding_name": binding_name,
+        "referenced_attributes": attributes,
+    }
+
+
+def _external_value_node(value: Any) -> Any:
+    """Return a bounded leaf contract for third-party API objects."""
+
+    try:
+        return {"canonical": canonical_node(value)}
+    except Exception:
+        pass
+    if isinstance(value, FunctionType):
+        code = getattr(value, "__code__", None)
+        if not isinstance(code, CodeType):
+            raise ValueError("external Python function has no auditable code")
+        module_name = _callable_module_name(value)
+        return {
+            "python_function": {
+                "module": module_name,
+                "qualname": getattr(value, "__qualname__", ""),
+                "callable_type": (
+                    f"{type(value).__module__}.{type(value).__qualname__}"
+                ),
+                "dependency": _module_dependency_node(module_name),
+                "code": _code_contract_node(code),
+            }
+        }
+    if isinstance(value, ModuleType):
+        return {"module_dependency": _module_dependency_node(value.__name__)}
+    if isinstance(value, type):
+        return {
+            "class": {
+                "module": value.__module__,
+                "qualname": value.__qualname__,
+                "dependency": _module_dependency_node(value.__module__),
+            }
+        }
+    if type(value) in {list, tuple}:
+        return {
+            "sequence_type": type(value).__name__,
+            "items": tuple(_external_value_node(item) for item in value),
+        }
+    if type(value) in {set, frozenset}:
+        rows = [_external_value_node(item) for item in value]
+        return {
+            "set_type": type(value).__name__,
+            "items": sorted(rows, key=_contract_sort_key),
+        }
+    if isinstance(value, Mapping):
+        rows = [
+            (_external_value_node(key), _external_value_node(item))
+            for key, item in value.items()
+        ]
+        rows.sort(key=lambda row: _contract_sort_key(row[0]))
+        return {
+            "mapping_type": f"{type(value).__module__}.{type(value).__qualname__}",
+            "items": rows,
+        }
+    if callable(value):
+        module_name = _callable_module_name(value)
+        call_implementation = getattr(type(value), "__call__", None)
+        call_code = (
+            _code_contract_node(call_implementation.__code__)
+            if isinstance(call_implementation, FunctionType)
+            else None
+        )
+        return {
+            "callable": {
+                "module": module_name,
+                "qualname": getattr(value, "__qualname__", type(value).__qualname__),
+                "callable_type": (
+                    f"{type(value).__module__}.{type(value).__qualname__}"
+                ),
+                "dependency": _module_dependency_node(module_name),
+                "python_call_code": call_code,
+            }
+        }
+    try:
+        representation = repr(value)
+    except Exception as exc:
+        raise ValueError("external module attribute has no stable identity") from exc
+    if (
+        type(representation) is not str
+        or len(representation) > 4096
+        or " at 0x" in representation
+    ):
+        raise ValueError("external module attribute has no stable identity")
+    value_module = type(value).__module__
+    return {
+        "external_value": {
+            "type": f"{value_module}.{type(value).__qualname__}",
+            "dependency": _module_dependency_node(value_module),
+            "representation": representation,
+        }
+    }
+
+
+def _module_attribute_value_node(
+    value: Any,
+    *,
+    active: frozenset[int],
+    memo: dict[int, Any],
+) -> Any:
+    """Bind a resolved module attribute without crawling an external package."""
+
+    if isinstance(value, FunctionType):
+        module_name = _callable_module_name(value)
+        if module_name.startswith("experiments.pct_goal_solver"):
+            return {
+                "project_function": _callable_contract_node(
+                    value,
+                    active=active,
+                    memo=memo,
+                )
+            }
+        code = getattr(value, "__code__", None)
+        if not isinstance(code, CodeType):
+            raise ValueError("Python module attribute has no auditable code")
+        return {
+            "python_function_attribute": {
+                "module": module_name,
+                "qualname": getattr(value, "__qualname__", ""),
+                "callable_type": (
+                    f"{type(value).__module__}.{type(value).__qualname__}"
+                ),
+                "dependency": _module_dependency_node(module_name),
+                "code": _code_contract_node(code),
+                "defaults": _external_value_node(
+                    getattr(value, "__defaults__", None)
+                ),
+                "kwdefaults": _external_value_node(
+                    getattr(value, "__kwdefaults__", None)
+                ),
+            }
+        }
+    return _external_value_node(value)
+
+
+def _contract_value_node(
+    value: Any,
+    *,
+    active: frozenset[int],
+    memo: dict[int, Any],
+) -> Any:
+    try:
+        return {"canonical": canonical_node(value)}
+    except CanonicalizationError:
+        pass
+
+    if isinstance(value, FunctionType):
+        return {"function": _callable_contract_node(value, active=active, memo=memo)}
+    if isinstance(value, ModuleType):
+        return {"module_dependency": _module_dependency_node(value.__name__)}
+    if isinstance(value, type):
+        return {
+            "class_dependency": {
+                "module": value.__module__,
+                "qualname": value.__qualname__,
+                "dependency": _module_dependency_node(value.__module__),
+            }
+        }
+    if type(value) in {list, tuple}:
+        return {
+            "sequence_type": type(value).__name__,
+            "items": [
+                _contract_value_node(item, active=active, memo=memo)
+                for item in value
+            ],
+        }
+    if type(value) in {set, frozenset}:
+        rows = [
+            _contract_value_node(item, active=active, memo=memo)
+            for item in value
+        ]
+        return {
+            "set_type": type(value).__name__,
+            "items": sorted(rows, key=_contract_sort_key),
+        }
+    if isinstance(value, Mapping):
+        rows = [
+            (
+                _contract_value_node(key, active=active, memo=memo),
+                _contract_value_node(item, active=active, memo=memo),
+            )
+            for key, item in value.items()
+        ]
+        rows.sort(key=lambda row: _contract_sort_key(row[0]))
+        return {
+            "mapping_type": f"{type(value).__module__}.{type(value).__qualname__}",
+            "items": rows,
+        }
+    if is_dataclass(value) and not isinstance(value, type):
+        return {
+            "dataclass_type": f"{type(value).__module__}.{type(value).__qualname__}",
+            "fields": [
+                (
+                    field.name,
+                    _contract_value_node(getattr(value, field.name), active=active, memo=memo),
+                )
+                for field in fields(value)
+            ],
+        }
+    if callable(value):
+        module_name = _callable_module_name(value)
+        return {
+            "callable_dependency": {
+                "module": module_name,
+                "qualname": getattr(value, "__qualname__", type(value).__qualname__),
+                "callable_type": (
+                    f"{type(value).__module__}.{type(value).__qualname__}"
+                ),
+                "dependency": _module_dependency_node(module_name),
+            }
+        }
+    raise ValueError(
+        "callable contract contains unauditable dependency: "
+        f"{type(value).__module__}.{type(value).__qualname__}"
+    )
+
+
+def _callable_contract_node(
+    function: Callable[..., Any],
+    *,
+    active: frozenset[int],
+    memo: dict[int, Any],
+) -> dict[str, Any]:
+    code = getattr(function, "__code__", None)
+    if not isinstance(code, CodeType):
+        raise ValueError("callable contract requires a Python function with auditable code")
+    function_key = id(function)
+    function_module = _callable_module_name(function)
+    identity = {
+        "module": function_module,
+        "qualname": getattr(function, "__qualname__", ""),
+        "dependency": _module_dependency_node(function_module),
+    }
+    if function_key in active:
+        return {"recursive_reference": identity}
+    if function_key in memo:
+        return memo[function_key]
+
+    nested_active = active | {function_key}
+    closure = getattr(function, "__closure__", None) or ()
+    if len(closure) != len(code.co_freevars):
+        raise ValueError("callable closure does not match declared free variables")
+    closure_rows = []
+    for name, cell in zip(code.co_freevars, closure):
+        try:
+            cell_value = cell.cell_contents
+        except ValueError as exc:
+            raise ValueError(f"empty closure cell: {name}") from exc
+        if isinstance(cell_value, ModuleType):
+            cell_node = _module_reference_node(
+                cell_value,
+                binding_name=name,
+                attribute_paths=_binding_attribute_paths(
+                    code,
+                    name,
+                    load_opnames=frozenset({"LOAD_DEREF", "LOAD_CLASSDEREF"}),
+                ),
+                active=nested_active,
+                memo=memo,
+            )
+        else:
+            cell_node = _contract_value_node(
+                cell_value,
+                active=nested_active,
+                memo=memo,
+            )
+        closure_rows.append(
+            (
+                name,
+                cell_node,
+            )
+        )
+
+    global_rows = []
+    function_globals = getattr(function, "__globals__", {})
+    root_global_names = _loaded_binding_names(
+        code,
+        opnames=frozenset({"LOAD_GLOBAL", "LOAD_NAME"}),
+        include_nested=False,
+    )
+    nested_global_names = _loaded_binding_names(
+        code,
+        opnames=frozenset({"LOAD_GLOBAL", "LOAD_NAME"}),
+    )
+    # Nested code objects share the function globals.  Add only module
+    # bindings here; recursively following every nested helper global crawls
+    # implementation details of third-party decorators without adding module
+    # attribute authority.
+    global_names = root_global_names | frozenset(
+        name
+        for name in nested_global_names
+        if isinstance(function_globals.get(name), ModuleType)
+    )
+    for name in sorted(global_names):
+        if name not in function_globals or name == "__builtins__":
+            continue
+        global_value = function_globals[name]
+        if isinstance(global_value, ModuleType):
+            global_node = _module_reference_node(
+                global_value,
+                binding_name=name,
+                attribute_paths=_binding_attribute_paths(
+                    code,
+                    name,
+                    load_opnames=frozenset({"LOAD_GLOBAL", "LOAD_NAME"}),
+                ),
+                active=nested_active,
+                memo=memo,
+            )
+        else:
+            global_node = _contract_value_node(
+                global_value,
+                active=nested_active,
+                memo=memo,
+            )
+        global_rows.append(
+            (
+                name,
+                global_node,
+            )
+        )
+
+    node = {
+        **identity,
+        "code": _code_contract_node(code),
+        "defaults": _contract_value_node(
+            getattr(function, "__defaults__", None),
+            active=nested_active,
+            memo=memo,
+        ),
+        "kwdefaults": _contract_value_node(
+            getattr(function, "__kwdefaults__", None),
+            active=nested_active,
+            memo=memo,
+        ),
+        "closure": closure_rows,
+        "globals": global_rows,
+    }
+    memo[function_key] = node
+    return node
+
+
+def _callable_contract_digest(
+    function: Callable[..., Any],
+    *,
+    implementation_id: str,
+    memo: dict[int, Any],
+) -> str:
+    return canonical_sha256(
+        {
+            "implementation_id": implementation_id,
+            "callable": _callable_contract_node(function, active=frozenset(), memo=memo),
+        },
+        domain="pct-callable-contract-v2",
+    )
+
+
+def callable_contract_digest(function: Callable[..., Any], *, implementation_id: str) -> str:
+    """Bind an implementation ID to its live code, closure, globals, and dependencies."""
+
+    return _callable_contract_digest(function, implementation_id=implementation_id, memo={})
+
+
 @dataclass(frozen=True)
 class OperatorSpec:
     operator_id: str
-    input_types: tuple[str, ...]
-    output_type: str
-    representation_class: str
-    exactness_class: str
+    input_ports: tuple[InputPort, ...]
+    output: ArtifactType
     cost: int
     applicability: ApplicabilityFn
     execute: ExecuteFn
     verify: VerifyFn
     structural_signature: tuple[str, ...]
+    execution_kind: str = "PRIMITIVE"
+    objectives: tuple[str, ...] = ()
+    applicability_id: str = ""
+    execution_id: str = ""
+    verifier_id: str = ""
+
+    def __post_init__(self) -> None:
+        port_ids = tuple(port.port_id for port in self.input_ports)
+        if len(port_ids) != len(set(port_ids)):
+            raise ValueError(f"duplicate input port in {self.operator_id}")
+        if self.execution_kind not in {"PRIMITIVE", "META"}:
+            raise ValueError(f"unknown execution kind: {self.execution_kind}")
+        if not self.operator_id:
+            raise ValueError("operator id must be nonempty")
+        if self.cost < 0:
+            raise ValueError(f"negative operator cost: {self.operator_id}")
+        applicability_id = self.applicability_id or f"{self.operator_id}:applicability:v1"
+        execution_id = self.execution_id or f"{self.operator_id}:execution:v1"
+        verifier_id = self.verifier_id or f"{self.operator_id}:verifier:v1"
+        object.__setattr__(self, "applicability_id", applicability_id)
+        object.__setattr__(self, "execution_id", execution_id)
+        object.__setattr__(self, "verifier_id", verifier_id)
+
+    @property
+    def implementation_digest(self) -> str:
+        return _operator_implementation_digest(self, memo={})
+
+    @property
+    def input_types(self) -> tuple[str, ...]:
+        return tuple(port.artifact_type.semantic_type for port in self.input_ports)
+
+    @property
+    def output_type(self) -> str:
+        return self.output.semantic_type
+
+    @property
+    def representation_class(self) -> str:
+        return self.output.representation_class
+
+    @property
+    def exactness_class(self) -> str:
+        return self.output.exactness_class
+
+
+def _operator_implementation_digest(
+    spec: OperatorSpec,
+    *,
+    memo: dict[int, Any],
+) -> str:
+    return canonical_sha256(
+        {
+            "applicability": _callable_contract_digest(
+                spec.applicability,
+                implementation_id=spec.applicability_id,
+                memo=memo,
+            ),
+            "execution": _callable_contract_digest(
+                spec.execute,
+                implementation_id=spec.execution_id,
+                memo=memo,
+            ),
+            "verifier": _callable_contract_digest(
+                spec.verify,
+                implementation_id=spec.verifier_id,
+                memo=memo,
+            ),
+        },
+        domain="pct-operator-implementation-v2",
+    )
+
+
+def operator_registry_digest(registry: Mapping[str, OperatorSpec]) -> str:
+    memo: dict[int, Any] = {}
+    payload = tuple(
+        (
+            operator_id,
+            spec.input_ports,
+            spec.output,
+            spec.execution_kind,
+            spec.objectives,
+            spec.cost,
+            spec.structural_signature,
+            spec.applicability_id,
+            spec.execution_id,
+            spec.verifier_id,
+            _operator_implementation_digest(spec, memo=memo),
+        )
+        for operator_id, spec in sorted(registry.items())
+    )
+    return canonical_sha256(
+        {
+            "operators": payload,
+            "runtime_dependencies": runtime_dependency_versions(),
+        },
+        domain="pct-operator-registry-v2",
+    )
 
 
 def _bindings(bindings: Bindings) -> dict[str, Any]:
@@ -68,8 +703,19 @@ def _out(
     exactness_class: str,
     metadata: tuple[tuple[str, Any], ...] = (),
 ) -> Artifact:
+    identity_payload = {
+        "operator_id": operator_id,
+        "inputs": tuple(sorted((key, artifact.artifact_id) for key, artifact in inputs.items())),
+        "output": {
+            "semantic_type": semantic_type,
+            "representation_class": representation_class,
+            "exactness_class": exactness_class,
+            "value": value,
+            "metadata": metadata,
+        },
+    }
     return Artifact(
-        artifact_id=f"derived:{operator_id}:{abs(hash((operator_id, repr(value)))):x}",
+        artifact_id=f"derived:{operator_id}:{canonical_sha256(identity_payload, domain='pct-artifact-id-v1')}",
         semantic_type=semantic_type,
         representation_class=representation_class,
         value=value,
@@ -217,7 +863,20 @@ def _exec_chain_check(inputs: Mapping[str, Artifact], bindings: Bindings) -> Art
     if isinstance(residual, OperatorFailure):
         return residual
     passed = all(v == 0 for row in residual.value for v in row)
-    return _out("CHAIN_MAP_CHECK", inputs, "CHAIN_DIAGNOSIS", "CHAIN", passed, "EXACT", (("residual", residual.value),))
+    rows = tuple(i for i, row in enumerate(residual.value) if any(v != 0 for v in row))
+    columns = tuple(
+        j
+        for j in range(len(residual.value[0]) if residual.value else 0)
+        if any(row[j] != 0 for row in residual.value)
+    )
+    value = {
+        "is_chain_map": passed,
+        "residual": residual.value,
+        "residual_rows": rows,
+        "map_columns": columns,
+        "localized": bool(rows and columns),
+    }
+    return _out("CHAIN_MAP_CHECK", inputs, "CHAIN_DIAGNOSIS", "CHAIN", value, "EXACT")
 
 
 def _exec_incidence_localize(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
@@ -338,7 +997,7 @@ def _exec_symbolic_identity(inputs: Mapping[str, Artifact], bindings: Bindings) 
         check = symbolic_equivalent(lhs.value, rhs.value)
     except Exception as exc:
         return OperatorFailure("INVALID", str(exc), "SYMBOLIC_IDENTITY_CHECK")
-    return _out("SYMBOLIC_IDENTITY_CHECK", inputs, "IDENTITY_VERDICT", "SYMBOLIC", check.passed, "SYMBOLIC", (("reason", check.reason),))
+    return _out("SYMBOLIC_IDENTITY_CHECK", inputs, "IDENTITY_VERDICT", "SYMBOLIC", check.passed, "SYMBOLIC")
 
 
 def _exec_nilpotency(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
@@ -452,7 +1111,9 @@ def _exec_support_spectrum(inputs: Mapping[str, Artifact], bindings: Bindings) -
         threshold = max(float(nonzero.max()) * 1e-8, 1e-18) if len(nonzero) else 1e-18
         active = tuple(i for i in range(1, len(energy)) if float(energy[i]) > threshold)
         order = active[0] if active else None
-        value = {"order": order, "active_harmonics": active, "energy": tuple(float(v) for v in energy)}
+        # Diagnostics are intentionally not embedded in the terminal candidate:
+        # the strict G10 certificate schema binds only the claimed order.
+        value = {"order": order}
     except Exception as exc:
         return OperatorFailure("INVALID", str(exc), "SUPPORT_SPECTRUM")
     return _out("SUPPORT_SPECTRUM", inputs, "ROTATIONAL_HARMONIC_ORDER", "NUMERICAL", value, "NUMERICAL")
@@ -528,7 +1189,7 @@ def _exec_relation_fit(inputs: Mapping[str, Artifact], bindings: Bindings) -> Ar
         coeff = -float(np.dot(x, y) / denom)
     except Exception as exc:
         return OperatorFailure("INVALID", str(exc), "NUMERIC_RELATION_FIT")
-    return _out("NUMERIC_RELATION_FIT", inputs, "NUMERIC_RELATION", "NUMERICAL", coeff, "NUMERICAL", (("form", "P2_plus_k_cA"),))
+    return _out("NUMERIC_RELATION_FIT", inputs, "NUMERIC_RELATION", "NUMERICAL", coeff, "NUMERICAL")
 
 
 def _exec_residual_verify(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
@@ -575,6 +1236,119 @@ def _verify_numeric_result(inputs: tuple[Artifact, ...], output: Artifact) -> Ve
     return VerificationResult(passed, "NUMERIC_FINITE", "finite" if passed else "non-finite")
 
 
+_INPUT_ARTIFACT_TYPES: dict[str, ArtifactType] = {
+    "RATIONAL_MATRIX": ArtifactType("RATIONAL_MATRIX", "MATRIX", "EXACT"),
+    "OBSERVATION_MATRIX": ArtifactType("OBSERVATION_MATRIX", "MATRIX", "EXACT"),
+    "GF2_MATRIX": ArtifactType("GF2_MATRIX", "MATRIX", "EXACT"),
+    "BOOLEAN_ATOMIC_SIGNAL": ArtifactType("BOOLEAN_ATOMIC_SIGNAL", "FINITE_LATTICE", "EXACT"),
+    "BOOLEAN_ZETA_SIGNAL": ArtifactType("BOOLEAN_ZETA_SIGNAL", "FINITE_LATTICE", "EXACT"),
+    "BOUNDARY_OPERATOR": ArtifactType("BOUNDARY_OPERATOR", "CHAIN", "EXACT"),
+    "CHAIN_MAP_DEGREE_0": ArtifactType("CHAIN_MAP_DEGREE_0", "CHAIN", "EXACT"),
+    "CHAIN_MAP_DEGREE_1": ArtifactType("CHAIN_MAP_DEGREE_1", "CHAIN", "EXACT"),
+    "BARCODE": ArtifactType("BARCODE", "PERSISTENCE", "EXACT"),
+    "BETTI_CURVE": ArtifactType("BETTI_CURVE", "PERSISTENCE", "EXACT"),
+    "FINITE_GRAPH": ArtifactType("FINITE_GRAPH", "GRAPH", "EXACT"),
+    "SYMBOLIC_EXPRESSION": ArtifactType("SYMBOLIC_EXPRESSION", "SYMBOLIC", "SYMBOLIC"),
+    "SYMBOLIC_GENERATOR": ArtifactType("SYMBOLIC_GENERATOR", "SYMBOLIC", "SYMBOLIC"),
+    "SYMBOLIC_STATE": ArtifactType("SYMBOLIC_STATE", "SYMBOLIC", "SYMBOLIC"),
+    "NUMERIC_TRAJECTORY": ArtifactType("NUMERIC_TRAJECTORY", "NUMERICAL", "NUMERICAL"),
+    "FLOAT_MATRIX": ArtifactType("FLOAT_MATRIX", "MATRIX", "NUMERICAL"),
+    "CONVEX_POLYGON": ArtifactType("CONVEX_POLYGON", "GEOMETRY", "NUMERICAL"),
+    "SUPPORT_SAMPLES": ArtifactType("SUPPORT_SAMPLES", "NUMERICAL", "NUMERICAL"),
+    "POLYGON": ArtifactType("POLYGON", "GEOMETRY", "NUMERICAL"),
+    "SCALAR": ArtifactType("SCALAR", "NUMERICAL", "NUMERICAL"),
+    "CONVEX_BODY": ArtifactType("CONVEX_BODY", "GEOMETRY", "NUMERICAL"),
+    "NUMERIC_RELATION": ArtifactType("NUMERIC_RELATION", "NUMERICAL", "NUMERICAL"),
+    "AREA": ArtifactType("AREA", "GEOMETRY", "NUMERICAL"),
+    "DEDEKIND_CUT_LOWER_SET": ArtifactType("DEDEKIND_CUT_LOWER_SET", "RATIONAL_SET", "EXACT"),
+    "DISCRETE_GRID_SAMPLE": ArtifactType("DISCRETE_GRID_SAMPLE", "SAMPLE_TUPLE", "EXACT"),
+    "INTEGER_PAIR": ArtifactType("INTEGER_PAIR", "INTEGER_TUPLE", "EXACT"),
+    "POTENTIAL_2D_PAIR": ArtifactType("POTENTIAL_2D_PAIR", "SYMBOLIC_PAIR", "SYMBOLIC"),
+    "MEROMORPHIC_FORM": ArtifactType("MEROMORPHIC_FORM", "SYMBOLIC_FORM", "SYMBOLIC"),
+    "POLYNOMIAL_COEFFICIENTS_EXACT": ArtifactType("POLYNOMIAL_COEFFICIENTS_EXACT", "RATIONAL_VECTOR", "EXACT"),
+    "LATTICE_INVARIANTS_EXACT": ArtifactType("LATTICE_INVARIANTS_EXACT", "RATIONAL_PAIR", "EXACT"),
+    "SYMBOLIC_POLYNOMIAL": ArtifactType("SYMBOLIC_POLYNOMIAL", "SYMBOLIC", "SYMBOLIC"),
+    "NUMERICAL_EVAL_GRID": ArtifactType("NUMERICAL_EVAL_GRID", "NUMERICAL_TUPLE", "NUMERICAL"),
+    "SYMBOLIC_WEIERSTRASS_CURVE": ArtifactType("SYMBOLIC_WEIERSTRASS_CURVE", "SYMBOLIC", "SYMBOLIC"),
+    "NUMERICAL_EVALUATION_SERIES": ArtifactType("NUMERICAL_EVALUATION_SERIES", "NUMERICAL_SERIES", "NUMERICAL"),
+    "NUMERICAL_PERIOD_LATTICE": ArtifactType("NUMERICAL_PERIOD_LATTICE", "NUMERICAL_PERIOD", "NUMERICAL"),
+}
+
+
+_PORT_NAMES: dict[str, tuple[str, ...]] = {
+    "EXACT_MATRIX_RANK_Q": ("matrix",),
+    "EXACT_NULLSPACE_Q": ("matrix",),
+    "GF2_RANK": ("matrix",),
+    "ZETA_TRANSFORM_BOOLEAN": ("atomic",),
+    "MOBIUS_INVERT_BOOLEAN": ("cumulative",),
+    "CHAIN_RESIDUAL": ("source_boundary", "target_boundary", "vertex_map", "edge_map"),
+    "CHAIN_MAP_CHECK": ("source_boundary", "target_boundary", "vertex_map", "edge_map"),
+    "INCIDENCE_CORRUPTION_LOCALIZE": ("source_boundary", "target_boundary", "vertex_map", "edge_map"),
+    "BARCODE_TO_BETTI": ("barcode",),
+    "BETTI_TO_EULER": ("betti",),
+    "GRAPH_EULER_BETTI": ("graph",),
+    "GRAPH_DEGREE_SIGNATURE": ("graph",),
+    "GRAPH_LAPLACIAN_SIGNATURE": ("graph",),
+    "GRAPH_WL_SIGNATURE": ("graph",),
+    "SYMBOLIC_SIMPLIFY": ("expression",),
+    "SYMBOLIC_IDENTITY_CHECK": ("lhs", "rhs"),
+    "NILPOTENCY_CHECK": ("generator",),
+    "POLYNOMIAL_INVARIANT_CHECK": ("generator", "state", "candidate_invariant"),
+    "LINEAR_INVARIANT_DISCOVERY": ("trajectory",),
+    "GAUSSIAN_EXPONENT_REWRITE": ("lhs",),
+    "NUMERIC_MATRIX_RANK": ("matrix",),
+    "CONDITIONING_RISK_CHECK": ("matrix",),
+    "SUPPORT_FUNCTION_SAMPLE": ("body",),
+    "SUPPORT_SPECTRUM": ("samples",),
+    "CONVEXITY_CHECK": ("body",),
+    "STEINER_OFFSET_PREDICT": ("body", "offset"),
+    "MIXED_AREA_DEFECT": ("body_a", "body_b"),
+    "NUMERIC_RELATION_FIT": ("trajectory",),
+    "NUMERIC_RESIDUAL_VERIFY": ("candidate", "reference"),
+    "SYMBOLIC_TO_NUMERICAL_EVALUATION": ("polynomial", "grid"),
+}
+
+
+_OUTPUT_OBJECTIVES: dict[str, tuple[str, ...]] = {
+    "BOOLEAN_ATOMIC_SIGNAL": ("RECOVER",),
+    "IDENTIFIABILITY_RESULT": ("ESTABLISH_UNIQUENESS",),
+    "CHAIN_DIAGNOSIS": ("VERIFY_AND_LOCALIZE",),
+    "MATRIX_RANK": ("SAFE_RANK",),
+    "INVARIANT_VERDICT": ("VERIFY_CONSERVATION",),
+    "NUMERIC_RELATION": ("DISCOVER_AND_VERIFY",),
+    "AREA": ("PREDICT",),
+    "ROTATIONAL_HARMONIC_ORDER": ("INFER",),
+    "HOMOTHETY_VERDICT": ("DISCRIMINATE",),
+    "IDENTITY_VERDICT": ("PROVE_IDENTITY",),
+    "ORDER_SUPREMUM_BOUND": ("COMPUTE_BOUND",),
+    "MEAN_VALUE_SLOPE": ("COMPUTE_SLOPE",),
+    "BEZOUT_CERTIFICATE": ("EXTENDED_GCD",),
+    "CAUCHY_RIEMANN_RESIDUAL": ("VERIFY_HOLOMORPHY",),
+    "MEROMORPHIC_RESIDUE": ("COMPUTE_RESIDUE",),
+    "BOUNDED_RESIDUAL_CERTIFICATE": ("CERTIFY_RESIDUAL",),
+    "BOUNDED_PERIOD_CERTIFICATE": ("CERTIFY_PERIOD",),
+}
+
+
+def _input_artifact_type(semantic_type: str) -> ArtifactType:
+    try:
+        return _INPUT_ARTIFACT_TYPES[semantic_type]
+    except KeyError as exc:
+        raise ValueError(f"missing complete input contract for {semantic_type}") from exc
+
+
+def _port_names(operator_id: str, input_types: tuple[str, ...]) -> tuple[str, ...]:
+    if operator_id in _PORT_NAMES:
+        return _PORT_NAMES[operator_id]
+    counts: Counter[str] = Counter()
+    names: list[str] = []
+    for semantic_type in input_types:
+        counts[semantic_type] += 1
+        base = semantic_type.lower()
+        names.append(base if counts[semantic_type] == 1 else f"{base}_{counts[semantic_type]}")
+    return tuple(names)
+
+
 def _spec(
     operator_id: str,
     input_types: tuple[str, ...],
@@ -587,18 +1361,28 @@ def _spec(
     verify: VerifyFn = _verify_internal,
     cost: int = 1,
     signature: tuple[str, ...] = (),
+    port_names: tuple[str, ...] | None = None,
+    input_contracts: tuple[ArtifactType, ...] | None = None,
+    objectives: tuple[str, ...] | None = None,
+    execution_kind: str | None = None,
 ) -> OperatorSpec:
+    contracts = input_contracts or tuple(_input_artifact_type(name) for name in input_types)
+    if len(contracts) != len(input_types):
+        raise ValueError(f"input contract arity mismatch for {operator_id}")
+    names = port_names or _port_names(operator_id, input_types)
+    if len(names) != len(input_types):
+        raise ValueError(f"input port arity mismatch for {operator_id}")
     return OperatorSpec(
         operator_id=operator_id,
-        input_types=input_types,
-        output_type=output_type,
-        representation_class=representation_class,
-        exactness_class=exactness_class,
+        input_ports=tuple(InputPort(name, contract) for name, contract in zip(names, contracts)),
+        output=ArtifactType(output_type, representation_class, exactness_class),
         cost=cost,
         applicability=applicability or _required(*input_types),
         execute=execute,
         verify=verify,
         structural_signature=signature or (representation_class, exactness_class, output_type),
+        execution_kind=execution_kind or ("META" if representation_class == "META" else "PRIMITIVE"),
+        objectives=_OUTPUT_OBJECTIVES.get(output_type, ()) if objectives is None else objectives,
     )
 
 

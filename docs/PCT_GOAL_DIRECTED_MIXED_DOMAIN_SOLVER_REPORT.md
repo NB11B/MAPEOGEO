@@ -1,11 +1,40 @@
 # PCT Goal-Directed Mixed-Domain Solver Report
 
+> **Historical frozen-run record — superseded for current v0.20.** The support and
+> executable-macro statements below describe only the named V1/V2 branch and the
+> frozen V2 commit recorded here. They do not establish the current v0.20 solver's
+> status or macro authority. Current v0.20 runtime macro execution is disabled;
+> its result must be read from freshly regenerated v0.20 evidence.
+
 **Date:** 2026-09-16  
 **Branch:** `agent/pct-computational-architecture`  
 **V1 sealed status:** `PARTIAL`  
-**V2 sealed status:** `SUPPORTED`  
+**V2 recorded legacy output:** `SUPPORTED`
+
+**Current validation status:** `NOT_VALID_UNDER_CURRENT_STANDARD`
+
 **V2 frozen execution commit:** `f2e8cc73ef6665e9329d9b3901f7f8672e4dc4e5`  
 **V2 Actions run:** `35059952763`
+
+## Rigor erratum and current disposition
+
+The frozen commit and content-addressed archive record what the V2 code reported
+at the time. Subsequent hardening found that several premises of that report do
+not meet the current evidentiary standard. The recorded `SUPPORTED` label is
+therefore **not accepted as current rigorous evidence**, and the current runtime
+refuses to regenerate a report under the V2 protocol name.
+
+| Legacy claim | Hardened finding | Current disposition |
+|---|---|---|
+| Three cross-class families | G8 and G9's symbolic artifacts were state-wide siblings, not ancestors of the accepted candidates; only G6 had a candidate-connected cross-class path | **Not established by V2** |
+| All positive results independently verified | Frozen G4, G10, and G11 terminal checks were mathematically insufficient for the claimed semantics | **Not rigorous current evidence** |
+| Macro preservation and efficiency | Runtime macro authority was incomplete and is disabled in current v0.20 | **Historical observation only** |
+| Reproducible V2 corpus under current code | The legacy constructor calls changed current goal/operator builders | **Not the frozen corpus or runtime** |
+
+The identified archive in Section 9 permits historical output inspection, not
+exact environment reproduction: the frozen dependency declarations used ranges
+rather than a complete lock. Any corrected experiment is a newly named campaign
+with fresh corpus identity and gates; it cannot be labeled a V2 replay.
 
 ## 1. Scientific question
 
@@ -86,11 +115,12 @@ The complete goal-solver suite passed **44/44 tests**, and the historical E1-E25
 | HYBRID / PRIMITIVE | 23 | 0 | 12 | 11 | 3 | 3.96 | 1.96 |
 | HYBRID / SYNTHESIZED | 23 | 0 | 12 | 11 | 3 | 3.67 | 2.12 |
 
-Every one of the ten prospectively frozen V2 gates passed.
+The frozen implementation recorded all ten of its then-defined gates as passed.
+The erratum above explains why that recorded result is not a current validation.
 
-## 5. Four V2 scientific conclusions
+## 5. Four conclusions recorded by the frozen V2 implementation
 
-### 5.1 COMPOSITION_DEPTH — SUPPORTED
+### 5.1 COMPOSITION_DEPTH — RECORDED AS SUPPORTED; NOT CURRENTLY REVALIDATED
 
 Eleven of the twelve families produced at least one correct sealed solution using two or more primitive operations:
 
@@ -100,7 +130,7 @@ The only single-step family was G11 (`MIXED_AREA_DEFECT -> VERIFY_CANDIDATE`). T
 
 This is materially different from V1. The planner no longer receives credit merely because a target-producing primitive exists; in most families it has to construct and retain additional mathematical evidence before closure.
 
-### 5.2 CROSS_REPRESENTATION_COMPOSITION — SUPPORTED
+### 5.2 CROSS_REPRESENTATION_COMPOSITION — RECORDED AS SUPPORTED; NOT ESTABLISHED BY HARDENED LINEAGE
 
 Three prospectively required families crossed representation or exactness classes:
 
@@ -110,9 +140,13 @@ Three prospectively required families crossed representation or exactness classe
 
 The nonconvex G9 control correctly returned `NOT_APPLICABLE` rather than forcing the Steiner operator outside its domain.
 
-This supports executable cross-class composition in the frozen operator universe. It does **not** yet mean that arbitrary symbolic and numerical theories can be joined automatically. G8/G9 use generic representation bridges whose semantics are deliberately narrow and independently round-trip checked.
+The frozen implementation counted this as executable cross-class composition.
+The hardened candidate-lineage audit does not: the G8/G9 bridges were not on
+the candidate ancestry, so V2 did not establish its three-family cross-class
+claim. It also never implied that arbitrary symbolic and numerical theories
+could be joined automatically.
 
-### 5.3 TYPE_BLIND_ROUTING — SUPPORTED
+### 5.3 TYPE_BLIND_ROUTING — RECORDED AS SUPPORTED; NOT CURRENTLY REVALIDATED
 
 For `INFERRED` and `HYBRID` sealed execution, every original input semantic type was replaced by the same opaque placeholder before the planner received the goal.
 
@@ -127,7 +161,7 @@ Under this blinding:
 
 This is stronger than the original V1 inferred-routing result because the planner is no longer allowed to consume the supplied input semantic labels during execution.
 
-### 5.4 MACRO_PRESERVATION — SUPPORTED
+### 5.4 MACRO_PRESERVATION — RECORDED AS SUPPORTED; HISTORICAL ONLY
 
 V2 synthesized 43 candidate macros from calibration traces. Across the three primitive/synthesized mode pairs:
 
@@ -137,7 +171,13 @@ V2 synthesized 43 candidate macros from calibration traces. Across the three pri
 
 The strongest search-state compression was in explicit mode: mean expanded states fell from **3.96 to 2.58**, about a **34.7% reduction**.
 
-This should not be described as an overall compute reduction. Mean primitive executions in explicit mode increased from **1.96 to 2.17** because macro replay expands back into its constituent primitives and can perform extra verified work while skipping intermediate planner states. The supported claim is therefore **search compression with semantic preservation**, not lower arithmetic cost.
+This should not be described as an overall compute reduction. Mean primitive
+executions in explicit mode increased from **1.96 to 2.17** because macro replay
+expanded back into its constituent primitives and could perform extra verified
+work while skipping intermediate planner states. The historical claim was
+therefore **search compression with semantic preservation**, not lower
+arithmetic cost. Current v0.20 grants macros no execution authority and no
+conservation or efficiency credit.
 
 ## 6. The remaining sealed failure is informative
 
@@ -153,7 +193,8 @@ Because V2 is frozen, this is not repaired in V2. Any such change belongs to a s
 
 E26-E31 showed that semantic-label recovery alone was not the general solver we were trying to build. V1 then showed that the E-series mechanisms could be organized under a target-driven planner, but exposed an important shortcut: direct target-producing primitives often made composition unnecessary.
 
-V2 closes that specific loophole prospectively. On fresh sealed parameters, a single planner now demonstrably performs:
+The frozen V2 report claimed to close that loophole on its sealed parameters by
+performing:
 
 ```text
 goal recognition from a structured target
@@ -165,13 +206,16 @@ goal recognition from a structured target
   -> independent final verification
 ```
 
-and it does so with the original semantic input labels hidden in inferred/hybrid modes.
+and reported doing so with the original semantic input labels hidden in
+inferred/hybrid modes.
 
-The strongest justified statement is therefore:
+The report's strongest statement at the time was:
 
 > **MAPEOGEO/PCT now contains a functioning goal-directed, mixed-domain operator solver over its frozen executable mathematical universe. It can compose verified operations across exact, symbolic, numerical, graph/topological, and geometric representations, and can infer input/operator compatibility from structural calibration rather than supplied semantic labels.**
 
-That is a substantially stronger result than relational classification. It is still bounded by the operator registry and structured goal grammar.
+That statement is preserved as a historical quotation, not endorsed as a
+current rigorous conclusion. Current capability must be read from the v0.20
+report, whose stricter gates remain truthful even when the result is partial.
 
 ## 8. Claim boundary
 
@@ -185,14 +229,20 @@ The campaign does **not** establish:
 - that a synthesized macro is a novel theorem;
 - that representation bridges constitute a universal mathematics ontology.
 
-What it establishes is narrower and concrete: **goal-directed executable composition with fail-closed verification over a heterogeneous, frozen mathematical operator space.**
+What the historical artifact establishes is narrower: the identified frozen
+program emitted the recorded traces and gate decisions. Mathematical capability
+claims require the hardened current contracts and current v0.20 evidence.
 
-## 9. Reproducibility/provenance
+## 9. Historical provenance (not exact environment reproduction)
 
 - V2 frozen execution commit: `f2e8cc73ef6665e9329d9b3901f7f8672e4dc4e5`
 - GitHub Actions run: `35059952763`
 - V2 result artifact: `pct-goal-solver-v2-results`
 - V2 artifact ID: `10431654598`
+- original GitHub artifact expiry: `2026-12-15T05:32:57Z`
 - artifact archive SHA-256: `baf020fa8007e3f721b44264c168249c4abf6689787f23db76f0ba4adee60235`
+- preserved archive: `evidence/historical_invalid_v2/pct-goal-solver-v2-results.zip`
 
-The archive hash is recorded only to identify the inspected artifact; it is not a scientific pass/fail criterion.
+The archive hash binds the preserved bytes to the inspected artifact; it is not
+a scientific pass/fail criterion. The frozen requirements used version ranges,
+so neither the commit nor archive alone recreates an exact execution environment.

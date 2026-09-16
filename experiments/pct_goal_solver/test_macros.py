@@ -25,7 +25,7 @@ def test_repeated_verified_path_synthesizes_replayable_macro():
     assert macro.terminal_output_type == "ROTATIONAL_HARMONIC_ORDER"
 
 
-def test_synthesized_mode_replays_macro_without_changing_result():
+def test_macro_argument_cannot_change_authoritative_primitive_trace():
     registry = build_operator_registry()
     calibration = goals_for("CALIBRATION", "G10")
     traces = tuple(solve(goal.solver_visible(), registry, typing_mode="EXPLICIT") for goal in calibration)
@@ -33,9 +33,5 @@ def test_synthesized_mode_replays_macro_without_changing_result():
     goal = goals_for("SEALED", "G10")[0]
     primitive = solve(goal.solver_visible(), registry, typing_mode="EXPLICIT")
     synthesized = solve(goal.solver_visible(), registry, typing_mode="EXPLICIT", macros=macros)
-    assert primitive.final_verdict == synthesized.final_verdict == "PASS"
-    assert primitive.candidate_artifact is not None
-    assert synthesized.candidate_artifact is not None
-    assert primitive.candidate_artifact.value == synthesized.candidate_artifact.value
-    assert synthesized.macro_ids
-    assert synthesized.expanded_state_count <= primitive.expanded_state_count
+    assert primitive.final_verdict == "PASS"
+    assert synthesized == primitive

@@ -1,417 +1,1102 @@
+"""Typed, fail-closed operators for the seven prospective v0.20 families."""
+
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import fields, is_dataclass
 from fractions import Fraction
+import hashlib
+import inspect
 import math
-from typing import Any, Callable, Mapping, Sequence
+from typing import Any, Mapping
 
-import numpy as np
 import sympy as sp
 
-from .model import Applicability, Artifact, OperatorFailure, VerificationResult
-from .operators import (
-    Bindings,
-    OperatorSpec,
-    build_operator_registry,
-    _spec,
-    _required,
+from .bridge_operators import build_cross_representation_operator_registry
+from .elliptic_periods import (
+    PeriodCertificate,
+    PeriodCertificationUnavailable,
+    certify_rectangular_periods,
+    verify_period_certificate,
 )
-from .v2 import (
-    build_v2_operator_registry,
+from .model import Artifact, OperatorFailure, VerificationResult
+from .operators import Bindings, OperatorSpec, _spec
+from .rigorous_math import (
+    BezoutCertificate,
+    CauchyRiemannCertificate,
+    GridEvaluationCertificate,
+    QuadraticMeanValueCertificate,
+    ResidueCertificate,
+    Sqrt2CutCertificate,
+    certify_bezout,
+    certify_cauchy_riemann,
+    certify_grid_evaluation,
+    certify_quadratic_mean_value,
+    certify_residue,
+    certify_sqrt2_cut,
+    verify_bezout_certificate,
+    verify_cauchy_riemann,
+    verify_grid_evaluation,
+    verify_quadratic_mean_value,
+    verify_residue,
+    verify_sqrt2_cut,
+)
+from .v0_20_contracts import (
+    NumericalPolynomialEvaluation,
+    SymbolicPolynomial,
+    V0_20_CONTRACTS,
+    WeierstrassCurve,
+    materialize_v0_20_artifact_type,
 )
 
 
-def _egcd(a: int, b: int) -> tuple[int, int, int]:
-    if a == 0:
-        return b, 0, 1
-    g, y, x = _egcd(b % a, a)
-    return g, x - (b // a) * y, y
+_MAX_OPERATOR_INPUTS = 512
+_MAX_BINDINGS = 32
+_MAX_LINEAGE_ITEMS = 64
+_MAX_IDENTIFIER_LENGTH = 512
+_MAX_EXACT_BITS = 4096
+_MAX_VECTOR_ITEMS = 4096
+_MAX_GRID_WORK = 100_000
+_MAX_CANONICAL_NODES = 200_000
+_MAX_CANONICAL_TEXT_BYTES = 8_000_000
 
 
-def _find_semantic(inputs: Mapping[str, Artifact], semantic_type: str) -> Artifact:
-    for artifact in inputs.values():
-        if artifact.semantic_type == semantic_type:
-            return artifact
-    raise KeyError(semantic_type)
+class _NumericallyUnsafeBridgeError(ValueError):
+    """Exact input is valid but cannot be represented safely in binary64."""
 
 
-def _find_exactness(inputs: Mapping[str, Artifact], exactness_class: str) -> Artifact:
-    for artifact in inputs.values():
-        if artifact.exactness_class == exactness_class:
-            return artifact
-    raise KeyError(exactness_class)
+_OPERATOR_INPUT_TYPES: dict[str, tuple[str, ...]] = {
+    "CERTIFY_SQRT2_CUT": ("SQRT2_LOWER_BOUND_EXACT", "SQRT2_UPPER_BOUND_EXACT"),
+    "CERTIFY_QUADRATIC_MEAN_VALUE": (
+        "QUADRATIC_COEFFICIENTS_EXACT",
+        "CLOSED_INTERVAL_EXACT",
+    ),
+    "CERTIFY_BEZOUT": ("INTEGER_A_EXACT", "INTEGER_B_EXACT"),
+    "CERTIFY_CAUCHY_RIEMANN": (
+        "REAL_POLYNOMIAL_POTENTIAL",
+        "IMAG_POLYNOMIAL_POTENTIAL",
+        "REAL_COORDINATE_PAIR",
+    ),
+    "CERTIFY_RATIONAL_RESIDUE": (
+        "RATIONAL_MEROMORPHIC_FORM",
+        "COMPLEX_COORDINATE_SYMBOL",
+        "RATIONAL_POLE_EXACT",
+    ),
+    "EXACT_TO_SYMBOLIC_POLYNOMIAL": ("POLYNOMIAL_COEFFICIENTS_EXACT",),
+    "SYMBOLIC_TO_NUMERICAL_EVALUATION": (
+        "SYMBOLIC_POLYNOMIAL",
+        "EVALUATION_GRID_EXACT",
+    ),
+    "CERTIFY_GRID_EVALUATION": ("NUMERICAL_POLYNOMIAL_EVALUATION",),
+    "EXACT_INVARIANTS_TO_SYMBOLIC_CURVE": (
+        "WEIERSTRASS_G2_EXACT",
+        "WEIERSTRASS_G3_EXACT",
+    ),
+    "CERTIFY_RECTANGULAR_PERIODS": ("SYMBOLIC_WEIERSTRASS_CURVE",),
+}
+
+_OPERATOR_FAMILIES = {
+    "CERTIFY_SQRT2_CUT": "F1",
+    "CERTIFY_QUADRATIC_MEAN_VALUE": "F2",
+    "CERTIFY_BEZOUT": "F3",
+    "CERTIFY_CAUCHY_RIEMANN": "C1",
+    "CERTIFY_RATIONAL_RESIDUE": "C2",
+    "EXACT_TO_SYMBOLIC_POLYNOMIAL": "X1",
+    "SYMBOLIC_TO_NUMERICAL_EVALUATION": "X1",
+    "CERTIFY_GRID_EVALUATION": "X1",
+    "EXACT_INVARIANTS_TO_SYMBOLIC_CURVE": "X2",
+    "CERTIFY_RECTANGULAR_PERIODS": "X2",
+}
+
+_OPERATOR_PORT_NAMES = {
+    "CERTIFY_SQRT2_CUT": ("lower_bound", "upper_bound"),
+    "CERTIFY_QUADRATIC_MEAN_VALUE": ("coefficients", "interval"),
+    "CERTIFY_BEZOUT": ("integer_a", "integer_b"),
+    "CERTIFY_CAUCHY_RIEMANN": ("real_part", "imag_part", "coordinates"),
+    "CERTIFY_RATIONAL_RESIDUE": ("form", "variable", "pole"),
+    "EXACT_TO_SYMBOLIC_POLYNOMIAL": ("coefficients",),
+    "SYMBOLIC_TO_NUMERICAL_EVALUATION": ("polynomial", "grid"),
+    "CERTIFY_GRID_EVALUATION": ("evaluation",),
+    "EXACT_INVARIANTS_TO_SYMBOLIC_CURVE": ("g2", "g3"),
+    "CERTIFY_RECTANGULAR_PERIODS": ("curve",),
+}
 
 
-def _required_types(*semantic_types: str):
-    def applicability(inputs: Mapping[str, Artifact], bindings: Bindings) -> Applicability:
-        for t in semantic_types:
-            if not any(a.semantic_type == t for a in inputs.values()):
-                return Applicability("MISSING_PRECONDITION", f"missing semantic input: {t}")
-        return Applicability("APPLICABLE")
-    return applicability
+def _find_unique(inputs: Mapping[str, Artifact], semantic_type: str) -> Artifact:
+    if len(inputs) > _MAX_OPERATOR_INPUTS:
+        raise ValueError("operator input count exceeds the resource limit")
+    matches = [artifact for artifact in inputs.values() if artifact.semantic_type == semantic_type]
+    if len(matches) != 1:
+        raise ValueError(f"expected exactly one {semantic_type} input")
+    return matches[0]
 
 
-# =============================================================================
-# 1. Foundational Elementary Mathematics Operators
-# =============================================================================
+def _find_unique_tuple(inputs: tuple[Artifact, ...], semantic_type: str) -> Artifact:
+    if type(inputs) is not tuple or len(inputs) > _MAX_OPERATOR_INPUTS:
+        raise ValueError("operator verifier input count exceeds the resource limit")
+    matches = [artifact for artifact in inputs if artifact.semantic_type == semantic_type]
+    if len(matches) != 1:
+        raise ValueError(f"expected exactly one {semantic_type} input")
+    return matches[0]
 
-def _exec_dedekind_cut_bound(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "DEDEKIND_CUT_BOUND"
-    try:
-        source = _find_semantic(inputs, "DEDEKIND_CUT_LOWER_SET")
-        cut = source.value  # list of Fractions
-        if not cut:
-            return OperatorFailure("EMPTY_CUT", "Dedekind cut is empty", operator_id)
-        supremum = max(cut)
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{source.artifact_id}",
-            semantic_type="ORDER_SUPREMUM_BOUND",
-            representation_class="RATIONAL_BOUND",
-            value=supremum,
-            exactness_class="EXACT",
-            metadata=(("cut_size", len(cut)),),
-            provenance=tuple(dict.fromkeys(source.provenance + (source.artifact_id, operator_id))),
+
+def _binding(bindings: Bindings, key: str, expected_type: type) -> Any:
+    if type(bindings) is not tuple or len(bindings) > _MAX_BINDINGS:
+        raise ValueError("operator bindings exceed the resource limit")
+    matches = [value for name, value in bindings if name == key]
+    if len(matches) != 1 or type(matches[0]) is not expected_type:
+        raise ValueError(f"missing or invalid binding: {key}")
+    return matches[0]
+
+
+def _operator_artifacts(
+    operator_id: str,
+    inputs: Mapping[str, Artifact] | tuple[Artifact, ...],
+) -> tuple[Artifact, ...]:
+    required = _OPERATOR_INPUT_TYPES.get(operator_id)
+    if required is None:
+        raise ValueError("unknown v0.20 operator identity domain")
+    if isinstance(inputs, Mapping):
+        if len(inputs) > _MAX_OPERATOR_INPUTS:
+            raise ValueError("operator input count exceeds the resource limit")
+        available = tuple(inputs.values())
+    elif type(inputs) is tuple:
+        if len(inputs) > _MAX_OPERATOR_INPUTS:
+            raise ValueError("operator verifier input count exceeds the resource limit")
+        available = inputs
+    else:
+        raise TypeError("operator inputs must be a mapping or exact tuple")
+    if any(type(artifact) is not Artifact for artifact in available):
+        raise TypeError("operator inputs must contain exact Artifact values")
+    selected: list[Artifact] = []
+    for semantic_type in required:
+        matches = [artifact for artifact in available if artifact.semantic_type == semantic_type]
+        if len(matches) != 1:
+            raise ValueError(f"expected exactly one {semantic_type} input")
+        selected.append(matches[0])
+    return tuple(selected)
+
+
+def _canonical_update(
+    digest: Any,
+    value: object,
+    budget: list[int],
+    *,
+    depth: int = 0,
+) -> None:
+    if depth > 64 or budget[0] <= 0:
+        raise ValueError("canonical identity exceeds the resource limit")
+    budget[0] -= 1
+
+    def emit(tag: bytes, payload: bytes = b"") -> None:
+        if len(payload) > _MAX_CANONICAL_TEXT_BYTES:
+            raise ValueError("canonical identity text exceeds the resource limit")
+        digest.update(tag)
+        digest.update(len(payload).to_bytes(8, "big"))
+        digest.update(payload)
+
+    if value is None:
+        emit(b"N")
+    elif type(value) is bool:
+        emit(b"B", b"1" if value else b"0")
+    elif type(value) is int:
+        emit(b"I", str(value).encode("ascii"))
+    elif type(value) is Fraction:
+        emit(b"Q")
+        _canonical_update(digest, value.numerator, budget, depth=depth + 1)
+        _canonical_update(digest, value.denominator, budget, depth=depth + 1)
+    elif type(value) is float:
+        if not math.isfinite(value):
+            raise ValueError("non-finite float cannot enter a derived identity")
+        emit(b"F", value.hex().encode("ascii"))
+    elif type(value) is str:
+        emit(b"S", value.encode("utf-8"))
+    elif type(value) is tuple:
+        emit(b"T", str(len(value)).encode("ascii"))
+        for item in value:
+            _canonical_update(digest, item, budget, depth=depth + 1)
+    elif isinstance(value, sp.Basic):
+        emit(b"Y", sp.srepr(value).encode("utf-8"))
+    elif is_dataclass(value) and not isinstance(value, type):
+        value_type = type(value)
+        emit(
+            b"D",
+            f"{value_type.__module__}.{value_type.__qualname__}".encode("utf-8"),
         )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
+        for field in fields(value):
+            emit(b"K", field.name.encode("utf-8"))
+            _canonical_update(digest, getattr(value, field.name), budget, depth=depth + 1)
+    else:
+        raise TypeError(f"unsupported canonical identity value: {type(value).__name__}")
 
 
-def _exec_difference_quotient_bracket(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "DIFFERENCE_QUOTIENT_BRACKET"
-    try:
-        source = _find_semantic(inputs, "DISCRETE_GRID_SAMPLE")
-        samples = source.value  # tuple of (x, y) as (Fraction, Fraction)
-        if len(samples) < 2:
-            return OperatorFailure("INSUFFICIENT_SAMPLES", "need at least 2 points", operator_id)
-        x0, y0 = samples[0]
-        x1, y1 = samples[-1]
-        dx = x1 - x0
-        if dx == 0:
-            return OperatorFailure("ZERO_STEP", "division by zero step", operator_id)
-        slope = (y1 - y0) / dx
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{source.artifact_id}",
-            semantic_type="MEAN_VALUE_SLOPE",
-            representation_class="RATIONAL_SLOPE",
-            value=slope,
-            exactness_class="EXACT",
-            metadata=(("interval_span", float(dx)),),
-            provenance=tuple(dict.fromkeys(source.provenance + (source.artifact_id, operator_id))),
+def _derived_artifact_id(
+    operator_id: str,
+    inputs: Mapping[str, Artifact] | tuple[Artifact, ...],
+    semantic_type: str,
+    representation_class: str,
+    exactness_class: str,
+    value: object,
+) -> str:
+    digest = hashlib.sha256()
+    _canonical_update(
+        digest,
+        (
+            "PCT_V0_20_DERIVED_ARTIFACT_V1",
+            operator_id,
+            _operator_artifacts(operator_id, inputs),
+            semantic_type,
+            representation_class,
+            exactness_class,
+            value,
+        ),
+        [_MAX_CANONICAL_NODES],
+    )
+    return f"derived:{operator_id}:{digest.hexdigest()}"
+
+
+def _lineage(
+    operator_id: str,
+    inputs: Mapping[str, Artifact] | tuple[Artifact, ...],
+) -> tuple[str, ...]:
+    rows: list[str] = []
+    for artifact in _operator_artifacts(operator_id, inputs):
+        if (
+            type(artifact) is not Artifact
+            or type(artifact.provenance) is not tuple
+            or len(artifact.provenance) > _MAX_LINEAGE_ITEMS
+            or any(
+                type(item) is not str or not item or len(item) > _MAX_IDENTIFIER_LENGTH
+                for item in artifact.provenance
+            )
+            or type(artifact.artifact_id) is not str
+            or not artifact.artifact_id
+            or len(artifact.artifact_id) > _MAX_IDENTIFIER_LENGTH
+        ):
+            raise ValueError("input provenance exceeds the resource limit")
+        rows.extend(artifact.provenance)
+        rows.append(artifact.artifact_id)
+    rows.append(operator_id)
+    result = tuple(dict.fromkeys(rows))
+    if len(result) > _MAX_LINEAGE_ITEMS:
+        raise ValueError("derived provenance exceeds the resource limit")
+    return result
+
+
+def _output(
+    operator_id: str,
+    inputs: Mapping[str, Artifact],
+    semantic_type: str,
+    representation_class: str,
+    exactness_class: str,
+    value: object,
+) -> Artifact:
+    provenance = _lineage(operator_id, inputs)
+    return Artifact(
+        artifact_id=_derived_artifact_id(
+            operator_id,
+            inputs,
+            semantic_type,
+            representation_class,
+            exactness_class,
+            value,
+        ),
+        semantic_type=semantic_type,
+        representation_class=representation_class,
+        value=value,
+        exactness_class=exactness_class,
+        metadata=(),
+        provenance=provenance,
+    )
+
+
+def _failure(operator_id: str) -> OperatorFailure:
+    return OperatorFailure("INVALID", "bounded certificate construction rejected input", operator_id)
+
+
+def _verification(passed: bool, verifier_class: str) -> VerificationResult:
+    return VerificationResult(
+        passed,
+        verifier_class,
+        "certificate replay passed" if passed else "certificate replay failed",
+    )
+
+
+def _output_schema(
+    output: object,
+    *,
+    operator_id: str,
+    inputs: tuple[Artifact, ...],
+    semantic_type: str,
+    representation_class: str,
+    exactness_class: str,
+    value_type: type,
+) -> bool:
+    if not (
+        type(output) is Artifact
+        and type(output.artifact_id) is str
+        and bool(output.artifact_id)
+        and len(output.artifact_id) <= _MAX_IDENTIFIER_LENGTH
+        and output.semantic_type == semantic_type
+        and output.representation_class == representation_class
+        and output.exactness_class == exactness_class
+        and type(output.value) is value_type
+        and output.metadata == ()
+        and type(output.provenance) is tuple
+        and len(output.provenance) <= _MAX_LINEAGE_ITEMS
+        and all(
+            type(item) is str and bool(item) and len(item) <= _MAX_IDENTIFIER_LENGTH
+            for item in output.provenance
         )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
+        and len(set(output.provenance)) == len(output.provenance)
+    ):
+        return False
+    return (
+        output.artifact_id
+        == _derived_artifact_id(
+            operator_id,
+            inputs,
+            semantic_type,
+            representation_class,
+            exactness_class,
+            output.value,
+        )
+        and output.provenance == _lineage(operator_id, inputs)
+    )
 
 
-def _exec_bezout_identity_gcd(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "BEZOUT_IDENTITY_GCD"
+def _execute_sqrt2_cut(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "CERTIFY_SQRT2_CUT"
     try:
-        source = _find_semantic(inputs, "INTEGER_PAIR")
-        a, b = source.value
-        g, x, y = _egcd(int(a), int(b))
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{source.artifact_id}",
+        lower = _find_unique(inputs, "SQRT2_LOWER_BOUND_EXACT").value
+        upper = _find_unique(inputs, "SQRT2_UPPER_BOUND_EXACT").value
+        certificate = certify_sqrt2_cut(lower, upper)
+        return _output(operator_id, inputs, "SQRT2_CUT_CERTIFICATE", "EXACT_CERTIFICATE", "EXACT", certificate)
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_sqrt2_cut_step(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        lower = _find_unique_tuple(inputs, "SQRT2_LOWER_BOUND_EXACT").value
+        upper = _find_unique_tuple(inputs, "SQRT2_UPPER_BOUND_EXACT").value
+        passed = _output_schema(
+            output,
+            operator_id="CERTIFY_SQRT2_CUT",
+            inputs=inputs,
+            semantic_type="SQRT2_CUT_CERTIFICATE",
+            representation_class="EXACT_CERTIFICATE",
+            exactness_class="EXACT",
+            value_type=Sqrt2CutCertificate,
+        ) and verify_sqrt2_cut(lower, upper, output.value)
+    except Exception:
+        passed = False
+    return _verification(passed, "SQRT2_CUT_REPLAY")
+
+
+def _execute_quadratic_mvt(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "CERTIFY_QUADRATIC_MEAN_VALUE"
+    try:
+        coefficients = _find_unique(inputs, "QUADRATIC_COEFFICIENTS_EXACT").value
+        left, right = _find_unique(inputs, "CLOSED_INTERVAL_EXACT").value
+        certificate = certify_quadratic_mean_value(coefficients, left, right)
+        return _output(
+            operator_id,
+            inputs,
+            "QUADRATIC_MEAN_VALUE_CERTIFICATE",
+            "EXACT_CERTIFICATE",
+            "EXACT",
+            certificate,
+        )
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_quadratic_mvt_step(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        coefficients = _find_unique_tuple(inputs, "QUADRATIC_COEFFICIENTS_EXACT").value
+        left, right = _find_unique_tuple(inputs, "CLOSED_INTERVAL_EXACT").value
+        passed = _output_schema(
+            output,
+            operator_id="CERTIFY_QUADRATIC_MEAN_VALUE",
+            inputs=inputs,
+            semantic_type="QUADRATIC_MEAN_VALUE_CERTIFICATE",
+            representation_class="EXACT_CERTIFICATE",
+            exactness_class="EXACT",
+            value_type=QuadraticMeanValueCertificate,
+        ) and verify_quadratic_mean_value(coefficients, left, right, output.value)
+    except Exception:
+        passed = False
+    return _verification(passed, "QUADRATIC_MVT_REPLAY")
+
+
+def _execute_bezout(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "CERTIFY_BEZOUT"
+    try:
+        a = _find_unique(inputs, "INTEGER_A_EXACT").value
+        b = _find_unique(inputs, "INTEGER_B_EXACT").value
+        certificate = certify_bezout(a, b)
+        return _output(operator_id, inputs, "BEZOUT_CERTIFICATE", "EXACT_CERTIFICATE", "EXACT", certificate)
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_bezout_step(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        a = _find_unique_tuple(inputs, "INTEGER_A_EXACT").value
+        b = _find_unique_tuple(inputs, "INTEGER_B_EXACT").value
+        passed = _output_schema(
+            output,
+            operator_id="CERTIFY_BEZOUT",
+            inputs=inputs,
             semantic_type="BEZOUT_CERTIFICATE",
-            representation_class="INTEGER_TUPLE",
-            value={"gcd": int(g), "coeff_a": int(x), "coeff_b": int(y)},
+            representation_class="EXACT_CERTIFICATE",
             exactness_class="EXACT",
-            metadata=(("a", int(a)), ("b", int(b))),
-            provenance=tuple(dict.fromkeys(source.provenance + (source.artifact_id, operator_id))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
+            value_type=BezoutCertificate,
+        ) and verify_bezout_certificate(a, b, output.value)
+    except Exception:
+        passed = False
+    return _verification(passed, "BEZOUT_REPLAY")
 
 
-# =============================================================================
-# 2. Complex Analysis & Riemann Surfaces Operators
-# =============================================================================
-
-def _exec_cauchy_riemann_residual(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "CAUCHY_RIEMANN_RESIDUAL"
-    try:
-        source = _find_semantic(inputs, "POTENTIAL_2D_PAIR")
-        u_expr, v_expr = source.value
-        x, y = sp.symbols("x y", real=True)
-        du_dx = sp.diff(u_expr, x)
-        du_dy = sp.diff(u_expr, y)
-        dv_dx = sp.diff(v_expr, x)
-        dv_dy = sp.diff(v_expr, y)
-        res1 = sp.simplify(du_dx - dv_dy)
-        res2 = sp.simplify(du_dy + dv_dx)
-        is_holomorphic = (res1 == 0 and res2 == 0)
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{source.artifact_id}",
-            semantic_type="CAUCHY_RIEMANN_RESIDUAL",
-            representation_class="SYMBOLIC_RESIDUAL",
-            value={"holomorphic": is_holomorphic, "res_x": 0, "res_y": 0},
-            exactness_class="SYMBOLIC",
-            metadata=(("is_holomorphic", is_holomorphic),),
-            provenance=tuple(dict.fromkeys(source.provenance + (source.artifact_id, operator_id))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-def _exec_meromorphic_residue_symbolic(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "MEROMORPHIC_RESIDUE_SYMBOLIC"
-    try:
-        source = _find_semantic(inputs, "MEROMORPHIC_FORM")
-        expr = source.value["expression"]
-        pole = source.value["pole"]
-        z = sp.symbols("z")
-        res = sp.residue(expr, z, pole)
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{source.artifact_id}",
-            semantic_type="MEROMORPHIC_RESIDUE",
-            representation_class="SYMBOLIC_EXPRESSION",
-            value=res,
-            exactness_class="SYMBOLIC",
-            metadata=(("pole", str(pole)),),
-            provenance=tuple(dict.fromkeys(source.provenance + (source.artifact_id, operator_id))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-# =============================================================================
-# 3. Cross-Class Bridges: EXACT -> SYMBOLIC -> NUMERICAL
-# =============================================================================
-
-def _exec_exact_to_symbolic_polynomial(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "EXACT_TO_SYMBOLIC_POLYNOMIAL"
-    try:
-        source = _find_semantic(inputs, "POLYNOMIAL_COEFFICIENTS_EXACT")
-        coeffs = source.value  # tuple of Fractions (c0, c1, ..., cn)
-        x = sp.symbols("x")
-        poly = sum(c * (x ** i) for i, c in enumerate(coeffs))
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{source.artifact_id}",
-            semantic_type="SYMBOLIC_POLYNOMIAL",
-            representation_class="SYMBOLIC",
-            value=poly,
-            exactness_class="SYMBOLIC",
-            metadata=(("degree", len(coeffs) - 1), ("bridge_type", "EXACT_TO_SYMBOLIC")),
-            provenance=tuple(dict.fromkeys(source.provenance + (source.artifact_id, operator_id))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-def _exec_exact_lattice_to_symbolic_curve(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "EXACT_LATTICE_TO_SYMBOLIC_CURVE"
-    try:
-        source = _find_semantic(inputs, "LATTICE_INVARIANTS_EXACT")
-        g2, g3 = source.value  # Fractions
-        x, y = sp.symbols("x y")
-        curve_expr = y**2 - (4 * x**3 - g2 * x - g3)
-        discriminant = 16 * (4 * (g2**3) - 27 * (g3**2))
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{source.artifact_id}",
-            semantic_type="SYMBOLIC_WEIERSTRASS_CURVE",
-            representation_class="SYMBOLIC",
-            value={"equation": curve_expr, "discriminant": discriminant, "g2": g2, "g3": g3},
-            exactness_class="SYMBOLIC",
-            metadata=(("discriminant_is_zero", discriminant == 0), ("bridge_type", "EXACT_TO_SYMBOLIC")),
-            provenance=tuple(dict.fromkeys(source.provenance + (source.artifact_id, operator_id))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-def _exec_symbolic_to_numerical_evaluation(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "SYMBOLIC_TO_NUMERICAL_EVALUATION"
-    try:
-        poly_art = _find_semantic(inputs, "SYMBOLIC_POLYNOMIAL")
-        pts_art = _find_semantic(inputs, "NUMERICAL_EVAL_GRID")
-        poly = poly_art.value
-        pts = pts_art.value  # tuple of floats
-        x = sp.symbols("x")
-        evals = tuple(float(poly.subs(x, p).evalf()) for p in pts)
-        max_abs = max(abs(v) for v in evals)
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{poly_art.artifact_id}:{pts_art.artifact_id}",
-            semantic_type="NUMERICAL_EVALUATION_SERIES",
-            representation_class="NUMERICAL_SERIES",
-            value={"points": pts, "evaluations": evals, "sup_norm": max_abs},
-            exactness_class="NUMERICAL",
-            metadata=(("num_points", len(pts)), ("sup_norm", max_abs), ("bridge_type", "SYMBOLIC_TO_NUMERICAL")),
-            provenance=tuple(dict.fromkeys(poly_art.provenance + pts_art.provenance + (operator_id,))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-def _exec_symbolic_curve_to_numerical_periods(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "SYMBOLIC_CURVE_TO_NUMERICAL_PERIODS"
-    try:
-        curve_art = _find_semantic(inputs, "SYMBOLIC_WEIERSTRASS_CURVE")
-        g2 = float(curve_art.value["g2"])
-        g3 = float(curve_art.value["g3"])
-        roots = sorted([complex(r) for r in sp.Poly(4*sp.Symbol('x')**3 - g2*sp.Symbol('x') - g3, sp.Symbol('x')).nroots()], key=lambda r: r.real)
-        e1 = float(roots[-1].real)
-        period_est = math.pi / math.sqrt(max(1e-6, 12.0 * e1))
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{curve_art.artifact_id}",
-            semantic_type="NUMERICAL_PERIOD_LATTICE",
-            representation_class="NUMERICAL_PERIOD",
-            value={"fundamental_period": period_est, "roots": tuple(float(r.real) for r in roots)},
-            exactness_class="NUMERICAL",
-            metadata=(("fundamental_period", period_est), ("bridge_type", "SYMBOLIC_TO_NUMERICAL")),
-            provenance=tuple(dict.fromkeys(curve_art.provenance + (operator_id,))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-def _exec_numerical_residual_certify(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "NUMERICAL_RESIDUAL_CERTIFY"
-    try:
-        series_art = _find_semantic(inputs, "NUMERICAL_EVALUATION_SERIES")
-        target_norm = float(series_art.value["sup_norm"])
-        tolerance = 10.0
-        passed = target_norm <= tolerance
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{series_art.artifact_id}",
-            semantic_type="BOUNDED_RESIDUAL_CERTIFICATE",
-            representation_class="VERIFICATION_CERTIFICATE",
-            value={"residual": target_norm, "tolerance": tolerance, "verified": passed},
-            exactness_class="NUMERICAL",
-            metadata=(("verified", passed), ("residual", target_norm)),
-            provenance=tuple(dict.fromkeys(series_art.provenance + (operator_id,))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-def _exec_numerical_period_residual_certify(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
-    operator_id = "NUMERICAL_PERIOD_RESIDUAL_CERTIFY"
-    try:
-        period_art = _find_semantic(inputs, "NUMERICAL_PERIOD_LATTICE")
-        period = float(period_art.value["fundamental_period"])
-        passed = period > 0.0 and not math.isnan(period)
-        return Artifact(
-            artifact_id=f"derived:{operator_id}:{period_art.artifact_id}",
-            semantic_type="BOUNDED_PERIOD_CERTIFICATE",
-            representation_class="VERIFICATION_CERTIFICATE",
-            value={"fundamental_period": period, "verified": passed},
-            exactness_class="NUMERICAL",
-            metadata=(("verified", passed), ("fundamental_period", period)),
-            provenance=tuple(dict.fromkeys(period_art.provenance + (operator_id,))),
-        )
-    except Exception as exc:
-        return OperatorFailure("INVALID", str(exc), operator_id)
-
-
-# =============================================================================
-# Registry Builder for v0.20
-# =============================================================================
-
-def build_v0_20_operator_registry() -> dict[str, OperatorSpec]:
-    """Build the comprehensive v0.20 operator registry spanning v0.19 + cross-class bridges."""
-    registry = dict(build_v2_operator_registry())
-
-    # Add Foundational Elementary Operators
-    registry["DEDEKIND_CUT_BOUND"] = _spec(
-        "DEDEKIND_CUT_BOUND",
-        ("DEDEKIND_CUT_LOWER_SET",),
-        "ORDER_SUPREMUM_BOUND",
-        "RATIONAL_BOUND",
-        "EXACT",
-        _exec_dedekind_cut_bound,
-        cost=1,
-    )
-    registry["DIFFERENCE_QUOTIENT_BRACKET"] = _spec(
-        "DIFFERENCE_QUOTIENT_BRACKET",
-        ("DISCRETE_GRID_SAMPLE",),
-        "MEAN_VALUE_SLOPE",
-        "RATIONAL_SLOPE",
-        "EXACT",
-        _exec_difference_quotient_bracket,
-        cost=1,
-    )
-    registry["BEZOUT_IDENTITY_GCD"] = _spec(
-        "BEZOUT_IDENTITY_GCD",
-        ("INTEGER_PAIR",),
-        "BEZOUT_CERTIFICATE",
-        "INTEGER_TUPLE",
-        "EXACT",
-        _exec_bezout_identity_gcd,
-        cost=1,
-    )
-
-    # Add Complex Analysis Operators
-    registry["CAUCHY_RIEMANN_RESIDUAL"] = _spec(
-        "CAUCHY_RIEMANN_RESIDUAL",
-        ("POTENTIAL_2D_PAIR",),
-        "CAUCHY_RIEMANN_RESIDUAL",
-        "SYMBOLIC_RESIDUAL",
+def _materialize_cauchy_riemann_stage(inputs: Mapping[str, Artifact]) -> Artifact:
+    u = _find_unique(inputs, "REAL_POLYNOMIAL_POTENTIAL").value
+    v = _find_unique(inputs, "IMAG_POLYNOMIAL_POTENTIAL").value
+    x, y = _find_unique(inputs, "REAL_COORDINATE_PAIR").value
+    certificate = certify_cauchy_riemann(u, v, x=x, y=y)
+    return _output(
+        "CERTIFY_CAUCHY_RIEMANN",
+        inputs,
+        "CAUCHY_RIEMANN_CERTIFICATE",
+        "SYMBOLIC_CERTIFICATE",
         "SYMBOLIC",
-        _exec_cauchy_riemann_residual,
-        cost=2,
-    )
-    registry["MEROMORPHIC_RESIDUE_SYMBOLIC"] = _spec(
-        "MEROMORPHIC_RESIDUE_SYMBOLIC",
-        ("MEROMORPHIC_FORM",),
-        "MEROMORPHIC_RESIDUE",
-        "SYMBOLIC_EXPRESSION",
-        "SYMBOLIC",
-        _exec_meromorphic_residue_symbolic,
-        cost=2,
+        certificate,
     )
 
-    # Add Cross-Class Exactness Transitions (EXACT -> SYMBOLIC -> NUMERICAL)
-    registry["EXACT_TO_SYMBOLIC_POLYNOMIAL"] = _spec(
+
+def _execute_cauchy_riemann(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "CERTIFY_CAUCHY_RIEMANN"
+    try:
+        return _materialize_cauchy_riemann_stage(inputs)
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_cauchy_riemann_step(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        u = _find_unique_tuple(inputs, "REAL_POLYNOMIAL_POTENTIAL").value
+        v = _find_unique_tuple(inputs, "IMAG_POLYNOMIAL_POTENTIAL").value
+        x, y = _find_unique_tuple(inputs, "REAL_COORDINATE_PAIR").value
+        passed = _output_schema(
+            output,
+            operator_id="CERTIFY_CAUCHY_RIEMANN",
+            inputs=inputs,
+            semantic_type="CAUCHY_RIEMANN_CERTIFICATE",
+            representation_class="SYMBOLIC_CERTIFICATE",
+            exactness_class="SYMBOLIC",
+            value_type=CauchyRiemannCertificate,
+        ) and verify_cauchy_riemann(u, v, output.value, x=x, y=y)
+    except Exception:
+        passed = False
+    return _verification(passed, "CAUCHY_RIEMANN_REPLAY")
+
+
+def _materialize_residue_stage(inputs: Mapping[str, Artifact]) -> Artifact:
+    expression = _find_unique(inputs, "RATIONAL_MEROMORPHIC_FORM").value
+    variable = _find_unique(inputs, "COMPLEX_COORDINATE_SYMBOL").value
+    pole = _find_unique(inputs, "RATIONAL_POLE_EXACT").value
+    certificate = certify_residue(expression, variable=variable, pole=pole)
+    return _output(
+        "CERTIFY_RATIONAL_RESIDUE",
+        inputs,
+        "RESIDUE_CERTIFICATE",
+        "SYMBOLIC_CERTIFICATE",
+        "SYMBOLIC",
+        certificate,
+    )
+
+
+def _execute_residue(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "CERTIFY_RATIONAL_RESIDUE"
+    try:
+        return _materialize_residue_stage(inputs)
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_residue_step(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        expression = _find_unique_tuple(inputs, "RATIONAL_MEROMORPHIC_FORM").value
+        variable = _find_unique_tuple(inputs, "COMPLEX_COORDINATE_SYMBOL").value
+        pole = _find_unique_tuple(inputs, "RATIONAL_POLE_EXACT").value
+        passed = _output_schema(
+            output,
+            operator_id="CERTIFY_RATIONAL_RESIDUE",
+            inputs=inputs,
+            semantic_type="RESIDUE_CERTIFICATE",
+            representation_class="SYMBOLIC_CERTIFICATE",
+            exactness_class="SYMBOLIC",
+            value_type=ResidueCertificate,
+        ) and verify_residue(expression, output.value, variable=variable, pole=pole)
+    except Exception:
+        passed = False
+    return _verification(passed, "RATIONAL_RESIDUE_REPLAY")
+
+
+def _symbolic_polynomial(coefficients: tuple[Fraction, ...]) -> SymbolicPolynomial:
+    if type(coefficients) is not tuple or not coefficients or any(
+        type(value) is not Fraction for value in coefficients
+    ):
+        raise TypeError("coefficients must be a nonempty exact Fraction tuple")
+    if len(coefficients) > _MAX_VECTOR_ITEMS or any(
+        max(abs(value.numerator).bit_length(), value.denominator.bit_length()) > _MAX_EXACT_BITS
+        for value in coefficients
+    ):
+        raise ValueError("polynomial coefficients exceed the resource limit")
+    x = sp.Symbol("x")
+    expression = sp.Add(
+        *(
+            sp.Rational(coefficient.numerator, coefficient.denominator) * x**power
+            for power, coefficient in enumerate(coefficients)
+        )
+    )
+    return SymbolicPolynomial(coefficients, x, expression)
+
+
+def _materialize_x1_symbolic_stage(coefficients: Artifact) -> Artifact:
+    """Build the exact symbolic stage, including its bounded identity receipt."""
+
+    if type(coefficients) is not Artifact:
+        raise TypeError("X1 coefficients must be supplied as an exact Artifact")
+    inputs = {"coefficients": coefficients}
+    value = _symbolic_polynomial(coefficients.value)
+    return _output(
         "EXACT_TO_SYMBOLIC_POLYNOMIAL",
-        ("POLYNOMIAL_COEFFICIENTS_EXACT",),
+        inputs,
+        "SYMBOLIC_POLYNOMIAL",
         "SYMBOLIC_POLYNOMIAL",
         "SYMBOLIC",
-        "SYMBOLIC",
-        _exec_exact_to_symbolic_polynomial,
-        cost=2,
-    )
-    registry["EXACT_LATTICE_TO_SYMBOLIC_CURVE"] = _spec(
-        "EXACT_LATTICE_TO_SYMBOLIC_CURVE",
-        ("LATTICE_INVARIANTS_EXACT",),
-        "SYMBOLIC_WEIERSTRASS_CURVE",
-        "SYMBOLIC",
-        "SYMBOLIC",
-        _exec_exact_lattice_to_symbolic_curve,
-        cost=2,
-    )
-    registry["SYMBOLIC_TO_NUMERICAL_EVALUATION"] = _spec(
-        "SYMBOLIC_TO_NUMERICAL_EVALUATION",
-        ("SYMBOLIC_POLYNOMIAL", "NUMERICAL_EVAL_GRID"),
-        "NUMERICAL_EVALUATION_SERIES",
-        "NUMERICAL_SERIES",
-        "NUMERICAL",
-        _exec_symbolic_to_numerical_evaluation,
-        cost=3,
-    )
-    registry["SYMBOLIC_CURVE_TO_NUMERICAL_PERIODS"] = _spec(
-        "SYMBOLIC_CURVE_TO_NUMERICAL_PERIODS",
-        ("SYMBOLIC_WEIERSTRASS_CURVE",),
-        "NUMERICAL_PERIOD_LATTICE",
-        "NUMERICAL_PERIOD",
-        "NUMERICAL",
-        _exec_symbolic_curve_to_numerical_periods,
-        cost=3,
-    )
-    registry["NUMERICAL_RESIDUAL_CERTIFY"] = _spec(
-        "NUMERICAL_RESIDUAL_CERTIFY",
-        ("NUMERICAL_EVALUATION_SERIES",),
-        "BOUNDED_RESIDUAL_CERTIFICATE",
-        "VERIFICATION_CERTIFICATE",
-        "NUMERICAL",
-        _exec_numerical_residual_certify,
-        cost=1,
-    )
-    registry["NUMERICAL_PERIOD_RESIDUAL_CERTIFY"] = _spec(
-        "NUMERICAL_PERIOD_RESIDUAL_CERTIFY",
-        ("NUMERICAL_PERIOD_LATTICE",),
-        "BOUNDED_PERIOD_CERTIFICATE",
-        "VERIFICATION_CERTIFICATE",
-        "NUMERICAL",
-        _exec_numerical_period_residual_certify,
-        cost=1,
+        value,
     )
 
+
+def required_stage_receipts_are_admissible(
+    family: str,
+    inputs: Mapping[str, Artifact],
+) -> bool:
+    """Check bounded receipt construction shared by goals and operators.
+
+    These families accept symbolic roots or require a symbolic bridge.  Their
+    closed goal domain therefore includes the ability to construct the exact
+    deterministic artifact receipt, not merely the underlying mathematical
+    certificate.  Calling the same materializers here and during execution
+    prevents canonical size/node limits from drifting into a later false
+    ``INVALID`` result.
+    """
+
+    if type(inputs) is not dict:
+        return False
+    try:
+        if family == "C1":
+            output = _materialize_cauchy_riemann_stage(inputs)
+        elif family == "C2":
+            output = _materialize_residue_stage(inputs)
+        elif family == "X1":
+            output = _materialize_x1_symbolic_stage(inputs["coefficients"])
+        else:
+            return False
+        return type(output) is Artifact
+    except Exception:
+        return False
+
+
+def _execute_exact_to_symbolic(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "EXACT_TO_SYMBOLIC_POLYNOMIAL"
+    try:
+        coefficients = _find_unique(inputs, "POLYNOMIAL_COEFFICIENTS_EXACT")
+        return _materialize_x1_symbolic_stage(
+            coefficients,
+        )
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_exact_to_symbolic(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        coefficients = _find_unique_tuple(inputs, "POLYNOMIAL_COEFFICIENTS_EXACT").value
+        passed = _output_schema(
+            output,
+            operator_id="EXACT_TO_SYMBOLIC_POLYNOMIAL",
+            inputs=inputs,
+            semantic_type="SYMBOLIC_POLYNOMIAL",
+            representation_class="SYMBOLIC_POLYNOMIAL",
+            exactness_class="SYMBOLIC",
+            value_type=SymbolicPolynomial,
+        ) and output.value == _symbolic_polynomial(coefficients)
+    except Exception:
+        passed = False
+    return _verification(passed, "EXACT_TO_SYMBOLIC_REPLAY")
+
+
+def _numerical_evaluation(
+    polynomial: SymbolicPolynomial,
+    grid: tuple[Fraction, ...],
+) -> NumericalPolynomialEvaluation:
+    if type(polynomial) is not SymbolicPolynomial:
+        raise TypeError("symbolic polynomial has the wrong type")
+    if polynomial != _symbolic_polynomial(polynomial.coefficients):
+        raise ValueError("symbolic polynomial is not bound to its exact coefficients")
+    if type(grid) is not tuple or not grid or any(type(value) is not Fraction for value in grid):
+        raise TypeError("grid must be a nonempty exact Fraction tuple")
+    if (
+        len(grid) > _MAX_VECTOR_ITEMS
+        or len(polynomial.coefficients) * len(grid) > _MAX_GRID_WORK
+        or any(
+            max(abs(value.numerator).bit_length(), value.denominator.bit_length()) > _MAX_EXACT_BITS
+            for value in grid
+        )
+    ):
+        raise ValueError("numerical polynomial evaluation exceeds the resource limit")
+    # Evaluate in exact rational arithmetic first, then perform one explicit
+    # IEEE-754 conversion per point.  This makes the numerical bridge's sole
+    # rounding step visible to the downstream enclosure certificate and avoids
+    # depending on SymPy's evaluation precision heuristics.
+    exact_values: list[Fraction] = []
+    for point in grid:
+        value = Fraction(0)
+        for coefficient in reversed(polynomial.coefficients):
+            value = value * point + coefficient
+            if max(
+                abs(value.numerator).bit_length(),
+                value.denominator.bit_length(),
+            ) > _MAX_EXACT_BITS:
+                raise ValueError(
+                    "exact polynomial evaluation exceeds the rational resource limit"
+                )
+        exact_values.append(value)
+    try:
+        numerical_values = tuple(float(value) for value in exact_values)
+    except (OverflowError, ValueError) as exc:
+        raise _NumericallyUnsafeBridgeError(
+            "exact polynomial value is outside finite binary64 range"
+        ) from exc
+    if any(type(value) is not float or not math.isfinite(value) for value in numerical_values):
+        raise _NumericallyUnsafeBridgeError(
+            "exact polynomial value produced a non-finite binary64 result"
+        )
+    return NumericalPolynomialEvaluation(polynomial.coefficients, grid, numerical_values)
+
+
+def _execute_symbolic_to_numerical(
+    inputs: Mapping[str, Artifact],
+    bindings: Bindings,
+) -> Artifact | OperatorFailure:
+    operator_id = "SYMBOLIC_TO_NUMERICAL_EVALUATION"
+    try:
+        polynomial = _find_unique(inputs, "SYMBOLIC_POLYNOMIAL").value
+        grid = _find_unique(inputs, "EVALUATION_GRID_EXACT").value
+        value = _numerical_evaluation(polynomial, grid)
+        return _output(
+            operator_id,
+            inputs,
+            "NUMERICAL_POLYNOMIAL_EVALUATION",
+            "NUMERICAL_SERIES",
+            "NUMERICAL",
+            value,
+        )
+    except _NumericallyUnsafeBridgeError as exc:
+        return OperatorFailure("NUMERICALLY_UNSAFE", str(exc), operator_id)
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_symbolic_to_numerical(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        polynomial = _find_unique_tuple(inputs, "SYMBOLIC_POLYNOMIAL").value
+        grid = _find_unique_tuple(inputs, "EVALUATION_GRID_EXACT").value
+        passed = _output_schema(
+            output,
+            operator_id="SYMBOLIC_TO_NUMERICAL_EVALUATION",
+            inputs=inputs,
+            semantic_type="NUMERICAL_POLYNOMIAL_EVALUATION",
+            representation_class="NUMERICAL_SERIES",
+            exactness_class="NUMERICAL",
+            value_type=NumericalPolynomialEvaluation,
+        ) and output.value == _numerical_evaluation(polynomial, grid)
+    except Exception:
+        passed = False
+    return _verification(passed, "SYMBOLIC_TO_NUMERICAL_REPLAY")
+
+
+def _execute_grid_certificate(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "CERTIFY_GRID_EVALUATION"
+    try:
+        evaluation = _find_unique(inputs, "NUMERICAL_POLYNOMIAL_EVALUATION").value
+        if type(evaluation) is not NumericalPolynomialEvaluation:
+            raise TypeError("numerical evaluation has the wrong type")
+        tolerance = _binding(bindings, "absolute_error_tolerance", Fraction)
+        certificate = certify_grid_evaluation(
+            evaluation.coefficients,
+            evaluation.grid,
+            evaluation.numerical_values,
+            tolerance,
+        )
+        return _output(
+            operator_id,
+            inputs,
+            "GRID_EVALUATION_CERTIFICATE",
+            "NUMERICAL_CERTIFICATE",
+            "NUMERICAL",
+            certificate,
+        )
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_grid_certificate(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        evaluation = _find_unique_tuple(inputs, "NUMERICAL_POLYNOMIAL_EVALUATION").value
+        certificate = output.value
+        passed = (
+            type(evaluation) is NumericalPolynomialEvaluation
+            and _output_schema(
+                output,
+                operator_id="CERTIFY_GRID_EVALUATION",
+                inputs=inputs,
+                semantic_type="GRID_EVALUATION_CERTIFICATE",
+                representation_class="NUMERICAL_CERTIFICATE",
+                exactness_class="NUMERICAL",
+                value_type=GridEvaluationCertificate,
+            )
+            and certificate.coefficients == evaluation.coefficients
+            and certificate.grid == evaluation.grid
+            and certificate.numerical_values == evaluation.numerical_values
+            and verify_grid_evaluation(certificate)
+        )
+    except Exception:
+        passed = False
+    return _verification(passed, "GRID_EVALUATION_REPLAY")
+
+
+def _weierstrass_curve(g2: Fraction, g3: Fraction) -> WeierstrassCurve:
+    if type(g2) is not Fraction or type(g3) is not Fraction:
+        raise TypeError("Weierstrass invariants must be exact Fraction values")
+    if any(
+        max(abs(value.numerator).bit_length(), value.denominator.bit_length()) > 1024
+        for value in (g2, g3)
+    ):
+        raise ValueError("Weierstrass invariants exceed the resource limit")
+    x, y = sp.symbols("x y")
+    g2_expr = sp.Rational(g2.numerator, g2.denominator)
+    g3_expr = sp.Rational(g3.numerator, g3.denominator)
+    equation = y**2 - (4 * x**3 - g2_expr * x - g3_expr)
+    elliptic_discriminant = g2**3 - 27 * g3**2
+    if elliptic_discriminant <= 0:
+        raise ValueError("v0.20 period domain requires positive discriminant")
+    return WeierstrassCurve(
+        g2=g2,
+        g3=g3,
+        x=x,
+        y=y,
+        equation=equation,
+        elliptic_discriminant=elliptic_discriminant,
+        polynomial_discriminant=16 * elliptic_discriminant,
+    )
+
+
+def _execute_invariants_to_curve(
+    inputs: Mapping[str, Artifact],
+    bindings: Bindings,
+) -> Artifact | OperatorFailure:
+    operator_id = "EXACT_INVARIANTS_TO_SYMBOLIC_CURVE"
+    try:
+        g2 = _find_unique(inputs, "WEIERSTRASS_G2_EXACT").value
+        g3 = _find_unique(inputs, "WEIERSTRASS_G3_EXACT").value
+        curve = _weierstrass_curve(g2, g3)
+        return _output(
+            operator_id,
+            inputs,
+            "SYMBOLIC_WEIERSTRASS_CURVE",
+            "SYMBOLIC_CURVE",
+            "SYMBOLIC",
+            curve,
+        )
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_invariants_to_curve(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        g2 = _find_unique_tuple(inputs, "WEIERSTRASS_G2_EXACT").value
+        g3 = _find_unique_tuple(inputs, "WEIERSTRASS_G3_EXACT").value
+        passed = _output_schema(
+            output,
+            operator_id="EXACT_INVARIANTS_TO_SYMBOLIC_CURVE",
+            inputs=inputs,
+            semantic_type="SYMBOLIC_WEIERSTRASS_CURVE",
+            representation_class="SYMBOLIC_CURVE",
+            exactness_class="SYMBOLIC",
+            value_type=WeierstrassCurve,
+        ) and output.value == _weierstrass_curve(g2, g3)
+    except Exception:
+        passed = False
+    return _verification(passed, "WEIERSTRASS_CURVE_REPLAY")
+
+
+def _execute_period_certificate(inputs: Mapping[str, Artifact], bindings: Bindings) -> Artifact | OperatorFailure:
+    operator_id = "CERTIFY_RECTANGULAR_PERIODS"
+    try:
+        curve = _find_unique(inputs, "SYMBOLIC_WEIERSTRASS_CURVE").value
+        if type(curve) is not WeierstrassCurve:
+            raise TypeError("symbolic curve has the wrong type")
+        if curve != _weierstrass_curve(curve.g2, curve.g3):
+            raise ValueError("symbolic curve is not bound to its exact invariants")
+        decimal_places = _binding(bindings, "decimal_places", int)
+        certificate = certify_rectangular_periods(curve.g2, curve.g3, decimal_places=decimal_places)
+        return _output(
+            operator_id,
+            inputs,
+            "RECTANGULAR_PERIOD_CERTIFICATE",
+            "NUMERICAL_CERTIFICATE",
+            "NUMERICAL",
+            certificate,
+        )
+    except PeriodCertificationUnavailable as exc:
+        return OperatorFailure("NUMERICALLY_UNSAFE", str(exc), operator_id)
+    except ArithmeticError as exc:
+        return OperatorFailure("NUMERICALLY_UNSAFE", str(exc), operator_id)
+    except Exception:
+        return _failure(operator_id)
+
+
+def _verify_period_certificate_step(inputs: tuple[Artifact, ...], output: Artifact) -> VerificationResult:
+    try:
+        curve = _find_unique_tuple(inputs, "SYMBOLIC_WEIERSTRASS_CURVE").value
+        certificate = output.value
+        passed = (
+            type(curve) is WeierstrassCurve
+            and curve == _weierstrass_curve(curve.g2, curve.g3)
+            and _output_schema(
+                output,
+                operator_id="CERTIFY_RECTANGULAR_PERIODS",
+                inputs=inputs,
+                semantic_type="RECTANGULAR_PERIOD_CERTIFICATE",
+                representation_class="NUMERICAL_CERTIFICATE",
+                exactness_class="NUMERICAL",
+                value_type=PeriodCertificate,
+            )
+            and certificate.g2 == curve.g2
+            and certificate.g3 == curve.g3
+            and verify_period_certificate(certificate)
+        )
+    except Exception:
+        passed = False
+    return _verification(passed, "RECTANGULAR_PERIOD_REPLAY")
+
+
+def verify_cross_class_pipeline_receipt(
+    family: str,
+    inputs: Mapping[str, Artifact],
+    candidate: Artifact,
+) -> bool:
+    """Replay the deterministic X1/X2 producer chain and its artifact receipt.
+
+    Artifact provenance is evidence of the declared producer chain, not proof
+    that an untrusted process actually executed it.  This replay nevertheless
+    prevents a bare certificate or a receipt borrowed from another source from
+    satisfying the campaign's cross-class candidate contract.
+    """
+
+    try:
+        if family == "X1":
+            coefficients = _find_unique(inputs, "POLYNOMIAL_COEFFICIENTS_EXACT")
+            grid = _find_unique(inputs, "EVALUATION_GRID_EXACT")
+            polynomial_value = _symbolic_polynomial(coefficients.value)
+            polynomial = _output(
+                "EXACT_TO_SYMBOLIC_POLYNOMIAL",
+                {"coefficients": coefficients},
+                "SYMBOLIC_POLYNOMIAL",
+                "SYMBOLIC_POLYNOMIAL",
+                "SYMBOLIC",
+                polynomial_value,
+            )
+            evaluation_value = _numerical_evaluation(polynomial_value, grid.value)
+            evaluation = _output(
+                "SYMBOLIC_TO_NUMERICAL_EVALUATION",
+                {"polynomial": polynomial, "grid": grid},
+                "NUMERICAL_POLYNOMIAL_EVALUATION",
+                "NUMERICAL_SERIES",
+                "NUMERICAL",
+                evaluation_value,
+            )
+            return _verify_grid_certificate((evaluation,), candidate).passed
+        if family == "X2":
+            g2 = _find_unique(inputs, "WEIERSTRASS_G2_EXACT")
+            g3 = _find_unique(inputs, "WEIERSTRASS_G3_EXACT")
+            curve = _output(
+                "EXACT_INVARIANTS_TO_SYMBOLIC_CURVE",
+                {"g2": g2, "g3": g3},
+                "SYMBOLIC_WEIERSTRASS_CURVE",
+                "SYMBOLIC_CURVE",
+                "SYMBOLIC",
+                _weierstrass_curve(g2.value, g3.value),
+            )
+            return _verify_period_certificate_step((curve,), candidate).passed
+    except Exception:
+        return False
+    return False
+
+
+def _closed_spec(
+    operator_id: str,
+    input_types: tuple[str, ...],
+    output_type: str,
+    representation_class: str,
+    exactness_class: str,
+    execute: Any,
+    *,
+    verify: Any,
+    cost: int = 1,
+) -> OperatorSpec:
+    """Build a spec with complete ports/objectives on the strict core.
+
+    The feature branch predates the core's typed-port fields, so the keyword
+    extension is detected once at construction time.  On the strict integrated
+    core every v0.20 spec receives explicit contracts and a nonempty objective.
+    """
+
+    parameters = inspect.signature(_spec).parameters
+    options: dict[str, object] = {"verify": verify, "cost": cost}
+    if "input_contracts" in parameters:
+        options["input_contracts"] = tuple(
+            materialize_v0_20_artifact_type(semantic_type)
+            for semantic_type in input_types
+        )
+    if "port_names" in parameters:
+        options["port_names"] = _OPERATOR_PORT_NAMES[operator_id]
+    if "objectives" in parameters:
+        family = _OPERATOR_FAMILIES[operator_id]
+        options["objectives"] = (V0_20_CONTRACTS[family].target.objective,)
+    return _spec(
+        operator_id,
+        input_types,
+        output_type,
+        representation_class,
+        exactness_class,
+        execute,
+        **options,
+    )
+
+
+def build_v0_20_operator_registry() -> dict[str, OperatorSpec]:
+    """Return the historical registry plus the closed v0.20 certificate paths."""
+
+    registry = dict(build_cross_representation_operator_registry())
+    specifications = (
+        _closed_spec(
+            "CERTIFY_SQRT2_CUT",
+            ("SQRT2_LOWER_BOUND_EXACT", "SQRT2_UPPER_BOUND_EXACT"),
+            "SQRT2_CUT_CERTIFICATE",
+            "EXACT_CERTIFICATE",
+            "EXACT",
+            _execute_sqrt2_cut,
+            verify=_verify_sqrt2_cut_step,
+        ),
+        _closed_spec(
+            "CERTIFY_QUADRATIC_MEAN_VALUE",
+            ("QUADRATIC_COEFFICIENTS_EXACT", "CLOSED_INTERVAL_EXACT"),
+            "QUADRATIC_MEAN_VALUE_CERTIFICATE",
+            "EXACT_CERTIFICATE",
+            "EXACT",
+            _execute_quadratic_mvt,
+            verify=_verify_quadratic_mvt_step,
+        ),
+        _closed_spec(
+            "CERTIFY_BEZOUT",
+            ("INTEGER_A_EXACT", "INTEGER_B_EXACT"),
+            "BEZOUT_CERTIFICATE",
+            "EXACT_CERTIFICATE",
+            "EXACT",
+            _execute_bezout,
+            verify=_verify_bezout_step,
+        ),
+        _closed_spec(
+            "CERTIFY_CAUCHY_RIEMANN",
+            (
+                "REAL_POLYNOMIAL_POTENTIAL",
+                "IMAG_POLYNOMIAL_POTENTIAL",
+                "REAL_COORDINATE_PAIR",
+            ),
+            "CAUCHY_RIEMANN_CERTIFICATE",
+            "SYMBOLIC_CERTIFICATE",
+            "SYMBOLIC",
+            _execute_cauchy_riemann,
+            verify=_verify_cauchy_riemann_step,
+            cost=2,
+        ),
+        _closed_spec(
+            "CERTIFY_RATIONAL_RESIDUE",
+            (
+                "RATIONAL_MEROMORPHIC_FORM",
+                "COMPLEX_COORDINATE_SYMBOL",
+                "RATIONAL_POLE_EXACT",
+            ),
+            "RESIDUE_CERTIFICATE",
+            "SYMBOLIC_CERTIFICATE",
+            "SYMBOLIC",
+            _execute_residue,
+            verify=_verify_residue_step,
+            cost=2,
+        ),
+        _closed_spec(
+            "EXACT_TO_SYMBOLIC_POLYNOMIAL",
+            ("POLYNOMIAL_COEFFICIENTS_EXACT",),
+            "SYMBOLIC_POLYNOMIAL",
+            "SYMBOLIC_POLYNOMIAL",
+            "SYMBOLIC",
+            _execute_exact_to_symbolic,
+            verify=_verify_exact_to_symbolic,
+            cost=2,
+        ),
+        _closed_spec(
+            "SYMBOLIC_TO_NUMERICAL_EVALUATION",
+            ("SYMBOLIC_POLYNOMIAL", "EVALUATION_GRID_EXACT"),
+            "NUMERICAL_POLYNOMIAL_EVALUATION",
+            "NUMERICAL_SERIES",
+            "NUMERICAL",
+            _execute_symbolic_to_numerical,
+            verify=_verify_symbolic_to_numerical,
+            cost=3,
+        ),
+        _closed_spec(
+            "CERTIFY_GRID_EVALUATION",
+            ("NUMERICAL_POLYNOMIAL_EVALUATION",),
+            "GRID_EVALUATION_CERTIFICATE",
+            "NUMERICAL_CERTIFICATE",
+            "NUMERICAL",
+            _execute_grid_certificate,
+            verify=_verify_grid_certificate,
+        ),
+        _closed_spec(
+            "EXACT_INVARIANTS_TO_SYMBOLIC_CURVE",
+            ("WEIERSTRASS_G2_EXACT", "WEIERSTRASS_G3_EXACT"),
+            "SYMBOLIC_WEIERSTRASS_CURVE",
+            "SYMBOLIC_CURVE",
+            "SYMBOLIC",
+            _execute_invariants_to_curve,
+            verify=_verify_invariants_to_curve,
+            cost=2,
+        ),
+        _closed_spec(
+            "CERTIFY_RECTANGULAR_PERIODS",
+            ("SYMBOLIC_WEIERSTRASS_CURVE",),
+            "RECTANGULAR_PERIOD_CERTIFICATE",
+            "NUMERICAL_CERTIFICATE",
+            "NUMERICAL",
+            _execute_period_certificate,
+            verify=_verify_period_certificate_step,
+            cost=3,
+        ),
+    )
+    for specification in specifications:
+        registry[specification.operator_id] = specification
     return registry
