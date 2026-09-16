@@ -1,0 +1,60 @@
+{
+  "schema_version": "v0.21",
+  "sources": [
+    {
+      "source_id": "OPEN_LOGIC_PROJECT",
+      "repository": "OpenLogicProject/OpenLogic",
+      "revision": "1e960beff9ed7835bf3e3f1335e21af3439cd107",
+      "parser": "latex",
+      "license": "CC-BY-4.0 with upstream-marked exceptions",
+      "status": "ACTIVE",
+      "scope": "logic_set_theory_proof_theory_computability",
+      "include_globs": ["content/**/*.tex"],
+      "exclude_globs": ["**/test/**", "**/tests/**", "**/build/**"]
+    },
+    {
+      "source_id": "LEVIN_DISCRETE",
+      "repository": "oscarlevin/discrete-book",
+      "revision": "e258a377b4ef7ab63c647457430e98fbb4c7c3bb",
+      "parser": "pretext",
+      "license": "CC-BY-SA-4.0",
+      "status": "ACTIVE",
+      "scope": "discrete_mathematics_combinatorics_graphs_number_theory",
+      "include_globs": ["source/**/*.ptx"],
+      "exclude_globs": ["source/exercises/**", "**/generated/**", "**/build/**"]
+    },
+    {
+      "source_id": "JUDSON_AATA",
+      "repository": "twjudson/aata",
+      "revision": "3069910e3ded72ff5e18837a97a0e810c92790e2",
+      "parser": "pretext",
+      "license": "GNU-FDL-1.3-or-later",
+      "status": "ACTIVE",
+      "scope": "abstract_algebra_groups_rings_fields_galois",
+      "include_globs": ["src/**/*.xml"],
+      "exclude_globs": ["**/generated/**", "**/build/**"]
+    },
+    {
+      "source_id": "LEBL_BASIC_ANALYSIS",
+      "repository": "jirilebl/ra",
+      "revision": "e21ec524ca7d54f800c693b948020c188d21d01f",
+      "parser": "latex",
+      "license": "CC-BY-SA-4.0 OR CC-BY-NC-SA-4.0",
+      "status": "ACTIVE",
+      "scope": "real_analysis_metric_spaces_multivariable_analysis",
+      "include_globs": ["*.tex", "volume*/**/*.tex"],
+      "exclude_globs": ["slides/**", "**/build/**", "**/solutions/**"]
+    },
+    {
+      "source_id": "LEBL_DIFFYQS",
+      "repository": "jirilebl/diffyqs",
+      "revision": "658bcae9fb710f3fae2c9da4ca4524ce157453af",
+      "parser": "latex",
+      "license": "CC-BY-SA-4.0 OR CC-BY-NC-SA-4.0",
+      "status": "ACTIVE",
+      "scope": "ordinary_differential_equations_dynamical_systems",
+      "include_globs": ["*.tex", "ch-*/**/*.tex"],
+      "exclude_globs": ["**/build/**", "**/solutions/**"]
+    }
+  ]
+}
