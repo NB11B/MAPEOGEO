@@ -1,0 +1,69 @@
+{
+  "stage": "v0.19",
+  "N_source_total": 1963,
+  "source_breakdown": {
+    "S_0_foundation": 0,
+    "S_A_gallier": 1360,
+    "S_B_axler": 235,
+    "S_C_vmls": 81,
+    "S_D_cvx": 84,
+    "S_E_billingsley": 64,
+    "S_F_lee": 67,
+    "S_G_ahlfors": 72
+  },
+  "disjoint_partition_verified": true,
+  "N_section_anchors_total": 5,
+  "N_canonical_total": 235,
+  "multi_source_bridges": {
+    "two_source_or_more": 159,
+    "three_source_or_more": 82,
+    "four_source_or_more": 35,
+    "five_source_or_more": 12,
+    "six_source_or_more": 1,
+    "seven_source_or_more": 0
+  },
+  "domains": {
+    "count": 8,
+    "list": [
+      "Applied Linear Algebra & Optimization",
+      "Complex Analysis & Riemann Surfaces",
+      "Convex Analysis & Optimization",
+      "Differential Calculus & Real Analysis",
+      "Differential Geometry & Lie Groups",
+      "Linear Algebra",
+      "Measure Theory & Probability",
+      "Topology & Metric Spaces"
+    ]
+  },
+  "representation_diversity": {
+    "average_richness_r_bar": 3.026
+  },
+  "edges_summary": {
+    "total_edges": 26635,
+    "SAME_SEMANTICS": 749,
+    "SCOPED_OVERLAP": 730,
+    "RELATED_TO": 6,
+    "total_cross_source_bridges": 1485,
+    "edge_types": {
+      "CONTAINS": 57,
+      "SOURCED_FROM": 1775,
+      "REPRESENTS": 833,
+      "SAME_SEMANTICS": 749,
+      "VERIFIED_BY": 39,
+      "DEPENDS_ON": 1080,
+      "HAS_CONCEPT": 4934,
+      "CANDIDATE_EO": 4934,
+      "CANDIDATE_GEO": 4934,
+      "PRODUCES": 609,
+      "PREMISE": 636,
+      "INDEPENDENT_EO_EVIDENCE": 2660,
+      "INDEPENDENT_GEO_EVIDENCE": 2455,
+      "EQUIVALENT_TO": 10,
+      "HAS_WOUND": 2,
+      "REPRESENTS_PATH": 1,
+      "RELATED_TO": 6,
+      "SCOPED_OVERLAP": 730,
+      "PROOF_DEPENDENCY": 191
+    }
+  }
+}

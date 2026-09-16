@@ -61,8 +61,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain")
     parser.add_argument(
         "--target-stage",
-        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "foundation"],
-        default="foundation",
+        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation"],
+        default="v0.19",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
     parser.add_argument("--from-scratch", action="store_true", help="Re-derive historical v0.6-v0.11 stages from raw source PDF")
@@ -348,15 +348,37 @@ def main() -> int:
         print("==========================================================")
         return 0
 
-    # Stage: Foundation Backfill (Logic -> Sets -> Relations/Functions -> Numbers -> Algebra -> Sequences -> Geometry -> Calculus)
+    # Stage: v0.19 Complex Analysis, Several Complex Variables & Riemann Surfaces Expansion
     v018_graph_path = ROOT / "artifacts" / "diffgeom_v0_18" / "mapeogeo_v0_18_graph.json.gz"
+    run_stage(
+        "v0.19 Complex Analysis, Several Complex Variables & Riemann Surfaces Expansion",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "complex_analysis_intake_v0_19.py"),
+            "--base-graph",
+            str(v018_graph_path),
+            "--alignments",
+            str(ROOT / "formal" / "cross_source_alignments_v0_19.json"),
+            "--out-dir",
+            str(ROOT / "artifacts" / "complex_analysis_v0_19"),
+        ],
+    )
+    if args.target_stage == "v0.19":
+        total_time = time.time() - t_start
+        print("==========================================================")
+        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
+        print("==========================================================")
+        return 0
+
+    # Stage: Foundation Backfill (Logic -> Sets -> Relations/Functions -> Numbers -> Algebra -> Sequences -> Geometry -> Calculus)
+    v019_graph_path = ROOT / "artifacts" / "complex_analysis_v0_19" / "mapeogeo_v0_19_graph.json.gz"
     run_stage(
         "Foundation Backfill (Logic -> Sets -> Relations -> Numbers -> Algebra -> Sequences -> Geometry -> Calculus)",
         [
             sys.executable,
             str(ROOT / "scripts" / "foundation_intake.py"),
             "--base-graph",
-            str(v018_graph_path),
+            str(v019_graph_path),
             "--alignments",
             str(ROOT / "formal" / "foundation_alignments.json"),
             "--out-dir",
