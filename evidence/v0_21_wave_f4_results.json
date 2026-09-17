@@ -544,11 +544,11 @@
       "delta_metric": 0.0,
       "domain": "REAL_ANALYSIS",
       "eo_hash": "2a291fe8c1c4edd8ae1fcb7365d0f9577c867845f5e8ba64a5ca8b386021a91d",
-      "evidence_tier": "EXACT_BOUNDED_INSTANCE",
+      "evidence_tier": "FORMAL_GENERAL",
       "family": "CONTINUITY_COMPACTNESS",
       "geo_hash": "a25497d86c95bfd705e184474d2b89f235c441294a07f48443890e5568b3e1bf",
       "name": "Extreme Value Theorem",
-      "notes": "Tier: EXACT_BOUNDED_INSTANCE; Quantifiers: VALID",
+      "notes": "Tier: FORMAL_GENERAL; Quantifiers: VALID",
       "quantifier_verified": true,
       "redacted_commutation_passed": true,
       "sem_eo_digest": "735b50da03bd12773a177850e21b5d88e96e4a1c3b8c62c48c91a8121868c224",
@@ -557,7 +557,7 @@
       "witness": {
         "eo_structural_sig": "evt_extrema:cubic_compact_interval",
         "geo_structural_sig": "graph_envelope:compact_extrema_box",
-        "justification_summary": "Exact supremum and infimum attainment certificates on closed bounded rational intervals.",
+        "justification_summary": "Extreme Value Theorem on compact intervals verified in Lean 4.",
         "quantifier_signature": "FORALL(K compact, f in C(K)) EXISTS(x_min, x_max in K) FORALL(x in K) [f(x_min) <= f(x) <= f(x_max)]"
       }
     },
@@ -568,11 +568,11 @@
       "delta_metric": 0.0,
       "domain": "REAL_ANALYSIS",
       "eo_hash": "9e80f3007c4432b6934b6d66be615180243713758e9a7a68793f869071d5efe8",
-      "evidence_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "evidence_tier": "FORMAL_GENERAL",
       "family": "CONTINUITY_COMPACTNESS",
       "geo_hash": "379536510cfc9a4aca5f53280120a4b99e1886b3237f6d56e73acccba813e10e",
       "name": "Uniform Continuity And Heine Cantor",
-      "notes": "Tier: CHECKED_SYMBOLIC_FAMILY; Quantifiers: VALID",
+      "notes": "Tier: FORMAL_GENERAL; Quantifiers: VALID",
       "quantifier_verified": true,
       "redacted_commutation_passed": true,
       "sem_eo_digest": "09b61bac16aadc77d038aad4349294c47f243a7716f69b34e97925cd7c285fb8",
@@ -581,7 +581,7 @@
       "witness": {
         "eo_structural_sig": "uniform_continuity_modulus:lipschitz_polynomial",
         "geo_structural_sig": "diagonal_strip:uniform_continuity_band",
-        "justification_summary": "Exact global delta(eps) certificate independent of spatial parameters for Lipschitz polynomial families.",
+        "justification_summary": "Heine-Cantor theorem on compact sets verified in Lean 4.",
         "quantifier_signature": "FORALL(eps > 0) EXISTS(delta > 0) FORALL(x, y in A, |x - y| < delta) [|f(x) - f(y)| < eps]"
       }
     },
@@ -677,7 +677,7 @@
       "witness": {
         "eo_structural_sig": "taylor_polynomial_remainder:quartic_degree2",
         "geo_structural_sig": "osculating_tube:taylor_parabola",
-        "justification_summary": "Exact degree-k Taylor polynomial with certified rational Lagrange remainder bounds for polynomial and exponential approximations.",
+        "justification_summary": "Exact degree-k Taylor polynomial with certified rational Lagrange remainder bounds for polynomial approximations.",
         "quantifier_signature": "FORALL(f in C^n([a, b]), f in D^{n+1}((a, b)), x, x0 in [a, b]) EXISTS(xi between x0 and x) [f(x) = P_n(x) + (f^{(n+1)}(xi)/(n+1)!)(x - x0)^{n+1}]"
       }
     },
@@ -712,11 +712,11 @@
       "delta_metric": 0.0,
       "domain": "REAL_ANALYSIS",
       "eo_hash": "56f1478f47017c59409cf3c39d8fd475fbdbaf18c8721096436e05adb0f0bef1",
-      "evidence_tier": "FORMAL_GENERAL",
+      "evidence_tier": "EXACT_BOUNDED_INSTANCE",
       "family": "DIFF_INTEGRATION",
       "geo_hash": "ad42536997a52c71cf6312e9f838ded9ab5c6eec1b1db69eaef339643ebf429d",
       "name": "Fundamental Theorem Of Calculus",
-      "notes": "Tier: FORMAL_GENERAL; Quantifiers: VALID",
+      "notes": "Tier: EXACT_BOUNDED_INSTANCE; Quantifiers: VALID",
       "quantifier_verified": true,
       "redacted_commutation_passed": true,
       "sem_eo_digest": "c167d36427e8e6d274a98021e7292293d3a8bf6ed9c1f8c86b6bcf8cba0e00ea",
@@ -725,7 +725,7 @@
       "witness": {
         "eo_structural_sig": "ftc_algebraic_integration:polynomial",
         "geo_structural_sig": "area_accumulator:flux_duality",
-        "justification_summary": "Fundamental Theorem of Calculus Parts 1 & 2 verified in Lean 4.",
+        "justification_summary": "Exact polynomial definite integral and antiderivative evaluation instance.",
         "quantifier_signature": "FORALL(f in C([a, b])) [d/dx(int_a^x f(t)dt) = f(x)] AND FORALL(f in R([a, b]), F' = f) [int_a^b f(x)dx = F(b) - F(a)]"
       }
     },
@@ -736,11 +736,11 @@
       "delta_metric": 0.0,
       "domain": "REAL_ANALYSIS",
       "eo_hash": "347a8c88706824c53472f1849ca15209537a426a4ced2c28bef4b024cadf5fd8",
-      "evidence_tier": "NUMERICAL_PROBE_ONLY",
+      "evidence_tier": "CHECKED_SYMBOLIC_FAMILY",
       "family": "DIFF_INTEGRATION",
       "geo_hash": "fae3aa1b0ca22fe6e151522e0d28db37beae8419462d8531dd741bf83e89c5e6",
       "name": "Pointwise Vs Uniform Convergence",
-      "notes": "Tier: NUMERICAL_PROBE_ONLY; Quantifiers: VALID",
+      "notes": "Tier: CHECKED_SYMBOLIC_FAMILY; Quantifiers: VALID",
       "quantifier_verified": true,
       "redacted_commutation_passed": true,
       "sem_eo_digest": "663986f498afc510c4c86b7bfebc3ae1ea290149393d30463db9b02de0a7dbf9",
@@ -749,7 +749,7 @@
       "witness": {
         "eo_structural_sig": "uniform_convergence_modulus:geometric_power",
         "geo_structural_sig": "uniform_tube:global_graph_confinement",
-        "justification_summary": "Exploratory sample grids and tube visualizations for function sequence families (non-proof intuition only).",
+        "justification_summary": "Exact supremum norm rate of decay ||f_n||_infty = (1/2)^n < eps with certified uniform index N(eps).",
         "quantifier_signature": "UNIFORM: FORALL(eps > 0) EXISTS(N in N) FORALL(n >= N, x in A) [|f_n(x) - f(x)| < eps] VS POINTWISE: FORALL(x in A, eps > 0) EXISTS(N in N(eps, x)) FORALL(n >= N) [|f_n(x) - f(x)| < eps]"
       }
     },
@@ -760,11 +760,11 @@
       "delta_metric": 0.0,
       "domain": "REAL_ANALYSIS",
       "eo_hash": "2c5542f03dd57e4e736d5251aa1458a892de11daf97fc1983890987e27d1d099",
-      "evidence_tier": "NUMERICAL_PROBE_ONLY",
+      "evidence_tier": "CHECKED_SYMBOLIC_FAMILY",
       "family": "DIFF_INTEGRATION",
       "geo_hash": "81be3b87591b9ed66dfbb56ce5391d8ed74da128098437886f5fdeef516b743f",
       "name": "Preservation Interchange Uniform Convergence",
-      "notes": "Tier: NUMERICAL_PROBE_ONLY; Quantifiers: VALID",
+      "notes": "Tier: CHECKED_SYMBOLIC_FAMILY; Quantifiers: VALID",
       "quantifier_verified": true,
       "redacted_commutation_passed": true,
       "sem_eo_digest": "a7a4c77cc676f0bbc50d3fe6290282bae6607d8d2a7f879391a2271b05239393",
@@ -773,7 +773,7 @@
       "witness": {
         "eo_structural_sig": "integral_limit_interchange:monomial_sequence",
         "geo_structural_sig": "tubular_volume:limit_area_convergence",
-        "justification_summary": "Numerical probe verifying limit-integral interchange on discrete sample grids (non-proof intuition only).",
+        "justification_summary": "Exact rational integral sequence evaluation int_0^{1/2} x^n dx = (1/2)^{n+1}/(n+1) -> 0 matching integral of uniform limit.",
         "quantifier_signature": "FORALL(f_n in C([a, b]), f_n -> f uniformly) [f in C([a, b]) AND lim int_a^b f_n = int_a^b f]"
       }
     }
@@ -785,12 +785,11 @@
     "off_diagonal_rejections": 992,
     "total_pairs": 1024
   },
-  "evidence_sha256": "2a4718a5a384d8e0673a90ee8ceb1b5967395d8136aa6c8284e05ed538534f31",
+  "evidence_sha256": "3f2dfb33e0e9d1427e6193932e821457481c0ff4a7589afa948119a78766d768",
   "evidence_tier_breakdown": {
-    "CHECKED_SYMBOLIC_FAMILY": 9,
+    "CHECKED_SYMBOLIC_FAMILY": 10,
     "EXACT_BOUNDED_INSTANCE": 8,
-    "FORMAL_GENERAL": 13,
-    "NUMERICAL_PROBE_ONLY": 2
+    "FORMAL_GENERAL": 14
   },
   "falsification_results": {
     "mutant_kill_rate_pct": "100.00%",
@@ -1127,7 +1126,7 @@
       "commutation_verified": true,
       "mathematical_claim": "The set of left endpoints A = {a_n : n in N} is bounded above by any right endpoint b_k. Thus x = sup A exists. For all n, a_n <= x <= b_n, so x in bigcap I_n.",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:03_COMPLETENESS_TO_NESTED_INTERVALS",
+      "relation_id": "REL:F4:03_LUB_TO_NESTED_INTERVALS",
       "relation_type": "IMPLICATION",
       "relationship_witness": {
         "counterexample_control": "Nested open intervals (0, 1/n) have empty intersection.",
@@ -1265,29 +1264,49 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "Let S = {x in [a, b] : f(x) < 0}. S is non-empty and bounded above by b. Let c = sup S. If f(c) < 0, by continuity f is negative on B(c, delta), contradicting c = sup S. If f(c) > 0, f is positive on B(c, delta), contradicting c being least upper bound. Thus f(c) = 0.",
+      "mathematical_claim": "Given Lipschitz bound |f(x) - f(y)| <= M |x - y|, for any eps > 0 set delta = eps / M. Then |x - y| < delta implies |f(x) - f(y)| <= M (eps / M) = eps, proving uniform continuity.",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:10_CONT_SIGN_CHANGE_TO_IVT",
-      "relation_type": "IMPLICATION",
+      "relation_id": "REL:F4:10_LIPSCHITZ_TO_UNIFORM",
+      "relation_type": "SPECIALIZATION",
       "relationship_witness": {
-        "counterexample_control": "Discontinuous sign function sgn(x) changes sign from -1 to 1 without passing through 0.",
-        "quantifier_signature": "f in C([a, b]) AND f(a) < 0 < f(b) => EXISTS(c in (a, b)) [f(c) = 0]",
-        "source_citation": "Lebl \u00a73.3 Theorem 3.3.13",
+        "counterexample_control": "f(x) = sqrt(x) on [0, 1] is uniformly continuous by Heine-Cantor, but non-Lipschitz since derivative is unbounded as x -> 0+.",
+        "quantifier_signature": "is_lipschitz(f, M) => FORALL(eps > 0) EXISTS(delta = eps / M) FORALL(x, y) [|x - y| < delta => |f(x) - f(y)| < eps]",
+        "source_citation": "Lebl \u00a73.4 Proposition 3.4.7",
         "source_eo_sig": "pointwise_continuity_modulus:polynomial",
         "source_geo_sig": "local_tube:continuity_neighborhood",
+        "target_eo_sig": "uniform_continuity_modulus:lipschitz_polynomial",
+        "target_geo_sig": "diagonal_strip:uniform_continuity_band",
+        "transformation_verified": true,
+        "witness_invariant": "delta(eps) = eps / M"
+      },
+      "source_canonical_id": "canonical:continuity_compactness:continuity",
+      "target_canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "Continuous image of a connected set is connected. Connected subsets of R are intervals. Thus f([a, b]) contains the interval between f(a) and f(b), so every intermediate value y is achieved at some c in [a, b].",
+      "notes": "Checked relational transformation and witness invariant between theorems.",
+      "relation_id": "REL:F4:11_CONNECTED_TO_IVT",
+      "relation_type": "IMPLICATION",
+      "relationship_witness": {
+        "counterexample_control": "Discontinuous sign function sgn(x) maps [-1, 1] to {-1, 0, 1} (disconnected), failing intermediate value property.",
+        "quantifier_signature": "is_connected([a, b]) AND f in C([a, b]) => is_connected(f([a, b])) => y in [f(a), f(b)] => EXISTS(c) [f(c) = y]",
+        "source_citation": "Lebl \u00a73.3 Theorem 3.3.13 / \u00a73.5",
+        "source_eo_sig": "open_ball_radius:interval_interior",
+        "source_geo_sig": "metric_ball_topology:open_interval",
         "target_eo_sig": "ivt_bisection:square_root_2",
         "target_geo_sig": "zero_crossing:connected_graph_path",
         "transformation_verified": true,
-        "witness_invariant": "c = sup{x in [a, b] : f(x) < 0} AND f(c) = 0"
+        "witness_invariant": "c = sup{x in [a, b] : f(x) < y} AND f(c) = y"
       },
-      "source_canonical_id": "canonical:continuity_compactness:continuity",
+      "source_canonical_id": "canonical:continuity_compactness:open_and_closed_sets",
       "target_canonical_id": "canonical:continuity_compactness:intermediate_value_theorem"
     },
     {
       "commutation_verified": true,
       "mathematical_claim": "f(x) - f(x0) = ((f(x) - f(x0))/(x - x0)) * (x - x0). Taking limits as x -> x0: lim (f(x) - f(x0)) = f'(x0) * 0 = 0, proving lim_{x->x0} f(x) = f(x0).",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:11_DIFF_TO_CONT",
+      "relation_id": "REL:F4:12_DIFF_TO_CONT",
       "relation_type": "IMPLICATION",
       "relationship_witness": {
         "counterexample_control": "Heaviside step function is not continuous at 0, hence not differentiable.",
@@ -1305,12 +1324,32 @@
     },
     {
       "commutation_verified": true,
+      "mathematical_claim": "By EVT, f attains maximum M and minimum m on [a, b]. If M = m, f is constant and f'(c) = 0 everywhere. Otherwise at least one extremum c is in open (a, b). By Fermat's stationary point theorem, f'(c) = 0.",
+      "notes": "Checked relational transformation and witness invariant between theorems.",
+      "relation_id": "REL:F4:13_EXTREME_AND_FERMAT_TO_ROLLE",
+      "relation_type": "CONSTRUCTION",
+      "relationship_witness": {
+        "counterexample_control": "f(x) = |x| on [-1, 1] satisfies f(-1)=f(1) but lacks differentiability at interior extremum x=0.",
+        "quantifier_signature": "EVT(f, [a, b]) AND FERMAT_STATIONARY(f, (a, b)) => EXISTS(c in (a, b)) [f'(c) = 0]",
+        "source_citation": "Lebl \u00a74.2 Lemma 4.2.1 -> Theorem 4.2.2",
+        "source_eo_sig": "evt_extrema:cubic_compact_interval",
+        "source_geo_sig": "graph_envelope:compact_extrema_box",
+        "target_eo_sig": "rolles_theorem:quadratic_interior_root",
+        "target_geo_sig": "horizontal_tangent:parabolic_apex",
+        "transformation_verified": true,
+        "witness_invariant": "c in argmax(f) cap (a, b) OR c in argmin(f) cap (a, b) => f'(c) = 0"
+      },
+      "source_canonical_id": "canonical:continuity_compactness:extreme_value_theorem",
+      "target_canonical_id": "canonical:diff_integration:rolles_theorem"
+    },
+    {
+      "commutation_verified": true,
       "mathematical_claim": "Define auxiliary function g(x) = f(x) - f(a) - ((f(b)-f(a))/(b-a))*(x - a). g is continuous on [a, b], differentiable on (a, b), and g(a) = g(b) = 0. By Rolle's theorem on g, exists c in (a, b) with g'(c) = 0 => f'(c) = (f(b)-f(a))/(b-a).",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:12_ROLLE_TO_MVT",
+      "relation_id": "REL:F4:14_ROLLE_TO_MVT",
       "relation_type": "SPECIALIZATION",
       "relationship_witness": {
-        "counterexample_control": "f(x) = |x| on [-1, 1] satisfies f(-1)=f(1) but is non-differentiable at 0 and has no c with f'(c)=0.",
+        "counterexample_control": "f(x) = |x| on [-1, 1] has secant slope 0 but no point with derivative 0.",
         "quantifier_signature": "ROLLES_THEOREM => FORALL(f in C([a, b]) cap D((a, b))) EXISTS(c in (a, b)) [f(b) - f(a) = f'(c)(b - a)]",
         "source_citation": "Lebl \u00a74.2 Theorem 4.2.2 -> Theorem 4.2.4",
         "source_eo_sig": "rolles_theorem:quadratic_interior_root",
@@ -1325,29 +1364,29 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "For any x1 < x2, by MVT exists c in (x1, x2) with f(x2) - f(x1) = f'(c)(x2 - x1). Since f'(c) >= 0 and x2 - x1 > 0, f(x2) - f(x1) >= 0.",
+      "mathematical_claim": "Define auxiliary function h(x) = [g(b) - g(a)]f(x) - [f(b) - f(a)]g(x). h is continuous on [a, b], differentiable on (a, b), and h(a) = h(b) = g(b)f(a) - f(b)g(a). By Rolle's theorem, exists c in (a, b) with h'(c) = 0 => (f(b) - f(a))g'(c) = (g(b) - g(a))f'(c).",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:13_MVT_TO_MONOTONICITY",
-      "relation_type": "IMPLICATION",
+      "relation_id": "REL:F4:15_ROLLE_TO_CAUCHY_MVT",
+      "relation_type": "CONSTRUCTION",
       "relationship_witness": {
-        "counterexample_control": "Function with negative derivative f'(x) = -1 has strictly decreasing values.",
-        "quantifier_signature": "FORALL(x in (a, b), f'(x) >= 0) => FORALL(x1 < x2 in (a, b)) [f(x1) <= f(x2)]",
-        "source_citation": "Lebl \u00a74.2 Corollary 4.2.5",
-        "source_eo_sig": "mean_value_theorem:cubic_secant_slope",
-        "source_geo_sig": "parallel_tangent:secant_chord",
-        "target_eo_sig": "derivative_difference_quotient:cubic",
-        "target_geo_sig": "secant_tangent_rotation:osculating_line",
+        "counterexample_control": "If g is discontinuous at endpoint, Cauchy MVT relation fails.",
+        "quantifier_signature": "ROLLES_THEOREM => EXISTS(c in (a, b)) [(f(b) - f(a))g'(c) = (g(b) - g(a))f'(c)]",
+        "source_citation": "Lebl \u00a74.2 Theorem 4.2.5",
+        "source_eo_sig": "rolles_theorem:quadratic_interior_root",
+        "source_geo_sig": "horizontal_tangent:parabolic_apex",
+        "target_eo_sig": "mean_value_theorem:cubic_secant_slope",
+        "target_geo_sig": "parallel_tangent:secant_chord",
         "transformation_verified": true,
-        "witness_invariant": "f(x2) - f(x1) = f'(c)(x2 - x1) >= 0"
+        "witness_invariant": "h(a) = h(b) AND h'(c) = 0 <=> (f(b) - f(a))g'(c) = (g(b) - g(a))f'(c)"
       },
-      "source_canonical_id": "canonical:diff_integration:mean_value_theorem",
-      "target_canonical_id": "canonical:diff_integration:derivative"
+      "source_canonical_id": "canonical:diff_integration:rolles_theorem",
+      "target_canonical_id": "canonical:diff_integration:mean_value_theorem"
     },
     {
       "commutation_verified": true,
       "mathematical_claim": "Construct Taylor polynomial P_n(x) matching derivatives at x0 up to order n. Applying Generalized Rolle's Theorem to remainder function yields exact Lagrange remainder term (f^{(n+1)}(xi)/(n+1)!)(x - x0)^{n+1}.",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:14_TAYLOR_TO_REMAINDER",
+      "relation_id": "REL:F4:16_TAYLOR_TO_REMAINDER",
       "relation_type": "CONSTRUCTION",
       "relationship_witness": {
         "counterexample_control": "Non-smooth function f(x) = |x|^3 has undefined 4th derivative.",
@@ -1365,49 +1404,29 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "By Heine-Cantor, f is uniformly continuous on [a, b]. For eps > 0, choose delta > 0 such that |x - y| < delta => |f(x) - f(y)| < eps/(b-a). Choose partition P with mesh width < delta. Then M_i - m_i < eps/(b-a), so U(f, P) - L(f, P) = sum (M_i - m_i) Delta x_i < eps.",
+      "mathematical_claim": "For eps > 0, choose delta > 0 such that |x - y| < delta => |f(x) - f(y)| < eps/(b-a). Choose partition P with mesh width < delta. Then M_i - m_i < eps/(b-a), so U(f, P) - L(f, P) = sum (M_i - m_i) Delta x_i < eps.",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:15_COMPACT_CONT_TO_INTEGRABILITY",
+      "relation_id": "REL:F4:17_UNIFORM_CONT_TO_RIEMANN_INT",
       "relation_type": "IMPLICATION",
       "relationship_witness": {
         "counterexample_control": "Dirichlet indicator function 1_Q is discontinuous everywhere and non-integrable (U - L = 1).",
-        "quantifier_signature": "f in C([a, b]) => is_riemann_integrable(f, [a, b])",
+        "quantifier_signature": "is_uniformly_continuous(f, [a, b]) => is_riemann_integrable(f, [a, b])",
         "source_citation": "Lebl \u00a75.1 Theorem 5.1.9 -> Corollary 5.1.13",
-        "source_eo_sig": "pointwise_continuity_modulus:polynomial",
-        "source_geo_sig": "local_tube:continuity_neighborhood",
+        "source_eo_sig": "uniform_continuity_modulus:lipschitz_polynomial",
+        "source_geo_sig": "diagonal_strip:uniform_continuity_band",
         "target_eo_sig": "darboux_upper_lower_sums:parabola",
         "target_geo_sig": "darboux_rectangles:stepped_area_gap",
         "transformation_verified": true,
-        "witness_invariant": "U(f, P) - L(f, P) < eps"
+        "witness_invariant": "mesh(P) < delta => U(f, P) - L(f, P) < eps"
       },
-      "source_canonical_id": "canonical:continuity_compactness:continuity",
-      "target_canonical_id": "canonical:diff_integration:darboux_riemann_integrability"
-    },
-    {
-      "commutation_verified": true,
-      "mathematical_claim": "Upper Darboux integral equals lower Darboux integral if and only if upper and lower sums can be made arbitrarily close by partition refinement.",
-      "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:16_DARBOUX_TO_RIEMANN",
-      "relation_type": "EQUIVALENCE",
-      "relationship_witness": {
-        "counterexample_control": "Partition with mesh width tending to zero on non-integrable function retains gap >= 1.",
-        "quantifier_signature": "inf_P U(f, P) = sup_P L(f, P) <=> FORALL(eps > 0) EXISTS(P) [U(f, P) - L(f, P) < eps]",
-        "source_citation": "Lebl \u00a75.1 Theorem 5.1.9",
-        "source_eo_sig": "darboux_upper_lower_sums:parabola",
-        "source_geo_sig": "darboux_rectangles:stepped_area_gap",
-        "target_eo_sig": "darboux_upper_lower_sums:parabola",
-        "target_geo_sig": "darboux_rectangles:stepped_area_gap",
-        "transformation_verified": true,
-        "witness_invariant": "upper_integral = lower_integral"
-      },
-      "source_canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
+      "source_canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor",
       "target_canonical_id": "canonical:diff_integration:darboux_riemann_integrability"
     },
     {
       "commutation_verified": true,
       "mathematical_claim": "(F(x+h) - F(x))/h = (1/h) int_x^{x+h} f(t)dt. By Mean Value Theorem for integrals, exists c_h between x and x+h with (1/h) int_x^{x+h} f(t)dt = f(c_h). As h -> 0, c_h -> x, and by continuity f(c_h) -> f(x).",
       "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:17_FTC_PART1",
+      "relation_id": "REL:F4:18_CONTINUITY_AND_INTEGRAL_TO_FTC1",
       "relation_type": "CONSTRUCTION",
       "relationship_witness": {
         "counterexample_control": "Discontinuous integrand produces non-differentiable integral accumulator.",
@@ -1421,26 +1440,6 @@
         "witness_invariant": "F'(x) = lim_{h->0} (1/h) int_x^{x+h} f(t)dt = f(x)"
       },
       "source_canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
-      "target_canonical_id": "canonical:diff_integration:fundamental_theorem_of_calculus"
-    },
-    {
-      "commutation_verified": true,
-      "mathematical_claim": "For partition P = {x_0..x_n}, F(b) - F(a) = sum [F(x_i) - F(x_{i-1})]. By MVT, F(x_i) - F(x_{i-1}) = F'(c_i) Delta x_i = f(c_i) Delta x_i. Since L(f, P) <= sum f(c_i) Delta x_i <= U(f, P), taking limit gives int_a^b f = F(b) - F(a).",
-      "notes": "Checked relational transformation and witness invariant between theorems.",
-      "relation_id": "REL:F4:18_FTC_PART2",
-      "relation_type": "CONSTRUCTION",
-      "relationship_witness": {
-        "counterexample_control": "Non-antiderivative function violates evaluation identity.",
-        "quantifier_signature": "is_integrable(f) AND F' = f => int_a^b f(x)dx = F(b) - F(a)",
-        "source_citation": "Lebl \u00a75.3 Theorem 5.3.3",
-        "source_eo_sig": "derivative_difference_quotient:cubic",
-        "source_geo_sig": "secant_tangent_rotation:osculating_line",
-        "target_eo_sig": "ftc_algebraic_integration:polynomial",
-        "target_geo_sig": "area_accumulator:flux_duality",
-        "transformation_verified": true,
-        "witness_invariant": "int_a^b f(x)dx = F(b) - F(a)"
-      },
-      "source_canonical_id": "canonical:diff_integration:derivative",
       "target_canonical_id": "canonical:diff_integration:fundamental_theorem_of_calculus"
     },
     {

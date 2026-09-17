@@ -910,12 +910,13 @@ def generate_quantifier_contracts() -> list[dict]:
 def generate_claim_tiers() -> list[dict]:
     """Generate the 6-tier evidence classification for all 32 concepts."""
     # Distribution across tiers:
-    # FORMAL_GENERAL: 12 foundational and core theorems compiled from Lean mathlib / ReasBook bindings
-    # CHECKED_SYMBOLIC_FAMILY: 8 parameterized symbolic family certificates (polynomials, power series, Taylor remainders)
+    # FORMAL_GENERAL: 14 foundational and core theorems compiled from Lean mathlib / ReasBook bindings
+    # CHECKED_SYMBOLIC_FAMILY: 10 parameterized symbolic family certificates
     # EXACT_BOUNDED_INSTANCE: 8 exact rational / interval instances
-    # NUMERICAL_PROBE_ONLY: 4 labeled exploratory probes
+    # NUMERICAL_PROBE_ONLY: 0
+    # OUTSIDE_CURRENT_SCOPE: 0
     tiers = [
-        # --- Pillar 1 ---
+        # --- Pillar 1 (6 Formal, 1 Symbolic, 1 Bounded) ---
         {
             "canonical_id": "canonical:foundation:ordered_field_structure",
             "justified_tier": "FORMAL_GENERAL",
@@ -989,7 +990,7 @@ def generate_claim_tiers() -> list[dict]:
             "prohibited_promotions": ["PROBE_TO_GENERAL"],
         },
 
-        # --- Pillar 2 ---
+        # --- Pillar 2 (3 Formal, 3 Symbolic, 2 Bounded) ---
         {
             "canonical_id": "canonical:sequences_series:sequence_convergence",
             "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
@@ -1063,7 +1064,7 @@ def generate_claim_tiers() -> list[dict]:
             "prohibited_promotions": ["BOUNDED_TO_GENERAL", "PROBE_TO_GENERAL"],
         },
 
-        # --- Pillar 3 ---
+        # --- Pillar 3 (5 Formal, 2 Symbolic, 1 Bounded) ---
         {
             "canonical_id": "canonical:continuity_compactness:open_and_closed_sets",
             "justified_tier": "FORMAL_GENERAL",
@@ -1120,24 +1121,24 @@ def generate_claim_tiers() -> list[dict]:
         },
         {
             "canonical_id": "canonical:continuity_compactness:extreme_value_theorem",
-            "justified_tier": "EXACT_BOUNDED_INSTANCE",
-            "justification_summary": "Exact supremum and infimum attainment certificates on closed bounded rational intervals.",
-            "formal_lean_target": None,
+            "justified_tier": "FORMAL_GENERAL",
+            "justification_summary": "Extreme Value Theorem on compact intervals verified in Lean 4.",
+            "formal_lean_target": "MAPEOGEOFormal.WaveF4.ExtremeValueTheorem",
             "symbolic_family_signature": None,
-            "bounded_instance_domain": "CompactIntervalExtrema[P(x) in Q[x], [a, b]]",
-            "prohibited_promotions": ["BOUNDED_TO_GENERAL", "PROBE_TO_GENERAL"],
+            "bounded_instance_domain": None,
+            "prohibited_promotions": ["PROBE_TO_GENERAL"],
         },
         {
             "canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor",
-            "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
-            "justification_summary": "Exact global delta(eps) certificate independent of spatial parameters for Lipschitz polynomial families.",
-            "formal_lean_target": None,
-            "symbolic_family_signature": "UniformModulusFamily[Q[x], [a, b]]",
+            "justified_tier": "FORMAL_GENERAL",
+            "justification_summary": "Heine-Cantor theorem on compact sets verified in Lean 4.",
+            "formal_lean_target": "MAPEOGEOFormal.WaveF4.UniformContinuityHeineCantor",
+            "symbolic_family_signature": None,
             "bounded_instance_domain": None,
-            "prohibited_promotions": ["SYMBOLIC_TO_GENERAL", "PROBE_TO_GENERAL"],
+            "prohibited_promotions": ["PROBE_TO_GENERAL"],
         },
 
-        # --- Pillar 4 ---
+        # --- Pillar 4 (0 Formal, 4 Symbolic, 4 Bounded) ---
         {
             "canonical_id": "canonical:diff_integration:derivative",
             "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
@@ -1168,7 +1169,7 @@ def generate_claim_tiers() -> list[dict]:
         {
             "canonical_id": "canonical:diff_integration:taylor_theorem_with_remainder",
             "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
-            "justification_summary": "Exact degree-k Taylor polynomial with certified rational Lagrange remainder bounds for polynomial and exponential approximations.",
+            "justification_summary": "Exact degree-k Taylor polynomial with certified rational Lagrange remainder bounds for polynomial approximations.",
             "formal_lean_target": None,
             "symbolic_family_signature": "TaylorPolynomialRemainderFamily[Q[x], k <= 10]",
             "bounded_instance_domain": None,
@@ -1185,30 +1186,30 @@ def generate_claim_tiers() -> list[dict]:
         },
         {
             "canonical_id": "canonical:diff_integration:fundamental_theorem_of_calculus",
-            "justified_tier": "FORMAL_GENERAL",
-            "justification_summary": "Fundamental Theorem of Calculus Parts 1 & 2 verified in Lean 4.",
-            "formal_lean_target": "MAPEOGEOFormal.WaveF4.FundamentalTheoremCalculus",
+            "justified_tier": "EXACT_BOUNDED_INSTANCE",
+            "justification_summary": "Exact polynomial definite integral and antiderivative evaluation instance.",
+            "formal_lean_target": None,
             "symbolic_family_signature": None,
-            "bounded_instance_domain": None,
-            "prohibited_promotions": ["PROBE_TO_GENERAL"],
+            "bounded_instance_domain": "PolynomialFTCEvaluation[Q[x], [a, b]]",
+            "prohibited_promotions": ["BOUNDED_TO_GENERAL", "PROBE_TO_GENERAL"],
         },
         {
             "canonical_id": "canonical:diff_integration:pointwise_vs_uniform_convergence",
-            "justified_tier": "NUMERICAL_PROBE_ONLY",
-            "justification_summary": "Exploratory sample grids and tube visualizations for function sequence families (non-proof intuition only).",
+            "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+            "justification_summary": "Exact supremum norm rate of decay ||f_n||_infty = (1/2)^n < eps with certified uniform index N(eps).",
             "formal_lean_target": None,
-            "symbolic_family_signature": None,
-            "bounded_instance_domain": "NumericalGridProbes[x_grid, 100_points]",
-            "prohibited_promotions": ["PROBE_TO_BOUNDED", "PROBE_TO_SYMBOLIC", "PROBE_TO_GENERAL"],
+            "symbolic_family_signature": "GeometricUniformConvergenceFamily[x^n, [0, 1/2]]",
+            "bounded_instance_domain": None,
+            "prohibited_promotions": ["SYMBOLIC_TO_GENERAL", "PROBE_TO_GENERAL"],
         },
         {
             "canonical_id": "canonical:diff_integration:preservation_interchange_uniform_convergence",
-            "justified_tier": "NUMERICAL_PROBE_ONLY",
-            "justification_summary": "Numerical probe verifying limit-integral interchange on discrete sample grids (non-proof intuition only).",
+            "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+            "justification_summary": "Exact rational integral sequence evaluation int_0^{1/2} x^n dx = (1/2)^{n+1}/(n+1) -> 0 matching integral of uniform limit.",
             "formal_lean_target": None,
-            "symbolic_family_signature": None,
-            "bounded_instance_domain": "NumericalIntegralProbes[grid_mesh]",
-            "prohibited_promotions": ["PROBE_TO_BOUNDED", "PROBE_TO_SYMBOLIC", "PROBE_TO_GENERAL"],
+            "symbolic_family_signature": "UniformIntegralInterchangeFamily[x^n, [0, 1/2]]",
+            "bounded_instance_domain": None,
+            "prohibited_promotions": ["SYMBOLIC_TO_GENERAL", "PROBE_TO_GENERAL"],
         },
     ]
     return tiers
@@ -1242,7 +1243,7 @@ def generate_typed_relationships() -> list[dict]:
             "counterexample_control": "In Q (incomplete), sequence approximating sqrt(2) is Cauchy but has no limit in Q.",
         },
         {
-            "relation_id": "REL:F4:03_COMPLETENESS_TO_NESTED_INTERVALS",
+            "relation_id": "REL:F4:03_LUB_TO_NESTED_INTERVALS",
             "relation_type": "IMPLICATION",
             "source_canonical_id": "canonical:foundation:least_upper_bound_property",
             "target_canonical_id": "canonical:foundation:nested_interval_property",
@@ -1326,19 +1327,31 @@ def generate_typed_relationships() -> list[dict]:
             "counterexample_control": "f(x) = 1/x on non-compact (0, 1) is continuous but not uniformly continuous.",
         },
         {
-            "relation_id": "REL:F4:10_CONT_SIGN_CHANGE_TO_IVT",
-            "relation_type": "IMPLICATION",
+            "relation_id": "REL:F4:10_LIPSCHITZ_TO_UNIFORM",
+            "relation_type": "SPECIALIZATION",
             "source_canonical_id": "canonical:continuity_compactness:continuity",
-            "target_canonical_id": "canonical:continuity_compactness:intermediate_value_theorem",
-            "source_citation": "Lebl §3.3 Theorem 3.3.13",
-            "mathematical_hypotheses": "f: [a, b] -> R is continuous, f(a) < 0 < f(b).",
-            "quantifier_signature": "f in C([a, b]) AND f(a) < 0 < f(b) => EXISTS(c in (a, b)) [f(c) = 0]",
-            "relational_transformation": "Let S = {x in [a, b] : f(x) < 0}. S is non-empty and bounded above by b. Let c = sup S. If f(c) < 0, by continuity f is negative on B(c, delta), contradicting c = sup S. If f(c) > 0, f is positive on B(c, delta), contradicting c being least upper bound. Thus f(c) = 0.",
-            "witness_invariant": "c = sup{x in [a, b] : f(x) < 0} AND f(c) = 0",
-            "counterexample_control": "Discontinuous sign function sgn(x) changes sign from -1 to 1 without passing through 0.",
+            "target_canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor",
+            "source_citation": "Lebl §3.4 Proposition 3.4.7",
+            "mathematical_hypotheses": "f: A -> R is Lipschitz continuous with constant M > 0: |f(x) - f(y)| <= M |x - y|.",
+            "quantifier_signature": "is_lipschitz(f, M) => FORALL(eps > 0) EXISTS(delta = eps / M) FORALL(x, y) [|x - y| < delta => |f(x) - f(y)| < eps]",
+            "relational_transformation": "Given Lipschitz bound |f(x) - f(y)| <= M |x - y|, for any eps > 0 set delta = eps / M. Then |x - y| < delta implies |f(x) - f(y)| <= M (eps / M) = eps, proving uniform continuity.",
+            "witness_invariant": "delta(eps) = eps / M",
+            "counterexample_control": "f(x) = sqrt(x) on [0, 1] is uniformly continuous by Heine-Cantor, but non-Lipschitz since derivative is unbounded as x -> 0+.",
         },
         {
-            "relation_id": "REL:F4:11_DIFF_TO_CONT",
+            "relation_id": "REL:F4:11_CONNECTED_TO_IVT",
+            "relation_type": "IMPLICATION",
+            "source_canonical_id": "canonical:continuity_compactness:open_and_closed_sets",
+            "target_canonical_id": "canonical:continuity_compactness:intermediate_value_theorem",
+            "source_citation": "Lebl §3.3 Theorem 3.3.13 / §3.5",
+            "mathematical_hypotheses": "Interval [a, b] is connected in R, f is continuous on [a, b].",
+            "quantifier_signature": "is_connected([a, b]) AND f in C([a, b]) => is_connected(f([a, b])) => y in [f(a), f(b)] => EXISTS(c) [f(c) = y]",
+            "relational_transformation": "Continuous image of a connected set is connected. Connected subsets of R are intervals. Thus f([a, b]) contains the interval between f(a) and f(b), so every intermediate value y is achieved at some c in [a, b].",
+            "witness_invariant": "c = sup{x in [a, b] : f(x) < y} AND f(c) = y",
+            "counterexample_control": "Discontinuous sign function sgn(x) maps [-1, 1] to {-1, 0, 1} (disconnected), failing intermediate value property.",
+        },
+        {
+            "relation_id": "REL:F4:12_DIFF_TO_CONT",
             "relation_type": "IMPLICATION",
             "source_canonical_id": "canonical:diff_integration:derivative",
             "target_canonical_id": "canonical:continuity_compactness:continuity",
@@ -1350,7 +1363,19 @@ def generate_typed_relationships() -> list[dict]:
             "counterexample_control": "Heaviside step function is not continuous at 0, hence not differentiable.",
         },
         {
-            "relation_id": "REL:F4:12_ROLLE_TO_MVT",
+            "relation_id": "REL:F4:13_EXTREME_AND_FERMAT_TO_ROLLE",
+            "relation_type": "CONSTRUCTION",
+            "source_canonical_id": "canonical:continuity_compactness:extreme_value_theorem",
+            "target_canonical_id": "canonical:diff_integration:rolles_theorem",
+            "source_citation": "Lebl §4.2 Lemma 4.2.1 -> Theorem 4.2.2",
+            "mathematical_hypotheses": "f continuous on [a, b], differentiable on (a, b), f(a) = f(b).",
+            "quantifier_signature": "EVT(f, [a, b]) AND FERMAT_STATIONARY(f, (a, b)) => EXISTS(c in (a, b)) [f'(c) = 0]",
+            "relational_transformation": "By EVT, f attains maximum M and minimum m on [a, b]. If M = m, f is constant and f'(c) = 0 everywhere. Otherwise at least one extremum c is in open (a, b). By Fermat's stationary point theorem, f'(c) = 0.",
+            "witness_invariant": "c in argmax(f) cap (a, b) OR c in argmin(f) cap (a, b) => f'(c) = 0",
+            "counterexample_control": "f(x) = |x| on [-1, 1] satisfies f(-1)=f(1) but lacks differentiability at interior extremum x=0.",
+        },
+        {
+            "relation_id": "REL:F4:14_ROLLE_TO_MVT",
             "relation_type": "SPECIALIZATION",
             "source_canonical_id": "canonical:diff_integration:rolles_theorem",
             "target_canonical_id": "canonical:diff_integration:mean_value_theorem",
@@ -1359,22 +1384,22 @@ def generate_typed_relationships() -> list[dict]:
             "quantifier_signature": "ROLLES_THEOREM => FORALL(f in C([a, b]) cap D((a, b))) EXISTS(c in (a, b)) [f(b) - f(a) = f'(c)(b - a)]",
             "relational_transformation": "Define auxiliary function g(x) = f(x) - f(a) - ((f(b)-f(a))/(b-a))*(x - a). g is continuous on [a, b], differentiable on (a, b), and g(a) = g(b) = 0. By Rolle's theorem on g, exists c in (a, b) with g'(c) = 0 => f'(c) = (f(b)-f(a))/(b-a).",
             "witness_invariant": "g(a) = g(b) = 0 AND g'(c) = 0 <=> f'(c) = (f(b)-f(a))/(b-a)",
-            "counterexample_control": "f(x) = |x| on [-1, 1] satisfies f(-1)=f(1) but is non-differentiable at 0 and has no c with f'(c)=0.",
+            "counterexample_control": "f(x) = |x| on [-1, 1] has secant slope 0 but no point with derivative 0.",
         },
         {
-            "relation_id": "REL:F4:13_MVT_TO_MONOTONICITY",
-            "relation_type": "IMPLICATION",
-            "source_canonical_id": "canonical:diff_integration:mean_value_theorem",
-            "target_canonical_id": "canonical:diff_integration:derivative",
-            "source_citation": "Lebl §4.2 Corollary 4.2.5",
-            "mathematical_hypotheses": "f differentiable on interval (a, b) with f'(x) >= 0 for all x.",
-            "quantifier_signature": "FORALL(x in (a, b), f'(x) >= 0) => FORALL(x1 < x2 in (a, b)) [f(x1) <= f(x2)]",
-            "relational_transformation": "For any x1 < x2, by MVT exists c in (x1, x2) with f(x2) - f(x1) = f'(c)(x2 - x1). Since f'(c) >= 0 and x2 - x1 > 0, f(x2) - f(x1) >= 0.",
-            "witness_invariant": "f(x2) - f(x1) = f'(c)(x2 - x1) >= 0",
-            "counterexample_control": "Function with negative derivative f'(x) = -1 has strictly decreasing values.",
+            "relation_id": "REL:F4:15_ROLLE_TO_CAUCHY_MVT",
+            "relation_type": "CONSTRUCTION",
+            "source_canonical_id": "canonical:diff_integration:rolles_theorem",
+            "target_canonical_id": "canonical:diff_integration:mean_value_theorem",
+            "source_citation": "Lebl §4.2 Theorem 4.2.5",
+            "mathematical_hypotheses": "f, g continuous on [a, b], differentiable on (a, b).",
+            "quantifier_signature": "ROLLES_THEOREM => EXISTS(c in (a, b)) [(f(b) - f(a))g'(c) = (g(b) - g(a))f'(c)]",
+            "relational_transformation": "Define auxiliary function h(x) = [g(b) - g(a)]f(x) - [f(b) - f(a)]g(x). h is continuous on [a, b], differentiable on (a, b), and h(a) = h(b) = g(b)f(a) - f(b)g(a). By Rolle's theorem, exists c in (a, b) with h'(c) = 0 => (f(b) - f(a))g'(c) = (g(b) - g(a))f'(c).",
+            "witness_invariant": "h(a) = h(b) AND h'(c) = 0 <=> (f(b) - f(a))g'(c) = (g(b) - g(a))f'(c)",
+            "counterexample_control": "If g is discontinuous at endpoint, Cauchy MVT relation fails.",
         },
         {
-            "relation_id": "REL:F4:14_TAYLOR_TO_REMAINDER",
+            "relation_id": "REL:F4:16_TAYLOR_TO_REMAINDER",
             "relation_type": "CONSTRUCTION",
             "source_canonical_id": "canonical:diff_integration:derivative",
             "target_canonical_id": "canonical:diff_integration:taylor_theorem_with_remainder",
@@ -1386,31 +1411,19 @@ def generate_typed_relationships() -> list[dict]:
             "counterexample_control": "Non-smooth function f(x) = |x|^3 has undefined 4th derivative.",
         },
         {
-            "relation_id": "REL:F4:15_COMPACT_CONT_TO_INTEGRABILITY",
+            "relation_id": "REL:F4:17_UNIFORM_CONT_TO_RIEMANN_INT",
             "relation_type": "IMPLICATION",
-            "source_canonical_id": "canonical:continuity_compactness:continuity",
+            "source_canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor",
             "target_canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
             "source_citation": "Lebl §5.1 Theorem 5.1.9 -> Corollary 5.1.13",
-            "mathematical_hypotheses": "f is continuous on compact interval [a, b].",
-            "quantifier_signature": "f in C([a, b]) => is_riemann_integrable(f, [a, b])",
-            "relational_transformation": "By Heine-Cantor, f is uniformly continuous on [a, b]. For eps > 0, choose delta > 0 such that |x - y| < delta => |f(x) - f(y)| < eps/(b-a). Choose partition P with mesh width < delta. Then M_i - m_i < eps/(b-a), so U(f, P) - L(f, P) = sum (M_i - m_i) Delta x_i < eps.",
-            "witness_invariant": "U(f, P) - L(f, P) < eps",
+            "mathematical_hypotheses": "f is uniformly continuous on compact interval [a, b].",
+            "quantifier_signature": "is_uniformly_continuous(f, [a, b]) => is_riemann_integrable(f, [a, b])",
+            "relational_transformation": "For eps > 0, choose delta > 0 such that |x - y| < delta => |f(x) - f(y)| < eps/(b-a). Choose partition P with mesh width < delta. Then M_i - m_i < eps/(b-a), so U(f, P) - L(f, P) = sum (M_i - m_i) Delta x_i < eps.",
+            "witness_invariant": "mesh(P) < delta => U(f, P) - L(f, P) < eps",
             "counterexample_control": "Dirichlet indicator function 1_Q is discontinuous everywhere and non-integrable (U - L = 1).",
         },
         {
-            "relation_id": "REL:F4:16_DARBOUX_TO_RIEMANN",
-            "relation_type": "EQUIVALENCE",
-            "source_canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
-            "target_canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
-            "source_citation": "Lebl §5.1 Theorem 5.1.9",
-            "mathematical_hypotheses": "f is bounded on [a, b].",
-            "quantifier_signature": "inf_P U(f, P) = sup_P L(f, P) <=> FORALL(eps > 0) EXISTS(P) [U(f, P) - L(f, P) < eps]",
-            "relational_transformation": "Upper Darboux integral equals lower Darboux integral if and only if upper and lower sums can be made arbitrarily close by partition refinement.",
-            "witness_invariant": "upper_integral = lower_integral",
-            "counterexample_control": "Partition with mesh width tending to zero on non-integrable function retains gap >= 1.",
-        },
-        {
-            "relation_id": "REL:F4:17_FTC_PART1",
+            "relation_id": "REL:F4:18_CONTINUITY_AND_INTEGRAL_TO_FTC1",
             "relation_type": "CONSTRUCTION",
             "source_canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
             "target_canonical_id": "canonical:diff_integration:fundamental_theorem_of_calculus",
@@ -1420,18 +1433,6 @@ def generate_typed_relationships() -> list[dict]:
             "relational_transformation": "(F(x+h) - F(x))/h = (1/h) int_x^{x+h} f(t)dt. By Mean Value Theorem for integrals, exists c_h between x and x+h with (1/h) int_x^{x+h} f(t)dt = f(c_h). As h -> 0, c_h -> x, and by continuity f(c_h) -> f(x).",
             "witness_invariant": "F'(x) = lim_{h->0} (1/h) int_x^{x+h} f(t)dt = f(x)",
             "counterexample_control": "Discontinuous integrand produces non-differentiable integral accumulator.",
-        },
-        {
-            "relation_id": "REL:F4:18_FTC_PART2",
-            "relation_type": "CONSTRUCTION",
-            "source_canonical_id": "canonical:diff_integration:derivative",
-            "target_canonical_id": "canonical:diff_integration:fundamental_theorem_of_calculus",
-            "source_citation": "Lebl §5.3 Theorem 5.3.3",
-            "mathematical_hypotheses": "f is Riemann integrable on [a, b], F is differentiable on [a, b] with F' = f.",
-            "quantifier_signature": "is_integrable(f) AND F' = f => int_a^b f(x)dx = F(b) - F(a)",
-            "relational_transformation": "For partition P = {x_0..x_n}, F(b) - F(a) = sum [F(x_i) - F(x_{i-1})]. By MVT, F(x_i) - F(x_{i-1}) = F'(c_i) Delta x_i = f(c_i) Delta x_i. Since L(f, P) <= sum f(c_i) Delta x_i <= U(f, P), taking limit gives int_a^b f = F(b) - F(a).",
-            "witness_invariant": "int_a^b f(x)dx = F(b) - F(a)",
-            "counterexample_control": "Non-antiderivative function violates evaluation identity.",
         },
         {
             "relation_id": "REL:F4:19_UNIFORM_LIMIT_TO_CONTINUOUS",
@@ -1642,7 +1643,7 @@ def generate_falsification_mutants() -> list[dict]:
             "target_canonical_id": "canonical:diff_integration:pointwise_vs_uniform_convergence",
             "description": "Sample f(x) = sin(1/x) at finite rational grid points and claim universal uniform continuity theorem.",
             "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
-            "falsification_mechanism": "CertificateChecker strictly enforces NUMERICAL_PROBE_ONLY tier and blocks theorem promotion.",
+            "falsification_mechanism": "CertificateChecker strictly enforces valid tier signatures and blocks point-sample promotion to theorem.",
         },
     ]
     return mutants

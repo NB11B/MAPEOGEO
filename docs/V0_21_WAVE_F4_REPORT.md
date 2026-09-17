@@ -3,7 +3,7 @@
 **Stage**: `v0.21_wave_f4`  
 **Campaign**: `QUANTIFIED_REAL_ANALYSIS_DUAL_VIEW_CAMPAIGN`  
 **Scientific Status**: `EVIDENCE_PARTIAL`  
-**Evidence SHA256**: `2a4718a5a384d8e0673a90ee8ceb1b5967395d8136aa6c8284e05ed538534f31`  
+**Evidence SHA256**: `3f2dfb33e0e9d1427e6193932e821457481c0ff4a7589afa948119a78766d768`  
 
 ---
 
@@ -18,7 +18,7 @@ Wave F4 advances MAPEOGEO from algebraic/topological discrete models to **quanti
 - An unsupported claim (`OUTSIDE_CURRENT_SCOPE`)
 
 > **Authoritative Result**:  
-> **Of 32 real-analysis concepts, 13 received source-aligned formal-general certificates, 9 received checked symbolic-family certificates, 8 received exact bounded-instance evidence, 2 remained probe-only, and 0 remained outside scope. All evidence tiers were preserved without improper theorem promotion.**
+> **Of 32 real-analysis concepts, 14 received source-aligned formal-general certificates, 10 received checked symbolic-family certificates, 8 received exact bounded-instance evidence, 0 remained probe-only, and 0 remained outside scope. All evidence tiers were preserved without improper theorem promotion.**
 
 ---
 
@@ -42,10 +42,10 @@ Wave F4 advances MAPEOGEO from algebraic/topological discrete models to **quanti
 
 | Evidence Tier | Count | Rationale / Methodological Grounding |
 | :--- | :--- | :--- |
-| `FORMAL_GENERAL` | **13** | Compiled in Lean 4 formal verification view with Lebl v6.3 / ReasBook alignment notes. |
-| `CHECKED_SYMBOLIC_FAMILY` | **9** | Exact parameterized symbolic certificates for polynomial/rational families and Taylor remainder bounds. |
+| `FORMAL_GENERAL` | **14** | Compiled in Lean 4 formal verification view with Lebl v6.3 / ReasBook alignment notes. |
+| `CHECKED_SYMBOLIC_FAMILY` | **10** | Exact parameterized symbolic certificates for polynomial/rational families and Taylor remainder bounds. |
 | `EXACT_BOUNDED_INSTANCE` | **8** | Checked on exact rational intervals and Darboux partitions with certified error bounds. |
-| `NUMERICAL_PROBE_ONLY` | **2** | Exploratory sample grids / visualizations strictly labeled as non-proof intuition. |
+| `NUMERICAL_PROBE_ONLY` | **0** | Exploratory sample grids / visualizations strictly labeled as non-proof intuition. |
 | `COUNTEREXAMPLE_CERTIFIED` | **0** (used in falsification suite) | Refutation witnesses for false/overbroad claims. |
 | `OUTSIDE_CURRENT_SCOPE` | **0** | Claims beyond current architecture scope. |
 

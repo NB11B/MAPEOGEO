@@ -18,6 +18,7 @@ QUANTIFIER_MANIFEST_PATH = FORMAL_DIR / "wave_f4_quantifier_manifest.json"
 CLAIM_TIER_MANIFEST_PATH = FORMAL_DIR / "wave_f4_claim_tier_manifest.json"
 RELATION_MANIFEST_PATH = FORMAL_DIR / "wave_f4_relation_manifest.json"
 FALSIFICATION_MANIFEST_PATH = FORMAL_DIR / "wave_f4_falsification_manifest.json"
+FORMAL_AUDIT_PATH = FORMAL_DIR / "wave_f4_formal_proof_audit.json"
 
 EVIDENCE_PATH = EVIDENCE_DIR / "v0_21_wave_f4_results.json"
 REPORT_PATH = DOCS_DIR / "V0_21_WAVE_F4_REPORT.md"
@@ -56,20 +57,23 @@ def test_wave_f4_manifest_integrity():
         CLAIM_TIER_MANIFEST_PATH,
         RELATION_MANIFEST_PATH,
         FALSIFICATION_MANIFEST_PATH,
+        FORMAL_AUDIT_PATH,
     ]:
-        assert p.is_file(), f"Missing manifest at {p}"
+        assert p.is_file(), f"Missing manifest or audit at {p}"
 
     src = json.loads(SOURCE_MANIFEST_PATH.read_text(encoding="utf-8"))
     quant = json.loads(QUANTIFIER_MANIFEST_PATH.read_text(encoding="utf-8"))
     tier = json.loads(CLAIM_TIER_MANIFEST_PATH.read_text(encoding="utf-8"))
     rel = json.loads(RELATION_MANIFEST_PATH.read_text(encoding="utf-8"))
     fals = json.loads(FALSIFICATION_MANIFEST_PATH.read_text(encoding="utf-8"))
+    audit = json.loads(FORMAL_AUDIT_PATH.read_text(encoding="utf-8"))
 
     assert src["total_source_declarations"] == 32
     assert quant["total_quantifier_contracts"] == 32
     assert tier["total_canonical_concepts"] == 32
     assert rel["total_typed_relations"] == 20
     assert fals["total_registered_mutants"] == 20
+    assert audit["total_formal_general_theorems"] == 14
 
     assert len(src["corpora"]) == 3
     corpus_ids = {c["corpus_id"] for c in src["corpora"]}
@@ -167,10 +171,10 @@ def test_claim_tier_assignments_and_non_promotion():
     tier_manifest = json.loads(CLAIM_TIER_MANIFEST_PATH.read_text(encoding="utf-8"))
 
     tiers_count = tier_manifest["tier_breakdown"]
-    assert tiers_count["FORMAL_GENERAL"] == 13
-    assert tiers_count["CHECKED_SYMBOLIC_FAMILY"] == 9
+    assert tiers_count["FORMAL_GENERAL"] == 14
+    assert tiers_count["CHECKED_SYMBOLIC_FAMILY"] == 10
     assert tiers_count["EXACT_BOUNDED_INSTANCE"] == 8
-    assert tiers_count["NUMERICAL_PROBE_ONLY"] == 2
+    assert tiers_count.get("NUMERICAL_PROBE_ONLY", 0) == 0
 
     # Verify improper promotion rejection
     cert_valid, tier, msg = CertificateChecker.verify_claim_tier(
@@ -205,6 +209,13 @@ def test_all_20_typed_mathematical_relationships_verified():
 
     assert len(records) == 20
     assert sum(1 for r in records if r.commutation_verified) == 20
+
+    rel_ids = {r.relation_id for r in records}
+    assert "REL:F4:10_LIPSCHITZ_TO_UNIFORM" in rel_ids
+    assert "REL:F4:11_CONNECTED_TO_IVT" in rel_ids
+    assert "REL:F4:13_EXTREME_AND_FERMAT_TO_ROLLE" in rel_ids
+    assert "REL:F4:17_UNIFORM_CONT_TO_RIEMANN_INT" in rel_ids
+    assert "REL:F4:18_CONTINUITY_AND_INTEGRAL_TO_FTC1" in rel_ids
 
     for rec in records:
         assert rec.commutation_verified is True
@@ -279,8 +290,8 @@ def test_semantic_codomain_non_degeneracy():
     assert codomain_res["codomain_entropy_bits"] == 5.0
 
 
-def test_lean_formal_alignment_metadata():
-    """Verify that Lean formal source files exist in both MAPEOGEOFormal and formal/lean/wave_f4."""
+def test_lean_formal_alignment_and_audit():
+    """Verify that Lean formal source files exist and formal audit passes with zero sorry."""
     lean_lib = ROOT / "MAPEOGEOFormal" / "WaveF4.lean"
     lean_formal = ROOT / "formal" / "lean" / "wave_f4" / "WaveF4.lean"
 
@@ -293,6 +304,18 @@ def test_lean_formal_alignment_metadata():
     assert "theorem RollesTheorem" in lib_text
     assert "theorem MeanValueTheorem" in lib_text
     assert "theorem FundamentalTheoremCalculus" in lib_text
+
+    assert "sorry" not in lib_text
+    assert "admit" not in lib_text
+
+    audit = json.loads(FORMAL_AUDIT_PATH.read_text(encoding="utf-8"))
+    assert audit["total_formal_general_theorems"] == 14
+    for record in audit["audit_records"]:
+        assert record["has_sorry"] is False
+        assert record["has_admit"] is False
+        assert record["has_sorryAx"] is False
+        assert record["has_custom_axioms"] is False
+        assert record["status"] == "VERIFIED_FORMAL_GENERAL"
 
 
 def test_wave_f4_evidence_and_report_files_exist_and_consistent():
@@ -314,4 +337,4 @@ def test_wave_f4_evidence_and_report_files_exist_and_consistent():
     assert "FORMAL_GENERAL" in report
     assert "CHECKED_SYMBOLIC_FAMILY" in report
     assert "EXACT_BOUNDED_INSTANCE" in report
-    assert "NUMERICAL_PROBE_ONLY" in report
+    assert "0 remained probe-only" in report

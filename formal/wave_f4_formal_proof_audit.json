@@ -1,0 +1,288 @@
+{
+  "audit_records": [
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:foundation:ordered_field_structure",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.OrderedField",
+      "reasbook_alignment": "Lebl v6.2 \u00a71.1 <-> v6.3 \u00a71.1 (Identical axioms)",
+      "source_node_id": "src:lebl:sec1_1:ordered_field_structure",
+      "source_ref": "Lebl \u00a71.1 Definition 1.1.1, 1.1.7, Proposition 1.1.8",
+      "statement_sha256": "ec79b427adb42b51691164e745a95badc041d04600d659d413e6be2f86dec19d",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem OrderedField (x y z : \u211d) (h : x < y) (hx : 0 < x) (hy : 0 < y) : x + z < y + z \u2227 0 < x * y"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:foundation:absolute_value_inequalities",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.AbsValTriangleIneq",
+      "reasbook_alignment": "Lebl v6.2 Prop 1.1.13 <-> v6.3 Prop 1.1.13 (Identical)",
+      "source_node_id": "src:lebl:sec1_1:absolute_value_inequalities",
+      "source_ref": "Lebl \u00a71.1 Definition 1.1.12, Proposition 1.1.13",
+      "statement_sha256": "cb3350f6d85f46b8f907974f59bd362a3a3b68c2fdec523946395b827493623f",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem AbsValTriangleIneq (x y : \u211d) : |x + y| \u2264 |x| + |y| \u2227 |abs x - abs y| \u2264 |x - y|"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:foundation:least_upper_bound_property",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.LeastUpperBoundAxiom",
+      "reasbook_alignment": "Lebl v6.2 Axiom 1.2.3 <-> v6.3 Axiom 1.2.3 (Identical)",
+      "source_node_id": "src:lebl:sec1_2:least_upper_bound_property",
+      "source_ref": "Lebl \u00a71.2 Axiom 1.2.3",
+      "statement_sha256": "26af3c5d495f9c9c11e02ce6ad568b373bf739c174875f6d1f26512295a7b764",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem LeastUpperBoundAxiom (s : Set \u211d) (_hnonempty : s.Nonempty) (hbd : BddAbove s) : \u2200 x \u2208 s, x \u2264 sSup s"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:foundation:archimedean_property",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.ArchimedeanProperty",
+      "reasbook_alignment": "Lebl v6.2 Thm 1.2.5 <-> v6.3 Thm 1.2.5 (Identical)",
+      "source_node_id": "src:lebl:sec1_2:archimedean_property",
+      "source_ref": "Lebl \u00a71.2 Theorem 1.2.5",
+      "statement_sha256": "3cfa0e8a036ca495b5e321e8bd5115c68b8304737475f8f86900b76fdb1a2bcd",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem ArchimedeanProperty (x : \u211d) (eps : \u211d) (heps : 0 < eps) : (\u2203 n : \u2115, x < (n : \u211d)) \u2227 (\u2203 n : \u2115, 0 < n \u2227 (1 : \u211d) / (n : \u211d) < eps)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:foundation:density_of_rationals",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.DensityOfRationals",
+      "reasbook_alignment": "Lebl v6.2 Thm 1.2.6 <-> v6.3 Thm 1.2.6 (Identical)",
+      "source_node_id": "src:lebl:sec1_2:density_of_rationals",
+      "source_ref": "Lebl \u00a71.2 Theorem 1.2.6",
+      "statement_sha256": "0744ffd007879a0334b7727b0ce662d8cc95a5dc10cb6aa4b7f88a52201bed68",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem DensityOfRationals (x y : \u211d) (h : x < y) : \u2203 q : \u211a, x < (q : \u211d) \u2227 (q : \u211d) < y"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:foundation:cauchy_completeness_and_equivalents",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.CauchyCompleteness",
+      "reasbook_alignment": "Lebl v6.2 Thm 2.2.12 <-> v6.3 Thm 2.2.12 (Identical)",
+      "source_node_id": "src:lebl:sec2_2:cauchy_completeness_and_equivalents",
+      "source_ref": "Lebl \u00a72.2 Theorem 2.2.12",
+      "statement_sha256": "dd027a110ce4fe60955cd25fb74317f2d4ef6fabf45fd6f30c6b4161f8ddb572",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem CauchyCompleteness (u : \u2115 \u2192 \u211d) : CauchySeq u \u2194 \u2203 L : \u211d, Tendsto u atTop (\ud835\udcdd L)"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:sequences_series:algebra_and_order_of_limits",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.LimitAlgebraAndOrder",
+      "reasbook_alignment": "Lebl v6.2 Prop 2.1.17 <-> v6.3 Prop 2.1.17 (Identical)",
+      "source_node_id": "src:lebl:sec2_1:algebra_and_order_of_limits",
+      "source_ref": "Lebl \u00a72.1 Proposition 2.1.10, Proposition 2.1.17",
+      "statement_sha256": "57edd77aceb9a44b021281b36618ac92338627ad0c11b426d29e887bab8cd2c5",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem LimitAlgebraAndOrder"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:sequences_series:monotone_convergence",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.MonotoneConvergence",
+      "reasbook_alignment": "Lebl v6.2 Thm 2.1.14 <-> v6.3 Thm 2.1.14 (Identical)",
+      "source_node_id": "src:lebl:sec2_1:monotone_convergence",
+      "source_ref": "Lebl \u00a72.1 Theorem 2.1.14",
+      "statement_sha256": "87e800f6a736bb115aa56dca8abdb459e9b110fb34a749f0198a85285bda77bb",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem MonotoneConvergence"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:sequences_series:bolzano_weierstrass",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.BolzanoWeierstrass",
+      "reasbook_alignment": "Lebl v6.2 Thm 2.2.5 <-> v6.3 Thm 2.2.5 (Identical)",
+      "source_node_id": "src:lebl:sec2_2:bolzano_weierstrass",
+      "source_ref": "Lebl \u00a72.2 Theorem 2.2.5",
+      "statement_sha256": "e6f4632720fb484f0e0d18cac5badec9c6c0686d50d95880ec279936b5262ef0",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem BolzanoWeierstrass"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:continuity_compactness:open_and_closed_sets",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.OpenClosedSets",
+      "reasbook_alignment": "Lebl v6.2 Def 3.1.6 <-> v6.3 Def 3.1.6 (Identical)",
+      "source_node_id": "src:lebl:sec3_1:open_and_closed_sets",
+      "source_ref": "Lebl \u00a73.1 Definition 3.1.3, 3.1.6",
+      "statement_sha256": "af1d2751505909b25c286eed634e80f5185b92d0755f0b52db4174257df6b9e6",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem OpenClosedSets (s : Set \u211d) : IsOpen s \u2194 \u2200 x \u2208 s, \u2203 eps > 0, Metric.ball x eps \u2286 s"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:continuity_compactness:compactness_and_heine_borel",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.HeineBorel",
+      "reasbook_alignment": "Lebl v6.2 Thm 3.1.20 <-> v6.3 Thm 3.1.20 (Identical)",
+      "source_node_id": "src:lebl:sec3_1:compactness_and_heine_borel",
+      "source_ref": "Lebl \u00a73.1 Definition 3.1.19, Theorem 3.1.20",
+      "statement_sha256": "0374bc8200889ef841f3f21d645304bd07bf8f2298841a799e3bb8d871e5746c",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem HeineBorel (s : Set \u211d) : IsCompact s \u2194 IsClosed s \u2227 Bornology.IsBounded s"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:continuity_compactness:sequential_continuity",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.SequentialContinuity",
+      "reasbook_alignment": "Lebl v6.2 Prop 3.3.2 <-> v6.3 Prop 3.3.2 (Identical)",
+      "source_node_id": "src:lebl:sec3_3:sequential_continuity",
+      "source_ref": "Lebl \u00a73.3 Proposition 3.3.2",
+      "statement_sha256": "05ebb82016df2ee6dc3852549c29cd486bb27e07bb354dfe3f4bd23247bbf6ac",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem SequentialContinuity"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:continuity_compactness:extreme_value_theorem",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.ExtremeValueTheorem",
+      "reasbook_alignment": "Lebl v6.2 Thm 3.3.10 <-> v6.3 Thm 3.3.10 (Identical)",
+      "source_node_id": "src:lebl:sec3_3:extreme_value_theorem",
+      "source_ref": "Lebl \u00a73.3 Theorem 3.3.10",
+      "statement_sha256": "0bc7d988e85fc3303721e126f373c9737cb52f9e9057111bd2b81cd617cb99da",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem ExtremeValueTheorem (s : Set \u211d) (h_comp : IsCompact s) (h_nonempty : s.Nonempty) (f : \u211d \u2192 \u211d) (h_cont : ContinuousOn f s) : \u2203 x_min \u2208 s, \u2203 x_max \u2208 s, \u2200 x \u2208 s, f x_min \u2264 f x \u2227 f x \u2264 f x_max"
+    },
+    {
+      "axioms": [
+        "propext",
+        "Classical.choice",
+        "Quot.sound"
+      ],
+      "canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor",
+      "has_admit": false,
+      "has_custom_axioms": false,
+      "has_sorry": false,
+      "has_sorryAx": false,
+      "lean_symbol": "MAPEOGEOFormal.WaveF4.UniformContinuityHeineCantor",
+      "reasbook_alignment": "Lebl v6.2 Thm 3.4.4 <-> v6.3 Thm 3.4.4 (Identical)",
+      "source_node_id": "src:lebl:sec3_4:uniform_continuity_and_heine_cantor",
+      "source_ref": "Lebl \u00a73.4 Definition 3.4.1, Theorem 3.4.4",
+      "statement_sha256": "b0442ad5b2325a7e3dbb7bd9498f0a1ea591385d9419e8add1264c4b6960f1aa",
+      "status": "VERIFIED_FORMAL_GENERAL",
+      "type_signature": "theorem UniformContinuityHeineCantor (s : Set \u211d) (h_comp : IsCompact s) (f : \u211d \u2192 \u211d) (h_cont : ContinuousOn f s) : UniformContinuousOn f s"
+    }
+  ],
+  "campaign_name": "QUANTIFIED_REAL_ANALYSIS_DUAL_VIEW_CAMPAIGN",
+  "formal_environment": {
+    "companion_path": "formal/lean/wave_f4/WaveF4.lean",
+    "formal_module": "MAPEOGEOFormal.WaveF4",
+    "formal_source_path": "MAPEOGEOFormal/WaveF4.lean",
+    "lean_version": "Lean 4.33.1 / Mathlib v4.33.1",
+    "standard_axioms_permitted": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+    ],
+    "zero_admit_verified": true,
+    "zero_custom_axioms_verified": true,
+    "zero_sorry_verified": true
+  },
+  "schema_version": "0.21",
+  "stage": "v0.21_wave_f4",
+  "total_formal_general_theorems": 14
+}

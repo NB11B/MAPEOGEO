@@ -59,6 +59,7 @@ jobs:
             mapeogeo/analysis/evaluator.py \
             mapeogeo/analysis/relations.py \
             scripts/generate_wave_f4_manifests.py \
+            scripts/generate_wave_f4_formal_audit.py \
             scripts/wave_f4_campaign.py \
             scripts/reconstruct_pipeline.py
 
@@ -75,6 +76,12 @@ jobs:
 
       - name: Reconstruct dependency chain up to Wave F4
         run: python scripts/reconstruct_pipeline.py --target-stage wave_f4
+
+      - name: Generate and verify Wave F4 manifests and formal audit
+        run: |
+          python scripts/generate_wave_f4_manifests.py
+          python scripts/generate_wave_f4_formal_audit.py
+          git diff --exit-code formal/
 
       - name: Run complete regression test suite
         run: python -m pytest tests -v

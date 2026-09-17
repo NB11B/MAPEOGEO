@@ -174,7 +174,7 @@
     {
       "description": "Sample f(x) = sin(1/x) at finite rational grid points and claim universal uniform continuity theorem.",
       "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
-      "falsification_mechanism": "CertificateChecker strictly enforces NUMERICAL_PROBE_ONLY tier and blocks theorem promotion.",
+      "falsification_mechanism": "CertificateChecker strictly enforces valid tier signatures and blocks point-sample promotion to theorem.",
       "family": "DIFF_INTEGRATION",
       "mutant_id": "MUT:F4:20_SAMPLE_GRID_UPGRADE_TO_THEOREM",
       "mutation_class": "SAMPLE_GRID_PROMOTED_TO_THEOREM",
