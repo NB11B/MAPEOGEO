@@ -84,7 +84,7 @@
         "scripts/generate_alignments_v0_18.py": "ce48e5e4b19fb73f0e435550b406f000d9418beebd859d4a49bfd36d82c6b264",
         "scripts/generate_alignments_v0_19.py": "627a105ccf1d4b325b005eaeadf6d9c53acaa0a5e3a0d7cbbd6b6f5872d3539d",
         "scripts/generate_foundation_alignments.py": "1251460e3e8b48978db511573fb3710ef77022bbb252abefe0305ececc981974",
-        "scripts/generate_mathematical_integrity_report.py": "a0c4981eb126378996ce087172ea7d57b5ad435d0d34cdfe4b97250fdb27886f",
+        "scripts/generate_mathematical_integrity_report.py": "5681f639abb2f51adfef4a97ecb22881c7db503e233be256272a60f02da0b737",
         "scripts/import_analysis_v0_15.py": "d6022f5542d4fb1c119da0745863a1bceb27052c0352462e291410a8007e23d0",
         "scripts/import_axler_v0_12.py": "c24efc73378e4f535d7b953b00fcab092374d7b78989aeaaba417e0587dab15d",
         "scripts/import_billingsley_v0_17.py": "bd70cba08bbf93a86b6876d3d5977119a78ffd3e98fa618933d1a7acab8f5435",
@@ -108,7 +108,7 @@
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "f036e116bd358dc3ec924637c381a825028f1b4fea081bcf067d7fa2f43d9348"
+      "sha256": "9e39b471a8691baa4d054905b46a47e519acdc80a06c67bb4a0893bba80a4d76"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",
