@@ -250,3 +250,68 @@ def test_wave_f3_evidence_and_report_files_exist_and_consistent():
     assert "14 / 14" in report
     assert "VERIFIED_BOUNDED_CONTRACT_COMMUTATION" in report
     assert "Cross-Pair Discrimination" in report
+
+
+def test_engine_ast_and_import_decoupling():
+    """Verify that EO and GEO realization engines do not import or reference each other."""
+    import ast
+
+    algebra_dir = ROOT / "mapeogeo" / "algebra"
+
+    for py_file in [algebra_dir / "number_theory.py", algebra_dir / "groups.py", algebra_dir / "rings_fields.py"]:
+        tree = ast.parse(py_file.read_text(encoding="utf-8"))
+        classes = {n.name: n for n in tree.body if isinstance(n, ast.ClassDef)}
+
+        # Find EO and GEO classes
+        eo_class = next((c for name, c in classes.items() if "EOEngine" in name), None)
+        geo_class = next((c for name, c in classes.items() if "GEOEngine" in name), None)
+
+        assert eo_class is not None, f"Missing EOEngine in {py_file.name}"
+        assert geo_class is not None, f"Missing GEOEngine in {py_file.name}"
+
+        # Check AST nodes inside EOEngine for GEO references
+        eo_code = ast.unparse(eo_class)
+        assert geo_class.name not in eo_code, f"{eo_class.name} contains reference to {geo_class.name}"
+
+        # Check AST nodes inside GEOEngine for EO references
+        geo_code = ast.unparse(geo_class)
+        assert eo_class.name not in geo_code, f"{geo_class.name} contains reference to {eo_class.name}"
+
+
+def test_fixture_diversity_guarantees():
+    """Verify explicit non-trivial algebraic and geometric fixture diversity across all families."""
+    # 1. Groups: cyclic (Z6), Klein-4 (V4), non-abelian S3, S4, A4, D4
+    v4 = GroupTheoryEOEngine.generate("canonical:groups:group_axioms")
+    assert v4.algebraic_payload["is_abelian"] is True
+    assert v4.algebraic_payload["exponent"] == 2
+    assert v4.algebraic_payload["order"] == 4
+
+    s3_sub = GroupTheoryEOEngine.generate("canonical:groups:subgroups")
+    assert s3_sub.algebraic_payload["group_order"] == 6
+    assert s3_sub.algebraic_payload["subgroups_count"] == 6
+
+    s4_a4 = GroupTheoryEOEngine.generate("canonical:groups:symmetric_and_alternating_groups")
+    assert s4_a4.algebraic_payload["symmetric_order"] == 24
+    assert s4_a4.algebraic_payload["alternating_order"] == 12
+
+    d4 = GroupTheoryEOEngine.generate("canonical:groups:group_actions_and_orbit_stabilizer")
+    assert d4.algebraic_payload["group_order"] == 8
+
+    # 2. Rings: Z4 (nilpotents), Z6 (zero-divisors), F5 (prime field)
+    z4 = RingFieldTheoryEOEngine.generate("canonical:rings_fields:ring_axioms")
+    assert z4.algebraic_payload["characteristic"] == 4
+
+    z6 = RingFieldTheoryEOEngine.generate("canonical:rings_fields:units_and_zero_divisors")
+    assert z6.algebraic_payload["units"] == [1, 5]
+    assert z6.algebraic_payload["zero_divisors"] == [2, 3, 4]
+
+    f5 = RingFieldTheoryEOEngine.generate("canonical:rings_fields:integral_domains")
+    assert f5.algebraic_payload["zero_divisors_count"] == 0
+    assert f5.algebraic_payload["is_domain"] is True
+
+    # 3. Field extensions: irreducible x^2+1 over F3 yielding GF(9)
+    gf9 = RingFieldTheoryEOEngine.generate("canonical:rings_fields:irreducibility_and_quotients")
+    assert gf9.algebraic_payload["is_irreducible"] is True
+    assert gf9.algebraic_payload["quotient_order"] == 9
+    assert gf9.algebraic_payload["quotient_is_field"] is True
+
