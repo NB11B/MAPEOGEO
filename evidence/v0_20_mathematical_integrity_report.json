@@ -84,7 +84,7 @@
         "scripts/generate_alignments_v0_18.py": "ce48e5e4b19fb73f0e435550b406f000d9418beebd859d4a49bfd36d82c6b264",
         "scripts/generate_alignments_v0_19.py": "627a105ccf1d4b325b005eaeadf6d9c53acaa0a5e3a0d7cbbd6b6f5872d3539d",
         "scripts/generate_foundation_alignments.py": "1251460e3e8b48978db511573fb3710ef77022bbb252abefe0305ececc981974",
-        "scripts/generate_mathematical_integrity_report.py": "31c5d99a208f5522b1b42582d400d80b7ae4fd53e78468cde0d0d227790c3d38",
+        "scripts/generate_mathematical_integrity_report.py": "a0c4981eb126378996ce087172ea7d57b5ad435d0d34cdfe4b97250fdb27886f",
         "scripts/import_analysis_v0_15.py": "d6022f5542d4fb1c119da0745863a1bceb27052c0352462e291410a8007e23d0",
         "scripts/import_axler_v0_12.py": "c24efc73378e4f535d7b953b00fcab092374d7b78989aeaaba417e0587dab15d",
         "scripts/import_billingsley_v0_17.py": "bd70cba08bbf93a86b6876d3d5977119a78ffd3e98fa618933d1a7acab8f5435",
@@ -103,12 +103,12 @@
         "scripts/pinch_intake_v0_11.py": "845ba6ae429cd0bdae75af604819aaee04406ae10b24b9968cc3f52c428dae50",
         "scripts/pinch_quartet_v0_10.py": "7903a1873720d15f9de6593ac01aed4ccb640e81b2b91bcf80932defb80d3445",
         "scripts/proof_paths_v0_9.py": "b1ca1887b9ac1945f6f53139c0e40d99b9cec0e78ce1b63f4b568ca7625ef6e7",
-        "scripts/reconstruct_pipeline.py": "285233531d3cf8f9ea4aa2d4d9b27de6c2541e3b67a557481ffa9d1c2f227113",
+        "scripts/reconstruct_pipeline.py": "0a019b88e0adb6374fb55ecf7bca8e6e291a5d3cb731254ac978db3d54026066",
         "scripts/topology_intake_v0_16.py": "a05c73cd226f35a8f1eb03eafd17612699358ca80eeeee05fe75d5b0c5e7937e",
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "c29568b08c4d5cedd95ec24344cbac71bff3c7d6fae6b57d4ea27562389cb88e"
+      "sha256": "f036e116bd358dc3ec924637c381a825028f1b4fea081bcf067d7fa2f43d9348"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",

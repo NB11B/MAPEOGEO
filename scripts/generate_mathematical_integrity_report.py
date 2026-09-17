@@ -103,9 +103,11 @@ def _producer_paths(root: Path) -> tuple[Path, ...]:
         if not (
             p.name.endswith("_f1.py")
             or p.name.endswith("_f2.py")
+            or p.name.endswith("_f3.py")
             or "_v0_21" in p.name
             or "wave_f" in p.name
             or "dual_view" in p.as_posix()
+            or "algebra" in p.as_posix()
         )
     ]
     formal_root = root / "MAPEOGEOFormal"

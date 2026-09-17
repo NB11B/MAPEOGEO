@@ -1,0 +1,1818 @@
+{
+  "campaign_name": "ABSTRACT_ALGEBRA_AND_NUMBER_THEORY_DUAL_VIEW_AUDIT",
+  "codomain_distinctness": {
+    "codomain_entropy_bits": 5.0,
+    "commutative_concepts_evaluated": 32,
+    "is_semantically_injective": true,
+    "unique_eo_semantic_digests": 32,
+    "unique_geo_semantic_digests": 32,
+    "zero_cross_concept_semantic_collisions": true
+  },
+  "commutation_rate": 1.0,
+  "commutation_rate_pct": "100.00%",
+  "commutation_records": [
+    {
+      "bound_source_hashes": [
+        "f67b54339113d60dbc13b58cb995cdf92ead22a4e39592ee15c38b6d4f76ed16",
+        "0736e3a66078023f675cd6c4440289a389a1e37b5bf86cd28b4c31b9a3e88e64"
+      ],
+      "canonical_id": "canonical:number_theory:divisibility_and_gcd",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "7d9e971b112afcf38e0ef7b430e7082b7737c94e19b6a44cda61dfaea960385f",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "31d7e5a1ae0884da4d3c6c3015131e444b956c0973a0d171b5e2584ee82becf5",
+      "name": "Divisibility and Greatest Common Divisor",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+      "sem_geo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "common_divisors": [
+            1,
+            2,
+            3,
+            4,
+            6,
+            12
+          ],
+          "gcd": 12,
+          "lcm": 72
+        },
+        "structural_invariants": {
+          "a": 24,
+          "b": 36
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "48b2a7c82969d58ac83aa3cf8450939f73b0269a3a1961dd495884dbd4089173"
+      ],
+      "canonical_id": "canonical:number_theory:euclidean_algorithm",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "2c3bc851b1605354ae1268a792d34abcad33f32f52efb10839f1282df9180ecf",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "a0d73f5db65d9a6ffadcec157d42940f705881dda000bcba514aa0537a27ea4a",
+      "name": "The Euclidean Division and Remainder Algorithm",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "88f84f409b8f7101973fab530ce84ac1d0a59eb83d00b8d1aeca285e56062b4a",
+      "sem_geo_digest": "88f84f409b8f7101973fab530ce84ac1d0a59eb83d00b8d1aeca285e56062b4a",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "last_remainder": 21,
+          "remainders": [
+            42,
+            21,
+            0
+          ],
+          "step_count": 3
+        },
+        "structural_invariants": {
+          "a": 252,
+          "b": 105
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "01368f5829dc0f6ab39f9c428b91cd0b520c2dcfb1d42fbab5651a68649c5f33"
+      ],
+      "canonical_id": "canonical:number_theory:bezout_identity",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "6e080ab47e4af094fb7ed80c2c5bc6f6f19eb4bac55810acd8e528cf432cf979",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "b5a650588b13db45bcc73e754f20586b3c39cbe88480afdc90804d44e8339460",
+      "name": "B\u00e9zout's Identity and Extended Euclidean Multipliers",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "ff6595515687365c3c88ef943c8b4e4988058abc4e9188a4180b29bc96046b3c",
+      "sem_geo_digest": "ff6595515687365c3c88ef943c8b4e4988058abc4e9188a4180b29bc96046b3c",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "bezout_multipliers": [
+            -2,
+            5
+          ],
+          "gcd": 21,
+          "identity_holds": true
+        },
+        "structural_invariants": {
+          "a": 252,
+          "b": 105
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "0422e69e89de7ae627ac536bcc0b0c7b97cd79f078252eacbe4108fe72903356"
+      ],
+      "canonical_id": "canonical:number_theory:prime_factorization",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "f68d51f7680cb7a670f3fafc052ef8e74a0b4c4e86a51eaf422e00ef5cb01f52",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "5645dd1b2bb74fd242542324674273af7e73f35fa62a03e7dcfdfdb5a250f3fb",
+      "name": "Fundamental Theorem of Arithmetic and Prime Factorization",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "2a2a1cacbae15d11644397db8b87400929d75016340529ca12c65e2820b9f25b",
+      "sem_geo_digest": "2a2a1cacbae15d11644397db8b87400929d75016340529ca12c65e2820b9f25b",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "factors": {
+            "2": 3,
+            "3": 2,
+            "5": 1
+          },
+          "n": 360,
+          "num_divisors": 24
+        },
+        "structural_invariants": {
+          "dimension": 3
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "9cbda012adc13977bbe6f8555143c51a3b9eb8e0e842974c2d0deedf51aee7d9"
+      ],
+      "canonical_id": "canonical:number_theory:congruences_and_modular_arithmetic",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "c23d973eecc51a675b3b3d0f248af28b87367bc695b735889def2fca29405573",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "2ea34d1e424d8f2662c85cd44c71e4610b69fdded4453752c541c0bcd71d22ef",
+      "name": "Modular Congruences and Residue Ring Arithmetic",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "8930cdf3554b3b36ec0aff56c5382ba24fefe055f2ec2fff1f712e393db68762",
+      "sem_geo_digest": "8930cdf3554b3b36ec0aff56c5382ba24fefe055f2ec2fff1f712e393db68762",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "is_field": true,
+          "modulus": 7,
+          "residue_count": 7,
+          "unit_count": 6
+        },
+        "structural_invariants": {
+          "characteristic": 7
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "3a81b3a24c4eb6c09a24a7376d44c3c59fd9ec90d681495cc4a3002dac42d6ca"
+      ],
+      "canonical_id": "canonical:number_theory:chinese_remainder_theorem",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "0c4d7ae3c89684dfad02e8671129f854cd35e9ffe7d021bc7449bcb792bae02e",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "aaa6eab0e785060af0b873d2b65bd784ed7c19c75a0462e3ebedfc6a5639cc04",
+      "name": "Chinese Remainder Theorem for Coprime Moduli",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "fe49a8d5f0f5bbf181a3876b6dfb077249ebd40e8bf4651bc7ef29a79f85d02b",
+      "sem_geo_digest": "fe49a8d5f0f5bbf181a3876b6dfb077249ebd40e8bf4651bc7ef29a79f85d02b",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "moduli": [
+            3,
+            5,
+            7
+          ],
+          "product_modulus": 105,
+          "solution": 23
+        },
+        "structural_invariants": {
+          "coprime": true
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "19c2f9e6a657a75f444cb7411e7d72291fcde8d6bd30885abd8c14b7d43dcea2",
+        "7ef76cdde64b0f851d54b32379ef8097d5f633d936f46d921258b79dea8a15e2"
+      ],
+      "canonical_id": "canonical:number_theory:euler_totient_and_theorem",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "ed94f5678169609bd242cff1386726c2262b236588c1ace7ddc2e51c718662a7",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "e56e28ef3b819a7724b4eaa9990d497ec872ee4299b114e6779580eb1acb23a8",
+      "name": "Euler's Totient Function and Coprime Exponentiation Theorem",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "a43080d1c80265dd649eca23f50db1366445ed56d97372570a68fb6cb08f2b45",
+      "sem_geo_digest": "a43080d1c80265dd649eca23f50db1366445ed56d97372570a68fb6cb08f2b45",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "coprime_elements": [
+            1,
+            5,
+            7,
+            11
+          ],
+          "euler_holds": true,
+          "n": 12,
+          "totient_phi": 4
+        },
+        "structural_invariants": {
+          "order": 4
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "d0571d855162882553270cd31a21a222db60d823d1bc77560edfbfc6139e7c4e"
+      ],
+      "canonical_id": "canonical:number_theory:fermats_little_theorem",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Elementary Number Theory",
+      "eo_hash": "43f7c460b83cf13b3d802930921c167b9ebf46f9b4c48208e22c9231ae19568b",
+      "family": "NUMBER_THEORY",
+      "geo_hash": "f29479f39df64916f8682487c7dbe0a404e434fe8ab90cfc1116d4322dacd979",
+      "name": "Fermat's Little Theorem for Prime Moduli",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "ef38a773df62b1fb2fb55e52f56c6cd4c9e8e349885aa36ec91beca8ee2eacef",
+      "sem_geo_digest": "ef38a773df62b1fb2fb55e52f56c6cd4c9e8e349885aa36ec91beca8ee2eacef",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "fermat_holds": true,
+          "group_order": 6,
+          "prime": 7,
+          "primitive_root": 3
+        },
+        "structural_invariants": {
+          "field": true
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "bd6862d2fbe434f0b1905d9bd8506eff43323b94057e9f6460c7a2afa7c2d37a"
+      ],
+      "canonical_id": "canonical:groups:group_axioms",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "4b1a0ca38e5154f578a9581dcb6d242bfa05211c4639d4d7f6154e95f14968c0",
+      "family": "GROUPS",
+      "geo_hash": "1a4fbff1c154af16da7539a66508cb252dd5a8c8333b71900b4cf1b56b5e2843",
+      "name": "Group Axioms and Permutation Regular Representations",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "bb80d4cde38db9f9e83a44261bdbcc8fd81f7870a4429437b621789c4ffae63a",
+      "sem_geo_digest": "bb80d4cde38db9f9e83a44261bdbcc8fd81f7870a4429437b621789c4ffae63a",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "all_self_inverse": true,
+          "exponent": 2,
+          "is_abelian": true,
+          "order": 4
+        },
+        "structural_invariants": {
+          "cube_dim": 2
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "fd0da30c6cf593596d3af6f4022c3a697885dbd0d9a7e87b0fb407bd66835cca"
+      ],
+      "canonical_id": "canonical:groups:subgroups",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "cd4b2174624a0d8dfb4d4938eb325c3d83f195fb945173fe8b74df4a8aa559ba",
+      "family": "GROUPS",
+      "geo_hash": "1e32a976fd1bd851e08e3e6e3aac5a5875f0b096f3c8a3319ecc40b6f478a789",
+      "name": "Subgroups, Subgroup Criterion, and Lattices",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "10ea41f27cd27ebcfcbd5c4a6b0e50c5e66f71800e53ed7393a86d04c3ab953a",
+      "sem_geo_digest": "10ea41f27cd27ebcfcbd5c4a6b0e50c5e66f71800e53ed7393a86d04c3ab953a",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "group_order": 6,
+          "subgroup_orders": [
+            1,
+            2,
+            2,
+            2,
+            3,
+            6
+          ],
+          "subgroups_count": 6
+        },
+        "structural_invariants": {
+          "lattice_height": 3
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "39e81fa28894991671059deddf010ab3e183b12921b1dbc650d23ecc6f6ea7c0"
+      ],
+      "canonical_id": "canonical:groups:cosets",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "aaedfcefe09c656fbb3421643af3fdf7368bfdf5c5b2eb6e9dc11dd5ded98f97",
+      "family": "GROUPS",
+      "geo_hash": "5ee310200081dc5fe26dc9576a305dcf844611e803aab4d48d3ba82175395912",
+      "name": "Left and Right Coset Partitions",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "e00a2eab528ba16b58dd607cd4aebd3df0e5ccd392eb0aed0c4bed37e9cb9e09",
+      "sem_geo_digest": "e00a2eab528ba16b58dd607cd4aebd3df0e5ccd392eb0aed0c4bed37e9cb9e09",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "coset_size": 2,
+          "is_disjoint_partition": true,
+          "num_cosets": 3,
+          "parent_order": 6
+        },
+        "structural_invariants": {
+          "subgroup_order": 2
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "6b65d030d69996b418298830a1f0e5491c91e40d502fdc68496e8d9de69e5200"
+      ],
+      "canonical_id": "canonical:groups:lagrange_theorem",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "e967421c8d762e59597bed3ceab3b3f728ca789d53ed571db6b3855f0760d72f",
+      "family": "GROUPS",
+      "geo_hash": "2724092cb228f3253b11d111470812a29f16ba1541eef9c70f170f29ded21e51",
+      "name": "Lagrange's Order Divisibility Theorem",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "421fb40e38882a9a957575a9a0d39ad25e0cc1135f4a735779d9fdf547148fc2",
+      "sem_geo_digest": "421fb40e38882a9a957575a9a0d39ad25e0cc1135f4a735779d9fdf547148fc2",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "formula_holds": true,
+          "group_order": 6,
+          "index": 3,
+          "subgroup_order": 2
+        },
+        "structural_invariants": {
+          "tiling_exact": true
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "a791e906c04b209c1016ae8826cbba38b418336fe3f2a3d486e024065ffa0293"
+      ],
+      "canonical_id": "canonical:groups:cyclic_groups",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "c707d4a129a43dfebc29a31efd4a6615229228808606df3ec27e9da4c1569394",
+      "family": "GROUPS",
+      "geo_hash": "f4ae8504327d76c62e48ebe7551172ceae4e3ca6bf35272fd4a33d5e707f1ed2",
+      "name": "Cyclic Groups, Generators, and Subgroup Lattices",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "3ad6c17986d99da06ff7e4bec494a117114fac1295e1f9053d1a6c77cf8d5d5d",
+      "sem_geo_digest": "3ad6c17986d99da06ff7e4bec494a117114fac1295e1f9053d1a6c77cf8d5d5d",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "cyclic_order": 6,
+          "is_cyclic": true,
+          "subgroups_count": 4
+        },
+        "structural_invariants": {
+          "generator_order": 6
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "aaa8137ac6418799af3a0427f355ced4187b4ac68c1551ef7249bf013dc36bbf"
+      ],
+      "canonical_id": "canonical:groups:group_homomorphisms",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "ba5103d84b25a9c6a86f3e3a127430009a2de1fe810a1b948706726fb81e3744",
+      "family": "GROUPS",
+      "geo_hash": "2517684b10da793121750cd902f1e8357084793d0d800f74caa4494131230ca7",
+      "name": "Group Homomorphisms and Structure Preservation",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "a537e894804321995d12446471f9d2955b4dc4422dc50108799aba9d5117515a",
+      "sem_geo_digest": "a537e894804321995d12446471f9d2955b4dc4422dc50108799aba9d5117515a",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "codomain_order": 2,
+          "domain_order": 6,
+          "image_order": 2,
+          "preserves_operation": true
+        },
+        "structural_invariants": {
+          "covering": true
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "152ea6bc501be07180a3da6dc4e14d817c3f3cc78a9475af2705b7ccfcb7fc62"
+      ],
+      "canonical_id": "canonical:groups:kernels_and_images",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "5fe317b2e847b41d7567321d8bdcd65cea2644ced099caf0b97087a7f7a0eb9c",
+      "family": "GROUPS",
+      "geo_hash": "43f2a7c9c68434469dfb78e55a2a5b880a2f54edc9a68edaeeb8ce7241104f4e",
+      "name": "Kernels, Images, and Fiber Decompositions",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "c6f27cf7f048a02f188c7f76001676929c56ffa821fcc075c060d6b449ebda90",
+      "sem_geo_digest": "c6f27cf7f048a02f188c7f76001676929c56ffa821fcc075c060d6b449ebda90",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "fiber_size": 3,
+          "fibers_count": 2,
+          "image_order": 2,
+          "kernel_order": 3
+        },
+        "structural_invariants": {
+          "domain_order": 6
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "69ae212d5f2fdce083ff723e61bb1d5437fac2b36c413138d67b2f28a4bfaae4"
+      ],
+      "canonical_id": "canonical:groups:normal_subgroups",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "d8f5430716819af925d17f407e88f8e6eb6e05ea6c27de280f78b7e7c5b0d0b4",
+      "family": "GROUPS",
+      "geo_hash": "e00606a29ea60f058d21f331a96c33844300aabd8f24137ac5cc8bc82d65edaf",
+      "name": "Normal Subgroups and Conjugation Invariance",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "52e38921dd88ca1a6fb8a425f0ccb44c9b785eb079e2eba5363b09059a237373",
+      "sem_geo_digest": "52e38921dd88ca1a6fb8a425f0ccb44c9b785eb079e2eba5363b09059a237373",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "conjugation_invariant": true,
+          "left_equals_right": true,
+          "normal_order": 3
+        },
+        "structural_invariants": {
+          "parent_order": 6
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "e1506b5c3e7010deb5b6725fb21f230c434ac8a0b00c9730acc3fa8086c97934"
+      ],
+      "canonical_id": "canonical:groups:quotient_groups",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "43f30e8b6e8229417976ec92a5cd82b7e562cb461187f0e8c38fc676d2d5cc37",
+      "family": "GROUPS",
+      "geo_hash": "1f9030f4f8a7e20d16a0de91e57de5036bd66c6f13621c52968dfb5734ef7f10",
+      "name": "Factor Groups and Coset Multiplication Operations",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "8b1013eb79bd8c4ce3e821c223d98f11bda758492e9eece26404a4507a8b73d1",
+      "sem_geo_digest": "8b1013eb79bd8c4ce3e821c223d98f11bda758492e9eece26404a4507a8b73d1",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "is_cyclic": true,
+          "is_group": true,
+          "quotient_order": 2
+        },
+        "structural_invariants": {
+          "normal_order": 3
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "0cb9a010ca9c3b180b82d3ffa56c3e63d331b994b0bb06770282b005044a1b16"
+      ],
+      "canonical_id": "canonical:groups:first_isomorphism_theorem_groups",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "da239a72ff2d032bb80b28c6dde07f3e15b19f93e7458767fcbd335e3b4b8a62",
+      "family": "GROUPS",
+      "geo_hash": "3dbe2ad9479debdb25695e984beb39c42e6ede09d8ef3ac33c99f311064f8867",
+      "name": "First Isomorphism Theorem for Groups",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "99661ba4bfe7fbca4c04f4fb5722f793ab4cf0e1b9673ae65a651e95b330a621",
+      "sem_geo_digest": "99661ba4bfe7fbca4c04f4fb5722f793ab4cf0e1b9673ae65a651e95b330a621",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "image_order": 2,
+          "isomorphism_verified": true,
+          "quotient_order": 2
+        },
+        "structural_invariants": {
+          "domain_order": 6
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "e16895a85a1faef1c78ae9a758125709b266f66b44935af85fd0a0e102340eaa"
+      ],
+      "canonical_id": "canonical:groups:symmetric_and_alternating_groups",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "aad2415f6a7594b9fe6b136f8a427a539bc68da92f03451c2addc4a0335ab7af",
+      "family": "GROUPS",
+      "geo_hash": "fbd96262a93c737952154843a4c973ce5a71876faddc5b44463bfdb82f6df41b",
+      "name": "Symmetric and Alternating Groups, Cycle Parity",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "efcc7025d80651b04418a9ab3567516ed65717ac89111ed285eb25c84110a98d",
+      "sem_geo_digest": "efcc7025d80651b04418a9ab3567516ed65717ac89111ed285eb25c84110a98d",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "alternating_order": 12,
+          "index": 2,
+          "parity_split": [
+            12,
+            12
+          ],
+          "symmetric_order": 24
+        },
+        "structural_invariants": {
+          "degree": 4
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "8760f4c1dfe6e5ee6d24fc03fbf40ad1d184b225e214cb1dc906b622c3a18817"
+      ],
+      "canonical_id": "canonical:groups:group_actions_and_orbit_stabilizer",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Group Theory",
+      "eo_hash": "b729bc85aac5819df85ebb73babc1b1781d79136167ead1bbf1cdf0fea976991",
+      "family": "GROUPS",
+      "geo_hash": "25a43d30351a02ff1ba93530eafcd6cdd215b4391a6757ed5c807b5e1bb07c59",
+      "name": "Group Actions, Orbits, and Orbit-Stabilizer Theorem",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "41b02341c43ce5118204d80a96bacd10dd45f6d004de41f014b8abc93a967c76",
+      "sem_geo_digest": "41b02341c43ce5118204d80a96bacd10dd45f6d004de41f014b8abc93a967c76",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "group_order": 8,
+          "orbit_size": 4,
+          "orbit_stabilizer_holds": true,
+          "set_size": 4,
+          "stabilizer_size": 2
+        },
+        "structural_invariants": {
+          "polygon": 4
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "49e4589af24cdcedcf516463f836cb86c0ebb5f3e50a06f97545833d0a0116b0"
+      ],
+      "canonical_id": "canonical:rings_fields:ring_axioms",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "056ab5e5e98b1e326fb63898c6b3ff03fc3691dc262c5faa7913ace4eaf21346",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "4ff2c3e4c2386724a5afdd48cfc56efbf5d925c1ac1a2f08d17785f2e0b1b91b",
+      "name": "Ring Axioms and Matrix Ring Structures",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "9a55a56167a8cedb9c3d4ad70d660640cc48ed84ded9e432301bfdcba4a02109",
+      "sem_geo_digest": "9a55a56167a8cedb9c3d4ad70d660640cc48ed84ded9e432301bfdcba4a02109",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "characteristic": 4,
+          "distributivity_holds": true,
+          "is_commutative": true,
+          "order": 4
+        },
+        "structural_invariants": {
+          "has_unity": true
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "caeb4783d5f730557a9b7505ebc4394c83a0355878199058afef40e55fe1258c"
+      ],
+      "canonical_id": "canonical:rings_fields:units_and_zero_divisors",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "330341a3ab922d516c68cc6c3563de7613cac7f33fa1da6517ea9f6f968786c7",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "be9a3acbefdaf576ec6256673da008bf15f9c680ccafa6cc92a99a5e8c3f46d5",
+      "name": "Units, Invertible Elements, and Zero Divisors",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "86b246016b63d661e4e4825aa01482cb402b39bd5ff73db2039595be35ac28a1",
+      "sem_geo_digest": "86b246016b63d661e4e4825aa01482cb402b39bd5ff73db2039595be35ac28a1",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "order": 6,
+          "unit_count": 2,
+          "units": [
+            1,
+            5
+          ],
+          "zero_divisor_count": 3,
+          "zero_divisors": [
+            2,
+            3,
+            4
+          ]
+        },
+        "structural_invariants": {
+          "graph_diameter": 2
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "f69c95b917d4f37a64b5e96343f7ce012b844e9fbb562d23c926a7c0bac87fdc"
+      ],
+      "canonical_id": "canonical:rings_fields:integral_domains",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "78276ca57d2ae313660a566a12a8bc2e9249cc758b8a3725e5c4475cb110016e",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "cf373401b4baa68b5af7557f125a0c99ed1384db1df4e8f3d968bc1a0bad9816",
+      "name": "Integral Domains and Cancellation Properties",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "62981bc279be2f02fee769e4480049adf9276647185f37ef29b4eb2e7193bf0e",
+      "sem_geo_digest": "62981bc279be2f02fee769e4480049adf9276647185f37ef29b4eb2e7193bf0e",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "cancellation_law_holds": true,
+          "is_domain": true,
+          "order": 5,
+          "zero_divisors_count": 0
+        },
+        "structural_invariants": {
+          "unit_cycle": 4
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "8d1949fe23cd990ff7dd783e79430f0b159afa3b1c6cf8c6c833d7cdb134e634"
+      ],
+      "canonical_id": "canonical:rings_fields:ideals",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "88fb740591289e5e53a7e1bd5e3b6d83d3302a0d268a4367975c7355f5d7e516",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "8339a3ab91e5424161c4ebab0c74ab2295a54b9089c08f35769e4e3ef0adcf28",
+      "name": "Ideals, Ideal Absorption, and Principal Ideals",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "7a0c714e9c35432c903c61e1746b38ae563f7d58ebd9f7404f8f36157aea663b",
+      "sem_geo_digest": "7a0c714e9c35432c903c61e1746b38ae563f7d58ebd9f7404f8f36157aea663b",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "absorption_holds": true,
+          "ideal_generator": 4,
+          "ideal_size": 3,
+          "parent_order": 12
+        },
+        "structural_invariants": {
+          "triangle_size": 3
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "ed4f68f4f015bddd232d487c1ab624ea55a2cc412d46d9dcdcaf0b6031a51b95"
+      ],
+      "canonical_id": "canonical:rings_fields:quotient_rings",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "a03504ef3761c7d28a48d4e255b24b6ca647cb6e6e31867a4e56d4fac3dd1e70",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "880ffd0942527f27efb68e191ec9a02b50d880c63c508d9b4cfb86059e080d45",
+      "name": "Quotient Rings and Residue Arithmetic",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "7f0587712d0b1623703078556e4b4fca249a505680404e914487e9d07289046a",
+      "sem_geo_digest": "7f0587712d0b1623703078556e4b4fca249a505680404e914487e9d07289046a",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "characteristic": 4,
+          "fiber_size": 3,
+          "is_ring": true,
+          "quotient_order": 4
+        },
+        "structural_invariants": {
+          "parent_order": 12
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "21dcd8d7369a00d62773311fc95ade1065cd6bf322b163589391dfb812ac3c0b"
+      ],
+      "canonical_id": "canonical:rings_fields:ring_homomorphisms",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "6b5cdbd3e144deee42c4a63ae7dccc513a34f58f7162300b50df41bff1836b26",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "4a68bb20ecbf2e68c9528aaf09ddad620f58e8857f911a5af73a0968067955bf",
+      "name": "Ring Homomorphisms, Kernels, and First Isomorphism Theorem",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "f46a57046766492624fa9a17f23eea989213d3b1fb63eb108ca5e66d07030a73",
+      "sem_geo_digest": "f46a57046766492624fa9a17f23eea989213d3b1fb63eb108ca5e66d07030a73",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "codomain_order": 4,
+          "domain_order": 12,
+          "image_size": 4,
+          "is_homomorphism": true,
+          "kernel_size": 3
+        },
+        "structural_invariants": {
+          "projection": true
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "e87c9ad6ce56c6e830c0d74e064686d1820f2fc039486baa76ca36a0c91d9d3e"
+      ],
+      "canonical_id": "canonical:rings_fields:prime_ideals",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "d032aa94850bfa872df8a5cc6b4e4a6a1e933944ebe617f8a6d2c50a1fe1635e",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "831fb8abe95f4d730565d50673b45c9dde1b7bc1a93187ef5b8f1ab41f6f9f32",
+      "name": "Prime Ideals and Integral Domain Quotient Characterization",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "4a73354bb7fbad2f099928be97ad6d9d6382fb6a55e49c92ba6609abf863e47b",
+      "sem_geo_digest": "4a73354bb7fbad2f099928be97ad6d9d6382fb6a55e49c92ba6609abf863e47b",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "is_prime_ideal": true,
+          "prime_modulus": 5,
+          "quotient_is_domain": true
+        },
+        "structural_invariants": {
+          "dimension": 1
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "49ea20e6208cdabfc8a7e7789c7025c47054e1b932344a3c98ebb0a40c880824"
+      ],
+      "canonical_id": "canonical:rings_fields:maximal_ideals",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "662978a39aa8f819788d80a62f3d1cbb5c38170038f63cbb62f65e231f44aa3f",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "9ea10324db26cb903a50f60c8a5b54412e9923c8d613720c6394ed1241ff672a",
+      "name": "Maximal Ideals and Field Quotient Characterization",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "a5a4cde5f3e14962fbbe349fb52ef39f87a7cc3ebeea6de238683773bf68fecd",
+      "sem_geo_digest": "a5a4cde5f3e14962fbbe349fb52ef39f87a7cc3ebeea6de238683773bf68fecd",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "maximal_ideal_size": 6,
+          "parent_order": 12,
+          "quotient_is_field": true,
+          "quotient_order": 2
+        },
+        "structural_invariants": {
+          "affine_line": 2
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "8e71628d36091f88f0674fb41df044f951816e997616faeae8514da081487406"
+      ],
+      "canonical_id": "canonical:rings_fields:polynomial_rings",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "0f3fd6b5b5175bad4a31e50f6e7dd4553152be12834488e45885c5f4974e3b13",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "dcc8ba5a7ec7acd7bd903a6ae77b88b794105311a81307a492fd5063194d4bdd",
+      "name": "Polynomial Rings R[x] and Degree Valuations",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "880f29cf64824eec4861a1a46d4ed54c941f3410320ecbeda1bb3f26da80cd1b",
+      "sem_geo_digest": "880f29cf64824eec4861a1a46d4ed54c941f3410320ecbeda1bb3f26da80cd1b",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "base_field_order": 3,
+          "degree_additive": true,
+          "dimension": 3,
+          "max_degree": 2,
+          "total_polynomials": 27
+        },
+        "structural_invariants": {
+          "affine_dim": 3
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "d5f6c574d7dea1c6b5b00cf8dd6da20c2585ac674483693b5444eb9da1ba5745"
+      ],
+      "canonical_id": "canonical:rings_fields:irreducibility_and_quotients",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "28efe1c2f2bcebdac689949174067762f098796097c4621de6b7c3b8530e6a86",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "ffe56ed70c677003886ff042c90d1efbe17e4185e0c22aab16af0e3faf8e7546",
+      "name": "Irreducible Polynomials and Quotient Extension Fields",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "b7327074d68147be2a6b64c6935233513e0e43f00bdefde70df00dc0761f7203",
+      "sem_geo_digest": "b7327074d68147be2a6b64c6935233513e0e43f00bdefde70df00dc0761f7203",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "base_field": 3,
+          "is_irreducible": true,
+          "poly_degree": 2,
+          "quotient_is_field": true,
+          "quotient_order": 9
+        },
+        "structural_invariants": {
+          "affine_plane": 9
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "cf40ef2e5800d045d140369fbf3cfa8fc8da2d5c3c7a8619a258cf230269a2c5"
+      ],
+      "canonical_id": "canonical:rings_fields:field_extensions",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "5cd250cd5bff12888ea047acf642436231e8d812aa707fba5ec1c36f478c3556",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "36affb3873d655fa41f01fd6c5da5be81f6d64f4f792bec3990dc9dd4a469627",
+      "name": "Field Extensions, Algebraic Elements, and Tower Law",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "5b602f442f9816a48810da7abaa331aa33d306208c3a2d22cef36dccad4e8f42",
+      "sem_geo_digest": "5b602f442f9816a48810da7abaa331aa33d306208c3a2d22cef36dccad4e8f42",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "base_field_order": 3,
+          "extension_degree": 2,
+          "extension_order": 9,
+          "tower_law_verified": true
+        },
+        "structural_invariants": {
+          "basis_dim": 2
+        }
+      }
+    },
+    {
+      "bound_source_hashes": [
+        "219ce064c7cd5bf0c5ba5dac64c78e2bcb5f3d909e31bd72e1398fc62dc8b24e"
+      ],
+      "canonical_id": "canonical:rings_fields:finite_fields",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Ring & Field Theory",
+      "eo_hash": "1669601dd83a6e164bb36a48863a84fa884f0c1217b0cbb76cd55298cc349f0d",
+      "family": "RINGS_FIELDS",
+      "geo_hash": "2eb34490b48d1b50b80f032a6464296d811cfadc39f9a21f2b30091fbeb3c8a3",
+      "name": "Finite Fields (Galois Fields) and Frobenius Automorphisms",
+      "notes": "Exact content-only commutation verified under declared algebra contract.",
+      "redacted_commutation_passed": true,
+      "sem_eo_digest": "6ee88f7c9fac3b755857e41e0d4646f0107e7d582c24b9f9088a2ba1fcc53b89",
+      "sem_geo_digest": "6ee88f7c9fac3b755857e41e0d4646f0107e7d582c24b9f9088a2ba1fcc53b89",
+      "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "witness": {
+        "normalized_values": {
+          "characteristic": 2,
+          "degree": 3,
+          "frobenius_order": 3,
+          "is_cyclic_units": true,
+          "order": 8,
+          "unit_group_order": 7
+        },
+        "structural_invariants": {
+          "fano_cycle": 7
+        }
+      }
+    }
+  ],
+  "cross_pair_discrimination_matrix": {
+    "diagonal_pairs": 32,
+    "off_diagonal_false_positives": 0,
+    "off_diagonal_pairs": 992,
+    "off_diagonal_rejection_rate": 1.0,
+    "off_diagonal_rejection_rate_pct": "100.00%",
+    "off_diagonal_rejections": 992,
+    "sample_cross_evaluations": [
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "is_diagonal": true,
+        "notes": "Diagonal pair audited.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:euclidean_algorithm",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "88f84f409b8f7101973fab530ce84ac1d0a59eb83d00b8d1aeca285e56062b4a",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:bezout_identity",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "ff6595515687365c3c88ef943c8b4e4988058abc4e9188a4180b29bc96046b3c",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:prime_factorization",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "2a2a1cacbae15d11644397db8b87400929d75016340529ca12c65e2820b9f25b",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:congruences_and_modular_arithmetic",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "8930cdf3554b3b36ec0aff56c5382ba24fefe055f2ec2fff1f712e393db68762",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:chinese_remainder_theorem",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "fe49a8d5f0f5bbf181a3876b6dfb077249ebd40e8bf4651bc7ef29a79f85d02b",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:euler_totient_and_theorem",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "a43080d1c80265dd649eca23f50db1366445ed56d97372570a68fb6cb08f2b45",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:number_theory:fermats_little_theorem",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "ef38a773df62b1fb2fb55e52f56c6cd4c9e8e349885aa36ec91beca8ee2eacef",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:group_axioms",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "bb80d4cde38db9f9e83a44261bdbcc8fd81f7870a4429437b621789c4ffae63a",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:subgroups",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "10ea41f27cd27ebcfcbd5c4a6b0e50c5e66f71800e53ed7393a86d04c3ab953a",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:cosets",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "e00a2eab528ba16b58dd607cd4aebd3df0e5ccd392eb0aed0c4bed37e9cb9e09",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:lagrange_theorem",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "421fb40e38882a9a957575a9a0d39ad25e0cc1135f4a735779d9fdf547148fc2",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:cyclic_groups",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "3ad6c17986d99da06ff7e4bec494a117114fac1295e1f9053d1a6c77cf8d5d5d",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:group_homomorphisms",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "a537e894804321995d12446471f9d2955b4dc4422dc50108799aba9d5117515a",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:kernels_and_images",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "c6f27cf7f048a02f188c7f76001676929c56ffa821fcc075c060d6b449ebda90",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:normal_subgroups",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "52e38921dd88ca1a6fb8a425f0ccb44c9b785eb079e2eba5363b09059a237373",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:quotient_groups",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "8b1013eb79bd8c4ce3e821c223d98f11bda758492e9eece26404a4507a8b73d1",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:first_isomorphism_theorem_groups",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "99661ba4bfe7fbca4c04f4fb5722f793ab4cf0e1b9673ae65a651e95b330a621",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:symmetric_and_alternating_groups",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "efcc7025d80651b04418a9ab3567516ed65717ac89111ed285eb25c84110a98d",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:groups:group_actions_and_orbit_stabilizer",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "41b02341c43ce5118204d80a96bacd10dd45f6d004de41f014b8abc93a967c76",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:ring_axioms",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "9a55a56167a8cedb9c3d4ad70d660640cc48ed84ded9e432301bfdcba4a02109",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:units_and_zero_divisors",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "86b246016b63d661e4e4825aa01482cb402b39bd5ff73db2039595be35ac28a1",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:integral_domains",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "62981bc279be2f02fee769e4480049adf9276647185f37ef29b4eb2e7193bf0e",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:ideals",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "7a0c714e9c35432c903c61e1746b38ae563f7d58ebd9f7404f8f36157aea663b",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:quotient_rings",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "7f0587712d0b1623703078556e4b4fca249a505680404e914487e9d07289046a",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:ring_homomorphisms",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "f46a57046766492624fa9a17f23eea989213d3b1fb63eb108ca5e66d07030a73",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:prime_ideals",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "4a73354bb7fbad2f099928be97ad6d9d6382fb6a55e49c92ba6609abf863e47b",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:maximal_ideals",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "a5a4cde5f3e14962fbbe349fb52ef39f87a7cc3ebeea6de238683773bf68fecd",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:polynomial_rings",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "880f29cf64824eec4861a1a46d4ed54c941f3410320ecbeda1bb3f26da80cd1b",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:irreducibility_and_quotients",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "b7327074d68147be2a6b64c6935233513e0e43f00bdefde70df00dc0761f7203",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:field_extensions",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "5b602f442f9816a48810da7abaa331aa33d306208c3a2d22cef36dccad4e8f42",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "discriminates_correctly": true,
+        "eo_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+        "geo_canonical_id": "canonical:rings_fields:finite_fields",
+        "is_diagonal": false,
+        "notes": "Off-diagonal discrimination test.",
+        "sem_eo_digest": "b20dee6314e7a1ee1cc4d8e62215ebff757e43f2868bb49deb540721a4f15fdc",
+        "sem_geo_digest": "6ee88f7c9fac3b755857e41e0d4646f0107e7d582c24b9f9088a2ba1fcc53b89",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      }
+    ],
+    "total_matrix_pairs": 1024
+  },
+  "evidence_sha256": "c3006fbca3e5bc5270ce00b0172ef22b01ead275386818a578cb25474990e353",
+  "exact_claim_boundary": "32 of 32 abstract algebra and number theory concepts commute under bounded equivalence contracts, and 14 of 14 typed mathematical relationship edges commute across independent EO and GEO realizations",
+  "execution_time_seconds": 0.0127,
+  "falsification_suite": {
+    "mutant_kill_rate": 1.0,
+    "mutant_kill_rate_pct": "100.00%",
+    "mutant_records": [
+      {
+        "description": "Substitute composite modulus n=6 into Fermat's Little Theorem (2^5 = 32 = 2 != 1 mod 6).",
+        "detection_witness": {
+          "discrepancies": {
+            "fermat_holds": {
+              "eo": false,
+              "geo": true
+            },
+            "group_order": {
+              "eo": 5,
+              "geo": 6
+            },
+            "prime": {
+              "eo": 6,
+              "geo": 7
+            }
+          }
+        },
+        "family": "NUMBER_THEORY",
+        "mutant_id": "MUT:NT:01_FERMAT_COMPOSITE_MODULUS",
+        "mutant_killed": true,
+        "mutation_class": "NON_PRIME_MODULUS_SUBSTITUTION",
+        "target_canonical_id": "canonical:number_theory:fermats_little_theorem",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Use non-coprime moduli m1=4, m2=6 with contradictory residues x=1 mod 4 and x=2 mod 6.",
+        "detection_witness": {
+          "discrepancies": {
+            "inv:coprime": {
+              "eo": false,
+              "geo": true
+            },
+            "moduli": {
+              "eo": [
+                4,
+                6,
+                8
+              ],
+              "geo": [
+                3,
+                5,
+                7
+              ]
+            }
+          }
+        },
+        "family": "NUMBER_THEORY",
+        "mutant_id": "MUT:NT:02_CRT_NON_COPRIME_MODULI",
+        "mutant_killed": true,
+        "mutation_class": "INVALID_COPRIMALITY_HYPOTHESIS",
+        "target_canonical_id": "canonical:number_theory:chinese_remainder_theorem",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Perturb B\u00e9zout multiplier pair (x, y) such that a*x + b*y != gcd(a, b).",
+        "detection_witness": {
+          "discrepancies": {
+            "bezout_multipliers": {
+              "eo": [
+                99,
+                5
+              ],
+              "geo": [
+                -2,
+                5
+              ]
+            },
+            "identity_holds": {
+              "eo": false,
+              "geo": true
+            }
+          }
+        },
+        "family": "NUMBER_THEORY",
+        "mutant_id": "MUT:NT:03_BEZOUT_CORRUPTED_COEFFICIENTS",
+        "mutant_killed": true,
+        "mutation_class": "CORRUPTED_LINEAR_COMBINATION",
+        "target_canonical_id": "canonical:number_theory:bezout_identity",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Evaluate power a^{phi(n)+1} mod n violating group order identity.",
+        "detection_witness": {
+          "discrepancies": {
+            "inv:order": {
+              "eo": 5,
+              "geo": 4
+            },
+            "totient_phi": {
+              "eo": 5,
+              "geo": 4
+            }
+          }
+        },
+        "family": "NUMBER_THEORY",
+        "mutant_id": "MUT:NT:04_EULER_WRONG_TOTIENT",
+        "mutant_killed": true,
+        "mutation_class": "ALTERED_EXPONENT_POWER",
+        "target_canonical_id": "canonical:number_theory:euler_totient_and_theorem",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Attempt to form factor group on non-normal subgroup H = <(1 2)> in S_3 (coset multiplication ill-defined).",
+        "detection_witness": {
+          "discrepancies": {
+            "is_group": {
+              "eo": true,
+              "geo": false
+            }
+          }
+        },
+        "family": "GROUPS",
+        "mutant_id": "MUT:GRP:05_NON_NORMAL_SUBGROUP_QUOTIENT",
+        "mutant_killed": true,
+        "mutation_class": "NON_NORMAL_SUBGROUP_QUOTIENT",
+        "target_canonical_id": "canonical:groups:quotient_groups",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Perturb a single entry in Cayley multiplication table to violate associativity (ab)c != a(bc).",
+        "detection_witness": {
+          "discrepancies": {
+            "is_abelian": {
+              "eo": false,
+              "geo": true
+            }
+          }
+        },
+        "family": "GROUPS",
+        "mutant_id": "MUT:GRP:06_BROKEN_ASSOCIATIVITY_CAYLEY_TABLE",
+        "mutant_killed": true,
+        "mutation_class": "BROKEN_ASSOCIATIVITY",
+        "target_canonical_id": "canonical:groups:group_axioms",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Inject map f: G -> H violating homomorphism property f(xy) != f(x)f(y).",
+        "detection_witness": {
+          "discrepancies": {
+            "preserves_operation": {
+              "eo": false,
+              "geo": true
+            }
+          }
+        },
+        "family": "GROUPS",
+        "mutant_id": "MUT:GRP:07_CORRUPTED_HOMOMORPHISM_MAP",
+        "mutant_killed": true,
+        "mutation_class": "CORRUPTED_HOMOMORPHISM",
+        "target_canonical_id": "canonical:groups:group_homomorphisms",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Construct unequal coset fiber sizes violating equipotence |gH| != |H|.",
+        "detection_witness": {
+          "discrepancies": {
+            "is_disjoint_partition": {
+              "eo": true,
+              "geo": false
+            }
+          }
+        },
+        "family": "GROUPS",
+        "mutant_id": "MUT:GRP:08_COSET_FIBER_IMBALANCE",
+        "mutant_killed": true,
+        "mutation_class": "COSET_PARTITION_VIOLATION",
+        "target_canonical_id": "canonical:groups:cosets",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Claim non-maximal ideal (x^2) in R[x] yields a quotient field (contains zero divisor x + (x^2)).",
+        "detection_witness": {
+          "discrepancies": {
+            "quotient_is_field": {
+              "eo": false,
+              "geo": true
+            }
+          }
+        },
+        "family": "RINGS_FIELDS",
+        "mutant_id": "MUT:RNG:09_NON_MAXIMAL_IDEAL_FIELD_CLAIM",
+        "mutant_killed": true,
+        "mutation_class": "NON_MAXIMAL_IDEAL_FIELD_CLAIM",
+        "target_canonical_id": "canonical:rings_fields:maximal_ideals",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Claim composite ideal (6) in Z yields an integral domain (2 * 3 = 0 in Z/6Z).",
+        "detection_witness": {
+          "discrepancies": {
+            "quotient_is_domain": {
+              "eo": false,
+              "geo": true
+            }
+          }
+        },
+        "family": "RINGS_FIELDS",
+        "mutant_id": "MUT:RNG:10_NON_PRIME_IDEAL_DOMAIN_CLAIM",
+        "mutant_killed": true,
+        "mutation_class": "NON_PRIME_IDEAL_DOMAIN_CLAIM",
+        "target_canonical_id": "canonical:rings_fields:prime_ideals",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Attempt to construct field extension via reducible polynomial x^2 - 1 = (x-1)(x+1) in F_2[x].",
+        "detection_witness": {
+          "discrepancies": {
+            "is_irreducible": {
+              "eo": false,
+              "geo": true
+            }
+          }
+        },
+        "family": "RINGS_FIELDS",
+        "mutant_id": "MUT:RNG:11_REDUCIBLE_POLYNOMIAL_FIELD_CLAIM",
+        "mutant_killed": true,
+        "mutation_class": "REDUCIBLE_POLYNOMIAL_FIELD_CLAIM",
+        "target_canonical_id": "canonical:rings_fields:irreducibility_and_quotients",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      },
+      {
+        "description": "Perturb Frobenius map x |-> x^p violating fresh-man's dream (x+y)^p != x^p + y^p.",
+        "detection_witness": {
+          "discrepancies": {
+            "frobenius_order": {
+              "eo": 99,
+              "geo": 3
+            }
+          }
+        },
+        "family": "RINGS_FIELDS",
+        "mutant_id": "MUT:RNG:12_CORRUPTED_FROBENIUS_LINEARITY",
+        "mutant_killed": true,
+        "mutation_class": "CORRUPTED_FROBENIUS_MAP",
+        "target_canonical_id": "canonical:rings_fields:finite_fields",
+        "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
+      }
+    ],
+    "mutants_killed": 12,
+    "total_mutants_tested": 12
+  },
+  "family_breakdown": {
+    "GROUPS": {
+      "error": 0,
+      "noncommutative": 0,
+      "outside_scope": 0,
+      "partial_realization": 0,
+      "total": 12,
+      "verified_commutation": 12
+    },
+    "NUMBER_THEORY": {
+      "error": 0,
+      "noncommutative": 0,
+      "outside_scope": 0,
+      "partial_realization": 0,
+      "total": 8,
+      "verified_commutation": 8
+    },
+    "RINGS_FIELDS": {
+      "error": 0,
+      "noncommutative": 0,
+      "outside_scope": 0,
+      "partial_realization": 0,
+      "total": 12,
+      "verified_commutation": 12
+    }
+  },
+  "relationship_records": [
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The division sequence of the Euclidean algorithm constructs the B\u00e9zout integer linear multipliers (x, y) via backward substitution matrix recursion.",
+      "notes": "Euclidean descent constructed valid B\u00e9zout certificate.",
+      "relation_id": "REL:F3:EUCLIDEAN_TO_BEZOUT",
+      "relation_type": "CONSTRUCTION",
+      "relationship_witness": {
+        "bezout_gcd": 21,
+        "euclidean_last_remainder": 21,
+        "multipliers": [
+          -2,
+          5
+        ]
+      },
+      "source_canonical_id": "canonical:number_theory:euclidean_algorithm",
+      "target_canonical_id": "canonical:number_theory:bezout_identity"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The existence of integers (x, y) with ax + by = d implies d is the greatest common divisor gcd(a, b).",
+      "notes": "B\u00e9zout linear combination determines gcd.",
+      "relation_id": "REL:F3:BEZOUT_TO_GCD",
+      "relation_type": "IMPLICATION",
+      "relationship_witness": {
+        "bezout_gcd": 21,
+        "bezout_identity_holds": true,
+        "target_gcd": 12
+      },
+      "source_canonical_id": "canonical:number_theory:bezout_identity",
+      "target_canonical_id": "canonical:number_theory:divisibility_and_gcd"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "Euler's theorem a^{phi(n)} == 1 (mod n) specializes to Fermat's Little Theorem a^{p-1} == 1 (mod p) whenever n = p is a prime, since phi(p) = p - 1.",
+      "notes": "Euler totient specialized to Fermat's Little Theorem under prime modulus.",
+      "relation_id": "REL:F3:EULER_TO_FERMAT",
+      "relation_type": "SPECIALIZATION",
+      "relationship_witness": {
+        "fermat_holds": true,
+        "group_order": 6,
+        "phi_p": 6,
+        "prime_p": 7
+      },
+      "source_canonical_id": "canonical:number_theory:euler_totient_and_theorem",
+      "target_canonical_id": "canonical:number_theory:fermats_little_theorem"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The Chinese Remainder Theorem establishes a ring isomorphism Z/(mn)Z ~= Z/mZ x Z/nZ for pairwise coprime integers gcd(m, n) = 1.",
+      "notes": "CRT induces ring product isomorphism.",
+      "relation_id": "REL:F3:CRT_TO_RING_PRODUCT",
+      "relation_type": "ISOMORPHISM",
+      "relationship_witness": {
+        "isomorphic_factors": [
+          3,
+          5,
+          7
+        ],
+        "product_modulus": 105,
+        "unique_solution": 23
+      },
+      "source_canonical_id": "canonical:number_theory:chinese_remainder_theorem",
+      "target_canonical_id": "canonical:rings_fields:quotient_rings"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The left cosets of subgroup H in G partition the finite group G into [G:H] disjoint fibers of uniform size |H|, establishing Lagrange's formula |G| = [G:H] * |H|.",
+      "notes": "Equipotent coset partition establishes Lagrange index formula.",
+      "relation_id": "REL:F3:COSETS_TO_LAGRANGE",
+      "relation_type": "PARTITION",
+      "relationship_witness": {
+        "coset_size": 2,
+        "index": 3,
+        "total_order": 6
+      },
+      "source_canonical_id": "canonical:groups:cosets",
+      "target_canonical_id": "canonical:groups:lagrange_theorem"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "Any group homomorphism f: G -> H constructs a unique kernel subgroup ker f = f^{-1}(e_H) and image subgroup im f <= H.",
+      "notes": "Homomorphism map constructs kernel subgroup and image subgroup.",
+      "relation_id": "REL:F3:HOMOMORPHISM_TO_KERNEL",
+      "relation_type": "CONSTRUCTION",
+      "relationship_witness": {
+        "domain_order": 6,
+        "image_order": 2,
+        "kernel_order": 3
+      },
+      "source_canonical_id": "canonical:groups:group_homomorphisms",
+      "target_canonical_id": "canonical:groups:kernels_and_images"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The kernel of any group homomorphism f: G -> H is invariant under conjugation (g (ker f) g^{-1} = ker f for all g in G), and hence is normal in G.",
+      "notes": "Kernel of homomorphism is invariant under conjugation.",
+      "relation_id": "REL:F3:KERNEL_TO_NORMAL",
+      "relation_type": "IMPLICATION",
+      "relationship_witness": {
+        "conjugation_invariant": true,
+        "kernel_order": 3,
+        "normal_order": 3
+      },
+      "source_canonical_id": "canonical:groups:kernels_and_images",
+      "target_canonical_id": "canonical:groups:normal_subgroups"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "A normal subgroup N <| G constructs a well-defined factor group G/N with coset operation (aN)(bN) = (ab)N.",
+      "notes": "Normal subgroup constructs well-defined factor group.",
+      "relation_id": "REL:F3:NORMAL_TO_QUOTIENT",
+      "relation_type": "CONSTRUCTION",
+      "relationship_witness": {
+        "factor_group_order": 2,
+        "is_group": true,
+        "normal_order": 3
+      },
+      "source_canonical_id": "canonical:groups:normal_subgroups",
+      "target_canonical_id": "canonical:groups:quotient_groups"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The factor group G/ker f is canonically isomorphic to the image subgroup im f under g(ker f) |-> f(g).",
+      "notes": "Factor group G/ker f is canonically isomorphic to im f.",
+      "relation_id": "REL:F3:QUOTIENT_TO_FIRST_ISOMORPHISM",
+      "relation_type": "ISOMORPHISM",
+      "relationship_witness": {
+        "image_order": 2,
+        "isomorphism_verified": true,
+        "quotient_order": 2
+      },
+      "source_canonical_id": "canonical:groups:quotient_groups",
+      "target_canonical_id": "canonical:groups:first_isomorphism_theorem_groups"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The Orbit-Stabilizer theorem decomposes the group action fibers G/Stab(x) ~= Orb(x), deriving |G| = |Orb(x)| * |Stab(x)| as a direct consequence of Lagrange's theorem on Stab(x) <= G.",
+      "notes": "Orbit-Stabilizer decomposes action into stabilizer coset fibers.",
+      "relation_id": "REL:F3:ACTION_TO_ORBIT_STABILIZER",
+      "relation_type": "DECOMPOSITION",
+      "relationship_witness": {
+        "group_order": 8,
+        "orbit_size": 4,
+        "stabilizer_size": 2
+      },
+      "source_canonical_id": "canonical:groups:group_actions_and_orbit_stabilizer",
+      "target_canonical_id": "canonical:groups:lagrange_theorem"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "An ideal P in a commutative ring R with unity is prime if and only if the quotient ring R/P is an integral domain.",
+      "notes": "Prime ideal yields zero-divisor-free integral domain quotient.",
+      "relation_id": "REL:F3:PRIME_IDEAL_TO_DOMAIN",
+      "relation_type": "QUOTIENT",
+      "relationship_witness": {
+        "is_prime_ideal": true,
+        "quotient_is_domain": true
+      },
+      "source_canonical_id": "canonical:rings_fields:prime_ideals",
+      "target_canonical_id": "canonical:rings_fields:integral_domains"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "An ideal M in a commutative ring R with unity is maximal if and only if the quotient ring R/M is a field.",
+      "notes": "Maximal ideal yields field quotient with unit invertibility.",
+      "relation_id": "REL:F3:MAXIMAL_IDEAL_TO_FIELD",
+      "relation_type": "QUOTIENT",
+      "relationship_witness": {
+        "field_characteristic": 2,
+        "maximal_quotient_is_field": true
+      },
+      "source_canonical_id": "canonical:rings_fields:maximal_ideals",
+      "target_canonical_id": "canonical:rings_fields:finite_fields"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "An irreducible polynomial p(x) in F[x] constructs a simple algebraic field extension K = F[x]/(p(x)) with degree [K:F] = deg(p).",
+      "notes": "Irreducible polynomial constructs simple field extension.",
+      "relation_id": "REL:F3:IRREDUCIBLE_TO_FIELD_EXTENSION",
+      "relation_type": "CONSTRUCTION",
+      "relationship_witness": {
+        "extension_degree": 2,
+        "is_irreducible": true,
+        "polynomial_degree": 2
+      },
+      "source_canonical_id": "canonical:rings_fields:irreducibility_and_quotients",
+      "target_canonical_id": "canonical:rings_fields:field_extensions"
+    },
+    {
+      "commutation_verified": true,
+      "mathematical_claim": "The multiplicative group of any finite field GF(q)^x is cyclic of order q - 1, isomorphic to (Z/(q-1)Z, +).",
+      "notes": "Finite field multiplicative group is cyclic.",
+      "relation_id": "REL:F3:FINITE_FIELD_TO_CYCLIC_UNITS",
+      "relation_type": "ISOMORPHISM",
+      "relationship_witness": {
+        "is_cyclic": true,
+        "multiplicative_order": 7
+      },
+      "source_canonical_id": "canonical:rings_fields:finite_fields",
+      "target_canonical_id": "canonical:groups:cyclic_groups"
+    }
+  ],
+  "relationship_type_breakdown": {
+    "CONSTRUCTION": 4,
+    "DECOMPOSITION": 1,
+    "IMPLICATION": 2,
+    "ISOMORPHISM": 3,
+    "PARTITION": 1,
+    "QUOTIENT": 2,
+    "SPECIALIZATION": 1
+  },
+  "scientific_status": "EVIDENCE_PARTIAL",
+  "stage": "v0.21_wave_f3",
+  "total_canonical_concepts_audited": 32,
+  "total_typed_relationships_audited": 14,
+  "typed_relationships_verified_count": 14,
+  "verdict_breakdown": {
+    "IMPLEMENTATION_ERROR": 0,
+    "NONCOMMUTATIVE_UNDER_CONTRACT": 0,
+    "OUTSIDE_CURRENT_EXECUTABLE_SCOPE": 0,
+    "PARTIAL_ONE_SIDED_REALIZATION": 0,
+    "VERIFIED_BOUNDED_CONTRACT_COMMUTATION": 32
+  }
+}

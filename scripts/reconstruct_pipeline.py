@@ -61,8 +61,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain")
     parser.add_argument(
         "--target-stage",
-        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation", "wave_f1", "wave_f2", "v0.21"],
-        default="wave_f2",
+        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation", "wave_f1", "wave_f2", "wave_f3", "v0.21"],
+        default="wave_f3",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
     parser.add_argument("--from-scratch", action="store_true", help="Re-derive historical v0.6-v0.11 stages from raw source PDF")
@@ -436,9 +436,29 @@ def main() -> int:
             "--manifest",
             str(ROOT / "formal" / "wave_f2_commutation_manifest.json"),
             "--out-evidence",
-            str(ROOT / "evidence" / "v0_21_wave_f2_commutation_results.json"),
+            str(ROOT / "artifacts" / "wave_f2_v0_21" / "v0_21_wave_f2_commutation_results.json"),
             "--out-report",
-            str(ROOT / "docs" / "V0_21_WAVE_F2_COMMUTATION_REPORT.md"),
+            str(ROOT / "artifacts" / "wave_f2_v0_21" / "V0_21_WAVE_F2_COMMUTATION_REPORT.md"),
+        ],
+    )
+
+    if args.target_stage == "wave_f2":
+        total_time = time.time() - t_start
+        print("==========================================================")
+        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
+        print("==========================================================")
+        return 0
+
+    # Stage: v0.21 Wave F3 (Abstract Algebra & Elementary Number Theory Dual-View Campaign)
+    run_stage(
+        "v0.21 Wave F3 (Abstract Algebra & Elementary Number Theory Dual-View Campaign)",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "wave_f3_campaign.py"),
+            "--out-evidence",
+            str(ROOT / "artifacts" / "wave_f3_v0_21" / "v0_21_wave_f3_results.json"),
+            "--out-report",
+            str(ROOT / "artifacts" / "wave_f3_v0_21" / "V0_21_WAVE_F3_REPORT.md"),
         ],
     )
 
