@@ -12,9 +12,9 @@ Wave F5 establishes source-grounded mathematical intake across **Functional Anal
 
 ### Key System Metrics
 - **Primary Admitted Sources**: 9 verified source editions with strict export policies and locator receipts.
-- **Reconciled Historical Nodes**: 0 objects categorized across F1–F4 campaigns without silent identity promotion.
+- **Reconciled Historical Nodes**: 19 objects categorized across F1–F4 campaigns without silent identity promotion.
 - **Canonical Mathematical Formulations**: 27 structured canonical concepts.
-- **Batch Items Ingested**: 0 statements across packages F5A through F5E.
+- **Batch Items Ingested**: 72 statements across packages F5A through F5E.
 - **Formal Dependency Edges**: 6 explicit prerequisite and consequence relations.
 - **Reviewed Mechanism Joints**: 5 typed joints (`OPERATOR_ACTION`, `FIXED_POINT_CONSTRUCTION`, `EVOLUTION_FLOW`, `LINEARIZATION`, `SPECTRAL_PROJECTION`).
 - **Executable Contracts Evaluated**: 18 contracts (Q01–Q18) spanning exact rational bounds, symbolic identities, nonuniqueness counterexamples, and continuous-slab solution tubes.
@@ -27,11 +27,11 @@ Wave F5 establishes source-grounded mathematical intake across **Functional Anal
 
 | Package | Domain | Batch Code | Ingested Statements | Status |
 |---|---|---|---|---|
-| F5A | Deepened Topology & Function Spaces | `batch_f5a_topology_function_spaces` | 0 | ADMITTED |
-| F5B | Structural Functional Analysis | `batch_f5b_functional_analysis` | 0 | ADMITTED |
-| F5C | Operator & Spectral Theory | `batch_f5c_operator_theory` | 0 | ADMITTED |
-| F5D | ODE Existence, Uniqueness & Flows | `batch_f5d_ode_wellposedness` | 0 | ADMITTED |
-| F5E | Stability, Dynamics & BVPs | `batch_f5e_stability_dynamics` | 0 | ADMITTED |
+| F5A | Deepened Topology & Function Spaces | `batch_f5a_topology_function_spaces` | 14 | ADMITTED |
+| F5B | Structural Functional Analysis | `batch_f5b_functional_analysis` | 16 | ADMITTED |
+| F5C | Operator & Spectral Theory | `batch_f5c_operator_theory` | 14 | ADMITTED |
+| F5D | ODE Existence, Uniqueness & Flows | `batch_f5d_ode_wellposedness` | 14 | ADMITTED |
+| F5E | Stability, Dynamics & BVPs | `batch_f5e_stability_dynamics` | 14 | ADMITTED |
 
 ---
 

@@ -36,7 +36,7 @@ def generate_report(output_path: Optional[Path] = None) -> str:
     # 2. Load legacy reconciliation
     with open(FORMAL_DIR / "legacy_reconciliation_v0_22.json", "r", encoding="utf-8") as f:
         recon_data = json.load(f)
-    recon_entries = recon_data.get("reconciliations", [])
+    recon_entries = recon_data.get("reconciled_items", recon_data.get("reconciliations", []))
 
     # 3. Load formulations
     with open(FORMAL_DIR / "formulations.json", "r", encoding="utf-8") as f:
@@ -51,7 +51,7 @@ def generate_report(output_path: Optional[Path] = None) -> str:
             with open(b_file, "r", encoding="utf-8") as f:
                 b_data = json.load(f)
                 bid = b_data.get("batch_id", b_file.stem)
-                batch_items[bid] = b_data.get("items", [])
+                batch_items[bid] = b_data.get("declarations", b_data.get("items", []))
 
     # 5. Load dependencies
     with open(FORMAL_DIR / "dependencies.json", "r", encoding="utf-8") as f:

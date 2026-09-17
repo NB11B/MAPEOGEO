@@ -90,6 +90,20 @@ def compute_quorum(
                 reasons.append(f"Formal receipt missing mandatory fields: {required_receipt_fields}")
                 continue
 
+        # Geometric slot verification requirement (Dual-view integrity)
+        if slot_name == "geo":
+            payload = slot_data.get("witness_payload")
+            if not isinstance(payload, dict):
+                reasons.append("Geometric dual-view slot missing structured witness payload")
+                continue
+            substantive_keys = [
+                k for k in payload.keys()
+                if k not in ("verified", "error", "view_type", "geometric_interpretation")
+            ]
+            if not substantive_keys:
+                reasons.append("Geometric dual-view payload lacks substantive computed geometric artifacts")
+                continue
+
         # Check producer and execution digest uniqueness (anti-aliasing)
         producer_id = slot_data.get("producer_id", "")
         digest = slot_data.get("execution_digest", "")

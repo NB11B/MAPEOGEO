@@ -6,21 +6,33 @@
       "source_key": "VN",
       "title": "Functional Analysis",
       "authors": ["Jan van Neerven"],
-      "edition_or_version": "arXiv v7 (2021)",
+      "edition_or_version": "arXiv v7 (December 2021)",
       "entry_url": "https://arxiv.org/abs/2112.11166v7",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PINNED_ONLINE_EDITION",
       "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
-      "intended_contribution": "Banach/Hilbert space theory, Fredholm operators, sesquilinear forms, spectral theory, and C0-semigroups."
+      "intended_contribution": "Banach/Hilbert space theory, Fredholm operators, sesquilinear forms, spectral theory, and C0-semigroups.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://arxiv.org/abs/2112.11166v7",
+        "version_tag": "v7",
+        "pinned_sections": ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 5", "Chapter 6", "Chapter 7", "Chapter 8"],
+        "notes": "Full author monograph available on arXiv under standard non-exclusive license; statement locators pinned by theorem number."
+      }
     },
     {
       "source_key": "TE",
       "title": "Ordinary Differential Equations and Dynamical Systems",
       "authors": ["Gerald Teschl"],
-      "edition_or_version": "Graduate Studies in Mathematics / Author Online Edition (2012)",
+      "edition_or_version": "Graduate Studies in Mathematics Vol 140 / Author Online Edition (2012)",
       "entry_url": "https://www.mat.univie.ac.at/~gerald/ftp/book-ode/",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PINNED_ONLINE_EDITION",
       "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
-      "intended_contribution": "IVPs, linear systems, Floquet theory, Lyapunov stability, dynamical flows, and boundary value problems."
+      "intended_contribution": "IVPs, linear systems, Floquet theory, Lyapunov stability, dynamical flows, and boundary value problems.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://www.mat.univie.ac.at/~gerald/ftp/book-ode/",
+        "version_tag": "2012_online",
+        "pinned_sections": ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 5", "Chapter 6", "Chapter 7", "Chapter 8"],
+        "notes": "Online edition for personal viewing; statements cited by exact chapter/section theorem numbers without full-text redistribution."
+      }
     },
     {
       "source_key": "LR",
@@ -28,9 +40,15 @@
       "authors": ["Jiří Lebl"],
       "edition_or_version": "Version 6.3 (May 15, 2026)",
       "entry_url": "https://www.jirka.org/ra/",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PINNED_ONLINE_EDITION",
       "export_policy": "OPEN_ACCESS_CREATIVE_COMMONS",
-      "intended_contribution": "Metric spaces, completeness, continuous functions, and fixed points bridging Wave F4 into Wave F5."
+      "intended_contribution": "Metric spaces, completeness, continuous functions, and fixed points bridging Wave F4 into Wave F5.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://www.jirka.org/ra/",
+        "version_tag": "v6.3",
+        "pinned_sections": ["Chapter 7 (Metric Spaces)", "Chapter 8 (Sequences of Functions)"],
+        "notes": "Open-access Creative Commons CC-BY-NC-SA 4.0 edition."
+      }
     },
     {
       "source_key": "LD",
@@ -38,9 +56,15 @@
       "authors": ["Jiří Lebl"],
       "edition_or_version": "Version 6.5 (2025)",
       "entry_url": "https://www.jirka.org/diffyqs/",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PINNED_ONLINE_EDITION",
       "export_policy": "OPEN_ACCESS_CREATIVE_COMMONS",
-      "intended_contribution": "Elementary ODE formulations, exact solution methods, phase planes, and worked examples."
+      "intended_contribution": "Elementary ODE formulations, exact solution methods, phase planes, and worked examples.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://www.jirka.org/diffyqs/",
+        "version_tag": "v6.5",
+        "pinned_sections": ["Chapter 1 (First Order ODEs)", "Chapter 2 (Higher Order Linear)", "Chapter 3 (Systems)"],
+        "notes": "Open-access Creative Commons CC-BY-NC-SA 4.0 edition."
+      }
     },
     {
       "source_key": "AX",
@@ -48,9 +72,15 @@
       "authors": ["Sheldon Axler"],
       "edition_or_version": "Springer Open Edition (2020)",
       "entry_url": "https://measure.axler.net/",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PINNED_ONLINE_EDITION",
       "export_policy": "OPEN_ACCESS_CREATIVE_COMMONS",
-      "intended_contribution": "Measure spaces, Lebesgue integration, Lp spaces, and function-space prerequisites for functional analysis."
+      "intended_contribution": "Measure spaces, Lebesgue integration, Lp spaces, and function-space prerequisites for functional analysis.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://measure.axler.net/",
+        "version_tag": "2020_open",
+        "pinned_sections": ["Chapter 2", "Chapter 3", "Chapter 6", "Chapter 7"],
+        "notes": "Open-access Springer Graduate Texts in Mathematics (CC-BY-NC 4.0)."
+      }
     },
     {
       "source_key": "HU",
@@ -58,9 +88,15 @@
       "authors": ["John K. Hunter"],
       "edition_or_version": "UC Davis Course Notes (2014)",
       "entry_url": "https://www.math.ucdavis.edu/~hunter/pdes/pde_notes.pdf",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PINNED_ONLINE_EDITION",
       "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
-      "intended_contribution": "Sobolev spaces, weak derivatives, distributions, and evolution equation interfaces."
+      "intended_contribution": "Sobolev spaces, weak derivatives, distributions, and evolution equation interfaces.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://www.math.ucdavis.edu/~hunter/pdes/pde_notes.pdf",
+        "version_tag": "2014_uconline",
+        "pinned_sections": ["Chapter 4", "Chapter 5"],
+        "notes": "UC Davis Department of Mathematics lecture notes."
+      }
     },
     {
       "source_key": "FN",
@@ -68,9 +104,15 @@
       "authors": ["Tobin A. Driscoll", "Richard J. Braun"],
       "edition_or_version": "SIAM Edition (2017)",
       "entry_url": "https://fncbook.com/",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PINNED_ONLINE_EDITION",
       "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
-      "intended_contribution": "Numerical approximation, ODE IVP/BVP solvers, stability regions, and computational operator interfaces."
+      "intended_contribution": "Numerical approximation, ODE IVP/BVP solvers, stability regions, and computational operator interfaces.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://fncbook.com/",
+        "version_tag": "2017_siam",
+        "pinned_sections": ["Chapter 6 (Initial Value Problems)", "Chapter 11 (Boundary Value Problems)"],
+        "notes": "Online interactive companion to SIAM textbook."
+      }
     },
     {
       "source_key": "AR",
@@ -78,9 +120,15 @@
       "authors": ["Vladimir I. Arnold"],
       "edition_or_version": "MIT Press / Springer (1978 / 1992)",
       "entry_url": "https://mitpress.mit.edu/9780262510189/ordinary-differential-equations/",
-      "access_status": "PAGE_VERIFIED",
+      "access_status": "PENDING_PHYSICAL_INTAKE",
       "export_policy": "PHYSICAL_HOLDINGS_OCR_LOCATORS_ONLY",
-      "intended_contribution": "Geometric and qualitative ODE theory, vector fields on manifolds, phase flows, and Hamiltonian systems."
+      "intended_contribution": "Geometric and qualitative ODE theory, vector fields on manifolds, phase flows, and Hamiltonian systems.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://mitpress.mit.edu/9780262510189/ordinary-differential-equations/",
+        "version_tag": "3rd_ed_english",
+        "pinned_sections": ["Chapter 1", "Chapter 2", "Chapter 3", "Chapter 4"],
+        "notes": "Soviet/MIT physical monograph queued in mathematical coverage atlas; citation locators cataloged pending user-supplied scan receipt."
+      }
     },
     {
       "source_key": "KF",
@@ -88,9 +136,15 @@
       "authors": ["A. N. Kolmogorov", "S. V. Fomin"],
       "edition_or_version": "Nauka / Dover English Edition (1970)",
       "entry_url": "https://math.ru/lib/",
-      "access_status": "PHYSICAL_HOLDING",
+      "access_status": "PENDING_PHYSICAL_INTAKE",
       "export_policy": "PHYSICAL_HOLDINGS_OCR_LOCATORS_ONLY",
-      "intended_contribution": "Soviet-school functional analysis, metric and linear topological spaces, and spectral theory foundations."
+      "intended_contribution": "Soviet-school functional analysis, metric and linear topological spaces, and spectral theory foundations.",
+      "acquisition_receipt": {
+        "retrieval_url": "https://math.ru/lib/",
+        "version_tag": "dover_reprint",
+        "pinned_sections": ["Chapters 1-7"],
+        "notes": "Soviet classical monograph queued in mathematical coverage atlas; physical holdings intake pending specific edition page delivery."
+      }
     }
   ]
 }

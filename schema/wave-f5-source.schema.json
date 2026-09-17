@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://raw.githubusercontent.com/NB11B/MAPEOGEO/main/schema/wave-f5-source.schema.json",
   "title": "Wave F5 Source Registry Specification",
-  "description": "Schema for source registration, edition pinning, and export policies for Wave F5 coverage.",
+  "description": "Schema for source registration, edition pinning, acquisition receipts, and export policies for Wave F5 coverage.",
   "type": "object",
   "required": ["schema_version", "sources"],
   "properties": {
@@ -47,7 +47,15 @@
         "entry_url": { "type": "string" },
         "access_status": {
           "type": "string",
-          "enum": ["PAGE_VERIFIED", "DISCOVERY", "PHYSICAL_HOLDING", "PINNED_SOURCE"]
+          "enum": [
+            "PAGE_VERIFIED",
+            "DISCOVERY",
+            "PHYSICAL_HOLDING",
+            "PINNED_SOURCE",
+            "PINNED_ONLINE_EDITION",
+            "PENDING_PHYSICAL_INTAKE",
+            "CITATION_METADATA_ONLY"
+          ]
         },
         "export_policy": {
           "type": "string",
@@ -59,7 +67,16 @@
           ]
         },
         "intended_contribution": { "type": "string" },
-        "notes": { "type": "string" }
+        "acquisition_receipt": {
+          "type": "object",
+          "properties": {
+            "retrieval_url": { "type": "string" },
+            "version_tag": { "type": "string" },
+            "pinned_sections": { "type": "array", "items": { "type": "string" } },
+            "notes": { "type": "string" }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     }

@@ -27,3 +27,5 @@ Thumbs.db
 artifacts/
 data/sources/
 *.pdf
+.crossbranch/
+tmp_pytest_cache/
