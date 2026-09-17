@@ -73,8 +73,11 @@ jobs:
           leanchecker: false
           nanoda: false
 
+      - name: Reconstruct dependency chain up to Wave F4
+        run: python scripts/reconstruct_pipeline.py --target-stage wave_f4
+
       - name: Run complete regression test suite
-        run: python -m pytest -v
+        run: python -m pytest tests -v
 
       - name: Reconstruct twice from clean exported trees
         shell: bash
