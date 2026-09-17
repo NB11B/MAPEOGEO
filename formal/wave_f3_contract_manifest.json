@@ -1,0 +1,551 @@
+{
+  "campaign_name": "ABSTRACT_ALGEBRA_AND_NUMBER_THEORY_DUAL_VIEW_AUDIT",
+  "contracts_breakdown": {
+    "EXACT_MATCH": 15,
+    "HOMOLOGY_EQUIVALENCE": 7,
+    "ISOMORPHIC_WITNESS": 10
+  },
+  "expected_verdicts_breakdown": {
+    "VERIFIED_BOUNDED_CONTRACT_COMMUTATION": 32
+  },
+  "families_breakdown": {
+    "GROUPS": 12,
+    "NUMBER_THEORY": 8,
+    "RINGS_FIELDS": 12
+  },
+  "schema_version": "0.21",
+  "stage": "v0.21_wave_f3",
+  "target_concepts": [
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:DEF:divisibility",
+        "decl:STEIN_ENT:DEF:greatest_common_divisor"
+      ],
+      "canonical_id": "canonical:number_theory:divisibility_and_gcd",
+      "contract": "EXACT_MATCH",
+      "description": "Divisibility lattice and greatest common divisor linear combination invariant.",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "a, b integers",
+        "not both zero"
+      ],
+      "name": "Divisibility and Greatest Common Divisor",
+      "quantifier_contract": "FORALL (a, b in Z, not both 0) EXISTS! (d = gcd(a,b) in Z+)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:THM:euclidean_algorithm"
+      ],
+      "canonical_id": "canonical:number_theory:euclidean_algorithm",
+      "contract": "EXACT_MATCH",
+      "description": "Division algorithm finite remainder descent chain computing gcd(a,b).",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "a in Z",
+        "b > 0"
+      ],
+      "name": "The Euclidean Division and Remainder Algorithm",
+      "quantifier_contract": "FORALL (a in Z, b in Z+) EXISTS (q_k, r_k finite descent trace ending in 0)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:THM:bezout_identity"
+      ],
+      "canonical_id": "canonical:number_theory:bezout_identity",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Extended Euclidean matrix backward substitution computing B\u00e9zout certificates.",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "a, b in Z"
+      ],
+      "name": "B\u00e9zout's Identity and Extended Euclidean Multipliers",
+      "quantifier_contract": "FORALL (a, b in Z) EXISTS (x, y in Z : a*x + b*y = gcd(a,b))"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:THM:fundamental_theorem_arithmetic"
+      ],
+      "canonical_id": "canonical:number_theory:prime_factorization",
+      "contract": "EXACT_MATCH",
+      "description": "Unique prime factorization multi-set representation.",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "n integer >= 2"
+      ],
+      "name": "Fundamental Theorem of Arithmetic and Prime Factorization",
+      "quantifier_contract": "FORALL (n >= 2) EXISTS! (p_1^{e_1} ... p_k^{e_k} canonical prime power product)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:DEF:congruence"
+      ],
+      "canonical_id": "canonical:number_theory:congruences_and_modular_arithmetic",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "description": "Modular residue classes and cyclic quotient ring Z/mZ operations.",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "modulus m >= 2"
+      ],
+      "name": "Modular Congruences and Residue Ring Arithmetic",
+      "quantifier_contract": "FORALL (m in Z+, a, b in Z : a == b mod m <=> m | (a-b))"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:THM:chinese_remainder_theorem"
+      ],
+      "canonical_id": "canonical:number_theory:chinese_remainder_theorem",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Simultaneous residue reconstruction isomorphism Z_mn = Z_m x Z_n.",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "gcd(m, n) = 1",
+        "m, n >= 2"
+      ],
+      "name": "Chinese Remainder Theorem for Coprime Moduli",
+      "quantifier_contract": "FORALL (m, n coprime, a, b in Z) EXISTS! (x in Z_{mn} : x == a mod m and x == b mod n)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:DEF:euler_totient",
+        "decl:STEIN_ENT:THM:euler_theorem"
+      ],
+      "canonical_id": "canonical:number_theory:euler_totient_and_theorem",
+      "contract": "EXACT_MATCH",
+      "description": "Coprime residue group order phi(n) and modular power cycle closure.",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "n >= 2",
+        "gcd(a, n) = 1"
+      ],
+      "name": "Euler's Totient Function and Coprime Exponentiation Theorem",
+      "quantifier_contract": "FORALL (n in Z+, a in Z with gcd(a,n)=1 : a^{phi(n)} == 1 mod n)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:STEIN_ENT:THM:fermat_little_theorem"
+      ],
+      "canonical_id": "canonical:number_theory:fermats_little_theorem",
+      "contract": "EXACT_MATCH",
+      "description": "Prime field multiplicative order p-1 modular inversion.",
+      "domain": "Elementary Number Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "NUMBER_THEORY",
+      "hypotheses": [
+        "p is prime",
+        "gcd(a, p) = 1"
+      ],
+      "name": "Fermat's Little Theorem for Prime Moduli",
+      "quantifier_contract": "FORALL (p prime, a in Z with p !| a : a^{p-1} == 1 mod p)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:group"
+      ],
+      "canonical_id": "canonical:groups:group_axioms",
+      "contract": "EXACT_MATCH",
+      "description": "Cayley regular representation and Latin square table consistency.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "Set G closed under binary op",
+        "Identity and inverse existence"
+      ],
+      "name": "Group Axioms and Permutation Regular Representations",
+      "quantifier_contract": "FORALL (a, b, c in G : (ab)c = a(bc), exists e, exists a^{-1})"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:subgroup"
+      ],
+      "canonical_id": "canonical:groups:subgroups",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "description": "Subgroup poset lattice and closure under inverses.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "H subset G non-empty",
+        "One-step subgroup criterion"
+      ],
+      "name": "Subgroups, Subgroup Criterion, and Lattices",
+      "quantifier_contract": "FORALL (non-empty H subset G : (a, b in H => ab^{-1} in H) <=> H <= G)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:coset"
+      ],
+      "canonical_id": "canonical:groups:cosets",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Equipotent disjoint coset fiber partition of group manifold.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "H <= G",
+        "G finite or discrete"
+      ],
+      "name": "Left and Right Coset Partitions",
+      "quantifier_contract": "FORALL (H <= G, g in G : |gH| = |H| and cosets form partition of G)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:THM:lagrange"
+      ],
+      "canonical_id": "canonical:groups:lagrange_theorem",
+      "contract": "EXACT_MATCH",
+      "description": "Index formula and order divisibility across finite groups.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "G finite group",
+        "H <= G"
+      ],
+      "name": "Lagrange's Order Divisibility Theorem",
+      "quantifier_contract": "FORALL (finite G, H <= G : |H| divides |G| and |G| = [G:H] * |H|)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:cyclic_group"
+      ],
+      "canonical_id": "canonical:groups:cyclic_groups",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "description": "Cyclic permutation digraph and divisor subgroup lattice.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "G cyclic group"
+      ],
+      "name": "Cyclic Groups, Generators, and Subgroup Lattices",
+      "quantifier_contract": "FORALL (G = <a> cyclic of order n : for every d | n exists unique subgroup of order d)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:group_homomorphism"
+      ],
+      "canonical_id": "canonical:groups:group_homomorphisms",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Homomorphic commutative diagram tensor evaluation.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "G, H groups",
+        "f structure-preserving map"
+      ],
+      "name": "Group Homomorphisms and Structure Preservation",
+      "quantifier_contract": "FORALL (f: G -> H : f(xy) = f(x)f(y) for all x, y in G)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:kernel_and_image"
+      ],
+      "canonical_id": "canonical:groups:kernels_and_images",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Kernel subspace projection and inverse image fiber partition.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "f: G -> H group homomorphism"
+      ],
+      "name": "Kernels, Images, and Fiber Decompositions",
+      "quantifier_contract": "FORALL (f: G -> H : ker f <= G, im f <= H, fibers f^{-1}(h) = g * ker f)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:normal_subgroup"
+      ],
+      "canonical_id": "canonical:groups:normal_subgroups",
+      "contract": "EXACT_MATCH",
+      "description": "Self-conjugate normal subgroup characterization and left/right coset equality.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "N <= G",
+        "Conjugation invariance"
+      ],
+      "name": "Normal Subgroups and Conjugation Invariance",
+      "quantifier_contract": "FORALL (N <= G : (forall g in G : gNg^{-1} = N) <=> N <| G)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:quotient_group"
+      ],
+      "canonical_id": "canonical:groups:quotient_groups",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "description": "Quotient group Cayley graph and coset multiplication table.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "N normal subgroup of G"
+      ],
+      "name": "Factor Groups and Coset Multiplication Operations",
+      "quantifier_contract": "FORALL (N <| G : (aN)(bN) = (ab)N is well-defined group on G/N)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:THM:first_isomorphism_groups"
+      ],
+      "canonical_id": "canonical:groups:first_isomorphism_theorem_groups",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Canonical bijective isomorphism between quotient cosets and image elements.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "f: G -> H homomorphism"
+      ],
+      "name": "First Isomorphism Theorem for Groups",
+      "quantifier_contract": "FORALL (f: G -> H : ker f <| G and G / ker f ~= im f)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:symmetric_group"
+      ],
+      "canonical_id": "canonical:groups:symmetric_and_alternating_groups",
+      "contract": "EXACT_MATCH",
+      "description": "Permutation cycle decomposition and alternating group index 2 parity kernel.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "Degree n >= 2"
+      ],
+      "name": "Symmetric and Alternating Groups, Cycle Parity",
+      "quantifier_contract": "FORALL (n >= 2 : sgn: S_n -> {+1, -1} is homom, ker(sgn) = A_n with |A_n| = n!/2)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:THM:orbit_stabilizer"
+      ],
+      "canonical_id": "canonical:groups:group_actions_and_orbit_stabilizer",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Action permutation matrix representation and orbit-stabilizer coset bijection.",
+      "domain": "Group Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "GROUPS",
+      "hypotheses": [
+        "G finite group acting on finite set X"
+      ],
+      "name": "Group Actions, Orbits, and Orbit-Stabilizer Theorem",
+      "quantifier_contract": "FORALL (G acting on X, x in X : |G| = |Orb(x)| * |Stab(x)|)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:ring"
+      ],
+      "canonical_id": "canonical:rings_fields:ring_axioms",
+      "contract": "EXACT_MATCH",
+      "description": "Bilinear ring operation tensors and distributive validation.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "Set R with two binary operations +, *"
+      ],
+      "name": "Ring Axioms and Matrix Ring Structures",
+      "quantifier_contract": "FORALL (a, b, c in R : (R,+) abelian, * assoc, a(b+c)=ab+ac, (a+b)c=ac+bc)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:units_zero_divisors"
+      ],
+      "canonical_id": "canonical:rings_fields:units_and_zero_divisors",
+      "contract": "EXACT_MATCH",
+      "description": "Multiplicative group of units R^x and zero-divisor graph.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "Ring R with unity"
+      ],
+      "name": "Units, Invertible Elements, and Zero Divisors",
+      "quantifier_contract": "FORALL (r in R with 1 : r in R^x <=> exists r^{-1}; r zero-divisor <=> exists s!=0: rs=0)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:integral_domain"
+      ],
+      "canonical_id": "canonical:rings_fields:integral_domains",
+      "contract": "EXACT_MATCH",
+      "description": "Zero-divisor-free ring cancellation algebraic and cell verification.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "Commutative ring R with 1 != 0"
+      ],
+      "name": "Integral Domains and Cancellation Properties",
+      "quantifier_contract": "FORALL (comm ring R with 1!=0 : (forall a, b: ab=0 => a=0 or b=0) <=> R is domain)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:ideal"
+      ],
+      "canonical_id": "canonical:rings_fields:ideals",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "description": "Absorption matrix closure and principal ideal generator lattice.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "R ring",
+        "I additive subgroup with multiplicative absorption"
+      ],
+      "name": "Ideals, Ideal Absorption, and Principal Ideals",
+      "quantifier_contract": "FORALL (I subset R : (I <= (R,+) and forall r in R, a in I: ra in I) <=> I is ideal)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:quotient_ring"
+      ],
+      "canonical_id": "canonical:rings_fields:quotient_rings",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "description": "Quotient ring addition and multiplication coset cell complex.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "I ideal in ring R"
+      ],
+      "name": "Quotient Rings and Residue Arithmetic",
+      "quantifier_contract": "FORALL (ideal I of R : (r+I)(s+I) = rs+I is well-defined on R/I)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:ring_homomorphism"
+      ],
+      "canonical_id": "canonical:rings_fields:ring_homomorphisms",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Ring homomorphism kernel ideal absorption and quotient isomorphism.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "phi additive and multiplicative homomorphism"
+      ],
+      "name": "Ring Homomorphisms, Kernels, and First Isomorphism Theorem",
+      "quantifier_contract": "FORALL (phi: R -> S : ker phi is ideal of R and R / ker phi ~= im phi)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:prime_ideal"
+      ],
+      "canonical_id": "canonical:rings_fields:prime_ideals",
+      "contract": "EXACT_MATCH",
+      "description": "Prime ideal factor characterization and domain quotient verification.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "R commutative ring with unity",
+        "P proper ideal"
+      ],
+      "name": "Prime Ideals and Integral Domain Quotient Characterization",
+      "quantifier_contract": "FORALL (ideal P of comm R : (ab in P => a in P or b in P) <=> R/P is integral domain)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:maximal_ideal"
+      ],
+      "canonical_id": "canonical:rings_fields:maximal_ideals",
+      "contract": "EXACT_MATCH",
+      "description": "Maximal ideal unit-generation and field inversion quotient verification.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "R commutative ring with unity",
+        "M proper maximal ideal"
+      ],
+      "name": "Maximal Ideals and Field Quotient Characterization",
+      "quantifier_contract": "FORALL (ideal M of comm R : M maximal <=> R/M is a field)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:polynomial_ring"
+      ],
+      "canonical_id": "canonical:rings_fields:polynomial_rings",
+      "contract": "EXACT_MATCH",
+      "description": "Polynomial coefficient algebra matrix and convolution multiplication.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "R commutative ring or field"
+      ],
+      "name": "Polynomial Rings R[x] and Degree Valuations",
+      "quantifier_contract": "FORALL (f, g in R[x] over domain R : deg(f*g) = deg(f) + deg(g))"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:irreducible_polynomial"
+      ],
+      "canonical_id": "canonical:rings_fields:irreducibility_and_quotients",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Irreducible polynomial Euclidean inversion matrix constructing field F[x]/(p(x)).",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "F is a field",
+        "p(x) non-constant"
+      ],
+      "name": "Irreducible Polynomials and Quotient Extension Fields",
+      "quantifier_contract": "FORALL (p(x) in F[x] : p(x) irreducible <=> F[x]/(p(x)) is a field)"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:DEF:field_extension"
+      ],
+      "canonical_id": "canonical:rings_fields:field_extensions",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "description": "Vector space basis expansion and degree product tower law.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "Tower of field extensions F <= K <= E"
+      ],
+      "name": "Field Extensions, Algebraic Elements, and Tower Law",
+      "quantifier_contract": "FORALL (F <= K <= E fields : [E : F] = [E : K] * [K : F])"
+    },
+    {
+      "aligned_source_node_ids": [
+        "decl:JUDSON_ALG:THM:finite_fields"
+      ],
+      "canonical_id": "canonical:rings_fields:finite_fields",
+      "contract": "ISOMORPHIC_WITNESS",
+      "description": "Galois field GF(p^n) arithmetic, Frobenius linear map, and cyclic unit generator.",
+      "domain": "Ring & Field Theory",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
+      "family": "RINGS_FIELDS",
+      "hypotheses": [
+        "p prime",
+        "dimension n >= 1"
+      ],
+      "name": "Finite Fields (Galois Fields) and Frobenius Automorphisms",
+      "quantifier_contract": "FORALL (prime p, n >= 1 : exists! GF(p^n) of order p^n; Frob(x)=x^p is automorphism)"
+    }
+  ],
+  "total_canonical_concepts": 32
+}

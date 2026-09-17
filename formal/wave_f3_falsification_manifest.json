@@ -1,0 +1,103 @@
+{
+  "mutants": [
+    {
+      "description": "Substitute composite modulus n=6 into Fermat's Little Theorem (2^5 = 32 = 2 != 1 mod 6).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "NUMBER_THEORY",
+      "mutant_id": "MUT:NT:01_FERMAT_COMPOSITE_MODULUS",
+      "mutation_class": "NON_PRIME_MODULUS_SUBSTITUTION",
+      "target_canonical_id": "canonical:number_theory:fermats_little_theorem"
+    },
+    {
+      "description": "Use non-coprime moduli m1=4, m2=6 with contradictory residues x=1 mod 4 and x=2 mod 6.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "NUMBER_THEORY",
+      "mutant_id": "MUT:NT:02_CRT_NON_COPRIME_MODULI",
+      "mutation_class": "INVALID_COPRIMALITY_HYPOTHESIS",
+      "target_canonical_id": "canonical:number_theory:chinese_remainder_theorem"
+    },
+    {
+      "description": "Perturb B\u00e9zout multiplier pair (x, y) such that a*x + b*y != gcd(a, b).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "NUMBER_THEORY",
+      "mutant_id": "MUT:NT:03_BEZOUT_CORRUPTED_COEFFICIENTS",
+      "mutation_class": "CORRUPTED_LINEAR_COMBINATION",
+      "target_canonical_id": "canonical:number_theory:bezout_identity"
+    },
+    {
+      "description": "Evaluate power a^{phi(n)+1} mod n violating group order identity.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "NUMBER_THEORY",
+      "mutant_id": "MUT:NT:04_EULER_WRONG_TOTIENT",
+      "mutation_class": "ALTERED_EXPONENT_POWER",
+      "target_canonical_id": "canonical:number_theory:euler_totient_and_theorem"
+    },
+    {
+      "description": "Attempt to form factor group on non-normal subgroup H = <(1 2)> in S_3 (coset multiplication ill-defined).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "GROUPS",
+      "mutant_id": "MUT:GRP:05_NON_NORMAL_SUBGROUP_QUOTIENT",
+      "mutation_class": "NON_NORMAL_SUBGROUP_QUOTIENT",
+      "target_canonical_id": "canonical:groups:quotient_groups"
+    },
+    {
+      "description": "Perturb a single entry in Cayley multiplication table to violate associativity (ab)c != a(bc).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "GROUPS",
+      "mutant_id": "MUT:GRP:06_BROKEN_ASSOCIATIVITY_CAYLEY_TABLE",
+      "mutation_class": "BROKEN_ASSOCIATIVITY",
+      "target_canonical_id": "canonical:groups:group_axioms"
+    },
+    {
+      "description": "Inject map f: G -> H violating homomorphism property f(xy) != f(x)f(y).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "GROUPS",
+      "mutant_id": "MUT:GRP:07_CORRUPTED_HOMOMORPHISM_MAP",
+      "mutation_class": "CORRUPTED_HOMOMORPHISM",
+      "target_canonical_id": "canonical:groups:group_homomorphisms"
+    },
+    {
+      "description": "Construct unequal coset fiber sizes violating equipotence |gH| != |H|.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "GROUPS",
+      "mutant_id": "MUT:GRP:08_COSET_FIBER_IMBALANCE",
+      "mutation_class": "COSET_PARTITION_VIOLATION",
+      "target_canonical_id": "canonical:groups:cosets"
+    },
+    {
+      "description": "Claim non-maximal ideal (x^2) in R[x] yields a quotient field (contains zero divisor x + (x^2)).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "RINGS_FIELDS",
+      "mutant_id": "MUT:RNG:09_NON_MAXIMAL_IDEAL_FIELD_CLAIM",
+      "mutation_class": "NON_MAXIMAL_IDEAL_FIELD_CLAIM",
+      "target_canonical_id": "canonical:rings_fields:maximal_ideals"
+    },
+    {
+      "description": "Claim composite ideal (6) in Z yields an integral domain (2 * 3 = 0 in Z/6Z).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "RINGS_FIELDS",
+      "mutant_id": "MUT:RNG:10_NON_PRIME_IDEAL_DOMAIN_CLAIM",
+      "mutation_class": "NON_PRIME_IDEAL_DOMAIN_CLAIM",
+      "target_canonical_id": "canonical:rings_fields:prime_ideals"
+    },
+    {
+      "description": "Attempt to construct field extension via reducible polynomial x^2 - 1 = (x-1)(x+1) in F_2[x].",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "RINGS_FIELDS",
+      "mutant_id": "MUT:RNG:11_REDUCIBLE_POLYNOMIAL_FIELD_CLAIM",
+      "mutation_class": "REDUCIBLE_POLYNOMIAL_FIELD_CLAIM",
+      "target_canonical_id": "canonical:rings_fields:irreducibility_and_quotients"
+    },
+    {
+      "description": "Perturb Frobenius map x |-> x^p violating fresh-man's dream (x+y)^p != x^p + y^p.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "family": "RINGS_FIELDS",
+      "mutant_id": "MUT:RNG:12_CORRUPTED_FROBENIUS_LINEARITY",
+      "mutation_class": "CORRUPTED_FROBENIUS_MAP",
+      "target_canonical_id": "canonical:rings_fields:finite_fields"
+    }
+  ],
+  "schema_version": "0.21",
+  "stage": "v0.21_wave_f3",
+  "total_registered_mutants": 12
+}

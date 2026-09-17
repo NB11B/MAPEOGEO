@@ -1,0 +1,119 @@
+{
+  "relations": [
+    {
+      "mathematical_claim": "The division sequence of the Euclidean algorithm constructs the B\u00e9zout integer linear multipliers (x, y) via backward substitution matrix recursion.",
+      "relation_id": "REL:F3:EUCLIDEAN_TO_BEZOUT",
+      "relation_type": "CONSTRUCTION",
+      "source_canonical_id": "canonical:number_theory:euclidean_algorithm",
+      "target_canonical_id": "canonical:number_theory:bezout_identity",
+      "witness_validator": "validate_euclidean_bezout_construction"
+    },
+    {
+      "mathematical_claim": "The existence of integers (x, y) with ax + by = d implies d is the greatest common divisor gcd(a, b).",
+      "relation_id": "REL:F3:BEZOUT_TO_GCD",
+      "relation_type": "IMPLICATION",
+      "source_canonical_id": "canonical:number_theory:bezout_identity",
+      "target_canonical_id": "canonical:number_theory:divisibility_and_gcd",
+      "witness_validator": "validate_bezout_gcd_implication"
+    },
+    {
+      "mathematical_claim": "Euler's theorem a^{phi(n)} == 1 (mod n) specializes to Fermat's Little Theorem a^{p-1} == 1 (mod p) whenever n = p is a prime, since phi(p) = p - 1.",
+      "relation_id": "REL:F3:EULER_TO_FERMAT",
+      "relation_type": "SPECIALIZATION",
+      "source_canonical_id": "canonical:number_theory:euler_totient_and_theorem",
+      "target_canonical_id": "canonical:number_theory:fermats_little_theorem",
+      "witness_validator": "validate_euler_fermat_specialization"
+    },
+    {
+      "mathematical_claim": "The Chinese Remainder Theorem establishes a ring isomorphism Z/(mn)Z ~= Z/mZ x Z/nZ for pairwise coprime integers gcd(m, n) = 1.",
+      "relation_id": "REL:F3:CRT_TO_RING_PRODUCT",
+      "relation_type": "ISOMORPHISM",
+      "source_canonical_id": "canonical:number_theory:chinese_remainder_theorem",
+      "target_canonical_id": "canonical:rings_fields:quotient_rings",
+      "witness_validator": "validate_crt_ring_product_isomorphism"
+    },
+    {
+      "mathematical_claim": "The left cosets of subgroup H in G partition the finite group G into [G:H] disjoint fibers of uniform size |H|, establishing Lagrange's formula |G| = [G:H] * |H|.",
+      "relation_id": "REL:F3:COSETS_TO_LAGRANGE",
+      "relation_type": "PARTITION",
+      "source_canonical_id": "canonical:groups:cosets",
+      "target_canonical_id": "canonical:groups:lagrange_theorem",
+      "witness_validator": "validate_cosets_lagrange_partition"
+    },
+    {
+      "mathematical_claim": "Any group homomorphism f: G -> H constructs a unique kernel subgroup ker f = f^{-1}(e_H) and image subgroup im f <= H.",
+      "relation_id": "REL:F3:HOMOMORPHISM_TO_KERNEL",
+      "relation_type": "CONSTRUCTION",
+      "source_canonical_id": "canonical:groups:group_homomorphisms",
+      "target_canonical_id": "canonical:groups:kernels_and_images",
+      "witness_validator": "validate_homomorphism_kernel_construction"
+    },
+    {
+      "mathematical_claim": "The kernel of any group homomorphism f: G -> H is invariant under conjugation (g (ker f) g^{-1} = ker f for all g in G), and hence is normal in G.",
+      "relation_id": "REL:F3:KERNEL_TO_NORMAL",
+      "relation_type": "IMPLICATION",
+      "source_canonical_id": "canonical:groups:kernels_and_images",
+      "target_canonical_id": "canonical:groups:normal_subgroups",
+      "witness_validator": "validate_kernel_normal_implication"
+    },
+    {
+      "mathematical_claim": "A normal subgroup N <| G constructs a well-defined factor group G/N with coset operation (aN)(bN) = (ab)N.",
+      "relation_id": "REL:F3:NORMAL_TO_QUOTIENT",
+      "relation_type": "CONSTRUCTION",
+      "source_canonical_id": "canonical:groups:normal_subgroups",
+      "target_canonical_id": "canonical:groups:quotient_groups",
+      "witness_validator": "validate_normal_quotient_construction"
+    },
+    {
+      "mathematical_claim": "The factor group G/ker f is canonically isomorphic to the image subgroup im f under g(ker f) |-> f(g).",
+      "relation_id": "REL:F3:QUOTIENT_TO_FIRST_ISOMORPHISM",
+      "relation_type": "ISOMORPHISM",
+      "source_canonical_id": "canonical:groups:quotient_groups",
+      "target_canonical_id": "canonical:groups:first_isomorphism_theorem_groups",
+      "witness_validator": "validate_quotient_first_isomorphism"
+    },
+    {
+      "mathematical_claim": "The Orbit-Stabilizer theorem decomposes the group action fibers G/Stab(x) ~= Orb(x), deriving |G| = |Orb(x)| * |Stab(x)| as a direct consequence of Lagrange's theorem on Stab(x) <= G.",
+      "relation_id": "REL:F3:ACTION_TO_ORBIT_STABILIZER",
+      "relation_type": "DECOMPOSITION",
+      "source_canonical_id": "canonical:groups:group_actions_and_orbit_stabilizer",
+      "target_canonical_id": "canonical:groups:lagrange_theorem",
+      "witness_validator": "validate_action_orbit_stabilizer_decomposition"
+    },
+    {
+      "mathematical_claim": "An ideal P in a commutative ring R with unity is prime if and only if the quotient ring R/P is an integral domain.",
+      "relation_id": "REL:F3:PRIME_IDEAL_TO_DOMAIN",
+      "relation_type": "QUOTIENT",
+      "source_canonical_id": "canonical:rings_fields:prime_ideals",
+      "target_canonical_id": "canonical:rings_fields:integral_domains",
+      "witness_validator": "validate_prime_ideal_domain_quotient"
+    },
+    {
+      "mathematical_claim": "An ideal M in a commutative ring R with unity is maximal if and only if the quotient ring R/M is a field.",
+      "relation_id": "REL:F3:MAXIMAL_IDEAL_TO_FIELD",
+      "relation_type": "QUOTIENT",
+      "source_canonical_id": "canonical:rings_fields:maximal_ideals",
+      "target_canonical_id": "canonical:rings_fields:finite_fields",
+      "witness_validator": "validate_maximal_ideal_field_quotient"
+    },
+    {
+      "mathematical_claim": "An irreducible polynomial p(x) in F[x] constructs a simple algebraic field extension K = F[x]/(p(x)) with degree [K:F] = deg(p).",
+      "relation_id": "REL:F3:IRREDUCIBLE_TO_FIELD_EXTENSION",
+      "relation_type": "CONSTRUCTION",
+      "source_canonical_id": "canonical:rings_fields:irreducibility_and_quotients",
+      "target_canonical_id": "canonical:rings_fields:field_extensions",
+      "witness_validator": "validate_irreducible_field_extension_construction"
+    },
+    {
+      "mathematical_claim": "The multiplicative group of any finite field GF(q)^x is cyclic of order q - 1, isomorphic to (Z/(q-1)Z, +).",
+      "relation_id": "REL:F3:FINITE_FIELD_TO_CYCLIC_UNITS",
+      "relation_type": "ISOMORPHISM",
+      "source_canonical_id": "canonical:rings_fields:finite_fields",
+      "target_canonical_id": "canonical:groups:cyclic_groups",
+      "witness_validator": "validate_finite_field_cyclic_units_isomorphism"
+    }
+  ],
+  "schema_version": "0.21",
+  "stage": "v0.21_wave_f3",
+  "total_typed_relations": 14
+}
