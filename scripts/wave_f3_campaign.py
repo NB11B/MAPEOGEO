@@ -531,13 +531,13 @@ def main() -> int:
 
     ev_path = Path(args.out_evidence)
     ev_path.parent.mkdir(parents=True, exist_ok=True)
-    ev_path.write_text(json.dumps(results, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    ev_path.write_bytes((json.dumps(results, indent=2, sort_keys=True) + "\n").encode("utf-8"))
     print(f"Saved Wave F3 evidence to: {ev_path}")
 
     report_path = Path(args.out_report)
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_text = generate_markdown_report(results)
-    report_path.write_text(report_text, encoding="utf-8")
+    report_path.write_bytes(report_text.encode("utf-8"))
     print(f"Saved Wave F3 report to: {report_path}")
 
     print(f"=== Wave F3 Abstract Algebra & Number Theory Summary ===")

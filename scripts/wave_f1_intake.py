@@ -308,7 +308,7 @@ def run_wave_f1_intake(
         },
     }
     evidence_out.parent.mkdir(parents=True, exist_ok=True)
-    evidence_out.write_text(json.dumps(scientific_results, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    evidence_out.write_bytes((json.dumps(scientific_results, indent=2, sort_keys=True) + "\n").encode("utf-8"))
     print(f"[Wave F1 Intake] Saved scientific evidence results to {evidence_out}")
 
     # Generate Markdown Report
@@ -368,7 +368,7 @@ Wave F1 expands MAPEOGEO into formal logic, set theory, and discrete mathematics
 4. **Clean-Room Reproducibility**: Pipeline reconstructs idempotently from clean checkout in `< 6s`.
 """
     report_out.parent.mkdir(parents=True, exist_ok=True)
-    report_out.write_text(report_content, encoding="utf-8")
+    report_out.write_bytes(report_content.encode("utf-8"))
     print(f"[Wave F1 Intake] Saved report to {report_out}")
 
     return scientific_results
