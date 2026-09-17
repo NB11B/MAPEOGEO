@@ -68,7 +68,7 @@ class AlgebraRelationshipAuditor:
 
     @staticmethod
     def validate_bezout_gcd_implication(src_eo, src_geo, tgt_eo, tgt_geo) -> tuple[bool, dict[str, Any], str]:
-        # Bézout certificate ax + by = d with d|a, d|b, and forall c (c|a & c|b => c|d) implies d = gcd(a,b)
+        # Bézout certificate ax + by = d with d|a, d|b, and forall c > 0 (c|a & c|b => c|d and c <= d) implies d = gcd(a,b)
         gcd_src = src_eo.normalized_values.get("gcd", 21)
         id_holds = src_eo.normalized_values.get("identity_holds", True)
         multipliers = src_eo.normalized_values.get("bezout_multipliers", [-2, 5])
@@ -81,16 +81,24 @@ class AlgebraRelationshipAuditor:
         linear_comb = (a * multipliers[0] + b * multipliers[1] == d)
         least_positive = (d > 0) and linear_comb and divides_a and divides_b
 
-        verified = least_positive and (id_holds is True)
+        # Universal quantifier over all positive common divisors c > 0
+        universal_divisors_hold = all(
+            (d % c == 0 and c <= d)
+            for c in range(1, max(a, b) + 1)
+            if a % c == 0 and b % c == 0
+        )
+
+        verified = least_positive and universal_divisors_hold and (id_holds is True)
         witness = {
             "bezout_d": d,
             "divides_a": divides_a,
             "divides_b": divides_b,
             "linear_combination_exact": linear_comb,
-            "universal_divisor_property": "forall c: c|a and c|b => c|(ax+by) = c|d",
+            "universal_divisor_property": "forall c > 0: (c|a and c|b) => (c|d and c <= d)",
+            "universal_positive_divisors_verified": universal_divisors_hold,
             "is_least_positive_linear_combination": True,
         }
-        return verified, witness, "Bézout least positive linear combination proves d = gcd(a,b) with d|a, d|b, and universal divisor property."
+        return verified, witness, "Bézout least positive linear combination proves d = gcd(a,b) with d|a, d|b, and universal positive divisor property."
 
     @staticmethod
     def validate_euler_fermat_specialization(src_eo, src_geo, tgt_eo, tgt_geo) -> tuple[bool, dict[str, Any], str]:

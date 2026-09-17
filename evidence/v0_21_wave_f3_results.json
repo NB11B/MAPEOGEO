@@ -1316,7 +1316,7 @@
     ],
     "total_matrix_pairs": 1024
   },
-  "evidence_sha256": "4449c1a7dcf794e2a9fb84284bfeecd381d2d558866d1c796a4763fc326e4707",
+  "evidence_sha256": "f79590e291738910d7876464634221c6d78083c507385fb55e4af7f3cc983ab0",
   "exact_claim_boundary": "32 of 32 abstract algebra and number theory concepts commute under bounded equivalence contracts, and 14 of 14 typed mathematical relationship edges commute across independent EO and GEO realizations",
   "falsification_suite": {
     "mutant_kill_rate": 1.0,
@@ -1493,12 +1493,28 @@
         "verdict": "NONCOMMUTATIVE_UNDER_CONTRACT"
       },
       {
-        "description": "Claim non-maximal ideal (x^2) in R[x] yields a quotient field (contains zero divisor x + (x^2)).",
+        "description": "Claim proper non-maximal ideal (0) in finite ring R = Z/4Z yields a quotient field (proper intermediate ideal (2) with (0) subset (2) subset R, so R/(0) ~= Z/4Z is not a field).",
         "detection_witness": {
           "discrepancies": {
+            "inv:affine_line": {
+              "eo": 4,
+              "geo": 2
+            },
+            "maximal_ideal_size": {
+              "eo": 1,
+              "geo": 6
+            },
+            "parent_order": {
+              "eo": 4,
+              "geo": 12
+            },
             "quotient_is_field": {
               "eo": false,
               "geo": true
+            },
+            "quotient_order": {
+              "eo": 4,
+              "geo": 2
             }
           }
         },
@@ -1610,8 +1626,8 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "The least positive integer linear combination d = ax + by satisfies d | a, d | b, and for all c (c | a and c | b implies c | d), establishing d = gcd(a, b).",
-      "notes": "B\u00e9zout least positive linear combination proves d = gcd(a,b) with d|a, d|b, and universal divisor property.",
+      "mathematical_claim": "The least positive integer linear combination d = ax + by satisfies d | a, d | b, and for all c > 0 (c | a and c | b implies c | d and c <= d), establishing d = gcd(a, b).",
+      "notes": "B\u00e9zout least positive linear combination proves d = gcd(a,b) with d|a, d|b, and universal positive divisor property.",
       "relation_id": "REL:F3:BEZOUT_TO_GCD",
       "relation_type": "IMPLICATION",
       "relationship_witness": {
@@ -1620,7 +1636,8 @@
         "divides_b": true,
         "is_least_positive_linear_combination": true,
         "linear_combination_exact": true,
-        "universal_divisor_property": "forall c: c|a and c|b => c|(ax+by) = c|d"
+        "universal_divisor_property": "forall c > 0: (c|a and c|b) => (c|d and c <= d)",
+        "universal_positive_divisors_verified": true
       },
       "source_canonical_id": "canonical:number_theory:bezout_identity",
       "target_canonical_id": "canonical:number_theory:divisibility_and_gcd"

@@ -65,7 +65,7 @@
       "target_canonical_id": "canonical:groups:cosets"
     },
     {
-      "description": "Claim non-maximal ideal (x^2) in R[x] yields a quotient field (contains zero divisor x + (x^2)).",
+      "description": "Claim proper non-maximal ideal (0) in finite ring R = Z/4Z yields a quotient field (proper intermediate ideal (2) with (0) subset (2) subset R, so R/(0) ~= Z/4Z is not a field).",
       "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
       "family": "RINGS_FIELDS",
       "mutant_id": "MUT:RNG:09_NON_MAXIMAL_IDEAL_FIELD_CLAIM",

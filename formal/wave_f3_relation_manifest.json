@@ -9,7 +9,7 @@
       "witness_validator": "validate_euclidean_bezout_construction"
     },
     {
-      "mathematical_claim": "The least positive integer linear combination d = ax + by satisfies d | a, d | b, and for all c (c | a and c | b implies c | d), establishing d = gcd(a, b).",
+      "mathematical_claim": "The least positive integer linear combination d = ax + by satisfies d | a, d | b, and for all c > 0 (c | a and c | b implies c | d and c <= d), establishing d = gcd(a, b).",
       "relation_id": "REL:F3:BEZOUT_TO_GCD",
       "relation_type": "IMPLICATION",
       "source_canonical_id": "canonical:number_theory:bezout_identity",
