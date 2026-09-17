@@ -1,0 +1,42 @@
+{
+  "schema_version": "0.22",
+  "description": "Prerequisite and mathematical dependency registry for Wave F5",
+  "dependencies": [
+    {
+      "source_id": "f5:decl:metric_completeness_and_total_boundedness",
+      "target_id": "canonical:fa:banach_space_definition",
+      "dependency_type": "MATHEMATICAL_PREREQUISITE",
+      "status": "RESOLVED"
+    },
+    {
+      "source_id": "f5:decl:normed_spaces_and_quotient_norms",
+      "target_id": "canonical:fa:banach_space_definition",
+      "dependency_type": "MATHEMATICAL_PREREQUISITE",
+      "status": "RESOLVED"
+    },
+    {
+      "source_id": "f5:decl:hahn_banach_extension_theorem",
+      "target_id": "f5:decl:normed_spaces_and_quotient_norms",
+      "dependency_type": "STRUCTURAL_PREREQUISITE",
+      "status": "RESOLVED"
+    },
+    {
+      "source_id": "f5:decl:open_mapping_and_closed_graph_theorems",
+      "target_id": "f5:decl:baire_category_theorem",
+      "dependency_type": "PROOF_PATH_DEPENDENCY",
+      "status": "RESOLVED"
+    },
+    {
+      "source_id": "f5:decl:picard_lindeloef_local_existence_uniqueness",
+      "target_id": "canonical:fa:banach_contraction_theorem",
+      "dependency_type": "PROOF_PATH_DEPENDENCY",
+      "status": "RESOLVED"
+    },
+    {
+      "source_id": "f5:decl:maximal_solutions_and_continuation",
+      "target_id": "canonical:ode:gronwall_inequality_integral",
+      "dependency_type": "PROOF_PATH_DEPENDENCY",
+      "status": "RESOLVED"
+    }
+  ]
+}

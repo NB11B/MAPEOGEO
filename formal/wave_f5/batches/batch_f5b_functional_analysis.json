@@ -1,0 +1,168 @@
+{
+  "schema_version": "0.22",
+  "package_code": "F5B",
+  "title": "Structural Functional Analysis",
+  "description": "Fundamental principles of functional analysis: duality, Hahn-Banach, open mapping, weak topologies, and fixed points (B01-B16)",
+  "declarations": [
+    {
+      "declaration_id": "f5:decl:bounded_linear_operators_lxy",
+      "family_code": "B01",
+      "name": "Bounded Linear Operators and Operator Norm",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 2.1",
+      "scope_summary": "Normed spaces X, Y; L(X,Y) with operator norm",
+      "statement_summary": "A linear operator T: X -> Y is continuous iff it is bounded; L(X,Y) is complete when Y is complete."
+    },
+    {
+      "declaration_id": "f5:decl:dual_space_and_bidual",
+      "family_code": "B02",
+      "name": "Continuous Dual Space and Bidual Evaluation",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 2.1",
+      "scope_summary": "Dual X* = L(X, K) and canonical evaluation embedding j: X -> X**",
+      "statement_summary": "X* is always a Banach space; j(x)(f) = f(x) gives an isometric linear embedding of X into X**."
+    },
+    {
+      "declaration_id": "f5:decl:hahn_banach_extension",
+      "family_code": "B03",
+      "name": "Hahn-Banach Extension Theorem",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 2.1.1",
+      "scope_summary": "Real and complex normed spaces",
+      "statement_summary": "Every bounded linear functional on a subspace extends to the whole space with preserved operator norm."
+    },
+    {
+      "declaration_id": "f5:decl:geometric_hahn_banach_separation",
+      "family_code": "B04",
+      "name": "Geometric Hahn-Banach Hyperplane Separation",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 2.1.8",
+      "scope_summary": "Convex sets in locally convex / normed spaces",
+      "statement_summary": "Disjoint nonempty convex sets, one open, are separated by a continuous closed hyperplane."
+    },
+    {
+      "declaration_id": "f5:decl:uniform_boundedness_principle",
+      "family_code": "B05",
+      "name": "Uniform Boundedness Principle (Banach-Steinhaus)",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 2.2.1",
+      "scope_summary": "Banach domain X, normed codomain Y",
+      "statement_summary": "A family of bounded linear operators pointwise bounded on a Banach space is uniformly bounded in operator norm."
+    },
+    {
+      "declaration_id": "f5:decl:open_mapping_and_closed_graph",
+      "family_code": "B06",
+      "name": "Open Mapping and Closed Graph Theorems",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 2.3.1",
+      "scope_summary": "Banach spaces X, Y",
+      "statement_summary": "A surjective bounded linear operator is open; a closed linear operator defined on the whole space is bounded."
+    },
+    {
+      "declaration_id": "f5:decl:weak_and_weak_star_topologies",
+      "family_code": "B07",
+      "name": "Weak and Weak* Topologies in Banach Spaces",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 2.4",
+      "scope_summary": "Weak topology sigma(X, X*) and weak* topology sigma(X*, X)",
+      "statement_summary": "Coarsest topologies making elements of X* (resp. X) continuous; norm is lower semicontinuous."
+    },
+    {
+      "declaration_id": "f5:decl:banach_alaoglu_theorem",
+      "family_code": "B08",
+      "name": "Banach-Alaoglu Weak* Compactness Theorem",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 2.4.4",
+      "scope_summary": "Dual space X* under weak* topology",
+      "statement_summary": "The closed unit ball in the continuous dual space X* is compact in the weak* topology."
+    },
+    {
+      "declaration_id": "f5:decl:reflexivity_and_weak_compactness",
+      "family_code": "B09",
+      "name": "Reflexivity and Weak Compactness of Unit Ball",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 2.4.9",
+      "scope_summary": "Reflexive Banach spaces",
+      "statement_summary": "A Banach space is reflexive (X = X**) iff its closed unit ball is weakly compact; L^p is reflexive for 1 < p < infty."
+    },
+    {
+      "declaration_id": "f5:decl:hilbert_projection_and_riesz",
+      "family_code": "B10",
+      "name": "Hilbert Projection Theorem and Riesz Representation",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 1.3.4",
+      "scope_summary": "Hilbert space H",
+      "statement_summary": "Every closed subspace admits an orthogonal direct sum decomposition H = M oplus M^perp; H* is isometrically antilinear isomorphic to H."
+    },
+    {
+      "declaration_id": "f5:decl:orthonormal_bases_and_parseval",
+      "family_code": "B11",
+      "name": "Orthonormal Systems and Parseval Identity",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 1.3.9",
+      "scope_summary": "Hilbert space H with complete orthonormal system",
+      "statement_summary": "Bessel inequality and Parseval identity ||x||^2 = sum_i |<x, e_i>|^2 for complete orthonormal systems."
+    },
+    {
+      "declaration_id": "f5:decl:riesz_markov_measure_representation",
+      "family_code": "B12",
+      "name": "Riesz-Markov-Kakutani Measure Representation",
+      "kind": "THEOREM",
+      "source_key": "AX",
+      "locator": "Chapter 8",
+      "scope_summary": "Continuous functionals on C(K) for compact Hausdorff K",
+      "statement_summary": "Every positive linear functional on C(K) is represented by integration against a unique regular Borel measure."
+    },
+    {
+      "declaration_id": "f5:decl:mazur_lemma_convex_weak_closure",
+      "family_code": "B13",
+      "name": "Mazur Lemma on Convex Weak Closure",
+      "kind": "LEMMA",
+      "source_key": "VN",
+      "locator": "Lemma 2.4.12",
+      "scope_summary": "Convex subsets in normed spaces",
+      "statement_summary": "A convex subset of a normed space is closed in the norm topology if and only if it is weakly closed."
+    },
+    {
+      "declaration_id": "f5:decl:schauder_bases_and_frechet_spaces",
+      "family_code": "B14",
+      "name": "Schauder Bases and Locally Convex Fréchet Spaces",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 2.5",
+      "scope_summary": "Locally convex topological vector spaces",
+      "statement_summary": "Schauder basis representation x = sum_n c_n e_n with unique continuous coordinate functionals."
+    },
+    {
+      "declaration_id": "f5:decl:banach_contraction_principle",
+      "family_code": "B15",
+      "name": "Banach Contraction Principle and Geometric Convergence",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 3.1.1",
+      "scope_summary": "Complete metric spaces",
+      "statement_summary": "Contraction mapping T with constant q < 1 has a unique fixed point with error ||x_n - x*|| <= q^n / (1-q) ||x_1 - x_0||."
+    },
+    {
+      "declaration_id": "f5:decl:schauder_fixed_point_theorem",
+      "family_code": "B16",
+      "name": "Schauder Compact Fixed Point Theorem",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 3.2.1",
+      "scope_summary": "Compact convex subsets in Banach spaces",
+      "statement_summary": "Every continuous map of a nonempty compact convex subset of a Banach space into itself has at least one fixed point."
+    }
+  ]
+}

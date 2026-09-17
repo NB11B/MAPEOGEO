@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.22",
+  "package_code": "F5E",
+  "title": "Stability, Qualitative Dynamics and Bifurcations",
+  "description": "Equilibria, Lyapunov stability, LaSalle invariance, Hartman-Grobman, limit cycles, and Hamiltonian dynamics (E01-E14)",
+  "declarations": [
+    {
+      "declaration_id": "f5:decl:equilibria_and_invariant_sets",
+      "family_code": "E01",
+      "name": "Equilibria, Invariant Sets and Omega-Limit Sets",
+      "kind": "DEFINITION",
+      "source_key": "TE",
+      "locator": "Section 6.1",
+      "scope_summary": "Dynamical systems on R^n or manifolds",
+      "statement_summary": "Equilibrium points f(x*) = 0; positively invariant sets Phi^t(S) subset S for t >= 0; omega-limit set omega(x)."
+    },
+    {
+      "declaration_id": "f5:decl:lyapunov_asymptotic_stability",
+      "family_code": "E02",
+      "name": "Lyapunov, Asymptotic and Exponential Stability",
+      "kind": "DEFINITION",
+      "source_key": "TE",
+      "locator": "Section 6.1",
+      "scope_summary": "Equilibrium x* under perturbation epsilon/delta bounds",
+      "statement_summary": "Stable if for all eps > 0 exists delta > 0 such that ||x0 - x*|| < delta implies ||Phi^t(x0) - x*|| < eps for all t >= 0."
+    },
+    {
+      "declaration_id": "f5:decl:linear_stability_spectral_abscissa",
+      "family_code": "E03",
+      "name": "Linear Stability and Spectral Abscissa",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 6.3",
+      "scope_summary": "Linear systems x' = A x",
+      "statement_summary": "0 is exponentially stable iff all eigenvalues of A have strictly negative real parts: max Re lambda_i < 0."
+    },
+    {
+      "declaration_id": "f5:decl:indirect_lyapunov_linearization",
+      "family_code": "E04",
+      "name": "Lyapunov Indirect Method (Linearized Stability)",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 6.4",
+      "scope_summary": "Hyperbolic equilibria with Jacobian matrix A = Df(x*)",
+      "statement_summary": "If all eigenvalues of A have Re lambda < 0, x* is exponentially stable for the nonlinear system x' = f(x)."
+    },
+    {
+      "declaration_id": "f5:decl:direct_lyapunov_function_theorem",
+      "family_code": "E05",
+      "name": "Lyapunov Direct Method and Energy Sublevel Sets",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 6.5",
+      "scope_summary": "C^1 positive-definite scalar function V(x) >= 0",
+      "statement_summary": "If V'(x) = grad(V)(x) . f(x) <= 0, x* is stable; if V'(x) < 0 for x != x*, x* is asymptotically stable."
+    },
+    {
+      "declaration_id": "f5:decl:lasalle_invariance_principle",
+      "family_code": "E06",
+      "name": "LaSalle Invariance Principle and Attracting Sets",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 6.6",
+      "scope_summary": "Compact positively invariant set Omega with V'(x) <= 0",
+      "statement_summary": "Every trajectory in Omega approaches the largest invariant subset M of {x in Omega : V'(x) = 0} as t -> infty."
+    },
+    {
+      "declaration_id": "f5:decl:hartman_grobman_theorem",
+      "family_code": "E07",
+      "name": "Hartman-Grobman Linearization and Invariant Manifolds",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 6.8",
+      "scope_summary": "Hyperbolic equilibrium points (no eigenvalues with Re lambda = 0)",
+      "statement_summary": "The nonlinear flow is locally topologically conjugate to the linear flow x' = Df(x*) x; exists stable/unstable C^k manifolds W^s, W^u."
+    },
+    {
+      "declaration_id": "f5:decl:phase_planes_poincare_sections",
+      "family_code": "E08",
+      "name": "Phase Planes, Nullclines and Poincaré Return Maps",
+      "kind": "DEFINITION",
+      "source_key": "TE",
+      "locator": "Chapter 7",
+      "scope_summary": "Planar dynamical systems and transversal cross-sections",
+      "statement_summary": "Nullcline curves x' = 0, y' = 0; Poincaré first return map P: Sigma -> Sigma with return time tau(x)."
+    },
+    {
+      "declaration_id": "f5:decl:poincare_bendixson_theorem",
+      "family_code": "E09",
+      "name": "Poincaré-Bendixson Theorem and Bendixson-Dulac Criterion",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 7.16",
+      "scope_summary": "Planar C^1 autonomous vector fields in R^2",
+      "statement_summary": "A compact limit set containing no equilibria is a periodic orbit; Bendixson-Dulac divergence condition rules out closed orbits."
+    },
+    {
+      "declaration_id": "f5:decl:periodic_orbit_floquet_stability",
+      "family_code": "E10",
+      "name": "Periodic Orbit Stability and Characteristic Multipliers",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 7.18",
+      "scope_summary": "Periodic orbits gamma(t) of autonomous systems",
+      "statement_summary": "One Floquet multiplier is always 1 (tangential shift); orbit is asymptotically stable if all remaining multipliers have |mu_i| < 1."
+    },
+    {
+      "declaration_id": "f5:decl:bifurcations_local_normal_forms",
+      "family_code": "E11",
+      "name": "Local Bifurcations and Center Manifold Reduction",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Chapter 8",
+      "scope_summary": "Parameter-dependent systems x' = f(x, mu)",
+      "statement_summary": "Saddle-node, transcritical, pitchfork, and Hopf bifurcations classified via center manifold reduction."
+    },
+    {
+      "declaration_id": "f5:decl:gradient_and_hamiltonian_flows",
+      "family_code": "E12",
+      "name": "Gradient and Hamiltonian Flows and Conservation Laws",
+      "kind": "DEFINITION",
+      "source_key": "AR",
+      "locator": "Chapter 2",
+      "scope_summary": "Gradient systems x' = -grad V(x) vs Hamiltonian systems q' = partial_p H, p' = -partial_q H",
+      "statement_summary": "Gradient flows monotonically decrease energy; Hamiltonian flows preserve energy H(q,p) = const and symplectic phase volume."
+    },
+    {
+      "declaration_id": "f5:decl:integrable_hamiltonian_systems",
+      "family_code": "E13",
+      "name": "Liouville-Arnold Integrability and Action-Angle Coordinates",
+      "kind": "THEOREM",
+      "source_key": "AR",
+      "locator": "Chapter 5",
+      "scope_summary": "Hamiltonian systems with n independent first integrals in involution",
+      "statement_summary": "Compact connected regular invariant level sets are n-dimensional tori T^n with quasi-periodic linear flows in action-angle variables."
+    },
+    {
+      "declaration_id": "f5:decl:chaotic_dynamics_lyapunov_exponents",
+      "family_code": "E14",
+      "name": "Smale Horseshoes, Chaos and Lyapunov Exponents",
+      "kind": "DEFINITION",
+      "source_key": "TE",
+      "locator": "Chapter 9",
+      "scope_summary": "Deterministic nonlinear dynamical systems with sensitive initial conditions",
+      "statement_summary": "Maximal Lyapunov exponent lambda = lim (1/t) ln(||delta x(t)|| / ||delta x(0)||) > 0 indicates exponential divergence and chaos."
+    }
+  ]
+}

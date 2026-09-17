@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.22",
+  "package_code": "F5A",
+  "title": "Topology, Metric Structures and Function Spaces",
+  "description": "Prerequisite topology, metric completeness, function spaces, and convergence modes (A01-A14)",
+  "declarations": [
+    {
+      "declaration_id": "f5:decl:general_topology_basis",
+      "family_code": "A01",
+      "name": "Topological Space and Neighborhood Basis",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.1",
+      "scope_summary": "General topological space via open sets and neighborhood bases",
+      "statement_summary": "A topology on X is a collection of subsets closed under arbitrary unions and finite intersections."
+    },
+    {
+      "declaration_id": "f5:decl:subspace_and_product_topology",
+      "family_code": "A02",
+      "name": "Subspace, Product and Quotient Topologies",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.1",
+      "scope_summary": "Constructed topologies on subsets, products, and quotient sets",
+      "statement_summary": "Initial topology for projections on product spaces and final topology for canonical quotient projections."
+    },
+    {
+      "declaration_id": "f5:decl:separation_axioms_hausdorff",
+      "family_code": "A03",
+      "name": "Hausdorff Separation and Countability Axioms",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.1",
+      "scope_summary": "Hausdorff T2 separation, first and second countability, separability",
+      "statement_summary": "Distinct points possess disjoint open neighborhoods; separability asserts a countable dense subset."
+    },
+    {
+      "declaration_id": "f5:decl:compactness_and_connectedness",
+      "family_code": "A04",
+      "name": "Compactness and Connectedness in Topological Spaces",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.1",
+      "scope_summary": "Open cover compactness, sequential compactness, path connectedness",
+      "statement_summary": "Every open cover admits a finite subcover; connectedness forbids disjoint nonempty open partitions."
+    },
+    {
+      "declaration_id": "f5:decl:nets_and_filters_convergence",
+      "family_code": "A05",
+      "name": "Net and Filter Convergence in Uniform Structures",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.1",
+      "scope_summary": "Directed sets, nets, filter bases, and uniform continuity",
+      "statement_summary": "Nets characterize closure and compactness in non-first-countable topological spaces."
+    },
+    {
+      "declaration_id": "f5:decl:metric_completeness_and_total_boundedness",
+      "family_code": "A06",
+      "name": "Metric Completeness and Total Boundedness",
+      "kind": "THEOREM",
+      "source_key": "LR",
+      "locator": "Theorem 7.5.3",
+      "scope_summary": "Metric space (M, d)",
+      "statement_summary": "A metric space is compact if and only if it is complete and totally bounded."
+    },
+    {
+      "declaration_id": "f5:decl:baire_category_theorem",
+      "family_code": "A07",
+      "name": "Baire Category Theorem for Complete Metric Spaces",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 1.1.8",
+      "scope_summary": "Complete metric spaces",
+      "statement_summary": "The countable intersection of dense open subsets in a complete metric space is dense."
+    },
+    {
+      "declaration_id": "f5:decl:normed_and_banach_spaces",
+      "family_code": "A08",
+      "name": "Normed Vector Spaces and Banach Completions",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.2",
+      "scope_summary": "Normed vector spaces over R or C",
+      "statement_summary": "A normed space is complete (Banach) if every Cauchy sequence has a convergent limit."
+    },
+    {
+      "declaration_id": "f5:decl:inner_product_and_hilbert_spaces",
+      "family_code": "A09",
+      "name": "Inner Product Spaces and Hilbert Completeness",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.3",
+      "scope_summary": "Inner product spaces over R or C",
+      "statement_summary": "Cauchy-Schwarz inequality |<x,y>| <= ||x|| ||y||, parallelogram law, and Hilbert space completeness."
+    },
+    {
+      "declaration_id": "f5:decl:continuous_function_spaces_ck",
+      "family_code": "A10",
+      "name": "Continuous Function Spaces C(K) and C0(X)",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 1.4",
+      "scope_summary": "Compact Hausdorff K or locally compact X under supremum norm",
+      "statement_summary": "C(K) equipped with the uniform norm ||f||_infty = sup_{x in K} |f(x)| is a Banach space."
+    },
+    {
+      "declaration_id": "f5:decl:lebesgue_lp_spaces",
+      "family_code": "A11",
+      "name": "Lebesgue Spaces L^p(Omega, mu)",
+      "kind": "THEOREM",
+      "source_key": "AX",
+      "locator": "Chapter 7",
+      "scope_summary": "Measure spaces for 1 <= p <= infinity",
+      "statement_summary": "Riesz-Fischer theorem: L^p(Omega, mu) is complete with respect to the L^p norm."
+    },
+    {
+      "declaration_id": "f5:decl:arzela_ascoli_compactness",
+      "family_code": "A12",
+      "name": "Arzelà-Ascoli Equicontinuity Compactness Theorem",
+      "kind": "THEOREM",
+      "source_key": "LR",
+      "locator": "Theorem 7.7.1",
+      "scope_summary": "Equicontinuous subsets of C(K) for compact K",
+      "statement_summary": "A subset of C(K) is relatively compact if and only if it is pointwise bounded and equicontinuous."
+    },
+    {
+      "declaration_id": "f5:decl:riesz_lemma_compactness_failure",
+      "family_code": "A13",
+      "name": "Riesz Lemma on Unit Ball Compactness Failure",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 1.2.9",
+      "scope_summary": "Infinite-dimensional normed spaces",
+      "statement_summary": "The closed unit ball in a normed space X is compact if and only if X is finite-dimensional."
+    },
+    {
+      "declaration_id": "f5:decl:weak_derivatives_and_sobolev_spaces",
+      "family_code": "A14",
+      "name": "Weak Derivatives and Sobolev Space W^{k,p}",
+      "kind": "DEFINITION",
+      "source_key": "HU",
+      "locator": "Chapter 5",
+      "scope_summary": "Distributions, test functions C_c^infty, weak derivatives in L^p",
+      "statement_summary": "Weak derivative definition via integration by parts against smooth compactly supported test functions."
+    }
+  ]
+}

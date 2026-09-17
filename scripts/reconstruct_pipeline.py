@@ -61,8 +61,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain")
     parser.add_argument(
         "--target-stage",
-        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation", "wave_f1", "wave_f2", "wave_f3", "wave_f4", "v0.21"],
-        default="v0.21",
+        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation", "wave_f1", "wave_f2", "wave_f3", "wave_f4", "v0.21", "wave_f5", "v0.22"],
+        default="v0.22",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
     parser.add_argument("--from-scratch", action="store_true", help="Re-derive historical v0.6-v0.11 stages from raw source PDF")
@@ -533,6 +533,58 @@ def main() -> int:
             str(ROOT / "scripts" / "perelman_joints_v0_21.py"),
             "--out-file",
             str(ROOT / "artifacts" / "joint_layer_v0_21" / "joints_perelman_v0_21.json"),
+        ],
+    )
+
+    if args.target_stage == "v0.21":
+        total_time = time.time() - t_start
+        print("==========================================================")
+        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
+        print("==========================================================")
+        return 0
+
+    # Stage: v0.22 Wave F5 (Functional Analysis, Operator Theory & Certified ODE Flows)
+    run_stage(
+        "v0.22 Wave F5: Source Pins & Inventory Verification",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "wave_f5_source_pins.py"),
+        ],
+    )
+    run_stage(
+        "v0.22 Wave F5: Coverage & Reconciliation Inventory",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "coverage_inventory.py"),
+        ],
+    )
+    run_stage(
+        "v0.22 Wave F5: Cumulative Graph Assembly",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "wave_f5_intake.py"),
+            "--output",
+            str(ROOT / "artifacts" / "wave_f5_v0_22" / "wave_f5_graph.json"),
+        ],
+    )
+    run_stage(
+        "v0.22 Wave F5: Executable Contract & Falsification Campaign (Q01-Q18)",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "wave_f5_campaign.py"),
+            "--certs-out",
+            str(ROOT / "artifacts" / "wave_f5_v0_22" / "wave_f5_certificates.json"),
+            "--ledger-out",
+            str(ROOT / "artifacts" / "wave_f5_v0_22" / "wave_f5_campaign_ledger.json"),
+        ],
+    )
+    run_stage(
+        "v0.22 Wave F5: Mathematical Coverage & Verification Report",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "generate_wave_f5_report.py"),
+            "--output",
+            str(ROOT / "docs" / "V0_22_WAVE_F5_REPORT.md"),
         ],
     )
 

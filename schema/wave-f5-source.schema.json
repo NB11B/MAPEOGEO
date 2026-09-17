@@ -1,0 +1,68 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/NB11B/MAPEOGEO/main/schema/wave-f5-source.schema.json",
+  "title": "Wave F5 Source Registry Specification",
+  "description": "Schema for source registration, edition pinning, and export policies for Wave F5 coverage.",
+  "type": "object",
+  "required": ["schema_version", "sources"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["0.22"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SourceRecord"
+      }
+    }
+  },
+  "definitions": {
+    "SourceRecord": {
+      "type": "object",
+      "required": [
+        "source_key",
+        "title",
+        "authors",
+        "edition_or_version",
+        "entry_url",
+        "access_status",
+        "export_policy",
+        "intended_contribution"
+      ],
+      "properties": {
+        "source_key": {
+          "type": "string",
+          "pattern": "^[A-Z0-9_]{2,10}$"
+        },
+        "title": { "type": "string" },
+        "authors": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "edition_or_version": { "type": "string" },
+        "entry_url": { "type": "string" },
+        "access_status": {
+          "type": "string",
+          "enum": ["PAGE_VERIFIED", "DISCOVERY", "PHYSICAL_HOLDING", "PINNED_SOURCE"]
+        },
+        "export_policy": {
+          "type": "string",
+          "enum": [
+            "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
+            "OPEN_SOURCE_RESTRICTED_REDISTRIBUTION",
+            "OPEN_ACCESS_CREATIVE_COMMONS",
+            "PHYSICAL_HOLDINGS_OCR_LOCATORS_ONLY"
+          ]
+        },
+        "intended_contribution": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

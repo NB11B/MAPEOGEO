@@ -1,0 +1,559 @@
+{
+  "schema_version": "0.22",
+  "description": "Canonical mathematical formulations for MAPEOGEO Wave F5",
+  "formulations": [
+    {
+      "canonical_id": "canonical:fa:banach_space_definition",
+      "family_code": "A08",
+      "name": "Banach Space Completeness",
+      "kind": "DEFINITION",
+      "scope": {
+        "space_type": "BANACH_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "ENTIRE_SPACE",
+        "regularity": "NONE",
+        "quantifier_structure": "FORALL_CAUCHY_EXISTS_LIMIT"
+      },
+      "hypotheses": ["X is a normed vector space over R (or C)", "Every Cauchy sequence in X converges to a limit in X"],
+      "conclusion": "X is a complete normed space (Banach space)",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Definition 1.1.1"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:fa:hilbert_space_definition",
+      "family_code": "A09",
+      "name": "Hilbert Space Inner Product Completeness",
+      "kind": "DEFINITION",
+      "scope": {
+        "space_type": "HILBERT_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "INNER_PRODUCT_NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "ENTIRE_SPACE",
+        "regularity": "NONE",
+        "quantifier_structure": "FORALL_CAUCHY_EXISTS_LIMIT"
+      },
+      "hypotheses": ["H is an inner product space", "H is complete with respect to the induced norm ||x|| = sqrt(<x, x>)"],
+      "conclusion": "H is a Hilbert space",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Definition 1.2.1"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:fa:hahn_banach_extension_theorem",
+      "family_code": "B03",
+      "name": "Hahn-Banach Extension Theorem",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "NORMED_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "LINEAR_SUBSPACE",
+        "regularity": "BOUNDED_LINEAR",
+        "quantifier_structure": "EXISTS_NORM_PRESERVING_EXTENSION"
+      },
+      "hypotheses": ["X is a real normed vector space", "M is a linear subspace of X", "f is a bounded linear functional on M"],
+      "conclusion": "There exists a bounded linear functional F on X such that F|M = f and ||F|| = ||f||",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 2.1.1"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:fa:uniform_boundedness_principle",
+      "family_code": "B05",
+      "name": "Banach-Steinhaus Uniform Boundedness Principle",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "BANACH_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "ENTIRE_SPACE",
+        "regularity": "BOUNDED_LINEAR",
+        "quantifier_structure": "POINTWISE_BOUND_IMPLIES_UNIFORM_BOUND"
+      },
+      "hypotheses": ["X is a Banach space", "Y is a normed space", "F is a family of bounded linear operators from X to Y", "sup_{T in F} ||T x|| < infinity for each x in X"],
+      "conclusion": "sup_{T in F} ||T|| < infinity",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 2.2.1"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:fa:open_mapping_theorem",
+      "family_code": "B06",
+      "name": "Open Mapping Theorem",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "BANACH_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "ENTIRE_SPACE",
+        "regularity": "SURJECTIVE_BOUNDED_LINEAR",
+        "quantifier_structure": "OPENS_MAP_TO_OPENS"
+      },
+      "hypotheses": ["X and Y are Banach spaces", "T: X -> Y is a bounded linear operator", "T is surjective"],
+      "conclusion": "T is an open mapping (maps open sets in X to open sets in Y)",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 2.3.1"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:fa:banach_contraction_theorem",
+      "family_code": "B15",
+      "name": "Banach Contraction Mapping Theorem",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "METRIC_SPACE",
+        "scalar_field": "NONE",
+        "topology_or_norm": "METRIC_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "COMPLETE_METRIC_SPACE",
+        "regularity": "STRICT_CONTRACTION",
+        "quantifier_structure": "EXISTS_UNIQUE_FIXED_POINT"
+      },
+      "hypotheses": ["(M, d) is a nonempty complete metric space", "T: M -> M is a contraction with Lipschitz constant q < 1"],
+      "conclusion": "There exists a unique fixed point x* in M with T(x*) = x*, and for any x0 in M, T^n(x0) converges to x* with geometric error bounds",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 3.1.1"},
+        {"source_key": "LR", "locator": "Theorem 7.6.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:fa:hilbert_adjoint_operator",
+      "family_code": "B10",
+      "name": "Hilbert Space Adjoint Operator Existence and Pairing",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "HILBERT_SPACE",
+        "scalar_field": "REAL_OR_COMPLEX",
+        "topology_or_norm": "INNER_PRODUCT_NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "ENTIRE_SPACE",
+        "regularity": "BOUNDED_LINEAR",
+        "quantifier_structure": "EXISTS_UNIQUE_ADJOINT_OPERATOR"
+      },
+      "hypotheses": ["H is a Hilbert space", "T: H -> H is a bounded linear operator"],
+      "conclusion": "There exists a unique bounded linear operator T*: H -> H satisfying <Tx, y> = <x, T*y> for all x, y in H",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 5.2.1"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:fa:hilbert_projection_theorem",
+      "family_code": "B10",
+      "name": "Hilbert Projection Theorem and Orthogonal Decomposition",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "HILBERT_SPACE",
+        "scalar_field": "REAL_OR_COMPLEX",
+        "topology_or_norm": "INNER_PRODUCT_NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "CLOSED_CONVEX_SUBSET",
+        "regularity": "ORTHOGONAL_PROJECTION",
+        "quantifier_structure": "EXISTS_UNIQUE_MINIMIZER_PROJECTION"
+      },
+      "hypotheses": ["H is a Hilbert space", "M is a closed convex subset (or closed subspace) of H"],
+      "conclusion": "For every x in H, there exists a unique y in M minimizing ||x - y||; if M is a subspace, H = M direct_sum M_perp and P is orthogonal",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 5.1.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:operator:neumann_series",
+      "family_code": "C01",
+      "name": "Neumann Series Inversion Theorem in Banach Algebras",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "BANACH_ALGEBRA",
+        "scalar_field": "REAL_OR_COMPLEX",
+        "topology_or_norm": "SUBMULTIPLICATIVE_NORM",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "UNITAL_BANACH_ALGEBRA",
+        "regularity": "NORM_LESS_THAN_ONE",
+        "quantifier_structure": "SERIES_CONVERGES_TO_INVERSE"
+      },
+      "hypotheses": ["A is a unital Banach algebra", "x in A with ||x|| < 1"],
+      "conclusion": "(1 - x) is invertible, (1 - x)^{-1} = sum_{k=0}^infinity x^k, and ||(1 - x)^{-1} - sum_{k=0}^N x^k|| <= ||x||^{N+1}/(1 - ||x||)",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 6.1.1"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:operator:compact_self_adjoint_spectral_theorem",
+      "family_code": "C06",
+      "name": "Spectral Theorem for Compact Self-Adjoint Operators",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "HILBERT_SPACE",
+        "scalar_field": "REAL_OR_COMPLEX",
+        "topology_or_norm": "INNER_PRODUCT_NORM_TOPOLOGY",
+        "dimension_bound": "INFINITE_OR_FINITE",
+        "operator_domain": "ENTIRE_SPACE",
+        "regularity": "COMPACT_SELF_ADJOINT",
+        "quantifier_structure": "ORTHOGONAL_EIGENSPACE_DECOMPOSITION"
+      },
+      "hypotheses": ["H is a Hilbert space", "T: H -> H is a compact self-adjoint operator"],
+      "conclusion": "There exists an orthonormal basis of H consisting of eigenvectors of T, with real eigenvalues converging to 0, A = sum lambda_i P_i",
+      "source_bindings": [
+        {"source_key": "VN", "locator": "Theorem 6.3.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:operator:regular_sturm_liouville_eigenfunctions",
+      "family_code": "C14",
+      "name": "Regular Sturm-Liouville Operator Resolvent Compactness and Expansion",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "L2_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "L2_INNER_PRODUCT",
+        "dimension_bound": "INFINITE",
+        "operator_domain": "DENSE_C2_BOUNDARY_CONDITIONS",
+        "regularity": "SELF_ADJOINT_COMPACT_RESOLVENT",
+        "quantifier_structure": "COMPLETE_ORTHONORMAL_EIGENFUNCTIONS"
+      },
+      "hypotheses": ["L u = -(p u')' + q u on [a,b] with separated self-adjoint boundary conditions", "p > 0, p in C1, q in C0, weight w > 0"],
+      "conclusion": "The Green operator G is compact self-adjoint on L2([a,b], w), yielding a complete orthonormal basis of eigenfunctions with real discrete eigenvalues lambda_n -> infinity",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Chapter 5, Section 5.1"},
+        {"source_key": "HU", "locator": "Chapter 4, Section 4.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:picard_operator_self_map",
+      "family_code": "D03",
+      "name": "Picard Integral Operator Self-Map and Contraction Condition",
+      "kind": "LEMMA",
+      "scope": {
+        "space_type": "FUNCTION_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "SUP_NORM",
+        "dimension_bound": "INFINITE",
+        "operator_domain": "CLOSED_BALL_C_INTERVAL",
+        "regularity": "LIPSCHITZ_BALL_SELF_MAP",
+        "quantifier_structure": "INVARIANCE_AND_CONTRACTION_BOUNDS"
+      },
+      "hypotheses": ["y' = f(t,y) with |f(t,y)| <= M and |f(t,y1) - f(t,y2)| <= L |y1 - y2| on cylinder [t0, t0+h] x B_r(y0)", "h <= r/M and h < 1/L"],
+      "conclusion": "The Picard operator (T y)(t) = y0 + int_{t0}^t f(s, y(s)) ds maps B_r(y0) into B_r(y0) and is a strict contraction with factor q = h L < 1",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 2.1"},
+        {"source_key": "LD", "locator": "Section 1.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:picard_lindeloef_theorem",
+      "family_code": "D04",
+      "name": "Picard-Lindelöf Local Existence and Uniqueness Theorem",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "OPEN_SUBSET",
+        "regularity": "LOCALLY_LIPSCHITZ",
+        "quantifier_structure": "LOCAL_EXISTS_UNIQUE_SOLUTION",
+        "parameter_box": "COMPACT_CYLINDER"
+      },
+      "hypotheses": ["U is an open subset of R x R^n", "f: U -> R^n is continuous and locally Lipschitz in y", "(t0, y0) in U"],
+      "conclusion": "There exists h > 0 such that the IVP y' = f(t,y), y(t0) = y0 has a unique C1 solution on [t0-h, t0+h]",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Theorem 2.2"},
+        {"source_key": "LD", "locator": "Section 1.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:peano_nonuniqueness_boundary",
+      "family_code": "D05",
+      "name": "Peano Existence and Non-Lipschitz Nonuniqueness Boundary",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "OPEN_SUBSET",
+        "regularity": "CONTINUOUS_NON_LIPSCHITZ",
+        "quantifier_structure": "EXISTS_SOLUTION_UNIQUENESS_FAILS"
+      },
+      "hypotheses": ["f: U -> R^n is continuous on open subset U of R x R^n"],
+      "conclusion": "There exists at least one local solution (Peano theorem); uniqueness may fail when f is not Lipschitz (e.g. y' = 2 sqrt(|y|))",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Theorem 2.19"},
+        {"source_key": "AR", "locator": "Chapter 2, Section 8"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:gronwall_inequality_integral",
+      "family_code": "D06",
+      "name": "Grönwall Integral and Differential Inequality",
+      "kind": "LEMMA",
+      "scope": {
+        "space_type": "REAL_INTERVAL",
+        "scalar_field": "REAL",
+        "topology_or_norm": "STANDARD_REAL_TOPOLOGY",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "INTERVAL",
+        "regularity": "CONTINUOUS_NONNEGATIVE",
+        "quantifier_structure": "INTEGRAL_INEQUALITY_BOUND"
+      },
+      "hypotheses": ["u, alpha, beta are continuous nonnegative functions on [t0, t1]", "u(t) <= alpha(t) + int_{t0}^t beta(s) u(s) ds for all t in [t0, t1]"],
+      "conclusion": "u(t) <= alpha(t) + int_{t0}^t alpha(s) beta(s) exp(int_s^t beta(r) dr) ds for all t in [t0, t1]",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Lemma 2.7"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:continuous_dependence_initial_conditions",
+      "family_code": "D06",
+      "name": "Continuous and Lipschitz Dependence on Initial Data",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "COMPACT_SUBSET",
+        "regularity": "LIPSCHITZ_VECTOR_FIELD",
+        "quantifier_structure": "EXPONENTIAL_SENSITIVITY_BOUND"
+      },
+      "hypotheses": ["y1, y2 are solutions of y' = f(t,y) with Lipschitz constant L on domain D", "y1(t0) = x1, y2(t0) = x2"],
+      "conclusion": "||y1(t) - y2(t)|| <= exp(L |t - t0|) ||x1 - x2|| for all t in existence interval",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Theorem 2.8"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:maximal_solution_continuation",
+      "family_code": "D07",
+      "name": "Maximal Solution Interval and Compactness Escape Boundary",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "OPEN_DOMAIN",
+        "regularity": "LOCALLY_LIPSCHITZ",
+        "quantifier_structure": "MAXIMAL_INTERVAL_ESCAPE_COMPACTA"
+      },
+      "hypotheses": ["f: U -> R^n is locally Lipschitz on open set U", "y: (alpha, beta) -> R^n is a maximal solution of y' = f(t,y)"],
+      "conclusion": "As t -> beta- (or t -> alpha+), (t, y(t)) escapes every compact subset of U (either norm blows up or trajectory approaches boundary of U)",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Theorem 2.13"},
+        {"source_key": "AR", "locator": "Chapter 2, Section 8"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:autonomous_flow_group_action",
+      "family_code": "D12",
+      "name": "Autonomous ODE Local Flow and Group Action Law",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "OPEN_SUBSET",
+        "regularity": "C1_VECTOR_FIELD",
+        "quantifier_structure": "LOCAL_ONE_PARAMETER_GROUP_ACTION"
+      },
+      "hypotheses": ["x' = f(x) is an autonomous C1 system with local flow Phi_t(x)"],
+      "conclusion": "Phi_0(x) = x and Phi_s(Phi_t(x)) = Phi_{s+t}(x) whenever both sides are defined on connected maximal interval",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 2.4"},
+        {"source_key": "AR", "locator": "Chapter 1, Section 3"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:nonautonomous_evolution_operator",
+      "family_code": "D10",
+      "name": "Nonautonomous Linear System Two-Time Evolution Operator",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "CONTINUOUS_MATRIX_INTERVAL",
+        "regularity": "CONTINUOUS_COEFFICIENTS",
+        "quantifier_structure": "TWO_TIME_COCYCLE_PROPERTY"
+      },
+      "hypotheses": ["y' = A(t) y is a linear nonautonomous system with continuous matrix A(t)"],
+      "conclusion": "The evolution operator U(t,s) satisfies U(t,s) U(s,r) = U(t,r), U(t,t) = I, and d/dt U(t,s) = A(t) U(t,s)",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 3.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:regular_bvp_green_operator",
+      "family_code": "D14",
+      "name": "Regular Second-Order Two-Point Boundary Value Problem and Green Function",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "FUNCTION_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "SUP_NORM",
+        "dimension_bound": "INFINITE",
+        "operator_domain": "C2_DIRICHLET_BOUNDARY",
+        "regularity": "C2_REGULARITY",
+        "quantifier_structure": "UNIQUE_INTEGRAL_OPERATOR_SOLUTION"
+      },
+      "hypotheses": ["-u'' = f(x) on [0,1] with Dirichlet boundary conditions u(0) = 0, u(1) = 0", "f in C([0,1])"],
+      "conclusion": "There exists a unique C2 solution given by u(x) = int_0^1 G(x, s) f(s) ds where G is the symmetric continuous Green kernel",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 5.1"},
+        {"source_key": "FN", "locator": "Chapter 11"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:transient_growth_nonnormal_systems",
+      "family_code": "E03",
+      "name": "Transient Energy Growth in Nonnormal Stable Linear Systems",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_OPERATOR_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "NONNORMAL_STABLE_MATRICES",
+        "regularity": "SPECTRAL_ABSCISSA_NEGATIVE",
+        "quantifier_structure": "TRANSIENT_AMPLIFICATION_BEFORE_DECAY"
+      },
+      "hypotheses": ["x' = A x with all eigenvalues having negative real part (Re(lambda_i) < 0)", "A is nonnormal (A A^T != A^T A)"],
+      "conclusion": "The Euclidean norm ||exp(t A)||_2 may strictly exceed 1 for intermediate times t > 0 before decaying asymptotically to 0 as t -> infinity",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 3.3"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:linearization_hyperbolic_equilibria",
+      "family_code": "E04",
+      "name": "Linearization and Indirect Lyapunov Method for Hyperbolic Equilibria",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "NEIGHBORHOOD_OF_EQUILIBRIUM",
+        "regularity": "C1_VECTOR_FIELD",
+        "quantifier_structure": "HYPERBOLIC_SPECTRUM_IMPLIES_LOCAL_STABILITY"
+      },
+      "hypotheses": ["x' = f(x) with f(0) = 0 and Jacobian A = Df(0)", "All eigenvalues of A have strictly negative real parts"],
+      "conclusion": "The origin is locally asymptotically stable for the nonlinear system; if any eigenvalue has Re(lambda) > 0, it is unstable",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Theorem 6.3"},
+        {"source_key": "AR", "locator": "Chapter 3, Section 15"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:lyapunov_function_stability",
+      "family_code": "E05",
+      "name": "Lyapunov Direct Method and Orbital Derivative Criterion",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "NEIGHBORHOOD_OF_EQUILIBRIUM",
+        "regularity": "C1_VECTOR_FIELD_AND_LYAPUNOV_FUNCTION",
+        "quantifier_structure": "LYAPUNOV_STABILITY_CRITERION"
+      },
+      "hypotheses": ["x' = f(x) has an equilibrium at x = 0 (f(0) = 0)", "V is a C1 positive-definite function on a neighborhood U of 0", "V'(x) = grad(V)(x) . f(x) <= 0 on U"],
+      "conclusion": "The equilibrium x = 0 is Lyapunov stable; if V'(x) < 0 for x != 0, it is locally asymptotically stable",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Theorem 6.1"},
+        {"source_key": "AR", "locator": "Chapter 3, Section 15"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:conservative_hamiltonian_flows",
+      "family_code": "E12",
+      "name": "Conservative Hamiltonian Systems and Energy Invariant Foliations",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "SYMPLECTIC_GEOMETRY",
+        "dimension_bound": "EVEN_DIMENSIONAL",
+        "operator_domain": "PHASE_SPACE",
+        "regularity": "HAMILTONIAN_SMOOTH",
+        "quantifier_structure": "ENERGY_CONSERVATION_FOLIATION"
+      },
+      "hypotheses": ["q' = dH/dp, p' = -dH/dq for a C2 Hamiltonian function H(q, p)"],
+      "conclusion": "The Hamiltonian energy H(q(t), p(t)) is constant along all trajectories; phase flow preserves symplectic area and cannot have asymptotically stable equilibria",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 8.1"},
+        {"source_key": "AR", "locator": "Chapter 4"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:residual_to_solution_bound",
+      "family_code": "F06",
+      "name": "Validated Residual-to-Solution Error Bounds and Continuous Tubes",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "FUNCTION_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "SUP_NORM_ON_INTERVAL",
+        "dimension_bound": "FINITE_DIMENSIONAL_SLAB",
+        "operator_domain": "COMPACT_TIME_SLAB",
+        "regularity": "LIPSCHITZ_VECTOR_FIELD",
+        "quantifier_structure": "VALIDATED_TUBE_ENCLOSURE"
+      },
+      "hypotheses": ["y-hat is a C1 approximate solution of y' = f(t,y) with residual r(t) = y-hat'(t) - f(t, y-hat(t)) satisfying ||r(t)|| <= R on [t0, t1]", "||y(t0) - y-hat(t0)|| <= e0 and f has Lipschitz constant L on tube neighborhood"],
+      "conclusion": "The exact solution y(t) exists and satisfies ||y(t) - y-hat(t)|| <= exp(L(t - t0)) e0 + R (exp(L(t - t0)) - 1) / L for all t in [t0, t1]",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 2.3"},
+        {"source_key": "FN", "locator": "Chapter 6"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:invariant_region_tube_certificate",
+      "family_code": "F04",
+      "name": "Validated Positively Invariant Region and Trajectory Tube Enclosure",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "INTERVAL_BOX",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "COMPACT_BOX",
+        "regularity": "C1_VECTOR_FIELD",
+        "quantifier_structure": "FORWARD_INVARIANCE_ENCLOSURE"
+      },
+      "hypotheses": ["K is a compact box [a1, b1] x ... x [an, bn]", "Vector field f points inward or tangent at all boundary faces of K"],
+      "conclusion": "K is positively invariant under the flow of x' = f(x): any trajectory starting in K remains in K for all t >= 0",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 6.2"}
+      ]
+    },
+    {
+      "canonical_id": "canonical:ode:transversal_event_localization",
+      "family_code": "F07",
+      "name": "Transversal Event Crossing and Root Isolation Certificate",
+      "kind": "THEOREM",
+      "scope": {
+        "space_type": "EUCLIDEAN_SPACE",
+        "scalar_field": "REAL",
+        "topology_or_norm": "EUCLIDEAN_NORM",
+        "dimension_bound": "FINITE_DIMENSIONAL",
+        "operator_domain": "NEIGHBORHOOD_OF_HYPERSURFACE",
+        "regularity": "C1_VECTOR_FIELD_AND_EVENT_FUNCTION",
+        "quantifier_structure": "UNIQUE_ISOLATED_CROSSING_TIME"
+      },
+      "hypotheses": ["Event hypersurface Sigma = {x : H(x) = 0}", "Lie derivative L_f H(x) = grad(H)(x) . f(x) != 0 on enclosure box enclosing crossing"],
+      "conclusion": "The trajectory x(t) crosses Sigma transversely at a unique isolated event time t* within the validated time enclosure",
+      "source_bindings": [
+        {"source_key": "TE", "locator": "Section 7.1"}
+      ]
+    }
+  ]
+}

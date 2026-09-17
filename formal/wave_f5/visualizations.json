@@ -1,0 +1,206 @@
+{
+  "schema_version": "0.22",
+  "description": "Visual interrogation descriptors for Wave F5 functional analysis, operator theory, and ODE flows.",
+  "views": [
+    {
+      "view_id": "view:vis:q01_contraction_envelope",
+      "claim_id": "canonical:fa:banach_contraction_theorem",
+      "contract_id": "Q01",
+      "view_mode": "ERROR_ENVELOPE",
+      "title": "Banach Contraction Error Envelopes and Iterates",
+      "scope": {
+        "domain": "interval:[0,2]",
+        "dimension": "1D",
+        "coefficient_ring": "real",
+        "regularity": "Lipschitz_q_half",
+        "orientation_convention": "standard",
+        "boundary_convention": "closed_interval",
+        "parameter_range": "x_in_[0,2]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"x_min": 0.0, "x_max": 2.0, "iterations": 10},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "1D interval iteration sequence with geometric decay envelope"
+    },
+    {
+      "view_id": "view:vis:q03_orthogonal_projection",
+      "claim_id": "canonical:fa:hilbert_projection_theorem",
+      "contract_id": "Q03",
+      "view_mode": "OPERATOR_IMAGE",
+      "title": "Orthogonal Projection and Residual Decomposition",
+      "scope": {
+        "domain": "R2",
+        "dimension": "2D",
+        "coefficient_ring": "real",
+        "regularity": "linear",
+        "orientation_convention": "standard",
+        "boundary_convention": "subspace_span_1_1",
+        "parameter_range": "box_[-2,2]x[-2,2]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"u_box": [-2.0, 2.0], "v_box": [-2.0, 2.0]},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "2D Euclidean plane with orthogonal subspace line and perpendicular residual rays"
+    },
+    {
+      "view_id": "view:vis:q05_spectral_locations",
+      "claim_id": "canonical:operator:compact_self_adjoint_spectral_theorem",
+      "contract_id": "Q05",
+      "view_mode": "SPECTRAL_PLANE",
+      "title": "Spectral Locations on Real Axis and Eigenspace Projectors",
+      "scope": {
+        "domain": "C2",
+        "dimension": "finite_2D",
+        "coefficient_ring": "complex",
+        "regularity": "self_adjoint",
+        "orientation_convention": "standard",
+        "boundary_convention": "discrete_spectrum",
+        "parameter_range": "lambda_in_[0,10]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"re_min": 0.0, "re_max": 6.0, "im_min": -1.0, "im_max": 1.0},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "Complex spectral plane showing real eigenvalues lambda1=2, lambda2=5 with 0 imaginary part"
+    },
+    {
+      "view_id": "view:vis:q06_picard_function_ball",
+      "claim_id": "canonical:ode:picard_operator_self_map",
+      "contract_id": "Q06",
+      "view_mode": "OPERATOR_IMAGE",
+      "title": "Picard Function-Space Ball Invariance",
+      "scope": {
+        "domain": "C([0,1/4])",
+        "dimension": "infinite",
+        "coefficient_ring": "real",
+        "regularity": "C1",
+        "orientation_convention": "standard",
+        "boundary_convention": "sup_norm_ball_radius_half",
+        "parameter_range": "t_in_[0,1/4]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"t_min": 0.0, "t_max": 0.25, "y_min": 0.5, "y_max": 1.5},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "Continuous function corridor around constant trajectory 1 with width r=0.5"
+    },
+    {
+      "view_id": "view:vis:q09_flow_direction_field",
+      "claim_id": "canonical:ode:autonomous_flow_group_action",
+      "contract_id": "Q09",
+      "view_mode": "PHASE_SPACE_GEOMETRY",
+      "title": "Autonomous Flow Direction Field and Trajectories",
+      "scope": {
+        "domain": "R",
+        "dimension": "1D_time_extended",
+        "coefficient_ring": "real",
+        "regularity": "smooth_maximal_interval",
+        "orientation_convention": "standard",
+        "boundary_convention": "connected_domain_1_minus_tx_positive",
+        "parameter_range": "t_in_[-2,2]_x_in_[-2,2]",
+        "exceptional_cases": "pole_at_tx_1"
+      },
+      "parameter_ranges": {"t_range": [-2.0, 2.0], "x_range": [-2.0, 2.0]},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "(t, x) flow curves showing Phi_t(x) = x / (1 - tx) asymptotic hyperbolic sheets"
+    },
+    {
+      "view_id": "view:vis:q11_lyapunov_contours",
+      "claim_id": "canonical:ode:lyapunov_function_stability",
+      "contract_id": "Q11",
+      "view_mode": "PHASE_SPACE_GEOMETRY",
+      "title": "Lyapunov Ellipsoidal Contours and Inward Orbital Derivatives",
+      "scope": {
+        "domain": "R2",
+        "dimension": "2D",
+        "coefficient_ring": "real",
+        "regularity": "quadratic_positive_definite",
+        "orientation_convention": "standard",
+        "boundary_convention": "strictly_inward_vector_field",
+        "parameter_range": "x1_in_[-2,2]_x2_in_[-2,2]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"x1_range": [-2.0, 2.0], "x2_range": [-2.0, 2.0], "levels": [0.5, 1.0, 2.0]},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "Concentric Lyapunov level sets V(x)=c with flow vectors strictly crossing inward"
+    },
+    {
+      "view_id": "view:vis:q13_transient_growth",
+      "claim_id": "canonical:ode:transient_growth_nonnormal_systems",
+      "contract_id": "Q13",
+      "view_mode": "ERROR_ENVELOPE",
+      "title": "Nonnormal Transient Matrix Exponential Norm Amplification",
+      "scope": {
+        "domain": "R2",
+        "dimension": "2D",
+        "coefficient_ring": "real",
+        "regularity": "stable_spectrum_nonnormal",
+        "orientation_convention": "standard",
+        "boundary_convention": "operator_2_norm",
+        "parameter_range": "t_in_[0,4]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"t_min": 0.0, "t_max": 4.0, "norm_max": 3.5},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "Norm curve ||exp(tA)|| peaking above 1.0 before decaying asymptotically to 0"
+    },
+    {
+      "view_id": "view:vis:q14_conservative_orbit",
+      "claim_id": "canonical:ode:conservative_hamiltonian_flows",
+      "contract_id": "Q14",
+      "view_mode": "PHASE_SPACE_GEOMETRY",
+      "title": "Harmonic Oscillator Invariant Energy Ellipses and SO(2) Rotation",
+      "scope": {
+        "domain": "R2",
+        "dimension": "2D",
+        "coefficient_ring": "real",
+        "regularity": "Hamiltonian_analytic",
+        "orientation_convention": "symplectic",
+        "boundary_convention": "closed_orbits",
+        "parameter_range": "q_in_[-2,2]_p_in_[-2,2]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"x_range": [-2.0, 2.0], "v_range": [-2.0, 2.0]},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "Planar phase portrait showing concentric circular invariant orbits in (x,v) phase space"
+    },
+    {
+      "view_id": "view:vis:q15_validated_solution_tube",
+      "claim_id": "canonical:ode:residual_to_solution_bound",
+      "contract_id": "Q15",
+      "view_mode": "ERROR_ENVELOPE",
+      "title": "Validated Continuous-Slab Solution Tube Enclosure",
+      "scope": {
+        "domain": "C([0,h])",
+        "dimension": "1D_slab",
+        "coefficient_ring": "real",
+        "regularity": "validated_interval_Lipschitz",
+        "orientation_convention": "standard",
+        "boundary_convention": "tube_radius_bound",
+        "parameter_range": "t_in_[0,0.5]",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"t_min": 0.0, "t_max": 0.5, "y_min": 0.9, "y_max": 1.8},
+      "evidence_kind": "VALIDATED_ENCLOSURE",
+      "projection_notes": "Continuous envelope around polynomial approximant enclosing true exponential solution"
+    },
+    {
+      "view_id": "view:vis:f5_proof_dependencies",
+      "claim_id": "canonical:fa:banach_contraction_theorem",
+      "contract_id": "F5_DEPENDENCY_GRAPH",
+      "view_mode": "PROOF_DEPENDENCY",
+      "title": "Wave F5 Mathematical Architecture and Dependency Hierarchy",
+      "scope": {
+        "domain": "meta:coverage_graph",
+        "dimension": "graph_dag",
+        "coefficient_ring": "discrete",
+        "regularity": "acyclic_dag",
+        "orientation_convention": "hierarchical",
+        "boundary_convention": "prerequisites_to_claims",
+        "parameter_range": "families_A_to_E",
+        "exceptional_cases": "none"
+      },
+      "parameter_ranges": {"packages": ["F5A", "F5B", "F5C", "F5D", "F5E"]},
+      "evidence_kind": "EXACT_RATIONAL",
+      "projection_notes": "Hierarchical dependency DAG connecting topology, functional analysis, operator theory, and ODEs"
+    }
+  ]
+}

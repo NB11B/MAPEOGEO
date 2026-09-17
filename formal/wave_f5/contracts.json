@@ -1,0 +1,150 @@
+{
+  "schema_version": "0.22",
+  "description": "Preregistered executable and formal contract scopes for Wave F5 (Q01-Q18)",
+  "contracts": {
+    "Q01": {
+      "contract_id": "Q01",
+      "family": "B15",
+      "target_concept": "canonical:fa:banach_contraction_theorem",
+      "positive_instance": "T(x)=x/2+1 on closed invariant interval [0,2]; fixed point 2; geometric error bound",
+      "required_falsification": "q=1 gives insufficient contraction evidence; noninvariant domain rejected",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q02": {
+      "contract_id": "Q02",
+      "family": "B10",
+      "target_concept": "canonical:fa:hilbert_adjoint_operator",
+      "positive_instance": "Rational matrices under declared real inner product; inner-product pairing identity",
+      "required_falsification": "Transpose/index/sign mutation rejected; complex conjugation case separate",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q03": {
+      "contract_id": "Q03",
+      "family": "B10",
+      "target_concept": "canonical:fa:hilbert_projection_theorem",
+      "positive_instance": "Rational full-rank basis; P squared=P; P transpose=P; residual orthogonality",
+      "required_falsification": "Rank-deficient basis and oblique projection mislabeled orthogonal rejected",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q04": {
+      "contract_id": "Q04",
+      "family": "C01",
+      "target_concept": "canonical:operator:neumann_series",
+      "positive_instance": "Rational matrix with induced norm <1; truncated series residual plus tail bound",
+      "required_falsification": "Norm >=1 cannot use this sufficient certificate, even if inverse exists",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q05": {
+      "contract_id": "Q05",
+      "family": "C06",
+      "target_concept": "canonical:operator:compact_self_adjoint_spectral_theorem",
+      "positive_instance": "Rational diagonal/symmetric cases with exact eigenpairs and projectors",
+      "required_falsification": "Dropped eigenspace or nonnormal operator under orthogonal claim rejected",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q06": {
+      "contract_id": "Q06",
+      "family": "D03",
+      "target_concept": "canonical:ode:picard_operator_self_map",
+      "positive_instance": "y'=y, y(0)=1, t in [0,1/4], sup-norm ball radius 1/2 about constant 1; M=3/2, L=1",
+      "required_falsification": "Enlarged step violating self-map or q>=1 cannot certify",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q07": {
+      "contract_id": "Q07",
+      "family": "D05",
+      "target_concept": "canonical:ode:peano_nonuniqueness_boundary",
+      "positive_instance": "y'=2 sqrt(abs(y)), y(0)=0; zero solution and delayed-square family",
+      "required_falsification": "A unique-solution assertion must fail while existence remains valid",
+      "evidence_kind": "COUNTEREXAMPLE"
+    },
+    "Q08": {
+      "contract_id": "Q08",
+      "family": "D07",
+      "target_concept": "canonical:ode:maximal_solution_continuation",
+      "positive_instance": "y'=y squared, y(0)=1; y=1/(1-t) for t<1",
+      "required_falsification": "A certificate crossing t=1 rejected; local evidence not globalized",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q09": {
+      "contract_id": "Q09",
+      "family": "D12",
+      "target_concept": "canonical:ode:autonomous_flow_group_action",
+      "positive_instance": "Rational solution map x/(1-tx) on connected maximal time interval",
+      "required_falsification": "Composition outside common existence domain rejected",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q10": {
+      "contract_id": "Q10",
+      "family": "D10",
+      "target_concept": "canonical:ode:nonautonomous_evolution_operator",
+      "positive_instance": "y'=t y; U(t,s)=exp((t^2-s^2)/2)",
+      "required_falsification": "Incorrect one-parameter time-homogeneous law rejected",
+      "evidence_kind": "SYMBOLIC_IDENTITY"
+    },
+    "Q11": {
+      "contract_id": "Q11",
+      "family": "E05",
+      "target_concept": "canonical:ode:lyapunov_function_stability",
+      "positive_instance": "A=diag(-1,-2), V=x transpose x; derivative strictly negative off zero",
+      "required_falsification": "Wrong sign, wrong domain or non-positive-definite V rejected",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q12": {
+      "contract_id": "Q12",
+      "family": "E04",
+      "target_concept": "canonical:ode:linearization_hyperbolic_equilibria",
+      "positive_instance": "x'=-x^3 vs x'=x^3: same zero linearization, opposite nonlinear stability",
+      "required_falsification": "Definitive stability inferred solely from zero eigenvalue rejected",
+      "evidence_kind": "COUNTEREXAMPLE"
+    },
+    "Q13": {
+      "contract_id": "Q13",
+      "family": "E03",
+      "target_concept": "canonical:ode:transient_growth_nonnormal_systems",
+      "positive_instance": "Upper triangular A=[[-1,10],[0,-2]] with stable spectrum but transient norm growth",
+      "required_falsification": "Negative eigenvalues must not imply Euclidean norm decreases at every instant",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q14": {
+      "contract_id": "Q14",
+      "family": "E12",
+      "target_concept": "canonical:ode:conservative_hamiltonian_flows",
+      "positive_instance": "Harmonic oscillator; energy constant; planar rotations",
+      "required_falsification": "Energy-growth mutation and false asymptotic-attraction claim rejected",
+      "evidence_kind": "EXACT_RATIONAL"
+    },
+    "Q15": {
+      "contract_id": "Q15",
+      "family": "F06",
+      "target_concept": "canonical:ode:residual_to_solution_bound",
+      "positive_instance": "Polynomial approximate solution of y'=y with exact residual supremum bound",
+      "required_falsification": "Missing initial error or underestimated residual prevents acceptance",
+      "evidence_kind": "VALIDATED_ENCLOSURE"
+    },
+    "Q16": {
+      "contract_id": "Q16",
+      "family": "F04",
+      "target_concept": "canonical:ode:invariant_region_tube_certificate",
+      "positive_instance": "Logistic equation x'=x(1-x), initial interval within [0,1]",
+      "required_falsification": "Claimed certificate includes neither full vector-field bound nor valid enclosure",
+      "evidence_kind": "VALIDATED_ENCLOSURE"
+    },
+    "Q17": {
+      "contract_id": "Q17",
+      "family": "F07",
+      "target_concept": "canonical:ode:transversal_event_localization",
+      "positive_instance": "x'=1, x(0)=0; transversal event x=1 at t=1",
+      "required_falsification": "Tangential-event example cannot reuse transversal certificate",
+      "evidence_kind": "VALIDATED_ENCLOSURE"
+    },
+    "Q18": {
+      "contract_id": "Q18",
+      "family": "D14",
+      "target_concept": "canonical:ode:regular_bvp_green_operator",
+      "positive_instance": "-u''=f on [0,1], Dirichlet endpoints; polynomial exact case",
+      "required_falsification": "Boundary mismatch and singular operator parameter rejected",
+      "evidence_kind": "EXACT_RATIONAL"
+    }
+  }
+}

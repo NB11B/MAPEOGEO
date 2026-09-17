@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.22",
+  "package_code": "F5C",
+  "title": "Operator and Spectral Theory",
+  "description": "Bounded/unbounded operators, spectra, compact/Fredholm theory, forms, semigroups, and Sturm-Liouville (C01-C14)",
+  "declarations": [
+    {
+      "declaration_id": "f5:decl:banach_algebra_spectrum",
+      "family_code": "C01",
+      "name": "Banach Algebra Invertibility and Spectrum",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 4.1",
+      "scope_summary": "Unital Banach algebra over C",
+      "statement_summary": "Neumann series (1-a)^(-1) = sum a^n for ||a|| < 1; resolvent set rho(a) and spectrum sigma(a) is compact and nonempty."
+    },
+    {
+      "declaration_id": "f5:decl:spectral_radius_formula",
+      "family_code": "C02",
+      "name": "Spectral Radius Formula and Resolvent Identity",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 4.1.6",
+      "scope_summary": "Bounded operators in Banach algebra",
+      "statement_summary": "r(T) = lim_{n -> infty} ||T^n||^(1/n) = sup_{lambda in sigma(T)} |lambda|; resolvent identity R(z) - R(w) = (w - z) R(z) R(w)."
+    },
+    {
+      "declaration_id": "f5:decl:compact_operators_ideal",
+      "family_code": "C03",
+      "name": "Compact Linear Operators as a Closed Ideal",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 4.2.2",
+      "scope_summary": "Compact operators K(X, Y) between Banach spaces",
+      "statement_summary": "K(X) is a closed two-sided ideal in L(X); norm limits of finite-rank operators are compact."
+    },
+    {
+      "declaration_id": "f5:decl:fredholm_alternative",
+      "family_code": "C04",
+      "name": "Riesz-Schauder Theory and Fredholm Alternative",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 4.3.4",
+      "scope_summary": "Compact operator perturbations (I - K)",
+      "statement_summary": "dim ker(I - K) = dim coker(I - K) < infty; Fredholm index ind(I - K) = 0."
+    },
+    {
+      "declaration_id": "f5:decl:self_adjoint_and_normal_operators",
+      "family_code": "C05",
+      "name": "Self-Adjoint, Normal and Unitary Operators",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 5.1",
+      "scope_summary": "Hilbert space operators H -> H",
+      "statement_summary": "Adjoint T* defined by <Tx, y> = <x, T*y>; self-adjoint (T = T*) has real spectrum sigma(T) subset R."
+    },
+    {
+      "declaration_id": "f5:decl:compact_self_adjoint_spectral_theorem",
+      "family_code": "C06",
+      "name": "Spectral Theorem for Compact Self-Adjoint Operators",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 5.2.1",
+      "scope_summary": "Compact self-adjoint operator on Hilbert space H",
+      "statement_summary": "H admits an orthonormal eigenbasis with real eigenvalues converging to zero: T = sum_k lambda_k P_k."
+    },
+    {
+      "declaration_id": "f5:decl:continuous_functional_calculus",
+      "family_code": "C07",
+      "name": "Continuous Functional Calculus for Normal Operators",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 5.3.3",
+      "scope_summary": "Bounded normal operators on Hilbert space",
+      "statement_summary": "Isometric *-algebra homomorphism C(sigma(T)) -> L(H) mapping polynomial p(z) to p(T)."
+    },
+    {
+      "declaration_id": "f5:decl:unbounded_closed_operators",
+      "family_code": "C08",
+      "name": "Unbounded Operators, Dense Domains and Closed Graphs",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 6.1",
+      "scope_summary": "Densely defined operators D(A) subset X -> Y",
+      "statement_summary": "A is closed if its graph G(A) is closed; adjoint A* defined densely for symmetric/self-adjoint operators."
+    },
+    {
+      "declaration_id": "f5:decl:lax_milgram_theorem",
+      "family_code": "C09",
+      "name": "Lax-Milgram Theorem for Coercive Sesquilinear Forms",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 6.2.1",
+      "scope_summary": "Coercive bounded forms on Hilbert space H",
+      "statement_summary": "If B(u,v) is bounded and coercive (Re B(u,u) >= c ||u||^2), then for every f in H*, exists unique u with B(u,v) = f(v)."
+    },
+    {
+      "declaration_id": "f5:decl:c0_semigroups_hille_yosida",
+      "family_code": "C10",
+      "name": "C0-Semigroups and Hille-Yosida Generation Theorem",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 7.1.5",
+      "scope_summary": "Strongly continuous semigroups T(t) on Banach space X",
+      "statement_summary": "A densely defined closed operator A generates a contraction C0-semigroup iff (0, infty) subset rho(A) and ||R(lambda, A)|| <= 1/lambda."
+    },
+    {
+      "declaration_id": "f5:decl:stone_theorem_unitary_groups",
+      "family_code": "C11",
+      "name": "Stone Theorem on Strongly Continuous Unitary Groups",
+      "kind": "THEOREM",
+      "source_key": "VN",
+      "locator": "Theorem 7.2.1",
+      "scope_summary": "Unitary groups U(t) on Hilbert space H",
+      "statement_summary": "A group U(t) is strongly continuous unitary iff its generator A = iH where H is densely defined self-adjoint."
+    },
+    {
+      "declaration_id": "f5:decl:multiplication_and_integral_operators",
+      "family_code": "C12",
+      "name": "Multiplication, Shift and Convolution Operators",
+      "kind": "DEFINITION",
+      "source_key": "VN",
+      "locator": "Section 7.3",
+      "scope_summary": "Operators on L^p and sequence spaces",
+      "statement_summary": "Pointwise multiplication M_m f = m * f and integral kernel operators (K f)(x) = int k(x,y) f(y) dy."
+    },
+    {
+      "declaration_id": "f5:decl:singular_values_and_pseudospectra",
+      "family_code": "C13",
+      "name": "Singular Values and Pseudospectral Enclosures",
+      "kind": "DEFINITION",
+      "source_key": "FN",
+      "locator": "Chapter 4",
+      "scope_summary": "Operators with nonnormal spectral sensitivity",
+      "statement_summary": "sigma_epsilon(A) = {z in C : ||(zI - A)^(-1)|| > 1/epsilon}; singular value decomposition bounds."
+    },
+    {
+      "declaration_id": "f5:decl:sturm_liouville_eigenfunction_expansion",
+      "family_code": "C14",
+      "name": "Regular Sturm-Liouville Resolvent and Eigenbasis",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Chapter 5",
+      "scope_summary": "Regular boundary value problem -(p y')' + q y = lambda w y on [a, b]",
+      "statement_summary": "Green function yields a compact self-adjoint resolvent; eigenfunctions form a complete orthonormal basis in L^2_w."
+    }
+  ]
+}

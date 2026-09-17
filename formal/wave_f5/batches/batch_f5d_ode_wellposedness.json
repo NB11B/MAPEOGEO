@@ -1,0 +1,148 @@
+{
+  "schema_version": "0.22",
+  "package_code": "F5D",
+  "title": "ODE Existence, Uniqueness and Solution Structure",
+  "description": "Initial value problems, Picard-Lindelöf, Peano, Grönwall, continuation, linear systems, and flows (D01-D14)",
+  "declarations": [
+    {
+      "declaration_id": "f5:decl:ode_ivp_definition",
+      "family_code": "D01",
+      "name": "First-Order Initial Value Problem",
+      "kind": "DEFINITION",
+      "source_key": "TE",
+      "locator": "Section 1.1",
+      "scope_summary": "Vector field f: U subset R x R^n -> R^n, initial condition (t0, y0)",
+      "statement_summary": "A differentiable curve y: I -> R^n is a solution to the IVP y' = f(t, y), y(t0) = y0."
+    },
+    {
+      "declaration_id": "f5:decl:exact_and_separable_equations",
+      "family_code": "D02",
+      "name": "Separable, Exact and First-Order Linear Equations",
+      "kind": "DEFINITION",
+      "source_key": "LD",
+      "locator": "Chapter 1",
+      "scope_summary": "Scalar first-order ODEs with explicit integrating factors",
+      "statement_summary": "Integration by separation of variables, integrating factors mu(t) = exp(int P(t) dt), and exact differentials."
+    },
+    {
+      "declaration_id": "f5:decl:picard_operator_integral_formulation",
+      "family_code": "D03",
+      "name": "Picard Integral Operator and Successive Approximations",
+      "kind": "DEFINITION",
+      "source_key": "TE",
+      "locator": "Section 2.1",
+      "scope_summary": "Continuous functions under sup-norm metric",
+      "statement_summary": "Integral formulation (T y)(t) = y0 + int_{t0}^t f(s, y(s)) ds equivalent to IVP for continuous f."
+    },
+    {
+      "declaration_id": "f5:decl:picard_lindeloef_theorem",
+      "family_code": "D04",
+      "name": "Picard-Lindelöf Local Existence and Uniqueness",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 2.2",
+      "scope_summary": "Locally Lipschitz vector fields on open subsets of R x R^n",
+      "statement_summary": "If f is continuous and locally Lipschitz in y, there exists a unique local solution on [t0 - h, t0 + h]."
+    },
+    {
+      "declaration_id": "f5:decl:peano_existence_theorem",
+      "family_code": "D05",
+      "name": "Peano Existence Theorem and Nonuniqueness Boundary",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 2.4",
+      "scope_summary": "Continuous vector fields on finite-dimensional R^n",
+      "statement_summary": "Continuity alone guarantees existence of at least one local solution; uniqueness may fail (e.g. y' = 2 sqrt(|y|))."
+    },
+    {
+      "declaration_id": "f5:decl:groenwall_inequality",
+      "family_code": "D06",
+      "name": "Grönwall Inequality and Continuous Dependence",
+      "kind": "LEMMA",
+      "source_key": "TE",
+      "locator": "Lemma 2.7",
+      "scope_summary": "Integral inequalities for error bounding",
+      "statement_summary": "Yields exponential bounds on error propagation: ||y_1(t) - y_2(t)|| <= ||y_{1,0} - y_{2,0}|| exp(L |t - t0|)."
+    },
+    {
+      "declaration_id": "f5:decl:maximal_continuation_blowup",
+      "family_code": "D07",
+      "name": "Maximal Interval of Existence and Boundary Escape",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 2.13",
+      "scope_summary": "Solutions on maximal intervals (t_-, t_+)",
+      "statement_summary": "As t approaches an endpoint of the maximal interval, (t, y(t)) escapes every compact subset of the domain U."
+    },
+    {
+      "declaration_id": "f5:decl:global_existence_growth_bounds",
+      "family_code": "D08",
+      "name": "Global Existence under Sublinear/Linear Growth",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 2.17",
+      "scope_summary": "Vector fields satisfying ||f(t, y)|| <= a(t) ||y|| + b(t)",
+      "statement_summary": "Sublinear growth bounds prevent finite-time blowup and ensure global existence for all t in R."
+    },
+    {
+      "declaration_id": "f5:decl:parameter_and_differentiable_dependence",
+      "family_code": "D09",
+      "name": "Differentiable Parameter Dependence and Variational Equations",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 2.18",
+      "scope_summary": "C^k vector fields with respect to state and parameters",
+      "statement_summary": "The flow Phi(t, t0, x) is C^k with derivative W(t) = partial_x Phi satisfying the linear variational ODE W' = Df(t, y(t)) W."
+    },
+    {
+      "declaration_id": "f5:decl:linear_systems_fundamental_matrix",
+      "family_code": "D10",
+      "name": "Linear ODE Systems and Variation of Constants",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Chapter 3",
+      "scope_summary": "Linear systems y' = A(t) y + g(t)",
+      "statement_summary": "Solutions form an n-dimensional vector space; fundamental matrix Phi(t); variation of constants formula y(t) = Phi(t) y0 + int Phi(t) Phi(s)^(-1) g(s) ds."
+    },
+    {
+      "declaration_id": "f5:decl:floquet_theory_periodic_systems",
+      "family_code": "D11",
+      "name": "Floquet Theory for Periodic Linear Systems",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 3.14",
+      "scope_summary": "T-periodic linear systems y' = A(t) y with A(t+T) = A(t)",
+      "statement_summary": "Fundamental matrix factors as Phi(t) = P(t) exp(t R) where P(t) is T-periodic and R is a constant matrix; monodromy matrix M = exp(T R)."
+    },
+    {
+      "declaration_id": "f5:decl:autonomous_local_flow",
+      "family_code": "D12",
+      "name": "Autonomous Phase Flow and Local Group Action",
+      "kind": "DEFINITION",
+      "source_key": "AR",
+      "locator": "Chapter 1",
+      "scope_summary": "Autonomous systems x' = f(x)",
+      "statement_summary": "Flow Phi^t satisfies group composition Phi^{t+s} = Phi^t circ Phi^s wherever both sides are defined."
+    },
+    {
+      "declaration_id": "f5:decl:complex_analytic_frobenius_ode",
+      "family_code": "D13",
+      "name": "Complex Analytic ODEs and Frobenius Method",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Chapter 4",
+      "scope_summary": "Linear ODEs with regular singular points in C",
+      "statement_summary": "Power series and Frobenius series solutions with indicial equation roots determining logarithmic terms."
+    },
+    {
+      "declaration_id": "f5:decl:sturm_comparison_oscillation",
+      "family_code": "D14",
+      "name": "Sturm Comparison and Separation Theorems",
+      "kind": "THEOREM",
+      "source_key": "TE",
+      "locator": "Theorem 5.5",
+      "scope_summary": "Second-order linear ODEs -(p y')' + q y = 0",
+      "statement_summary": "Zeros of linearly independent solutions strictly interlace; Sturm comparison theorem bounds zero distribution."
+    }
+  ]
+}

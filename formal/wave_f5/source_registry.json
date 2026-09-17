@@ -1,0 +1,96 @@
+{
+  "schema_version": "0.22",
+  "description": "Source research register and acquisition pinning for MAPEOGEO Wave F5",
+  "sources": [
+    {
+      "source_key": "VN",
+      "title": "Functional Analysis",
+      "authors": ["Jan van Neerven"],
+      "edition_or_version": "arXiv v7 (2021)",
+      "entry_url": "https://arxiv.org/abs/2112.11166v7",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
+      "intended_contribution": "Banach/Hilbert space theory, Fredholm operators, sesquilinear forms, spectral theory, and C0-semigroups."
+    },
+    {
+      "source_key": "TE",
+      "title": "Ordinary Differential Equations and Dynamical Systems",
+      "authors": ["Gerald Teschl"],
+      "edition_or_version": "Graduate Studies in Mathematics / Author Online Edition (2012)",
+      "entry_url": "https://www.mat.univie.ac.at/~gerald/ftp/book-ode/",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
+      "intended_contribution": "IVPs, linear systems, Floquet theory, Lyapunov stability, dynamical flows, and boundary value problems."
+    },
+    {
+      "source_key": "LR",
+      "title": "Basic Analysis I: Introduction to Real Analysis",
+      "authors": ["Jiří Lebl"],
+      "edition_or_version": "Version 6.3 (May 15, 2026)",
+      "entry_url": "https://www.jirka.org/ra/",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "OPEN_ACCESS_CREATIVE_COMMONS",
+      "intended_contribution": "Metric spaces, completeness, continuous functions, and fixed points bridging Wave F4 into Wave F5."
+    },
+    {
+      "source_key": "LD",
+      "title": "Notes on Diffy Qs: Differential Equations for Engineers",
+      "authors": ["Jiří Lebl"],
+      "edition_or_version": "Version 6.5 (2025)",
+      "entry_url": "https://www.jirka.org/diffyqs/",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "OPEN_ACCESS_CREATIVE_COMMONS",
+      "intended_contribution": "Elementary ODE formulations, exact solution methods, phase planes, and worked examples."
+    },
+    {
+      "source_key": "AX",
+      "title": "Measure, Integration & Real Analysis",
+      "authors": ["Sheldon Axler"],
+      "edition_or_version": "Springer Open Edition (2020)",
+      "entry_url": "https://measure.axler.net/",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "OPEN_ACCESS_CREATIVE_COMMONS",
+      "intended_contribution": "Measure spaces, Lebesgue integration, Lp spaces, and function-space prerequisites for functional analysis."
+    },
+    {
+      "source_key": "HU",
+      "title": "Notes on Partial Differential Equations",
+      "authors": ["John K. Hunter"],
+      "edition_or_version": "UC Davis Course Notes (2014)",
+      "entry_url": "https://www.math.ucdavis.edu/~hunter/pdes/pde_notes.pdf",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
+      "intended_contribution": "Sobolev spaces, weak derivatives, distributions, and evolution equation interfaces."
+    },
+    {
+      "source_key": "FN",
+      "title": "Fundamentals of Numerical Computation",
+      "authors": ["Tobin A. Driscoll", "Richard J. Braun"],
+      "edition_or_version": "SIAM Edition (2017)",
+      "entry_url": "https://fncbook.com/",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "METADATA_LOCATORS_AND_SUMMARIES_ONLY",
+      "intended_contribution": "Numerical approximation, ODE IVP/BVP solvers, stability regions, and computational operator interfaces."
+    },
+    {
+      "source_key": "AR",
+      "title": "Ordinary Differential Equations",
+      "authors": ["Vladimir I. Arnold"],
+      "edition_or_version": "MIT Press / Springer (1978 / 1992)",
+      "entry_url": "https://mitpress.mit.edu/9780262510189/ordinary-differential-equations/",
+      "access_status": "PAGE_VERIFIED",
+      "export_policy": "PHYSICAL_HOLDINGS_OCR_LOCATORS_ONLY",
+      "intended_contribution": "Geometric and qualitative ODE theory, vector fields on manifolds, phase flows, and Hamiltonian systems."
+    },
+    {
+      "source_key": "KF",
+      "title": "Elements of the Theory of Functions and Functional Analysis",
+      "authors": ["A. N. Kolmogorov", "S. V. Fomin"],
+      "edition_or_version": "Nauka / Dover English Edition (1970)",
+      "entry_url": "https://math.ru/lib/",
+      "access_status": "PHYSICAL_HOLDING",
+      "export_policy": "PHYSICAL_HOLDINGS_OCR_LOCATORS_ONLY",
+      "intended_contribution": "Soviet-school functional analysis, metric and linear topological spaces, and spectral theory foundations."
+    }
+  ]
+}

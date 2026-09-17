@@ -1,0 +1,111 @@
+{
+  "schema_version": "0.22",
+  "description": "Reviewed mechanism joints connecting Wave F5 mathematical concepts across functional analysis and ODE views without asserting semantic identity.",
+  "joints": [
+    {
+      "joint_id": "joint:f5:banach_contraction_to_picard",
+      "joint_type": "FIXED_POINT_CONSTRUCTION",
+      "relationship": "CONTRACTION_OF",
+      "feet": [
+        {"node_id": "canonical:fa:banach_contraction_theorem", "role": "abstract_fixed_point_theorem"},
+        {"node_id": "canonical:ode:picard_operator_self_map", "role": "function_space_realization"}
+      ],
+      "scope": {
+        "domain": "function_space:C([0,h])",
+        "dimension": "infinite",
+        "coefficient_ring": "real",
+        "regularity": "Lipschitz",
+        "orientation_convention": "standard",
+        "boundary_convention": "closed_ball",
+        "parameter_range": "hM<=r_and_hL<1",
+        "exceptional_cases": "none"
+      },
+      "status": "CERTIFIED",
+      "metadata": {"mechanism": "Picard-Lindelof operator fixed point construction via metric contraction"}
+    },
+    {
+      "joint_id": "joint:f5:hilbert_projection_to_adjoint",
+      "joint_type": "OPERATOR_ACTION",
+      "relationship": "ACTS_ON",
+      "feet": [
+        {"node_id": "canonical:fa:hilbert_projection_theorem", "role": "subspace_projection"},
+        {"node_id": "canonical:fa:hilbert_adjoint_operator", "role": "self_adjoint_projection_property"}
+      ],
+      "scope": {
+        "domain": "hilbert_space",
+        "dimension": "infinite_or_finite",
+        "coefficient_ring": "real_or_complex",
+        "regularity": "bounded_linear",
+        "orientation_convention": "standard",
+        "boundary_convention": "closed_subspace",
+        "parameter_range": "all",
+        "exceptional_cases": "none"
+      },
+      "status": "CERTIFIED",
+      "metadata": {"mechanism": "Orthogonal projector is self-adjoint idempotent operator"}
+    },
+    {
+      "joint_id": "joint:f5:gronwall_to_flow_sensitivity",
+      "joint_type": "CONTINUOUS_DEPENDENCE",
+      "relationship": "MONOTONE_ALONG",
+      "feet": [
+        {"node_id": "canonical:ode:gronwall_inequality_integral", "role": "differential_integral_inequality"},
+        {"node_id": "canonical:ode:continuous_dependence_initial_conditions", "role": "flow_perturbation_bound"}
+      ],
+      "scope": {
+        "domain": "real_interval",
+        "dimension": "finite",
+        "coefficient_ring": "real",
+        "regularity": "Lipschitz",
+        "orientation_convention": "forward_time",
+        "boundary_convention": "compact_interval",
+        "parameter_range": "t>=0",
+        "exceptional_cases": "none"
+      },
+      "status": "CERTIFIED",
+      "metadata": {"mechanism": "Gronwall estimate implies Lipschitz continuous dependence of flows on initial conditions"}
+    },
+    {
+      "joint_id": "joint:f5:linearization_to_lyapunov",
+      "joint_type": "LINEARIZATION",
+      "relationship": "SCOPED_TRANSFER",
+      "feet": [
+        {"node_id": "canonical:ode:linearization_hyperbolic_equilibria", "role": "jacobian_linearization"},
+        {"node_id": "canonical:ode:lyapunov_function_stability", "role": "quadratic_lyapunov_construction"}
+      ],
+      "scope": {
+        "domain": "neighborhood_of_equilibrium",
+        "dimension": "finite",
+        "coefficient_ring": "real",
+        "regularity": "C1",
+        "orientation_convention": "standard",
+        "boundary_convention": "local_basin",
+        "parameter_range": "hyperbolic_real_parts_negative",
+        "exceptional_cases": "zero_real_part_spectrum"
+      },
+      "status": "CERTIFIED",
+      "metadata": {"mechanism": "Indirect Lyapunov method constructs quadratic Lyapunov function from stable linear part"}
+    },
+    {
+      "joint_id": "joint:f5:compact_operator_to_sturm_liouville",
+      "joint_type": "SPECTRAL_PROJECTION",
+      "relationship": "SPECTRAL_DECOMPOSITION_OF",
+      "feet": [
+        {"node_id": "canonical:operator:compact_self_adjoint_spectral_theorem", "role": "abstract_spectral_theorem"},
+        {"node_id": "canonical:operator:regular_sturm_liouville_eigenfunctions", "role": "green_resolvent_compactness"}
+      ],
+      "scope": {
+        "domain": "L2_interval",
+        "dimension": "infinite",
+        "coefficient_ring": "real",
+        "regularity": "C2_coefficients",
+        "orientation_convention": "standard",
+        "boundary_convention": "separated_self_adjoint_bc",
+        "parameter_range": "all",
+        "exceptional_cases": "none"
+      },
+      "status": "CERTIFIED",
+      "metadata": {"mechanism": "Green operator of regular Sturm-Liouville problem is compact self-adjoint"}
+    }
+  ]
+}

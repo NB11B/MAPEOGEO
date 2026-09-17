@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/NB11B/MAPEOGEO/main/schema/wave-f5-batch.schema.json",
+  "title": "Wave F5 Source Batch Specification",
+  "description": "Schema for source batches grouping mathematical declarations by package code and family.",
+  "type": "object",
+  "required": ["schema_version", "package_code", "title", "declarations"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["0.22"]
+    },
+    "package_code": {
+      "type": "string",
+      "enum": ["F5A", "F5B", "F5C", "F5D", "F5E", "F5F", "F5G"]
+    },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "declarations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BatchDeclaration"
+      }
+    }
+  },
+  "definitions": {
+    "BatchDeclaration": {
+      "type": "object",
+      "required": [
+        "declaration_id",
+        "family_code",
+        "name",
+        "kind",
+        "source_key",
+        "locator",
+        "scope_summary",
+        "statement_summary"
+      ],
+      "properties": {
+        "declaration_id": { "type": "string" },
+        "family_code": { "type": "string" },
+        "name": { "type": "string" },
+        "kind": {
+          "type": "string",
+          "enum": ["DEFINITION", "THEOREM", "PROPOSITION", "LEMMA", "COROLLARY", "CONSTRUCTION", "COUNTEREXAMPLE"]
+        },
+        "source_key": { "type": "string" },
+        "locator": { "type": "string" },
+        "scope_summary": { "type": "string" },
+        "statement_summary": { "type": "string" },
+        "dependencies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "wounds": {
+          "type": "array",
+          "items": { "type": "object" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
