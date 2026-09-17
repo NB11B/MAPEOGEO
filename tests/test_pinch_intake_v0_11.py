@@ -275,7 +275,7 @@ def run_intake_test_helper(graph_dict: dict, tmp_path: Path, extra_args: list[st
     mock_lean.write_text(
         "theorem proposition_3_14_v011 : 1 = 1 := rfl\n"
         "theorem proposition_3_13_v011 : 1 = 1 := rfl\n"
-        "theorem theorem_27_10_v011 : 1 = 1 := rfl\n"
+        "theorem affine_map_split_along_fixed_direction : 1 = 1 := rfl\n"
         "theorem proposition_4_4_v011 : 1 = 1 := rfl\n",
         encoding="utf-8",
     )
@@ -390,7 +390,7 @@ def test_negative_refused_scope_cannot_receive_kernel_verified(tmp_path: Path):
     mock_lean.write_text(
         "theorem proposition_3_14_v011 : 1 = 1 := rfl\n"
         "theorem proposition_3_13_v011 : 1 = 1 := rfl\n"
-        "theorem theorem_27_10_v011 : 1 = 1 := rfl\n"
+        "theorem affine_map_split_along_fixed_direction : 1 = 1 := rfl\n"
         "theorem proposition_4_4_v011 : 1 = 1 := rfl\n",
         encoding="utf-8",
     )
@@ -449,7 +449,7 @@ def test_negative_caller_claiming_checker_pass_without_evidence_fails(tmp_path: 
     mock_lean.write_text(
         "theorem proposition_3_14_v011 : 1 = 1 := rfl\n"
         "theorem proposition_3_13_v011 : 1 = 1 := rfl\n"
-        "theorem theorem_27_10_v011 : 1 = 1 := rfl\n"
+        "theorem affine_map_split_along_fixed_direction : 1 = 1 := rfl\n"
         "theorem proposition_4_4_v011 : 1 = 1 := rfl\n",
         encoding="utf-8",
     )

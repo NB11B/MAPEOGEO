@@ -33,12 +33,12 @@ theorem proposition_3_13_v011
   linearIndependent_finSucc
 
 /--
-Scoped source-bound formalization for Gallier–Quaintance Theorem 27.10 (v0.11):
-Canonical decomposition of an affine transformation with invariant direction and fixed point.
+Narrowed scoped source-bound formalization for Gallier–Quaintance Theorem 27.10 (v0.11):
+Affine map split along a fixed invariant direction.
 An affine map with linear part `A` and translation `b` decomposes into a translation
 along an invariant vector `tau` and an affine map `g` possessing a fixed point.
 -/
-theorem theorem_27_10_v011
+theorem affine_map_split_along_fixed_direction
     {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V] [FiniteDimensional ℝ V]
     (A : V →ₗ[ℝ] V) (b : V)
     (h_split : ∃ tau x0 : V, A tau = tau ∧ A (x0 - x0) + x0 = x0 ∧ b = (x0 - A x0) + tau) :
@@ -106,7 +106,7 @@ theorem proposition_4_4_v011
 
 #print axioms proposition_3_14_v011
 #print axioms proposition_3_13_v011
-#print axioms theorem_27_10_v011
+#print axioms affine_map_split_along_fixed_direction
 #print axioms proposition_4_4_v011
 
 end MAPEOGEOFormal

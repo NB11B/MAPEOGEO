@@ -1,0 +1,104 @@
+name: MAPEOGEO v0.21 Joint Layer
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - agent/joint-layer-v0-21
+      - main
+    paths:
+      - "MAPEOGEOFormal.lean"
+      - "MAPEOGEOFormal/**"
+      - "data/**"
+      - "docs/**"
+      - "evidence/**"
+      - "formal/**"
+      - "mapeogeo/**"
+      - "schema/**"
+      - "scripts/**"
+      - "tests/**"
+      - "lakefile.lean"
+      - "lake-manifest.json"
+      - "lean-toolchain"
+      - "requirements-math-rigor-v0-20.lock"
+      - ".github/workflows/joint-layer-v0-21.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  integrity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    steps:
+      - name: Checkout exact branch revision
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Set up pinned Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.12.14"
+          cache: pip
+          cache-dependency-path: requirements-math-rigor-v0-20.lock
+
+      - name: Install hash-locked Python dependencies
+        run: >-
+          python -m pip install --require-hashes --only-binary=:all:
+          -r requirements-math-rigor-v0-20.lock
+
+      - name: Compile Joint Layer Python modules
+        run: |
+          python -m py_compile \
+            mapeogeo/models/view_slots.py \
+            mapeogeo/analysis/scope_comparator.py \
+            mapeogeo/pct/attach.py \
+            mapeogeo/pct/attachments/stokes_simplex.py \
+            scripts/check_lean_source_hashes.py \
+            scripts/correspondence_certificate.py \
+            scripts/stokes_package_v0_21.py \
+            scripts/pct_attach_v0_21.py \
+            scripts/horn_query_v0_21.py \
+            scripts/perelman_joints_v0_21.py \
+            scripts/reconstruct_pipeline.py
+
+      - name: Install Lean and kernel-build the pinned project
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        with:
+          auto-config: false
+          build: true
+          test: false
+          use-mathlib-cache: true
+          use-github-cache: true
+          leanchecker: false
+          nanoda: false
+
+      - name: Reconstruct dependency chain up to v0.21 Joint Layer
+        run: python scripts/reconstruct_pipeline.py --target-stage v0.21
+
+      - name: Run complete regression test suite
+        run: python -m pytest tests -v
+
+      - name: Reconstruct twice from clean exported trees
+        shell: bash
+        run: |
+          set -euo pipefail
+          recon_a="$RUNNER_TEMP/mapeogeo-joint-a"
+          recon_b="$RUNNER_TEMP/mapeogeo-joint-b"
+          mkdir -p "$recon_a" "$recon_b"
+          git archive --format=tar HEAD | tar -xf - -C "$recon_a"
+          git archive --format=tar HEAD | tar -xf - -C "$recon_b"
+
+          (cd "$recon_a" && python scripts/reconstruct_pipeline.py --target-stage v0.21)
+          (cd "$recon_b" && python scripts/reconstruct_pipeline.py --target-stage v0.21)
+
+          diff -u \
+            "$recon_a/artifacts/joint_layer_v0_21/joints_stokes_v0_21.json" \
+            "$recon_b/artifacts/joint_layer_v0_21/joints_stokes_v0_21.json"
+          diff -u \
+            "$recon_a/artifacts/joint_layer_v0_21/correspondence_certificates_v0_21.json" \
+            "$recon_b/artifacts/joint_layer_v0_21/correspondence_certificates_v0_21.json"
+          diff -u \
+            "$recon_a/artifacts/joint_layer_v0_21/joints_perelman_v0_21.json" \
+            "$recon_b/artifacts/joint_layer_v0_21/joints_perelman_v0_21.json"

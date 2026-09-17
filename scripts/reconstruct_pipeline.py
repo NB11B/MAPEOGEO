@@ -62,7 +62,7 @@ def main() -> int:
     parser.add_argument(
         "--target-stage",
         choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation", "wave_f1", "wave_f2", "wave_f3", "wave_f4", "v0.21"],
-        default="wave_f4",
+        default="v0.21",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
     parser.add_argument("--from-scratch", action="store_true", help="Re-derive historical v0.6-v0.11 stages from raw source PDF")
@@ -479,6 +479,60 @@ def main() -> int:
             str(ROOT / "artifacts" / "wave_f4_v0_21" / "v0_21_wave_f4_results.json"),
             "--out-report",
             str(ROOT / "artifacts" / "wave_f4_v0_21" / "V0_21_WAVE_F4_REPORT.md"),
+        ],
+    )
+
+    if args.target_stage == "wave_f4":
+        total_time = time.time() - t_start
+        print("==========================================================")
+        print(f"  Clean-room reconstruction SUCCESS! Total time: {total_time:.2f}s")
+        print("==========================================================")
+        return 0
+
+    # Stage: v0.21 Joint Layer (Mechanism Joints, Quorum Certificates, Subject PCT, Horn Query, Perelman Candidates)
+    run_stage(
+        "v0.21 Joint Layer: Lean Source Hash Bridge",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "check_lean_source_hashes.py"),
+        ],
+    )
+    run_stage(
+        "v0.21 Joint Layer: Simplicial Stokes Package S",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "stokes_package_v0_21.py"),
+            "--joints-out",
+            str(ROOT / "artifacts" / "joint_layer_v0_21" / "joints_stokes_v0_21.json"),
+            "--certs-out",
+            str(ROOT / "artifacts" / "joint_layer_v0_21" / "correspondence_certificates_v0_21.json"),
+        ],
+    )
+    run_stage(
+        "v0.21 Joint Layer: Subject-Bound PCT Attachments",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "pct_attach_v0_21.py"),
+            "--out-ledger",
+            str(ROOT / "artifacts" / "joint_layer_v0_21" / "pct_v0_21_attachment_receipts.json"),
+        ],
+    )
+    run_stage(
+        "v0.21 Joint Layer: Preregistered Horn Query (Evidence-Only)",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "horn_query_v0_21.py"),
+            "--out-evidence",
+            str(ROOT / "artifacts" / "joint_layer_v0_21" / "horn_query_results_v0_21.json"),
+        ],
+    )
+    run_stage(
+        "v0.21 Joint Layer: Package P Candidate Mechanism Joints",
+        [
+            sys.executable,
+            str(ROOT / "scripts" / "perelman_joints_v0_21.py"),
+            "--out-file",
+            str(ROOT / "artifacts" / "joint_layer_v0_21" / "joints_perelman_v0_21.json"),
         ],
     )
 

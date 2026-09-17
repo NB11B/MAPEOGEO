@@ -39,10 +39,16 @@
       "source_id": "srcdecl:theorem:27_10",
       "statement_sha256": "d205d7c5313b841e6afafc9d619fa059dfe50a2f6c11a48ca2cff466cc84d4fa",
       "expected_direct_status": "DUAL_DIRECT",
+      "relationship": "SCOPED_OVERLAP",
+      "wound": {
+        "status": "OPEN_WOUND",
+        "reason": "CONTRACT_NARROWER_THAN_SOURCE",
+        "detail": "Affine fixed-point split along one fixed invariant direction, narrower than full affine isometry decomposition."
+      },
       "explicit_dependencies": [
         "srcdecl:theorem:6_16"
       ],
-      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "formal_decl": "MAPEOGEOFormal.affine_map_split_along_fixed_direction",
       "formal_scope": "Self-adjoint operator / symmetric matrix orthogonal eigenspace decomposition",
       "scope_status": "FROZEN",
       "s3_test_state": "EXECUTABLE_CONTRACT",

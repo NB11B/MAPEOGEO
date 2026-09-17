@@ -1,0 +1,76 @@
+{
+  "schema_version": "0.21",
+  "description": "Canonical registry of 10 mechanism joint types and endpoint role semantics for MAPEOGEO v0.21",
+  "joint_types": [
+    {
+      "joint_type": "METRIC_CONTRACTION",
+      "description": "Trace/contraction operation reducing tensor rank (e.g. Riemann curvature tensor to Ricci curvature tensor)",
+      "allowed_roles": ["ambient_tensor", "source_metric", "contracted_tensor", "scalar_trace"],
+      "default_relationship": "CONTRACTION_OF",
+      "geometric_interpretation": "Algebraic trace / index contraction mapping higher-rank tensor fields to lower-rank geometric summaries"
+    },
+    {
+      "joint_type": "GRADIENT_FLOW",
+      "description": "Geometric evolution PDE governing deformation of metric/field tensors along energy gradients",
+      "allowed_roles": ["flow_equation", "generator", "evolving_field", "source_metric", "time_parameter"],
+      "default_relationship": "ACTS_ON",
+      "geometric_interpretation": "Nonlinear parabolic/gradient evolution smoothing or concentrating geometric structures over time"
+    },
+    {
+      "joint_type": "TOPOLOGICAL_SURGERY",
+      "description": "Controlled geometric cutting and capped gluing along standard neck regions to eliminate finite-time singularities",
+      "allowed_roles": ["surgery_operation", "target_neck", "cut_interface", "replacement_cap", "manifold_post_surgery"],
+      "default_relationship": "SURGERY_OF",
+      "geometric_interpretation": "Excising degenerating cylindrical necks and gluing standard capped manifolds with bounded curvature and topology change control"
+    },
+    {
+      "joint_type": "MONOTONICITY_FORMULA",
+      "description": "Strictly monotonic integral functional along geometric flows preventing periodic orbits and bounding entropy",
+      "allowed_roles": ["functional_quantity", "flow_trajectory", "backward_kernel", "scale_parameter"],
+      "default_relationship": "MONOTONE_ALONG",
+      "geometric_interpretation": "Entropy and localized energy functionals monotonically non-decreasing along flow curves, ruling out breathers"
+    },
+    {
+      "joint_type": "ASYMPTOTIC_BLOWUP",
+      "description": "Rescaled limit of high-curvature regions modeling singularity geometry (solitons, shrinking cylinders)",
+      "allowed_roles": ["singularity_model", "blowup_limit", "unscaled_trajectory", "parabolic_dilation"],
+      "default_relationship": "BLOWS_UP_AS",
+      "geometric_interpretation": "Pointed parabolic rescaling converging to standard singularity models (e.g., S2 x R cylinders or gradient shrinking solitons)"
+    },
+    {
+      "joint_type": "VARIATIONAL_COUPLING",
+      "description": "Euler-Lagrange variational correspondence between action functionals and critical geometric configurations",
+      "allowed_roles": ["action_functional", "critical_point", "constraint_manifold", "lagrange_multiplier"],
+      "default_relationship": "COUPLING_OF",
+      "geometric_interpretation": "Stationary points and gradient trajectories of variational energy functionals coupling geometry to physics"
+    },
+    {
+      "joint_type": "BOUNDARY_DUALITY",
+      "description": "Stokes/Green pairing pairing topological boundaries with differential exterior derivatives (<d alpha, sigma> = <alpha, d sigma>)",
+      "allowed_roles": ["boundary_operator", "exterior_derivative", "chain_complex", "differential_form_complex"],
+      "default_relationship": "DUALITY_BETWEEN",
+      "geometric_interpretation": "Dual adjoint pairing between topological boundary operators on chains and exterior differential operators on cochains"
+    },
+    {
+      "joint_type": "SPECTRAL_PROJECTION",
+      "description": "Orthogonal eigenspace decomposition of self-adjoint geometric/differential operators",
+      "allowed_roles": ["differential_operator", "eigenspace_decomposition", "spectral_projector", "eigenvalue_spectrum"],
+      "default_relationship": "SPECTRAL_DECOMPOSITION_OF",
+      "geometric_interpretation": "Spectral theorem projection of Hilbert/Sobolev spaces into orthogonal eigenspaces of elliptic/self-adjoint operators"
+    },
+    {
+      "joint_type": "HOMOLOGICAL_COMPLEX",
+      "description": "Boundary and coboundary chain sequences satisfying d^2 = 0 and partial^2 = 0",
+      "allowed_roles": ["chain_group", "cochain_group", "boundary_map", "coboundary_map", "homology_group"],
+      "default_relationship": "COMPLEX_OF",
+      "geometric_interpretation": "Graded algebraic complex capturing topological invariants through nilpotency of sequential boundary operations"
+    },
+    {
+      "joint_type": "COBORDISM",
+      "description": "Higher-dimensional manifold with boundary interpolating between disjoint source and target manifolds",
+      "allowed_roles": ["manifold_source", "manifold_target", "cobordism_manifold", "collar_neighborhood"],
+      "default_relationship": "COBORDISM_BETWEEN",
+      "geometric_interpretation": "Topological equivalence and structural transition via bounding manifold geometry"
+    }
+  ]
+}

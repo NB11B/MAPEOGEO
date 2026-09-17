@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/google/mapeogeo/main/schema/mapeogeo-joint.schema.json",
+  "title": "MAPEOGEO Joint Specification",
+  "description": "Schema for mechanism joints and joint type registries connecting mathematical concepts across structural views without asserting semantic identity.",
+  "type": "object",
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["0.21"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "joints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MechanismJoint"
+      }
+    },
+    "joint_types": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/JointTypeDefinition"
+      }
+    }
+  },
+  "oneOf": [
+    { "required": ["joints"] },
+    { "required": ["joint_types"] }
+  ],
+  "definitions": {
+    "MechanismJoint": {
+      "type": "object",
+      "required": ["joint_id", "joint_type", "relationship", "feet"],
+      "properties": {
+        "joint_id": {
+          "type": "string",
+          "pattern": "^joint:[a-zA-Z0-9_:-]+$"
+        },
+        "joint_type": {
+          "type": "string",
+          "enum": [
+            "METRIC_CONTRACTION",
+            "GRADIENT_FLOW",
+            "TOPOLOGICAL_SURGERY",
+            "MONOTONICITY_FORMULA",
+            "ASYMPTOTIC_BLOWUP",
+            "VARIATIONAL_COUPLING",
+            "BOUNDARY_DUALITY",
+            "SPECTRAL_PROJECTION",
+            "HOMOLOGICAL_COMPLEX",
+            "COBORDISM"
+          ]
+        },
+        "relationship": {
+          "type": "string",
+          "enum": [
+            "CONTRACTION_OF",
+            "ACTS_ON",
+            "MONOTONE_ALONG",
+            "BLOWS_UP_AS",
+            "SURGERY_OF",
+            "SCOPED_TRANSFER",
+            "SCOPED_OVERLAP",
+            "DUALITY_BETWEEN",
+            "COMPLEX_OF",
+            "COBORDISM_BETWEEN",
+            "SPECTRAL_DECOMPOSITION_OF",
+            "COUPLING_OF"
+          ]
+        },
+        "feet": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/definitions/JointFoot"
+          }
+        },
+        "scope": {
+          "$ref": "#/definitions/TypedScopeRecord"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["CANDIDATE", "CERTIFIED", "PROVISIONAL", "FALSIFIED", "REJECTED"]
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "not": {
+        "properties": {
+          "relationship": {
+            "enum": ["SAME_SEMANTICS", "EQUIVALENT_TO", "IDENTICAL_TO"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "JointFoot": {
+      "type": "object",
+      "required": ["endpoint_id", "role"],
+      "properties": {
+        "endpoint_id": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "view": {
+          "type": "string",
+          "enum": ["EO", "GEO", "PCT", "FORMAL", "EXTERNAL"]
+        }
+      },
+      "additionalProperties": false
+    },
+    "JointTypeDefinition": {
+      "type": "object",
+      "required": ["joint_type", "description", "allowed_roles", "default_relationship"],
+      "properties": {
+        "joint_type": {
+          "type": "string",
+          "enum": [
+            "METRIC_CONTRACTION",
+            "GRADIENT_FLOW",
+            "TOPOLOGICAL_SURGERY",
+            "MONOTONICITY_FORMULA",
+            "ASYMPTOTIC_BLOWUP",
+            "VARIATIONAL_COUPLING",
+            "BOUNDARY_DUALITY",
+            "SPECTRAL_PROJECTION",
+            "HOMOLOGICAL_COMPLEX",
+            "COBORDISM"
+          ]
+        },
+        "description": { "type": "string" },
+        "allowed_roles": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "default_relationship": { "type": "string" },
+        "geometric_interpretation": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "TypedScopeRecord": {
+      "type": "object",
+      "required": [
+        "domain",
+        "dimension",
+        "coefficient_ring",
+        "regularity",
+        "orientation_convention",
+        "boundary_convention",
+        "parameter_range",
+        "exceptional_cases"
+      ],
+      "properties": {
+        "domain": { "type": "string" },
+        "dimension": { "type": "string" },
+        "coefficient_ring": { "type": "string" },
+        "regularity": { "type": "string" },
+        "orientation_convention": { "type": "string" },
+        "boundary_convention": { "type": "string" },
+        "parameter_range": { "type": "string" },
+        "exceptional_cases": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

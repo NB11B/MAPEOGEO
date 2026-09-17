@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.21",
+  "description": "Proof-eligible grounding registry and audit for MAPEOGEO v0.21",
+  "proof_eligible_objects_count": 0,
+  "total_grounding_objects_denominator": 235,
+  "objects_ratio_note": "Proof-eligible grounding remains strictly 0 / 235 objects; mathematical concepts require formal certificates before general groundings may be claimed.",
+  "proof_eligible_edges": [
+    {
+      "source_id": "srcdecl:theorem:6_16",
+      "corpus": "GALLIER",
+      "statement_name": "Rank-Nullity Theorem",
+      "formal_decl": "MAPEOGEOFormal.theorem_6_16_rank_nullity",
+      "formal_scope": "Finite-dimensional linear map dimension decomposition over fields",
+      "relationship": "SCOPED_OVERLAP",
+      "status": "KERNEL_VERIFIED_SCOPED_OVERLAP",
+      "independent_views_witnessed": ["EO", "GEO", "FORMAL"]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema_version": "0.21",
+  "description": "Preregistered Horn Query Specification for candidate bridge discovery in MAPEOGEO v0.21",
+  "betweenness_threshold": 0.05,
+  "view_shear_threshold": 0.5,
+  "null_model_trials": 100,
+  "null_model_strategy": "DEGREE_PRESERVING_DOUBLE_EDGE_SWAP",
+  "mutation_policy": "EVIDENCE_ONLY_ZERO_GRAPH_MUTATION",
+  "governing_rules": [
+    "Horn query is strictly exploratory and diagnostic.",
+    "0 graph edges or node attributes may be created or mutated based on Horn query output alone.",
+    "High-betweenness high-shear nodes are candidate hypotheses requiring independent formalization and proof."
+  ]
+}

@@ -106,12 +106,13 @@ theorem proposition_4_4_matrix_invertible_iff_columns_form_basis
     exact LinearMap.range_eq_top.mpr hsurj
 
 /--
-Scoped source-bound contract for Gallier–Quaintance Theorem 27.10:
-canonical decomposition of an affine transformation with orthogonal linear part into
-a commuting product of a pure translation along an invariant direction and an affine map
+Narrowed scoped source-bound contract for Gallier–Quaintance Theorem 27.10:
+affine map split along a fixed invariant direction.
+Decomposes an affine transformation with an invariant direction and fixed point into
+a commuting product of a pure translation along the invariant direction and an affine map
 with a fixed point.
 -/
-theorem theorem_27_10_affine_isometry_canonical_decomposition
+theorem affine_map_split_along_fixed_direction
     {V : Type*} [NormedAddCommGroup V] [InnerProductSpace ℝ V] [FiniteDimensional ℝ V]
     (A : V →ₗ[ℝ] V) (b : V)
     (h_split : ∃ tau x0 : V, A tau = tau ∧ A (x0 - x0) + x0 = x0 ∧ b = (x0 - A x0) + tau) :
@@ -132,6 +133,6 @@ theorem theorem_27_10_affine_isometry_canonical_decomposition
 #print axioms proposition_3_13_square_matrix_one_sided_inverse_is_two_sided
 #print axioms proposition_3_14_matrix_invertible_iff_columns_linear_independent
 #print axioms proposition_4_4_matrix_invertible_iff_columns_form_basis
-#print axioms theorem_27_10_affine_isometry_canonical_decomposition
+#print axioms affine_map_split_along_fixed_direction
 
 end MAPEOGEOFormal

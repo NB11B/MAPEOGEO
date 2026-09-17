@@ -1,0 +1,70 @@
+{
+  "schema_version": "0.21",
+  "description": "Mechanism joints for Simplicial Stokes Package S (v0.21)",
+  "joints": [
+    {
+      "joint_id": "joint:stokes:simplicial_boundary_duality",
+      "joint_type": "BOUNDARY_DUALITY",
+      "relationship": "DUALITY_BETWEEN",
+      "feet": [
+        {
+          "endpoint_id": "srcdecl:stokes_simplex_eo",
+          "role": "boundary_operator",
+          "view": "EO"
+        },
+        {
+          "endpoint_id": "srcdecl:stokes_simplex_geo",
+          "role": "exterior_derivative",
+          "view": "GEO"
+        }
+      ],
+      "scope": {
+        "domain": "SIMPLICIAL_COMPLEX",
+        "dimension": "k",
+        "coefficient_ring": "RAT",
+        "regularity": "DISCRETE",
+        "orientation_convention": "INDUCED_SIMPLEX_ORDER",
+        "boundary_convention": "STANDARD_ALTERNATING_SUM",
+        "parameter_range": "k >= 1",
+        "exceptional_cases": "k = 0 has zero boundary"
+      },
+      "status": "CERTIFIED",
+      "metadata": {
+        "witness_property": "discrete_stokes_pairing",
+        "formula": "<d alpha, sigma> = <alpha, partial sigma>"
+      }
+    },
+    {
+      "joint_id": "joint:stokes:simplicial_homological_complex",
+      "joint_type": "HOMOLOGICAL_COMPLEX",
+      "relationship": "COMPLEX_OF",
+      "feet": [
+        {
+          "endpoint_id": "srcdecl:stokes_simplex_eo",
+          "role": "chain_group",
+          "view": "EO"
+        },
+        {
+          "endpoint_id": "srcdecl:stokes_simplex_geo",
+          "role": "cochain_group",
+          "view": "GEO"
+        }
+      ],
+      "scope": {
+        "domain": "SIMPLICIAL_COMPLEX",
+        "dimension": "k",
+        "coefficient_ring": "RAT",
+        "regularity": "DISCRETE",
+        "orientation_convention": "INDUCED_SIMPLEX_ORDER",
+        "boundary_convention": "STANDARD_ALTERNATING_SUM",
+        "parameter_range": "k >= 1",
+        "exceptional_cases": "k = 0 has zero boundary"
+      },
+      "status": "CERTIFIED",
+      "metadata": {
+        "nilpotency_boundary": "partial^2 = 0",
+        "nilpotency_coboundary": "d^2 = 0"
+      }
+    }
+  ]
+}

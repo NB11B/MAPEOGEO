@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/google/mapeogeo/main/schema/mapeogeo-certificate.schema.json",
+  "title": "MAPEOGEO Correspondence Certificate Specification",
+  "description": "Schema for multi-view correspondence certificates requiring independent witness quorum and typed mathematical scopes.",
+  "type": "object",
+  "required": ["schema_version", "certificates"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["0.21"]
+    },
+    "description": {
+      "type": "string"
+    },
+    "certificates": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CorrespondenceCertificate"
+      }
+    }
+  },
+  "definitions": {
+    "CorrespondenceCertificate": {
+      "type": "object",
+      "required": [
+        "certificate_id",
+        "target_concept",
+        "relationship",
+        "scope",
+        "view_slots",
+        "quorum_count",
+        "verification_status"
+      ],
+      "properties": {
+        "certificate_id": {
+          "type": "string",
+          "pattern": "^cert:[a-zA-Z0-9_:-]+$"
+        },
+        "target_concept": {
+          "type": "string"
+        },
+        "relationship": {
+          "type": "string",
+          "enum": [
+            "SCOPED_OVERLAP",
+            "SCOPED_TRANSFER",
+            "BOUNDED_INSTANCE",
+            "NUMERICAL_EXPERIMENT",
+            "DUALITY_BETWEEN",
+            "HOMOLOGICAL_DUALITY",
+            "COMPLEX_COMMUTATIVITY",
+            "SPECTRAL_DECOMPOSITION",
+            "MONOTONE_ALONG",
+            "CONTRACTION_OF",
+            "ACTS_ON",
+            "SURGERY_OF",
+            "BLOWS_UP_AS"
+          ]
+        },
+        "scope": {
+          "$ref": "#/definitions/TypedScopeRecord"
+        },
+        "view_slots": {
+          "type": "object",
+          "required": ["eo", "geo", "pct", "formal"],
+          "properties": {
+            "eo": { "$ref": "#/definitions/ViewSlot" },
+            "geo": { "$ref": "#/definitions/ViewSlot" },
+            "pct": { "$ref": "#/definitions/ViewSlot" },
+            "formal": { "$ref": "#/definitions/ViewSlot" }
+          },
+          "additionalProperties": false
+        },
+        "quorum_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": ["CERTIFIED", "PROVISIONAL", "INSUFFICIENT_QUORUM", "REJECTED", "FALSIFIED"]
+        },
+        "rejection_reason": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "not": {
+        "properties": {
+          "relationship": {
+            "enum": ["SAME_SEMANTICS", "EQUIVALENT_TO", "IDENTICAL_TO"]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "ViewSlot": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["ABSENT", "WITNESSED", "REPRESENTED", "VERIFIED", "REFUSED"]
+        },
+        "view_ref": {
+          "type": "string"
+        },
+        "statement_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "execution_digest": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "kernel_verified": {
+          "type": "boolean"
+        },
+        "source_file": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "TypedScopeRecord": {
+      "type": "object",
+      "required": [
+        "domain",
+        "dimension",
+        "coefficient_ring",
+        "regularity",
+        "orientation_convention",
+        "boundary_convention",
+        "parameter_range",
+        "exceptional_cases"
+      ],
+      "properties": {
+        "domain": { "type": "string" },
+        "dimension": { "type": "string" },
+        "coefficient_ring": { "type": "string" },
+        "regularity": { "type": "string" },
+        "orientation_convention": { "type": "string" },
+        "boundary_convention": { "type": "string" },
+        "parameter_range": { "type": "string" },
+        "exceptional_cases": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

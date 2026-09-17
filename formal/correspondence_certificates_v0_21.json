@@ -1,0 +1,46 @@
+{
+  "schema_version": "0.21",
+  "description": "Preregistered multi-view correspondence certificates for MAPEOGEO v0.21",
+  "certificates": [
+    {
+      "certificate_id": "cert:stokes:simplicial_duality_v0_21",
+      "target_concept": "simplicial_boundary_exterior_derivative_duality",
+      "relationship": "SCOPED_OVERLAP",
+      "scope": {
+        "domain": "SIMPLICIAL_COMPLEX",
+        "dimension": "k",
+        "coefficient_ring": "RAT",
+        "regularity": "DISCRETE",
+        "orientation_convention": "INDUCED_SIMPLEX_ORDER",
+        "boundary_convention": "STANDARD_ALTERNATING_SUM",
+        "parameter_range": "k >= 1",
+        "exceptional_cases": "k = 0 has zero boundary"
+      },
+      "view_slots": {
+        "eo": {
+          "status": "WITNESSED",
+          "statement_sha256": "4cedcf54c4b9e1eb4ec9252ec94070f83c022da7549c0b2c5b982fccab0a2d08",
+          "view_ref": "srcdecl:stokes_simplex_eo"
+        },
+        "geo": {
+          "status": "WITNESSED",
+          "statement_sha256": "d0fb7532f8dc6cfc6edc9b129d2d5e0a9c3274bb52e437534ff83ff7c979e126",
+          "view_ref": "srcdecl:stokes_simplex_geo"
+        },
+        "pct": {
+          "status": "WITNESSED",
+          "execution_digest": "22f48b634af061a2145933fb3aed55f98574be3a9be3960767a4ad719c4c97fc",
+          "view_ref": "pct:attachment:stokes_simplex_q"
+        },
+        "formal": {
+          "status": "ABSENT"
+        }
+      },
+      "quorum_count": 3,
+      "verification_status": "CERTIFIED",
+      "metadata": {
+        "package": "Package S (Simplicial Stokes)"
+      }
+    }
+  ]
+}

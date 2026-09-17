@@ -29,7 +29,8 @@
           "EO",
           "GEO",
           "FORMAL",
-          "NATURAL"
+          "NATURAL",
+          "PCT"
         ]
       },
       "uniqueItems": true

@@ -54,11 +54,11 @@
       "registry_hashes_are_domain_separated_canonical_json": true
     },
     "producer_source_tree": {
-      "file_count": 52,
+      "file_count": 54,
       "files": {
         "MAPEOGEOFormal.lean": "2cbe1985717c8dd2147979f6fec1fcfab0cf1e0695cf4a8aabb55a500595819b",
-        "MAPEOGEOFormal/PinchQuartet.lean": "f50af08474725221147ae1a59edd4867004a238f88cc9ae0cf265c2344c4ce78",
-        "MAPEOGEOFormal/PinchV011.lean": "d3d6fb3f24001c17e55b55018f009932986d1541e0f562bd384e138dd94e245c",
+        "MAPEOGEOFormal/PinchQuartet.lean": "773b3fc1937daa1f0d022c298115f2581bec0ef84762a1b27e04d585324b8e19",
+        "MAPEOGEOFormal/PinchV011.lean": "cb8dea3c9844f6c5546314ed39f7b5c9125e1b77d705fe2db07caa62a72154b4",
         "MAPEOGEOFormal/ProofPaths.lean": "319f9ce983653bf73435adec1688aa5d9464a27dc25c924c45edff45f85c1300",
         "MAPEOGEOFormal/SourceBound.lean": "0a4f905e498e87ec6b429db69b6fdba86291e0e967cb2ba99747b3442845571c",
         "MAPEOGEOFormal/WaveF4.lean": "80cf60f81f613ff217b940de09cfbc003593091f2b2a27c2102c67210c0ce495",
@@ -70,10 +70,12 @@
         "scripts/analysis_intake_v0_15_2.py": "7c3dca24431bba9d78fd97cdf0445c052d0c54a6b5d2645d1aa5e04822b9ec81",
         "scripts/audit_pinch_source_v0_11.py": "fb75add676b92fb0f1c23f989c277c69042cba537c1821b5069de4ed1d8ed92c",
         "scripts/blinded_alignment_benchmark_v0_13.py": "46335b9619bce6adad58f07ad27f0eb8a8f85ce54f5353546794e61f2f2bfcb8",
+        "scripts/check_lean_source_hashes.py": "ffb356094376337ac5ffa3dffd5ea3706f4b5f4e7ae5487647622100ac930662",
         "scripts/complex_analysis_intake_v0_19.py": "74c8156f0afa47ae5b4e44f248528b903a5c697ee39ce409c6bfb0d51def7156",
         "scripts/compute_foundation_depth.py": "edb0a644aebbfcc671dd0f4090d3fb31055638c002baf40196913fb7032a3384",
         "scripts/convex_intake_v0_14.py": "1ff060106d29f0efc0ffad5f7a5807f9e110feb1a1532ec91dc30af25f904d65",
         "scripts/corpus_dualize_v0_5.py": "daf4d347ff600090e23cf18100b24cb50a6f27ed5882b5a5b96d294fe7e2d2ab",
+        "scripts/correspondence_certificate.py": "4a7c2dddeeb5aa45f0bbab2e6b9e747ddb98e1df6bff6fda13f003c2e9f28e89",
         "scripts/cross_source_intake_v0_12.py": "d24abbfd9ca4755ad084d1153ec1f247bc57bb7ac02065d4ec5c18b78417d440",
         "scripts/diffgeom_intake_v0_18.py": "09b3c985bcabb6ed5a8d96d96653e413432f62cfe7d189df087c34ef8f2244ec",
         "scripts/formal_bridge_v0_8.py": "6d11efe8952b6820bfb0ddcbb7bd47b1f4ee9a6d0e2aff95d2331406f233d50e",
@@ -104,12 +106,12 @@
         "scripts/pinch_intake_v0_11.py": "845ba6ae429cd0bdae75af604819aaee04406ae10b24b9968cc3f52c428dae50",
         "scripts/pinch_quartet_v0_10.py": "7903a1873720d15f9de6593ac01aed4ccb640e81b2b91bcf80932defb80d3445",
         "scripts/proof_paths_v0_9.py": "b1ca1887b9ac1945f6f53139c0e40d99b9cec0e78ce1b63f4b568ca7625ef6e7",
-        "scripts/reconstruct_pipeline.py": "7d1602a7be3122739f8745bf18badf75af2834cce2a3d7cc05f3cdc1934fc52b",
+        "scripts/reconstruct_pipeline.py": "e5522a8451008d05f6c33d63e81ccee2d3c7bf886d494cb761b606cfeb29dfa8",
         "scripts/topology_intake_v0_16.py": "a05c73cd226f35a8f1eb03eafd17612699358ca80eeeee05fe75d5b0c5e7937e",
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "f2c85ccec3f8a306e2e55d162bf1f05750a7c2a0f5f30a7b7f2c0344efbc29f0"
+      "sha256": "e59e2d3393915727b4d2e8ac018a110090d89514a25739ce2fb076e6fc20dba5"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",
