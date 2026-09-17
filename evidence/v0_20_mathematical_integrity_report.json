@@ -61,7 +61,7 @@
         "MAPEOGEOFormal/PinchV011.lean": "d3d6fb3f24001c17e55b55018f009932986d1541e0f562bd384e138dd94e245c",
         "MAPEOGEOFormal/ProofPaths.lean": "319f9ce983653bf73435adec1688aa5d9464a27dc25c924c45edff45f85c1300",
         "MAPEOGEOFormal/SourceBound.lean": "0a4f905e498e87ec6b429db69b6fdba86291e0e967cb2ba99747b3442845571c",
-        "MAPEOGEOFormal/WaveF4.lean": "33786b2194a0f225e6beb4149e74ef6495bb77cf0b72f99153cc7edbc6386d62",
+        "MAPEOGEOFormal/WaveF4.lean": "80cf60f81f613ff217b940de09cfbc003593091f2b2a27c2102c67210c0ce495",
         "lake-manifest.json": "b4382094843ee7d4262530eedc7bba4aa6057a03a75911ba5580ad085efc1073",
         "lakefile.lean": "10d866aa705d815b2d546ebf169f780cd1c433ad5ae17070f0499701363fc2d0",
         "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
@@ -86,7 +86,7 @@
         "scripts/generate_alignments_v0_19.py": "627a105ccf1d4b325b005eaeadf6d9c53acaa0a5e3a0d7cbbd6b6f5872d3539d",
         "scripts/generate_foundation_alignments.py": "1251460e3e8b48978db511573fb3710ef77022bbb252abefe0305ececc981974",
         "scripts/generate_mathematical_integrity_report.py": "5681f639abb2f51adfef4a97ecb22881c7db503e233be256272a60f02da0b737",
-        "scripts/hydrate_e26_e31_fixtures.py": "fdf3ef547c78e0fe61b1d8a51c7cd82f5c8a55fd23c31eab12d09d36b09185f3",
+        "scripts/hydrate_e26_e31_fixtures.py": "8eed78ab149f23fb1253e169ce16db02a92d0287f475b3158e85cf165ae7ffc3",
         "scripts/import_analysis_v0_15.py": "d6022f5542d4fb1c119da0745863a1bceb27052c0352462e291410a8007e23d0",
         "scripts/import_axler_v0_12.py": "c24efc73378e4f535d7b953b00fcab092374d7b78989aeaaba417e0587dab15d",
         "scripts/import_billingsley_v0_17.py": "bd70cba08bbf93a86b6876d3d5977119a78ffd3e98fa618933d1a7acab8f5435",
@@ -110,7 +110,7 @@
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "ebd0575863042d0ad26ad0d3813ebe2fe9a0622ea02885e57ce12ac5205095d2"
+      "sha256": "6c68d715e0ed483ed226ce567f4d9109df0d4725b6eae915384cdb35667cf928"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",
