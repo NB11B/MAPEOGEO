@@ -9,7 +9,7 @@
       "witness_validator": "validate_euclidean_bezout_construction"
     },
     {
-      "mathematical_claim": "The existence of integers (x, y) with ax + by = d implies d is the greatest common divisor gcd(a, b).",
+      "mathematical_claim": "The least positive integer linear combination d = ax + by satisfies d | a, d | b, and for all c (c | a and c | b implies c | d), establishing d = gcd(a, b).",
       "relation_id": "REL:F3:BEZOUT_TO_GCD",
       "relation_type": "IMPLICATION",
       "source_canonical_id": "canonical:number_theory:bezout_identity",
@@ -25,7 +25,7 @@
       "witness_validator": "validate_euler_fermat_specialization"
     },
     {
-      "mathematical_claim": "The Chinese Remainder Theorem establishes a ring isomorphism Z/(mn)Z ~= Z/mZ x Z/nZ for pairwise coprime integers gcd(m, n) = 1.",
+      "mathematical_claim": "The Chinese Remainder Theorem establishes a bijective ring isomorphism psi: Z/(m_1...m_k)Z -> Z/m_1 Z x ... x Z/m_k Z with trivial kernel and reconstructed inverse for pairwise coprime moduli gcd(m_i, m_j) = 1.",
       "relation_id": "REL:F3:CRT_TO_RING_PRODUCT",
       "relation_type": "ISOMORPHISM",
       "source_canonical_id": "canonical:number_theory:chinese_remainder_theorem",
@@ -65,7 +65,7 @@
       "witness_validator": "validate_normal_quotient_construction"
     },
     {
-      "mathematical_claim": "The factor group G/ker f is canonically isomorphic to the image subgroup im f under g(ker f) |-> f(g).",
+      "mathematical_claim": "The factor group G/ker f is canonically isomorphic to the image subgroup im f under the bijective group homomorphism g(ker f) |-> f(g).",
       "relation_id": "REL:F3:QUOTIENT_TO_FIRST_ISOMORPHISM",
       "relation_type": "ISOMORPHISM",
       "source_canonical_id": "canonical:groups:quotient_groups",
@@ -89,7 +89,7 @@
       "witness_validator": "validate_prime_ideal_domain_quotient"
     },
     {
-      "mathematical_claim": "An ideal M in a commutative ring R with unity is maximal if and only if the quotient ring R/M is a field.",
+      "mathematical_claim": "An ideal M in a finite commutative ring R with unity (or where |R/M| < inf) is maximal if and only if the quotient ring R/M is a finite field GF(q).",
       "relation_id": "REL:F3:MAXIMAL_IDEAL_TO_FIELD",
       "relation_type": "QUOTIENT",
       "source_canonical_id": "canonical:rings_fields:maximal_ideals",

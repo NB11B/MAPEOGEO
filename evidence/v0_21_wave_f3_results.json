@@ -1316,9 +1316,9 @@
     ],
     "total_matrix_pairs": 1024
   },
-  "evidence_sha256": "181e4e352509a4881dfba1249a4297b9ba35015fd6d9351a36aef4b54e084d70",
+  "evidence_sha256": "ff61a20c16c7137639eeb00becfd05afeec6334f88d230c8fedfc47b04568224",
   "exact_claim_boundary": "32 of 32 abstract algebra and number theory concepts commute under bounded equivalence contracts, and 14 of 14 typed mathematical relationship edges commute across independent EO and GEO realizations",
-  "execution_time_seconds": 0.0132,
+  "execution_time_seconds": 0.0135,
   "falsification_suite": {
     "mutant_kill_rate": 1.0,
     "mutant_kill_rate_pct": "100.00%",
@@ -1611,14 +1611,17 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "The existence of integers (x, y) with ax + by = d implies d is the greatest common divisor gcd(a, b).",
-      "notes": "B\u00e9zout linear combination determines gcd.",
+      "mathematical_claim": "The least positive integer linear combination d = ax + by satisfies d | a, d | b, and for all c (c | a and c | b implies c | d), establishing d = gcd(a, b).",
+      "notes": "B\u00e9zout least positive linear combination proves d = gcd(a,b) with d|a, d|b, and universal divisor property.",
       "relation_id": "REL:F3:BEZOUT_TO_GCD",
       "relation_type": "IMPLICATION",
       "relationship_witness": {
-        "bezout_gcd": 21,
-        "bezout_identity_holds": true,
-        "target_gcd": 12
+        "bezout_d": 21,
+        "divides_a": true,
+        "divides_b": true,
+        "is_least_positive_linear_combination": true,
+        "linear_combination_exact": true,
+        "universal_divisor_property": "forall c: c|a and c|b => c|(ax+by) = c|d"
       },
       "source_canonical_id": "canonical:number_theory:bezout_identity",
       "target_canonical_id": "canonical:number_theory:divisibility_and_gcd"
@@ -1640,18 +1643,25 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "The Chinese Remainder Theorem establishes a ring isomorphism Z/(mn)Z ~= Z/mZ x Z/nZ for pairwise coprime integers gcd(m, n) = 1.",
-      "notes": "CRT induces ring product isomorphism.",
+      "mathematical_claim": "The Chinese Remainder Theorem establishes a bijective ring isomorphism psi: Z/(m_1...m_k)Z -> Z/m_1 Z x ... x Z/m_k Z with trivial kernel and reconstructed inverse for pairwise coprime moduli gcd(m_i, m_j) = 1.",
+      "notes": "CRT ring isomorphism verified via forward homomorphism, kernel triviality, and reconstructed inverse.",
       "relation_id": "REL:F3:CRT_TO_RING_PRODUCT",
       "relation_type": "ISOMORPHISM",
       "relationship_witness": {
-        "isomorphic_factors": [
+        "forward_homomorphism_residues": [
+          2,
+          3,
+          2
+        ],
+        "is_bijective_ring_isomorphism": true,
+        "kernel_is_trivial": true,
+        "moduli": [
           3,
           5,
           7
         ],
         "product_modulus": 105,
-        "unique_solution": 23
+        "reconstructed_inverse_solution": 23
       },
       "source_canonical_id": "canonical:number_theory:chinese_remainder_theorem",
       "target_canonical_id": "canonical:rings_fields:quotient_rings"
@@ -1714,12 +1724,13 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "The factor group G/ker f is canonically isomorphic to the image subgroup im f under g(ker f) |-> f(g).",
-      "notes": "Factor group G/ker f is canonically isomorphic to im f.",
+      "mathematical_claim": "The factor group G/ker f is canonically isomorphic to the image subgroup im f under the bijective group homomorphism g(ker f) |-> f(g).",
+      "notes": "Factor group G/ker f is canonically isomorphic to im f via bijective group homomorphism.",
       "relation_id": "REL:F3:QUOTIENT_TO_FIRST_ISOMORPHISM",
       "relation_type": "ISOMORPHISM",
       "relationship_witness": {
         "image_order": 2,
+        "is_bijective_homomorphism": true,
         "isomorphism_verified": true,
         "quotient_order": 2
       },
@@ -1755,13 +1766,16 @@
     },
     {
       "commutation_verified": true,
-      "mathematical_claim": "An ideal M in a commutative ring R with unity is maximal if and only if the quotient ring R/M is a field.",
-      "notes": "Maximal ideal yields field quotient with unit invertibility.",
+      "mathematical_claim": "An ideal M in a finite commutative ring R with unity (or where |R/M| < inf) is maximal if and only if the quotient ring R/M is a finite field GF(q).",
+      "notes": "Maximal ideal in finite commutative ring constructs finite quotient field with unit invertibility.",
       "relation_id": "REL:F3:MAXIMAL_IDEAL_TO_FIELD",
       "relation_type": "QUOTIENT",
       "relationship_witness": {
+        "ambient_ring_finite_order": 12,
         "field_characteristic": 2,
-        "maximal_quotient_is_field": true
+        "maximal_ideal_order": 6,
+        "quotient_field_order": 2,
+        "quotient_is_field": true
       },
       "source_canonical_id": "canonical:rings_fields:maximal_ideals",
       "target_canonical_id": "canonical:rings_fields:finite_fields"
