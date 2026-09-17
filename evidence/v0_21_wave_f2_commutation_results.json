@@ -1414,9 +1414,8 @@
       "verified_commutation": 6
     }
   },
-  "evidence_sha256": "85ef59bb95373bc928ac932f0f479b9cec1a318f686c2dad4f4c0461d7d62519",
+  "evidence_sha256": "0a33344173911ffc1f4297a2867fb6b846f6dfc16d6322e35c7d0dcdba6face8",
   "exact_claim_boundary": "27 of 32 concepts commute under current bounded equivalence contracts",
-  "execution_time_seconds": 0.0123,
   "mutant_killing_suite": {
     "mutant_audit_records": [
       {

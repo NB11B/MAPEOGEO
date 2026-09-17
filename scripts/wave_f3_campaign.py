@@ -392,7 +392,6 @@ def run_wave_f3_campaign() -> dict[str, Any]:
         "cross_pair_discrimination_matrix": cross_matrix_res,
         "falsification_suite": falsification_res,
         "codomain_distinctness": codomain_res,
-        "execution_time_seconds": round(elapsed, 4),
         "commutation_records": [r.to_dict() for r in records],
         "relationship_records": [r.to_dict() for r in relation_records],
     }
@@ -426,7 +425,6 @@ def generate_markdown_report(results: dict[str, Any]) -> str:
         f"- **$32 \\times 32$ Cross-Pair Discrimination**: **{results['cross_pair_discrimination_matrix']['off_diagonal_rejections']} / {results['cross_pair_discrimination_matrix']['off_diagonal_pairs']} ({results['cross_pair_discrimination_matrix']['off_diagonal_rejection_rate_pct']})** off-diagonal pairs correctly rejected (zero false positive cross-commutations)",
         f"- **Multi-Class Mutant Killing Rate**: **{results['falsification_suite']['mutants_killed']} / {results['falsification_suite']['total_mutants_tested']} ({results['falsification_suite']['mutant_kill_rate_pct']})** across all 3 families",
         f"- **Semantic Codomain Non-Degeneracy**: **{results['codomain_distinctness']['unique_eo_semantic_digests']} unique semantic states across {results['codomain_distinctness']['commutative_concepts_evaluated']} commutative concepts** (Entropy = {results['codomain_distinctness']['codomain_entropy_bits']} bits, zero collisions)",
-        f"- **Campaign Execution Time**: {results['execution_time_seconds']}s",
         "",
         "---",
         "",

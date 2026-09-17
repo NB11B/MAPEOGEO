@@ -1316,9 +1316,8 @@
     ],
     "total_matrix_pairs": 1024
   },
-  "evidence_sha256": "ff61a20c16c7137639eeb00becfd05afeec6334f88d230c8fedfc47b04568224",
+  "evidence_sha256": "4449c1a7dcf794e2a9fb84284bfeecd381d2d558866d1c796a4763fc326e4707",
   "exact_claim_boundary": "32 of 32 abstract algebra and number theory concepts commute under bounded equivalence contracts, and 14 of 14 typed mathematical relationship edges commute across independent EO and GEO realizations",
-  "execution_time_seconds": 0.0135,
   "falsification_suite": {
     "mutant_kill_rate": 1.0,
     "mutant_kill_rate_pct": "100.00%",
