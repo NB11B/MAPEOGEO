@@ -1,79 +1,151 @@
 # E32 architecture
 
-## 1. Question and alternatives
+## 1. Question and layers
 
-Primary question: can a compiler transform a decision workflow into a shallower executable graph while preserving its declared observable behavior and realizing a measured local benefit?
+Primary question: can a decision expressed as a sequential formulation be transformed into a typed operator graph that exposes substantially more executable parallelism while preserving its declared observable contract, and can MAPEOGEO discover that factorization rather than merely schedule an already-parallel graph?
 
-A vendor-API-only comparison would entangle the architecture with a black box. A simulator-only comparison would establish no hardware speedup. The selected hybrid design separates deterministic compiler validity from model/backend performance. Neither plane substitutes for the other.
+E32 separates four layers that must be measured independently:
 
-The source graph is a decision program, not arbitrary prose. Version 1 does not infer safe dependencies from a language model's explanation and does not translate unrestricted agent reasoning into an equivalent circuit.
+1. **Decision factorization**: replace a composite judgment with typed atomic judgments over shared immutable state plus deterministic composition.
+2. **Graph scheduling**: execute independent ready nodes concurrently without changing graph semantics.
+3. **Graph optimization**: apply checked rewrites such as speculative fan-out and deterministic deduplication.
+4. **Backend execution**: realize the graph through separate inference, batching, shared-state/prefix reuse or another explicitly implemented backend capability.
 
-## 2. Arms
+A vendor-API-only comparison would entangle these layers with a black box. A simulator-only comparison would establish no hardware speedup. The selected hybrid design separates deterministic compiler validity from model/backend performance. Neither plane substitutes for the other.
+
+The source program is a declared decision contract, not arbitrary prose. Version 1 does not infer safe dependencies from a language model's explanation, translate unrestricted agent reasoning into an equivalent circuit, or claim to reproduce unpublished TypeSafe/Jev sampler internals.
+
+## 2. Execution arms
 
 | Arm | Definition | Purpose |
 |---|---|---|
-| S | Stable topological execution, one ready node at a time, lazy guarded branches | Serial reference |
-| M | Human-authored legal schedule and optional speculative graph, frozen before test | Manual factorization |
-| G | Automatic typed compiler with checked rewrite receipts | Proposed architecture |
-| T | Ordinary ready-queue topological scheduler on the source graph, no semantic rewrites | Necessary attribution control |
+| S | Serial decision formulation executed in declared order with lazy guarded branches | Serial formulation reference |
+| T | Conventional ready-queue scheduler on the exact supplied source graph after common validation/normalization only | Scheduling control |
+| M | Human-authored typed factorization plus legal schedule, frozen before test and independently checked | Manual factorization reference |
+| G | Automatic MAPEOGEO factorization and checked graph rewrites plus the same scheduler/runtime substrate as T | Proposed architecture |
 
-S is intentionally serialized, not a claim about the best possible serial agent. T prevents attributing ordinary concurrency to MAPEOGEO. All arms share source state, query text, option order, executor, resource limits, output validation and decision policy.
+S and T operate on the same source decision formulation. T may exploit only parallelism already exposed in that graph. M and G may operate on factored candidate graphs that must satisfy the same declared observable contract.
 
-G must generate schedules from the solver-visible graph and a development-calibrated cost profile. It may not use case IDs, hidden answers, reference schedules or test timings as a lookup table. Node IDs are randomly relabelled in invariance tests.
+T and G share the same ready-set implementation, resource allocator, batch packing policy, executor, backend, resource limits, output validation, terminal verification and deterministic tie-breaking substrate. Common normalization may remove representation-neutral bookkeeping but may not expose new semantic independence. Any transformation that changes the dependency structure belongs to M/G and requires a checked receipt.
 
-If G merely implements topological batching, the conclusion is generic scheduler equivalence, not added EO/GEO value. Calling a new scheduler MAPEOGEO does not establish a mathematical integration result.
+M is not assumed optimal. M must pass the same graph validator, independent receipt/contract checker where applicable, resource accounting and terminal verification as G. Human authors may use development data only and cannot inspect sealed test outcomes.
 
-## 3. Runtime flow
+G must generate factorization/rewrite candidates from the solver-visible decision contract and a development-calibrated cost profile. It may not use case IDs, hidden answers, reference schedules, human M graphs, sealed labels or test timings as a lookup table. Node IDs are randomly relabelled in invariance tests. Compiler tie-breaking uses a relabel-invariant structural key, never raw node IDs.
 
-Immutable state plus typed source graph enters validation. The compiler emits a candidate graph, schedule and rewrite receipts. An independent checker validates receipts before dispatch. The executor evaluates eligible nodes with bounded resources, validates each output, applies pure deterministic composition and emits an action or a structured refusal. Terminal verification and reporting occur outside model inference.
+Interpretation matrix:
+
+- S ≈ T: the source representation itself is serial.
+- M > T: factorization exposes useful parallelism.
+- G ≈ M: the automatic system recovers roughly the useful human factorization.
+- G > M on a registered family: G found an admissible factorization/optimization with additional measured benefit.
+- G ≈ T while M > T: the factorization idea works but automatic discovery failed.
+
+If G merely implements topological batching on an already-parallel graph, the conclusion is generic scheduler utility, not added EO/GEO or MAPEOGEO value.
+
+## 3. Typed decision representation
+
+A factored decision program maps shared immutable state S and a set of typed atomic questions to typed answer distributions or exact operator outputs, followed by deterministic composition:
+
+F(S, {q_1, ..., q_n}) -> {a_1, ..., a_n} -> policy/composition -> action or refusal.
+
+Atomic questions must declare exactly which state projection they read. Two questions are parallel-eligible only when neither consumes the other's output and all data, guard, lineage, effect and resource constraints permit concurrent execution.
+
+Computational independence is not conditional statistical independence. Correlated query outputs remain correlated. Marginal probabilities must not be multiplied into a joint probability without a separately specified joint model.
+
+Version 1 treats width and true dependency depth as distinct structural quantities. The central behavioral signature is that added width should become relatively cheap inside the hardware/backend parallel region while genuine dependency depth remains serial.
+
+## 4. Runtime flow
+
+Immutable state plus a typed source decision contract enters validation. S/T execute the source graph; M supplies a frozen checked factorization; G emits a candidate factored graph, schedule and rewrite receipts. An independent checker validates factorization/rewrite obligations before dispatch. The executor evaluates eligible nodes with bounded resources, validates each output, applies pure deterministic composition and emits an action or structured refusal. Terminal verification and reporting occur outside model inference.
 
 Core units:
 
 - IR validator: graph well-formedness, typed port bindings, effect and guard checks.
 - Solver adapter: read-only translation of actual solver-visible decisions.
-- Compiler: bounded search over legal rewrites, with deterministic tie breaking.
-- Receipt checker: independently checks every rewrite against source contracts.
-- Scheduler: resource-aware readiness, batching and deterministic result association.
-- Backends: exact deterministic functions; local causal-model option scoring.
-- Policy: fixed arithmetic, constraints, utility and abstention, outside the model.
-- Audit/report: complete traces, rejected candidates, timing and claim gates.
+- Factorizer/compiler: bounded search over registered decompositions and legal rewrites with deterministic tie breaking.
+- Receipt checker: independently checks every factorization/rewrite obligation against source contracts.
+- Scheduler: shared T/G resource-aware readiness, batching and deterministic result association.
+- Backends: exact deterministic functions; local causal-model option scoring; optional explicitly tested shared-state/prefix reuse.
+- Policy/composition: fixed arithmetic, constraints, utility and abstention outside the model.
+- Audit/report: complete traces, rejected candidates, timing, structure and claim gates.
 
-The receipt checker must not call the compiler's rewrite-acceptance function. Common serialization utilities are allowed; shared semantic checking logic must be disclosed.
+The receipt checker must not call the compiler's factorization or rewrite-acceptance function. Common serialization utilities are allowed; shared semantic checking logic must be disclosed.
 
-## 4. Dependency and probability semantics
+## 5. Dependency and control semantics
 
-A data edge means the downstream node needs an upstream value. A guard edge controls whether a node is selected. An effect-order edge preserves observable side-effect ordering. Scheduling edges are distinct, explicitly removable serialization constraints and cannot masquerade as data edges.
+A DATA edge means the downstream node needs an upstream value. A GUARD edge controls whether a node is selected. An EFFECT_ORDER edge preserves observable side-effect ordering. A SCHEDULE edge is a representation-level serialization constraint and may be removed only through a registered checked transformation; it cannot masquerade as a DATA edge.
 
-Two nodes can run together only when all needed inputs are available and effects/resources permit it. This is computational independence, not conditional statistical independence. Correlated query outputs remain correlated. Marginal probabilities must not be multiplied into a joint probability without a separately specified joint model.
+A finite DAG is required. Cycles, missing producers and ambiguous ports fail validation. Loops require explicit bounded unrolling with iteration IDs; unbounded loops are unsupported. An upstream-dependent query is evaluated only after its actual inputs arrive unless a registered speculative rule proves that it can be evaluated from already available inputs without changing the selected observable contract.
 
-A finite DAG is required. Cycles, missing producers and ambiguous ports fail validation. Loops require explicit bounded unrolling with iteration IDs; unbounded loops are unsupported. An upstream-dependent query is evaluated only after its actual inputs arrive.
+## 6. Legal transformations
 
-## 5. Legal transformations
+### R0: typed factorization
 
-R1: remove artificial scheduling edges after proving no data, guard-safety, lineage or effect constraint is removed.
+Replace a registered composite decision node/subgraph with a set of typed atomic judgments and pure deterministic composition only when a declared FactorizationContract identifies:
 
-R2: partition a ready antichain into backend-supported batches, retaining per-item state/query identity and output association. Shared state ingestion is measured only if the backend actually implements reuse; padded batching is not shared encoding.
+- the source observable contract;
+- the atomic question/operator contracts and state projections;
+- the deterministic composition/policy function;
+- the admissible input domain;
+- the required lineage mapping;
+- the equivalence or acceptance obligation used by the independent checker.
 
-R3: hoist a guarded query speculatively only if it is pure, total on the hoisted input domain, reads available immutable inputs and has no external actions. Its discarded output has no decision effect. Cost, allocation, failures and power consumption are still recorded. A discarded branch's inference failure is recorded without failing a successful selected branch; if later selected, that failure must cause refusal.
+R0 is not a license to decompose arbitrary prose or to claim semantic equivalence from intuition. Human-authored M factorizations and automatic G factorizations are checked against the same registered obligations. A new decomposition family requires a new registered contract before sealed evaluation.
 
-R4: eliminate duplicate pure deterministic nodes only when operator, version, input digests, scope and output contract are identical. No stochastic-query deduplication in version 1. Provenance retains both use sites.
+### R1: remove artificial scheduling edges
 
-No associativity, commutativity, EO/GEO conversion or numeric reassociation is presumed. Such rewrites require separately registered executable or formal obligations and a new spec version. Changing the prompt, option order, model precision, inference method, utility or tolerance is not a scheduling rewrite.
+Remove a declared SCHEDULE edge only after proving that no DATA, GUARD, guard-safety, lineage, effect or source-observable obligation is removed. Because R1 changes exposed dependency structure, it is not available to T in the primary attribution comparison; a separate T+R1 diagnostic may be reported.
 
-## 6. Equivalence and cost
+### R2: partition a ready antichain into backend-supported batches
 
-Deterministic observational equivalence means identical selected action, selected output values, selected failure/refusal behavior and lineage obligations. Wall time and speculative trace size may differ. Exact rational fixtures require exact equality. Numeric contracts specify tolerances before execution.
+Retain per-item state/query identity and output association. Shared state ingestion is measured only if the backend actually implements reuse; padded batching is not shared encoding.
 
-For a stochastic/model backend, a legal graph transformation does not by itself guarantee identical samples or distributions across batch shapes. Deterministic scoring is preferred; measured distribution drift is a separate acceptance gate. Per-node RNG streams must be keyed by case/node identity when stochastic backends are later added.
+R2 is scheduler/runtime behavior common to T, M and G whenever the same ready antichain exists. It is not by itself evidence of MAPEOGEO-specific value.
 
-Let W be total executed work, including discarded speculation, and D the longest true dependency path in node count. Weighted span L uses frozen per-node cost estimates; resource-limited makespan is distinct. For P identical processors, max(W/P,L) is a lower bound under the declared work model, not a latency promise.
+### R3: speculative fan-out
 
-Compiler objective: minimize development-predicted end-to-end latency subject to semantic validity, memory/resource limits and W <= 2 times the lazy reference's predicted work. Search budget is 1,000 candidate rewrites per graph, deterministic lexical tie breaking; preserve the valid original graph if no improvement is found. Runtime breaches are failures, not silently widened budgets. Forecast errors are reported.
+Hoist a guarded query speculatively only if it is pure, total on the hoisted input domain, reads available immutable inputs and has no external actions. Its discarded output has no decision effect. Cost, allocation, failures and power/energy telemetry when available are still recorded. A discarded branch's inference failure is recorded without failing a successful selected branch; if later selected, that failure must cause refusal.
 
-Report both cold one-shot latency (compilation included) and amortized reused-plan latency. A compile cache key includes graph, state schema, operator registry, backend profile and contract hashes. Cross-case output caching is disabled in the primary campaign.
+### R4: deterministic structural deduplication
 
-## 7. Trust and safety
+Eliminate duplicate pure deterministic nodes only when operator ID/version, canonical input bindings/provenance, scope, output contract and all semantic preconditions are identical. R4 is structural at compile time; it does not depend on runtime value digests. Provenance retains all original use sites.
 
-Models provide scores only; they cannot authorize operators or execute tools. User text is data, not executable code. Validate finite probabilities, option coverage and state bindings. No NaN repair, guessed defaults or silent renormalization of malformed external distributions.
+Runtime value memoization, if later added, is a separate explicitly named mechanism keyed by actual input digests and disabled across cases in the primary campaign. No stochastic-query deduplication exists in version 1.
 
-No real-world actions occur. Decisions are recorded labels. Timeout, OOM, unsupported backend capability, stale cache, invalid receipt and malformed output have distinct status codes. Resource cleanup occurs after each trial. Retries are disabled in primary timings; a diagnostic retry is recorded separately and cannot replace a failed trial.
+No associativity, commutativity, EO/GEO conversion or numeric reassociation is presumed. Such rewrites require separately registered executable or formal obligations and a new spec version. Changing prompt bytes, option order, model precision, inference method, utility, policy or tolerance is not a scheduling rewrite.
+
+## 7. Backend levels
+
+E32 reports backend capability levels separately:
+
+- B0: separate ordinary inference/scoring for each eligible question.
+- B1: batched independent scoring with no claim of shared-state reuse.
+- B2: explicitly implemented and tested shared-state/prefix reuse.
+- B3: a custom parallel option/sampler architecture, only if directly implemented and validated in a later version.
+
+Version 1 requires B0 and B1 for local-model testing when practical; B2 is optional and must be capability-gated. B3 is outside the initial claim. A speedup from B1/B2 on a causal LM does not establish equivalence to an unpublished vendor sampler.
+
+## 8. Equivalence and cost
+
+Deterministic observational equivalence means identical selected action, selected output values required by the observable contract, selected failure/refusal behavior and lineage obligations. Wall time and discarded speculative trace size may differ. Exact rational fixtures require exact equality. Numeric contracts specify tolerances before execution.
+
+For a stochastic/model backend, a legal graph transformation does not by itself guarantee identical samples or distributions across batch shapes. Deterministic scoring is preferred; measured distribution drift is a separate acceptance gate. Per-node RNG streams must be keyed by case/node identity if stochastic backends are later added.
+
+Define separately:
+
+- W: executed node/work-unit count, including discarded speculation;
+- C_hat: locked predicted weighted cost, the sum of frozen development-estimated node/backend costs;
+- L_hat: locked predicted weighted span on the true dependency graph;
+- T_measured: measured end-to-end wall/device timing and resource counters.
+
+For P identical processors, max(C_hat/P, L_hat) is a lower bound under the declared predicted-work model, not a latency promise.
+
+Compiler objective: minimize development-predicted end-to-end latency subject to semantic validity, memory/resource limits and C_hat_G <= 2 * C_hat_S for every primary case. Search budget is 1,000 candidate factorization/rewrite steps per graph, with relabel-invariant deterministic tie breaking. Preserve the valid original graph if no admissible improvement is found. Runtime breaches are failures, not silently widened budgets. Forecast errors are reported by comparing predicted and measured costs.
+
+Report both cold one-shot latency, including factorization/compilation/checking, and hot/reused-plan latency. A compile cache key includes graph/decision-contract hash, state schema, factorization-contract registry, operator registry, backend profile and policy/observable-contract hashes. It may not depend on case-specific output values unless the plan is explicitly state-specialized and then cannot be reused across states. Cross-case output caching is disabled in the primary campaign.
+
+## 9. Trust and safety
+
+Models provide typed scores/distributions only; they cannot authorize operators, directly emit an executable ACTION in the local-model backend, or execute tools. User text is data, not executable code. Validate finite probabilities, option coverage and state bindings. No NaN repair, guessed defaults or silent renormalization of malformed external distributions.
+
+No real-world actions occur. DECIDE/policy nodes produce recorded action labels only. Timeout, OOM, unsupported backend capability, stale cache, invalid receipt and malformed output have distinct status codes. Resource cleanup occurs after each trial. Retries are disabled in primary timings; a diagnostic retry is recorded separately and cannot replace a failed trial.
