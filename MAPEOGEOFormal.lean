@@ -2,3 +2,4 @@ import MAPEOGEOFormal.SourceBound
 import MAPEOGEOFormal.ProofPaths
 import MAPEOGEOFormal.PinchQuartet
 import MAPEOGEOFormal.PinchV011
+import MAPEOGEOFormal.WaveF4

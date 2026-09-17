@@ -54,13 +54,14 @@
       "registry_hashes_are_domain_separated_canonical_json": true
     },
     "producer_source_tree": {
-      "file_count": 51,
+      "file_count": 53,
       "files": {
-        "MAPEOGEOFormal.lean": "f8b644abf6a9da022be42db30f19c5b0e9f4a8fde45dd36d5fa5b8d9644859fa",
+        "MAPEOGEOFormal.lean": "2cbe1985717c8dd2147979f6fec1fcfab0cf1e0695cf4a8aabb55a500595819b",
         "MAPEOGEOFormal/PinchQuartet.lean": "f50af08474725221147ae1a59edd4867004a238f88cc9ae0cf265c2344c4ce78",
         "MAPEOGEOFormal/PinchV011.lean": "d3d6fb3f24001c17e55b55018f009932986d1541e0f562bd384e138dd94e245c",
         "MAPEOGEOFormal/ProofPaths.lean": "319f9ce983653bf73435adec1688aa5d9464a27dc25c924c45edff45f85c1300",
         "MAPEOGEOFormal/SourceBound.lean": "0a4f905e498e87ec6b429db69b6fdba86291e0e967cb2ba99747b3442845571c",
+        "MAPEOGEOFormal/WaveF4.lean": "33786b2194a0f225e6beb4149e74ef6495bb77cf0b72f99153cc7edbc6386d62",
         "lake-manifest.json": "b4382094843ee7d4262530eedc7bba4aa6057a03a75911ba5580ad085efc1073",
         "lakefile.lean": "10d866aa705d815b2d546ebf169f780cd1c433ad5ae17070f0499701363fc2d0",
         "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71",
@@ -85,6 +86,7 @@
         "scripts/generate_alignments_v0_19.py": "627a105ccf1d4b325b005eaeadf6d9c53acaa0a5e3a0d7cbbd6b6f5872d3539d",
         "scripts/generate_foundation_alignments.py": "1251460e3e8b48978db511573fb3710ef77022bbb252abefe0305ececc981974",
         "scripts/generate_mathematical_integrity_report.py": "5681f639abb2f51adfef4a97ecb22881c7db503e233be256272a60f02da0b737",
+        "scripts/hydrate_e26_e31_fixtures.py": "fdf3ef547c78e0fe61b1d8a51c7cd82f5c8a55fd23c31eab12d09d36b09185f3",
         "scripts/import_analysis_v0_15.py": "d6022f5542d4fb1c119da0745863a1bceb27052c0352462e291410a8007e23d0",
         "scripts/import_axler_v0_12.py": "c24efc73378e4f535d7b953b00fcab092374d7b78989aeaaba417e0587dab15d",
         "scripts/import_billingsley_v0_17.py": "bd70cba08bbf93a86b6876d3d5977119a78ffd3e98fa618933d1a7acab8f5435",
@@ -103,12 +105,12 @@
         "scripts/pinch_intake_v0_11.py": "845ba6ae429cd0bdae75af604819aaee04406ae10b24b9968cc3f52c428dae50",
         "scripts/pinch_quartet_v0_10.py": "7903a1873720d15f9de6593ac01aed4ccb640e81b2b91bcf80932defb80d3445",
         "scripts/proof_paths_v0_9.py": "b1ca1887b9ac1945f6f53139c0e40d99b9cec0e78ce1b63f4b568ca7625ef6e7",
-        "scripts/reconstruct_pipeline.py": "0a019b88e0adb6374fb55ecf7bca8e6e291a5d3cb731254ac978db3d54026066",
+        "scripts/reconstruct_pipeline.py": "7d1602a7be3122739f8745bf18badf75af2834cce2a3d7cc05f3cdc1934fc52b",
         "scripts/topology_intake_v0_16.py": "a05c73cd226f35a8f1eb03eafd17612699358ca80eeeee05fe75d5b0c5e7937e",
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "9e39b471a8691baa4d054905b46a47e519acdc80a06c67bb4a0893bba80a4d76"
+      "sha256": "ebd0575863042d0ad26ad0d3813ebe2fe9a0622ea02885e57ce12ac5205095d2"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",
