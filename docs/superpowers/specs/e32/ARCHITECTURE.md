@@ -9,11 +9,11 @@ E32 separates four layers that must be measured independently:
 1. **Decision factorization**: replace a composite judgment with typed atomic judgments over shared immutable state plus deterministic composition.
 2. **Graph scheduling**: execute independent ready nodes concurrently without changing graph semantics.
 3. **Graph optimization**: apply checked rewrites such as speculative fan-out and deterministic deduplication.
-4. **Backend execution**: realize the graph through separate inference, batching, shared-state/prefix reuse or another explicitly implemented backend capability.
+4. **Backend execution**: realize the graph through separate inference, batching, shared-state/prefix reuse, direct typed readout or another explicitly implemented backend capability.
 
 A vendor-API-only comparison would entangle these layers with a black box. A simulator-only comparison would establish no hardware speedup. The selected hybrid design separates deterministic compiler validity from model/backend performance. Neither plane substitutes for the other.
 
-The source program is a declared decision contract, not arbitrary prose. Version 1 does not infer safe dependencies from a language model's explanation, translate unrestricted agent reasoning into an equivalent circuit, or claim to reproduce unpublished TypeSafe/Jev sampler internals.
+The source program is a declared decision contract, not arbitrary prose. Version 1.2 does not infer safe dependencies from a language model's explanation, translate unrestricted agent reasoning into an equivalent circuit, or claim to reproduce unpublished TypeSafe/Jev sampler or training internals.
 
 ## 2. Execution arms
 
@@ -50,9 +50,27 @@ F(S, {q_1, ..., q_n}) -> {a_1, ..., a_n} -> policy/composition -> action or refu
 
 Atomic questions must declare exactly which state projection they read. Two questions are parallel-eligible only when neither consumes the other's output and all data, guard, lineage, effect and resource constraints permit concurrent execution.
 
+### 3.1 Question isolation
+
+Question isolation is defined across sibling questions, not within the alternatives of one question. For distinct atomic questions q_i and q_j over the same shared state, q_i must not receive q_j's text, options, answer or hidden state as an undeclared input. Reordering independent sibling questions is therefore a scheduling/association transformation and should preserve the target question result within the registered model-drift tolerance. Adding or removing an unrelated sibling question is tested as an isolation probe, not assumed from implementation structure alone.
+
+A fact available only inside sibling question q_j is not part of q_i's declared state. Moving that same fact into q_i's declared shared-state projection is a semantic input change and may legitimately change q_i's distribution.
+
+### 3.2 Listwise option semantics
+
+The alternatives inside one CHOICE or SCORE question form a single ordered listwise decision object O_i. The backend may compare, normalize or otherwise jointly score the complete declared option set. Consequently:
+
+- option order is bound into the query/answer contract;
+- adding, deleting or reordering options creates a distinct query contract;
+- E32 does not require per-option probabilities or pairwise odds to remain invariant when the option set changes;
+- option-order and list-expansion sensitivity are mandatory characterization measurements, not semantic-equivalence gates;
+- answer-to-key association must remain exact under every tested ordering.
+
+This distinction prevents cross-question independence from being incorrectly generalized into independence among alternatives within a question.
+
 Computational independence is not conditional statistical independence. Correlated query outputs remain correlated. Marginal probabilities must not be multiplied into a joint probability without a separately specified joint model.
 
-Version 1 treats width and true dependency depth as distinct structural quantities. The central behavioral signature is that added width should become relatively cheap inside the hardware/backend parallel region while genuine dependency depth remains serial.
+Version 1.2 treats width and true dependency depth as distinct structural quantities. The central behavioral signature is that added width should become relatively cheap inside the hardware/backend parallel region while genuine dependency depth remains serial.
 
 ## 4. Runtime flow
 
@@ -65,9 +83,9 @@ Core units:
 - Factorizer/compiler: bounded search over registered decompositions and legal rewrites with deterministic tie breaking.
 - Receipt checker: independently checks every factorization/rewrite obligation against source contracts.
 - Scheduler: shared T/G resource-aware readiness, batching and deterministic result association.
-- Backends: exact deterministic functions; local causal-model option scoring; optional explicitly tested shared-state/prefix reuse.
+- Backends: exact deterministic functions; teacher-forced local causal-model option scoring; optional shared-state/prefix reuse; optional direct typed readout.
 - Policy/composition: fixed arithmetic, constraints, utility and abstention outside the model.
-- Audit/report: complete traces, rejected candidates, timing, structure and claim gates.
+- Audit/report: complete traces, rejected candidates, timing, structure, option-set characterization and claim gates.
 
 The receipt checker must not call the compiler's factorization or rewrite-acceptance function. Common serialization utilities are allowed; shared semantic checking logic must be disclosed.
 
@@ -110,26 +128,31 @@ Hoist a guarded query speculatively only if it is pure, total on the hoisted inp
 
 Eliminate duplicate pure deterministic nodes only when operator ID/version, canonical input bindings/provenance, scope, output contract and all semantic preconditions are identical. R4 is structural at compile time; it does not depend on runtime value digests. Provenance retains all original use sites.
 
-Runtime value memoization, if later added, is a separate explicitly named mechanism keyed by actual input digests and disabled across cases in the primary campaign. No stochastic-query deduplication exists in version 1.
+Runtime value memoization, if later added, is a separate explicitly named mechanism keyed by actual input digests and disabled across cases in the primary campaign. No stochastic-query deduplication exists in version 1.2.
 
-No associativity, commutativity, EO/GEO conversion or numeric reassociation is presumed. Such rewrites require separately registered executable or formal obligations and a new spec version. Changing prompt bytes, option order, model precision, inference method, utility, policy or tolerance is not a scheduling rewrite.
+No associativity, commutativity, EO/GEO conversion or numeric reassociation is presumed. Such rewrites require separately registered executable or formal obligations and a new spec version. Changing prompt bytes, option order/set, model precision, inference/readout method, utility, policy or tolerance is not a scheduling rewrite.
 
 ## 7. Backend levels
 
-E32 reports backend capability levels separately:
+E32 reports backend capability levels separately so programming-model gains are not confused with inference-mechanism gains:
 
-- B0: separate ordinary inference/scoring for each eligible question.
-- B1: batched independent scoring with no claim of shared-state reuse.
-- B2: explicitly implemented and tested shared-state/prefix reuse.
-- B3: a custom parallel option/sampler architecture, only if directly implemented and validated in a later version.
+- **B0 — isolated teacher-forced scoring**: separate ordinary local-model option scoring for each eligible question.
+- **B1 — batched teacher-forced scoring**: tensor-batched independent question/option scoring with no claim of shared-state reuse.
+- **B2 — shared-state/prefix reuse**: B1-style scoring with explicitly implemented and measured reuse of shared state/prefix computation.
+- **B3 — direct typed readout**: no generated answer string is scored. A sealed ReadoutContract maps declared local-model hidden state and/or logits at declared readout positions directly to the finite NOUL/CHOICE/SCORE output space. The causal model may still perform ordinary autoregressive-style prefill internally; B3 claims only non-generative typed decision readout, not a proprietary sampler.
+- **B4 — decision-specialized post-training/calibration**: a separately trained or calibrated typed-decision model/readout. This is outside the v1.2 primary campaign unless preregistered in a later version with training data, objective and calibration protocol fully sealed.
 
-Version 1 requires B0 and B1 for local-model testing when practical; B2 is optional and must be capability-gated. B3 is outside the initial claim. A speedup from B1/B2 on a causal LM does not establish equivalence to an unpublished vendor sampler.
+Version 1.2 requires B0 and B1 for local-model testing when practical; B2 and B3 are optional capability-gated replications. B3 must be reported separately from B0-B2 and must never be described as reconstructing Jev. B4 is outside the primary claim.
 
-## 8. Equivalence and cost
+The useful experimental progression is therefore factorization -> ordinary batching -> shared computation -> direct typed readout -> specialized training. Each step must earn its own claim.
+
+## 8. Equivalence, confidence and cost
 
 Deterministic observational equivalence means identical selected action, selected output values required by the observable contract, selected failure/refusal behavior and lineage obligations. Wall time and discarded speculative trace size may differ. Exact rational fixtures require exact equality. Numeric contracts specify tolerances before execution.
 
-For a stochastic/model backend, a legal graph transformation does not by itself guarantee identical samples or distributions across batch shapes. Deterministic scoring is preferred; measured distribution drift is a separate acceptance gate. Per-node RNG streams must be keyed by case/node identity if stochastic backends are later added.
+For a model backend, a legal graph transformation does not by itself guarantee bit-identical distributions across batch shapes. Deterministic scoring/readout is preferred; measured distribution drift is a separate acceptance gate. Per-node RNG streams must be keyed by case/node identity if stochastic backends are later added.
+
+Confidence is deterministic post-processing of an answer distribution, not a second model judgment. E32 has no universal confidence formula across answer types. NOUL has no separate confidence field in the normative answer. CHOICE may report the registered uniform-baseline concentration metric specified in CONTRACTS.md. SCORE may report only a separately registered deterministic concentration metric whose formula and hash are sealed. No confidence metric authorizes actions in the primary policy unless a future PolicyContract explicitly says so.
 
 Define separately:
 
@@ -146,6 +169,6 @@ Report both cold one-shot latency, including factorization/compilation/checking,
 
 ## 9. Trust and safety
 
-Models provide typed scores/distributions only; they cannot authorize operators, directly emit an executable ACTION in the local-model backend, or execute tools. User text is data, not executable code. Validate finite probabilities, option coverage and state bindings. No NaN repair, guessed defaults or silent renormalization of malformed external distributions.
+Models provide typed scores/distributions only; they cannot authorize operators, directly emit an executable ACTION in a local-model backend, or execute tools. User text is data, not executable code. Validate finite probabilities, option coverage and state bindings. No NaN repair, guessed defaults or silent renormalization of malformed external distributions.
 
 No real-world actions occur. DECIDE/policy nodes produce recorded action labels only. Timeout, OOM, unsupported backend capability, stale cache, invalid receipt and malformed output have distinct status codes. Resource cleanup occurs after each trial. Retries are disabled in primary timings; a diagnostic retry is recorded separately and cannot replace a failed trial.
