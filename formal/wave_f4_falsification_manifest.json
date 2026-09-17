@@ -1,0 +1,187 @@
+{
+  "mutants": [
+    {
+      "description": "Swap quantifiers for continuity from forall eps exists delta to exists delta forall eps (forcing universal delta independent of epsilon).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Quantifier alternating order violation detected by QuantifierChecker.",
+      "family": "CONTINUITY_COMPACTNESS",
+      "mutant_id": "MUT:F4:01_SWAPPED_QUANTIFIERS",
+      "mutation_class": "QUANTIFIER_SWAP",
+      "target_canonical_id": "canonical:continuity_compactness:continuity"
+    },
+    {
+      "description": "Provide a purported uniform continuity modulus delta(eps, x) = min(eps, x/2) for f(x)=1/x on (0, 1) that leaks variable x.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "QuantifierChecker rejects witness because delta depends on forbidden spatial variable x.",
+      "family": "CONTINUITY_COMPACTNESS",
+      "mutant_id": "MUT:F4:02_FORBIDDEN_DEPENDENCY_LEAK",
+      "mutation_class": "FORBIDDEN_VARIABLE_DEPENDENCY",
+      "target_canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor"
+    },
+    {
+      "description": "Attempt to certify uniform convergence of f_n(x) = x^n on [0, 1) by evaluating point samples without supremum norm bound.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "CertificateChecker rejects point grid promotion to uniform certificate.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:03_POINTWISE_UPGRADED_TO_UNIFORM",
+      "mutation_class": "IMPROPER_EVIDENCE_PROMOTION",
+      "target_canonical_id": "canonical:diff_integration:pointwise_vs_uniform_convergence"
+    },
+    {
+      "description": "Assert Extreme Value Theorem on non-compact open interval (0, 1) for f(x) = 1/x (unbounded).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Exact arithmetic detects sup f = infty on (0, 1) with no attained maximum.",
+      "family": "CONTINUITY_COMPACTNESS",
+      "mutant_id": "MUT:F4:04_DROPPED_COMPACTNESS_EVT",
+      "mutation_class": "DROPPED_HYPOTHESIS",
+      "target_canonical_id": "canonical:continuity_compactness:extreme_value_theorem"
+    },
+    {
+      "description": "Assert uniform continuity of f(x) = 1/x on non-compact domain (0, 1).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Evaluator finds points x_n = 1/n, y_n = 1/(2n) with |x_n - y_n| -> 0 but |f(x_n) - f(y_n)| = n -> infty.",
+      "family": "CONTINUITY_COMPACTNESS",
+      "mutant_id": "MUT:F4:05_DROPPED_COMPACTNESS_HEINE_CANTOR",
+      "mutation_class": "DROPPED_HYPOTHESIS",
+      "target_canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor"
+    },
+    {
+      "description": "Assert convergence of unbounded monotone sequence x_n = n.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Sequence divergence detected; no finite real limit L exists.",
+      "family": "SEQUENCES_SERIES",
+      "mutant_id": "MUT:F4:06_DROPPED_BOUNDEDNESS_MCT",
+      "mutation_class": "DROPPED_HYPOTHESIS",
+      "target_canonical_id": "canonical:sequences_series:monotone_convergence"
+    },
+    {
+      "description": "Claim harmonic series sum_{n=1}^infty 1/n converges.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Cauchy criterion failure: block sum sum_{k=n+1}^{2n} 1/k >= 1/2 for all n.",
+      "family": "SEQUENCES_SERIES",
+      "mutant_id": "MUT:F4:07_HARMONIC_SERIES_CONVERGENCE",
+      "mutation_class": "FALSE_CONVERGENCE_CLAIM",
+      "target_canonical_id": "canonical:sequences_series:infinite_series"
+    },
+    {
+      "description": "Claim alternating harmonic series sum (-1)^{n+1}/n converges absolutely.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Absolute series is harmonic series sum 1/n which diverges.",
+      "family": "SEQUENCES_SERIES",
+      "mutant_id": "MUT:F4:08_CONDITIONAL_AS_ABSOLUTE",
+      "mutation_class": "FALSE_CONVERGENCE_CLASSIFICATION",
+      "target_canonical_id": "canonical:sequences_series:absolute_vs_conditional_convergence"
+    },
+    {
+      "description": "Assert continuity of Heaviside unit step function H(x) at x = 0.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Left limit 0 != right limit 1, violating eps-delta continuity for eps = 1/2.",
+      "family": "CONTINUITY_COMPACTNESS",
+      "mutant_id": "MUT:F4:09_JUMP_DISCONTINUITY",
+      "mutation_class": "DISCONTINUITY_VIOLATION",
+      "target_canonical_id": "canonical:continuity_compactness:continuity"
+    },
+    {
+      "description": "Assert differentiability of f(x) = |x| at x = 0.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Left difference quotient -1 != right difference quotient +1.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:10_ABS_VALUE_DERIVATIVE_AT_ZERO",
+      "mutation_class": "NON_DIFFERENTIABILITY_VIOLATION",
+      "target_canonical_id": "canonical:diff_integration:derivative"
+    },
+    {
+      "description": "Apply Mean Value Theorem to discontinuous function f(x) = 0 on [0, 1), f(1) = 1.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Secant slope (1-0)/(1-0) = 1, but f'(x) = 0 for all x in (0, 1), so no c in (0, 1) exists with f'(c) = 1.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:11_MVT_OPEN_INTERVAL_DISCONTINUITY",
+      "mutation_class": "DROPPED_HYPOTHESIS",
+      "target_canonical_id": "canonical:diff_integration:mean_value_theorem"
+    },
+    {
+      "description": "Assert that f_n(x) = x^n converges uniformly on closed interval [0, 1].",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Pointwise limit is discontinuous at 1, violating uniform limit preservation of continuity.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:12_X_POW_N_UNIFORM_ON_CLOSED_UNIT",
+      "mutation_class": "FALSE_UNIFORM_CONVERGENCE_CLAIM",
+      "target_canonical_id": "canonical:diff_integration:pointwise_vs_uniform_convergence"
+    },
+    {
+      "description": "Accept an infinite subcover {(1/n, 1) : n in N} as valid witness for compactness of (0, 1).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "CertificateChecker verifies subcover cardinality and rejects non-finite index sets.",
+      "family": "CONTINUITY_COMPACTNESS",
+      "mutant_id": "MUT:F4:13_NON_FINITE_SUBCOVER_ACCEPTED",
+      "mutation_class": "INVALID_COVER_WITNESS",
+      "target_canonical_id": "canonical:continuity_compactness:compactness_and_heine_borel"
+    },
+    {
+      "description": "Reverse Taylor remainder inequality to assert |f(x) - P_k(x)| > R_k(x).",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Evaluator detects inequality sign inversion against certified Lagrange remainder.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:14_REVERSED_TAYLOR_REMAINDER_INEQUALITY",
+      "mutation_class": "CORRUPTED_INEQUALITY_SIGN",
+      "target_canonical_id": "canonical:diff_integration:taylor_theorem_with_remainder"
+    },
+    {
+      "description": "Provide a non-monotonic or overlapping partition array x_0 < x_2 < x_1 < x_3 for Darboux integration.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "ExactArithmetic partition validator rejects non-strictly increasing partition points.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:15_INVALID_DARBOUX_PARTITION",
+      "mutation_class": "CORRUPTED_PARTITION_STRUCTURE",
+      "target_canonical_id": "canonical:diff_integration:darboux_riemann_integrability"
+    },
+    {
+      "description": "Pass binary float interval [0.1, 0.2] into proof-eligible certificate checker.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "ExactArithmetic raises TypeError on float input in proof-eligible evidence pipeline.",
+      "family": "FOUNDATION",
+      "mutant_id": "MUT:F4:16_FLOAT_INTERVAL_PROOF_ATTEMPT",
+      "mutation_class": "FLOAT_LEAK_IN_PROOF_EVIDENCE",
+      "target_canonical_id": "canonical:foundation:least_upper_bound_property"
+    },
+    {
+      "description": "Submit a proof witness object missing required Lagrange remainder certificate keys.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Evaluator fails schema validation due to missing required witness keys.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:17_TRUNCATED_PROOF_WITNESS",
+      "mutation_class": "TRUNCATED_WITNESS_PAYLOAD",
+      "target_canonical_id": "canonical:diff_integration:taylor_theorem_with_remainder"
+    },
+    {
+      "description": "Inject concept ID string into RedactedSemanticWitness normalized values.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Redacted evaluator sanitizes and rejects witnesses containing non-mathematical identifier keys.",
+      "family": "FOUNDATION",
+      "mutant_id": "MUT:F4:18_CONCEPT_ID_LEAK_INTO_SEMANTICS",
+      "mutation_class": "METADATA_LEAK_INTO_SEMANTIC_DIGEST",
+      "target_canonical_id": "canonical:foundation:ordered_field_structure"
+    },
+    {
+      "description": "Evaluate EO using shared mutable geometric cache state with GEO.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "Decoupled AST check and engine isolation test catches shared state and raises violation.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:19_SHARED_EO_GEO_HELPER",
+      "mutation_class": "CIRCULAR_ENGINE_COUPLING",
+      "target_canonical_id": "canonical:diff_integration:darboux_riemann_integrability"
+    },
+    {
+      "description": "Sample f(x) = sin(1/x) at finite rational grid points and claim universal uniform continuity theorem.",
+      "expected_verdict": "NONCOMMUTATIVE_UNDER_CONTRACT",
+      "falsification_mechanism": "CertificateChecker strictly enforces NUMERICAL_PROBE_ONLY tier and blocks theorem promotion.",
+      "family": "DIFF_INTEGRATION",
+      "mutant_id": "MUT:F4:20_SAMPLE_GRID_UPGRADE_TO_THEOREM",
+      "mutation_class": "SAMPLE_GRID_PROMOTED_TO_THEOREM",
+      "target_canonical_id": "canonical:diff_integration:pointwise_vs_uniform_convergence"
+    }
+  ],
+  "schema_version": "0.21",
+  "stage": "v0.21_wave_f4",
+  "total_registered_mutants": 20
+}

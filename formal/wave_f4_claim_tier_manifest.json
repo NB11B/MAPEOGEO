@@ -1,0 +1,388 @@
+{
+  "campaign_name": "QUANTIFIED_REAL_ANALYSIS_DUAL_VIEW_CAMPAIGN",
+  "claims": [
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:foundation:ordered_field_structure",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.OrderedField",
+      "justification_summary": "Source-aligned ordered field axioms proven in Lean 4 (mathlib/ReasBook).",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL",
+        "BOUNDED_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:foundation:absolute_value_inequalities",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.AbsValTriangleIneq",
+      "justification_summary": "Triangle inequality and reverse triangle inequality proven in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:foundation:suprema_and_infima",
+      "formal_lean_target": null,
+      "justification_summary": "Exact supremum / infimum certificates for parameterized rational intervals and polynomial level sets.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "ParameterizedIntervalSetFamily[Q]"
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:foundation:least_upper_bound_property",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.LeastUpperBoundAxiom",
+      "justification_summary": "Completeness axiom of R verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:foundation:archimedean_property",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.ArchimedeanProperty",
+      "justification_summary": "Archimedean property of R verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:foundation:density_of_rationals",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.DensityOfRationals",
+      "justification_summary": "Density of Q in R verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": "NestedRationalIntervals[n <= 100]",
+      "canonical_id": "canonical:foundation:nested_interval_property",
+      "formal_lean_target": null,
+      "justification_summary": "Exact rational nested interval sequences verified with diameter contraction < 10^-6.",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:foundation:cauchy_completeness_and_equivalents",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.CauchyCompleteness",
+      "justification_summary": "Equivalence of Cauchy completeness and LUB property verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:sequences_series:sequence_convergence",
+      "formal_lean_target": null,
+      "justification_summary": "Exact epsilon-N moduli for rational sequence families (an+b)/(cn+d) and geometric sequences r^n.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "RationalSequenceFamily[Q(n)]"
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:sequences_series:algebra_and_order_of_limits",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.LimitAlgebraAndOrder",
+      "justification_summary": "Limit sum, product, quotient laws and squeeze lemma verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:sequences_series:monotone_convergence",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.MonotoneConvergence",
+      "justification_summary": "Monotone Convergence Theorem for sequences verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:sequences_series:bolzano_weierstrass",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.BolzanoWeierstrass",
+      "justification_summary": "Bolzano\u2013Weierstrass Theorem for bounded sequences verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:sequences_series:cauchy_criterion",
+      "formal_lean_target": null,
+      "justification_summary": "Exact Cauchy modulus certificate N(eps) for rational sequences with certified rate of decay.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "CauchyModulusFamily[Q(n)]"
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:sequences_series:infinite_series",
+      "formal_lean_target": null,
+      "justification_summary": "Closed-form partial sum and remainder certificates for geometric and telescoping series.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "GeometricTelescopingSeriesFamily[Q]"
+    },
+    {
+      "bounded_instance_domain": "RationalSeriesInstances[k <= 50]",
+      "canonical_id": "canonical:sequences_series:comparison_ratio_root_tests",
+      "formal_lean_target": null,
+      "justification_summary": "Exact ratio test bounds and comparison dominants verified on rational series instances.",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": "AlternatingSeriesInstances[n <= 100]",
+      "canonical_id": "canonical:sequences_series:absolute_vs_conditional_convergence",
+      "formal_lean_target": null,
+      "justification_summary": "Alternating series remainder bound |S - S_n| <= a_{n+1} verified on alternating harmonic series.",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:continuity_compactness:open_and_closed_sets",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.OpenClosedSets",
+      "justification_summary": "Topology of open and closed sets on R verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:continuity_compactness:compactness_and_heine_borel",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.HeineBorel",
+      "justification_summary": "Heine\u2013Borel theorem on closed bounded intervals verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:continuity_compactness:function_limits",
+      "formal_lean_target": null,
+      "justification_summary": "Exact epsilon-delta modulus certificates for rational functions P(x)/Q(x).",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "RationalFunctionLimitFamily[Q(x)]"
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:continuity_compactness:continuity",
+      "formal_lean_target": null,
+      "justification_summary": "Exact delta(eps, x0) certificate for polynomial and Lipschitz function families.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "PolynomialLipschitzFamily[Q[x]]"
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:continuity_compactness:sequential_continuity",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.SequentialContinuity",
+      "justification_summary": "Equivalence of epsilon-delta and sequential continuity verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": "BisectionIntervalCertificate[diam < 10^-8]",
+      "canonical_id": "canonical:continuity_compactness:intermediate_value_theorem",
+      "formal_lean_target": null,
+      "justification_summary": "Exact rational bisection root certificate producing certified interval enclosing root.",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": "CompactIntervalExtrema[P(x) in Q[x], [a, b]]",
+      "canonical_id": "canonical:continuity_compactness:extreme_value_theorem",
+      "formal_lean_target": null,
+      "justification_summary": "Exact supremum and infimum attainment certificates on closed bounded rational intervals.",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor",
+      "formal_lean_target": null,
+      "justification_summary": "Exact global delta(eps) certificate independent of spatial parameters for Lipschitz polynomial families.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "UniformModulusFamily[Q[x], [a, b]]"
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:diff_integration:derivative",
+      "formal_lean_target": null,
+      "justification_summary": "Exact symbolic differentiation and algebraic difference quotient bounds for polynomial families.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "PolynomialDerivativeFamily[Q[x]]"
+    },
+    {
+      "bounded_instance_domain": "PolynomialRolleInstance[c in (a, b)]",
+      "canonical_id": "canonical:diff_integration:rolles_theorem",
+      "formal_lean_target": null,
+      "justification_summary": "Exact interior critical point certificate f'(c) = 0 for polynomials on [a, b] with f(a)=f(b).",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": "PolynomialMVTInstance[c in (a, b)]",
+      "canonical_id": "canonical:diff_integration:mean_value_theorem",
+      "formal_lean_target": null,
+      "justification_summary": "Exact interior secant slope matching point c in (a, b) for polynomial instances.",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:diff_integration:taylor_theorem_with_remainder",
+      "formal_lean_target": null,
+      "justification_summary": "Exact degree-k Taylor polynomial with certified rational Lagrange remainder bounds for polynomial and exponential approximations.",
+      "justified_tier": "CHECKED_SYMBOLIC_FAMILY",
+      "prohibited_promotions": [
+        "SYMBOLIC_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": "TaylorPolynomialRemainderFamily[Q[x], k <= 10]"
+    },
+    {
+      "bounded_instance_domain": "RationalDarbouxMesh[n <= 1000]",
+      "canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
+      "formal_lean_target": null,
+      "justification_summary": "Exact Darboux upper/lower sums U(f, P) - L(f, P) < eps on uniform rational mesh partitions.",
+      "justified_tier": "EXACT_BOUNDED_INSTANCE",
+      "prohibited_promotions": [
+        "BOUNDED_TO_GENERAL",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": null,
+      "canonical_id": "canonical:diff_integration:fundamental_theorem_of_calculus",
+      "formal_lean_target": "MAPEOGEOFormal.WaveF4.FundamentalTheoremCalculus",
+      "justification_summary": "Fundamental Theorem of Calculus Parts 1 & 2 verified in Lean 4.",
+      "justified_tier": "FORMAL_GENERAL",
+      "prohibited_promotions": [
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": "NumericalGridProbes[x_grid, 100_points]",
+      "canonical_id": "canonical:diff_integration:pointwise_vs_uniform_convergence",
+      "formal_lean_target": null,
+      "justification_summary": "Exploratory sample grids and tube visualizations for function sequence families (non-proof intuition only).",
+      "justified_tier": "NUMERICAL_PROBE_ONLY",
+      "prohibited_promotions": [
+        "PROBE_TO_BOUNDED",
+        "PROBE_TO_SYMBOLIC",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    },
+    {
+      "bounded_instance_domain": "NumericalIntegralProbes[grid_mesh]",
+      "canonical_id": "canonical:diff_integration:preservation_interchange_uniform_convergence",
+      "formal_lean_target": null,
+      "justification_summary": "Numerical probe verifying limit-integral interchange on discrete sample grids (non-proof intuition only).",
+      "justified_tier": "NUMERICAL_PROBE_ONLY",
+      "prohibited_promotions": [
+        "PROBE_TO_BOUNDED",
+        "PROBE_TO_SYMBOLIC",
+        "PROBE_TO_GENERAL"
+      ],
+      "symbolic_family_signature": null
+    }
+  ],
+  "schema_version": "0.21",
+  "stage": "v0.21_wave_f4",
+  "tier_breakdown": {
+    "CHECKED_SYMBOLIC_FAMILY": 9,
+    "EXACT_BOUNDED_INSTANCE": 8,
+    "FORMAL_GENERAL": 13,
+    "NUMERICAL_PROBE_ONLY": 2
+  },
+  "total_canonical_concepts": 32
+}

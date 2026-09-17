@@ -1,0 +1,1108 @@
+{
+  "campaign_name": "QUANTIFIED_REAL_ANALYSIS_DUAL_VIEW_CAMPAIGN",
+  "contracts": [
+    {
+      "canonical_id": "canonical:foundation:ordered_field_structure",
+      "conclusion": "Additive and multiplicative order compatibility holds",
+      "forbidden_dependencies": [
+        "non_ordered_structures",
+        "floating_point_rounding"
+      ],
+      "hypotheses": [
+        "F is an algebraic field",
+        "< is a strict total order on F"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "FIELD_F",
+          "type": "FORALL",
+          "var": "x"
+        },
+        {
+          "domain": "FIELD_F",
+          "type": "FORALL",
+          "var": "y"
+        },
+        {
+          "domain": "FIELD_F",
+          "type": "FORALL",
+          "var": "z"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(x, y, z in F) [x < y => x + z < y + z] AND FORALL(x, y in F) [x > 0 and y > 0 => xy > 0]"
+    },
+    {
+      "canonical_id": "canonical:foundation:absolute_value_inequalities",
+      "conclusion": "Direct and reverse triangle inequalities hold identically",
+      "forbidden_dependencies": [
+        "approximate_norm"
+      ],
+      "hypotheses": [
+        "|x| = max(x, -x)"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R",
+          "type": "FORALL",
+          "var": "x"
+        },
+        {
+          "domain": "R",
+          "type": "FORALL",
+          "var": "y"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(x, y in R) [|x + y| <= |x| + |y| AND ||x| - |y|| <= |x - y|]"
+    },
+    {
+      "canonical_id": "canonical:foundation:suprema_and_infima",
+      "conclusion": "sup E is the minimal upper bound",
+      "forbidden_dependencies": [
+        "unbounded_sup"
+      ],
+      "hypotheses": [
+        "E is non-empty and bounded above in R"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "SUBSET_R_NONEMPTY_BOUNDED_ABOVE",
+          "type": "FORALL",
+          "var": "E"
+        },
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "E",
+            "eps"
+          ],
+          "domain": "E",
+          "type": "EXISTS",
+          "var": "x_witness"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "x_witness": [
+          "E",
+          "eps"
+        ]
+      },
+      "quantifier_signature": "FORALL(E subset R, E != empty, bounded_above) [FORALL(x in E, x <= sup E) AND FORALL(eps > 0, EXISTS(x in E, x > sup E - eps))]"
+    },
+    {
+      "canonical_id": "canonical:foundation:least_upper_bound_property",
+      "conclusion": "Every bounded above set has a least upper bound in R",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "R is an Archimedean ordered field with Dedekind completeness"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "SUBSET_R_NONEMPTY_BOUNDED_ABOVE",
+          "type": "FORALL",
+          "var": "E"
+        },
+        {
+          "depends_on": [
+            "E"
+          ],
+          "domain": "R",
+          "type": "EXISTS",
+          "var": "M"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "M": [
+          "E"
+        ]
+      },
+      "quantifier_signature": "FORALL(E subset R, E != empty, bounded_above) EXISTS(M in R) [M = sup E]"
+    },
+    {
+      "canonical_id": "canonical:foundation:archimedean_property",
+      "conclusion": "Infinitesimals do not exist in R",
+      "forbidden_dependencies": [
+        "fixed_universal_n"
+      ],
+      "hypotheses": [
+        "N is unbounded in R"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R",
+          "type": "FORALL",
+          "var": "x"
+        },
+        {
+          "depends_on": [
+            "x"
+          ],
+          "domain": "N",
+          "type": "EXISTS",
+          "var": "n"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "n": [
+          "x"
+        ]
+      },
+      "quantifier_signature": "FORALL(x in R) EXISTS(n in N) [n > x] AND FORALL(eps > 0) EXISTS(n in N) [1/n < eps]"
+    },
+    {
+      "canonical_id": "canonical:foundation:density_of_rationals",
+      "conclusion": "Strictly between any two reals lies an exact rational",
+      "forbidden_dependencies": [
+        "non_rational_interpolant"
+      ],
+      "hypotheses": [
+        "x < y in R"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R",
+          "type": "FORALL",
+          "var": "x"
+        },
+        {
+          "depends_on": [
+            "x"
+          ],
+          "domain": "R",
+          "type": "FORALL",
+          "var": "y"
+        },
+        {
+          "depends_on": [
+            "x",
+            "y"
+          ],
+          "domain": "Q",
+          "type": "EXISTS",
+          "var": "q"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "q": [
+          "x",
+          "y"
+        ]
+      },
+      "quantifier_signature": "FORALL(x, y in R, x < y) EXISTS(q in Q) [x < q < y]"
+    },
+    {
+      "canonical_id": "canonical:foundation:nested_interval_property",
+      "conclusion": "Intersection of nested closed intervals is nonempty",
+      "forbidden_dependencies": [
+        "open_interval_nested_empty_intersection"
+      ],
+      "hypotheses": [
+        "I_{n+1} subset I_n",
+        "I_n closed and bounded"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "NESTED_CLOSED_INTERVAL_SEQUENCE",
+          "type": "FORALL",
+          "var": "I_seq"
+        },
+        {
+          "depends_on": [
+            "I_seq"
+          ],
+          "domain": "R",
+          "type": "EXISTS",
+          "var": "x"
+        },
+        {
+          "domain": "N",
+          "type": "FORALL",
+          "var": "n"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "x": [
+          "I_seq"
+        ]
+      },
+      "quantifier_signature": "FORALL(nested sequence I_n = [a_n, b_n]) EXISTS(x in R) [FORALL(n in N, x in I_n)]"
+    },
+    {
+      "canonical_id": "canonical:foundation:cauchy_completeness_and_equivalents",
+      "conclusion": "Metric completeness is equivalent to order completeness",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "R satisfies the least upper bound property"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "SEQUENCE_R",
+          "type": "FORALL",
+          "var": "x_seq"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(seq (x_n) in R) [is_cauchy(x_n) <=> is_convergent(x_n)]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:sequence_convergence",
+      "conclusion": "Tail of sequence is strictly contained within eps-neighborhood of L",
+      "forbidden_dependencies": [
+        "n"
+      ],
+      "hypotheses": [
+        "(x_n) sequence in R",
+        "L in R"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "eps",
+            "x_seq",
+            "L"
+          ],
+          "domain": "N",
+          "type": "EXISTS",
+          "var": "N"
+        },
+        {
+          "domain": "N_GE_N",
+          "type": "FORALL",
+          "var": "n"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "N": [
+          "eps",
+          "x_seq",
+          "L"
+        ]
+      },
+      "quantifier_signature": "FORALL(eps > 0) EXISTS(N in N) FORALL(n >= N) [|x_n - L| < eps]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:algebra_and_order_of_limits",
+      "conclusion": "Limits commute with field operations and preserve weak order",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "lim x_n = L",
+        "lim y_n = M"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "CONVERGENT_SEQUENCE_R",
+          "type": "FORALL",
+          "var": "x_seq"
+        },
+        {
+          "domain": "CONVERGENT_SEQUENCE_R",
+          "type": "FORALL",
+          "var": "y_seq"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(x_n -> L, y_n -> M) [x_n + y_n -> L + M AND x_n y_n -> LM] AND FORALL(a_n <= b_n <= c_n, a_n -> L, c_n -> L) [b_n -> L]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:monotone_convergence",
+      "conclusion": "Sequence converges to its supremum",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "x_{n+1} >= x_n for all n",
+        "exists M such that x_n <= M for all n"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "MONOTONE_BOUNDED_SEQUENCE_R",
+          "type": "FORALL",
+          "var": "x_seq"
+        },
+        {
+          "depends_on": [
+            "x_seq"
+          ],
+          "domain": "R",
+          "type": "EXISTS",
+          "var": "L"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "L": [
+          "x_seq"
+        ]
+      },
+      "quantifier_signature": "FORALL(x_seq, is_monotone_increasing(x_seq), is_bounded_above(x_seq)) EXISTS(L in R) [x_seq -> L AND L = sup(range(x_seq))]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:bolzano_weierstrass",
+      "conclusion": "Contains a convergent subsequence",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "exists M such that |x_n| <= M for all n"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "BOUNDED_SEQUENCE_R",
+          "type": "FORALL",
+          "var": "x_seq"
+        },
+        {
+          "depends_on": [
+            "x_seq"
+          ],
+          "domain": "STRICT_MONOTONE_INDEX_SEQUENCE",
+          "type": "EXISTS",
+          "var": "subseq"
+        },
+        {
+          "depends_on": [
+            "x_seq"
+          ],
+          "domain": "R",
+          "type": "EXISTS",
+          "var": "L"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "L": [
+          "x_seq"
+        ],
+        "subseq": [
+          "x_seq"
+        ]
+      },
+      "quantifier_signature": "FORALL(x_seq, is_bounded(x_seq)) EXISTS(subseq_indices n_k, L in R) [x_{n_k} -> L]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:cauchy_criterion",
+      "conclusion": "Sequence tail has internal diameter less than eps",
+      "forbidden_dependencies": [
+        "n",
+        "m"
+      ],
+      "hypotheses": [
+        "(x_n) sequence in R"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "eps",
+            "x_seq"
+          ],
+          "domain": "N",
+          "type": "EXISTS",
+          "var": "N"
+        },
+        {
+          "domain": "N_GE_N",
+          "type": "FORALL",
+          "var": "n"
+        },
+        {
+          "domain": "N_GE_N",
+          "type": "FORALL",
+          "var": "m"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "N": [
+          "eps",
+          "x_seq"
+        ]
+      },
+      "quantifier_signature": "FORALL(eps > 0) EXISTS(N in N) FORALL(n, m >= N) [|x_n - x_m| < eps]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:infinite_series",
+      "conclusion": "Infinite series convergence reduces identically to sequence convergence of partial sums",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "s_n = sum_{k=1}^n a_k"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "SEQUENCE_R",
+          "type": "FORALL",
+          "var": "a_seq"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(series sum a_k) [converges(sum a_k, S) <=> converges(partial_sums(s_n), S)]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:comparison_ratio_root_tests",
+      "conclusion": "Partial sums s_n(a) bounded by sum b_n, implying convergence",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "0 <= a_n <= b_n for all n >= N0",
+        "sum b_n < infty"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "NON_NEGATIVE_SEQUENCE_R",
+          "type": "FORALL",
+          "var": "a_seq"
+        },
+        {
+          "domain": "CONVERGENT_SERIES_SEQUENCE_R",
+          "type": "FORALL",
+          "var": "b_seq"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(0 <= a_n <= b_n, sum b_n converges) [sum a_n converges] AND FORALL(limsup |a_{n+1}/a_n| < 1) [sum a_n converges_abs]"
+    },
+    {
+      "canonical_id": "canonical:sequences_series:absolute_vs_conditional_convergence",
+      "conclusion": "Absolute convergence implies unconditional convergence; conditional convergence exists",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "sum |a_n| < infty"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "ABSOLUTELY_CONVERGENT_SERIES_R",
+          "type": "FORALL",
+          "var": "a_seq"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(a_seq, sum |a_n| converges) [sum a_n converges] AND EXISTS(c_seq) [sum c_n converges AND sum |c_n| diverges]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:open_and_closed_sets",
+      "conclusion": "Every point in U is an interior point",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "U open in standard Euclidean topology on R"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "OPEN_SET_R",
+          "type": "FORALL",
+          "var": "U"
+        },
+        {
+          "domain": "U",
+          "type": "FORALL",
+          "var": "x"
+        },
+        {
+          "depends_on": [
+            "U",
+            "x"
+          ],
+          "domain": "R_GT_ZERO",
+          "type": "EXISTS",
+          "var": "eps"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "eps": [
+          "U",
+          "x"
+        ]
+      },
+      "quantifier_signature": "FORALL(U subset R, is_open(U)) FORALL(x in U) EXISTS(eps > 0) [B(x, eps) subset U]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:compactness_and_heine_borel",
+      "conclusion": "Every open cover admits a finite subcover",
+      "forbidden_dependencies": [
+        "infinite_subcover_selection"
+      ],
+      "hypotheses": [
+        "K is closed and bounded in R",
+        "cover is a collection of open sets covering K"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "CLOSED_BOUNDED_SUBSET_R",
+          "type": "FORALL",
+          "var": "K"
+        },
+        {
+          "domain": "OPEN_COVER_OF_K",
+          "type": "FORALL",
+          "var": "cover"
+        },
+        {
+          "depends_on": [
+            "K",
+            "cover"
+          ],
+          "domain": "FINITE_INDEX_SUBSET",
+          "type": "EXISTS",
+          "var": "subcover_indices"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "subcover_indices": [
+          "K",
+          "cover"
+        ]
+      },
+      "quantifier_signature": "FORALL(K subset R, is_closed_bounded(K)) FORALL(open cover {U_alpha}) EXISTS(finite subcover {U_1..U_m}) [K subset bigcup_{i=1}^m U_i]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:function_limits",
+      "conclusion": "Punctured delta-ball around c maps inside eps-ball around L",
+      "forbidden_dependencies": [
+        "x"
+      ],
+      "hypotheses": [
+        "f: dom(f) -> R",
+        "c is a limit point of dom(f)"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "eps",
+            "f",
+            "c",
+            "L"
+          ],
+          "domain": "R_GT_ZERO",
+          "type": "EXISTS",
+          "var": "delta"
+        },
+        {
+          "domain": "PUNCTURED_DELTA_BALL",
+          "type": "FORALL",
+          "var": "x"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "delta": [
+          "eps",
+          "f",
+          "c",
+          "L"
+        ]
+      },
+      "quantifier_signature": "FORALL(eps > 0) EXISTS(delta > 0) FORALL(x in dom(f), 0 < |x - c| < delta) [|f(x) - L| < eps]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:continuity",
+      "conclusion": "Delta-ball around x0 maps inside eps-ball around f(x0)",
+      "forbidden_dependencies": [
+        "x"
+      ],
+      "hypotheses": [
+        "f: dom(f) -> R",
+        "x0 in dom(f)"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "eps",
+            "f",
+            "x0"
+          ],
+          "domain": "R_GT_ZERO",
+          "type": "EXISTS",
+          "var": "delta"
+        },
+        {
+          "domain": "DELTA_BALL_AROUND_X0",
+          "type": "FORALL",
+          "var": "x"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "delta": [
+          "eps",
+          "f",
+          "x0"
+        ]
+      },
+      "quantifier_signature": "FORALL(eps > 0) EXISTS(delta > 0) FORALL(x in dom(f), |x - x0| < delta) [|f(x) - f(x0)| < eps]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:sequential_continuity",
+      "conclusion": "Epsilon-delta continuity and sequential continuity are logically equivalent",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "f defined on domain in R",
+        "x0 in dom(f)"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "FUNCTION_R_TO_R",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "domain": "DOM_F",
+          "type": "FORALL",
+          "var": "x0"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(f, x0 in dom(f)) [is_eps_delta_continuous(f, x0) <=> FORALL(seq x_n -> x0, f(x_n) -> f(x0))]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:intermediate_value_theorem",
+      "conclusion": "Continuous function achieves all intermediate values",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "f is continuous on [a, b]",
+        "min(f(a), f(b)) <= y <= max(f(a), f(b))"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "CONTINUOUS_FUNCTION_ON_INTERVAL",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "domain": "INTERMEDIATE_VALUE_RANGE",
+          "type": "FORALL",
+          "var": "y"
+        },
+        {
+          "depends_on": [
+            "f",
+            "y",
+            "a",
+            "b"
+          ],
+          "domain": "CLOSED_INTERVAL_A_B",
+          "type": "EXISTS",
+          "var": "c"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "c": [
+          "f",
+          "y",
+          "a",
+          "b"
+        ]
+      },
+      "quantifier_signature": "FORALL(f in C([a, b]), y between f(a) and f(b)) EXISTS(c in [a, b]) [f(c) = y]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:extreme_value_theorem",
+      "conclusion": "f achieves global infimum and supremum on K",
+      "forbidden_dependencies": [
+        "x"
+      ],
+      "hypotheses": [
+        "K is non-empty, closed and bounded",
+        "f is continuous on K"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "COMPACT_SUBSET_R",
+          "type": "FORALL",
+          "var": "K"
+        },
+        {
+          "domain": "CONTINUOUS_FUNCTION_ON_K",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "depends_on": [
+            "K",
+            "f"
+          ],
+          "domain": "K",
+          "type": "EXISTS",
+          "var": "x_min"
+        },
+        {
+          "depends_on": [
+            "K",
+            "f"
+          ],
+          "domain": "K",
+          "type": "EXISTS",
+          "var": "x_max"
+        },
+        {
+          "domain": "K",
+          "type": "FORALL",
+          "var": "x"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "x_max": [
+          "K",
+          "f"
+        ],
+        "x_min": [
+          "K",
+          "f"
+        ]
+      },
+      "quantifier_signature": "FORALL(K compact, f in C(K)) EXISTS(x_min, x_max in K) FORALL(x in K) [f(x_min) <= f(x) <= f(x_max)]"
+    },
+    {
+      "canonical_id": "canonical:continuity_compactness:uniform_continuity_and_heine_cantor",
+      "conclusion": "Modulus delta depends strictly on eps and function/domain, independent of spatial points",
+      "forbidden_dependencies": [
+        "x",
+        "y",
+        "sample_grid"
+      ],
+      "hypotheses": [
+        "f: A -> R",
+        "If A is compact and f continuous, uniform continuity is guaranteed"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "eps",
+            "f",
+            "A"
+          ],
+          "domain": "R_GT_ZERO",
+          "type": "EXISTS",
+          "var": "delta"
+        },
+        {
+          "domain": "A",
+          "type": "FORALL",
+          "var": "x"
+        },
+        {
+          "domain": "A",
+          "type": "FORALL",
+          "var": "y"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "delta": [
+          "eps",
+          "f",
+          "A"
+        ]
+      },
+      "quantifier_signature": "FORALL(eps > 0) EXISTS(delta > 0) FORALL(x, y in A, |x - y| < delta) [|f(x) - f(y)| < eps]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:derivative",
+      "conclusion": "f is differentiable with derivative L at x0; differentiability implies continuity",
+      "forbidden_dependencies": [
+        "h"
+      ],
+      "hypotheses": [
+        "f defined on open interval containing x0",
+        "Difference quotient limit exists"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "eps",
+            "f",
+            "x0",
+            "L"
+          ],
+          "domain": "R_GT_ZERO",
+          "type": "EXISTS",
+          "var": "delta"
+        },
+        {
+          "domain": "PUNCTURED_DELTA_BALL",
+          "type": "FORALL",
+          "var": "h"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "delta": [
+          "eps",
+          "f",
+          "x0",
+          "L"
+        ]
+      },
+      "quantifier_signature": "FORALL(eps > 0) EXISTS(delta > 0) FORALL(h with 0 < |h| < delta) [|(f(x0+h) - f(x0))/h - L| < eps]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:rolles_theorem",
+      "conclusion": "Derivative vanishes at an interior point c",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "f continuous on [a, b]",
+        "f differentiable on (a, b)",
+        "f(a) = f(b)"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "DIFFERENTIABLE_FUNCTION_EQUAL_ENDPOINTS",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "depends_on": [
+            "f",
+            "a",
+            "b"
+          ],
+          "domain": "OPEN_INTERVAL_A_B",
+          "type": "EXISTS",
+          "var": "c"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "c": [
+          "f",
+          "a",
+          "b"
+        ]
+      },
+      "quantifier_signature": "FORALL(f in C([a, b]), f in D((a, b)), f(a) = f(b)) EXISTS(c in (a, b)) [f'(c) = 0]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:mean_value_theorem",
+      "conclusion": "Secant slope equals instantaneous tangent slope at interior point c",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "f continuous on [a, b]",
+        "f differentiable on (a, b)"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "DIFFERENTIABLE_FUNCTION_ON_INTERVAL",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "depends_on": [
+            "f",
+            "a",
+            "b"
+          ],
+          "domain": "OPEN_INTERVAL_A_B",
+          "type": "EXISTS",
+          "var": "c"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "c": [
+          "f",
+          "a",
+          "b"
+        ]
+      },
+      "quantifier_signature": "FORALL(f in C([a, b]), f in D((a, b))) EXISTS(c in (a, b)) [f(b) - f(a) = f'(c)(b - a)]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:taylor_theorem_with_remainder",
+      "conclusion": "Function equals nth Taylor polynomial plus exact Lagrange remainder bound",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "f is n-times continuously differentiable",
+        "f^{(n+1)} exists on interior"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "N_PLUS_ONE_DIFF_FUNCTION",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "domain": "INTERVAL_A_B",
+          "type": "FORALL",
+          "var": "x0"
+        },
+        {
+          "domain": "INTERVAL_A_B",
+          "type": "FORALL",
+          "var": "x"
+        },
+        {
+          "depends_on": [
+            "f",
+            "x0",
+            "x",
+            "n"
+          ],
+          "domain": "INTERIOR_BETWEEN_X0_X",
+          "type": "EXISTS",
+          "var": "xi"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "xi": [
+          "f",
+          "x0",
+          "x",
+          "n"
+        ]
+      },
+      "quantifier_signature": "FORALL(f in C^n([a, b]), f in D^{n+1}((a, b)), x, x0 in [a, b]) EXISTS(xi between x0 and x) [f(x) = P_n(x) + (f^{(n+1)}(xi)/(n+1)!)(x - x0)^{n+1}]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:darboux_riemann_integrability",
+      "conclusion": "Darboux upper/lower sum gap can be made arbitrarily small by refining partition",
+      "forbidden_dependencies": [
+        "unbounded_function_integrability"
+      ],
+      "hypotheses": [
+        "f is bounded on [a, b]"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "BOUNDED_FUNCTION_ON_INTERVAL",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "f",
+            "a",
+            "b",
+            "eps"
+          ],
+          "domain": "PARTITION_OF_A_B",
+          "type": "EXISTS",
+          "var": "P"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "P": [
+          "f",
+          "a",
+          "b",
+          "eps"
+        ]
+      },
+      "quantifier_signature": "FORALL(f bounded on [a, b]) [is_riemann_integrable(f) <=> FORALL(eps > 0) EXISTS(partition P) [U(f, P) - L(f, P) < eps]]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:fundamental_theorem_of_calculus",
+      "conclusion": "FTC Parts 1 and 2 hold identically",
+      "forbidden_dependencies": [],
+      "hypotheses": [
+        "Integration and differentiation are inverse operations for continuous functions"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "CONTINUOUS_OR_INTEGRABLE_FUNCTION",
+          "type": "FORALL",
+          "var": "f"
+        },
+        {
+          "domain": "CLOSED_INTERVAL_A_B",
+          "type": "FORALL",
+          "var": "x"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(f in C([a, b])) [d/dx(int_a^x f(t)dt) = f(x)] AND FORALL(f in R([a, b]), F' = f) [int_a^b f(x)dx = F(b) - F(a)]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:pointwise_vs_uniform_convergence",
+      "conclusion": "Uniform convergence enforces spatial independence of N; pointwise convergence permits N(eps, x)",
+      "forbidden_dependencies": [
+        "x in N_uniform"
+      ],
+      "hypotheses": [
+        "(f_n) sequence of functions on A"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "R_GT_ZERO",
+          "type": "FORALL",
+          "var": "eps"
+        },
+        {
+          "depends_on": [
+            "eps",
+            "fn_seq",
+            "f",
+            "A"
+          ],
+          "domain": "N",
+          "type": "EXISTS",
+          "var": "N_uniform"
+        },
+        {
+          "domain": "N_GE_N",
+          "type": "FORALL",
+          "var": "n"
+        },
+        {
+          "domain": "A",
+          "type": "FORALL",
+          "var": "x"
+        }
+      ],
+      "permitted_witness_dependencies": {
+        "N_uniform": [
+          "eps",
+          "fn_seq",
+          "f",
+          "A"
+        ]
+      },
+      "quantifier_signature": "UNIFORM: FORALL(eps > 0) EXISTS(N in N) FORALL(n >= N, x in A) [|f_n(x) - f(x)| < eps] VS POINTWISE: FORALL(x in A, eps > 0) EXISTS(N in N(eps, x)) FORALL(n >= N) [|f_n(x) - f(x)| < eps]"
+    },
+    {
+      "canonical_id": "canonical:diff_integration:preservation_interchange_uniform_convergence",
+      "conclusion": "Uniform limit preserves continuity and commutes with Riemann integration",
+      "forbidden_dependencies": [
+        "pointwise_only_limit_interchange"
+      ],
+      "hypotheses": [
+        "f_n continuous on [a, b]",
+        "f_n -> f uniformly on [a, b]"
+      ],
+      "ordered_quantifiers": [
+        {
+          "domain": "UNIFORMLY_CONVERGENT_CONTINUOUS_SEQUENCE",
+          "type": "FORALL",
+          "var": "fn_seq"
+        }
+      ],
+      "permitted_witness_dependencies": {},
+      "quantifier_signature": "FORALL(f_n in C([a, b]), f_n -> f uniformly) [f in C([a, b]) AND lim int_a^b f_n = int_a^b f]"
+    }
+  ],
+  "schema_version": "0.21",
+  "stage": "v0.21_wave_f4",
+  "total_quantifier_contracts": 32
+}
