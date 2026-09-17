@@ -1,0 +1,925 @@
+{
+  "declarations": [
+    {
+      "chapter_section": "Induction",
+      "char_count": 187,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 2.5.1): Principle of Mathematical Induction (Weak Induction)",
+      "locator": "LevinDiscrete:Induction:Thm:2.5.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:weak_induction",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "d60aeed70d90171ec76ac59e834949a956165b2b762f26155037174338438e40",
+      "structural_refs": []
+    },
+    {
+      "chapter_section": "Induction",
+      "char_count": 190,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 2.5.2): Principle of Strong Mathematical Induction",
+      "locator": "LevinDiscrete:Induction:Thm:2.5.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:strong_induction",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "d4d8f837ff751eb9f559c5dfbd4fcbe6192bb5906b4ccec79d21890fb02f0dc0",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ]
+    },
+    {
+      "chapter_section": "Induction",
+      "char_count": 210,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 2.5.3): Well-Ordering Principle of Natural Numbers",
+      "locator": "LevinDiscrete:Induction:Thm:2.5.3",
+      "node_id": "decl:LEVIN_DISCRETE:THM:well_ordering_principle",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "985cec38a24e559d9097418fdb698d424ddb09ba691d05052643afcc07dbe4e7",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ]
+    },
+    {
+      "chapter_section": "Sequences and Recurrences",
+      "char_count": 271,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 2.4.1): Distinct Roots Solution to Second-Order Linear Recurrence",
+      "locator": "LevinDiscrete:Recurrences:Thm:2.4.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:linear_homogeneous_recurrence",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator",
+          "generating_function_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "algebraic"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "b9630b385d598b34f372d0d5c39e099084943fbdea73ec2e6a6d0a9c531f8d79",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ]
+    },
+    {
+      "chapter_section": "Sequences and Recurrences",
+      "char_count": 226,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 2.4.2): Repeated Root Solution to Second-Order Linear Recurrence",
+      "locator": "LevinDiscrete:Recurrences:Thm:2.4.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:repeated_root_recurrence",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator",
+          "generating_function_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "algebraic"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "ea1699a6aa6d765721d23e361ad55c0f11f54ccca7d6c0eb6870f2bb86e2e53f",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:linear_homogeneous_recurrence"
+      ]
+    },
+    {
+      "chapter_section": "Sequences and Recurrences",
+      "char_count": 193,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 2.4.3): Divide-and-Conquer Master Recurrence Theorem",
+      "locator": "LevinDiscrete:Recurrences:Thm:2.4.3",
+      "node_id": "decl:LEVIN_DISCRETE:THM:master_theorem_recurrence",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "72cff9947643b762834485fcb63677ac51557c89a9581b22e0cf8a5c9210e21b",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:strong_induction"
+      ]
+    },
+    {
+      "chapter_section": "Counting Basics",
+      "char_count": 255,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 1.1.1): Additive and Multiplicative Counting Principles",
+      "locator": "LevinDiscrete:Counting:Def:1.1.1",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:sum_product_rules",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "computational"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "c553cf065b3e0e8c6d521576b127ca932759baf4560603ecb2e19b5becac38ca",
+      "structural_refs": []
+    },
+    {
+      "chapter_section": "Counting Basics",
+      "char_count": 214,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 1.2.1): Permutations, Combinations, and Binomial Coefficients",
+      "locator": "LevinDiscrete:Counting:Def:1.2.1",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:permutations_and_combinations",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "algebraic"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "4ebf48d21e6b32d98f81c5204c54468944e2f2076235deb8494942e87391ba2f",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:sum_product_rules"
+      ]
+    },
+    {
+      "chapter_section": "Counting Basics",
+      "char_count": 195,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.2.2): Pascal's Recurrence Identity",
+      "locator": "LevinDiscrete:Counting:Thm:1.2.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:pascals_identity",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "612ac891b6452134c26f2363d32d3dbe916537129e0bdd6af2adad7ca0418295",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:permutations_and_combinations"
+      ]
+    },
+    {
+      "chapter_section": "Binomial Theorem",
+      "char_count": 101,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.3.1): The Binomial Theorem",
+      "locator": "LevinDiscrete:Binomial:Thm:1.3.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:binomial_theorem",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "algebraic"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "372fab9a7be9caf406039b2dc1bb50c0cb7ecf15b25e9678516c7444a8a06753",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:pascals_identity",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ]
+    },
+    {
+      "chapter_section": "Binomial Theorem",
+      "char_count": 147,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.3.2): Multinomial Coefficient Expansion",
+      "locator": "LevinDiscrete:Binomial:Thm:1.3.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:multinomial_theorem",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "algebraic",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "ae4c6a0eea172838947ae4caad98f68efadeccc4b1c910134553704d47dd713a",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:binomial_theorem"
+      ]
+    },
+    {
+      "chapter_section": "Pigeonhole Principle",
+      "char_count": 206,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.4.1): Standard and Generalized Pigeonhole Principle",
+      "locator": "LevinDiscrete:Pigeonhole:Thm:1.4.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:pigeonhole_principle",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "combinatorial_counting_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "8e73dde1c180f7cf8cb515d613674d05ffaf384c3fa197850a151fabae058d65",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:sum_product_rules"
+      ]
+    },
+    {
+      "chapter_section": "Inclusion-Exclusion",
+      "char_count": 190,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.5.1): Principle of Inclusion-Exclusion (PIE)",
+      "locator": "LevinDiscrete:InclusionExclusion:Thm:1.5.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:inclusion_exclusion",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "combinatorial_counting_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "047c5ed25c622feffa6978ed68a650eb7c78ff0aa6f7b4baeed0cc131ec943f8",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:sum_product_rules",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ]
+    },
+    {
+      "chapter_section": "Stars and Bars",
+      "char_count": 185,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.6.1): Stars and Bars (Compositions with Repetition)",
+      "locator": "LevinDiscrete:StarsAndBars:Thm:1.6.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:stars_and_bars",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "combinatorial_counting_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "algebraic",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "6a0ab6bb3efaf0483210bfc53e48b69a2b8d15af6c1b2c1aaf1982a5da504bd7",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:permutations_and_combinations"
+      ]
+    },
+    {
+      "chapter_section": "Generating Functions",
+      "char_count": 131,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 1.7.1): Ordinary Generating Function of a Sequence",
+      "locator": "LevinDiscrete:GenFunctions:Def:1.7.1",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:ordinary_generating_function",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "generating_function_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "algebraic"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "576bfb899410367a75d9b2b3b18ad8dbe77ae70afa6b1d4e448f57a68c3ab064",
+      "structural_refs": []
+    },
+    {
+      "chapter_section": "Generating Functions",
+      "char_count": 188,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.7.2): OGF Product Convolution and Counting with Restrictions",
+      "locator": "LevinDiscrete:GenFunctions:Thm:1.7.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:ogf_combination_counting",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "computational"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "f6876f63746c436fb8f62ff9b9f9d19818c2b70b363d6e9f6d2ca4437c5dfc07",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:ordinary_generating_function",
+        "decl:LEVIN_DISCRETE:THM:stars_and_bars"
+      ]
+    },
+    {
+      "chapter_section": "Generating Functions",
+      "char_count": 216,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.7.3): Closed Form Solution to Recurrences via Generating Functions",
+      "locator": "LevinDiscrete:GenFunctions:Thm:1.7.3",
+      "node_id": "decl:LEVIN_DISCRETE:THM:ogf_recurrence_solution",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "induction_step_operator",
+          "generating_function_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "algebraic",
+          "computational"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "adc52b8d1db22e8b8fddf5a6f0a3915bd7354fc3ac3b92bfd1ad97c287d1de02",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:ordinary_generating_function",
+        "decl:LEVIN_DISCRETE:THM:linear_homogeneous_recurrence"
+      ]
+    },
+    {
+      "chapter_section": "Generating Functions",
+      "char_count": 230,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 1.7.4): Catalan Number Formula and Dyck Paths",
+      "locator": "LevinDiscrete:GenFunctions:Thm:1.7.4",
+      "node_id": "decl:LEVIN_DISCRETE:THM:catalan_numbers",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "generating_function_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "algebraic"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "0c36d189d61fc27962386daf84e8fb39862b034033417f04fc88a73e9b622f28",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:ordinary_generating_function",
+        "decl:LEVIN_DISCRETE:THM:binomial_theorem"
+      ]
+    },
+    {
+      "chapter_section": "Graph Fundamentals",
+      "char_count": 188,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 4.1.1): Graph, Vertices, Edges, and Degree",
+      "locator": "LevinDiscrete:GraphBasics:Def:4.1.1",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:graph_basics",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [
+          "graph_degree_operator"
+        ],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "1e9bbd7f2caaf3fde47454f5cb279cbc7a1468453d1517ab56e1d14430b4ce42",
+      "structural_refs": []
+    },
+    {
+      "chapter_section": "Graph Fundamentals",
+      "char_count": 210,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.1.2): Euler's Handshaking Lemma (Degree Sum Formula)",
+      "locator": "LevinDiscrete:GraphBasics:Thm:4.1.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:handshaking_lemma",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [
+          "graph_degree_operator"
+        ],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "c120b1b128d7294d398ba07a8728384b08b1bb291b960b8a3bf74f3fbcbbb6ad",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics"
+      ]
+    },
+    {
+      "chapter_section": "Graph Fundamentals",
+      "char_count": 236,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 4.1.3): Graph Isomorphism and Invariants",
+      "locator": "LevinDiscrete:GraphBasics:Def:4.1.3",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:graph_isomorphism",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "56919e18796393d7363cacad06b9ea1e95f14722cabcc2470250f195004d343f",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics"
+      ]
+    },
+    {
+      "chapter_section": "Graph Fundamentals",
+      "char_count": 235,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 4.1.4): Paths, Cycles, and Connected Components",
+      "locator": "LevinDiscrete:GraphBasics:Def:4.1.4",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "331995a8128030686c212ccb4939ca6e928418578d6b26773df08d43b581fda9",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics"
+      ]
+    },
+    {
+      "chapter_section": "Trees",
+      "char_count": 261,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.2.1): Equivalent Characterizations of Trees",
+      "locator": "LevinDiscrete:Trees:Thm:4.2.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:tree_characterization",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "ccabe9ec0c1141efb3f56cfd791f06770a9abcdcb64e306b98c57f26d94774b1",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ]
+    },
+    {
+      "chapter_section": "Trees",
+      "char_count": 121,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.2.2): Spanning Tree Existence for Connected Graphs",
+      "locator": "LevinDiscrete:Trees:Thm:4.2.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:spanning_tree_existence",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "959fbf1970d2b697c22096e6d815fc99771fe5bfe8f037b852d5358fceac20b5",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:tree_characterization"
+      ]
+    },
+    {
+      "chapter_section": "Bipartite Graphs",
+      "char_count": 181,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.3.1): Characterization of Bipartite Graphs (Odd Cycles)",
+      "locator": "LevinDiscrete:Bipartite:Thm:4.3.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:bipartite_two_colorable",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "6c2a3cd9c4ff029b83ffd2b54c2018b5367909cf8bcb089d6a3a6e54968044e8",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity"
+      ]
+    },
+    {
+      "chapter_section": "Bipartite Graphs",
+      "char_count": 203,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.3.2): Hall's Marriage Theorem (Bipartite Matching Condition)",
+      "locator": "LevinDiscrete:Bipartite:Thm:4.3.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:halls_marriage_theorem",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "computational",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "e8699526d9b9841defa477f4022c1e4c4ebdb7830cc2a838ff3543effb01d5c2",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:bipartite_two_colorable",
+        "decl:LEVIN_DISCRETE:THM:strong_induction"
+      ]
+    },
+    {
+      "chapter_section": "Planar Graphs",
+      "char_count": 208,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 4.4.1): Planar Graphs and Plane Embeddings",
+      "locator": "LevinDiscrete:Planarity:Def:4.4.1",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:planar_embedding",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure",
+          "planar_embedding_geometry"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "041efbf086a0102e872fcc8b88f612a9bd8b8e8e14f9ba2827cc2ec04b3f41b0",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics"
+      ]
+    },
+    {
+      "chapter_section": "Planar Graphs",
+      "char_count": 140,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.4.2): Euler's Planar Formula (V - E + F = 2)",
+      "locator": "LevinDiscrete:Planarity:Thm:4.4.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:eulers_formula",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure",
+          "planar_embedding_geometry"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "ce1a9d3e429e29272e30ab6afe95c24bb04ef48ce248dafb1e9c256c05555c9f",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:planar_embedding",
+        "decl:LEVIN_DISCRETE:THM:tree_characterization",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ]
+    },
+    {
+      "chapter_section": "Planar Graphs",
+      "char_count": 183,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.4.3): Planar Graph Edge Bounds (E <= 3V - 6)",
+      "locator": "LevinDiscrete:Planarity:Thm:4.4.3",
+      "node_id": "decl:LEVIN_DISCRETE:THM:planar_edge_bounds",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure",
+          "planar_embedding_geometry"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "5f3b8bcdd61d1a29488d51390165ccb1a091cfeff9092a66a7eb8bfcd6d6e5ca",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:eulers_formula"
+      ]
+    },
+    {
+      "chapter_section": "Planar Graphs",
+      "char_count": 200,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.4.4): Kuratowski's Theorem on Planar Characterization",
+      "locator": "LevinDiscrete:Planarity:Thm:4.4.4",
+      "node_id": "decl:LEVIN_DISCRETE:THM:kuratowskis_theorem",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure",
+          "planar_embedding_geometry"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "d48e55b35095f06a97336c5836a8747e99822d2ad8d5462ffe392bed77b0f0fb",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:planar_edge_bounds"
+      ]
+    },
+    {
+      "chapter_section": "Graph Coloring",
+      "char_count": 202,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (DEF 4.5.1): Vertex Coloring and Chromatic Number chi(G)",
+      "locator": "LevinDiscrete:Coloring:Def:4.5.1",
+      "node_id": "decl:LEVIN_DISCRETE:DEF:chromatic_number",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure",
+          "coloring_map_geometry"
+        ],
+        "representation_kinds": [
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "3a8aa4385390b4204ae780407c97f74bda870a757e793d4fcd7923b89cd7c7dc",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics"
+      ]
+    },
+    {
+      "chapter_section": "Graph Coloring",
+      "char_count": 176,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.5.2): The Four Color Theorem for Planar Graphs",
+      "locator": "LevinDiscrete:Coloring:Thm:4.5.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:four_color_theorem",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "graph_topological_structure",
+          "planar_embedding_geometry",
+          "coloring_map_geometry"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "d05b0b36acbe357b10c0e375ffeceb1335b389e5eac8683c2f6f7e2ee744a3ad",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:chromatic_number",
+        "decl:LEVIN_DISCRETE:THM:eulers_formula"
+      ]
+    },
+    {
+      "chapter_section": "Graph Coloring",
+      "char_count": 146,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.5.3): The Five Color Theorem for Planar Graphs",
+      "locator": "LevinDiscrete:Coloring:Thm:4.5.3",
+      "node_id": "decl:LEVIN_DISCRETE:THM:five_color_theorem",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [
+          "graph_degree_operator"
+        ],
+        "geo_tags": [
+          "graph_topological_structure",
+          "planar_embedding_geometry"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "046fb073ef695e1bcef9174d94718528e1a66dc6d74ac8922eb4438beea0151f",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:chromatic_number",
+        "decl:LEVIN_DISCRETE:THM:planar_edge_bounds"
+      ]
+    },
+    {
+      "chapter_section": "Euler Paths and Circuits",
+      "char_count": 242,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.6.1): Euler Path and Circuit Theorem",
+      "locator": "LevinDiscrete:Eulerian:Thm:4.6.1",
+      "node_id": "decl:LEVIN_DISCRETE:THM:euler_path_circuit",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [
+          "graph_degree_operator",
+          "euler_tour_operator"
+        ],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "d50827bb4b3c01be0e3a534ba6745df34354c6dea80a43fd9c46cea20a7e6a65",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:THM:handshaking_lemma",
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity"
+      ]
+    },
+    {
+      "chapter_section": "Hamiltonian Graphs",
+      "char_count": 182,
+      "corpus": "LEVIN_DISCRETE",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Levin Discrete (THM 4.6.2): Dirac's Theorem for Hamiltonian Cycles",
+      "locator": "LevinDiscrete:Hamiltonian:Thm:4.6.2",
+      "node_id": "decl:LEVIN_DISCRETE:THM:diracs_theorem",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [
+          "graph_degree_operator",
+          "euler_tour_operator"
+        ],
+        "geo_tags": [
+          "graph_topological_structure"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+      "statement_sha256": "9b54d44beb15e7003d82bcc3bb376c9b602cda94efaebc742e368e544915964a",
+      "structural_refs": [
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity"
+      ]
+    }
+  ],
+  "source_identity": {
+    "authors": [
+      "Oscar Levin"
+    ],
+    "corpus": "LEVIN_DISCRETE",
+    "license": "CC BY-NC-SA 4.0",
+    "revision": "2024-4th-Edition-CC-BY-NC-SA-4.0",
+    "source_format": "PreTeXt / Web Source Tree",
+    "source_id": "LEVIN_DISCRETE_MATH_4E_2024",
+    "stage": "v0.21_wave_f1",
+    "title": "Discrete Mathematics: An Open Introduction (4th Edition)"
+  },
+  "total_declarations": 35
+}

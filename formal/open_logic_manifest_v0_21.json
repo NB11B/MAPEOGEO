@@ -1,0 +1,879 @@
+{
+  "declarations": [
+    {
+      "chapter_section": "Syntax of Propositional Logic",
+      "char_count": 259,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 1.1): Inductive Definition of Propositional Formulas",
+      "locator": "OpenLogic:PropositionalLogic:Def:1.1",
+      "node_id": "decl:OPEN_LOGIC:DEF:prop_formula",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "algebraic"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "6d513a8123bbb5202cf11bb8d59440876cdfcc6bd48ac2b249fa9fb23ae6b47c",
+      "structural_refs": []
+    },
+    {
+      "chapter_section": "Semantics of Propositional Logic",
+      "char_count": 376,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 1.2): Propositional Valuation and Truth Assignment",
+      "locator": "OpenLogic:PropositionalLogic:Def:1.2",
+      "node_id": "decl:OPEN_LOGIC:DEF:prop_valuation",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "valuation_evaluator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "08ca4eb36122f68d13578571054fc752f104c4bbe38ff3f8684ad2dfe37a2902",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:prop_formula"
+      ]
+    },
+    {
+      "chapter_section": "Semantics of Propositional Logic",
+      "char_count": 338,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 1.3): Tautology, Satisfiability, and Semantic Consequence",
+      "locator": "OpenLogic:PropositionalLogic:Def:1.3",
+      "node_id": "decl:OPEN_LOGIC:DEF:prop_tautology",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "valuation_evaluator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "b680dd78cb28de9c9a9ea842823e997cbf6454a6c5c8dd8a9f395fb9a544e1b2",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:prop_valuation"
+      ]
+    },
+    {
+      "chapter_section": "Semantics of Propositional Logic",
+      "char_count": 112,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 1.4): Compactness Theorem for Propositional Logic",
+      "locator": "OpenLogic:PropositionalLogic:Thm:1.4",
+      "node_id": "decl:OPEN_LOGIC:THM:prop_compactness",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "a5fa32581d350c258e40e1fec991fa51e44611db8e19faee0a6ba815b9e55cc3",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:prop_tautology"
+      ]
+    },
+    {
+      "chapter_section": "Syntax of First-Order Logic",
+      "char_count": 240,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 2.1): First-Order Language and Alphabet",
+      "locator": "OpenLogic:FirstOrderLogic:Def:2.1",
+      "node_id": "decl:OPEN_LOGIC:DEF:fol_language",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "77b87ff633aac9495186501229d1a819a254c3ffd798ed8f71faa43b08922236",
+      "structural_refs": []
+    },
+    {
+      "chapter_section": "Syntax of First-Order Logic",
+      "char_count": 382,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 2.2): Inductive Definition of Terms and First-Order Formulas",
+      "locator": "OpenLogic:FirstOrderLogic:Def:2.2",
+      "node_id": "decl:OPEN_LOGIC:DEF:fol_term_and_formula",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "algebraic"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "6d2a23d99c237bd1b61cca35c37a207584534f06d3ce7df46ea55f9a23dd8cc1",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:fol_language"
+      ]
+    },
+    {
+      "chapter_section": "Syntax of First-Order Logic",
+      "char_count": 215,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 2.3): Free and Bound Variables, Sentences",
+      "locator": "OpenLogic:FirstOrderLogic:Def:2.3",
+      "node_id": "decl:OPEN_LOGIC:DEF:free_bound_variables",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "40453ded2319bf91d8a0f84866609643663721d324d8b7b30f18ddd190f6e2c8",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:fol_term_and_formula"
+      ]
+    },
+    {
+      "chapter_section": "Syntax of First-Order Logic",
+      "char_count": 245,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 2.4): Capture-Avoiding Term Substitution",
+      "locator": "OpenLogic:FirstOrderLogic:Def:2.4",
+      "node_id": "decl:OPEN_LOGIC:DEF:term_substitution",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "substitution_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "0cb6ca46ef5177a1ce5afdd56f335efdfca246f2c4aa840691f48323b75e1572",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:free_bound_variables"
+      ]
+    },
+    {
+      "chapter_section": "Semantics of First-Order Logic",
+      "char_count": 264,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 3.1): First-Order Structure and Interpretation",
+      "locator": "OpenLogic:FirstOrderLogic:Def:3.1",
+      "node_id": "decl:OPEN_LOGIC:DEF:fol_structure",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "first_order_structure"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "327b443894f35b5b16626499123f7168ba669de06daf1f9e237606482872a971",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:fol_language"
+      ]
+    },
+    {
+      "chapter_section": "Semantics of First-Order Logic",
+      "char_count": 347,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 3.2): Tarskian Truth and Satisfaction Relation",
+      "locator": "OpenLogic:FirstOrderLogic:Def:3.2",
+      "node_id": "decl:OPEN_LOGIC:DEF:tarskian_satisfaction",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "first_order_structure"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "f0f8d61300f90fda298576b9ea921c406b293e13518e11c9623462b88add5e8b",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:fol_structure"
+      ]
+    },
+    {
+      "chapter_section": "Semantics of First-Order Logic",
+      "char_count": 278,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 3.3): First-Order Validity, Models, and Semantic Consequence",
+      "locator": "OpenLogic:FirstOrderLogic:Def:3.3",
+      "node_id": "decl:OPEN_LOGIC:DEF:fol_validity_consequence",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "a6cc502d3b1ba75ef04bd53dca6d326c9e5c0a33c94e73c0b121c1cec2c4bb2d",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:tarskian_satisfaction"
+      ]
+    },
+    {
+      "chapter_section": "Model Theory Basics",
+      "char_count": 307,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 3.4): Elementary Equivalence and Substructures",
+      "locator": "OpenLogic:ModelTheory:Def:3.4",
+      "node_id": "decl:OPEN_LOGIC:DEF:elementary_equivalence",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "model_isomorphism"
+        ],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "e8c05433b9c87a321e836ca826f17ee7b39e6d3642194d2ca5140d688e49d83a",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:fol_validity_consequence"
+      ]
+    },
+    {
+      "chapter_section": "Model Theory Basics",
+      "char_count": 268,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 3.5): Tarski-Vaught Criterion for Elementary Substructures",
+      "locator": "OpenLogic:ModelTheory:Thm:3.5",
+      "node_id": "decl:OPEN_LOGIC:THM:tarski_vaught",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "model_isomorphism"
+        ],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "b4632e7c2b67301e1fc126af0adb1ab6513240b7532b1f68ae680cdb56ec0c78",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:elementary_equivalence"
+      ]
+    },
+    {
+      "chapter_section": "Natural Deduction",
+      "char_count": 372,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 4.1): Natural Deduction Inference Rules and Derivations",
+      "locator": "OpenLogic:NaturalDeduction:Def:4.1",
+      "node_id": "decl:OPEN_LOGIC:DEF:natural_deduction",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "inference_rule_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "c876791dac8dfe369635c8d7c381de658aca26972b3a9748b9b07e4224f189b5",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:fol_term_and_formula"
+      ]
+    },
+    {
+      "chapter_section": "Sequent Calculus",
+      "char_count": 337,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 4.2): Sequent Calculus LK and Structural Rules",
+      "locator": "OpenLogic:SequentCalculus:Def:4.2",
+      "node_id": "decl:OPEN_LOGIC:DEF:sequent_calculus",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "inference_rule_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "457c50cf65a59658db1b63917185ceb15fb05a9de01d8326601555b8ace6ff3e",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:natural_deduction"
+      ]
+    },
+    {
+      "chapter_section": "Sequent Calculus",
+      "char_count": 159,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 4.3): Gentzen's Cut-Elimination Theorem (Hauptsatz)",
+      "locator": "OpenLogic:SequentCalculus:Thm:4.3",
+      "node_id": "decl:OPEN_LOGIC:THM:cut_elimination",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "inference_rule_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "ddcce3e4cde16fff98b0044b99f5c268d1d78d3cac6e7d139ca6d6e5044e12c9",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:sequent_calculus"
+      ]
+    },
+    {
+      "chapter_section": "Sequent Calculus",
+      "char_count": 117,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "COROLLARY",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (COR 4.4): Subformula Property of Cut-Free Derivations",
+      "locator": "OpenLogic:SequentCalculus:Cor:4.4",
+      "node_id": "decl:OPEN_LOGIC:THM:subformula_property",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "inference_rule_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "b677b5b85d5d1ace6969cc518862aa6ced3f0503e3e7f9b6abf724b548f681e6",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:cut_elimination"
+      ]
+    },
+    {
+      "chapter_section": "First-Order Metatheory",
+      "char_count": 182,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 5.1): Soundness Theorem for First-Order Logic",
+      "locator": "OpenLogic:FirstOrderLogic:Thm:5.1",
+      "node_id": "decl:OPEN_LOGIC:THM:fol_soundness",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "inference_rule_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "7c8e17ab6b55f1a803e2375dce77152bd2b93c5163e21335ff58a09a9dca8819",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:natural_deduction",
+        "decl:OPEN_LOGIC:DEF:fol_validity_consequence"
+      ]
+    },
+    {
+      "chapter_section": "First-Order Metatheory",
+      "char_count": 353,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 5.2): Consistency, Maximality, and Henkin Witness Property",
+      "locator": "OpenLogic:FirstOrderLogic:Def:5.2",
+      "node_id": "decl:OPEN_LOGIC:DEF:consistency_and_henkin_sets",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "henkin_witness_operator",
+          "substitution_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "85b5b7b3df75ec6fbe15674c7694578e826d3a9c58427c4df278a299272f8354",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:fol_soundness"
+      ]
+    },
+    {
+      "chapter_section": "First-Order Metatheory",
+      "char_count": 139,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "LEMMA",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (LEM 5.3): Lindenbaum's Lemma",
+      "locator": "OpenLogic:FirstOrderLogic:Lem:5.3",
+      "node_id": "decl:OPEN_LOGIC:LEM:lindenbaum",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "henkin_witness_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "6af1afcc52d8d59e786442ddcede016a5ce8330d658af63a4e7428df658afbc6",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:consistency_and_henkin_sets"
+      ]
+    },
+    {
+      "chapter_section": "First-Order Metatheory",
+      "char_count": 286,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "LEMMA",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (LEM 5.4): Henkin Term-Model Existence Lemma",
+      "locator": "OpenLogic:FirstOrderLogic:Lem:5.4",
+      "node_id": "decl:OPEN_LOGIC:LEM:henkin_construction",
+      "representation_profile": {
+        "direct_status": "DUAL_DIRECT",
+        "eo_tags": [
+          "henkin_witness_operator"
+        ],
+        "geo_tags": [
+          "first_order_structure"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "dd2b9d25a338aba0829836ef201ec22b0dca0dd10c2449b22d157113426db649",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:LEM:lindenbaum"
+      ]
+    },
+    {
+      "chapter_section": "First-Order Metatheory",
+      "char_count": 149,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 5.5): G\u00f6del's First-Order Completeness Theorem",
+      "locator": "OpenLogic:FirstOrderLogic:Thm:5.5",
+      "node_id": "decl:OPEN_LOGIC:THM:fol_completeness",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "b99517f852be94a7ef9ae0f419058d1e0932b687bed82500b7beb370eb8ece3c",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:LEM:henkin_construction",
+        "decl:OPEN_LOGIC:THM:fol_soundness"
+      ]
+    },
+    {
+      "chapter_section": "First-Order Metatheory",
+      "char_count": 105,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 5.6): First-Order Compactness Theorem",
+      "locator": "OpenLogic:FirstOrderLogic:Thm:5.6",
+      "node_id": "decl:OPEN_LOGIC:THM:fol_compactness",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "a6954b7099fe904061ea0ca6fd63da813f729c2651df62d731966f98d8c988ca",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:fol_completeness"
+      ]
+    },
+    {
+      "chapter_section": "Model Theory",
+      "char_count": 335,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 5.7): Downward L\u00f6wenheim-Skolem Theorem",
+      "locator": "OpenLogic:ModelTheory:Thm:5.7",
+      "node_id": "decl:OPEN_LOGIC:THM:lowenheim_skolem_downward",
+      "representation_profile": {
+        "direct_status": "GEO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [
+          "first_order_structure",
+          "model_isomorphism"
+        ],
+        "representation_kinds": [
+          "abstract",
+          "geometric"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "9ec094accbd270ad7359fc05d717a85898fab3490ca45f81844d83245c4f5420",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:tarski_vaught",
+        "decl:OPEN_LOGIC:THM:fol_compactness"
+      ]
+    },
+    {
+      "chapter_section": "Model Theory",
+      "char_count": 131,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 5.8): Upward L\u00f6wenheim-Skolem Theorem",
+      "locator": "OpenLogic:ModelTheory:Thm:5.8",
+      "node_id": "decl:OPEN_LOGIC:THM:lowenheim_skolem_upward",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "d0f8ec8ae78bfe1669cddfea263013c4bbe4bf94c3d32eda6fa4c6a58ef22839",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:fol_compactness",
+        "decl:OPEN_LOGIC:THM:lowenheim_skolem_downward"
+      ]
+    },
+    {
+      "chapter_section": "Computability Theory",
+      "char_count": 415,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 6.1): Turing Machine Definition",
+      "locator": "OpenLogic:Computability:Def:6.1",
+      "node_id": "decl:OPEN_LOGIC:DEF:turing_machine",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "turing_transition_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "7af3e627a7fdb4da09a2251df70bd1a74d2dce8dcb186392bf0440f32dae4c22",
+      "structural_refs": []
+    },
+    {
+      "chapter_section": "Computability Theory",
+      "char_count": 343,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 6.2): Turing-Computable Function and Decidable Language",
+      "locator": "OpenLogic:Computability:Def:6.2",
+      "node_id": "decl:OPEN_LOGIC:DEF:computable_function",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "turing_transition_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "b5a681e56992219e3f18fa961346fa132fa7e537d0d95f462afc748a47831c91",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:turing_machine"
+      ]
+    },
+    {
+      "chapter_section": "Computability Theory",
+      "char_count": 292,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 6.3): Computably Enumerable (Recursively Enumerable) Languages",
+      "locator": "OpenLogic:Computability:Def:6.3",
+      "node_id": "decl:OPEN_LOGIC:DEF:recursively_enumerable",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "turing_transition_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "ff0cb14796e745d5123e61964ba273655aa41f2d4ac378fad4986818f471cff2",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:computable_function"
+      ]
+    },
+    {
+      "chapter_section": "Computability Theory",
+      "char_count": 104,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 6.4): Post's Theorem on Decidability via C.E. Complements",
+      "locator": "OpenLogic:Computability:Thm:6.4",
+      "node_id": "decl:OPEN_LOGIC:THM:ce_and_decidable",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "42d54b2f3ae1e21de36595e330e6670943f3c74a49079a50f36816de6f1c0e06",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:recursively_enumerable"
+      ]
+    },
+    {
+      "chapter_section": "Computability Theory",
+      "char_count": 252,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "DEFINITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (DEF 6.5): G\u00f6del Numbering of Turing Machines and Universal Machine",
+      "locator": "OpenLogic:Computability:Def:6.5",
+      "node_id": "decl:OPEN_LOGIC:DEF:universal_turing_machine",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "turing_transition_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "690646baecf81d48eed8d9ffc462ecb2ab57300da6181c8e1de3fccf6bda8745",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:turing_machine"
+      ]
+    },
+    {
+      "chapter_section": "Computability Theory",
+      "char_count": 150,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 6.6): Turing's Undecidability of the Halting Problem",
+      "locator": "OpenLogic:Computability:Thm:6.6",
+      "node_id": "decl:OPEN_LOGIC:THM:halting_problem_undecidable",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [
+          "turing_transition_operator"
+        ],
+        "geo_tags": [],
+        "representation_kinds": [
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "2111e0407df683e31ad9c89b288a6bbde7147e5952f5c70de428fcbddc51c2e3",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:universal_turing_machine",
+        "decl:OPEN_LOGIC:THM:ce_and_decidable"
+      ]
+    },
+    {
+      "chapter_section": "Computability Theory",
+      "char_count": 220,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "PROPOSITION",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (PROP 6.7): Church-Turing Thesis Formalization Boundary",
+      "locator": "OpenLogic:Computability:Prop:6.7",
+      "node_id": "decl:OPEN_LOGIC:THM:church_turing_thesis",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "952000a2970d4f2d41d098f5d4b30e9c17394edb81fc5b23cbab1ae0dfb1df3e",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:DEF:computable_function"
+      ]
+    },
+    {
+      "chapter_section": "Incompleteness and Undecidability",
+      "char_count": 215,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 6.8): Church-Turing Undecidability of First-Order Validity",
+      "locator": "OpenLogic:Undecidability:Thm:6.8",
+      "node_id": "decl:OPEN_LOGIC:THM:undecidability_of_fol",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract",
+          "computational"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "4c3d11535616b06c74d2c2d56f7dba39fc2f1016185ef242554013f98b65f699",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:halting_problem_undecidable",
+        "decl:OPEN_LOGIC:THM:fol_completeness"
+      ]
+    },
+    {
+      "chapter_section": "Incompleteness and Undecidability",
+      "char_count": 235,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 6.9): G\u00f6del's First Incompleteness Theorem",
+      "locator": "OpenLogic:Incompleteness:Thm:6.9",
+      "node_id": "decl:OPEN_LOGIC:THM:godel_first_incompleteness",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "107d49e5984e34192ac4666cdbfc8df0e49a50c1ddb3dd029f11b3bf9c542adc",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:undecidability_of_fol"
+      ]
+    },
+    {
+      "chapter_section": "Incompleteness and Undecidability",
+      "char_count": 198,
+      "corpus": "OPEN_LOGIC",
+      "decl_type": "THEOREM",
+      "extraction_mode": "SOURCE_PARSE",
+      "label": "Open Logic (THM 6.10): G\u00f6del's Second Incompleteness Theorem",
+      "locator": "OpenLogic:Incompleteness:Thm:6.10",
+      "node_id": "decl:OPEN_LOGIC:THM:godel_second_incompleteness",
+      "representation_profile": {
+        "direct_status": "EO_ONLY_DIRECT",
+        "eo_tags": [],
+        "geo_tags": [],
+        "representation_kinds": [
+          "abstract"
+        ]
+      },
+      "source_id": "OPEN_LOGIC_PROJECT_2024",
+      "statement_sha256": "eafffabe833c35c59478988513632754b85814b4d108e3811697737172e192b7",
+      "structural_refs": [
+        "decl:OPEN_LOGIC:THM:godel_first_incompleteness"
+      ]
+    }
+  ],
+  "source_identity": {
+    "authors": [
+      "Richard Zach",
+      "Open Logic Project Contributors"
+    ],
+    "corpus": "OPEN_LOGIC",
+    "license": "CC BY 4.0",
+    "revision": "2024-CC-BY-4.0",
+    "source_format": "LaTeX / PreTeXt Source Tree",
+    "source_id": "OPEN_LOGIC_PROJECT_2024",
+    "stage": "v0.21_wave_f1",
+    "title": "Open Logic Project: Mathematical Logic and Computability"
+  },
+  "total_declarations": 35
+}

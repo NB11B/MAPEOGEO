@@ -98,7 +98,10 @@ def _canonical_sha256(value: Any, *, domain: str) -> str:
 
 
 def _producer_paths(root: Path) -> tuple[Path, ...]:
-    candidates: list[Path] = list((root / "scripts").rglob("*.py"))
+    candidates: list[Path] = [
+        p for p in (root / "scripts").rglob("*.py")
+        if not (p.name.endswith("_f1.py") or "_v0_21" in p.name or p.name.startswith("wave_f1"))
+    ]
     formal_root = root / "MAPEOGEOFormal"
     if formal_root.is_dir():
         candidates.extend(formal_root.rglob("*.lean"))

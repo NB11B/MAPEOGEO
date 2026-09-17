@@ -1,0 +1,270 @@
+{
+  "contracts": [
+    {
+      "certificate_class": "EXHAUSTIVE_FINITE_MODEL",
+      "contract_id": "contract:f1:logic_truth_table_exhaustive",
+      "contract_version": "1.0.0",
+      "evidence_digest": "631d4cf70faf469daef096796db5cec10939fe38d96dfab8e5453aafe00d3acb",
+      "scope": "EXHAUSTIVE_BOOLEAN_TRUTH_TABLE",
+      "status": "PASS",
+      "subject_hashes": [
+        [
+          "decl:OPEN_LOGIC:DEF:prop_valuation",
+          "08ca4eb36122f68d13578571054fc752f104c4bbe38ff3f8684ad2dfe37a2902"
+        ],
+        [
+          "decl:OPEN_LOGIC:DEF:prop_tautology",
+          "b680dd78cb28de9c9a9ea842823e997cbf6454a6c5c8dd8a9f395fb9a544e1b2"
+        ]
+      ],
+      "subject_ids": [
+        "decl:OPEN_LOGIC:DEF:prop_valuation",
+        "decl:OPEN_LOGIC:DEF:prop_tautology"
+      ],
+      "verifier_id": "scripts.wave_f1_contracts.run_logic_truth_table_contract",
+      "witnesses": [
+        {
+          "name": "law_of_excluded_middle",
+          "result": {
+            "evaluated_rows": 2,
+            "failing_assignment": null,
+            "is_tautology": true,
+            "total_rows": 2
+          },
+          "vars": [
+            "A"
+          ]
+        },
+        {
+          "name": "de_morgan_conjunction",
+          "result": {
+            "evaluated_rows": 4,
+            "failing_assignment": null,
+            "is_tautology": true,
+            "total_rows": 4
+          },
+          "vars": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "name": "modus_ponens_tautology",
+          "result": {
+            "evaluated_rows": 4,
+            "failing_assignment": null,
+            "is_tautology": true,
+            "total_rows": 4
+          },
+          "vars": [
+            "A",
+            "B"
+          ]
+        },
+        {
+          "name": "contraposition",
+          "result": {
+            "evaluated_rows": 4,
+            "failing_assignment": null,
+            "is_tautology": true,
+            "total_rows": 4
+          },
+          "vars": [
+            "A",
+            "B"
+          ]
+        }
+      ]
+    },
+    {
+      "certificate_class": "EXACT_ARITHMETIC_VERIFICATION",
+      "contract_id": "contract:f1:inclusion_exclusion_exact",
+      "contract_version": "1.0.0",
+      "evidence_digest": "c1d94628285b52c948405f168bcf6d6ba1c67cc982c3d5a2514196a48eae0455",
+      "scope": "EXACT_FINITE_PIE_SUM",
+      "status": "PASS",
+      "subject_hashes": [
+        [
+          "decl:LEVIN_DISCRETE:THM:inclusion_exclusion",
+          "047c5ed25c622feffa6978ed68a650eb7c78ff0aa6f7b4baeed0cc131ec943f8"
+        ]
+      ],
+      "subject_ids": [
+        "decl:LEVIN_DISCRETE:THM:inclusion_exclusion"
+      ],
+      "verifier_id": "scripts.wave_f1_contracts.run_inclusion_exclusion_contract",
+      "witnesses": [
+        {
+          "actual": 10,
+          "case": "3_sets_overlapping",
+          "pie": 10
+        },
+        {
+          "actual": 40,
+          "case": "4_sets_dense_overlap",
+          "pie": 40
+        },
+        {
+          "actual": 5,
+          "case": "5_sets_disjoint",
+          "pie": 5
+        }
+      ]
+    },
+    {
+      "certificate_class": "DECISION_PROCEDURE_PROOF",
+      "contract_id": "contract:f1:eulerian_degree_parity",
+      "contract_version": "1.0.0",
+      "evidence_digest": "1677721b4df844e687d2e264b9324e53e515899bbf47041d696033311e8a8226",
+      "scope": "EULERIAN_DEGREE_PARITY_AND_CONNECTIVITY",
+      "status": "PASS",
+      "subject_hashes": [
+        [
+          "decl:LEVIN_DISCRETE:THM:handshaking_lemma",
+          "c120b1b128d7294d398ba07a8728384b08b1bb291b960b8a3bf74f3fbcbbb6ad"
+        ],
+        [
+          "decl:LEVIN_DISCRETE:THM:euler_path_circuit",
+          "d50827bb4b3c01be0e3a534ba6745df34354c6dea80a43fd9c46cea20a7e6a65"
+        ]
+      ],
+      "subject_ids": [
+        "decl:LEVIN_DISCRETE:THM:handshaking_lemma",
+        "decl:LEVIN_DISCRETE:THM:euler_path_circuit"
+      ],
+      "verifier_id": "scripts.wave_f1_contracts.run_eulerian_graph_contract",
+      "witnesses": [
+        {
+          "graph": "K_5_complete",
+          "status": {
+            "degree_sum": 20,
+            "edge_count": 10,
+            "has_euler_circuit": true,
+            "has_euler_path": true,
+            "is_connected": true,
+            "odd_vertex_count": 0,
+            "odd_vertices": [],
+            "valid": true
+          }
+        },
+        {
+          "graph": "konigsberg_multigraph",
+          "status": {
+            "degree_sum": 14,
+            "edge_count": 7,
+            "has_euler_circuit": false,
+            "has_euler_path": false,
+            "is_connected": true,
+            "odd_vertex_count": 4,
+            "odd_vertices": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "valid": true
+          }
+        },
+        {
+          "graph": "path_graph_P4",
+          "status": {
+            "degree_sum": 6,
+            "edge_count": 3,
+            "has_euler_circuit": false,
+            "has_euler_path": true,
+            "is_connected": true,
+            "odd_vertex_count": 2,
+            "odd_vertices": [
+              0,
+              3
+            ],
+            "valid": true
+          }
+        }
+      ]
+    },
+    {
+      "certificate_class": "ALGORITHMIC_CONSTRUCTIVE_BIJECTION",
+      "contract_id": "contract:f1:finite_csb_bijection",
+      "contract_version": "1.0.0",
+      "evidence_digest": "ab87c180f8c5e8cae121fa9700729387474e6601bc5b17358b99eda9e4fff2bf",
+      "scope": "FINITE_CSB_BIJECTION_CONSTRUCTION",
+      "status": "PASS",
+      "subject_hashes": [
+        [
+          "decl:OPEN_SET_THEORY:THM:cantor_schroder_bernstein",
+          "1d0aa236c4f47cb3cad51341e2e540378768285689a57183fa90257d6066e9f3"
+        ]
+      ],
+      "subject_ids": [
+        "decl:OPEN_SET_THEORY:THM:cantor_schroder_bernstein"
+      ],
+      "verifier_id": "scripts.wave_f1_contracts.run_finite_csb_contract",
+      "witnesses": [
+        {
+          "case": "shifted_cyclic_6",
+          "result": {
+            "bijection_map": {
+              "1": "f",
+              "2": "a",
+              "3": "b",
+              "4": "c",
+              "5": "d",
+              "6": "e"
+            },
+            "c_chain_size": 0,
+            "codomain_size": 6,
+            "domain_size": 6,
+            "is_bijection": true
+          }
+        },
+        {
+          "case": "identity_3",
+          "result": {
+            "bijection_map": {
+              "10": "100",
+              "20": "200",
+              "30": "300"
+            },
+            "c_chain_size": 0,
+            "codomain_size": 3,
+            "domain_size": 3,
+            "is_bijection": true
+          }
+        }
+      ]
+    }
+  ],
+  "metrics": {
+    "proof_eligible_grounding_pct": 8.94,
+    "raw_topology_reachability_pct": 12.16,
+    "source_declaration_counts": {
+      "AHLFORS_KRANTZ_COMPLEX_ANALYSIS_1979": 72,
+      "AXLER_LADR4E_2026_08_16": 236,
+      "BILLINGSLEY_PROB_MEASURE_1995": 64,
+      "BOYD_VANDENBERGHE_CVX_2004": 89,
+      "BOYD_VANDENBERGHE_VMLS_2018": 82,
+      "FOUNDATION_MATHEMATICS_BASE": 176,
+      "GALLIER_QUAINTANCE_2020": 5,
+      "LEE_SMOOTH_MANIFOLDS_2013": 67,
+      "LEVIN_DISCRETE_MATH_4E_2024": 35,
+      "OPEN_LOGIC_PROJECT_2024": 35,
+      "OPEN_SET_THEORY_BUTTON_2024": 30,
+      "UNKNOWN": 2554,
+      "srcdecl:theorem:47_9": 1
+    },
+    "total_edges": 28219,
+    "total_nodes": 3446,
+    "wave_f1_declarations_ingested": 100
+  },
+  "provenance": {
+    "canonical_objects": 32,
+    "cross_source_alignments": 100,
+    "executable_contracts_passed": 4,
+    "levin_discrete_declarations": 35,
+    "open_logic_declarations": 35,
+    "open_set_declarations": 30
+  },
+  "schema_version": "v0.21-wave-f1-scientific-results",
+  "stage": "v0.21_wave_f1"
+}

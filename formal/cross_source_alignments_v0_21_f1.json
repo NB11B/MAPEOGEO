@@ -1,0 +1,1434 @@
+{
+  "alignments": [
+    {
+      "alignment_id": "align:v0_21_f1:3e958cd1eece2c88",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "INDUCTIVE_FORMULAS",
+        "hypotheses_match": "STANDARD_CONNECTIVES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:prop_formula",
+      "target_canonical_id": "canonical:logic:propositional_syntax_and_semantics"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:643ed918fd1b0698",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "BOOLEAN_VALUATIONS",
+        "hypotheses_match": "STANDARD_TRUTH_TABLES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:prop_valuation",
+      "target_canonical_id": "canonical:logic:propositional_syntax_and_semantics"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:ab448380c1502651",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "MODEL_SATISFACTION",
+        "hypotheses_match": "UNIVERSAL_VALUATION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:prop_tautology",
+      "target_canonical_id": "canonical:logic:propositional_syntax_and_semantics"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:b1a81ccdf6cbf406",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PROPOSITIONAL_SETS",
+        "hypotheses_match": "FINITE_SATISFIABILITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:prop_compactness",
+      "target_canonical_id": "canonical:logic:propositional_compactness_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:4d77df6bdf4e753e",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FIRST_ORDER_SIGNATURE",
+        "hypotheses_match": "STANDARD_SYMBOLS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:fol_language",
+      "target_canonical_id": "canonical:logic:first_order_syntax_and_terms"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:b08cbc51d852cc78",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "TERMS_AND_FORMULAS",
+        "hypotheses_match": "INDUCTIVE_ARITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:fol_term_and_formula",
+      "target_canonical_id": "canonical:logic:first_order_syntax_and_terms"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:a4e92ddc70f046c8",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "VARIABLE_SCOPING",
+        "hypotheses_match": "QUANTIFIER_OCCURRENCES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:free_bound_variables",
+      "target_canonical_id": "canonical:logic:first_order_syntax_and_terms"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:b52970881c189337",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "CAPTURE_AVOIDING_SUBST",
+        "hypotheses_match": "FREE_FOR_VARIABLE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:term_substitution",
+      "target_canonical_id": "canonical:logic:first_order_syntax_and_terms"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:2fd19040337ee707",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "L_STRUCTURES",
+        "hypotheses_match": "NONEMPTY_DOMAINS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:fol_structure",
+      "target_canonical_id": "canonical:logic:first_order_structures_and_satisfaction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:50ca147991593b8b",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ASSIGNMENTS_AND_TRUTH",
+        "hypotheses_match": "TARSKIAN_RECURSION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:tarskian_satisfaction",
+      "target_canonical_id": "canonical:logic:first_order_structures_and_satisfaction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:9b0f75d6c1b1ee65",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "MODELS_AND_CONSEQUENCE",
+        "hypotheses_match": "ALL_STRUCTURES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:fol_validity_consequence",
+      "target_canonical_id": "canonical:logic:first_order_structures_and_satisfaction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:9e90bc0b04ff7080",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "STRUCTURE_EQUIVALENCE",
+        "hypotheses_match": "ALL_L_SENTENCES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:elementary_equivalence",
+      "target_canonical_id": "canonical:logic:elementary_equivalence_substructures"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:24525ad2dafb63ad",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SUBSTRUCTURE_WITNESS",
+        "hypotheses_match": "EXISTENTIAL_PRESERVATION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:tarski_vaught",
+      "target_canonical_id": "canonical:logic:elementary_equivalence_substructures"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:d11310edac70d3d4",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PROOF_TREES",
+        "hypotheses_match": "INTRO_ELIM_RULES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:natural_deduction",
+      "target_canonical_id": "canonical:logic:natural_deduction_and_sequent_calculus"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:57ef23f2d5884b34",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SEQUENT_CALCULUS_LK",
+        "hypotheses_match": "STRUCTURAL_AND_LOGICAL",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:sequent_calculus",
+      "target_canonical_id": "canonical:logic:natural_deduction_and_sequent_calculus"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:ed6371dbe9ec19b5",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "LK_DERIVATIONS",
+        "hypotheses_match": "CUT_FREE_TRANSFORMATION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:cut_elimination",
+      "target_canonical_id": "canonical:logic:gentzen_cut_elimination"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:7b0515ae6a718b77",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "CUT_FREE_SEQUENTS",
+        "hypotheses_match": "SUBFORMULA_CONTAINMENT",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:subformula_property",
+      "target_canonical_id": "canonical:logic:gentzen_cut_elimination"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:20f1034a8dcf1300",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PROOF_SYSTEM_AND_MODELS",
+        "hypotheses_match": "DERIVATION_TO_CONSEQUENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:fol_soundness",
+      "target_canonical_id": "canonical:logic:first_order_soundness_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:fd6d5013dd922ffb",
+      "confidence": 0.95,
+      "formulation_check": {
+        "domain_match": "CONSISTENT_THEORIES",
+        "hypotheses_match": "HENKIN_WITNESSES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SCOPED_OVERLAP",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:consistency_and_henkin_sets",
+      "target_canonical_id": "canonical:logic:first_order_completeness_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:7c7e615396f5ce6a",
+      "confidence": 0.95,
+      "formulation_check": {
+        "domain_match": "CONSISTENT_SETS",
+        "hypotheses_match": "MAXIMAL_CONSISTENCY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SCOPED_OVERLAP",
+      "source_node_id": "decl:OPEN_LOGIC:LEM:lindenbaum",
+      "target_canonical_id": "canonical:logic:first_order_completeness_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:2951810eeb2905b4",
+      "confidence": 0.95,
+      "formulation_check": {
+        "domain_match": "TERM_MODELS",
+        "hypotheses_match": "CANONICAL_INTERPRETATION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SCOPED_OVERLAP",
+      "source_node_id": "decl:OPEN_LOGIC:LEM:henkin_construction",
+      "target_canonical_id": "canonical:logic:first_order_completeness_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:343fee5249fa1687",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FIRST_ORDER_THEORIES",
+        "hypotheses_match": "CONSEQUENCE_TO_DERIVABILITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:fol_completeness",
+      "target_canonical_id": "canonical:logic:first_order_completeness_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:8dee32d0d0a6e596",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FIRST_ORDER_THEORIES",
+        "hypotheses_match": "FINITE_MODEL_EXISTENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:fol_compactness",
+      "target_canonical_id": "canonical:logic:first_order_compactness_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:715a9df4942bba77",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "COUNTABLE_THEORIES",
+        "hypotheses_match": "COUNTABLE_SUBMODELS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:lowenheim_skolem_downward",
+      "target_canonical_id": "canonical:logic:lowenheim_skolem_theorems"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:e33e526d97553958",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "INFINITE_MODELS",
+        "hypotheses_match": "ARBITRARY_CARDINALITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:lowenheim_skolem_upward",
+      "target_canonical_id": "canonical:logic:lowenheim_skolem_theorems"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:1d3865d7c3df85a5",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "TURING_MACHINES",
+        "hypotheses_match": "DETERMINISTIC_TRANSITION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:turing_machine",
+      "target_canonical_id": "canonical:computability:turing_machines_and_computability"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:ac36fb5be9e8b9a4",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PARTIAL_FUNCTIONS",
+        "hypotheses_match": "HALTING_ACCEPTANCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:computable_function",
+      "target_canonical_id": "canonical:computability:turing_machines_and_computability"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:cc5e4d86fd8b5f4e",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "LANGUAGES",
+        "hypotheses_match": "ENUMERATION_DOMAIN",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:recursively_enumerable",
+      "target_canonical_id": "canonical:computability:turing_machines_and_computability"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:c62fc2cb2016d191",
+      "confidence": 0.95,
+      "formulation_check": {
+        "domain_match": "POST_THEOREM",
+        "hypotheses_match": "COMPLEMENT_ENUMERABILITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SCOPED_OVERLAP",
+      "source_node_id": "decl:OPEN_LOGIC:THM:ce_and_decidable",
+      "target_canonical_id": "canonical:computability:halting_problem_undecidability"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:79e15ec9d5ef5669",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "GODEL_NUMBERING",
+        "hypotheses_match": "UNIVERSAL_SIMULATION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:DEF:universal_turing_machine",
+      "target_canonical_id": "canonical:computability:turing_machines_and_computability"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:6d1c2e0f358f5eac",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "DECISION_PROBLEMS",
+        "hypotheses_match": "DIAGONAL_UNDECIDABILITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:halting_problem_undecidable",
+      "target_canonical_id": "canonical:computability:halting_problem_undecidability"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:fb2dc672573884b5",
+      "confidence": 0.85,
+      "formulation_check": {
+        "domain_match": "EFFECTIVE_ALGORITHMS",
+        "hypotheses_match": "EQUIVALENCE_BOUNDARY",
+        "quantifiers_match": "CONCEPTUAL"
+      },
+      "relation_type": "RELATED_TO",
+      "source_node_id": "decl:OPEN_LOGIC:THM:church_turing_thesis",
+      "target_canonical_id": "canonical:computability:halting_problem_undecidability"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:1fa83de875be457a",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FOL_VALIDITY",
+        "hypotheses_match": "CHURCH_TURING_REDUCTION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:undecidability_of_fol",
+      "target_canonical_id": "canonical:logic:first_order_undecidability_and_incompleteness"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:05b28927ae8a393d",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ARITHMETIC_THEORIES",
+        "hypotheses_match": "ROBINSON_Q_INCOMPLETENESS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:godel_first_incompleteness",
+      "target_canonical_id": "canonical:logic:first_order_undecidability_and_incompleteness"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:966615d22e816abc",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PEANO_ARITHMETIC",
+        "hypotheses_match": "CONSISTENCY_UNPROVABILITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_LOGIC:THM:godel_second_incompleteness",
+      "target_canonical_id": "canonical:logic:first_order_undecidability_and_incompleteness"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:f6e5ea837707ed50",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SET_EQUALITY",
+        "hypotheses_match": "SAME_ELEMENTS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:extensionality",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:bbf2f00a75158d45",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "EMPTY_SET_EXISTENCE",
+        "hypotheses_match": "NO_ELEMENTS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:empty_set",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:a09c860aadbe72a8",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "UNORDERED_PAIRS",
+        "hypotheses_match": "TWO_ELEMENT_SETS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:pairing",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:597b95b3e8c71310",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SET_UNIONS",
+        "hypotheses_match": "MEMBERSHIP_OF_MEMBERS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:union",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:979c23833e06101d",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SUBSET_SELECTION",
+        "hypotheses_match": "FIRST_ORDER_FORMULAS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:separation",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:c26175f65e3552db",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SUBSET_COLLECTIONS",
+        "hypotheses_match": "ALL_SUBSETS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:power_set",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:31b85eec80b69f27",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "INDUCTIVE_SETS",
+        "hypotheses_match": "OMEGA_EXISTENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:infinity",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:3f782ac58c3b5619",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FUNCTIONAL_CLASSES",
+        "hypotheses_match": "IMAGE_SET_EXISTENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:replacement",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:5193aa3988840b2d",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "REGULARITY",
+        "hypotheses_match": "EPSILON_MINIMAL_ELEMENTS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:foundation",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:2037668b35f9cee9",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "DISJOINT_FAMILIES",
+        "hypotheses_match": "CHOICE_SET_EXISTENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:AXIOM:choice",
+      "target_canonical_id": "canonical:sets:zfc_axioms_core"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:978d7bbdb77c357f",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ORDERED_PAIRS",
+        "hypotheses_match": "KURATOWSKI_CONSTRUCTION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:kuratowski_pair",
+      "target_canonical_id": "canonical:sets:relations_and_quotients"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:3b880190be4a54e9",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "RELATION_SUBSETS",
+        "hypotheses_match": "REFLEXIVE_SYMMETRIC_TRANSITIVE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:binary_relation",
+      "target_canonical_id": "canonical:sets:relations_and_quotients"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:92dbf19f9e2f7c45",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "EQUIVALENCE_CLASSES",
+        "hypotheses_match": "PARTITION_OF_DOMAIN",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:equivalence_and_quotient",
+      "target_canonical_id": "canonical:sets:relations_and_quotients"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:37a163afcdde9d71",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SET_FUNCTIONS",
+        "hypotheses_match": "INJECTION_SURJECTION_BIJECTION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:function_properties",
+      "target_canonical_id": "canonical:sets:functions_and_well_foundedness"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:7c039a3bb186ebed",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "RELATIONAL_MINIMA",
+        "hypotheses_match": "WELL_FOUNDED_INDUCTION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:well_founded_relation",
+      "target_canonical_id": "canonical:sets:functions_and_well_foundedness"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:95edcba765e4a8bc",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "BIJECTIVE_SETS",
+        "hypotheses_match": "CARDINAL_EQUALITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:equinumerosity",
+      "target_canonical_id": "canonical:sets:cardinality_and_cantor_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:cc7d54c92ca6720a",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "COUNTABLE_SETS",
+        "hypotheses_match": "OMEGA_EQUINUMEROSITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:countability",
+      "target_canonical_id": "canonical:sets:cardinality_and_cantor_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:d820bd60d9b594a0",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "POWER_SETS",
+        "hypotheses_match": "STRICT_CARDINAL_DOMINANCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:cantors_theorem",
+      "target_canonical_id": "canonical:sets:cardinality_and_cantor_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:c73b52d8d30e56cc",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "BINARY_SEQUENCES",
+        "hypotheses_match": "REAL_UNCOUNTABILITY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:cantor_diagonal_uncountable",
+      "target_canonical_id": "canonical:sets:cardinality_and_cantor_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:79a09f0dba10db35",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "MUTUAL_INJECTIONS",
+        "hypotheses_match": "EXPLICIT_BIJECTION_CONSTRUCTION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:cantor_schroder_bernstein",
+      "target_canonical_id": "canonical:sets:cantor_schroder_bernstein_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:59da7076351807f9",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "COUNTABLE_FAMILIES",
+        "hypotheses_match": "COUNTABLE_UNION_PROPERTY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:countable_unions",
+      "target_canonical_id": "canonical:sets:cardinality_and_cantor_theorem"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:0cbb57ec637274a4",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "TRANSITIVE_SETS",
+        "hypotheses_match": "VON_NEUMANN_ORDINALS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:DEF:transitive_set_and_ordinal",
+      "target_canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:83447a9d24e90e57",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ORDINALS",
+        "hypotheses_match": "TRICHOTOMY_AND_WELL_ORDER",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:ordinal_trichotomy",
+      "target_canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:59a4286352428182",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ORDINAL_PROPERTIES",
+        "hypotheses_match": "INITIAL_SEGMENT_INDUCTION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:transfinite_induction",
+      "target_canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:ceeed995c2e9b25e",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "CLASS_OPERATIONS",
+        "hypotheses_match": "UNIQUE_ORDINAL_RECURSION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:transfinite_recursion",
+      "target_canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:f7ebb9e46c194438",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ARBITRARY_SETS",
+        "hypotheses_match": "HARTOGS_ORDINAL_NUMBER",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:hartogs_lemma",
+      "target_canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:80b716bbefa5794c",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ARBITRARY_SETS",
+        "hypotheses_match": "ZERMELO_WELL_ORDERING",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:well_ordering_theorem",
+      "target_canonical_id": "canonical:sets:axiom_of_choice_equivalents"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:6f33471b41863fc7",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "INDUCTIVE_POSETS",
+        "hypotheses_match": "MAXIMAL_ELEMENT_EXISTENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:zorns_lemma",
+      "target_canonical_id": "canonical:sets:axiom_of_choice_equivalents"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:dd1554fc9b4fb594",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "ARBITRARY_CARDINALS",
+        "hypotheses_match": "COMPARABILITY_TRICHOTOMY",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:cardinal_comparability",
+      "target_canonical_id": "canonical:sets:axiom_of_choice_equivalents"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:3ac72b28d4563b54",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "INDEXED_FAMILIES",
+        "hypotheses_match": "PRODUCT_NONEMPTINESS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:OPEN_SET_THEORY:THM:tychonoff_set_equivalent",
+      "target_canonical_id": "canonical:sets:axiom_of_choice_equivalents"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:c31a5050d8f029d4",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "NATURAL_NUMBERS",
+        "hypotheses_match": "BASE_AND_STEP",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:weak_induction",
+      "target_canonical_id": "canonical:discrete:mathematical_induction_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:b4d329f714815b1d",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "NATURAL_NUMBERS",
+        "hypotheses_match": "ALL_PREDECESSORS_STEP",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:strong_induction",
+      "target_canonical_id": "canonical:discrete:mathematical_induction_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:a94af9ff2269f33b",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SUBSETS_OF_NATURALS",
+        "hypotheses_match": "LEAST_ELEMENT",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:well_ordering_principle",
+      "target_canonical_id": "canonical:discrete:mathematical_induction_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:d73d4b22c5bef5ea",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SECOND_ORDER_RECURRENCES",
+        "hypotheses_match": "DISTINCT_CHARACTERISTIC_ROOTS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:linear_homogeneous_recurrence",
+      "target_canonical_id": "canonical:discrete:recurrence_relations"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:32cfd7e73848e958",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SECOND_ORDER_RECURRENCES",
+        "hypotheses_match": "REPEATED_ROOT_POLYNOMIAL",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:repeated_root_recurrence",
+      "target_canonical_id": "canonical:discrete:recurrence_relations"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:d596c95205d7389b",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "DIVIDE_AND_CONQUER",
+        "hypotheses_match": "ASYMPTOTIC_BOUNDS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:master_theorem_recurrence",
+      "target_canonical_id": "canonical:discrete:recurrence_relations"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:2bc4958692b68184",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "DISJOINT_AND_SEQUENTIAL_EVENTS",
+        "hypotheses_match": "ADDITION_MULTIPLICATION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:sum_product_rules",
+      "target_canonical_id": "canonical:discrete:combinatorial_counting_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:0731cedabca79896",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FINITE_SETS",
+        "hypotheses_match": "FACTORIAL_FORMULAS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:permutations_and_combinations",
+      "target_canonical_id": "canonical:discrete:combinatorial_counting_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:17221d85ef2864c4",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "BINOMIAL_COEFFICIENTS",
+        "hypotheses_match": "PASCAL_ADDITION_RECURRENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:pascals_identity",
+      "target_canonical_id": "canonical:discrete:combinatorial_counting_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:b2d92287f6906bdc",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "REAL_POLYNOMIALS",
+        "hypotheses_match": "EXPANSION_SUM",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:binomial_theorem",
+      "target_canonical_id": "canonical:discrete:combinatorial_counting_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:a68c64dd8a77e548",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "MULTIVARIATE_POLYNOMIALS",
+        "hypotheses_match": "MULTINOMIAL_SUM",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:multinomial_theorem",
+      "target_canonical_id": "canonical:discrete:combinatorial_counting_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:2ddbd114f3743a03",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FINITE_PARTITIONS",
+        "hypotheses_match": "CEILING_BOUND",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:pigeonhole_principle",
+      "target_canonical_id": "canonical:discrete:pigeonhole_and_inclusion_exclusion"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:8059c5b82dcd6477",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FINITE_SETS",
+        "hypotheses_match": "ALTERNATING_INTERSECTION_SUM",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:inclusion_exclusion",
+      "target_canonical_id": "canonical:discrete:pigeonhole_and_inclusion_exclusion"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:57e74e0c1652d923",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "INTEGER_PARTITIONS",
+        "hypotheses_match": "COMPOSITIONS_FORMULA",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:stars_and_bars",
+      "target_canonical_id": "canonical:discrete:combinatorial_counting_principles"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:4ce390da4e58a64a",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SEQUENCES",
+        "hypotheses_match": "FORMAL_POWER_SERIES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:ordinary_generating_function",
+      "target_canonical_id": "canonical:discrete:generating_functions_and_catalan"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:a988043861dbbd54",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "POLYNOMIAL_PRODUCTS",
+        "hypotheses_match": "CONVOLUTION_COEFFICIENT",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:ogf_combination_counting",
+      "target_canonical_id": "canonical:discrete:generating_functions_and_catalan"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:a962294f4ce7fedd",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "RATIONAL_FUNCTIONS",
+        "hypotheses_match": "PARTIAL_FRACTIONS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:ogf_recurrence_solution",
+      "target_canonical_id": "canonical:discrete:generating_functions_and_catalan"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:ce769faa0a03a729",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "DYCK_PATHS_AND_TREES",
+        "hypotheses_match": "CATALAN_CLOSED_FORM",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:catalan_numbers",
+      "target_canonical_id": "canonical:discrete:generating_functions_and_catalan"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:5054c7f9133d7a2e",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SIMPLE_GRAPHS",
+        "hypotheses_match": "INCIDENT_EDGES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:graph_basics",
+      "target_canonical_id": "canonical:discrete:graph_fundamentals_and_handshaking"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:290cb0b7ede06a25",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FINITE_GRAPHS",
+        "hypotheses_match": "DEGREE_SUM_EQUALS_2E",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:handshaking_lemma",
+      "target_canonical_id": "canonical:discrete:graph_fundamentals_and_handshaking"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:6229c6d9f3ed25fc",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "GRAPH_PAIRS",
+        "hypotheses_match": "STRUCTURE_PRESERVING_BIJECTION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:graph_isomorphism",
+      "target_canonical_id": "canonical:discrete:graph_fundamentals_and_handshaking"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:7e0d56dfa78e95e3",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "WALKS_AND_COMPONENTS",
+        "hypotheses_match": "CONNECTED_COMPONENTS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity",
+      "target_canonical_id": "canonical:discrete:graph_fundamentals_and_handshaking"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:ce0b43374dd79fe3",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FINITE_TREES",
+        "hypotheses_match": "FOUR_WAY_EQUIVALENCE",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:tree_characterization",
+      "target_canonical_id": "canonical:discrete:trees_and_spanning_trees"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:f4d3a5410526b5f6",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "CONNECTED_GRAPHS",
+        "hypotheses_match": "SPANNING_TREE_SUBGRAPH",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:spanning_tree_existence",
+      "target_canonical_id": "canonical:discrete:trees_and_spanning_trees"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:0f49741ab3f38739",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "BIPARTITE_GRAPHS",
+        "hypotheses_match": "NO_ODD_CYCLES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:bipartite_two_colorable",
+      "target_canonical_id": "canonical:discrete:bipartite_graphs_and_matching"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:76b788734ddf6776",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "BIPARTITE_MATCHINGS",
+        "hypotheses_match": "MARRIAGE_NEIGHBORHOOD_CONDITION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:halls_marriage_theorem",
+      "target_canonical_id": "canonical:discrete:bipartite_graphs_and_matching"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:ead4d3084a58221b",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PLANE_DRAWINGS",
+        "hypotheses_match": "NON_INTERSECTING_EDGES",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:planar_embedding",
+      "target_canonical_id": "canonical:discrete:planarity_and_eulers_formula"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:dcffa9dd882eeda8",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "CONNECTED_PLANAR_GRAPHS",
+        "hypotheses_match": "V_MINUS_E_PLUS_F_EQUALS_2",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:eulers_formula",
+      "target_canonical_id": "canonical:discrete:planarity_and_eulers_formula"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:bf44495b233f3ee4",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PLANAR_GRAPHS",
+        "hypotheses_match": "E_LE_3V_MINUS_6",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:planar_edge_bounds",
+      "target_canonical_id": "canonical:discrete:planarity_and_eulers_formula"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:7a203ff241814cb6",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "FORBIDDEN_SUBGRAPHS",
+        "hypotheses_match": "K5_K33_SUBDIVISIONS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:kuratowskis_theorem",
+      "target_canonical_id": "canonical:discrete:planarity_and_eulers_formula"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:c1174f3e72d9d184",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "VERTEX_COLORINGS",
+        "hypotheses_match": "MINIMUM_COLOR_COUNT",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:DEF:chromatic_number",
+      "target_canonical_id": "canonical:discrete:graph_coloring_theorems"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:aa39c010930276cb",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PLANAR_GRAPHS",
+        "hypotheses_match": "CHI_LE_4",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:four_color_theorem",
+      "target_canonical_id": "canonical:discrete:graph_coloring_theorems"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:94ab49d7fb19e52b",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "PLANAR_GRAPHS",
+        "hypotheses_match": "CHI_LE_5_KEMPE_CHAINS",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:five_color_theorem",
+      "target_canonical_id": "canonical:discrete:graph_coloring_theorems"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:2d1ffed38bd09275",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "CONNECTED_GRAPHS",
+        "hypotheses_match": "EVEN_DEGREE_CHARACTERIZATION",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:euler_path_circuit",
+      "target_canonical_id": "canonical:discrete:traversal_euler_and_hamilton"
+    },
+    {
+      "alignment_id": "align:v0_21_f1:3e88e898429e6dfd",
+      "confidence": 1.0,
+      "formulation_check": {
+        "domain_match": "SIMPLE_GRAPHS",
+        "hypotheses_match": "N_OVER_2_DEGREE_BOUND",
+        "quantifiers_match": "EXACT"
+      },
+      "relation_type": "SAME_SEMANTICS",
+      "source_node_id": "decl:LEVIN_DISCRETE:THM:diracs_theorem",
+      "target_canonical_id": "canonical:discrete:traversal_euler_and_hamilton"
+    }
+  ],
+  "canonical_objects": [
+    {
+      "canonical_id": "canonical:logic:propositional_syntax_and_semantics",
+      "description": "Formal inductive definition of propositional formulas, truth valuations, tautologies, and satisfiability.",
+      "domain": "Formal Logic",
+      "layer": "Logic & Proofs",
+      "name": "Propositional Logic Syntax and Valuation Semantics"
+    },
+    {
+      "canonical_id": "canonical:logic:propositional_compactness_theorem",
+      "description": "A set of propositional formulas is satisfiable if and only if every finite subset is satisfiable.",
+      "domain": "Formal Logic",
+      "layer": "Logic & Proofs",
+      "name": "Propositional Compactness Theorem"
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_syntax_and_terms",
+      "description": "First-order signature, inductive term and formula formation, free/bound variable scoping, and capture-avoiding substitution.",
+      "domain": "Formal Logic",
+      "layer": "Logic & Proofs",
+      "name": "First-Order Language, Terms, and Formulas"
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_structures_and_satisfaction",
+      "description": "First-order model structures, domains, variable assignments, inductive Tarskian truth definition, and semantic consequence.",
+      "domain": "Model Theory",
+      "layer": "Logic & Proofs",
+      "name": "First-Order Structures and Tarskian Satisfaction"
+    },
+    {
+      "canonical_id": "canonical:logic:elementary_equivalence_substructures",
+      "description": "Elementary equivalence between structures and the Tarski-Vaught test for elementary substructures.",
+      "domain": "Model Theory",
+      "layer": "Logic & Proofs",
+      "name": "Elementary Equivalence and Tarski-Vaught Criterion"
+    },
+    {
+      "canonical_id": "canonical:logic:natural_deduction_and_sequent_calculus",
+      "description": "Formal proof trees, introduction/elimination rules, LK sequents, and structural cut rule.",
+      "domain": "Proof Theory",
+      "layer": "Logic & Proofs",
+      "name": "Classical Proof Systems (Natural Deduction and Sequent Calculus LK)"
+    },
+    {
+      "canonical_id": "canonical:logic:gentzen_cut_elimination",
+      "description": "Every derivable sequent has a cut-free derivation, yielding the subformula property and consistency.",
+      "domain": "Proof Theory",
+      "layer": "Logic & Proofs",
+      "name": "Gentzen's Cut-Elimination Hauptsatz and Subformula Property"
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_soundness_theorem",
+      "description": "Syntactic derivability implies semantic consequence: Gamma |- A implies Gamma |= A.",
+      "domain": "Metatheory",
+      "layer": "Logic & Proofs",
+      "name": "Soundness Theorem for First-Order Logic"
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_completeness_theorem",
+      "description": "Semantic consequence implies syntactic derivability (Gamma |= A implies Gamma |- A), via Lindenbaum maximal extension and Henkin term models.",
+      "domain": "Metatheory",
+      "layer": "Logic & Proofs",
+      "name": "G\u00f6del's First-Order Completeness Theorem"
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_compactness_theorem",
+      "description": "A set of first-order sentences has a model if and only if every finite subset has a model.",
+      "domain": "Metatheory",
+      "layer": "Logic & Proofs",
+      "name": "First-Order Compactness Theorem"
+    },
+    {
+      "canonical_id": "canonical:logic:lowenheim_skolem_theorems",
+      "description": "Existence of countable elementary substructures and models of arbitrary infinite cardinality kappa >= |L|.",
+      "domain": "Model Theory",
+      "layer": "Logic & Proofs",
+      "name": "Downward and Upward L\u00f6wenheim-Skolem Theorems"
+    },
+    {
+      "canonical_id": "canonical:computability:turing_machines_and_computability",
+      "description": "Turing machine computation model, transition functions, decidable languages, and computably enumerable sets.",
+      "domain": "Computability Theory",
+      "layer": "Logic & Proofs",
+      "name": "Turing Machines and Computable Functions"
+    },
+    {
+      "canonical_id": "canonical:computability:halting_problem_undecidability",
+      "description": "The halting problem is computably enumerable but undecidable; Post's theorem on complementation; Church-Turing thesis.",
+      "domain": "Computability Theory",
+      "layer": "Logic & Proofs",
+      "name": "Undecidability of the Halting Problem and Church-Turing Thesis"
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_undecidability_and_incompleteness",
+      "description": "Undecidability of first-order validity, G\u00f6del's First Incompleteness Theorem (unprovable truths), and Second Incompleteness Theorem (unprovable consistency).",
+      "domain": "Incompleteness & Undecidability",
+      "layer": "Logic & Proofs",
+      "name": "Church-Turing FOL Undecidability and G\u00f6del's Incompleteness Theorems"
+    },
+    {
+      "canonical_id": "canonical:sets:zfc_axioms_core",
+      "description": "The foundational ZFC axiom framework: Extensionality, Empty Set, Pairing, Union, Separation, Power Set, Infinity, Replacement, Foundation, Choice.",
+      "domain": "Set Theory",
+      "layer": "Set Theory",
+      "name": "Zermelo-Fraenkel Set Theory Axiom System (ZF/ZFC)"
+    },
+    {
+      "canonical_id": "canonical:sets:relations_and_quotients",
+      "description": "Kuratowski ordered pairs, Cartesian products, relation properties (reflexive, symmetric, transitive), equivalence classes, and partition quotients.",
+      "domain": "Set Theory",
+      "layer": "Set Theory",
+      "name": "Binary Relations, Equivalence Classes, and Quotient Sets"
+    },
+    {
+      "canonical_id": "canonical:sets:functions_and_well_foundedness",
+      "description": "Set-theoretic functions, injective/surjective/bijective mappings, well-founded relations, and well-founded induction.",
+      "domain": "Set Theory",
+      "layer": "Set Theory",
+      "name": "Functions and Well-Founded Relations"
+    },
+    {
+      "canonical_id": "canonical:sets:cardinality_and_cantor_theorem",
+      "description": "Equinumerosity, countability (aleph_0), uncountability of 2^omega, and Cantor's theorem |A| < |P(A)|.",
+      "domain": "Cardinal Arithmetic",
+      "layer": "Set Theory",
+      "name": "Cardinality, Countability, and Cantor's Theorem"
+    },
+    {
+      "canonical_id": "canonical:sets:cantor_schroder_bernstein_theorem",
+      "description": "Mutual injection |A| <= |B| and |B| <= |A| implies equinumerosity |A| = |B| via canonical alternating chain decomposition.",
+      "domain": "Cardinal Arithmetic",
+      "layer": "Set Theory",
+      "name": "Cantor-Schr\u00f6der-Bernstein (CSB) Theorem"
+    },
+    {
+      "canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction",
+      "description": "Transitive well-ordered sets, ordinal trichotomy, transfinite induction principle, transfinite recursion theorem, and Hartogs' lemma.",
+      "domain": "Ordinal Theory",
+      "layer": "Set Theory",
+      "name": "Von Neumann Ordinals, Transfinite Induction and Recursion"
+    },
+    {
+      "canonical_id": "canonical:sets:axiom_of_choice_equivalents",
+      "description": "Equivalence in ZF of Axiom of Choice, Zermelo's Well-Ordering Theorem, Zorn's Lemma, Cardinal Comparability, and Cartesian product nonemptiness.",
+      "domain": "Choice Equivalents",
+      "layer": "Set Theory",
+      "name": "Axiom of Choice and Equivalent Principles"
+    },
+    {
+      "canonical_id": "canonical:discrete:mathematical_induction_principles",
+      "description": "Weak induction, strong (complete) induction, and the Well-Ordering Principle of the natural numbers.",
+      "domain": "Discrete Mathematics",
+      "layer": "Elementary Arithmetic & Algebra",
+      "name": "Mathematical Induction Principles and Well-Ordering"
+    },
+    {
+      "canonical_id": "canonical:discrete:recurrence_relations",
+      "description": "Characteristic roots method for homogeneous linear recurrences, repeated roots, and Master Theorem.",
+      "domain": "Discrete Mathematics",
+      "layer": "Elementary Arithmetic & Algebra",
+      "name": "Linear Recurrence Relations and Divide-and-Conquer Recurrences"
+    },
+    {
+      "canonical_id": "canonical:discrete:combinatorial_counting_principles",
+      "description": "Additive and multiplicative rules, permutations, combinations, Pascal's identity, Binomial and Multinomial Theorems.",
+      "domain": "Combinatorics",
+      "layer": "Elementary Arithmetic & Algebra",
+      "name": "Combinatorial Enumeration Principles"
+    },
+    {
+      "canonical_id": "canonical:discrete:pigeonhole_and_inclusion_exclusion",
+      "description": "Dirichlet pigeonhole bounds and alternating sum formula for cardinalities of finite unions.",
+      "domain": "Combinatorics",
+      "layer": "Elementary Arithmetic & Algebra",
+      "name": "Pigeonhole Principle and Principle of Inclusion-Exclusion (PIE)"
+    },
+    {
+      "canonical_id": "canonical:discrete:generating_functions_and_catalan",
+      "description": "Ordinary generating functions, convolution counting, algebraic recurrence solving, and Catalan numbers of Dyck paths.",
+      "domain": "Combinatorics",
+      "layer": "Elementary Arithmetic & Algebra",
+      "name": "Generating Functions and Catalan Numbers"
+    },
+    {
+      "canonical_id": "canonical:discrete:graph_fundamentals_and_handshaking",
+      "description": "Graph vertices, edges, degrees, Euler's degree sum theorem (handshaking), isomorphism invariants, paths, and cycles.",
+      "domain": "Graph Theory",
+      "layer": "Euclidean Geometry & Trigonometry",
+      "name": "Graph Fundamentals and Euler's Handshaking Lemma"
+    },
+    {
+      "canonical_id": "canonical:discrete:trees_and_spanning_trees",
+      "description": "Tree equivalence properties (connected acyclic, n-1 edges, unique path) and existence of spanning trees.",
+      "domain": "Graph Theory",
+      "layer": "Euclidean Geometry & Trigonometry",
+      "name": "Trees, Characterizations, and Spanning Trees"
+    },
+    {
+      "canonical_id": "canonical:discrete:bipartite_graphs_and_matching",
+      "description": "Characterization of bipartite graphs by absence of odd cycles, 2-colorability, and Hall's matching marriage condition.",
+      "domain": "Graph Theory",
+      "layer": "Euclidean Geometry & Trigonometry",
+      "name": "Bipartite Graphs, 2-Colorability, and Hall's Marriage Theorem"
+    },
+    {
+      "canonical_id": "canonical:discrete:planarity_and_eulers_formula",
+      "description": "Plane drawings, faces, Euler's formula V - E + F = 2, edge bounds (E <= 3V - 6), and Kuratowski's theorem (K_5 and K_{3,3}).",
+      "domain": "Topological Graph Theory",
+      "layer": "Euclidean Geometry & Trigonometry",
+      "name": "Planar Graphs, Plane Embeddings, and Euler's Planar Formula"
+    },
+    {
+      "canonical_id": "canonical:discrete:graph_coloring_theorems",
+      "description": "Chromatic number chi(G), proper vertex colorings, 4-colorability of planar maps, and 5-color theorem.",
+      "domain": "Graph Theory",
+      "layer": "Euclidean Geometry & Trigonometry",
+      "name": "Graph Vertex Coloring, Four Color and Five Color Theorems"
+    },
+    {
+      "canonical_id": "canonical:discrete:traversal_euler_and_hamilton",
+      "description": "Eulerian circuit characterization by even vertex degrees, open Euler paths with 2 odd vertices, and Dirac's degree condition for Hamiltonian cycles.",
+      "domain": "Graph Theory",
+      "layer": "Euclidean Geometry & Trigonometry",
+      "name": "Euler Paths/Circuits and Dirac's Hamiltonian Theorem"
+    }
+  ],
+  "schema_version": "v0.21-wave-f1-alignments",
+  "stage": "v0.21_wave_f1",
+  "total_alignments": 100,
+  "total_canonical_objects": 32
+}
