@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""MAPEOGEO Wave F2 — Commutation Manifest Generator.
+"""MAPEOGEO Wave F2 / F2.1 — Commutation Manifest Generator.
 
-Pre-registers all 32 Canonical Concepts, their Equivalence Contracts, and
+Pre-registers all 32 Canonical Concepts, their Equivalence Contracts,
+aligned Wave F1 Source Declarations, statement SHA-256 hashes, and
 expected Commutation Verdicts.
 """
 
@@ -17,9 +18,42 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 OUTPUT_PATH = ROOT / "formal" / "wave_f2_commutation_manifest.json"
+ALIGNMENTS_PATH = ROOT / "formal" / "cross_source_alignments_v0_21_f1.json"
+OPEN_LOGIC_PATH = ROOT / "formal" / "open_logic_manifest_v0_21.json"
+OPEN_SET_PATH = ROOT / "formal" / "open_set_theory_manifest_v0_21.json"
+LEVIN_PATH = ROOT / "formal" / "levin_discrete_manifest_v0_21.json"
 
 
-def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
+def load_source_declarations_map() -> dict[str, dict[str, Any]]:
+    decl_map: dict[str, dict[str, Any]] = {}
+    for p in [OPEN_LOGIC_PATH, OPEN_SET_PATH, LEVIN_PATH]:
+        if p.is_file():
+            data = json.loads(p.read_text(encoding="utf-8"))
+            for d in data.get("declarations", []):
+                decl_map[d["node_id"]] = {
+                    "statement_sha256": d.get("statement_sha256", ""),
+                    "structural_refs": d.get("structural_refs", []),
+                    "locator": d.get("locator", ""),
+                    "label": d.get("label", ""),
+                }
+    return decl_map
+
+
+def load_alignments_map() -> dict[str, list[str]]:
+    align_map: dict[str, list[str]] = {}
+    if ALIGNMENTS_PATH.is_file():
+        data = json.loads(ALIGNMENTS_PATH.read_text(encoding="utf-8"))
+        for a in data.get("alignments", []):
+            cid = a["target_canonical_id"]
+            sid = a["source_node_id"]
+            if cid not in align_map:
+                align_map[cid] = []
+            if sid not in align_map[cid]:
+                align_map[cid].append(sid)
+    return align_map
+
+
+def get_canonical_concepts_base() -> list[dict[str, Any]]:
     return [
         # --- Logic & Proof Theory (14) ---
         {
@@ -28,7 +62,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Truth polynomial ring in F2[p,q] commutes with 2D hypercube cell partitioning.",
         },
         {
@@ -37,7 +71,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "BOUNDED_MODEL_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Finite ideal intersection variety matches closed hypercube cell intersection.",
         },
         {
@@ -46,7 +80,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "ISOMORPHIC_WITNESS",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Free term algebraic substitution matches planar syntax tree substitution DAG.",
         },
         {
@@ -55,7 +89,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "BOUNDED_MODEL_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Relational algebra evaluation matches relational directed graph model satisfaction.",
         },
         {
@@ -64,7 +98,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "ISOMORPHIC_WITNESS",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Algebraic theory invariant agreement matches Ehrenfeucht-Fraïssé pebble game strategy.",
         },
         {
@@ -73,7 +107,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "ISOMORPHIC_WITNESS",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "LK sequent inference tensor matches planar proof tree acyclic DAG.",
         },
         {
@@ -82,7 +116,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "ISOMORPHIC_WITNESS",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Term rewriting cut rank reduction matches proof tree homotopy contraction.",
         },
         {
@@ -91,7 +125,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Syntactic derivability preservation matches topological model validity embedding.",
         },
         {
@@ -100,7 +134,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "PARTIAL_ONE_SIDED",
-            "expected_verdict": "WOUNDED",
+            "expected_verdict": "PARTIAL_ONE_SIDED_REALIZATION",
             "description": "Algebraic sequent calculus is constructive, but full infinite Henkin term model requires transfinite witness.",
         },
         {
@@ -109,8 +143,8 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "UNSUPPORTED_INFINITE",
-            "expected_verdict": "UNSUPPORTED",
-            "description": "Unbounded infinite compactness requires non-constructive ultrafilters.",
+            "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
+            "description": "Unbounded infinite compactness requires non-constructive ultrafilters outside finite executable scope.",
         },
         {
             "canonical_id": "canonical:logic:lowenheim_skolem_theorems",
@@ -118,7 +152,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "BOUNDED_MODEL_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Skolem hull algebraic closure matches induced sub-hypergraph elementary embedding.",
         },
         {
@@ -127,7 +161,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Transition monoid trace matches 2D spacetime grid computation lattice.",
         },
         {
@@ -136,7 +170,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "UNSUPPORTED_INFINITE",
-            "expected_verdict": "UNSUPPORTED",
+            "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
             "description": "Halting problem undecidability is an inherently non-computable infinite decision barrier.",
         },
         {
@@ -145,8 +179,8 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Logic & Proof Theory",
             "layer": "Logic & Proofs",
             "contract": "UNSUPPORTED_INFINITE",
-            "expected_verdict": "UNSUPPORTED",
-            "description": "Gödel incompleteness is a metamathematical limit on formal proof systems.",
+            "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
+            "description": "Gödel incompleteness is a metamathematical limit on formal proof systems outside finite dual execution.",
         },
 
         # --- Set Theory (7) ---
@@ -156,7 +190,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Set Theory",
             "layer": "Set Theory",
             "contract": "HOMOLOGY_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Hereditary epsilon membership matrix matches cumulative hierarchy V_3 tree.",
         },
         {
@@ -165,7 +199,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Set Theory",
             "layer": "Set Theory",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Equivalence relation matrix rank matches geometric disjoint cluster partition.",
         },
         {
@@ -174,7 +208,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Set Theory",
             "layer": "Set Theory",
             "contract": "HOMOLOGY_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Strictly upper-triangular nilpotent matrix matches topological sort DAG.",
         },
         {
@@ -183,7 +217,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Set Theory",
             "layer": "Set Theory",
             "contract": "ISOMORPHIC_WITNESS",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Cantor diagonal polynomial exclusion matches bipartite grid diagonal separation.",
         },
         {
@@ -192,7 +226,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Set Theory",
             "layer": "Set Theory",
             "contract": "ISOMORPHIC_WITNESS",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "CSB orbit functional iteration matches bipartite alternating reachability graph.",
         },
         {
@@ -201,7 +235,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Set Theory",
             "layer": "Set Theory",
             "contract": "HOMOLOGY_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Transitive ordinal successor algebra matches linear tournament simplicial chain.",
         },
         {
@@ -210,8 +244,8 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Set Theory",
             "layer": "Set Theory",
             "contract": "UNSUPPORTED_INFINITE",
-            "expected_verdict": "UNSUPPORTED",
-            "description": "Arbitrary infinite family choice function lacks constructive finite witness.",
+            "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
+            "description": "Arbitrary infinite family choice function lacks constructive finite witness and is independent of ZF.",
         },
 
         # --- Discrete Mathematics & Combinatorics (11) ---
@@ -221,7 +255,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Elementary Arithmetic & Algebra",
             "contract": "HOMOLOGY_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Algebraic inductive polynomial identity matches linear chain poset connectivity.",
         },
         {
@@ -230,7 +264,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Elementary Arithmetic & Algebra",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Companion matrix recurrence powers match 2D phase-space trajectory vertices.",
         },
         {
@@ -239,7 +273,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Elementary Arithmetic & Algebra",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Binomial polynomial expansion matches Pascal simplicial grid lattice paths.",
         },
         {
@@ -248,7 +282,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Elementary Arithmetic & Algebra",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "PIE alternating sum formula matches geometric Venn spatial volume partition.",
         },
         {
@@ -257,7 +291,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Elementary Arithmetic & Algebra",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Catalan formal power series convolution matches monotonic Dyck grid paths in Z^2.",
         },
         {
@@ -266,7 +300,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Euclidean Geometry & Trigonometry",
             "contract": "HOMOLOGY_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Algebraic degree sum 1^T A 1 matches simplicial 1-complex boundary incidence d_1.",
         },
         {
@@ -275,7 +309,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Euclidean Geometry & Trigonometry",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Matrix-Tree theorem Laplacian determinant matches simplicial spanning tree count.",
         },
         {
@@ -284,7 +318,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Euclidean Geometry & Trigonometry",
             "contract": "ISOMORPHIC_WITNESS",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Symmetric adjacency spectrum matches bipartite 2-coloring partition and matching.",
         },
         {
@@ -293,7 +327,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Euclidean Geometry & Trigonometry",
             "contract": "HOMOLOGY_EQUIVALENCE",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Cycle space rank dim(C) = E - V + 1 matches planar cell complex Euler formula V - E + F = 2.",
         },
         {
@@ -302,7 +336,7 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Euclidean Geometry & Trigonometry",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Chromatic polynomial evaluation matches proper vertex coloring partition.",
         },
         {
@@ -311,31 +345,56 @@ def get_canonical_concepts_manifest() -> list[dict[str, Any]]:
             "domain": "Discrete Mathematics & Combinatorics",
             "layer": "Euclidean Geometry & Trigonometry",
             "contract": "EXACT_MATCH",
-            "expected_verdict": "VERIFIED_COMMUTATIVE",
+            "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
             "description": "Eulerian degree parity algebraic condition matches closed 1-cycle edge traversal.",
         },
     ]
 
 
 def generate_manifest() -> dict[str, Any]:
-    concepts = get_canonical_concepts_manifest()
+    concepts = get_canonical_concepts_base()
+    decl_map = load_source_declarations_map()
+    align_map = load_alignments_map()
+
     contracts_count: dict[str, int] = {}
     verdicts_count: dict[str, int] = {}
 
+    enriched_concepts: list[dict[str, Any]] = []
+
     for c in concepts:
+        cid = c["canonical_id"]
         ctr = c["contract"]
         v = c["expected_verdict"]
         contracts_count[ctr] = contracts_count.get(ctr, 0) + 1
         verdicts_count[v] = verdicts_count.get(v, 0) + 1
 
+        aligned_sids = sorted(align_map.get(cid, []))
+        aligned_hashes: list[str] = []
+        bound_deps: list[str] = []
+
+        for sid in aligned_sids:
+            d_info = decl_map.get(sid, {})
+            h = d_info.get("statement_sha256")
+            if h:
+                aligned_hashes.append(h)
+            for ref in d_info.get("structural_refs", []):
+                if ref not in bound_deps:
+                    bound_deps.append(ref)
+
+        entry = dict(c)
+        entry["aligned_source_node_ids"] = aligned_sids
+        entry["aligned_statement_sha256s"] = aligned_hashes
+        entry["bound_dependencies"] = sorted(bound_deps)
+        enriched_concepts.append(entry)
+
     return {
         "schema_version": "0.21",
         "stage": "v0.21_wave_f2",
         "campaign_name": "EO_GEO_DUAL_VIEW_COMMUTATION_AUDIT",
-        "total_canonical_concepts": len(concepts),
+        "total_canonical_concepts": len(enriched_concepts),
         "contracts_breakdown": contracts_count,
         "expected_verdicts_breakdown": verdicts_count,
-        "target_concepts": concepts,
+        "target_concepts": enriched_concepts,
     }
 
 
@@ -343,7 +402,7 @@ def main() -> int:
     manifest = generate_manifest()
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(manifest, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    print(f"Successfully generated Wave F2 manifest: {OUTPUT_PATH}")
+    print(f"Successfully generated Wave F2.1 manifest: {OUTPUT_PATH}")
     print(f"Total concepts: {manifest['total_canonical_concepts']}")
     print(f"Expected verdicts: {manifest['expected_verdicts_breakdown']}")
     return 0

@@ -1,4 +1,4 @@
-"""Data models and enums for Wave F2 EO/GEO Dual-View Realization and Commutation Audit."""
+"""Data models and enums for Wave F2 / F2.1 EO/GEO Dual-View Realization and Commutation Audit."""
 
 from __future__ import annotations
 
@@ -10,10 +10,10 @@ from typing import Any
 
 
 class CommutationVerdict(str, Enum):
-    VERIFIED_COMMUTATIVE = "VERIFIED_COMMUTATIVE"
-    UNSUPPORTED = "UNSUPPORTED"
-    WOUNDED = "WOUNDED"
-    REJECTED = "REJECTED"
+    VERIFIED_BOUNDED_CONTRACT_COMMUTATION = "VERIFIED_BOUNDED_CONTRACT_COMMUTATION"
+    OUTSIDE_CURRENT_EXECUTABLE_SCOPE = "OUTSIDE_CURRENT_EXECUTABLE_SCOPE"
+    PARTIAL_ONE_SIDED_REALIZATION = "PARTIAL_ONE_SIDED_REALIZATION"
+    NONCOMMUTATIVE_UNDER_CONTRACT = "NONCOMMUTATIVE_UNDER_CONTRACT"
     IMPLEMENTATION_ERROR = "IMPLEMENTATION_ERROR"
 
 
@@ -100,6 +100,8 @@ class CommutationRecord:
     sem_eo_digest: str
     sem_geo_digest: str
     delta_metric: float
+    bound_source_hashes: list[str] = field(default_factory=list)
+    bound_dependencies: list[str] = field(default_factory=list)
     witness: dict[str, Any] = field(default_factory=dict)
     notes: str = ""
 
@@ -115,6 +117,54 @@ class CommutationRecord:
             "sem_eo_digest": self.sem_eo_digest,
             "sem_geo_digest": self.sem_geo_digest,
             "delta_metric": self.delta_metric,
+            "bound_source_hashes": self.bound_source_hashes,
+            "bound_dependencies": self.bound_dependencies,
             "witness": self.witness,
             "notes": self.notes,
+        }
+
+
+@dataclass(frozen=True)
+class CrossPairAuditResult:
+    """Result record of cross-pair discrimination evaluation."""
+    eo_canonical_id: str
+    geo_canonical_id: str
+    is_diagonal: bool
+    verdict: CommutationVerdict
+    sem_eo_digest: str
+    sem_geo_digest: str
+    discriminates_correctly: bool
+    notes: str = ""
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "eo_canonical_id": self.eo_canonical_id,
+            "geo_canonical_id": self.geo_canonical_id,
+            "is_diagonal": self.is_diagonal,
+            "verdict": self.verdict.value,
+            "sem_eo_digest": self.sem_eo_digest,
+            "sem_geo_digest": self.sem_geo_digest,
+            "discriminates_correctly": self.discriminates_correctly,
+            "notes": self.notes,
+        }
+
+
+@dataclass(frozen=True)
+class MutantAuditResult:
+    """Result record of a mutation test."""
+    mutation_class: str
+    target_canonical_id: str
+    mutation_description: str
+    mutant_rejected: bool
+    verdict: CommutationVerdict
+    detection_witness: dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "mutation_class": self.mutation_class,
+            "target_canonical_id": self.target_canonical_id,
+            "mutation_description": self.mutation_description,
+            "mutant_rejected": self.mutant_rejected,
+            "verdict": self.verdict.value,
+            "detection_witness": self.detection_witness,
         }

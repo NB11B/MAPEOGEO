@@ -1,4 +1,4 @@
-"""Unit and Falsification Tests for Wave F2 EO/GEO Commutation Audit."""
+"""Unit, Falsification, and Anti-Circularity Tests for Wave F2 & F2.1 EO/GEO Commutation Audit."""
 
 from __future__ import annotations
 
@@ -15,12 +15,20 @@ from mapeogeo.dual_view.models import (
     EquivalenceContract,
     GEORealization,
 )
-from scripts.wave_f2_commutation_campaign import run_commutation_campaign
+from scripts.wave_f2_commutation_campaign import (
+    analyze_codomain_distinctness,
+    run_commutation_campaign,
+    run_cross_pair_discrimination_matrix,
+    run_mutant_killing_suite,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST_PATH = ROOT / "formal" / "wave_f2_commutation_manifest.json"
 EVIDENCE_PATH = ROOT / "evidence" / "v0_21_wave_f2_commutation_results.json"
 REPORT_PATH = ROOT / "docs" / "V0_21_WAVE_F2_COMMUTATION_REPORT.md"
+OPEN_LOGIC_PATH = ROOT / "formal" / "open_logic_manifest_v0_21.json"
+OPEN_SET_PATH = ROOT / "formal" / "open_set_theory_manifest_v0_21.json"
+LEVIN_PATH = ROOT / "formal" / "levin_discrete_manifest_v0_21.json"
 
 
 def test_wave_f2_manifest_integrity():
@@ -38,6 +46,10 @@ def test_wave_f2_manifest_integrity():
         assert item["contract"] in valid_contracts
         assert item["expected_verdict"] in valid_verdicts
         assert item["canonical_id"].startswith("canonical:")
+        assert "aligned_source_node_ids" in item
+        assert "aligned_statement_sha256s" in item
+        assert len(item["aligned_source_node_ids"]) > 0
+        assert len(item["aligned_statement_sha256s"]) > 0
 
 
 def test_all_32_canonical_concepts_generate_eo_and_geo():
@@ -60,73 +72,75 @@ def test_commutation_campaign_execution_and_verdicts():
     results = run_commutation_campaign(manifest)
 
     assert results["total_canonical_concepts_audited"] == 32
+    assert results["scientific_status"] == "EVIDENCE_PARTIAL"
+    assert "27 of 32 concepts commute" in results["exact_claim_boundary"]
     assert results["verdict_breakdown"][CommutationVerdict.IMPLEMENTATION_ERROR.value] == 0
-    assert results["verdict_breakdown"][CommutationVerdict.REJECTED.value] == 0
-    assert results["verdict_breakdown"][CommutationVerdict.VERIFIED_COMMUTATIVE.value] == 27
-    assert results["verdict_breakdown"][CommutationVerdict.UNSUPPORTED.value] == 4
-    assert results["verdict_breakdown"][CommutationVerdict.WOUNDED.value] == 1
+    assert results["verdict_breakdown"][CommutationVerdict.NONCOMMUTATIVE_UNDER_CONTRACT.value] == 0
+    assert results["verdict_breakdown"][CommutationVerdict.VERIFIED_BOUNDED_CONTRACT_COMMUTATION.value] == 27
+    assert results["verdict_breakdown"][CommutationVerdict.OUTSIDE_CURRENT_EXECUTABLE_SCOPE.value] == 4
+    assert results["verdict_breakdown"][CommutationVerdict.PARTIAL_ONE_SIDED_REALIZATION.value] == 1
     assert results["commutation_rate"] == 0.8438
 
     # Verify per-concept expected verdicts match exactly
     for record in results["commutation_records"]:
         matching_manifest = next(c for c in manifest["target_concepts"] if c["canonical_id"] == record["canonical_id"])
         assert record["verdict"] == matching_manifest["expected_verdict"]
+        assert len(record["bound_source_hashes"]) == len(matching_manifest["aligned_statement_sha256s"])
 
 
-def test_commutation_falsification_on_mutated_eo_payload():
-    cid = "canonical:logic:propositional_syntax_and_semantics"
-    eo_nominal = EOEngine.generate(cid)
-    geo_nominal = GEOEngine.generate(cid)
+def test_full_32x32_cross_pair_discrimination_matrix():
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    matrix_results = run_cross_pair_discrimination_matrix(manifest["target_concepts"])
 
-    # Mutate truth table vector in EO payload
-    mutated_payload = dict(eo_nominal.algebraic_payload)
-    mutated_payload["truth_table_vector"] = [1, 0, 1, 1]  # broke tautology
-    eo_mutated = EORealization(
-        canonical_id=cid,
-        representation_type=eo_nominal.representation_type,
-        algebraic_payload=mutated_payload,
-        structural_signature="EO:MUTATED",
-    )
-
-    record = DualViewEvaluator.audit_commutation(
-        name="Mutated Propositional",
-        domain="Logic & Proof Theory",
-        eo=eo_mutated,
-        geo=geo_nominal,
-        contract=EquivalenceContract.EXACT_MATCH,
-    )
-
-    assert record.verdict == CommutationVerdict.REJECTED
-    assert record.delta_metric > 0.0
-    assert "truth_vector" in record.witness["discrepancies"]
+    assert matrix_results["total_matrix_pairs"] == 1024
+    assert matrix_results["diagonal_pairs"] == 32
+    assert matrix_results["off_diagonal_pairs"] == 992
+    assert matrix_results["off_diagonal_rejections"] == 992
+    assert matrix_results["off_diagonal_false_positives"] == 0
+    assert matrix_results["off_diagonal_rejection_rate"] == 1.0
 
 
-def test_commutation_falsification_on_mutated_geo_payload():
-    cid = "canonical:discrete:planarity_and_eulers_formula"
-    eo_nominal = EOEngine.generate(cid)
-    geo_nominal = GEOEngine.generate(cid)
+def test_multi_class_mutant_killing_suite():
+    mutant_results = run_mutant_killing_suite()
 
-    # Mutate faces count in GEO payload
-    mutated_payload = dict(geo_nominal.geometric_payload)
-    mutated_payload["faces_F"] = 99  # breaks Euler formula V - E + F = 2
-    geo_mutated = GEORealization(
-        canonical_id=cid,
-        representation_type=geo_nominal.representation_type,
-        geometric_payload=mutated_payload,
-        structural_signature="GEO:MUTATED",
-    )
+    assert mutant_results["total_mutants_tested"] == 6
+    assert mutant_results["mutants_killed"] == 6
+    assert mutant_results["mutant_kill_rate"] == 1.0
 
-    record = DualViewEvaluator.audit_commutation(
-        name="Mutated Planar Graph",
-        domain="Discrete Mathematics & Combinatorics",
-        eo=eo_nominal,
-        geo=geo_mutated,
-        contract=EquivalenceContract.HOMOLOGY_EQUIVALENCE,
-    )
+    classes = {m["mutation_class"] for m in mutant_results["mutant_audit_records"]}
+    assert len(classes) == 6
+    for m in mutant_results["mutant_audit_records"]:
+        assert m["mutant_rejected"] is True
+        assert m["verdict"] == CommutationVerdict.NONCOMMUTATIVE_UNDER_CONTRACT.value
 
-    assert record.verdict == CommutationVerdict.REJECTED
-    assert record.delta_metric > 0.0
-    assert "faces_count" in record.witness["discrepancies"]
+
+def test_source_hash_and_dependency_bindings():
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+
+    # Collect all declaration hashes from source manifests
+    source_decls: dict[str, str] = {}
+    for p in [OPEN_LOGIC_PATH, OPEN_SET_PATH, LEVIN_PATH]:
+        data = json.loads(p.read_text(encoding="utf-8"))
+        for d in data.get("declarations", []):
+            source_decls[d["node_id"]] = d["statement_sha256"]
+
+    for item in manifest["target_concepts"]:
+        for sid, sha in zip(item["aligned_source_node_ids"], item["aligned_statement_sha256s"]):
+            assert sid in source_decls, f"Source node {sid} not found in source manifests"
+            assert source_decls[sid] == sha, f"Hash mismatch for {sid}: expected {source_decls[sid]}, got {sha}"
+            assert len(sha) == 64
+
+
+def test_semantic_codomain_non_degeneracy():
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    results = run_commutation_campaign(manifest)
+    codomain_res = results["codomain_distinctness"]
+
+    assert codomain_res["commutative_concepts_evaluated"] == 27
+    assert codomain_res["unique_eo_semantic_digests"] == 27
+    assert codomain_res["unique_geo_semantic_digests"] == 27
+    assert codomain_res["is_semantically_injective"] is True
+    assert codomain_res["zero_cross_concept_semantic_collisions"] is True
 
 
 def test_commutation_evidence_and_report_files_exist_and_consistent():
@@ -137,6 +151,8 @@ def test_commutation_evidence_and_report_files_exist_and_consistent():
     report = REPORT_PATH.read_text(encoding="utf-8")
 
     assert evidence["stage"] == "v0.21_wave_f2"
+    assert evidence["scientific_status"] == "EVIDENCE_PARTIAL"
     assert "27 / 32" in report
-    assert "VERIFIED_COMMUTATIVE" in report
+    assert "VERIFIED_BOUNDED_CONTRACT_COMMUTATION" in report
+    assert "Anti-Circularity and Discrimination Matrix" in report
     assert len(evidence["evidence_sha256"]) == 64

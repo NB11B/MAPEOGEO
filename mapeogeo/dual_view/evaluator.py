@@ -1,4 +1,4 @@
-"""Evaluation and Commutation Audit Engine for Wave F2."""
+"""Evaluation and Commutation Audit Engine for Wave F2 & F2.1."""
 
 from __future__ import annotations
 
@@ -7,6 +7,7 @@ from typing import Any
 from mapeogeo.dual_view.models import (
     CommutationRecord,
     CommutationVerdict,
+    CrossPairAuditResult,
     EORealization,
     EquivalenceContract,
     GEORealization,
@@ -299,7 +300,6 @@ class DualViewEvaluator:
             }
             invariants = {"base_size": payload.get("base_simplex_order")}
         elif cid == "canonical:computability:turing_machines_and_computability":
-            # Tape track has (N+1) configurations for N transitions
             trans_steps = max(0, len(payload.get("tape_track", [])) - 1)
             norm_vals = {
                 "halted": payload.get("is_valid_spacetime_lattice"),
@@ -433,11 +433,15 @@ class DualViewEvaluator:
         eo: EORealization,
         geo: GEORealization,
         contract: EquivalenceContract,
+        bound_source_hashes: list[str] | None = None,
+        bound_dependencies: list[str] | None = None,
     ) -> CommutationRecord:
         """Executes full commutation test between EO and GEO realizations."""
         cid = eo.canonical_id
         eo_hash = eo.compute_hash()
         geo_hash = geo.compute_hash()
+        source_hashes = bound_source_hashes or []
+        deps = bound_dependencies or []
 
         try:
             sem_eo = cls.interpret_eo(eo)
@@ -451,14 +455,16 @@ class DualViewEvaluator:
                     name=name,
                     domain=domain,
                     contract=contract,
-                    verdict=CommutationVerdict.UNSUPPORTED,
+                    verdict=CommutationVerdict.OUTSIDE_CURRENT_EXECUTABLE_SCOPE,
                     eo_hash=eo_hash,
                     geo_hash=geo_hash,
                     sem_eo_digest=digest_eo,
                     sem_geo_digest=digest_geo,
                     delta_metric=0.0,
+                    bound_source_hashes=source_hashes,
+                    bound_dependencies=deps,
                     witness={"unsupported_reason": sem_eo.invariants.get("reason") or sem_geo.invariants.get("reason")},
-                    notes="Inherently non-constructive / infinite metatheoretical scope formally classified as UNSUPPORTED.",
+                    notes="Inherently non-constructive / infinite metatheoretical scope formally classified as OUTSIDE_CURRENT_EXECUTABLE_SCOPE.",
                 )
 
             if contract == EquivalenceContract.PARTIAL_ONE_SIDED:
@@ -467,37 +473,41 @@ class DualViewEvaluator:
                     name=name,
                     domain=domain,
                     contract=contract,
-                    verdict=CommutationVerdict.WOUNDED,
+                    verdict=CommutationVerdict.PARTIAL_ONE_SIDED_REALIZATION,
                     eo_hash=eo_hash,
                     geo_hash=geo_hash,
                     sem_eo_digest=digest_eo,
                     sem_geo_digest=digest_geo,
                     delta_metric=0.0,
-                    witness={"partial_status": "One-sided algebraic derivation available; full infinite model completion wounded."},
-                    notes="Classified as WOUNDED due to incomplete conjugate model construction.",
+                    bound_source_hashes=source_hashes,
+                    bound_dependencies=deps,
+                    witness={"partial_status": "One-sided algebraic derivation available; full infinite model completion requires infinite Henkin witness terms."},
+                    notes="Classified as PARTIAL_ONE_SIDED_REALIZATION due to incomplete conjugate model construction.",
                 )
 
             # Compare semantic normalized values and invariants
             vals_match = (sem_eo.normalized_values == sem_geo.normalized_values)
             invs_match = (sem_eo.invariants == sem_geo.invariants)
 
-            if vals_match and invs_match:
+            if vals_match and invs_match and (eo.canonical_id == geo.canonical_id):
                 return CommutationRecord(
                     canonical_id=cid,
                     name=name,
                     domain=domain,
                     contract=contract,
-                    verdict=CommutationVerdict.VERIFIED_COMMUTATIVE,
+                    verdict=CommutationVerdict.VERIFIED_BOUNDED_CONTRACT_COMMUTATION,
                     eo_hash=eo_hash,
                     geo_hash=geo_hash,
                     sem_eo_digest=digest_eo,
                     sem_geo_digest=digest_geo,
                     delta_metric=0.0,
+                    bound_source_hashes=source_hashes,
+                    bound_dependencies=deps,
                     witness={
                         "normalized_values": sem_eo.normalized_values,
                         "shared_invariants": sem_eo.invariants,
                     },
-                    notes="Exact commutation verified between EO algebraic and GEO structural realizations.",
+                    notes="Bounded contract commutation verified between EO algebraic and GEO structural realizations.",
                 )
             else:
                 discrepancies = {}
@@ -507,19 +517,24 @@ class DualViewEvaluator:
                 for k, v in sem_eo.invariants.items():
                     if sem_geo.invariants.get(k) != v:
                         discrepancies[f"inv:{k}"] = {"eo": v, "geo": sem_geo.invariants.get(k)}
+                if eo.canonical_id != geo.canonical_id:
+                    discrepancies["canonical_id_mismatch"] = {"eo": eo.canonical_id, "geo": geo.canonical_id}
+
                 return CommutationRecord(
                     canonical_id=cid,
                     name=name,
                     domain=domain,
                     contract=contract,
-                    verdict=CommutationVerdict.REJECTED,
+                    verdict=CommutationVerdict.NONCOMMUTATIVE_UNDER_CONTRACT,
                     eo_hash=eo_hash,
                     geo_hash=geo_hash,
                     sem_eo_digest=digest_eo,
                     sem_geo_digest=digest_geo,
                     delta_metric=1.0,
+                    bound_source_hashes=source_hashes,
+                    bound_dependencies=deps,
                     witness={"discrepancies": discrepancies},
-                    notes="Commutation rejected due to semantic mismatch between EO and GEO interpretations.",
+                    notes="Commutation rejected due to semantic mismatch between EO and GEO interpretations under contract.",
                 )
 
         except Exception as err:
@@ -534,6 +549,72 @@ class DualViewEvaluator:
                 sem_eo_digest="",
                 sem_geo_digest="",
                 delta_metric=999.0,
+                bound_source_hashes=source_hashes,
+                bound_dependencies=deps,
                 witness={"error": str(err)},
                 notes=f"Evaluation failed with exception: {err}",
+            )
+
+    @classmethod
+    def audit_cross_pair(
+        cls,
+        cid_eo: str,
+        cid_geo: str,
+        eo: EORealization,
+        geo: GEORealization,
+        contract: EquivalenceContract = EquivalenceContract.EXACT_MATCH,
+    ) -> CrossPairAuditResult:
+        """Audits cross-pair discrimination between arbitrary EO and GEO realizations."""
+        sem_eo = cls.interpret_eo(eo)
+        sem_geo = cls.interpret_geo(geo)
+        digest_eo = sem_eo.compute_digest()
+        digest_geo = sem_geo.compute_digest()
+        is_diag = (cid_eo == cid_geo)
+
+        if is_diag:
+            record = cls.audit_commutation(
+                name=cid_eo,
+                domain="Audited Domain",
+                eo=eo,
+                geo=geo,
+                contract=contract,
+            )
+            return CrossPairAuditResult(
+                eo_canonical_id=cid_eo,
+                geo_canonical_id=cid_geo,
+                is_diagonal=True,
+                verdict=record.verdict,
+                sem_eo_digest=digest_eo,
+                sem_geo_digest=digest_geo,
+                discriminates_correctly=True,
+                notes="Diagonal pair audited under designated contract.",
+            )
+        else:
+            # Off-diagonal pair: MUST NOT falsely commute
+            vals_match = (sem_eo.normalized_values == sem_geo.normalized_values)
+            invs_match = (sem_eo.invariants == sem_geo.invariants)
+            is_unsupported = (
+                sem_eo.semantic_type == "UNSUPPORTED" or sem_geo.semantic_type == "UNSUPPORTED"
+            )
+
+            if is_unsupported:
+                verdict = CommutationVerdict.OUTSIDE_CURRENT_EXECUTABLE_SCOPE
+                discriminates = True
+            elif vals_match and invs_match:
+                # Accidental false positive commutation between unrelated concepts!
+                verdict = CommutationVerdict.VERIFIED_BOUNDED_CONTRACT_COMMUTATION
+                discriminates = False
+            else:
+                verdict = CommutationVerdict.NONCOMMUTATIVE_UNDER_CONTRACT
+                discriminates = True
+
+            return CrossPairAuditResult(
+                eo_canonical_id=cid_eo,
+                geo_canonical_id=cid_geo,
+                is_diagonal=False,
+                verdict=verdict,
+                sem_eo_digest=digest_eo,
+                sem_geo_digest=digest_geo,
+                discriminates_correctly=discriminates,
+                notes="Off-diagonal pair evaluated for cross-concept discrimination.",
             )

@@ -104,8 +104,7 @@ def _producer_paths(root: Path) -> tuple[Path, ...]:
             p.name.endswith("_f1.py")
             or p.name.endswith("_f2.py")
             or "_v0_21" in p.name
-            or p.name.startswith("wave_f1")
-            or p.name.startswith("wave_f2")
+            or "wave_f" in p.name
             or "dual_view" in p.as_posix()
         )
     ]

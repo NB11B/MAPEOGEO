@@ -1,4 +1,4 @@
-"""Exact Operator (EO) Algebraic Engine for Wave F2."""
+"""Exact Operator (EO) Algebraic Engine for Wave F2 & F2.1."""
 
 from __future__ import annotations
 
@@ -24,10 +24,11 @@ class EOEngine:
             structural_signature=sig,
         )
 
-    # --- Logic ---
+    # --- Logic & Proof Theory ---
 
     @staticmethod
     def _gen_canonical_logic_propositional_syntax_and_semantics() -> tuple[dict[str, Any], str]:
+        # Boolean polynomial ring over F_2: F2[p, q] / (p^2 - p, q^2 - q)
         return {
             "algebraic_ring": "F2[p, q] / (p^2 - p, q^2 - q)",
             "formula_polynomial": "1 + p*q + p*q*p",
@@ -38,6 +39,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_propositional_compactness_theorem() -> tuple[dict[str, Any], str]:
+        # Finite ideal intersection and algebraic variety
         return {
             "clause_ideals": [
                 {"clauses": ["p OR q", "NOT p OR q"], "satisfiable": True, "variety_size": 2},
@@ -49,6 +51,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_syntax_and_terms() -> tuple[dict[str, Any], str]:
+        # Free term algebra over signature (functions, constants)
         return {
             "signature": {"functions": {"f": 2, "g": 1}, "constants": ["c"]},
             "algebraic_term": "f(g(x), c)",
@@ -60,6 +63,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_structures_and_satisfaction() -> tuple[dict[str, Any], str]:
+        # Tarskian relational algebra matrix evaluation on finite domain
         return {
             "domain_size": 3,
             "relation_matrix_R": [[0, 1, 0], [0, 0, 1], [1, 0, 0]],
@@ -69,6 +73,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_elementary_equivalence_substructures() -> tuple[dict[str, Any], str]:
+        # Invariant vector comparison for elementary equivalence
         return {
             "structure_A_invariants": {"order": 4, "is_abelian": True, "exponent": 2},
             "structure_B_invariants": {"order": 4, "is_abelian": True, "exponent": 2},
@@ -77,6 +82,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_natural_deduction_and_sequent_calculus() -> tuple[dict[str, Any], str]:
+        # Gentzen LK sequent derivation tree
         return {
             "sequent": "p, p -> q |- q",
             "inference_steps": ["axiom(p)", "axiom(q)", "left_impl", "cut_free_derivation"],
@@ -86,6 +92,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_gentzen_cut_elimination() -> tuple[dict[str, Any], str]:
+        # Gentzen Hauptsatz cut rank reduction
         return {
             "initial_cut_rank": 2,
             "reduced_cut_rank": 0,
@@ -95,6 +102,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_soundness_theorem() -> tuple[dict[str, Any], str]:
+        # Proof-theoretic soundness verification (provability implies validity)
         return {
             "syntactic_provability_rank": 1,
             "semantic_validity_score": 1,
@@ -103,6 +111,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_completeness_theorem() -> tuple[dict[str, Any], str]:
+        # Lindenbaum algebra quotient; finite fragment is constructive, infinite Henkin model wounded
         return {
             "lindenbaum_algebra": "BooleanAlgebra_L / Con",
             "is_consistent": True,
@@ -112,13 +121,15 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_compactness_theorem() -> tuple[dict[str, Any], str]:
+        # Infinite first-order compactness requires transfinite ultraproducts/ultrafilters
         return {
             "status": "UNSUPPORTED_INFINITE",
-            "reason": "Arbitrary infinite first-order compactness requires transfinite ultraproducts",
+            "reason": "Arbitrary infinite first-order compactness requires transfinite ultraproducts outside finite executable scope",
         }, "EO:UNSUPPORTED"
 
     @staticmethod
     def _gen_canonical_logic_lowenheim_skolem_theorems() -> tuple[dict[str, Any], str]:
+        # Algebraic closure of Skolem hull
         return {
             "base_subset_size": 3,
             "skolem_hull_algebraic_cardinality": 6,
@@ -127,6 +138,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_computability_turing_machines_and_computability() -> tuple[dict[str, Any], str]:
+        # Turing machine transition monoid and step trace
         return {
             "states": ["q0", "q1", "q_halt"],
             "alphabet": ["0", "1", "_"],
@@ -137,6 +149,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_computability_halting_problem_undecidability() -> tuple[dict[str, Any], str]:
+        # Halting problem undecidability is an inherently non-computable decision barrier
         return {
             "status": "UNSUPPORTED_INFINITE",
             "reason": "Halting problem undecidability is an inherently non-computable infinite decision barrier",
@@ -144,15 +157,17 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_undecidability_and_incompleteness() -> tuple[dict[str, Any], str]:
+        # Gödel incompleteness is formally provable within metamathematics, outside finite dual evaluation
         return {
             "status": "UNSUPPORTED_INFINITE",
-            "reason": "Gödel incompleteness is a metamathematical limit on formal proof systems",
+            "reason": "Gödel incompleteness is a metamathematical limit on formal proof systems outside finite execution scope",
         }, "EO:UNSUPPORTED"
 
     # --- Set Theory ---
 
     @staticmethod
     def _gen_canonical_sets_zfc_axioms_core() -> tuple[dict[str, Any], str]:
+        # Hereditary epsilon membership adjacency matrix
         return {
             "rank": 3,
             "cumulative_set_cardinality": 4,
@@ -167,6 +182,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_sets_relations_and_quotients() -> tuple[dict[str, Any], str]:
+        # Equivalence relation matrix rank and block structure
         return {
             "matrix_size": 4,
             "relation_matrix": [
@@ -183,6 +199,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_sets_functions_and_well_foundedness() -> tuple[dict[str, Any], str]:
+        # Nilpotent strict order adjacency matrix representing well-founded relation
         return {
             "nodes": ["a", "b", "c", "d"],
             "strictly_upper_triangular_matrix": [
@@ -197,6 +214,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_sets_cardinality_and_cantor_theorem() -> tuple[dict[str, Any], str]:
+        # Cantor diagonal polynomial non-surjection witness
         return {
             "base_set_size": 3,
             "power_set_size": 8,
@@ -206,6 +224,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_sets_cantor_schroder_bernstein_theorem() -> tuple[dict[str, Any], str]:
+        # CSB orbit functional iteration and component decomposition
         return {
             "set_A": [1, 2, 3, 4],
             "set_B": ["a", "b", "c", "d"],
@@ -217,6 +236,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_sets_von_neumann_ordinals_and_transfinite_induction() -> tuple[dict[str, Any], str]:
+        # Von Neumann ordinals successor algebra 0, 1={0}, 2={0,1}, 3={0,1,2}
         return {
             "ordinal_sequence": [0, 1, 2, 3],
             "transitive_membership_ranks": [0, 1, 2, 3],
@@ -225,15 +245,17 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_sets_axiom_of_choice_equivalents() -> tuple[dict[str, Any], str]:
+        # Axiom of Choice is independent of ZF and non-constructive for arbitrary infinite families
         return {
             "status": "UNSUPPORTED_INFINITE",
-            "reason": "Axiom of choice non-constructive choice function over arbitrary infinite families",
+            "reason": "Axiom of Choice non-constructive choice function over arbitrary infinite families is independent of ZF and outside finite executable scope",
         }, "EO:UNSUPPORTED"
 
-    # --- Discrete Mathematics ---
+    # --- Discrete Mathematics & Combinatorics ---
 
     @staticmethod
     def _gen_canonical_discrete_mathematical_induction_principles() -> tuple[dict[str, Any], str]:
+        # Polynomial identity verification: sum_{i=1}^n i = n(n+1)/2
         return {
             "base_case_k0": {"n": 0, "value": 0, "formula_eval": 0},
             "inductive_step_identity": "k*(k+1)/2 + (k+1) == (k+1)*(k+2)/2",
@@ -243,6 +265,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_recurrence_relations() -> tuple[dict[str, Any], str]:
+        # Fibonacci characteristic polynomial r^2 - r - 1 and companion matrix
         return {
             "characteristic_polynomial": "r^2 - r - 1",
             "companion_matrix": [[1, 1], [1, 0]],
@@ -252,6 +275,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_combinatorial_counting_principles() -> tuple[dict[str, Any], str]:
+        # Binomial polynomial expansion (1+x)^4
         return {
             "n": 4,
             "binomial_coefficients": [1, 4, 6, 4, 1],
@@ -261,6 +285,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_pigeonhole_and_inclusion_exclusion() -> tuple[dict[str, Any], str]:
+        # Principle of Inclusion-Exclusion alternating sum |A u B u C|
         return {
             "subset_sizes": {"A": 10, "B": 12, "C": 14},
             "pairwise_intersections": {"AB": 4, "AC": 3, "BC": 5},
@@ -270,6 +295,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_generating_functions_and_catalan() -> tuple[dict[str, Any], str]:
+        # Catalan sequence generating function C(x) = (1 - sqrt(1 - 4x)) / (2x)
         return {
             "catalan_sequence": [1, 1, 2, 5, 14, 42],
             "generating_function": "C(x) = (1 - sqrt(1 - 4x)) / (2x)",
@@ -278,6 +304,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_graph_fundamentals_and_handshaking() -> tuple[dict[str, Any], str]:
+        # Handshaking lemma on K4: sum d(v) = 2|E| = 12
         return {
             "vertex_count": 4,
             "edge_count": 6,
@@ -288,6 +315,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_trees_and_spanning_trees() -> tuple[dict[str, Any], str]:
+        # Kirchhoff Matrix-Tree theorem Laplacian determinant on K4: n^(n-2) = 4^2 = 16
         return {
             "graph": "K4",
             "laplacian_matrix": [
@@ -302,6 +330,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_bipartite_graphs_and_matching() -> tuple[dict[str, Any], str]:
+        # Bipartite spectrum symmetry on C4
         return {
             "graph": "C4",
             "adjacency_spectrum": [2.0, 0.0, 0.0, -2.0],
@@ -311,6 +340,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_planarity_and_eulers_formula() -> tuple[dict[str, Any], str]:
+        # Planar K4 cycle space dimension dim(C) = E - V + 1 = 6 - 4 + 1 = 3; faces F = dim(C) + 1 = 4
         return {
             "graph": "K4_planar",
             "vertices": 4,
@@ -321,6 +351,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_graph_coloring_theorems() -> tuple[dict[str, Any], str]:
+        # Chromatic polynomial P(K4, k) = k(k-1)(k-2)(k-3)
         return {
             "graph": "K4",
             "chromatic_polynomial": "k*(k-1)*(k-2)*(k-3)",
@@ -331,6 +362,7 @@ class EOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_traversal_euler_and_hamilton() -> tuple[dict[str, Any], str]:
+        # Eulerian parity invariant (all even degrees) and Hamiltonian cycle on C5
         return {
             "graph": "C5",
             "vertex_degrees": [2, 2, 2, 2, 2],

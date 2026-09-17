@@ -9,298 +9,791 @@
     "UNSUPPORTED_INFINITE": 4
   },
   "expected_verdicts_breakdown": {
-    "UNSUPPORTED": 4,
-    "VERIFIED_COMMUTATIVE": 27,
-    "WOUNDED": 1
+    "OUTSIDE_CURRENT_EXECUTABLE_SCOPE": 4,
+    "PARTIAL_ONE_SIDED_REALIZATION": 1,
+    "VERIFIED_BOUNDED_CONTRACT_COMMUTATION": 27
   },
   "schema_version": "0.21",
   "stage": "v0.21_wave_f2",
   "target_concepts": [
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:DEF:prop_formula",
+        "decl:OPEN_LOGIC:DEF:prop_tautology",
+        "decl:OPEN_LOGIC:DEF:prop_valuation"
+      ],
+      "aligned_statement_sha256s": [
+        "6d513a8123bbb5202cf11bb8d59440876cdfcc6bd48ac2b249fa9fb23ae6b47c",
+        "b680dd78cb28de9c9a9ea842823e997cbf6454a6c5c8dd8a9f395fb9a544e1b2",
+        "08ca4eb36122f68d13578571054fc752f104c4bbe38ff3f8684ad2dfe37a2902"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:prop_formula",
+        "decl:OPEN_LOGIC:DEF:prop_valuation"
+      ],
       "canonical_id": "canonical:logic:propositional_syntax_and_semantics",
       "contract": "EXACT_MATCH",
       "description": "Truth polynomial ring in F2[p,q] commutes with 2D hypercube cell partitioning.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Propositional Logic Syntax and Valuation Semantics"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:THM:prop_compactness"
+      ],
+      "aligned_statement_sha256s": [
+        "a5fa32581d350c258e40e1fec991fa51e44611db8e19faee0a6ba815b9e55cc3"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:prop_tautology"
+      ],
       "canonical_id": "canonical:logic:propositional_compactness_theorem",
       "contract": "BOUNDED_MODEL_EQUIVALENCE",
       "description": "Finite ideal intersection variety matches closed hypercube cell intersection.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Propositional Compactness Theorem"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:DEF:fol_language",
+        "decl:OPEN_LOGIC:DEF:fol_term_and_formula",
+        "decl:OPEN_LOGIC:DEF:free_bound_variables",
+        "decl:OPEN_LOGIC:DEF:term_substitution"
+      ],
+      "aligned_statement_sha256s": [
+        "77b87ff633aac9495186501229d1a819a254c3ffd798ed8f71faa43b08922236",
+        "6d2a23d99c237bd1b61cca35c37a207584534f06d3ce7df46ea55f9a23dd8cc1",
+        "40453ded2319bf91d8a0f84866609643663721d324d8b7b30f18ddd190f6e2c8",
+        "0cb6ca46ef5177a1ce5afdd56f335efdfca246f2c4aa840691f48323b75e1572"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:fol_language",
+        "decl:OPEN_LOGIC:DEF:fol_term_and_formula",
+        "decl:OPEN_LOGIC:DEF:free_bound_variables"
+      ],
       "canonical_id": "canonical:logic:first_order_syntax_and_terms",
       "contract": "ISOMORPHIC_WITNESS",
       "description": "Free term algebraic substitution matches planar syntax tree substitution DAG.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "First-Order Language, Terms, and Formulas"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:DEF:fol_structure",
+        "decl:OPEN_LOGIC:DEF:fol_validity_consequence",
+        "decl:OPEN_LOGIC:DEF:tarskian_satisfaction"
+      ],
+      "aligned_statement_sha256s": [
+        "327b443894f35b5b16626499123f7168ba669de06daf1f9e237606482872a971",
+        "a6cc502d3b1ba75ef04bd53dca6d326c9e5c0a33c94e73c0b121c1cec2c4bb2d",
+        "f0f8d61300f90fda298576b9ea921c406b293e13518e11c9623462b88add5e8b"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:fol_language",
+        "decl:OPEN_LOGIC:DEF:fol_structure",
+        "decl:OPEN_LOGIC:DEF:tarskian_satisfaction"
+      ],
       "canonical_id": "canonical:logic:first_order_structures_and_satisfaction",
       "contract": "BOUNDED_MODEL_EQUIVALENCE",
       "description": "Relational algebra evaluation matches relational directed graph model satisfaction.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "First-Order Structures and Tarskian Satisfaction"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:DEF:elementary_equivalence",
+        "decl:OPEN_LOGIC:THM:tarski_vaught"
+      ],
+      "aligned_statement_sha256s": [
+        "e8c05433b9c87a321e836ca826f17ee7b39e6d3642194d2ca5140d688e49d83a",
+        "b4632e7c2b67301e1fc126af0adb1ab6513240b7532b1f68ae680cdb56ec0c78"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:elementary_equivalence",
+        "decl:OPEN_LOGIC:DEF:fol_validity_consequence"
+      ],
       "canonical_id": "canonical:logic:elementary_equivalence_substructures",
       "contract": "ISOMORPHIC_WITNESS",
       "description": "Algebraic theory invariant agreement matches Ehrenfeucht-Fra\u00efss\u00e9 pebble game strategy.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Elementary Equivalence and Tarski-Vaught Criterion"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:DEF:natural_deduction",
+        "decl:OPEN_LOGIC:DEF:sequent_calculus"
+      ],
+      "aligned_statement_sha256s": [
+        "c876791dac8dfe369635c8d7c381de658aca26972b3a9748b9b07e4224f189b5",
+        "457c50cf65a59658db1b63917185ceb15fb05a9de01d8326601555b8ace6ff3e"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:fol_term_and_formula",
+        "decl:OPEN_LOGIC:DEF:natural_deduction"
+      ],
       "canonical_id": "canonical:logic:natural_deduction_and_sequent_calculus",
       "contract": "ISOMORPHIC_WITNESS",
       "description": "LK sequent inference tensor matches planar proof tree acyclic DAG.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Classical Proof Systems (Natural Deduction and Sequent Calculus LK)"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:THM:cut_elimination",
+        "decl:OPEN_LOGIC:THM:subformula_property"
+      ],
+      "aligned_statement_sha256s": [
+        "ddcce3e4cde16fff98b0044b99f5c268d1d78d3cac6e7d139ca6d6e5044e12c9",
+        "b677b5b85d5d1ace6969cc518862aa6ced3f0503e3e7f9b6abf724b548f681e6"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:sequent_calculus",
+        "decl:OPEN_LOGIC:THM:cut_elimination"
+      ],
       "canonical_id": "canonical:logic:gentzen_cut_elimination",
       "contract": "ISOMORPHIC_WITNESS",
       "description": "Term rewriting cut rank reduction matches proof tree homotopy contraction.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Gentzen's Cut-Elimination Hauptsatz and Subformula Property"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:THM:fol_soundness"
+      ],
+      "aligned_statement_sha256s": [
+        "7c8e17ab6b55f1a803e2375dce77152bd2b93c5163e21335ff58a09a9dca8819"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:fol_validity_consequence",
+        "decl:OPEN_LOGIC:DEF:natural_deduction"
+      ],
       "canonical_id": "canonical:logic:first_order_soundness_theorem",
       "contract": "EXACT_MATCH",
       "description": "Syntactic derivability preservation matches topological model validity embedding.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Soundness Theorem for First-Order Logic"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:DEF:consistency_and_henkin_sets",
+        "decl:OPEN_LOGIC:LEM:henkin_construction",
+        "decl:OPEN_LOGIC:LEM:lindenbaum",
+        "decl:OPEN_LOGIC:THM:fol_completeness"
+      ],
+      "aligned_statement_sha256s": [
+        "85b5b7b3df75ec6fbe15674c7694578e826d3a9c58427c4df278a299272f8354",
+        "dd2b9d25a338aba0829836ef201ec22b0dca0dd10c2449b22d157113426db649",
+        "6af1afcc52d8d59e786442ddcede016a5ce8330d658af63a4e7428df658afbc6",
+        "b99517f852be94a7ef9ae0f419058d1e0932b687bed82500b7beb370eb8ece3c"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:consistency_and_henkin_sets",
+        "decl:OPEN_LOGIC:LEM:henkin_construction",
+        "decl:OPEN_LOGIC:LEM:lindenbaum",
+        "decl:OPEN_LOGIC:THM:fol_soundness"
+      ],
       "canonical_id": "canonical:logic:first_order_completeness_theorem",
       "contract": "PARTIAL_ONE_SIDED",
       "description": "Algebraic sequent calculus is constructive, but full infinite Henkin term model requires transfinite witness.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "WOUNDED",
+      "expected_verdict": "PARTIAL_ONE_SIDED_REALIZATION",
       "layer": "Logic & Proofs",
       "name": "G\u00f6del's First-Order Completeness Theorem"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:THM:fol_compactness"
+      ],
+      "aligned_statement_sha256s": [
+        "a6954b7099fe904061ea0ca6fd63da813f729c2651df62d731966f98d8c988ca"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:THM:fol_completeness"
+      ],
       "canonical_id": "canonical:logic:first_order_compactness_theorem",
       "contract": "UNSUPPORTED_INFINITE",
-      "description": "Unbounded infinite compactness requires non-constructive ultrafilters.",
+      "description": "Unbounded infinite compactness requires non-constructive ultrafilters outside finite executable scope.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "UNSUPPORTED",
+      "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
       "layer": "Logic & Proofs",
       "name": "First-Order Compactness Theorem"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:THM:lowenheim_skolem_downward",
+        "decl:OPEN_LOGIC:THM:lowenheim_skolem_upward"
+      ],
+      "aligned_statement_sha256s": [
+        "9ec094accbd270ad7359fc05d717a85898fab3490ca45f81844d83245c4f5420",
+        "d0f8ec8ae78bfe1669cddfea263013c4bbe4bf94c3d32eda6fa4c6a58ef22839"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:THM:fol_compactness",
+        "decl:OPEN_LOGIC:THM:lowenheim_skolem_downward",
+        "decl:OPEN_LOGIC:THM:tarski_vaught"
+      ],
       "canonical_id": "canonical:logic:lowenheim_skolem_theorems",
       "contract": "BOUNDED_MODEL_EQUIVALENCE",
       "description": "Skolem hull algebraic closure matches induced sub-hypergraph elementary embedding.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Downward and Upward L\u00f6wenheim-Skolem Theorems"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:DEF:computable_function",
+        "decl:OPEN_LOGIC:DEF:recursively_enumerable",
+        "decl:OPEN_LOGIC:DEF:turing_machine",
+        "decl:OPEN_LOGIC:DEF:universal_turing_machine"
+      ],
+      "aligned_statement_sha256s": [
+        "b5a681e56992219e3f18fa961346fa132fa7e537d0d95f462afc748a47831c91",
+        "ff0cb14796e745d5123e61964ba273655aa41f2d4ac378fad4986818f471cff2",
+        "7af3e627a7fdb4da09a2251df70bd1a74d2dce8dcb186392bf0440f32dae4c22",
+        "690646baecf81d48eed8d9ffc462ecb2ab57300da6181c8e1de3fccf6bda8745"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:computable_function",
+        "decl:OPEN_LOGIC:DEF:turing_machine"
+      ],
       "canonical_id": "canonical:computability:turing_machines_and_computability",
       "contract": "EXACT_MATCH",
       "description": "Transition monoid trace matches 2D spacetime grid computation lattice.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Logic & Proofs",
       "name": "Turing Machines and Computable Functions"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:THM:ce_and_decidable",
+        "decl:OPEN_LOGIC:THM:church_turing_thesis",
+        "decl:OPEN_LOGIC:THM:halting_problem_undecidable"
+      ],
+      "aligned_statement_sha256s": [
+        "42d54b2f3ae1e21de36595e330e6670943f3c74a49079a50f36816de6f1c0e06",
+        "952000a2970d4f2d41d098f5d4b30e9c17394edb81fc5b23cbab1ae0dfb1df3e",
+        "2111e0407df683e31ad9c89b288a6bbde7147e5952f5c70de428fcbddc51c2e3"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:DEF:computable_function",
+        "decl:OPEN_LOGIC:DEF:recursively_enumerable",
+        "decl:OPEN_LOGIC:DEF:universal_turing_machine",
+        "decl:OPEN_LOGIC:THM:ce_and_decidable"
+      ],
       "canonical_id": "canonical:computability:halting_problem_undecidability",
       "contract": "UNSUPPORTED_INFINITE",
       "description": "Halting problem undecidability is an inherently non-computable infinite decision barrier.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "UNSUPPORTED",
+      "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
       "layer": "Logic & Proofs",
       "name": "Undecidability of the Halting Problem and Church-Turing Thesis"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_LOGIC:THM:godel_first_incompleteness",
+        "decl:OPEN_LOGIC:THM:godel_second_incompleteness",
+        "decl:OPEN_LOGIC:THM:undecidability_of_fol"
+      ],
+      "aligned_statement_sha256s": [
+        "107d49e5984e34192ac4666cdbfc8df0e49a50c1ddb3dd029f11b3bf9c542adc",
+        "eafffabe833c35c59478988513632754b85814b4d108e3811697737172e192b7",
+        "4c3d11535616b06c74d2c2d56f7dba39fc2f1016185ef242554013f98b65f699"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_LOGIC:THM:fol_completeness",
+        "decl:OPEN_LOGIC:THM:godel_first_incompleteness",
+        "decl:OPEN_LOGIC:THM:halting_problem_undecidable",
+        "decl:OPEN_LOGIC:THM:undecidability_of_fol"
+      ],
       "canonical_id": "canonical:logic:first_order_undecidability_and_incompleteness",
       "contract": "UNSUPPORTED_INFINITE",
-      "description": "G\u00f6del incompleteness is a metamathematical limit on formal proof systems.",
+      "description": "G\u00f6del incompleteness is a metamathematical limit on formal proof systems outside finite dual execution.",
       "domain": "Logic & Proof Theory",
-      "expected_verdict": "UNSUPPORTED",
+      "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
       "layer": "Logic & Proofs",
       "name": "Church-Turing FOL Undecidability and G\u00f6del's Incompleteness Theorems"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_SET_THEORY:AXIOM:choice",
+        "decl:OPEN_SET_THEORY:AXIOM:empty_set",
+        "decl:OPEN_SET_THEORY:AXIOM:extensionality",
+        "decl:OPEN_SET_THEORY:AXIOM:foundation",
+        "decl:OPEN_SET_THEORY:AXIOM:infinity",
+        "decl:OPEN_SET_THEORY:AXIOM:pairing",
+        "decl:OPEN_SET_THEORY:AXIOM:power_set",
+        "decl:OPEN_SET_THEORY:AXIOM:replacement",
+        "decl:OPEN_SET_THEORY:AXIOM:separation",
+        "decl:OPEN_SET_THEORY:AXIOM:union"
+      ],
+      "aligned_statement_sha256s": [
+        "61dac1a5a5102564a8a485f3b755855d0099acc845c036cd74e93363a25998ab",
+        "26a1053180da0cd9100eab9575acf0a5b54a31a77f04840f8603dd0d275c0366",
+        "83728d5b8b09933814e6a509a634a909f7df6a6ecd98869c1f6aec1e00f7cfa6",
+        "2353811dcdb54ef92196604c8a6f1a7bcc4ed0e269a9faf51035b12af03e3907",
+        "662ca1d529d853e11cd9749d55805ec545d88e9522fd7b4d3b9778719071f8e4",
+        "22f34ebce615c8b116b6ca10dc17969833bcd9dce5ac6db47e346c33ff3584fe",
+        "cf0542da3871166dda29102d68a0e86210dd928bb69ed72eb4dd9b5561d885ff",
+        "633d86e869eeb4b2b461660753b6faef397ca69f6fc52e3789561e4d31783307",
+        "cebc84ad5f23e34007a06a1969af173e045cac57551b3baf3c71941757840a72",
+        "26b7d28c3818d5e312dc341c6e4a9d8d6c1ff5e769afc41ee2f4a64ab9a4fddd"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_SET_THEORY:AXIOM:empty_set",
+        "decl:OPEN_SET_THEORY:AXIOM:extensionality",
+        "decl:OPEN_SET_THEORY:AXIOM:pairing",
+        "decl:OPEN_SET_THEORY:AXIOM:separation",
+        "decl:OPEN_SET_THEORY:AXIOM:union"
+      ],
       "canonical_id": "canonical:sets:zfc_axioms_core",
       "contract": "HOMOLOGY_EQUIVALENCE",
       "description": "Hereditary epsilon membership matrix matches cumulative hierarchy V_3 tree.",
       "domain": "Set Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Set Theory",
       "name": "Zermelo-Fraenkel Set Theory Axiom System (ZF/ZFC)"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_SET_THEORY:DEF:binary_relation",
+        "decl:OPEN_SET_THEORY:DEF:equivalence_and_quotient",
+        "decl:OPEN_SET_THEORY:DEF:kuratowski_pair"
+      ],
+      "aligned_statement_sha256s": [
+        "422e884c383852ead0cc10dae82c2252c6f5de4a1c72e78a4860194d4e63837c",
+        "fb6fd6122a74676b2145ddd25ef40600b663ee6bc11b4837e7072763e614c8b2",
+        "eab280464ad1a731e6b92102f4c52a46d87cd5d67a9a7e2ce0e41aac10ab35d3"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_SET_THEORY:AXIOM:pairing",
+        "decl:OPEN_SET_THEORY:AXIOM:power_set",
+        "decl:OPEN_SET_THEORY:DEF:binary_relation",
+        "decl:OPEN_SET_THEORY:DEF:kuratowski_pair"
+      ],
       "canonical_id": "canonical:sets:relations_and_quotients",
       "contract": "EXACT_MATCH",
       "description": "Equivalence relation matrix rank matches geometric disjoint cluster partition.",
       "domain": "Set Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Set Theory",
       "name": "Binary Relations, Equivalence Classes, and Quotient Sets"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_SET_THEORY:DEF:function_properties",
+        "decl:OPEN_SET_THEORY:DEF:well_founded_relation"
+      ],
+      "aligned_statement_sha256s": [
+        "409bd030459b5e45ea9ae35d7588fa43e1ed8be315131545a7f5ffce5acdb053",
+        "30550a666da6d37364426d3ada0bc52831ccdc1c4d30c476030a197b80ce70ef"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_SET_THEORY:AXIOM:foundation",
+        "decl:OPEN_SET_THEORY:DEF:binary_relation",
+        "decl:OPEN_SET_THEORY:DEF:kuratowski_pair"
+      ],
       "canonical_id": "canonical:sets:functions_and_well_foundedness",
       "contract": "HOMOLOGY_EQUIVALENCE",
       "description": "Strictly upper-triangular nilpotent matrix matches topological sort DAG.",
       "domain": "Set Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Set Theory",
       "name": "Functions and Well-Founded Relations"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_SET_THEORY:DEF:countability",
+        "decl:OPEN_SET_THEORY:DEF:equinumerosity",
+        "decl:OPEN_SET_THEORY:THM:cantor_diagonal_uncountable",
+        "decl:OPEN_SET_THEORY:THM:cantors_theorem",
+        "decl:OPEN_SET_THEORY:THM:countable_unions"
+      ],
+      "aligned_statement_sha256s": [
+        "a3f323c075749b98f6206247fb27811e6579291a8dd15f5eeae6ef39604e1b87",
+        "f1c0214a518741efafe2b36bf1da03f56fe4818c82c0ec6d4c9f654c1b97b217",
+        "5aaa3b9b45ae9cd4270f31eee0e5c7f3a59bfcd4ceac680bd79f3a67aadc7300",
+        "ce2c9e2f7aef317f46f3b0bd79626cd4e48a27b4b341b25eb3d59c2649fd4968",
+        "7e2bbae52846e2f585050c3f710d39ac6cba9671470fb3bb942f0c68eab2ab46"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_SET_THEORY:AXIOM:choice",
+        "decl:OPEN_SET_THEORY:AXIOM:infinity",
+        "decl:OPEN_SET_THEORY:AXIOM:power_set",
+        "decl:OPEN_SET_THEORY:DEF:countability",
+        "decl:OPEN_SET_THEORY:DEF:equinumerosity",
+        "decl:OPEN_SET_THEORY:DEF:function_properties",
+        "decl:OPEN_SET_THEORY:THM:cantors_theorem"
+      ],
       "canonical_id": "canonical:sets:cardinality_and_cantor_theorem",
       "contract": "ISOMORPHIC_WITNESS",
       "description": "Cantor diagonal polynomial exclusion matches bipartite grid diagonal separation.",
       "domain": "Set Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Set Theory",
       "name": "Cardinality, Countability, and Cantor's Theorem"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_SET_THEORY:THM:cantor_schroder_bernstein"
+      ],
+      "aligned_statement_sha256s": [
+        "1d0aa236c4f47cb3cad51341e2e540378768285689a57183fa90257d6066e9f3"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_SET_THEORY:DEF:equinumerosity"
+      ],
       "canonical_id": "canonical:sets:cantor_schroder_bernstein_theorem",
       "contract": "ISOMORPHIC_WITNESS",
       "description": "CSB orbit functional iteration matches bipartite alternating reachability graph.",
       "domain": "Set Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Set Theory",
       "name": "Cantor-Schr\u00f6der-Bernstein (CSB) Theorem"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_SET_THEORY:DEF:transitive_set_and_ordinal",
+        "decl:OPEN_SET_THEORY:THM:hartogs_lemma",
+        "decl:OPEN_SET_THEORY:THM:ordinal_trichotomy",
+        "decl:OPEN_SET_THEORY:THM:transfinite_induction",
+        "decl:OPEN_SET_THEORY:THM:transfinite_recursion"
+      ],
+      "aligned_statement_sha256s": [
+        "ba5c95e3eb6906d75871f0b66ef22303e69c0b3c4659416a0ff30166aaf74966",
+        "7232a4b2f291fa236bd5e305425aa5b1d7c7d75f3d4223ebf6370a79f189f97a",
+        "1a27b1b9a6ff119c721ae610bbb37e00fcd959ac44ff778d426b36210605ea8f",
+        "9b9ca3dbeefb2ff8c3393b7e8e28f823b5adf39f453d6b93afffd0802482b384",
+        "32737bb78e465b02cf6838fa30dc7bcb0256a59022b49e2b07cf36ea744c09d9"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_SET_THEORY:AXIOM:foundation",
+        "decl:OPEN_SET_THEORY:AXIOM:power_set",
+        "decl:OPEN_SET_THEORY:AXIOM:replacement",
+        "decl:OPEN_SET_THEORY:DEF:transitive_set_and_ordinal",
+        "decl:OPEN_SET_THEORY:DEF:well_founded_relation",
+        "decl:OPEN_SET_THEORY:THM:ordinal_trichotomy",
+        "decl:OPEN_SET_THEORY:THM:transfinite_induction"
+      ],
       "canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction",
       "contract": "HOMOLOGY_EQUIVALENCE",
       "description": "Transitive ordinal successor algebra matches linear tournament simplicial chain.",
       "domain": "Set Theory",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Set Theory",
       "name": "Von Neumann Ordinals, Transfinite Induction and Recursion"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:OPEN_SET_THEORY:THM:cardinal_comparability",
+        "decl:OPEN_SET_THEORY:THM:tychonoff_set_equivalent",
+        "decl:OPEN_SET_THEORY:THM:well_ordering_theorem",
+        "decl:OPEN_SET_THEORY:THM:zorns_lemma"
+      ],
+      "aligned_statement_sha256s": [
+        "1857753826fa157cfea45954b7f262b35a46b27065f6264e468babbbd0e10717",
+        "32d0b8d35114ffbef117820cc4febf23dd82c85c4201aed47191ac961744cb17",
+        "7b6108e12594859894eb13113826e0d0ef425e542f9c06b21c7f7ce4ecb8e2c7",
+        "84df6c39e2f26e1edc45e9f24c166eabb0f9fcbe224bf64f84cb9880a0cf3d88"
+      ],
+      "bound_dependencies": [
+        "decl:OPEN_SET_THEORY:AXIOM:choice",
+        "decl:OPEN_SET_THEORY:THM:cantor_schroder_bernstein",
+        "decl:OPEN_SET_THEORY:THM:hartogs_lemma",
+        "decl:OPEN_SET_THEORY:THM:transfinite_recursion",
+        "decl:OPEN_SET_THEORY:THM:well_ordering_theorem"
+      ],
       "canonical_id": "canonical:sets:axiom_of_choice_equivalents",
       "contract": "UNSUPPORTED_INFINITE",
-      "description": "Arbitrary infinite family choice function lacks constructive finite witness.",
+      "description": "Arbitrary infinite family choice function lacks constructive finite witness and is independent of ZF.",
       "domain": "Set Theory",
-      "expected_verdict": "UNSUPPORTED",
+      "expected_verdict": "OUTSIDE_CURRENT_EXECUTABLE_SCOPE",
       "layer": "Set Theory",
       "name": "Axiom of Choice and Equivalent Principles"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:THM:strong_induction",
+        "decl:LEVIN_DISCRETE:THM:weak_induction",
+        "decl:LEVIN_DISCRETE:THM:well_ordering_principle"
+      ],
+      "aligned_statement_sha256s": [
+        "d4d8f837ff751eb9f559c5dfbd4fcbe6192bb5906b4ccec79d21890fb02f0dc0",
+        "d60aeed70d90171ec76ac59e834949a956165b2b762f26155037174338438e40",
+        "985cec38a24e559d9097418fdb698d424ddb09ba691d05052643afcc07dbe4e7"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ],
       "canonical_id": "canonical:discrete:mathematical_induction_principles",
       "contract": "HOMOLOGY_EQUIVALENCE",
       "description": "Algebraic inductive polynomial identity matches linear chain poset connectivity.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Elementary Arithmetic & Algebra",
       "name": "Mathematical Induction Principles and Well-Ordering"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:THM:linear_homogeneous_recurrence",
+        "decl:LEVIN_DISCRETE:THM:master_theorem_recurrence",
+        "decl:LEVIN_DISCRETE:THM:repeated_root_recurrence"
+      ],
+      "aligned_statement_sha256s": [
+        "b9630b385d598b34f372d0d5c39e099084943fbdea73ec2e6a6d0a9c531f8d79",
+        "72cff9947643b762834485fcb63677ac51557c89a9581b22e0cf8a5c9210e21b",
+        "ea1699a6aa6d765721d23e361ad55c0f11f54ccca7d6c0eb6870f2bb86e2e53f"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:THM:linear_homogeneous_recurrence",
+        "decl:LEVIN_DISCRETE:THM:strong_induction",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ],
       "canonical_id": "canonical:discrete:recurrence_relations",
       "contract": "EXACT_MATCH",
       "description": "Companion matrix recurrence powers match 2D phase-space trajectory vertices.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Elementary Arithmetic & Algebra",
       "name": "Linear Recurrence Relations and Divide-and-Conquer Recurrences"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:DEF:permutations_and_combinations",
+        "decl:LEVIN_DISCRETE:DEF:sum_product_rules",
+        "decl:LEVIN_DISCRETE:THM:binomial_theorem",
+        "decl:LEVIN_DISCRETE:THM:multinomial_theorem",
+        "decl:LEVIN_DISCRETE:THM:pascals_identity",
+        "decl:LEVIN_DISCRETE:THM:stars_and_bars"
+      ],
+      "aligned_statement_sha256s": [
+        "4ebf48d21e6b32d98f81c5204c54468944e2f2076235deb8494942e87391ba2f",
+        "c553cf065b3e0e8c6d521576b127ca932759baf4560603ecb2e19b5becac38ca",
+        "372fab9a7be9caf406039b2dc1bb50c0cb7ecf15b25e9678516c7444a8a06753",
+        "ae4c6a0eea172838947ae4caad98f68efadeccc4b1c910134553704d47dd713a",
+        "612ac891b6452134c26f2363d32d3dbe916537129e0bdd6af2adad7ca0418295",
+        "6a0ab6bb3efaf0483210bfc53e48b69a2b8d15af6c1b2c1aaf1982a5da504bd7"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:permutations_and_combinations",
+        "decl:LEVIN_DISCRETE:DEF:sum_product_rules",
+        "decl:LEVIN_DISCRETE:THM:binomial_theorem",
+        "decl:LEVIN_DISCRETE:THM:pascals_identity",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ],
       "canonical_id": "canonical:discrete:combinatorial_counting_principles",
       "contract": "EXACT_MATCH",
       "description": "Binomial polynomial expansion matches Pascal simplicial grid lattice paths.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Elementary Arithmetic & Algebra",
       "name": "Combinatorial Enumeration Principles"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:THM:inclusion_exclusion",
+        "decl:LEVIN_DISCRETE:THM:pigeonhole_principle"
+      ],
+      "aligned_statement_sha256s": [
+        "047c5ed25c622feffa6978ed68a650eb7c78ff0aa6f7b4baeed0cc131ec943f8",
+        "8e73dde1c180f7cf8cb515d613674d05ffaf384c3fa197850a151fabae058d65"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:sum_product_rules",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ],
       "canonical_id": "canonical:discrete:pigeonhole_and_inclusion_exclusion",
       "contract": "EXACT_MATCH",
       "description": "PIE alternating sum formula matches geometric Venn spatial volume partition.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Elementary Arithmetic & Algebra",
       "name": "Pigeonhole Principle and Principle of Inclusion-Exclusion (PIE)"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:DEF:ordinary_generating_function",
+        "decl:LEVIN_DISCRETE:THM:catalan_numbers",
+        "decl:LEVIN_DISCRETE:THM:ogf_combination_counting",
+        "decl:LEVIN_DISCRETE:THM:ogf_recurrence_solution"
+      ],
+      "aligned_statement_sha256s": [
+        "576bfb899410367a75d9b2b3b18ad8dbe77ae70afa6b1d4e448f57a68c3ab064",
+        "0c36d189d61fc27962386daf84e8fb39862b034033417f04fc88a73e9b622f28",
+        "f6876f63746c436fb8f62ff9b9f9d19818c2b70b363d6e9f6d2ca4437c5dfc07",
+        "adc52b8d1db22e8b8fddf5a6f0a3915bd7354fc3ac3b92bfd1ad97c287d1de02"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:ordinary_generating_function",
+        "decl:LEVIN_DISCRETE:THM:binomial_theorem",
+        "decl:LEVIN_DISCRETE:THM:linear_homogeneous_recurrence",
+        "decl:LEVIN_DISCRETE:THM:stars_and_bars"
+      ],
       "canonical_id": "canonical:discrete:generating_functions_and_catalan",
       "contract": "EXACT_MATCH",
       "description": "Catalan formal power series convolution matches monotonic Dyck grid paths in Z^2.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Elementary Arithmetic & Algebra",
       "name": "Generating Functions and Catalan Numbers"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics",
+        "decl:LEVIN_DISCRETE:DEF:graph_isomorphism",
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity",
+        "decl:LEVIN_DISCRETE:THM:handshaking_lemma"
+      ],
+      "aligned_statement_sha256s": [
+        "1e9bbd7f2caaf3fde47454f5cb279cbc7a1468453d1517ab56e1d14430b4ce42",
+        "56919e18796393d7363cacad06b9ea1e95f14722cabcc2470250f195004d343f",
+        "331995a8128030686c212ccb4939ca6e928418578d6b26773df08d43b581fda9",
+        "c120b1b128d7294d398ba07a8728384b08b1bb291b960b8a3bf74f3fbcbbb6ad"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics"
+      ],
       "canonical_id": "canonical:discrete:graph_fundamentals_and_handshaking",
       "contract": "HOMOLOGY_EQUIVALENCE",
       "description": "Algebraic degree sum 1^T A 1 matches simplicial 1-complex boundary incidence d_1.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Euclidean Geometry & Trigonometry",
       "name": "Graph Fundamentals and Euler's Handshaking Lemma"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:THM:spanning_tree_existence",
+        "decl:LEVIN_DISCRETE:THM:tree_characterization"
+      ],
+      "aligned_statement_sha256s": [
+        "959fbf1970d2b697c22096e6d815fc99771fe5bfe8f037b852d5358fceac20b5",
+        "ccabe9ec0c1141efb3f56cfd791f06770a9abcdcb64e306b98c57f26d94774b1"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity",
+        "decl:LEVIN_DISCRETE:THM:tree_characterization",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ],
       "canonical_id": "canonical:discrete:trees_and_spanning_trees",
       "contract": "EXACT_MATCH",
       "description": "Matrix-Tree theorem Laplacian determinant matches simplicial spanning tree count.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Euclidean Geometry & Trigonometry",
       "name": "Trees, Characterizations, and Spanning Trees"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:THM:bipartite_two_colorable",
+        "decl:LEVIN_DISCRETE:THM:halls_marriage_theorem"
+      ],
+      "aligned_statement_sha256s": [
+        "6c2a3cd9c4ff029b83ffd2b54c2018b5367909cf8bcb089d6a3a6e54968044e8",
+        "e8699526d9b9841defa477f4022c1e4c4ebdb7830cc2a838ff3543effb01d5c2"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity",
+        "decl:LEVIN_DISCRETE:THM:bipartite_two_colorable",
+        "decl:LEVIN_DISCRETE:THM:strong_induction"
+      ],
       "canonical_id": "canonical:discrete:bipartite_graphs_and_matching",
       "contract": "ISOMORPHIC_WITNESS",
       "description": "Symmetric adjacency spectrum matches bipartite 2-coloring partition and matching.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Euclidean Geometry & Trigonometry",
       "name": "Bipartite Graphs, 2-Colorability, and Hall's Marriage Theorem"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:DEF:planar_embedding",
+        "decl:LEVIN_DISCRETE:THM:eulers_formula",
+        "decl:LEVIN_DISCRETE:THM:kuratowskis_theorem",
+        "decl:LEVIN_DISCRETE:THM:planar_edge_bounds"
+      ],
+      "aligned_statement_sha256s": [
+        "041efbf086a0102e872fcc8b88f612a9bd8b8e8e14f9ba2827cc2ec04b3f41b0",
+        "ce1a9d3e429e29272e30ab6afe95c24bb04ef48ce248dafb1e9c256c05555c9f",
+        "d48e55b35095f06a97336c5836a8747e99822d2ad8d5462ffe392bed77b0f0fb",
+        "5f3b8bcdd61d1a29488d51390165ccb1a091cfeff9092a66a7eb8bfcd6d6e5ca"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:graph_basics",
+        "decl:LEVIN_DISCRETE:DEF:planar_embedding",
+        "decl:LEVIN_DISCRETE:THM:eulers_formula",
+        "decl:LEVIN_DISCRETE:THM:planar_edge_bounds",
+        "decl:LEVIN_DISCRETE:THM:tree_characterization",
+        "decl:LEVIN_DISCRETE:THM:weak_induction"
+      ],
       "canonical_id": "canonical:discrete:planarity_and_eulers_formula",
       "contract": "HOMOLOGY_EQUIVALENCE",
       "description": "Cycle space rank dim(C) = E - V + 1 matches planar cell complex Euler formula V - E + F = 2.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Euclidean Geometry & Trigonometry",
       "name": "Planar Graphs, Plane Embeddings, and Euler's Planar Formula"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:DEF:chromatic_number",
+        "decl:LEVIN_DISCRETE:THM:five_color_theorem",
+        "decl:LEVIN_DISCRETE:THM:four_color_theorem"
+      ],
+      "aligned_statement_sha256s": [
+        "3a8aa4385390b4204ae780407c97f74bda870a757e793d4fcd7923b89cd7c7dc",
+        "046fb073ef695e1bcef9174d94718528e1a66dc6d74ac8922eb4438beea0151f",
+        "d05b0b36acbe357b10c0e375ffeceb1335b389e5eac8683c2f6f7e2ee744a3ad"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:chromatic_number",
+        "decl:LEVIN_DISCRETE:DEF:graph_basics",
+        "decl:LEVIN_DISCRETE:THM:eulers_formula",
+        "decl:LEVIN_DISCRETE:THM:planar_edge_bounds"
+      ],
       "canonical_id": "canonical:discrete:graph_coloring_theorems",
       "contract": "EXACT_MATCH",
       "description": "Chromatic polynomial evaluation matches proper vertex coloring partition.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Euclidean Geometry & Trigonometry",
       "name": "Graph Vertex Coloring, Four Color and Five Color Theorems"
     },
     {
+      "aligned_source_node_ids": [
+        "decl:LEVIN_DISCRETE:THM:diracs_theorem",
+        "decl:LEVIN_DISCRETE:THM:euler_path_circuit"
+      ],
+      "aligned_statement_sha256s": [
+        "9b54d44beb15e7003d82bcc3bb376c9b602cda94efaebc742e368e544915964a",
+        "d50827bb4b3c01be0e3a534ba6745df34354c6dea80a43fd9c46cea20a7e6a65"
+      ],
+      "bound_dependencies": [
+        "decl:LEVIN_DISCRETE:DEF:paths_cycles_connectivity",
+        "decl:LEVIN_DISCRETE:THM:handshaking_lemma"
+      ],
       "canonical_id": "canonical:discrete:traversal_euler_and_hamilton",
       "contract": "EXACT_MATCH",
       "description": "Eulerian degree parity algebraic condition matches closed 1-cycle edge traversal.",
       "domain": "Discrete Mathematics & Combinatorics",
-      "expected_verdict": "VERIFIED_COMMUTATIVE",
+      "expected_verdict": "VERIFIED_BOUNDED_CONTRACT_COMMUTATION",
       "layer": "Euclidean Geometry & Trigonometry",
       "name": "Euler Paths/Circuits and Dirac's Hamiltonian Theorem"
     }

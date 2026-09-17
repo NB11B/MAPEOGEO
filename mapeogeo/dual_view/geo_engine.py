@@ -1,4 +1,4 @@
-"""Geometric / Topological (GEO) Engine for Wave F2."""
+"""Geometric / Topological (GEO) Engine for Wave F2 & F2.1."""
 
 from __future__ import annotations
 
@@ -23,7 +23,7 @@ class GEOEngine:
             structural_signature=sig,
         )
 
-    # --- Logic ---
+    # --- Logic & Proof Theory ---
 
     @staticmethod
     def _gen_canonical_logic_propositional_syntax_and_semantics() -> tuple[dict[str, Any], str]:
@@ -38,6 +38,7 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_logic_propositional_compactness_theorem() -> tuple[dict[str, Any], str]:
+        # Closed hypercube cell intersection
         return {
             "hypercube_dimension": 2,
             "closed_cell_intersection": [[0, 1]],
@@ -109,6 +110,7 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_completeness_theorem() -> tuple[dict[str, Any], str]:
+        # Finite Henkin term graph approximation
         return {
             "term_graph_nodes": ["c0", "c1", "c2", "c3"],
             "term_graph_edges": [["c0", "c1"], ["c1", "c2"], ["c2", "c3"]],
@@ -118,9 +120,10 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_compactness_theorem() -> tuple[dict[str, Any], str]:
+        # Infinite first-order compactness requires transfinite ultraproducts/ultrafilters
         return {
             "status": "UNSUPPORTED_INFINITE",
-            "reason": "Arbitrary infinite first-order compactness requires transfinite ultraproducts",
+            "reason": "Arbitrary infinite first-order compactness requires transfinite ultraproducts outside finite executable scope",
         }, "GEO:UNSUPPORTED"
 
     @staticmethod
@@ -144,6 +147,7 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_computability_halting_problem_undecidability() -> tuple[dict[str, Any], str]:
+        # Halting problem undecidability is an inherently non-computable decision barrier
         return {
             "status": "UNSUPPORTED_INFINITE",
             "reason": "Halting problem undecidability is an inherently non-computable infinite decision barrier",
@@ -151,9 +155,10 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_logic_first_order_undecidability_and_incompleteness() -> tuple[dict[str, Any], str]:
+        # Gödel incompleteness is formally provable within metamathematics, outside finite dual evaluation
         return {
             "status": "UNSUPPORTED_INFINITE",
-            "reason": "Gödel incompleteness is a metamathematical limit on formal proof systems",
+            "reason": "Gödel incompleteness is a metamathematical limit on formal proof systems outside finite execution scope",
         }, "GEO:UNSUPPORTED"
 
     # --- Set Theory ---
@@ -222,16 +227,17 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_sets_axiom_of_choice_equivalents() -> tuple[dict[str, Any], str]:
+        # Axiom of Choice is independent of ZF and non-constructive for arbitrary infinite families
         return {
             "status": "UNSUPPORTED_INFINITE",
-            "reason": "Axiom of choice non-constructive choice function over arbitrary infinite families",
+            "reason": "Axiom of Choice non-constructive choice function over arbitrary infinite families is independent of ZF and outside finite executable scope",
         }, "GEO:UNSUPPORTED"
 
-    # --- Discrete Mathematics ---
+    # --- Discrete Mathematics & Combinatorics ---
 
     @staticmethod
     def _gen_canonical_discrete_mathematical_induction_principles() -> tuple[dict[str, Any], str]:
-        # 1D directed linear chain poset (0 -> 1 -> 2 -> ... -> n)
+        # 1D directed linear chain poset (0 -> 1 -> 2 -> ... -> 5)
         return {
             "poset_chain_nodes": [0, 1, 2, 3, 4, 5],
             "poset_chain_edges": [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5]],
@@ -270,7 +276,7 @@ class GEOEngine:
                 "AB_only": 2, "AC_only": 1, "BC_only": 3,
                 "ABC": 2,
             },
-            "total_union_area": 26,  # 5+5+8 + 2+1+3 + 2 = 26
+            "total_union_area": 26,
         }, "GEO:VENN_SPATIAL_PARTITION"
 
     @staticmethod
@@ -284,18 +290,19 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_graph_fundamentals_and_handshaking() -> tuple[dict[str, Any], str]:
-        # Simplicial 1-complex with 4 vertices, 6 edges, incidence boundary map d_1
+        # Simplicial 1-complex with 4 vertices, 6 edges, boundary incidence map d_1 (Euler characteristic chi = V - E = -2)
         return {
             "vertices": [0, 1, 2, 3],
             "edges": [[0, 1], [0, 2], [0, 3], [1, 2], [1, 3], [2, 3]],
             "boundary_incidence_rank": 3,
             "vertex_incidences": [3, 3, 3, 3],
             "incidence_sum": 12,
+            "simplicial_euler_characteristic_chi": -2,
         }, "GEO:SIMPLICIAL_1_COMPLEX_INCIDENCE"
 
     @staticmethod
     def _gen_canonical_discrete_trees_and_spanning_trees() -> tuple[dict[str, Any], str]:
-        # Spanning tree 1-complexes in K4: 4 vertices, 3 edges, 0 cycles (Euler characteristic chi = 1)
+        # Spanning tree 1-complexes in K4: 4 vertices, 3 edges, 0 cycles (Euler characteristic chi = V - E = 1)
         return {
             "graph": "K4",
             "spanning_trees_simplicial_count": 16,
@@ -317,7 +324,7 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_planarity_and_eulers_formula() -> tuple[dict[str, Any], str]:
-        # Planar embedding of K4: V=4, E=6, F=4 satisfying V - E + F = 2
+        # Planar 2-cell embedding of K4: V=4, E=6, F=4 satisfying V - E + F = 2
         return {
             "graph": "K4_planar",
             "vertices_V": 4,
@@ -329,7 +336,7 @@ class GEOEngine:
 
     @staticmethod
     def _gen_canonical_discrete_graph_coloring_theorems() -> tuple[dict[str, Any], str]:
-        # Planar face coloring: 4 proper colors on K4
+        # Planar vertex coloring: 4 proper colors on K4
         return {
             "graph": "K4",
             "vertex_color_assignment": {0: "red", 1: "blue", 2: "green", 3: "yellow"},

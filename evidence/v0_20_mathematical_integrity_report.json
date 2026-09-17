@@ -54,7 +54,7 @@
       "registry_hashes_are_domain_separated_canonical_json": true
     },
     "producer_source_tree": {
-      "file_count": 52,
+      "file_count": 51,
       "files": {
         "MAPEOGEOFormal.lean": "f8b644abf6a9da022be42db30f19c5b0e9f4a8fde45dd36d5fa5b8d9644859fa",
         "MAPEOGEOFormal/PinchQuartet.lean": "f50af08474725221147ae1a59edd4867004a238f88cc9ae0cf265c2344c4ce78",
@@ -84,8 +84,7 @@
         "scripts/generate_alignments_v0_18.py": "ce48e5e4b19fb73f0e435550b406f000d9418beebd859d4a49bfd36d82c6b264",
         "scripts/generate_alignments_v0_19.py": "627a105ccf1d4b325b005eaeadf6d9c53acaa0a5e3a0d7cbbd6b6f5872d3539d",
         "scripts/generate_foundation_alignments.py": "1251460e3e8b48978db511573fb3710ef77022bbb252abefe0305ececc981974",
-        "scripts/generate_mathematical_integrity_report.py": "9399bc3233787d2ec6666c14ca35fdd4e41a511f3a6b9957b0a626537d577334",
-        "scripts/generate_wave_f2_manifest.py": "607ca0aa0ce253776db0c09cef26b5f1701ef003c93b25388bc442d0d668e014",
+        "scripts/generate_mathematical_integrity_report.py": "31c5d99a208f5522b1b42582d400d80b7ae4fd53e78468cde0d0d227790c3d38",
         "scripts/import_analysis_v0_15.py": "d6022f5542d4fb1c119da0745863a1bceb27052c0352462e291410a8007e23d0",
         "scripts/import_axler_v0_12.py": "c24efc73378e4f535d7b953b00fcab092374d7b78989aeaaba417e0587dab15d",
         "scripts/import_billingsley_v0_17.py": "bd70cba08bbf93a86b6876d3d5977119a78ffd3e98fa618933d1a7acab8f5435",
@@ -109,7 +108,7 @@
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "20d2cd35d27272d68f345a1681e7ec704587eadff69c1c309810f25faf01ec7b"
+      "sha256": "c29568b08c4d5cedd95ec24344cbac71bff3c7d6fae6b57d4ea27562389cb88e"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",
