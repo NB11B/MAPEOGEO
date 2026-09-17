@@ -1,0 +1,62 @@
+{
+  "branch": "agent/main-math-rigor-v0-20",
+  "commit_sha": "c52d61f5ab85bad85f3d49b51a811e609a52e1c0",
+  "file_manifest_sha256": "59663ccf442143af97ad7c2d865d5da3bffb3adf6d05d7b9b3d8a795b1abfed0",
+  "files": [
+    {
+      "path": "MAPEOGEOFormal.lean",
+      "sha256": "f8b644abf6a9da022be42db30f19c5b0e9f4a8fde45dd36d5fa5b8d9644859fa"
+    },
+    {
+      "path": "evidence/v0_20_mathematical_integrity_report.json",
+      "sha256": "f894d2cbe0581d76302b755e421d9832f4a5b97a8fee555f864291e7632ab020"
+    },
+    {
+      "path": "formal/foundation_mathematical_amendments_v0_20.json",
+      "sha256": "ffa3cbbc4b6a2b1f580df71d61ad24522d5aafcc1e5062de6cb559e28b16adae"
+    },
+    {
+      "path": "formal/mathematical_integrity_amendments_v0_20.json",
+      "sha256": "17f1d7f839d96c98aa0a31f8f8972afa695533aea1b512c4723e901021b479d8"
+    },
+    {
+      "path": "lake-manifest.json",
+      "sha256": "b4382094843ee7d4262530eedc7bba4aa6057a03a75911ba5580ad085efc1073"
+    },
+    {
+      "path": "lakefile.lean",
+      "sha256": "10d866aa705d815b2d546ebf169f780cd1c433ad5ae17070f0499701363fc2d0"
+    },
+    {
+      "path": "lean-toolchain",
+      "sha256": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+    },
+    {
+      "path": "requirements-math-rigor-v0-20.lock",
+      "sha256": "d04d5fc31fd029919377fd445048e3911bebb984e4fddec3e63eaaad268023f9"
+    },
+    {
+      "path": "scripts/compute_foundation_depth.py",
+      "sha256": "edb0a644aebbfcc671dd0f4090d3fb31055638c002baf40196913fb7032a3384"
+    },
+    {
+      "path": "scripts/foundation_contracts.py",
+      "sha256": "51ab90eb134525d8ee9c7d467d418742140fc659c832d5195e871444f87b451d"
+    },
+    {
+      "path": "scripts/foundation_intake.py",
+      "sha256": "a5f6168d7b851a06c7cec303d2c176a0835ab8566f4473c6429c047b3d83a700"
+    },
+    {
+      "path": "scripts/generate_mathematical_integrity_report.py",
+      "sha256": "3b97eac63c76a2b5265354b8087b567584dc118b3eda88664e670ddcf96c18e2"
+    },
+    {
+      "path": "scripts/import_foundation_backfill.py",
+      "sha256": "0900a8c1e298015568804fb46e422090b9db319b07516cd2ff435362e72e94b6"
+    }
+  ],
+  "repository": "NB11B/MAPEOGEO",
+  "schema": "PCT_V0_20_REPAIRED_MAIN_BINDING_V1",
+  "tree_sha": "429c723a5fe1ad327819719ece6ac44ea6d47e21"
+}
