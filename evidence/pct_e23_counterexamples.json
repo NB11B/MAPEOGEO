@@ -1,0 +1,29 @@
+{
+  "claim_boundary": "Witness minimality is relative to the bounded E1 corpus/search order, not universal minimality.",
+  "counterexamples": [
+    {
+      "claim": "same Euler characteristic implies same Betti vector",
+      "witness_A": {"b0": 1, "b1": 0, "cell_count": 1, "cells": [[0, 0]], "chi": 1, "perimeter": 4, "shape_id": 0},
+      "witness_B": {"b0": 2, "b1": 1, "cell_count": 5, "cells": [[0, 0], [1, 2], [2, 1], [2, 3], [3, 2]], "chi": 1, "perimeter": 20, "shape_id": 7392}
+    },
+    {
+      "claim": "same Betti vector implies same finite geometry",
+      "witness_A": {"b0": 1, "b1": 0, "cell_count": 1, "cells": [[0, 0]], "chi": 1, "perimeter": 4, "shape_id": 0},
+      "witness_B": {"b0": 1, "b1": 0, "cell_count": 2, "cells": [[0, 0], [0, 1]], "chi": 1, "perimeter": 6, "shape_id": 1}
+    },
+    {
+      "claim": "8-direction Euler probe field is injective on E1 corpus",
+      "shared_P8_hash": "611f8ffc7404cba8653bbc52631327272539f79fe8fd6ed9cff2a3b15014c1a2",
+      "witness_A": {"b0": 1, "b1": 0, "cell_count": 4, "cells": [[0, 0], [0, 1], [0, 2], [1, 0]], "chi": 1, "perimeter": 10, "shape_id": 1824},
+      "witness_B": {"b0": 1, "b1": 0, "cell_count": 5, "cells": [[0, 0], [0, 1], [0, 2], [1, 0], [1, 1]], "chi": 1, "perimeter": 10, "shape_id": 1825}
+    },
+    {
+      "claim": "zero chain-map residual implies intended degree +1 correspondence",
+      "witness": {"chain_map_residual": 0, "cycle_injection_coefficients": [1, 0, 0], "induced_H1_degree": 2}
+    }
+  ],
+  "experiment_id": "E23_COUNTEREXAMPLE_SEARCH_ENGINE",
+  "finding": "Bounded search returned explicit witnesses against four overstrong claims.",
+  "searched_corpus_objects": 7625,
+  "status": "PASS"
+}

@@ -27,3 +27,4 @@ Thumbs.db
 artifacts/
 data/sources/
 *.pdf
+.crossbranch/
