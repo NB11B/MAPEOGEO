@@ -1,0 +1,760 @@
+{
+  "campaign_name": "EO_GEO_DUAL_VIEW_COMMUTATION_AUDIT",
+  "commutation_rate": 0.8438,
+  "commutation_rate_pct": "84.38%",
+  "commutation_records": [
+    {
+      "canonical_id": "canonical:logic:propositional_syntax_and_semantics",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "6b902e5fcf1ccc578cebd7369fe68659463d171a4fceb60f5697a0bf0be17901",
+      "geo_hash": "27bf14c4cd4772899e982e6d4d34b749bca098a1d0798626a828f237b5f6e2ba",
+      "name": "Propositional Logic Syntax and Valuation Semantics",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "475a676515bdf92f88929ec5f548e1c3d4b818903923d6657b00f79f242529c5",
+      "sem_geo_digest": "308dcaa91d6129abc57662168eb279ffa1d81fa12e32be884354bd6188221709",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "is_tautology": true,
+          "truth_vector": [
+            1,
+            1,
+            1,
+            1
+          ]
+        },
+        "shared_invariants": {
+          "variables": 2
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:propositional_compactness_theorem",
+      "contract": "BOUNDED_MODEL_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "bf7f52b76c6926009a8a3f5abd5dafac299925c3d9666af47ef3d2d528627ff5",
+      "geo_hash": "45eb39e35eacf583e464fe6028963c996527f4e26103d7f1071d2b65651e2254",
+      "name": "Propositional Compactness Theorem",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "1a1fd05dec6258b8f0b3709690c74f3b02fb43e631b7e582e609e5b4417763ae",
+      "sem_geo_digest": "9caccf4063f4a4902b4c6c0d4ba7a585d3ed4880aa451973556136b1b85985bc",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "satisfiable": true,
+          "witness_state": {
+            "p": 0,
+            "q": 1
+          }
+        },
+        "shared_invariants": {
+          "closure": true
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_syntax_and_terms",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "8ffdfd2c56761f2e3c28032d60f57e0c3a4586f4aecafb262ee345b8bfb99f59",
+      "geo_hash": "50bbd855f22752e2ecba5fac4c5e9b406cddd1ea631c9ec75782bf28d3d427da",
+      "name": "First-Order Language, Terms, and Formulas",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "e04e6aa5df6320ea786441ba584669e7fbca0c88c8a1a2f6f377ed13ddf68936",
+      "sem_geo_digest": "d7bc6630a9eecdeb826ccbb5c81d80aaa3e51789d0a06c920b60bff22119c4ee",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "depth": 2,
+          "free_vars": [
+            "x"
+          ]
+        },
+        "shared_invariants": {
+          "substituted_form": "f(g(c), c)"
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_structures_and_satisfaction",
+      "contract": "BOUNDED_MODEL_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "7f1692086db39ec280f01a59ee3dec58440cbd1515a5de130927c77892bc1ed9",
+      "geo_hash": "8343cf039d8794259c8e765574cc86b343ad92da944c9d600da920988d5a2920",
+      "name": "First-Order Structures and Tarskian Satisfaction",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "254f2ff0b3d5ed59dc7c9d061126f931b2a6ff6f386394821648eda303bfbe03",
+      "sem_geo_digest": "5a6adca199c00d0cf37a804dd134ca74e4f68e8b3ccaa4e963ff74ac22e61c02",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "domain_size": 3,
+          "satisfaction_value": 1
+        },
+        "shared_invariants": {
+          "sentence_sat": true
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:elementary_equivalence_substructures",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "17b888c3e21d90296a12cd70ed499a5bbf2dcdc748691ba164d504b77bf2dbbf",
+      "geo_hash": "8c72eace63cdd0d27eb4d2c25a7ca167b3e6bdaed998833d474bd17bfa043bc0",
+      "name": "Elementary Equivalence and Tarski-Vaught Criterion",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "1575820a593158c0cc921cdf58427aafabbbc92abaa243beeaff34f9175b70ca",
+      "sem_geo_digest": "ec37505d90cc301e18c271263b841773d8a84a96d18957e8620ef6c0b55929ef",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "is_equivalent": true
+        },
+        "shared_invariants": {
+          "structure_order": 4
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:natural_deduction_and_sequent_calculus",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "2fb7aba9d7d59b157a0afd71c6b11cb4929eaacb4c47747fa9f53310aad3ae01",
+      "geo_hash": "5d790ad982c4ec4c33e09f015510d60c1669f8d8fb366df7c2ea208c99e1818e",
+      "name": "Classical Proof Systems (Natural Deduction and Sequent Calculus LK)",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "24f3214662a021246f689c54fef6c322444b65edcc0dab819d1f77d037b00cd0",
+      "sem_geo_digest": "eac5be8231175b9baa6b501966d5498bacccb40e042698f566ba53ab34fadd43",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "height": 3,
+          "valid": true
+        },
+        "shared_invariants": {
+          "sequent": "p, p -> q |- q"
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:gentzen_cut_elimination",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "715e03ff479d7fbd9ca13a3ce128402f38df9f47dc7fbf387dad84ff4754a113",
+      "geo_hash": "4c1ffd2bf081e45295088e7f9c5ce1e1458172aa52543e519f982e484c17e4eb",
+      "name": "Gentzen's Cut-Elimination Hauptsatz and Subformula Property",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "5a5be681989438fa39cecaec0dbcee4c862925a8c22a61b59d25263a740149f8",
+      "sem_geo_digest": "8ded3915c719538105c8bb9588a9775f0f2e17d2c04c34b48a89df457c5c521a",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "final_cut_rank": 0,
+          "normal_form": true
+        },
+        "shared_invariants": {
+          "subformula_property": true
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_soundness_theorem",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "6db11e26a89803c17803b87d449346dd3b66a092a093303a8b8eaf0f4ca5097d",
+      "geo_hash": "114b681107c41cde1b49a47ebc9cbe0344b39dd230e5840e702001c376fca23d",
+      "name": "Soundness Theorem for First-Order Logic",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "0221b2c6f28c1a1ab0e7400880906c5346516a2aaffedb8c8e90ebe46f883849",
+      "sem_geo_digest": "cc72842e8d6f0e2d7af3706a9fd0c8a53a484e558539d089b73d5daf2f2d868c",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "soundness_gap": 0
+        },
+        "shared_invariants": {
+          "validity_score": 1
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_completeness_theorem",
+      "contract": "PARTIAL_ONE_SIDED",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "260bfe40779e4c4012b7837dbba0236791e35e1eb2196ff1fe43b23eb9ff0c5a",
+      "geo_hash": "485d81102e0d86224f59660e9ecc5419c4be11e027108041bd67f4da38ab2b9b",
+      "name": "G\u00f6del's First-Order Completeness Theorem",
+      "notes": "Classified as WOUNDED due to incomplete conjugate model construction.",
+      "sem_eo_digest": "5b51396d04959ffbf92285cd142b2ad0009f161b24af32c5a3612bac70dabdc8",
+      "sem_geo_digest": "c8465076d9d0873f98f6745f4f4a9c91e3c9da6f8ff0df2c345aff4ecc0a92bb",
+      "verdict": "WOUNDED",
+      "witness": {
+        "partial_status": "One-sided algebraic derivation available; full infinite model completion wounded."
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_compactness_theorem",
+      "contract": "UNSUPPORTED_INFINITE",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "99a903b9c3f2b0c0b85c4880f5d579b9dff490e961642dc28da9f36be7ff6bd6",
+      "geo_hash": "02adbbec582cfba9cc034c4c767e2c5d3c17663f25ed3e9aa80d464e67d7fdbe",
+      "name": "First-Order Compactness Theorem",
+      "notes": "Inherently non-constructive / infinite metatheoretical scope formally classified as UNSUPPORTED.",
+      "sem_eo_digest": "7f7f194a8f3d4c2c986ae9edbf890c5c1ced66091b665e58b49ba47b5beea1d6",
+      "sem_geo_digest": "7f7f194a8f3d4c2c986ae9edbf890c5c1ced66091b665e58b49ba47b5beea1d6",
+      "verdict": "UNSUPPORTED",
+      "witness": {
+        "unsupported_reason": "Arbitrary infinite first-order compactness requires transfinite ultraproducts"
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:lowenheim_skolem_theorems",
+      "contract": "BOUNDED_MODEL_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "76acca2071b95bcd4bd8d3ee65d561157f2d8102aa6d0c27f043832e582211cc",
+      "geo_hash": "1bd5951b8ed589f176ca688f9317e2966c7d5ede90d8b2382f5646d655bda98e",
+      "name": "Downward and Upward L\u00f6wenheim-Skolem Theorems",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "f364b9d24bea33c0b894bdf8151802aad90f408f74b399202be0ff1afa15fd20",
+      "sem_geo_digest": "c37fe3ff6ddf31b498c9dc2f610d755e119703e26458abaac8f9c11598df1ace",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "is_elementary": true,
+          "submodel_cardinality": 6
+        },
+        "shared_invariants": {
+          "base_size": 3
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:computability:turing_machines_and_computability",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "19f3a149555f49afcd480f8893f64937a1f20f952059bc33167fb400260782de",
+      "geo_hash": "d77f19dd43e83cbb154ba51028d4c1e929d6378d7501404057188ef176b01f92",
+      "name": "Turing Machines and Computable Functions",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "e0fd8778b6ebebe93ddd5f582bc332d80c7098bb4db7cb33a9fcb4693b286e67",
+      "sem_geo_digest": "aaec03636c61f9c2f3aaf210311a86adb1307ac6a739744dcf5e0e1ce7a13898",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "halted": true,
+          "transition_steps": 2
+        },
+        "shared_invariants": {
+          "monoid_rank": 3
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:computability:halting_problem_undecidability",
+      "contract": "UNSUPPORTED_INFINITE",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "19e3176d8fcbe60664b9f6c06fc6bdd2aa8dd46ec5046512d3315b8414687774",
+      "geo_hash": "ba758d1b77c12ba9eae22079ba061c4b83bb9f3a47b4f38584b07b35f11a8f08",
+      "name": "Undecidability of the Halting Problem and Church-Turing Thesis",
+      "notes": "Inherently non-constructive / infinite metatheoretical scope formally classified as UNSUPPORTED.",
+      "sem_eo_digest": "c535d095026525f4541ad491828fbba2674b49c309597c7335c44dd3e1513dce",
+      "sem_geo_digest": "c535d095026525f4541ad491828fbba2674b49c309597c7335c44dd3e1513dce",
+      "verdict": "UNSUPPORTED",
+      "witness": {
+        "unsupported_reason": "Halting problem undecidability is an inherently non-computable infinite decision barrier"
+      }
+    },
+    {
+      "canonical_id": "canonical:logic:first_order_undecidability_and_incompleteness",
+      "contract": "UNSUPPORTED_INFINITE",
+      "delta_metric": 0.0,
+      "domain": "Logic & Proof Theory",
+      "eo_hash": "c51ef7b7a4492d64eeb1d83db350f2ceb944c3469e57e56022affc969a270448",
+      "geo_hash": "345058a982dd0b4ec91fd0bf59319aff5741d850cb9bbb402157af0d5be49677",
+      "name": "Church-Turing FOL Undecidability and G\u00f6del's Incompleteness Theorems",
+      "notes": "Inherently non-constructive / infinite metatheoretical scope formally classified as UNSUPPORTED.",
+      "sem_eo_digest": "b87501e59347737f0dc6891c31549a474c63e9020c87d2d9a017682bc142023a",
+      "sem_geo_digest": "b87501e59347737f0dc6891c31549a474c63e9020c87d2d9a017682bc142023a",
+      "verdict": "UNSUPPORTED",
+      "witness": {
+        "unsupported_reason": "G\u00f6del incompleteness is a metamathematical limit on formal proof systems"
+      }
+    },
+    {
+      "canonical_id": "canonical:sets:zfc_axioms_core",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Set Theory",
+      "eo_hash": "50a9a4d270088cbbfe4b04e330001505bb150ab0932209df190ab6b7745237b4",
+      "geo_hash": "916779b71502108b105705ac35254673f9f1cb7972cb9f2a14f2c46150460b5c",
+      "name": "Zermelo-Fraenkel Set Theory Axiom System (ZF/ZFC)",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "e2696d3a548394917683fb6710154179ee996062a5af431f26a0f52e454336d8",
+      "sem_geo_digest": "95caa43f3593346adac646efee7c88737908a2d841293db23eb7bd1691209284",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "cardinality": 4,
+          "foundation_acyclic": true
+        },
+        "shared_invariants": {
+          "rank": 3
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:sets:relations_and_quotients",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Set Theory",
+      "eo_hash": "0f10b1b66bee0f8719883cfe3fc894dcedb3203baaaff07c4dedacebc0c4aa82",
+      "geo_hash": "af520acd2d0e22e0c8e345ce9d23603cfe7f92140077a56d7996ce47c99ceddf",
+      "name": "Binary Relations, Equivalence Classes, and Quotient Sets",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "0c67dd37aed0ef71707332458e817989b583f67c6c41aba7b61e87432aef61c8",
+      "sem_geo_digest": "c77ccd9dd7e7c02039009ec82e0250bfa72d9b729a9e5868b78e4b47be04a555",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "is_equivalence": true,
+          "num_equivalence_classes": 2
+        },
+        "shared_invariants": {
+          "matrix_size": 4
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:sets:functions_and_well_foundedness",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Set Theory",
+      "eo_hash": "91771359a8c621f80b083fe4ef41d14d4ab448bdae0d1d65aa82213b45429f79",
+      "geo_hash": "b89392a021d17a94d4488cbc8aa7e88242b245234a82abdd7b13bd5f094953a3",
+      "name": "Functions and Well-Founded Relations",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "a0ecbd663ac3069b2d9e08bb75205cebce16e332db8500e4198850d7b8792211",
+      "sem_geo_digest": "8ad64f0faea783d11b7dfe50852ae43537cfd9a46045e5bd07ed4f01e4882251",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "is_well_founded": true,
+          "nilpotent_order": 4
+        },
+        "shared_invariants": {
+          "num_nodes": 4
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:sets:cardinality_and_cantor_theorem",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Set Theory",
+      "eo_hash": "954d432e1f0906b8e226ae4bbd913039d3b0a4e7e934b6b2a4775d5c40464302",
+      "geo_hash": "48e7ec20f68b8e7efdb7bbc095a8e85d076ef240936563dcef7594ecacfbd0ca",
+      "name": "Cardinality, Countability, and Cantor's Theorem",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "1e83309302984c7a31ae6345d5f1586817be627b93e0807c76667baf0ab0f6aa",
+      "sem_geo_digest": "dbc0b075d2634f41a1e7b1cc9ecb8ead879e2ad5a5d1e2a3bb41bf7d28149267",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "diagonal_witness": [
+            1,
+            0,
+            1
+          ],
+          "strict_inequality": true
+        },
+        "shared_invariants": {
+          "base_size": 3,
+          "power_size": 8
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:sets:cantor_schroder_bernstein_theorem",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Set Theory",
+      "eo_hash": "5d7ec224d9d0e794e3252162804411def326dfc387871a5da9398f55fedad5b4",
+      "geo_hash": "83a4397237df642db9e21eff2ea5c6f025a590bf17446a11d5db1548a5ef07c8",
+      "name": "Cantor-Schr\u00f6der-Bernstein (CSB) Theorem",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "164b15198441c747cfa8c5fdc1d4747d995ad79bfcdc771ebda67d94de90b790",
+      "sem_geo_digest": "43362de28d29d188b988e28c61f1cf26a8df07724dc96a6525484403b7007a7d",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "bijection_constructed": true,
+          "domain_size": 4
+        },
+        "shared_invariants": {
+          "orbit_types": [
+            "A_A"
+          ]
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:sets:von_neumann_ordinals_and_transfinite_induction",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Set Theory",
+      "eo_hash": "88b458b227102d5ba80961d754e0f681165375e4801a7b4520e1b471f24bcb3d",
+      "geo_hash": "00415f4f675d861159fba87c8828c81590bdb85be99f6563401560c6a7794f20",
+      "name": "Von Neumann Ordinals, Transfinite Induction and Recursion",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "e44f0e2d8088b938ae1f6eb013786e7396c1fb2d62136034b21b23f313b7c986",
+      "sem_geo_digest": "73a8c982f5c1b667d7e333c43784849303a05aeb82054ad9bca2b43638da09ce",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "chain_length": 4,
+          "trichotomy": true
+        },
+        "shared_invariants": {
+          "ranks": [
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:sets:axiom_of_choice_equivalents",
+      "contract": "UNSUPPORTED_INFINITE",
+      "delta_metric": 0.0,
+      "domain": "Set Theory",
+      "eo_hash": "5434aecd18ef362c58d75f7974b675a1e444def32e00a4a64ed90250be69d044",
+      "geo_hash": "7eb5eebb6487684686b6742bd171165cefc9ab8a31077084c5d488b6ac233f11",
+      "name": "Axiom of Choice and Equivalent Principles",
+      "notes": "Inherently non-constructive / infinite metatheoretical scope formally classified as UNSUPPORTED.",
+      "sem_eo_digest": "0e7898b35c5cdf753fee04eab8d11e752bb0b8a5134280ea5ce4d1c33b6da10b",
+      "sem_geo_digest": "0e7898b35c5cdf753fee04eab8d11e752bb0b8a5134280ea5ce4d1c33b6da10b",
+      "verdict": "UNSUPPORTED",
+      "witness": {
+        "unsupported_reason": "Axiom of choice non-constructive choice function over arbitrary infinite families"
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:mathematical_induction_principles",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "4eb86543190937cf211b3516ae8a2840e1f1f422d85076520ea8d3e9ae142af8",
+      "geo_hash": "e8b10ad54f61557cf7d68f37d82771ba06e2eca07edddc61a93b9454103bde2d",
+      "name": "Mathematical Induction Principles and Well-Ordering",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "4eb152c82c22c34635ff4fbdc67549083ef8a30f647ab392e0cc5d213f683d2a",
+      "sem_geo_digest": "d84c96c89aece4d4ade691bdf5c21c1beb07722112d92a89a5e94db7cb3b98d0",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "base_case_val": 0,
+          "induction_holds": true
+        },
+        "shared_invariants": {
+          "tested_count": 8
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:recurrence_relations",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "15ad6f571ac12eb6d038b885e6122c55634d6dfe94e48d34289e3a681beaa221",
+      "geo_hash": "bc1417c2bbe1427e2674fbe6a64601731d134567b62124775579d7aa2fd3454e",
+      "name": "Linear Recurrence Relations and Divide-and-Conquer Recurrences",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "fe3f112a62d53ad800173bbceb65e6bfccd8968ecd2c6a4552bc27c3da75b5ec",
+      "sem_geo_digest": "52c46cb296f76b15a8a96791fcb34c589e2766a2c8c4c3064f2027a19051dd61",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "char_poly": "r^2 - r - 1",
+          "sequence_head": [
+            0,
+            1,
+            1,
+            2,
+            3
+          ]
+        },
+        "shared_invariants": {
+          "initial_conditions": [
+            0,
+            1
+          ]
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:combinatorial_counting_principles",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "ce4a02afaf12db76b27c21c6e3f7c587a0930ef0b3baf767518ad3ebdf9e98f5",
+      "geo_hash": "80120a41963d963ade08339e1d8a8ebd789fd436fdd82b0516ad863b084277a2",
+      "name": "Combinatorial Enumeration Principles",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "1a7082e7c1ad20bcb7df2ca6d6ec8c1d62f40b10526c4b581a84c36516a0ec83",
+      "sem_geo_digest": "aff4a4c4dc951131bc6f2824881ac9f7c8dba1032f018ab2c6d380c88927d451",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "binomial_coeffs": [
+            1,
+            4,
+            6,
+            4,
+            1
+          ],
+          "sum_coefficients": 16
+        },
+        "shared_invariants": {
+          "n": 4
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:pigeonhole_and_inclusion_exclusion",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "3afe159098de6a6dd891bb4988d83de136437a4d7668c99ae65327480dceb9fd",
+      "geo_hash": "857ae939dccf0fd2d88837f6ab04d47a25e92466006c0ac9c3cd5b278aba1ea8",
+      "name": "Pigeonhole Principle and Principle of Inclusion-Exclusion (PIE)",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "eff0c34722105fcae2efa29187727858d8b794667745b58d6b9494c0493b3972",
+      "sem_geo_digest": "fa1a557bab947ff1d723b27c228a0c88c4bcce19cd2ecaed339a6d35f2055939",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "total_union_cardinality": 26
+        },
+        "shared_invariants": {
+          "triple_overlap": 2
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:generating_functions_and_catalan",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "537af775b95f9582d6239d33f67e22d4fa138eb61499bf6a6f02401a703bda4f",
+      "geo_hash": "0b0ab898301a14343bd18d101b0c3a6eddf2a841b3dff21eefed74c6dde3fc8d",
+      "name": "Generating Functions and Catalan Numbers",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "6dc7d81c7bf50a68c0ed6028466f582e56442c56f8b0daf75f1ac8c9beac6916",
+      "sem_geo_digest": "f3a5209a18ad9350f55a7eb4f7ac8fe62dbd36deeaf6f979528f758f6f91fba9",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "catalan_terms": [
+            1,
+            1,
+            2,
+            5,
+            14,
+            42
+          ],
+          "convolution_holds": true
+        },
+        "shared_invariants": {
+          "series": "C(x) = (1 - sqrt(1 - 4x)) / (2x)"
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:graph_fundamentals_and_handshaking",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "a674669d10592f1b08af491e82f38ddc23d1c8da19f57d0e7d68c6b869537115",
+      "geo_hash": "0565bdbe77bdb2e8b67aa82cf094e837e1ac812b60d15411dffd8767f88fa487",
+      "name": "Graph Fundamentals and Euler's Handshaking Lemma",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "3b797be2c6f865909cf94d8c03c48b8e402014515fb06bbaeebcf047989b6686",
+      "sem_geo_digest": "e9134b395805a01f326ba51ad1e564d2397de164556d317c3fca15daf36d3ad2",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "degree_sum": 12,
+          "edges_count": 6,
+          "handshaking_valid": true
+        },
+        "shared_invariants": {
+          "vertices": 4
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:trees_and_spanning_trees",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "be59aa1a2c65ba7e33b769a36ec5951a9e9ca990eace7bd47f94137d02abe8ce",
+      "geo_hash": "a04bd5a6a159e4209125f9f1c8f8e16aee4ca67cc977b919f82b8df076e9806c",
+      "name": "Trees, Characterizations, and Spanning Trees",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "0bc27bf4421f0892b8edcd76207f69d877d63368c944d4abdd4454f4d85f419b",
+      "sem_geo_digest": "0e53ab19d0c37729d316ea06be0ded5f2f752b64064394a1fa2fee5002293ddd",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "tree_count": 16
+        },
+        "shared_invariants": {
+          "graph": "K4"
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:bipartite_graphs_and_matching",
+      "contract": "ISOMORPHIC_WITNESS",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "0bc00f9e9f5e11a372a677732cd98bd14984f9bdc82f6cbca4410112c1365e60",
+      "geo_hash": "b55a06552b327b958857cf7ac1fc6b117431d5cfd815955c5e2251f041b1bc1a",
+      "name": "Bipartite Graphs, 2-Colorability, and Hall's Marriage Theorem",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "b9f391a2198766c5884506ef7319cdf3d828999d461aeb1d27d4427f63a0e427",
+      "sem_geo_digest": "a0fb67e9eaa1528ea289c561a729166a268e805dc091803fc3ef408e593ade3c",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "is_symmetric_spectrum": true,
+          "matching_size": 2
+        },
+        "shared_invariants": {
+          "graph": "C4"
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:planarity_and_eulers_formula",
+      "contract": "HOMOLOGY_EQUIVALENCE",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "bd8b60b93eb9c88b0a4fdb608b2051520a58e8d918e807fd74c1d8e3d66d29dd",
+      "geo_hash": "a79415f5844ed85ccc9f128a4586549180519cab2f8223c5d21d468c78302203",
+      "name": "Planar Graphs, Plane Embeddings, and Euler's Planar Formula",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "ff26a30027636e3de11bd14735712ff627f45fb6d0143e951b6e627e9fe5ef9a",
+      "sem_geo_digest": "2e00824b9d69d0a462fb16c7b5685982ca44334e83832e0667efefc144120948",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "edges": 6,
+          "faces_count": 4,
+          "vertices": 4
+        },
+        "shared_invariants": {
+          "cycle_space_dim": 3
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:graph_coloring_theorems",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "b1149afd8788f0ada71ba91990d97fdbe192b2f4b989b12d410e508d81db43ba",
+      "geo_hash": "9e75f90b0be59f565086b48e20bbfc0b010755b803acda97641c41eaabd285d4",
+      "name": "Graph Vertex Coloring, Four Color and Five Color Theorems",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "b65b346b318fb927ea065e936e47aab75d92109ec8783d8db2d932652c727a89",
+      "sem_geo_digest": "6818456b2c8e3e7ee7a94b22efa46d3e0392350238c54da1d6c46fded88b828f",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "chromatic_number": 4,
+          "eval_at_4": 24
+        },
+        "shared_invariants": {
+          "graph": "K4"
+        }
+      }
+    },
+    {
+      "canonical_id": "canonical:discrete:traversal_euler_and_hamilton",
+      "contract": "EXACT_MATCH",
+      "delta_metric": 0.0,
+      "domain": "Discrete Mathematics & Combinatorics",
+      "eo_hash": "790a19a49284e95e2539108c58ddc390249b18437984c71bb7d421aff7f208ad",
+      "geo_hash": "c8d0b792f181d24ae61896f7b8716dbb6378e48754f4fff6957803f1674db257",
+      "name": "Euler Paths/Circuits and Dirac's Hamiltonian Theorem",
+      "notes": "Exact commutation verified between EO algebraic and GEO structural realizations.",
+      "sem_eo_digest": "f48aef3da4a025314d1b8217e629d3802458ba62a763cd660bd748353e7cd344",
+      "sem_geo_digest": "b56782330693c8bf64780aa457ec64fa5b44ba9701811067654974dbbfc82707",
+      "verdict": "VERIFIED_COMMUTATIVE",
+      "witness": {
+        "normalized_values": {
+          "is_eulerian": true,
+          "is_hamiltonian": true
+        },
+        "shared_invariants": {
+          "graph": "C5"
+        }
+      }
+    }
+  ],
+  "domain_breakdown": {
+    "Discrete Mathematics & Combinatorics": {
+      "error": 0,
+      "rejected": 0,
+      "total": 11,
+      "unsupported": 0,
+      "verified": 11,
+      "wounded": 0
+    },
+    "Logic & Proof Theory": {
+      "error": 0,
+      "rejected": 0,
+      "total": 14,
+      "unsupported": 3,
+      "verified": 10,
+      "wounded": 1
+    },
+    "Set Theory": {
+      "error": 0,
+      "rejected": 0,
+      "total": 7,
+      "unsupported": 1,
+      "verified": 6,
+      "wounded": 0
+    }
+  },
+  "evidence_sha256": "12eb6eae6fb6434be4bf4e8d5607bd6ef5a68b045af3a6c08489f266833de50c",
+  "execution_time_seconds": 0.0009,
+  "stage": "v0.21_wave_f2",
+  "total_canonical_concepts_audited": 32,
+  "verdict_breakdown": {
+    "IMPLEMENTATION_ERROR": 0,
+    "REJECTED": 0,
+    "UNSUPPORTED": 4,
+    "VERIFIED_COMMUTATIVE": 27,
+    "WOUNDED": 1
+  }
+}

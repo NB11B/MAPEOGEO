@@ -84,7 +84,8 @@
         "scripts/generate_alignments_v0_18.py": "ce48e5e4b19fb73f0e435550b406f000d9418beebd859d4a49bfd36d82c6b264",
         "scripts/generate_alignments_v0_19.py": "627a105ccf1d4b325b005eaeadf6d9c53acaa0a5e3a0d7cbbd6b6f5872d3539d",
         "scripts/generate_foundation_alignments.py": "1251460e3e8b48978db511573fb3710ef77022bbb252abefe0305ececc981974",
-        "scripts/generate_mathematical_integrity_report.py": "c648115652abc5e5467c70191e68105be22c0eb6bef385da9b711814cbd3dc74",
+        "scripts/generate_mathematical_integrity_report.py": "9399bc3233787d2ec6666c14ca35fdd4e41a511f3a6b9957b0a626537d577334",
+        "scripts/generate_wave_f2_manifest.py": "607ca0aa0ce253776db0c09cef26b5f1701ef003c93b25388bc442d0d668e014",
         "scripts/import_analysis_v0_15.py": "d6022f5542d4fb1c119da0745863a1bceb27052c0352462e291410a8007e23d0",
         "scripts/import_axler_v0_12.py": "c24efc73378e4f535d7b953b00fcab092374d7b78989aeaaba417e0587dab15d",
         "scripts/import_billingsley_v0_17.py": "bd70cba08bbf93a86b6876d3d5977119a78ffd3e98fa618933d1a7acab8f5435",
@@ -95,7 +96,6 @@
         "scripts/import_math_deep.py": "4251a127b53997caee4357938a4fac78e186b8a538c2a19c10251015f451928f",
         "scripts/import_topology_v0_16.py": "7203aeabce90eaa8fec4b86751b57aad28f7bc84d61b8d699f5b98d81bb21bc6",
         "scripts/import_vmls_v0_13.py": "afa95d05fee1185a72b0a133efcb3969953bb7b38596ced8cc61e826f5d6bd27",
-        "scripts/independent_dual_view_v0_6.py": "9532969698222df02afcd74f84d2d600d639d8e5373dd415801fffbba7c05b12",
         "scripts/io_utils.py": "5fac4b4f6398246c25a1e30ad7e5f2ab04d3ac3e63096d240abd4f648abdf462",
         "scripts/map_goal_v0_7.py": "124f272fb0660d790e158b1deb64a96bd28f7ca69e5194e2bf8b295b056c9ff8",
         "scripts/measure_intake_v0_17.py": "582efe28c95dd6e29bc54fc883fe4d42a374480c65a4c2685d2cfddadddeea74",
@@ -104,12 +104,12 @@
         "scripts/pinch_intake_v0_11.py": "845ba6ae429cd0bdae75af604819aaee04406ae10b24b9968cc3f52c428dae50",
         "scripts/pinch_quartet_v0_10.py": "7903a1873720d15f9de6593ac01aed4ccb640e81b2b91bcf80932defb80d3445",
         "scripts/proof_paths_v0_9.py": "b1ca1887b9ac1945f6f53139c0e40d99b9cec0e78ce1b63f4b568ca7625ef6e7",
-        "scripts/reconstruct_pipeline.py": "d51bf9864457bdac2764211a41c74b01e8d88d47e46c749774ea3771573d8e21",
+        "scripts/reconstruct_pipeline.py": "285233531d3cf8f9ea4aa2d4d9b27de6c2541e3b67a557481ffa9d1c2f227113",
         "scripts/topology_intake_v0_16.py": "a05c73cd226f35a8f1eb03eafd17612699358ca80eeeee05fe75d5b0c5e7937e",
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "b90386ffdbfb75daede0d54e4617c24d99eaf5a7a5262a5daf3a529ced23769d"
+      "sha256": "20d2cd35d27272d68f345a1681e7ec704587eadff69c1c309810f25faf01ec7b"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",
