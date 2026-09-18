@@ -1,58 +1,136 @@
 from __future__ import annotations
 
-import copy
 import gzip
-import hashlib
 import json
 from pathlib import Path
+
 import pytest
 
-from mapeogeo.gfyproof_bridge import (
-    apply_gfyproof_certificate,
-    canonical_sha256,
-    claim_contract_digest,
-    validate_gfyproof_certificate,
-)
 from mapeogeo.farkas_contracts_v1 import (
     FARKAS_SPECS,
     FarkasContractError,
-    apply_farkas_endpoint_overlay,
+    LINEAR_SEMANTICS_KEY,
     build_farkas_endpoint_overlay,
+    validate_farkas_spec_semantic_binding,
 )
 
+
 ROOT = Path(__file__).resolve().parents[1]
-FOUNDATION_GRAPH_PATH = ROOT / 'artifacts' / 'foundation_backfill' / 'mapeogeo_foundation_graph.json.gz'
+FOUNDATION_GRAPH_PATH = (
+    ROOT
+    / "artifacts"
+    / "foundation_backfill"
+    / "mapeogeo_foundation_graph.json.gz"
+)
 
 
-def test_farkas_specs_count_and_structure():
+def test_farkas_specs_remain_algebraic_fixtures() -> None:
     assert len(FARKAS_SPECS) >= 10
     for spec in FARKAS_SPECS:
-        assert spec.semantic_id == 'GFY.FARKAS_IMPLICATION.v1'
-        assert spec.contract_id.startswith('mapeogeo.farkas.')
-        assert 'matrix' in spec.payload
-        assert 'bounds' in spec.payload
-        assert 'multipliers' in spec.payload
+        assert spec.semantic_id == "GFY.FARKAS_IMPLICATION.v1"
+        assert spec.contract_id.startswith("mapeogeo.farkas.")
+        assert "matrix" in spec.payload
+        assert "bounds" in spec.payload
+        assert "multipliers" in spec.payload
 
 
-def test_farkas_overlay_builds_and_applies_on_foundation_graph():
+def test_real_foundation_graph_rejects_unbound_farkas_overlay() -> None:
     if not FOUNDATION_GRAPH_PATH.exists():
-        pytest.skip('Foundation graph not present')
+        pytest.skip("Foundation graph not present")
 
-    with gzip.open(FOUNDATION_GRAPH_PATH, 'rt', encoding='utf-8') as f:
-        graph = json.load(f)
+    with gzip.open(
+        FOUNDATION_GRAPH_PATH,
+        "rt",
+        encoding="utf-8",
+    ) as handle:
+        graph = json.load(handle)
 
-    overlay = build_farkas_endpoint_overlay(graph)
-    assert overlay['schema'] == 'mapeogeo.endpoint-semantic-overlay.v1'
-    assert len(overlay['contracts']) == len(FARKAS_SPECS)
-    assert 'overlay_digest' in overlay
+    with pytest.raises(
+        FarkasContractError,
+        match="missing source-bound Farkas premise semantics",
+    ):
+        build_farkas_endpoint_overlay(graph)
 
-    enriched = apply_farkas_endpoint_overlay(graph, overlay)
-    nodes = {n['id']: n for n in enriched['nodes']}
 
-    for spec in FARKAS_SPECS:
-        p_node = nodes[spec.premise_id]
-        c_node = nodes[spec.conclusion_id]
-        p_contracts = p_node.get('attributes', {}).get('semantic_contracts', [])
-        c_contracts = c_node.get('attributes', {}).get('semantic_contracts', [])
-        assert any(c['contract_id'] == spec.contract_id for c in p_contracts)
-        assert any(c['contract_id'] == spec.contract_id for c in c_contracts)
+def test_source_hashed_linear_semantics_can_bind_one_farkas_spec() -> None:
+    spec = FARKAS_SPECS[3]
+
+    premise_source = {
+        "id": "src:test:premise",
+        "type": "SOURCE_DECLARATION",
+        "attributes": {"statement_sha256": "a" * 64},
+    }
+    conclusion_source = {
+        "id": "src:test:conclusion",
+        "type": "SOURCE_DECLARATION",
+        "attributes": {"statement_sha256": "b" * 64},
+    }
+
+    premise = {
+        "id": spec.premise_id,
+        "type": "CANONICAL_OBJECT",
+        "attributes": {
+            "is_foundation": True,
+            LINEAR_SEMANTICS_KEY: [
+                {
+                    "semantic_id": spec.semantic_id,
+                    "role": "premise",
+                    "declared_contract": spec.declared_contract,
+                    "variables": ["x1", "x2"],
+                    "matrix": spec.payload["matrix"],
+                    "bounds": spec.payload["bounds"],
+                    "source_evidence": [
+                        {
+                            "subject_id": premise_source["id"],
+                            "statement_sha256": "a" * 64,
+                        }
+                    ],
+                }
+            ],
+        },
+    }
+    conclusion = {
+        "id": spec.conclusion_id,
+        "type": "CANONICAL_OBJECT",
+        "attributes": {
+            "is_foundation": False,
+            LINEAR_SEMANTICS_KEY: [
+                {
+                    "semantic_id": spec.semantic_id,
+                    "role": "conclusion",
+                    "declared_contract": spec.declared_contract,
+                    "variables": ["x1", "x2"],
+                    "target_coefficients": spec.payload[
+                        "target_coefficients"
+                    ],
+                    "target_bound": spec.payload["target_bound"],
+                    "source_evidence": [
+                        {
+                            "subject_id": conclusion_source["id"],
+                            "statement_sha256": "b" * 64,
+                        }
+                    ],
+                }
+            ],
+        },
+    }
+
+    graph = {
+        "nodes": [
+            premise_source,
+            conclusion_source,
+            premise,
+            conclusion,
+        ],
+        "edges": [],
+    }
+
+    binding = validate_farkas_spec_semantic_binding(graph, spec)
+    assert binding["variables"] == ["x1", "x2"]
+
+    premise["attributes"][LINEAR_SEMANTICS_KEY][0]["bounds"][0] = 999
+    with pytest.raises(
+        FarkasContractError,
+        match="premise semantics do not match certificate",
+    ):
+        validate_farkas_spec_semantic_binding(graph, spec)
