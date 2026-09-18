@@ -38,7 +38,7 @@ def test_endpoint_overlay_builds_from_frozen_v03_graph() -> None:
 
     assert overlay["schema"] == "mapeogeo.endpoint-semantic-overlay.v1"
     assert overlay["base_test_id"] == "MAPEOGEO-CROSS-DOMAIN-V0.3"
-    assert len(overlay["contracts"]) == len(FIXTURE_SPECS) == 4
+    assert len(overlay["contracts"]) == len(FIXTURE_SPECS) == 8
 
     by_case = {
         contract["semantic_object"]: contract
@@ -48,7 +48,11 @@ def test_endpoint_overlay_builds_from_frozen_v03_graph() -> None:
         "Cyclic group composition",
         "SO(3) rotation",
         "Eigenpairs",
+        "Graph Laplacian",
+        "Projective homogeneous equivalence",
+        "Linear-programming duality",
         "Orthogonal projection",
+        "Gaussian positive-definite kernel",
     }
     assert all(
         contract["evidence"]["status"] == "PASS"
@@ -62,7 +66,7 @@ def test_endpoint_overlay_builds_from_frozen_v03_graph() -> None:
     )
 
 
-def test_overlay_enriches_exactly_twelve_fixture_nodes() -> None:
+def test_overlay_enriches_exactly_twenty_four_fixture_nodes() -> None:
     graph = _load_graph()
     overlay = build_endpoint_overlay(graph, _load_results())
     enriched = apply_endpoint_overlay(graph, overlay)
