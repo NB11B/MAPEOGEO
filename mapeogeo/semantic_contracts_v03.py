@@ -296,12 +296,14 @@ def apply_endpoint_overlay(
                 )
             contracts = attrs.setdefault("semantic_contracts", [])
             record = {
+                "schema": contract["schema"],
                 "contract_id": contract["contract_id"],
                 "contract_digest": contract_digest,
                 "semantic_id": semantic_id,
                 "semantic_object": contract["semantic_object"],
                 "role": role,
                 "base_node_identity_sha256": expected_base_hash,
+                "endpoints": copy.deepcopy(contract["endpoints"]),
                 "semantic_payload": payload,
                 "semantic_payload_sha256": payload_sha,
                 "evidence": copy.deepcopy(contract["evidence"]),
