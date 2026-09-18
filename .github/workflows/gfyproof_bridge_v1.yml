@@ -11,12 +11,9 @@ jobs:
     steps:
       - name: Checkout MAPEOGEO
         uses: actions/checkout@v4
-      - name: Checkout GFYProof bridge branch
-        uses: actions/checkout@v4
-        with:
-          repository: NB11B/GFYProof
-          ref: agent/e097-e102-mapeogeo-bridge
-          path: _gfyproof
+      - name: Clone GFYProof bridge branch
+        run: |
+          git clone --depth 1 --branch agent/e097-e102-mapeogeo-bridge https://github.com/NB11B/GFYProof.git _gfyproof
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
