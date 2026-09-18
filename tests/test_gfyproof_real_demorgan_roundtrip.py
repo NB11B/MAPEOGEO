@@ -249,7 +249,7 @@ def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
             "De Morgan law 1 over all four Boolean assignments; "
             "independent ROBDD canonical equivalence"
         ),
-        proof_family="E091_ROBDD_EQUIVALENCE",
+        verifier_semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
         proof_payload=_robdd_demorgan_payload(),
         producer_commit=GFYPROOF_COMMIT,
         artifact_ref=(
@@ -329,5 +329,5 @@ def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
     ][
         "attributes"
     ][
-        "proof_family"
-    ] == "E091_ROBDD_EQUIVALENCE"
+        "verifier_semantic_id"
+    ] == "GFY.ROBDD_EQUIVALENCE.v1"
