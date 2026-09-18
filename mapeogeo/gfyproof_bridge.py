@@ -400,7 +400,7 @@ def validate_gfyproof_certificate(
             "semantic verifier is not authoritative for this edge type"
         )
     implementation = cert.get(
-        "implementation"
+        "implementation_provenance"
     )
     if not isinstance(
         implementation,
@@ -408,6 +408,16 @@ def validate_gfyproof_certificate(
     ):
         raise GFYProofBridgeError(
             "implementation provenance is missing"
+        )
+    hardware_coverage = cert.get(
+        "hardware_coverage"
+    )
+    if not isinstance(
+        hardware_coverage,
+        dict,
+    ):
+        raise GFYProofBridgeError(
+            "hardware coverage provenance is missing"
         )
 
     _validate_endpoint_semantics(
@@ -582,7 +592,10 @@ def materialize_gfyproof_edge(
             "verifier_semantic_id"
         ],
         "gfyproof_implementation": validated[
-            "implementation"
+            "implementation_provenance"
+        ],
+        "gfyproof_hardware_coverage": validated[
+            "hardware_coverage"
         ],
         "gfyproof_proof_payload_digest": validated[
             "proof_payload_digest"
@@ -665,7 +678,10 @@ def materialize_gfyproof_edge(
                 "verifier_semantic_id"
             ],
             "implementation": validated[
-                "implementation"
+                "implementation_provenance"
+            ],
+            "hardware_coverage": validated[
+                "hardware_coverage"
             ],
             "proof_payload_digest": validated[
                 "proof_payload_digest"
