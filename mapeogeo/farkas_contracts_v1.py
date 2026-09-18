@@ -31,170 +31,181 @@ class FarkasContractSpec:
     semantic_object: str
     declared_contract: str
     payload: Mapping[str, Any]
+    source_evidence: tuple[Mapping[str, str], ...] = ()
+    variables: tuple[str, ...] = ("x1", "x2")
 
 
-FARKAS_SPECS = (
+SOURCE_GROUNDED_FARKAS_SPECS = (
     FarkasContractSpec(
-        "mapeogeo.farkas.logic.vector_space.v1",
-        "canonical:foundation:logic:propositional_calculus",
-        "canonical:linear_algebra:vector_space",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "polyhedral implication from boolean logic hypercube to finite vector space cone",
-        {
+        contract_id="mapeogeo.farkas.cvx.polyhedron_simplex.v1",
+        premise_id="canonical:foundation:set:set_operations_and_boolean_algebra",
+        conclusion_id="canonical:convex:convex_set",
+        semantic_id="GFY.FARKAS_IMPLICATION.v1",
+        semantic_object="Farkas polyhedral implication",
+        declared_contract="Boyd CVX Section 2.2 unit simplex polyhedral halfspace intersection implies supporting bounding inequality",
+        payload={
             "certificate_type": "implication",
-            "matrix": [[1, 0], [-1, 0], [0, 1], [0, -1]],
-            "bounds": [1, 0, 1, 0],
+            "matrix": [[-1, 0], [0, -1], [1, 1]],
+            "bounds": [0, 0, 1],
             "target_coefficients": [1, 2],
-            "target_bound": 3,
-            "multipliers": [1, 0, 2, 0],
-        },
-    ),
-    FarkasContractSpec(
-        "mapeogeo.farkas.logic.topological_space.v1",
-        "canonical:foundation:logic:propositional_calculus",
-        "canonical:topology:topological_space",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "polyhedral implication from boolean algebra to finite topology basis cone",
-        {
-            "certificate_type": "implication",
-            "matrix": [[1, 1], [1, 0], [0, 1]],
-            "bounds": [2, 1, 1],
-            "target_coefficients": [2, 1],
-            "target_bound": 3,
-            "multipliers": [1, 1, 0],
-        },
-    ),
-    FarkasContractSpec(
-        "mapeogeo.farkas.logic.sigma_algebra.v1",
-        "canonical:foundation:logic:propositional_calculus",
-        "canonical:measure:sigma_algebra",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "polyhedral implication from boolean ring to finite measurable event cone",
-        {
-            "certificate_type": "implication",
-            "matrix": [[1, 0], [0, 1], [-1, 0], [0, -1]],
-            "bounds": [1, 1, 0, 0],
-            "target_coefficients": [1, 1],
             "target_bound": 2,
-            "multipliers": [1, 1, 0, 0],
-        },
-    ),
-    FarkasContractSpec(
-        "mapeogeo.farkas.set.convex_set.v1",
-        "canonical:foundation:set:set_operations_and_boolean_algebra",
-        "canonical:convex:convex_set",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "polyhedral halfspace intersection implies supporting bounding inequality",
-        {
-            "certificate_type": "implication",
-            "matrix": [[1, 0], [0, 1], [1, 2]],
-            "bounds": [1, 2, 4],
-            "target_coefficients": [3, 4],
-            "target_bound": 9,
             "multipliers": [1, 0, 2],
         },
+        source_evidence=(
+            {
+                "subject_id": "srcdecl:cvx:section:2_2",
+                "statement_sha256": "9ae2845c9ed81151ef6cc174d4675a9acfc86b155305a4f67ab7c6cbc6d557a4",
+            },
+        ),
     ),
     FarkasContractSpec(
-        "mapeogeo.farkas.geom.convex_set.v1",
-        "canonical:foundation:geom:euclidean_space_and_metrics",
-        "canonical:convex:convex_set",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "Euclidean metric polytope containment implies bounded convex support",
-        {
+        contract_id="mapeogeo.farkas.cvx.supporting_hyperplane.v1",
+        premise_id="canonical:foundation:geom:euclidean_space_and_metrics",
+        conclusion_id="canonical:convex:convex_set",
+        semantic_id="GFY.FARKAS_IMPLICATION.v1",
+        semantic_object="Farkas polyhedral implication",
+        declared_contract="Boyd CVX Section 2.5 bounded rectangle polytope implies supporting hyperplane inequality",
+        payload={
             "certificate_type": "implication",
-            "matrix": [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1]],
-            "bounds": [2, 0, 2, 0, 3],
-            "target_coefficients": [2, 3],
-            "target_bound": 8,
-            "multipliers": [0, 0, 1, 0, 2],
+            "matrix": [[-1, 0], [0, -1], [1, 0], [0, 1]],
+            "bounds": [0, 0, 2, 3],
+            "target_coefficients": [3, 4],
+            "target_bound": 18,
+            "multipliers": [0, 0, 3, 4],
         },
+        source_evidence=(
+            {
+                "subject_id": "srcdecl:cvx:section:2_5",
+                "statement_sha256": "5cbeeca1abaa6380c15dbff99dc07870cbce5ef7148d09b627076186f08094a9",
+            },
+        ),
     ),
     FarkasContractSpec(
-        "mapeogeo.farkas.geom.norm_and_distance.v1",
-        "canonical:foundation:geom:euclidean_space_and_metrics",
-        "canonical:linear_algebra:norm_and_distance",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "Euclidean norm unit ball polyhedral approximation bounding inequality",
-        {
+        contract_id="mapeogeo.farkas.cvx.lp_inequality_bound.v1",
+        premise_id="canonical:foundation:geom:euclidean_space_and_metrics",
+        conclusion_id="canonical:optimization:linear_program",
+        semantic_id="GFY.FARKAS_IMPLICATION.v1",
+        semantic_object="Farkas polyhedral implication",
+        declared_contract="Boyd CVX Section 4.3 linear optimization primal inequality system implies dual objective bound",
+        payload={
             "certificate_type": "implication",
-            "matrix": [[1, 0], [-1, 0], [0, 1], [-1, -1]],
-            "bounds": [1, 1, 2, 0],
-            "target_coefficients": [1, 2],
-            "target_bound": 5,
-            "multipliers": [1, 0, 2, 0],
-        },
-    ),
-    FarkasContractSpec(
-        "mapeogeo.farkas.geom.linear_program.v1",
-        "canonical:foundation:geom:euclidean_space_and_metrics",
-        "canonical:optimization:linear_program",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "Euclidean polyhedral feasibility implies bounded linear objective bound",
-        {
-            "certificate_type": "implication",
-            "matrix": [[2, 1], [1, 2], [1, 0]],
-            "bounds": [4, 5, 2],
+            "matrix": [[2, 1], [1, 2], [-1, 0], [0, -1]],
+            "bounds": [4, 5, 0, 0],
             "target_coefficients": [3, 3],
             "target_bound": 9,
-            "multipliers": [1, 1, 0],
+            "multipliers": [1, 1, 0, 0],
         },
+        source_evidence=(
+            {
+                "subject_id": "srcdecl:cvx:section:4_3",
+                "statement_sha256": "630dafac08fc5c72b950e565adbcde7e3d57b1597888ba317156af8d566e9c9f",
+            },
+        ),
     ),
     FarkasContractSpec(
-        "mapeogeo.farkas.rel.convex_set.v1",
-        "canonical:foundation:rel:orders_posets_and_lattices",
-        "canonical:convex:convex_set",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "poset cone ordering implies non-negative dual cone certificate",
-        {
+        contract_id="mapeogeo.farkas.cvx.theorems_of_alternatives.v1",
+        premise_id="canonical:foundation:rel:orders_posets_and_lattices",
+        conclusion_id="canonical:convex:dual_cone",
+        semantic_id="GFY.FARKAS_IMPLICATION.v1",
+        semantic_object="Farkas polyhedral implication",
+        declared_contract="Boyd CVX Section 5.8 theorem of alternatives non-negative linear combination cone implication",
+        payload={
             "certificate_type": "implication",
-            "matrix": [[1, 0], [0, 1], [1, 1]],
+            "matrix": [[1, 0], [0, 1], [1, 1], [-1, 0]],
+            "bounds": [2, 2, 3, 0],
+            "target_coefficients": [2, 3],
+            "target_bound": 8,
+            "multipliers": [0, 1, 2, 0],
+        },
+        source_evidence=(
+            {
+                "subject_id": "srcdecl:cvx:section:5_8",
+                "statement_sha256": "931dbd8c1315a7fe0b246461344ce0c49b609163b465a01bba9e877a7ae3d9a0",
+            },
+        ),
+    ),
+    FarkasContractSpec(
+        contract_id="mapeogeo.farkas.gallier.polyhedral_cone_dual.v1",
+        premise_id="canonical:foundation:seq:order_bounds_and_absolute_value",
+        conclusion_id="canonical:convex:convex_set",
+        semantic_id="GFY.FARKAS_IMPLICATION.v1",
+        semantic_object="Farkas polyhedral implication",
+        declared_contract="Gallier-Quaintance Chapter 15 polyhedral cone dual cone containment certificate",
+        payload={
+            "certificate_type": "implication",
+            "matrix": [[-1, 0], [0, -1], [-1, 1]],
             "bounds": [0, 0, 0],
-            "target_coefficients": [3, 5],
+            "target_coefficients": [-3, 1],
             "target_bound": 0,
-            "multipliers": [0, 2, 3],
+            "multipliers": [2, 0, 1],
         },
-    ),
-    FarkasContractSpec(
-        "mapeogeo.farkas.seq.convex_set.v1",
-        "canonical:foundation:seq:order_bounds_and_absolute_value",
-        "canonical:convex:convex_set",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "order bound interval intersection implies convex bounding inequality",
-        {
-            "certificate_type": "implication",
-            "matrix": [[1, 0], [-1, 0], [0, 1], [0, -1]],
-            "bounds": [3, 1, 4, 2],
-            "target_coefficients": [2, 1],
-            "target_bound": 10,
-            "multipliers": [2, 0, 1, 0],
-        },
-    ),
-    FarkasContractSpec(
-        "mapeogeo.farkas.calc.convex_function.v1",
-        "canonical:foundation:calc:mean_value_theorems_and_extrema",
-        "canonical:convex:convex_function",
-        "GFY.FARKAS_IMPLICATION.v1",
-        "Farkas polyhedral implication",
-        "first-order Taylor subgradient polyhedral epigraph implication",
-        {
-            "certificate_type": "implication",
-            "matrix": [[1, -1], [-1, -1], [2, 1]],
-            "bounds": [0, 0, 3],
-            "target_coefficients": [2, 0],
-            "target_bound": 6,
-            "multipliers": [0, 2, 2],
-        },
+        source_evidence=(
+            {
+                "subject_id": "srcdecl:definition:15_1",
+                "statement_sha256": "3be18dbe63ce2b24c81750e27fa74120019ab71f78305b58a7697a0e361869d4",
+            },
+            {
+                "subject_id": "srcdecl:theorem:15_5",
+                "statement_sha256": "17f99c215c89678710b4d015e9c9b61cb7483c5d6dd092ee5b0a5ea540ddbbc5",
+            },
+        ),
     ),
 )
+
+FARKAS_SPECS = SOURCE_GROUNDED_FARKAS_SPECS
+
+
+def attach_source_grounded_linear_semantics(
+    graph: Mapping[str, Any],
+    specs: tuple[FarkasContractSpec, ...] = SOURCE_GROUNDED_FARKAS_SPECS,
+) -> dict[str, Any]:
+    enriched = copy.deepcopy(dict(graph))
+    nodes = {
+        str(n["id"]): n
+        for n in enriched.get("nodes", [])
+        if isinstance(n, dict) and n.get("id")
+    }
+    for spec in specs:
+        premise_node = nodes.get(spec.premise_id)
+        conclusion_node = nodes.get(spec.conclusion_id)
+        if premise_node is None or conclusion_node is None:
+            continue
+        p_attrs = premise_node.setdefault("attributes", {})
+        c_attrs = conclusion_node.setdefault("attributes", {})
+        if not isinstance(p_attrs, dict) or not isinstance(c_attrs, dict):
+            continue
+        p_sem = p_attrs.setdefault(LINEAR_SEMANTICS_KEY, [])
+        c_sem = c_attrs.setdefault(LINEAR_SEMANTICS_KEY, [])
+        if not isinstance(p_sem, list) or not isinstance(c_sem, list):
+            continue
+
+        p_rec = {
+            "semantic_id": spec.semantic_id,
+            "role": "premise",
+            "declared_contract": spec.declared_contract,
+            "variables": list(spec.variables),
+            "matrix": copy.deepcopy(dict(spec.payload)["matrix"]),
+            "bounds": copy.deepcopy(dict(spec.payload)["bounds"]),
+            "source_evidence": [dict(e) for e in spec.source_evidence],
+        }
+        if p_rec not in p_sem:
+            p_sem.append(p_rec)
+
+        c_rec = {
+            "semantic_id": spec.semantic_id,
+            "role": "conclusion",
+            "declared_contract": spec.declared_contract,
+            "variables": list(spec.variables),
+            "target_coefficients": copy.deepcopy(
+                dict(spec.payload)["target_coefficients"]
+            ),
+            "target_bound": copy.deepcopy(dict(spec.payload)["target_bound"]),
+            "source_evidence": [dict(e) for e in spec.source_evidence],
+        }
+        if c_rec not in c_sem:
+            c_sem.append(c_rec)
+
+    return enriched
 
 
 class FarkasContractError(ValueError):
@@ -229,10 +240,13 @@ def _statement_hash(node: Mapping[str, Any]) -> str | None:
     attrs = node.get("attributes", {})
     if not isinstance(attrs, dict):
         return None
-    value = attrs.get("statement_sha256") or attrs.get("source_segment_sha256")
-    profile = attrs.get("independent_profile", {})
-    if not value and isinstance(profile, dict):
-        value = profile.get("statement_sha256")
+    value = attrs.get("statement_sha256")
+    if not value:
+        profile = attrs.get("independent_profile", {})
+        if isinstance(profile, dict):
+            value = profile.get("statement_sha256")
+    if not value:
+        value = attrs.get("source_segment_sha256")
     if (
         isinstance(value, str)
         and len(value) == 64
@@ -375,7 +389,10 @@ def validate_farkas_spec_semantic_binding(
     }
 
 
-def build_farkas_endpoint_overlay(graph: Mapping[str, Any]) -> dict[str, Any]:
+def build_farkas_endpoint_overlay(
+    graph: Mapping[str, Any],
+    specs: tuple[FarkasContractSpec, ...] = SOURCE_GROUNDED_FARKAS_SPECS,
+) -> dict[str, Any]:
     nodes = {
         str(node["id"]): node
         for node in graph.get("nodes", [])
@@ -383,7 +400,7 @@ def build_farkas_endpoint_overlay(graph: Mapping[str, Any]) -> dict[str, Any]:
     }
 
     contracts = []
-    for spec in FARKAS_SPECS:
+    for spec in specs:
         if spec.premise_id not in nodes:
             raise FarkasContractError(f"premise node missing: {spec.premise_id}")
         if spec.conclusion_id not in nodes:

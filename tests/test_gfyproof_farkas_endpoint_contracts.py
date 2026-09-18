@@ -11,6 +11,8 @@ from mapeogeo.farkas_contracts_v1 import (
     FARKAS_SPECS,
     FarkasContractError,
     LINEAR_SEMANTICS_KEY,
+    attach_source_grounded_linear_semantics,
+    apply_farkas_endpoint_overlay,
     build_farkas_endpoint_overlay,
     validate_farkas_spec_semantic_binding,
 )
@@ -25,14 +27,15 @@ FOUNDATION_GRAPH_PATH = (
 )
 
 
-def test_farkas_specs_remain_algebraic_fixtures() -> None:
-    assert len(FARKAS_SPECS) >= 10
+def test_farkas_specs_are_source_grounded() -> None:
+    assert len(FARKAS_SPECS) == 5
     for spec in FARKAS_SPECS:
         assert spec.semantic_id == "GFY.FARKAS_IMPLICATION.v1"
         assert spec.contract_id.startswith("mapeogeo.farkas.")
         assert "matrix" in spec.payload
         assert "bounds" in spec.payload
         assert "multipliers" in spec.payload
+        assert len(spec.source_evidence) >= 1
 
 
 def test_real_foundation_graph_rejects_unbound_farkas_overlay() -> None:
@@ -53,8 +56,33 @@ def test_real_foundation_graph_rejects_unbound_farkas_overlay() -> None:
         build_farkas_endpoint_overlay(graph)
 
 
+def test_real_foundation_graph_accepts_source_grounded_farkas_overlay() -> None:
+    if not FOUNDATION_GRAPH_PATH.exists():
+        pytest.skip("Foundation graph not present")
+
+    with gzip.open(
+        FOUNDATION_GRAPH_PATH,
+        "rt",
+        encoding="utf-8",
+    ) as handle:
+        graph = json.load(handle)
+
+    graph_with_semantics = attach_source_grounded_linear_semantics(graph)
+    overlay = build_farkas_endpoint_overlay(graph_with_semantics)
+    assert overlay["schema"] == "mapeogeo.endpoint-semantic-overlay.v1"
+    assert len(overlay["contracts"]) == 5
+
+    enriched = apply_farkas_endpoint_overlay(graph_with_semantics, overlay)
+    nodes = {n["id"]: n for n in enriched.get("nodes", []) if n.get("id")}
+    for spec in FARKAS_SPECS:
+        p_contracts = nodes[spec.premise_id]["attributes"]["semantic_contracts"]
+        c_contracts = nodes[spec.conclusion_id]["attributes"]["semantic_contracts"]
+        assert any(c["contract_id"] == spec.contract_id for c in p_contracts)
+        assert any(c["contract_id"] == spec.contract_id for c in c_contracts)
+
+
 def test_source_hashed_linear_semantics_can_bind_one_farkas_spec() -> None:
-    spec = FARKAS_SPECS[3]
+    spec = FARKAS_SPECS[0]
 
     premise_source = {
         "id": "src:test:premise",
