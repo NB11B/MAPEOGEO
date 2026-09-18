@@ -717,6 +717,58 @@ def materialize_gfyproof_edge(
     )
 
 
+def _merge_promotable_existing_edge(
+    existing: Mapping[str, Any],
+    verified: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Promote an existing unverified candidate without changing its identity."""
+    for field in ("id", "type", "source", "target"):
+        if existing.get(field) != verified.get(field):
+            raise GFYProofBridgeError(
+                f"existing edge {field} does not match certified claim"
+            )
+
+    attrs = existing.get("attributes", {})
+    if not isinstance(attrs, dict):
+        raise GFYProofBridgeError(
+            "existing edge attributes must be a mapping"
+        )
+
+    inactive = {
+        "REJECTED",
+        "SUPERSEDED",
+        "UNRESOLVED",
+        "WOUND",
+    }
+    for field in (
+        "status",
+        "alignment_status",
+        "cross_source_status",
+        "relation_status",
+        "evidence_status",
+    ):
+        value = str(attrs.get(field, "")).upper()
+        if value in inactive:
+            raise GFYProofBridgeError(
+                "inactive/rejected edge cannot be promoted"
+            )
+
+    if str(attrs.get("evidence_status", "")).upper() == "VERIFIED":
+        if existing != verified:
+            raise GFYProofBridgeError(
+                "existing edge is already verified under different evidence"
+            )
+        return dict(existing)
+
+    merged = dict(existing)
+    merged_attrs = dict(attrs)
+    merged_attrs.update(
+        verified.get("attributes", {})
+    )
+    merged["attributes"] = merged_attrs
+    return merged
+
+
 def apply_gfyproof_certificate(
     graph: MutableMapping[
         str,
@@ -731,7 +783,7 @@ def apply_gfyproof_certificate(
         Any,
     ],
 ) -> str:
-    """Atomically add one external proof certificate to a mutable graph."""
+    """Atomically add or promote one external proof certificate."""
     (
         edge,
         record,
@@ -742,96 +794,84 @@ def apply_gfyproof_certificate(
         graph=graph,
     )
 
+    nodes = graph.setdefault(
+        "nodes",
+        [],
+    )
+    edges = graph.setdefault(
+        "edges",
+        [],
+    )
+
     existing_nodes = {
-        node.get(
-            "id"
-        ): node
-        for node
-        in graph.setdefault(
-            "nodes",
-            [],
-        )
+        node.get("id"): node
+        for node in nodes
     }
     existing_edges = {
-        item.get(
-            "id"
-        ): item
-        for item
-        in graph.setdefault(
-            "edges",
-            [],
-        )
+        item.get("id"): item
+        for item in edges
     }
 
-    for node in (
-        evidence_node,
+    existing_evidence_node = existing_nodes.get(
+        evidence_node["id"]
+    )
+    if (
+        existing_evidence_node is not None
+        and existing_evidence_node != evidence_node
     ):
-        existing = existing_nodes.get(
-            node[
-                "id"
-            ]
+        raise GFYProofBridgeError(
+            "evidence node ID collision"
         )
-        if (
-            existing is not None
-            and existing != node
-        ):
-            raise GFYProofBridgeError(
-                "evidence node ID collision"
-            )
 
-    for item in (
-        edge,
-        evidence_edge,
+    existing_claim_edge = existing_edges.get(
+        edge["id"]
+    )
+    promoted_edge = edge
+    if existing_claim_edge is not None:
+        promoted_edge = _merge_promotable_existing_edge(
+            existing_claim_edge,
+            edge,
+        )
+
+    existing_attachment = existing_edges.get(
+        evidence_edge["id"]
+    )
+    if (
+        existing_attachment is not None
+        and existing_attachment != evidence_edge
     ):
-        existing = existing_edges.get(
-            item[
-                "id"
-            ]
+        raise GFYProofBridgeError(
+            "evidence attachment edge ID collision"
         )
-        if (
-            existing is not None
-            and existing != item
-        ):
-            raise GFYProofBridgeError(
-                "edge ID collision"
-            )
 
-    current_record = (
-        edge_evidence_registry.get(
-            record.evidence_digest
-        )
+    current_record = edge_evidence_registry.get(
+        record.evidence_digest
     )
     if (
         current_record is not None
-        and current_record
-        != record
+        and current_record != record
     ):
         raise GFYProofBridgeError(
             "edge evidence registry collision"
         )
 
-    if evidence_node[
-        "id"
-    ] not in existing_nodes:
-        graph[
-            "nodes"
-        ].append(
+    if existing_evidence_node is None:
+        nodes.append(
             evidence_node
         )
-    if edge[
-        "id"
-    ] not in existing_edges:
-        graph[
-            "edges"
-        ].append(
-            edge
+
+    if existing_claim_edge is None:
+        edges.append(
+            promoted_edge
         )
-    if evidence_edge[
-        "id"
-    ] not in existing_edges:
-        graph[
-            "edges"
-        ].append(
+    elif promoted_edge != existing_claim_edge:
+        for index, item in enumerate(edges):
+            if item.get("id") == edge["id"]:
+                edges[index] = promoted_edge
+                break
+
+    if existing_attachment is None:
+        edges.append(
             evidence_edge
         )
 
@@ -840,3 +880,4 @@ def apply_gfyproof_certificate(
     ] = record
 
     return record.evidence_digest
+
