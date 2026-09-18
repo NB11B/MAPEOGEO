@@ -20,4 +20,5 @@ jobs:
         run: |
           python -m pytest -q \
             tests/test_gfyproof_bridge.py \
-            tests/test_foundation_grounding_rigor.py
+            tests/test_foundation_grounding_rigor.py \
+            tests/test_gfyproof_endpoint_contracts_v03.py
