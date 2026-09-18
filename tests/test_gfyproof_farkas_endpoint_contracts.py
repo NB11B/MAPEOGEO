@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 import gzip
 import json
 from pathlib import Path
@@ -77,8 +78,8 @@ def test_source_hashed_linear_semantics_can_bind_one_farkas_spec() -> None:
                     "role": "premise",
                     "declared_contract": spec.declared_contract,
                     "variables": ["x1", "x2"],
-                    "matrix": spec.payload["matrix"],
-                    "bounds": spec.payload["bounds"],
+                    "matrix": copy.deepcopy(spec.payload["matrix"]),
+                    "bounds": copy.deepcopy(spec.payload["bounds"]),
                     "source_evidence": [
                         {
                             "subject_id": premise_source["id"],
@@ -100,10 +101,12 @@ def test_source_hashed_linear_semantics_can_bind_one_farkas_spec() -> None:
                     "role": "conclusion",
                     "declared_contract": spec.declared_contract,
                     "variables": ["x1", "x2"],
-                    "target_coefficients": spec.payload[
-                        "target_coefficients"
-                    ],
-                    "target_bound": spec.payload["target_bound"],
+                    "target_coefficients": copy.deepcopy(
+                        spec.payload["target_coefficients"]
+                    ),
+                    "target_bound": copy.deepcopy(
+                        spec.payload["target_bound"]
+                    ),
                     "source_evidence": [
                         {
                             "subject_id": conclusion_source["id"],
