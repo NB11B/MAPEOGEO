@@ -18,6 +18,7 @@ from mapeogeo.semantic_contracts_v03 import (
 
 ROOT = Path(__file__).resolve().parents[1]
 GRAPH_PATH = ROOT / "data" / "gallier_quaintance_graph_v0_3.json.gz"
+CURRENT_GRAPH_PATH = ROOT / "data" / "mapeogeo_v0_11_graph.json.gz"
 RESULTS_PATH = ROOT / "data" / "gallier_quaintance_results_v0_3.json"
 
 
@@ -152,6 +153,40 @@ def test_result_row_mutation_prevents_contract_construction() -> None:
         match="semantic evidence mismatch",
     ):
         build_endpoint_overlay(graph, mutated)
+
+
+def test_v03_endpoint_identities_are_preserved_in_v011() -> None:
+    base = _load_graph()
+    with gzip.open(CURRENT_GRAPH_PATH, "rt", encoding="utf-8") as handle:
+        current = json.load(handle)
+
+    base_nodes = {node["id"]: node for node in base["nodes"]}
+    current_nodes = {node["id"]: node for node in current["nodes"]}
+
+    for spec in FIXTURE_SPECS:
+        for prefix in ("op:eo:test", "op:geo:test", "obj:test"):
+            node_id = f"{prefix}:{spec.test_index:02d}"
+            assert node_id in base_nodes
+            assert node_id in current_nodes
+            assert current_nodes[node_id] == base_nodes[node_id], node_id
+
+
+def test_v03_overlay_applies_cleanly_to_v011_fixture_layer() -> None:
+    base = _load_graph()
+    overlay = build_endpoint_overlay(base, _load_results())
+    with gzip.open(CURRENT_GRAPH_PATH, "rt", encoding="utf-8") as handle:
+        current = json.load(handle)
+
+    enriched = apply_endpoint_overlay(current, overlay)
+    nodes = {node["id"]: node for node in enriched["nodes"]}
+
+    for spec in FIXTURE_SPECS:
+        for prefix in ("op:eo:test", "op:geo:test", "obj:test"):
+            node_id = f"{prefix}:{spec.test_index:02d}"
+            records = nodes[node_id]["attributes"]["semantic_contracts"]
+            assert len(records) == 1
+            assert records[0]["semantic_id"] == spec.semantic_id
+            assert records[0]["binding_mode"] == "ENDPOINT_CONTRACT_BOUND"
 
 
 def test_overlay_does_not_modify_sealed_graph_file() -> None:
