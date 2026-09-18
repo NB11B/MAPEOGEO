@@ -30,6 +30,14 @@ GIT_SHA_RE = re.compile(r"^[0-9a-f]{40}$")
 SEMANTIC_VERIFIER_EDGE_TYPES: dict[str, frozenset[str]] = {
     "GFY.DFA_EQUIVALENCE.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
     "GFY.ROBDD_EQUIVALENCE.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.CYCLIC_GROUP_COMPOSITION.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.SO3_ROTATION.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.EIGENPAIR_RESIDUAL.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.ORTHOGONAL_PROJECTION.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.GRAPH_LAPLACIAN_EQUIVALENCE.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.PROJECTIVE_HOMOGENEOUS_EQUIVALENCE.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.LP_STRONG_DUALITY_1D.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
+    "GFY.GAUSSIAN_KERNEL_EQUIVALENCE_PSD.v1": frozenset({"REPRESENTS", "SAME_SEMANTICS"}),
     "GFY.FARKAS_IMPLICATION.v1": frozenset(
         {"UPWARD_FOUNDATION_DEPENDENCY", "PROOF_DEPENDENCY"}
     ),
@@ -137,6 +145,32 @@ def _statement_hash(
     return None
 
 
+def _shared_endpoint_contract_roles(
+    source: Mapping[str, Any],
+    target: Mapping[str, Any],
+) -> tuple[str, str] | None:
+    def records(node: Mapping[str, Any]) -> list[Mapping[str, Any]]:
+        attrs = node.get("attributes", {})
+        if not isinstance(attrs, dict):
+            return []
+        raw = attrs.get("semantic_contracts", [])
+        if not isinstance(raw, list):
+            return []
+        return [item for item in raw if isinstance(item, dict)]
+
+    for left in records(source):
+        for right in records(target):
+            if (
+                left.get("binding_mode") == "ENDPOINT_CONTRACT_BOUND"
+                and right.get("binding_mode") == "ENDPOINT_CONTRACT_BOUND"
+                and left.get("contract_id") == right.get("contract_id")
+                and left.get("contract_digest") == right.get("contract_digest")
+                and left.get("semantic_id") == right.get("semantic_id")
+            ):
+                return str(left.get("role", "")), str(right.get("role", ""))
+    return None
+
+
 def _validate_endpoint_semantics(
     edge_type: str,
     source: Mapping[str, Any],
@@ -150,12 +184,16 @@ def _validate_endpoint_semantics(
     )
 
     if edge_type == "REPRESENTS":
+        roles = _shared_endpoint_contract_roles(source, target)
+        if roles in {("eo", "object"), ("geo", "object")}:
+            return
+
         if source_type not in {
             "SOURCE_DECLARATION",
             "STATEMENT",
         }:
             raise GFYProofBridgeError(
-                "REPRESENTS source must be a source declaration"
+                "REPRESENTS source must be source-bound or endpoint-contract-bound"
             )
         if target_type != "CANONICAL_OBJECT":
             raise GFYProofBridgeError(
@@ -175,6 +213,10 @@ def _validate_endpoint_semantics(
             )
 
     elif edge_type == "SAME_SEMANTICS":
+        roles = _shared_endpoint_contract_roles(source, target)
+        if roles is not None and set(roles) == {"eo", "geo"}:
+            return
+
         if (
             source_type
             not in {
@@ -188,7 +230,7 @@ def _validate_endpoint_semantics(
             }
         ):
             raise GFYProofBridgeError(
-                "SAME_SEMANTICS requires source declarations"
+                "SAME_SEMANTICS requires source-bound or endpoint-contract-bound endpoints"
             )
 
     elif edge_type == "UPWARD_FOUNDATION_DEPENDENCY":
