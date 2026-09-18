@@ -181,6 +181,24 @@ def audit(graph_path: Path) -> dict[str, Any]:
     all_unlock: set[str] = set()
     ready_unlock: set[str] = set()
 
+    broad_hint_edge_types = {
+        "REPRESENTS",
+        "SAME_SEMANTICS",
+        "EQUIVALENT_TO",
+        "UPWARD_FOUNDATION_DEPENDENCY",
+        "PROOF_DEPENDENCY",
+    }
+    broad_hint_counts = Counter()
+    broad_hint_total = 0
+    for edge in edges:
+        if edge.get("type") not in broad_hint_edge_types:
+            continue
+        source = nodes.get(str(edge.get("source", "")), {})
+        target = nodes.get(str(edge.get("target", "")), {})
+        if _farkas_hint(source, target):
+            broad_hint_total += 1
+            broad_hint_counts[str(edge.get("type", ""))] += 1
+
     for edge in edges:
         if edge.get("type") not in ELIGIBLE_EDGE_TYPES:
             continue
@@ -258,6 +276,12 @@ def audit(graph_path: Path) -> dict[str, Any]:
         "total_nodes": len(nodes),
         "total_edges": len(edges),
         "farkas_routed_candidates": len(rows),
+        "authoritative_farkas_edge_types": sorted(ELIGIBLE_EDGE_TYPES),
+        "broad_label_hint_total": broad_hint_total,
+        "broad_label_hint_counts_by_edge_type": dict(
+            sorted(broad_hint_counts.items())
+        ),
+        "non_authoritative_label_hints": broad_hint_total - len(rows),
         "audit_counts": dict(sorted(counts.items())),
         "exact_payload_or_contract_ready": (
             counts.get(READY_ENDPOINT, 0) + counts.get(READY_EDGE, 0)
