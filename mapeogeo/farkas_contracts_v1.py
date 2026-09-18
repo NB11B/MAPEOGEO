@@ -17,6 +17,14 @@ from pathlib import Path
 from typing import Any, Mapping
 
 
+from mapeogeo.source_linear_semantics import (
+    EXTRACTIONS_BY_ID,
+    SourceLinearSemanticsExtraction,
+    compute_extraction_digest,
+    verify_source_extraction_record,
+)
+
+
 CONTRACT_SCHEMA = "mapeogeo.endpoint-semantic-contract.v1"
 OVERLAY_SCHEMA = "mapeogeo.endpoint-semantic-overlay.v1"
 LINEAR_SEMANTICS_KEY = "farkas_linear_semantics_v1"
@@ -31,6 +39,7 @@ class FarkasContractSpec:
     semantic_object: str
     declared_contract: str
     payload: Mapping[str, Any]
+    extraction_id: str
     source_evidence: tuple[Mapping[str, str], ...] = ()
     variables: tuple[str, ...] = ("x1", "x2")
 
@@ -51,6 +60,7 @@ SOURCE_GROUNDED_FARKAS_SPECS = (
             "target_bound": 2,
             "multipliers": [1, 0, 2],
         },
+        extraction_id="mapeogeo.extract.cvx.2_2.polyhedron_simplex.v1",
         source_evidence=(
             {
                 "subject_id": "srcdecl:cvx:section:2_2",
@@ -73,6 +83,7 @@ SOURCE_GROUNDED_FARKAS_SPECS = (
             "target_bound": 18,
             "multipliers": [0, 0, 3, 4],
         },
+        extraction_id="mapeogeo.extract.cvx.2_5.supporting_hyperplane.v1",
         source_evidence=(
             {
                 "subject_id": "srcdecl:cvx:section:2_5",
@@ -95,6 +106,7 @@ SOURCE_GROUNDED_FARKAS_SPECS = (
             "target_bound": 9,
             "multipliers": [1, 1, 0, 0],
         },
+        extraction_id="mapeogeo.extract.cvx.4_3.lp_inequality_bound.v1",
         source_evidence=(
             {
                 "subject_id": "srcdecl:cvx:section:4_3",
@@ -117,6 +129,7 @@ SOURCE_GROUNDED_FARKAS_SPECS = (
             "target_bound": 8,
             "multipliers": [0, 1, 2, 0],
         },
+        extraction_id="mapeogeo.extract.cvx.5_8.theorems_of_alternatives.v1",
         source_evidence=(
             {
                 "subject_id": "srcdecl:cvx:section:5_8",
@@ -139,6 +152,7 @@ SOURCE_GROUNDED_FARKAS_SPECS = (
             "target_bound": 0,
             "multipliers": [2, 0, 1],
         },
+        extraction_id="mapeogeo.extract.gallier.15_1.polyhedral_cone_dual.v1",
         source_evidence=(
             {
                 "subject_id": "srcdecl:definition:15_1",
@@ -166,6 +180,11 @@ def attach_source_grounded_linear_semantics(
         if isinstance(n, dict) and n.get("id")
     }
     for spec in specs:
+        ext = EXTRACTIONS_BY_ID.get(spec.extraction_id)
+        if ext is None or not verify_source_extraction_record(ext):
+            raise FarkasContractError(
+                f"invalid or missing extraction record: {spec.extraction_id}"
+            )
         premise_node = nodes.get(spec.premise_id)
         conclusion_node = nodes.get(spec.conclusion_id)
         if premise_node is None or conclusion_node is None:
@@ -182,10 +201,12 @@ def attach_source_grounded_linear_semantics(
         p_rec = {
             "semantic_id": spec.semantic_id,
             "role": "premise",
+            "extraction_id": ext.extraction_id,
+            "extraction_digest": ext.extraction_digest,
             "declared_contract": spec.declared_contract,
-            "variables": list(spec.variables),
-            "matrix": copy.deepcopy(dict(spec.payload)["matrix"]),
-            "bounds": copy.deepcopy(dict(spec.payload)["bounds"]),
+            "variables": list(ext.variable_basis),
+            "matrix": [list(row) for row in ext.matrix],
+            "bounds": list(ext.bounds),
             "source_evidence": [dict(e) for e in spec.source_evidence],
         }
         if p_rec not in p_sem:
@@ -194,12 +215,12 @@ def attach_source_grounded_linear_semantics(
         c_rec = {
             "semantic_id": spec.semantic_id,
             "role": "conclusion",
+            "extraction_id": ext.extraction_id,
+            "extraction_digest": ext.extraction_digest,
             "declared_contract": spec.declared_contract,
-            "variables": list(spec.variables),
-            "target_coefficients": copy.deepcopy(
-                dict(spec.payload)["target_coefficients"]
-            ),
-            "target_bound": copy.deepcopy(dict(spec.payload)["target_bound"]),
+            "variables": list(ext.variable_basis),
+            "target_coefficients": list(ext.target_coefficients),
+            "target_bound": ext.target_bound,
             "source_evidence": [dict(e) for e in spec.source_evidence],
         }
         if c_rec not in c_sem:
@@ -309,6 +330,8 @@ def _find_bound_linear_semantics(
             and record.get("role") == role
             and record.get("declared_contract") == spec.declared_contract
         ):
+            if spec.extraction_id and record.get("extraction_id") != spec.extraction_id:
+                continue
             _validate_source_evidence(nodes, record.get("source_evidence"))
             return record
     raise FarkasContractError(
@@ -333,6 +356,12 @@ def validate_farkas_spec_semantic_binding(
     if conclusion is None:
         raise FarkasContractError(f"conclusion node missing: {spec.conclusion_id}")
 
+    ext = EXTRACTIONS_BY_ID.get(spec.extraction_id)
+    if ext is None or not verify_source_extraction_record(ext):
+        raise FarkasContractError(
+            f"unsealed or unknown extraction record: {spec.extraction_id}"
+        )
+
     premise_semantics = _find_bound_linear_semantics(
         nodes=nodes,
         node=premise,
@@ -346,11 +375,22 @@ def validate_farkas_spec_semantic_binding(
         spec=spec,
     )
 
+    if (
+        premise_semantics.get("extraction_id") != ext.extraction_id
+        or premise_semantics.get("extraction_digest") != ext.extraction_digest
+        or conclusion_semantics.get("extraction_id") != ext.extraction_id
+        or conclusion_semantics.get("extraction_digest") != ext.extraction_digest
+    ):
+        raise FarkasContractError(
+            "Farkas node semantics do not match sealed extraction record"
+        )
+
     variables = premise_semantics.get("variables")
     if (
         not isinstance(variables, list)
         or not variables
         or variables != conclusion_semantics.get("variables")
+        or variables != list(ext.variable_basis)
         or any(not isinstance(name, str) or not name for name in variables)
     ):
         raise FarkasContractError("Farkas variable basis mismatch")
@@ -364,6 +404,8 @@ def validate_farkas_spec_semantic_binding(
     if (
         premise_semantics.get("matrix") != payload.get("matrix")
         or premise_semantics.get("bounds") != payload.get("bounds")
+        or payload.get("matrix") != [list(row) for row in ext.matrix]
+        or payload.get("bounds") != list(ext.bounds)
     ):
         raise FarkasContractError(
             "Farkas premise semantics do not match certificate A,b"
@@ -373,12 +415,16 @@ def validate_farkas_spec_semantic_binding(
         != payload.get("target_coefficients")
         or conclusion_semantics.get("target_bound")
         != payload.get("target_bound")
+        or payload.get("target_coefficients") != list(ext.target_coefficients)
+        or payload.get("target_bound") != ext.target_bound
     ):
         raise FarkasContractError(
             "Farkas conclusion semantics do not match certificate c,d"
         )
 
     return {
+        "extraction_id": ext.extraction_id,
+        "extraction_digest": ext.extraction_digest,
         "variables": copy.deepcopy(variables),
         "premise_source_evidence": copy.deepcopy(
             premise_semantics["source_evidence"]
@@ -433,6 +479,8 @@ def build_farkas_endpoint_overlay(
             "declared_contract": spec.declared_contract,
             "status": "PASS",
             "evidence_class": "SOURCE_BOUND_EXACT_FARKAS_IMPLICATION",
+            "extraction_id": semantic_binding["extraction_id"],
+            "extraction_digest": semantic_binding["extraction_digest"],
             "variables": semantic_binding["variables"],
             "premise_source_evidence": semantic_binding[
                 "premise_source_evidence"

@@ -16,6 +16,7 @@ from mapeogeo.farkas_contracts_v1 import (
     build_farkas_endpoint_overlay,
     validate_farkas_spec_semantic_binding,
 )
+from mapeogeo.source_linear_semantics import EXTRACTIONS_BY_ID
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -104,6 +105,10 @@ def test_source_hashed_linear_semantics_can_bind_one_farkas_spec() -> None:
                 {
                     "semantic_id": spec.semantic_id,
                     "role": "premise",
+                    "extraction_id": spec.extraction_id,
+                    "extraction_digest": EXTRACTIONS_BY_ID[
+                        spec.extraction_id
+                    ].extraction_digest,
                     "declared_contract": spec.declared_contract,
                     "variables": ["x1", "x2"],
                     "matrix": copy.deepcopy(spec.payload["matrix"]),
@@ -127,6 +132,10 @@ def test_source_hashed_linear_semantics_can_bind_one_farkas_spec() -> None:
                 {
                     "semantic_id": spec.semantic_id,
                     "role": "conclusion",
+                    "extraction_id": spec.extraction_id,
+                    "extraction_digest": EXTRACTIONS_BY_ID[
+                        spec.extraction_id
+                    ].extraction_digest,
                     "declared_contract": spec.declared_contract,
                     "variables": ["x1", "x2"],
                     "target_coefficients": copy.deepcopy(
