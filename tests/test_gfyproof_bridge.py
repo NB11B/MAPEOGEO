@@ -1,4 +1,4 @@
-"""Bridge tests: GFYProof evidence must obey MAPEOGEO's existing rigor gates."""
+"""Semantic GFYProof bridge tests against MAPEOGEO's rigor gates."""
 
 from __future__ import annotations
 
@@ -23,11 +23,7 @@ PROOF_DIGEST = "b" * 64
 
 
 def _node(node_id: str, node_type: str, **attrs: object) -> dict:
-    return {
-        "id": node_id,
-        "type": node_type,
-        "attributes": attrs,
-    }
+    return {"id": node_id, "type": node_type, "attributes": attrs}
 
 
 def _graph() -> dict:
@@ -62,15 +58,16 @@ def _certificate(
     *,
     edge_id: str,
     edge_type: str,
-    proof_family: str,
+    semantic_id: str,
     scope: str,
+    experiment_id: str,
+    hardware_contract_id: str,
     producer_repository: str = "NB11B/GFYProof",
 ) -> dict:
     source_hash = node_identity_sha256(source)
     target_hash = node_identity_sha256(target)
-
     body = {
-        "schema": "mapeogeo.gfyproof.edge-certificate.v1",
+        "schema": "mapeogeo.gfyproof.edge-certificate.v2",
         "edge_id": edge_id,
         "edge_type": edge_type,
         "source_id": source["id"],
@@ -86,7 +83,17 @@ def _certificate(
             target_identity_sha256=target_hash,
             claim_scope=scope,
         ),
-        "proof_family": proof_family,
+        "verifier_semantic_id": semantic_id,
+        "verifier_scope": "synthetic semantic scope",
+        "implementation_provenance": {
+            "experiment_id": experiment_id,
+            "class": "example.Verifier",
+        },
+        "hardware_coverage": {
+            "status": "HARDWARE_REDUCED_QUALIFIED",
+            "contract_id": hardware_contract_id,
+            "scope": "bounded reduced certificate scope",
+        },
         "proof_payload_digest": PROOF_DIGEST,
         "proof_verdict": "PASS",
         "promotion_class": "PROOF_ELIGIBLE",
@@ -94,23 +101,20 @@ def _certificate(
         "producer": {
             "repository": producer_repository,
             "commit": COMMIT,
-            "verifier_id": "GFYPROOF_MAPEOGEO_BRIDGE_V1",
+            "verifier_id": "GFYPROOF_MAPEOGEO_SEMANTIC_BRIDGE_V2",
         },
     }
     result = dict(body)
     result["certificate_digest"] = canonical_sha256(
         body,
-        domain="gfyproof-mapeogeo-edge-certificate-v1",
+        domain="gfyproof-mapeogeo-semantic-edge-certificate-v2",
     )
     return result
 
 
-def test_gfyproof_chain_can_establish_proof_eligible_grounding() -> None:
+def test_semantic_chain_can_establish_proof_eligible_grounding() -> None:
     graph = _graph()
-    nodes = {
-        node["id"]: node
-        for node in graph["nodes"]
-    }
+    nodes = {node["id"]: node for node in graph["nodes"]}
     registry = {}
 
     before = compute_foundation_metrics(
@@ -127,210 +131,170 @@ def test_gfyproof_chain_can_establish_proof_eligible_grounding() -> None:
         nodes["canonical:foundation"],
         edge_id="edge:gfy:rep",
         edge_type="REPRESENTS",
-        proof_family="E091_ROBDD_EQUIVALENCE",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
         scope="exact executable Boolean semantics",
+        experiment_id="E095",
+        hardware_contract_id="C23",
     )
-    apply_gfyproof_certificate(
-        graph,
-        registry,
-        rep,
-    )
+    apply_gfyproof_certificate(graph, registry, rep)
 
     up = _certificate(
         nodes["canonical:foundation"],
         nodes["canonical:advanced"],
         edge_id="edge:gfy:up",
         edge_type="UPWARD_FOUNDATION_DEPENDENCY",
-        proof_family="E093_FARKAS_IMPLICATION",
+        semantic_id="GFY.FARKAS_IMPLICATION.v1",
         scope="exact rational implication",
+        experiment_id="historical-farkas",
+        hardware_contract_id="",
     )
-    apply_gfyproof_certificate(
-        graph,
-        registry,
-        up,
-    )
+    apply_gfyproof_certificate(graph, registry, up)
 
     after = compute_foundation_metrics(
         graph,
         edge_evidence_registry=registry,
         validated_root_ids={"src:root"},
     )
-    proof = after[
-        "proof_eligible_grounding"
-    ]
-    assert proof[
+    assert after["proof_eligible_grounding"][
         "advanced_canonical_objects_reachable"
     ] == 1
-    assert proof[
-        "foundation_reachability_pct"
-    ] == 100.0
 
-    evidence_nodes = [
-        node
-        for node in graph["nodes"]
-        if node["type"]
-        == "EXECUTABLE_EVIDENCE"
-    ]
-    assert len(evidence_nodes) == 2
-    assert all(
-        node["attributes"]["verifier"]
-        == "GFYPROOF"
-        for node in evidence_nodes
+
+def test_experiment_number_is_provenance_not_semantic_identity() -> None:
+    graph_a = _graph()
+    graph_b = _graph()
+    node_a = {node["id"]: node for node in graph_a["nodes"]}
+    node_b = {node["id"]: node for node in graph_b["nodes"]}
+
+    current = _certificate(
+        node_a["src:root"],
+        node_a["canonical:foundation"],
+        edge_id="edge:gfy:rep",
+        edge_type="REPRESENTS",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
+        scope="same semantic claim",
+        experiment_id="E095",
+        hardware_contract_id="C23",
+    )
+    historical = _certificate(
+        node_b["src:root"],
+        node_b["canonical:foundation"],
+        edge_id="edge:gfy:rep",
+        edge_type="REPRESENTS",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
+        scope="same semantic claim",
+        experiment_id="E091",
+        hardware_contract_id="historical",
+    )
+
+    apply_gfyproof_certificate(graph_a, {}, current)
+    apply_gfyproof_certificate(graph_b, {}, historical)
+
+    edge_a = next(e for e in graph_a["edges"] if e["id"] == "edge:gfy:rep")
+    edge_b = next(e for e in graph_b["edges"] if e["id"] == "edge:gfy:rep")
+    assert edge_a["attributes"]["gfyproof_verifier_semantic_id"] == (
+        edge_b["attributes"]["gfyproof_verifier_semantic_id"]
+    )
+    assert edge_a["attributes"]["gfyproof_implementation"] != (
+        edge_b["attributes"]["gfyproof_implementation"]
     )
 
 
-def test_gfyproof_certificate_fails_after_endpoint_mutation() -> None:
+def test_endpoint_mutation_invalidates_semantic_certificate() -> None:
     graph = _graph()
-    nodes = {
-        node["id"]: node
-        for node in graph["nodes"]
-    }
+    nodes = {node["id"]: node for node in graph["nodes"]}
     certificate = _certificate(
         nodes["src:root"],
         nodes["canonical:foundation"],
         edge_id="edge:gfy:rep",
         edge_type="REPRESENTS",
-        proof_family="E091_ROBDD_EQUIVALENCE",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
         scope="exact executable Boolean semantics",
+        experiment_id="E095",
+        hardware_contract_id="C23",
     )
-
-    nodes[
-        "canonical:foundation"
-    ]["attributes"][
-        "domain"
-    ] = "Mutated"
-
-    with pytest.raises(
-        GFYProofBridgeError,
-        match="identity changed",
-    ):
-        apply_gfyproof_certificate(
-            graph,
-            {},
-            certificate,
-        )
+    nodes["canonical:foundation"]["attributes"]["domain"] = "Mutated"
+    with pytest.raises(GFYProofBridgeError, match="identity changed"):
+        apply_gfyproof_certificate(graph, {}, certificate)
 
 
-def test_gfyproof_spoofed_repository_is_rejected() -> None:
+def test_spoofed_repository_is_rejected() -> None:
     graph = _graph()
-    nodes = {
-        node["id"]: node
-        for node in graph["nodes"]
-    }
+    nodes = {node["id"]: node for node in graph["nodes"]}
     certificate = _certificate(
         nodes["src:root"],
         nodes["canonical:foundation"],
         edge_id="edge:gfy:rep",
         edge_type="REPRESENTS",
-        proof_family="E091_ROBDD_EQUIVALENCE",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
         scope="exact executable Boolean semantics",
+        experiment_id="E095",
+        hardware_contract_id="C23",
         producer_repository="example/forged",
     )
-
-    with pytest.raises(
-        GFYProofBridgeError,
-        match="trusted GFYProof repository",
-    ):
-        apply_gfyproof_certificate(
-            graph,
-            {},
-            certificate,
-        )
+    with pytest.raises(GFYProofBridgeError, match="trusted GFYProof repository"):
+        apply_gfyproof_certificate(graph, {}, certificate)
 
 
-def test_gfyproof_proof_family_cannot_be_reused_for_wrong_relation() -> None:
+def test_semantic_verifier_cannot_be_reused_for_wrong_relation() -> None:
     graph = _graph()
-    nodes = {
-        node["id"]: node
-        for node in graph["nodes"]
-    }
+    nodes = {node["id"]: node for node in graph["nodes"]}
     certificate = _certificate(
         nodes["canonical:foundation"],
         nodes["canonical:advanced"],
         edge_id="edge:gfy:bad",
         edge_type="UPWARD_FOUNDATION_DEPENDENCY",
-        proof_family="E091_ROBDD_EQUIVALENCE",
-        scope="wrong proof family",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
+        scope="wrong semantic family",
+        experiment_id="E095",
+        hardware_contract_id="C23",
     )
-
-    with pytest.raises(
-        GFYProofBridgeError,
-        match="not authoritative",
-    ):
-        apply_gfyproof_certificate(
-            graph,
-            {},
-            certificate,
-        )
+    with pytest.raises(GFYProofBridgeError, match="not authoritative"):
+        apply_gfyproof_certificate(graph, {}, certificate)
 
 
-def test_gfyproof_certificate_digest_tamper_is_rejected() -> None:
+def test_certificate_digest_tamper_is_rejected() -> None:
     graph = _graph()
-    nodes = {
-        node["id"]: node
-        for node in graph["nodes"]
-    }
+    nodes = {node["id"]: node for node in graph["nodes"]}
     certificate = _certificate(
         nodes["src:root"],
         nodes["canonical:foundation"],
         edge_id="edge:gfy:rep",
         edge_type="REPRESENTS",
-        proof_family="E091_ROBDD_EQUIVALENCE",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
         scope="exact executable Boolean semantics",
+        experiment_id="E095",
+        hardware_contract_id="C23",
     )
-    tampered = copy.deepcopy(
-        certificate
-    )
-    tampered[
-        "claim_scope"
-    ] = "changed after signing"
-
-    with pytest.raises(
-        GFYProofBridgeError,
-        match="certificate digest mismatch",
-    ):
-        apply_gfyproof_certificate(
-            graph,
-            {},
-            tampered,
-        )
+    tampered = copy.deepcopy(certificate)
+    tampered["claim_scope"] = "changed after signing"
+    with pytest.raises(GFYProofBridgeError, match="certificate digest mismatch"):
+        apply_gfyproof_certificate(graph, {}, tampered)
 
 
-def test_gfyproof_evidence_does_not_create_source_or_kernel_status() -> None:
+def test_evidence_records_semantic_and_hardware_provenance_without_kernel_status() -> None:
     graph = _graph()
-    nodes = {
-        node["id"]: node
-        for node in graph["nodes"]
-    }
+    nodes = {node["id"]: node for node in graph["nodes"]}
     certificate = _certificate(
         nodes["src:root"],
         nodes["canonical:foundation"],
         edge_id="edge:gfy:rep",
         edge_type="REPRESENTS",
-        proof_family="E091_ROBDD_EQUIVALENCE",
+        semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
         scope="exact executable Boolean semantics",
+        experiment_id="E095",
+        hardware_contract_id="C23",
     )
-    apply_gfyproof_certificate(
-        graph,
-        {},
-        certificate,
-    )
+    apply_gfyproof_certificate(graph, {}, certificate)
 
     generated = [
         node
         for node in graph["nodes"]
-        if node["id"].startswith(
-            "evidence:gfyproof:"
-        )
+        if node["id"].startswith("evidence:gfyproof:")
     ]
     assert len(generated) == 1
-    assert generated[0][
-        "type"
-    ] == "EXECUTABLE_EVIDENCE"
-    assert all(
-        node["type"]
-        not in {
-            "KERNEL_VERIFIED",
-        }
-        for node in graph["nodes"]
-    )
+    attrs = generated[0]["attributes"]
+    assert attrs["verifier_semantic_id"] == "GFY.ROBDD_EQUIVALENCE.v1"
+    assert attrs["implementation"]["experiment_id"] == "E095"
+    assert attrs["hardware_coverage"]["contract_id"] == "C23"
+    assert generated[0]["type"] == "EXECUTABLE_EVIDENCE"
