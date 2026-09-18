@@ -79,6 +79,51 @@ FIXTURE_SPECS = (
         },
     ),
     FixtureContractSpec(
+        7,
+        "Graph Laplacian",
+        20,
+        "GFY.GRAPH_LAPLACIAN_EQUIVALENCE.v1",
+        {
+            "adjacency": [
+                [0, 1, 0, 1],
+                [1, 0, 1, 0],
+                [0, 1, 0, 1],
+                [1, 0, 1, 0],
+            ],
+            "incidence": [
+                [-1, 0, 0, 1],
+                [1, -1, 0, 0],
+                [0, 1, -1, 0],
+                [0, 0, 1, -1],
+            ],
+        },
+    ),
+    FixtureContractSpec(
+        9,
+        "Projective homogeneous equivalence",
+        26,
+        "GFY.PROJECTIVE_HOMOGENEOUS_EQUIVALENCE.v1",
+        {
+            "matrix": [
+                [1, 2, 0],
+                [0, 1, 1],
+                [1, 0, 1],
+            ],
+            "point": [1, 2, 3],
+            "scale": 5,
+        },
+    ),
+    FixtureContractSpec(
+        17,
+        "Linear-programming duality",
+        47,
+        "GFY.LP_STRONG_DUALITY_1D.v1",
+        {
+            "coefficient_values": [1, 2, 3],
+            "constraint_counts": [1, 2, 3],
+        },
+    ),
+    FixtureContractSpec(
         18,
         "Orthogonal projection",
         48,
@@ -87,6 +132,21 @@ FIXTURE_SPECS = (
             "matrix": [[0.5, 0.5], [0.5, 0.5]],
             "test_vector": [3.0, 1.0],
             "tolerance": 1e-6,
+        },
+    ),
+    FixtureContractSpec(
+        20,
+        "Gaussian positive-definite kernel",
+        54,
+        "GFY.GAUSSIAN_KERNEL_EQUIVALENCE_PSD.v1",
+        {
+            "points": [
+                [0, 0],
+                [1, 0],
+                [0, 1],
+            ],
+            "sigma_sq": 1,
+            "psd_tolerance": 1e-12,
         },
     ),
 )
