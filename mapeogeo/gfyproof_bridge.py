@@ -41,6 +41,14 @@ SEMANTIC_VERIFIER_EDGE_TYPES: dict[str, frozenset[str]] = {
     "GFY.FARKAS_IMPLICATION.v1": frozenset(
         {"UPWARD_FOUNDATION_DEPENDENCY", "PROOF_DEPENDENCY"}
     ),
+    "GFY.TOPOLOGICAL_IMPLICATION.v1": frozenset(
+        {
+            "UPWARD_FOUNDATION_DEPENDENCY",
+            "PROOF_DEPENDENCY",
+            "CANDIDATE_EO",
+            "CANDIDATE_GEO",
+        }
+    ),
     "GFY.POLYNOMIAL_IDEAL_MEMBERSHIP.v1": frozenset(
         {"UPWARD_FOUNDATION_DEPENDENCY", "PROOF_DEPENDENCY"}
     ),
@@ -257,6 +265,21 @@ def _validate_endpoint_semantics(
         if source_type == "WOUND" or target_type == "WOUND":
             raise GFYProofBridgeError(
                 "proof dependencies cannot use wound endpoints"
+            )
+
+    elif edge_type in {"CANDIDATE_EO", "CANDIDATE_GEO"}:
+        if source_type not in {"SOURCE_DECLARATION", "STATEMENT"}:
+            raise GFYProofBridgeError(
+                f"{edge_type} source must be a source declaration"
+            )
+        if target_type not in {"OPERATOR", "CANONICAL_OBJECT"}:
+            raise GFYProofBridgeError(
+                f"{edge_type} target must be an operator or canonical object"
+            )
+        statement_hash = _statement_hash(source)
+        if not statement_hash or not SHA256_RE.fullmatch(statement_hash):
+            raise GFYProofBridgeError(
+                f"{edge_type} source lacks a valid statement hash"
             )
 
     else:
