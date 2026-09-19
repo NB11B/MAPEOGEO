@@ -70,7 +70,7 @@
         "scripts/audit_pinch_source_v0_11.py": "fb75add676b92fb0f1c23f989c277c69042cba537c1821b5069de4ed1d8ed92c",
         "scripts/blinded_alignment_benchmark_v0_13.py": "46335b9619bce6adad58f07ad27f0eb8a8f85ce54f5353546794e61f2f2bfcb8",
         "scripts/complex_analysis_intake_v0_19.py": "74c8156f0afa47ae5b4e44f248528b903a5c697ee39ce409c6bfb0d51def7156",
-        "scripts/compute_foundation_depth.py": "edb0a644aebbfcc671dd0f4090d3fb31055638c002baf40196913fb7032a3384",
+        "scripts/compute_foundation_depth.py": "537f876e27eb3f7819b69485ac0a451a6c91b950b5609d2637eb352f60166d80",
         "scripts/convex_intake_v0_14.py": "1ff060106d29f0efc0ffad5f7a5807f9e110feb1a1532ec91dc30af25f904d65",
         "scripts/corpus_dualize_v0_5.py": "daf4d347ff600090e23cf18100b24cb50a6f27ed5882b5a5b96d294fe7e2d2ab",
         "scripts/cross_source_intake_v0_12.py": "d24abbfd9ca4755ad084d1153ec1f247bc57bb7ac02065d4ec5c18b78417d440",
@@ -109,7 +109,7 @@
         "scripts/tri_source_intake_v0_13.py": "cccb9959b5a41b4d6d21b8c0061cffcea7fca3a708c9569584b172282ad28261",
         "scripts/validate_pct_v0_10.py": "17cd83de97a2796db88c843dc9d7d664d020c85d09aa749659a564abc2897363"
       },
-      "sha256": "f9c1cdb5770d184b9bd1795b50a571a950e572908bb3259335bca7e8573813f8"
+      "sha256": "52c226d73e9b4eeacc782b6831b6e1bebee853b1b373853a79d55633c0b78bc5"
     },
     "runtime_dependency_lock": {
       "path": "requirements-math-rigor-v0-20.lock",
