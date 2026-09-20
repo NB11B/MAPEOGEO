@@ -56,6 +56,34 @@ def _graph() -> dict:
     }
 
 
+def _valid_payload_for_semantic_id(semantic_id: str) -> dict[str, Any]:
+    if semantic_id == "GFY.ROBDD_EQUIVALENCE.v1":
+        return {
+            "left": ["not", ["and", ["var", "p"], ["var", "q"]]],
+            "right": ["or", ["not", ["var", "p"]], ["not", ["var", "q"]]],
+            "variable_order": ["p", "q"],
+        }
+    if semantic_id in {"GFY.FARKAS_IMPLICATION.v1", "GFY.FOUNDATION_DEPENDENCY.v1"}:
+        return {
+            "certificate_type": "implication",
+            "matrix": [[1, 0], [0, 1]],
+            "bounds": [1, 2],
+            "target_coefficients": [1, 2],
+            "target_bound": 5,
+            "multipliers": [1, 2],
+        }
+    if semantic_id == "GFY.SO3_ROTATION.v1":
+        return {
+            "matrix": [
+                [0.0, -1.0, 0.0],
+                [1.0, 0.0, 0.0],
+                [0.0, 0.0, 1.0],
+            ],
+            "tolerance": 1e-6,
+        }
+    return dict(DEFAULT_PROOF_PAYLOAD)
+
+
 def _certificate(
     source: dict,
     target: dict,
@@ -67,9 +95,15 @@ def _certificate(
     experiment_id: str,
     hardware_contract_id: str,
     producer_repository: str = "NB11B/GFYProof",
+    proof_payload: dict | None = None,
 ) -> dict:
     source_hash = node_identity_sha256(source)
     target_hash = node_identity_sha256(target)
+    payload = dict(proof_payload) if proof_payload is not None else _valid_payload_for_semantic_id(semantic_id)
+    payload_digest = canonical_sha256(
+        payload,
+        domain="gfyproof-mapeogeo-semantic-proof-payload-v2",
+    )
     body = {
         "schema": "mapeogeo.gfyproof.edge-certificate.v2",
         "edge_id": edge_id,
@@ -98,8 +132,8 @@ def _certificate(
             "contract_id": hardware_contract_id,
             "scope": "bounded reduced certificate scope",
         },
-        "proof_payload": dict(DEFAULT_PROOF_PAYLOAD),
-        "proof_payload_digest": PROOF_DIGEST,
+        "proof_payload": payload,
+        "proof_payload_digest": payload_digest,
         "proof_verdict": "PASS",
         "promotion_class": "PROOF_ELIGIBLE",
         "artifact_ref": "results/bridge/proof.json",

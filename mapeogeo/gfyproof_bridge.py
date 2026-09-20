@@ -559,6 +559,21 @@ def validate_gfyproof_certificate(
             "proof payload digest mismatch with supplied proof payload"
         )
 
+    # Independent mathematical verification replay:
+    # MAPEOGEO independently executes the decision procedure on the supplied payload.
+    try:
+        from math2.bridge.mapeogeo import verify_proof_payload
+    except ImportError as exc:
+        raise GFYProofBridgeError(
+            "GFYProof verifier engine is required for independent proof replay"
+        ) from exc
+
+    if not verify_proof_payload(verifier_semantic_id, actual_payload):
+        raise GFYProofBridgeError(
+            f"Independent proof replay rejected payload for {verifier_semantic_id}: "
+            f"mathematical verification failed"
+        )
+
     validated = dict(
         cert
     )

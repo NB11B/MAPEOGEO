@@ -92,3 +92,89 @@ def test_relation_capable_envelope_without_proof_payload_is_rejected() -> None:
 
     assert graph["edges"] == []
     assert registry == {}
+
+
+def test_false_mathematical_payload_with_valid_digest_is_rejected() -> None:
+    """Proves that a digest-matching but mathematically false proof payload is rejected."""
+    source = {
+        "id": "src:audit:logic:a",
+        "type": "SOURCE_DECLARATION",
+        "attributes": {"statement_sha256": "a" * 64},
+    }
+    target = {
+        "id": "src:audit:logic:b",
+        "type": "SOURCE_DECLARATION",
+        "attributes": {"statement_sha256": "b" * 64},
+    }
+    graph = {"nodes": [source, target], "edges": []}
+    registry = {}
+
+    # Mathematically FALSE payload: TRUE == FALSE
+    false_payload = {
+        "left": ["const", True],
+        "right": ["const", False],
+        "variable_order": ["p"],
+    }
+    source_hash = node_identity_sha256(source)
+    target_hash = node_identity_sha256(target)
+    scope = "audit: mathematically false payload with matching digest"
+    payload_digest = canonical_sha256(
+        false_payload,
+        domain="gfyproof-mapeogeo-semantic-proof-payload-v2",
+    )
+
+    body = {
+        "schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "edge_id": "edge:audit:robdd-false-payload",
+        "edge_type": "SAME_SEMANTICS",
+        "source_id": source["id"],
+        "target_id": target["id"],
+        "source_identity_sha256": source_hash,
+        "target_identity_sha256": target_hash,
+        "claim_scope": scope,
+        "claim_contract_digest": claim_contract_digest(
+            edge_type="SAME_SEMANTICS",
+            source_id=source["id"],
+            target_id=target["id"],
+            source_identity_sha256=source_hash,
+            target_identity_sha256=target_hash,
+            claim_scope=scope,
+        ),
+        "verifier_semantic_id": "GFY.ROBDD_EQUIVALENCE.v1",
+        "verifier_scope": "finite Boolean expressions over one fixed finite variable order",
+        "implementation_provenance": {
+            "experiment_id": "AUDIT_ONLY",
+            "class": "math2.bridge.mapeogeo.verify_proof_payload",
+        },
+        "hardware_coverage": {
+            "status": "HARDWARE_NOT_BOUND",
+            "contract_id": "",
+            "scope": "",
+        },
+        "proof_payload": false_payload,
+        "proof_payload_digest": payload_digest,
+        "proof_verdict": "PASS",
+        "promotion_class": "PROOF_ELIGIBLE",
+        "artifact_ref": "",
+        "producer": {
+            "repository": "NB11B/GFYProof",
+            "commit": "a" * 40,
+            "verifier_id": "GFYPROOF_MAPEOGEO_SEMANTIC_BRIDGE_V2",
+        },
+    }
+    cert = dict(body)
+    cert["certificate_digest"] = canonical_sha256(
+        body,
+        domain="gfyproof-mapeogeo-semantic-edge-certificate-v2",
+    )
+
+    with pytest.raises(GFYProofBridgeError, match="mathematical verification failed"):
+        apply_gfyproof_certificate(
+            graph,
+            registry,
+            cert,
+        )
+
+    assert graph["edges"] == []
+    assert registry == {}
+

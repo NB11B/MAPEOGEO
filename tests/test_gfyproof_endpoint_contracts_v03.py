@@ -211,7 +211,8 @@ def _endpoint_certificate(
     source_hash = node_identity_sha256(source)
     target_hash = node_identity_sha256(target)
     scope = "endpoint-contract-bound synthetic ingest validation"
-    payload = {"test_witness": 1}
+    contracts = source.get("attributes", {}).get("semantic_contracts", [])
+    payload = contracts[0].get("semantic_payload", {"test_witness": 1}) if contracts else {"test_witness": 1}
     payload_digest = canonical_sha256(
         payload,
         domain="gfyproof-mapeogeo-semantic-proof-payload-v2",
