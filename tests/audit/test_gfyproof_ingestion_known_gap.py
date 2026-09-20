@@ -71,13 +71,6 @@ def _envelope_only_certificate(source: dict, target: dict) -> dict:
     return result
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "certificate v2 authenticates envelope integrity but does not independently "
-        "replay proof substance or authenticate the producer"
-    ),
-)
 def test_envelope_only_pass_cannot_promote_same_semantics() -> None:
     source = {
         "id": "src:audit:a",
