@@ -1,0 +1,29 @@
+{
+  "census_schema": "mapeogeo.certifiable-payload-census.v1",
+  "certifiable_coverage_pct": 7.76,
+  "certifiable_pool_total": 52,
+  "classification_summary": {
+    "CERTIFICATE_DERIVABLE": 20,
+    "DIRECT_PAYLOAD": 0,
+    "EXECUTABLE_CONTRACT": 3,
+    "FORMAL_DERIVABLE": 29,
+    "NARRATIVE_ONLY": 175,
+    "STRUCTURAL_ONLY": 443
+  },
+  "conservation_check": {
+    "equation": "670 = 175 (NARRATIVE_ONLY) + 20 (CERTIFICATE_DERIVABLE) + 443 (STRUCTURAL_ONLY) + 29 (FORMAL_DERIVABLE) + 3 (EXECUTABLE_CONTRACT)",
+    "total_matches_sum": true
+  },
+  "domain_distribution": {
+    "Applied Linear Algebra": 1,
+    "Applied Linear Algebra & Optimization": 1,
+    "Convex Analysis & Optimization": 49,
+    "Differential Calculus & Real Analysis": 18,
+    "General Mathematics": 561,
+    "Linear Algebra": 40
+  },
+  "snapshot_path": "artifacts/analysis_v0_15_1/mapeogeo_v0_15_1_graph.json.gz",
+  "total_edges_in_snapshot": 1608,
+  "total_nodes_audited": 670,
+  "unresolved_pool_total": 618
+}

@@ -1,0 +1,471 @@
+{
+  "census_schema": "mapeogeo.certifiable-verifier-coverage.v1",
+  "certifiable_candidate_nodes": [
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:01",
+      "scope": null,
+      "verifier_families": [
+        "GFY.CYCLIC_GROUP_COMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:02",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:03",
+      "scope": null,
+      "verifier_families": [
+        "GFY.ROBDD_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:04",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:05",
+      "scope": null,
+      "verifier_families": [
+        "GFY.SO3_REPRESENTATION_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:06",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:07",
+      "scope": null,
+      "verifier_families": [
+        "GFY.GRAPH_LAPLACIAN_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:08",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:09",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:10",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:11",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:12",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:13",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:14",
+      "scope": null,
+      "verifier_families": [
+        "GFY.KKT_SADDLE_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:15",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:16",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:17",
+      "scope": null,
+      "verifier_families": [
+        "GFY.LP_STRONG_DUALITY_1D.v1"
+      ]
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:18",
+      "scope": null,
+      "verifier_families": [
+        "GFY.ORTHOGONAL_PROJECTION_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:19",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "CERTIFICATE_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": null,
+      "node_id": "cert:test:20",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "node_id": "srcdecl:axler:definition:1_41",
+      "scope": null,
+      "verifier_families": [
+        "GFY.DIRECT_SUM_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "node_id": "srcdecl:axler:theorem:1_45",
+      "scope": null,
+      "verifier_families": [
+        "GFY.DIRECT_SUM_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "node_id": "srcdecl:axler:definition:2_15",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "node_id": "srcdecl:axler:lemma:2_19",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "node_id": "srcdecl:axler:definition:2_26",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "node_id": "srcdecl:axler:theorem:2_28",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_3_7_basis_extension",
+      "node_id": "srcdecl:axler:theorem:2_32",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_6_16_rank_nullity",
+      "node_id": "srcdecl:axler:theorem:3_21",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.orthogonal_projection_idempotent_v011",
+      "node_id": "srcdecl:axler:definition:6_55",
+      "scope": null,
+      "verifier_families": [
+        "GFY.ORTHOGONAL_PROJECTION_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.orthogonal_projection_idempotent_v011",
+      "node_id": "srcdecl:axler:theorem:6_57",
+      "scope": null,
+      "verifier_families": [
+        "GFY.ORTHOGONAL_PROJECTION_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "node_id": "srcdecl:axler:theorem:7_22",
+      "scope": null,
+      "verifier_families": [
+        "GFY.SPECTRAL_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "node_id": "srcdecl:axler:theorem:7_29",
+      "scope": null,
+      "verifier_families": [
+        "GFY.SPECTRAL_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "node_id": "srcdecl:axler:theorem:7_31",
+      "scope": null,
+      "verifier_families": [
+        "GFY.SPECTRAL_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "node_id": "canonical:linear_algebra:direct_sum",
+      "scope": null,
+      "verifier_families": [
+        "GFY.DIRECT_SUM_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "EXECUTABLE_CONTRACT",
+      "executable_contract": "subspace_disjoint_intersection_q",
+      "formal_decl": "MAPEOGEOFormal.proposition_4_4_v011",
+      "node_id": "srcdecl:proposition:4_4",
+      "scope": "EXACT_RATIONAL_SUBMODULES",
+      "verifier_families": [
+        "GFY.DIRECT_SUM_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "node_id": "canonical:linear_algebra:linear_independence",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "EXECUTABLE_CONTRACT",
+      "executable_contract": "linear_independence_not_in_span_q",
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "node_id": "srcdecl:proposition:3_13",
+      "scope": "EXACT_RATIONAL_VECTORS",
+      "verifier_families": [
+        "GFY.ORTHOGONAL_PROJECTION_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "node_id": "srcdecl:lemma:3_6",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "node_id": "canonical:linear_algebra:basis",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "node_id": "srcdecl:proposition:3_14",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_14_v011",
+      "node_id": "srcdecl:proposition:3_15",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_3_7_basis_extension",
+      "node_id": "canonical:linear_algebra:basis_extension",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_3_7_basis_extension",
+      "node_id": "srcdecl:theorem:3_7",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_6_16_rank_nullity",
+      "node_id": "canonical:linear_algebra:rank_nullity_theorem",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.theorem_6_16_rank_nullity",
+      "node_id": "srcdecl:theorem:6_16",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.orthogonal_projection_idempotent_v011",
+      "node_id": "canonical:linear_algebra:orthogonal_projection",
+      "scope": null,
+      "verifier_families": [
+        "GFY.ORTHOGONAL_PROJECTION_EQUIVALENCE.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.spectral_theorem_v011",
+      "node_id": "canonical:linear_algebra:spectral_theorem",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "EXECUTABLE_CONTRACT",
+      "executable_contract": "spectral_decomposition_symmetric_matrix",
+      "formal_decl": "MAPEOGEOFormal.theorem_27_10_v011",
+      "node_id": "srcdecl:theorem:27_10",
+      "scope": "REAL_SYMMETRIC_MATRIX_DIAGONALIZATION",
+      "verifier_families": [
+        "GFY.SPECTRAL_DECOMPOSITION.v1"
+      ]
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.cauchy_schwarz_v011",
+      "node_id": "srcdecl:vmls:section:3_2",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.proposition_3_13_v011",
+      "node_id": "srcdecl:vmls:section:5_1",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.cauchy_schwarz_v011",
+      "node_id": "canonical:linear_algebra:cauchy_schwarz",
+      "scope": null,
+      "verifier_families": []
+    },
+    {
+      "classification": "FORMAL_DERIVABLE",
+      "executable_contract": null,
+      "formal_decl": "MAPEOGEOFormal.cauchy_schwarz_v011",
+      "node_id": "srcdecl:axler:theorem:6_15",
+      "scope": null,
+      "verifier_families": []
+    }
+  ],
+  "total_certifiable_nodes": 52,
+  "verifier_family_distribution": {
+    "GFY.CYCLIC_GROUP_COMPOSITION.v1": 4,
+    "GFY.DIRECT_SUM_DECOMPOSITION.v1": 4,
+    "GFY.GRAPH_LAPLACIAN_EQUIVALENCE.v1": 4,
+    "GFY.KKT_SADDLE_EQUIVALENCE.v1": 4,
+    "GFY.LP_STRONG_DUALITY_1D.v1": 4,
+    "GFY.ORTHOGONAL_PROJECTION_EQUIVALENCE.v1": 8,
+    "GFY.ROBDD_EQUIVALENCE.v1": 4,
+    "GFY.SO3_REPRESENTATION_EQUIVALENCE.v1": 4,
+    "GFY.SPECTRAL_DECOMPOSITION.v1": 4
+  }
+}

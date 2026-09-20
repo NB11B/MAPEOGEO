@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "mapeogeo.certifiable-representation.v1",
+  "title": "MAPEOGEO Certifiable Mathematical Representation Schema",
+  "description": "Schema for machine-readable certifiable mathematical representation nodes in MAPEOGEO knowledge graph.",
+  "type": "object",
+  "required": ["id", "type", "view", "attributes"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^repr:exec:.+"
+    },
+    "type": {
+      "type": "string",
+      "const": "REPRESENTATION"
+    },
+    "view": {
+      "type": "string",
+      "const": "EXECUTABLE"
+    },
+    "attributes": {
+      "type": "object",
+      "required": ["schema", "semantic_family", "payload_mode", "payload", "provenance"],
+      "properties": {
+        "schema": {
+          "type": "string",
+          "const": "mapeogeo.certifiable-representation.v1"
+        },
+        "semantic_family": {
+          "type": "string",
+          "minLength": 1
+        },
+        "payload_mode": {
+          "type": "string",
+          "enum": ["concrete", "symbolic", "contract_reference"]
+        },
+        "payload": {
+          "type": "object"
+        },
+        "assumptions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "default": []
+        },
+        "formal_decl": {
+          "type": ["string", "null"]
+        },
+        "executable_contract": {
+          "type": ["string", "null"]
+        },
+        "scope": {
+          "type": ["string", "null"]
+        },
+        "provenance": {
+          "type": "object",
+          "required": ["schema", "origin", "derivation"],
+          "properties": {
+            "schema": {
+              "type": "string",
+              "const": "mapeogeo.certifiable-provenance.v1"
+            },
+            "origin": {
+              "type": "object",
+              "required": ["kind", "source_node", "statement_sha256"],
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "SOURCE_LITERAL",
+                    "FORMAL_DECLARATION",
+                    "EXECUTABLE_CONTRACT",
+                    "VERIFIED_CERTIFICATE",
+                    "CANONICAL_DERIVATION"
+                  ]
+                },
+                "source_node": {
+                  "type": "string"
+                },
+                "statement_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "formal_decl": {
+                  "type": ["string", "null"]
+                },
+                "contract_id": {
+                  "type": ["string", "null"]
+                }
+              },
+              "additionalProperties": false
+            },
+            "derivation": {
+              "type": "object",
+              "required": ["adapter", "adapter_version", "inputs_sha256", "output_sha256"],
+              "properties": {
+                "adapter": {
+                  "type": "string"
+                },
+                "adapter_version": {
+                  "type": "string"
+                },
+                "inputs_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                },
+                "output_sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}$"
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
