@@ -19,7 +19,11 @@ from scripts.compute_foundation_depth import (
 
 
 COMMIT = "a" * 40
-PROOF_DIGEST = "b" * 64
+DEFAULT_PROOF_PAYLOAD = {"verified": True, "evidence": "canonical_proof_payload"}
+PROOF_DIGEST = canonical_sha256(
+    DEFAULT_PROOF_PAYLOAD,
+    domain="gfyproof-mapeogeo-semantic-proof-payload-v1",
+)
 
 
 def _node(node_id: str, node_type: str, **attrs: object) -> dict:
@@ -94,6 +98,7 @@ def _certificate(
             "contract_id": hardware_contract_id,
             "scope": "bounded reduced certificate scope",
         },
+        "proof_payload": dict(DEFAULT_PROOF_PAYLOAD),
         "proof_payload_digest": PROOF_DIGEST,
         "proof_verdict": "PASS",
         "promotion_class": "PROOF_ELIGIBLE",

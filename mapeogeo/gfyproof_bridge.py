@@ -297,8 +297,9 @@ def validate_gfyproof_certificate(
     *,
     source_node: Mapping[str, Any],
     target_node: Mapping[str, Any],
+    proof_payload: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Validate a GFYProof envelope against the current graph node identities."""
+    """Validate a GFYProof envelope against the current graph node identities and replay proof."""
     try:
         cert = dict(
             certificate
@@ -539,6 +540,25 @@ def validate_gfyproof_certificate(
             "malformed proof payload digest"
         )
 
+    # Proof Replay Enforcement: an envelope-only PASS without replayable payload is rejected
+    actual_payload = proof_payload if proof_payload is not None else cert.get("proof_payload")
+    if not isinstance(actual_payload, dict) or not actual_payload:
+        raise GFYProofBridgeError(
+            "Replayable proof payload required for independent verification; envelope-only certificate rejected"
+        )
+
+    # Check that the proof payload hash matches the bound proof_payload_digest
+    digest_candidates = {
+        canonical_sha256(actual_payload, domain="gfyproof-mapeogeo-semantic-proof-payload-v1"),
+        canonical_sha256(actual_payload, domain="gfyproof-mapeogeo-semantic-proof-payload-v2"),
+        canonical_sha256(actual_payload, domain="gfyproof-proof-payload-v1"),
+        hashlib.sha256(canonical_json_bytes(actual_payload)).hexdigest(),
+    }
+    if proof_payload_digest not in digest_candidates:
+        raise GFYProofBridgeError(
+            "proof payload digest mismatch with supplied proof payload"
+        )
+
     validated = dict(
         cert
     )
@@ -552,6 +572,7 @@ def materialize_gfyproof_edge(
     certificate: Mapping[str, Any],
     *,
     graph: Mapping[str, Any],
+    proof_payload: Mapping[str, Any] | None = None,
 ) -> tuple[
     dict[str, Any],
     RegisteredEdgeEvidence,
@@ -582,9 +603,19 @@ def materialize_gfyproof_edge(
             "",
         )
     )
-    if source_id not in nodes or target_id not in nodes:
+    if (
+        source_id
+        not in nodes
+    ):
         raise GFYProofBridgeError(
-            "certificate endpoint is not present in the graph"
+            f"source node not in graph: {source_id}"
+        )
+    if (
+        target_id
+        not in nodes
+    ):
+        raise GFYProofBridgeError(
+            f"target node not in graph: {target_id}"
         )
 
     validated = (
@@ -596,6 +627,7 @@ def materialize_gfyproof_edge(
             target_node=nodes[
                 target_id
             ],
+            proof_payload=proof_payload,
         )
     )
 
@@ -867,6 +899,11 @@ def apply_gfyproof_certificate(
         str,
         Any,
     ],
+    *,
+    proof_payload: Mapping[
+        str,
+        Any,
+    ] | None = None,
 ) -> str:
     """Atomically add or promote one external proof certificate."""
     (
@@ -877,6 +914,7 @@ def apply_gfyproof_certificate(
     ) = materialize_gfyproof_edge(
         certificate,
         graph=graph,
+        proof_payload=proof_payload,
     )
 
     nodes = graph.setdefault(

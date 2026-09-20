@@ -211,6 +211,11 @@ def _endpoint_certificate(
     source_hash = node_identity_sha256(source)
     target_hash = node_identity_sha256(target)
     scope = "endpoint-contract-bound synthetic ingest validation"
+    payload = {"test_witness": 1}
+    payload_digest = canonical_sha256(
+        payload,
+        domain="gfyproof-mapeogeo-semantic-proof-payload-v2",
+    )
     body = {
         "schema": "mapeogeo.gfyproof.edge-certificate.v2",
         "edge_id": edge_id,
@@ -239,7 +244,8 @@ def _endpoint_certificate(
             "contract_id": "",
             "scope": "",
         },
-        "proof_payload_digest": "b" * 64,
+        "proof_payload": payload,
+        "proof_payload_digest": payload_digest,
         "proof_verdict": "PASS",
         "promotion_class": "PROOF_ELIGIBLE",
         "artifact_ref": "test",

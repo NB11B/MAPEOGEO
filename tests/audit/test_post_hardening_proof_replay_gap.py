@@ -69,13 +69,6 @@ def _certificate(source: dict, target: dict) -> dict:
     return cert
 
 
-@pytest.mark.xfail(
-    strict=True,
-    reason=(
-        "certificate v2 still validates a proof digest/PASS envelope without "
-        "independent proof-payload replay"
-    ),
-)
 def test_relation_capable_envelope_without_proof_payload_is_rejected() -> None:
     source = {
         "id": "src:audit:logic:a",
