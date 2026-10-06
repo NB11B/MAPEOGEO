@@ -22,7 +22,7 @@ jobs:
       - name: Install available canonical/SAT tooling
         run: |
           sudo apt-get update
-          sudo apt-get install -y nauty cadical || true
+          sudo apt-get install -y nauty cadical || true\n          python -m pip install pynauty
           command -v dreadnaut || true
           command -v cadical || true
       - name: Audit runtime readiness
