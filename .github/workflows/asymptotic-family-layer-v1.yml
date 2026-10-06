@@ -1,0 +1,21 @@
+name: asymptotic-family-layer-v1
+on:
+  push:
+    branches: [asymptotic-family-layer-v1]
+  pull_request:
+    paths:
+      - "mapeogeo/asymptotic_family.py"
+      - "mapeogeo/erdos_asymptotic_qualification.py"
+      - "tests/test_asymptotic_family_v1.py"
+      - "tests/test_erdos_asymptotic_qualification_v1.py"
+      - ".github/workflows/asymptotic-family-layer-v1.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_asymptotic_family_v1.py tests/test_erdos_asymptotic_qualification_v1.py tests/test_erdos_campaign_v1.py tests/test_erdos_frontier_probes_v1.py tests/test_erdos_formal_obligations_v2.py -q
+      - run: python -m pytest tests/test_work_router_contract_composition_v0_9.py tests/test_gfyproof_endpoint_contracts_v03.py -q
