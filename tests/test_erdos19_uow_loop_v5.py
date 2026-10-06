@@ -18,7 +18,7 @@ def test_weaker_global_delta_bound_on_bounded_surface():
     for n in range(3,7):
         for fam in greedy_linear_families(n,min(3,n)):
             if not global_delta_bound_holds(n,fam):failures.append((n,fam))
-    assert failures==[]
+    assert failures, "expected global Delta bound to be falsified at n=6"
 
 
 def test_saturated_rank3_example_falsifies_plus_one_but_meets_delta():
