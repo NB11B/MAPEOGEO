@@ -1,34 +1,31 @@
 """Surviving structural route after degeneracy falsification for Erdős #19."""
 from __future__ import annotations
-from itertools import combinations
 from .erdos19_degeneracy_falsification import pair_only_family
 
 
 def round_robin_edge_coloring_complete_graph(n:int):
-    """Construct an edge coloring of K_n with n colors (not necessarily optimal).
+    """Construct a proper edge coloring of K_n using at most n colors.
 
-    For odd n, standard round-robin uses n colors.
-    For even n, it uses n-1 colors, embedded in n available colors.
+    Circle method: add a dummy vertex when n is odd, then rotate all but one
+    fixed position.  Each round is a matching and receives one color.
     """
+    if n < 2:
+        return {}
     vertices=list(range(n))
     dummy=None
-    if n%2==1:
+    if n % 2 == 1:
         dummy=n
         vertices.append(dummy)
     m=len(vertices)
-    fixed=vertices[-1]
-    ring=vertices[:-1]
+    arr=vertices[:]
     coloring={}
-    rounds=m-1
-    for color in range(rounds):
-        pairs=[]
-        pairs.append((fixed,ring[0]))
-        for i in range(1,m//2):
-            pairs.append((ring[i],ring[-i]))
-        for a,b in pairs:
+    for color in range(m-1):
+        for i in range(m//2):
+            a,b=arr[i],arr[m-1-i]
             if a!=dummy and b!=dummy:
                 coloring[frozenset((a,b))]=color
-        ring=[ring[0]]+[ring[-1]]+ring[1:-1]
+        # Keep arr[0] fixed; rotate the remaining positions.
+        arr=[arr[0],arr[-1],*arr[1:-1]]
     return coloring
 
 
