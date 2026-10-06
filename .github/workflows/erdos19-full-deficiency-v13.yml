@@ -10,8 +10,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
-      - run: python -m pip install pytest
-      - run: python -m pytest tests/test_erdos19_full_deficiency_v13.py tests/test_erdos19_coloring_cnf_v13.py tests/test_erdos19_global_closure_v13.py tests/test_erdos19_future_core_v12.py tests/test_erdos19_n13_closure_v12.py -q
+      - run: python -m pip install pytest pynauty
+      - run: python -m pytest tests/test_erdos19_full_deficiency_v13.py tests/test_erdos19_coloring_cnf_v13.py tests/test_erdos19_global_closure_v13.py tests/test_erdos19_future_core_v12.py tests/test_erdos19_n13_closure_v12.py tests/test_erdos19_functional_backends_v13.py -q
   production-tools:
     runs-on: ubuntu-latest
     continue-on-error: true
@@ -26,4 +26,4 @@ jobs:
           command -v dreadnaut || true
           command -v cadical || true
       - name: Audit runtime readiness
-        run: python -c "from mapeogeo.erdos19_readiness_v13 import audit; print(audit())"
+        run: python -c "from mapeogeo.erdos19_functional_backends_v13 import functional_readiness; r=functional_readiness(); print(r); assert not r"
