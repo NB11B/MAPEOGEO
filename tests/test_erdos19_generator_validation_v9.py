@@ -13,3 +13,10 @@ def test_canonical_generator_has_no_extra_or_missing_classes_n3():
     gen=canonical_generation(3)
     brute,_=brute_force_exact_covers(3)
     assert set(gen)==set(brute)
+
+
+def test_canonical_generator_matches_independent_bruteforce_n5():
+    gen=canonical_generation(5)
+    brute,labeled=brute_force_exact_covers(5)
+    assert labeled>0
+    assert set(gen)==set(brute)
