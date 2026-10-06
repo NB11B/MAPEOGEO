@@ -1,0 +1,21 @@
+name: erdos19-degeneracy-falsification-v2
+on:
+  push:
+    branches: [erdos19-degeneracy-falsification-v2]
+  pull_request:
+    paths:
+      - "mapeogeo/erdos19_degeneracy_falsification.py"
+      - "mapeogeo/erdos19_edge_coloring_route.py"
+      - "tests/test_erdos19_degeneracy_falsification_v2.py"
+      - "tests/test_erdos19_edge_coloring_route_v2.py"
+      - ".github/workflows/erdos19-degeneracy-falsification-v2.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_erdos19_constructor_v1.py tests/test_erdos19_structure_v1.py tests/test_erdos19_degeneracy_falsification_v2.py tests/test_erdos19_edge_coloring_route_v2.py -q
+      - run: python -m pytest tests/test_erdos_formal_obligations_v2.py tests/test_gfyproof_endpoint_contracts_v03.py -q
