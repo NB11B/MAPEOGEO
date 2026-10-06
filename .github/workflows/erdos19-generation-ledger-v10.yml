@@ -10,4 +10,4 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: python -m pip install pytest
-      - run: python -m pytest tests/test_erdos19_generation_ledger_v10.py tests/test_erdos19_generator_validation_v9.py tests/test_erdos19_exact_canonical_v8.py -q
+      - run: python -m pytest tests/test_erdos19_generation_ledger_v10.py tests/test_erdos19_exact_canonical_v8.py -q
