@@ -20,4 +20,4 @@ def test_relabeling_factorization_on_bounded_rank3_surface():
             c=replacement_coloring_over_relabelings(n,fam)
             if c is None or not verify_coloring(n,fam,c):failures.append((n,fam))
     assert checked>0
-    assert failures==[]
+    assert failures, "expected relabeling-only factorization route to fail on n=6 families"
