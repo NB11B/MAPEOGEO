@@ -1,0 +1,21 @@
+name: psmsl-operator-algebra-v1
+on:
+  push:
+    branches: [psmsl-operator-algebra-v1]
+  pull_request:
+    paths:
+      - "mapeogeo/psmsl_operator_algebra_v1.py"
+      - "mapeogeo/psmsl_work_equivalence_v1.py"
+      - "mapeogeo/psmsl_operator_basis_v1.py"
+      - "mapeogeo/psmsl_work_plan_v1.py"
+      - "tests/test_psmsl_*"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_psmsl_operator_algebra_v1.py tests/test_psmsl_work_equivalence_v1.py tests/test_psmsl_operator_basis_v1.py tests/test_psmsl_work_plan_v1.py -q
+      - run: python -m pytest tests/test_work_router_contract_composition_v0_9.py -q
