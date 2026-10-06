@@ -1,0 +1,57 @@
+name: erdos19-n13-exhaustive-22-buckets
+on:
+  push:
+    branches: [erdos19-full-deficiency-closure-v13]
+    paths:
+      - ".github/workflows/erdos19-n13-exhaustive-22-buckets.yml"
+  workflow_dispatch:
+jobs:
+  bucket:
+    strategy:
+      fail-fast: false
+      max-parallel: 22
+      matrix:
+        m: [33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54]
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ make python3-dev
+      - name: Checkout pinned SAT Modulo Symmetries
+        run: |
+          git clone --recursive https://github.com/markirch/sat-modulo-symmetries.git sms
+          cd sms
+          git checkout 63958bd09a871e484c59270a1d0f22d482dc5770
+          git submodule update --init --recursive
+      - name: Build SMS locally
+        working-directory: sms
+        run: ./build-and-install.sh --local
+      - name: Run reduced n13 bucket
+        id: campaign
+        shell: bash
+        run: |
+          set +e
+          mkdir -p artifacts/erdos19
+          START=$(date +%s)
+          timeout 20700s python sms/encodings/efl.py \
+            --n1 13 --n2 ${{ matrix.m }} \
+            --selectCriticalSubgraph 14 \
+            --args-SMS "--min-chromatic-index-hypergraph 14" \
+            > artifacts/erdos19/m${{ matrix.m }}.log 2>&1
+          RC=$?
+          END=$(date +%s)
+          if [ "$RC" -eq 0 ]; then STATUS=CLOSED_OR_WITNESS_OUTPUT;
+          elif [ "$RC" -eq 124 ]; then STATUS=RESOURCE_EXHAUSTED;
+          else STATUS=SOLVER_ERROR; fi
+          printf '{"n":13,"m":%s,"exit_code":%s,"elapsed_seconds":%s,"status":"%s","sms_commit":"63958bd09a871e484c59270a1d0f22d482dc5770"}\n' \
+            "${{ matrix.m }}" "$RC" "$((END-START))" "$STATUS" > artifacts/erdos19/m${{ matrix.m }}.json
+          cat artifacts/erdos19/m${{ matrix.m }}.json
+          exit 0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: erdos19-n13-m${{ matrix.m }}
+          path: artifacts/erdos19/
+          retention-days: 90
