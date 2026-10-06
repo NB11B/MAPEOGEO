@@ -1,0 +1,13 @@
+name: erdos19-production-machinery-v12
+on:
+  push:
+    branches: [erdos19-production-machinery-v12]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_erdos19_future_core_v12.py tests/test_erdos19_bucket_uow_v12.py tests/test_erdos19_backend_contracts_v12.py tests/test_erdos19_authority_v12.py tests/test_erdos19_n13_closure_v12.py tests/test_erdos19_partial_feasibility_v11.py tests/test_erdos19_reduced_class_v11.py -q
