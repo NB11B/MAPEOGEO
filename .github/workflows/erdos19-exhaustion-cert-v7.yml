@@ -1,0 +1,13 @@
+name: erdos19-exhaustion-cert-v7
+on:
+  push:
+    branches: [erdos19-exhaustion-cert-v7]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_erdos19_exhaustion_cert_v7.py tests/test_erdos19_finite_class_closure_v7.py tests/test_erdos19_quantified_cocert_v6.py -q
