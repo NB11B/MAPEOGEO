@@ -21,14 +21,14 @@ class PynautyCanonicalAdapter:
         for j,e in enumerate(lines):size_groups.setdefault(len(e),set()).add(n+j)
         coloring=[set(range(n))]+[size_groups[k] for k in sorted(size_groups)]
         g=pynauty.Graph(number_of_vertices=N,directed=False,adjacency_dict=adj,vertex_coloring=coloring)
-        lab=tuple(pynauty.canon_label(g))
-        # Certificate is the canonical permutation itself. Verify it is a permutation.
-        ok=sorted(lab)==list(range(N))
+        try:
+            cert=bytes(pynauty.certificate(g))
+            lab=tuple(pynauty.canon_label(g))
+        except Exception:
+            return CanonicalResult("","pynauty",None,False)
+        ok=bool(cert) and sorted(lab)==list(range(N))
         if not ok:return CanonicalResult("","pynauty",None,False)
-        pos={old:new for new,old in enumerate(lab)}
-        edges=sorted((min(pos[u],pos[v]),max(pos[u],pos[v])) for u in range(N) for v in adj[u] if u<v)
-        payload=repr((N,edges,coloring)).encode()
-        digest=hashlib.sha256(payload).hexdigest()
+        digest=hashlib.sha256(cert).hexdigest()
         return CanonicalResult(digest,"pynauty",repr(lab),True)
 
 class CadicalColoringAdapter:
