@@ -1,0 +1,21 @@
+name: erdos-proof-shapes-v3
+on:
+  push:
+    branches: [erdos-proof-shapes-v3]
+  pull_request:
+    paths:
+      - "mapeogeo/proof_shape.py"
+      - "mapeogeo/lean_open_extractor.py"
+      - "tests/test_erdos_proof_shapes_v3.py"
+      - "tests/test_lean_open_extractor_v3.py"
+      - ".github/workflows/erdos-proof-shapes-v3.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_erdos_proof_shapes_v3.py tests/test_lean_open_extractor_v3.py tests/test_asymptotic_family_v1.py tests/test_erdos_formal_obligations_v2.py -q
+      - run: python -m pytest tests/test_gfyproof_endpoint_contracts_v03.py -q
