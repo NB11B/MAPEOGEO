@@ -1,0 +1,19 @@
+name: work-router-multidomain-v0-2
+on:
+  push:
+    branches: [work-router-multidomain-v0.2]
+  pull_request:
+    paths:
+      - "mapeogeo/multidomain_routes.py"
+      - "tests/test_work_router_multidomain_v0_2.py"
+      - ".github/workflows/work-router-multidomain-v0-2.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_work_router_v0_1.py tests/test_work_router_real_pa.py tests/test_pa_condition_monitor.py tests/test_work_router_multidomain_v0_2.py -q
+      - run: python -m pytest tests/test_gfyproof_endpoint_contracts_v03.py -q
