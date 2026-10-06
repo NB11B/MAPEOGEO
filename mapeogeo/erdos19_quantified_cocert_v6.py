@@ -49,3 +49,23 @@ def run_campaign(n,instances):
         if not cert.verified:
             return QuantifiedCampaign(len(certs),len(certs)-1,lines,tuple(certs),"COUNTEREXAMPLE")
     return QuantifiedCampaign(len(certs),len(certs),None,tuple(certs),"BOUNDED_VERIFIED")
+
+
+@dataclass(frozen=True)
+class ExhaustionCertificate:
+    class_id:str
+    generated_count:int
+    manifest_digest:str
+    theorem_or_proof_id:str
+
+
+def promote_if_exhaustive(campaign:QuantifiedCampaign,exhaustion:ExhaustionCertificate|None):
+    if campaign.counterexample is not None:
+        return "COUNTEREXAMPLE"
+    if exhaustion is None:
+        return "BOUNDED_VERIFIED"
+    if exhaustion.generated_count!=campaign.generated:
+        return "EXHAUSTION_MISMATCH"
+    if not exhaustion.manifest_digest or not exhaustion.theorem_or_proof_id:
+        return "EXHAUSTION_INVALID"
+    return "CLASS_EXHAUSTED_VERIFIED"
