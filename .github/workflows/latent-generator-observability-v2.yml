@@ -1,0 +1,21 @@
+name: latent-generator-observability-v2
+on:
+  push:
+    branches: [latent-generator-observability-v2]
+  pull_request:
+    paths:
+      - "mapeogeo/latent_generator_observability_v2.py"
+      - "mapeogeo/latent_waveform_identifiability_v2.py"
+      - "mapeogeo/latent_nonlinear_identifiability_v2.py"
+      - "tests/test_latent_generator_observability_v2.py"
+      - "tests/test_latent_waveform_identifiability_v2.py"
+      - "tests/test_latent_nonlinear_identifiability_v2.py"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_latent_generator_v1.py tests/test_latent_generator_domains_v1.py tests/test_latent_generator_observability_v2.py tests/test_latent_waveform_identifiability_v2.py tests/test_latent_nonlinear_identifiability_v2.py -q
