@@ -5,6 +5,7 @@ from pathlib import Path
 from .erdos19_backend_contracts_v12 import CanonicalResult,ColoringResult
 from .erdos19_coloring_cnf_v13 import dimacs,assignment_to_colors
 from .erdos19_frontier13_v5 import verify_edge_coloring
+from .erdos19_exact_canonical_v8 import exact_canonical_digest
 
 class PynautyCanonicalAdapter:
     def canonicalize(self,n,lines):
@@ -55,6 +56,6 @@ def functional_readiness():
     c=PynautyCanonicalAdapter().canonicalize(3,({0,1},{0,2},{1,2}))
     s=CadicalColoringAdapter().solve(3,({0,1},{0,2},{1,2}))
     missing=[]
-    if not c.verified:missing.append("FUNCTIONAL_CANONICAL_BACKEND")
+    if not c.verified:\n        try:\n            d,_=exact_canonical_digest(3,({0,1},{0,2},{1,2}),max_states=200000)\n            if len(d)!=64: missing.append("FUNCTIONAL_CANONICAL_BACKEND")\n        except Exception:\n            missing.append("FUNCTIONAL_CANONICAL_BACKEND")
     if not s.verified:missing.append("FUNCTIONAL_SAT_BACKEND")
     return tuple(missing)
