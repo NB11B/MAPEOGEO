@@ -28,4 +28,4 @@ jobs:
       - name: Router tests
         run: python -m pytest tests/test_work_router_v0_1.py -q
       - name: Existing semantic-contract tests
-        run: python -m pytest tests/test_semantic_contracts_v03.py -q
+        run: python -m pytest tests/test_gfyproof_endpoint_contracts_v03.py -q
