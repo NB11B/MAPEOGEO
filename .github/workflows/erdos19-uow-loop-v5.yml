@@ -10,4 +10,4 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: "3.11"}
       - run: python -m pip install pytest
-      - run: python -m pytest tests/test_erdos19_uow_loop_v5.py tests/test_erdos19_residual_list_coloring_v4.py tests/test_erdos19_rank_decomposition_v3.py tests/test_erdos19_factor_replacement_v5.py -q
+      - run: python -m pytest tests/test_erdos19_uow_loop_v5.py tests/test_erdos19_residual_list_coloring_v4.py tests/test_erdos19_rank_decomposition_v3.py tests/test_erdos19_factor_replacement_v5.py tests/test_erdos19_frontier13_v5.py -q
