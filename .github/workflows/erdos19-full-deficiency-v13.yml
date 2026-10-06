@@ -1,0 +1,29 @@
+name: erdos19-full-deficiency-v13
+on:
+  push:
+    branches: [erdos19-full-deficiency-closure-v13]
+  workflow_dispatch:
+jobs:
+  trusted-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_erdos19_full_deficiency_v13.py tests/test_erdos19_coloring_cnf_v13.py tests/test_erdos19_global_closure_v13.py tests/test_erdos19_future_core_v12.py tests/test_erdos19_n13_closure_v12.py -q
+  production-tools:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - name: Install available canonical/SAT tooling
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nauty cadical || true
+          command -v dreadnaut || true
+          command -v cadical || true
+      - name: Audit runtime readiness
+        run: python -c "from mapeogeo.erdos19_readiness_v13 import audit; print(audit())"
