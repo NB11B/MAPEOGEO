@@ -1,0 +1,19 @@
+name: work-router-registry-v0-7
+on:
+  push:
+    branches: [work-router-registry-v0.7]
+  pull_request:
+    paths:
+      - "mapeogeo/v03_implementation_registry.py"
+      - "tests/test_work_router_registry_v0_7.py"
+      - ".github/workflows/work-router-registry-v0-7.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.11"}
+      - run: python -m pip install pytest
+      - run: python -m pytest tests/test_work_router_v0_1.py tests/test_work_router_real_pa.py tests/test_pa_condition_monitor.py tests/test_work_router_multidomain_v0_2.py tests/test_work_router_power_control_v0_3.py tests/test_work_router_invariants_v0_4.py tests/test_work_router_derived_v0_5.py tests/test_work_router_contract_loader_v0_6.py tests/test_work_router_registry_v0_7.py -q
+      - run: python -m pytest tests/test_gfyproof_endpoint_contracts_v03.py -q
