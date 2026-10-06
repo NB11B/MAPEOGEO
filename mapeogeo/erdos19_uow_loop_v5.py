@@ -56,3 +56,10 @@ def residual_is_colorable(n,family):
     hc,_=best_high_coloring(n,family)
     if hc is None:return False
     return solve_list_edge_coloring(n,residual_pair_lists(n,family,hc)) is not None
+
+def global_delta_bound_holds(n,family):
+    hc,rows=best_high_coloring(n,family)
+    if hc is None:return False
+    deg=pair_degrees(family)
+    delta=max(deg.values(),default=0)
+    return all(r["list_size"]>=delta for r in rows)
