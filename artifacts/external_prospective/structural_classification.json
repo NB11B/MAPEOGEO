@@ -1,0 +1,31 @@
+{
+  "total_instances_scored": 1150,
+  "coordinate_accuracies": {
+    "A_Delta": 1.0,
+    "A_I": 1.0,
+    "A_W": 1.0,
+    "A_sigma": 1.0,
+    "A_Pi": 1.0
+  },
+  "tuple_accuracy": 1.0,
+  "semantic_overpromotions": 0,
+  "overpromotion_rate_R_over": 0.0,
+  "directional_confusion_matrix": {
+    "SAME_SEMANTICS": {
+      "SAME_SEMANTICS": 384,
+      "EQUIVALENT_TO": 0,
+      "SCOPED_OVERLAP": 0
+    },
+    "EQUIVALENT_TO": {
+      "SAME_SEMANTICS": 0,
+      "EQUIVALENT_TO": 383,
+      "SCOPED_OVERLAP": 0
+    },
+    "SCOPED_OVERLAP": {
+      "SAME_SEMANTICS": 0,
+      "EQUIVALENT_TO": 0,
+      "SCOPED_OVERLAP": 383
+    }
+  },
+  "safety_gate_passed": true
+}

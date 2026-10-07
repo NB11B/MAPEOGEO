@@ -1,0 +1,63 @@
+{
+  "status": "VERIFIED_IMMUTABLE",
+  "master_manifest_sha256": "efac35ded03cab2fd8943344fc011288021321f1c1dc198872649a46177203c2",
+  "ancestor_commit_valid": true,
+  "verified_components": {
+    "baseline_manifest": {
+      "verified": true,
+      "sha256": "3bf04bbbf86a32adae01040dbb7ce0c35ddccf60278ed8880b3f04c49f591d16"
+    },
+    "quarantine_manifest_312": {
+      "verified": true,
+      "sha256": "9214a9ba03071a5032c453646ab93e73bd01f0cd379f63317d8191f4c8e281dc"
+    },
+    "grammar_freeze_manifest": {
+      "verified": true,
+      "sha256": "28d90ef540405936ecb90b94d09dbfd391fe4cc6ba187623150327f92a3d9ea5"
+    },
+    "heldout_312_result": {
+      "verified": true,
+      "sha256": "6ebf6c9c0b579f297fdbc947ae0f9e52c339d844d5185dd811e0a5c7b341067b"
+    },
+    "primitive_characterization": {
+      "verified": true,
+      "sha256": "daef8d9b650ed20c81b69d0b312bc99a0c6153a50fd911e9957ad6676aca9c95"
+    },
+    "primitive_characterization_md": {
+      "verified": true,
+      "sha256": "506968a714730ac379afbdb221af3a77a8100260277f54debdd9ac2f95650c22"
+    },
+    "state_reconstruction_results": {
+      "verified": true,
+      "sha256": "79b36846f509f329c28d826a067b15c944d85ebd3eeac8ced268b2ea5b214d40"
+    },
+    "m5_grammar_specification": {
+      "verified": true,
+      "sha256": "568a00bfcb989fd41ba87dd776e17099462f99cb7bec09ef0f69a14e47001a0d"
+    },
+    "b5_freeze_manifest": {
+      "verified": true,
+      "sha256": "26225f2b4f27eab7e568cb78dff764bac0d8bf69ff86bb3f021aa33f8b1b29a9"
+    },
+    "b5_explanatory_boundary_jsonl": {
+      "verified": true,
+      "sha256": "24fcf1f051f00fa437041ffc81a0c72cc3f9a782cbb688d71866d9fe50fda5dd"
+    },
+    "b5_resolution_ledger_jsonl": {
+      "verified": true,
+      "sha256": "d4a20fcf04add8c982806faf261fb1d06193eb641228704c8feed14bad2f9927"
+    },
+    "collision_adjudication_12": {
+      "verified": true,
+      "sha256": "b0b7b2ba7f14fdcc77fcee430ea9ce13f0dbf2ed14d41bcaf5b253132903beb6"
+    },
+    "alphabet_refinements": {
+      "verified": true,
+      "sha256": "f61b1ba60e15a4de15660ed3a9637e74c9e4eb0645910be5f3484210e99c1a9a"
+    },
+    "candidate_falsification_results": {
+      "verified": true,
+      "sha256": "650b14b28435df4ec98b1cb830e10598ed918e545e64e148475c138daf947b6b"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "analysis_type": "SECONDARY_B5_PROSPECTIVE_EVALUATION",
+  "tested_c6_candidate": "noncommutative_operator_phase_grading",
+  "delta_h_b5": 0.041,
+  "regression_on_45k": 0,
+  "status": "QUARANTINED_PENDING_FUTURE_CAMPAIGN"
+}

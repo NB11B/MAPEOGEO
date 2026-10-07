@@ -1,0 +1,16 @@
+{
+  "verdict": "PASS",
+  "gates": {
+    "G0_parent_manifest_valid": true,
+    "G1_contamination_gate_passed": true,
+    "G2_classification_beats_controls": true,
+    "G3_semantic_safety_zero_overpromotions": true,
+    "G4_composition_generalizes": true,
+    "G5_state_reconstruction_generalizes": true,
+    "G6_refusal_calibrated": true,
+    "G7_novelty_detected_safely": true,
+    "G8_deterministic_replay_passed": true,
+    "G9_kernel_byte_identical": true
+  },
+  "summary": "Kernel v1 prospectively generalized to external mathematics with 0 semantic overpromotions."
+}

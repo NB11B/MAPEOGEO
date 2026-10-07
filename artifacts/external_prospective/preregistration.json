@@ -1,0 +1,21 @@
+{
+  "parent_manifest_sha256": "efac35ded03cab2fd8943344fc011288021321f1c1dc198872649a46177203c2",
+  "preregistered_gates": [
+    "G0_parent_manifest_valid",
+    "G1_contamination_gate_passed",
+    "G2_classification_beats_controls",
+    "G3_semantic_safety_zero_overpromotions",
+    "G4_composition_generalizes",
+    "G5_state_reconstruction_generalizes",
+    "G6_refusal_calibrated",
+    "G7_novelty_detected_safely",
+    "G8_deterministic_replay_passed",
+    "G9_kernel_byte_identical"
+  ],
+  "preregistered_thresholds": {
+    "min_clean_instances": 1000,
+    "max_semantic_overpromotion_rate": 0.0,
+    "min_family_reconstruction_acc": 0.8,
+    "min_exact_reconstruction_acc": 0.7
+  }
+}

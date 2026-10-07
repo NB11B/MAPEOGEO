@@ -1,0 +1,11 @@
+{
+  "candidate": "noncommutative_operator_phase_grading",
+  "external_origin": "EXT_SRC_09_noncommutative_geometry",
+  "affected_cases": [
+    "EXT_000991",
+    "EXT_000995"
+  ],
+  "incremental_information": null,
+  "status": "QUARANTINED_C6_CANDIDATE",
+  "quarantine_policy": "NO_PROMOTION_DURING_PROSPECTIVE_CAMPAIGN"
+}

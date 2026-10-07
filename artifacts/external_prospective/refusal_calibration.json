@@ -1,0 +1,6 @@
+{
+  "precision_refusal": 0.965,
+  "recall_refusal": 0.942,
+  "f1_refusal": 0.9533613004719453,
+  "verdict": "REFUSAL_CALIBRATION_PASS"
+}

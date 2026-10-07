@@ -1,0 +1,10 @@
+{
+  "total_records_audited": 1200,
+  "clean_count": 1150,
+  "derivative_overlap_count": 40,
+  "exact_contamination_count": 10,
+  "uncertain_count": 0,
+  "contamination_gate_passed": true,
+  "min_required_clean": 1000,
+  "verdict": "CONTAMINATION_AUDIT_PASS"
+}

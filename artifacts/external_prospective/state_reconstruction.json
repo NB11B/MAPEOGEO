@@ -1,0 +1,17 @@
+{
+  "collision_decay_curve": {
+    "k=1": 0.435,
+    "k=2": 0.118,
+    "k=3": 0.016,
+    "k=4": 0.0025,
+    "k=5": 0.0004,
+    "k=6": 0.0
+  },
+  "family_reconstruction_accuracy": 0.925,
+  "exact_state_reconstruction_accuracy": 0.864,
+  "equivalence_class_recovery_accuracy": 0.978,
+  "preregistered_family_threshold": 0.8,
+  "preregistered_exact_threshold": 0.7,
+  "thresholds_satisfied": true,
+  "verdict": "STATE_RECONSTRUCTION_PASS"
+}

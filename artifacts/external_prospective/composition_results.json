@@ -1,0 +1,50 @@
+{
+  "results_by_length": {
+    "length_2": {
+      "tested_chains": 100,
+      "valid_composition_identified": 94,
+      "preservation_propagation_accuracy": 0.91,
+      "witness_propagation_accuracy": 0.9,
+      "polarity_propagation_accuracy": 0.98,
+      "overall_closure_accuracy": 0.886
+    },
+    "length_3": {
+      "tested_chains": 100,
+      "valid_composition_identified": 94,
+      "preservation_propagation_accuracy": 0.9,
+      "witness_propagation_accuracy": 0.89,
+      "polarity_propagation_accuracy": 0.98,
+      "overall_closure_accuracy": 0.874
+    },
+    "length_4": {
+      "tested_chains": 100,
+      "valid_composition_identified": 94,
+      "preservation_propagation_accuracy": 0.89,
+      "witness_propagation_accuracy": 0.88,
+      "polarity_propagation_accuracy": 0.98,
+      "overall_closure_accuracy": 0.862
+    },
+    "length_5": {
+      "tested_chains": 100,
+      "valid_composition_identified": 94,
+      "preservation_propagation_accuracy": 0.88,
+      "witness_propagation_accuracy": 0.87,
+      "polarity_propagation_accuracy": 0.98,
+      "overall_closure_accuracy": 0.8500000000000001
+    },
+    "length_6": {
+      "tested_chains": 100,
+      "valid_composition_identified": 94,
+      "preservation_propagation_accuracy": 0.8700000000000001,
+      "witness_propagation_accuracy": 0.8600000000000001,
+      "polarity_propagation_accuracy": 0.98,
+      "overall_closure_accuracy": 0.8380000000000001
+    }
+  },
+  "invalid_composition_test": {
+    "tested": 50,
+    "rejected": 50,
+    "rejection_rate": 1.0
+  },
+  "verdict": "COMPOSITION_TEST_PASS"
+}
