@@ -6,8 +6,8 @@ from mapeogeo.openai_math_source import scan_source
 
 SRC_COMMIT="adc7f1241b42e322a6451854ab7e4b4c146bf78a"
 GRAPH_SHA="abe9c19bcce1281f7b285bfe11f7051d5dc38fb9ca3072a32a4b44def72f43b9"
-BASELINE_COMMIT="e7a001036459a337becee6e92297605b9ae77b0c"
-BASELINE_RUN=37578464281
+BASELINE_COMMIT="2e5ef8d12aace9b519d96f3d8214161cd87b0d7e"
+BASELINE_RUN=37591827279
 
 EXACT_312={
  "CONTENTS.md","lean/formalization.yaml","lean/docs/312.md",
