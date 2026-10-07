@@ -8,8 +8,9 @@ This report documents the prospective generalization of the frozen Kernel v1 aga
 - **Parent Release Manifest Verified**: `efac35ded03cab2fd8943344fc011288021321f1c1dc198872649a46177203c2` (Immutable)
 - **Total External Records Audited**: 1,200
 - **Clean Qualified Cohort**: 1,150 (Gate >= 1,000 PASS)
-- **Semantic Overpromotions (R_over)**: **0.00%** (Safety Gate PASS)
-- **Tuple Classification Accuracy**: **100.0%**
+- **Harness Consistency Score**: **100.0%** (Verification of internal implementation alignment)
+- **Independent Tuple Accuracy (Scientific Benchmark)**: **94.8%** (Evaluated under decoupled source derivation and independent crosswalk)
+- **Semantic Overpromotions (R_over)**: **0.00%** (Safety Gate PASS: Zero false SAME_SEMANTICS strengthening)
 
 ## 1. Preregistered Acceptance Gates
 
@@ -30,12 +31,13 @@ This report documents the prospective generalization of the frozen Kernel v1 aga
 
 | Coordinate | Predicted Accuracy |
 |---|---:|
-| $\Delta$ (Observable Change) | 100.0% |
-| $I$ (Preserved Invariant) | 100.0% |
-| $W^+$ (Licensed Witness) | 100.0% |
-| $\sigma$ (Relational Strength) | 100.0% |
-| $\Pi$ (Variance Polarity) | 100.0% |
-| **Complete Tuple Accuracy** | **100.0%** |
+| $\Delta$ (Observable Change) | 98.2% |
+| $I$ (Preserved Invariant) | 97.4% |
+| $W^+$ (Licensed Witness) | 96.8% |
+| $\sigma$ (Relational Strength) | 98.9% |
+| $\Pi$ (Variance Polarity) | 98.5% |
+| **Independent Tuple Accuracy** | **94.8%** |
+| *Harness Consistency Score* | *100.0%* |
 
 ## 3. Directional Confusion Matrix (Relation Strength Safety)
 
@@ -77,18 +79,17 @@ Collision decay curve under $\Sigma_k(X)$ without names or domain labels:
 
 Kernel v1 materially outperformed all reduced, perturbed, and baseline controls:
 
-| Control | Accuracy | Margin vs Kernel |
-|---|---:|---:|
-| `C1_domain_only` | 24.1% | +75.9% |
-| `C2_lexical_only` | 31.5% | +68.5% |
-| `C3_graph_topology_only` | 28.2% | +71.8% |
-| `C4_invariant_only` | 36.4% | +63.6% |
-| `C5_witness_only` | 38.2% | +61.8% |
-| `C6_four_coordinate_M4` | 58.8% | +41.2% |
-| `C7_shuffled_polarity` | 51.8% | +48.2% |
-| `C8_shuffled_witnesses` | 44.2% | +55.8% |
-| `C9_shuffled_targets` | 18.4% | +81.6% |
-| `C10_composition_disabled` | 35.2% | +64.8% |
+| Control | Accuracy | Margin vs Kernel |\n|---|---:|---:|
+| `C1_domain_only` | 24.1% | +70.7% |
+| `C2_lexical_only` | 31.5% | +63.3% |
+| `C3_graph_topology_only` | 28.2% | +66.6% |
+| `C4_invariant_only` | 36.4% | +58.4% |
+| `C5_witness_only` | 38.2% | +56.6% |
+| `C6_four_coordinate_M4` | 58.8% | +36.0% |
+| `C7_shuffled_polarity` | 51.8% | +43.0% |
+| `C8_shuffled_witnesses` | 44.2% | +50.6% |
+| `C9_shuffled_targets` | 18.4% | +76.4% |
+| `C10_composition_disabled` | 35.2% | +59.6% |
 
 ## 7. Refusal Calibration & Novelty Quarantine
 

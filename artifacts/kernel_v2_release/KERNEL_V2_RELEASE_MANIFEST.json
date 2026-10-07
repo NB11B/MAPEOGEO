@@ -1,0 +1,118 @@
+{
+  "kernel_name": "MAPEOGEO Relational Mathematics Kernel v2",
+  "kernel_version": "2.0.0-sealed",
+  "seal_status": "FROZEN_PERMANENT",
+  "git_commit": "b69be0f4bdabbcc53b32338f8f30fa3f3a610f2a",
+  "mathematical_representation": {
+    "grammar": "M6",
+    "coordinates": [
+      "Delta",
+      "I",
+      "W_plus",
+      "sigma",
+      "Pi",
+      "Gamma"
+    ],
+    "state_emergence_operator": "Sigma_k(X) mapping relational neighborhood to mathematical state identity",
+    "composition_law": "Associative typed word composition under circ"
+  },
+  "self_extension_provenance": {
+    "external_source": "noncommutative_geometry (EXT_000991, EXT_000995)",
+    "admitted_coordinate": "Gamma (Operator Parity / Z2-Grading)",
+    "b5_prospective_information_gain_bits": 0.485,
+    "baseline_45k_regressions": 0,
+    "effective_domain_count": 5.88
+  },
+  "boundary_evolution": {
+    "b5_original_count": 3218,
+    "resolved_by_gamma": 184,
+    "b6_unresolved_count": 3034,
+    "b6_corpus_share": "3.68%"
+  },
+  "scientific_accuracy": {
+    "harness_consistency_score": "100.0%",
+    "independent_tuple_accuracy": "94.8%"
+  },
+  "artifact_hashes": {
+    "kernel_v1_manifest": {
+      "path": "artifacts/kernel_v1_release/KERNEL_V1_RELEASE_MANIFEST.json",
+      "sha256": "efac35ded03cab2fd8943344fc011288021321f1c1dc198872649a46177203c2",
+      "size_bytes": 4861
+    },
+    "m5_grammar_spec": {
+      "path": "artifacts/residual_analysis/M5_grammar_specification.json",
+      "sha256": "568a00bfcb989fd41ba87dd776e17099462f99cb7bec09ef0f69a14e47001a0d",
+      "size_bytes": 1577
+    },
+    "b5_original_boundary": {
+      "path": "artifacts/residual_analysis/B5_explanatory_boundary.jsonl",
+      "sha256": "24fcf1f051f00fa437041ffc81a0c72cc3f9a782cbb688d71866d9fe50fda5dd",
+      "size_bytes": 1866511
+    },
+    "external_prospective_report": {
+      "path": "artifacts/external_prospective/EXTERNAL_PROSPECTIVE_REPORT.md",
+      "sha256": "eec77f93d8286e862f1d9d1bb5e6bf4b30ef736d5cc8926944c661d201f20b3d",
+      "size_bytes": 4034
+    },
+    "external_score_reissued": {
+      "path": "artifacts/c6_adjudication/external_score_reissued.json",
+      "sha256": "944e90991be343b7bc61adca85627ba911c221509595386db29ebcbe29b2a435",
+      "size_bytes": 443
+    },
+    "c6_origin_manifest": {
+      "path": "artifacts/c6_adjudication/c6_origin_manifest.json",
+      "sha256": "c2962b5daafe7daa7aac6ae4c4d35fa98642861b9d322cf3b263557dfe7cb0d4",
+      "size_bytes": 283
+    },
+    "c6_characterization": {
+      "path": "artifacts/c6_adjudication/c6_characterization.json",
+      "sha256": "e2dbed0f299eea7a3ed1faf27d7f4ebe5c0ca0115b9fa9bf1c2ece3c9b74442f",
+      "size_bytes": 1060
+    },
+    "c6_b5_transfer": {
+      "path": "artifacts/c6_adjudication/c6_b5_transfer.json",
+      "sha256": "44cbd52f852c1a6b92c2fd2462db0211d1c5ab6a0499d516a7ea2e816081500f",
+      "size_bytes": 385
+    },
+    "c6_baseline_regression": {
+      "path": "artifacts/c6_adjudication/c6_baseline_regression.json",
+      "sha256": "f773636b936b973f569af1cd6efcd105715253765263ac742460ac8c5b1779e6",
+      "size_bytes": 307
+    },
+    "c6_multidomain": {
+      "path": "artifacts/c6_adjudication/c6_multidomain.json",
+      "sha256": "779b68ccef4dd758085e11031ea7d7105dd1db72c6bc4dee3431a763adeae7c0",
+      "size_bytes": 749
+    },
+    "c6_counterfactuals": {
+      "path": "artifacts/c6_adjudication/c6_counterfactuals.json",
+      "sha256": "7badd96e84f24269d7b732df686ef0c0f643f7fc1fa1de0979a3d1b5dd9f59dd",
+      "size_bytes": 961
+    },
+    "c6_admission": {
+      "path": "artifacts/c6_adjudication/c6_admission.json",
+      "sha256": "e246051dcd6ab43bc4240ba9d9246d2a6b4c5a79973a57ab9b4d97596a068e6d",
+      "size_bytes": 531
+    },
+    "m6_grammar_spec": {
+      "path": "artifacts/kernel_v2_release/M6_grammar_specification.json",
+      "sha256": "210a2088545b97ba0bc808a250e742ff522fd43519a7ccf0f04f3e65ca36224f",
+      "size_bytes": 1943
+    },
+    "b5_to_b6_ledger": {
+      "path": "artifacts/kernel_v2_release/B5_to_B6_transformation_ledger.jsonl",
+      "sha256": "e8f96c06652adfb9df8a7b4bae74836552d5cc965435c2502be50170dc9e5e91",
+      "size_bytes": 782481
+    },
+    "b6_explanatory_boundary": {
+      "path": "artifacts/kernel_v2_release/B6_explanatory_boundary.jsonl",
+      "sha256": "de2f9946d41ff8bc756a833d1493d9c4a57ceb6cf47a096d074d0f609932bea5",
+      "size_bytes": 1923379
+    },
+    "b6_freeze_manifest": {
+      "path": "artifacts/kernel_v2_release/B6_freeze_manifest.json",
+      "sha256": "ea2af75cdb6c34d8d07a49c9df75fc0d1fc638fe85ab75f97210d39eb3bbf82f",
+      "size_bytes": 535
+    }
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "grammar_name": "M6",
+  "parent_grammar": "M5^+",
+  "coordinates": {
+    "Delta": {
+      "description": "Observable structural change",
+      "alphabet": [
+        "addition",
+        "removal",
+        "modification",
+        "preservation"
+      ]
+    },
+    "I": {
+      "description": "Preserved invariant class",
+      "alphabet": [
+        "cardinality",
+        "metric",
+        "measure",
+        "topology",
+        "algebraic_structure"
+      ]
+    },
+    "W_plus": {
+      "description": "Relational witness / license certificate",
+      "alphabet": [
+        "commutative_diagram",
+        "homotopy",
+        "universal_property",
+        "isomorphism",
+        "factorization",
+        "bijection",
+        "higher_gerbe_gauge_coherence_certificate",
+        "operator_ideal_nuclear_admissibility_certificate",
+        "unit_counit_adjunction_certificate"
+      ]
+    },
+    "sigma": {
+      "description": "Admissible relational strength / semantic scope",
+      "alphabet": [
+        "SAME_SEMANTICS",
+        "EQUIVALENT_TO",
+        "SCOPED_OVERLAP"
+      ]
+    },
+    "Pi": {
+      "description": "Direction of structural transport relative to arrows",
+      "alphabet": [
+        "covariant",
+        "contravariant",
+        "self-dual"
+      ]
+    },
+    "Gamma": {
+      "description": "Operator Parity / Z2-Grading phase",
+      "alphabet": [
+        "even",
+        "odd",
+        "graded_mixed",
+        "ungraded"
+      ],
+      "origin": "EXT_SRC_09_noncommutative_geometry",
+      "status": "ADMITTED_BY_PROSPECTIVE_SELF_EXTENSION",
+      "prospective_b5_gain_bits": 0.485,
+      "effective_domain_count": 5.88,
+      "baseline_45k_regressions": 0
+    }
+  },
+  "composition_law": {
+    "symbol": "circ",
+    "semantics": "Associative typed word composition over (Delta, I, W^+, sigma, Pi, Gamma)"
+  },
+  "status": "SEALED_RELEASE_V2"
+}

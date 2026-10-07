@@ -1,0 +1,16 @@
+{
+  "boundary_corpus": "B6",
+  "target_grammar": "M6",
+  "boundary_population_count": 3034,
+  "corpus_share_percentage": 3.68,
+  "b6_jsonl_path": "B6_explanatory_boundary.jsonl",
+  "b6_jsonl_sha256": "de2f9946d41ff8bc756a833d1493d9c4a57ceb6cf47a096d074d0f609932bea5",
+  "b5_original_sha256": "24fcf1f051f00fa437041ffc81a0c72cc3f9a782cbb688d71866d9fe50fda5dd",
+  "transition_summary": {
+    "b5_total": 3218,
+    "resolved_by_gamma": 184,
+    "still_ambiguous": 128,
+    "not_applicable": 2906,
+    "b6_total": 3034
+  }
+}
