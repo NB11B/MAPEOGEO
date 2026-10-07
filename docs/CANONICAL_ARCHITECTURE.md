@@ -87,3 +87,76 @@ measured effect -> minimal latent generator/equivalence class -> geometric diffe
 6. Cost is optimized only after certification, domain, and tolerance gates.
 7. Wide independent work executes in parallel inside deterministic UoW transitions.
 8. Every capability promotion leaves replayable evidence.
+
+
+## 12. Knowledge-acquisition / canonical reconciliation plane
+
+MAPEOGEO now includes a production-qualified external mathematical knowledge
+ingestion path.
+
+Qualified OpenAI/math integration status:
+
+    OPENAI/MATH SOURCE + CANONICAL INTEGRATION QUALIFIED
+
+The qualified production artifact contains approximately:
+
+- 4.225 million graph nodes;
+- 4.559 million graph edges;
+- 3,762,712 OpenAI/math lexical records;
+- a 215-object MAPEOGEO canonical registry.
+
+Published artifact SHA-256:
+
+    716a83398d878dd916548d20e68d17b98b35a32499d7209cff17f35a54d9a8d3
+
+The integration is not a raw corpus attachment. Imported OpenAI/math records
+are connected to canonical MAPEOGEO objects through a fail-closed reconciliation
+relation:
+
+    CANDIDATE_REPRESENTS
+
+This relation is intentionally weaker than established semantic relations:
+
+    CANDIDATE_REPRESENTS != REPRESENTS != SAME_SEMANTICS.
+
+A candidate correspondence therefore supplies searchable evidence and a
+promotion target, but it cannot satisfy a certified mathematical transformation
+route, semantic-equivalence requirement, or proof obligation.
+
+Promotion requires individual mathematical evidence under the existing
+certificate/authority machinery.
+
+The independent verifier rejects at least these invalid promotions:
+
+- treating a candidate correspondence as established representation;
+- asserting semantic equivalence without promotion evidence;
+- targeting a noncanonical object;
+- originating a candidate edge outside the imported corpus authority.
+
+This makes external mathematical knowledge acquisition monotone with respect
+to authority: ingestion can add candidates without silently strengthening the
+certified graph.
+
+### Relationship to PSMSL and work routing
+
+PSMSL/MAPEOGEO may search candidate correspondences when discovering possible
+representations, operators, proofs, or routes. Candidate edges may therefore
+inform proposal/discovery work.
+
+However, route certification must exclude candidate-only edges whenever the
+requested work requires established semantics.
+
+The intended lifecycle is:
+
+    external lexical/source record
+      -> CANDIDATE_REPRESENTS
+      -> mathematical review / deterministic evidence
+      -> REPRESENTS
+      -> stronger semantic proof where justified
+      -> SAME_SEMANTICS.
+
+Each transition is an authority promotion and must leave replayable evidence.
+
+This plane separates graph-scale knowledge acquisition from mathematical
+authority and allows MAPEOGEO to grow its external knowledge surface without
+weakening its fail-closed execution semantics.
