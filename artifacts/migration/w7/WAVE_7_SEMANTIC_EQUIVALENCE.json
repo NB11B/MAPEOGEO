@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 7 Semantic Equivalence and Behavioral Fidelity Report",
+  "historical_baseline": "NB11B/MAPEOGEO @ release/autonomous-mathematics-kernel-v1 (commit 74e51bd)",
+  "canonical_target": "NB11B/MAPEOGEOv2 (branch integration/w7-mathematics-adapter)",
+  "domain": "mathematics",
+  "verifications": [
+    {
+      "aspect": "Trajectory Preservation",
+      "historical": "CFT -> GMT -> ERGODIC -> MORSE -> REFUSE",
+      "canonical_v2": "CFT -> GMT -> ERGODIC -> MORSE -> REFUSE",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Rational Refusal Stopping Rule",
+      "historical": "Round 5 refusal when top efficiency J < 1.5",
+      "canonical_v2": "Round 5 refusal when top efficiency J = 0.0833 < 1.5",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Marginal Utility Decay",
+      "historical": "Strict monotone decay of J(M_t^*) across rounds",
+      "canonical_v2": "4.2281 > 3.652 > 3.5487 > 2.7627 > 0.0833",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Deficiency Conservation Law",
+      "historical": "Delta D = 0 (resolved + reduced + unchanged + exposed)",
+      "canonical_v2": "Delta D = 0 on every state transition verified fail-closed",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Certification Gates",
+      "historical": "4 formal gates evaluated before admission",
+      "canonical_v2": "4 formal gates evaluated before admission",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Direction of Authority",
+      "historical": "Proof engine embedded in mathematics package",
+      "canonical_v2": "ProofEngine is completely domain-neutral; MathematicsAdapter calls ProofEngine",
+      "status": "ARCHITECTURALLY_SUPERIOR"
+    }
+  ],
+  "regressions": 0,
+  "verdict": "PASS"
+}

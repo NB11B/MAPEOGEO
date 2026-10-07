@@ -2,9 +2,12 @@
   "component_id": "domain-adapter-mathematics",
   "target_module": "mapeogeo.domains.mathematics",
   "target_files": [
+    "src/mapeogeo/domains/mathematics/__init__.py",
     "src/mapeogeo/domains/mathematics/adapter.py",
     "src/mapeogeo/domains/mathematics/ontology.py",
-    "src/mapeogeo/domains/mathematics/obligations.py"
+    "src/mapeogeo/domains/mathematics/obligations.py",
+    "src/mapeogeo/domains/mathematics/grammar_mapping.py",
+    "src/mapeogeo/domains/mathematics/clean_room.py"
   ],
   "source_repository": "NB11B/MAPEOGEO",
   "source_branch": "release/autonomous-mathematics-kernel-v1",
@@ -13,10 +16,16 @@
     "src/domains/math_adapter.py"
   ],
   "source_qualification_status": "CLEAN_ROOM_REPRODUCED",
-  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
   "qualification_gate_requirements": [
     "Passes N=80 fresh math corpus qualification with E_curr <= 0.25",
-    "Preserves refusal on round 5"
+    "Preserves refusal on round 5",
+    "Anti-leakage invariant H(K_before) = H(K_after) verified",
+    "Direction of authority: MathematicsAdapter -> ProofEngine preserved"
   ],
-  "notes": "Binds mathematical problem graphs and proof obligations to UoW kernel"
+  "verified_tests": [
+    "tests/unit/test_mathematics.py",
+    "tests/reproduction/test_clean_room_mathematics.py"
+  ],
+  "notes": "Binds mathematical problem graphs and proof obligations to domain-neutral UoW kernel"
 }

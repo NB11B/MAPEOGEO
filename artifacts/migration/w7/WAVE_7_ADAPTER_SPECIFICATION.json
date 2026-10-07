@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 7 Mathematics Adapter Specification",
+  "adapter_class": "mapeogeo.domains.mathematics.adapter.MathematicsAdapter",
+  "contract_methods": {
+    "required_work": {
+      "input": "MathematicalProblem | Mapping[str, Any]",
+      "output": "WorkContract",
+      "semantics": "Translates mathematical problem into domain-neutral WorkContract with exact rigor (error_tolerance = 0.0)"
+    },
+    "candidate_machinery": {
+      "input": "(DeficiencyDistribution | DeficiencyRecord | Mapping[str, Any], KnowledgeState)",
+      "output": "list[MachineryNode]",
+      "semantics": "Proposes atomic candidate machinery nodes to eliminate detected deficiencies"
+    },
+    "factor_grammar": {
+      "input": "(Any, witness_id=None, witness_symbol=None, witness_role=None)",
+      "output": "FactoringAuditRecord",
+      "semantics": "Factors mathematical work into literal 6D coordinates and audits for compliance/drift"
+    },
+    "certify": {
+      "input": "(Any, proof_engine=None, current_state=None)",
+      "output": "CertificationResult",
+      "semantics": "Discharges obligations via ProofEngine replay and Kernel 4-gate boundary"
+    },
+    "measure_ability": {
+      "input": "(MathematicalProblem | Mapping[str, Any], KnowledgeState)",
+      "output": "float",
+      "semantics": "Measures solve capability for a problem given current certified state"
+    }
+  },
+  "invariants": {
+    "direction_of_authority": "MathematicsAdapter -> ProofEngine (generic proof engine remains completely unaware of mathematical theorems)",
+    "kernel_immutability": "H(K_before) = H(K_after) across all shared kernel and substrate subsystems",
+    "zero_domain_leakage": "No imports of mapeogeo.domains in kernel, grammar, graph, psmsl, routing, or proof"
+  }
+}

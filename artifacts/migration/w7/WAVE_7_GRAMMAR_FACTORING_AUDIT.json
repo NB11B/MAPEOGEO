@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 7 Literal Grammar Factoring and Drift Audit",
+  "literal_coordinates": [
+    "Delta",
+    "I",
+    "W",
+    "sigma",
+    "Pi",
+    "Gamma"
+  ],
+  "composition_operator": "circ",
+  "dimension_invariant": {
+    "dimension_d": 6,
+    "delta_d": 0,
+    "strictly_enforced": true
+  },
+  "audited_categories": [
+    {
+      "classification": "EXACT_FACTOR",
+      "definition": "Exact 6D coordinate decomposition using registered witnesses",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "WITNESS_EXTENSION",
+      "definition": "Clean extension of registered witness catalog without dimension change",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "COMPOSITION",
+      "definition": "Composite operations over base coordinates",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "SEMANTIC_DRIFT",
+      "definition": "Unauthorized semantic drift or ungrounded heuristic token",
+      "test_status": "VERIFIED_REJECTED"
+    },
+    {
+      "classification": "NEW_COORDINATE_REQUIRED",
+      "definition": "Illegal attempt to break the 6D coordinate algebra beyond d=6",
+      "test_status": "VERIFIED_REJECTED"
+    }
+  ],
+  "sample_audited_witnesses": [
+    {
+      "witness_id": "w_cft_1",
+      "symbol": "WITNESS_ARTIN_RECIPROCITY",
+      "role": "Artin Reciprocity Law for Global Fields",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "w_gmt_1",
+      "symbol": "WITNESS_VARIFOLD_MONOTONICITY",
+      "role": "Monotonicity Formula for Stationary Varifolds",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "w_erg_1",
+      "symbol": "WITNESS_BIRKHOFF_ERGODIC_POINTWISE",
+      "role": "Birkhoff Pointwise Ergodic Theorem",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "w_mor_1",
+      "symbol": "WITNESS_MORSE_SMALE_TRANSVERSALITY",
+      "role": "Morse-Smale Transversality Theorem",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    }
+  ]
+}

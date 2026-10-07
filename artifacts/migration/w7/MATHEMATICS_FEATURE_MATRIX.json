@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 7 Mathematics Domain Adapter Feature Matrix",
+  "domain": "mathematics",
+  "governing_rule": "Mathematics adapts to the kernel; the kernel does not adapt to mathematics",
+  "components": [
+    {
+      "component": "ontology",
+      "module": "mapeogeo.domains.mathematics.ontology",
+      "features": [
+        "MathematicalProblem with difficulty, structural_distance, novelty, depth, required_signatures",
+        "Theorem and Lemma representation with kinds (THEOREM, LEMMA, CONJECTURE, COUNTEREXAMPLE)",
+        "MathematicalObject with structure properties and invariants",
+        "Construction and EquivalenceClass representations"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "grammar_mapping",
+      "module": "mapeogeo.domains.mathematics.grammar_mapping",
+      "features": [
+        "Factoring into literal frozen 6D coordinates (Delta, I, W, sigma, Pi, Gamma) + circ",
+        "FactoringClassification: EXACT_FACTOR, WITNESS_EXTENSION, COMPOSITION, SEMANTIC_DRIFT, NEW_COORDINATE_REQUIRED",
+        "Strict detection and rejection of coordinate expansions beyond d=6",
+        "Audited witness extension registration confined to coordinate W"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "obligations",
+      "module": "mapeogeo.domains.mathematics.obligations",
+      "features": [
+        "MathematicalProofObligation representation bridging theorems to ProofEngine",
+        "Translation to generic ProofClaim, ProofObligation, and Evidence",
+        "SHA-256 source identity sealing for replay fail-closed integrity"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "adapter",
+      "module": "mapeogeo.domains.mathematics.adapter",
+      "features": [
+        "MathematicsAdapter implementing canonical domain adapter contract",
+        "required_work(problem) -> WorkContract",
+        "candidate_machinery(deficiency, state) -> list[MachineryNode]",
+        "factor_grammar(work) -> FactoringAuditRecord",
+        "certify(result) -> CertificationResult via ProofEngine and Kernel 4-gate boundary",
+        "measure_ability(problem, state) -> float"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "clean_room",
+      "module": "mapeogeo.domains.mathematics.clean_room",
+      "features": [
+        "get_fresh_problem_corpus() providing 80 problems across 4 untouched areas",
+        "BlindCurriculumGenerator synthesizing candidate curricula without domain labels",
+        "Zero contamination of historical candidate sequence or stopping round"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    }
+  ]
+}

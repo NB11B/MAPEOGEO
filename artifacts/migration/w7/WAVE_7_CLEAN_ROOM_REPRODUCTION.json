@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 7 Clean-Room Campaign Reproduction Manifest",
+  "canonical_version": "v2.0.0-w7",
+  "engine_evaluated": "UoW Kernel K_v2 + MathematicsAdapter D_mathematics",
+  "corpus_size": 80,
+  "domains_covered": [
+    "Differential Topology & Morse Theory (20 problems)",
+    "Ergodic Theory & Measure-Preserving Dynamics (20 problems)",
+    "Algebraic Number Theory & Class Field Theory (20 problems)",
+    "Geometric Measure Theory & Varifolds (20 problems)"
+  ],
+  "blind_curriculum_generator": {
+    "domain_labels_used": false,
+    "historical_trajectory_provided": false,
+    "stopping_round_provided": false
+  },
+  "initial_deficiency_severity": 1382.78,
+  "final_deficiency_severity": 0.0,
+  "rounds": [
+    {
+      "round": 1,
+      "candidate_id": "CANDIDATE_CFT",
+      "name": "Adelic Class Field Theory & Artin Reciprocity",
+      "cost": 13.5,
+      "cost_efficiency_j": 4.2281,
+      "d_resolved": 459.0,
+      "remaining_deficiency": 923.78,
+      "decision": "TRANSITION",
+      "is_learning_event": true
+    },
+    {
+      "round": 2,
+      "candidate_id": "CANDIDATE_GMT",
+      "name": "Geometric Measure Theory & Varifold Monotonicity",
+      "cost": 12.5,
+      "cost_efficiency_j": 3.652,
+      "d_resolved": 363.78,
+      "remaining_deficiency": 560.0,
+      "decision": "TRANSITION",
+      "is_learning_event": true
+    },
+    {
+      "round": 3,
+      "candidate_id": "CANDIDATE_ERGODIC",
+      "name": "Ergodic Theory & Birkhoff Maximal Averages",
+      "cost": 11.5,
+      "cost_efficiency_j": 3.5487,
+      "d_resolved": 323.4,
+      "remaining_deficiency": 236.6,
+      "decision": "TRANSITION",
+      "is_learning_event": true
+    },
+    {
+      "round": 4,
+      "candidate_id": "CANDIDATE_MORSE",
+      "name": "Morse Theory & Handle Cancellation",
+      "cost": 11.0,
+      "cost_efficiency_j": 2.7627,
+      "d_resolved": 236.6,
+      "remaining_deficiency": 0.0,
+      "decision": "TRANSITION",
+      "is_learning_event": true
+    },
+    {
+      "round": 5,
+      "candidate_id": "CANDIDATE_RANDOM_CONTROL",
+      "name": "Ramsey Graph Multi-Color Bounds",
+      "cost": 12.0,
+      "cost_efficiency_j": 0.0833,
+      "d_resolved": 0.0,
+      "remaining_deficiency": 0.0,
+      "decision": "REFUSE",
+      "verdict": "NO_MATERIAL_CAPABILITY_ACQUISITION_AVAILABLE",
+      "reason": "Top efficiency J = 0.0833 < \\tau_J = 1.5",
+      "is_learning_event": false
+    }
+  ],
+  "invariants_verified": {
+    "deficiency_conservation": true,
+    "marginal_utility_decay": true,
+    "stopping_rule_refusal": true,
+    "curriculum_entropy_bound": true,
+    "kernel_immutability": true
+  },
+  "overall_verdict": "CLEAN_ROOM_REPRODUCED"
+}

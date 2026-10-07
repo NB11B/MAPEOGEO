@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 7 Historical Source Comparison",
+  "upstream_repository": "NB11B/MAPEOGEO",
+  "upstream_commit": "74e51bd",
+  "canonical_repository": "NB11B/MAPEOGEOv2",
+  "comparisons": [
+    {
+      "source_file": "mapeogeo/domain_adapter.py (Mathematics section)",
+      "target_file": "src/mapeogeo/domains/mathematics/adapter.py",
+      "status": "REFACTORED_CANONICAL",
+      "improvements": [
+        "Pure adapter implementing thin domain translation layer",
+        "Kernel neutral: delegates planning, utility, certification, and state transition to kernel",
+        "Direction of authority preserved: calls ProofEngine, ProofEngine is unaware of mathematical theorems",
+        "Zero foundation or graph mutations inside adapter"
+      ]
+    },
+    {
+      "source_file": "mapeogeo/autonomous_mathematics_clean_room.py",
+      "target_file": "src/mapeogeo/domains/mathematics/clean_room.py",
+      "status": "REFACTORED_CANONICAL",
+      "improvements": [
+        "Separated clean-room benchmark corpus generation from execution engine",
+        "BlindCurriculumGenerator isolated as qualification fixture",
+        "Strict independence of domain labels and historical curriculum sequence preserved"
+      ]
+    },
+    {
+      "source_file": "mapeogeo/grammar_factorer.py",
+      "target_file": "src/mapeogeo/domains/mathematics/grammar_mapping.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Strict compliance auditing against literal 6D coordinates (Delta, I, W, sigma, Pi, Gamma)",
+        "Explicit classification taxonomy (EXACT_FACTOR, WITNESS_EXTENSION, COMPOSITION, SEMANTIC_DRIFT, NEW_COORDINATE_REQUIRED)",
+        "Strict rejection of illegal coordinate dimension expansion beyond d=6",
+        "Ungrounded heuristic drift detection"
+      ]
+    },
+    {
+      "source_file": "tests/reproduction/test_clean_room_reproduction.py",
+      "target_file": "tests/reproduction/test_clean_room_mathematics.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Consolidated reproduction fixture running closed-loop K_v2 + D_mathematics",
+        "Directly asserts exact 5-round trajectory: CFT -> GMT -> ERGODIC -> MORSE -> REFUSE",
+        "Monotone marginal utility decay verified: 4.2281 > 3.652 > 3.5487 > 2.7627 > 0.0833",
+        "Deficiency conservation law verified on every round: Delta D = 0"
+      ]
+    }
+  ]
+}
