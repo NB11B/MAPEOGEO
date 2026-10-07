@@ -1,0 +1,25 @@
+{
+  "target": "T4",
+  "candidate_id": "U2026_CONST_0001",
+  "title": "Unconstrained Condensed Chromatic Spectral Adjunction",
+  "all_five_gates_passed": true,
+  "gates": {
+    "T4.1_exact_typing": "PASSED",
+    "T4.2_concrete_witness": "PASSED",
+    "T4.3_obstruction_extraction": "PASSED",
+    "T4.4_nonvanishing": "PASSED",
+    "T4.5_repair_annihilation": "PASSED"
+  },
+  "extracted_obstruction": {
+    "categorical_fiber": "fib(theta) \\simeq L_n(\\prod_{i=1}^\\infty C(M_i))",
+    "homological_group": "Ext^1_{SolidMod_R}(\\prod_{i=1}^\\infty Z_p, pi_0(C))",
+    "categorical_group": "pi_0(L_n(\\prod_{i=1}^\\infty C(M_i)))",
+    "witness_class": "[xi] != 0",
+    "proof_method": "Contradiction via Krause (2000) and Burklund et al. (2023)"
+  },
+  "repair_result": {
+    "unrestricted_omega": "SMASHING_LIMIT_MISMATCH (intensity = 1.0)",
+    "repaired_omega": "NONE (intensity = 0.0)",
+    "annihilation_exact": true
+  }
+}
