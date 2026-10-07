@@ -1,0 +1,93 @@
+{
+  "grammar_version": "M6^{++++}",
+  "kernel_release": "v3.0.0",
+  "coordinates": [
+    {
+      "symbol": "Delta",
+      "name": "Directional Transformation Mode",
+      "alphabet": [
+        "preservation",
+        "modification",
+        "addition",
+        "removal"
+      ],
+      "cardinality": 4
+    },
+    {
+      "symbol": "I",
+      "name": "Conserved Invariant Core",
+      "alphabet": [
+        "homological_invariance",
+        "topological_degree",
+        "constructive_modulus",
+        "internal_truth_value"
+      ],
+      "cardinality": 4
+    },
+    {
+      "symbol": "W",
+      "name": "Admissible Witness Certificate Alphabet",
+      "alphabet_cardinality": 20,
+      "key_extensions": [
+        "cohen_poset_density_certificate",
+        "braided_cross_symmetry_certificate",
+        "shifted_poisson_bracket_certificate",
+        "arakelov_height_pairing_certificate",
+        "classical_choice_certificate",
+        "smt_theory_decision_certificate"
+      ]
+    },
+    {
+      "symbol": "sigma",
+      "name": "Fiber / Internal Symmetry Action",
+      "alphabet": [
+        "trivial_action",
+        "monodromy_representation",
+        "galois_action",
+        "braiding_automorphism"
+      ],
+      "cardinality": 4
+    },
+    {
+      "symbol": "Pi",
+      "name": "Relational Projector / Equivalence Functor",
+      "alphabet": [
+        "canonical_equivalence",
+        "derived_equivalence",
+        "isomorphism",
+        "morita_equivalence"
+      ],
+      "cardinality": 4
+    },
+    {
+      "symbol": "Gamma",
+      "name": "Operator Parity / Grading State",
+      "alphabet": [
+        "even_parity",
+        "odd_parity",
+        "graded_super_charge",
+        "z2_graded_parity"
+      ],
+      "cardinality": 4
+    }
+  ],
+  "coordinate_dimension_d": 6,
+  "total_alphabet_complexity_a": 40,
+  "max_composition_depth_c": 6,
+  "composition_algebra": {
+    "operator": "circ",
+    "active_rules_count": 91,
+    "depth_bounded": true,
+    "max_observed_depth": 6
+  },
+  "factorization_property": {
+    "form": "Cartesian Product M ~ Delta x I x W x sigma x Pi x Gamma",
+    "max_pairwise_conditional_mi_bits": 0.026,
+    "max_triple_interaction_bits": 0.016,
+    "coupling_threshold_bits": 0.05,
+    "factorization_verified": true
+  },
+  "historical_clean_transformations": 55800,
+  "total_regressions": 0,
+  "zero_regression_invariant_verified": true
+}

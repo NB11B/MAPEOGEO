@@ -1,0 +1,12 @@
+{
+  "boundary_corpus": "B10",
+  "target_grammar": "M6^{++++}",
+  "boundary_population_count": 2416,
+  "corpus_share_percentage": 2.09,
+  "b10_jsonl_path": "B10_explanatory_boundary.jsonl",
+  "b10_jsonl_sha256": "09ea0d49e91d6a485905bf3866b2c59505e271e49dbdc24a4b99180f400a5715",
+  "b9_parent_count": 2594,
+  "resolved_in_e5": 178,
+  "status": "SEALED_AND_IMMUTABLE",
+  "frozen_timestamp": "2026-10-07T03:51:00Z"
+}

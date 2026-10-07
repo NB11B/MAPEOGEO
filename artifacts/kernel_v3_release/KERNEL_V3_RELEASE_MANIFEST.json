@@ -1,0 +1,37 @@
+{
+  "release_version": "v3.0.0",
+  "grammar_architecture": "M6^{++++}",
+  "dimension_d": 6,
+  "alphabet_a": 40,
+  "max_composition_depth_c": 6,
+  "boundary_corpus": "B10",
+  "boundary_population": 2416,
+  "boundary_share_percentage": 2.09,
+  "regression_baseline_clean_transformations": 55800,
+  "total_regressions": 0,
+  "model_selection_status": "FINITE_SATURATION_PREFERRED_OVER_OBSERVED_RANGE",
+  "files": {
+    "B10_explanatory_boundary.jsonl": {
+      "sha256": "09ea0d49e91d6a485905bf3866b2c59505e271e49dbdc24a4b99180f400a5715",
+      "size_bytes": 2002906
+    },
+    "B10_freeze_manifest.json": {
+      "sha256": "5de61942de6e3e23155c294eb74bd406fd1645f5f9ef97f66c670484312cf887",
+      "size_bytes": 424
+    },
+    "GROWTH_LAW_SYNTHESIS_AND_MODEL_SELECTION.json": {
+      "sha256": "15726f09cd6dc9e4122fad64afd8ba9aa8e5e14c7d7f0b372a61f9752dc5b844",
+      "size_bytes": 2848
+    },
+    "KERNEL_V3_RELEASE_SPECIFICATION.md": {
+      "sha256": "361a6200ae125c2b866948204d5d17552d63396cff597de504c3735522801773",
+      "size_bytes": 2108
+    },
+    "M6_plus_4_grammar_specification.json": {
+      "sha256": "b2bcb9c24909d5ce44d9b31f5928eb0a3e297d51bb057d53aa3836a3fead376c",
+      "size_bytes": 2475
+    }
+  },
+  "sealed_timestamp": "2026-10-07T03:51:30Z",
+  "status": "PRODUCTION_SEALED"
+}

@@ -1,0 +1,126 @@
+{
+  "campaign_arc": "5_independent_prospective_campaigns",
+  "campaigns": [
+    {
+      "id": "E1",
+      "axis": "External Transfer",
+      "D": 28,
+      "d": 6,
+      "outcome": "A_tuple = 94.8%"
+    },
+    {
+      "id": "E2",
+      "axis": "Domain Diversity",
+      "D": 38,
+      "d": 6,
+      "outcome": "Delta d = 0, Delta a = 1"
+    },
+    {
+      "id": "E3",
+      "axis": "Structural Distance (bar_delta = 0.88)",
+      "D": 48,
+      "d": 6,
+      "outcome": "Delta d = 0, Delta a = 2"
+    },
+    {
+      "id": "E4",
+      "axis": "Combinatorial Scale & Interaction (bar_kappa = 4.38)",
+      "D": 58,
+      "d": 6,
+      "outcome": "Delta d = 0, I_coupling < 0.05"
+    },
+    {
+      "id": "E5",
+      "axis": "Foundational / Representation Shift (9 formalisms)",
+      "D": 68,
+      "d": 6,
+      "outcome": "Delta d = 0, bar_V_R = 0.021"
+    }
+  ],
+  "trajectory": [
+    {
+      "milestone": 0,
+      "grammar": "M4",
+      "D": 10,
+      "d": 4,
+      "a": 26,
+      "c": 3,
+      "r": 0.137,
+      "bits_per_state": 42.5
+    },
+    {
+      "milestone": 1,
+      "grammar": "M5",
+      "D": 18,
+      "d": 5,
+      "a": 29,
+      "c": 6,
+      "r": 0.039,
+      "bits_per_state": 28.4
+    },
+    {
+      "milestone": 2,
+      "grammar": "M6",
+      "D": 28,
+      "d": 6,
+      "a": 33,
+      "c": 6,
+      "r": 0.0368,
+      "bits_per_state": 19.1
+    },
+    {
+      "milestone": 3,
+      "grammar": "M6^+",
+      "D": 38,
+      "d": 6,
+      "a": 34,
+      "c": 6,
+      "r": 0.0325,
+      "bits_per_state": 14.2
+    },
+    {
+      "milestone": 4,
+      "grammar": "M6^{++}",
+      "D": 48,
+      "d": 6,
+      "a": 36,
+      "c": 6,
+      "r": 0.0284,
+      "bits_per_state": 11.6
+    },
+    {
+      "milestone": 5,
+      "grammar": "M6^{+++}",
+      "D": 58,
+      "d": 6,
+      "a": 38,
+      "c": 6,
+      "r": 0.0244,
+      "bits_per_state": 9.4
+    },
+    {
+      "milestone": 6,
+      "grammar": "M6^{++++}",
+      "D": 68,
+      "d": 6,
+      "a": 40,
+      "c": 6,
+      "r": 0.0209,
+      "bits_per_state": 7.8
+    }
+  ],
+  "model_selection": {
+    "unlocked_at": "J_prospective = 5",
+    "models_evaluated": [
+      "H0_saturation_null",
+      "H1_linear_growth",
+      "H2_finite_exponential_saturation",
+      "H3_sublinear_logarithmic"
+    ],
+    "preferred_model": "H2_finite_exponential_saturation (with H0 empirically equivalent)",
+    "delta_AICc_linear_penalty": 24.89,
+    "delta_AICc_logarithmic_penalty": 24.61,
+    "verdict": "MODEL_PREFERENCE_FINITE_SATURATION_OVER_OBSERVED_RANGE",
+    "interpretation": "Over the observed prospective diversity range (D in [28, 68]), finite saturation (H2 / H0) is strongly preferred over linear growth (H1) and logarithmic accretion (H3)."
+  }
+}
