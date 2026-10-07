@@ -1,5 +1,11 @@
 {
-  "total_evaluated_transformations": 47650,
+  "total_evaluated_transformations": 47620,
+  "accounting_breakdown": {
+    "baseline_transformations": 45000,
+    "e1_clean_records": 1150,
+    "e2_clean_records": 1470,
+    "e2_quarantined_derivative_records_excluded": 30
+  },
   "false_splits": 0,
   "false_merges": 0,
   "semantic_overpromotions": 0,
