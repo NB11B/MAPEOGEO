@@ -67,24 +67,27 @@ def assemble_kernel_v3_release(output_dir: Path) -> Dict[str, Any]:
     grammar_spec = {
         "grammar_version": "M6^{++++}",
         "kernel_release": "v3.0.0",
-        "coordinates": [
-            {
-                "symbol": "Delta",
-                "name": "Directional Transformation Mode",
+        "coordinates": {
+            "Delta": {
+                "description": "Observable structural change",
                 "alphabet": ["preservation", "modification", "addition", "removal"],
                 "cardinality": 4
             },
-            {
-                "symbol": "I",
-                "name": "Conserved Invariant Core",
-                "alphabet": ["homological_invariance", "topological_degree", "constructive_modulus", "internal_truth_value"],
-                "cardinality": 4
+            "I": {
+                "description": "Preserved invariant class",
+                "alphabet": ["cardinality", "metric", "measure", "topology", "algebraic_structure"],
+                "cardinality": 5
             },
-            {
-                "symbol": "W",
-                "name": "Admissible Witness Certificate Alphabet",
-                "alphabet_cardinality": 20,
+            "W_plus_plus_plus_plus": {
+                "description": "Relational witness / license certificate",
+                "alphabet_cardinality": 21,
                 "key_extensions": [
+                    "commutative_diagram",
+                    "homotopy",
+                    "universal_property",
+                    "isomorphism",
+                    "factorization",
+                    "bijection",
                     "cohen_poset_density_certificate",
                     "braided_cross_symmetry_certificate",
                     "shifted_poisson_bracket_certificate",
@@ -93,30 +96,28 @@ def assemble_kernel_v3_release(output_dir: Path) -> Dict[str, Any]:
                     "smt_theory_decision_certificate"
                 ]
             },
-            {
-                "symbol": "sigma",
-                "name": "Fiber / Internal Symmetry Action",
-                "alphabet": ["trivial_action", "monodromy_representation", "galois_action", "braiding_automorphism"],
-                "cardinality": 4
+            "sigma": {
+                "description": "Admissible relational strength / semantic scope",
+                "alphabet": ["SAME_SEMANTICS", "EQUIVALENT_TO", "SCOPED_OVERLAP"],
+                "cardinality": 3
             },
-            {
-                "symbol": "Pi",
-                "name": "Relational Projector / Equivalence Functor",
-                "alphabet": ["canonical_equivalence", "derived_equivalence", "isomorphism", "morita_equivalence"],
-                "cardinality": 4
+            "Pi": {
+                "description": "Direction of structural transport relative to arrows",
+                "alphabet": ["covariant", "contravariant", "self-dual"],
+                "cardinality": 3
             },
-            {
-                "symbol": "Gamma",
-                "name": "Operator Parity / Grading State",
-                "alphabet": ["even_parity", "odd_parity", "graded_super_charge", "z2_graded_parity"],
+            "Gamma": {
+                "description": "Operator Parity / Z2-Grading phase",
+                "alphabet": ["even", "odd", "graded_mixed", "ungraded"],
                 "cardinality": 4
             }
-        ],
+        },
         "coordinate_dimension_d": 6,
-        "total_alphabet_complexity_a": 40,
+        "total_grammar_alphabet_complexity_a": 40,
         "max_composition_depth_c": 6,
         "composition_algebra": {
-            "operator": "circ",
+            "symbol": "circ",
+            "semantics": "Associative typed word composition over (Delta, I, W, sigma, Pi, Gamma)",
             "active_rules_count": 91,
             "depth_bounded": True,
             "max_observed_depth": 6

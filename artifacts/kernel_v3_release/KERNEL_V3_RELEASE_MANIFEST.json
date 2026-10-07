@@ -28,8 +28,12 @@
       "size_bytes": 2108
     },
     "M6_plus_4_grammar_specification.json": {
-      "sha256": "b2bcb9c24909d5ce44d9b31f5928eb0a3e297d51bb057d53aa3836a3fead376c",
-      "size_bytes": 2475
+      "sha256": "e137facc5aa49ef74892c365e94835acebe34b5aedf370e0f7e889a8e0b33188",
+      "size_bytes": 2577
+    },
+    "SCIENTIFIC_SYNTHESIS_AND_REPRODUCTION_SPECIFICATION.md": {
+      "sha256": "c3ffd4ff6b27d396667a7adb19355c68882b1f27e08823ab3c951e2486d256f7",
+      "size_bytes": 11002
     }
   },
   "sealed_timestamp": "2026-10-07T03:51:30Z",
