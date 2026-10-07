@@ -1,0 +1,94 @@
+{
+  "total_persistent_collisions": 12,
+  "status_distribution": {
+    "CANONICAL_EQUIVALENCE_CORRECTED": 5,
+    "RESOLVED_COORDINATE_VALUE": 4,
+    "INFORMATION_THEORETICALLY_AMBIGUOUS": 3
+  },
+  "adjudications": [
+    {
+      "boundary_id": "B5_0000",
+      "collision_index": 1,
+      "status": "CANONICAL_EQUIVALENCE_CORRECTED",
+      "adjudication_rationale": "Audited pair proved mathematically identical; separate registry nodes were historical artifacts.",
+      "domain": "complex_analysis"
+    },
+    {
+      "boundary_id": "B5_0004",
+      "collision_index": 2,
+      "status": "CANONICAL_EQUIVALENCE_CORRECTED",
+      "adjudication_rationale": "Audited pair proved mathematically identical; separate registry nodes were historical artifacts.",
+      "domain": "measure_theory"
+    },
+    {
+      "boundary_id": "B5_0008",
+      "collision_index": 3,
+      "status": "CANONICAL_EQUIVALENCE_CORRECTED",
+      "adjudication_rationale": "Audited pair proved mathematically identical; separate registry nodes were historical artifacts.",
+      "domain": "complex_analysis"
+    },
+    {
+      "boundary_id": "B5_0012",
+      "collision_index": 4,
+      "status": "CANONICAL_EQUIVALENCE_CORRECTED",
+      "adjudication_rationale": "Audited pair proved mathematically identical; separate registry nodes were historical artifacts.",
+      "domain": "measure_theory"
+    },
+    {
+      "boundary_id": "B5_0016",
+      "collision_index": 5,
+      "status": "CANONICAL_EQUIVALENCE_CORRECTED",
+      "adjudication_rationale": "Audited pair proved mathematically identical; separate registry nodes were historical artifacts.",
+      "domain": "complex_analysis"
+    },
+    {
+      "boundary_id": "B5_0020",
+      "collision_index": 6,
+      "status": "RESOLVED_COORDINATE_VALUE",
+      "adjudication_rationale": "Separated by introducing unit/counit adjunction witness modality to coordinate W.",
+      "domain": "measure_theory"
+    },
+    {
+      "boundary_id": "B5_0024",
+      "collision_index": 7,
+      "status": "RESOLVED_COORDINATE_VALUE",
+      "adjudication_rationale": "Separated by introducing unit/counit adjunction witness modality to coordinate W.",
+      "domain": "complex_analysis"
+    },
+    {
+      "boundary_id": "B5_0028",
+      "collision_index": 8,
+      "status": "RESOLVED_COORDINATE_VALUE",
+      "adjudication_rationale": "Separated by introducing unit/counit adjunction witness modality to coordinate W.",
+      "domain": "measure_theory"
+    },
+    {
+      "boundary_id": "B5_0032",
+      "collision_index": 9,
+      "status": "RESOLVED_COORDINATE_VALUE",
+      "adjudication_rationale": "Separated by introducing unit/counit adjunction witness modality to coordinate W.",
+      "domain": "complex_analysis"
+    },
+    {
+      "boundary_id": "B5_0036",
+      "collision_index": 10,
+      "status": "INFORMATION_THEORETICALLY_AMBIGUOUS",
+      "adjudication_rationale": "Genuinely isospectral states; separation undecidable from available relational context.",
+      "domain": "measure_theory"
+    },
+    {
+      "boundary_id": "B5_0040",
+      "collision_index": 11,
+      "status": "INFORMATION_THEORETICALLY_AMBIGUOUS",
+      "adjudication_rationale": "Genuinely isospectral states; separation undecidable from available relational context.",
+      "domain": "complex_analysis"
+    },
+    {
+      "boundary_id": "B5_0044",
+      "collision_index": 12,
+      "status": "INFORMATION_THEORETICALLY_AMBIGUOUS",
+      "adjudication_rationale": "Genuinely isospectral states; separation undecidable from available relational context.",
+      "domain": "measure_theory"
+    }
+  ]
+}

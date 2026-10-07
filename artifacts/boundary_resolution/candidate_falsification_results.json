@@ -1,0 +1,14 @@
+{
+  "candidate": "W_alphabet_enrichment",
+  "delta_h_b5_gain": 1.24,
+  "total_regressions": 0,
+  "regression_breakdown": {
+    "false_splits": 0,
+    "false_merges": 0,
+    "composition_violations": 0
+  },
+  "lambda_penalty": 100.0,
+  "net_utility": 1.24,
+  "survived_falsification": true,
+  "verdict": "FALSIFICATION_SURVIVED"
+}

@@ -1,0 +1,21 @@
+{
+  "total_alphabet_refinements": 2,
+  "refinements": [
+    {
+      "cluster_id": "D_01_higher_gerbe_gauge_coherence",
+      "target_coordinate": "W",
+      "proposed_new_value": "higher_gerbe_gauge_coherence_certificate",
+      "affected_instances_count": 644,
+      "status": "RESOLVED_COORDINATE_VALUE",
+      "rationale": "Extends witness alphabet W with higher_gerbe_gauge_coherence_certificate rather than manufacturing C_6."
+    },
+    {
+      "cluster_id": "D_02_operator_ideal_nuclear_admissibility",
+      "target_coordinate": "W",
+      "proposed_new_value": "operator_ideal_nuclear_admissibility_certificate",
+      "affected_instances_count": 644,
+      "status": "RESOLVED_COORDINATE_VALUE",
+      "rationale": "Extends witness alphabet W with operator_ideal_nuclear_admissibility_certificate rather than manufacturing C_6."
+    }
+  ]
+}

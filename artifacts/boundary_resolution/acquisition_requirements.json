@@ -1,0 +1,127 @@
+[
+  {
+    "deficiency_id": "D_01_higher_gerbe_gauge_coherence",
+    "missing_work_capability": "higher_gerbe_gauge_coherence",
+    "candidate_resolution_type": "ALPHABET_WITNESS",
+    "required_operator_behavior": [
+      "must_witness_higher_gerbe_gauge_coherence_inversion",
+      "must_preserve_typed_composition_associativity"
+    ],
+    "required_invariant_behavior": [
+      "must_not_collapse_distinct_fibers"
+    ],
+    "required_witness_behavior": [
+      "constructive_certificate_for_higher_gerbe_gauge_coherence"
+    ],
+    "required_composition_behavior": [
+      "composable_under_circ_with_M5_primitives"
+    ],
+    "prohibited_leakage": [
+      "specific_theorem_names",
+      "b5_object_identifiers",
+      "author_lexical_signatures"
+    ],
+    "target_b5_screen_cohort_size": 322,
+    "target_b5_confirm_cohort_size": 322
+  },
+  {
+    "deficiency_id": "D_02_operator_ideal_nuclear_admissibility",
+    "missing_work_capability": "operator_ideal_nuclear_admissibility",
+    "candidate_resolution_type": "ALPHABET_WITNESS",
+    "required_operator_behavior": [
+      "must_witness_operator_ideal_nuclear_admissibility_inversion",
+      "must_preserve_typed_composition_associativity"
+    ],
+    "required_invariant_behavior": [
+      "must_not_collapse_distinct_fibers"
+    ],
+    "required_witness_behavior": [
+      "constructive_certificate_for_operator_ideal_nuclear_admissibility"
+    ],
+    "required_composition_behavior": [
+      "composable_under_circ_with_M5_primitives"
+    ],
+    "prohibited_leakage": [
+      "specific_theorem_names",
+      "b5_object_identifiers",
+      "author_lexical_signatures"
+    ],
+    "target_b5_screen_cohort_size": 322,
+    "target_b5_confirm_cohort_size": 322
+  },
+  {
+    "deficiency_id": "D_03_picard_exceptional_value_tracking",
+    "missing_work_capability": "picard_exceptional_value_tracking",
+    "candidate_resolution_type": "OUTSIDE_DECLARED_SCOPE",
+    "required_operator_behavior": [
+      "must_witness_picard_exceptional_value_tracking_inversion",
+      "must_preserve_typed_composition_associativity"
+    ],
+    "required_invariant_behavior": [
+      "must_not_collapse_distinct_fibers"
+    ],
+    "required_witness_behavior": [
+      "constructive_certificate_for_picard_exceptional_value_tracking"
+    ],
+    "required_composition_behavior": [
+      "composable_under_circ_with_M5_primitives"
+    ],
+    "prohibited_leakage": [
+      "specific_theorem_names",
+      "b5_object_identifiers",
+      "author_lexical_signatures"
+    ],
+    "target_b5_screen_cohort_size": 322,
+    "target_b5_confirm_cohort_size": 322
+  },
+  {
+    "deficiency_id": "D_04_unresolvable_fiber_symmetry",
+    "missing_work_capability": "unresolvable_fiber_symmetry",
+    "candidate_resolution_type": "INFORMATION_THEORETICALLY_AMBIGUOUS",
+    "required_operator_behavior": [
+      "must_witness_unresolvable_fiber_symmetry_inversion",
+      "must_preserve_typed_composition_associativity"
+    ],
+    "required_invariant_behavior": [
+      "must_not_collapse_distinct_fibers"
+    ],
+    "required_witness_behavior": [
+      "constructive_certificate_for_unresolvable_fiber_symmetry"
+    ],
+    "required_composition_behavior": [
+      "composable_under_circ_with_M5_primitives"
+    ],
+    "prohibited_leakage": [
+      "specific_theorem_names",
+      "b5_object_identifiers",
+      "author_lexical_signatures"
+    ],
+    "target_b5_screen_cohort_size": 322,
+    "target_b5_confirm_cohort_size": 321
+  },
+  {
+    "deficiency_id": "D_05_conormal_sheaf_microlocalization",
+    "missing_work_capability": "conormal_sheaf_microlocalization",
+    "candidate_resolution_type": "COMPOSITION_LONG",
+    "required_operator_behavior": [
+      "must_witness_conormal_sheaf_microlocalization_inversion",
+      "must_preserve_typed_composition_associativity"
+    ],
+    "required_invariant_behavior": [
+      "must_not_collapse_distinct_fibers"
+    ],
+    "required_witness_behavior": [
+      "constructive_certificate_for_conormal_sheaf_microlocalization"
+    ],
+    "required_composition_behavior": [
+      "composable_under_circ_with_M5_primitives"
+    ],
+    "prohibited_leakage": [
+      "specific_theorem_names",
+      "b5_object_identifiers",
+      "author_lexical_signatures"
+    ],
+    "target_b5_screen_cohort_size": 322,
+    "target_b5_confirm_cohort_size": 321
+  }
+]
