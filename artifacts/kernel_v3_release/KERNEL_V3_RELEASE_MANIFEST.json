@@ -34,6 +34,10 @@
     "SCIENTIFIC_SYNTHESIS_AND_REPRODUCTION_SPECIFICATION.md": {
       "sha256": "c3ffd4ff6b27d396667a7adb19355c68882b1f27e08823ab3c951e2486d256f7",
       "size_bytes": 11002
+    },
+    "UOW_MATHEMATICAL_FRONTIER_AND_DISCOVERY_SPECIFICATION.md": {
+      "sha256": "61df3ec2b18cab293c89e9f925f9702f4f8b964bfee0ef828e532b6a320aca8c",
+      "size_bytes": 11489
     }
   },
   "sealed_timestamp": "2026-10-07T03:51:30Z",
