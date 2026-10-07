@@ -406,6 +406,24 @@ def _build_intake(source_repo: Path, base_path: Path, out_dir: Path) -> dict:
     if any(paper["pdf_path"] not in paths for paper in manuscripts):
         raise ValueError("catalogue references a missing manuscript")
     base = _load_graph(base_path)
+    # Candidate-only reconciliation connects the source corpus to the latest
+    # frozen canonical registry without asserting semantic equivalence.
+    canonical_registry = json.loads((ROOT / "formal" / "cross_source_alignments_v0_19.json").read_text(encoding="utf-8"))["canonical_objects"]
+    base_node_ids = {node["id"] for node in base["nodes"]}
+    missing_canonical = [obj["id"] for obj in canonical_registry if obj["id"] not in base_node_ids]
+    if missing_canonical:
+        raise ValueError(f"canonical registry not present in base graph: {missing_canonical[:5]}")
+    generic = {"theorem","formula","procedure","operator","space","spaces","vector","linear","of","for","and","internal","fundamental","have","a","an","the"}
+    canonical_core = {}
+    canonical_index = defaultdict(set)
+    for obj in canonical_registry:
+        tokens = {x.lower() for x in re.findall(r"[A-Za-z]+", obj["name"]) if x.lower() not in generic}
+        if not tokens:
+            tokens = {x.lower() for x in re.findall(r"[A-Za-z]+", obj["name"]) if x.lower() not in {"of","for","and","a","an","the"}}
+        canonical_core[obj["id"]] = tokens
+        for token in tokens:
+            canonical_index[token].add(obj["id"])
+    canonical_candidate_counts = Counter()
     if any(str(node["id"]).startswith("oam:") for node in base["nodes"]):
         raise ValueError("base already contains a source intake; replay from its preserved foundation base")
     base_hash = sha256_file(base_path)
@@ -533,6 +551,27 @@ def _build_intake(source_repo: Path, base_path: Path, out_dir: Path) -> dict:
                                      hypothesis_interpretation_status="UNRESOLVED",
                                      semantic_alignment_status="UNRESOLVED", kernel_verification_status="UNTESTED"))
                 graph.add_edge(_edge("CONTAINS_SOURCE_RECORD", resource_id, record_id))
+                if path.endswith(".lean"):
+                    declaration_tokens = {x.lower() for x in re.findall(r"[A-Za-z]+", record["name"].replace("_", " "))}
+                    possible = set()
+                    for token in declaration_tokens:
+                        possible.update(canonical_index.get(token, ()))
+                    for canonical_id in sorted(possible):
+                        core = canonical_core[canonical_id]
+                        overlap = core & declaration_tokens
+                        accepted = bool(core) and (
+                            (len(core) == 1 and core <= declaration_tokens)
+                            or (len(core) > 1 and (core <= declaration_tokens or (len(overlap) >= 2 and len(overlap) / len(core) >= 0.75)))
+                        )
+                        if accepted:
+                            canonical_candidate_counts[canonical_id] += 1
+                            graph.add_edge(_edge("CANDIDATE_REPRESENTS", record_id, canonical_id,
+                                                 reconciliation_status="CANDIDATE_ONLY",
+                                                 semantic_equivalence_status="NOT_ESTABLISHED",
+                                                 evidence_kind="DECLARATION_NAME_TOKEN_OVERLAP",
+                                                 matched_tokens=sorted(overlap),
+                                                 canonical_core_tokens=sorted(core),
+                                                 requires="INDEPENDENT_STATEMENT_TYPE_AND_SCOPE_REVIEW"))
                 qualified = record.get("qualified_name")
                 if qualified in target_lookups.get(path, {}):
                     for target_id in target_lookups[path][qualified]:
@@ -563,6 +602,15 @@ def _build_intake(source_repo: Path, base_path: Path, out_dir: Path) -> dict:
                 graph.add_edge(_edge("HAS_WOUND", resource_id, diagnostic_id, status="UNRESOLVED"))
             if index % 5000 == 0:
                 print(f"Scanned {index:,}/{len(entries):,} files; {sum(counts.values()):,} lexical records", flush=True)
+        for obj in canonical_registry:
+            canonical_id = obj["id"]
+            if canonical_candidate_counts[canonical_id] == 0:
+                deficit_id = prefix + ":canonical-reconciliation-deficit:" + hashlib.sha256(canonical_id.encode()).hexdigest()
+                graph.add_node(_node(deficit_id, "UNRESOLVED_DEFICIT", "NO_CANONICAL_RECONCILIATION_CANDIDATE",
+                                     status="UNRESOLVED", canonical_object=canonical_id,
+                                     deficit_kind="NO_CANONICAL_RECONCILIATION_CANDIDATE",
+                                     requires="STATEMENT_TYPE_OR_MANUAL_RECONCILIATION"))
+                graph.add_edge(_edge("HAS_WOUND", canonical_id, deficit_id, status="UNRESOLVED"))
         for target_id in target_ids:
             if target_matches[target_id] != 1:
                 reason = "LEXICAL_TARGET_NOT_UNIQUELY_RESOLVED"
@@ -596,7 +644,11 @@ def _build_intake(source_repo: Path, base_path: Path, out_dir: Path) -> dict:
                          "new_semantic_equivalence_edges": 0, "lean_checker_runs": 0,
                          "upstream_formalization_review": formalization.get("review", {}).get("status"),
                          "formal_semantic_extraction": "NOT_ELABORATED",
-                         "canonical_reconciliation": "UNRESOLVED_PER_SOURCE_RECORD"},
+                         "canonical_reconciliation": "CANDIDATE_ONLY_FAIL_CLOSED",
+                         "canonical_registry_objects": len(canonical_registry),
+                         "canonical_objects_with_candidates": sum(canonical_candidate_counts[obj["id"]] > 0 for obj in canonical_registry),
+                         "canonical_candidate_edges": sum(canonical_candidate_counts.values()),
+                         "canonical_candidate_counts": dict(sorted(canonical_candidate_counts.items()))},
     }
     _write_json(out_dir / "intake_report.json", report)
     print(json.dumps({"status": report["status"], "coverage": observed,
