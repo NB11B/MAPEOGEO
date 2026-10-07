@@ -1,0 +1,12 @@
+{
+  "total_residuals": 11340,
+  "n_discovery": 6804,
+  "n_holdout": 4536,
+  "triage_counts": {
+    "DEPTH": 78,
+    "COMPOSITION": 4635,
+    "NEW_COORDINATE (C5: Polarity)": 3409,
+    "ONTOLOGICAL_BOUNDARY / UNRESOLVED": 3218
+  },
+  "headline_outcome": "Candidate C5 (Variance Polarity) officially accepted. C6 rejected by stopping criterion. Boundary mapped."
+}

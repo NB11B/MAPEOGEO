@@ -1,0 +1,8 @@
+{
+  "frozen_parent_manifest": "artifacts/state_reconstruction/reconstruction_results.json",
+  "frozen_parent_hash": "f9e9b1c5debbc740a2d28ada238f45e70b776526456b05a69dcc0cc583199009",
+  "total_residuals": 11340,
+  "n_discovery": 6804,
+  "n_holdout": 4536,
+  "split_seed": 42
+}

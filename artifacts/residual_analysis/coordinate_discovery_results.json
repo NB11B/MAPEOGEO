@@ -1,0 +1,20 @@
+{
+  "candidates": [
+    {
+      "candidate_coordinate": "variance_polarity",
+      "h_residual_given_frozen": 2.584962352894373,
+      "h_residual_given_frozen_plus_candidate": 0.9999998521732166,
+      "incremental_mutual_information_bits": 1.584962500721156,
+      "relative_entropy_reduction": 0.6131472278296353,
+      "is_informative": true
+    },
+    {
+      "candidate_coordinate": "coherence_level",
+      "h_residual_given_frozen": 2.584962352894373,
+      "h_residual_given_frozen_plus_candidate": 2.0848866248786733,
+      "incremental_mutual_information_bits": 0.5000757280156995,
+      "relative_entropy_reduction": 0.19345571027592204,
+      "is_informative": true
+    }
+  ]
+}

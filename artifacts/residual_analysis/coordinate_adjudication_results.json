@@ -1,0 +1,102 @@
+{
+  "C5_evaluation": {
+    "candidate": "variance_polarity",
+    "verdict": "ACCEPTED_C5",
+    "gates": {
+      "G1_entropy_reduction_material": {
+        "passed": true,
+        "relative_reduction": 0.6131472278296353,
+        "threshold": 0.2
+      },
+      "G2_multi_domain_breadth": {
+        "passed": true,
+        "domain_count": 8,
+        "domains": [
+          "linear_algebra",
+          "differential_geometry",
+          "topology",
+          "measure_theory",
+          "complex_analysis",
+          "foundations",
+          "convex_optimization",
+          "openai_math"
+        ]
+      },
+      "G3_multi_projection_improvement": {
+        "passed": true,
+        "projections": [
+          "State Inversion Dual Ambiguity",
+          "OpenAI Holdout Covariance Drift",
+          "Persistent Collisions"
+        ]
+      },
+      "G4_shuffled_controls_resisted": {
+        "passed": true,
+        "discovery_mi": 1.584962500721156,
+        "shuffled_mi": 0.0084
+      },
+      "G5_sealed_holdout_retention": {
+        "passed": true,
+        "retention_rate": 0.9619999999999999,
+        "threshold": 0.85
+      },
+      "G6_semantic_safety_zero_promotions": {
+        "passed": true,
+        "false_promotions": 0
+      },
+      "G7_depth_independence_k5": {
+        "passed": true
+      },
+      "G8_mathematical_interpretation": {
+        "passed": true,
+        "interpretation": "Variance / Polarity of structural transport (Covariant vs Contravariant vs Self-Dual)."
+      }
+    }
+  },
+  "C6_evaluation": {
+    "candidate": "coherence_level",
+    "verdict": "REJECTED_COORDINATE",
+    "gates": {
+      "G1_entropy_reduction_material": {
+        "passed": false,
+        "relative_reduction": 0.19345571027592204,
+        "threshold": 0.2
+      },
+      "G2_multi_domain_breadth": {
+        "passed": false,
+        "domain_count": 2,
+        "domains": [
+          "topology",
+          "foundations"
+        ]
+      },
+      "G3_multi_projection_improvement": {
+        "passed": false,
+        "projections": [
+          "Homotopy Fiber Refinement"
+        ]
+      },
+      "G4_shuffled_controls_resisted": {
+        "passed": true,
+        "discovery_mi": 0.5000757280156995,
+        "shuffled_mi": 0.015
+      },
+      "G5_sealed_holdout_retention": {
+        "passed": false,
+        "retention_rate": 0.72,
+        "threshold": 0.85
+      },
+      "G6_semantic_safety_zero_promotions": {
+        "passed": true,
+        "false_promotions": 0
+      },
+      "G7_depth_independence_k5": {
+        "passed": false
+      },
+      "G8_mathematical_interpretation": {
+        "passed": true,
+        "interpretation": "Categorical coherence level."
+      }
+    }
+  }
+}

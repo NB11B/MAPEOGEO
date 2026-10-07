@@ -1,0 +1,71 @@
+{
+  "total_k4_collisions": 90,
+  "resolved_at_k5": 62,
+  "resolved_at_k6": 16,
+  "total_resolved_by_depth": 78,
+  "depth_resolution_rate": 0.8666666666666667,
+  "remaining_persistent_collisions": 12,
+  "persistent_collision_rate": 0.13333333333333333,
+  "persistent_clusters": [
+    {
+      "id": "coll_78",
+      "resolution_depth": 7,
+      "domain": "topology"
+    },
+    {
+      "id": "coll_79",
+      "resolution_depth": 7,
+      "domain": "differential_geometry"
+    },
+    {
+      "id": "coll_80",
+      "resolution_depth": 7,
+      "domain": "topology"
+    },
+    {
+      "id": "coll_81",
+      "resolution_depth": 7,
+      "domain": "differential_geometry"
+    },
+    {
+      "id": "coll_82",
+      "resolution_depth": 7,
+      "domain": "topology"
+    },
+    {
+      "id": "coll_83",
+      "resolution_depth": 7,
+      "domain": "differential_geometry"
+    },
+    {
+      "id": "coll_84",
+      "resolution_depth": 7,
+      "domain": "topology"
+    },
+    {
+      "id": "coll_85",
+      "resolution_depth": 7,
+      "domain": "differential_geometry"
+    },
+    {
+      "id": "coll_86",
+      "resolution_depth": 7,
+      "domain": "topology"
+    },
+    {
+      "id": "coll_87",
+      "resolution_depth": 7,
+      "domain": "differential_geometry"
+    },
+    {
+      "id": "coll_88",
+      "resolution_depth": 7,
+      "domain": "topology"
+    },
+    {
+      "id": "coll_89",
+      "resolution_depth": 7,
+      "domain": "differential_geometry"
+    }
+  ]
+}
