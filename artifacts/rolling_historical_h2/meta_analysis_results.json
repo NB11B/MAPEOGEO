@@ -1,0 +1,12 @@
+{
+  "eligible_epochs_count": 12,
+  "pooled_relative_risk": 4.55,
+  "ci_95": [
+    2.87,
+    7.21
+  ],
+  "tau_squared_between_study_variance": 0.0,
+  "cochran_Q_statistic": 1.17,
+  "heterogeneity_df": 11,
+  "ci_excludes_unity": true
+}

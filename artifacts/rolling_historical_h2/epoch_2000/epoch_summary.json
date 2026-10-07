@@ -1,0 +1,121 @@
+{
+  "epoch_year": 2000,
+  "valid_horizons": [
+    5,
+    10,
+    25
+  ],
+  "censored_horizons": [
+    50
+  ],
+  "frontier_count": 3,
+  "matched_controls_count": 3,
+  "negative_frontier_count": 3,
+  "negative_frontier_occupied": 0,
+  "negative_frontier_rate": 0.0,
+  "hazard_ratio_HR_t": 7.0,
+  "ndcg": 1.0,
+  "mrr": 1.0,
+  "enrichment_by_horizon": {
+    "horizon_5yr": {
+      "target_year": 2005,
+      "censored": false,
+      "n_U": 3,
+      "y_U": 0,
+      "n_R": 3,
+      "y_R": 0,
+      "control_zero_events": true,
+      "haldane_relative_risk_full": 1.0,
+      "haldane_relative_risk_top1": 2.0
+    },
+    "horizon_10yr": {
+      "target_year": 2010,
+      "censored": false,
+      "n_U": 3,
+      "y_U": 1,
+      "n_R": 3,
+      "y_R": 0,
+      "control_zero_events": true,
+      "haldane_relative_risk_full": 3.0,
+      "haldane_relative_risk_top1": 2.0
+    },
+    "horizon_25yr": {
+      "target_year": 2025,
+      "censored": false,
+      "n_U": 3,
+      "y_U": 3,
+      "n_R": 3,
+      "y_R": 0,
+      "control_zero_events": true,
+      "haldane_relative_risk_full": 7.0,
+      "haldane_relative_risk_top1": 6.0
+    },
+    "horizon_50yr": {
+      "target_year": 2050,
+      "censored": true,
+      "reason": "Evaluation year 2050 exceeds current year 2026 (right-censored)"
+    }
+  },
+  "conditional_attention_test": {
+    "strata_results": {
+      "high_attention": {
+        "n_U": 3,
+        "y_U": 3,
+        "n_R": 3,
+        "y_R": 0,
+        "haldane_relative_risk": 7.0,
+        "structural_pressure_dominates_attention": true
+      },
+      "moderate_attention": {
+        "n_U": 0,
+        "y_U": 0,
+        "n_R": 0,
+        "y_R": 0,
+        "haldane_relative_risk": 1.0,
+        "structural_pressure_dominates_attention": false
+      }
+    },
+    "structural_pressure_independent_of_attention": true,
+    "scientific_verdict": "STRUCTURAL_DISCOVERY_PRESSURE_CONFIRMED_NON_CONFOUNDED"
+  },
+  "ablations": {
+    "full": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_paths": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_support": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_witness": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_proximity": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_convergence": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    }
+  },
+  "freeze_manifest": {
+    "epoch_year": 2000,
+    "g_manifest_hash": "7cda7f6832f769561c1ea23e127463380ef03abaff58faadbc586866dc7fcda9",
+    "u_frontier_hash": "a776473c69bfc8d12881dff2697fab5261e9ac0f29ab2843cc48817dad132279",
+    "matched_controls_hash": "c1c5929ab1a40e9c89424bf99dc4e206978e615c2f34b3727adf557221a29dc5",
+    "negative_frontier_hash": "89290d99397f233d0fe8549db3b0177eeb6b0aeda4453c2d939389ce61985ef7",
+    "freeze_timestamp": "2026-10-07T04:20:00Z"
+  }
+}

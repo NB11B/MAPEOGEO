@@ -1,0 +1,8 @@
+{
+  "epoch_year": 2000,
+  "g_manifest_hash": "7cda7f6832f769561c1ea23e127463380ef03abaff58faadbc586866dc7fcda9",
+  "u_frontier_hash": "a776473c69bfc8d12881dff2697fab5261e9ac0f29ab2843cc48817dad132279",
+  "matched_controls_hash": "c1c5929ab1a40e9c89424bf99dc4e206978e615c2f34b3727adf557221a29dc5",
+  "negative_frontier_hash": "89290d99397f233d0fe8549db3b0177eeb6b0aeda4453c2d939389ce61985ef7",
+  "freeze_timestamp": "2026-10-07T04:20:00Z"
+}

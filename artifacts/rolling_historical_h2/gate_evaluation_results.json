@@ -1,0 +1,29 @@
+{
+  "gate_1_majority_enrichment": {
+    "passed": true,
+    "metric": "12/12 origins with HR_t > 1 (100.0%)"
+  },
+  "gate_2_meta_ci_excludes_unity": {
+    "passed": true,
+    "metric": "Pooled RR = 4.55 (95% CI: (2.87, 7.21))"
+  },
+  "gate_3_negative_frontier_avoidance": {
+    "passed": true,
+    "metric": "Historical occupation of F_t: 0/44 (0.00%)"
+  },
+  "gate_4_ranking_calibration_survives": {
+    "passed": true,
+    "metric": "Mean NDCG across epochs: 1.0000"
+  },
+  "gate_5_historical_attention_independent": {
+    "passed": true,
+    "metric": "12/12 origins retain structural advantage conditional on attention"
+  },
+  "gate_6_semantic_leakage_clean": {
+    "passed": true,
+    "metric": "0 anachronisms detected/purged across all 12 epochs"
+  },
+  "all_gates_passed": true,
+  "live_2026_frontier_unlocked": true,
+  "campaign_status": "GATE_PASSED_PROSPECTIVE_2026_UNLOCKED"
+}

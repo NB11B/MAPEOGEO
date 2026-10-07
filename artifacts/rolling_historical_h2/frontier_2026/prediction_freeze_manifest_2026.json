@@ -1,0 +1,10 @@
+{
+  "status": "PROSPECTIVE_2026_FRONTIER_FROZEN",
+  "freeze_timestamp": "2026-10-07T04:22:00Z",
+  "g2026_hash": "68686542319cb3019e4cc8ea323f30b5dfdbcc848180d32fc292dda3ff808dc2",
+  "constructible_set_hash": "49f14f9e6128a29e1e6aaba6caf469e861976213043a672d5ddc6278721d0440",
+  "frontier_fibers_hash": "84b142edbf586502cbe74a45b0bf98cd3b15cbe6d7058c9abae0bb40cbbb968b",
+  "prediction_work_certificates_hash": "d3861d419b2b1314efefa2c6125dac9f2a1d8126be58c4a9a5277db3fb20551d",
+  "candidate_1_designated": "U2026_CONST_0001",
+  "target_construction_question": "Can we construct a mathematical object satisfying Prediction Work Certificate PWC_2026_U2026_CONST_0001?"
+}

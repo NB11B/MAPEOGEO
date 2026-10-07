@@ -1,0 +1,126 @@
+{
+  "epoch_year": 1950,
+  "valid_horizons": [
+    5,
+    10,
+    25,
+    50
+  ],
+  "censored_horizons": [],
+  "frontier_count": 5,
+  "matched_controls_count": 5,
+  "negative_frontier_count": 5,
+  "negative_frontier_occupied": 0,
+  "negative_frontier_rate": 0.0,
+  "hazard_ratio_HR_t": 11.0,
+  "ndcg": 1.0,
+  "mrr": 1.0,
+  "enrichment_by_horizon": {
+    "horizon_5yr": {
+      "target_year": 1955,
+      "censored": false,
+      "n_U": 5,
+      "y_U": 1,
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "haldane_relative_risk_full": 3.0,
+      "haldane_relative_risk_top1": 3.0
+    },
+    "horizon_10yr": {
+      "target_year": 1960,
+      "censored": false,
+      "n_U": 5,
+      "y_U": 3,
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "haldane_relative_risk_full": 7.0,
+      "haldane_relative_risk_top1": 3.0
+    },
+    "horizon_25yr": {
+      "target_year": 1975,
+      "censored": false,
+      "n_U": 5,
+      "y_U": 5,
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "haldane_relative_risk_full": 11.0,
+      "haldane_relative_risk_top1": 9.0
+    },
+    "horizon_50yr": {
+      "target_year": 2000,
+      "censored": false,
+      "n_U": 5,
+      "y_U": 5,
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "haldane_relative_risk_full": 11.0,
+      "haldane_relative_risk_top1": 9.0
+    }
+  },
+  "conditional_attention_test": {
+    "strata_results": {
+      "high_attention": {
+        "n_U": 5,
+        "y_U": 5,
+        "n_R": 5,
+        "y_R": 0,
+        "haldane_relative_risk": 11.0,
+        "structural_pressure_dominates_attention": true
+      },
+      "moderate_attention": {
+        "n_U": 0,
+        "y_U": 0,
+        "n_R": 0,
+        "y_R": 0,
+        "haldane_relative_risk": 1.0,
+        "structural_pressure_dominates_attention": false
+      }
+    },
+    "structural_pressure_independent_of_attention": true,
+    "scientific_verdict": "STRUCTURAL_DISCOVERY_PRESSURE_CONFIRMED_NON_CONFOUNDED"
+  },
+  "ablations": {
+    "full": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_paths": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_support": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_witness": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_proximity": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    },
+    "minus_convergence": {
+      "precision_at_1": 1.0,
+      "ndcg_at_5": 1.0,
+      "mrr": 1.0
+    }
+  },
+  "freeze_manifest": {
+    "epoch_year": 1950,
+    "g_manifest_hash": "d6d2d431546e57b3255a4a66099dcbfaf79765e5438662cf354575d63ff5f0ae",
+    "u_frontier_hash": "13692f627f386792990e0127c257ea06769bf0d185e9651758aaefb986fcdf9a",
+    "matched_controls_hash": "60e24827816e6acbc50d3adc31f5a2702988c86bc415e92a4069691559cb85d4",
+    "negative_frontier_hash": "027f92f33e24d627c1ae43f9ab8a92bf114f1668b71e56e5098d24f3425caf6c",
+    "freeze_timestamp": "2026-10-07T04:20:00Z"
+  }
+}
