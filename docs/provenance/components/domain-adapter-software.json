@@ -1,0 +1,22 @@
+{
+  "component_id": "domain-adapter-software",
+  "target_module": "mapeogeo.domains.software",
+  "target_files": [
+    "src/mapeogeo/domains/software/adapter.py",
+    "src/mapeogeo/domains/software/ontology.py",
+    "src/mapeogeo/domains/software/obligations.py"
+  ],
+  "source_repository": "NB11B/MAPEOGEO",
+  "source_branch": "experiment/cross-domain-uow-software",
+  "source_commit": "4cd63f7",
+  "source_files": [
+    "src/domains/software_adapter.py"
+  ],
+  "source_qualification_status": "CROSS_DOMAIN_QUALIFIED",
+  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "qualification_gate_requirements": [
+    "Passes N=50 software requirements corpus qualification with E_curr <= 0.25",
+    "Demonstrates marginal utility decay and autonomous refusal"
+  ],
+  "notes": "Binds software requirements, architecture graphs, and interface contracts to UoW kernel"
+}

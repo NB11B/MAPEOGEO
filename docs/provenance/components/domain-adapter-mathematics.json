@@ -1,0 +1,22 @@
+{
+  "component_id": "domain-adapter-mathematics",
+  "target_module": "mapeogeo.domains.mathematics",
+  "target_files": [
+    "src/mapeogeo/domains/mathematics/adapter.py",
+    "src/mapeogeo/domains/mathematics/ontology.py",
+    "src/mapeogeo/domains/mathematics/obligations.py"
+  ],
+  "source_repository": "NB11B/MAPEOGEO",
+  "source_branch": "release/autonomous-mathematics-kernel-v1",
+  "source_commit": "74e51bd",
+  "source_files": [
+    "src/domains/math_adapter.py"
+  ],
+  "source_qualification_status": "CLEAN_ROOM_REPRODUCED",
+  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "qualification_gate_requirements": [
+    "Passes N=80 fresh math corpus qualification with E_curr <= 0.25",
+    "Preserves refusal on round 5"
+  ],
+  "notes": "Binds mathematical problem graphs and proof obligations to UoW kernel"
+}

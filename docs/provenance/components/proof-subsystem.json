@@ -1,0 +1,21 @@
+{
+  "component_id": "proof-subsystem",
+  "target_module": "mapeogeo.proof",
+  "target_files": [
+    "src/mapeogeo/proof/verifier.py",
+    "src/mapeogeo/proof/audit.py",
+    "src/mapeogeo/proof/replay.py"
+  ],
+  "source_repository": "NB11B/MAPEOGEO",
+  "source_branch": "audit/final-proof-replay-verification-v3",
+  "source_commit": "74e51bd",
+  "source_files": [
+    "src/proof/verifier.py"
+  ],
+  "source_qualification_status": "PROOF_REPLAY_HARDENED",
+  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "qualification_gate_requirements": [
+    "Proof replay verification pass against hardened audit corpus"
+  ],
+  "notes": "Proof verification and replay infrastructure"
+}

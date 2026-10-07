@@ -1,0 +1,20 @@
+{
+  "component_id": "psmsl-subsystem",
+  "target_module": "mapeogeo.psmsl",
+  "target_files": [
+    "src/mapeogeo/psmsl/operators.py",
+    "src/mapeogeo/psmsl/syntax.py"
+  ],
+  "source_repository": "NB11B/MAPEOGEO",
+  "source_branch": "remotes/origin/psmsl-operator-algebra-v1",
+  "source_commit": "74e51bd",
+  "source_files": [
+    "src/psmsl/algebra.py"
+  ],
+  "source_qualification_status": "ALGEBRA_VERIFIED",
+  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "qualification_gate_requirements": [
+    "Operator algebra associativity and composition verification"
+  ],
+  "notes": "PSMSL operator algebra"
+}

@@ -1,0 +1,21 @@
+{
+  "component_id": "routing-subsystem",
+  "target_module": "mapeogeo.routing",
+  "target_files": [
+    "src/mapeogeo/routing/router.py",
+    "src/mapeogeo/routing/contract_loader.py",
+    "src/mapeogeo/routing/power_control.py"
+  ],
+  "source_repository": "NB11B/MAPEOGEO",
+  "source_branch": "remotes/origin/work-router-contract-composition-v0.9",
+  "source_commit": "74e51bd",
+  "source_files": [
+    "src/routing/work_router.py"
+  ],
+  "source_qualification_status": "ROUTING_CONTRACT_QUALIFIED",
+  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "qualification_gate_requirements": [
+    "Work router contract composition and derived route invariants"
+  ],
+  "notes": "Work dispatch and contract routing"
+}

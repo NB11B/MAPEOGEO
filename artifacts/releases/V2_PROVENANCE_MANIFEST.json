@@ -1,0 +1,204 @@
+{
+  "$schema": "../../docs/provenance/components/template.json",
+  "manifest_version": "2.0.0",
+  "generated_at": "2026-10-07T13:20:00-04:00",
+  "upstream_repository": "NB11B/MAPEOGEO",
+  "upstream_frozen_commit": "74e51bd",
+  "canonical_repository": "NB11B/MAPEOGEOv2",
+  "canonical_base_commit": "d664f8c",
+  "qualification_policy": {
+    "principle": "source_qualification_does_not_equal_v2_qualification",
+    "initial_status": "PENDING_V2_QUALIFICATION",
+    "required_stages": [
+      "STAGE_1_STATIC_ANALYSIS",
+      "STAGE_2_ARCHITECTURAL_IMPORT_ISOLATION",
+      "STAGE_3_UNIT_AND_INVARIANT_TESTS",
+      "STAGE_4_REPRODUCTION_CORPUS_QUALIFICATION"
+    ]
+  },
+  "components": [
+    {
+      "component_id": "uow-kernel",
+      "target_module": "mapeogeo.kernel",
+      "target_files": [
+        "src/mapeogeo/kernel/state.py",
+        "src/mapeogeo/kernel/deficiency.py",
+        "src/mapeogeo/kernel/machinery.py",
+        "src/mapeogeo/kernel/planning.py",
+        "src/mapeogeo/kernel/utility.py",
+        "src/mapeogeo/kernel/certification.py",
+        "src/mapeogeo/kernel/transition.py",
+        "src/mapeogeo/kernel/obstruction.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/kernel/state.py",
+        "src/kernel/deficiency.py",
+        "src/kernel/machinery.py",
+        "src/kernel/planning.py",
+        "src/kernel/utility.py",
+        "src/kernel/certification.py",
+        "src/kernel/transition.py",
+        "src/kernel/obstruction.py"
+      ],
+      "source_qualification_status": "CLEAN_ROOM_REPRODUCED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Strict domain-neutrality AST check (no imports of mapeogeo.domains)",
+        "Zero historical generation tokens in source or docstrings",
+        "Full reproduction test on canonical test runner"
+      ],
+      "notes": "Domain-neutral 9-tuple engine K = (M_6, Omega, rho, G, D, P, U, C, A)"
+    },
+    {
+      "component_id": "domain-adapter-mathematics",
+      "target_module": "mapeogeo.domains.mathematics",
+      "target_files": [
+        "src/mapeogeo/domains/mathematics/adapter.py",
+        "src/mapeogeo/domains/mathematics/ontology.py",
+        "src/mapeogeo/domains/mathematics/obligations.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/domains/math_adapter.py"
+      ],
+      "source_qualification_status": "CLEAN_ROOM_REPRODUCED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Passes N=80 fresh math corpus qualification with E_curr <= 0.25",
+        "Preserves refusal on round 5"
+      ],
+      "notes": "Binds mathematical problem graphs and proof obligations to UoW kernel"
+    },
+    {
+      "component_id": "domain-adapter-software",
+      "target_module": "mapeogeo.domains.software",
+      "target_files": [
+        "src/mapeogeo/domains/software/adapter.py",
+        "src/mapeogeo/domains/software/ontology.py",
+        "src/mapeogeo/domains/software/obligations.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "experiment/cross-domain-uow-software",
+      "source_commit": "4cd63f7",
+      "source_files": [
+        "src/domains/software_adapter.py"
+      ],
+      "source_qualification_status": "CROSS_DOMAIN_QUALIFIED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Passes N=50 software requirements corpus qualification with E_curr <= 0.25",
+        "Demonstrates marginal utility decay and autonomous refusal"
+      ],
+      "notes": "Binds software requirements, architecture graphs, and interface contracts to UoW kernel"
+    },
+    {
+      "component_id": "grammar-subsystem",
+      "target_module": "mapeogeo.grammar",
+      "target_files": [
+        "src/mapeogeo/grammar/coordinate_algebra.py",
+        "src/mapeogeo/grammar/factorization.py",
+        "src/mapeogeo/grammar/witness.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "experiment/residual-coordinate-factorization",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/grammar/algebra.py"
+      ],
+      "source_qualification_status": "INVARIANT_CERTIFIED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Verification of 6D coordinate algebra invariance",
+        "Validation of witness certificate transformations"
+      ],
+      "notes": "Grammar and transformation algebra"
+    },
+    {
+      "component_id": "graph-subsystem",
+      "target_module": "mapeogeo.graph",
+      "target_files": [
+        "src/mapeogeo/graph/decision_graph.py",
+        "src/mapeogeo/graph/topology.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "remotes/origin/agent/e32-typed-parallel-decision-graph-spec",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/graph/decision_graph.py"
+      ],
+      "source_qualification_status": "AGENT_SPEC_QUALIFIED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Typed DAG topological sort and cycle-detection invariant tests"
+      ],
+      "notes": "Typed parallel decision graph"
+    },
+    {
+      "component_id": "routing-subsystem",
+      "target_module": "mapeogeo.routing",
+      "target_files": [
+        "src/mapeogeo/routing/router.py",
+        "src/mapeogeo/routing/contract_loader.py",
+        "src/mapeogeo/routing/power_control.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "remotes/origin/work-router-contract-composition-v0.9",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/routing/work_router.py"
+      ],
+      "source_qualification_status": "ROUTING_CONTRACT_QUALIFIED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Work router contract composition and derived route invariants"
+      ],
+      "notes": "Work dispatch and contract routing"
+    },
+    {
+      "component_id": "proof-subsystem",
+      "target_module": "mapeogeo.proof",
+      "target_files": [
+        "src/mapeogeo/proof/verifier.py",
+        "src/mapeogeo/proof/audit.py",
+        "src/mapeogeo/proof/replay.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "audit/final-proof-replay-verification-v3",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/proof/verifier.py"
+      ],
+      "source_qualification_status": "PROOF_REPLAY_HARDENED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Proof replay verification pass against hardened audit corpus"
+      ],
+      "notes": "Proof verification and replay infrastructure"
+    },
+    {
+      "component_id": "psmsl-subsystem",
+      "target_module": "mapeogeo.psmsl",
+      "target_files": [
+        "src/mapeogeo/psmsl/operators.py",
+        "src/mapeogeo/psmsl/syntax.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "remotes/origin/psmsl-operator-algebra-v1",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/psmsl/algebra.py"
+      ],
+      "source_qualification_status": "ALGEBRA_VERIFIED",
+      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "qualification_gate_requirements": [
+        "Operator algebra associativity and composition verification"
+      ],
+      "notes": "PSMSL operator algebra"
+    }
+  ]
+}

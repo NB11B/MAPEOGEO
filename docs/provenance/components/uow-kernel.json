@@ -1,0 +1,35 @@
+{
+  "component_id": "uow-kernel",
+  "target_module": "mapeogeo.kernel",
+  "target_files": [
+    "src/mapeogeo/kernel/state.py",
+    "src/mapeogeo/kernel/deficiency.py",
+    "src/mapeogeo/kernel/machinery.py",
+    "src/mapeogeo/kernel/planning.py",
+    "src/mapeogeo/kernel/utility.py",
+    "src/mapeogeo/kernel/certification.py",
+    "src/mapeogeo/kernel/transition.py",
+    "src/mapeogeo/kernel/obstruction.py"
+  ],
+  "source_repository": "NB11B/MAPEOGEO",
+  "source_branch": "release/autonomous-mathematics-kernel-v1",
+  "source_commit": "74e51bd",
+  "source_files": [
+    "src/kernel/state.py",
+    "src/kernel/deficiency.py",
+    "src/kernel/machinery.py",
+    "src/kernel/planning.py",
+    "src/kernel/utility.py",
+    "src/kernel/certification.py",
+    "src/kernel/transition.py",
+    "src/kernel/obstruction.py"
+  ],
+  "source_qualification_status": "CLEAN_ROOM_REPRODUCED",
+  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "qualification_gate_requirements": [
+    "Strict domain-neutrality AST check (no imports of mapeogeo.domains)",
+    "Zero historical generation tokens in source or docstrings",
+    "Full reproduction test on canonical test runner"
+  ],
+  "notes": "Domain-neutral 9-tuple engine K = (M_6, Omega, rho, G, D, P, U, C, A)"
+}

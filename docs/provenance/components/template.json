@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "V2ComponentProvenanceRecord",
+  "type": "object",
+  "required": [
+    "component_id",
+    "target_module",
+    "target_files",
+    "source_repository",
+    "source_branch",
+    "source_commit",
+    "source_files",
+    "source_qualification_status",
+    "v2_qualification_status",
+    "qualification_gate_requirements"
+  ],
+  "properties": {
+    "component_id": {
+      "type": "string",
+      "description": "Unique identifier for the component (e.g. uow-kernel-core)"
+    },
+    "target_module": {
+      "type": "string",
+      "description": "Canonical module path in v2 (e.g. mapeogeo.kernel)"
+    },
+    "target_files": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Destination file paths in v2 repository"
+    },
+    "source_repository": {
+      "type": "string",
+      "description": "Upstream provenance repository (e.g. NB11B/MAPEOGEO)"
+    },
+    "source_branch": {
+      "type": "string",
+      "description": "Historical branch providing reference implementation"
+    },
+    "source_commit": {
+      "type": "string",
+      "description": "Git commit SHA in source repository"
+    },
+    "source_files": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Source file paths in upstream repository"
+    },
+    "source_qualification_status": {
+      "type": "string",
+      "description": "Historical qualification status in upstream repository"
+    },
+    "v2_qualification_status": {
+      "type": "string",
+      "enum": [
+        "UNPORTED",
+        "PENDING_V2_QUALIFICATION",
+        "V2_QUALIFIED",
+        "V2_REJECTED"
+      ],
+      "description": "Current status in v2 qualification lifecycle"
+    },
+    "qualification_gate_requirements": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Verifications required before promoting to V2_QUALIFIED"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Architectural or operational notes"
+    }
+  }
+}
