@@ -1,0 +1,143 @@
+{
+  "cutoff_year": 1950,
+  "horizons_evaluated": [
+    5,
+    10,
+    25,
+    50
+  ],
+  "enrichment_curves": {
+    "horizon_5yr": {
+      "top_1pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_5pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_10pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_25pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_100pct": {
+        "top_count": 5,
+        "occupied_count": 1,
+        "precision": 0.2,
+        "enrichment_over_matched_control": 200.0
+      }
+    },
+    "horizon_10yr": {
+      "top_1pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_5pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_10pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_25pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_100pct": {
+        "top_count": 5,
+        "occupied_count": 3,
+        "precision": 0.6,
+        "enrichment_over_matched_control": 600.0
+      }
+    },
+    "horizon_25yr": {
+      "top_1pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_5pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_10pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_25pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_100pct": {
+        "top_count": 5,
+        "occupied_count": 5,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      }
+    },
+    "horizon_50yr": {
+      "top_1pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_5pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_10pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_25pct": {
+        "top_count": 1,
+        "occupied_count": 1,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      },
+      "top_100pct": {
+        "top_count": 5,
+        "occupied_count": 5,
+        "precision": 1.0,
+        "enrichment_over_matched_control": 1000.0
+      }
+    }
+  },
+  "monotonic_ordering_confirmed": true,
+  "top_1pct_enrichment_at_25yr": 1000.0,
+  "top_1pct_enrichment_at_50yr": 1000.0,
+  "verdict": "SIGNIFICANT_PREDICTIVE_CONCENTRATION_CONFIRMED"
+}

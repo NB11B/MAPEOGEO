@@ -1,0 +1,9 @@
+{
+  "cutoff_year": 1950,
+  "total_evaluated": 16,
+  "sanitized_historical_records": 16,
+  "anachronisms_detected_and_purged": 0,
+  "anachronism_details": [],
+  "zero_leakage_guarantee_met": true,
+  "verdict": "SEMANTIC_BACKDATING_PASS"
+}

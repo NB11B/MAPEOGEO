@@ -1,0 +1,23 @@
+{
+  "cutoff_year": 1950,
+  "max_followup_years": 50,
+  "frontier_cohort": {
+    "n": 5,
+    "events_occupied": 5,
+    "median_time_to_discovery_years": 13.0,
+    "mean_time_occupied_years": 10.2,
+    "hazard_rate_per_year": 0.09804
+  },
+  "matched_control_cohort": {
+    "n": 5,
+    "events_occupied": 0,
+    "hazard_rate_per_year": 0.0
+  },
+  "discovery_hazard_ratio_HR": 98039.22,
+  "hazard_ratio_95_ci": [
+    11453.5,
+    839192.42
+  ],
+  "ci_excludes_unity": true,
+  "verdict": "SIGNIFICANTLY_ACCELERATED_TIME_TO_DISCOVERY"
+}

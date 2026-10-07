@@ -1,0 +1,107 @@
+{
+  "cutoff_year": 1950,
+  "verified_source_count": 14,
+  "sources": [
+    {
+      "source_id": "SRC_1895_POINCARE",
+      "title": "Analysis Situs",
+      "year": 1895,
+      "domain": "algebraic_topology",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1900_HILBERT",
+      "title": "Mathematical Problems",
+      "year": 1900,
+      "domain": "foundations_and_algebra",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1910_STEINITZ",
+      "title": "Algebraische Theorie der K\u00f6rper",
+      "year": 1910,
+      "domain": "field_theory",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1921_NOETHER",
+      "title": "Idealtheorie in Ringbereichen",
+      "year": 1921,
+      "domain": "commutative_algebra",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1926_LEFSCHETZ",
+      "title": "Intersections and Transformations of Complexes",
+      "year": 1926,
+      "domain": "topology_intersection",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1931_DE_RHAM",
+      "title": "Sur l'analyse situs des vari\u00e9t\u00e9s \u00e0 n dimensions",
+      "year": 1931,
+      "domain": "differential_forms",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1932_BANACH",
+      "title": "Th\u00e9orie des op\u00e9rations lin\u00e9aires",
+      "year": 1932,
+      "domain": "functional_analysis",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1934_PONTRYAGIN",
+      "title": "The Theory of Topological Commutative Groups",
+      "year": 1934,
+      "domain": "duality_theory",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1935_HUREWICZ",
+      "title": "Homotopie und Homologiegruppen",
+      "year": 1935,
+      "domain": "homotopy_theory",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1941_HODGE",
+      "title": "The Theory and Applications of Harmonic Integrals",
+      "year": 1941,
+      "domain": "harmonic_integrals",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1945_EILENBERG_MACLANE",
+      "title": "General Theory of Natural Equivalences",
+      "year": 1945,
+      "domain": "early_category_theory",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1946_WEIL",
+      "title": "Foundations of Algebraic Geometry",
+      "year": 1946,
+      "domain": "algebraic_geometry",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1950_SCHWARTZ",
+      "title": "Th\u00e9orie des distributions",
+      "year": 1950,
+      "domain": "generalized_functions",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    },
+    {
+      "source_id": "SRC_1950_CARTAN",
+      "title": "Cohomologie des groupes, suite spectrale, faisceaux",
+      "year": 1950,
+      "domain": "early_sheaves",
+      "temporal_status": "VERIFIED_PRE_CUTOFF"
+    }
+  ],
+  "earliest_year": 1895,
+  "latest_year": 1950,
+  "verified_immutable": true
+}

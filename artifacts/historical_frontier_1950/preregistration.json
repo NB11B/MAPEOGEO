@@ -1,0 +1,28 @@
+{
+  "experiment_id": "HISTORICAL_DISCOVERY_CAMPAIGN_H1_1950",
+  "cutoff_year": 1950,
+  "horizons_years": [
+    5,
+    10,
+    25,
+    50
+  ],
+  "horizons_target_years": [
+    1955,
+    1960,
+    1975,
+    2000
+  ],
+  "primary_hypotheses": {
+    "H_discovery": "Future mathematics preferentially occupies certified frontier states U_t over matched controls R_matched",
+    "H_enrichment_ordering": "E(1%, h) > E(5%, h) > E(10%, h) > E(100%, h) > 1.0",
+    "H_negative_avoidance": "Future mathematics systematically avoids negative frontier states F_t (P(G_>t | F_t) approx 0)"
+  },
+  "admissible_verdicts": [
+    "FRONTIER_PREDICTIVE",
+    "FRONTIER_WEAKLY_PREDICTIVE",
+    "FRONTIER_REACHABLE_BUT_NOT_PREDICTIVE",
+    "FRONTIER_ANTI_PREDICTIVE",
+    "BLOCKED_HISTORICAL_LEAKAGE"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "campaign": "H1_1950",
+  "cutoff_year": 1950,
+  "status": "PREDICTIONS_FROZEN_BEFORE_HISTORICAL_REVEAL",
+  "frozen_timestamp": "2026-10-07T04:10:15Z",
+  "frozen_files": {
+    "historical_source_manifest.json": {
+      "sha256": "b7a7cf9db9f82636b81e4da9f6c018f3b12ee42d9bb0f5460cd2950fe2077180",
+      "bytes": 3263
+    },
+    "G1950_manifest.json": {
+      "sha256": "9c0964acf9a8e2628d6ddd96c3b21c16677bca96d49865069644864f0b5b660a",
+      "bytes": 12458
+    },
+    "semantic_leakage_audit.json": {
+      "sha256": "7f0ac647dbbb4e79cfe1b2503dad51c484d70f2a325f385e9582827d04225fa8",
+      "bytes": 245
+    },
+    "derivable_1950.jsonl": {
+      "sha256": "e904fe49d08efb7750dfec594d2f2854159ff249e870845051e8e4fdbe441473",
+      "bytes": 12352
+    },
+    "U1950.jsonl": {
+      "sha256": "a931780d724646390e33af3099fbef1261697d681c915c297334de700ebe4f6c",
+      "bytes": 2650
+    },
+    "U1950_ranked.jsonl": {
+      "sha256": "0908d674783bd80bbbbec8533caaa4ecd4a008503df6a391071fbdc7654915af",
+      "bytes": 3503
+    },
+    "matched_controls_1950.jsonl": {
+      "sha256": "5f73c0cb9063b1b2d2ebbcbed3ee4ad39445d8bc9b824cdfdf4be0d223469192",
+      "bytes": 2754
+    },
+    "negative_frontier_1950.jsonl": {
+      "sha256": "fba31ed42b4b5bc3d84a1510d0209e8899def9127fa8fd8d1e2ff6ff813a3ff5",
+      "bytes": 2394
+    },
+    "prediction_work_certificates.jsonl": {
+      "sha256": "1b0c5d87767896124ff4e2e9cec2004f8b2c80b602b1bfa518eff31870dc4240",
+      "bytes": 3028
+    },
+    "preregistration.json": {
+      "sha256": "8307bf48a6a8e3830d0db3708a014e7b1f52078e17a61e8a494217d5481094a4",
+      "bytes": 811
+    }
+  }
+}

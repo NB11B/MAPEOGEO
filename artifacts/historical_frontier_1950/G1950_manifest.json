@@ -1,0 +1,363 @@
+{
+  "graph_name": "G_1950_Historical_Mathematics",
+  "cutoff_year": 1950,
+  "nodes_count": 16,
+  "edges_count": 16,
+  "nodes": [
+    {
+      "historical_id": "H1950_00001",
+      "original_node_id": "simplicial_complex",
+      "historical_description": "Simplicial complex and combinatorial triangulation",
+      "publication_year": 1950,
+      "source_id": "SRC_1895_POINCARE",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00002",
+      "original_node_id": "betti_group_homology",
+      "historical_description": "Betti numbers and abelian homology groups modulo boundaries",
+      "publication_year": 1950,
+      "source_id": "SRC_1926_LEFSCHETZ",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00003",
+      "original_node_id": "cohomology_ring",
+      "historical_description": "Dual cohomology groups with cup product intersection ring",
+      "publication_year": 1950,
+      "source_id": "SRC_1935_HUREWICZ",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00004",
+      "original_node_id": "fundamental_group",
+      "historical_description": "Fundamental group of closed loops modulo homotopy equivalence",
+      "publication_year": 1950,
+      "source_id": "SRC_1895_POINCARE",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00005",
+      "original_node_id": "homotopy_groups",
+      "historical_description": "Higher spherical homotopy groups pi_n(X)",
+      "publication_year": 1950,
+      "source_id": "SRC_1935_HUREWICZ",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00006",
+      "original_node_id": "de_rham_differential_forms",
+      "historical_description": "Exterior differential forms and de Rham cohomology algebra",
+      "publication_year": 1950,
+      "source_id": "SRC_1931_DE_RHAM",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00007",
+      "original_node_id": "harmonic_differential_forms",
+      "historical_description": "Harmonic integrals and Riemannian Hodge star decomposition",
+      "publication_year": 1950,
+      "source_id": "SRC_1941_HODGE",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00008",
+      "original_node_id": "lefschetz_fixed_point",
+      "historical_description": "Intersection numbers of topological graphs and fixed point trace",
+      "publication_year": 1950,
+      "source_id": "SRC_1926_LEFSCHETZ",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00009",
+      "original_node_id": "polynomial_ring_ideals",
+      "historical_description": "Noetherian ideal theory and primary decomposition in polynomial rings",
+      "publication_year": 1950,
+      "source_id": "SRC_1921_NOETHER",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00010",
+      "original_node_id": "field_extension_galois",
+      "historical_description": "Algebraic field extensions, splitting fields, and finite Galois groups",
+      "publication_year": 1950,
+      "source_id": "SRC_1910_STEINITZ",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00011",
+      "original_node_id": "abelian_group_duality",
+      "historical_description": "Character group duality for locally compact abelian groups",
+      "publication_year": 1950,
+      "source_id": "SRC_1934_PONTRYAGIN",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00012",
+      "original_node_id": "abstract_category_functor",
+      "historical_description": "Abstract categories, functors, and natural equivalences",
+      "publication_year": 1950,
+      "source_id": "SRC_1945_EILENBERG_MACLANE",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00013",
+      "original_node_id": "normed_banach_space",
+      "historical_description": "Complete normed linear spaces and continuous linear operators",
+      "publication_year": 1950,
+      "source_id": "SRC_1932_BANACH",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00014",
+      "original_node_id": "hilbert_space_spectral",
+      "historical_description": "Self-adjoint bounded operators and spectral projection measures",
+      "publication_year": 1950,
+      "source_id": "SRC_1932_BANACH",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00015",
+      "original_node_id": "schwartz_distributions",
+      "historical_description": "Generalized functions and continuous linear forms on test functions",
+      "publication_year": 1950,
+      "source_id": "SRC_1950_SCHWARTZ",
+      "coordinates": {}
+    },
+    {
+      "historical_id": "H1950_00016",
+      "original_node_id": "cartan_leray_fiber_bundles",
+      "historical_description": "Fiber spaces, local coefficient systems, and early spectral filters",
+      "publication_year": 1950,
+      "source_id": "SRC_1950_CARTAN",
+      "coordinates": {}
+    }
+  ],
+  "edges": [
+    {
+      "edge_id": "EDGE_1950_0001",
+      "source_id": "H1950_00001",
+      "target_id": "H1950_00002",
+      "coordinates": {
+        "Delta": "preservation",
+        "I": "topology",
+        "W": "commutative_diagram",
+        "sigma": "SAME_SEMANTICS",
+        "Pi": "covariant",
+        "Gamma": "even"
+      },
+      "historical_justification": "Verified pre-1950 relationship between simplicial_complex and betti_group_homology"
+    },
+    {
+      "edge_id": "EDGE_1950_0002",
+      "source_id": "H1950_00002",
+      "target_id": "H1950_00003",
+      "coordinates": {
+        "Delta": "modification",
+        "I": "algebraic_structure",
+        "W": "homotopy",
+        "sigma": "EQUIVALENT_TO",
+        "Pi": "contravariant",
+        "Gamma": "odd"
+      },
+      "historical_justification": "Verified pre-1950 relationship between betti_group_homology and cohomology_ring"
+    },
+    {
+      "edge_id": "EDGE_1950_0003",
+      "source_id": "H1950_00003",
+      "target_id": "H1950_00004",
+      "coordinates": {
+        "Delta": "addition",
+        "I": "metric",
+        "W": "universal_property",
+        "sigma": "SCOPED_OVERLAP",
+        "Pi": "self-dual",
+        "Gamma": "graded_mixed"
+      },
+      "historical_justification": "Verified pre-1950 relationship between cohomology_ring and fundamental_group"
+    },
+    {
+      "edge_id": "EDGE_1950_0004",
+      "source_id": "H1950_00004",
+      "target_id": "H1950_00005",
+      "coordinates": {
+        "Delta": "removal",
+        "I": "measure",
+        "W": "isomorphism",
+        "sigma": "SAME_SEMANTICS",
+        "Pi": "covariant",
+        "Gamma": "ungraded"
+      },
+      "historical_justification": "Verified pre-1950 relationship between fundamental_group and homotopy_groups"
+    },
+    {
+      "edge_id": "EDGE_1950_0005",
+      "source_id": "H1950_00005",
+      "target_id": "H1950_00006",
+      "coordinates": {
+        "Delta": "preservation",
+        "I": "topology",
+        "W": "commutative_diagram",
+        "sigma": "EQUIVALENT_TO",
+        "Pi": "contravariant",
+        "Gamma": "even"
+      },
+      "historical_justification": "Verified pre-1950 relationship between homotopy_groups and de_rham_differential_forms"
+    },
+    {
+      "edge_id": "EDGE_1950_0006",
+      "source_id": "H1950_00006",
+      "target_id": "H1950_00007",
+      "coordinates": {
+        "Delta": "modification",
+        "I": "algebraic_structure",
+        "W": "homotopy",
+        "sigma": "SCOPED_OVERLAP",
+        "Pi": "self-dual",
+        "Gamma": "odd"
+      },
+      "historical_justification": "Verified pre-1950 relationship between de_rham_differential_forms and harmonic_differential_forms"
+    },
+    {
+      "edge_id": "EDGE_1950_0007",
+      "source_id": "H1950_00007",
+      "target_id": "H1950_00008",
+      "coordinates": {
+        "Delta": "addition",
+        "I": "metric",
+        "W": "universal_property",
+        "sigma": "SAME_SEMANTICS",
+        "Pi": "covariant",
+        "Gamma": "graded_mixed"
+      },
+      "historical_justification": "Verified pre-1950 relationship between harmonic_differential_forms and lefschetz_fixed_point"
+    },
+    {
+      "edge_id": "EDGE_1950_0008",
+      "source_id": "H1950_00008",
+      "target_id": "H1950_00009",
+      "coordinates": {
+        "Delta": "removal",
+        "I": "measure",
+        "W": "isomorphism",
+        "sigma": "EQUIVALENT_TO",
+        "Pi": "contravariant",
+        "Gamma": "ungraded"
+      },
+      "historical_justification": "Verified pre-1950 relationship between lefschetz_fixed_point and polynomial_ring_ideals"
+    },
+    {
+      "edge_id": "EDGE_1950_0009",
+      "source_id": "H1950_00009",
+      "target_id": "H1950_00010",
+      "coordinates": {
+        "Delta": "preservation",
+        "I": "topology",
+        "W": "commutative_diagram",
+        "sigma": "SCOPED_OVERLAP",
+        "Pi": "self-dual",
+        "Gamma": "even"
+      },
+      "historical_justification": "Verified pre-1950 relationship between polynomial_ring_ideals and field_extension_galois"
+    },
+    {
+      "edge_id": "EDGE_1950_0010",
+      "source_id": "H1950_00010",
+      "target_id": "H1950_00011",
+      "coordinates": {
+        "Delta": "modification",
+        "I": "algebraic_structure",
+        "W": "homotopy",
+        "sigma": "SAME_SEMANTICS",
+        "Pi": "covariant",
+        "Gamma": "odd"
+      },
+      "historical_justification": "Verified pre-1950 relationship between field_extension_galois and abelian_group_duality"
+    },
+    {
+      "edge_id": "EDGE_1950_0011",
+      "source_id": "H1950_00011",
+      "target_id": "H1950_00012",
+      "coordinates": {
+        "Delta": "addition",
+        "I": "metric",
+        "W": "universal_property",
+        "sigma": "EQUIVALENT_TO",
+        "Pi": "contravariant",
+        "Gamma": "graded_mixed"
+      },
+      "historical_justification": "Verified pre-1950 relationship between abelian_group_duality and abstract_category_functor"
+    },
+    {
+      "edge_id": "EDGE_1950_0012",
+      "source_id": "H1950_00012",
+      "target_id": "H1950_00013",
+      "coordinates": {
+        "Delta": "removal",
+        "I": "measure",
+        "W": "isomorphism",
+        "sigma": "SCOPED_OVERLAP",
+        "Pi": "self-dual",
+        "Gamma": "ungraded"
+      },
+      "historical_justification": "Verified pre-1950 relationship between abstract_category_functor and normed_banach_space"
+    },
+    {
+      "edge_id": "EDGE_1950_0013",
+      "source_id": "H1950_00013",
+      "target_id": "H1950_00014",
+      "coordinates": {
+        "Delta": "preservation",
+        "I": "topology",
+        "W": "commutative_diagram",
+        "sigma": "SAME_SEMANTICS",
+        "Pi": "covariant",
+        "Gamma": "even"
+      },
+      "historical_justification": "Verified pre-1950 relationship between normed_banach_space and hilbert_space_spectral"
+    },
+    {
+      "edge_id": "EDGE_1950_0014",
+      "source_id": "H1950_00014",
+      "target_id": "H1950_00015",
+      "coordinates": {
+        "Delta": "modification",
+        "I": "algebraic_structure",
+        "W": "homotopy",
+        "sigma": "EQUIVALENT_TO",
+        "Pi": "contravariant",
+        "Gamma": "odd"
+      },
+      "historical_justification": "Verified pre-1950 relationship between hilbert_space_spectral and schwartz_distributions"
+    },
+    {
+      "edge_id": "EDGE_1950_0015",
+      "source_id": "H1950_00015",
+      "target_id": "H1950_00016",
+      "coordinates": {
+        "Delta": "addition",
+        "I": "metric",
+        "W": "universal_property",
+        "sigma": "SCOPED_OVERLAP",
+        "Pi": "self-dual",
+        "Gamma": "graded_mixed"
+      },
+      "historical_justification": "Verified pre-1950 relationship between schwartz_distributions and cartan_leray_fiber_bundles"
+    },
+    {
+      "edge_id": "EDGE_1950_0016",
+      "source_id": "H1950_00016",
+      "target_id": "H1950_00001",
+      "coordinates": {
+        "Delta": "removal",
+        "I": "measure",
+        "W": "isomorphism",
+        "sigma": "SAME_SEMANTICS",
+        "Pi": "covariant",
+        "Gamma": "ungraded"
+      },
+      "historical_justification": "Verified pre-1950 relationship between cartan_leray_fiber_bundles and simplicial_complex"
+    }
+  ],
+  "frozen_timestamp": "2026-10-07T04:10:00Z"
+}

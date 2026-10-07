@@ -1,0 +1,24 @@
+{
+  "horizon_year": 1955,
+  "years_elapsed": 5,
+  "accumulated_discoveries_count": 1,
+  "discoveries": [
+    {
+      "discovery_id": "DISC_1955_SERRE_FAC",
+      "title": "Faisceaux alg\u00e9briques coh\u00e9rents (FAC)",
+      "author": "Jean-Pierre Serre",
+      "year": 1955,
+      "horizon": 1955,
+      "domain": "sheaf_and_cohomology",
+      "structural_coordinates": {
+        "Delta": "preservation",
+        "I": "topology",
+        "W": "universal_property",
+        "sigma": "EQUIVALENT_TO",
+        "Pi": "covariant",
+        "Gamma": "even"
+      },
+      "target_prototype": "SLOT_SHEAF_COHOMOLOGY"
+    }
+  ]
+}
