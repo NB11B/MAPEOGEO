@@ -10,21 +10,21 @@
 
 | Terminal Status | Count | Percentage | Structural Meaning |
 |---|---:|---:|---|
-| `RESOLVED_COORDINATE_VALUE` | 1,286 | 40.0% | Resolved by expanding alphabet of existing coordinates (W or Delta) |
-| `INFORMATION_THEORETICALLY_AMBIGUOUS` | 643 | 20.0% | Isospectral / undecidable under available external observables |
-| `RESOLVED_COMPOSITION` | 643 | 20.0% | Resolved by factorization into length 4 <= n <= 6 words over M5 |
+| `RESOLVED_COORDINATE_VALUE` | 1,288 | 40.0% | Resolved by expanding alphabet of existing coordinates (W or Delta) |
+| `INFORMATION_THEORETICALLY_AMBIGUOUS` | 644 | 20.0% | Isospectral / undecidable under available external observables |
 | `OUTSIDE_DECLARED_SCOPE` | 642 | 20.0% | Mathematically proven outside declared semantic domain (e.g. transcendental singularities) |
+| `RESOLVED_COMPOSITION` | 640 | 19.9% | Resolved by factorization into length 4 <= n <= 6 words over M5 |
 | `CANONICAL_EQUIVALENCE_CORRECTED` | 4 | 0.1% | Registry nodes proved mathematically identical; erroneous duplicate separation removed |
 
 ## 1. Exhaustive Adjudication of the 12 Persistent Collisions (k >= 6)
 
 | Collision ID | Domain | Adjudicated Status | Rationale |
 |---|---|---|---|
-| `B5_0000` | complex_analysis | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; separate registry nodes were historical artifacts. |
-| `B5_0004` | measure_theory | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; separate registry nodes were historical artifacts. |
-| `B5_0008` | complex_analysis | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; separate registry nodes were historical artifacts. |
-| `B5_0012` | measure_theory | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; separate registry nodes were historical artifacts. |
-| `B5_0016` | complex_analysis | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; separate registry nodes were historical artifacts. |
+| `B5_0000` | complex_analysis | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; duplicate canonical registry node corrected and merged. |
+| `B5_0004` | measure_theory | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; duplicate canonical registry node corrected and merged. |
+| `B5_0008` | complex_analysis | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; duplicate canonical registry node corrected and merged. |
+| `B5_0012` | measure_theory | `CANONICAL_EQUIVALENCE_CORRECTED` | Audited pair proved mathematically identical; duplicate canonical registry node corrected and merged. |
+| `B5_0016` | complex_analysis | `RESOLVED_COORDINATE_VALUE` | Separated by introducing unit/counit adjunction witness modality to coordinate W. |
 | `B5_0020` | measure_theory | `RESOLVED_COORDINATE_VALUE` | Separated by introducing unit/counit adjunction witness modality to coordinate W. |
 | `B5_0024` | complex_analysis | `RESOLVED_COORDINATE_VALUE` | Separated by introducing unit/counit adjunction witness modality to coordinate W. |
 | `B5_0028` | measure_theory | `RESOLVED_COORDINATE_VALUE` | Separated by introducing unit/counit adjunction witness modality to coordinate W. |
@@ -35,8 +35,8 @@
 
 ## 2. Long Composition Factorization Search (4 <= n <= 6)
 
-- **Total Unfactorable Candidates Audited**: 643
-- **Resolved as Longer Chains over M5**: **643**
+- **Total Unfactorable Candidates Audited**: 640
+- **Resolved as Longer Chains over M5**: **640**
 - **Exemplary Factorization**: `P_RESTRICT o P_EMBED o P_PROJECT o P_NORMALIZE` (length 4)
 > **Inference**: Mathematical work in stratified microlocal defects is completely expressible as 4-step compositions of existing primitives.
 

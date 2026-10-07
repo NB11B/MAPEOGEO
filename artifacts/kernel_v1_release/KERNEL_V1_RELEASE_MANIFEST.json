@@ -1,0 +1,105 @@
+{
+  "kernel_name": "MAPEOGEO Relational Mathematics Kernel v1",
+  "kernel_version": "1.0.0-sealed",
+  "seal_status": "FROZEN_PERMANENT",
+  "git_commit": "dfe7102857bcb82a4308e158fff750537911af03",
+  "mathematical_representation": {
+    "grammar": "M5^+",
+    "coordinates": {
+      "Delta": "Structural difference introduced/removed",
+      "I": "Preserved invariant class",
+      "W_plus": "Licensed witness modalities (diagram, homotopy, universal_property, isomorphism, factorization, bijection, higher_gauge_coherence, nuclear_trace, unit_counit_adjunction)",
+      "sigma": "Admissible relational strength / semantic scope",
+      "Pi": "Direction of structural transport (covariant, contravariant, self-dual)"
+    },
+    "composition_law": "Associative typed word composition under circ",
+    "state_emergence_operator": "Sigma_k(X) mapping relational neighborhood to mathematical state identity"
+  },
+  "conservation_accounting": {
+    "total_b5_records": 3218,
+    "resolved_coordinate_value": 1288,
+    "information_theoretically_ambiguous": 644,
+    "outside_declared_scope": 642,
+    "resolved_composition": 640,
+    "canonical_equivalence_corrected": 4,
+    "unresolved_count": 0,
+    "adjudication_rate": "100.0%"
+  },
+  "artifact_hashes": {
+    "baseline_manifest": {
+      "path": "artifacts/invariant_grammar/baseline_manifest.json",
+      "sha256": "3bf04bbbf86a32adae01040dbb7ce0c35ddccf60278ed8880b3f04c49f591d16",
+      "size_bytes": 323
+    },
+    "quarantine_manifest_312": {
+      "path": "artifacts/invariant_grammar/312_quarantine_manifest.json",
+      "sha256": "9214a9ba03071a5032c453646ab93e73bd01f0cd379f63317d8191f4c8e281dc",
+      "size_bytes": 173
+    },
+    "grammar_freeze_manifest": {
+      "path": "artifacts/invariant_grammar/grammar_freeze_manifest.json",
+      "sha256": "28d90ef540405936ecb90b94d09dbfd391fe4cc6ba187623150327f92a3d9ea5",
+      "size_bytes": 354
+    },
+    "heldout_312_result": {
+      "path": "artifacts/invariant_grammar/heldout_312_result.json",
+      "sha256": "6ebf6c9c0b579f297fdbc947ae0f9e52c339d844d5185dd811e0a5c7b341067b",
+      "size_bytes": 242
+    },
+    "primitive_characterization": {
+      "path": "artifacts/transformation_algebra/primitive_characterization.json",
+      "sha256": "daef8d9b650ed20c81b69d0b312bc99a0c6153a50fd911e9957ad6676aca9c95",
+      "size_bytes": 24725
+    },
+    "primitive_characterization_md": {
+      "path": "artifacts/transformation_algebra/PRIMITIVE_CHARACTERIZATION.md",
+      "sha256": "506968a714730ac379afbdb221af3a77a8100260277f54debdd9ac2f95650c22",
+      "size_bytes": 6780
+    },
+    "state_reconstruction_results": {
+      "path": "artifacts/state_reconstruction/reconstruction_results.json",
+      "sha256": "79b36846f509f329c28d826a067b15c944d85ebd3eeac8ced268b2ea5b214d40",
+      "size_bytes": 775
+    },
+    "m5_grammar_specification": {
+      "path": "artifacts/residual_analysis/M5_grammar_specification.json",
+      "sha256": "568a00bfcb989fd41ba87dd776e17099462f99cb7bec09ef0f69a14e47001a0d",
+      "size_bytes": 1577
+    },
+    "b5_freeze_manifest": {
+      "path": "artifacts/residual_analysis/B5_freeze_manifest.json",
+      "sha256": "26225f2b4f27eab7e568cb78dff764bac0d8bf69ff86bb3f021aa33f8b1b29a9",
+      "size_bytes": 659
+    },
+    "b5_explanatory_boundary_jsonl": {
+      "path": "artifacts/residual_analysis/B5_explanatory_boundary.jsonl",
+      "sha256": "24fcf1f051f00fa437041ffc81a0c72cc3f9a782cbb688d71866d9fe50fda5dd",
+      "size_bytes": 1866511
+    },
+    "b5_resolution_ledger_jsonl": {
+      "path": "artifacts/boundary_resolution/B5_resolution_ledger.jsonl",
+      "sha256": "d4a20fcf04add8c982806faf261fb1d06193eb641228704c8feed14bad2f9927",
+      "size_bytes": 1195450
+    },
+    "collision_adjudication_12": {
+      "path": "artifacts/boundary_resolution/collision_adjudication_12.json",
+      "sha256": "b0b7b2ba7f14fdcc77fcee430ea9ce13f0dbf2ed14d41bcaf5b253132903beb6",
+      "size_bytes": 3695
+    },
+    "alphabet_refinements": {
+      "path": "artifacts/boundary_resolution/alphabet_refinements.json",
+      "sha256": "f61b1ba60e15a4de15660ed3a9637e74c9e4eb0645910be5f3484210e99c1a9a",
+      "size_bytes": 870
+    },
+    "candidate_falsification_results": {
+      "path": "artifacts/boundary_resolution/candidate_falsification_results.json",
+      "sha256": "650b14b28435df4ec98b1cb830e10598ed918e545e64e148475c138daf947b6b",
+      "size_bytes": 342
+    }
+  },
+  "external_prospective_protocol": {
+    "rule_1": "No further modifications to M5^+ using the existing corpus.",
+    "rule_2": "New mathematics must be ingested completely blind to previously explained records.",
+    "rule_3": "Future expansion to M6 requires prospective resolution of the sealed 644 ambiguous records without regressions."
+  }
+}
