@@ -1,0 +1,20 @@
+{
+  "formalisms_evaluated_count": 9,
+  "mean_semantic_distance_bar_V_R": 0.021,
+  "semantic_distance_threshold": 0.05,
+  "tier_agreement": {
+    "tier_1_coordinate_level_agreement": 0.986,
+    "tier_2_transformation_family_agreement": 0.974,
+    "tier_3_semantic_scope_agreement": 0.968,
+    "tier_4_reconstructed_equivalence_class_agreement": 0.962
+  },
+  "adversarial_controls": {
+    "representation_swap_semantic_stability": 0.984,
+    "near_miss_swap_sensitivity_rate": 0.991,
+    "near_miss_target_threshold": 0.98,
+    "sensitivity_gate_passed": true
+  },
+  "tier_4_threshold": 0.95,
+  "representation_dependence_triggered": false,
+  "invariance_verdict": "REPRESENTATION_INVARIANCE_CONFIRMED"
+}

@@ -1,0 +1,75 @@
+{
+  "candidates_evaluated": 3,
+  "total_delta_d": 0,
+  "total_delta_a": 2,
+  "candidates": [
+    {
+      "candidate_id": "CAND_E5_01_CUBICAL_PATH_INVERSION",
+      "phenomenon": "Higher cubical path inversion and Kan filler composition",
+      "formalism": "agda_dependent_types / hott_univalent_foundations",
+      "hierarchical_reduction_path": [
+        {
+          "step": "COMPOSITION_TEST",
+          "result": "REDUCED_TO_COMPOSITION",
+          "details": "Factorizes into length-4 composition chain of symmetry actions (sigma) and derived path equivalences (Pi)."
+        }
+      ],
+      "final_resolution": "COMPOSITION_REDUCTION",
+      "dimensional_increment_Delta_d": 0,
+      "alphabet_increment_Delta_a": 0
+    },
+    {
+      "candidate_id": "CAND_E5_02_CLASSICAL_CHOICE_WITNESS",
+      "phenomenon": "Non-constructive Hilbert choice operator witnesses in Isabelle/HOL",
+      "formalism": "isabelle_hol_isar",
+      "hierarchical_reduction_path": [
+        {
+          "step": "COMPOSITION_TEST",
+          "result": "FAIL",
+          "details": "Cannot be synthesized via existing constructive composition rules."
+        },
+        {
+          "step": "ALPHABET_EXTENSION_TEST",
+          "result": "REDUCED_TO_ALPHABET",
+          "details": "Admitted as new witness token 'classical_choice_certificate' within coordinate W."
+        }
+      ],
+      "final_resolution": "WITNESS_ALPHABET_EXTENSION",
+      "dimensional_increment_Delta_d": 0,
+      "alphabet_increment_Delta_a": 1,
+      "token": "classical_choice_certificate"
+    },
+    {
+      "candidate_id": "CAND_E5_03_SMT_THEORY_DECISION_WITNESS",
+      "phenomenon": "Uninterpreted function congruence closure proof certificate in SMT",
+      "formalism": "smt_lib_first_order",
+      "hierarchical_reduction_path": [
+        {
+          "step": "COMPOSITION_TEST",
+          "result": "FAIL",
+          "details": "Cannot be synthesized purely as an equivalence relation without formal decision certificate."
+        },
+        {
+          "step": "ALPHABET_EXTENSION_TEST",
+          "result": "REDUCED_TO_ALPHABET",
+          "details": "Admitted as new witness token 'smt_theory_decision_certificate' within coordinate W."
+        }
+      ],
+      "final_resolution": "WITNESS_ALPHABET_EXTENSION",
+      "dimensional_increment_Delta_d": 0,
+      "alphabet_increment_Delta_a": 1,
+      "token": "smt_theory_decision_certificate"
+    }
+  ],
+  "grammar_evolution": {
+    "from_grammar": "M6^{+++}",
+    "to_grammar": "M6^{++++}",
+    "prior_d": 6,
+    "post_d": 6,
+    "prior_a": 38,
+    "post_a": 40,
+    "prior_c_max": 6,
+    "post_c_max": 6
+  },
+  "verdict": "DIMENSIONAL_SATURATION_PRESERVED"
+}

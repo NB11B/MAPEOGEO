@@ -1,0 +1,9 @@
+{
+  "boundary_corpus": "B10",
+  "target_grammar": "M6^{++++}",
+  "initial_b9_count": 2594,
+  "resolved_in_e5": 178,
+  "residual_b10_count": 2416,
+  "corpus_share_percentage": 2.09,
+  "frozen_timestamp": "2026-10-07T03:49:15Z"
+}

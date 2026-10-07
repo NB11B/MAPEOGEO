@@ -1,0 +1,18 @@
+{
+  "corpus_name": "Multi_Formalism_Foundational_Corpus_E5",
+  "formalisms": [
+    "lean4_mathlib",
+    "coq_rocq_cic",
+    "agda_dependent_types",
+    "isabelle_hol_isar",
+    "hott_univalent_foundations",
+    "bishop_constructive_analysis",
+    "smt_lib_first_order",
+    "categorical_internal_logic",
+    "cas_symbolic_rewrite"
+  ],
+  "total_records": 3600,
+  "clean_records_count": 3510,
+  "quarantined_records_count": 90,
+  "frozen_timestamp": "2026-10-07T03:48:30Z"
+}

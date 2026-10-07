@@ -1,0 +1,115 @@
+{
+  "trajectory": [
+    {
+      "milestone": 0,
+      "prospective_cycle": null,
+      "grammar": "M4",
+      "D": 10,
+      "d": 4,
+      "a": 26,
+      "c": 3,
+      "r": 0.137,
+      "bits_per_state": 42.5,
+      "g_j": null
+    },
+    {
+      "milestone": 1,
+      "prospective_cycle": null,
+      "grammar": "M5",
+      "D": 18,
+      "d": 5,
+      "a": 29,
+      "c": 6,
+      "r": 0.039,
+      "bits_per_state": 28.4,
+      "g_j": 0.125
+    },
+    {
+      "milestone": 2,
+      "prospective_cycle": "E1",
+      "grammar": "M6",
+      "D": 28,
+      "d": 6,
+      "a": 33,
+      "c": 6,
+      "r": 0.0368,
+      "bits_per_state": 19.1,
+      "g_j": 0.1
+    },
+    {
+      "milestone": 3,
+      "prospective_cycle": "E2",
+      "grammar": "M6^+",
+      "D": 38,
+      "d": 6,
+      "a": 34,
+      "c": 6,
+      "r": 0.0325,
+      "bits_per_state": 14.2,
+      "g_j": 0.0
+    },
+    {
+      "milestone": 4,
+      "prospective_cycle": "E3",
+      "grammar": "M6^{++}",
+      "D": 48,
+      "d": 6,
+      "a": 36,
+      "c": 6,
+      "r": 0.0284,
+      "bits_per_state": 11.6,
+      "g_j": 0.0
+    },
+    {
+      "milestone": 5,
+      "prospective_cycle": "E4",
+      "grammar": "M6^{+++}",
+      "D": 58,
+      "d": 6,
+      "a": 38,
+      "c": 6,
+      "r": 0.0244,
+      "bits_per_state": 9.4,
+      "g_j": 0.0
+    },
+    {
+      "milestone": 6,
+      "prospective_cycle": "E5",
+      "grammar": "M6^{++++}",
+      "D": 68,
+      "d": 6,
+      "a": 40,
+      "c": 6,
+      "r": 0.0209,
+      "bits_per_state": 7.8,
+      "g_j": 0.0
+    }
+  ],
+  "dimension_sequence": [
+    4,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6
+  ],
+  "marginal_requirements_g": [
+    0.125,
+    0.1,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "epistemic_indices": {
+    "J_milestone": 7,
+    "J_prospective": 5,
+    "prospective_gate_for_model_selection": 5,
+    "model_selection_unlocked": true
+  },
+  "saturation_persisted_under_representation_shift": true,
+  "description_length_monotonic_compression": true,
+  "status": "E5_PASS_REPRESENTATION_INVARIANCE_CONFIRMED",
+  "growth_law_status": "MODEL_SELECTION_COMPLETE_FINITE_SATURATION_PREFERRED"
+}

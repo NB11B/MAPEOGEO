@@ -1,0 +1,4502 @@
+[
+  {
+    "pair_id": "PAIR_0001",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000011",
+    "id_B": "EXT5_000411",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0002",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000012",
+    "id_B": "EXT5_000412",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0003",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000013",
+    "id_B": "EXT5_000413",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0004",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000014",
+    "id_B": "EXT5_000414",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0005",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000015",
+    "id_B": "EXT5_000415",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0006",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000016",
+    "id_B": "EXT5_000416",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0007",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000017",
+    "id_B": "EXT5_000417",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0008",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000018",
+    "id_B": "EXT5_000418",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0009",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000019",
+    "id_B": "EXT5_000419",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0010",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000020",
+    "id_B": "EXT5_000420",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0011",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000021",
+    "id_B": "EXT5_000421",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0012",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000022",
+    "id_B": "EXT5_000422",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0013",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000023",
+    "id_B": "EXT5_000423",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0014",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000024",
+    "id_B": "EXT5_000424",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0015",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000025",
+    "id_B": "EXT5_000425",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0016",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000026",
+    "id_B": "EXT5_000426",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0017",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000027",
+    "id_B": "EXT5_000427",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0018",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000028",
+    "id_B": "EXT5_000428",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0019",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000029",
+    "id_B": "EXT5_000429",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0020",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000030",
+    "id_B": "EXT5_000430",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0021",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000031",
+    "id_B": "EXT5_000431",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0022",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000032",
+    "id_B": "EXT5_000432",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0023",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000033",
+    "id_B": "EXT5_000433",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0024",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000034",
+    "id_B": "EXT5_000434",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0025",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000035",
+    "id_B": "EXT5_000435",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0026",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000036",
+    "id_B": "EXT5_000436",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0027",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000037",
+    "id_B": "EXT5_000437",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0028",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000038",
+    "id_B": "EXT5_000438",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0029",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000039",
+    "id_B": "EXT5_000439",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0030",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000040",
+    "id_B": "EXT5_000440",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0031",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000041",
+    "id_B": "EXT5_000441",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0032",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000042",
+    "id_B": "EXT5_000442",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0033",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000043",
+    "id_B": "EXT5_000443",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0034",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000044",
+    "id_B": "EXT5_000444",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0035",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000045",
+    "id_B": "EXT5_000445",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0036",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000046",
+    "id_B": "EXT5_000446",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0037",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000047",
+    "id_B": "EXT5_000447",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0038",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000048",
+    "id_B": "EXT5_000448",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0039",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000049",
+    "id_B": "EXT5_000449",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0040",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000050",
+    "id_B": "EXT5_000450",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0041",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000051",
+    "id_B": "EXT5_000451",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0042",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000052",
+    "id_B": "EXT5_000452",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0043",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000053",
+    "id_B": "EXT5_000453",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0044",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000054",
+    "id_B": "EXT5_000454",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0045",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000055",
+    "id_B": "EXT5_000455",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0046",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000056",
+    "id_B": "EXT5_000456",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0047",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000057",
+    "id_B": "EXT5_000457",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0048",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000058",
+    "id_B": "EXT5_000458",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0049",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000059",
+    "id_B": "EXT5_000459",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0050",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000060",
+    "id_B": "EXT5_000460",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0051",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000061",
+    "id_B": "EXT5_000461",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0052",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000062",
+    "id_B": "EXT5_000462",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0053",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000063",
+    "id_B": "EXT5_000463",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0054",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000064",
+    "id_B": "EXT5_000464",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0055",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000065",
+    "id_B": "EXT5_000465",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0056",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000066",
+    "id_B": "EXT5_000466",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0057",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000067",
+    "id_B": "EXT5_000467",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0058",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000068",
+    "id_B": "EXT5_000468",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0059",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000069",
+    "id_B": "EXT5_000469",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0060",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000070",
+    "id_B": "EXT5_000470",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0061",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000071",
+    "id_B": "EXT5_000471",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0062",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000072",
+    "id_B": "EXT5_000472",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0063",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000073",
+    "id_B": "EXT5_000473",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0064",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000074",
+    "id_B": "EXT5_000474",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0065",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000075",
+    "id_B": "EXT5_000475",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0066",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000076",
+    "id_B": "EXT5_000476",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0067",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000077",
+    "id_B": "EXT5_000477",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0068",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000078",
+    "id_B": "EXT5_000478",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0069",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000079",
+    "id_B": "EXT5_000479",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0070",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000080",
+    "id_B": "EXT5_000480",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0071",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000081",
+    "id_B": "EXT5_000481",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0072",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000082",
+    "id_B": "EXT5_000482",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0073",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000083",
+    "id_B": "EXT5_000483",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0074",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000084",
+    "id_B": "EXT5_000484",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0075",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000085",
+    "id_B": "EXT5_000485",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0076",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000086",
+    "id_B": "EXT5_000486",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0077",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000087",
+    "id_B": "EXT5_000487",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0078",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000088",
+    "id_B": "EXT5_000488",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0079",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000089",
+    "id_B": "EXT5_000489",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0080",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000090",
+    "id_B": "EXT5_000490",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0081",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000091",
+    "id_B": "EXT5_000491",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0082",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000092",
+    "id_B": "EXT5_000492",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0083",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000093",
+    "id_B": "EXT5_000493",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0084",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000094",
+    "id_B": "EXT5_000494",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0085",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000095",
+    "id_B": "EXT5_000495",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0086",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000096",
+    "id_B": "EXT5_000496",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0087",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000097",
+    "id_B": "EXT5_000497",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0088",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000098",
+    "id_B": "EXT5_000498",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0089",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000099",
+    "id_B": "EXT5_000499",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0090",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000100",
+    "id_B": "EXT5_000500",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0091",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000101",
+    "id_B": "EXT5_000501",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0092",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000102",
+    "id_B": "EXT5_000502",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0093",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000103",
+    "id_B": "EXT5_000503",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0094",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000104",
+    "id_B": "EXT5_000504",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0095",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000105",
+    "id_B": "EXT5_000505",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0096",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000106",
+    "id_B": "EXT5_000506",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0097",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000107",
+    "id_B": "EXT5_000507",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0098",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000108",
+    "id_B": "EXT5_000508",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0099",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000109",
+    "id_B": "EXT5_000509",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0100",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000110",
+    "id_B": "EXT5_000510",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0101",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000111",
+    "id_B": "EXT5_000511",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0102",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000112",
+    "id_B": "EXT5_000512",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0103",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000113",
+    "id_B": "EXT5_000513",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0104",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000114",
+    "id_B": "EXT5_000514",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0105",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000115",
+    "id_B": "EXT5_000515",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0106",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000116",
+    "id_B": "EXT5_000516",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0107",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000117",
+    "id_B": "EXT5_000517",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0108",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000118",
+    "id_B": "EXT5_000518",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0109",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000119",
+    "id_B": "EXT5_000519",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0110",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000120",
+    "id_B": "EXT5_000520",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0111",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000121",
+    "id_B": "EXT5_000521",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0112",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000122",
+    "id_B": "EXT5_000522",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0113",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000123",
+    "id_B": "EXT5_000523",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0114",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000124",
+    "id_B": "EXT5_000524",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0115",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000125",
+    "id_B": "EXT5_000525",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0116",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000126",
+    "id_B": "EXT5_000526",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0117",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000127",
+    "id_B": "EXT5_000527",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0118",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000128",
+    "id_B": "EXT5_000528",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0119",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000129",
+    "id_B": "EXT5_000529",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0120",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000130",
+    "id_B": "EXT5_000530",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0121",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000131",
+    "id_B": "EXT5_000531",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0122",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000132",
+    "id_B": "EXT5_000532",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0123",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000133",
+    "id_B": "EXT5_000533",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0124",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000134",
+    "id_B": "EXT5_000534",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0125",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000135",
+    "id_B": "EXT5_000535",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0126",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000136",
+    "id_B": "EXT5_000536",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0127",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000137",
+    "id_B": "EXT5_000537",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0128",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000138",
+    "id_B": "EXT5_000538",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0129",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000139",
+    "id_B": "EXT5_000539",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0130",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000140",
+    "id_B": "EXT5_000540",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0131",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000141",
+    "id_B": "EXT5_000541",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0132",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000142",
+    "id_B": "EXT5_000542",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0133",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000143",
+    "id_B": "EXT5_000543",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0134",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000144",
+    "id_B": "EXT5_000544",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0135",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000145",
+    "id_B": "EXT5_000545",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0136",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000146",
+    "id_B": "EXT5_000546",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0137",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000147",
+    "id_B": "EXT5_000547",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0138",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000148",
+    "id_B": "EXT5_000548",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0139",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000149",
+    "id_B": "EXT5_000549",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0140",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000150",
+    "id_B": "EXT5_000550",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0141",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000151",
+    "id_B": "EXT5_000551",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0142",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000152",
+    "id_B": "EXT5_000552",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0143",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000153",
+    "id_B": "EXT5_000553",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0144",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000154",
+    "id_B": "EXT5_000554",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0145",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000155",
+    "id_B": "EXT5_000555",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0146",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000156",
+    "id_B": "EXT5_000556",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0147",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000157",
+    "id_B": "EXT5_000557",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0148",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000158",
+    "id_B": "EXT5_000558",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0149",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000159",
+    "id_B": "EXT5_000559",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0150",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000160",
+    "id_B": "EXT5_000560",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0151",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000161",
+    "id_B": "EXT5_000561",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0152",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000162",
+    "id_B": "EXT5_000562",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0153",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000163",
+    "id_B": "EXT5_000563",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0154",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000164",
+    "id_B": "EXT5_000564",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0155",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000165",
+    "id_B": "EXT5_000565",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0156",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000166",
+    "id_B": "EXT5_000566",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0157",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000167",
+    "id_B": "EXT5_000567",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0158",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000168",
+    "id_B": "EXT5_000568",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0159",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000169",
+    "id_B": "EXT5_000569",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0160",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000170",
+    "id_B": "EXT5_000570",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0161",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000171",
+    "id_B": "EXT5_000571",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0162",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000172",
+    "id_B": "EXT5_000572",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0163",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000173",
+    "id_B": "EXT5_000573",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0164",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000174",
+    "id_B": "EXT5_000574",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0165",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000175",
+    "id_B": "EXT5_000575",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0166",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000176",
+    "id_B": "EXT5_000576",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0167",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000177",
+    "id_B": "EXT5_000577",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0168",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000178",
+    "id_B": "EXT5_000578",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0169",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000179",
+    "id_B": "EXT5_000579",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0170",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000180",
+    "id_B": "EXT5_000580",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0171",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000181",
+    "id_B": "EXT5_000581",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0172",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000182",
+    "id_B": "EXT5_000582",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0173",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000183",
+    "id_B": "EXT5_000583",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0174",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000184",
+    "id_B": "EXT5_000584",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0175",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000185",
+    "id_B": "EXT5_000585",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0176",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000186",
+    "id_B": "EXT5_000586",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0177",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000187",
+    "id_B": "EXT5_000587",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0178",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000188",
+    "id_B": "EXT5_000588",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0179",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000189",
+    "id_B": "EXT5_000589",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0180",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000190",
+    "id_B": "EXT5_000590",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0181",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000191",
+    "id_B": "EXT5_000591",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0182",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000192",
+    "id_B": "EXT5_000592",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0183",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000193",
+    "id_B": "EXT5_000593",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0184",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000194",
+    "id_B": "EXT5_000594",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0185",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000195",
+    "id_B": "EXT5_000595",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0186",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000196",
+    "id_B": "EXT5_000596",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0187",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000197",
+    "id_B": "EXT5_000597",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0188",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000198",
+    "id_B": "EXT5_000598",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0189",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000199",
+    "id_B": "EXT5_000599",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0190",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000200",
+    "id_B": "EXT5_000600",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0191",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000201",
+    "id_B": "EXT5_000601",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0192",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000202",
+    "id_B": "EXT5_000602",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0193",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000203",
+    "id_B": "EXT5_000603",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0194",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000204",
+    "id_B": "EXT5_000604",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0195",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000205",
+    "id_B": "EXT5_000605",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0196",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000206",
+    "id_B": "EXT5_000606",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0197",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000207",
+    "id_B": "EXT5_000607",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0198",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000208",
+    "id_B": "EXT5_000608",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0199",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000209",
+    "id_B": "EXT5_000609",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0200",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000210",
+    "id_B": "EXT5_000610",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0201",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000211",
+    "id_B": "EXT5_000611",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0202",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000212",
+    "id_B": "EXT5_000612",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0203",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000213",
+    "id_B": "EXT5_000613",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0204",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000214",
+    "id_B": "EXT5_000614",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0205",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000215",
+    "id_B": "EXT5_000615",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0206",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000216",
+    "id_B": "EXT5_000616",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0207",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000217",
+    "id_B": "EXT5_000617",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0208",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000218",
+    "id_B": "EXT5_000618",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0209",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000219",
+    "id_B": "EXT5_000619",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0210",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000220",
+    "id_B": "EXT5_000620",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0211",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000221",
+    "id_B": "EXT5_000621",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0212",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000222",
+    "id_B": "EXT5_000622",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0213",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000223",
+    "id_B": "EXT5_000623",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0214",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000224",
+    "id_B": "EXT5_000624",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0215",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000225",
+    "id_B": "EXT5_000625",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0216",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000226",
+    "id_B": "EXT5_000626",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0217",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000227",
+    "id_B": "EXT5_000627",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0218",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000228",
+    "id_B": "EXT5_000628",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0219",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000229",
+    "id_B": "EXT5_000629",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0220",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000230",
+    "id_B": "EXT5_000630",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0221",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000231",
+    "id_B": "EXT5_000631",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0222",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000232",
+    "id_B": "EXT5_000632",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0223",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000233",
+    "id_B": "EXT5_000633",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0224",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000234",
+    "id_B": "EXT5_000634",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0225",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000235",
+    "id_B": "EXT5_000635",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0226",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000236",
+    "id_B": "EXT5_000636",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0227",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000237",
+    "id_B": "EXT5_000637",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0228",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000238",
+    "id_B": "EXT5_000638",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0229",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000239",
+    "id_B": "EXT5_000639",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0230",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000240",
+    "id_B": "EXT5_000640",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0231",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000241",
+    "id_B": "EXT5_000641",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0232",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000242",
+    "id_B": "EXT5_000642",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0233",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000243",
+    "id_B": "EXT5_000643",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0234",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000244",
+    "id_B": "EXT5_000644",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0235",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000245",
+    "id_B": "EXT5_000645",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0236",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000246",
+    "id_B": "EXT5_000646",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0237",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000247",
+    "id_B": "EXT5_000647",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0238",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000248",
+    "id_B": "EXT5_000648",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0239",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000249",
+    "id_B": "EXT5_000649",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0240",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000250",
+    "id_B": "EXT5_000650",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0241",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000251",
+    "id_B": "EXT5_000651",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0242",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000252",
+    "id_B": "EXT5_000652",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0243",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000253",
+    "id_B": "EXT5_000653",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0244",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000254",
+    "id_B": "EXT5_000654",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0245",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000255",
+    "id_B": "EXT5_000655",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0246",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000256",
+    "id_B": "EXT5_000656",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0247",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000257",
+    "id_B": "EXT5_000657",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0248",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000258",
+    "id_B": "EXT5_000658",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0249",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000259",
+    "id_B": "EXT5_000659",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0250",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000260",
+    "id_B": "EXT5_000660",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0251",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000261",
+    "id_B": "EXT5_000661",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0252",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000262",
+    "id_B": "EXT5_000662",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0253",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000263",
+    "id_B": "EXT5_000663",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0254",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000264",
+    "id_B": "EXT5_000664",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0255",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000265",
+    "id_B": "EXT5_000665",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0256",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000266",
+    "id_B": "EXT5_000666",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0257",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000267",
+    "id_B": "EXT5_000667",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0258",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000268",
+    "id_B": "EXT5_000668",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0259",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000269",
+    "id_B": "EXT5_000669",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0260",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000270",
+    "id_B": "EXT5_000670",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0261",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000271",
+    "id_B": "EXT5_000671",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0262",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000272",
+    "id_B": "EXT5_000672",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0263",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000273",
+    "id_B": "EXT5_000673",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0264",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000274",
+    "id_B": "EXT5_000674",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0265",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000275",
+    "id_B": "EXT5_000675",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0266",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000276",
+    "id_B": "EXT5_000676",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0267",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000277",
+    "id_B": "EXT5_000677",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0268",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000278",
+    "id_B": "EXT5_000678",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0269",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000279",
+    "id_B": "EXT5_000679",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0270",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000280",
+    "id_B": "EXT5_000680",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0271",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000281",
+    "id_B": "EXT5_000681",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0272",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000282",
+    "id_B": "EXT5_000682",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0273",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000283",
+    "id_B": "EXT5_000683",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0274",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000284",
+    "id_B": "EXT5_000684",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0275",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000285",
+    "id_B": "EXT5_000685",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0276",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000286",
+    "id_B": "EXT5_000686",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0277",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000287",
+    "id_B": "EXT5_000687",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0278",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000288",
+    "id_B": "EXT5_000688",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0279",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000289",
+    "id_B": "EXT5_000689",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0280",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000290",
+    "id_B": "EXT5_000690",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0281",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000291",
+    "id_B": "EXT5_000691",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0282",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000292",
+    "id_B": "EXT5_000692",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0283",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000293",
+    "id_B": "EXT5_000693",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0284",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000294",
+    "id_B": "EXT5_000694",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0285",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000295",
+    "id_B": "EXT5_000695",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0286",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000296",
+    "id_B": "EXT5_000696",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0287",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000297",
+    "id_B": "EXT5_000697",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0288",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000298",
+    "id_B": "EXT5_000698",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0289",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000299",
+    "id_B": "EXT5_000699",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0290",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000300",
+    "id_B": "EXT5_000700",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0291",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000301",
+    "id_B": "EXT5_000701",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0292",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000302",
+    "id_B": "EXT5_000702",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0293",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000303",
+    "id_B": "EXT5_000703",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0294",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000304",
+    "id_B": "EXT5_000704",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0295",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000305",
+    "id_B": "EXT5_000705",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0296",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000306",
+    "id_B": "EXT5_000706",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0297",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000307",
+    "id_B": "EXT5_000707",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0298",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000308",
+    "id_B": "EXT5_000708",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0299",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000309",
+    "id_B": "EXT5_000709",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0300",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000310",
+    "id_B": "EXT5_000710",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0301",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000311",
+    "id_B": "EXT5_000711",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0302",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000312",
+    "id_B": "EXT5_000712",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0303",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000313",
+    "id_B": "EXT5_000713",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0304",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000314",
+    "id_B": "EXT5_000714",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0305",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000315",
+    "id_B": "EXT5_000715",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0306",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000316",
+    "id_B": "EXT5_000716",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0307",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000317",
+    "id_B": "EXT5_000717",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0308",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000318",
+    "id_B": "EXT5_000718",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0309",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000319",
+    "id_B": "EXT5_000719",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0310",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000320",
+    "id_B": "EXT5_000720",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0311",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000321",
+    "id_B": "EXT5_000721",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0312",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000322",
+    "id_B": "EXT5_000722",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0313",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000323",
+    "id_B": "EXT5_000723",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0314",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000324",
+    "id_B": "EXT5_000724",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0315",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000325",
+    "id_B": "EXT5_000725",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0316",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000326",
+    "id_B": "EXT5_000726",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0317",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000327",
+    "id_B": "EXT5_000727",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0318",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000328",
+    "id_B": "EXT5_000728",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0319",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000329",
+    "id_B": "EXT5_000729",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0320",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000330",
+    "id_B": "EXT5_000730",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0321",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000331",
+    "id_B": "EXT5_000731",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0322",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000332",
+    "id_B": "EXT5_000732",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0323",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000333",
+    "id_B": "EXT5_000733",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0324",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000334",
+    "id_B": "EXT5_000734",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0325",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000335",
+    "id_B": "EXT5_000735",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0326",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000336",
+    "id_B": "EXT5_000736",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0327",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000337",
+    "id_B": "EXT5_000737",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0328",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000338",
+    "id_B": "EXT5_000738",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0329",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000339",
+    "id_B": "EXT5_000739",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0330",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000340",
+    "id_B": "EXT5_000740",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0331",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000341",
+    "id_B": "EXT5_000741",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0332",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000342",
+    "id_B": "EXT5_000742",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0333",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000343",
+    "id_B": "EXT5_000743",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0334",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000344",
+    "id_B": "EXT5_000744",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0335",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000345",
+    "id_B": "EXT5_000745",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0336",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000346",
+    "id_B": "EXT5_000746",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0337",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000347",
+    "id_B": "EXT5_000747",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0338",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000348",
+    "id_B": "EXT5_000748",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0339",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000349",
+    "id_B": "EXT5_000749",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0340",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000350",
+    "id_B": "EXT5_000750",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0341",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000351",
+    "id_B": "EXT5_000751",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0342",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000352",
+    "id_B": "EXT5_000752",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0343",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000353",
+    "id_B": "EXT5_000753",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0344",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000354",
+    "id_B": "EXT5_000754",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0345",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000355",
+    "id_B": "EXT5_000755",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0346",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000356",
+    "id_B": "EXT5_000756",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0347",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000357",
+    "id_B": "EXT5_000757",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0348",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000358",
+    "id_B": "EXT5_000758",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0349",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000359",
+    "id_B": "EXT5_000759",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0350",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000360",
+    "id_B": "EXT5_000760",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0351",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000361",
+    "id_B": "EXT5_000761",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0352",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000362",
+    "id_B": "EXT5_000762",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0353",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000363",
+    "id_B": "EXT5_000763",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0354",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000364",
+    "id_B": "EXT5_000764",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0355",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000365",
+    "id_B": "EXT5_000765",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0356",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000366",
+    "id_B": "EXT5_000766",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0357",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000367",
+    "id_B": "EXT5_000767",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0358",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000368",
+    "id_B": "EXT5_000768",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0359",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000369",
+    "id_B": "EXT5_000769",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0360",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000370",
+    "id_B": "EXT5_000770",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0361",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000371",
+    "id_B": "EXT5_000771",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0362",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000372",
+    "id_B": "EXT5_000772",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0363",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000373",
+    "id_B": "EXT5_000773",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0364",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000374",
+    "id_B": "EXT5_000774",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0365",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000375",
+    "id_B": "EXT5_000775",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0366",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000376",
+    "id_B": "EXT5_000776",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0367",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000377",
+    "id_B": "EXT5_000777",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0368",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000378",
+    "id_B": "EXT5_000778",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0369",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000379",
+    "id_B": "EXT5_000779",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0370",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000380",
+    "id_B": "EXT5_000780",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0371",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000381",
+    "id_B": "EXT5_000781",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0372",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000382",
+    "id_B": "EXT5_000782",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0373",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000383",
+    "id_B": "EXT5_000783",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0374",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000384",
+    "id_B": "EXT5_000784",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0375",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000385",
+    "id_B": "EXT5_000785",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0376",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000386",
+    "id_B": "EXT5_000786",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0377",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000387",
+    "id_B": "EXT5_000787",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0378",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000388",
+    "id_B": "EXT5_000788",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0379",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000389",
+    "id_B": "EXT5_000789",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0380",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000390",
+    "id_B": "EXT5_000790",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0381",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000391",
+    "id_B": "EXT5_000791",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0382",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000392",
+    "id_B": "EXT5_000792",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0383",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000393",
+    "id_B": "EXT5_000793",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0384",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000394",
+    "id_B": "EXT5_000794",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0385",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000395",
+    "id_B": "EXT5_000795",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0386",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000396",
+    "id_B": "EXT5_000796",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0387",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000397",
+    "id_B": "EXT5_000797",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0388",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000398",
+    "id_B": "EXT5_000798",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0389",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000399",
+    "id_B": "EXT5_000799",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0390",
+    "formalism_A": "lean4_mathlib",
+    "formalism_B": "coq_rocq_cic",
+    "id_A": "EXT5_000400",
+    "id_B": "EXT5_000800",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0391",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000411",
+    "id_B": "EXT5_000811",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0392",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000412",
+    "id_B": "EXT5_000812",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0393",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000413",
+    "id_B": "EXT5_000813",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0394",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000414",
+    "id_B": "EXT5_000814",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0395",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000415",
+    "id_B": "EXT5_000815",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0396",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000416",
+    "id_B": "EXT5_000816",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0397",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000417",
+    "id_B": "EXT5_000817",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0398",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000418",
+    "id_B": "EXT5_000818",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0399",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000419",
+    "id_B": "EXT5_000819",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0400",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000420",
+    "id_B": "EXT5_000820",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0401",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000421",
+    "id_B": "EXT5_000821",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0402",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000422",
+    "id_B": "EXT5_000822",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0403",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000423",
+    "id_B": "EXT5_000823",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0404",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000424",
+    "id_B": "EXT5_000824",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0405",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000425",
+    "id_B": "EXT5_000825",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0406",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000426",
+    "id_B": "EXT5_000826",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0407",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000427",
+    "id_B": "EXT5_000827",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0408",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000428",
+    "id_B": "EXT5_000828",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0409",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000429",
+    "id_B": "EXT5_000829",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0410",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000430",
+    "id_B": "EXT5_000830",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0411",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000431",
+    "id_B": "EXT5_000831",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0412",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000432",
+    "id_B": "EXT5_000832",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0413",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000433",
+    "id_B": "EXT5_000833",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0414",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000434",
+    "id_B": "EXT5_000834",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0415",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000435",
+    "id_B": "EXT5_000835",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0416",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000436",
+    "id_B": "EXT5_000836",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0417",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000437",
+    "id_B": "EXT5_000837",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0418",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000438",
+    "id_B": "EXT5_000838",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0419",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000439",
+    "id_B": "EXT5_000839",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0420",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000440",
+    "id_B": "EXT5_000840",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0421",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000441",
+    "id_B": "EXT5_000841",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0422",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000442",
+    "id_B": "EXT5_000842",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0423",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000443",
+    "id_B": "EXT5_000843",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0424",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000444",
+    "id_B": "EXT5_000844",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0425",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000445",
+    "id_B": "EXT5_000845",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0426",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000446",
+    "id_B": "EXT5_000846",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0427",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000447",
+    "id_B": "EXT5_000847",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0428",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000448",
+    "id_B": "EXT5_000848",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0429",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000449",
+    "id_B": "EXT5_000849",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0430",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000450",
+    "id_B": "EXT5_000850",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0431",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000451",
+    "id_B": "EXT5_000851",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0432",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000452",
+    "id_B": "EXT5_000852",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0433",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000453",
+    "id_B": "EXT5_000853",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0434",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000454",
+    "id_B": "EXT5_000854",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0435",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000455",
+    "id_B": "EXT5_000855",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0436",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000456",
+    "id_B": "EXT5_000856",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0437",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000457",
+    "id_B": "EXT5_000857",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0438",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000458",
+    "id_B": "EXT5_000858",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0439",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000459",
+    "id_B": "EXT5_000859",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0440",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000460",
+    "id_B": "EXT5_000860",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0441",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000461",
+    "id_B": "EXT5_000861",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0442",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000462",
+    "id_B": "EXT5_000862",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0443",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000463",
+    "id_B": "EXT5_000863",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0444",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000464",
+    "id_B": "EXT5_000864",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0445",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000465",
+    "id_B": "EXT5_000865",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0446",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000466",
+    "id_B": "EXT5_000866",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0447",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000467",
+    "id_B": "EXT5_000867",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0448",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000468",
+    "id_B": "EXT5_000868",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0449",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000469",
+    "id_B": "EXT5_000869",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0450",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000470",
+    "id_B": "EXT5_000870",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0451",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000471",
+    "id_B": "EXT5_000871",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0452",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000472",
+    "id_B": "EXT5_000872",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0453",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000473",
+    "id_B": "EXT5_000873",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0454",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000474",
+    "id_B": "EXT5_000874",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0455",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000475",
+    "id_B": "EXT5_000875",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0456",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000476",
+    "id_B": "EXT5_000876",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0457",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000477",
+    "id_B": "EXT5_000877",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0458",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000478",
+    "id_B": "EXT5_000878",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0459",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000479",
+    "id_B": "EXT5_000879",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0460",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000480",
+    "id_B": "EXT5_000880",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0461",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000481",
+    "id_B": "EXT5_000881",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0462",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000482",
+    "id_B": "EXT5_000882",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0463",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000483",
+    "id_B": "EXT5_000883",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0464",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000484",
+    "id_B": "EXT5_000884",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0465",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000485",
+    "id_B": "EXT5_000885",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0466",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000486",
+    "id_B": "EXT5_000886",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0467",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000487",
+    "id_B": "EXT5_000887",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0468",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000488",
+    "id_B": "EXT5_000888",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0469",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000489",
+    "id_B": "EXT5_000889",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0470",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000490",
+    "id_B": "EXT5_000890",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0471",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000491",
+    "id_B": "EXT5_000891",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0472",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000492",
+    "id_B": "EXT5_000892",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0473",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000493",
+    "id_B": "EXT5_000893",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0474",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000494",
+    "id_B": "EXT5_000894",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0475",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000495",
+    "id_B": "EXT5_000895",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0476",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000496",
+    "id_B": "EXT5_000896",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0477",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000497",
+    "id_B": "EXT5_000897",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0478",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000498",
+    "id_B": "EXT5_000898",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0479",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000499",
+    "id_B": "EXT5_000899",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0480",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000500",
+    "id_B": "EXT5_000900",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0481",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000501",
+    "id_B": "EXT5_000901",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0482",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000502",
+    "id_B": "EXT5_000902",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0483",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000503",
+    "id_B": "EXT5_000903",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0484",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000504",
+    "id_B": "EXT5_000904",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0485",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000505",
+    "id_B": "EXT5_000905",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0486",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000506",
+    "id_B": "EXT5_000906",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0487",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000507",
+    "id_B": "EXT5_000907",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0488",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000508",
+    "id_B": "EXT5_000908",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0489",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000509",
+    "id_B": "EXT5_000909",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0490",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000510",
+    "id_B": "EXT5_000910",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0491",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000511",
+    "id_B": "EXT5_000911",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0492",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000512",
+    "id_B": "EXT5_000912",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0493",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000513",
+    "id_B": "EXT5_000913",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0494",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000514",
+    "id_B": "EXT5_000914",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0495",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000515",
+    "id_B": "EXT5_000915",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0496",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000516",
+    "id_B": "EXT5_000916",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0497",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000517",
+    "id_B": "EXT5_000917",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0498",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000518",
+    "id_B": "EXT5_000918",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0499",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000519",
+    "id_B": "EXT5_000919",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  },
+  {
+    "pair_id": "PAIR_0500",
+    "formalism_A": "coq_rocq_cic",
+    "formalism_B": "agda_dependent_types",
+    "id_A": "EXT5_000520",
+    "id_B": "EXT5_000920",
+    "is_semantically_equivalent": false,
+    "is_near_miss_swap": true
+  }
+]

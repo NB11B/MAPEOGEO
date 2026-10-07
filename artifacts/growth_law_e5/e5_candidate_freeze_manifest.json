@@ -1,0 +1,11 @@
+{
+  "frozen_grammar": "M6^{++++}",
+  "dimension_d": 6,
+  "alphabet_a": 40,
+  "composition_depth_c": 6,
+  "witness_additions": [
+    "classical_choice_certificate",
+    "smt_theory_decision_certificate"
+  ],
+  "frozen_timestamp": "2026-10-07T03:49:00Z"
+}

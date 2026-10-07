@@ -1,0 +1,24 @@
+{
+  "coupling": {
+    "max_pairwise_conditional_mi_bits": 0.026,
+    "max_pairwise_pair": "Pi--Gamma",
+    "max_triple_interaction_bits": 0.016,
+    "max_triple_tuple": "Pi--Gamma--W",
+    "coupling_threshold_bits": 0.05,
+    "coupling_failure_triggered": false,
+    "cartesian_product_factorization_preserved": true
+  },
+  "composition": {
+    "parent_max_composition_depth": 6,
+    "observed_max_composition_depth": 6,
+    "delta_c_max": 0,
+    "composition_depth_threshold_delta": 2,
+    "mean_composition_chain_length": 3.42,
+    "parent_active_composition_rules": 88,
+    "new_composition_rules_instantiated": 3,
+    "rule_count_growth_percentage": 3.41,
+    "rule_growth_threshold_percentage": 50.0,
+    "composition_explosion_triggered": false
+  },
+  "verdict": "FACTORIZATION_AND_COMPACTNESS_MAINTAINED"
+}

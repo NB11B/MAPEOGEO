@@ -1,0 +1,8 @@
+{
+  "total_evaluated": 3600,
+  "clean_count": 3510,
+  "quarantined": 90,
+  "exact_contamination": 0,
+  "gate_passed": true,
+  "verdict": "E5_CONTAMINATION_PASS"
+}

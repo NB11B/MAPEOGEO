@@ -1,0 +1,16 @@
+{
+  "campaign_index": 6,
+  "grammar": "M6^{++++}",
+  "external_diversity_D": 68,
+  "coordinate_dimension_d": 6,
+  "alphabet_complexity_a": 40,
+  "composition_depth_c": 6,
+  "boundary_ratio_r": 0.0209,
+  "description_length_bits_per_state": 7.8,
+  "delta_D": 10,
+  "delta_d": 0,
+  "delta_a": 2,
+  "g_j": 0.0,
+  "formalisms_evaluated": 9,
+  "mean_semantic_distance_bar_V_R": 0.021
+}
