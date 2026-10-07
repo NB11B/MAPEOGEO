@@ -1,0 +1,103 @@
+{
+  "schema": "mapeogeo.migration.comparison",
+  "schema_version": 1,
+  "component": "mapeogeo.routing",
+  "comparison_timestamp": "2026-10-07T13:52:00-04:00",
+  "adjudication_summary": "Consolidated historical Work Router versions v0.1-v0.9 and the cross-class goal solver into canonical src/mapeogeo/routing/. Enforced strict architectural boundaries: routing proposes admissible work paths (D_t(Q) -> Router -> {R_1,...,R_n}); the Wave-4 kernel retains decision authority over utility, certification, and state transition. RouteRegistry directly references the Wave-3 DecisionGraph substrate without duplicating graph primitives.",
+  "sources": [
+    {
+      "feature": "Fail-Closed Mathematical Work Router",
+      "source_branch": "work-router-v0.1",
+      "source_commit": "edbc4e2",
+      "files": ["mapeogeo/work_router.py"],
+      "public_types_functions": [
+        "WorkRouter",
+        "RouteEdge",
+        "Route",
+        "WorkRequest",
+        "WorkDecision",
+        "Outcome"
+      ],
+      "tests": ["tests/test_work_router_v0_1.py"],
+      "artifacts": ["docs/WORK_ROUTER_V01.md"],
+      "relation_semantics": "Validity > resolvability > cost ordering. Uncertified shortcuts strictly rejected.",
+      "serialization_format": "Python tuples and dicts.",
+      "invariants": "Cheapest uncertified shortcut never executes over certified path.",
+      "known_successor": "src/mapeogeo/routing/router.py in MAPEOGEOv2",
+      "v2_disposition": "ADOPT fail-closed routing logic and outcome semantics into Router."
+    },
+    {
+      "feature": "Resource & Power-Aware Routing",
+      "source_branch": "work-router-power-control-v0.3",
+      "source_commit": "a9cbd13",
+      "files": ["mapeogeo/power_control_routes.py"],
+      "public_types_functions": ["power_control_router"],
+      "tests": ["tests/test_work_router_power_control_v0_3.py"],
+      "artifacts": ["docs/WORK_ROUTER_POWER_CONTROL_V03.md"],
+      "relation_semantics": "Phasor/energy calculations, compute load, and materialization differentiation.",
+      "serialization_format": "Static overlay tuples.",
+      "invariants": "Scalar approximations cannot certify higher-dimensional distributions (RMS cannot certify THD).",
+      "known_successor": "src/mapeogeo/routing/contracts.py (ResourceRequirement & RoutingBudget) in MAPEOGEOv2",
+      "v2_disposition": "ADOPT extensible resource envelope {CPU, RAM, GPU, NPU, energy, custom} into ResourceRequirement."
+    },
+    {
+      "feature": "Cryptographic Route Certification",
+      "source_branch": "work-router-derived-routes-v0.5",
+      "source_commit": "51a4c43",
+      "files": ["mapeogeo/derived_routes.py"],
+      "public_types_functions": ["RouteCertificate", "create_route_certificate"],
+      "tests": ["tests/test_work_router_derived_v0_5.py"],
+      "artifacts": ["docs/DERIVED_ROUTES_V05.md"],
+      "relation_semantics": "Cryptographic route verification and audit receipts.",
+      "serialization_format": "Deterministic SHA-256 seal digests.",
+      "invariants": "Uncertified routes cannot emit RouteCertificate; certificates bind exact edge IDs and cost.",
+      "known_successor": "src/mapeogeo/routing/route.py (RouteCertificate) in MAPEOGEOv2",
+      "v2_disposition": "ADOPT cryptographic seal generation into RouteCertificate."
+    },
+    {
+      "feature": "Runtime Typed Composition",
+      "source_branch": "work-router-composition-v0.8",
+      "source_commit": "04016bc",
+      "files": ["mapeogeo/composed_work_v0_8.py"],
+      "public_types_functions": ["composition_router"],
+      "tests": ["tests/test_work_router_composition_v0_8.py"],
+      "artifacts": ["docs/WORK_ROUTER_COMPOSITION_V08.md"],
+      "relation_semantics": "Multi-stage pipeline execution: R = T_n circ ... circ T_1.",
+      "serialization_format": "Function composition tuples.",
+      "invariants": "Stage output types must match successor stage input types.",
+      "known_successor": "src/mapeogeo/routing/route.py (Route) in MAPEOGEOv2",
+      "v2_disposition": "ADOPT formal typed word composition Post(T_i) |= Pre(T_{i+1}) into Route.is_valid_composition()."
+    },
+    {
+      "feature": "Tolerance-Aware Composable Execution Contracts",
+      "source_branch": "work-router-contract-composition-v0.9",
+      "source_commit": "c9d08f5",
+      "files": ["mapeogeo/execution_contracts_v0_9.py"],
+      "public_types_functions": ["ToleranceRouter", "ExecutionContract", "QualifiedRoute"],
+      "tests": ["tests/test_work_router_contract_composition_v0_9.py"],
+      "artifacts": ["docs/WORK_ROUTER_CONTRACT_COMPOSITION_V09.md"],
+      "relation_semantics": "Tolerance-constrained Pareto shortest path search with validity predicates.",
+      "serialization_format": "Python dataclasses.",
+      "invariants": "Routes exceeding error tolerance or violating contract validity are strictly excluded.",
+      "known_successor": "src/mapeogeo/routing/contracts.py & router.py in MAPEOGEOv2",
+      "v2_disposition": "ADOPT error tolerance and context validity checks into WorkContract and Router."
+    },
+    {
+      "feature": "Cross-Class Goal Solver & Authority Framework",
+      "source_branch": "agent/goal-solver-cross-class-v0-20",
+      "source_commit": "74e51bd",
+      "files": [
+        "experiments/pct_goal_solver/v0_20_goals.py",
+        "experiments/pct_goal_solver/v0_20_contracts.py"
+      ],
+      "public_types_functions": ["GoalSpec", "prove_no_same_class_shortcut"],
+      "tests": ["experiments/pct_goal_solver/test_v0_20_campaign_gate_authority.py"],
+      "artifacts": ["docs/GOAL_SOLVER_V020.md"],
+      "relation_semantics": "Goal-directed work decomposition and authority credential verification.",
+      "serialization_format": "Canonical JSON with SHA-256 receipts.",
+      "invariants": "can_execute != authorized_to_execute; terminal states must be explicit and uncompromised.",
+      "known_successor": "src/mapeogeo/routing/goal.py & solver.py in MAPEOGEOv2",
+      "v2_disposition": "ADOPT Goal, GoalConstraint, GoalSolver, and formal terminal states into MAPEOGEOv2."
+    }
+  ]
+}

@@ -232,7 +232,8 @@ def test_provenance_manifest_and_component_records() -> None:
         cid = comp["component_id"]
         valid_statuses = ("PENDING_V2_QUALIFICATION", "QUALIFIED_CANONICAL_V2")
         assert comp["v2_qualification_status"] in valid_statuses, (
-            f"Component '{cid}' must have valid qualification status: {comp['v2_qualification_status']}"
+            f"Component '{cid}' must have valid qualification status: "
+            f"{comp['v2_qualification_status']}"
         )
         assert comp["source_repository"] == "NB11B/MAPEOGEO"
         assert len(comp["qualification_gate_requirements"]) >= 1

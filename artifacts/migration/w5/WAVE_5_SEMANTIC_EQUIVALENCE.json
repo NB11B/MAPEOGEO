@@ -1,0 +1,96 @@
+{
+  "schema": "mapeogeo.migration.equivalence",
+  "schema_version": 1,
+  "component": "mapeogeo.routing",
+  "evaluation_timestamp": "2026-10-07T13:52:00-04:00",
+  "summary": {
+    "total_fixtures_evaluated": 10,
+    "byte_identical": 1,
+    "semantically_equivalent": 9,
+    "api_normalizations": 0,
+    "regressions": 0,
+    "status": "PASS"
+  },
+  "fixtures": [
+    {
+      "fixture_id": "work-router-v01-shortcut",
+      "historical_source": "work-router-v0.1:tests/test_work_router_v0_1.py",
+      "v2_target": "tests/regression/test_routing_regression.py:test_work_router_v01_uncertified_shortcut_never_beats_certified_route",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Cheaper uncertified shortcut is rejected in favor of certified route; shortcut marked UNCERTIFIED.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "work-router-v01-observation",
+      "historical_source": "work-router-v0.1:tests/test_work_router_v0_1.py",
+      "v2_target": "src/mapeogeo/routing/contracts.py:satisfies_preconditions",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Missing prerequisite information prevents execution and requires observation.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "work-router-v03-power-phasor",
+      "historical_source": "work-router-power-control-v0.3:tests/test_work_router_power_control_v0_3.py",
+      "v2_target": "tests/regression/test_routing_regression.py:test_work_router_v03_power_and_control_routing",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Real power routes through complex power without requiring raw waveform inspection.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "work-router-v03-thd-materialization",
+      "historical_source": "work-router-power-control-v0.3:tests/test_work_router_power_control_v0_3.py",
+      "v2_target": "tests/regression/test_routing_regression.py:test_work_router_v03_power_and_control_routing",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Scalar RMS cannot certify THD; waveform window requires spectrum materialization.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "work-router-v03-control-stability",
+      "historical_source": "work-router-power-control-v0.3:tests/test_work_router_power_control_v0_3.py",
+      "v2_target": "tests/regression/test_routing_regression.py:test_work_router_v03_power_and_control_routing",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Generator stability avoids full eigensolver, while state matrix routes through eigenvalues and materializes.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "work-router-v05-derived-certificate",
+      "historical_source": "work-router-derived-routes-v0.5:tests/test_work_router_derived_v0_5.py",
+      "v2_target": "tests/regression/test_routing_regression.py:test_work_router_v05_certified_route_derivation",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Cryptographically sealed RouteCertificate binds exact contract IDs, cost, error, and SHA-256 seal.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "work-router-v08-typed-composition",
+      "historical_source": "work-router-composition-v0.8:tests/test_work_router_composition_v0_8.py",
+      "v2_target": "tests/unit/test_routing.py:test_typed_route_composition_success_and_failure",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Typed word composition enforces Post(T_i) |= Pre(T_{i+1}) with zero implicit coercion.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "work-router-v09-tolerance-contracts",
+      "historical_source": "work-router-contract-composition-v0.9:tests/test_work_router_contract_composition_v0_9.py",
+      "v2_target": "tests/regression/test_routing_regression.py:test_work_router_v09_tolerance_and_validity_contracts",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Error-tolerance routing dynamically selects cheap approximate vs expensive accurate routes based on tolerance.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "goal-solver-terminal-states",
+      "historical_source": "agent/goal-solver-cross-class-v0-20:experiments/pct_goal_solver/v0_20_goals.py",
+      "v2_target": "tests/unit/test_routing.py:test_goal_solver_terminal_states",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Formal terminal states (SATISFIED, PARTIALLY_SATISFIED, UNREACHABLE, BLOCKED_RESOURCE, BLOCKED_AUTHORITY, BLOCKED_INVARIANT, AMBIGUOUS) adjudicate soundly without false satisfaction.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "routing-deterministic-replay",
+      "historical_source": "work-router-v0.1:mapeogeo/work_router.py",
+      "v2_target": "tests/regression/test_routing_regression.py:test_router_deterministic_replay_invariance",
+      "equivalence_type": "BYTE_IDENTICAL",
+      "description": "Identical (G_t, Q, contracts, resources, authority) yields byte-identical candidate IDs, order, and costs.",
+      "regression_detected": false
+    }
+  ]
+}

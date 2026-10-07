@@ -1,0 +1,84 @@
+{
+  "schema": "mapeogeo.routing.specification",
+  "schema_version": 1,
+  "specification_name": "Canonical Routing and Goal-Solving Architecture",
+  "architectural_boundary": "D_t(Q) -> Router -> {R_1, ..., R_n} -> P/U -> R* -> C -> A",
+  "governing_principles": [
+    "The kernel decides what work is valuable and admissible; routing decides how that work can be performed",
+    "Route != Graph: RouteRegistry references the Wave-3 DecisionGraph substrate without duplicating graph primitives",
+    "can_execute != authorized_to_execute: A route with sufficient machinery but insufficient authority is strictly rejected, not penalized",
+    "Typed composition invariant: Post(T_i) |= Pre(T_{i+1}) with zero implicit coercion",
+    "The GoalSolver decomposes goals and asks kernel for deficiencies; it never falsely decides an unsatisfied goal is satisfied"
+  ],
+  "canonical_types": [
+    {
+      "name": "WorkContract",
+      "module": "mapeogeo.routing.contracts",
+      "description": "Atomic typed capability step with pre/post-conditions, resources, authority, and invariants"
+    },
+    {
+      "name": "ResourceRequirement",
+      "module": "mapeogeo.routing.contracts",
+      "description": "Multi-resource specification {CPU, RAM, GPU, NPU, energy, custom}"
+    },
+    {
+      "name": "AuthorityRequirement",
+      "module": "mapeogeo.routing.contracts",
+      "description": "Role, scope, and audit clearance boundary independent of capability"
+    },
+    {
+      "name": "RoutingBudget",
+      "module": "mapeogeo.routing.contracts",
+      "description": "Multi-dimensional budget envelope bounding cost, resources, and error tolerance"
+    },
+    {
+      "name": "Route",
+      "module": "mapeogeo.routing.route",
+      "description": "Typed composition word R = T_n circ ... circ T_1 with fail-closed composition validation"
+    },
+    {
+      "name": "RouteCertificate",
+      "module": "mapeogeo.routing.route",
+      "description": "Cryptographically sealed certificate with deterministic SHA-256 digest"
+    },
+    {
+      "name": "RouteCandidate",
+      "module": "mapeogeo.routing.route",
+      "description": "Evaluated candidate route with structured qualification status"
+    },
+    {
+      "name": "RouteRegistry",
+      "module": "mapeogeo.routing.registry",
+      "description": "Contract registry backed by Wave-3 DecisionGraph projection"
+    },
+    {
+      "name": "Router",
+      "module": "mapeogeo.routing.router",
+      "description": "Deterministic route discovery engine with multi-constraint fail-closed evaluation"
+    },
+    {
+      "name": "Goal",
+      "module": "mapeogeo.routing.goal",
+      "description": "Formal objective specification with target signatures, budgets, and constraints"
+    },
+    {
+      "name": "GoalConstraint",
+      "module": "mapeogeo.routing.goal",
+      "description": "Rule bounding route search (resource, authority, invariant, exclusion)"
+    },
+    {
+      "name": "GoalSolver",
+      "module": "mapeogeo.routing.solver",
+      "description": "Decomposes goals, extracts deficiencies via Wave-4 kernel, and routes subgoals"
+    }
+  ],
+  "terminal_states": [
+    "SATISFIED",
+    "PARTIALLY_SATISFIED",
+    "UNREACHABLE",
+    "BLOCKED_RESOURCE",
+    "BLOCKED_AUTHORITY",
+    "BLOCKED_INVARIANT",
+    "AMBIGUOUS"
+  ]
+}
