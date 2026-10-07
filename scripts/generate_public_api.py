@@ -19,12 +19,13 @@ modules = [
     "mapeogeo.domains.mathematics",
     "mapeogeo.domains.physics",
     "mapeogeo.domains.software",
+    "mapeogeo.tools",
 ]
 
 api_catalog = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "MAPEOGEO v2 Public API Specification",
-    "canonical_version": "v2.0.0-rc1-candidate",
+    "canonical_version": "v2.0.0-rc2-candidate",
     "public_surface": {},
 }
 

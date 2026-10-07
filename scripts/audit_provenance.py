@@ -7,7 +7,7 @@ prov_dir = Path("docs/provenance/components")
 audit = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "title": "MAPEOGEO v2 Provenance Reconciliation Audit",
-    "canonical_version": "v2.0.0-rc1-candidate",
+    "canonical_version": "v2.0.0-rc2-candidate",
     "audit_status": "PASS",
     "total_components": len(manifest["components"]),
     "disposition_summary": {

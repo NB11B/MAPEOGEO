@@ -10,12 +10,11 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from tools.deterministic_json import serialize_deterministic
-
 from mapeogeo.graph.edge import Edge, EdgeContract
 from mapeogeo.graph.node import Node, NodeKind, NodeRole
 from mapeogeo.graph.relation import RelationType
 from mapeogeo.graph.transaction import GraphSnapshot
+from mapeogeo.tools.deterministic_json import serialize_deterministic
 
 
 def serialize_node(node: Node) -> str:

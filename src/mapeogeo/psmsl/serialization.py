@@ -8,10 +8,9 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from tools.deterministic_json import serialize_deterministic
-
 from mapeogeo.psmsl.latent import LatentGenerator, ObservableSignature, Observation
 from mapeogeo.psmsl.operator import OperatorWord, TransformationOperator
+from mapeogeo.tools.deterministic_json import serialize_deterministic
 
 
 def serialize_operator(op: TransformationOperator) -> str:

@@ -8,14 +8,13 @@ from __future__ import annotations
 import json
 from typing import Any
 
-from tools.deterministic_json import serialize_deterministic
-
 from mapeogeo.routing.contracts import (
     AuthorityRequirement,
     ResourceRequirement,
     WorkContract,
 )
 from mapeogeo.routing.route import RouteCertificate
+from mapeogeo.tools.deterministic_json import serialize_deterministic
 
 
 def serialize_work_contract(contract: WorkContract) -> str:

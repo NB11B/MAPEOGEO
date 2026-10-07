@@ -354,6 +354,32 @@
         "tests/unit/test_serialization.py"
       ],
       "notes": "Domain-neutral 9-tuple engine K = (M_6, Omega, rho, G, D, P, U, C, A)"
+    },
+    {
+      "component_id": "infrastructure-tools",
+      "target_module": "mapeogeo.tools",
+      "target_files": [
+        "src/mapeogeo/tools/__init__.py",
+        "src/mapeogeo/tools/deterministic_json.py",
+        "src/mapeogeo/tools/manifest_utils.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "integration/canonical-architecture-bootstrap",
+      "source_commit": "6a0509c",
+      "source_files": [
+        "tools/deterministic_json.py",
+        "tools/manifest_utils.py"
+      ],
+      "source_qualification_status": "BOOTSTRAP_QUALIFIED",
+      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
+      "qualification_gate_requirements": [
+        "Deterministic byte-for-byte JSON serialization",
+        "Repeatable cryptographic directory tree and file hashing"
+      ],
+      "verified_tests": [
+        "tests/unit/test_tools.py"
+      ],
+      "notes": "Infrastructure utilities for deterministic serialization and provenance hashing"
     }
   ]
 }

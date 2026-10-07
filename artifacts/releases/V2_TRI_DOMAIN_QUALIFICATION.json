@@ -1,16 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MAPEOGEO v2 Tri-Domain Release Qualification Report",
-  "canonical_version": "v2.0.0-rc1-candidate",
+  "canonical_version": "v2.0.0-rc2-candidate",
   "qualification_status": "PASS",
   "governing_invariant": "H(K_math) == H(K_physics) == H(K_software) == H0(K)",
   "baseline_shared_hashes": {
-    "kernel": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
-    "grammar": "d71686c06a29564cd38d77f64ebc7fa6af89a65a10b14ea265432c10fed73f9d",
-    "graph": "5e34ec36c5e5f4ec48ebd3c9794a609b3ed01dc4a6dadd7e660381a6a998411a",
-    "psmsl": "d3826038d06bd71cedab53a9131d81e13f7839b6f08ab4dbcd55ca3d37ad63b1",
-    "routing": "11dbab97ccb0106b95773c27d0f008a5cfc67513f2df663a111f4b86bffb1f47",
-    "proof": "d417f476711545cdbc58e97a12ddfee05cfe7f8653d7621841c99a0ceb6add12"
+    "kernel": "d0a68a2f8468ca31a459d419860e6d82ffee6553251fcf237c55f2165c163194",
+    "grammar": "1656719e7c46e9fb74366c8ab9cf644bcd01fe73a0463a8d6dd2667ff76fad1d",
+    "graph": "c122111523d6157c73abbc6a74feaa74c034005fcace784082bd37455e9bdcd9",
+    "psmsl": "7d3f09d599f1d8aee6de4a4541d602d149a4e1f775b4e4d30aea377fea3326dc",
+    "routing": "413ecb5da4bfe1a9a55df13c0c9849f90616a6b13a1c5d0ef5d8ec9a47eeb51e",
+    "proof": "ed7d06d6ad5522d666cb75c3fe67485b692f460dc5c9f0194b626f8ae16f4a97"
   },
   "sequential_domain_evaluations": [
     {
@@ -20,7 +20,7 @@
       "tests_failed": 0,
       "scientific_payload": "80-problem clean-room autonomous acquisition trajectory",
       "acquisition_result": "Exact deficiency reduction to zero with terminal refusal on Round 5",
-      "post_execution_kernel_hash": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
+      "post_execution_kernel_hash": "d0a68a2f8468ca31a459d419860e6d82ffee6553251fcf237c55f2165c163194",
       "hash_invariant_preserved": true
     },
     {
@@ -30,7 +30,7 @@
       "tests_failed": 0,
       "scientific_payload": "Latent generator inversion, observability rank, conservation falsifiers, 5-round acquisition",
       "acquisition_result": "Exact recovery at rank 3; ambiguity refusal at rank < 3; Delta D = 0 verified",
-      "post_execution_kernel_hash": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
+      "post_execution_kernel_hash": "d0a68a2f8468ca31a459d419860e6d82ffee6553251fcf237c55f2165c163194",
       "hash_invariant_preserved": true
     },
     {
@@ -40,7 +40,7 @@
       "tests_failed": 0,
       "scientific_payload": "N=50 requirements corpus, 5-gate certification, 6-round acquisition campaign",
       "acquisition_result": "Exact trajectory 1086.91 -> 0.00 -> REFUSE; Delta D = 0 verified",
-      "post_execution_kernel_hash": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
+      "post_execution_kernel_hash": "d0a68a2f8468ca31a459d419860e6d82ffee6553251fcf237c55f2165c163194",
       "hash_invariant_preserved": true
     }
   ],

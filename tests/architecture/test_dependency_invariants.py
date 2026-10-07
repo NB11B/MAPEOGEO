@@ -199,7 +199,7 @@ def test_canonical_subsystems_importable() -> None:
     import mapeogeo.routing
 
     assert hasattr(mapeogeo, "__version__")
-    assert mapeogeo.__version__ == "2.0.0.dev1"
+    assert mapeogeo.__version__ == "2.0.0"
 
 
 def test_canonical_package_structure() -> None:
@@ -212,6 +212,7 @@ def test_canonical_package_structure() -> None:
         SRC_ROOT / "routing",
         SRC_ROOT / "proof",
         SRC_ROOT / "psmsl",
+        SRC_ROOT / "tools",
         SRC_ROOT / "domains",
         SRC_ROOT / "domains" / "mathematics",
         SRC_ROOT / "domains" / "physics",

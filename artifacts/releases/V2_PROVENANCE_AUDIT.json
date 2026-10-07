@@ -1,15 +1,15 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MAPEOGEO v2 Provenance Reconciliation Audit",
-  "canonical_version": "v2.0.0-rc1-candidate",
+  "canonical_version": "v2.0.0-rc2-candidate",
   "audit_status": "PASS",
-  "total_components": 9,
+  "total_components": 10,
   "disposition_summary": {
     "native_v2_modules": [
       "src/mapeogeo/__init__.py",
       "src/mapeogeo/domains/__init__.py"
     ],
-    "ported_with_provenance_components": 9
+    "ported_with_provenance_components": 10
   },
   "components": [
     {
@@ -118,6 +118,18 @@
       "historical_qualification": "CLEAN_ROOM_REPRODUCED",
       "v2_qualification": "QUALIFIED_CANONICAL_V2",
       "target_files_count": 12,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "infrastructure-tools",
+      "target_module": "mapeogeo.tools",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "integration/canonical-architecture-bootstrap",
+      "source_commit": "6a0509c",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "BOOTSTRAP_QUALIFIED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 3,
       "disposition": "ported-with-provenance"
     }
   ],

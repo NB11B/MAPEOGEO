@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "MAPEOGEO v2 Public API Specification",
-  "canonical_version": "v2.0.0-rc1-candidate",
+  "canonical_version": "v2.0.0-rc2-candidate",
   "public_surface": {
     "mapeogeo.kernel": {
       "count": 29,
@@ -236,7 +236,17 @@
         "SoftwareRequirement",
         "SoftwareVerificationContracts"
       ]
+    },
+    "mapeogeo.tools": {
+      "count": 5,
+      "symbols": [
+        "compute_directory_tree_sha256",
+        "compute_file_sha256",
+        "read_json",
+        "serialize_deterministic",
+        "write_deterministic_json"
+      ]
     }
   },
-  "total_public_symbols": 189
+  "total_public_symbols": 194
 }

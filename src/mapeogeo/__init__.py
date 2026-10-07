@@ -8,7 +8,7 @@ Historical research lineages, campaign records, and scientific artifacts
 are maintained in the provenance repository NB11B/MAPEOGEO.
 """
 
-__version__ = "2.0.0.dev1"
+__version__ = "2.0.0"
 
 __all__ = [
     "__version__",

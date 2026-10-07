@@ -1,7 +1,7 @@
 {
   "": "https://json-schema.org/draft/2020-12/schema",
   "title": "MAPEOGEO v2 Migration Artifact Classification Matrix",
-  "canonical_version": "v2.0.0-rc1-candidate",
+  "canonical_version": "v2.0.0-rc2-candidate",
   "categories": {
     "RELEASE_BOUND": "Core release manifests and qualification proofs required for v2 release certification",
     "REPRODUCTION_REQUIRED": "Scientific reproduction manifests and empirical qualification benchmarks",

@@ -8,6 +8,16 @@ from pathlib import Path
 from tools.deterministic_json import read_json, serialize_deterministic, write_deterministic_json
 from tools.manifest_utils import compute_directory_tree_sha256, compute_file_sha256
 
+from mapeogeo.tools import (
+    compute_directory_tree_sha256 as pkg_compute_tree,
+)
+from mapeogeo.tools import (
+    compute_file_sha256 as pkg_compute_file,
+)
+from mapeogeo.tools import (
+    serialize_deterministic as pkg_serialize,
+)
+
 
 def test_deterministic_json_serialization() -> None:
     data1 = {"b": 2, "a": 1, "nested": {"z": 26, "y": 25}}
@@ -56,3 +66,6 @@ def test_compute_directory_tree_sha256(tmp_path: Path) -> None:
     h2 = compute_directory_tree_sha256(dir2)
 
     assert h1 == h2
+    assert pkg_compute_tree(dir1) == h1
+    assert pkg_compute_file(dir1 / "a.py") == compute_file_sha256(dir1 / "a.py")
+    assert pkg_serialize({"test": 1}) == serialize_deterministic({"test": 1})
