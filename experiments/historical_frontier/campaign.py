@@ -61,7 +61,7 @@ def run_campaign_h1(output_dir: Path = None) -> Dict[str, Any]:
 
     print("Campaign H1 execution complete.")
     return {
-        "status": "FRONTIER_PREDICTIVE",
+        "status": "FRONTIER_PREDICTIVE — REPLICATION REQUIRED",
         "freeze_manifest": freeze_manifest,
         "occupation": occupation_data,
         "survival": survival_data,

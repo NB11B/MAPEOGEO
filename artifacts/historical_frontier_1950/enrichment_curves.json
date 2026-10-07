@@ -8,136 +8,361 @@
   ],
   "enrichment_curves": {
     "horizon_5yr": {
-      "top_1pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_5pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_10pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_25pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_100pct": {
-        "top_count": 5,
-        "occupied_count": 1,
-        "precision": 0.2,
-        "enrichment_over_matched_control": 200.0
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "p_control_raw": 0.0,
+      "p_control_haldane": 0.0833,
+      "ci_control_95": [
+        0.0,
+        0.5218
+      ],
+      "cells": {
+        "top_1pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_5pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_10pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_25pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_100pct": {
+          "n_U": 5,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 0.2,
+          "ci_frontier_95": [
+            0.0051,
+            0.7164
+          ],
+          "haldane_anscombe_enrichment": 3.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        }
       }
     },
     "horizon_10yr": {
-      "top_1pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_5pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_10pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_25pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_100pct": {
-        "top_count": 5,
-        "occupied_count": 3,
-        "precision": 0.6,
-        "enrichment_over_matched_control": 600.0
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "p_control_raw": 0.0,
+      "p_control_haldane": 0.0833,
+      "ci_control_95": [
+        0.0,
+        0.5218
+      ],
+      "cells": {
+        "top_1pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_5pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_10pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_25pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_100pct": {
+          "n_U": 5,
+          "y_U": 3,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 0.6,
+          "ci_frontier_95": [
+            0.1466,
+            0.9473
+          ],
+          "haldane_anscombe_enrichment": 7.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        }
       }
     },
     "horizon_25yr": {
-      "top_1pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_5pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_10pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_25pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_100pct": {
-        "top_count": 5,
-        "occupied_count": 5,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "p_control_raw": 0.0,
+      "p_control_haldane": 0.0833,
+      "ci_control_95": [
+        0.0,
+        0.5218
+      ],
+      "cells": {
+        "top_1pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_5pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_10pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_25pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_100pct": {
+          "n_U": 5,
+          "y_U": 5,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.4782,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 11.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        }
       }
     },
     "horizon_50yr": {
-      "top_1pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_5pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_10pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_25pct": {
-        "top_count": 1,
-        "occupied_count": 1,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
-      },
-      "top_100pct": {
-        "top_count": 5,
-        "occupied_count": 5,
-        "precision": 1.0,
-        "enrichment_over_matched_control": 1000.0
+      "n_R": 5,
+      "y_R": 0,
+      "control_zero_events": true,
+      "p_control_raw": 0.0,
+      "p_control_haldane": 0.0833,
+      "ci_control_95": [
+        0.0,
+        0.5218
+      ],
+      "cells": {
+        "top_1pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_5pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_10pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_25pct": {
+          "n_U": 1,
+          "y_U": 1,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.025,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 9.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        },
+        "top_100pct": {
+          "n_U": 5,
+          "y_U": 5,
+          "n_R": 5,
+          "y_R": 0,
+          "control_zero_events": true,
+          "p_frontier_raw": 1.0,
+          "ci_frontier_95": [
+            0.4782,
+            1.0
+          ],
+          "haldane_anscombe_enrichment": 11.0,
+          "raw_enrichment": null,
+          "raw_denominator_zero": true
+        }
       }
     }
   },
   "monotonic_ordering_confirmed": true,
-  "top_1pct_enrichment_at_25yr": 1000.0,
-  "top_1pct_enrichment_at_50yr": 1000.0,
-  "verdict": "SIGNIFICANT_PREDICTIVE_CONCENTRATION_CONFIRMED"
+  "ceiling_effect_at_late_horizons": true,
+  "top_1pct_haldane_enrichment_at_25yr": 9.0,
+  "top_1pct_haldane_enrichment_at_50yr": 9.0,
+  "verdict": "FRONTIER_PREDICTIVE \u2014 REPLICATION REQUIRED"
 }

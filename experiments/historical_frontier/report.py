@@ -31,30 +31,37 @@ def generate_h1_report(
         "### Key Empirical Findings",
         f"- **Semantic Backdating**: Zero vocabulary leakage ({backdating_data['audit']['anachronisms_detected_and_purged']} anachronisms detected/purged). $G_{1950}$ constructed solely from verified literature published $\\le 1950$.",
         f"- **Prediction Pre-Commitment**: The ranked frontier $U_{1950}^*$, Prediction Work Certificates, and matched controls were cryptographically frozen in `prediction_freeze_manifest.json` before post-1950 mathematics was unmasked.",
-        f"- **Ordered Enrichment Confirmed**: Across all horizons (5, 10, 25, 50 years), enrichment strictly satisfied monotonic ordering: $E(1\\%, h) > E(5\\%, h) > E(10\\%, h) > E(100\\%, h) > 1.0$. Top 1% candidates showed **{enh['top_1pct_enrichment_at_25yr']}\\times$ enrichment** over matched controls at 25 years.",
-        f"- **Time-to-Discovery Hazard Ratio**: $HR_{{\\text{{discovery}}}} = {survival_data['discovery_hazard_ratio_HR']}$ (95% CI: [{survival_data['hazard_ratio_95_ci'][0]}, {survival_data['hazard_ratio_95_ci'][1]}]), confirming that predicted branches were occupied **substantially sooner** than matched controls.",
+        f"- **Denominator Audit**: The matched control event count across pre-1950 controls is $y_R = 0$ ($n_R = 5$). Raw ratios are undefined or artifactually infinite when $y_R = 0$. Using standard Haldane-Anscombe continuity correction ($+0.5$ pseudocount), top-tier candidate enrichment is **{enh['top_1pct_haldane_enrichment_at_25yr']}\\times** over matched controls at 25 years ($n_U=1, y_U=1$ vs $n_R=5, y_R=0$).",
+        f"- **Time-to-Discovery Hazard Ratio**: $HR_{{\\text{{discovery}}}} = {survival_data['discovery_hazard_ratio_HR']}$ (95% CI: [{survival_data['hazard_ratio_95_ci'][0]}, {survival_data['hazard_ratio_95_ci'][1]}]). The wide confidence interval reflects low sample counts in single-origin H1, mandating multi-epoch rolling replication.",
         f"- **Negative Frontier Avoidance**: Zero historical occupation observed in near-admissible invalid states ($P(G_{{>1950}} \\mid F_{{1950}}) = 0.00\\%$), ruling out generic graph proximity artifacts.",
-        f"- **Campaign Verdict**: `FRONTIER_PREDICTIVE`.",
+        f"- **Campaign Verdict**: `{enh['verdict']}`.",
         "",
         "---",
         "",
-        "## Multi-Horizon Enrichment Matrix $E(q, h)$",
+        "## Audited Multi-Horizon Enrichment Matrix $E(q, h)$",
         "",
-        "| Horizon $h$ | Target Year | Top 1% ($q=0.01$) | Top 5% ($q=0.05$) | Top 10% ($q=0.10$) | Full Frontier ($q=1.00$) |",
-        "|:---:|:---:|:---:|:---:|:---:|:---:|",
+        "| Horizon $h$ | Target Year | $(n_U, y_U)$ Top 1% | $(n_R, y_R)$ Control | Control 0-Events? | Haldane-Anscombe RR (Top 1%) | Haldane RR (Full $U$) |",
+        "|:---:|:---:|:---:|:---:|:---:|:---:|:---:|",
     ]
 
     h_labels = [5, 10, 25, 50]
     for h in h_labels:
         h_key = f"horizon_{h}yr"
         h_data = enh["enrichment_curves"][h_key]
-        e1 = h_data["top_1pct"]["enrichment_over_matched_control"]
-        e5 = h_data["top_5pct"]["enrichment_over_matched_control"]
-        e10 = h_data["top_10pct"]["enrichment_over_matched_control"]
-        e100 = h_data["top_100pct"]["enrichment_over_matched_control"]
-        lines.append(f"| {h} years | {1950 + h} | **{e1:.1f}x** | {e5:.1f}x | {e10:.1f}x | {e100:.1f}x |")
+        n_R = h_data["n_R"]
+        y_R = h_data["y_R"]
+        z_flag = "YES (0 events)" if h_data["control_zero_events"] else "NO"
+        
+        c1 = h_data["cells"]["top_1pct"]
+        c100 = h_data["cells"]["top_100pct"]
+        lines.append(
+            f"| {h} years | {1950 + h} | ({c1['n_U']}, {c1['y_U']}) | ({n_R}, {y_R}) | {z_flag} | **{c1['haldane_anscombe_enrichment']:.2f}x** | {c100['haldane_anscombe_enrichment']:.2f}x |"
+        )
 
     lines.extend([
+        "",
+        "> [!NOTE]",
+        "> **Methodological Denominator Audit**: A standalone ratio of $1000\\times$ was an artifact of setting a minimum baseline probability $\\epsilon=0.001$ when $y_R=0$. Under rigorous Haldane-Anscombe continuity correction $((y_U+0.5)/(n_U+1)) / ((y_R+0.5)/(n_R+1))$, top candidates exhibit $9.00\\times$ relative discovery pressure. Exact reporting of $(n_U, y_U, n_R, y_R)$ is strictly enforced for all subsequent campaigns.",
         "",
         "---",
         "",
@@ -70,12 +77,9 @@ def generate_h1_report(
         "",
         "## Strategic Milestone & Next Steps",
         "",
-        "Campaign $H_1$ provides empirical proof-of-concept that empty relational states predict where human mathematical discovery subsequently concentrates.",
+        "Campaign $H_1$ establishes a candidate predictive effect. However, the extraordinarily large raw hazard-ratio interval and zero control events mandate **rolling multi-epoch replication** before drawing conclusions about discovery predictability.",
         "",
-        "As preregistered, before releasing the live 2026 prospective frontier ($U_{2026}^*$), the protocol requires:",
-        "1. **Rolling Historical Replications**: Execute origins $t \\in \\{1900, 1910, \\dots, 2010\\}$ to evaluate stability of $E(t, h)$ across changing mathematical cultures.",
-        "2. **Live 2026 Frontier Freeze**: Compute, rank, and cryptographically pre-commit $U_{2026}^*$ before active mathematical construction begins.",
-        ""
+        "Next Action: Execute **Rolling Historical Discovery Campaign H2** across $t \\in \\{1900, 1910, \\dots, 2010\\}$ with historical attention confounder matching, Leave-One-Domain-Out convergence, and ranking calibration."
     ])
 
     report_content = "\n".join(lines)

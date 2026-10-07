@@ -11,21 +11,24 @@ Evaluating whether unoccupied structural slots licensed by Kernel v3's relationa
 ### Key Empirical Findings
 - **Semantic Backdating**: Zero vocabulary leakage (0 anachronisms detected/purged). $G_1950$ constructed solely from verified literature published $\le 1950$.
 - **Prediction Pre-Commitment**: The ranked frontier $U_1950^*$, Prediction Work Certificates, and matched controls were cryptographically frozen in `prediction_freeze_manifest.json` before post-1950 mathematics was unmasked.
-- **Ordered Enrichment Confirmed**: Across all horizons (5, 10, 25, 50 years), enrichment strictly satisfied monotonic ordering: $E(1\%, h) > E(5\%, h) > E(10\%, h) > E(100\%, h) > 1.0$. Top 1% candidates showed **1000.0\times$ enrichment** over matched controls at 25 years.
-- **Time-to-Discovery Hazard Ratio**: $HR_{\text{discovery}} = 98039.22$ (95% CI: [11453.5, 839192.42]), confirming that predicted branches were occupied **substantially sooner** than matched controls.
+- **Denominator Audit**: The matched control event count across pre-1950 controls is $y_R = 0$ ($n_R = 5$). Raw ratios are undefined or artifactually infinite when $y_R = 0$. Using standard Haldane-Anscombe continuity correction ($+0.5$ pseudocount), top-tier candidate enrichment is **9.0\times** over matched controls at 25 years ($n_U=1, y_U=1$ vs $n_R=5, y_R=0$).
+- **Time-to-Discovery Hazard Ratio**: $HR_{\text{discovery}} = 98039.22$ (95% CI: [11453.5, 839192.42]). The wide confidence interval reflects low sample counts in single-origin H1, mandating multi-epoch rolling replication.
 - **Negative Frontier Avoidance**: Zero historical occupation observed in near-admissible invalid states ($P(G_{>1950} \mid F_{1950}) = 0.00\%$), ruling out generic graph proximity artifacts.
-- **Campaign Verdict**: `FRONTIER_PREDICTIVE`.
+- **Campaign Verdict**: `FRONTIER_PREDICTIVE — REPLICATION REQUIRED`.
 
 ---
 
-## Multi-Horizon Enrichment Matrix $E(q, h)$
+## Audited Multi-Horizon Enrichment Matrix $E(q, h)$
 
-| Horizon $h$ | Target Year | Top 1% ($q=0.01$) | Top 5% ($q=0.05$) | Top 10% ($q=0.10$) | Full Frontier ($q=1.00$) |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-| 5 years | 1955 | **1000.0x** | 1000.0x | 1000.0x | 200.0x |
-| 10 years | 1960 | **1000.0x** | 1000.0x | 1000.0x | 600.0x |
-| 25 years | 1975 | **1000.0x** | 1000.0x | 1000.0x | 1000.0x |
-| 50 years | 2000 | **1000.0x** | 1000.0x | 1000.0x | 1000.0x |
+| Horizon $h$ | Target Year | $(n_U, y_U)$ Top 1% | $(n_R, y_R)$ Control | Control 0-Events? | Haldane-Anscombe RR (Top 1%) | Haldane RR (Full $U$) |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 5 years | 1955 | (1, 1) | (5, 0) | YES (0 events) | **9.00x** | 3.00x |
+| 10 years | 1960 | (1, 1) | (5, 0) | YES (0 events) | **9.00x** | 7.00x |
+| 25 years | 1975 | (1, 1) | (5, 0) | YES (0 events) | **9.00x** | 11.00x |
+| 50 years | 2000 | (1, 1) | (5, 0) | YES (0 events) | **9.00x** | 11.00x |
+
+> [!NOTE]
+> **Methodological Denominator Audit**: A standalone ratio of $1000\times$ was an artifact of setting a minimum baseline probability $\epsilon=0.001$ when $y_R=0$. Under rigorous Haldane-Anscombe continuity correction $((y_U+0.5)/(n_U+1)) / ((y_R+0.5)/(n_R+1))$, top candidates exhibit $9.00\times$ relative discovery pressure. Exact reporting of $(n_U, y_U, n_R, y_R)$ is strictly enforced for all subsequent campaigns.
 
 ---
 
@@ -41,8 +44,6 @@ Matches were established strictly through structural satisfaction of frozen Pred
 
 ## Strategic Milestone & Next Steps
 
-Campaign $H_1$ provides empirical proof-of-concept that empty relational states predict where human mathematical discovery subsequently concentrates.
+Campaign $H_1$ establishes a candidate predictive effect. However, the extraordinarily large raw hazard-ratio interval and zero control events mandate **rolling multi-epoch replication** before drawing conclusions about discovery predictability.
 
-As preregistered, before releasing the live 2026 prospective frontier ($U_{2026}^*$), the protocol requires:
-1. **Rolling Historical Replications**: Execute origins $t \in \{1900, 1910, \dots, 2010\}$ to evaluate stability of $E(t, h)$ across changing mathematical cultures.
-2. **Live 2026 Frontier Freeze**: Compute, rank, and cryptographically pre-commit $U_{2026}^*$ before active mathematical construction begins.
+Next Action: Execute **Rolling Historical Discovery Campaign H2** across $t \in \{1900, 1910, \dots, 2010\}$ with historical attention confounder matching, Leave-One-Domain-Out convergence, and ranking calibration.

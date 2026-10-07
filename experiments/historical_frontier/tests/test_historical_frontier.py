@@ -121,10 +121,10 @@ def test_occupation_and_survival(temp_output_dir):
 
     enrich = compute_enrichment_and_calibration(occ["results"], temp_output_dir)
     assert enrich["enrichment"]["monotonic_ordering_confirmed"] is True
-    assert enrich["calibration"]["campaign_verdict"] == "FRONTIER_PREDICTIVE"
+    assert enrich["calibration"]["campaign_verdict"] == "FRONTIER_PREDICTIVE — REPLICATION REQUIRED"
     assert (temp_output_dir / "enrichment_curves.json").exists()
 
 def test_full_h1_campaign(temp_output_dir):
     results = run_campaign_h1(temp_output_dir)
-    assert results["status"] == "FRONTIER_PREDICTIVE"
+    assert results["status"] == "FRONTIER_PREDICTIVE — REPLICATION REQUIRED"
     assert (temp_output_dir / "HISTORICAL_FRONTIER_1950_REPORT.md").exists()

@@ -5,5 +5,5 @@
   "recall_at_10pct": 0.2,
   "mean_reciprocal_rank_MRR": 1.0,
   "calibration_monotonicity": true,
-  "campaign_verdict": "FRONTIER_PREDICTIVE"
+  "campaign_verdict": "FRONTIER_PREDICTIVE \u2014 REPLICATION REQUIRED"
 }
