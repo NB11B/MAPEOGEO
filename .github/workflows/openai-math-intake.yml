@@ -56,7 +56,7 @@ jobs:
           tests/test_source_count_integrity.py
 
   complete-intake:
-    if: ${{ (github.event_name == 'workflow_dispatch' && inputs.full_intake) || github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && inputs.full_intake == true) }}
     needs: source-independent-tests
     runs-on: ubuntu-24.04
     timeout-minutes: 360
