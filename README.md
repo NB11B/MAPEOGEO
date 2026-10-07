@@ -1,4 +1,24 @@
-# MAPEOGEO
+# Historical Research & Scientific Custody Notice
+
+> [!IMPORTANT]
+> **Repository Role: Scientific Custody & Historical Lineage Archive**
+> 
+> This repository (`NB11B/MAPEOGEO`) is the historical research laboratory and scientific custody archive for the MAPEOGEO research program. It preserves the complete experimental lineage, exploratory branch history, and frozen scientific artifacts (Generative Curricula Gen 2–Gen 12, UoW Kernel lineages v0.1–v0.9, Work Router iterations v0.1–v0.9, and the OpenAI Math intake).
+>
+> **Canonical Production Architecture**:
+> Canonical implementation, production development, and modular domain adaptation have transitioned to:
+> $$\boxed{\textbf{NB11B/MAPEOGEOv2}}$$
+> - **Canonical Repository**: [https://github.com/NB11B/MAPEOGEOv2](https://github.com/NB11B/MAPEOGEOv2)
+> - **Official v2 Release**: [`v2.0.0`](https://github.com/NB11B/MAPEOGEOv2/releases/tag/v2.0.0) (commit `1346330`)
+> - **Candidate Bootstrap Parent**: `6a0509c`
+>
+> All historical branches and artifacts in this repository remain permanently frozen and preserved for scientific reproducibility. No retroactive modifications will be made to historical research results.
+>
+> *This repository remains how the architecture was discovered; `MAPEOGEOv2` is the architecture that survived consolidation.*
+
+---
+
+# MAPEOGEO (Historical Research Archive)
 
 MAPEOGEO is a source-grounded mathematical knowledge graph whose primary object is the **relationship structure of mathematics**.
 
