@@ -1,0 +1,12 @@
+{
+  "candidate_symbol": "W_sieve",
+  "candidate_name": "grothendieck_sieve_covering_certificate",
+  "domain_origin": "topos_theory_sheaves",
+  "conditional_entropy_given_m6": 0.021,
+  "is_independent_dimension": false,
+  "target_coordinate": "W",
+  "disposition": "FOLD_INTO_M6_ALPHABET",
+  "resulting_grammar": "M6^+ = (Delta, I, W^{++}, sigma, Pi, Gamma, circ)",
+  "delta_d": 0,
+  "delta_a": 1
+}

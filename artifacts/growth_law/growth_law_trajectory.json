@@ -1,0 +1,63 @@
+{
+  "trajectory": [
+    {
+      "campaign_index": 0,
+      "grammar": "M4",
+      "external_diversity_D": 10,
+      "coordinate_dimension_d": 4,
+      "alphabet_complexity_a": 26,
+      "composition_depth_c": 3,
+      "boundary_ratio_r": 0.137,
+      "description_length_bits_per_state": 42.5,
+      "regressions": 0,
+      "g_j": null
+    },
+    {
+      "campaign_index": 1,
+      "grammar": "M5",
+      "external_diversity_D": 18,
+      "coordinate_dimension_d": 5,
+      "alphabet_complexity_a": 29,
+      "composition_depth_c": 6,
+      "boundary_ratio_r": 0.039,
+      "description_length_bits_per_state": 28.4,
+      "regressions": 0,
+      "g_j": 0.125
+    },
+    {
+      "campaign_index": 2,
+      "grammar": "M6",
+      "external_diversity_D": 28,
+      "coordinate_dimension_d": 6,
+      "alphabet_complexity_a": 33,
+      "composition_depth_c": 6,
+      "boundary_ratio_r": 0.0368,
+      "description_length_bits_per_state": 19.1,
+      "regressions": 0,
+      "g_j": 0.1
+    },
+    {
+      "campaign_index": 3,
+      "grammar": "M6^+",
+      "external_diversity_D": 38,
+      "coordinate_dimension_d": 6,
+      "alphabet_complexity_a": 34,
+      "composition_depth_c": 6,
+      "boundary_ratio_r": 0.0325,
+      "description_length_bits_per_state": 14.2,
+      "regressions": 0,
+      "g_j": 0.0
+    }
+  ],
+  "g_sequence": [
+    0.125,
+    0.1,
+    0.0
+  ],
+  "coordinate_growth_rate_decaying": true,
+  "description_length_compressing": true,
+  "dimension_saturation_observed": true,
+  "all_zero_regressions": true,
+  "supported_hypothesis": "HYPOTHESIS_2_RELATIONAL_BASIS",
+  "verdict": "GROWTH_LAW_CONFIRMED"
+}

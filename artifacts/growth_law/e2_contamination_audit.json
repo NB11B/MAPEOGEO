@@ -1,0 +1,8 @@
+{
+  "total_e2_records": 1500,
+  "clean_count": 1470,
+  "derivative_overlap_count": 30,
+  "exact_contamination_count": 0,
+  "gate_passed": true,
+  "verdict": "E2_CONTAMINATION_PASS"
+}

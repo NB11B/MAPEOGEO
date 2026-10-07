@@ -1,0 +1,9 @@
+{
+  "b6_initial_count": 3034,
+  "resolved_by_sieve_descent": 142,
+  "b7_residual_count": 2892,
+  "prospective_gain_delta_h_bits": 0.312,
+  "b7_corpus_share_percentage": 3.25,
+  "ledger_path": "artifacts\\growth_law\\B6_to_B7_transformation_ledger.jsonl",
+  "b7_path": "artifacts\\growth_law\\B7_explanatory_boundary.jsonl"
+}
