@@ -1,0 +1,42 @@
+[
+  {
+    "name": "AbhyankarSathaye.json",
+    "challenge_module": "ComparatorChallenges.AbhyankarSathaye",
+    "solution_module": "OAI.AlgebraicGeometry.AbhyankarSathaye.Counterexample",
+    "theorem_names": [
+      "OAI.AbhyankarSathaye.exists_noncoordinate_polynomial"
+    ]
+  },
+  {
+    "name": "AffineBernstein.json",
+    "challenge_module": "ComparatorChallenges.AffineBernstein",
+    "solution_module": "OAI.Analysis.AffineBernstein.Main",
+    "theorem_names": [
+      "OAI.AffineBernstein.affine_bernstein"
+    ]
+  },
+  {
+    "name": "AlgorithmicThinTrees.json",
+    "challenge_module": "ComparatorChallenges.AlgorithmicThinTrees",
+    "solution_module": "OAI.Combinatorics.ThinTrees.AlgorithmicMain",
+    "theorem_names": [
+      "OAI.AlgorithmicThinTrees.algorithmic_strong_thin_trees"
+    ]
+  },
+  {
+    "name": "AmplitudeDamping.json",
+    "challenge_module": "ComparatorChallenges.AmplitudeDamping",
+    "solution_module": "OAI.InformationTheory.AmplitudeDamping.Main",
+    "theorem_names": [
+      "OAI.GAD.main"
+    ]
+  },
+  {
+    "name": "ArnoldCounterexample.json",
+    "challenge_module": "ComparatorChallenges.ArnoldCounterexample",
+    "solution_module": "OAI.Geometry.Arnold.Main",
+    "theorem_names": [
+      "OAI.ArnoldCounterexample.main"
+    ]
+  }
+]
