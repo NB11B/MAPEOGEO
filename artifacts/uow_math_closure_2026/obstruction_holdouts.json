@@ -1,0 +1,209 @@
+{
+  "n_domains": 11,
+  "total_cases": 12,
+  "obstruction_detection_accuracy": 1.0,
+  "signature_match_accuracy": 1.0,
+  "repair_match_accuracy": 1.0,
+  "annihilation_success_rate": 1.0,
+  "lodo_passed": true,
+  "domain_evaluations": [
+    {
+      "held_out_domain": "Algebraic_Geometry",
+      "n_cases": 2,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_POS_SERRE_FAC",
+          "ground_truth_obstructed": false,
+          "detected_obstructed": false,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "NONE",
+          "inferred_repair": "IDENTITY_REPAIR"
+        },
+        {
+          "case_id": "CASE_HIST_POS_GROTHENDIECK_EGA",
+          "ground_truth_obstructed": false,
+          "detected_obstructed": false,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "NONE",
+          "inferred_repair": "IDENTITY_REPAIR"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Category_Theory",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_NEG_NONFUNCTORIAL",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "UNFUNCTORIAL_PAIRING",
+          "inferred_repair": "ENFORCE_PENTAGON_COHERENCE"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Combinatorics",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_NEG_BOUND_OVERFLOW",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "AXIOMATIC_DEGREE_VIOLATION",
+          "inferred_repair": "RESTRICT_TO_BOUNDED_DEGREE"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Condensed_Homotopy",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_C1_CHROMATIC_CONDENSED",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "SMASHING_LIMIT_MISMATCH",
+          "inferred_repair": "RESTRICT_TO_NUCLEAR_SUBCATEGORY"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Functional_Analysis",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_HILBERT_UNBOUNDED",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "DOMAIN_DIVERGENCE_OBSTRUCTION",
+          "inferred_repair": "RESTRICT_TO_DENSE_CLOSED_DOMAIN"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Homological_Algebra",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_POS_CARTAN_EILENBERG",
+          "ground_truth_obstructed": false,
+          "detected_obstructed": false,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "NONE",
+          "inferred_repair": "IDENTITY_REPAIR"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Linear_Algebra",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_NEG_NONABELIAN_DET",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "COMMUTATIVITY_DEFECT_OBSTRUCTION",
+          "inferred_repair": "PASS_TO_DIEUDONNE_DETERMINANT"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Prismatic_Geometry",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_C2_PRISMATIC_STACK",
+          "ground_truth_obstructed": false,
+          "detected_obstructed": false,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "NONE",
+          "inferred_repair": "IDENTITY_REPAIR"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Real_Analysis",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_LEBESGUE_INTEGRATION",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "MEASURE_ADDITIVITY_OBSTRUCTION",
+          "inferred_repair": "PASS_TO_SIGMA_ADDITIVE_MEASURABILITY"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Set_Theory",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_HIST_RUSSELL_PARADOX",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "SELF_REFERENTIAL_COMPREHENSION_OBSTRUCTION",
+          "inferred_repair": "RESTRICT_TO_STRATIFIED_SEPARATION_ZFC"
+        }
+      ]
+    },
+    {
+      "held_out_domain": "Type_Theory",
+      "n_cases": 1,
+      "subresults": [
+        {
+          "case_id": "CASE_C3_CUBICAL_MODULI",
+          "ground_truth_obstructed": true,
+          "detected_obstructed": true,
+          "obstruction_match": true,
+          "signature_type_match": true,
+          "repair_type_match": true,
+          "annihilated": true,
+          "inferred_signature": "INFINITE_COHERENCE_DIVERGENCE",
+          "inferred_repair": "TRUNCATE_HOMOTOPY_LEVEL"
+        }
+      ]
+    }
+  ]
+}

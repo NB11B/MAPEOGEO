@@ -1,0 +1,61 @@
+{
+  "grammar_name": "Domain_Repair_Transformation_Grammar_v1",
+  "description": "Minimal domain repairs rho(Omega) that annihilate detected obstruction signatures",
+  "repair_transformations": {
+    "SMASHING_LIMIT_MISMATCH": {
+      "repair_type": "RESTRICT_TO_NUCLEAR_SUBCATEGORY",
+      "target_subsystem": "Base_Category",
+      "domain_restriction": "SolidMod_R -> SolidMod_R^{nuc}",
+      "expected_retention_ratio": 0.65
+    },
+    "INFINITE_COHERENCE_DIVERGENCE": {
+      "repair_type": "TRUNCATE_HOMOTOPY_LEVEL",
+      "target_subsystem": "Moduli_Universe",
+      "domain_restriction": "U_{Sp} -> tau_{<= k} U_{Sp}",
+      "expected_retention_ratio": 0.7
+    },
+    "DOMAIN_DIVERGENCE_OBSTRUCTION": {
+      "repair_type": "RESTRICT_TO_DENSE_CLOSED_DOMAIN",
+      "target_subsystem": "Operator_Domain",
+      "domain_restriction": "H -> Dom(T) \\subset H",
+      "expected_retention_ratio": 0.8
+    },
+    "MEASURE_ADDITIVITY_OBSTRUCTION": {
+      "repair_type": "PASS_TO_SIGMA_ADDITIVE_MEASURABILITY",
+      "target_subsystem": "Measure_Algebra",
+      "domain_restriction": "StepFunctions -> L^1(mu)",
+      "expected_retention_ratio": 0.85
+    },
+    "SELF_REFERENTIAL_COMPREHENSION_OBSTRUCTION": {
+      "repair_type": "RESTRICT_TO_STRATIFIED_SEPARATION_ZFC",
+      "target_subsystem": "Axiom_System",
+      "domain_restriction": "NaiveComprehension -> SeparationScheme",
+      "expected_retention_ratio": 0.9
+    },
+    "AXIOMATIC_DEGREE_VIOLATION": {
+      "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+      "target_subsystem": "Coordinate_Space",
+      "domain_restriction": "Depth <= 6",
+      "expected_retention_ratio": 0.5
+    },
+    "UNFUNCTORIAL_PAIRING": {
+      "repair_type": "ENFORCE_PENTAGON_COHERENCE",
+      "target_subsystem": "Morphism_Structure",
+      "domain_restriction": "Restrict to strictly coherent monoidal functors",
+      "expected_retention_ratio": 0.75
+    },
+    "COMMUTATIVITY_DEFECT_OBSTRUCTION": {
+      "repair_type": "PASS_TO_DIEUDONNE_DETERMINANT",
+      "target_subsystem": "Determinant_Functor",
+      "domain_restriction": "GL_n(R) -> GL_n(R) / [GL_n(R), GL_n(R)]",
+      "expected_retention_ratio": 0.8
+    },
+    "NONE": {
+      "repair_type": "IDENTITY_REPAIR",
+      "target_subsystem": "Identity",
+      "domain_restriction": "None",
+      "expected_retention_ratio": 1.0
+    }
+  },
+  "minimality_criterion": "Maximal subcategory/domain on which Omega vanishes identically"
+}

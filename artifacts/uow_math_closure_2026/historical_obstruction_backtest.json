@@ -1,0 +1,525 @@
+{
+  "total_historical_candidates": 24,
+  "n_omega_zero": 8,
+  "n_omega_zero_occupied": 8,
+  "p_occupation_given_omega_zero": 1.0,
+  "n_omega_nonzero": 16,
+  "n_omega_nonzero_occupied": 0,
+  "p_occupation_given_omega_nonzero": 0.0,
+  "obstruction_relative_risk": 32.1111,
+  "backtest_gate_passed": true,
+  "records": [
+    {
+      "candidate_id": "CASE_HIST_HILBERT_UNBOUNDED",
+      "historical_era": 1930,
+      "domain": "Functional_Analysis",
+      "omega_signature": {
+        "signature_type": "DOMAIN_DIVERGENCE_OBSTRUCTION",
+        "defect_locus": "Topological_Domain_Closure",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Total_Operator_Definition",
+          "Hilbert_Space_Metric"
+        ],
+        "witness": "Unbounded operator divergence on non-compact domain"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_DENSE_CLOSED_DOMAIN",
+        "target_subsystem": "Operator_Domain",
+        "domain_restriction": "H -> Dom(T) \\subset H",
+        "expected_retention_ratio": 0.8
+      }
+    },
+    {
+      "candidate_id": "CASE_HIST_LEBESGUE_INTEGRATION",
+      "historical_era": 1905,
+      "domain": "Real_Analysis",
+      "omega_signature": {
+        "signature_type": "MEASURE_ADDITIVITY_OBSTRUCTION",
+        "defect_locus": "Riemann_Pointwise_Convergence",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Riemann_Integrability",
+          "Pointwise_Limit_Exchange"
+        ],
+        "witness": "Non-integrability of dense indicator limits"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "PASS_TO_SIGMA_ADDITIVE_MEASURABILITY",
+        "target_subsystem": "Measure_Algebra",
+        "domain_restriction": "StepFunctions -> L^1(mu)",
+        "expected_retention_ratio": 0.85
+      }
+    },
+    {
+      "candidate_id": "CASE_HIST_RUSSELL_PARADOX",
+      "historical_era": 1908,
+      "domain": "Set_Theory",
+      "omega_signature": {
+        "signature_type": "SELF_REFERENTIAL_COMPREHENSION_OBSTRUCTION",
+        "defect_locus": "Predicate_Comprehension_Axiom",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Unrestricted_Comprehension",
+          "Universal_Set_Domain"
+        ],
+        "witness": "Russell paradox inconsistency {x : x not in x}"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_STRATIFIED_SEPARATION_ZFC",
+        "target_subsystem": "Axiom_System",
+        "domain_restriction": "NaiveComprehension -> SeparationScheme",
+        "expected_retention_ratio": 0.9
+      }
+    },
+    {
+      "candidate_id": "CASE_HIST_POS_SERRE_FAC",
+      "historical_era": 1955,
+      "domain": "Algebraic_Geometry",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "CASE_HIST_POS_CARTAN_EILENBERG",
+      "historical_era": 1956,
+      "domain": "Homological_Algebra",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "CASE_HIST_POS_GROTHENDIECK_EGA",
+      "historical_era": 1960,
+      "domain": "Algebraic_Geometry",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "CASE_HIST_NEG_BOUND_OVERFLOW",
+      "historical_era": 1950,
+      "domain": "Combinatorics",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "CASE_HIST_NEG_NONFUNCTORIAL",
+      "historical_era": 1970,
+      "domain": "Category_Theory",
+      "omega_signature": {
+        "signature_type": "UNFUNCTORIAL_PAIRING",
+        "defect_locus": "Morphism_Associativity",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Unit_Counit_Adjunction",
+          "Pentagon_Axiom"
+        ],
+        "witness": "Failure of adjunction unit-counit triangle identities"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "ENFORCE_PENTAGON_COHERENCE",
+        "target_subsystem": "Morphism_Structure",
+        "domain_restriction": "Restrict to strictly coherent monoidal functors",
+        "expected_retention_ratio": 0.75
+      }
+    },
+    {
+      "candidate_id": "CASE_HIST_NEG_NONABELIAN_DET",
+      "historical_era": 1940,
+      "domain": "Linear_Algebra",
+      "omega_signature": {
+        "signature_type": "COMMUTATIVITY_DEFECT_OBSTRUCTION",
+        "defect_locus": "Multiplicative_Determinant",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Multiplicativity",
+          "Noncommutative_Matrix_Ring"
+        ],
+        "witness": "Loss of multiplicativity det(AB) != det(A)det(B)"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "PASS_TO_DIEUDONNE_DETERMINANT",
+        "target_subsystem": "Determinant_Functor",
+        "domain_restriction": "GL_n(R) -> GL_n(R) / [GL_n(R), GL_n(R)]",
+        "expected_retention_ratio": 0.8
+      }
+    },
+    {
+      "candidate_id": "U1950_STATE_0001",
+      "historical_era": 1950,
+      "domain": "FRONTIER_PREDICTION",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "U1950_STATE_0002",
+      "historical_era": 1950,
+      "domain": "FRONTIER_PREDICTION",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "U1950_STATE_0003",
+      "historical_era": 1950,
+      "domain": "FRONTIER_PREDICTION",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "U1950_STATE_0004",
+      "historical_era": 1950,
+      "domain": "FRONTIER_PREDICTION",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "U1950_STATE_0005",
+      "historical_era": 1950,
+      "domain": "FRONTIER_PREDICTION",
+      "omega_signature": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "predicted_status": "realizable",
+      "is_occupied_historical": true,
+      "predicted_repair": null
+    },
+    {
+      "candidate_id": "CTRL_MATCHED_U1950_STATE_0001",
+      "historical_era": 1950,
+      "domain": "MATCHED_CONTROL",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "CTRL_MATCHED_U1950_STATE_0002",
+      "historical_era": 1950,
+      "domain": "MATCHED_CONTROL",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "CTRL_MATCHED_U1950_STATE_0003",
+      "historical_era": 1950,
+      "domain": "MATCHED_CONTROL",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "CTRL_MATCHED_U1950_STATE_0004",
+      "historical_era": 1950,
+      "domain": "MATCHED_CONTROL",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "CTRL_MATCHED_U1950_STATE_0005",
+      "historical_era": 1950,
+      "domain": "MATCHED_CONTROL",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "NEG_FRONTIER_U1950_STATE_0001",
+      "historical_era": 1950,
+      "domain": "NEGATIVE_FRONTIER",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "NEG_FRONTIER_U1950_STATE_0002",
+      "historical_era": 1950,
+      "domain": "NEGATIVE_FRONTIER",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "NEG_FRONTIER_U1950_STATE_0003",
+      "historical_era": 1950,
+      "domain": "NEGATIVE_FRONTIER",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "NEG_FRONTIER_U1950_STATE_0004",
+      "historical_era": 1950,
+      "domain": "NEGATIVE_FRONTIER",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    },
+    {
+      "candidate_id": "NEG_FRONTIER_U1950_STATE_0005",
+      "historical_era": 1950,
+      "domain": "NEGATIVE_FRONTIER",
+      "omega_signature": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "predicted_status": "obstructed",
+      "is_occupied_historical": false,
+      "predicted_repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      }
+    }
+  ]
+}

@@ -1,0 +1,356 @@
+{
+  "total_evaluated": 12,
+  "annihilated_count": 12,
+  "annihilation_rate": 1.0,
+  "all_annihilated": true,
+  "results": [
+    {
+      "case_id": "CASE_C1_CHROMATIC_CONDENSED",
+      "initial_obstruction": {
+        "signature_type": "SMASHING_LIMIT_MISMATCH",
+        "defect_locus": "Bousfield_Localization_Adjunction",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Left_Bousfield_Localization",
+          "Infinite_Limit_Commutation"
+        ],
+        "witness": "Non-vanishing Ext^1 phantom ghost class [xi] != 0"
+      },
+      "repair": {
+        "repair_type": "RESTRICT_TO_NUCLEAR_SUBCATEGORY",
+        "target_subsystem": "Base_Category",
+        "domain_restriction": "SolidMod_R -> SolidMod_R^{nuc}",
+        "expected_retention_ratio": 0.65
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_C2_PRISMATIC_STACK",
+      "initial_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "repair": {
+        "repair_type": "IDENTITY_REPAIR",
+        "target_subsystem": "Identity",
+        "domain_restriction": "None",
+        "expected_retention_ratio": 1.0
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_C3_CUBICAL_MODULI",
+      "initial_obstruction": {
+        "signature_type": "INFINITE_COHERENCE_DIVERGENCE",
+        "defect_locus": "Operadic_Kan_Filling",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Constructive_Glueing",
+          "Infinite_E_infty_Coherences"
+        ],
+        "witness": "Canonicity loss in untruncated structured spectra universe"
+      },
+      "repair": {
+        "repair_type": "TRUNCATE_HOMOTOPY_LEVEL",
+        "target_subsystem": "Moduli_Universe",
+        "domain_restriction": "U_{Sp} -> tau_{<= k} U_{Sp}",
+        "expected_retention_ratio": 0.7
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_HILBERT_UNBOUNDED",
+      "initial_obstruction": {
+        "signature_type": "DOMAIN_DIVERGENCE_OBSTRUCTION",
+        "defect_locus": "Topological_Domain_Closure",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Total_Operator_Definition",
+          "Hilbert_Space_Metric"
+        ],
+        "witness": "Unbounded operator divergence on non-compact domain"
+      },
+      "repair": {
+        "repair_type": "RESTRICT_TO_DENSE_CLOSED_DOMAIN",
+        "target_subsystem": "Operator_Domain",
+        "domain_restriction": "H -> Dom(T) \\subset H",
+        "expected_retention_ratio": 0.8
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_LEBESGUE_INTEGRATION",
+      "initial_obstruction": {
+        "signature_type": "MEASURE_ADDITIVITY_OBSTRUCTION",
+        "defect_locus": "Riemann_Pointwise_Convergence",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Riemann_Integrability",
+          "Pointwise_Limit_Exchange"
+        ],
+        "witness": "Non-integrability of dense indicator limits"
+      },
+      "repair": {
+        "repair_type": "PASS_TO_SIGMA_ADDITIVE_MEASURABILITY",
+        "target_subsystem": "Measure_Algebra",
+        "domain_restriction": "StepFunctions -> L^1(mu)",
+        "expected_retention_ratio": 0.85
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_RUSSELL_PARADOX",
+      "initial_obstruction": {
+        "signature_type": "SELF_REFERENTIAL_COMPREHENSION_OBSTRUCTION",
+        "defect_locus": "Predicate_Comprehension_Axiom",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Unrestricted_Comprehension",
+          "Universal_Set_Domain"
+        ],
+        "witness": "Russell paradox inconsistency {x : x not in x}"
+      },
+      "repair": {
+        "repair_type": "RESTRICT_TO_STRATIFIED_SEPARATION_ZFC",
+        "target_subsystem": "Axiom_System",
+        "domain_restriction": "NaiveComprehension -> SeparationScheme",
+        "expected_retention_ratio": 0.9
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_POS_SERRE_FAC",
+      "initial_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "repair": {
+        "repair_type": "IDENTITY_REPAIR",
+        "target_subsystem": "Identity",
+        "domain_restriction": "None",
+        "expected_retention_ratio": 1.0
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_POS_CARTAN_EILENBERG",
+      "initial_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "repair": {
+        "repair_type": "IDENTITY_REPAIR",
+        "target_subsystem": "Identity",
+        "domain_restriction": "None",
+        "expected_retention_ratio": 1.0
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_POS_GROTHENDIECK_EGA",
+      "initial_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "repair": {
+        "repair_type": "IDENTITY_REPAIR",
+        "target_subsystem": "Identity",
+        "domain_restriction": "None",
+        "expected_retention_ratio": 1.0
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_NEG_BOUND_OVERFLOW",
+      "initial_obstruction": {
+        "signature_type": "AXIOMATIC_DEGREE_VIOLATION",
+        "defect_locus": "Grammar_Composition_Bound",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Coordinate_Depth_Bound",
+          "State_Composition_Depth"
+        ],
+        "witness": "Delta exceeds maximum observable saturation depth c_max"
+      },
+      "repair": {
+        "repair_type": "RESTRICT_TO_BOUNDED_DEGREE",
+        "target_subsystem": "Coordinate_Space",
+        "domain_restriction": "Depth <= 6",
+        "expected_retention_ratio": 0.5
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_NEG_NONFUNCTORIAL",
+      "initial_obstruction": {
+        "signature_type": "UNFUNCTORIAL_PAIRING",
+        "defect_locus": "Morphism_Associativity",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Unit_Counit_Adjunction",
+          "Pentagon_Axiom"
+        ],
+        "witness": "Failure of adjunction unit-counit triangle identities"
+      },
+      "repair": {
+        "repair_type": "ENFORCE_PENTAGON_COHERENCE",
+        "target_subsystem": "Morphism_Structure",
+        "domain_restriction": "Restrict to strictly coherent monoidal functors",
+        "expected_retention_ratio": 0.75
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    },
+    {
+      "case_id": "CASE_HIST_NEG_NONABELIAN_DET",
+      "initial_obstruction": {
+        "signature_type": "COMMUTATIVITY_DEFECT_OBSTRUCTION",
+        "defect_locus": "Multiplicative_Determinant",
+        "intensity": 1.0,
+        "is_vanishing": false,
+        "inconsistent_subset": [
+          "Multiplicativity",
+          "Noncommutative_Matrix_Ring"
+        ],
+        "witness": "Loss of multiplicativity det(AB) != det(A)det(B)"
+      },
+      "repair": {
+        "repair_type": "PASS_TO_DIEUDONNE_DETERMINANT",
+        "target_subsystem": "Determinant_Functor",
+        "domain_restriction": "GL_n(R) -> GL_n(R) / [GL_n(R), GL_n(R)]",
+        "expected_retention_ratio": 0.8
+      },
+      "repaired_obstruction": {
+        "signature_type": "NONE",
+        "defect_locus": "None",
+        "intensity": 0.0,
+        "is_vanishing": true,
+        "inconsistent_subset": [],
+        "witness": null
+      },
+      "annihilated": true,
+      "is_exact_zero": true
+    }
+  ]
+}

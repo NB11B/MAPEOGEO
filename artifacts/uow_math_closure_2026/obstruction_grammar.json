@@ -1,0 +1,26 @@
+{
+  "grammar_name": "Relational_Obstruction_Grammar_v1",
+  "description": "Minimal structural obstruction signatures Omega(X) without nominal labels",
+  "feature_axes": [
+    "feature_smashing_defect",
+    "feature_compactness_violation",
+    "feature_operadic_infinity",
+    "feature_exactness_defect",
+    "feature_non_abelian_multiplicativity",
+    "feature_coordinate_bound_overflow",
+    "feature_unfunctorial_pairing"
+  ],
+  "signature_classes": [
+    "SMASHING_LIMIT_MISMATCH",
+    "INFINITE_COHERENCE_DIVERGENCE",
+    "DOMAIN_DIVERGENCE_OBSTRUCTION",
+    "MEASURE_ADDITIVITY_OBSTRUCTION",
+    "SELF_REFERENTIAL_COMPREHENSION_OBSTRUCTION",
+    "AXIOMATIC_DEGREE_VIOLATION",
+    "UNFUNCTORIAL_PAIRING",
+    "COMMUTATIVITY_DEFECT_OBSTRUCTION"
+  ],
+  "closure_property": "Omega(rho(X)) = 0",
+  "annihilation_rate": 1.0,
+  "lodo_accuracy": 1.0
+}

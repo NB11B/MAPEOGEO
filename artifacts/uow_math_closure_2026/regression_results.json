@@ -1,0 +1,13 @@
+{
+  "release_version": "v3.0.0",
+  "grammar_architecture": "M6^{++++}",
+  "dimension_d": 6,
+  "alphabet_a": 40,
+  "max_composition_depth_c": 6,
+  "boundary_population_B10": 2416,
+  "boundary_share_percentage": 2.09,
+  "clean_transformations_verified": 55800,
+  "total_regressions": 0,
+  "status": "SEALED_ZERO_REGRESSION",
+  "verification_gate_passed": true
+}

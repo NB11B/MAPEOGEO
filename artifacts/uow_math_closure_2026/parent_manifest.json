@@ -1,0 +1,13 @@
+{
+  "campaign": "UOW_MATHEMATICS_CLOSURE_2026",
+  "branch": "experiment/uow-math-closure-2026",
+  "parent_commit": "acb3333",
+  "kernel_release_hash": "d3861d419b2b1314efefa2c6125dac9f2a1d8126be58c4a9a5277db3fb20551d",
+  "input_frontier_2026_hashes": {
+    "U2026_constructible": "c9383c4391caf574f047842ee819707143dd2fd2bb2dab3bef2617e26250bd9a",
+    "U2026_frontier": "b7ff22977bba5f73e8ce439cdf68eeb500194de663f108ef7f92764695b4be49",
+    "prediction_work_certificates": "c386663152b86704ba8ce0cd1899b51866597b498e6b0653cd4118c102faf94e"
+  },
+  "target_artifacts_count": 16,
+  "monograph_artifact": "FINAL_UOW_MATHEMATICS_2026_REPORT.md"
+}

@@ -1,0 +1,22 @@
+{
+  "replay_seed": 20261007,
+  "environment": "Windows_Python3.13",
+  "verified_deterministic": true,
+  "file_checksums": {
+    "annihilation_results.json": "2d5f8f4bf81a964c5438e4dffe32606e24db579389d571b542bb5ef0ccec2023",
+    "construction_results.jsonl": "eeaa9ce2f2f1fc850137b3c9fb0d61251eca965f3770696d432296e9d373b1d7",
+    "frontier_2026_full_ledger.jsonl": "42fc54cc690328172d4647b7b52a533dd83b36473f2b99d4f907939bff4c8896",
+    "frontier_conditional.jsonl": "748b101a3c9a9eabc4e451d54d12bf648637da6b19e5578f5f607300033eac47",
+    "frontier_obstructed.jsonl": "bf394752f2af6a75f00bf9b917b7274a04784893b61c4e603f5b52771cd59817",
+    "frontier_realizable.jsonl": "c12512972047c1dad18d99b393ee055138bbd6b2c9e6da386b2964c863f7ed88",
+    "historical_obstruction_backtest.json": "bd82818d6723de215fdbddf1fa4bc22058ddeb0e9f74174e74c30eda6493ed11",
+    "mathematical_claim_audit.jsonl": "1228edaceaaaf70ec08f6f55d723570c6005ca24fa24a6882f584df111ab84e0",
+    "obstruction_grammar.json": "09a784b33bc27fae73704dfd263debd5d30cdbebce8d8ff79c31ae2ec671bfa4",
+    "obstruction_holdouts.json": "24e4ce0edda0bdb85dfe14d50f3f3ec4ab5d2fd16c93265b268c74eb167b91d9",
+    "parent_manifest.json": "8649361fc53e2e2b7837bd51dc47d46b6bc70a88e0542593b1618318581b869a",
+    "regression_results.json": "74c37df809a4d0c7ce10a42d4a91f20abafef12b546c0c9b953bea932360b385",
+    "repair_grammar.json": "2fab130581252c5b085246cf4f68e2a81a4201b8a82b276f4f36e9e49426491e",
+    "repair_prediction_results.json": "32a186ed34e2e5b4b2cbe0e2ee1e8850bc4490b126d6ac6a21e7d96a7cfcb073",
+    "residual_frontier_2026.jsonl": "5e7286010ba14892390960203fed178dd445608e0befeb9fc001fbc3367309b2"
+  }
+}
