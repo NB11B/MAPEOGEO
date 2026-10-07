@@ -1,0 +1,315 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "generated_from": "fabric_p0/rtl/common/geo_defs.svh",
+  "registry_name": "MAPEOGEO_P0_OPERATORS",
+  "total_operators": 34,
+  "operators": [
+    {
+      "opcode": 0,
+      "mnemonic": "OP_NOP",
+      "category": "CONTROL",
+      "description": "No operation; preserves state and increments causal counter",
+      "arity": 0,
+      "requires_auth": false,
+      "operand_types": []
+    },
+    {
+      "opcode": 1,
+      "mnemonic": "OP_ADD",
+      "category": "ARITHMETIC_MV",
+      "description": "Component-wise multivector addition A + B in Cl(2,0)",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 2,
+      "mnemonic": "OP_SUB",
+      "category": "ARITHMETIC_MV",
+      "description": "Component-wise multivector subtraction A - B in Cl(2,0)",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 3,
+      "mnemonic": "OP_MUL",
+      "category": "ARITHMETIC_SCALAR",
+      "description": "Scalar fixed-point Q16.16 multiplication A.s * B.s",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["fixed_q16_16", "fixed_q16_16"]
+    },
+    {
+      "opcode": 4,
+      "mnemonic": "OP_COMPARE",
+      "category": "COMPARISON",
+      "description": "Deterministic equality comparison between multivectors A and B",
+      "arity": 2,
+      "requires_auth": false,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 5,
+      "mnemonic": "OP_CL20_PRODUCT",
+      "category": "GEOMETRIC_ALGEBRA",
+      "description": "Cl(2,0) geometric Clifford product with signature (+1, +1)",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 6,
+      "mnemonic": "OP_REVERSE",
+      "category": "GEOMETRIC_UNARY",
+      "description": "Clifford reversion ~A: (s, e1, e2, -e12)",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 7,
+      "mnemonic": "OP_GRADE_INVOLUTION",
+      "category": "GEOMETRIC_UNARY",
+      "description": "Grade involution A_hat: (s, -e1, -e2, e12)",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 8,
+      "mnemonic": "OP_CLIFFORD_CONJUGATE",
+      "category": "GEOMETRIC_UNARY",
+      "description": "Clifford conjugation: (s, -e1, -e2, -e12)",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 9,
+      "mnemonic": "OP_VECTOR_DOT",
+      "category": "GEOMETRIC_BILINEAR",
+      "description": "Symmetric inner dot product of vectors in Cl(2,0)",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 10,
+      "mnemonic": "OP_VECTOR_WEDGE",
+      "category": "GEOMETRIC_BILINEAR",
+      "description": "Antisymmetric exterior wedge product A ^ B",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 11,
+      "mnemonic": "OP_COMMUTATOR",
+      "category": "GEOMETRIC_BILINEAR",
+      "description": "Commutator product [A, B] = 0.5 * (A*B - B*A)",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 12,
+      "mnemonic": "OP_ANTICOMMUTATOR",
+      "category": "GEOMETRIC_BILINEAR",
+      "description": "Anticommutator product {A, B} = 0.5 * (A*B + B*A)",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 13,
+      "mnemonic": "OP_SCALAR_PROJECTION",
+      "category": "GEOMETRIC_UNARY",
+      "description": "Extract grade-0 scalar part <A>_0: (s, 0, 0, 0)",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 14,
+      "mnemonic": "OP_VECTOR_PROJECTION",
+      "category": "GEOMETRIC_UNARY",
+      "description": "Extract grade-1 vector part <A>_1: (0, e1, e2, 0)",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 15,
+      "mnemonic": "OP_BIVECTOR_PROJECTION",
+      "category": "GEOMETRIC_UNARY",
+      "description": "Extract grade-2 bivector part <A>_2: (0, 0, 0, e12)",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 16,
+      "mnemonic": "OP_NORM_SQUARED",
+      "category": "GEOMETRIC_BILINEAR",
+      "description": "Norm squared of multivector: <A * ~A>_0",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 17,
+      "mnemonic": "OP_COMPOSE",
+      "category": "GEOMETRIC_ALGEBRA",
+      "description": "Geometric composition operator (equivalent to geometric product)",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 18,
+      "mnemonic": "OP_MATRIX_TO_CL20",
+      "category": "ISOMORPHISM",
+      "description": "Isomorphic mapping from 2x2 real matrix M2(R) to Cl(2,0) multivector",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["mat2_t"]
+    },
+    {
+      "opcode": 19,
+      "mnemonic": "OP_CL20_TO_MATRIX",
+      "category": "ISOMORPHISM",
+      "description": "Isomorphic mapping from Cl(2,0) multivector to 2x2 real matrix M2(R)",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 20,
+      "mnemonic": "OP_ALU_LOAD",
+      "category": "ALU",
+      "description": "Load word from state memory into work cell register",
+      "arity": 1,
+      "requires_auth": false,
+      "operand_types": ["addr8"]
+    },
+    {
+      "opcode": 21,
+      "mnemonic": "OP_ALU_STORE",
+      "category": "ALU",
+      "description": "Store word from work cell register into destination address",
+      "arity": 1,
+      "requires_auth": true,
+      "operand_types": ["addr8"]
+    },
+    {
+      "opcode": 22,
+      "mnemonic": "OP_ALU_MOVE",
+      "category": "ALU",
+      "description": "Move operand between internal cell registers",
+      "arity": 1,
+      "requires_auth": false,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 23,
+      "mnemonic": "OP_ALU_SHIFT",
+      "category": "ALU",
+      "description": "Arithmetic / logical bit shift of scalar component",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["fixed_q16_16", "u32"]
+    },
+    {
+      "opcode": 24,
+      "mnemonic": "OP_ALU_AND",
+      "category": "ALU",
+      "description": "Bitwise AND operation on words",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["u32", "u32"]
+    },
+    {
+      "opcode": 25,
+      "mnemonic": "OP_ALU_OR",
+      "category": "ALU",
+      "description": "Bitwise OR operation on words",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["u32", "u32"]
+    },
+    {
+      "opcode": 26,
+      "mnemonic": "OP_ALU_XOR",
+      "category": "ALU",
+      "description": "Bitwise XOR operation on words",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["u32", "u32"]
+    },
+    {
+      "opcode": 27,
+      "mnemonic": "OP_ALU_SELECT",
+      "category": "ALU",
+      "description": "Conditional multiplexer selection: cond ? A : B",
+      "arity": 3,
+      "requires_auth": false,
+      "operand_types": ["u32", "cl20_mv_t", "cl20_mv_t"]
+    },
+    {
+      "opcode": 28,
+      "mnemonic": "OP_ALU_BRANCH_IF",
+      "category": "CONTROL",
+      "description": "Conditional branch / forward dependency signal",
+      "arity": 2,
+      "requires_auth": false,
+      "operand_types": ["u32", "addr8"]
+    },
+    {
+      "opcode": 29,
+      "mnemonic": "OP_ALU_EMIT",
+      "category": "CONTROL",
+      "description": "Emit output telemetry word or intermediate result",
+      "arity": 1,
+      "requires_auth": false,
+      "operand_types": ["cl20_mv_t"]
+    },
+    {
+      "opcode": 30,
+      "mnemonic": "OP_ALU_HALT",
+      "category": "CONTROL",
+      "description": "Halt cell execution and signal completion",
+      "arity": 0,
+      "requires_auth": false,
+      "operand_types": []
+    },
+    {
+      "opcode": 31,
+      "mnemonic": "OP_ALU_ADD",
+      "category": "ALU",
+      "description": "Scalar integer 32-bit addition",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["i32", "i32"]
+    },
+    {
+      "opcode": 32,
+      "mnemonic": "OP_ALU_SUB",
+      "category": "ALU",
+      "description": "Scalar integer 32-bit subtraction",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["i32", "i32"]
+    },
+    {
+      "opcode": 33,
+      "mnemonic": "OP_ALU_MUL",
+      "category": "ALU",
+      "description": "Scalar integer 32-bit multiplication",
+      "arity": 2,
+      "requires_auth": true,
+      "operand_types": ["i32", "i32"]
+    }
+  ]
+}

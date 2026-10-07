@@ -1,0 +1,41 @@
+# PDI-135M-v0.1 Training Configuration
+experiment_id: "PDI-135M-v0.1"
+base_model: "HuggingFaceTB/SmolLM2-135M-Instruct"
+base_revision: "12fd25f77366fa6b3b4b768ec3050bf629380bac"
+
+lora:
+  r: 8
+  lora_alpha: 16
+  target_modules: ["q_proj", "v_proj"]
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+training:
+  learning_rate: 1.0e-4
+  epochs: 3
+  effective_batch_size: 32
+  context_length: 512
+  output_limit: 128
+  precision: "fp16" # CUDA 12.8 / RTX 5070 fp16 or bf16
+  temperature: 0.0
+  do_sample: false
+  early_stopping: true
+
+arms:
+  A:
+    name: "Frozen H3 Baseline"
+    starting_weights: "h3_baseline"
+    checkpoint_path: "C:\\Users\\nateb\\OneDrive\\Documents\\UoW-v2\\checkpoints\\uow_h3_native_smollm2_135m_arm_nb"
+    trainable: false
+  B:
+    name: "H3 + PDI LoRA"
+    starting_weights: "h3_baseline"
+    checkpoint_path: "C:\\Users\\nateb\\OneDrive\\Documents\\UoW-v2\\checkpoints\\uow_h3_native_smollm2_135m_arm_nb"
+    output_dir: "pdi/checkpoints/pdi_arm_b_h3_adapted"
+    trainable: true
+  C:
+    name: "Original SmolLM2 + PDI LoRA"
+    starting_weights: "base_smollm2"
+    output_dir: "pdi/checkpoints/pdi_arm_c_fresh_adapted"
+    trainable: true

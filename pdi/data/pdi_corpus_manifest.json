@@ -1,0 +1,3979 @@
+{
+  "schema_version": "1.0.0",
+  "corpus_id": "pdi-corpus-v0.1",
+  "total_records": 209,
+  "train_count": 160,
+  "holdout_count": 49,
+  "records": [
+    {
+      "example_id": "PDI-PROP-OP_ADD-v00",
+      "family": "operator_op_add",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 5, pre-state version 1000. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          3,
+          4
+        ],
+        "dest_ref": 5,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ADD-v01",
+      "family": "operator_op_add",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 6, pre-state version 1017. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          4,
+          5
+        ],
+        "dest_ref": 6,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ADD-v02",
+      "family": "operator_op_add",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 7, pre-state version 1034. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          5,
+          6
+        ],
+        "dest_ref": 7,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ADD-v03",
+      "family": "operator_op_add",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 8, pre-state version 1051. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          6,
+          7
+        ],
+        "dest_ref": 8,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ADD-v04",
+      "family": "operator_op_add",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 9, pre-state version 1068. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          7,
+          8
+        ],
+        "dest_ref": 9,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ADD-v05",
+      "family": "operator_op_add",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 10, pre-state version 1085. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          8,
+          9
+        ],
+        "dest_ref": 10,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ADD-v06",
+      "family": "operator_op_add",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 11, pre-state version 1102. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          9,
+          10
+        ],
+        "dest_ref": 11,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ADD-v07",
+      "family": "operator_op_add",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 12, pre-state version 1119. Goal: Add multivector at state 10 and state 11 into state 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 1,
+        "object_refs": [
+          10,
+          11
+        ],
+        "dest_ref": 12,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v00",
+      "family": "operator_op_sub",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 8, pre-state version 1000. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          6,
+          7
+        ],
+        "dest_ref": 8,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v01",
+      "family": "operator_op_sub",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 9, pre-state version 1017. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          7,
+          8
+        ],
+        "dest_ref": 9,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v02",
+      "family": "operator_op_sub",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 10, pre-state version 1034. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          8,
+          9
+        ],
+        "dest_ref": 10,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v03",
+      "family": "operator_op_sub",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 11, pre-state version 1051. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          9,
+          10
+        ],
+        "dest_ref": 11,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v04",
+      "family": "operator_op_sub",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 12, pre-state version 1068. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          10,
+          11
+        ],
+        "dest_ref": 12,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v05",
+      "family": "operator_op_sub",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 13, pre-state version 1085. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          11,
+          12
+        ],
+        "dest_ref": 13,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v06",
+      "family": "operator_op_sub",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 14, pre-state version 1102. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          12,
+          13
+        ],
+        "dest_ref": 14,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SUB-v07",
+      "family": "operator_op_sub",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 15, pre-state version 1119. Goal: Subtract multivector at state 14 from state 13 into state 15.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 2,
+        "object_refs": [
+          13,
+          14
+        ],
+        "dest_ref": 15,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v00",
+      "family": "operator_op_mul",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 11, pre-state version 1000. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          9,
+          10
+        ],
+        "dest_ref": 11,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v01",
+      "family": "operator_op_mul",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 12, pre-state version 1017. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          10,
+          11
+        ],
+        "dest_ref": 12,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v02",
+      "family": "operator_op_mul",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 13, pre-state version 1034. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          11,
+          12
+        ],
+        "dest_ref": 13,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v03",
+      "family": "operator_op_mul",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 14, pre-state version 1051. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          12,
+          13
+        ],
+        "dest_ref": 14,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v04",
+      "family": "operator_op_mul",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 15, pre-state version 1068. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          13,
+          14
+        ],
+        "dest_ref": 15,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v05",
+      "family": "operator_op_mul",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 16, pre-state version 1085. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          14,
+          15
+        ],
+        "dest_ref": 16,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v06",
+      "family": "operator_op_mul",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 17, pre-state version 1102. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          15,
+          16
+        ],
+        "dest_ref": 17,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MUL-v07",
+      "family": "operator_op_mul",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 18, pre-state version 1119. Goal: Multiply scalar components at state 20 and state 21 into state 22.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 3,
+        "object_refs": [
+          16,
+          17
+        ],
+        "dest_ref": 18,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v00",
+      "family": "operator_op_compare",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 14, pre-state version 1000. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          12,
+          13
+        ],
+        "dest_ref": 14,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v01",
+      "family": "operator_op_compare",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 15, pre-state version 1017. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          13,
+          14
+        ],
+        "dest_ref": 15,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v02",
+      "family": "operator_op_compare",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 16, pre-state version 1034. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          14,
+          15
+        ],
+        "dest_ref": 16,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v03",
+      "family": "operator_op_compare",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 17, pre-state version 1051. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          15,
+          16
+        ],
+        "dest_ref": 17,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v04",
+      "family": "operator_op_compare",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 18, pre-state version 1068. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          16,
+          17
+        ],
+        "dest_ref": 18,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v05",
+      "family": "operator_op_compare",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 19, pre-state version 1085. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          17,
+          18
+        ],
+        "dest_ref": 19,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v06",
+      "family": "operator_op_compare",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 20, pre-state version 1102. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          18,
+          19
+        ],
+        "dest_ref": 20,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMPARE-v07",
+      "family": "operator_op_compare",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 21, pre-state version 1119. Goal: Compare equality of multivectors at state 30 and state 31.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 4,
+        "object_refs": [
+          19,
+          20
+        ],
+        "dest_ref": 21,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v00",
+      "family": "operator_op_cl20_product",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 17, pre-state version 1000. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          15,
+          16
+        ],
+        "dest_ref": 17,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v01",
+      "family": "operator_op_cl20_product",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 18, pre-state version 1017. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          16,
+          17
+        ],
+        "dest_ref": 18,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v02",
+      "family": "operator_op_cl20_product",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 19, pre-state version 1034. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          17,
+          18
+        ],
+        "dest_ref": 19,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v03",
+      "family": "operator_op_cl20_product",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 20, pre-state version 1051. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          18,
+          19
+        ],
+        "dest_ref": 20,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v04",
+      "family": "operator_op_cl20_product",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 21, pre-state version 1068. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          19,
+          20
+        ],
+        "dest_ref": 21,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v05",
+      "family": "operator_op_cl20_product",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 22, pre-state version 1085. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          20,
+          21
+        ],
+        "dest_ref": 22,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v06",
+      "family": "operator_op_cl20_product",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 23, pre-state version 1102. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          21,
+          22
+        ],
+        "dest_ref": 23,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_PRODUCT-v07",
+      "family": "operator_op_cl20_product",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 24, pre-state version 1119. Goal: Compute geometric Clifford product of state 40 and state 41 into state 42.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 5,
+        "object_refs": [
+          22,
+          23
+        ],
+        "dest_ref": 24,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v00",
+      "family": "operator_op_reverse",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 20, pre-state version 1000. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          18,
+          19
+        ],
+        "dest_ref": 20,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v01",
+      "family": "operator_op_reverse",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 21, pre-state version 1017. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          19,
+          20
+        ],
+        "dest_ref": 21,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v02",
+      "family": "operator_op_reverse",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 22, pre-state version 1034. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          20,
+          21
+        ],
+        "dest_ref": 22,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v03",
+      "family": "operator_op_reverse",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 23, pre-state version 1051. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          21,
+          22
+        ],
+        "dest_ref": 23,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v04",
+      "family": "operator_op_reverse",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 24, pre-state version 1068. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          22,
+          23
+        ],
+        "dest_ref": 24,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v05",
+      "family": "operator_op_reverse",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 25, pre-state version 1085. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          23,
+          24
+        ],
+        "dest_ref": 25,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v06",
+      "family": "operator_op_reverse",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 26, pre-state version 1102. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          24,
+          25
+        ],
+        "dest_ref": 26,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_REVERSE-v07",
+      "family": "operator_op_reverse",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 27, pre-state version 1119. Goal: Compute Clifford reversion of multivector at state 50 into state 51.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 6,
+        "object_refs": [
+          25,
+          26
+        ],
+        "dest_ref": 27,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v00",
+      "family": "operator_op_grade_involution",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 23, pre-state version 1000. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          21,
+          22
+        ],
+        "dest_ref": 23,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v01",
+      "family": "operator_op_grade_involution",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 24, pre-state version 1017. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          22,
+          23
+        ],
+        "dest_ref": 24,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v02",
+      "family": "operator_op_grade_involution",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 25, pre-state version 1034. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          23,
+          24
+        ],
+        "dest_ref": 25,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v03",
+      "family": "operator_op_grade_involution",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 26, pre-state version 1051. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          24,
+          25
+        ],
+        "dest_ref": 26,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v04",
+      "family": "operator_op_grade_involution",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 27, pre-state version 1068. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          25,
+          26
+        ],
+        "dest_ref": 27,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v05",
+      "family": "operator_op_grade_involution",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 28, pre-state version 1085. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          26,
+          27
+        ],
+        "dest_ref": 28,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v06",
+      "family": "operator_op_grade_involution",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 29, pre-state version 1102. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          27,
+          28
+        ],
+        "dest_ref": 29,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_GRADE_INVOLUTION-v07",
+      "family": "operator_op_grade_involution",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 30, pre-state version 1119. Goal: Compute grade involution of state 60 into state 61.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 7,
+        "object_refs": [
+          28,
+          29
+        ],
+        "dest_ref": 30,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v00",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 26, pre-state version 1000. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          24,
+          25
+        ],
+        "dest_ref": 26,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v01",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 27, pre-state version 1017. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          25,
+          26
+        ],
+        "dest_ref": 27,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v02",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 28, pre-state version 1034. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          26,
+          27
+        ],
+        "dest_ref": 28,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v03",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 29, pre-state version 1051. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          27,
+          28
+        ],
+        "dest_ref": 29,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v04",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 30, pre-state version 1068. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          28,
+          29
+        ],
+        "dest_ref": 30,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v05",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 31, pre-state version 1085. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          29,
+          30
+        ],
+        "dest_ref": 31,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v06",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 32, pre-state version 1102. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          30,
+          31
+        ],
+        "dest_ref": 32,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v07",
+      "family": "operator_op_clifford_conjugate",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 33, pre-state version 1119. Goal: Compute Clifford conjugate of state 70 into state 71.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 8,
+        "object_refs": [
+          31,
+          32
+        ],
+        "dest_ref": 33,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v00",
+      "family": "operator_op_vector_dot",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 29, pre-state version 1000. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          27,
+          28
+        ],
+        "dest_ref": 29,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v01",
+      "family": "operator_op_vector_dot",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 30, pre-state version 1017. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          28,
+          29
+        ],
+        "dest_ref": 30,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v02",
+      "family": "operator_op_vector_dot",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 31, pre-state version 1034. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          29,
+          30
+        ],
+        "dest_ref": 31,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v03",
+      "family": "operator_op_vector_dot",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 32, pre-state version 1051. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          30,
+          31
+        ],
+        "dest_ref": 32,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v04",
+      "family": "operator_op_vector_dot",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 33, pre-state version 1068. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          31,
+          32
+        ],
+        "dest_ref": 33,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v05",
+      "family": "operator_op_vector_dot",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 34, pre-state version 1085. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          32,
+          33
+        ],
+        "dest_ref": 34,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v06",
+      "family": "operator_op_vector_dot",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 35, pre-state version 1102. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          33,
+          34
+        ],
+        "dest_ref": 35,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_DOT-v07",
+      "family": "operator_op_vector_dot",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 36, pre-state version 1119. Goal: Compute symmetric vector dot product between state 80 and state 81 into state 82.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 9,
+        "object_refs": [
+          34,
+          35
+        ],
+        "dest_ref": 36,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v00",
+      "family": "operator_op_vector_wedge",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 32, pre-state version 1000. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          30,
+          31
+        ],
+        "dest_ref": 32,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v01",
+      "family": "operator_op_vector_wedge",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 33, pre-state version 1017. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          31,
+          32
+        ],
+        "dest_ref": 33,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v02",
+      "family": "operator_op_vector_wedge",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 34, pre-state version 1034. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          32,
+          33
+        ],
+        "dest_ref": 34,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v03",
+      "family": "operator_op_vector_wedge",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 35, pre-state version 1051. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          33,
+          34
+        ],
+        "dest_ref": 35,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v04",
+      "family": "operator_op_vector_wedge",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 36, pre-state version 1068. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          34,
+          35
+        ],
+        "dest_ref": 36,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v05",
+      "family": "operator_op_vector_wedge",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 37, pre-state version 1085. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          35,
+          36
+        ],
+        "dest_ref": 37,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v06",
+      "family": "operator_op_vector_wedge",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 38, pre-state version 1102. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          36,
+          37
+        ],
+        "dest_ref": 38,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_WEDGE-v07",
+      "family": "operator_op_vector_wedge",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 39, pre-state version 1119. Goal: Compute exterior wedge product between state 90 and state 91 into state 92.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 10,
+        "object_refs": [
+          37,
+          38
+        ],
+        "dest_ref": 39,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v00",
+      "family": "operator_op_commutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 35, pre-state version 1000. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          33,
+          34
+        ],
+        "dest_ref": 35,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v01",
+      "family": "operator_op_commutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 36, pre-state version 1017. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          34,
+          35
+        ],
+        "dest_ref": 36,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v02",
+      "family": "operator_op_commutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 37, pre-state version 1034. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          35,
+          36
+        ],
+        "dest_ref": 37,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v03",
+      "family": "operator_op_commutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 38, pre-state version 1051. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          36,
+          37
+        ],
+        "dest_ref": 38,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v04",
+      "family": "operator_op_commutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 39, pre-state version 1068. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          37,
+          38
+        ],
+        "dest_ref": 39,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v05",
+      "family": "operator_op_commutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 40, pre-state version 1085. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          38,
+          39
+        ],
+        "dest_ref": 40,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v06",
+      "family": "operator_op_commutator",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 41, pre-state version 1102. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          39,
+          40
+        ],
+        "dest_ref": 41,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_COMMUTATOR-v07",
+      "family": "operator_op_commutator",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 42, pre-state version 1119. Goal: Compute commutator product [A, B] of state 100 and state 101 into state 102.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 11,
+        "object_refs": [
+          40,
+          41
+        ],
+        "dest_ref": 42,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v00",
+      "family": "operator_op_anticommutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 38, pre-state version 1000. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          36,
+          37
+        ],
+        "dest_ref": 38,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v01",
+      "family": "operator_op_anticommutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 39, pre-state version 1017. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          37,
+          38
+        ],
+        "dest_ref": 39,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v02",
+      "family": "operator_op_anticommutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 40, pre-state version 1034. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          38,
+          39
+        ],
+        "dest_ref": 40,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v03",
+      "family": "operator_op_anticommutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 41, pre-state version 1051. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          39,
+          40
+        ],
+        "dest_ref": 41,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v04",
+      "family": "operator_op_anticommutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 42, pre-state version 1068. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          40,
+          41
+        ],
+        "dest_ref": 42,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v05",
+      "family": "operator_op_anticommutator",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 43, pre-state version 1085. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          41,
+          42
+        ],
+        "dest_ref": 43,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v06",
+      "family": "operator_op_anticommutator",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 44, pre-state version 1102. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          42,
+          43
+        ],
+        "dest_ref": 44,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_ANTICOMMUTATOR-v07",
+      "family": "operator_op_anticommutator",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 45, pre-state version 1119. Goal: Compute anticommutator product {A, B} of state 110 and state 111 into state 112.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 12,
+        "object_refs": [
+          43,
+          44
+        ],
+        "dest_ref": 45,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v00",
+      "family": "operator_op_scalar_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 41, pre-state version 1000. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          39,
+          40
+        ],
+        "dest_ref": 41,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v01",
+      "family": "operator_op_scalar_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 42, pre-state version 1017. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          40,
+          41
+        ],
+        "dest_ref": 42,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v02",
+      "family": "operator_op_scalar_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 43, pre-state version 1034. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          41,
+          42
+        ],
+        "dest_ref": 43,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v03",
+      "family": "operator_op_scalar_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 44, pre-state version 1051. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          42,
+          43
+        ],
+        "dest_ref": 44,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v04",
+      "family": "operator_op_scalar_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 45, pre-state version 1068. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          43,
+          44
+        ],
+        "dest_ref": 45,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v05",
+      "family": "operator_op_scalar_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 46, pre-state version 1085. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          44,
+          45
+        ],
+        "dest_ref": 46,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v06",
+      "family": "operator_op_scalar_projection",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 47, pre-state version 1102. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          45,
+          46
+        ],
+        "dest_ref": 47,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_SCALAR_PROJECTION-v07",
+      "family": "operator_op_scalar_projection",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 48, pre-state version 1119. Goal: Extract scalar projection of state 120 into state 121.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 13,
+        "object_refs": [
+          46,
+          47
+        ],
+        "dest_ref": 48,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v00",
+      "family": "operator_op_vector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 44, pre-state version 1000. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          42,
+          43
+        ],
+        "dest_ref": 44,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v01",
+      "family": "operator_op_vector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 45, pre-state version 1017. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          43,
+          44
+        ],
+        "dest_ref": 45,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v02",
+      "family": "operator_op_vector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 46, pre-state version 1034. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          44,
+          45
+        ],
+        "dest_ref": 46,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v03",
+      "family": "operator_op_vector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 47, pre-state version 1051. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          45,
+          46
+        ],
+        "dest_ref": 47,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v04",
+      "family": "operator_op_vector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 48, pre-state version 1068. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          46,
+          47
+        ],
+        "dest_ref": 48,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v05",
+      "family": "operator_op_vector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 49, pre-state version 1085. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          47,
+          48
+        ],
+        "dest_ref": 49,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v06",
+      "family": "operator_op_vector_projection",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 50, pre-state version 1102. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          48,
+          49
+        ],
+        "dest_ref": 50,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_VECTOR_PROJECTION-v07",
+      "family": "operator_op_vector_projection",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 51, pre-state version 1119. Goal: Extract vector projection of state 130 into state 131.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 14,
+        "object_refs": [
+          49,
+          50
+        ],
+        "dest_ref": 51,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v00",
+      "family": "operator_op_bivector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 47, pre-state version 1000. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          45,
+          46
+        ],
+        "dest_ref": 47,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v01",
+      "family": "operator_op_bivector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 48, pre-state version 1017. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          46,
+          47
+        ],
+        "dest_ref": 48,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v02",
+      "family": "operator_op_bivector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 49, pre-state version 1034. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          47,
+          48
+        ],
+        "dest_ref": 49,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v03",
+      "family": "operator_op_bivector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 50, pre-state version 1051. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          48,
+          49
+        ],
+        "dest_ref": 50,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v04",
+      "family": "operator_op_bivector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 51, pre-state version 1068. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          49,
+          50
+        ],
+        "dest_ref": 51,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v05",
+      "family": "operator_op_bivector_projection",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 52, pre-state version 1085. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          50,
+          51
+        ],
+        "dest_ref": 52,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v06",
+      "family": "operator_op_bivector_projection",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 53, pre-state version 1102. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          51,
+          52
+        ],
+        "dest_ref": 53,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v07",
+      "family": "operator_op_bivector_projection",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 54, pre-state version 1119. Goal: Extract bivector projection of state 140 into state 141.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 15,
+        "object_refs": [
+          52,
+          53
+        ],
+        "dest_ref": 54,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v00",
+      "family": "operator_op_norm_squared",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 50, pre-state version 1000. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          48,
+          49
+        ],
+        "dest_ref": 50,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v01",
+      "family": "operator_op_norm_squared",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 51, pre-state version 1017. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          49,
+          50
+        ],
+        "dest_ref": 51,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v02",
+      "family": "operator_op_norm_squared",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 52, pre-state version 1034. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          50,
+          51
+        ],
+        "dest_ref": 52,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v03",
+      "family": "operator_op_norm_squared",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 53, pre-state version 1051. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          51,
+          52
+        ],
+        "dest_ref": 53,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v04",
+      "family": "operator_op_norm_squared",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 54, pre-state version 1068. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          52,
+          53
+        ],
+        "dest_ref": 54,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v05",
+      "family": "operator_op_norm_squared",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 55, pre-state version 1085. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          53,
+          54
+        ],
+        "dest_ref": 55,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v06",
+      "family": "operator_op_norm_squared",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 56, pre-state version 1102. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          54,
+          55
+        ],
+        "dest_ref": 56,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_NORM_SQUARED-v07",
+      "family": "operator_op_norm_squared",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 57, pre-state version 1119. Goal: Compute norm squared of state 150 into state 151.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 16,
+        "object_refs": [
+          55,
+          56
+        ],
+        "dest_ref": 57,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v00",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 56, pre-state version 1000. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          54,
+          55
+        ],
+        "dest_ref": 56,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v01",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 57, pre-state version 1017. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          55,
+          56
+        ],
+        "dest_ref": 57,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v02",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 58, pre-state version 1034. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          56,
+          57
+        ],
+        "dest_ref": 58,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v03",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 59, pre-state version 1051. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          57,
+          58
+        ],
+        "dest_ref": 59,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v04",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 60, pre-state version 1068. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          58,
+          59
+        ],
+        "dest_ref": 60,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v05",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 61, pre-state version 1085. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          59,
+          60
+        ],
+        "dest_ref": 61,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v06",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 62, pre-state version 1102. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          60,
+          61
+        ],
+        "dest_ref": 62,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_MATRIX_TO_CL20-v07",
+      "family": "operator_op_matrix_to_cl20",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 63, pre-state version 1119. Goal: Convert 2x2 matrix at state 160 into Cl(2,0) multivector at state 161.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 18,
+        "object_refs": [
+          61,
+          62
+        ],
+        "dest_ref": 63,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v00",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 59, pre-state version 1000. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          57,
+          58
+        ],
+        "dest_ref": 59,
+        "assumed_state_version": 1000
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v01",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 60, pre-state version 1017. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          58,
+          59
+        ],
+        "dest_ref": 60,
+        "assumed_state_version": 1017
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v02",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 61, pre-state version 1034. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          59,
+          60
+        ],
+        "dest_ref": 61,
+        "assumed_state_version": 1034
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v03",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 62, pre-state version 1051. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          60,
+          61
+        ],
+        "dest_ref": 62,
+        "assumed_state_version": 1051
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v04",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 63, pre-state version 1068. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          61,
+          62
+        ],
+        "dest_ref": 63,
+        "assumed_state_version": 1068
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v05",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "train",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 64, pre-state version 1085. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          62,
+          63
+        ],
+        "dest_ref": 64,
+        "assumed_state_version": 1085
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v06",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 65, pre-state version 1102. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          63,
+          64
+        ],
+        "dest_ref": 65,
+        "assumed_state_version": 1102
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-PROP-OP_CL20_TO_MATRIX-v07",
+      "family": "operator_op_cl20_to_matrix",
+      "partition": "holdout",
+      "behavior_class": "POSITIVE_PROPOSAL",
+      "input_prompt": "Context: Dest address 66, pre-state version 1119. Goal: Convert Cl(2,0) multivector at state 170 into 2x2 matrix at state 171.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "PROPOSE",
+        "operator_id": 19,
+        "object_refs": [
+          64,
+          65
+        ],
+        "dest_ref": 66,
+        "assumed_state_version": 1119
+      },
+      "source_oracle": "fabric_p0.geo_defs.geo_opcode_t",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-STATE-v00",
+      "family": "observe_state",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request bounded state projection for memory words 10, 11, 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "STATE",
+        "target_refs": [
+          10,
+          11,
+          12
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-STATE-v01",
+      "family": "observe_state",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request bounded state projection for memory words 10, 11, 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "STATE",
+        "target_refs": [
+          10,
+          11,
+          12
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-STATE-v02",
+      "family": "observe_state",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request bounded state projection for memory words 10, 11, 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "STATE",
+        "target_refs": [
+          10,
+          11,
+          12
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-STATE-v03",
+      "family": "observe_state",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request bounded state projection for memory words 10, 11, 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "STATE",
+        "target_refs": [
+          10,
+          11,
+          12
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-STATE-v04",
+      "family": "observe_state",
+      "partition": "holdout",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request bounded state projection for memory words 10, 11, 12.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "STATE",
+        "target_refs": [
+          10,
+          11,
+          12
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-GRAPH-v00",
+      "family": "observe_graph",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe graph neighborhood around nodes 101 and 102 with radius 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "GRAPH",
+        "target_refs": [
+          101,
+          102
+        ],
+        "radius": 2
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-GRAPH-v01",
+      "family": "observe_graph",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe graph neighborhood around nodes 101 and 102 with radius 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "GRAPH",
+        "target_refs": [
+          101,
+          102
+        ],
+        "radius": 2
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-GRAPH-v02",
+      "family": "observe_graph",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe graph neighborhood around nodes 101 and 102 with radius 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "GRAPH",
+        "target_refs": [
+          101,
+          102
+        ],
+        "radius": 2
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-GRAPH-v03",
+      "family": "observe_graph",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe graph neighborhood around nodes 101 and 102 with radius 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "GRAPH",
+        "target_refs": [
+          101,
+          102
+        ],
+        "radius": 2
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-GRAPH-v04",
+      "family": "observe_graph",
+      "partition": "holdout",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe graph neighborhood around nodes 101 and 102 with radius 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "GRAPH",
+        "target_refs": [
+          101,
+          102
+        ],
+        "radius": 2
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-EVIDENCE-v00",
+      "family": "observe_evidence",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request current evidence root and certificate trail for UoW 1 and 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "EVIDENCE",
+        "target_refs": [
+          1,
+          2
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-EVIDENCE-v01",
+      "family": "observe_evidence",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request current evidence root and certificate trail for UoW 1 and 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "EVIDENCE",
+        "target_refs": [
+          1,
+          2
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-EVIDENCE-v02",
+      "family": "observe_evidence",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request current evidence root and certificate trail for UoW 1 and 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "EVIDENCE",
+        "target_refs": [
+          1,
+          2
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-EVIDENCE-v03",
+      "family": "observe_evidence",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request current evidence root and certificate trail for UoW 1 and 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "EVIDENCE",
+        "target_refs": [
+          1,
+          2
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-EVIDENCE-v04",
+      "family": "observe_evidence",
+      "partition": "holdout",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Request current evidence root and certificate trail for UoW 1 and 2.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "EVIDENCE",
+        "target_refs": [
+          1,
+          2
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-TELEMETRY-v00",
+      "family": "observe_telemetry",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe fabric telemetry and execution counters.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "TELEMETRY",
+        "target_refs": [
+          0
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-TELEMETRY-v01",
+      "family": "observe_telemetry",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe fabric telemetry and execution counters.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "TELEMETRY",
+        "target_refs": [
+          0
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-TELEMETRY-v02",
+      "family": "observe_telemetry",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe fabric telemetry and execution counters.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "TELEMETRY",
+        "target_refs": [
+          0
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-TELEMETRY-v03",
+      "family": "observe_telemetry",
+      "partition": "train",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe fabric telemetry and execution counters.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "TELEMETRY",
+        "target_refs": [
+          0
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-OBS-TELEMETRY-v04",
+      "family": "observe_telemetry",
+      "partition": "holdout",
+      "behavior_class": "OBSERVE_REQUEST",
+      "input_prompt": "Context: Runtime inspection requested. Goal: Observe fabric telemetry and execution counters.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "OBSERVE",
+        "projection_type": "TELEMETRY",
+        "target_refs": [
+          0
+        ]
+      },
+      "source_oracle": "fabric_p0.geo_graph_memory",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v00",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 0 with state 1.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 0,
+        "right_ref": 1,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v01",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 4 with state 5.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 4,
+        "right_ref": 5,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v02",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 8 with state 9.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 8,
+        "right_ref": 9,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v03",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 12 with state 13.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 12,
+        "right_ref": 13,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v04",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 16 with state 17.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 16,
+        "right_ref": 17,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v05",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 20 with state 21.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 20,
+        "right_ref": 21,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v06",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 24 with state 25.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 24,
+        "right_ref": 25,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v07",
+      "family": "compare_equivalence",
+      "partition": "train",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 28 with state 29.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 28,
+        "right_ref": 29,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v08",
+      "family": "compare_equivalence",
+      "partition": "holdout",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 32 with state 33.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 32,
+        "right_ref": 33,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CMP-v09",
+      "family": "compare_equivalence",
+      "partition": "holdout",
+      "behavior_class": "COMPARE_REQUEST",
+      "input_prompt": "Context: Verification of candidate equivalence. Compare state 36 with state 37.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "COMPARE",
+        "left_ref": 36,
+        "right_ref": 37,
+        "comparator": "EQ"
+      },
+      "source_oracle": "fabric_p0.geo_operator_unit.OP_COMPARE",
+      "expected_outcome": "COMMIT"
+    },
+    {
+      "example_id": "PDI-CLR-object_refs-v00",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Perform multivector product without specifying operand source addresses. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "object_refs"
+        ],
+        "ambiguity_reason": "Missing operand references for request: Perform multivector product without specifying operand source addresses"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-object_refs-v01",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Perform multivector product without specifying operand source addresses. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "object_refs"
+        ],
+        "ambiguity_reason": "Missing operand references for request: Perform multivector product without specifying operand source addresses"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-object_refs-v02",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Perform multivector product without specifying operand source addresses. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "object_refs"
+        ],
+        "ambiguity_reason": "Missing operand references for request: Perform multivector product without specifying operand source addresses"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-object_refs-v03",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Perform multivector product without specifying operand source addresses. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "object_refs"
+        ],
+        "ambiguity_reason": "Missing operand references for request: Perform multivector product without specifying operand source addresses"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-object_refs-v04",
+      "family": "clarify_ambiguity",
+      "partition": "holdout",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Perform multivector product without specifying operand source addresses. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "object_refs"
+        ],
+        "ambiguity_reason": "Missing operand references for request: Perform multivector product without specifying operand source addresses"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-dest_ref-v00",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Commit result into undefined destination slot. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "dest_ref"
+        ],
+        "ambiguity_reason": "Ambiguous destination address for request: Commit result into undefined destination slot"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-dest_ref-v01",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Commit result into undefined destination slot. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "dest_ref"
+        ],
+        "ambiguity_reason": "Ambiguous destination address for request: Commit result into undefined destination slot"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-dest_ref-v02",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Commit result into undefined destination slot. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "dest_ref"
+        ],
+        "ambiguity_reason": "Ambiguous destination address for request: Commit result into undefined destination slot"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-dest_ref-v03",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Commit result into undefined destination slot. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "dest_ref"
+        ],
+        "ambiguity_reason": "Ambiguous destination address for request: Commit result into undefined destination slot"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-dest_ref-v04",
+      "family": "clarify_ambiguity",
+      "partition": "holdout",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Commit result into undefined destination slot. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "dest_ref"
+        ],
+        "ambiguity_reason": "Ambiguous destination address for request: Commit result into undefined destination slot"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-assumed_state_version-v00",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Multiply multivectors under multiple conflicting timestamps. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "assumed_state_version"
+        ],
+        "ambiguity_reason": "Pre-state version conflict for request: Multiply multivectors under multiple conflicting timestamps"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-assumed_state_version-v01",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Multiply multivectors under multiple conflicting timestamps. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "assumed_state_version"
+        ],
+        "ambiguity_reason": "Pre-state version conflict for request: Multiply multivectors under multiple conflicting timestamps"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-assumed_state_version-v02",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Multiply multivectors under multiple conflicting timestamps. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "assumed_state_version"
+        ],
+        "ambiguity_reason": "Pre-state version conflict for request: Multiply multivectors under multiple conflicting timestamps"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-assumed_state_version-v03",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Multiply multivectors under multiple conflicting timestamps. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "assumed_state_version"
+        ],
+        "ambiguity_reason": "Pre-state version conflict for request: Multiply multivectors under multiple conflicting timestamps"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-assumed_state_version-v04",
+      "family": "clarify_ambiguity",
+      "partition": "holdout",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Multiply multivectors under multiple conflicting timestamps. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "assumed_state_version"
+        ],
+        "ambiguity_reason": "Pre-state version conflict for request: Multiply multivectors under multiple conflicting timestamps"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-operator_id-v00",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Apply unspecified projection on multivector at state 45. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "operator_id"
+        ],
+        "ambiguity_reason": "Ambiguous projection type for request: Apply unspecified projection on multivector at state 45"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-operator_id-v01",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Apply unspecified projection on multivector at state 45. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "operator_id"
+        ],
+        "ambiguity_reason": "Ambiguous projection type for request: Apply unspecified projection on multivector at state 45"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-operator_id-v02",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Apply unspecified projection on multivector at state 45. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "operator_id"
+        ],
+        "ambiguity_reason": "Ambiguous projection type for request: Apply unspecified projection on multivector at state 45"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-operator_id-v03",
+      "family": "clarify_ambiguity",
+      "partition": "train",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Apply unspecified projection on multivector at state 45. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "operator_id"
+        ],
+        "ambiguity_reason": "Ambiguous projection type for request: Apply unspecified projection on multivector at state 45"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-CLR-operator_id-v04",
+      "family": "clarify_ambiguity",
+      "partition": "holdout",
+      "behavior_class": "AMBIGUOUS_CLARIFY",
+      "input_prompt": "User request: Apply unspecified projection on multivector at state 45. Resolve ambiguity.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "CLARIFY",
+        "missing_slots": [
+          "operator_id"
+        ],
+        "ambiguity_reason": "Ambiguous projection type for request: Apply unspecified projection on multivector at state 45"
+      },
+      "source_oracle": "deterministic_oracle.disambiguation",
+      "expected_outcome": "CLARIFY"
+    },
+    {
+      "example_id": "PDI-ESC-0x80000000-v00",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Modify protected system root register at state 0 without capability grant. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 2147483648,
+        "reason": "Protected system register modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x80000000-v01",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Modify protected system root register at state 0 without capability grant. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 2147483648,
+        "reason": "Protected system register modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x80000000-v02",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Modify protected system root register at state 0 without capability grant. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 2147483648,
+        "reason": "Protected system register modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x80000000-v03",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Modify protected system root register at state 0 without capability grant. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 2147483648,
+        "reason": "Protected system register modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x80000000-v04",
+      "family": "authority_escalate",
+      "partition": "holdout",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Modify protected system root register at state 0 without capability grant. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 2147483648,
+        "reason": "Protected system register modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x20-v00",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Perform unbounded graph schema mutation. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 32,
+        "reason": "Global graph topology modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x20-v01",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Perform unbounded graph schema mutation. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 32,
+        "reason": "Global graph topology modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x20-v02",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Perform unbounded graph schema mutation. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 32,
+        "reason": "Global graph topology modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x20-v03",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Perform unbounded graph schema mutation. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 32,
+        "reason": "Global graph topology modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x20-v04",
+      "family": "authority_escalate",
+      "partition": "holdout",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Perform unbounded graph schema mutation. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 32,
+        "reason": "Global graph topology modification"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x40-v00",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Execute raw unverified hardware instruction. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 64,
+        "reason": "Hardware kernel privilege escalation"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x40-v01",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Execute raw unverified hardware instruction. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 64,
+        "reason": "Hardware kernel privilege escalation"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x40-v02",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Execute raw unverified hardware instruction. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 64,
+        "reason": "Hardware kernel privilege escalation"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x40-v03",
+      "family": "authority_escalate",
+      "partition": "train",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Execute raw unverified hardware instruction. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 64,
+        "reason": "Hardware kernel privilege escalation"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    },
+    {
+      "example_id": "PDI-ESC-0x40-v04",
+      "family": "authority_escalate",
+      "partition": "holdout",
+      "behavior_class": "AUTHORITY_ESCALATE",
+      "input_prompt": "User request: Execute raw unverified hardware instruction. Determine authorization.",
+      "target_output": {
+        "schema_version": 1,
+        "kind": "ESCALATE",
+        "requested_capability": 64,
+        "reason": "Hardware kernel privilege escalation"
+      },
+      "source_oracle": "fabric_p0.geo_authority_engine.check4",
+      "expected_outcome": "ESCALATE"
+    }
+  ]
+}

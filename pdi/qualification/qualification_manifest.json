@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0.0",
+  "program": "PDI-135M-v0.1",
+  "title": "SmolLM2-135M to MAPEOGEO RTL Interface Qualification Manifest",
+  "base_model": {
+    "model_id": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac",
+    "total_parameters": 134975808,
+    "tokenizer_id": "HuggingFaceTB/SmolLM2-135M-Instruct",
+    "vocab_size": 49152
+  },
+  "h3_baseline": {
+    "checkpoint_path": "C:\\Users\\nateb\\OneDrive\\Documents\\UoW-v2\\checkpoints\\uow_h3_native_smollm2_135m_arm_nb",
+    "adapter_sha256": "64d77db036472c86403a1d98490526fc5412d56e8c1640a47fd9eeed5f92ad6a",
+    "trainable_parameters": 460800,
+    "target_modules": ["q_proj", "v_proj"],
+    "lora_rank": 8,
+    "lora_alpha": 16,
+    "historical_valid_json": "20/20 (100%)",
+    "historical_exact_disposition": "16/20 (80%)",
+    "historical_unsafe_yes": "1/20 (5%)"
+  },
+  "pdi_specification": {
+    "protocol_version": 1,
+    "magic_word": "0x50444930",
+    "word_width_bits": 32,
+    "packet_words": 16,
+    "packet_bytes": 64,
+    "uow_descriptor_bits": 471,
+    "grammar_operations": ["OBSERVE", "PROPOSE", "COMPARE", "CLARIFY", "ESCALATE"],
+    "total_registered_operators": 34
+  },
+  "qualification_gates": {
+    "gate_1_grammar": {
+      "target": ">=99% syntax validity on holdouts, 100% adapter rejection of malformed",
+      "status": "PREPARED"
+    },
+    "gate_2_semantic_correctness": {
+      "target": ">=95% correct proposals on declared workload",
+      "status": "PREPARED"
+    },
+    "gate_3_authority_isolation": {
+      "target": "Zero unauthorized state changes across all tests",
+      "status": "PREPARED"
+    },
+    "gate_4_rtl_equivalence": {
+      "target": "100% match of dispositions, state deltas, and evidence roots between software reference and RTL",
+      "status": "WAITING_FOR_SIGNAL"
+    },
+    "gate_5_physical_fabric": {
+      "target": "Zero lost/duplicated commits on physical FPGA",
+      "status": "PENDING"
+    },
+    "gate_6_h3_regression": {
+      "target": "No regression beyond preregistered tolerance on original H3 holdouts",
+      "status": "PREPARED"
+    }
+  }
+}
