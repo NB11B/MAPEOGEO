@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO v2 Deterministic Replay Verification",
+  "canonical_version": "v2.0.0-rc1-candidate",
+  "run_1_sha256": "0af7ae9ce06513ff2d6dd87e61a9554406d22eb807ea498e25cae28caeac7cfa",
+  "run_2_sha256": "0af7ae9ce06513ff2d6dd87e61a9554406d22eb807ea498e25cae28caeac7cfa",
+  "is_deterministic": true,
+  "test_suite": "tests/reproduction/",
+  "canonicalized_summary": "============================= test session starts =============================\nplatform win32 -- Python 3.13.11, pytest-9.0.2, pluggy-1.6.0\nrootdir: C:\\Users\\nateb\\Documents\\MAPEOGEOv2\nconfigfile: pyproject.toml\nplugins: anyio-4.12.1, asyncio-1.3.0\nasyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function\ncollected 20 items\n\ntests\\reproduction\\test_adversarial_suite.py .......                     [ 35%]\ntests\\reproduction\\test_clean_room_mathematics.py .                      [ 40%]\ntests\\reproduction\\test_closed_loop_software.py ...                      [ 55%]\ntests\\reproduction\\test_cross_domain_isolation.py ......                 [ 85%]\ntests\\reproduction\\test_latent_generator_physics.py ...                  [100%]\n\n============================= 20 passed in",
+  "verdict": "DETERMINISTIC_REPLAY_VERIFIED"
+}

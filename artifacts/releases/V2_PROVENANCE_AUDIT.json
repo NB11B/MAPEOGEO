@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO v2 Provenance Reconciliation Audit",
+  "canonical_version": "v2.0.0-rc1-candidate",
+  "audit_status": "PASS",
+  "total_components": 9,
+  "disposition_summary": {
+    "native_v2_modules": [
+      "src/mapeogeo/__init__.py",
+      "src/mapeogeo/domains/__init__.py"
+    ],
+    "ported_with_provenance_components": 9
+  },
+  "components": [
+    {
+      "component_id": "domain-adapter-mathematics",
+      "target_module": "mapeogeo.domains.mathematics",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "CLEAN_ROOM_REPRODUCED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 6,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "domain-adapter-physics",
+      "target_module": "mapeogeo.domains.physics",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "LATENT_GENERATOR_QUALIFIED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 6,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "domain-adapter-software",
+      "target_module": "mapeogeo.domains.software",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "experiment/cross-domain-uow-software",
+      "source_commit": "4cd63f7",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "CROSS_DOMAIN_QUALIFIED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 5,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "grammar-subsystem",
+      "target_module": "mapeogeo.grammar",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "experiment/residual-coordinate-factorization",
+      "source_commit": "74e51bd",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "INVARIANT_CERTIFIED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 3,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "graph-subsystem",
+      "target_module": "mapeogeo.graph",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "agent/e32-typed-parallel-decision-graph-spec",
+      "source_commit": "803507079bcb7713e658c6c1c3dc23b8f688f45a",
+      "port_strategy": "REFACTOR_CANONICAL",
+      "historical_qualification": "AGENT_SPEC_QUALIFIED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 7,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "proof-subsystem",
+      "target_module": "mapeogeo.proof",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "audit/final-proof-replay-verification-v3",
+      "source_commit": "74e51bd",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "PROOF_REPLAY_HARDENED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 7,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "psmsl-subsystem",
+      "target_module": "mapeogeo.psmsl",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "psmsl-operator-algebra-v1",
+      "source_commit": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "port_strategy": "REFACTOR_CANONICAL",
+      "historical_qualification": "ALGEBRA_VERIFIED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 6,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "routing-subsystem",
+      "target_module": "mapeogeo.routing",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "remotes/origin/work-router-contract-composition-v0.9",
+      "source_commit": "74e51bd",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "ROUTING_CONTRACT_QUALIFIED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 8,
+      "disposition": "ported-with-provenance"
+    },
+    {
+      "component_id": "uow-kernel",
+      "target_module": "mapeogeo.kernel",
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "port_strategy": "EXTRACT_CANONICAL",
+      "historical_qualification": "CLEAN_ROOM_REPRODUCED",
+      "v2_qualification": "QUALIFIED_CANONICAL_V2",
+      "target_files_count": 12,
+      "disposition": "ported-with-provenance"
+    }
+  ],
+  "failures": [],
+  "orphan_code_detected": []
+}

@@ -2,6 +2,7 @@
   "component_id": "grammar-subsystem",
   "target_module": "mapeogeo.grammar",
   "target_files": [
+    "src/mapeogeo/grammar/__init__.py",
     "src/mapeogeo/grammar/coordinates.py",
     "src/mapeogeo/grammar/work_grammar.py"
   ],
@@ -15,7 +16,11 @@
   "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
   "qualification_gate_requirements": [
     "Verification of 6D coordinate algebra invariance",
-    "Validation of witness certificate transformations"
+    "Validation of witness certificate transformations",
+    "Zero semantic drift tolerance"
+  ],
+  "verified_tests": [
+    "tests/unit/test_grammar.py"
   ],
   "notes": "Grammar and transformation algebra"
 }

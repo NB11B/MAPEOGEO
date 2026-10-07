@@ -1,7 +1,7 @@
 {
   "$schema": "../../docs/provenance/components/template.json",
   "manifest_version": "2.0.0",
-  "generated_at": "2026-10-07T13:20:00-04:00",
+  "generated_at": "2026-10-07T15:15:00-04:00",
   "upstream_repository": "NB11B/MAPEOGEO",
   "upstream_frozen_commit": "74e51bd",
   "canonical_repository": "NB11B/MAPEOGEOv2",
@@ -14,7 +14,7 @@
   },
   "qualification_policy": {
     "principle": "source_qualification_does_not_equal_v2_qualification",
-    "initial_status": "PENDING_V2_QUALIFICATION",
+    "initial_policy_rule": "source_qualification_requires_v2_revalidation",
     "required_stages": [
       "STAGE_1_STATIC_ANALYSIS",
       "STAGE_2_ARCHITECTURAL_IMPORT_ISOLATION",
@@ -23,44 +23,6 @@
     ]
   },
   "components": [
-    {
-      "component_id": "uow-kernel",
-      "target_module": "mapeogeo.kernel",
-      "target_files": [
-        "src/mapeogeo/kernel/state.py",
-        "src/mapeogeo/kernel/deficiency.py",
-        "src/mapeogeo/kernel/machinery.py",
-        "src/mapeogeo/kernel/planning.py",
-        "src/mapeogeo/kernel/utility.py",
-        "src/mapeogeo/kernel/certification.py",
-        "src/mapeogeo/kernel/transition.py",
-        "src/mapeogeo/kernel/obstruction.py",
-        "src/mapeogeo/kernel/reach.py",
-        "src/mapeogeo/kernel/spec.py",
-        "src/mapeogeo/kernel/serialization.py"
-      ],
-      "source_repository": "NB11B/MAPEOGEO",
-      "source_branch": "release/autonomous-mathematics-kernel-v1",
-      "source_commit": "74e51bd",
-      "source_files": [
-        "src/kernel/state.py",
-        "src/kernel/deficiency.py",
-        "src/kernel/machinery.py",
-        "src/kernel/planning.py",
-        "src/kernel/utility.py",
-        "src/kernel/certification.py",
-        "src/kernel/transition.py",
-        "src/kernel/obstruction.py"
-      ],
-      "source_qualification_status": "CLEAN_ROOM_REPRODUCED",
-      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
-      "qualification_gate_requirements": [
-        "Strict domain-neutrality AST check (no imports of mapeogeo.domains)",
-        "Zero historical generation tokens in source or docstrings",
-        "Full reproduction test on canonical test runner"
-      ],
-      "notes": "Domain-neutral 9-tuple engine K = (M_6, Omega, rho, G, D, P, U, C, A)"
-    },
     {
       "component_id": "domain-adapter-mathematics",
       "target_module": "mapeogeo.domains.mathematics",
@@ -85,6 +47,10 @@
         "Preserves refusal on round 5",
         "Anti-leakage invariant H(K_before) = H(K_after) verified",
         "Direction of authority: MathematicsAdapter -> ProofEngine preserved"
+      ],
+      "verified_tests": [
+        "tests/unit/test_mathematics.py",
+        "tests/reproduction/test_clean_room_mathematics.py"
       ],
       "notes": "Binds mathematical problem graphs and proof obligations to domain-neutral UoW kernel"
     },
@@ -114,6 +80,10 @@
         "Anti-leakage invariant H(K_before) = H(K_after) and H(D_math_before) = H(D_math_after) verified",
         "Closed-loop physical acquisition campaign with Delta D = 0 deficiency conservation"
       ],
+      "verified_tests": [
+        "tests/unit/test_physics.py",
+        "tests/reproduction/test_latent_generator_physics.py"
+      ],
       "notes": "Binds physical inverse problems, sensor observations, and empirical certification to domain-neutral UoW kernel"
     },
     {
@@ -142,12 +112,17 @@
         "Closed-loop 6-round acquisition campaign with Delta D = 0 deficiency conservation",
         "Cross-domain non-contamination: Sigma_grammar(X) == Sigma_grammar(Y) =/=> X == Y"
       ],
+      "verified_tests": [
+        "tests/unit/test_software.py",
+        "tests/reproduction/test_closed_loop_software.py"
+      ],
       "notes": "Binds software requirements, architecture graphs, and interface contracts to UoW kernel"
     },
     {
       "component_id": "grammar-subsystem",
       "target_module": "mapeogeo.grammar",
       "target_files": [
+        "src/mapeogeo/grammar/__init__.py",
         "src/mapeogeo/grammar/coordinates.py",
         "src/mapeogeo/grammar/work_grammar.py"
       ],
@@ -161,7 +136,11 @@
       "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
       "qualification_gate_requirements": [
         "Verification of 6D coordinate algebra invariance",
-        "Validation of witness certificate transformations"
+        "Validation of witness certificate transformations",
+        "Zero semantic drift tolerance"
+      ],
+      "verified_tests": [
+        "tests/unit/test_grammar.py"
       ],
       "notes": "Grammar and transformation algebra"
     },
@@ -169,6 +148,7 @@
       "component_id": "graph-subsystem",
       "target_module": "mapeogeo.graph",
       "target_files": [
+        "src/mapeogeo/graph/__init__.py",
         "src/mapeogeo/graph/node.py",
         "src/mapeogeo/graph/edge.py",
         "src/mapeogeo/graph/relation.py",
@@ -183,40 +163,35 @@
         "docs/superpowers/specs/e32/ARCHITECTURE.md",
         "docs/superpowers/specs/e32/CONTRACTS.md"
       ],
+      "sources": [
+        {
+          "repository": "NB11B/MAPEOGEO",
+          "branch": "agent/e32-typed-parallel-decision-graph-spec",
+          "commit": "803507079bcb7713e658c6c1c3dc23b8f688f45a",
+          "role": "primary-dag-and-transaction-spec"
+        },
+        {
+          "repository": "NB11B/MAPEOGEO",
+          "branch": "agent/joint-layer-v0-21",
+          "commit": "21dd869c214ad48c3eb0ce4e8784a253a75055f0",
+          "role": "relation-hierarchy-and-fail-closed-contracts"
+        }
+      ],
+      "port_strategy": "REFACTOR_CANONICAL",
       "source_qualification_status": "AGENT_SPEC_QUALIFIED",
-      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
       "qualification_gate_requirements": [
         "Typed DAG topological sort and cycle-detection invariant tests",
         "Fail-closed relation hierarchy enforcement",
         "Transaction proposal-validation-certificate-commit lifecycle",
         "Deterministic byte-for-byte serialization replay"
       ],
+      "verified_tests": [
+        "tests/unit/test_graph.py",
+        "tests/regression/test_graph_regression.py",
+        "tests/unit/test_serialization.py"
+      ],
       "notes": "Domain-neutral graph substrate with transaction lifecycle and fail-closed relation contracts."
-    },
-    {
-      "component_id": "routing-subsystem",
-      "target_module": "mapeogeo.routing",
-      "target_files": [
-        "src/mapeogeo/routing/contracts.py",
-        "src/mapeogeo/routing/route.py",
-        "src/mapeogeo/routing/registry.py",
-        "src/mapeogeo/routing/router.py",
-        "src/mapeogeo/routing/goal.py",
-        "src/mapeogeo/routing/solver.py",
-        "src/mapeogeo/routing/serialization.py"
-      ],
-      "source_repository": "NB11B/MAPEOGEO",
-      "source_branch": "remotes/origin/work-router-contract-composition-v0.9",
-      "source_commit": "74e51bd",
-      "source_files": [
-        "src/routing/work_router.py"
-      ],
-      "source_qualification_status": "ROUTING_CONTRACT_QUALIFIED",
-      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
-      "qualification_gate_requirements": [
-        "Work router contract composition and derived route invariants"
-      ],
-      "notes": "Work dispatch and contract routing"
     },
     {
       "component_id": "proof-subsystem",
@@ -254,6 +229,7 @@
       "component_id": "psmsl-subsystem",
       "target_module": "mapeogeo.psmsl",
       "target_files": [
+        "src/mapeogeo/psmsl/__init__.py",
         "src/mapeogeo/psmsl/algebra.py",
         "src/mapeogeo/psmsl/operator.py",
         "src/mapeogeo/psmsl/projection.py",
@@ -267,8 +243,29 @@
         "mapeogeo/psmsl_operator_algebra_v1.py",
         "mapeogeo/psmsl_operator_basis_v1.py"
       ],
+      "sources": [
+        {
+          "repository": "NB11B/MAPEOGEO",
+          "branch": "psmsl-operator-algebra-v1",
+          "commit": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+          "role": "primary-operator-algebra"
+        },
+        {
+          "repository": "NB11B/MAPEOGEO",
+          "branch": "latent-generator-qualification-v1",
+          "commit": "3491b948e9329d6f401b7853287231573e95cef8",
+          "role": "state-projection-and-linear-inverse"
+        },
+        {
+          "repository": "NB11B/MAPEOGEO",
+          "branch": "latent-generator-observability-v2",
+          "commit": "2e12009413488f34c8d7e411f3239d240ce19ade",
+          "role": "trajectory-observability-and-unknown-state-preservation"
+        }
+      ],
+      "port_strategy": "REFACTOR_CANONICAL",
       "source_qualification_status": "ALGEBRA_VERIFIED",
-      "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
       "qualification_gate_requirements": [
         "Operator algebra associativity and composition verification",
         "Exact linear inverse and null space basis extraction",
@@ -276,7 +273,87 @@
         "Zero physical domain claim leakage",
         "Deterministic byte-for-byte serialization replay"
       ],
+      "verified_tests": [
+        "tests/unit/test_psmsl.py",
+        "tests/regression/test_psmsl_regression.py",
+        "tests/unit/test_serialization.py"
+      ],
       "notes": "Domain-neutral linear operator algebra, state projection, and observable signatures."
+    },
+    {
+      "component_id": "routing-subsystem",
+      "target_module": "mapeogeo.routing",
+      "target_files": [
+        "src/mapeogeo/routing/__init__.py",
+        "src/mapeogeo/routing/contracts.py",
+        "src/mapeogeo/routing/route.py",
+        "src/mapeogeo/routing/registry.py",
+        "src/mapeogeo/routing/router.py",
+        "src/mapeogeo/routing/goal.py",
+        "src/mapeogeo/routing/solver.py",
+        "src/mapeogeo/routing/serialization.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "remotes/origin/work-router-contract-composition-v0.9",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/routing/work_router.py"
+      ],
+      "source_qualification_status": "ROUTING_CONTRACT_QUALIFIED",
+      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
+      "qualification_gate_requirements": [
+        "Work router contract composition and derived route invariants",
+        "Fail-closed authority enforcement",
+        "Terminal solver states"
+      ],
+      "verified_tests": [
+        "tests/unit/test_routing.py",
+        "tests/regression/test_routing_regression.py"
+      ],
+      "notes": "Work dispatch and contract routing"
+    },
+    {
+      "component_id": "uow-kernel",
+      "target_module": "mapeogeo.kernel",
+      "target_files": [
+        "src/mapeogeo/kernel/__init__.py",
+        "src/mapeogeo/kernel/state.py",
+        "src/mapeogeo/kernel/deficiency.py",
+        "src/mapeogeo/kernel/machinery.py",
+        "src/mapeogeo/kernel/planning.py",
+        "src/mapeogeo/kernel/utility.py",
+        "src/mapeogeo/kernel/certification.py",
+        "src/mapeogeo/kernel/transition.py",
+        "src/mapeogeo/kernel/obstruction.py",
+        "src/mapeogeo/kernel/reach.py",
+        "src/mapeogeo/kernel/spec.py",
+        "src/mapeogeo/kernel/serialization.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/kernel/state.py",
+        "src/kernel/deficiency.py",
+        "src/kernel/machinery.py",
+        "src/kernel/planning.py",
+        "src/kernel/utility.py",
+        "src/kernel/certification.py",
+        "src/kernel/transition.py",
+        "src/kernel/obstruction.py"
+      ],
+      "source_qualification_status": "CLEAN_ROOM_REPRODUCED",
+      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
+      "qualification_gate_requirements": [
+        "Strict domain-neutrality AST check (no imports of mapeogeo.domains)",
+        "Zero historical generation tokens in source or docstrings",
+        "Full reproduction test on canonical test runner"
+      ],
+      "verified_tests": [
+        "tests/unit/test_kernel.py",
+        "tests/unit/test_serialization.py"
+      ],
+      "notes": "Domain-neutral 9-tuple engine K = (M_6, Omega, rho, G, D, P, U, C, A)"
     }
   ]
 }

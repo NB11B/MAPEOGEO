@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO v2 Canonical Component Hashes (Freeze Point)",
+  "canonical_version": "v2.0.0-rc1-candidate",
+  "qualification_wave": "Wave 10",
+  "frozen_at_commit": "aaf6fbd",
+  "freeze_timestamp": "2026-10-07T15:13:30-04:00",
+  "freeze_policy": "From this point through RC qualification, modifications to these directories require Wave 10 to restart.",
+  "components": {
+    "kernel": {
+      "directory": "src/mapeogeo/kernel",
+      "git_tree_sha1": "9a0d1a2160b371f1b4a3d93db776f7c250aa0680",
+      "sha256_content": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55"
+    },
+    "grammar": {
+      "directory": "src/mapeogeo/grammar",
+      "git_tree_sha1": "8e19f50232b62f0361cd174b38b443b3f43123b3",
+      "sha256_content": "d71686c06a29564cd38d77f64ebc7fa6af89a65a10b14ea265432c10fed73f9d"
+    },
+    "graph": {
+      "directory": "src/mapeogeo/graph",
+      "git_tree_sha1": "550f0e3fc51b724d7739339829b6bab29c66167a",
+      "sha256_content": "5e34ec36c5e5f4ec48ebd3c9794a609b3ed01dc4a6dadd7e660381a6a998411a"
+    },
+    "psmsl": {
+      "directory": "src/mapeogeo/psmsl",
+      "git_tree_sha1": "8f13a3d69586297cb309597ce311ab043cfb0e6b",
+      "sha256_content": "d3826038d06bd71cedab53a9131d81e13f7839b6f08ab4dbcd55ca3d37ad63b1"
+    },
+    "routing": {
+      "directory": "src/mapeogeo/routing",
+      "git_tree_sha1": "55321a06978010f2d6ff403925b83f6b64abff7f",
+      "sha256_content": "11dbab97ccb0106b95773c27d0f008a5cfc67513f2df663a111f4b86bffb1f47"
+    },
+    "proof": {
+      "directory": "src/mapeogeo/proof",
+      "git_tree_sha1": "b61313305c32013af598d8f3bbce3954592eb518",
+      "sha256_content": "d417f476711545cdbc58e97a12ddfee05cfe7f8653d7621841c99a0ceb6add12"
+    },
+    "domains/mathematics": {
+      "directory": "src/mapeogeo/domains/mathematics",
+      "git_tree_sha1": "4860daf94ef2987d86c5e08082030ec58337330f",
+      "sha256_content": "301a8186abfbb1dc610e07ea57abf09b1bf41dc28ca134f817462d9e736e75c4"
+    },
+    "domains/physics": {
+      "directory": "src/mapeogeo/domains/physics",
+      "git_tree_sha1": "4e865fc78e232f7e8e24383db0b1a7dc41a69d0f",
+      "sha256_content": "4ee90f330535b5acad0560af7764c2a33fa03146d6e797352447fd9b3b1588c2"
+    },
+    "domains/software": {
+      "directory": "src/mapeogeo/domains/software",
+      "git_tree_sha1": "b323fc198f8f4b9069b169b6be78df819af333ab",
+      "sha256_content": "353911b85cc5b628601fd83eedd35199fac3793cf6d5872c797e61e77855047d"
+    }
+  }
+}

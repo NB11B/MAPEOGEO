@@ -2,6 +2,7 @@
   "component_id": "uow-kernel",
   "target_module": "mapeogeo.kernel",
   "target_files": [
+    "src/mapeogeo/kernel/__init__.py",
     "src/mapeogeo/kernel/state.py",
     "src/mapeogeo/kernel/deficiency.py",
     "src/mapeogeo/kernel/machinery.py",
@@ -33,6 +34,10 @@
     "Strict domain-neutrality AST check (no imports of mapeogeo.domains)",
     "Zero historical generation tokens in source or docstrings",
     "Full reproduction test on canonical test runner"
+  ],
+  "verified_tests": [
+    "tests/unit/test_kernel.py",
+    "tests/unit/test_serialization.py"
   ],
   "notes": "Domain-neutral 9-tuple engine K = (M_6, Omega, rho, G, D, P, U, C, A)"
 }

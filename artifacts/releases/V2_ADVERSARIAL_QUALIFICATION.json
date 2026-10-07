@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO v2 Fail-Closed Adversarial Qualification Report",
+  "canonical_version": "v2.0.0-rc1-candidate",
+  "governing_invariant": "N_false_acceptance == 0",
+  "test_file": "tests/reproduction/test_adversarial_suite.py",
+  "layers_evaluated": [
+    {
+      "layer": "graph",
+      "controls_tested": [
+        "dangling_edge_rejection",
+        "cyclic_dependency_rejection",
+        "uncertified_equivalence_rejection"
+      ],
+      "false_acceptances": 0,
+      "status": "PASS"
+    },
+    {
+      "layer": "kernel",
+      "controls_tested": [
+        "rational_refusal_on_subthreshold_gain",
+        "deficiency_conservation_failure_on_silent_work_loss"
+      ],
+      "false_acceptances": 0,
+      "status": "PASS"
+    },
+    {
+      "layer": "routing",
+      "controls_tested": [
+        "budget_resource_exceedance_rejection",
+        "unauthorized_execution_rejection"
+      ],
+      "false_acceptances": 0,
+      "status": "PASS"
+    },
+    {
+      "layer": "proof",
+      "controls_tested": [
+        "false_boolean_robdd_replay_rejection",
+        "false_farkas_implication_rejection",
+        "generation_audit_vs_admission_audit_separation"
+      ],
+      "false_acceptances": 0,
+      "status": "PASS"
+    },
+    {
+      "layer": "mathematics",
+      "controls_tested": [
+        "unproved_obligation_fail_closed_rejection",
+        "semantic_drift_in_factoring_rejection"
+      ],
+      "false_acceptances": 0,
+      "status": "PASS"
+    },
+    {
+      "layer": "physics",
+      "controls_tested": [
+        "dimension_inconsistency_gate_d_rejection",
+        "energy_drift_gate_c_rejection",
+        "zero_observations_gate_m_non_promotion"
+      ],
+      "false_acceptances": 0,
+      "status": "PASS"
+    },
+    {
+      "layer": "software",
+      "controls_tested": [
+        "unit_test_failure_gate_u_rejection",
+        "latency_sla_breach_gate_l_rejection",
+        "race_condition_gate_f_rejection"
+      ],
+      "false_acceptances": 0,
+      "status": "PASS"
+    }
+  ],
+  "total_false_acceptances": 0,
+  "verdict": "FAIL_CLOSED_ADVERSARIAL_INVARIANTS_VERIFIED"
+}

@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO v2 Tri-Domain Release Qualification Report",
+  "canonical_version": "v2.0.0-rc1-candidate",
+  "qualification_status": "PASS",
+  "governing_invariant": "H(K_math) == H(K_physics) == H(K_software) == H0(K)",
+  "baseline_shared_hashes": {
+    "kernel": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
+    "grammar": "d71686c06a29564cd38d77f64ebc7fa6af89a65a10b14ea265432c10fed73f9d",
+    "graph": "5e34ec36c5e5f4ec48ebd3c9794a609b3ed01dc4a6dadd7e660381a6a998411a",
+    "psmsl": "d3826038d06bd71cedab53a9131d81e13f7839b6f08ab4dbcd55ca3d37ad63b1",
+    "routing": "11dbab97ccb0106b95773c27d0f008a5cfc67513f2df663a111f4b86bffb1f47",
+    "proof": "d417f476711545cdbc58e97a12ddfee05cfe7f8653d7621841c99a0ceb6add12"
+  },
+  "sequential_domain_evaluations": [
+    {
+      "domain": "mathematics",
+      "test_suite": "tests/reproduction/test_clean_room_mathematics.py",
+      "tests_passed": 1,
+      "tests_failed": 0,
+      "scientific_payload": "80-problem clean-room autonomous acquisition trajectory",
+      "acquisition_result": "Exact deficiency reduction to zero with terminal refusal on Round 5",
+      "post_execution_kernel_hash": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
+      "hash_invariant_preserved": true
+    },
+    {
+      "domain": "physics",
+      "test_suite": "tests/reproduction/test_latent_generator_physics.py",
+      "tests_passed": 3,
+      "tests_failed": 0,
+      "scientific_payload": "Latent generator inversion, observability rank, conservation falsifiers, 5-round acquisition",
+      "acquisition_result": "Exact recovery at rank 3; ambiguity refusal at rank < 3; Delta D = 0 verified",
+      "post_execution_kernel_hash": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
+      "hash_invariant_preserved": true
+    },
+    {
+      "domain": "software",
+      "test_suite": "tests/reproduction/test_closed_loop_software.py",
+      "tests_passed": 3,
+      "tests_failed": 0,
+      "scientific_payload": "N=50 requirements corpus, 5-gate certification, 6-round acquisition campaign",
+      "acquisition_result": "Exact trajectory 1086.91 -> 0.00 -> REFUSE; Delta D = 0 verified",
+      "post_execution_kernel_hash": "e6dd3ab4b9f5963394364a499619c6456bfe59be2216aaf4a394b9ab45c47b55",
+      "hash_invariant_preserved": true
+    }
+  ],
+  "invariants_verified": {
+    "domain_neutrality_preserved": true,
+    "shared_substrate_immutability": true,
+    "zero_domain_leakage": true,
+    "zero_deficiency_drift": true
+  }
+}

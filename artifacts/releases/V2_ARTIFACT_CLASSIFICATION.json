@@ -1,0 +1,254 @@
+{
+  "": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO v2 Migration Artifact Classification Matrix",
+  "canonical_version": "v2.0.0-rc1-candidate",
+  "categories": {
+    "RELEASE_BOUND": "Core release manifests and qualification proofs required for v2 release certification",
+    "REPRODUCTION_REQUIRED": "Scientific reproduction manifests and empirical qualification benchmarks",
+    "DERIVED_REGENERABLE": "Formal specifications and feature matrices regenerable from code/tests",
+    "ARCHIVAL_ONLY": "Historical lineage comparisons and archaeological manifests pointing back to MAPEOGEO v1"
+  },
+  "artifacts": [
+    {
+      "path": "artifacts/migration/w3/GRAPH_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w3/PSMSL_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w3/WAVE_3_QUALIFICATION_REPORT.md",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w3/WAVE_3_SEMANTIC_EQUIVALENCE.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w3/WAVE_3_SOURCE_MANIFEST.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w4/WAVE_4_GRAMMAR_SPECIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w4/WAVE_4_KERNEL_SPECIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w4/WAVE_4_QUALIFICATION_REPORT.md",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w4/WAVE_4_SEMANTIC_EQUIVALENCE.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w4/WAVE_4_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w5/WAVE_5_QUALIFICATION_REPORT.md",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w5/WAVE_5_ROUTING_SPECIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w5/WAVE_5_SEMANTIC_EQUIVALENCE.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w5/WAVE_5_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w5/WORK_ROUTER_FEATURE_MATRIX.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w6/GFYPROOF_AND_PROOF_ENGINE_FEATURE_MATRIX.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w6/WAVE_6_PROOF_SPECIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w6/WAVE_6_QUALIFICATION_REPORT.md",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w6/WAVE_6_SEMANTIC_EQUIVALENCE.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w6/WAVE_6_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w7/MATHEMATICS_FEATURE_MATRIX.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w7/WAVE_7_ADAPTER_SPECIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w7/WAVE_7_CLEAN_ROOM_REPRODUCTION.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w7/WAVE_7_GRAMMAR_FACTORING_AUDIT.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w7/WAVE_7_QUALIFICATION_REPORT.md",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w7/WAVE_7_SEMANTIC_EQUIVALENCE.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w7/WAVE_7_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w8/PHYSICS_FEATURE_MATRIX.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w8/WAVE_8_ADAPTER_SPECIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w8/WAVE_8_GRAMMAR_FACTORING_AUDIT.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w8/WAVE_8_LATENT_GENERATOR_REPRODUCTION.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w8/WAVE_8_PHYSICAL_CERTIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w8/WAVE_8_QUALIFICATION_REPORT.md",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w8/WAVE_8_SEMANTIC_EQUIVALENCE.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w8/WAVE_8_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/migration/w9/SOFTWARE_FEATURE_MATRIX.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_ADAPTER_SPECIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_CLOSED_LOOP_REPRODUCTION.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_CROSS_DOMAIN_COLLISION_AUDIT.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_GRAMMAR_FACTORING_AUDIT.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_QUALIFICATION_REPORT.md",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_SEMANTIC_EQUIVALENCE.json",
+      "classification": "REPRODUCTION_REQUIRED",
+      "retention_policy": "Retained as scientific custody proof of reproduction fidelity"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_SOFTWARE_CERTIFICATION.json",
+      "classification": "DERIVED_REGENERABLE",
+      "retention_policy": "Retained as formal architectural documentation; regenerable"
+    },
+    {
+      "path": "artifacts/migration/w9/WAVE_9_SOURCE_COMPARISON.json",
+      "classification": "ARCHIVAL_ONLY",
+      "retention_policy": "Retained as historical lineage comparison back to MAPEOGEO v1"
+    },
+    {
+      "path": "artifacts/releases/V2_CANONICAL_COMPONENT_HASHES.json",
+      "classification": "RELEASE_BOUND",
+      "retention_policy": "Mandatory inclusion in v2 release distribution"
+    },
+    {
+      "path": "artifacts/releases/V2_PROVENANCE_AUDIT.json",
+      "classification": "RELEASE_BOUND",
+      "retention_policy": "Mandatory inclusion in v2 release distribution"
+    },
+    {
+      "path": "artifacts/releases/V2_PROVENANCE_MANIFEST.json",
+      "classification": "RELEASE_BOUND",
+      "retention_policy": "Mandatory inclusion in v2 release distribution"
+    }
+  ],
+  "summary": {
+    "ARCHIVAL_ONLY": 9,
+    "DERIVED_REGENERABLE": 24,
+    "REPRODUCTION_REQUIRED": 11,
+    "RELEASE_BOUND": 3
+  }
+}

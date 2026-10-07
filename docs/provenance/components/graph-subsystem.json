@@ -2,6 +2,7 @@
   "component_id": "graph-subsystem",
   "target_module": "mapeogeo.graph",
   "target_files": [
+    "src/mapeogeo/graph/__init__.py",
     "src/mapeogeo/graph/node.py",
     "src/mapeogeo/graph/edge.py",
     "src/mapeogeo/graph/relation.py",
@@ -32,12 +33,17 @@
   ],
   "port_strategy": "REFACTOR_CANONICAL",
   "source_qualification_status": "AGENT_SPEC_QUALIFIED",
-  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
   "qualification_gate_requirements": [
     "Typed DAG topological sort and cycle-detection invariant tests",
     "Fail-closed relation hierarchy enforcement",
     "Transaction proposal-validation-certificate-commit lifecycle",
     "Deterministic byte-for-byte serialization replay"
+  ],
+  "verified_tests": [
+    "tests/unit/test_graph.py",
+    "tests/regression/test_graph_regression.py",
+    "tests/unit/test_serialization.py"
   ],
   "notes": "Domain-neutral graph substrate with transaction lifecycle and fail-closed relation contracts."
 }

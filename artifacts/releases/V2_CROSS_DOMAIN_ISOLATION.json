@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO v2 Cross-Domain Isolation Matrix",
+  "canonical_version": "v2.0.0-rc1-candidate",
+  "governing_invariant": "Sigma_grammar(X) == Sigma_grammar(Y) =/=> X == Y",
+  "test_file": "tests/reproduction/test_cross_domain_isolation.py",
+  "matrix": {
+    "dimensions": [
+      "mathematics",
+      "physics",
+      "software"
+    ],
+    "cells": [
+      {
+        "source_domain": "mathematics",
+        "target_boundary": "physics",
+        "attempted_operation": "certify(Theorem)",
+        "result": "REJECTED_FAIL_CLOSED",
+        "exception_or_reason": "AttributeError/TypeError (PhysicalCertificationBoundary requires PhysicalHypothesis with observations)",
+        "test_status": "PASS"
+      },
+      {
+        "source_domain": "mathematics",
+        "target_boundary": "software",
+        "attempted_operation": "certify(Theorem)",
+        "result": "REJECTED_FAIL_CLOSED",
+        "exception_or_reason": "AttributeError/TypeError (SoftwareCertificationBoundary requires SoftwareMachinery with software evidence)",
+        "test_status": "PASS"
+      },
+      {
+        "source_domain": "physics",
+        "target_boundary": "mathematics",
+        "attempted_operation": "certify(PhysicalHypothesis)",
+        "result": "REJECTED_FAIL_CLOSED",
+        "exception_or_reason": "Unsupported mathematical result type (MathematicsAdapter requires MathematicalProofObligation or MachineryCandidate)",
+        "test_status": "PASS"
+      },
+      {
+        "source_domain": "physics",
+        "target_boundary": "software",
+        "attempted_operation": "certify(PhysicalHypothesis)",
+        "result": "REJECTED_FAIL_CLOSED",
+        "exception_or_reason": "AttributeError/TypeError (SoftwareCertificationBoundary requires SoftwareMachinery with software evidence)",
+        "test_status": "PASS"
+      },
+      {
+        "source_domain": "software",
+        "target_boundary": "mathematics",
+        "attempted_operation": "certify(SoftwareCertificate)",
+        "result": "REJECTED_FAIL_CLOSED",
+        "exception_or_reason": "Unsupported mathematical result type (MathematicsAdapter requires MathematicalProofObligation or MachineryCandidate)",
+        "test_status": "PASS"
+      },
+      {
+        "source_domain": "software",
+        "target_boundary": "physics",
+        "attempted_operation": "certify(SoftwareCertificate)",
+        "result": "REJECTED_FAIL_CLOSED",
+        "exception_or_reason": "AttributeError/TypeError (PhysicalCertificationBoundary requires PhysicalHypothesis with observations)",
+        "test_status": "PASS"
+      }
+    ]
+  },
+  "verdict": "COMPLETE_CROSS_DOMAIN_ISOLATION_VERIFIED"
+}
