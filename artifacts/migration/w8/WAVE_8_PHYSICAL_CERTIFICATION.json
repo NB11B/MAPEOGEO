@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 8 5-Gate Physical Certification Boundary Report",
+  "boundary_class": "mapeogeo.domains.physics.certification.PhysicalCertificationBoundary",
+  "gates": [
+    {
+      "gate_id": "GATE_D",
+      "name": "Dimensional Consistency",
+      "rule": "Verify dimensional homogeneity across all model terms",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Dimension-violating hypothesis rejected at Gate D"
+    },
+    {
+      "gate_id": "GATE_C",
+      "name": "Applicable Conservation Constraints",
+      "rule": "Evaluate energy, momentum, flux drift <= tolerance",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Energy conservation drift > 1e-4 rejected at Gate C"
+    },
+    {
+      "gate_id": "GATE_M",
+      "name": "Measurement Agreement",
+      "rule": "Evaluate empirical residual sqrt(sum(pred - y)^2 / N) <= max_tolerance",
+      "on_failure": "FALSIFIED or THEORETICALLY_ADMISSIBLE (if N=0)",
+      "test_verification": "Verified: Zero observation hypothesis fails Gate M, marked THEORETICALLY_ADMISSIBLE, not MEASUREMENT_SUPPORTED"
+    },
+    {
+      "gate_id": "GATE_F",
+      "name": "Falsifier Survival",
+      "rule": "Reject overfitting (free_params > N_meas) and unwarranted source identification (null_space > 0 and is_source_identified)",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Overfitting model rejected; ambiguous source identification rejected fail-closed"
+    },
+    {
+      "gate_id": "GATE_R",
+      "name": "Repeatability / Replay Invariance",
+      "rule": "Evaluate prediction consistency across independent repeat observation datasets",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Deterministic certificate issued when all 5 gates pass"
+    }
+  ],
+  "governing_principles": {
+    "mathematical_vs_physical": "A mathematically coherent model without empirical observations is THEORETICALLY_ADMISSIBLE at best, never MEASUREMENT_SUPPORTED",
+    "fail_closed_epistemics": "Every gate is evaluated in strict order; failure halts promotion immediately and issues falsification record with cryptographic timestamp"
+  }
+}

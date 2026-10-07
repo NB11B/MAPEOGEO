@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 8 Semantic Equivalence and Behavioral Fidelity Report",
+  "historical_baseline": "NB11B/MAPEOGEO @ release/autonomous-mathematics-kernel-v1 & psmsl branches (commit 74e51bd)",
+  "canonical_target": "NB11B/MAPEOGEOv2 (branch integration/w8-physics-reconstruction)",
+  "domain": "physics",
+  "verifications": [
+    {
+      "aspect": "Latent Inversion Substrate",
+      "historical": "Scattered linear algebra inversion and projection functions",
+      "canonical_v2": "Unified consumption of mapeogeo.psmsl.projection.InverseProjection",
+      "status": "ARCHITECTURALLY_SUPERIOR"
+    },
+    {
+      "aspect": "Non-Identifiability and Equivalence Classes",
+      "historical": "Implicit ambiguity handling in experimental scripts",
+      "canonical_v2": "Strict fail-closed enforcement: null_space > 0 strictly enforces is_source_identified = False and AMBIGUOUS verdict",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "5-Gate Physical Certification Boundary",
+      "historical": "Ad-hoc checks for physical consistency",
+      "canonical_v2": "Formalized 5-Gate Boundary C_phys = { D, C, M, F, R } with explicit EpistemicStatus chain",
+      "status": "ARCHITECTURALLY_SUPERIOR"
+    },
+    {
+      "aspect": "Distinction of Physical Establishment",
+      "historical": "Mathematical validity sometimes confused with empirical establishment",
+      "canonical_v2": "Zero-observation hypotheses fail Gate M and remain THEORETICALLY_ADMISSIBLE, never promoted to MEASUREMENT_SUPPORTED",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Deficiency Conservation Law",
+      "historical": "Delta D = 0 verified in mathematics",
+      "canonical_v2": "Delta D = 0 on every physical transition verified fail-closed across 80 requirements",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Rational Refusal Stopping Rule",
+      "historical": "Refusal on low marginal utility",
+      "canonical_v2": "Round 5 refusal when top prospective efficiency J = 0.0909 < 1.5",
+      "status": "EXACT_REPRODUCED"
+    }
+  ],
+  "regressions": 0,
+  "verdict": "PASS"
+}

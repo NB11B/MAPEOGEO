@@ -89,6 +89,34 @@
       "notes": "Binds mathematical problem graphs and proof obligations to domain-neutral UoW kernel"
     },
     {
+      "component_id": "domain-adapter-physics",
+      "target_module": "mapeogeo.domains.physics",
+      "target_files": [
+        "src/mapeogeo/domains/physics/__init__.py",
+        "src/mapeogeo/domains/physics/adapter.py",
+        "src/mapeogeo/domains/physics/ontology.py",
+        "src/mapeogeo/domains/physics/latent_inference.py",
+        "src/mapeogeo/domains/physics/certification.py",
+        "src/mapeogeo/domains/physics/grammar_mapping.py"
+      ],
+      "source_repository": "NB11B/MAPEOGEO",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "source_files": [
+        "src/domains/physics_adapter.py"
+      ],
+      "source_qualification_status": "LATENT_GENERATOR_QUALIFIED",
+      "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
+      "qualification_gate_requirements": [
+        "Preservation of empirical vs mathematical establishment distinction",
+        "Strict non-identifiability enforcement: null space > 0 implies AMBIGUOUS",
+        "5-Gate Physical Certification Boundary C_phys = { D, C, M, F, R }",
+        "Anti-leakage invariant H(K_before) = H(K_after) and H(D_math_before) = H(D_math_after) verified",
+        "Closed-loop physical acquisition campaign with Delta D = 0 deficiency conservation"
+      ],
+      "notes": "Binds physical inverse problems, sensor observations, and empirical certification to domain-neutral UoW kernel"
+    },
+    {
       "component_id": "domain-adapter-software",
       "target_module": "mapeogeo.domains.software",
       "target_files": [

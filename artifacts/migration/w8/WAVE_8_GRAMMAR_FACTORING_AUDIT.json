@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 8 Literal Grammar Factoring and Drift Audit for Physics",
+  "literal_coordinates": [
+    "Delta",
+    "I",
+    "W",
+    "sigma",
+    "Pi",
+    "Gamma"
+  ],
+  "composition_operator": "circ",
+  "dimension_invariant": {
+    "dimension_d": 6,
+    "delta_d": 0,
+    "strictly_enforced": true
+  },
+  "physical_coordinate_mappings": {
+    "Delta": "Physical differences, gradient fields, deviations from baseline state",
+    "I": "Conservation laws (Energy, Momentum, Charge, Flux invariants)",
+    "W": "Empirical witness certificates (calibrated sensors, repeatable observation certificates)",
+    "sigma": "Observable signatures (EM waveforms, acoustic pressure, flux channels)",
+    "Pi": "Sensor projections and observation operators P: X -> Y",
+    "Gamma": "Dynamical transition operators, field propagators, and time-evolution"
+  },
+  "audited_categories": [
+    {
+      "classification": "EXACT_FACTOR",
+      "definition": "Exact 6D coordinate decomposition using registered physical witnesses",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "WITNESS_EXTENSION",
+      "definition": "Clean extension of registered physical witness catalog without dimension change (Delta d = 0)",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "COMPOSITION",
+      "definition": "Composite physical operations over base coordinates",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "SEMANTIC_DRIFT",
+      "definition": "Unauthorized semantic drift or heuristic physical token",
+      "test_status": "VERIFIED_REJECTED"
+    },
+    {
+      "classification": "NEW_COORDINATE_REQUIRED",
+      "definition": "Illegal attempt to break the 6D coordinate algebra beyond d=6",
+      "test_status": "VERIFIED_REJECTED"
+    }
+  ],
+  "sample_audited_witnesses": [
+    {
+      "witness_id": "wit:em:01",
+      "symbol": "WIT_EM_POYNTING",
+      "role": "Maxwell Poynting Flux integration witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "wit:acoustics:01",
+      "symbol": "WIT_ACOUSTIC_MODES",
+      "role": "Acoustic modal projection witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "wit:hydro:01",
+      "symbol": "WIT_HYDRO_VORTICITY",
+      "role": "Navier-Stokes vorticity transport witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "wit:gravity:01",
+      "symbol": "WIT_GRAVITY_ORBITS",
+      "role": "Orbital resonance and Poisson potential witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    }
+  ]
+}

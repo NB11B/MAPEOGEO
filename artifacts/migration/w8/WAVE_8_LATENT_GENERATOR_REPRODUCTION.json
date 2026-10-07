@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 8 Latent Generator Reproduction Manifest",
+  "canonical_version": "v2.0.0-w8",
+  "engine_evaluated": "UoW Kernel K_v2 + PhysicsAdapter D_physics",
+  "substrate_reused": "mapeogeo.psmsl.projection.InverseProjection",
+  "principal_reproductions": [
+    {
+      "test_name": "Latent Inversion & Observational Equivalence",
+      "observable_measurements": 3,
+      "latent_dimension": 3,
+      "sequential_stages": [
+        {
+          "stage": 1,
+          "measurements": 1,
+          "rank": 1,
+          "null_space_dim": 2,
+          "is_ambiguous": true,
+          "is_fully_identified": false,
+          "observational_equivalence_verified": "Sigma(X_true) == Sigma(X_alt) = 3.0 under P_1"
+        },
+        {
+          "stage": 2,
+          "measurements": 2,
+          "rank": 2,
+          "null_space_dim": 1,
+          "is_ambiguous": true,
+          "is_fully_identified": false,
+          "observational_equivalence_verified": "Sigma(X_true) == Sigma(X_alt) = (3.0, 7.0) under [P_1; P_2]"
+        },
+        {
+          "stage": 3,
+          "measurements": 3,
+          "rank": 3,
+          "null_space_dim": 0,
+          "is_ambiguous": false,
+          "is_fully_identified": true,
+          "observational_equivalence_verified": "Exact reconstruction X_hat == (2.0, 3.0, 7.0), residual <= 1e-9"
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "test_name": "Conservation Falsifiers Strict Rejection",
+      "falsifiers_tested": 5,
+      "falsifiers_rejected": 5,
+      "breakdown": [
+        {"falsifier": "BAD_DIMENSION", "rejected_at_gate": "GATE_D", "status": "REJECTED"},
+        {"falsifier": "ENERGY_VIOLATION", "rejected_at_gate": "GATE_C", "status": "REJECTED"},
+        {"falsifier": "OVERPARAMETERIZATION", "rejected_at_gate": "GATE_F", "status": "REJECTED"},
+        {"falsifier": "UNWARRANTED_SOURCE_ID", "rejected_at_gate": "GATE_F_AND_CONSTRUCTOR", "status": "REJECTED"},
+        {"falsifier": "ZERO_OBSERVATIONS", "rejected_from": "MEASUREMENT_SUPPORTED", "status": "THEORETICALLY_ADMISSIBLE_ONLY"}
+      ],
+      "status": "PASS"
+    },
+    {
+      "test_name": "Closed-Loop Physical Acquisition Campaign",
+      "total_requirements": 80,
+      "initial_deficiency": 1360.0,
+      "final_deficiency": 0.0,
+      "rounds": [
+        {"round": 1, "sector": "Electrodynamics", "candidate": "PHYS_CANDIDATE_EM", "j": 33.8462, "d_res": 440.0, "decision": "TRANSITION"},
+        {"round": 2, "sector": "Acoustics & Waves", "candidate": "PHYS_CANDIDATE_ACOUSTICS", "j": 30.0000, "d_res": 360.0, "decision": "TRANSITION"},
+        {"round": 3, "sector": "Hydrodynamics", "candidate": "PHYS_CANDIDATE_HYDRO", "j": 27.8261, "d_res": 320.0, "decision": "TRANSITION"},
+        {"round": 4, "sector": "Gravitation & Orbits", "candidate": "PHYS_CANDIDATE_GRAVITY", "j": 24.0000, "d_res": 240.0, "decision": "TRANSITION"},
+        {"round": 5, "sector": "Random Perturbation Control", "candidate": "PHYS_CANDIDATE_NOISE_CONTROL", "j": 0.0909, "d_res": 0.0, "decision": "REFUSE"}
+      ],
+      "refusal_reason": "Top prospective J = 0.0909 < tau_J = 1.5",
+      "deficiency_conservation_delta_d": 0.0,
+      "status": "PASS"
+    }
+  ],
+  "invariants_verified": {
+    "deficiency_conservation": true,
+    "marginal_utility_decay": true,
+    "stopping_rule_refusal": true,
+    "non_identifiability_preservation": true,
+    "kernel_immutability": true
+  },
+  "overall_verdict": "CLEAN_ROOM_REPRODUCED"
+}

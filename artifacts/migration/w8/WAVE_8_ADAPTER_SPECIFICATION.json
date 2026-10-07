@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 8 Physics Adapter Specification",
+  "adapter_class": "mapeogeo.domains.physics.adapter.PhysicsAdapter",
+  "contract_methods": {
+    "required_work": {
+      "input": "PhysicalObjective | Mapping[str, Any]",
+      "output": "WorkContract",
+      "semantics": "Translates physical inverse problem into domain-neutral WorkContract with tolerance"
+    },
+    "candidate_machinery": {
+      "input": "(DeficiencyDistribution | DeficiencyRecord | Mapping[str, Any], KnowledgeState)",
+      "output": "list[MachineryNode]",
+      "semantics": "Proposes atomic candidate machinery nodes to eliminate detected empirical deficiencies"
+    },
+    "infer_latent_generator": {
+      "input": "(Sequence[MeasuredObservation], state_dimension=None)",
+      "output": "LatentInferenceResult",
+      "semantics": "Performs exact inverse state projection and kernel null-space basis identification via PSMSL"
+    },
+    "factor_grammar": {
+      "input": "(Any, witness_id=None, witness_symbol=None, witness_role=None)",
+      "output": "FactoringAuditRecord",
+      "semantics": "Factors physical work into literal 6D coordinates and audits for compliance/drift"
+    },
+    "certify": {
+      "input": "(result: PhysicalHypothesis | MachineryCandidate, observations=(), constraints=(), repeat_observations=None, current_state=None)",
+      "output": "PhysicalCertificate | CertificationResult",
+      "semantics": "Evaluates physical hypotheses through 5-gate physical boundary C_phys = { D, C, M, F, R } or machinery candidates through 4-gate kernel boundary"
+    },
+    "measure_ability": {
+      "input": "(PhysicalObjective | Mapping[str, Any], KnowledgeState)",
+      "output": "float",
+      "semantics": "Measures solve capability for a physical objective given current certified state"
+    }
+  },
+  "epistemic_hierarchy": [
+    "OBSERVED",
+    "INFERRED",
+    "MODEL_CONSISTENT",
+    "FALSIFICATION_SURVIVED",
+    "MEASUREMENT_SUPPORTED"
+  ],
+  "invariants": {
+    "distinction_of_establishment": "mathematical_admissibility != physical_establishment",
+    "non_identifiability": "effect_observed != source_identified (null_space > 0 implies AMBIGUOUS)",
+    "kernel_immutability": "H(K_before) = H(K_after) across all shared kernel and substrate subsystems",
+    "math_immutability": "H(D_math_before) = H(D_math_after) across mathematics domain subsystem",
+    "zero_domain_leakage": "No imports of mapeogeo.domains in kernel, grammar, graph, psmsl, routing, or proof"
+  }
+}

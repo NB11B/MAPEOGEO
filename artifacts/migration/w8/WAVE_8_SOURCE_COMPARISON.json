@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 8 Historical Source Comparison",
+  "upstream_repository": "NB11B/MAPEOGEO",
+  "upstream_commit": "74e51bd",
+  "canonical_repository": "NB11B/MAPEOGEOv2",
+  "comparisons": [
+    {
+      "source_file": "mapeogeo/domain_adapter.py (Physics section)",
+      "target_file": "src/mapeogeo/domains/physics/adapter.py",
+      "status": "REFACTORED_CANONICAL",
+      "improvements": [
+        "Pure adapter implementing thin domain translation layer",
+        "Kernel neutral: delegates planning, utility, certification, and state transition to domain-neutral kernel",
+        "Empirical certification boundary separated from mathematical theorem proving",
+        "Reuses PSMSL InverseProjection substrate without duplicating linear algebra",
+        "Zero foundation or graph mutations inside adapter"
+      ]
+    },
+    {
+      "source_file": "mapeogeo/latent_generator.py & mapeogeo/observability.py",
+      "target_file": "src/mapeogeo/domains/physics/latent_inference.py",
+      "status": "REFACTORED_CANONICAL",
+      "improvements": [
+        "Consolidated latent inversion delegating directly to PSMSL StateProjection and InverseProjection",
+        "Strict non-identifiability enforcement: Sigma(X1) == Sigma(X2) under projection P marks AMBIGUOUS",
+        "Exact basis recovery for ker(P) and minimum-norm particular solution",
+        "Discrete Kalman trajectory observability construction with dynamic rank tracking"
+      ]
+    },
+    {
+      "source_file": "mapeogeo/physics_certification.py",
+      "target_file": "src/mapeogeo/domains/physics/certification.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Explicit 5-Gate physical certification pipeline C_phys = { D, C, M, F, R }",
+        "Gate D rejects dimensional inconsistencies",
+        "Gate C evaluates energy/momentum/flux conservation with strict tolerance",
+        "Gate M rejects residual deviations beyond sensor error thresholds",
+        "Gate F eliminates over-fitting degrees of freedom and unearned source identity claims",
+        "Gate R ensures deterministic repeatability and invariance under replay observations"
+      ]
+    },
+    {
+      "source_file": "mapeogeo/grammar_factorer.py (Physics rules)",
+      "target_file": "src/mapeogeo/domains/physics/grammar_mapping.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Audits physical statements against literal 6D coordinates (Delta, I, W, sigma, Pi, Gamma)",
+        "Maps conservation constraints cleanly to coordinate I",
+        "Registers empirical physical witnesses to coordinate W preserving Delta d = 0",
+        "Maps sensors and projections to Pi and observables to sigma",
+        "Rejects heuristic semantic drift fail-closed"
+      ]
+    },
+    {
+      "source_file": "tests/reproduction/test_physics_reproduction.py",
+      "target_file": "tests/reproduction/test_latent_generator_physics.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Full reproduction suite validating latent generator inversion, observability rank, and ambiguity refusal",
+        "Strict rejection of 5 distinct conservation and epistemological falsifiers",
+        "Closed-loop 5-round physical acquisition campaign: EM -> Acoustics -> Hydro -> Gravity -> REFUSE",
+        "Exact deficiency conservation Delta D = 0 verified on every transition"
+      ]
+    }
+  ]
+}

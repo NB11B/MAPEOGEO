@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 8 Physics Domain Adapter Feature Matrix",
+  "domain": "physics",
+  "governing_rules": [
+    "Physics adapts to the kernel; the kernel does not adapt to physics",
+    "Mathematical admissibility != physical establishment",
+    "Effect observed != source identified",
+    "H(K_before) = H(K_after) and H(D_math_before) = H(D_math_after)"
+  ],
+  "components": [
+    {
+      "component": "ontology",
+      "module": "mapeogeo.domains.physics.ontology",
+      "features": [
+        "PhysicalObjective with target observables, precision tolerance, parameter space, and conservation constraints",
+        "MeasuredObservation with sensor metadata, projection matrices P, observable values, and measurement noise variance",
+        "PhysicalHypothesis with model parameters, latent coordinates, null-space dimension, and empirical status",
+        "PhysicalConstraint with conservation laws (Energy, Momentum, Flux, Symplectic Invariance)",
+        "EpistemicStatus tracking 5-level hierarchy: OBSERVED -> INFERRED -> MODEL_CONSISTENT -> FALSIFICATION_SURVIVED -> MEASUREMENT_SUPPORTED",
+        "Strict prohibition of source identification when null-space dimension > 0"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "latent_inference",
+      "module": "mapeogeo.domains.physics.latent_inference",
+      "features": [
+        "LatentGeneratorInverter consuming representation-neutral PSMSL InverseProjection substrate",
+        "Exact recovery of minimum-norm generator representative X_hat",
+        "Exact null-space basis identification spanning ker(P)",
+        "Observational equivalence class verification: Sigma(X1) == Sigma(X2) under projection P",
+        "Strict non-identifiability enforcement: null space > 0 implies AMBIGUOUS and source_identified = False",
+        "Discrete Kalman observability matrix construction and rank tracking across rotating projections"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "certification",
+      "module": "mapeogeo.domains.physics.certification",
+      "features": [
+        "PhysicalCertificationBoundary implementing the 5-Gate physical admissibility chain C_phys = { D, C, M, F, R }",
+        "Gate D (Dimensional Consistency): rejects dimensional unit mismatches",
+        "Gate C (Conservation Constraints): rejects non-conservative physical models fail-closed",
+        "Gate M (Measurement Agreement): evaluates residual error against empirical observation within tolerance",
+        "Gate F (Falsifier Survival): rejects over-fitting degrees of freedom and unwarranted source identification",
+        "Gate R (Repeatability / Replay): verifies invariance across independent sensor batches",
+        "Zero empirical observations restricted to THEORETICALLY_ADMISSIBLE, never promoted to MEASUREMENT_SUPPORTED"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "grammar_mapping",
+      "module": "mapeogeo.domains.physics.grammar_mapping",
+      "features": [
+        "PhysicalGrammarFactorer enforcing literal frozen 6D coordinates (Delta, I, W, sigma, Pi, Gamma) + circ",
+        "Conservation constraints mapped to coordinate I",
+        "Empirical witness certificates registered to coordinate W with Delta d = 0",
+        "Sensor projection operators mapped to coordinate Pi",
+        "Observable signatures mapped to coordinate sigma",
+        "Strict detection and fail-closed rejection of semantic drift and ungrounded heuristic tokens"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "adapter",
+      "module": "mapeogeo.domains.physics.adapter",
+      "features": [
+        "PhysicsAdapter implementing canonical domain adapter contract",
+        "required_work(objective) -> WorkContract",
+        "candidate_machinery(deficiency, state) -> list[MachineryNode]",
+        "infer_latent_generator(observations) -> LatentInferenceResult",
+        "factor_grammar(work) -> FactoringAuditRecord",
+        "certify(result, observations, constraints) -> PhysicalCertificate | CertificationResult",
+        "measure_ability(objective, state) -> float"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    }
+  ]
+}
