@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 Semantic Equivalence and Behavioral Fidelity Report",
+  "historical_baseline": "NB11B/MAPEOGEO @ experiment/cross-domain-uow-software (commit 4cd63f7)",
+  "canonical_target": "NB11B/MAPEOGEOv2 (branch integration/w9-software-reconstruction)",
+  "domain": "software",
+  "verifications": [
+    {
+      "aspect": "Closed-Loop Acquisition Trajectory",
+      "historical": "1086.91 -> 766.15 -> 509.11 -> 303.91 -> 158.76 -> 0.00 across 5 rounds",
+      "canonical_v2": "Exact trajectory matched across 5 rounds: 1086.91 -> 766.15 -> 509.11 -> 303.91 -> 158.76 -> 0.00",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Machinery Selection Sequence",
+      "historical": "Raft -> HMAC -> Event Bus -> Rate Limiter -> Circuit Breaker -> Refusal",
+      "canonical_v2": "Exact sequence reproduced: Raft -> HMAC -> Event Bus -> Rate Limiter -> Circuit Breaker -> Refuse",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Rational Refusal Stopping Rule",
+      "historical": "Refusal on round 6 when candidate prospective efficiency J = 0.091 < tau_J = 1.5",
+      "canonical_v2": "Refusal on round 6 when candidate prospective efficiency J = 0.0909 < tau_J = 1.5",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "5-Gate Software Certification Boundary",
+      "historical": "Ad-hoc checks in experimental script",
+      "canonical_v2": "Formalized 5-Gate Boundary C_sw = { T, U, S, L, F } with explicit EpistemicSoftwareStatus progression",
+      "status": "ARCHITECTURALLY_SUPERIOR"
+    },
+    {
+      "aspect": "Code Existence Fallacy Safeguard",
+      "historical": "Informal guideline",
+      "canonical_v2": "Strict fail-closed check: source code without evidence is UNVERIFIED and fails certification",
+      "status": "ARCHITECTURALLY_SUPERIOR"
+    },
+    {
+      "aspect": "Deficiency Conservation Law",
+      "historical": "Delta D = 0 verified on transitions",
+      "canonical_v2": "Delta D = 0 on every software transition verified fail-closed across 50 requirements",
+      "status": "EXACT_REPRODUCED"
+    },
+    {
+      "aspect": "Concrete Dependency Decoupling",
+      "historical": "Coupled to experimental prototype scripts",
+      "canonical_v2": "Abstract domain representation with fixtures separated in tests/fixtures/software/",
+      "status": "ARCHITECTURALLY_SUPERIOR"
+    }
+  ],
+  "regressions": 0,
+  "verdict": "PASS"
+}

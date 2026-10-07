@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 Historical Source Comparison",
+  "upstream_repository": "NB11B/MAPEOGEO",
+  "upstream_branch": "experiment/cross-domain-uow-software",
+  "upstream_commit": "4cd63f7",
+  "canonical_repository": "NB11B/MAPEOGEOv2",
+  "comparisons": [
+    {
+      "source_file": "src/domains/software_adapter.py (SoftwareAdapter)",
+      "target_file": "src/mapeogeo/domains/software/adapter.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Pure adapter implementing thin domain translation layer conforming to canonical contract",
+        "Domain-neutral: delegates planning, utility, certification, and state transition to domain-neutral kernel",
+        "Overloaded certify() supporting both domain SoftwareCertificate and kernel CertificationResult",
+        "Zero graph mutations or foundation leaks inside adapter"
+      ]
+    },
+    {
+      "source_file": "src/domains/software_adapter.py (SoftwareCertificationBoundary)",
+      "target_file": "src/mapeogeo/domains/software/certification.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Formalized 5-Gate Software Certification Boundary C_sw = { T, U, S, L, F }",
+        "Gate T validates type annotation completeness and interface signatures",
+        "Gate U executes test suite assertion ratio and behavioral coverage",
+        "Gate S validates static analyzer error counts and execution timeouts",
+        "Gate L validates latency SLA compliance with strict tolerance",
+        "Gate F validates concurrency invariants, deadlock freedom, and fault recovery",
+        "Fail-closed epistemic chain: SOURCE_SPECIFIED -> STATICALLY_TYPED -> BEHAVIORALLY_TESTED -> CONTRACT_VERIFIED -> CERTIFIED_CAPABILITY",
+        "Empty evidence check enforcing source code exists != software capability certified"
+      ]
+    },
+    {
+      "source_file": "src/domains/software_adapter.py (SoftwareGrammarFactorer)",
+      "target_file": "src/mapeogeo/domains/software/grammar_mapping.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Audits software components against literal 6D coordinates (Delta, I, W, sigma, Pi, Gamma)",
+        "Maps defects and patches to Delta, invariants and contracts to I",
+        "Registers test receipts and verification proofs to W preserving Delta d = 0",
+        "Maps functional endpoints to sigma, boundary interfaces to Pi, and transitions to Gamma",
+        "Rejects heuristic semantic drift and dimension inflation fail-closed"
+      ]
+    },
+    {
+      "source_file": "src/domains/software_adapter.py (Ontology & Data structures)",
+      "target_file": "src/mapeogeo/domains/software/ontology.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Strongly typed dataclasses with immutable hashable properties",
+        "SoftwareRequirement, SoftwareObjective, SoftwareMachinery, SoftwareEvidence, SoftwareCertificate",
+        "Cryptographic SHA-256 certificate sealing over gates and timestamps",
+        "Explicit EpistemicSoftwareStatus and SoftwareCertificationVerdict enumerations"
+      ]
+    },
+    {
+      "source_file": "tests/test_software_uow.py",
+      "target_file": "tests/reproduction/test_closed_loop_software.py & tests/unit/test_software.py",
+      "status": "QUALIFIED_CANONICAL_V2",
+      "improvements": [
+        "Decoupled test fixtures into tests/fixtures/software/",
+        "N=50 benchmark corpus across 5 systems domains (consensus, crypto, eventing, traffic, fault_tolerance)",
+        "Zero concrete external implementation dependencies in production package",
+        "Closed-loop 6-round acquisition campaign reproducing historical trajectory 1086.91 -> 0.00 -> REFUSE",
+        "Strict verification of deficiency conservation Delta D = 0 on every transition",
+        "Rigorous verification of 6 adversarial software falsifiers",
+        "Cross-domain contamination test confirming non-interchangeability across Math, Physics, and Software"
+      ]
+    }
+  ]
+}

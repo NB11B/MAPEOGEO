@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 Literal Grammar Factoring and Drift Audit for Software",
+  "literal_coordinates": [
+    "Delta",
+    "I",
+    "W",
+    "sigma",
+    "Pi",
+    "Gamma"
+  ],
+  "composition_operator": "circ",
+  "dimension_invariant": {
+    "dimension_d": 6,
+    "delta_d": 0,
+    "strictly_enforced": true
+  },
+  "software_coordinate_mappings": {
+    "Delta": "Defects, patches, bug fixes, behavioral discrepancies from specification",
+    "I": "Invariants, interface type contracts, preconditions, and safety properties",
+    "W": "Software verification witnesses, test receipts, and audit trail proofs",
+    "sigma": "Functional capabilities, RPC endpoints, and public API interfaces",
+    "Pi": "Boundary interfaces, data serialization projections, and abstraction barriers",
+    "Gamma": "Runtime execution transitions, control flow graphs, and state-machine transitions"
+  },
+  "audited_categories": [
+    {
+      "classification": "EXACT_FACTOR",
+      "definition": "Exact 6D coordinate decomposition using registered software witnesses",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "WITNESS_EXTENSION",
+      "definition": "Clean extension of registered software witness catalog without dimension change (Delta d = 0)",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "COMPOSITION",
+      "definition": "Composite software operations over base coordinates",
+      "test_status": "VERIFIED"
+    },
+    {
+      "classification": "SEMANTIC_DRIFT",
+      "definition": "Unauthorized semantic drift or heuristic software token",
+      "test_status": "VERIFIED_REJECTED"
+    },
+    {
+      "classification": "NEW_COORDINATE_REQUIRED",
+      "definition": "Illegal attempt to break the 6D coordinate algebra beyond d=6",
+      "test_status": "VERIFIED_REJECTED"
+    }
+  ],
+  "sample_audited_witnesses": [
+    {
+      "witness_id": "wit:sw:consensus:01",
+      "symbol": "WIT_RAFT_CONSENSUS",
+      "role": "Distributed consensus state machine log replication witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "wit:sw:crypto:01",
+      "symbol": "WIT_HMAC_AUTH",
+      "role": "Cryptographic authentication and tamper-detection witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "wit:sw:eventing:01",
+      "symbol": "WIT_EVENT_BUS",
+      "role": "Asynchronous publish-subscribe message routing witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "wit:sw:traffic:01",
+      "symbol": "WIT_RATE_LIMITER",
+      "role": "Token-bucket request throttling and rate limiting witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    },
+    {
+      "witness_id": "wit:sw:fault:01",
+      "symbol": "WIT_CIRCUIT_BREAKER",
+      "role": "Cascading failure protection and state isolation witness",
+      "classification": "WITNESS_EXTENSION",
+      "compliant": true
+    }
+  ]
+}

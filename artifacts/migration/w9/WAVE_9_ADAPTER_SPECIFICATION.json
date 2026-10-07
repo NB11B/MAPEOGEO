@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 Software Adapter Specification",
+  "adapter_class": "mapeogeo.domains.software.adapter.SoftwareAdapter",
+  "contract_methods": {
+    "required_work": {
+      "input": "SoftwareRequirement | Mapping[str, Any]",
+      "output": "WorkContract",
+      "semantics": "Translates software engineering requirements into domain-neutral WorkContract with tolerance"
+    },
+    "candidate_machinery": {
+      "input": "(DeficiencyDistribution | DeficiencyRecord | Mapping[str, Any], KnowledgeState)",
+      "output": "list[MachineryNode]",
+      "semantics": "Proposes atomic candidate machinery nodes to eliminate detected software deficiencies"
+    },
+    "factor_grammar": {
+      "input": "(Any, witness_id=None, witness_symbol=None, witness_role=None)",
+      "output": "FactoringAuditRecord",
+      "semantics": "Factors software work into literal 6D coordinates and audits for compliance/drift"
+    },
+    "certify": {
+      "input": "(result: SoftwareMachinery | MachineryCandidate, evidence=None, requirements=(), current_state=None)",
+      "output": "SoftwareCertificate | CertificationResult",
+      "semantics": "Evaluates software components through 5-gate software boundary C_sw = { T, U, S, L, F } or machinery candidates through 4-gate kernel boundary"
+    },
+    "measure_ability": {
+      "input": "(SoftwareRequirement | Mapping[str, Any], KnowledgeState)",
+      "output": "float",
+      "semantics": "Measures solve capability for a software requirement given current certified state"
+    }
+  },
+  "epistemic_hierarchy": [
+    "SOURCE_SPECIFIED",
+    "STATICALLY_TYPED",
+    "BEHAVIORALLY_TESTED",
+    "CONTRACT_VERIFIED",
+    "CERTIFIED_CAPABILITY"
+  ],
+  "invariants": {
+    "code_existence_fallacy": "source_code_exists != software_capability_certified",
+    "cross_domain_non_contamination": "Sigma_grammar(X) == Sigma_grammar(Y) =/=> X == Y",
+    "kernel_immutability": "H(K_before) = H(K_after) across all shared kernel and substrate subsystems",
+    "math_immutability": "H(D_math_before) = H(D_math_after) across mathematics domain subsystem",
+    "physics_immutability": "H(D_phys_before) = H(D_phys_after) across physics domain subsystem",
+    "zero_domain_leakage": "No imports of mapeogeo.domains in kernel, grammar, graph, psmsl, routing, or proof"
+  }
+}

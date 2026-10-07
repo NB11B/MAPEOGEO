@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 Closed-Loop Software Acquisition Reproduction Manifest",
+  "canonical_version": "v2.0.0-w9",
+  "engine_evaluated": "UoW Kernel K_v2 + SoftwareAdapter D_software",
+  "reproduction_summary": {
+    "corpus": "tests/fixtures/software/benchmark_corpus.py",
+    "total_requirements": 50,
+    "initial_deficiency": 1086.91,
+    "final_deficiency": 0.0,
+    "total_rounds": 6,
+    "deficiency_conservation_delta_d": 0.0
+  },
+  "trajectory": [
+    {
+      "round": 1,
+      "sector": "distributed_consensus",
+      "selected_candidate": "SW_CANDIDATE_RAFT",
+      "cost": 10.0,
+      "unlocked_weight": 320.76,
+      "prospective_j": 32.076,
+      "residual_deficiency": 766.15,
+      "decision": "TRANSITION"
+    },
+    {
+      "round": 2,
+      "sector": "cryptography_auth",
+      "selected_candidate": "SW_CANDIDATE_HMAC",
+      "cost": 9.0,
+      "unlocked_weight": 257.04,
+      "prospective_j": 28.560,
+      "residual_deficiency": 509.11,
+      "decision": "TRANSITION"
+    },
+    {
+      "round": 3,
+      "sector": "async_eventing",
+      "selected_candidate": "SW_CANDIDATE_EVENT_BUS",
+      "cost": 8.33,
+      "unlocked_weight": 205.20,
+      "prospective_j": 24.624,
+      "residual_deficiency": 303.91,
+      "decision": "TRANSITION"
+    },
+    {
+      "round": 4,
+      "sector": "traffic_management",
+      "selected_candidate": "SW_CANDIDATE_RATE_LIMITER",
+      "cost": 7.0,
+      "unlocked_weight": 145.15,
+      "prospective_j": 20.736,
+      "residual_deficiency": 158.76,
+      "decision": "TRANSITION"
+    },
+    {
+      "round": 5,
+      "sector": "fault_tolerance",
+      "selected_candidate": "SW_CANDIDATE_CIRCUIT_BREAKER",
+      "cost": 9.0,
+      "unlocked_weight": 158.76,
+      "prospective_j": 17.640,
+      "residual_deficiency": 0.00,
+      "decision": "TRANSITION"
+    },
+    {
+      "round": 6,
+      "sector": "redundant_control",
+      "selected_candidate": "SW_CANDIDATE_RANDOM_CONTROL",
+      "cost": 11.0,
+      "unlocked_weight": 1.0,
+      "prospective_j": 0.091,
+      "residual_deficiency": 0.00,
+      "decision": "REFUSE",
+      "refusal_reason": "Top prospective J = 0.091 < tau_J = 1.5"
+    }
+  ],
+  "invariants_verified": {
+    "deficiency_conservation": true,
+    "marginal_utility_decay": true,
+    "successor_replanning": true,
+    "stopping_rule_refusal": true,
+    "kernel_immutability": true
+  },
+  "overall_verdict": "CLEAN_ROOM_REPRODUCED"
+}

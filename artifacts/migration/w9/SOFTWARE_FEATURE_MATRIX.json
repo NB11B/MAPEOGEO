@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 Software Domain Adapter Feature Matrix",
+  "domain": "software",
+  "governing_rules": [
+    "Software adapts to the kernel; the kernel does not adapt to software",
+    "Source code exists != software capability certified",
+    "Sigma_grammar(X) == Sigma_grammar(Y) =/=> X == Y",
+    "H(K_before) = H(K_after) and H(D_math_before) = H(D_math_after) and H(D_phys_before) = H(D_phys_after)"
+  ],
+  "components": [
+    {
+      "component": "ontology",
+      "module": "mapeogeo.domains.software.ontology",
+      "features": [
+        "SoftwareRequirement with functional signatures and verification contracts",
+        "SoftwareObjective for multi-requirement systems engineering goals",
+        "SoftwareMachinery with abstract components, costs, signatures, and evidence",
+        "SoftwareEvidence capturing results across { T, U, S, L, F }",
+        "SoftwareCertificate with deterministic SHA-256 seal and gate audits",
+        "EpistemicSoftwareStatus: SOURCE_SPECIFIED -> STATICALLY_TYPED -> BEHAVIORALLY_TESTED -> CONTRACT_VERIFIED -> CERTIFIED_CAPABILITY"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "certification",
+      "module": "mapeogeo.domains.software.certification",
+      "features": [
+        "SoftwareCertificationBoundary implementing the 5-Gate boundary C_sw = { T, U, S, L, F }",
+        "Gate T (Type & Interface Safety): validates type contract enforcement",
+        "Gate U (Unit & Behavioral Tests): validates test suite execution and behavioral adherence",
+        "Gate S (Static & Contract Analysis): validates linter, timeout, and side-channel safety",
+        "Gate L (Latency & SLA Contract): evaluates execution latency against strict SLA bounds",
+        "Gate F (Concurrency & Fault Invariants): validates linearizability, thread-safety, and split-brain resilience",
+        "Authority Tier Verification: rejects components requiring higher authority than caller possesses",
+        "Empty Evidence Check: enforces source code exists != software capability certified"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "grammar_mapping",
+      "module": "mapeogeo.domains.software.grammar_mapping",
+      "features": [
+        "SoftwareGrammarFactorer enforcing literal frozen 6D coordinates (Delta, I, W, sigma, Pi, Gamma) + circ",
+        "Defects and patches mapped to coordinate Delta",
+        "Invariants and type contracts mapped to coordinate I",
+        "Software test receipts and witnesses registered to coordinate W with Delta d = 0",
+        "Functional capabilities and RPC endpoints mapped to coordinate sigma",
+        "Boundary interfaces and type reductions mapped to coordinate Pi",
+        "Runtime state transitions and control flow mapped to coordinate Gamma",
+        "Strict detection and fail-closed rejection of semantic drift and coordinate dimension expansion"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "adapter",
+      "module": "mapeogeo.domains.software.adapter",
+      "features": [
+        "SoftwareAdapter implementing canonical domain adapter contract",
+        "required_work(requirement) -> WorkContract",
+        "candidate_machinery(deficiency, state) -> list[MachineryNode]",
+        "factor_grammar(work) -> FactoringAuditRecord",
+        "certify(result, evidence, requirements) -> SoftwareCertificate | CertificationResult",
+        "measure_ability(requirement, state) -> float"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    },
+    {
+      "component": "fixtures",
+      "module": "tests.fixtures.software",
+      "features": [
+        "benchmark_corpus: canonical N = 50 requirements corpus spanning 5 systems domains",
+        "candidate_machinery: 6 candidate packages (Raft, HMAC, Event Bus, Rate Limiter, Circuit Breaker, Random Control)",
+        "Zero concrete implementation dependencies bundled in production package"
+      ],
+      "status": "QUALIFIED_CANONICAL_V2"
+    }
+  ]
+}

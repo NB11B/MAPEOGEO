@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 5-Gate Software Certification Boundary Report",
+  "boundary_class": "mapeogeo.domains.software.certification.SoftwareCertificationBoundary",
+  "gates": [
+    {
+      "gate_id": "GATE_T",
+      "name": "Type Safety & Interface Signatures",
+      "rule": "Verify complete type contract enforcement and parameter compatibility",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Untyped or type-violating signatures rejected at Gate T"
+    },
+    {
+      "gate_id": "GATE_U",
+      "name": "Unit & Behavioral Tests",
+      "rule": "Evaluate test suite execution with assertion_ratio >= 1.0 and zero failed tests",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Behavioral test failure or low assertion ratio rejected at Gate U"
+    },
+    {
+      "gate_id": "GATE_S",
+      "name": "Static & Contract Analysis",
+      "rule": "Evaluate static analyzer violations (static_violations == 0) and contract verification",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Memory safety or lint violations rejected at Gate S"
+    },
+    {
+      "gate_id": "GATE_L",
+      "name": "Latency & SLA Contract",
+      "rule": "Evaluate observed execution latency <= SLA budget with strict tolerance",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Execution exceeding latency SLA bound rejected at Gate L"
+    },
+    {
+      "gate_id": "GATE_F",
+      "name": "Concurrency & Fault Invariants",
+      "rule": "Evaluate race condition freedom, linearizability, and fault tolerance invariants",
+      "on_failure": "FALSIFIED",
+      "test_verification": "Verified: Race condition or split-brain vulnerability rejected at Gate F"
+    }
+  ],
+  "epistemic_hierarchy": {
+    "chain": "SOURCE_SPECIFIED -> STATICALLY_TYPED -> BEHAVIORALLY_TESTED -> CONTRACT_VERIFIED -> CERTIFIED_CAPABILITY",
+    "empty_evidence_rule": "source_code_exists != software_capability_certified. Empty evidence leaves status at SOURCE_SPECIFIED and yields UNVERIFIED, never CERTIFIED"
+  },
+  "authority_tier_enforcement": {
+    "tiers": ["USER", "OPERATOR", "KERNEL", "SYSTEM_ROOT"],
+    "rule": "A component requiring higher authority than the calling environment is rejected fail-closed"
+  }
+}

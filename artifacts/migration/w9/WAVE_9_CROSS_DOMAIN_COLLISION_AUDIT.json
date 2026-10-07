@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 9 Cross-Domain Collision & Non-Contamination Audit",
+  "governing_invariant": "Sigma_grammar(X) == Sigma_grammar(Y) =/=> X == Y",
+  "domains_evaluated": [
+    "mathematics",
+    "physics",
+    "software"
+  ],
+  "collision_evaluations": [
+    {
+      "test_case": "Mathematics Theorem -> Software Requirement",
+      "attempt": "Satisfying software requirement req:sw:consensus:01 using mathematical Theorem(name='Fermat Last Theorem')",
+      "outcome": "FAILED_ADMISSION",
+      "reason": "SoftwareCertificationBoundary enforces required_signature and EpistemicSoftwareStatus; Theorem lacks software verification contracts",
+      "verdict": "NON_CONTAMINATING"
+    },
+    {
+      "test_case": "Physics Hypothesis -> Software Requirement",
+      "attempt": "Satisfying software requirement req:sw:crypto:01 using PhysicalHypothesis(hypothesis_id='hyp:maxwell')",
+      "outcome": "FAILED_ADMISSION",
+      "reason": "SoftwareCertificationBoundary rejects objects lacking SoftwareMachinery and SoftwareEvidence specifications",
+      "verdict": "NON_CONTAMINATING"
+    },
+    {
+      "test_case": "Software Certificate -> Mathematical Proof Witness",
+      "attempt": "Using SoftwareCertificate as mathematical ProofWitness in ProofEngine",
+      "outcome": "FAILED_ADMISSION",
+      "reason": "ProofEngine enforces formal deductive validation and rule application; SoftwareCertificate fails proof step parsing",
+      "verdict": "NON_CONTAMINATING"
+    },
+    {
+      "test_case": "Software Certificate -> Physical Measurement Witness",
+      "attempt": "Using SoftwareCertificate as physical MeasuredObservation in PhysicalCertificationBoundary",
+      "outcome": "FAILED_ADMISSION",
+      "reason": "PhysicalCertificationBoundary requires projection operator P and numerical sensor values; SoftwareCertificate rejected",
+      "verdict": "NON_CONTAMINATING"
+    },
+    {
+      "test_case": "Shared Grammar Representation Coincidence",
+      "attempt": "Two objects in different domains having identical 6D factored coordinates (e.g. Delta=0, I=1, W=1)",
+      "outcome": "DOMAIN_DISTINCT",
+      "reason": "Grammar coordinate factoring encodes abstract structural algebra; domain adapters evaluate domain-specific semantic certification boundaries independently",
+      "verdict": "NON_CONTAMINATING"
+    }
+  ],
+  "overall_status": "CROSS_DOMAIN_ISOLATION_VERIFIED"
+}
