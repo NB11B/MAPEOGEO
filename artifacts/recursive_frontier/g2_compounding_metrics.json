@@ -1,0 +1,29 @@
+{
+  "n_0_admitted_results": 2,
+  "admitted_results_list": [
+    "T1 (Analytic Stack Prismatic Coherence Duality)",
+    "T3 (Truncated Cubical Moduli Localization)"
+  ],
+  "n_1_unlocked_candidates": 5,
+  "r_discovery": 2.5,
+  "r_discovery_interpretation": "R_{discovery} = 2.50 > 1.0 (Discovery compounds: each validated result unlocks 2.5 new frontier opportunities)",
+  "num_convergent": 1,
+  "convergent_candidates": [
+    {
+      "candidate_id": "U2026_GEN2_CONV_0001",
+      "nominal_title": "Constructive Prismatic Stack Cohomology in Truncated Cubical Type Theory",
+      "domain": "Synthetic_Arithmetic_Geometry",
+      "unlocking_source": "BOTH (CONVERGENT)",
+      "description": "Internalizes prismatic crystals on formal Artin stacks inside the constructive truncated cubical universe with decidable normal forms.",
+      "coordinates": {
+        "Delta": 5,
+        "I": 5,
+        "W": 5,
+        "sigma": 4,
+        "Pi": 4,
+        "Gamma": 4
+      },
+      "base_score_S": 0.978
+    }
+  ]
+}

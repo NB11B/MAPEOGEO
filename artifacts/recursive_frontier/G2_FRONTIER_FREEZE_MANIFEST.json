@@ -1,0 +1,27 @@
+{
+  "generation": 2,
+  "frontier_label": "U_{2026}^{(2)}",
+  "freeze_timestamp": "2026-10-07T11:00:00Z",
+  "admitted_parents": [
+    "T1 (Analytic Stack Prismatic Coherence Duality)",
+    "T3 (Truncated Cubical Moduli Localization)"
+  ],
+  "compounding_ratio_r_discovery": 2.5,
+  "champion_target_id": "U2026_GEN2_CONV_0001",
+  "champion_title": "Constructive Prismatic Stack Cohomology in Truncated Cubical Type Theory",
+  "champion_s2_score": 2.3472,
+  "files": {
+    "g2_candidates_ranked.json": {
+      "sha256": "5bc95839d5c313ca7f5b80d6319f8eaffd29f98e479e212810cf6341214babc0",
+      "bytes": 7700
+    },
+    "g2_compounding_metrics.json": {
+      "sha256": "72c6dfc12105984ef49e9bf8fd6e25084373acc2a7b124fb5618e88802a1f41a",
+      "bytes": 1006
+    },
+    "g2_champion_certificate.json": {
+      "sha256": "bff6384fc6e9aaa1c1a8bd6fc48ae67c563385ceaa643e27bbfd1619541cef7f",
+      "bytes": 1697
+    }
+  }
+}

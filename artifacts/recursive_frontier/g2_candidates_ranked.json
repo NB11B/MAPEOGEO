@@ -1,0 +1,208 @@
+[
+  {
+    "candidate_id": "U2026_GEN2_CONV_0001",
+    "nominal_title": "Constructive Prismatic Stack Cohomology in Truncated Cubical Type Theory",
+    "domain": "Synthetic_Arithmetic_Geometry",
+    "unlocking_result": "BOTH (CONVERGENT)",
+    "base_score_S": 0.978,
+    "p_unobstructed": 1.0,
+    "c_independent": 1.2,
+    "c_ancestry": 2.0,
+    "s2_composite_score": 2.3472,
+    "is_unobstructed": true,
+    "obstruction_class": "NONE",
+    "minimal_repair": "IDENTITY",
+    "operator_word": "(PrismaticStackBaseChange \\circ NygaardFiltrationPushforward) \\otimes (BoundedKanComposition \\circ HigherInductiveTruncationElim)",
+    "certificate": {
+      "generation": 2,
+      "candidate_id": "U2026_GEN2_CONV_0001",
+      "nominal_title": "Constructive Prismatic Stack Cohomology in Truncated Cubical Type Theory",
+      "domain": "Synthetic_Arithmetic_Geometry",
+      "unlocking_result": "BOTH (CONVERGENT)",
+      "original_frontier_status": "UNREACHABLE_IN_G0",
+      "coordinates": {
+        "Delta": 5,
+        "I": 5,
+        "W": 5,
+        "sigma": 4,
+        "Pi": 4,
+        "Gamma": 4
+      },
+      "operator_word": "(PrismaticStackBaseChange \\circ NygaardFiltrationPushforward) \\otimes (BoundedKanComposition \\circ HigherInductiveTruncationElim)",
+      "independent_paths": [
+        "G_0 -> X_{T1} -> PrismaticStackBaseChange -> U2026_GEN2_CONV_0001",
+        "G_0 -> X_{T3} -> BoundedKanComposition -> U2026_GEN2_CONV_0001",
+        "G_0 -> {X_{T1}, X_{T3}} -> SyntheticCohomologyNormalizer -> U2026_GEN2_CONV_0001"
+      ],
+      "num_independent_paths": 3,
+      "ancestry_factor_C_ancestry": 2.0,
+      "base_score_S": 0.978,
+      "causal_assertion": "BOTH (CONVERGENT) unlocked U2026_GEN2_CONV_0001"
+    },
+    "rank": 1
+  },
+  {
+    "candidate_id": "U2026_GEN2_T3_0001",
+    "nominal_title": "Constructive Truncated Chromatic Cohomology in Cubical Type Theory",
+    "domain": "Homotopy_Type_Theory",
+    "unlocking_result": "T3",
+    "base_score_S": 0.931,
+    "p_unobstructed": 0.88,
+    "c_independent": 1.1,
+    "c_ancestry": 1.2,
+    "s2_composite_score": 1.0814,
+    "is_unobstructed": false,
+    "obstruction_class": "CHROMATIC_SMASH_TRUNCATION_DISCREPANCY",
+    "minimal_repair": "rho_bous (Bousfield lattice filtration)",
+    "operator_word": "BoundedKanComposition \\circ HigherInductiveTruncationElim",
+    "certificate": {
+      "generation": 2,
+      "candidate_id": "U2026_GEN2_T3_0001",
+      "nominal_title": "Constructive Truncated Chromatic Cohomology in Cubical Type Theory",
+      "domain": "Homotopy_Type_Theory",
+      "unlocking_result": "T3",
+      "original_frontier_status": "UNREACHABLE_IN_G0",
+      "coordinates": {
+        "Delta": 4,
+        "I": 4,
+        "W": 5,
+        "sigma": 3,
+        "Pi": 4,
+        "Gamma": 4
+      },
+      "operator_word": "BoundedKanComposition \\circ HigherInductiveTruncationElim",
+      "independent_paths": [
+        "G_0 -> X_{T3} -> BoundedKanComposition -> U2026_GEN2_T3_0001",
+        "G_0 -> X_{T3} -> UnivalentSpectrumGlueing -> U2026_GEN2_T3_0001"
+      ],
+      "num_independent_paths": 2,
+      "ancestry_factor_C_ancestry": 1.2,
+      "base_score_S": 0.931,
+      "causal_assertion": "T3 unlocked U2026_GEN2_T3_0001"
+    },
+    "rank": 2
+  },
+  {
+    "candidate_id": "U2026_GEN2_T1_0001",
+    "nominal_title": "Prismatic Grothendieck Duality for Shtuka Moduli Stacks",
+    "domain": "Arithmetic_Geometry",
+    "unlocking_result": "T1",
+    "base_score_S": 0.942,
+    "p_unobstructed": 0.85,
+    "c_independent": 1.1,
+    "c_ancestry": 1.2,
+    "s2_composite_score": 1.0569,
+    "is_unobstructed": false,
+    "obstruction_class": "AFFINE_GRASSMANNIAN_NON_QUASICOMPACTNESS",
+    "minimal_repair": "rho_bdd (Bounded Schubert cell truncation)",
+    "operator_word": "PrismaticStackBaseChange \\circ NygaardFiltrationPushforward",
+    "certificate": {
+      "generation": 2,
+      "candidate_id": "U2026_GEN2_T1_0001",
+      "nominal_title": "Prismatic Grothendieck Duality for Shtuka Moduli Stacks",
+      "domain": "Arithmetic_Geometry",
+      "unlocking_result": "T1",
+      "original_frontier_status": "UNREACHABLE_IN_G0",
+      "coordinates": {
+        "Delta": 5,
+        "I": 4,
+        "W": 4,
+        "sigma": 3,
+        "Pi": 4,
+        "Gamma": 4
+      },
+      "operator_word": "PrismaticStackBaseChange \\circ NygaardFiltrationPushforward",
+      "independent_paths": [
+        "G_0 -> X_{T1} -> PrismaticStackBaseChange -> U2026_GEN2_T1_0001",
+        "G_0 -> X_{T1} -> QuasisyntomicShtukaPairing -> U2026_GEN2_T1_0001"
+      ],
+      "num_independent_paths": 2,
+      "ancestry_factor_C_ancestry": 1.2,
+      "base_score_S": 0.942,
+      "causal_assertion": "T1 unlocked U2026_GEN2_T1_0001"
+    },
+    "rank": 3
+  },
+  {
+    "candidate_id": "U2026_GEN2_T3_0002",
+    "nominal_title": "Synthetic Higher Topos Moduli Localization",
+    "domain": "Higher_Category_Theory",
+    "unlocking_result": "T3",
+    "base_score_S": 0.914,
+    "p_unobstructed": 0.82,
+    "c_independent": 1.1,
+    "c_ancestry": 1.2,
+    "s2_composite_score": 0.9893,
+    "is_unobstructed": false,
+    "obstruction_class": "HIGHER_TOPOS_FIBRANCY_DEFECT",
+    "minimal_repair": "rho_fib (Strict fibrant replacement monad)",
+    "operator_word": "BoundedKanComposition \\circ HigherInductiveTruncationElim",
+    "certificate": {
+      "generation": 2,
+      "candidate_id": "U2026_GEN2_T3_0002",
+      "nominal_title": "Synthetic Higher Topos Moduli Localization",
+      "domain": "Higher_Category_Theory",
+      "unlocking_result": "T3",
+      "original_frontier_status": "UNREACHABLE_IN_G0",
+      "coordinates": {
+        "Delta": 4,
+        "I": 4,
+        "W": 4,
+        "sigma": 4,
+        "Pi": 4,
+        "Gamma": 4
+      },
+      "operator_word": "BoundedKanComposition \\circ HigherInductiveTruncationElim",
+      "independent_paths": [
+        "G_0 -> X_{T3} -> BoundedKanComposition -> U2026_GEN2_T3_0002",
+        "G_0 -> X_{T3} -> UnivalentSpectrumGlueing -> U2026_GEN2_T3_0002"
+      ],
+      "num_independent_paths": 2,
+      "ancestry_factor_C_ancestry": 1.2,
+      "base_score_S": 0.914,
+      "causal_assertion": "T3 unlocked U2026_GEN2_T3_0002"
+    },
+    "rank": 4
+  },
+  {
+    "candidate_id": "U2026_GEN2_T1_0002",
+    "nominal_title": "Categorified Prismatic Riemann-Hilbert Functor on Quasisyntomic Stacks",
+    "domain": "Derived_Algebraic_Geometry",
+    "unlocking_result": "T1",
+    "base_score_S": 0.925,
+    "p_unobstructed": 0.8,
+    "c_independent": 1.1,
+    "c_ancestry": 1.2,
+    "s2_composite_score": 0.9768,
+    "is_unobstructed": false,
+    "obstruction_class": "NON_ABELIAN_FROBENIUS_CONVERGENCE_DEFECT",
+    "minimal_repair": "rho_sol (Solid pro-nilpotent completion)",
+    "operator_word": "PrismaticStackBaseChange \\circ NygaardFiltrationPushforward",
+    "certificate": {
+      "generation": 2,
+      "candidate_id": "U2026_GEN2_T1_0002",
+      "nominal_title": "Categorified Prismatic Riemann-Hilbert Functor on Quasisyntomic Stacks",
+      "domain": "Derived_Algebraic_Geometry",
+      "unlocking_result": "T1",
+      "original_frontier_status": "UNREACHABLE_IN_G0",
+      "coordinates": {
+        "Delta": 4,
+        "I": 5,
+        "W": 4,
+        "sigma": 3,
+        "Pi": 4,
+        "Gamma": 4
+      },
+      "operator_word": "PrismaticStackBaseChange \\circ NygaardFiltrationPushforward",
+      "independent_paths": [
+        "G_0 -> X_{T1} -> PrismaticStackBaseChange -> U2026_GEN2_T1_0002",
+        "G_0 -> X_{T1} -> QuasisyntomicShtukaPairing -> U2026_GEN2_T1_0002"
+      ],
+      "num_independent_paths": 2,
+      "ancestry_factor_C_ancestry": 1.2,
+      "base_score_S": 0.925,
+      "causal_assertion": "T1 unlocked U2026_GEN2_T1_0002"
+    },
+    "rank": 5
+  }
+]
