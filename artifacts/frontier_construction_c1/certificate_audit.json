@@ -1,0 +1,50 @@
+{
+  "certificate": {
+    "certificate_id": "PWC_2026_U2026_CONST_0001",
+    "candidate_id": "U2026_CONST_0001",
+    "nominal_title": "Condensed Chromatic Spectral Adjunction",
+    "prediction_score_S": 0.9642,
+    "convergence_count": 4,
+    "parents": [
+      "COND_ANALYTIC_RING_01",
+      "CHROMATIC_E_THEORY_02",
+      "SOLID_MODULE_STACK_03"
+    ],
+    "parent_states": [
+      "COND_ANALYTIC_RING_01",
+      "CHROMATIC_E_THEORY_02",
+      "SOLID_MODULE_STACK_03"
+    ],
+    "operator_word": "Pi(solid_loc) o Gamma(adjunction) o W(analytic_witness) o Delta(spectral_fiber)",
+    "kernel_v3_coordinates": {
+      "Delta": 4,
+      "I": 4,
+      "W": 4,
+      "sigma": 3,
+      "Pi": 4,
+      "Gamma": 4
+    },
+    "constraints": [
+      "Preserves solid R-module colimits under condensation",
+      "Induces chromatic localization commuting with condensed limits",
+      "Spectral sequence degenerates at E_2 over non-archimedean Banach rings"
+    ],
+    "mathematical_constraints": [
+      "Preserves solid R-module colimits under condensation",
+      "Induces chromatic localization commuting with condensed limits",
+      "Spectral sequence degenerates at E_2 over non-archimedean Banach rings"
+    ],
+    "independent_convergence_paths": [
+      "Route A (Algebraic): Clausen-Scholze solid modules -> condensed derived completion",
+      "Route B (Homotopical): Lurie Higher Algebra -> chromatic spectral sheaves",
+      "Route C (Arithmetic): Perfectoid ring spectra -> crystalline condensed prisms",
+      "Route D (Geometric): Analytic stacks -> non-archimedean formal vanishing"
+    ],
+    "falsifier": "Failure of the condensed chromatic localization to commute with filtered colimits of solid rings, or non-trivial obstruction in Ext^1(solid, chromatic) violating Gamma adjunction.",
+    "concrete_falsifier": "Failure of the condensed chromatic localization to commute with filtered colimits of solid rings, or non-trivial obstruction in Ext^1(solid, chromatic) violating Gamma adjunction.",
+    "status": "FROZEN_ACTIVE_CONSTRUCTION_TARGET"
+  },
+  "integrity_verified": true,
+  "manifest_hash": "d3861d419b2b1314efefa2c6125dac9f2a1d8126be58c4a9a5277db3fb20551d",
+  "custody_status": "SEALED_INTACT"
+}
