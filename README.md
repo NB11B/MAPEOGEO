@@ -65,6 +65,30 @@ shared canonical neighborhood != proof of equivalence
 
 ---
 
+## Complete OpenAI mathematics source corpus
+
+The `openai-math` reconstruction stage adds the entire tracked
+[`openai/math`](https://github.com/openai/math) repository at commit
+`adc7f1241b42e322a6451854ab7e4b4c146bf78a` to the foundation graph. It covers
+**132,851 files**, **372 catalogue families**, **722 manuscripts**, all **405
+Comparator configurations**, and their **507 selected theorem occurrences**.
+Every tracked file has a Git blob identity, SHA-256, locator, and extraction
+disposition. Lean and TeX records preserve exact byte spans and source context.
+
+This additive source corpus uses `SOURCE_RECORD` candidates with unresolved
+mathematical interpretation and untested kernel status. Its counts are reported
+separately from the admitted historical declarations below. Existing node and
+edge payloads are preserved; source intake issues no new proof certificates or
+semantic equivalence edges.
+
+See [the intake guide](docs/OPENAI_MATH_INTAKE.md) for reproduction commands,
+the streamed graph and manifest format, lexical limitations, and the independent
+verification command. The [source pin](formal/openai_math_source_pin.json)
+fixes the complete inventory and catalogue denominators. The
+[acceptance receipt](evidence/openai_math_intake_acceptance.json) records the
+complete independent audit: **3,762,712 lexical records**, **4,224,730 graph
+nodes**, and **4,547,502 graph edges**.
+
 ## Current mathematical coverage snapshot
 
 The active v0.20 integrity projection starts from the sealed v0.11 and v0.19 historical inputs, validates their identities, and applies corrections in memory. The authoritative current counts come from the sealed graph rather than historical headlines.

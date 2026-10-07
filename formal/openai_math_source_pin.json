@@ -1,0 +1,17 @@
+{
+  "repository": "openai/math",
+  "url": "https://github.com/openai/math",
+  "revision": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+  "tree": "a8e3481a92772ee311cdc9dd6409cd7b927a3fc1",
+  "license": "Apache-2.0",
+  "expected": {
+    "tracked_files": 132851,
+    "tracked_bytes": 2181791366,
+    "families": 372,
+    "manuscripts": 722,
+    "scope_documents": 235,
+    "comparator_configurations": 405,
+    "selected_theorem_occurrences": 507,
+    "catalogue_main_results": 185
+  }
+}
