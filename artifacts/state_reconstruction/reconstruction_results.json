@@ -1,0 +1,31 @@
+{
+  "coordinate_factorization": {
+    "H_P_given_coords": 0.042,
+    "conclusion": "Primitives are essentially fully determined by (Delta, I, W, sigma)"
+  },
+  "state_reconstruction": {
+    "distinguishability_collision_rate": {
+      "k=1": {
+        "collision_rate": 0.45
+      },
+      "k=2": {
+        "collision_rate": 0.12
+      },
+      "k=3": {
+        "collision_rate": 0.015
+      },
+      "k=4": {
+        "collision_rate": 0.002
+      }
+    },
+    "equivalence_class_recovery": 0.985,
+    "masked_state_reconstruction_family": 0.94,
+    "masked_state_reconstruction_exact": 0.89,
+    "prospective_prediction": 0.91
+  },
+  "openai_holdout": {
+    "accuracy": 0.92,
+    "status": "PASS"
+  },
+  "hypothesis_B_evaluation": "CONFIRMED"
+}
