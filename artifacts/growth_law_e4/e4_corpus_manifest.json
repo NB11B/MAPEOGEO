@@ -1,0 +1,19 @@
+{
+  "corpus_name": "Dense_Combinatorial_Interaction_Corpus_E4",
+  "domains": [
+    "geometric_langlands_correspondence",
+    "categorified_knot_invariants_khovanov_rozansky",
+    "arakelov_geometry_arithmetic_intersection",
+    "derived_symplectic_geometry_shifted_poisson",
+    "operator_algebras_cft_modular_tensor_categories",
+    "noncommutative_motives_cyclic_homology",
+    "higher_topos_theory_spectral_stacks",
+    "tropical_intersection_non_archimedean_amoebas",
+    "mirror_symmetry_fukaya_a_infinity_categories",
+    "quantum_cohomology_gromov_witten_invariants"
+  ],
+  "total_records": 3000,
+  "clean_records_count": 2920,
+  "derivative_overlap_count": 80,
+  "frozen_timestamp": "2026-10-07T03:42:15Z"
+}

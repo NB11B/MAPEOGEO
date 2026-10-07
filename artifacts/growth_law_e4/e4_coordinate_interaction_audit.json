@@ -1,0 +1,33 @@
+{
+  "max_pairwise_conditional_mi_bits": 0.029,
+  "max_pairwise_pair": "Pi--Gamma",
+  "pairwise_conditional_mutual_information": {
+    "Delta--I": 0.012,
+    "Delta--W": 0.018,
+    "Delta--sigma": 0.009,
+    "Delta--Pi": 0.015,
+    "Delta--Gamma": 0.011,
+    "I--W": 0.014,
+    "I--sigma": 0.008,
+    "I--Pi": 0.016,
+    "I--Gamma": 0.01,
+    "W--sigma": 0.021,
+    "W--Pi": 0.027,
+    "W--Gamma": 0.023,
+    "sigma--Pi": 0.019,
+    "sigma--Gamma": 0.017,
+    "Pi--Gamma": 0.029
+  },
+  "max_triple_interaction_bits": 0.019,
+  "max_triple_tuple": "Pi--Gamma--W",
+  "triple_interaction_information": {
+    "Pi--Gamma--W": 0.019,
+    "Pi--Gamma--Delta": 0.014,
+    "Gamma--W--sigma": 0.011,
+    "Pi--W--Delta": 0.013
+  },
+  "coupling_threshold_bits": 0.05,
+  "coupling_failure_triggered": false,
+  "cartesian_product_factorization_preserved": true,
+  "verdict": "PRODUCT_FACTORIZATION_HOLDS"
+}

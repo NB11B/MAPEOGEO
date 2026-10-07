@@ -1,0 +1,11 @@
+{
+  "b8_total": 2756,
+  "resolved_by_e4_machinery": 162,
+  "resolved_witness_count": 94,
+  "resolved_composition_count": 68,
+  "b9_residual_count": 2594,
+  "prospective_gain_delta_h_bits": 0.291,
+  "b9_corpus_share_percentage": 2.44,
+  "ledger_path": "artifacts\\growth_law_e4\\B8_to_B9_transformation_ledger.jsonl",
+  "b9_path": "artifacts\\growth_law_e4\\B9_explanatory_boundary.jsonl"
+}

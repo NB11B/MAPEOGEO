@@ -1,0 +1,20 @@
+{
+  "total_evaluated_transformations": 52290,
+  "breakdown": {
+    "baseline_45k": 45000,
+    "e1_clean": 1150,
+    "e2_clean": 1470,
+    "e3_clean": 1750,
+    "e4_clean": 2920,
+    "derivative_overlaps_excluded": 160
+  },
+  "false_splits": 0,
+  "false_merges": 0,
+  "semantic_overpromotions": 0,
+  "composition_breaks": 0,
+  "polarity_contradictions": 0,
+  "parity_grading_contradictions": 0,
+  "total_regressions": 0,
+  "zero_regression_invariant_satisfied": true,
+  "verdict": "ZERO_REGRESSION_PASS"
+}

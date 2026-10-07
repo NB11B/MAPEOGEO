@@ -1,0 +1,13 @@
+{
+  "parent_max_composition_depth": 6,
+  "observed_max_composition_depth": 6,
+  "delta_c_max": 0,
+  "composition_depth_threshold_delta": 2,
+  "mean_composition_chain_length": 3.5,
+  "parent_active_composition_rules": 84,
+  "new_composition_rules_instantiated": 4,
+  "rule_count_growth_percentage": 4.76,
+  "rule_growth_threshold_percentage": 50.0,
+  "composition_explosion_triggered": false,
+  "verdict": "COMPOSITION_COMPACTNESS_MAINTAINED"
+}

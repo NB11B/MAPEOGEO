@@ -1,0 +1,16 @@
+{
+  "mean_active_coordinate_density_bar_kappa_E4": 4.8,
+  "historical_comparisons": {
+    "bar_kappa_E1": 2.41,
+    "bar_kappa_E2": 2.72,
+    "bar_kappa_E3": 2.94,
+    "bar_kappa_E4": 4.8
+  },
+  "target_density_satisfied": true,
+  "distribution": {
+    "4_active_coordinates": 1168,
+    "5_active_coordinates": 1168,
+    "6_active_coordinates": 584
+  },
+  "verdict": "DENSE_INTERACTION_POPULATION_VERIFIED"
+}

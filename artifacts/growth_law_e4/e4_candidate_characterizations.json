@@ -1,0 +1,75 @@
+{
+  "candidates_evaluated": 3,
+  "total_delta_d": 0,
+  "total_delta_a": 2,
+  "candidates": [
+    {
+      "candidate_id": "CAND_E4_01_SPECTRAL_SEQUENCES_MOTIVES",
+      "phenomenon": "Higher spectral sequences and filtration shifts in motivic homology",
+      "domain": "noncommutative_motives_cyclic_homology",
+      "hierarchical_reduction_path": [
+        {
+          "step": "COMPOSITION_TEST",
+          "result": "REDUCED_TO_COMPOSITION",
+          "details": "Factorizes into length-5 composition chain of canonical morita and derived equivalences (Pi) graded by parity (Gamma)."
+        }
+      ],
+      "final_resolution": "COMPOSITION_REDUCTION",
+      "dimensional_increment_Delta_d": 0,
+      "alphabet_increment_Delta_a": 0
+    },
+    {
+      "candidate_id": "CAND_E4_02_SHIFTED_POISSON_BRACKET",
+      "phenomenon": "Shifted Poisson brackets and derived symplectic pairings on Artin stacks",
+      "domain": "derived_symplectic_geometry_shifted_poisson",
+      "hierarchical_reduction_path": [
+        {
+          "step": "COMPOSITION_TEST",
+          "result": "FAIL",
+          "details": "Cannot be represented purely as a sequence of existing morphisms without witness certificate."
+        },
+        {
+          "step": "ALPHABET_EXTENSION_TEST",
+          "result": "REDUCED_TO_ALPHABET",
+          "details": "Admitted as new witness token 'shifted_poisson_bracket_certificate' within coordinate W."
+        }
+      ],
+      "final_resolution": "WITNESS_ALPHABET_EXTENSION",
+      "dimensional_increment_Delta_d": 0,
+      "alphabet_increment_Delta_a": 1,
+      "token": "shifted_poisson_bracket_certificate"
+    },
+    {
+      "candidate_id": "CAND_E4_03_ARAKELOV_HEIGHT_PAIRING",
+      "phenomenon": "Non-archimedean arithmetic height intersection pairing across infinite places",
+      "domain": "arakelov_geometry_arithmetic_intersection",
+      "hierarchical_reduction_path": [
+        {
+          "step": "COMPOSITION_TEST",
+          "result": "FAIL",
+          "details": "Cannot be synthesized via existing composition rules."
+        },
+        {
+          "step": "ALPHABET_EXTENSION_TEST",
+          "result": "REDUCED_TO_ALPHABET",
+          "details": "Admitted as new witness token 'arakelov_height_pairing_certificate' within coordinate W."
+        }
+      ],
+      "final_resolution": "WITNESS_ALPHABET_EXTENSION",
+      "dimensional_increment_Delta_d": 0,
+      "alphabet_increment_Delta_a": 1,
+      "token": "arakelov_height_pairing_certificate"
+    }
+  ],
+  "grammar_evolution": {
+    "from_grammar": "M6^{++}",
+    "to_grammar": "M6^{+++}",
+    "prior_d": 6,
+    "post_d": 6,
+    "prior_a": 36,
+    "post_a": 38,
+    "prior_c_max": 6,
+    "post_c_max": 6
+  },
+  "verdict": "DIMENSIONAL_SATURATION_PRESERVED"
+}

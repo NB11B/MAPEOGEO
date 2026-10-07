@@ -1,0 +1,47 @@
+{
+  "campaign_id": "E4_COMBINATORIAL_INTERACTION_AND_SCALE",
+  "objective": "Deliberate stress-testing of M6^{++} against scale and combinatorial multi-coordinate interaction (kappa >= 4.2 active coordinates per record) to audit Cartesian product factorization and rule/depth compactness.",
+  "parent_frozen_grammar": "M6^{++}",
+  "parent_parameters": {
+    "dimension_d": 6,
+    "alphabet_complexity_a": 36,
+    "max_composition_depth_c": 6,
+    "b8_population": 2756,
+    "historical_clean_transformations": 49370
+  },
+  "epistemic_indices": {
+    "J_milestone": 6,
+    "J_prospective": 4,
+    "prospective_gate_for_model_selection": 5
+  },
+  "adjudication_hierarchy": [
+    "COMPOSITION",
+    "ALPHABET",
+    "REFINEMENT",
+    "NEW_COORDINATE"
+  ],
+  "preregistered_failure_modes": [
+    {
+      "id": "FAILURE_1_NEW_COORDINATE",
+      "condition": "Delta_d >= 1 (discovery of C7 following failure of hierarchical reduction)"
+    },
+    {
+      "id": "FAILURE_2_COORDINATE_COUPLING",
+      "condition": "Pairwise conditional mutual information I(Ci; Cj | C_{/i,j}) >= 0.05 bits or triple interaction I(Ci; Cj; Ck) >= 0.05 bits"
+    },
+    {
+      "id": "FAILURE_3_COMPOSITION_EXPLOSION",
+      "condition": "Max composition depth Delta_c_max >= 2 (c_max >= 8) or composition rule count growth > 50%"
+    }
+  ],
+  "result_vocabulary": [
+    "E4_PASS_FACTORIZATION_AND_COMPACTNESS_MAINTAINED",
+    "E4_FAIL_NEW_COORDINATE",
+    "E4_FAIL_COORDINATE_COUPLING",
+    "E4_FAIL_COMPOSITION_EXPLOSION",
+    "E4_PARTIAL",
+    "E4_BLOCKED"
+  ],
+  "growth_law_status": "TRAJECTORY_INSUFFICIENT_FOR_MODEL_SELECTION",
+  "model_selection_scheduled_milestone": "J_prospective >= 5"
+}

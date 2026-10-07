@@ -1,0 +1,100 @@
+{
+  "trajectory": [
+    {
+      "milestone": 0,
+      "campaign_type": "internal_discovery",
+      "grammar": "M4",
+      "D": 10,
+      "d": 4,
+      "a": 26,
+      "c": 3,
+      "r": 0.137,
+      "bits_per_state": 42.5,
+      "g_j": null
+    },
+    {
+      "milestone": 1,
+      "campaign_type": "internal_discovery",
+      "grammar": "M5",
+      "D": 18,
+      "d": 5,
+      "a": 29,
+      "c": 6,
+      "r": 0.039,
+      "bits_per_state": 28.4,
+      "g_j": 0.125
+    },
+    {
+      "milestone": 2,
+      "campaign_type": "prospective_e1",
+      "grammar": "M6",
+      "D": 28,
+      "d": 6,
+      "a": 33,
+      "c": 6,
+      "r": 0.0368,
+      "bits_per_state": 19.1,
+      "g_j": 0.1
+    },
+    {
+      "milestone": 3,
+      "campaign_type": "prospective_e2",
+      "grammar": "M6^+",
+      "D": 38,
+      "d": 6,
+      "a": 34,
+      "c": 6,
+      "r": 0.0325,
+      "bits_per_state": 14.2,
+      "g_j": 0.0
+    },
+    {
+      "milestone": 4,
+      "campaign_type": "prospective_e3",
+      "grammar": "M6^{++}",
+      "D": 48,
+      "d": 6,
+      "a": 36,
+      "c": 6,
+      "r": 0.0284,
+      "bits_per_state": 11.6,
+      "g_j": 0.0
+    },
+    {
+      "milestone": 5,
+      "campaign_type": "prospective_e4",
+      "grammar": "M6^{+++}",
+      "D": 58,
+      "d": 6,
+      "a": 38,
+      "c": 6,
+      "r": 0.0244,
+      "bits_per_state": 9.4,
+      "g_j": 0.0
+    }
+  ],
+  "dimension_sequence": [
+    4,
+    5,
+    6,
+    6,
+    6,
+    6
+  ],
+  "marginal_requirements_g": [
+    0.125,
+    0.1,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "epistemic_indices": {
+    "J_milestone": 6,
+    "J_prospective": 4,
+    "prospective_gate_for_model_selection": 5
+  },
+  "saturation_persisted_under_combinatorial_scale": true,
+  "description_length_monotonic_compression": true,
+  "status": "E4_PASS_FACTORIZATION_AND_COMPACTNESS_MAINTAINED",
+  "growth_law_status": "TRAJECTORY_INSUFFICIENT_FOR_MODEL_SELECTION"
+}

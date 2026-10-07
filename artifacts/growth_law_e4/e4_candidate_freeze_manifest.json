@@ -1,0 +1,11 @@
+{
+  "frozen_grammar": "M6^{+++}",
+  "dimension_d": 6,
+  "alphabet_a": 38,
+  "composition_depth_c": 6,
+  "witness_additions": [
+    "shifted_poisson_bracket_certificate",
+    "arakelov_height_pairing_certificate"
+  ],
+  "frozen_timestamp": "2026-10-07T03:42:30Z"
+}

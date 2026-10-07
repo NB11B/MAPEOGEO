@@ -1,0 +1,20 @@
+{
+  "parent_grammar": "M6^{++}",
+  "coordinates": [
+    "Delta",
+    "I",
+    "W_plus_plus_plus",
+    "sigma",
+    "Pi",
+    "Gamma"
+  ],
+  "coordinate_dimension_d": 6,
+  "alphabet_complexity_a": 36,
+  "max_composition_depth_c": 6,
+  "b8_boundary_path": "artifacts/growth_law_e3/B8_explanatory_boundary.jsonl",
+  "b8_boundary_sha256": "447ed6e554c8b69671f1a025ca54c156c4b05a2d82927e5394542e165fe5eb73",
+  "b8_boundary_count": 2756,
+  "historical_clean_transformations": 49370,
+  "frozen_timestamp": "2026-10-07T03:42:00Z",
+  "read_only": true
+}
