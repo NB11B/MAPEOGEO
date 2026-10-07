@@ -103,6 +103,46 @@ jobs:
           --graph artifacts/openai_math/mapeogeo_openai_math_graph.json.gz
           --registry formal/cross_source_alignments_v0_19.json
           --output artifacts/openai_math/canonical_reconciliation_final.json
+      - name: Split qualified graph below connector ceiling
+        shell: bash
+        run: |
+          set -euo pipefail
+          graph=artifacts/openai_math/mapeogeo_openai_math_graph.json.gz
+          mkdir -p artifacts/openai_math_parts
+          split -b 350M -d -a 2 "$graph" artifacts/openai_math_parts/graph.part.
+          sha256sum "$graph" > artifacts/openai_math_parts/graph.sha256
+          sha256sum artifacts/openai_math_parts/graph.part.* > artifacts/openai_math_parts/parts.sha256
+          cat > artifacts/openai_math_parts/assemble.sh <<'EOF'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          sha256sum -c parts.sha256
+          cat graph.part.* > mapeogeo_openai_math_graph.json.gz
+          expected=$(awk '{print $1}' graph.sha256)
+          actual=$(sha256sum mapeogeo_openai_math_graph.json.gz | awk '{print $1}')
+          test "$expected" = "$actual"
+          echo "$actual  mapeogeo_openai_math_graph.json.gz"
+          EOF
+          chmod +x artifacts/openai_math_parts/assemble.sh
+      - name: Upload graph part 00
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-openai-math-graph-part-00
+          path: artifacts/openai_math_parts/graph.part.00
+          compression-level: 0
+      - name: Upload graph part 01
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-openai-math-graph-part-01
+          path: artifacts/openai_math_parts/graph.part.01
+          compression-level: 0
+      - name: Upload graph assembly metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: mapeogeo-openai-math-graph-assembly
+          path: |
+            artifacts/openai_math_parts/graph.sha256
+            artifacts/openai_math_parts/parts.sha256
+            artifacts/openai_math_parts/assemble.sh
       - name: Upload merged graph and intake evidence
         uses: actions/upload-artifact@v4
         with:
