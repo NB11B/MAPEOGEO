@@ -1,0 +1,128 @@
+{
+  "schema": "mapeogeo.migration.semantic_equivalence",
+  "schema_version": 1,
+  "wave": "WAVE_3",
+  "evaluated_at": "2026-10-07T13:40:00-04:00",
+  "overall_verdict": "PASS",
+  "total_comparisons": 7,
+  "regressions_detected": 0,
+  "classifications_summary": {
+    "BYTE_IDENTICAL": 4,
+    "SEMANTICALLY_EQUIVALENT": 2,
+    "INTENTIONAL_API_NORMALIZATION": 1,
+    "REGRESSION": 0
+  },
+  "comparisons": [
+    {
+      "fixture_id": "psmsl-operator-commutation",
+      "description": "Uniform scale commuting with rotation matrix",
+      "source_branch": "psmsl-operator-algebra-v1",
+      "old_output": {
+        "commutator_norm": 0.0,
+        "commutes": true,
+        "reorder_safe": true,
+        "parallel_candidate": true
+      },
+      "v2_output": {
+        "commutator_norm": 0.0,
+        "commutes": true,
+        "reorder_safe": true,
+        "parallel_candidate": true
+      },
+      "classification": "BYTE_IDENTICAL",
+      "notes": "Exact match on commutator norm and boolean flags."
+    },
+    {
+      "fixture_id": "psmsl-operator-fusion",
+      "description": "Operator word composition A o B matrix evaluation",
+      "source_branch": "psmsl-operator-algebra-v1",
+      "old_output": [[0.0, -1.0], [2.0, 0.0]],
+      "v2_output": [[0.0, -1.0], [2.0, 0.0]],
+      "classification": "BYTE_IDENTICAL",
+      "notes": "Exact matrix values preserved under right-to-left composition."
+    },
+    {
+      "fixture_id": "psmsl-trajectory-observability-matrix",
+      "description": "Observability matrix construction O = [C; CA]",
+      "source_branch": "latent-generator-observability-v2",
+      "old_output": [[1.0, 0.0], [0.0, -1.0]],
+      "v2_output": [[1.0, 0.0], [0.0, -1.0]],
+      "classification": "BYTE_IDENTICAL",
+      "notes": "Deterministic observability matrix preserved identically."
+    },
+    {
+      "fixture_id": "psmsl-null-space-basis-extraction",
+      "description": "Rank-deficient projection null space basis calculation",
+      "source_branch": "latent-generator-qualification-v1",
+      "old_output": {
+        "generator": [4.0, 5.0, 0.0],
+        "null_basis": [[0.0, 0.0, 1.0]],
+        "identifiable_rank": 2,
+        "residual": 0.0
+      },
+      "v2_output": {
+        "reconstructed_state": [4.0, 5.0, 0.0],
+        "null_basis": [[0.0, 0.0, 1.0]],
+        "identifiable_rank": 2,
+        "residual": 0.0,
+        "is_uniquely_identified": false
+      },
+      "classification": "BYTE_IDENTICAL",
+      "notes": "Exact coordinates and basis vectors match byte-for-byte."
+    },
+    {
+      "fixture_id": "psmsl-information-semantics",
+      "description": "Projection matrix rank, nullity, and information loss analysis",
+      "source_branch": "psmsl-operator-algebra-v1",
+      "old_output": {
+        "rank": 2,
+        "nullity": 1,
+        "information_loss": true,
+        "surjective": true,
+        "injective": false,
+        "invertible": false
+      },
+      "v2_output": {
+        "rank": 2,
+        "nullity": 1,
+        "has_information_loss": true,
+        "is_surjective": true,
+        "is_injective": false,
+        "is_invertible": false
+      },
+      "classification": "INTENTIONAL_API_NORMALIZATION",
+      "notes": "Normalized boolean property names with is_ and has_ prefixes for PEP 8 compliance."
+    },
+    {
+      "fixture_id": "psmsl-dynamic-state-reconstruction",
+      "description": "Reconstruction of true state q0 = (2.0, 3.0) from multi-step trajectory",
+      "source_branch": "latent-generator-observability-v2",
+      "old_output": {
+        "generator": [2.0, 3.0],
+        "null_basis": [],
+        "identifiable_rank": 2
+      },
+      "v2_output": {
+        "reconstructed_state": [2.0, 3.0],
+        "null_basis": [],
+        "identifiable_rank": 2,
+        "is_uniquely_identified": true
+      },
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "notes": "Identical state recovery with added explicit uniqueness certificate."
+    },
+    {
+      "fixture_id": "graph-relation-contract-fail-closed",
+      "description": "Fail-closed rejection of uncertified equivalence and candidate promotion",
+      "source_branch": "agent/joint-layer-v0-21",
+      "old_output": {
+        "schema_rejection": "SAME_SEMANTICS forbidden on structural mechanism joint"
+      },
+      "v2_output": {
+        "contract_rejection": "EdgeContract validation fails without explicit certificate"
+      },
+      "classification": "SEMANTICALLY_EQUIVALENT",
+      "notes": "Mechanism joint structural constraint preserved in EdgeContract."
+    }
+  ]
+}

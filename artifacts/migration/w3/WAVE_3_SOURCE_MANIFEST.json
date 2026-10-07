@@ -1,0 +1,64 @@
+{
+  "schema": "mapeogeo.migration.source_manifest",
+  "schema_version": 1,
+  "wave": "WAVE_3",
+  "source_repository": "NB11B/MAPEOGEO",
+  "target_repository": "NB11B/MAPEOGEOv2",
+  "target_branch": "integration/w3-graph-psmsl-substrate",
+  "migrated_components": [
+    {
+      "component_id": "graph-subsystem",
+      "target_package": "mapeogeo.graph",
+      "modules": [
+        "src/mapeogeo/graph/node.py",
+        "src/mapeogeo/graph/edge.py",
+        "src/mapeogeo/graph/relation.py",
+        "src/mapeogeo/graph/decision_graph.py",
+        "src/mapeogeo/graph/transaction.py",
+        "src/mapeogeo/graph/serialization.py"
+      ],
+      "source_lineage": [
+        {
+          "branch": "agent/e32-typed-parallel-decision-graph-spec",
+          "commit": "803507079bcb7713e658c6c1c3dc23b8f688f45a",
+          "role": "structural-dag-and-transactions"
+        },
+        {
+          "branch": "agent/joint-layer-v0-21",
+          "commit": "21dd869c214ad48c3eb0ce4e8784a253a75055f0",
+          "role": "relation-evidentiary-hierarchy"
+        }
+      ],
+      "qualification_status": "W3_QUALIFIED_IN_BRANCH"
+    },
+    {
+      "component_id": "psmsl-subsystem",
+      "target_package": "mapeogeo.psmsl",
+      "modules": [
+        "src/mapeogeo/psmsl/algebra.py",
+        "src/mapeogeo/psmsl/operator.py",
+        "src/mapeogeo/psmsl/projection.py",
+        "src/mapeogeo/psmsl/latent.py",
+        "src/mapeogeo/psmsl/serialization.py"
+      ],
+      "source_lineage": [
+        {
+          "branch": "psmsl-operator-algebra-v1",
+          "commit": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+          "role": "linear-operator-algebra-and-basis"
+        },
+        {
+          "branch": "latent-generator-qualification-v1",
+          "commit": "3491b948e9329d6f401b7853287231573e95cef8",
+          "role": "linear-inverse-and-null-space"
+        },
+        {
+          "branch": "latent-generator-observability-v2",
+          "commit": "2e12009413488f34c8d7e411f3239d240ce19ade",
+          "role": "trajectory-observability-and-unknown-state"
+        }
+      ],
+      "qualification_status": "W3_QUALIFIED_IN_BRANCH"
+    }
+  ]
+}

@@ -19,6 +19,17 @@ SRC_ROOT = REPO_ROOT / "src" / "mapeogeo"
 KERNEL_ROOT = SRC_ROOT / "kernel"
 GRAMMAR_ROOT = SRC_ROOT / "grammar"
 GRAPH_ROOT = SRC_ROOT / "graph"
+PSMSL_ROOT = SRC_ROOT / "psmsl"
+
+# Forbidden physical claim tokens in shared PSMSL substrate
+FORBIDDEN_PHYSICAL_TOKENS_IN_PSMSL = [
+    "force",
+    "energy",
+    "mass",
+    "sensor",
+    "field",
+    "physical_conservation",
+]
 
 # Forbidden historical tokens in canonical source imports, paths, and module names
 FORBIDDEN_HISTORICAL_TOKENS = [
@@ -93,6 +104,41 @@ def test_grammar_domain_neutrality() -> None:
 def test_graph_domain_neutrality() -> None:
     """The Graph layer must NEVER import from any domain adapter."""
     _assert_no_domain_imports(GRAPH_ROOT, "Graph Layer")
+
+
+def test_psmsl_domain_neutrality() -> None:
+    """The PSMSL substrate must NEVER import from any domain adapter."""
+    _assert_no_domain_imports(PSMSL_ROOT, "PSMSL Substrate")
+
+
+def test_no_physical_claims_in_psmsl() -> None:
+    """Physical claims (force, energy, mass, sensor, field) must not leak into PSMSL."""
+    violations: list[str] = []
+    py_files = list(PSMSL_ROOT.rglob("*.py"))
+    assert len(py_files) > 0, "No python files found in PSMSL"
+
+    for py_file in py_files:
+        tree = ast.parse(py_file.read_text(encoding="utf-8"), filename=str(py_file))
+        rel_path = py_file.relative_to(REPO_ROOT)
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Name):
+                if node.id == "field":
+                    continue  # standard library dataclasses.field
+                id_lower = node.id.lower()
+                for token in FORBIDDEN_PHYSICAL_TOKENS_IN_PSMSL:
+                    if token in id_lower:
+                        violations.append(
+                            f"{rel_path}: identifier '{node.id}' contains token '{token}'"
+                        )
+            elif isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                name_lower = node.name.lower()
+                for token in FORBIDDEN_PHYSICAL_TOKENS_IN_PSMSL:
+                    if token in name_lower:
+                        violations.append(
+                            f"{rel_path}: definition '{node.name}' contains token '{token}'"
+                        )
+
+    assert not violations, "Physical domain leakage detected in PSMSL:\n" + "\n".join(violations)
 
 
 def test_no_historical_generation_tokens_in_canonical_source() -> None:

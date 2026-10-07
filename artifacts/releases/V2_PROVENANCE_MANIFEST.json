@@ -128,21 +128,29 @@
       "component_id": "graph-subsystem",
       "target_module": "mapeogeo.graph",
       "target_files": [
+        "src/mapeogeo/graph/node.py",
+        "src/mapeogeo/graph/edge.py",
+        "src/mapeogeo/graph/relation.py",
         "src/mapeogeo/graph/decision_graph.py",
-        "src/mapeogeo/graph/topology.py"
+        "src/mapeogeo/graph/transaction.py",
+        "src/mapeogeo/graph/serialization.py"
       ],
       "source_repository": "NB11B/MAPEOGEO",
-      "source_branch": "remotes/origin/agent/e32-typed-parallel-decision-graph-spec",
-      "source_commit": "74e51bd",
+      "source_branch": "agent/e32-typed-parallel-decision-graph-spec",
+      "source_commit": "803507079bcb7713e658c6c1c3dc23b8f688f45a",
       "source_files": [
-        "src/graph/decision_graph.py"
+        "docs/superpowers/specs/e32/ARCHITECTURE.md",
+        "docs/superpowers/specs/e32/CONTRACTS.md"
       ],
       "source_qualification_status": "AGENT_SPEC_QUALIFIED",
       "v2_qualification_status": "PENDING_V2_QUALIFICATION",
       "qualification_gate_requirements": [
-        "Typed DAG topological sort and cycle-detection invariant tests"
+        "Typed DAG topological sort and cycle-detection invariant tests",
+        "Fail-closed relation hierarchy enforcement",
+        "Transaction proposal-validation-certificate-commit lifecycle",
+        "Deterministic byte-for-byte serialization replay"
       ],
-      "notes": "Typed parallel decision graph"
+      "notes": "Domain-neutral graph substrate with transaction lifecycle and fail-closed relation contracts."
     },
     {
       "component_id": "routing-subsystem",
@@ -190,21 +198,29 @@
       "component_id": "psmsl-subsystem",
       "target_module": "mapeogeo.psmsl",
       "target_files": [
-        "src/mapeogeo/psmsl/operators.py",
-        "src/mapeogeo/psmsl/syntax.py"
+        "src/mapeogeo/psmsl/algebra.py",
+        "src/mapeogeo/psmsl/operator.py",
+        "src/mapeogeo/psmsl/projection.py",
+        "src/mapeogeo/psmsl/latent.py",
+        "src/mapeogeo/psmsl/serialization.py"
       ],
       "source_repository": "NB11B/MAPEOGEO",
-      "source_branch": "remotes/origin/psmsl-operator-algebra-v1",
-      "source_commit": "74e51bd",
+      "source_branch": "psmsl-operator-algebra-v1",
+      "source_commit": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
       "source_files": [
-        "src/psmsl/algebra.py"
+        "mapeogeo/psmsl_operator_algebra_v1.py",
+        "mapeogeo/psmsl_operator_basis_v1.py"
       ],
       "source_qualification_status": "ALGEBRA_VERIFIED",
       "v2_qualification_status": "PENDING_V2_QUALIFICATION",
       "qualification_gate_requirements": [
-        "Operator algebra associativity and composition verification"
+        "Operator algebra associativity and composition verification",
+        "Exact linear inverse and null space basis extraction",
+        "Strict separation between observation and latent generator inference",
+        "Zero physical domain claim leakage",
+        "Deterministic byte-for-byte serialization replay"
       ],
-      "notes": "PSMSL operator algebra"
+      "notes": "Domain-neutral linear operator algebra, state projection, and observable signatures."
     }
   ]
 }

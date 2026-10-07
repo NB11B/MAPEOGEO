@@ -1,0 +1,108 @@
+{
+  "schema": "mapeogeo.migration.comparison",
+  "schema_version": 1,
+  "component": "mapeogeo.graph",
+  "comparison_timestamp": "2026-10-07T13:35:00-04:00",
+  "adjudication_summary": "Selected e32 typed parallel decision graph contract as the base structural topology and transaction lifecycle, combined with v0.21 joint layer relation hierarchy to enforce strict CANDIDATE_REPRESENTS < REPRESENTS < SAME_SEMANTICS fail-closed constraints.",
+  "sources": [
+    {
+      "feature": "Typed DAG topology and transaction lifecycle",
+      "source_branch": "agent/e32-typed-parallel-decision-graph-spec",
+      "source_commit": "803507079bcb7713e658c6c1c3dc23b8f688f45a",
+      "files": [
+        "docs/superpowers/specs/e32/ARCHITECTURE.md",
+        "docs/superpowers/specs/e32/CONTRACTS.md"
+      ],
+      "public_types_functions": [
+        "DecisionGraph",
+        "Node",
+        "Edge",
+        "NodeRegistry",
+        "EdgeContract",
+        "GraphSnapshot",
+        "GraphTransaction",
+        "GraphInvariant"
+      ],
+      "tests": [
+        "experiments/pct_goal_solver/test_routing_decision_validation.py"
+      ],
+      "artifacts": [
+        "docs/superpowers/specs/e32/CONTRACTS.md"
+      ],
+      "relation_semantics": "Typed port bindings with guard conditions, pure vs ordered effects, and transaction certificates.",
+      "serialization_format": "Deterministic JSON with explicit schema and schema_version.",
+      "invariants": "Acyclic execution graph; transactions require proposal -> validation -> certificate -> commit.",
+      "known_successor": "src/mapeogeo/graph/ in MAPEOGEOv2",
+      "v2_disposition": "ADOPT as structural foundation for DecisionGraph, Node, Edge, and transaction lifecycle."
+    },
+    {
+      "feature": "Multi-view mechanism joints and relation hierarchy",
+      "source_branch": "agent/joint-layer-v0-21",
+      "source_commit": "21dd869c214ad48c3eb0ce4e8784a253a75055f0",
+      "files": [
+        "schema/mapeogeo-joint.schema.json",
+        "formal/joint_type_registry_v0_21.json",
+        "scripts/perelman_joints_v0_21.py"
+      ],
+      "public_types_functions": [
+        "MechanismJoint",
+        "JointTypeDefinition",
+        "RelationType"
+      ],
+      "tests": [
+        "tests/test_joint_schema_v0_21.py",
+        "tests/test_perelman_joints_v0_21.py"
+      ],
+      "artifacts": [
+        "docs/V0_21_JOINT_LAYER_REPORT.md",
+        "formal/joint_type_registry_v0_21.json"
+      ],
+      "relation_semantics": "Strict hierarchy: CANDIDATE_REPRESENTS < REPRESENTS < SAME_SEMANTICS; explicit prohibition of uncertified semantic equivalence.",
+      "serialization_format": "Draft-07 JSON schema with forbidden property combinations.",
+      "invariants": "Structural attachment does not imply semantic identity; fail-closed relation checking.",
+      "known_successor": "src/mapeogeo/graph/relation.py and EdgeContract in MAPEOGEOv2",
+      "v2_disposition": "ADOPT relation hierarchy, evidentiary ordering, and fail-closed edge constraints into RelationType and EdgeContract."
+    },
+    {
+      "feature": "Asymptotic family layer and limit equivalence",
+      "source_branch": "asymptotic-family-layer-v1",
+      "source_commit": "b403099a6d82028617d9307e61ec85021d69ca9d",
+      "files": [
+        "mapeogeo/asymptotic_family.py"
+      ],
+      "public_types_functions": [
+        "AsymptoticFamily",
+        "FamilyGraph"
+      ],
+      "tests": [
+        "tests/test_asymptotic_family_v1.py"
+      ],
+      "artifacts": [
+        "docs/ASYMPTOTIC_FAMILY_LAYER_V1.md"
+      ],
+      "relation_semantics": "Equivalence classes under asymptotic parameter scaling.",
+      "serialization_format": "Internal dictionary mappings.",
+      "invariants": "Transitivity of asymptotic equivalence.",
+      "known_successor": "General invariant contracts in graph substrate + mathematics domain adapter",
+      "v2_disposition": "SUBSUME general invariant mechanisms into GraphInvariant; domain specifics deferred to mathematics adapter."
+    },
+    {
+      "feature": "Architecture consolidation and canonical pipeline integration",
+      "source_branch": "architecture-consolidation-v1",
+      "source_commit": "9206a30c01d8117d7608fa682edea1eb168d02fe",
+      "files": [
+        "docs/LATENT_GENERATOR_QUALIFICATION.md"
+      ],
+      "public_types_functions": [],
+      "tests": [],
+      "artifacts": [
+        "docs/LATENT_GENERATOR_QUALIFICATION.md"
+      ],
+      "relation_semantics": "End-to-end integration contracts.",
+      "serialization_format": "Documentary.",
+      "invariants": "Cross-subsystem integration integrity.",
+      "known_successor": "NB11B/MAPEOGEOv2 canonical release",
+      "v2_disposition": "SUPERSEDED by v2 clean-room bootstrap architecture."
+    }
+  ]
+}

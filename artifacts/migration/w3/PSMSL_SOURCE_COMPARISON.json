@@ -1,0 +1,99 @@
+{
+  "schema": "mapeogeo.migration.comparison",
+  "schema_version": 1,
+  "component": "mapeogeo.psmsl",
+  "comparison_timestamp": "2026-10-07T13:35:00-04:00",
+  "adjudication_summary": "Selected qualified union of psmsl-operator-algebra-v1 (algebraic composition, commutator ordering, operator bases) and latent-generator-observability-v2 (projection, inverse reconstruction, trajectory observability, unknown-state preservation). Domain semantics (physics/math claims) are strictly stripped and relegated to domain adapters.",
+  "sources": [
+    {
+      "feature": "Operator algebra, composition, commutators, and basis discovery",
+      "source_branch": "psmsl-operator-algebra-v1",
+      "source_commit": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "files": [
+        "mapeogeo/psmsl_operator_algebra_v1.py",
+        "mapeogeo/psmsl_operator_basis_v1.py",
+        "mapeogeo/psmsl_work_equivalence_v1.py",
+        "mapeogeo/psmsl_work_plan_v1.py"
+      ],
+      "public_types_functions": [
+        "InformationSemantics",
+        "OrderingSemantics",
+        "OperatorBasis",
+        "matmul",
+        "matsub",
+        "rank",
+        "commutator",
+        "discover_linear_operator_basis",
+        "fuse"
+      ],
+      "tests": [
+        "tests/test_psmsl_operator_algebra_v1.py",
+        "tests/test_psmsl_operator_basis_v1.py",
+        "tests/test_psmsl_work_equivalence_v1.py",
+        "tests/test_psmsl_work_plan_v1.py"
+      ],
+      "artifacts": [
+        "docs/LATENT_GENERATOR_QUALIFICATION.md"
+      ],
+      "relation_semantics": "Composition T2 o T1 of transformation operators, commutator norm for parallel safety, operator basis reduction.",
+      "serialization_format": "Tuple of numeric tuples; deterministic matrix representations.",
+      "invariants": "Associativity of operator composition; rank-nullity theorem; commutator zero condition for reordering.",
+      "known_successor": "src/mapeogeo/psmsl/ in MAPEOGEOv2",
+      "v2_disposition": "ADOPT as mathematical engine for TransformationOperator, OperatorWord, and RepresentationTransform."
+    },
+    {
+      "feature": "State projection, linear inverse, and null-space qualification",
+      "source_branch": "latent-generator-qualification-v1",
+      "source_commit": "3491b948e9329d6f401b7853287231573e95cef8",
+      "files": [
+        "mapeogeo/latent_generator_v1.py",
+        "mapeogeo/latent_generator_qualification_v1.py"
+      ],
+      "public_types_functions": [
+        "InverseResult",
+        "linear_inverse",
+        "StateProjection",
+        "LatentGenerator"
+      ],
+      "tests": [
+        "tests/test_latent_generator_v1.py",
+        "tests/test_latent_generator_qualification_v1.py"
+      ],
+      "artifacts": [
+        "docs/LATENT_GENERATOR_QUALIFICATION.md"
+      ],
+      "relation_semantics": "Forward state projection y = P x and inverse reconstruction x = P^+ y + N z with explicit null-space dimension.",
+      "serialization_format": "Dataclasses with numeric tuples.",
+      "invariants": "Strict boundary: observed quantity != inferred generator; non-zero null space prevents claiming identified source.",
+      "known_successor": "src/mapeogeo/psmsl/ in MAPEOGEOv2",
+      "v2_disposition": "ADOPT StateProjection, Observation, and InverseProjection; enforce separation of observation from inference."
+    },
+    {
+      "feature": "Trajectory observability, multi-step signatures, and unknown source preservation",
+      "source_branch": "latent-generator-observability-v2",
+      "source_commit": "2e12009413488f34c8d7e411f3239d240ce19ade",
+      "files": [
+        "mapeogeo/latent_generator_observability_v2.py",
+        "mapeogeo/latent_waveform_identifiability_v2.py"
+      ],
+      "public_types_functions": [
+        "trajectory_inverse",
+        "observability_matrix",
+        "dynamic_initial_state_inverse",
+        "ObservableSignature"
+      ],
+      "tests": [
+        "tests/test_latent_generator_observability_v2.py",
+        "tests/test_latent_waveform_identifiability_v2.py"
+      ],
+      "artifacts": [
+        "docs/ASYMPTOTIC_FAMILY_LAYER_V1.md"
+      ],
+      "relation_semantics": "Dynamical observability matrix construction O = [C; CA; CA^2; ...] and trajectory inversion.",
+      "serialization_format": "Deterministic tuples and numeric matrices.",
+      "invariants": "Dynamic trajectory rank dictates identifiability; unidentified sources remain explicitly status='unknown'.",
+      "known_successor": "src/mapeogeo/psmsl/ in MAPEOGEOv2",
+      "v2_disposition": "ADOPT ObservableSignature and dynamic trajectory mechanics; strictly strip physical waveform terminology to domain adapter."
+    }
+  ]
+}
