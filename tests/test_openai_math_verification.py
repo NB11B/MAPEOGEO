@@ -86,3 +86,21 @@ def test_verifier_requires_symbolic_tex_macro_arguments(kind):
     verifier.check_payload(item)
     with pytest.raises(ValueError,match='macro argument'):
         verifier.check_payload({**item,'attributes':{**attrs,'resolution_status':'LOCAL_ANCHOR'}})
+
+def test_verifier_accepts_only_fail_closed_canonical_candidates():
+    attrs={'stage':'openai_math','evidence_status':'UNVERIFIED',
+           'reconciliation_status':'CANDIDATE_ONLY',
+           'semantic_equivalence_status':'NOT_ESTABLISHED'}
+    edge={'id':'oam:edge:candidate','type':'CANDIDATE_REPRESENTS',
+          'source':'oam:abc:file:x:record:1:0','target':'canonical:linear_algebra:dimension',
+          'attributes':attrs}
+    verifier.check_payload(edge,edge=True)
+    for key,value,match in [
+        ('reconciliation_status','ACCEPTED','promoted'),
+        ('semantic_equivalence_status','ESTABLISHED','semantic equivalence')]:
+        with pytest.raises(ValueError,match=match):
+            verifier.check_payload({**edge,'attributes':{**attrs,key:value}},edge=True)
+    with pytest.raises(ValueError,match='target is not canonical'):
+        verifier.check_payload({**edge,'target':'oam:abc:file:y'},edge=True)
+    with pytest.raises(ValueError,match='source is not imported'):
+        verifier.check_payload({**edge,'source':'srcdecl:theorem:1'},edge=True)
