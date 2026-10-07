@@ -411,8 +411,9 @@ def _build_intake(source_repo: Path, base_path: Path, out_dir: Path) -> dict:
     canonical_registry = json.loads((ROOT / "formal" / "cross_source_alignments_v0_19.json").read_text(encoding="utf-8"))["canonical_objects"]
     base_node_ids = {node["id"] for node in base["nodes"]}
     missing_canonical = [obj["id"] for obj in canonical_registry if obj["id"] not in base_node_ids]
-    if missing_canonical:
-        raise ValueError(f"canonical registry not present in base graph: {missing_canonical[:5]}")
+    if pin["repository"] == "openai/math" and missing_canonical:
+        raise ValueError(f"canonical registry not present in production base graph: {missing_canonical[:5]}")
+    canonical_registry = [obj for obj in canonical_registry if obj["id"] in base_node_ids]
     generic = {"theorem","formula","procedure","operator","space","spaces","vector","linear","of","for","and","internal","fundamental","have","a","an","the"}
     canonical_core = {}
     canonical_index = defaultdict(set)
