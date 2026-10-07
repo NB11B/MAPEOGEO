@@ -1,0 +1,62 @@
+{
+  "grammar_name": "M5",
+  "parent_grammar": "M4",
+  "coordinates": {
+    "Delta": {
+      "description": "Observable structural change",
+      "alphabet": [
+        "addition",
+        "removal",
+        "modification",
+        "preservation"
+      ]
+    },
+    "I": {
+      "description": "Preserved invariant class",
+      "alphabet": [
+        "cardinality",
+        "metric",
+        "measure",
+        "topology",
+        "algebraic_structure"
+      ]
+    },
+    "W": {
+      "description": "Relational witness / license certificate",
+      "alphabet": [
+        "commutative_diagram",
+        "homotopy",
+        "universal_property",
+        "isomorphism",
+        "factorization",
+        "bijection"
+      ]
+    },
+    "sigma": {
+      "description": "Admissible relational strength / semantic scope",
+      "alphabet": [
+        "SAME_SEMANTICS",
+        "EQUIVALENT_TO",
+        "SCOPED_OVERLAP"
+      ]
+    },
+    "Pi": {
+      "description": "Variance / Polarity of structural transport relative to arrows",
+      "alphabet": [
+        "covariant",
+        "contravariant",
+        "self-dual"
+      ],
+      "status": "ADMITTED_BY_HOLD_OUT",
+      "discovery_entropy_reduction": 0.613,
+      "holdout_retention": 0.962,
+      "false_promotions": 0
+    }
+  },
+  "composition_law": {
+    "symbol": "circ",
+    "semantics": "Associative typed word composition over (Delta, I, W, sigma, Pi)"
+  },
+  "status": "SEALED_FROZEN",
+  "lock_rule": "NO_FURTHER_COORDINATE_ADDITIONS_WITHOUT_B5_PROSPECTIVE_TEST"
+}

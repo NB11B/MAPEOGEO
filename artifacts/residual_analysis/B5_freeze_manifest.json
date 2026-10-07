@@ -1,0 +1,12 @@
+{
+  "boundary_corpus": "B5",
+  "target_grammar": "M5",
+  "boundary_population_count": 3218,
+  "corpus_share_percentage": 3.9,
+  "residual_share_percentage": 28.4,
+  "b5_jsonl_path": "B5_explanatory_boundary.jsonl",
+  "b5_jsonl_sha256": "24fcf1f051f00fa437041ffc81a0c72cc3f9a782cbb688d71866d9fe50fda5dd",
+  "m5_spec_path": "M5_grammar_specification.json",
+  "m5_spec_sha256": "568a00bfcb989fd41ba87dd776e17099462f99cb7bec09ef0f69a14e47001a0d",
+  "admission_policy": "No candidate coordinate C_{n+1} may be admitted unless it prospectively explains a statistically significant, multi-domain partition of B5 without regressing M5 semantic accuracy."
+}

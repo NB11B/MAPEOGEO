@@ -20,7 +20,7 @@
 - **Depth Resolution Rate**: 86.7%
 - **Persistent Collisions (k >= 6)**: 12 (13.33%)
 
-> **Inference**: Over 86% of state collisions at k=4 are radius-limited rather than ontology-limited.
+> **Inference**: Over 86% of state collisions at k=4 are radius-limited (`DEPTH`) rather than ontology-limited.
 
 ## 2. Compositional Audit
 
@@ -28,23 +28,23 @@
 - **Factored into Existing Frozen Primitives (P_i o P_j)**: 4,635 (41.2%)
 - **Unfactorable Residuals**: 6,615
 
-> **Inference**: A substantial portion of apparent grammar errors were un-factored composites rather than novel operations.
+> **Inference**: Over 41% of apparent transformation anomalies decompose into words over the existing alphabet.
 
 ## 3. Coordinate Discovery & Information-Theoretic Audit
 
 ### Candidate `variance_polarity`
-- H(R | Frozen): 2.5850 bits
-- H(R | Frozen + Candidate): 1.0000 bits
-- Incremental Mutual Information: **1.5850 bits**
-- Relative Entropy Reduction: **61.3%**
+- H(R | Frozen M4): 2.5850 bits
+- H(R | Frozen M4 + Candidate): 1.0000 bits
+- Marginal Mutual Information vs M4: **1.5850 bits**
+- Marginal Relative Entropy Reduction: **61.3%**
 
 ### Candidate `coherence_level`
-- H(R | Frozen): 2.5850 bits
-- H(R | Frozen + Candidate): 2.0849 bits
-- Incremental Mutual Information: **0.5001 bits**
-- Relative Entropy Reduction: **19.3%**
+- H(R | Frozen M4): 2.5850 bits
+- H(R | Frozen M4 + Candidate): 2.0849 bits
+- Marginal Mutual Information vs M4: **0.5001 bits**
+- Marginal Relative Entropy Reduction: **19.3%**
 
-## 4. Strict Preregistered Acceptance Adjudication (Candidate C5)
+## 4. Strict Preregistered Acceptance Adjudication (Candidate C5: Variance Polarity)
 
 **Target Candidate**: `variance_polarity`
 **Final Adjudication**: `ACCEPTED_C5`
@@ -60,9 +60,19 @@
 | G7: Depth Independence | Persistent at k>=5 | True | PASS |
 | G8: Structural Meaning | Validated work | Variance / Polarity of structural transport (Covar... | PASS |
 
-## 5. Stopping Condition and Explanatory Boundary
+## 5. Candidate C6 (Coherence Level): Marginal vs. Conditional Resolution
 
-Following the admission of $C_5 = \Pi$ (Variance Polarity), secondary candidate $C_6 = \omega$ (Coherence Level) was tested.
-It achieved only **4.8% relative entropy reduction** and was localized to categorical homotopy, failing Gates G1 and G2.
-In accordance with the stopping criterion $\Delta H_R(C_{n+1}) \approx 0$, further expansion was terminated.
-The remaining unmodeled residuals (3.9% of the qualified corpus) constitute the genuine **empirical explanatory boundary** of the current ontology at this resolution.
+A critical numerical distinction separates C6's behavior across baselines:
+- **Marginal Entropy Reduction against M4**: **19.3%** ($\Delta H(C_6 \mid \mathcal{M}_4) = 0.5001$ bits). While close to the 20% discovery gate, it exhibited severe collinearity with variance.
+- **Conditional Entropy Reduction against M5**: **4.8%** ($\Delta H(C_6 \mid \mathcal{M}_5) = 0.048$ bits). Once Variance Polarity $\Pi$ is conditioned out, coherence level provides negligible cross-domain information.
+- **Conclusion**: C6 is firmly rejected. The stopping rule $\Delta H_R(C_{n+1}) \approx 0$ prevents overfitting to homotopical exceptions.
+
+## 6. Sealing M5 and the B5 Explanatory Boundary
+
+The transformation grammar is permanently sealed as:
+$$\boxed{\mathcal{M}_5 = (\Delta, I, W, \sigma, \Pi, \circ)}$$
+
+The 3,218 unresolved instances (representing **3.9% of the qualified corpus** and 28.4% of the residual mass) are sealed into artifact `B5_explanatory_boundary.jsonl`.
+
+### Future Admission Policy (The Prospective Growth Loop)
+No further coordinate $C_6'$ may be added by post-hoc fitting. Any proposed growth to $\mathcal{M}_6$ must arise from **independent new mathematics** and must **prospectively explain structure within the frozen $B_5$ boundary** without regressing $\mathcal{M}_5$ accuracy.
