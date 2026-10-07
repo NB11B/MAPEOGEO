@@ -2,8 +2,10 @@
 
 Enforces:
 1. Domain neutrality of the UoW kernel (kernel -/-> domains).
-2. Lexical and namespace hygiene (no historical generation tokens in canonical source).
-3. Importability and presence of canonical subsystem packages.
+2. Domain neutrality of grammar and graph (grammar -/-> domains, graph -/-> domains).
+3. Lexical and namespace hygiene (no historical generation tokens in canonical source).
+4. Importability and presence of canonical subsystem packages.
+5. Integrity and qualification schema of master provenance manifest and component records.
 """
 
 from __future__ import annotations
@@ -15,9 +17,12 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 SRC_ROOT = REPO_ROOT / "src" / "mapeogeo"
 KERNEL_ROOT = SRC_ROOT / "kernel"
+GRAMMAR_ROOT = SRC_ROOT / "grammar"
+GRAPH_ROOT = SRC_ROOT / "graph"
 
-# Forbidden historical tokens in canonical source imports and module names
+# Forbidden historical tokens in canonical source imports, paths, and module names
 FORBIDDEN_HISTORICAL_TOKENS = [
+    "gen1",
     "gen2",
     "gen3",
     "gen4",
@@ -29,11 +34,10 @@ FORBIDDEN_HISTORICAL_TOKENS = [
     "gen10",
     "gen11",
     "gen12",
-    "kernel_v3",
-    "wave_f3",
-    "wave_f4",
-    "wave_f5",
+    "wave_",
+    "kernel_v",
     "experiment.",
+    "portfolio_",
 ]
 
 
@@ -56,18 +60,13 @@ def _get_imports_from_file(file_path: Path) -> list[str]:
     return imported_modules
 
 
-def test_kernel_domain_neutrality() -> None:
-    """The UoW Kernel must NEVER import from any domain adapter.
-
-    Invariance constraint:
-        mapeogeo.kernel -/-> mapeogeo.domains
-    """
-    assert KERNEL_ROOT.is_dir(), f"Kernel directory missing at {KERNEL_ROOT}"
+def _assert_no_domain_imports(subsystem_root: Path, subsystem_name: str) -> None:
+    """Verify that no file under subsystem_root imports from mapeogeo.domains."""
+    assert subsystem_root.is_dir(), f"{subsystem_name} directory missing at {subsystem_root}"
 
     violations: list[str] = []
-    py_files = list(KERNEL_ROOT.rglob("*.py"))
-
-    assert len(py_files) > 0, "No python files found in kernel directory"
+    py_files = list(subsystem_root.rglob("*.py"))
+    assert len(py_files) > 0, f"No python files found in {subsystem_name} directory"
 
     for py_file in py_files:
         imports = _get_imports_from_file(py_file)
@@ -76,9 +75,24 @@ def test_kernel_domain_neutrality() -> None:
             if "mapeogeo.domains" in imp or imp.startswith("domains"):
                 violations.append(f"{rel_path}: imports forbidden domain module '{imp}'")
 
-    assert not violations, "Domain neutrality violation detected in UoW Kernel:\n" + "\n".join(
+    assert not violations, f"Domain neutrality violation in {subsystem_name}:\n" + "\n".join(
         violations
     )
+
+
+def test_kernel_domain_neutrality() -> None:
+    """The UoW Kernel must NEVER import from any domain adapter."""
+    _assert_no_domain_imports(KERNEL_ROOT, "UoW Kernel")
+
+
+def test_grammar_domain_neutrality() -> None:
+    """The Grammar layer must NEVER import from any domain adapter."""
+    _assert_no_domain_imports(GRAMMAR_ROOT, "Grammar Layer")
+
+
+def test_graph_domain_neutrality() -> None:
+    """The Graph layer must NEVER import from any domain adapter."""
+    _assert_no_domain_imports(GRAPH_ROOT, "Graph Layer")
 
 
 def test_no_historical_generation_tokens_in_canonical_source() -> None:

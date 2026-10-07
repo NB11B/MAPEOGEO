@@ -6,6 +6,12 @@
   "upstream_frozen_commit": "74e51bd",
   "canonical_repository": "NB11B/MAPEOGEOv2",
   "canonical_base_commit": "d664f8c",
+  "bootstrap_parent": {
+    "v2_bootstrap_parent": "6a0509c",
+    "source_commit": "6a0509c",
+    "qualification": "W2_PASS",
+    "scientific_payload": "NONE"
+  },
   "qualification_policy": {
     "principle": "source_qualification_does_not_equal_v2_qualification",
     "initial_status": "PENDING_V2_QUALIFICATION",

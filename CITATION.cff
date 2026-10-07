@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: "MAPEOGEO Contributors"
+title: "MAPEOGEOv2: Canonical Unit-of-Work Architecture and Autonomous Control Kernel"
+version: 2.0.0-dev
+date-released: 2026-10-07
+url: "https://github.com/NB11B/MAPEOGEOv2"
+repository-code: "https://github.com/NB11B/MAPEOGEOv2"
+keywords:
+  - "unit-of-work"
+  - "autonomous-reasoning"
+  - "deficiency-driven-curriculum"
+  - "control-architecture"
+  - "formal-verification"
+license: MIT

@@ -36,6 +36,7 @@ where = ["src"]
 [tool.pytest.ini_options]
 minversion = "8.0"
 testpaths = ["tests"]
+pythonpath = [".", "src"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
@@ -44,7 +45,7 @@ addopts = "-v --strict-markers"
 [tool.ruff]
 line-length = 100
 target-version = "py311"
-src = ["src", "tests"]
+src = ["src", "tests", "tools"]
 
 [tool.ruff.lint]
 select = [
@@ -62,5 +63,6 @@ ignore = []
 python_version = "3.11"
 strict = true
 warn_unused_configs = true
-mypy_path = "src"
-packages = ["mapeogeo"]
+mypy_path = "src:."
+packages = ["mapeogeo", "tools"]
+
