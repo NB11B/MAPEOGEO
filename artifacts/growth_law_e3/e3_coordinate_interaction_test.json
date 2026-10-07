@@ -1,0 +1,32 @@
+{
+  "hypothesis": "COORDINATE_PRODUCT_DECOUPLING",
+  "tested_couplings": [
+    {
+      "pair": [
+        "Pi",
+        "Gamma"
+      ],
+      "mutual_information_bits": 0.024,
+      "coupled": false
+    },
+    {
+      "pair": [
+        "Delta",
+        "Pi"
+      ],
+      "mutual_information_bits": 0.018,
+      "coupled": false
+    },
+    {
+      "pair": [
+        "W",
+        "Gamma"
+      ],
+      "mutual_information_bits": 0.021,
+      "coupled": false
+    }
+  ],
+  "coupling_threshold_bits": 0.05,
+  "coordinate_product_assumption_holds": true,
+  "verdict": "PRODUCT_STRUCTURE_PRESERVED"
+}

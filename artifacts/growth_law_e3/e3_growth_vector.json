@@ -1,0 +1,15 @@
+{
+  "campaign_index": 4,
+  "grammar": "M6^{++}",
+  "external_diversity_D": 48,
+  "coordinate_dimension_d": 6,
+  "alphabet_complexity_a": 36,
+  "composition_depth_c": 6,
+  "boundary_ratio_r": 0.0284,
+  "description_length_bits_per_state": 11.6,
+  "delta_D": 10,
+  "delta_d": 0,
+  "delta_a": 2,
+  "g_j": 0.0,
+  "adversarial_bar_delta": 0.87
+}

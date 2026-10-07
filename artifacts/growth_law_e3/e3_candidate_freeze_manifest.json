@@ -1,0 +1,10 @@
+{
+  "frozen_timestamp": "2026-10-07T03:40:30Z",
+  "delta_d": 0,
+  "delta_a": 2,
+  "new_alphabet_tokens": [
+    "cohen_poset_density_certificate",
+    "braided_cross_symmetry_certificate"
+  ],
+  "read_only": true
+}

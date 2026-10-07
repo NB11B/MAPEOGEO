@@ -1,0 +1,9 @@
+{
+  "b7_total": 2892,
+  "resolved_by_e3_witnesses": 136,
+  "b8_residual_count": 2756,
+  "prospective_gain_delta_h_bits": 0.284,
+  "b8_corpus_share_percentage": 2.84,
+  "ledger_path": "artifacts\\growth_law_e3\\B7_to_B8_transformation_ledger.jsonl",
+  "b8_path": "artifacts\\growth_law_e3\\B8_explanatory_boundary.jsonl"
+}

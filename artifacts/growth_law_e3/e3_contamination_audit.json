@@ -1,0 +1,8 @@
+{
+  "total_evaluated": 1800,
+  "clean_count": 1750,
+  "derivative_overlap_quarantined": 50,
+  "exact_contamination": 0,
+  "gate_passed": true,
+  "verdict": "E3_CONTAMINATION_PASS"
+}

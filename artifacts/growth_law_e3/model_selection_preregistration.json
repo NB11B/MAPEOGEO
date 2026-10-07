@@ -1,0 +1,18 @@
+{
+  "framework": "THREE_WAY_ASYMPTOTIC_MODEL_COMPARISON",
+  "models": {
+    "H1_extensible_ontology_linear": {
+      "equation": "d(D) = alpha * D + beta",
+      "meaning": "Unbounded linear coordinate accretion proportional to domain diversity"
+    },
+    "H2_finite_relational_basis": {
+      "equation": "d(D) = d^* - A * exp(-lambda * D)",
+      "meaning": "Strict saturation toward a finite basis d^* in {6, 7}"
+    },
+    "H3_sublinear_logarithmic_basis": {
+      "equation": "d(D) = beta + alpha * log(1 + D)",
+      "meaning": "Discrete, slow, sublinear unbounded growth without strict finite bound"
+    }
+  },
+  "adjudication_criterion": "BIC and cross-validated out-of-domain trajectory error at J >= 5"
+}

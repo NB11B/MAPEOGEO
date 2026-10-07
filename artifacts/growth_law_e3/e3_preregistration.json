@@ -1,0 +1,34 @@
+{
+  "campaign_id": "E3_ADVERSARIAL_STRESS_TEST",
+  "objective": "Deliberately targeted stress-test population selected to maximize structural distance and the probability of falsifying six-dimensional saturation.",
+  "parent_frozen_grammar": "M6^+",
+  "parent_parameters": {
+    "dimension_d": 6,
+    "alphabet_complexity_a": 34,
+    "max_composition_depth_c": 6,
+    "b7_population": 2892
+  },
+  "adjudication_hierarchy": [
+    "COMPOSITION",
+    "ALPHABET",
+    "REFINEMENT",
+    "NEW_COORDINATE"
+  ],
+  "permitted_dimension_increments": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "coordinate_interaction_permitted": true,
+  "result_vocabulary": [
+    "E3_PASS_NO_DIMENSION_GROWTH",
+    "E3_PASS_DIMENSION_GROWTH",
+    "E3_PASS_COORDINATE_INTERACTION",
+    "E3_PARTIAL",
+    "E3_FAIL",
+    "E3_BLOCKED"
+  ],
+  "growth_law_status": "TRAJECTORY_INSUFFICIENT_FOR_MODEL_SELECTION",
+  "model_selection_scheduled_milestone": "J >= 5"
+}

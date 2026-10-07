@@ -1,0 +1,32 @@
+{
+  "adjudication_hierarchy_applied": [
+    "COMPOSITION",
+    "ALPHABET",
+    "REFINEMENT",
+    "NEW_COORDINATE"
+  ],
+  "candidates": [
+    {
+      "name": "derived_cotangent_complex_chain_map",
+      "hierarchical_reduction": "COMPOSITION",
+      "details": "Factored into length-5 chain of existing M6^+ operations"
+    },
+    {
+      "name": "forcing_cohen_dense_ideal_witness",
+      "hierarchical_reduction": "ALPHABET",
+      "target_coordinate": "W",
+      "admitted_alphabet_token": "cohen_poset_density_certificate"
+    },
+    {
+      "name": "braided_monoidal_rmatrix_commutator",
+      "hierarchical_reduction": "ALPHABET",
+      "target_coordinate": "W",
+      "admitted_alphabet_token": "braided_cross_symmetry_certificate"
+    }
+  ],
+  "delta_d": 0,
+  "delta_a": 2,
+  "resulting_grammar": "M6^{++} = (Delta, I, W^{+++}, sigma, Pi, Gamma, circ)",
+  "alphabet_size_new": 36,
+  "disposition": "E3_PASS_NO_DIMENSION_GROWTH"
+}

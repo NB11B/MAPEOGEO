@@ -1,0 +1,76 @@
+{
+  "trajectory": [
+    {
+      "campaign": 0,
+      "grammar": "M4",
+      "D": 10,
+      "d": 4,
+      "a": 26,
+      "c": 3,
+      "r": 0.137,
+      "bits_per_state": 42.5,
+      "g_j": null
+    },
+    {
+      "campaign": 1,
+      "grammar": "M5",
+      "D": 18,
+      "d": 5,
+      "a": 29,
+      "c": 6,
+      "r": 0.039,
+      "bits_per_state": 28.4,
+      "g_j": 0.125
+    },
+    {
+      "campaign": 2,
+      "grammar": "M6",
+      "D": 28,
+      "d": 6,
+      "a": 33,
+      "c": 6,
+      "r": 0.0368,
+      "bits_per_state": 19.1,
+      "g_j": 0.1
+    },
+    {
+      "campaign": 3,
+      "grammar": "M6^+",
+      "D": 38,
+      "d": 6,
+      "a": 34,
+      "c": 6,
+      "r": 0.0325,
+      "bits_per_state": 14.2,
+      "g_j": 0.0
+    },
+    {
+      "campaign": 4,
+      "grammar": "M6^{++}",
+      "D": 48,
+      "d": 6,
+      "a": 36,
+      "c": 6,
+      "r": 0.0284,
+      "bits_per_state": 11.6,
+      "g_j": 0.0
+    }
+  ],
+  "dimension_sequence": [
+    4,
+    5,
+    6,
+    6,
+    6
+  ],
+  "marginal_requirements_g": [
+    0.125,
+    0.1,
+    0.0,
+    0.0
+  ],
+  "saturation_persisted_under_adversarial_stress": true,
+  "description_length_monotonic_compression": true,
+  "status": "E3_PASS_NO_DIMENSION_GROWTH",
+  "growth_law_status": "TRAJECTORY_INSUFFICIENT_FOR_MODEL_SELECTION"
+}

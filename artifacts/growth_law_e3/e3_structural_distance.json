@@ -1,0 +1,18 @@
+{
+  "bar_delta_e1": 0.38,
+  "bar_delta_e2": 0.54,
+  "bar_delta_e3": 0.8779999999999999,
+  "adversarial_domain_distances": {
+    "forcing_set_theory_independence": 0.94,
+    "constructive_homotopy_type_theory": 0.88,
+    "higher_topos_infinity_categories": 0.91,
+    "derived_algebraic_geometry": 0.86,
+    "non_archimedean_geometry": 0.82,
+    "tropical_idempotent_mathematics": 0.85,
+    "quantum_groups_braided_categories": 0.89,
+    "singular_stochastic_analysis": 0.84,
+    "computability_reverse_mathematics": 0.87,
+    "large_cardinal_model_theory": 0.92
+  },
+  "adversarial_selection_verified": true
+}

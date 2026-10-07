@@ -1,0 +1,19 @@
+{
+  "corpus_name": "Adversarial_Stress_Test_Corpus_E3",
+  "domains": [
+    "forcing_set_theory_independence",
+    "constructive_homotopy_type_theory",
+    "higher_topos_infinity_categories",
+    "derived_algebraic_geometry",
+    "non_archimedean_geometry",
+    "tropical_idempotent_mathematics",
+    "quantum_groups_braided_categories",
+    "singular_stochastic_analysis",
+    "computability_reverse_mathematics",
+    "large_cardinal_model_theory"
+  ],
+  "total_records": 1800,
+  "clean_records_count": 1750,
+  "derivative_overlap_count": 50,
+  "frozen_timestamp": "2026-10-07T03:40:15Z"
+}
