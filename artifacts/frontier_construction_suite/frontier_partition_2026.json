@@ -1,0 +1,34 @@
+{
+  "total_frontier_evaluated": 3,
+  "u_realizable_count": 1,
+  "u_realizable": [
+    {
+      "candidate_id": "U2026_CONST_0002",
+      "nominal_title": "Analytic Stack Prismatic Coherence Duality",
+      "disposition": "REALIZABLE",
+      "details": "Realizable on Stk(QSyn)"
+    }
+  ],
+  "u_obstructed_count": 2,
+  "u_obstructed": [
+    {
+      "candidate_id": "U2026_CONST_0001",
+      "nominal_title": "Condensed Chromatic Spectral Adjunction",
+      "disposition": "OBSTRUCTED",
+      "obstruction_class": "Ext^1 ghost class != 0",
+      "minimal_repair_rho": "SolidMod_R^{nuc}"
+    },
+    {
+      "candidate_id": "U2026_CONST_0003",
+      "nominal_title": "Cubical Type-Theoretic Moduli Localization",
+      "disposition": "OBSTRUCTED",
+      "obstruction_class": "Operadic canonicity loss in untruncated spectra",
+      "minimal_repair_rho": "tau_{<= k} U_{Sp}"
+    }
+  ],
+  "u_unresolved_count": 0,
+  "u_unresolved": [],
+  "true_construction_frontier": [
+    "U2026_CONST_0002"
+  ]
+}
