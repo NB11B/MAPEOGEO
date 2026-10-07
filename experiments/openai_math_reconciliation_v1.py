@@ -22,13 +22,16 @@ def main():
         except UnicodeDecodeError:continue
         for m in DECL.finditer(text):
             total+=1; name=m.group("name")
-            for o in objs:
-                s=score(o,name,module)
-                if s<=0:continue
+            nt=toks(name.replace("_"," ")+" "+module.replace("."," "))
+            object_ids=set()
+            for token in nt: object_ids.update(inverted.get(token,()))
+            for oid in object_ids:
+                o=by_id[oid]; q=signatures[oid]; inter=q&nt
+                s=(len(inter)/max(1,len(q)))+(len(inter)/max(1,len(nt)))+(1.0 if toks(o["name"]) and toks(o["name"])<=nt else 0.0)
                 row={"source_module":module,"declaration_kind":m.group("kind"),"declaration_name":name,"start_line":text.count("\n",0,m.start())+1,"score":round(s,8),
-                     "evidence":{"lexical_overlap":sorted(toks(o["name"]+" "+o.get("description","")) & toks(name.replace("_"," ")+" "+module.replace("."," "))),"formal_target_hint":bool(o.get("formal_decl"))},
+                     "evidence":{"lexical_overlap":sorted(inter),"formal_target_hint":bool(o.get("formal_decl"))},
                      "status":"CANDIDATE_REPRESENTS","verification_status":"UNTESTED"}
-                candidates[o["id"]].append(row)
+                candidates[oid].append(row)
     out=[]
     for o in objs:
         rows=sorted(candidates[o["id"]],key=lambda x:(-x["score"],x["source_module"],x["declaration_name"]))[:a.topk]
