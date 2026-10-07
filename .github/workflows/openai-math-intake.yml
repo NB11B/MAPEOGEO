@@ -97,6 +97,12 @@ jobs:
           --manifest artifacts/openai_math/source_manifest.json.gz
           --report artifacts/openai_math/intake_report.json
           --output artifacts/openai_math_verification.json
+      - name: Finalize canonical reconciliation classification
+        run: >-
+          python scripts/finalize_openai_math_reconciliation.py
+          --graph artifacts/openai_math/mapeogeo_openai_math_graph.json.gz
+          --registry formal/cross_source_alignments_v0_19.json
+          --output artifacts/openai_math/canonical_reconciliation_final.json
       - name: Upload merged graph and intake evidence
         uses: actions/upload-artifact@v4
         with:
