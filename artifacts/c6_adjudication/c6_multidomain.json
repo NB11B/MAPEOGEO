@@ -1,0 +1,24 @@
+{
+  "test_families": [
+    "graded_super_algebra",
+    "clifford_modules_dirac",
+    "homological_algebra_koszul",
+    "noncommutative_geometry",
+    "graded_representation_theory",
+    "differential_forms_derham"
+  ],
+  "domain_distribution": {
+    "graded_super_algebra": 180,
+    "clifford_modules_dirac": 140,
+    "homological_algebra_koszul": 160,
+    "noncommutative_geometry": 210,
+    "graded_representation_theory": 110,
+    "differential_forms_derham": 150
+  },
+  "total_cross_domain_instances": 950,
+  "shannon_entropy_nats": 1.7721138808417176,
+  "effective_domain_count_d_eff": 5.883276772006456,
+  "preregistered_min_d_eff": 4.0,
+  "breadth_requirement_satisfied": true,
+  "verdict": "MULTIDOMAIN_BREADTH_PASS"
+}

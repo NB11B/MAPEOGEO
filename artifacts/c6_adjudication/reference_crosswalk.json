@@ -1,0 +1,28 @@
+{
+  "transport_direction": {
+    "forward_transport": "covariant",
+    "reverse_transport": "contravariant",
+    "bidirectional_fixed": "self-dual"
+  },
+  "structural_action": {
+    "subobject_inclusion": "addition",
+    "quotient_collapse": "removal",
+    "fiber_deformation": "modification",
+    "rigid_isometry": "preservation"
+  },
+  "preservation_type": {
+    "homological_invariance": "topology",
+    "distance_invariance": "metric",
+    "volume_invariance": "measure",
+    "set_size_invariance": "cardinality",
+    "morphism_bracket_invariance": "algebraic_structure"
+  },
+  "license_certificate": {
+    "natural_transformation_square": "commutative_diagram",
+    "continuous_path_deformation": "homotopy",
+    "limiting_factorization": "universal_property",
+    "invertible_isomorphism": "isomorphism",
+    "canonical_decomposition": "factorization",
+    "set_one_to_one_correspondence": "bijection"
+  }
+}

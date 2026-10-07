@@ -1,0 +1,8 @@
+{
+  "candidate_name": "operator_parity_grading",
+  "candidate_symbol": "Gamma",
+  "status": "NEW_COORDINATE_CANDIDATE",
+  "characterization_sha256": "e2dbed0f299eea7a3ed1faf27d7f4ebe5c0ca0115b9fa9bf1c2ece3c9b74442f",
+  "frozen_timestamp": "2026-10-07T03:31:30Z",
+  "b5_unblinded": false
+}

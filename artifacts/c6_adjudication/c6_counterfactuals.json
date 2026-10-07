@@ -1,0 +1,26 @@
+{
+  "counterfactual_pairs_audited": 2,
+  "exemplar_pairs": [
+    {
+      "pair_id": "PAIR_01_EXTERIOR_ALGEBRA",
+      "state_X": "even_forms_Lambda_even",
+      "state_Y": "odd_forms_Lambda_odd",
+      "m5_signature_collision": true,
+      "gamma_X": "even",
+      "gamma_Y": "odd",
+      "independent_mathematical_necessity": "Koszul sign flip in wedge product commutativity requires distinct state fibers."
+    },
+    {
+      "pair_id": "PAIR_02_CLIFFORD_MODULE",
+      "state_X": "chiral_spinor_bundle_S_plus",
+      "state_Y": "anti_chiral_spinor_bundle_S_minus",
+      "m5_signature_collision": true,
+      "gamma_X": "even",
+      "gamma_Y": "odd",
+      "independent_mathematical_necessity": "Dirac operator index theorem maps D: S+ -> S-, establishing non-isomorphic graded eigenspaces."
+    }
+  ],
+  "distinguished_by_gamma": true,
+  "independently_verified_necessity": true,
+  "verdict": "COUNTERFACTUAL_DISCRIMINATION_PASS"
+}

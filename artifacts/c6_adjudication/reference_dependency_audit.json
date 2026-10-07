@@ -1,0 +1,20 @@
+{
+  "prediction_dag": [
+    "external_raw_record",
+    "parsed_structural_observables",
+    "kernel_adapter_inference",
+    "kernel_predicted_tuple"
+  ],
+  "reference_dag": [
+    "external_raw_record",
+    "source_explicit_mathematical_contracts",
+    "independent_preservation_prover",
+    "reference_crosswalk_mapping",
+    "reference_independent_tuple"
+  ],
+  "shared_post_source_derivations": [],
+  "reference_consumes_kernel_prediction": false,
+  "reference_consumes_kernel_tuple": false,
+  "reference_consumes_kernel_primitive_id": false,
+  "dag_independence_verified": true
+}

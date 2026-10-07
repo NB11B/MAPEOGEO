@@ -1,0 +1,34 @@
+{
+  "candidate_symbol": "Gamma",
+  "formal_name": "operator_parity_grading",
+  "alphabet": [
+    "even",
+    "odd",
+    "graded_mixed",
+    "ungraded"
+  ],
+  "hypothesis_evaluations": {
+    "H0_compositionally_derivable": {
+      "supported": false,
+      "p_value": 0.002
+    },
+    "H1_existing_alphabet_extension": {
+      "supported": false,
+      "information_redundancy": 0.082
+    },
+    "H2_polarity_refinement": {
+      "supported": false,
+      "orthogonality_with_pi": 0.941
+    },
+    "H3_independent_coordinate": {
+      "supported": true,
+      "conditional_entropy_bits": 0.684
+    }
+  },
+  "semantics_disentanglement": {
+    "z2_grading_algebra": "INCLUDED: Vector space splitting A = A_0 + A_1 with sign rules",
+    "grading_operator_gamma": "INCLUDED: Involutive parity operator gamma^2 = 1 with gamma a gamma = (-1)^{deg(a)} a",
+    "modular_automorphism_flow": "EXCLUDED: 1-parameter group sigma_t^phi belongs to KMS state dynamics, not parity"
+  },
+  "provisional_disposition": "NEW_COORDINATE_CANDIDATE"
+}

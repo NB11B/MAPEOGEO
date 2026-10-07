@@ -1,0 +1,13 @@
+{
+  "total_b5_evaluated": 3218,
+  "applicable_cohort_size": 312,
+  "prospective_information_gain_delta_h": 0.485,
+  "transitions": {
+    "ambiguous_to_resolved_m6": 184,
+    "outside_scope_to_resolved": 0,
+    "unchanged_ambiguous": 460,
+    "unchanged_outside_scope": 642
+  },
+  "outside_scope_label_only_reclassification_rejected": true,
+  "verdict": "B5_TRANSFER_PASS"
+}

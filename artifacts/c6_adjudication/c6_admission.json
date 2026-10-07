@@ -1,0 +1,15 @@
+{
+  "disposition": "ADMIT_M6",
+  "rationale": "Gamma (Operator Parity / Z2-Grading) is an independent structural coordinate with cross-domain breadth (D_eff >= 4.0), prospective B5 information gain, and zero regressions across 45,000 baseline transformations.",
+  "resulting_grammar": "M6 = (Delta, I, W^+, sigma, Pi, Gamma, circ)",
+  "admitted_coordinate": {
+    "symbol": "Gamma",
+    "name": "operator_parity_grading",
+    "alphabet": [
+      "even",
+      "odd",
+      "graded_mixed",
+      "ungraded"
+    ]
+  }
+}

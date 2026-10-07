@@ -1,0 +1,17 @@
+{
+  "equivalent_perturbations_tested": 100,
+  "equivalent_perturbation_stability_rate": 0.985,
+  "perturbation_types_tested": [
+    "alternate_notation",
+    "equivalent_category_formulation",
+    "lexical_paraphrase",
+    "reordered_hypotheses",
+    "noncanonical_basis_choice"
+  ],
+  "near_miss_sensitivity": {
+    "near_misses_tested": 50,
+    "reference_changed_count": 50,
+    "near_miss_detection_rate": 1.0
+  },
+  "verdict": "PERTURBATION_AUDIT_PASS"
+}

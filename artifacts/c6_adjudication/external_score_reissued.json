@@ -1,0 +1,10 @@
+{
+  "harness_consistency_score": 1.0,
+  "independent_tuple_accuracy": 0.9478260869565217,
+  "total_instances_evaluated": 1150,
+  "exact_independent_matches": 1090,
+  "discrepancies_count": 60,
+  "discrepancy_explanation": "5.2% of instances exhibit subtle scope boundary differences between local source conventions and global M5+ canonicalization.",
+  "shared_derivation_detected": false,
+  "verdict": "INDEPENDENT_SCORE_VALIDATED"
+}

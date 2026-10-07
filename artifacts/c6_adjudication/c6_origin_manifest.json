@@ -1,0 +1,11 @@
+{
+  "candidate_symbol": "Gamma",
+  "candidate_name": "operator_parity_grading",
+  "external_discovery_records": [
+    "EXT_000991",
+    "EXT_000995"
+  ],
+  "external_source_domain": "noncommutative_geometry",
+  "b5_provenance_overlap": false,
+  "isolation_verified": true
+}
