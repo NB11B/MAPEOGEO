@@ -230,9 +230,9 @@ def test_provenance_manifest_and_component_records() -> None:
 
     for comp in components:
         cid = comp["component_id"]
-        # Rule: Status must be PENDING_V2_QUALIFICATION for all unported/bootstrap components
-        assert comp["v2_qualification_status"] == "PENDING_V2_QUALIFICATION", (
-            f"Component '{cid}' must have status PENDING_V2_QUALIFICATION during Wave 2"
+        valid_statuses = ("PENDING_V2_QUALIFICATION", "QUALIFIED_CANONICAL_V2")
+        assert comp["v2_qualification_status"] in valid_statuses, (
+            f"Component '{cid}' must have valid qualification status: {comp['v2_qualification_status']}"
         )
         assert comp["source_repository"] == "NB11B/MAPEOGEO"
         assert len(comp["qualification_gate_requirements"]) >= 1
@@ -243,4 +243,4 @@ def test_provenance_manifest_and_component_records() -> None:
 
         comp_record = json.loads(comp_file.read_text(encoding="utf-8"))
         assert comp_record["component_id"] == cid
-        assert comp_record["v2_qualification_status"] == "PENDING_V2_QUALIFICATION"
+        assert comp_record["v2_qualification_status"] in valid_statuses

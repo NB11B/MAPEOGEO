@@ -1,0 +1,106 @@
+{
+  "schema": "mapeogeo.migration.comparison",
+  "schema_version": 1,
+  "component": "mapeogeo.kernel_and_grammar",
+  "comparison_timestamp": "2026-10-07T13:45:00-04:00",
+  "adjudication_summary": "Extracted domain-neutral 9-tuple UoW kernel K = (M_6, Omega, rho, G, D, P, U, C, A) and literal 6-coordinate work grammar from release/autonomous-mathematics-kernel-v1 and experiment/cross-domain-uow-software. Enforced strict fail-closed deficiency conservation, prospective planning, 4-gate certification, rational refusal, and zero domain leakage.",
+  "sources": [
+    {
+      "feature": "Domain-Neutral Autonomous Control Loop & 9-Tuple Kernel",
+      "source_branch": "release/autonomous-mathematics-kernel-v1",
+      "source_commit": "74e51bd",
+      "files": [
+        "src/kernel/state.py",
+        "src/kernel/deficiency.py",
+        "src/kernel/machinery.py",
+        "src/kernel/planning.py",
+        "src/kernel/utility.py",
+        "src/kernel/certification.py",
+        "src/kernel/transition.py",
+        "src/kernel/obstruction.py"
+      ],
+      "public_types_functions": [
+        "KnowledgeState",
+        "DeficiencyExtractor",
+        "DeficiencyRecord",
+        "DeficiencyDistribution",
+        "MachineryCandidate",
+        "MachineryNode",
+        "ProspectivePlanner",
+        "ProspectivePlan",
+        "UtilityModel",
+        "UtilityEstimate",
+        "CertificationBoundary",
+        "CertificationResult",
+        "StateTransitionEngine",
+        "TransitionOutcome",
+        "ObstructionOperator",
+        "RepairOperator"
+      ],
+      "tests": [
+        "tests/test_kernel.py",
+        "tests/test_autonomous_loop.py"
+      ],
+      "artifacts": [
+        "AUTONOMOUS_MATHEMATICS_KERNEL_V1_DECLARATION.md",
+        "AUTONOMOUS_MATHEMATICS_KERNEL_V1_MANIFEST.json"
+      ],
+      "relation_semantics": "Atomic prospective acquisition loop with deficiency extraction, utility ranking J = Delta A / Cost, 4-gate certification, and rational refusal when max J < tau_J.",
+      "serialization_format": "Deterministic JSON with schema and schema_version.",
+      "invariants": "Deficiency Conservation Law: D_t = D_res U D_red U D_unc U D_exp; Zero uncertified machinery admitted.",
+      "known_successor": "src/mapeogeo/kernel/ in MAPEOGEOv2",
+      "v2_disposition": "ADOPT domain-neutral execution architecture into canonical src/mapeogeo/kernel/."
+    },
+    {
+      "feature": "Cross-Domain Kernel Invariance & Software Adapter Qualification",
+      "source_branch": "experiment/cross-domain-uow-software",
+      "source_commit": "4cd63f7",
+      "files": [
+        "tests/test_software_uow_kernel.py",
+        "artifacts/SOFTWARE_UOW_REPRODUCTION_MANIFEST.json"
+      ],
+      "public_types_functions": [
+        "SoftwareDeficiencyAdapter",
+        "SoftwareCandidateAdapter"
+      ],
+      "tests": [
+        "tests/test_software_uow_kernel.py"
+      ],
+      "artifacts": [
+        "FINAL_SOFTWARE_UOW_REPRODUCTION_REPORT.md",
+        "SOFTWARE_UOW_REPRODUCTION_MANIFEST.json"
+      ],
+      "relation_semantics": "Empirical confirmation that UoW kernel operates invariant across non-mathematical domains without kernel modification.",
+      "serialization_format": "Deterministic JSON manifests.",
+      "invariants": "Kernel contains zero software-domain concepts or types; operates purely over functional signatures and witness requirements.",
+      "known_successor": "src/mapeogeo/kernel/ (domain-neutral core) and src/mapeogeo/domains/software/ in MAPEOGEOv2",
+      "v2_disposition": "CONFIRMS strict separation: kernel remains completely domain-neutral; software domain machinery deferred to Wave 9."
+    },
+    {
+      "feature": "6-Coordinate Work Grammar & Semantic Drift Prevention",
+      "source_branch": "experiment/residual-coordinate-factorization",
+      "source_commit": "74e51bd",
+      "files": [
+        "src/grammar/algebra.py",
+        "src/grammar/coordinates.py"
+      ],
+      "public_types_functions": [
+        "CanonicalCoordinate",
+        "WorkGrammar",
+        "WitnessCertificate",
+        "SemanticDriftAuditor"
+      ],
+      "tests": [
+        "tests/test_grammar_invariants.py"
+      ],
+      "artifacts": [
+        "MATHEMATICAL_PROOF_AUDIT_REPORT.md"
+      ],
+      "relation_semantics": "Literal 6 coordinates (Delta, I, W, sigma, Pi, Gamma) + circ. Strict rejection of coordinate relabeling or dimension alteration.",
+      "serialization_format": "Deterministic JSON coordinate manifests.",
+      "invariants": "Dimension d = 6 strictly invariant (Delta d = 0); extension confined exclusively to witness coordinate W via Delta a_W.",
+      "known_successor": "src/mapeogeo/grammar/ in MAPEOGEOv2",
+      "v2_disposition": "ADOPT frozen coordinates and audit verification into canonical src/mapeogeo/grammar/."
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "mapeogeo.grammar.specification",
+  "schema_version": 1,
+  "grammar_name": "Frozen 6-Coordinate Work Grammar (M_6)",
+  "dimension": 6,
+  "dimension_invariant": "Delta d = 0",
+  "composition_operator": "circ",
+  "coordinates": [
+    {
+      "symbol": "Delta",
+      "name": "DELTA",
+      "definition": "difference / variation / defect",
+      "extensible": false
+    },
+    {
+      "symbol": "I",
+      "name": "INVARIANT",
+      "definition": "invariant / conservation / balance",
+      "extensible": false
+    },
+    {
+      "symbol": "W",
+      "name": "WITNESS",
+      "definition": "witness / certificate / verification",
+      "extensible": true,
+      "extension_mechanism": "Constructive witness registration Delta a_W"
+    },
+    {
+      "symbol": "sigma",
+      "name": "STRUCTURE",
+      "definition": "structure / topology / symmetry",
+      "extensible": false
+    },
+    {
+      "symbol": "Pi",
+      "name": "PROJECTION",
+      "definition": "projection / restriction / slice",
+      "extensible": false
+    },
+    {
+      "symbol": "Gamma",
+      "name": "GENERATOR",
+      "definition": "generator / transition / rule",
+      "extensible": false
+    }
+  ],
+  "semantic_drift_policy": {
+    "status": "STRICT_FAIL_CLOSED",
+    "forbidden_relabelings": {
+      "Gamma": ["connection", "christoffel", "covariant_derivative"],
+      "sigma": ["symmetry_group", "gauge_group", "lie_group"],
+      "I": ["energy", "hamiltonian", "momentum"],
+      "Pi": ["fiber_bundle_projection", "canonical_bundle"],
+      "Delta": ["laplacian", "dirac_operator"]
+    },
+    "enforcement": "SemanticDriftAuditor validates coordinate names, alphabet sizes, and coordinate definitions. Attempted relabeling raises SemanticDriftError."
+  }
+}

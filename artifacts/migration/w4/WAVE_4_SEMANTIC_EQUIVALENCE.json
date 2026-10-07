@@ -1,0 +1,96 @@
+{
+  "schema": "mapeogeo.migration.equivalence",
+  "schema_version": 1,
+  "component": "mapeogeo.kernel_and_grammar",
+  "evaluation_timestamp": "2026-10-07T13:45:00-04:00",
+  "summary": {
+    "total_fixtures_evaluated": 10,
+    "byte_identical": 2,
+    "semantically_equivalent": 8,
+    "api_normalizations": 0,
+    "regressions": 0,
+    "status": "PASS"
+  },
+  "fixtures": [
+    {
+      "fixture_id": "kernel-9-tuple-spec",
+      "historical_source": "release/autonomous-mathematics-kernel-v1",
+      "v2_target": "src/mapeogeo/kernel/spec.py",
+      "equivalence_type": "BYTE_IDENTICAL",
+      "description": "Formal 9-tuple specification K = (M_6, Omega, rho, G, D, P, U, C, A) with deterministic SHA-256 seal.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "grammar-dimension-invariant",
+      "historical_source": "experiment/residual-coordinate-factorization",
+      "v2_target": "src/mapeogeo/grammar/coordinates.py",
+      "equivalence_type": "BYTE_IDENTICAL",
+      "description": "Literal 6-coordinate work grammar with strict dimension d=6 invariance (Delta d = 0).",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "semantic-drift-auditor",
+      "historical_source": "experiment/residual-coordinate-factorization",
+      "v2_target": "src/mapeogeo/grammar/work_grammar.py",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Audit rejecting coordinate relabeling and enforcing extension restriction to witness alphabet W.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "deficiency-extractor",
+      "historical_source": "release/autonomous-mathematics-kernel-v1:src/kernel/deficiency.py",
+      "v2_target": "src/mapeogeo/kernel/deficiency.py",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Domain-neutral deficiency extraction D_t(Q) computing missing capabilities over required work obligations.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "deficiency-conservation",
+      "historical_source": "release/autonomous-mathematics-kernel-v1:src/kernel/deficiency.py",
+      "v2_target": "src/mapeogeo/kernel/deficiency.py:verify_conservation",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Strict verification of UoW Deficiency Conservation Law: D_t = D_res U D_red U D_unc U D_exp, failing closed if work disappears.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "certification-4-gate",
+      "historical_source": "release/autonomous-mathematics-kernel-v1:src/kernel/certification.py",
+      "v2_target": "src/mapeogeo/kernel/certification.py",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Fail-closed 4-gate verification across dependency completeness, witness/grammar compliance, semantic non-triviality, and reach consistency.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "prospective-planner-utility",
+      "historical_source": "release/autonomous-mathematics-kernel-v1:src/kernel/planning.py",
+      "v2_target": "src/mapeogeo/kernel/planning.py, src/mapeogeo/kernel/utility.py",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Prospective capability gain prediction (Delta A_t, D_{t+1}) and cost-efficiency ranking J_t(M).",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "state-transition-and-refusal",
+      "historical_source": "release/autonomous-mathematics-kernel-v1:src/kernel/transition.py",
+      "v2_target": "src/mapeogeo/kernel/transition.py",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Atomic certified state transition G_t -> G_{t+1} and rational refusal rule max J < tau_J ==> REFUSE.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "closed-loop-curriculum-replay",
+      "historical_source": "release/autonomous-mathematics-kernel-v1:tests/test_autonomous_loop.py",
+      "v2_target": "tests/regression/test_kernel_regression.py",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "End-to-end multi-round closed-loop acquisition trajectory: dynamic marginal utility decay, deficiency conservation, and round 5 autonomous refusal.",
+      "regression_detected": false
+    },
+    {
+      "fixture_id": "domain-neutrality-invariant",
+      "historical_source": "experiment/cross-domain-uow-software",
+      "v2_target": "tests/unit/test_kernel.py:test_kernel_and_grammar_domain_neutrality",
+      "equivalence_type": "SEMANTICALLY_EQUIVALENT",
+      "description": "Strict AST check verifying zero domain imports and zero physical/domain claims in kernel and grammar.",
+      "regression_detected": false
+    }
+  ]
+}

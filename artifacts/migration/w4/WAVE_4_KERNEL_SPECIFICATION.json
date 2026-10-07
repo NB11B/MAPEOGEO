@@ -1,0 +1,105 @@
+{
+  "schema": "mapeogeo.kernel.specification",
+  "schema_version": 1,
+  "specification_name": "Domain-Neutral Unit-of-Work Control Kernel",
+  "tuple_name": "K = (M_6, Omega, rho, G, D, P, U, C, A)",
+  "kernel_seal_sha256": "0d58ae13a154d41fc8fddd725ad91988d25152e7a9ce1a17749f6a59d1dfb9e2",
+  "components": [
+    {
+      "symbol": "M_6",
+      "name": "Work Grammar",
+      "formal_signature": "(Delta, I, W, sigma, Pi, Gamma, circ)",
+      "module": "mapeogeo.grammar",
+      "invariants": [
+        "Dimension d = 6 strictly invariant (Delta d = 0)",
+        "Zero coordinate relabeling",
+        "Extension strictly confined to witness coordinate W"
+      ]
+    },
+    {
+      "symbol": "Omega",
+      "name": "Obstruction Operator",
+      "formal_signature": "Omega(W) -> {0, 1} x Index",
+      "module": "mapeogeo.kernel.obstruction",
+      "invariants": [
+        "Monotone obstruction detection",
+        "Sound dependency and witness verification"
+      ]
+    },
+    {
+      "symbol": "rho",
+      "name": "Repair Operator",
+      "formal_signature": "rho(W, Omega) -> W'",
+      "module": "mapeogeo.kernel.obstruction",
+      "invariants": [
+        "Strict acyclicity of dependency graphs",
+        "Zero regression on valid prior components"
+      ]
+    },
+    {
+      "symbol": "G",
+      "name": "Knowledge State",
+      "formal_signature": "G_t = (Signatures_t, Witnesses_t, Machinery_t)",
+      "module": "mapeogeo.kernel.state",
+      "invariants": [
+        "Monotone capability accumulation",
+        "Strict provenance tracing for all admitted machinery"
+      ]
+    },
+    {
+      "symbol": "D",
+      "name": "Deficiency Extractor",
+      "formal_signature": "D_t(Q) = Required(Q) \\ ReachableCertifiedWork(Q | G_t)",
+      "module": "mapeogeo.kernel.deficiency",
+      "invariants": [
+        "Functional deficiency extraction without domain labels",
+        "Deficiency Conservation Law: D_t = D_res U D_red U D_unc U D_exp"
+      ]
+    },
+    {
+      "symbol": "P",
+      "name": "Prospective Planner",
+      "formal_signature": "P(G_t, M) -> (\\widehat{\\Delta A}_t, \\widehat{D}_{t+1})",
+      "module": "mapeogeo.kernel.planning",
+      "invariants": [
+        "Prospective prediction prior to commitment",
+        "Next-limiting deficiency estimation"
+      ]
+    },
+    {
+      "symbol": "U",
+      "name": "Utility Model",
+      "formal_signature": "J_t(M) = \\widehat{\\Delta A}_t(M) / Cost(M)",
+      "module": "mapeogeo.kernel.utility",
+      "invariants": [
+        "Cost-efficiency normalization",
+        "Marginal utility decay on redundant acquisitions"
+      ]
+    },
+    {
+      "symbol": "C",
+      "name": "Certification Boundary",
+      "formal_signature": "C(M, G_t) -> {0, 1} x Certificate",
+      "module": "mapeogeo.kernel.certification",
+      "invariants": [
+        "Fail-closed 4-gate verification",
+        "Zero uncertified machinery admission"
+      ]
+    },
+    {
+      "symbol": "A",
+      "name": "State Transition & Admission Engine",
+      "formal_signature": "A(G_t, M*) -> G_{t+1} | REFUSE",
+      "module": "mapeogeo.kernel.transition",
+      "invariants": [
+        "Atomic state transition upon certification",
+        "Rational refusal: max_M J_t(M) < tau_J ==> REFUSE"
+      ]
+    }
+  ],
+  "governing_invariants": [
+    "Strict domain-neutrality: zero dependencies on domain adapters or domain concepts",
+    "Fail-closed execution: any missing dependency, uncertified witness, or conservation violation aborts",
+    "Rational refusal: control terminates cleanly when prospective utility falls below frozen threshold tau_J = 1.5"
+  ]
+}

@@ -2,9 +2,8 @@
   "component_id": "grammar-subsystem",
   "target_module": "mapeogeo.grammar",
   "target_files": [
-    "src/mapeogeo/grammar/coordinate_algebra.py",
-    "src/mapeogeo/grammar/factorization.py",
-    "src/mapeogeo/grammar/witness.py"
+    "src/mapeogeo/grammar/coordinates.py",
+    "src/mapeogeo/grammar/work_grammar.py"
   ],
   "source_repository": "NB11B/MAPEOGEO",
   "source_branch": "experiment/residual-coordinate-factorization",
@@ -13,7 +12,7 @@
     "src/grammar/algebra.py"
   ],
   "source_qualification_status": "INVARIANT_CERTIFIED",
-  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
   "qualification_gate_requirements": [
     "Verification of 6D coordinate algebra invariance",
     "Validation of witness certificate transformations"
