@@ -2,20 +2,31 @@
   "component_id": "proof-subsystem",
   "target_module": "mapeogeo.proof",
   "target_files": [
-    "src/mapeogeo/proof/verifier.py",
+    "src/mapeogeo/proof/__init__.py",
+    "src/mapeogeo/proof/contracts.py",
+    "src/mapeogeo/proof/replay.py",
     "src/mapeogeo/proof/audit.py",
-    "src/mapeogeo/proof/replay.py"
+    "src/mapeogeo/proof/verifier.py",
+    "src/mapeogeo/proof/bridge.py",
+    "src/mapeogeo/proof/serialization.py"
   ],
   "source_repository": "NB11B/MAPEOGEO",
   "source_branch": "audit/final-proof-replay-verification-v3",
   "source_commit": "74e51bd",
   "source_files": [
-    "src/proof/verifier.py"
+    "mapeogeo/gfyproof_bridge.py",
+    "mapeogeo/farkas_contracts_v1.py",
+    "experiments/pct_goal_solver/v0_20_terminal_verification.py",
+    "tests/audit/test_post_hardening_proof_replay_gap.py",
+    "tests/audit/test_final_mathematical_replay_gap.py"
   ],
   "source_qualification_status": "PROOF_REPLAY_HARDENED",
-  "v2_qualification_status": "PENDING_V2_QUALIFICATION",
+  "v2_qualification_status": "QUALIFIED_CANONICAL_V2",
   "qualification_gate_requirements": [
-    "Proof replay verification pass against hardened audit corpus"
+    "Proof replay verification pass against hardened audit corpus",
+    "Strict separation of generation audit and admission audit",
+    "Fail-closed mathematical decision procedure replay (closing ROBDD gap)",
+    "Substrate integration into DecisionGraph with certified transactions"
   ],
-  "notes": "Proof verification and replay infrastructure"
+  "notes": "Consolidated formal proof engine and GFYProof semantic bridge with independent replay and dual-audit architecture"
 }

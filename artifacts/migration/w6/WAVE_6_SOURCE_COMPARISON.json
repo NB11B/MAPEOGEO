@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 6 Historical Source Comparison",
+  "upstream_repository": "NB11B/MAPEOGEO",
+  "upstream_commit": "74e51bd",
+  "canonical_repository": "NB11B/MAPEOGEOv2",
+  "comparisons": [
+    {
+      "source_file": "mapeogeo/gfyproof_bridge.py",
+      "target_file": "src/mapeogeo/proof/bridge.py",
+      "status": "REFACTORED_CANONICAL",
+      "improvements": [
+        "Pluggable ProofReplayRegistry integration",
+        "Direct enforcement of fail-closed independent payload replay",
+        "Clean separation between general proof infrastructure and domain mathematics",
+        "Support for both DecisionGraph and dict-based legacy interfaces"
+      ]
+    },
+    {
+      "source_file": "mapeogeo/farkas_contracts_v1.py",
+      "target_file": "src/mapeogeo/proof/replay.py (FarkasImplicationReplayer)",
+      "status": "REFACTORED_CANONICAL",
+      "improvements": [
+        "Isolated independent Farkas multiplier verifier (y >= 0, y^T A = c^T, y^T b <= gamma)",
+        "Zero foundation or database pollution in generic proof layer"
+      ]
+    },
+    {
+      "source_file": "tests/audit/test_final_mathematical_replay_gap.py",
+      "target_file": "tests/regression/test_proof_regression.py",
+      "status": "GAP_CLOSED",
+      "improvements": [
+        "Historical xfail on digest-consistent false payload converted to active assertion and verified rejection",
+        "BooleanROBDDReplayer independently discovers counterexample and refutes false certificate"
+      ]
+    },
+    {
+      "source_file": "tests/audit/test_post_hardening_proof_replay_gap.py",
+      "target_file": "tests/regression/test_proof_regression.py",
+      "status": "GAP_CLOSED",
+      "improvements": [
+        "Enforces rejection of envelope-only certificates lacking proof payload"
+      ]
+    }
+  ]
+}

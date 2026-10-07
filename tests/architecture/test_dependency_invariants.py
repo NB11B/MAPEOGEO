@@ -20,6 +20,8 @@ KERNEL_ROOT = SRC_ROOT / "kernel"
 GRAMMAR_ROOT = SRC_ROOT / "grammar"
 GRAPH_ROOT = SRC_ROOT / "graph"
 PSMSL_ROOT = SRC_ROOT / "psmsl"
+ROUTING_ROOT = SRC_ROOT / "routing"
+PROOF_ROOT = SRC_ROOT / "proof"
 
 # Forbidden physical claim tokens in shared PSMSL substrate
 FORBIDDEN_PHYSICAL_TOKENS_IN_PSMSL = [
@@ -109,6 +111,16 @@ def test_graph_domain_neutrality() -> None:
 def test_psmsl_domain_neutrality() -> None:
     """The PSMSL substrate must NEVER import from any domain adapter."""
     _assert_no_domain_imports(PSMSL_ROOT, "PSMSL Substrate")
+
+
+def test_routing_domain_neutrality() -> None:
+    """The Routing layer must NEVER import from any domain adapter."""
+    _assert_no_domain_imports(ROUTING_ROOT, "Routing Layer")
+
+
+def test_proof_domain_neutrality() -> None:
+    """The Proof engine must NEVER import from any domain adapter."""
+    _assert_no_domain_imports(PROOF_ROOT, "Proof Engine")
 
 
 def test_no_physical_claims_in_psmsl() -> None:

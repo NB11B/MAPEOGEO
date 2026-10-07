@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GFYProof and Proof Engine Lineage Feature Matrix",
+  "generated_at": "2026-10-07T14:00:00Z",
+  "matrix": [
+    {
+      "source_branch": "agent/gfyproof-bridge-v1",
+      "generation": "bridge-v1",
+      "features": {
+        "envelope_schema": "mapeogeo.gfyproof.edge-certificate.v1",
+        "independent_replay": false,
+        "endpoint_mutation_check": false,
+        "dual_audit_architecture": false,
+        "status": "SUPERSEDED"
+      }
+    },
+    {
+      "source_branch": "agent/gfyproof-endpoint-contracts-v1",
+      "generation": "endpoint-contracts-v1",
+      "features": {
+        "envelope_schema": "mapeogeo.endpoint-semantic-contract.v1",
+        "independent_replay": false,
+        "endpoint_mutation_check": true,
+        "dual_audit_architecture": false,
+        "status": "SUPERSEDED"
+      }
+    },
+    {
+      "source_branch": "agent/gfyproof-semantic-bridge-v2",
+      "generation": "semantic-bridge-v2",
+      "features": {
+        "envelope_schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "independent_replay": false,
+        "endpoint_mutation_check": true,
+        "dual_audit_architecture": false,
+        "status": "SUPERSEDED"
+      }
+    },
+    {
+      "source_branch": "audit/gfyproof-proof-ingestion-v1",
+      "generation": "proof-ingestion-audit",
+      "features": {
+        "envelope_schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "identified_gaps": ["envelope-only PASS accepted without proof payload"],
+        "independent_replay": false,
+        "status": "AUDIT_FINDING"
+      }
+    },
+    {
+      "source_branch": "research/gfyproof-ingestion-hardening",
+      "generation": "ingestion-hardening",
+      "features": {
+        "envelope_schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "payload_presence_check": true,
+        "independent_replay": false,
+        "status": "SUPERSEDED"
+      }
+    },
+    {
+      "source_branch": "audit/post-hardening-proof-replay-v2",
+      "generation": "post-hardening-replay",
+      "features": {
+        "envelope_schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "enforces_payload_presence": true,
+        "independent_replay": false,
+        "identified_gaps": ["digest-consistent false payload accepted"],
+        "status": "AUDIT_FINDING"
+      }
+    },
+    {
+      "source_branch": "audit/final-proof-replay-verification-v3",
+      "generation": "final-replay-verification",
+      "features": {
+        "envelope_schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "enforces_payload_presence": true,
+        "external_engine_invocation": true,
+        "independent_replay": "PARTIAL_DELEGATION",
+        "status": "AUDITED_REFERENCE"
+      }
+    },
+    {
+      "source_branch": "v2-canonical",
+      "generation": "v2.0.0-canonical",
+      "features": {
+        "envelope_schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "enforces_payload_presence": true,
+        "independent_replay": true,
+        "dual_audit_architecture": true,
+        "generation_audit_differs_from_admission": true,
+        "closed_historical_gaps": [
+          "envelope-only pass rejection",
+          "digest-consistent false payload rejection via ROBDD replay"
+        ],
+        "substrate_integration": "DecisionGraph certified transactions",
+        "status": "QUALIFIED_CANONICAL_V2"
+      }
+    }
+  ]
+}

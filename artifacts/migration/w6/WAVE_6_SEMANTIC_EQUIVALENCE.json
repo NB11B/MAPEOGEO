@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 6 Semantic Equivalence and Historical Audit Evaluation",
+  "evaluated_fixtures": [
+    {
+      "fixture_id": "FIX-W6-01",
+      "name": "Envelope-only pass rejection",
+      "historical_source": "tests/audit/test_post_hardening_proof_replay_gap.py",
+      "v2_test": "tests/regression/test_proof_regression.py::test_envelope_only_pass_is_strictly_rejected",
+      "result": "SEMANTICALLY_EQUIVALENT",
+      "regressions": 0,
+      "notes": "Envelope without payload raises GFYProofBridgeError and leaves graph untouched."
+    },
+    {
+      "fixture_id": "FIX-W6-02",
+      "name": "False ROBDD payload rejection (historical gap closed)",
+      "historical_source": "tests/audit/test_final_mathematical_replay_gap.py",
+      "v2_test": "tests/regression/test_proof_regression.py::test_digest_consistent_false_robdd_payload_is_rejected",
+      "result": "SEMANTICALLY_SUPERIOR",
+      "regressions": 0,
+      "notes": "Historical xfail converted to certified active rejection via BooleanROBDDReplayer counterexample."
+    },
+    {
+      "fixture_id": "FIX-W6-03",
+      "name": "Endpoint mutation invalidates certificate",
+      "historical_source": "tests/test_gfyproof_bridge.py::test_endpoint_mutation_invalidates_semantic_certificate",
+      "v2_test": "tests/regression/test_proof_regression.py::test_endpoint_mutation_invalidates_semantic_certificate",
+      "result": "BYTE_IDENTICAL_BEHAVIOR",
+      "regressions": 0,
+      "notes": "Endpoint hash mismatch immediately aborts certificate ingestion."
+    },
+    {
+      "fixture_id": "FIX-W6-04",
+      "name": "Spoofed repository rejected",
+      "historical_source": "tests/test_gfyproof_bridge.py::test_spoofed_repository_is_rejected",
+      "v2_test": "tests/regression/test_proof_regression.py::test_spoofed_repository_is_rejected",
+      "result": "BYTE_IDENTICAL_BEHAVIOR",
+      "regressions": 0,
+      "notes": "Only NB11B/GFYProof is accepted as trusted producer repository."
+    },
+    {
+      "fixture_id": "FIX-W6-05",
+      "name": "Wrong edge type rejected",
+      "historical_source": "tests/test_gfyproof_bridge.py::test_semantic_verifier_cannot_be_reused_for_wrong_relation",
+      "v2_test": "tests/regression/test_proof_regression.py::test_semantic_verifier_cannot_be_reused_for_wrong_relation",
+      "result": "BYTE_IDENTICAL_BEHAVIOR",
+      "regressions": 0,
+      "notes": "Verifier semantic IDs are strictly bound to authorized relation types."
+    },
+    {
+      "fixture_id": "FIX-W6-06",
+      "name": "Sound De Morgan roundtrip accepted",
+      "historical_source": "tests/test_gfyproof_real_demorgan_roundtrip.py",
+      "v2_test": "tests/regression/test_proof_regression.py::test_sound_demorgan_proof_roundtrip_accepted",
+      "result": "SEMANTICALLY_EQUIVALENT",
+      "regressions": 0,
+      "notes": "Sound proof replayed and admitted with executable evidence attachment."
+    },
+    {
+      "fixture_id": "FIX-W6-07",
+      "name": "Farkas implication linear polyhedral verification",
+      "historical_source": "mapeogeo/farkas_contracts_v1.py",
+      "v2_test": "tests/unit/test_proof.py::test_farkas_implication_replayer_verified",
+      "result": "SEMANTICALLY_EQUIVALENT",
+      "regressions": 0,
+      "notes": "Farkas multipliers non-negativity and boundary inequalities verified."
+    },
+    {
+      "fixture_id": "FIX-W6-08",
+      "name": "Dual-audit generation vs admission separation",
+      "historical_source": "Wave 6 Specification Invariant",
+      "v2_test": "tests/unit/test_proof.py::test_generation_audit_differs_from_admission_audit",
+      "result": "ARCHITECTURALLY_ENFORCED",
+      "regressions": 0,
+      "notes": "Passing generation search audit never grants admission."
+    }
+  ],
+  "summary": {
+    "total_fixtures": 8,
+    "byte_identical": 3,
+    "semantically_equivalent": 3,
+    "semantically_superior": 1,
+    "architecturally_enforced": 1,
+    "regressions": 0
+  }
+}

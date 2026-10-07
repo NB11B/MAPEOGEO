@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wave 6 Proof & Certification Engine Specification",
+  "specification_version": "2.0.0",
+  "subsystem": "mapeogeo.proof",
+  "core_invariants": {
+    "generation_audit_differs_from_admission_audit": "Generation audit (search heuristics, traces, cost) never implies admission into certified substrate. Admission audit requires independent replay and cryptographic seal verification.",
+    "fail_closed_replay": "Unregistered verifier IDs or unverified payloads are strictly rejected (ReplayStatus.REJECTED, ProofStatus.PROOF_GAP).",
+    "domain_neutrality": "mapeogeo.proof contains only domain-neutral verification infrastructure. Domain theorem semantics reside strictly under mapeogeo.domains.mathematics."
+  },
+  "api_entities": [
+    "ProofClaim",
+    "ProofObligation",
+    "Evidence",
+    "ProofCertificate",
+    "ProofAudit",
+    "ReplayResult",
+    "CertificationPolicy"
+  ],
+  "proof_statuses": [
+    "PROVEN_IN_SOURCE",
+    "DERIVED_FROM_PROVEN_RESULTS",
+    "NOVEL_PROOF_COMPLETE",
+    "FORMALLY_CHECKED",
+    "PROOF_GAP",
+    "COUNTEREXAMPLE",
+    "FALSE_AS_STATED"
+  ],
+  "novelty_classifications": [
+    "KNOWN_REPRESENTATION",
+    "CANONICAL_SYNONYM",
+    "INDEPENDENT_DISCOVERY",
+    "CROSS_DOMAIN_ANALOGY",
+    "UNCLASSIFIED"
+  ],
+  "built_in_replayers": [
+    "BooleanROBDDReplayer",
+    "FarkasImplicationReplayer",
+    "TautologyDFAEqualityReplayer"
+  ]
+}
