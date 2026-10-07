@@ -27,7 +27,7 @@ ALLOWED_NODE_TYPES = {'SOURCE_REPOSITORY','SOURCE_FAMILY','SOURCE_DOCUMENT',
     'SOURCE_RESOURCE','SOURCE_RECORD','SOURCE_REFERENCE_RECORD','UNRESOLVED_DEFICIT'}
 ALLOWED_EDGE_TYPES = {'CONTAINS_SOURCE_RECORD','SOURCE_DOCUMENTS','HAS_SOURCE_RESOURCE',
     'CONFIGURES_SOURCE_CHECK','SELECTS_FORMAL_TARGET','HAS_SCOPE_DOCUMENT',
-    'LEXICALLY_MATCHES_TARGET','SOURCE_REFERENCE','HAS_UNRESOLVED_REFERENCE','HAS_WOUND'}
+    'LEXICALLY_MATCHES_TARGET','SOURCE_REFERENCE','HAS_UNRESOLVED_REFERENCE','HAS_WOUND','CANDIDATE_REPRESENTS'}
 VERIFIED_VALUES = {'VERIFIED','PASS','KERNEL_VERIFIED','EXECUTABLE_VERIFIED'}
 
 def canonical(value):
@@ -78,6 +78,11 @@ def check_payload(item,edge=False):
     else:
         require(item['attributes'].get('verification_status')=='UNTESTED','imported node verification level promoted')
     attrs=item['attributes']
+    if edge and item.get('type')=='CANDIDATE_REPRESENTS':
+        require(attrs.get('reconciliation_status')=='CANDIDATE_ONLY','canonical candidate promoted beyond candidate-only')
+        require(attrs.get('semantic_equivalence_status')=='NOT_ESTABLISHED','canonical candidate asserts semantic equivalence')
+        require(str(item.get('target','')).startswith('canonical:'),'canonical candidate target is not canonical')
+        require(str(item.get('source','')).startswith('oam:'),'canonical candidate source is not imported source record')
     if attrs.get('reference_kind')=='tex_label':
         require(item.get('type')!='SOURCE_REFERENCE','TeX symbolic label incorrectly resolved as file edge')
         require(attrs.get('resolution_status')=='SYMBOLIC_LABEL','TeX label classified as external/file reference')
