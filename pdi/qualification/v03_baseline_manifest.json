@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "program": "PDI-135M-v0.3-K8",
+  "timestamp_utc": "2026-10-08T20:35:45Z",
+  "git_baseline": {
+    "v01_tag": "v0.1-baseline",
+    "v01_commit": "690d4a9",
+    "v02_commit": "c4c502c3e4825dd669a5cbe1debd2e08b3e49bf1",
+    "v03_branch": "experiment/pdi-135m-v0.3-k8"
+  },
+  "asset_hashes": {
+    "base_model": {
+      "model_id": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac"
+    },
+    "h3_baseline_adapter": {
+      "path": "C:\\Users\\nateb\\OneDrive\\Documents\\UoW-v2\\checkpoints\\uow_h3_native_smollm2_135m_arm_nb\\adapter_model.safetensors",
+      "sha256": "64d77db036472c86403a1d98490526fc5412d56e8c1640a47fd9eeed5f92ad6a"
+    },
+    "arm_b_pdi_adapter": {
+      "path": "pdi/checkpoints/pdi_arm_b_h3_adapted/adapter_model.safetensors",
+      "sha256": "41c65ba19bcbc66effbf09ca75d9841eac115f93486390de44375a2867d5a2c6"
+    },
+    "operator_registry": {
+      "path": "pdi/spec/pdi_v0_operators.json",
+      "sha256": "540b686504b03ae602669da41cff0b07a6ea259607d9eacb4e51cabb6053dd5c"
+    },
+    "dataset": {
+      "path": "pdi/data/pdi_corpus_manifest.json",
+      "sha256": "8e236386fc48ff1bb3e54f3e093ad494ca4988ce82ca5dcb5307bb60b53200b8",
+      "total_records": 209,
+      "train_records": 160,
+      "holdout_records": 49,
+      "holdout_data_sha256": "f54f35b9c9e5746e1abb8c823da982113dc0d30222b7ffebfb4d21496d8ec8ac"
+    },
+    "rtl_modules": {
+      "mapeogeo_p0_fabric.sv": "5f9e4f52d3c208d72b2088e249712aa12c6184ea163a4f91de4e37031e2e24f1",
+      "pdi_uow_bridge.sv": "d71fe36801bc57f6850d6dad1db8266ccb0243efee31c69dbfbdf3c3d30b487d",
+      "pdi_ingress.sv": "757e1fbfc6db3005bfd48b76914e1676867aef0fd9b6580514405f1d8cdcab04",
+      "pdi_packet_validator.sv": "1195c7a51c428c2945a7f65c697bfb39b1dc68ead7b0c9b6107f0fa1b764dda0",
+      "pdi_egress.sv": "0197c433aa0ac54b3b9736a5fc9c2dc7c89d3e6ba01d0aa1e497b013883060cd"
+    }
+  },
+  "phase_0_audits": {
+    "v02_menu_leakage_audit": {
+      "status": "PASSED_WITH_REMEDY",
+      "finding": "In v0.2 preliminary testing, menu options placed target line at index 1 without blinded permutation. In v0.3, CandidateGenerator synthesizes candidates strictly from observable state S without oracle knowledge. The menu is hashed prior to oracle scoring and tested under 3 independent deterministic permutation seeds (42, 137, 2026)."
+    },
+    "authority_isolation_audit": {
+      "status": "PASSED",
+      "finding": "Menu presentation is entirely untrusted. Candidate selection only produces an ingress proposal; execution and state mutation require independent hardware verification through geo_authority_engine (Check 4 capability mask, Check 6 version bounds)."
+    }
+  }
+}

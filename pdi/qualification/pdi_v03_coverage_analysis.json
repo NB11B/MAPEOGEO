@@ -1,0 +1,2535 @@
+{
+  "overall_coverage_pct": 100.0,
+  "total_scenarios": 49,
+  "covered_scenarios": 49,
+  "by_family": {
+    "operator_op_add": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_sub": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_mul": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_compare": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_cl20_product": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_reverse": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_grade_involution": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_clifford_conjugate": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_vector_dot": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_vector_wedge": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_commutator": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_anticommutator": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_scalar_projection": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_vector_projection": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_bivector_projection": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_norm_squared": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_matrix_to_cl20": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "operator_op_cl20_to_matrix": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "observe_state": {
+      "total": 1,
+      "covered": 1,
+      "coverage_pct": 100.0
+    },
+    "observe_graph": {
+      "total": 1,
+      "covered": 1,
+      "coverage_pct": 100.0
+    },
+    "observe_evidence": {
+      "total": 1,
+      "covered": 1,
+      "coverage_pct": 100.0
+    },
+    "observe_telemetry": {
+      "total": 1,
+      "covered": 1,
+      "coverage_pct": 100.0
+    },
+    "compare_equivalence": {
+      "total": 2,
+      "covered": 2,
+      "coverage_pct": 100.0
+    },
+    "clarify_ambiguity": {
+      "total": 4,
+      "covered": 4,
+      "coverage_pct": 100.0
+    },
+    "authority_escalate": {
+      "total": 3,
+      "covered": 3,
+      "coverage_pct": 100.0
+    }
+  },
+  "scenarios": [
+    {
+      "scenario_id": "PDI-PROP-OP_ADD-v06",
+      "family": "operator_op_add",
+      "menu_hash": "78970e437b44d4b55b56d5d86189f59771830aff997a1e3a44aba1d89a74d38d",
+      "coverage_at_8": true,
+      "optimal_cand_id": "b4dea1cc101c",
+      "slots": [
+        {
+          "cand_id": "5a075b0667c6",
+          "action": "PROPOSE OP_ADD REF_9 REF_10 GOAL_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b4dea1cc101c",
+          "action": "PROPOSE OP_ADD REF_10 REF_9 GOAL_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8f13c5e1d74b",
+          "action": "PROPOSE OP_ALU_ADD REF_9 REF_10 GOAL_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "930a8f1094bc",
+          "action": "PROPOSE OP_ALU_ADD REF_10 REF_9 GOAL_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4253dab943d7",
+          "action": "PROPOSE OP_SUB REF_9 REF_10 GOAL_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e7f23ad86aa5",
+          "action": "PROPOSE OP_SUB REF_10 REF_9 GOAL_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8a0b543717cd",
+          "action": "PROPOSE OP_ALU_SUB REF_9 REF_10 GOAL_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "69c56c0a4e1c",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_ADD-v07",
+      "family": "operator_op_add",
+      "menu_hash": "d533d51266093220efb4fe7b850c09a90d0582c57582d5f29a040e11eb384eb2",
+      "coverage_at_8": true,
+      "optimal_cand_id": "babc6105f71f",
+      "slots": [
+        {
+          "cand_id": "5128e34833bb",
+          "action": "PROPOSE OP_ADD REF_10 REF_11 GOAL_12",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "babc6105f71f",
+          "action": "PROPOSE OP_ADD REF_11 REF_10 GOAL_12",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "82c455d6e8de",
+          "action": "PROPOSE OP_ALU_ADD REF_10 REF_11 GOAL_12",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "44a34d4fd831",
+          "action": "PROPOSE OP_ALU_ADD REF_11 REF_10 GOAL_12",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "cf349d4c56ce",
+          "action": "PROPOSE OP_SUB REF_10 REF_11 GOAL_12",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0b3659a8a16c",
+          "action": "PROPOSE OP_SUB REF_11 REF_10 GOAL_12",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "1bbd3ccb6fdb",
+          "action": "PROPOSE OP_ALU_SUB REF_10 REF_11 GOAL_12",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b75fbee13bab",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_SUB-v06",
+      "family": "operator_op_sub",
+      "menu_hash": "ee267f908478539352c5599d987fda49e1dffc87bb36deb6f02aa6c4def12931",
+      "coverage_at_8": true,
+      "optimal_cand_id": "ac8947633847",
+      "slots": [
+        {
+          "cand_id": "eeb22ea49fa2",
+          "action": "PROPOSE OP_ADD REF_12 REF_13 GOAL_14",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "13a707cdae12",
+          "action": "PROPOSE OP_ADD REF_13 REF_12 GOAL_14",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "87874e7dd461",
+          "action": "PROPOSE OP_ALU_ADD REF_12 REF_13 GOAL_14",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8a00ecd0c51c",
+          "action": "PROPOSE OP_ALU_ADD REF_13 REF_12 GOAL_14",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "bd8bf0256acb",
+          "action": "PROPOSE OP_SUB REF_12 REF_13 GOAL_14",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ac8947633847",
+          "action": "PROPOSE OP_SUB REF_13 REF_12 GOAL_14",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8d49ade0c306",
+          "action": "PROPOSE OP_ALU_SUB REF_12 REF_13 GOAL_14",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d14851c1544e",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_SUB-v07",
+      "family": "operator_op_sub",
+      "menu_hash": "feb4c4e7e45ded3c5d0671cd359bf7195a66ca17b4c5bc03ade95ff045412da0",
+      "coverage_at_8": true,
+      "optimal_cand_id": "20dc0ed7767d",
+      "slots": [
+        {
+          "cand_id": "db0790702708",
+          "action": "PROPOSE OP_ADD REF_13 REF_14 GOAL_15",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "1a8ce26b09ab",
+          "action": "PROPOSE OP_ADD REF_14 REF_13 GOAL_15",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "46d844f768d5",
+          "action": "PROPOSE OP_ALU_ADD REF_13 REF_14 GOAL_15",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ce018ae78971",
+          "action": "PROPOSE OP_ALU_ADD REF_14 REF_13 GOAL_15",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b06f8c3630a1",
+          "action": "PROPOSE OP_SUB REF_13 REF_14 GOAL_15",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "20dc0ed7767d",
+          "action": "PROPOSE OP_SUB REF_14 REF_13 GOAL_15",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "62bbbdf3a10b",
+          "action": "PROPOSE OP_ALU_SUB REF_13 REF_14 GOAL_15",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4dbbcc9dcf47",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_MUL-v06",
+      "family": "operator_op_mul",
+      "menu_hash": "549078e27a925542cc071235f893e7403d6a489342647cbfa1079c411d5edc78",
+      "coverage_at_8": true,
+      "optimal_cand_id": "8861a4e8a16f",
+      "slots": [
+        {
+          "cand_id": "415f4f541cb6",
+          "action": "PROPOSE OP_ADD REF_15 REF_16 GOAL_17",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "db0e8822b4e8",
+          "action": "PROPOSE OP_ADD REF_16 REF_15 GOAL_17",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e1ecca7090f6",
+          "action": "PROPOSE OP_ALU_ADD REF_15 REF_16 GOAL_17",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "3cb53b3766dc",
+          "action": "PROPOSE OP_ALU_ADD REF_16 REF_15 GOAL_17",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2aa102ccfabf",
+          "action": "PROPOSE OP_SUB REF_15 REF_16 GOAL_17",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "acf7977bfe98",
+          "action": "PROPOSE OP_SUB REF_16 REF_15 GOAL_17",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c8dba069d84b",
+          "action": "PROPOSE OP_ALU_SUB REF_15 REF_16 GOAL_17",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8861a4e8a16f",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_MUL-v07",
+      "family": "operator_op_mul",
+      "menu_hash": "a230f2f0990e915e7076cc0a371c31648ff3b4e57cb0705db735a56fdfc7abf4",
+      "coverage_at_8": true,
+      "optimal_cand_id": "97817a8a400f",
+      "slots": [
+        {
+          "cand_id": "8c689eae2d34",
+          "action": "PROPOSE OP_ADD REF_16 REF_17 GOAL_18",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4a68a0e8db87",
+          "action": "PROPOSE OP_ADD REF_17 REF_16 GOAL_18",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2c96083affe1",
+          "action": "PROPOSE OP_ALU_ADD REF_16 REF_17 GOAL_18",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a56f6fc31609",
+          "action": "PROPOSE OP_ALU_ADD REF_17 REF_16 GOAL_18",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9fdeb278f7de",
+          "action": "PROPOSE OP_SUB REF_16 REF_17 GOAL_18",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "672b2af82797",
+          "action": "PROPOSE OP_SUB REF_17 REF_16 GOAL_18",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e578584f8cae",
+          "action": "PROPOSE OP_ALU_SUB REF_16 REF_17 GOAL_18",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "97817a8a400f",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_COMPARE-v06",
+      "family": "operator_op_compare",
+      "menu_hash": "7ce1b34fc6146a75c0c355d9be81524220481c7de97f95ecf70c537c658f9e00",
+      "coverage_at_8": true,
+      "optimal_cand_id": "0ff71360e947",
+      "slots": [
+        {
+          "cand_id": "4e88975f19aa",
+          "action": "PROPOSE OP_ADD REF_18 REF_19 GOAL_20",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "3460f78a7822",
+          "action": "PROPOSE OP_ADD REF_19 REF_18 GOAL_20",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2ddff50737ad",
+          "action": "PROPOSE OP_ALU_ADD REF_18 REF_19 GOAL_20",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8c9dbe198537",
+          "action": "PROPOSE OP_ALU_ADD REF_19 REF_18 GOAL_20",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f5cc4951386a",
+          "action": "PROPOSE OP_SUB REF_18 REF_19 GOAL_20",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a994e13a0e89",
+          "action": "PROPOSE OP_SUB REF_19 REF_18 GOAL_20",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "032e33a710c1",
+          "action": "PROPOSE OP_ALU_SUB REF_18 REF_19 GOAL_20",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0ff71360e947",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_COMPARE-v07",
+      "family": "operator_op_compare",
+      "menu_hash": "7e77983d1c17bb78d179b02bb198bd391b32c797caecf4a301d08957d1122a70",
+      "coverage_at_8": true,
+      "optimal_cand_id": "c67a16866085",
+      "slots": [
+        {
+          "cand_id": "d928f45b1111",
+          "action": "PROPOSE OP_ADD REF_19 REF_20 GOAL_21",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ff4451c77d36",
+          "action": "PROPOSE OP_ADD REF_20 REF_19 GOAL_21",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e111897bd752",
+          "action": "PROPOSE OP_ALU_ADD REF_19 REF_20 GOAL_21",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "af90f471a537",
+          "action": "PROPOSE OP_ALU_ADD REF_20 REF_19 GOAL_21",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "950ee859ad0d",
+          "action": "PROPOSE OP_SUB REF_19 REF_20 GOAL_21",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c93c28592698",
+          "action": "PROPOSE OP_SUB REF_20 REF_19 GOAL_21",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8116bdac3fe9",
+          "action": "PROPOSE OP_ALU_SUB REF_19 REF_20 GOAL_21",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c67a16866085",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_CL20_PRODUCT-v06",
+      "family": "operator_op_cl20_product",
+      "menu_hash": "be592708b2bd4870c5de4f9cdbbb84e718ad77fdd6ca78ee6eaebcccd81b1992",
+      "coverage_at_8": true,
+      "optimal_cand_id": "8e8d65aa8cb1",
+      "slots": [
+        {
+          "cand_id": "0f6476008616",
+          "action": "PROPOSE OP_ADD REF_21 REF_22 GOAL_23",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "28ca723dc406",
+          "action": "PROPOSE OP_ADD REF_22 REF_21 GOAL_23",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "3582ea77f06e",
+          "action": "PROPOSE OP_ALU_ADD REF_21 REF_22 GOAL_23",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "32fcd4b8a6af",
+          "action": "PROPOSE OP_ALU_ADD REF_22 REF_21 GOAL_23",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "59748b9340f9",
+          "action": "PROPOSE OP_SUB REF_21 REF_22 GOAL_23",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c5938f694ffa",
+          "action": "PROPOSE OP_SUB REF_22 REF_21 GOAL_23",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d1eebed4a1a1",
+          "action": "PROPOSE OP_ALU_SUB REF_21 REF_22 GOAL_23",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8e8d65aa8cb1",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_CL20_PRODUCT-v07",
+      "family": "operator_op_cl20_product",
+      "menu_hash": "a78a1d8b55732532b89c621956a1dbcc982e5d6e59aa467ff9cc0f11030c90b8",
+      "coverage_at_8": true,
+      "optimal_cand_id": "cf306b7d84c6",
+      "slots": [
+        {
+          "cand_id": "1f60b3330799",
+          "action": "PROPOSE OP_ADD REF_22 REF_23 GOAL_24",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "95dc0cb13615",
+          "action": "PROPOSE OP_ADD REF_23 REF_22 GOAL_24",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "aa691268a8d6",
+          "action": "PROPOSE OP_ALU_ADD REF_22 REF_23 GOAL_24",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "81b91688cd93",
+          "action": "PROPOSE OP_ALU_ADD REF_23 REF_22 GOAL_24",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "dce9ab25fee6",
+          "action": "PROPOSE OP_SUB REF_22 REF_23 GOAL_24",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "04ba21fa3987",
+          "action": "PROPOSE OP_SUB REF_23 REF_22 GOAL_24",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "6a7d2900829c",
+          "action": "PROPOSE OP_ALU_SUB REF_22 REF_23 GOAL_24",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "cf306b7d84c6",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_REVERSE-v06",
+      "family": "operator_op_reverse",
+      "menu_hash": "ce4102d5797320ddf40b51cd8c9844afb9f5511cef1b5567f6f507e47bc687bc",
+      "coverage_at_8": true,
+      "optimal_cand_id": "ad3a678fe977",
+      "slots": [
+        {
+          "cand_id": "166ea84568dd",
+          "action": "PROPOSE OP_ADD REF_24 REF_25 GOAL_26",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d1affa204f71",
+          "action": "PROPOSE OP_ADD REF_25 REF_24 GOAL_26",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9e96c930c2f3",
+          "action": "PROPOSE OP_ALU_ADD REF_24 REF_25 GOAL_26",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d80bebf7fe3f",
+          "action": "PROPOSE OP_ALU_ADD REF_25 REF_24 GOAL_26",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5c2a4b3ec5df",
+          "action": "PROPOSE OP_SUB REF_24 REF_25 GOAL_26",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "3ffbc6e94e3e",
+          "action": "PROPOSE OP_SUB REF_25 REF_24 GOAL_26",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4b791134c173",
+          "action": "PROPOSE OP_ALU_SUB REF_24 REF_25 GOAL_26",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ad3a678fe977",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_REVERSE-v07",
+      "family": "operator_op_reverse",
+      "menu_hash": "da0056e0eb71a2e186f0a1856e25dc517903602a97e146151428c2fcc8c884f8",
+      "coverage_at_8": true,
+      "optimal_cand_id": "9425fa163b1a",
+      "slots": [
+        {
+          "cand_id": "c847bd75009a",
+          "action": "PROPOSE OP_ADD REF_25 REF_26 GOAL_27",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "cf546b2dd4fa",
+          "action": "PROPOSE OP_ADD REF_26 REF_25 GOAL_27",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b6d1d5629bc8",
+          "action": "PROPOSE OP_ALU_ADD REF_25 REF_26 GOAL_27",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a3066dc8ddf7",
+          "action": "PROPOSE OP_ALU_ADD REF_26 REF_25 GOAL_27",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8a31b588ffa0",
+          "action": "PROPOSE OP_SUB REF_25 REF_26 GOAL_27",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b5c8e4022537",
+          "action": "PROPOSE OP_SUB REF_26 REF_25 GOAL_27",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5db6fe152fd7",
+          "action": "PROPOSE OP_ALU_SUB REF_25 REF_26 GOAL_27",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9425fa163b1a",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_GRADE_INVOLUTION-v06",
+      "family": "operator_op_grade_involution",
+      "menu_hash": "52b0701a7c953420295c8b37d485a84317575364bf2aaed9d084c87f75cafb18",
+      "coverage_at_8": true,
+      "optimal_cand_id": "5817aa503c57",
+      "slots": [
+        {
+          "cand_id": "377f0b434d6e",
+          "action": "PROPOSE OP_ADD REF_27 REF_28 GOAL_29",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "1b1fa401e6b6",
+          "action": "PROPOSE OP_ADD REF_28 REF_27 GOAL_29",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "16aca23a9236",
+          "action": "PROPOSE OP_ALU_ADD REF_27 REF_28 GOAL_29",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c3143480e191",
+          "action": "PROPOSE OP_ALU_ADD REF_28 REF_27 GOAL_29",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8562a64abb39",
+          "action": "PROPOSE OP_SUB REF_27 REF_28 GOAL_29",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e9acc593081f",
+          "action": "PROPOSE OP_SUB REF_28 REF_27 GOAL_29",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8901544fd5db",
+          "action": "PROPOSE OP_ALU_SUB REF_27 REF_28 GOAL_29",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5817aa503c57",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_GRADE_INVOLUTION-v07",
+      "family": "operator_op_grade_involution",
+      "menu_hash": "d5ae2359bd250b60ef15071a353cc588f4e808e39c3805df3c2e69639de5e9e5",
+      "coverage_at_8": true,
+      "optimal_cand_id": "e20ff88a80dc",
+      "slots": [
+        {
+          "cand_id": "31310073676b",
+          "action": "PROPOSE OP_ADD REF_28 REF_29 GOAL_30",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "117107bba56d",
+          "action": "PROPOSE OP_ADD REF_29 REF_28 GOAL_30",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a2a8c7eeadeb",
+          "action": "PROPOSE OP_ALU_ADD REF_28 REF_29 GOAL_30",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "29ed95edad6b",
+          "action": "PROPOSE OP_ALU_ADD REF_29 REF_28 GOAL_30",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "46901df2991b",
+          "action": "PROPOSE OP_SUB REF_28 REF_29 GOAL_30",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "02e3f5253c21",
+          "action": "PROPOSE OP_SUB REF_29 REF_28 GOAL_30",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2c105d9c485a",
+          "action": "PROPOSE OP_ALU_SUB REF_28 REF_29 GOAL_30",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e20ff88a80dc",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v06",
+      "family": "operator_op_clifford_conjugate",
+      "menu_hash": "94fccebf01c52e5da694c5cf0644855999dc57a546d149694f1c1179696a7d05",
+      "coverage_at_8": true,
+      "optimal_cand_id": "d5b7be1c37f9",
+      "slots": [
+        {
+          "cand_id": "f73e95497b08",
+          "action": "PROPOSE OP_ADD REF_30 REF_31 GOAL_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "facb352d789b",
+          "action": "PROPOSE OP_ADD REF_31 REF_30 GOAL_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c584ed21667a",
+          "action": "PROPOSE OP_ALU_ADD REF_30 REF_31 GOAL_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4e143bd8285c",
+          "action": "PROPOSE OP_ALU_ADD REF_31 REF_30 GOAL_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "bd0b0f6a352e",
+          "action": "PROPOSE OP_SUB REF_30 REF_31 GOAL_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "17d2b51cdbda",
+          "action": "PROPOSE OP_SUB REF_31 REF_30 GOAL_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2bdf27c278fb",
+          "action": "PROPOSE OP_ALU_SUB REF_30 REF_31 GOAL_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d5b7be1c37f9",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_CLIFFORD_CONJUGATE-v07",
+      "family": "operator_op_clifford_conjugate",
+      "menu_hash": "b14b8f390d31bc48ec4dfb69b6aa373c31dc2bfd4ea0fcc7177e3245d3d541c2",
+      "coverage_at_8": true,
+      "optimal_cand_id": "083e09f02ce3",
+      "slots": [
+        {
+          "cand_id": "5330342a1e54",
+          "action": "PROPOSE OP_ADD REF_31 REF_32 GOAL_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "7b746120641f",
+          "action": "PROPOSE OP_ADD REF_32 REF_31 GOAL_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "cf0067fff238",
+          "action": "PROPOSE OP_ALU_ADD REF_31 REF_32 GOAL_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d1a91b78c469",
+          "action": "PROPOSE OP_ALU_ADD REF_32 REF_31 GOAL_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a8b32c27b597",
+          "action": "PROPOSE OP_SUB REF_31 REF_32 GOAL_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ee6e43c90e2c",
+          "action": "PROPOSE OP_SUB REF_32 REF_31 GOAL_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "30735a215127",
+          "action": "PROPOSE OP_ALU_SUB REF_31 REF_32 GOAL_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "083e09f02ce3",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_VECTOR_DOT-v06",
+      "family": "operator_op_vector_dot",
+      "menu_hash": "45d7f1433470cfa3adf931b49bded1f0025a5ead50193beb82fed772b90bb6b5",
+      "coverage_at_8": true,
+      "optimal_cand_id": "e5e8b66e2d51",
+      "slots": [
+        {
+          "cand_id": "ed852b2068e2",
+          "action": "PROPOSE OP_ADD REF_33 REF_34 GOAL_35",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "662f77704267",
+          "action": "PROPOSE OP_ADD REF_34 REF_33 GOAL_35",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b40997f73990",
+          "action": "PROPOSE OP_ALU_ADD REF_33 REF_34 GOAL_35",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d620612edb95",
+          "action": "PROPOSE OP_ALU_ADD REF_34 REF_33 GOAL_35",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "57287d944393",
+          "action": "PROPOSE OP_SUB REF_33 REF_34 GOAL_35",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "63a1bdc3095c",
+          "action": "PROPOSE OP_SUB REF_34 REF_33 GOAL_35",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9cba616d8288",
+          "action": "PROPOSE OP_ALU_SUB REF_33 REF_34 GOAL_35",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e5e8b66e2d51",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_VECTOR_DOT-v07",
+      "family": "operator_op_vector_dot",
+      "menu_hash": "c999ac04c2f7ad0aa8f06a3b4ff2f08bbe286739f5d420c82baa3999d8071773",
+      "coverage_at_8": true,
+      "optimal_cand_id": "7606a348a7b7",
+      "slots": [
+        {
+          "cand_id": "7f1cab065382",
+          "action": "PROPOSE OP_ADD REF_34 REF_35 GOAL_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0a01802897fa",
+          "action": "PROPOSE OP_ADD REF_35 REF_34 GOAL_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "3295f0a37f69",
+          "action": "PROPOSE OP_ALU_ADD REF_34 REF_35 GOAL_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "69e2ae0fe6fb",
+          "action": "PROPOSE OP_ALU_ADD REF_35 REF_34 GOAL_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "04d7f5fc5324",
+          "action": "PROPOSE OP_SUB REF_34 REF_35 GOAL_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9be6de324682",
+          "action": "PROPOSE OP_SUB REF_35 REF_34 GOAL_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "df0556f4c0e9",
+          "action": "PROPOSE OP_ALU_SUB REF_34 REF_35 GOAL_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "7606a348a7b7",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_VECTOR_WEDGE-v06",
+      "family": "operator_op_vector_wedge",
+      "menu_hash": "894439119369e253db2510cd1a582e9e230eb4a368a4b5f3f6de3221239548a2",
+      "coverage_at_8": true,
+      "optimal_cand_id": "64200cc7ccaf",
+      "slots": [
+        {
+          "cand_id": "a75135b2387a",
+          "action": "PROPOSE OP_ADD REF_36 REF_37 GOAL_38",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c0677d7806a0",
+          "action": "PROPOSE OP_ADD REF_37 REF_36 GOAL_38",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a7778d442cb4",
+          "action": "PROPOSE OP_ALU_ADD REF_36 REF_37 GOAL_38",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9fbdd0c17991",
+          "action": "PROPOSE OP_ALU_ADD REF_37 REF_36 GOAL_38",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "70c5eaec18fd",
+          "action": "PROPOSE OP_SUB REF_36 REF_37 GOAL_38",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a8e018d4ed38",
+          "action": "PROPOSE OP_SUB REF_37 REF_36 GOAL_38",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "86533815b593",
+          "action": "PROPOSE OP_ALU_SUB REF_36 REF_37 GOAL_38",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "64200cc7ccaf",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_VECTOR_WEDGE-v07",
+      "family": "operator_op_vector_wedge",
+      "menu_hash": "42103a5e204698c44ef1a16d8d412664e99fa8dde384f84ad7e4ca5ee23752f0",
+      "coverage_at_8": true,
+      "optimal_cand_id": "2a6c9f9050c1",
+      "slots": [
+        {
+          "cand_id": "ba29005b0854",
+          "action": "PROPOSE OP_ADD REF_37 REF_38 GOAL_39",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2227523eef84",
+          "action": "PROPOSE OP_ADD REF_38 REF_37 GOAL_39",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c234c35b836e",
+          "action": "PROPOSE OP_ALU_ADD REF_37 REF_38 GOAL_39",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "1c91ea04e377",
+          "action": "PROPOSE OP_ALU_ADD REF_38 REF_37 GOAL_39",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "29c4d4769306",
+          "action": "PROPOSE OP_SUB REF_37 REF_38 GOAL_39",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "748598addc5e",
+          "action": "PROPOSE OP_SUB REF_38 REF_37 GOAL_39",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5f32e76218dd",
+          "action": "PROPOSE OP_ALU_SUB REF_37 REF_38 GOAL_39",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2a6c9f9050c1",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_COMMUTATOR-v06",
+      "family": "operator_op_commutator",
+      "menu_hash": "f72cf24e036dded8bd08a42c3a362da6e10e592eb0de336b7d87b9b67a2da6e7",
+      "coverage_at_8": true,
+      "optimal_cand_id": "8123e9d1a681",
+      "slots": [
+        {
+          "cand_id": "83558ae963a0",
+          "action": "PROPOSE OP_ADD REF_39 REF_40 GOAL_41",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "dc36604b21ab",
+          "action": "PROPOSE OP_ADD REF_40 REF_39 GOAL_41",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d00740189267",
+          "action": "PROPOSE OP_ALU_ADD REF_39 REF_40 GOAL_41",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "805bcbcb51cd",
+          "action": "PROPOSE OP_ALU_ADD REF_40 REF_39 GOAL_41",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "22000bd2ea9d",
+          "action": "PROPOSE OP_SUB REF_39 REF_40 GOAL_41",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "138c2851a281",
+          "action": "PROPOSE OP_SUB REF_40 REF_39 GOAL_41",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5b2b45d4e2d0",
+          "action": "PROPOSE OP_ALU_SUB REF_39 REF_40 GOAL_41",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8123e9d1a681",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_COMMUTATOR-v07",
+      "family": "operator_op_commutator",
+      "menu_hash": "e48dcf70abd9fb2796f2c968ac08dac8cf341c06ee1cc9e2672d1b215c830aae",
+      "coverage_at_8": true,
+      "optimal_cand_id": "e415fd4a69ff",
+      "slots": [
+        {
+          "cand_id": "432aa8d587d1",
+          "action": "PROPOSE OP_ADD REF_40 REF_41 GOAL_42",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e686cf0b1ecb",
+          "action": "PROPOSE OP_ADD REF_41 REF_40 GOAL_42",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "657b0fd1bea2",
+          "action": "PROPOSE OP_ALU_ADD REF_40 REF_41 GOAL_42",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "372dbbc4d065",
+          "action": "PROPOSE OP_ALU_ADD REF_41 REF_40 GOAL_42",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d1b877b10cc6",
+          "action": "PROPOSE OP_SUB REF_40 REF_41 GOAL_42",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a06f9776180a",
+          "action": "PROPOSE OP_SUB REF_41 REF_40 GOAL_42",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "209f4071c77f",
+          "action": "PROPOSE OP_ALU_SUB REF_40 REF_41 GOAL_42",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e415fd4a69ff",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_ANTICOMMUTATOR-v06",
+      "family": "operator_op_anticommutator",
+      "menu_hash": "c8080e25bbb399d31f6de88a2c3d4e7d9e9fa6d4fce5ed4051f5bc0033e84f52",
+      "coverage_at_8": true,
+      "optimal_cand_id": "b9697d6b2a94",
+      "slots": [
+        {
+          "cand_id": "52ef4e46400e",
+          "action": "PROPOSE OP_ADD REF_42 REF_43 GOAL_44",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "caf38fd1d6a0",
+          "action": "PROPOSE OP_ADD REF_43 REF_42 GOAL_44",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "cb550ea578df",
+          "action": "PROPOSE OP_ALU_ADD REF_42 REF_43 GOAL_44",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "737140db794d",
+          "action": "PROPOSE OP_ALU_ADD REF_43 REF_42 GOAL_44",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "92fdff1483e1",
+          "action": "PROPOSE OP_SUB REF_42 REF_43 GOAL_44",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f3f6cb0de633",
+          "action": "PROPOSE OP_SUB REF_43 REF_42 GOAL_44",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "1e36d2bc2688",
+          "action": "PROPOSE OP_ALU_SUB REF_42 REF_43 GOAL_44",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b9697d6b2a94",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_ANTICOMMUTATOR-v07",
+      "family": "operator_op_anticommutator",
+      "menu_hash": "bd30ac34ce73d76823fa42c494ac1d47ea6953dbb43171e5c4abb6ea78114926",
+      "coverage_at_8": true,
+      "optimal_cand_id": "ce7c1e62ae3e",
+      "slots": [
+        {
+          "cand_id": "1b728ab22bd7",
+          "action": "PROPOSE OP_ADD REF_43 REF_44 GOAL_45",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5c50a12aa251",
+          "action": "PROPOSE OP_ADD REF_44 REF_43 GOAL_45",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "719f9af7ffbf",
+          "action": "PROPOSE OP_ALU_ADD REF_43 REF_44 GOAL_45",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a656d1e89c2f",
+          "action": "PROPOSE OP_ALU_ADD REF_44 REF_43 GOAL_45",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4808cdde4dd5",
+          "action": "PROPOSE OP_SUB REF_43 REF_44 GOAL_45",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "46507e2cab24",
+          "action": "PROPOSE OP_SUB REF_44 REF_43 GOAL_45",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "bbd1f10862d1",
+          "action": "PROPOSE OP_ALU_SUB REF_43 REF_44 GOAL_45",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ce7c1e62ae3e",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_SCALAR_PROJECTION-v06",
+      "family": "operator_op_scalar_projection",
+      "menu_hash": "8a987a7da7498842e3d227fefc04b4b360d9a39aff66e026a4770860bd1bfed8",
+      "coverage_at_8": true,
+      "optimal_cand_id": "b8daa15923e9",
+      "slots": [
+        {
+          "cand_id": "4e9a75687019",
+          "action": "PROPOSE OP_ADD REF_45 REF_46 GOAL_47",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "30bda6713d1e",
+          "action": "PROPOSE OP_ADD REF_46 REF_45 GOAL_47",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "99e71b7f572d",
+          "action": "PROPOSE OP_ALU_ADD REF_45 REF_46 GOAL_47",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d50d78bc5e8b",
+          "action": "PROPOSE OP_ALU_ADD REF_46 REF_45 GOAL_47",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "1d394ce48f88",
+          "action": "PROPOSE OP_SUB REF_45 REF_46 GOAL_47",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f0cf9f976786",
+          "action": "PROPOSE OP_SUB REF_46 REF_45 GOAL_47",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a4023aeb1282",
+          "action": "PROPOSE OP_ALU_SUB REF_45 REF_46 GOAL_47",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b8daa15923e9",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_SCALAR_PROJECTION-v07",
+      "family": "operator_op_scalar_projection",
+      "menu_hash": "edf9c4622913912969a93df00ee9bfea1382c514bd040ebb6f68e5ed0ce39519",
+      "coverage_at_8": true,
+      "optimal_cand_id": "7f4ccba933fe",
+      "slots": [
+        {
+          "cand_id": "f7bfdfadecbc",
+          "action": "PROPOSE OP_ADD REF_46 REF_47 GOAL_48",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e9f9b4b38c2f",
+          "action": "PROPOSE OP_ADD REF_47 REF_46 GOAL_48",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "bce0a9ea7f4b",
+          "action": "PROPOSE OP_ALU_ADD REF_46 REF_47 GOAL_48",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d18d0b609cb7",
+          "action": "PROPOSE OP_ALU_ADD REF_47 REF_46 GOAL_48",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "1a80570de1cc",
+          "action": "PROPOSE OP_SUB REF_46 REF_47 GOAL_48",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "6e44a457cdf3",
+          "action": "PROPOSE OP_SUB REF_47 REF_46 GOAL_48",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0035a1170795",
+          "action": "PROPOSE OP_ALU_SUB REF_46 REF_47 GOAL_48",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "7f4ccba933fe",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_VECTOR_PROJECTION-v06",
+      "family": "operator_op_vector_projection",
+      "menu_hash": "805d6793de32a8de6681bf6baa2ebaa5e8ee0d2257ec6e979674551e41ab9ce3",
+      "coverage_at_8": true,
+      "optimal_cand_id": "dcec45e47dcf",
+      "slots": [
+        {
+          "cand_id": "1910e009ba3d",
+          "action": "PROPOSE OP_ADD REF_48 REF_49 GOAL_50",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2bd5d51f4e31",
+          "action": "PROPOSE OP_ADD REF_49 REF_48 GOAL_50",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "3af613d8a78a",
+          "action": "PROPOSE OP_ALU_ADD REF_48 REF_49 GOAL_50",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "29e40cedee6c",
+          "action": "PROPOSE OP_ALU_ADD REF_49 REF_48 GOAL_50",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e86303a8266f",
+          "action": "PROPOSE OP_SUB REF_48 REF_49 GOAL_50",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "27aa496aea80",
+          "action": "PROPOSE OP_SUB REF_49 REF_48 GOAL_50",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b67209a69971",
+          "action": "PROPOSE OP_ALU_SUB REF_48 REF_49 GOAL_50",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "dcec45e47dcf",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_VECTOR_PROJECTION-v07",
+      "family": "operator_op_vector_projection",
+      "menu_hash": "b018b63f91ccea644aeef1d479f13ad0a421d1f1a0f520b0e2d08dd6bf054ef3",
+      "coverage_at_8": true,
+      "optimal_cand_id": "ce184c459705",
+      "slots": [
+        {
+          "cand_id": "6e6a430d7f42",
+          "action": "PROPOSE OP_ADD REF_49 REF_50 GOAL_51",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "c693440fe22b",
+          "action": "PROPOSE OP_ADD REF_50 REF_49 GOAL_51",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "98935b10204b",
+          "action": "PROPOSE OP_ALU_ADD REF_49 REF_50 GOAL_51",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0bf4ce14ac40",
+          "action": "PROPOSE OP_ALU_ADD REF_50 REF_49 GOAL_51",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e3682e00c695",
+          "action": "PROPOSE OP_SUB REF_49 REF_50 GOAL_51",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8328c3bed437",
+          "action": "PROPOSE OP_SUB REF_50 REF_49 GOAL_51",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "98a3d9a6f36e",
+          "action": "PROPOSE OP_ALU_SUB REF_49 REF_50 GOAL_51",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ce184c459705",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v06",
+      "family": "operator_op_bivector_projection",
+      "menu_hash": "c25bcaf008b7f97e26e194242273eb43526b17cdd6bcf2d5c534b6637069dcc2",
+      "coverage_at_8": true,
+      "optimal_cand_id": "3bb4f7784d48",
+      "slots": [
+        {
+          "cand_id": "7a4a04d001ca",
+          "action": "PROPOSE OP_ADD REF_51 REF_52 GOAL_53",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "06712572ba00",
+          "action": "PROPOSE OP_ADD REF_52 REF_51 GOAL_53",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4b58f4eabf00",
+          "action": "PROPOSE OP_ALU_ADD REF_51 REF_52 GOAL_53",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2454e4b72f54",
+          "action": "PROPOSE OP_ALU_ADD REF_52 REF_51 GOAL_53",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b21efc1d3c84",
+          "action": "PROPOSE OP_SUB REF_51 REF_52 GOAL_53",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "25f4751507b5",
+          "action": "PROPOSE OP_SUB REF_52 REF_51 GOAL_53",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "81be6f779d66",
+          "action": "PROPOSE OP_ALU_SUB REF_51 REF_52 GOAL_53",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "3bb4f7784d48",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_BIVECTOR_PROJECTION-v07",
+      "family": "operator_op_bivector_projection",
+      "menu_hash": "69c8a564f2fd2e967240fbbf19a24b16ad07b2e637ba9d5a5170c7de1331dee1",
+      "coverage_at_8": true,
+      "optimal_cand_id": "74225aa8804b",
+      "slots": [
+        {
+          "cand_id": "05a65e733ead",
+          "action": "PROPOSE OP_ADD REF_52 REF_53 GOAL_54",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "09534b364243",
+          "action": "PROPOSE OP_ADD REF_53 REF_52 GOAL_54",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "716bd6fae185",
+          "action": "PROPOSE OP_ALU_ADD REF_52 REF_53 GOAL_54",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5ee300bab6d5",
+          "action": "PROPOSE OP_ALU_ADD REF_53 REF_52 GOAL_54",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "62683a1f4292",
+          "action": "PROPOSE OP_SUB REF_52 REF_53 GOAL_54",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "db4a179ad171",
+          "action": "PROPOSE OP_SUB REF_53 REF_52 GOAL_54",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "648260656681",
+          "action": "PROPOSE OP_ALU_SUB REF_52 REF_53 GOAL_54",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "74225aa8804b",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_NORM_SQUARED-v06",
+      "family": "operator_op_norm_squared",
+      "menu_hash": "df3d717a76ca5df2422dee0e8625deda9e27b01537d078ed2652e5e0c8027385",
+      "coverage_at_8": true,
+      "optimal_cand_id": "431ac6776808",
+      "slots": [
+        {
+          "cand_id": "deaaa4080632",
+          "action": "PROPOSE OP_ADD REF_54 REF_55 GOAL_56",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "dcc711b31c38",
+          "action": "PROPOSE OP_ADD REF_55 REF_54 GOAL_56",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8c20e682868f",
+          "action": "PROPOSE OP_ALU_ADD REF_54 REF_55 GOAL_56",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9f0566fb02e8",
+          "action": "PROPOSE OP_ALU_ADD REF_55 REF_54 GOAL_56",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8ef464a5c197",
+          "action": "PROPOSE OP_SUB REF_54 REF_55 GOAL_56",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5426257e545c",
+          "action": "PROPOSE OP_SUB REF_55 REF_54 GOAL_56",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "36efe9eba333",
+          "action": "PROPOSE OP_ALU_SUB REF_54 REF_55 GOAL_56",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "431ac6776808",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_NORM_SQUARED-v07",
+      "family": "operator_op_norm_squared",
+      "menu_hash": "e668d16370c264ee0e9cff6cabe3e19ea2a76e07252a674148855b9becade2f8",
+      "coverage_at_8": true,
+      "optimal_cand_id": "a63258426b26",
+      "slots": [
+        {
+          "cand_id": "df0e14289c66",
+          "action": "PROPOSE OP_ADD REF_55 REF_56 GOAL_57",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b5fd91024a4b",
+          "action": "PROPOSE OP_ADD REF_56 REF_55 GOAL_57",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2ac943c86888",
+          "action": "PROPOSE OP_ALU_ADD REF_55 REF_56 GOAL_57",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d6fb23ddee47",
+          "action": "PROPOSE OP_ALU_ADD REF_56 REF_55 GOAL_57",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0cff3ec259fe",
+          "action": "PROPOSE OP_SUB REF_55 REF_56 GOAL_57",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "192ae50d173b",
+          "action": "PROPOSE OP_SUB REF_56 REF_55 GOAL_57",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "050ae526f5e3",
+          "action": "PROPOSE OP_ALU_SUB REF_55 REF_56 GOAL_57",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a63258426b26",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_MATRIX_TO_CL20-v06",
+      "family": "operator_op_matrix_to_cl20",
+      "menu_hash": "eaee6ce3e13df01c34cab3f36356d2554b8a115f3f7b3191734b80c496dc7522",
+      "coverage_at_8": true,
+      "optimal_cand_id": "335200673c3c",
+      "slots": [
+        {
+          "cand_id": "eddfd6c9ce8a",
+          "action": "PROPOSE OP_ADD REF_60 REF_61 GOAL_62",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "399c79605a19",
+          "action": "PROPOSE OP_ADD REF_61 REF_60 GOAL_62",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "60a2e2c5d44e",
+          "action": "PROPOSE OP_ALU_ADD REF_60 REF_61 GOAL_62",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "38ce7e1218bc",
+          "action": "PROPOSE OP_ALU_ADD REF_61 REF_60 GOAL_62",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "faadad76793b",
+          "action": "PROPOSE OP_SUB REF_60 REF_61 GOAL_62",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "639e2355122e",
+          "action": "PROPOSE OP_SUB REF_61 REF_60 GOAL_62",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f41569098736",
+          "action": "PROPOSE OP_ALU_SUB REF_60 REF_61 GOAL_62",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "335200673c3c",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_MATRIX_TO_CL20-v07",
+      "family": "operator_op_matrix_to_cl20",
+      "menu_hash": "baf46d605d0747171a8c503a1b3ee900a6ba730563781bfdc0452b8b534b0fd7",
+      "coverage_at_8": true,
+      "optimal_cand_id": "8b9852a0c4b6",
+      "slots": [
+        {
+          "cand_id": "b5c2f5887631",
+          "action": "PROPOSE OP_ADD REF_61 REF_62 GOAL_63",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "358e94de157f",
+          "action": "PROPOSE OP_ADD REF_62 REF_61 GOAL_63",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9fb07d31b5b4",
+          "action": "PROPOSE OP_ALU_ADD REF_61 REF_62 GOAL_63",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "96def1822753",
+          "action": "PROPOSE OP_ALU_ADD REF_62 REF_61 GOAL_63",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "6ec6d4ae414a",
+          "action": "PROPOSE OP_SUB REF_61 REF_62 GOAL_63",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "219c2c081b77",
+          "action": "PROPOSE OP_SUB REF_62 REF_61 GOAL_63",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4d08836eb3ed",
+          "action": "PROPOSE OP_ALU_SUB REF_61 REF_62 GOAL_63",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8b9852a0c4b6",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_CL20_TO_MATRIX-v06",
+      "family": "operator_op_cl20_to_matrix",
+      "menu_hash": "e2b8c6968fb4f5e480716a4c0bcbea09be951aa9d47d86aca702e196b2b02103",
+      "coverage_at_8": true,
+      "optimal_cand_id": "5afac9b4b5bf",
+      "slots": [
+        {
+          "cand_id": "06ed7f3cedd5",
+          "action": "PROPOSE OP_ADD REF_63 REF_64 GOAL_65",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8bebb2fa2af5",
+          "action": "PROPOSE OP_ADD REF_64 REF_63 GOAL_65",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2bd0ad867dd9",
+          "action": "PROPOSE OP_ALU_ADD REF_63 REF_64 GOAL_65",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "be13ed09fcd7",
+          "action": "PROPOSE OP_ALU_ADD REF_64 REF_63 GOAL_65",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b1715c364dd3",
+          "action": "PROPOSE OP_SUB REF_63 REF_64 GOAL_65",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "686f86861bae",
+          "action": "PROPOSE OP_SUB REF_64 REF_63 GOAL_65",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "bcc8272f4f5d",
+          "action": "PROPOSE OP_ALU_SUB REF_63 REF_64 GOAL_65",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5afac9b4b5bf",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-PROP-OP_CL20_TO_MATRIX-v07",
+      "family": "operator_op_cl20_to_matrix",
+      "menu_hash": "066841b57d88d20490e7112f9d4437a61495e8d194ef1d6624d69948c156f66e",
+      "coverage_at_8": true,
+      "optimal_cand_id": "8368e599db5b",
+      "slots": [
+        {
+          "cand_id": "49d6563ac4d0",
+          "action": "PROPOSE OP_ADD REF_64 REF_65 GOAL_66",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "65fe7a4692b9",
+          "action": "PROPOSE OP_ADD REF_65 REF_64 GOAL_66",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2218c7ca650d",
+          "action": "PROPOSE OP_ALU_ADD REF_64 REF_65 GOAL_66",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d5652b45daec",
+          "action": "PROPOSE OP_ALU_ADD REF_65 REF_64 GOAL_66",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "480f585c5812",
+          "action": "PROPOSE OP_SUB REF_64 REF_65 GOAL_66",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "558fd43ee2f0",
+          "action": "PROPOSE OP_SUB REF_65 REF_64 GOAL_66",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d6ccb77b6f34",
+          "action": "PROPOSE OP_ALU_SUB REF_64 REF_65 GOAL_66",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8368e599db5b",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-OBS-STATE-v04",
+      "family": "observe_state",
+      "menu_hash": "444195a6adedd8a996dd49060541ed2e68d99fb542b8b91e938e3640971b0438",
+      "coverage_at_8": true,
+      "optimal_cand_id": "25b1798c761b",
+      "slots": [
+        {
+          "cand_id": "fc1eed5cf093",
+          "action": "PROPOSE OP_ADD REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f3dedf33ac9a",
+          "action": "PROPOSE OP_ADD REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "76b9b5d0a582",
+          "action": "PROPOSE OP_SUB REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ee5d9f16beb4",
+          "action": "PROPOSE OP_SUB REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0eada60a7bf2",
+          "action": "PROPOSE OP_COMPARE REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "81e75845ae04",
+          "action": "PROPOSE OP_COMPARE REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "63bbf1c4f381",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "25b1798c761b",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-OBS-GRAPH-v04",
+      "family": "observe_graph",
+      "menu_hash": "5d7c870ba02c11128352c9d81ad13cfe0b08022b7ccabd043e2f859a6e756334",
+      "coverage_at_8": true,
+      "optimal_cand_id": "b0ea6f3cd13f",
+      "slots": [
+        {
+          "cand_id": "85eb9f7dd222",
+          "action": "PROPOSE OP_ADD REF_101 REF_102",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8f88c1dd413d",
+          "action": "PROPOSE OP_ADD REF_102 REF_101",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e3be0c1f046a",
+          "action": "PROPOSE OP_SUB REF_101 REF_102",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9afd76c998e6",
+          "action": "PROPOSE OP_SUB REF_102 REF_101",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "7267b51f614d",
+          "action": "PROPOSE OP_COMPARE REF_101 REF_102",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "18a16a7ceac4",
+          "action": "PROPOSE OP_COMPARE REF_102 REF_101",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "dbbf59b82fa3",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_101 REF_102",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "b0ea6f3cd13f",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-OBS-EVIDENCE-v04",
+      "family": "observe_evidence",
+      "menu_hash": "6fc367f21ff62594b02d877cc83c1e37a581cd2d53cfac2db9fc8675619f0de9",
+      "coverage_at_8": true,
+      "optimal_cand_id": "2147d5d547eb",
+      "slots": [
+        {
+          "cand_id": "60b852de9060",
+          "action": "PROPOSE OP_ADD REF_1 REF_2",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "607c29b3f5b4",
+          "action": "PROPOSE OP_ADD REF_2 REF_1",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "8fdf323dad7f",
+          "action": "PROPOSE OP_SUB REF_1 REF_2",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "23a217575254",
+          "action": "PROPOSE OP_SUB REF_2 REF_1",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9d1310517435",
+          "action": "PROPOSE OP_COMPARE REF_1 REF_2",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "188a54aa089b",
+          "action": "PROPOSE OP_COMPARE REF_2 REF_1",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9263929c24ed",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_1 REF_2",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2147d5d547eb",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-OBS-TELEMETRY-v04",
+      "family": "observe_telemetry",
+      "menu_hash": "08285f4e54df290b647ab84f55d567c88312f7cb8879a17e23a78510f75d43df",
+      "coverage_at_8": true,
+      "optimal_cand_id": "62b6a4859fc2",
+      "slots": [
+        {
+          "cand_id": "88abbfa35119",
+          "action": "PROPOSE OP_ADD REF_0 REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e4a85ea5055c",
+          "action": "PROPOSE OP_SUB REF_0 REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "bcae13ac6d1d",
+          "action": "PROPOSE OP_COMPARE REF_0 REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "2c9de6ffb725",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_0 REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ac3d5cfc73ca",
+          "action": "OBSERVE TARGET_STATE REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "62b6a4859fc2",
+          "action": "OBSERVE TARGET_TELEMETRY REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d357ee8a0c4a",
+          "action": "OBSERVE TARGET_EVIDENCE REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "34076234fca8",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-CMP-v08",
+      "family": "compare_equivalence",
+      "menu_hash": "3fa19a0c4b686cb62356e4f401317db95a358cd1c8019e824bb9711c5eb83775",
+      "coverage_at_8": true,
+      "optimal_cand_id": "aaf35152cf77",
+      "slots": [
+        {
+          "cand_id": "1126fae0e3f3",
+          "action": "PROPOSE OP_ADD REF_32 REF_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d007d8dcdd4f",
+          "action": "PROPOSE OP_ADD REF_33 REF_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "18bbd1749725",
+          "action": "PROPOSE OP_SUB REF_32 REF_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "597c76070c74",
+          "action": "PROPOSE OP_SUB REF_33 REF_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "dde95a6231a7",
+          "action": "PROPOSE OP_COMPARE REF_32 REF_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "83aee75f80d8",
+          "action": "PROPOSE OP_COMPARE REF_33 REF_32",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "a9ccdb96d793",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_32 REF_33",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "aaf35152cf77",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-CMP-v09",
+      "family": "compare_equivalence",
+      "menu_hash": "bbcb7960db05968b5831998262965aba8e9d42612e343d954d7d07495e3de200",
+      "coverage_at_8": true,
+      "optimal_cand_id": "e6fd1e73f51b",
+      "slots": [
+        {
+          "cand_id": "5f598f8a1040",
+          "action": "PROPOSE OP_ADD REF_36 REF_37",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "035887354ce9",
+          "action": "PROPOSE OP_ADD REF_37 REF_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "64995bbe4d2c",
+          "action": "PROPOSE OP_SUB REF_36 REF_37",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d5df1524d6da",
+          "action": "PROPOSE OP_SUB REF_37 REF_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "86de18a8f57f",
+          "action": "PROPOSE OP_COMPARE REF_36 REF_37",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "48cf7ca52296",
+          "action": "PROPOSE OP_COMPARE REF_37 REF_36",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "15db541a4abf",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_36 REF_37",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e6fd1e73f51b",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-CLR-object_refs-v04",
+      "family": "clarify_ambiguity",
+      "menu_hash": "bb913f4602d1eeb89aa5a65de9b53ad0ad0e673a03814ff602bc86418a5b55d4",
+      "coverage_at_8": true,
+      "optimal_cand_id": "e76f695c23d9",
+      "slots": [
+        {
+          "cand_id": "fc1eed5cf093",
+          "action": "PROPOSE OP_ADD REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f3dedf33ac9a",
+          "action": "PROPOSE OP_ADD REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "904a7c70de6d",
+          "action": "PROPOSE OP_ALU_ADD REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "7b1206aae34d",
+          "action": "PROPOSE OP_ALU_ADD REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "5525a130b200",
+          "action": "PROPOSE OP_MUL REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ae55d8d6f41f",
+          "action": "PROPOSE OP_MUL REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e2aabef94464",
+          "action": "PROPOSE OP_ALU_MUL REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e76f695c23d9",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-CLR-dest_ref-v04",
+      "family": "clarify_ambiguity",
+      "menu_hash": "b1c54ac00882c41d624712ed91f2902e795812731540541625205a76d58327de",
+      "coverage_at_8": true,
+      "optimal_cand_id": "791de060d7c3",
+      "slots": [
+        {
+          "cand_id": "fc1eed5cf093",
+          "action": "PROPOSE OP_ADD REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f3dedf33ac9a",
+          "action": "PROPOSE OP_ADD REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "76b9b5d0a582",
+          "action": "PROPOSE OP_SUB REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ee5d9f16beb4",
+          "action": "PROPOSE OP_SUB REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0eada60a7bf2",
+          "action": "PROPOSE OP_COMPARE REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "81e75845ae04",
+          "action": "PROPOSE OP_COMPARE REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "63bbf1c4f381",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "791de060d7c3",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-CLR-assumed_state_version-v04",
+      "family": "clarify_ambiguity",
+      "menu_hash": "5628f6fd523726010232c357d5153d0f235db8f0bd0e25c9cd3ebdce8df2c485",
+      "coverage_at_8": true,
+      "optimal_cand_id": "9b63a1cc27f8",
+      "slots": [
+        {
+          "cand_id": "5525a130b200",
+          "action": "PROPOSE OP_MUL REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ae55d8d6f41f",
+          "action": "PROPOSE OP_MUL REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e2aabef94464",
+          "action": "PROPOSE OP_ALU_MUL REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4bfb8ac811ab",
+          "action": "PROPOSE OP_ALU_MUL REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ac3d5cfc73ca",
+          "action": "OBSERVE TARGET_STATE REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "62b6a4859fc2",
+          "action": "OBSERVE TARGET_TELEMETRY REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "d357ee8a0c4a",
+          "action": "OBSERVE TARGET_EVIDENCE REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9b63a1cc27f8",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-CLR-operator_id-v04",
+      "family": "clarify_ambiguity",
+      "menu_hash": "9ea5f9f196620ca49a217714c9aa6362e0315fd56c45e2e4e638990b8fc02b63",
+      "coverage_at_8": true,
+      "optimal_cand_id": "9c59943134c5",
+      "slots": [
+        {
+          "cand_id": "5525a130b200",
+          "action": "PROPOSE OP_MUL REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ae55d8d6f41f",
+          "action": "PROPOSE OP_MUL REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e2aabef94464",
+          "action": "PROPOSE OP_ALU_MUL REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "4bfb8ac811ab",
+          "action": "PROPOSE OP_ALU_MUL REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "30cf8f212ae9",
+          "action": "PROPOSE OP_VECTOR_PROJECTION REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ac3d5cfc73ca",
+          "action": "OBSERVE TARGET_STATE REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "62b6a4859fc2",
+          "action": "OBSERVE TARGET_TELEMETRY REF_0",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "9c59943134c5",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-ESC-0x80000000-v04",
+      "family": "authority_escalate",
+      "menu_hash": "6a6ccfa3ed58ad3bc268b5338714db1e4bc4f0b243e56499593ac17fd3923b8a",
+      "coverage_at_8": true,
+      "optimal_cand_id": "e0fc524f11a9",
+      "slots": [
+        {
+          "cand_id": "fc1eed5cf093",
+          "action": "PROPOSE OP_ADD REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f3dedf33ac9a",
+          "action": "PROPOSE OP_ADD REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "76b9b5d0a582",
+          "action": "PROPOSE OP_SUB REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ee5d9f16beb4",
+          "action": "PROPOSE OP_SUB REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0eada60a7bf2",
+          "action": "PROPOSE OP_COMPARE REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "81e75845ae04",
+          "action": "PROPOSE OP_COMPARE REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "63bbf1c4f381",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "e0fc524f11a9",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-ESC-0x20-v04",
+      "family": "authority_escalate",
+      "menu_hash": "ad6a78794e5840ebb09de2f3e9f732bba609a79ba916c7cfc338b5778934bab5",
+      "coverage_at_8": true,
+      "optimal_cand_id": "846a59d79b88",
+      "slots": [
+        {
+          "cand_id": "fc1eed5cf093",
+          "action": "PROPOSE OP_ADD REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f3dedf33ac9a",
+          "action": "PROPOSE OP_ADD REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "76b9b5d0a582",
+          "action": "PROPOSE OP_SUB REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ee5d9f16beb4",
+          "action": "PROPOSE OP_SUB REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0eada60a7bf2",
+          "action": "PROPOSE OP_COMPARE REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "81e75845ae04",
+          "action": "PROPOSE OP_COMPARE REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "63bbf1c4f381",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "846a59d79b88",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    },
+    {
+      "scenario_id": "PDI-ESC-0x40-v04",
+      "family": "authority_escalate",
+      "menu_hash": "492853a37d215439b69114543a814a96ad96d5e962f33985b1dcd7e17dd3ca38",
+      "coverage_at_8": true,
+      "optimal_cand_id": "32e94ef2d25a",
+      "slots": [
+        {
+          "cand_id": "fc1eed5cf093",
+          "action": "PROPOSE OP_ADD REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "f3dedf33ac9a",
+          "action": "PROPOSE OP_ADD REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "76b9b5d0a582",
+          "action": "PROPOSE OP_SUB REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "ee5d9f16beb4",
+          "action": "PROPOSE OP_SUB REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "0eada60a7bf2",
+          "action": "PROPOSE OP_COMPARE REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "81e75845ae04",
+          "action": "PROPOSE OP_COMPARE REF_11 REF_10",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "63bbf1c4f381",
+          "action": "PROPOSE OP_CL20_PRODUCT REF_10 REF_11",
+          "is_abstain": false
+        },
+        {
+          "cand_id": "32e94ef2d25a",
+          "action": "ABSTAIN / NONE_OF_THE_ABOVE",
+          "is_abstain": true
+        }
+      ]
+    }
+  ]
+}

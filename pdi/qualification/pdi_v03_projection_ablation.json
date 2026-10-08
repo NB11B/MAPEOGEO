@@ -1,0 +1,60 @@
+{
+  "model_selector": "frozen_smollm2_135m",
+  "arms": {
+    "E0_MINIMAL": {
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 1.36,
+      "end_to_end_useful_pct": 1.36,
+      "order_sensitivity_pct": 100.0,
+      "order_consistency_pct": 0.0,
+      "mean_prompt_tokens": 291.82,
+      "latency_p50_ms": 117.16,
+      "latency_p95_ms": 131.02,
+      "end_to_end_p50_ms": 117.2
+    },
+    "E1_BOUNDED_SLOTS": {
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 1.36,
+      "end_to_end_useful_pct": 1.36,
+      "order_sensitivity_pct": 100.0,
+      "order_consistency_pct": 0.0,
+      "mean_prompt_tokens": 330.61,
+      "latency_p50_ms": 61.87,
+      "latency_p95_ms": 64.07,
+      "end_to_end_p50_ms": 61.91
+    },
+    "E2_PSMSL_SYMBOLIC": {
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 1.36,
+      "end_to_end_useful_pct": 1.36,
+      "order_sensitivity_pct": 100.0,
+      "order_consistency_pct": 0.0,
+      "mean_prompt_tokens": 338.39,
+      "latency_p50_ms": 62.26,
+      "latency_p95_ms": 117.48,
+      "end_to_end_p50_ms": 62.3
+    },
+    "E3_MEMORY_SNAPSHOT": {
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 1.36,
+      "end_to_end_useful_pct": 1.36,
+      "order_sensitivity_pct": 100.0,
+      "order_consistency_pct": 0.0,
+      "mean_prompt_tokens": 421.39,
+      "latency_p50_ms": 63.89,
+      "latency_p95_ms": 91.78,
+      "end_to_end_p50_ms": 63.94
+    },
+    "E4_GRAPH_CAUSAL": {
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 1.36,
+      "end_to_end_useful_pct": 1.36,
+      "order_sensitivity_pct": 100.0,
+      "order_consistency_pct": 0.0,
+      "mean_prompt_tokens": 367.31,
+      "latency_p50_ms": 119.32,
+      "latency_p95_ms": 136.11,
+      "end_to_end_p50_ms": 119.36
+    }
+  }
+}

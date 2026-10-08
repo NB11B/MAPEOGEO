@@ -1,0 +1,994 @@
+{
+  "metadata": {
+    "experiment": "PDI-135M-v0.3",
+    "date": "2026-10-08",
+    "holdout_count": 49,
+    "seeds": [
+      42,
+      137,
+      2026
+    ],
+    "context_arms": [
+      "E0_MINIMAL",
+      "E1_BOUNDED_SLOTS",
+      "E2_PSMSL_SYMBOLIC",
+      "E3_MEMORY_SNAPSHOT",
+      "E4_GRAPH_CAUSAL"
+    ],
+    "selectors": [
+      "oracle",
+      "uniform_random",
+      "first_eligible",
+      "deterministic_heuristic",
+      "frozen_smollm2"
+    ]
+  },
+  "coverage_at_8_pct": 100.0,
+  "overall_by_selector": {
+    "oracle": {
+      "total_trials": 735,
+      "valid_index_pct": 100.0,
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 10.2,
+      "acceptable_alternative_pct": 0.0,
+      "correct_abstention_pct": 89.8,
+      "end_to_end_useful_pct": 100.0,
+      "order_consistency_pct": 95.92,
+      "order_sensitivity_pct": 4.08,
+      "tokens": {
+        "mean_prompt": 52.8,
+        "mean_generated": 1.0
+      },
+      "latencies_ms": {
+        "candidate_gen": {
+          "mean": 0.02,
+          "p50": 0.02,
+          "p95": 0.03,
+          "p99": 0.09
+        },
+        "projection": {
+          "mean": 0.03,
+          "p50": 0.03,
+          "p95": 0.04,
+          "p99": 0.05
+        },
+        "selection": {
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "end_to_end": {
+          "mean": 0.05,
+          "p50": 0.04,
+          "p95": 0.07,
+          "p99": 0.12
+        }
+      },
+      "by_op_family": {
+        "authority_escalate": {
+          "count": 45,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "clarify_ambiguity": {
+          "count": 60,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "compare_equivalence": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "observe_evidence": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "observe_graph": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "observe_state": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "observe_telemetry": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 100.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_add": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 100.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_anticommutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_bivector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_cl20_product": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_cl20_to_matrix": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_clifford_conjugate": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_commutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_compare": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_grade_involution": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_matrix_to_cl20": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_mul": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_norm_squared": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_reverse": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_scalar_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_sub": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 100.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_vector_dot": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_vector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_vector_wedge": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        }
+      }
+    },
+    "uniform_random": {
+      "total_trials": 735,
+      "valid_index_pct": 100.0,
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 2.72,
+      "acceptable_alternative_pct": 1.36,
+      "correct_abstention_pct": 0.0,
+      "end_to_end_useful_pct": 2.72,
+      "order_consistency_pct": 0.0,
+      "order_sensitivity_pct": 100.0,
+      "tokens": {
+        "mean_prompt": 52.8,
+        "mean_generated": 1.0
+      },
+      "latencies_ms": {
+        "candidate_gen": {
+          "mean": 0.02,
+          "p50": 0.02,
+          "p95": 0.03,
+          "p99": 0.09
+        },
+        "projection": {
+          "mean": 0.03,
+          "p50": 0.03,
+          "p95": 0.04,
+          "p99": 0.05
+        },
+        "selection": {
+          "mean": 0.01,
+          "p50": 0.01,
+          "p95": 0.01,
+          "p99": 0.01
+        },
+        "end_to_end": {
+          "mean": 0.06,
+          "p50": 0.05,
+          "p95": 0.08,
+          "p99": 0.13
+        }
+      },
+      "by_op_family": {
+        "authority_escalate": {
+          "count": 45,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "clarify_ambiguity": {
+          "count": 60,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "compare_equivalence": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_evidence": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_graph": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_state": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_telemetry": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_add": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 33.33,
+          "useful_selection_pct": 33.33
+        },
+        "operator_op_anticommutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_bivector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_product": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_to_matrix": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_clifford_conjugate": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_commutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_compare": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_grade_involution": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_matrix_to_cl20": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_mul": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_norm_squared": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_reverse": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_scalar_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_sub": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 33.33,
+          "useful_selection_pct": 33.33
+        },
+        "operator_op_vector_dot": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_wedge": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        }
+      }
+    },
+    "first_eligible": {
+      "total_trials": 735,
+      "valid_index_pct": 100.0,
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 1.36,
+      "acceptable_alternative_pct": 1.36,
+      "correct_abstention_pct": 0.0,
+      "end_to_end_useful_pct": 1.36,
+      "order_consistency_pct": 0.0,
+      "order_sensitivity_pct": 100.0,
+      "tokens": {
+        "mean_prompt": 52.8,
+        "mean_generated": 1.0
+      },
+      "latencies_ms": {
+        "candidate_gen": {
+          "mean": 0.02,
+          "p50": 0.02,
+          "p95": 0.03,
+          "p99": 0.09
+        },
+        "projection": {
+          "mean": 0.03,
+          "p50": 0.03,
+          "p95": 0.04,
+          "p99": 0.05
+        },
+        "selection": {
+          "mean": 0.0,
+          "p50": 0.0,
+          "p95": 0.0,
+          "p99": 0.0
+        },
+        "end_to_end": {
+          "mean": 0.05,
+          "p50": 0.04,
+          "p95": 0.07,
+          "p99": 0.12
+        }
+      },
+      "by_op_family": {
+        "authority_escalate": {
+          "count": 45,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "clarify_ambiguity": {
+          "count": 60,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "compare_equivalence": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_evidence": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_graph": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_state": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_telemetry": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_add": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_anticommutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_bivector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_product": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_to_matrix": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_clifford_conjugate": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_commutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_compare": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_grade_involution": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_matrix_to_cl20": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_mul": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_norm_squared": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_reverse": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_scalar_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_sub": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 33.33,
+          "useful_selection_pct": 33.33
+        },
+        "operator_op_vector_dot": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_wedge": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        }
+      }
+    },
+    "deterministic_heuristic": {
+      "total_trials": 735,
+      "valid_index_pct": 100.0,
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 6.8,
+      "acceptable_alternative_pct": 2.04,
+      "correct_abstention_pct": 8.16,
+      "end_to_end_useful_pct": 14.97,
+      "order_consistency_pct": 79.59,
+      "order_sensitivity_pct": 20.41,
+      "tokens": {
+        "mean_prompt": 52.8,
+        "mean_generated": 1.0
+      },
+      "latencies_ms": {
+        "candidate_gen": {
+          "mean": 0.02,
+          "p50": 0.02,
+          "p95": 0.03,
+          "p99": 0.09
+        },
+        "projection": {
+          "mean": 0.03,
+          "p50": 0.03,
+          "p95": 0.04,
+          "p99": 0.05
+        },
+        "selection": {
+          "mean": 0.01,
+          "p50": 0.01,
+          "p95": 0.02,
+          "p99": 0.02
+        },
+        "end_to_end": {
+          "mean": 0.06,
+          "p50": 0.06,
+          "p95": 0.08,
+          "p99": 0.13
+        }
+      },
+      "by_op_family": {
+        "authority_escalate": {
+          "count": 45,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 100.0
+        },
+        "clarify_ambiguity": {
+          "count": 60,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 25.0
+        },
+        "compare_equivalence": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_evidence": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_graph": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_state": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_telemetry": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_add": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 100.0,
+          "useful_selection_pct": 100.0
+        },
+        "operator_op_anticommutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_bivector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_product": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_to_matrix": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_clifford_conjugate": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_commutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_compare": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_grade_involution": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_matrix_to_cl20": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_mul": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_norm_squared": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_reverse": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_scalar_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_sub": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 66.67,
+          "useful_selection_pct": 66.67
+        },
+        "operator_op_vector_dot": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_wedge": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        }
+      }
+    },
+    "frozen_smollm2": {
+      "total_trials": 735,
+      "valid_index_pct": 100.0,
+      "coverage_at_8_pct": 100.0,
+      "conditional_top1_pct": 1.36,
+      "acceptable_alternative_pct": 1.36,
+      "correct_abstention_pct": 0.0,
+      "end_to_end_useful_pct": 1.36,
+      "order_consistency_pct": 0.0,
+      "order_sensitivity_pct": 100.0,
+      "tokens": {
+        "mean_prompt": 349.9,
+        "mean_generated": 2.67
+      },
+      "latencies_ms": {
+        "candidate_gen": {
+          "mean": 0.02,
+          "p50": 0.02,
+          "p95": 0.03,
+          "p99": 0.09
+        },
+        "projection": {
+          "mean": 0.03,
+          "p50": 0.03,
+          "p95": 0.04,
+          "p99": 0.05
+        },
+        "selection": {
+          "mean": 84.67,
+          "p50": 63.71,
+          "p95": 123.96,
+          "p99": 146.01
+        },
+        "end_to_end": {
+          "mean": 84.72,
+          "p50": 63.75,
+          "p95": 124.0,
+          "p99": 146.06
+        }
+      },
+      "by_op_family": {
+        "authority_escalate": {
+          "count": 45,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "clarify_ambiguity": {
+          "count": 60,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "compare_equivalence": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_evidence": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_graph": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_state": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "observe_telemetry": {
+          "count": 15,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_add": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_anticommutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_bivector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_product": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_cl20_to_matrix": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_clifford_conjugate": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_commutator": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_compare": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_grade_involution": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_matrix_to_cl20": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_mul": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_norm_squared": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_reverse": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_scalar_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_sub": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 33.33,
+          "useful_selection_pct": 33.33
+        },
+        "operator_op_vector_dot": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_projection": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        },
+        "operator_op_vector_wedge": {
+          "count": 30,
+          "coverage_pct": 100.0,
+          "conditional_top1_pct": 0.0,
+          "useful_selection_pct": 0.0
+        }
+      }
+    }
+  }
+}
