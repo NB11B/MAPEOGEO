@@ -1,0 +1,100 @@
+{
+  "metadata": {
+    "protocol": "CUDA_SYNCHRONIZED_PREWARMED_PDI_TIMING_V1",
+    "device": "cuda",
+    "gpu_name": "NVIDIA GeForce RTX 5070 Laptop GPU",
+    "warmup_iterations": 10,
+    "repeats": 3,
+    "total_hybrid_evaluations": 384
+  },
+  "neural_8cand_forward_only": {
+    "count": 60,
+    "mean": 37.772,
+    "std": 6.907,
+    "min": 33.358,
+    "p50": 34.878,
+    "p90": 44.006,
+    "p95": 48.535,
+    "p99": 66.559,
+    "max": 68.028
+  },
+  "gating_overhead": {
+    "count": 384,
+    "mean": 0.003,
+    "std": 0.001,
+    "min": 0.002,
+    "p50": 0.004,
+    "p90": 0.004,
+    "p95": 0.004,
+    "p99": 0.005,
+    "max": 0.013
+  },
+  "fast_rule_scorer": {
+    "count": 384,
+    "mean": 0.02,
+    "std": 0.01,
+    "min": 0.008,
+    "p50": 0.023,
+    "p90": 0.026,
+    "p95": 0.028,
+    "p99": 0.042,
+    "max": 0.128
+  },
+  "end_to_end_hybrid_overall": {
+    "count": 384,
+    "mean": 19.256,
+    "std": 18.183,
+    "min": 0.003,
+    "p50": 29.369,
+    "p90": 38.121,
+    "p95": 54.926,
+    "p99": 57.566,
+    "max": 59.861
+  },
+  "end_to_end_hybrid_by_decision": {
+    "RULE": {
+      "count": 24,
+      "mean": 0.022,
+      "std": 0.008,
+      "min": 0.018,
+      "p50": 0.02,
+      "p90": 0.022,
+      "p95": 0.031,
+      "p99": 0.052,
+      "max": 0.058
+    },
+    "NEURAL": {
+      "count": 216,
+      "mean": 34.227,
+      "std": 8.684,
+      "min": 28.17,
+      "p50": 30.474,
+      "p90": 54.236,
+      "p95": 56.944,
+      "p99": 57.938,
+      "max": 59.861
+    },
+    "CLARIFY": {
+      "count": 72,
+      "mean": 0.004,
+      "std": 0.001,
+      "min": 0.004,
+      "p50": 0.004,
+      "p90": 0.005,
+      "p95": 0.005,
+      "p99": 0.007,
+      "max": 0.009
+    },
+    "REFUSE": {
+      "count": 72,
+      "mean": 0.004,
+      "std": 0.001,
+      "min": 0.003,
+      "p50": 0.004,
+      "p90": 0.004,
+      "p95": 0.005,
+      "p99": 0.008,
+      "max": 0.008
+    }
+  }
+}
