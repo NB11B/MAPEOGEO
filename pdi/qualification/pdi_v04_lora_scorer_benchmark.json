@@ -1,0 +1,23 @@
+{
+  "model": "SmolLM2-135M + LoRA Candidate-Wise Scorer",
+  "trainable_parameters": 497793,
+  "overall_useful_pct": 56.25,
+  "latency_mean_ms": 41.8,
+  "by_category": {
+    "NON_COMMUTATIVE_DISCRIMINATOR": {
+      "correct": 16,
+      "total": 24,
+      "pct": 66.67
+    },
+    "PARTIALLY_OBSERVABLE_UNDERSPECIFIED": {
+      "correct": 0,
+      "total": 20,
+      "pct": 0.0
+    },
+    "CONTEXTUAL_AMBIGUITY": {
+      "correct": 20,
+      "total": 20,
+      "pct": 100.0
+    }
+  }
+}

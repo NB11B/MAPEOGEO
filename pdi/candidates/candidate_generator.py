@@ -151,7 +151,7 @@ class DeterministicCandidateGenerator:
         # 2. Semantic keyword matching
         if re.search(r"\b(add|addition|\+)\b", prompt_lower) and 1 not in detected_opcodes:
             detected_opcodes.extend([1, 31])
-        if re.search(r"\b(sub|subtract|subtraction|-)\b", prompt_lower) and 2 not in detected_opcodes:
+        if re.search(r"\b(sub|subtract|subtraction|minus)\b", prompt_lower) and 2 not in detected_opcodes:
             detected_opcodes.extend([2, 32])
         if re.search(r"\b(mul|multiply|multiplication|\*)\b", prompt_lower) and 3 not in detected_opcodes:
             detected_opcodes.extend([3, 33])
@@ -163,19 +163,25 @@ class DeterministicCandidateGenerator:
             detected_opcodes.append(7)
         if re.search(r"\b(conjugate|conjugation)\b", prompt_lower) and 8 not in detected_opcodes:
             detected_opcodes.append(8)
-        if re.search(r"\b(dot)\b", prompt_lower) and 9 not in detected_opcodes:
-            detected_opcodes.append(9)
-        if re.search(r"\b(wedge)\b", prompt_lower) and 10 not in detected_opcodes:
-            detected_opcodes.append(10)
+        if re.search(r"\b(dot|scalar\s+projection\s+metric|symmetric\s+scalar)\b", prompt_lower):
+            if 9 not in detected_opcodes:
+                detected_opcodes.append(9)
+            if 10 not in detected_opcodes:
+                detected_opcodes.append(10)
+        if re.search(r"\b(wedge|planar\s+bivector\s+span|bivector\s+span)\b", prompt_lower):
+            if 10 not in detected_opcodes:
+                detected_opcodes.append(10)
+            if 9 not in detected_opcodes:
+                detected_opcodes.append(9)
         if re.search(r"\b(commutator)\b", prompt_lower) and not re.search(r"\b(anticommutator)\b", prompt_lower) and 11 not in detected_opcodes:
             detected_opcodes.append(11)
         if re.search(r"\b(anticommutator)\b", prompt_lower) and 12 not in detected_opcodes:
             detected_opcodes.append(12)
-        if re.search(r"\b(scalar\s+projection)\b", prompt_lower) and 13 not in detected_opcodes:
+        if re.search(r"\b(scalar\s+projection)\b", prompt_lower) and not re.search(r"\b(metric)\b", prompt_lower) and 13 not in detected_opcodes:
             detected_opcodes.append(13)
         if re.search(r"\b(vector\s+projection)\b", prompt_lower) and 14 not in detected_opcodes:
             detected_opcodes.append(14)
-        if re.search(r"\b(bivector\s+projection)\b", prompt_lower) and 15 not in detected_opcodes:
+        if re.search(r"\b(bivector\s+projection)\b", prompt_lower) and not re.search(r"\b(span)\b", prompt_lower) and 15 not in detected_opcodes:
             detected_opcodes.append(15)
         if re.search(r"\b(norm)\b", prompt_lower) and 16 not in detected_opcodes:
             detected_opcodes.append(16)
@@ -187,20 +193,25 @@ class DeterministicCandidateGenerator:
             detected_opcodes = [1, 2, 4, 5, 9, 10]
 
         # Extract operands directly from prompt's goal clause if available
-        goal_clause_match = re.search(r"(?:goal|request|apply)[:\s]+(.*)", prompt_lower)
+        goal_clause_match = re.search(r"(?:goal|request|apply|task(?:\s+intent)?|intent)[:\s]+(.*)", prompt_lower)
         goal_text = goal_clause_match.group(1) if goal_clause_match else prompt_lower
         extracted_goal_refs = [int(x) for x in re.findall(r"(?:state|ref|word|address)\s*[_:]?\s*(\d+)", goal_text)]
 
+        # Filter out the goal reference (destination address) from the source operands
+        source_candidates = [r for r in extracted_goal_refs if r != goal]
+
         # Determine primary operands
-        if len(extracted_goal_refs) >= 2:
-            r0 = extracted_goal_refs[0]
-            r1 = extracted_goal_refs[1]
-        elif len(extracted_goal_refs) == 1:
-            r0 = extracted_goal_refs[0]
-            r1 = refs[1] if len(refs) > 1 and refs[1] != r0 else (refs[0] if refs and refs[0] != r0 else r0 + 1)
+        if len(source_candidates) >= 2:
+            r0 = source_candidates[0]
+            r1 = source_candidates[1]
+        elif len(source_candidates) == 1:
+            r0 = source_candidates[0]
+            visible_sources = [r for r in refs if r != goal and r != r0]
+            r1 = visible_sources[0] if visible_sources else r0 + 1
         else:
-            r0 = refs[0] if len(refs) > 0 else 10
-            r1 = refs[1] if len(refs) > 1 else (refs[0] if len(refs) > 0 else 11)
+            visible_sources = [r for r in refs if r != goal]
+            r0 = visible_sources[0] if len(visible_sources) > 0 else 10
+            r1 = visible_sources[1] if len(visible_sources) > 1 else (visible_sources[0] + 1 if visible_sources else 11)
 
         candidate_actions: List[Tuple[str, Optional[int], List[int], Optional[int]]] = []
 

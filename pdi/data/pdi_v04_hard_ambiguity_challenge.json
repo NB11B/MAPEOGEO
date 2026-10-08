@@ -1,0 +1,1812 @@
+{
+  "schema_version": "1.0.0",
+  "corpus_id": "pdi-hard-ambiguity-challenge-64",
+  "total_records": 64,
+  "distribution": {
+    "non_commutative_discriminators": 24,
+    "partially_observable_underspecified": 20,
+    "contextual_ambiguity": 20
+  },
+  "records": [
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s000",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 70, pre-state version 1500. Pre-state: @10 = 1s + 2e1 - 0.5e2 + 0.5e12, @11 = -0.5s + 1e1 + 1.5e2 - 1e12. Goal: Compute oriented geometric Clifford product of state 10 by state 11 into destination state 70.",
+      "assumed_state_version": 1500,
+      "authorized_capability_mask": 1,
+      "dest_ref": 70,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {
+        "10": {
+          "s": 1.0,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "11": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -1.0
+        }
+      },
+      "expected_multivector": {
+        "s": 1.25,
+        "e1": 0.25,
+        "e2": -0.75,
+        "e12": 2.25
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_10 REF_11 GOAL_70",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_11 REF_10 GOAL_70",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s001",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 71, pre-state version 1503. Pre-state: @12 = 1.1s + 2e1 - 0.5e2 + 0.5e12, @13 = -0.5s + 1e1 + 1.5e2 - 0.9e12. Goal: Compute oriented exterior wedge product of state 12 by state 13 into destination state 71.",
+      "assumed_state_version": 1503,
+      "authorized_capability_mask": 1,
+      "dest_ref": 71,
+      "src_refs": [
+        12,
+        13
+      ],
+      "pre_state": {
+        "12": {
+          "s": 1.1,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "13": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.9
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_12 REF_13 GOAL_71",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_13 REF_12 GOAL_71",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s002",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 72, pre-state version 1506. Pre-state: @14 = 1.2s + 2e1 - 0.5e2 + 0.5e12, @15 = -0.5s + 1e1 + 1.5e2 - 0.8e12. Goal: Compute oriented commutator product [A, B] of state 14 by state 15 into destination state 72.",
+      "assumed_state_version": 1506,
+      "authorized_capability_mask": 1,
+      "dest_ref": 72,
+      "src_refs": [
+        14,
+        15
+      ],
+      "pre_state": {
+        "14": {
+          "s": 1.2,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "15": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.8
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.35,
+        "e2": -2.1000000000000005,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_14 REF_15 GOAL_72",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_15 REF_14 GOAL_72",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s003",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 73, pre-state version 1509. Pre-state: @16 = 1.3s + 2e1 - 0.5e2 + 0.5e12, @17 = -0.5s + 1e1 + 1.5e2 - 0.7e12. Goal: Compute oriented geometric Clifford product of state 16 by state 17 into destination state 73.",
+      "assumed_state_version": 1509,
+      "authorized_capability_mask": 1,
+      "dest_ref": 73,
+      "src_refs": [
+        16,
+        17
+      ],
+      "pre_state": {
+        "16": {
+          "s": 1.3,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "17": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.7
+        }
+      },
+      "expected_multivector": {
+        "s": 0.9500000000000001,
+        "e1": 0.7000000000000001,
+        "e2": 0.30000000000000027,
+        "e12": 2.34
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_16 REF_17 GOAL_73",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_17 REF_16 GOAL_73",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s004",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 74, pre-state version 1512. Pre-state: @18 = 1.4s + 2e1 - 0.5e2 + 0.5e12, @19 = -0.5s + 1e1 + 1.5e2 - 0.6e12. Goal: Compute oriented exterior wedge product of state 18 by state 19 into destination state 74.",
+      "assumed_state_version": 1512,
+      "authorized_capability_mask": 1,
+      "dest_ref": 74,
+      "src_refs": [
+        18,
+        19
+      ],
+      "pre_state": {
+        "18": {
+          "s": 1.4,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "19": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.6
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_18 REF_19 GOAL_74",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_19 REF_18 GOAL_74",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s005",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 75, pre-state version 1515. Pre-state: @20 = 1.5s + 2e1 - 0.5e2 + 0.5e12, @21 = -0.5s + 1e1 + 1.5e2 - 0.5e12. Goal: Compute oriented commutator product [A, B] of state 20 by state 21 into destination state 75.",
+      "assumed_state_version": 1515,
+      "authorized_capability_mask": 1,
+      "dest_ref": 75,
+      "src_refs": [
+        20,
+        21
+      ],
+      "pre_state": {
+        "20": {
+          "s": 1.5,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "21": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.5,
+        "e2": -1.5,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_20 REF_21 GOAL_75",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_21 REF_20 GOAL_75",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s006",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 76, pre-state version 1518. Pre-state: @22 = 1.6s + 2e1 - 0.5e2 + 0.5e12, @23 = -0.5s + 1e1 + 1.5e2 - 0.4e12. Goal: Compute oriented geometric Clifford product of state 22 by state 23 into destination state 76.",
+      "assumed_state_version": 1518,
+      "authorized_capability_mask": 1,
+      "dest_ref": 76,
+      "src_refs": [
+        22,
+        23
+      ],
+      "pre_state": {
+        "22": {
+          "s": 1.6,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "23": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.3999999999999999
+        }
+      },
+      "expected_multivector": {
+        "s": 0.6499999999999999,
+        "e1": 1.1500000000000001,
+        "e2": 1.3500000000000005,
+        "e12": 2.6100000000000003
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_22 REF_23 GOAL_76",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_23 REF_22 GOAL_76",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s007",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 77, pre-state version 1521. Pre-state: @24 = 1.7s + 2e1 - 0.5e2 + 0.5e12, @25 = -0.5s + 1e1 + 1.5e2 - 0.3e12. Goal: Compute oriented exterior wedge product of state 24 by state 25 into destination state 77.",
+      "assumed_state_version": 1521,
+      "authorized_capability_mask": 1,
+      "dest_ref": 77,
+      "src_refs": [
+        24,
+        25
+      ],
+      "pre_state": {
+        "24": {
+          "s": 1.7000000000000002,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "25": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.29999999999999993
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_24 REF_25 GOAL_77",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_25 REF_24 GOAL_77",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s008",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 78, pre-state version 1524. Pre-state: @26 = 1.8s + 2e1 - 0.5e2 + 0.5e12, @27 = -0.5s + 1e1 + 1.5e2 - 0.2e12. Goal: Compute oriented commutator product [A, B] of state 26 by state 27 into destination state 78.",
+      "assumed_state_version": 1524,
+      "authorized_capability_mask": 1,
+      "dest_ref": 78,
+      "src_refs": [
+        26,
+        27
+      ],
+      "pre_state": {
+        "26": {
+          "s": 1.8,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "27": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.19999999999999996
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.6500000000000001,
+        "e2": -0.8999999999999999,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_26 REF_27 GOAL_78",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_27 REF_26 GOAL_78",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s009",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 79, pre-state version 1527. Pre-state: @28 = 1.9s + 2e1 - 0.5e2 + 0.5e12, @29 = -0.5s + 1e1 + 1.5e2 - 0.1e12. Goal: Compute oriented geometric Clifford product of state 28 by state 29 into destination state 79.",
+      "assumed_state_version": 1527,
+      "authorized_capability_mask": 1,
+      "dest_ref": 79,
+      "src_refs": [
+        28,
+        29
+      ],
+      "pre_state": {
+        "28": {
+          "s": 1.9,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "29": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.09999999999999998
+        }
+      },
+      "expected_multivector": {
+        "s": 0.35000000000000003,
+        "e1": 1.5999999999999999,
+        "e2": 2.3999999999999995,
+        "e12": 3.06
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_28 REF_29 GOAL_79",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_29 REF_28 GOAL_79",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s010",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 80, pre-state version 1530. Pre-state: @30 = 2s + 2e1 - 0.5e2 + 0.5e12, @31 = -0.5s + 1e1 + 1.5e2. Goal: Compute oriented exterior wedge product of state 30 by state 31 into destination state 80.",
+      "assumed_state_version": 1530,
+      "authorized_capability_mask": 1,
+      "dest_ref": 80,
+      "src_refs": [
+        30,
+        31
+      ],
+      "pre_state": {
+        "30": {
+          "s": 2.0,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "31": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_30 REF_31 GOAL_80",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_31 REF_30 GOAL_80",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s011",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 81, pre-state version 1533. Pre-state: @32 = 2.1s + 2e1 - 0.5e2 + 0.5e12, @33 = -0.5s + 1e1 + 1.5e2 + 0.1e12. Goal: Compute oriented commutator product [A, B] of state 32 by state 33 into destination state 81.",
+      "assumed_state_version": 1533,
+      "authorized_capability_mask": 1,
+      "dest_ref": 81,
+      "src_refs": [
+        32,
+        33
+      ],
+      "pre_state": {
+        "32": {
+          "s": 2.1,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "33": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.10000000000000009
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.8,
+        "e2": -0.2999999999999998,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_32 REF_33 GOAL_81",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_33 REF_32 GOAL_81",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s012",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 82, pre-state version 1536. Pre-state: @34 = 2.2s + 2e1 - 0.5e2 + 0.5e12, @35 = -0.5s + 1e1 + 1.5e2 + 0.2e12. Goal: Compute oriented geometric Clifford product of state 34 by state 35 into destination state 82.",
+      "assumed_state_version": 1536,
+      "authorized_capability_mask": 1,
+      "dest_ref": 82,
+      "src_refs": [
+        34,
+        35
+      ],
+      "pre_state": {
+        "34": {
+          "s": 2.2,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "35": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.20000000000000018
+        }
+      },
+      "expected_multivector": {
+        "s": 0.04999999999999982,
+        "e1": 2.0500000000000003,
+        "e2": 3.4500000000000006,
+        "e12": 3.6900000000000004
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_34 REF_35 GOAL_82",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_35 REF_34 GOAL_82",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s013",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 83, pre-state version 1539. Pre-state: @36 = 2.3s + 2e1 - 0.5e2 + 0.5e12, @37 = -0.5s + 1e1 + 1.5e2 + 0.3e12. Goal: Compute oriented exterior wedge product of state 36 by state 37 into destination state 83.",
+      "assumed_state_version": 1539,
+      "authorized_capability_mask": 1,
+      "dest_ref": 83,
+      "src_refs": [
+        36,
+        37
+      ],
+      "pre_state": {
+        "36": {
+          "s": 2.3,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "37": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.30000000000000004
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_36 REF_37 GOAL_83",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_37 REF_36 GOAL_83",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s014",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 84, pre-state version 1542. Pre-state: @38 = 2.4s + 2e1 - 0.5e2 + 0.5e12, @39 = -0.5s + 1e1 + 1.5e2 + 0.4e12. Goal: Compute oriented commutator product [A, B] of state 38 by state 39 into destination state 84.",
+      "assumed_state_version": 1542,
+      "authorized_capability_mask": 1,
+      "dest_ref": 84,
+      "src_refs": [
+        38,
+        39
+      ],
+      "pre_state": {
+        "38": {
+          "s": 2.4000000000000004,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "39": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.40000000000000013
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.9500000000000002,
+        "e2": 0.30000000000000004,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_38 REF_39 GOAL_84",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_39 REF_38 GOAL_84",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s015",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 85, pre-state version 1545. Pre-state: @40 = 2.5s + 2e1 - 0.5e2 + 0.5e12, @41 = -0.5s + 1e1 + 1.5e2 + 0.5e12. Goal: Compute oriented geometric Clifford product of state 40 by state 41 into destination state 85.",
+      "assumed_state_version": 1545,
+      "authorized_capability_mask": 1,
+      "dest_ref": 85,
+      "src_refs": [
+        40,
+        41
+      ],
+      "pre_state": {
+        "40": {
+          "s": 2.5,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "41": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.5
+        }
+      },
+      "expected_multivector": {
+        "s": -0.25,
+        "e1": 2.5,
+        "e2": 4.5,
+        "e12": 4.5
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_40 REF_41 GOAL_85",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_41 REF_40 GOAL_85",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s016",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 86, pre-state version 1548. Pre-state: @42 = 2.6s + 2e1 - 0.5e2 + 0.5e12, @43 = -0.5s + 1e1 + 1.5e2 + 0.6e12. Goal: Compute oriented exterior wedge product of state 42 by state 43 into destination state 86.",
+      "assumed_state_version": 1548,
+      "authorized_capability_mask": 1,
+      "dest_ref": 86,
+      "src_refs": [
+        42,
+        43
+      ],
+      "pre_state": {
+        "42": {
+          "s": 2.6,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "43": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.6000000000000001
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_42 REF_43 GOAL_86",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_43 REF_42 GOAL_86",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s017",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 87, pre-state version 1551. Pre-state: @44 = 2.7s + 2e1 - 0.5e2 + 0.5e12, @45 = -0.5s + 1e1 + 1.5e2 + 0.7e12. Goal: Compute oriented commutator product [A, B] of state 44 by state 45 into destination state 87.",
+      "assumed_state_version": 1551,
+      "authorized_capability_mask": 1,
+      "dest_ref": 87,
+      "src_refs": [
+        44,
+        45
+      ],
+      "pre_state": {
+        "44": {
+          "s": 2.7,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "45": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.7000000000000002
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 1.1,
+        "e2": 0.9000000000000004,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_44 REF_45 GOAL_87",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_45 REF_44 GOAL_87",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s018",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 88, pre-state version 1554. Pre-state: @46 = 2.8s + 2e1 - 0.5e2 + 0.5e12, @47 = -0.5s + 1e1 + 1.5e2 + 0.8e12. Goal: Compute oriented geometric Clifford product of state 46 by state 47 into destination state 88.",
+      "assumed_state_version": 1554,
+      "authorized_capability_mask": 1,
+      "dest_ref": 88,
+      "src_refs": [
+        46,
+        47
+      ],
+      "pre_state": {
+        "46": {
+          "s": 2.8,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "47": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.8
+        }
+      },
+      "expected_multivector": {
+        "s": -0.5499999999999999,
+        "e1": 2.9499999999999997,
+        "e2": 5.549999999999999,
+        "e12": 5.49
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_46 REF_47 GOAL_88",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_47 REF_46 GOAL_88",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s019",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 89, pre-state version 1557. Pre-state: @48 = 2.9s + 2e1 - 0.5e2 + 0.5e12, @49 = -0.5s + 1e1 + 1.5e2 + 0.9e12. Goal: Compute oriented exterior wedge product of state 48 by state 49 into destination state 89.",
+      "assumed_state_version": 1557,
+      "authorized_capability_mask": 1,
+      "dest_ref": 89,
+      "src_refs": [
+        48,
+        49
+      ],
+      "pre_state": {
+        "48": {
+          "s": 2.9000000000000004,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "49": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.9000000000000001
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_48 REF_49 GOAL_89",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_49 REF_48 GOAL_89",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s020",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 90, pre-state version 1560. Pre-state: @50 = 3s + 2e1 - 0.5e2 + 0.5e12, @51 = -0.5s + 1e1 + 1.5e2 + 1e12. Goal: Compute oriented commutator product [A, B] of state 50 by state 51 into destination state 90.",
+      "assumed_state_version": 1560,
+      "authorized_capability_mask": 1,
+      "dest_ref": 90,
+      "src_refs": [
+        50,
+        51
+      ],
+      "pre_state": {
+        "50": {
+          "s": 3.0,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "51": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 1.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 1.25,
+        "e2": 1.5,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_50 REF_51 GOAL_90",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_51 REF_50 GOAL_90",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s021",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 91, pre-state version 1563. Pre-state: @52 = 3.1s + 2e1 - 0.5e2 + 0.5e12, @53 = -0.5s + 1e1 + 1.5e2 + 1.1e12. Goal: Compute oriented geometric Clifford product of state 52 by state 53 into destination state 91.",
+      "assumed_state_version": 1563,
+      "authorized_capability_mask": 1,
+      "dest_ref": 91,
+      "src_refs": [
+        52,
+        53
+      ],
+      "pre_state": {
+        "52": {
+          "s": 3.1,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "53": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 1.1
+        }
+      },
+      "expected_multivector": {
+        "s": -0.8500000000000001,
+        "e1": 3.4000000000000004,
+        "e2": 6.6000000000000005,
+        "e12": 6.66
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_52 REF_53 GOAL_91",
+      "reversed_action": "PROPOSE OP_CL20_PRODUCT REF_53 REF_52 GOAL_91",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s022",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 92, pre-state version 1566. Pre-state: @54 = 3.2s + 2e1 - 0.5e2 + 0.5e12, @55 = -0.5s + 1e1 + 1.5e2 + 1.2e12. Goal: Compute oriented exterior wedge product of state 54 by state 55 into destination state 92.",
+      "assumed_state_version": 1566,
+      "authorized_capability_mask": 1,
+      "dest_ref": 92,
+      "src_refs": [
+        54,
+        55
+      ],
+      "pre_state": {
+        "54": {
+          "s": 3.2,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "55": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 1.2000000000000002
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_54 REF_55 GOAL_92",
+      "reversed_action": "PROPOSE OP_VECTOR_WEDGE REF_55 REF_54 GOAL_92",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-NONCOMM-s023",
+      "challenge_category": "NON_COMMUTATIVE_DISCRIMINATOR",
+      "input_prompt": "Context: Dest address 93, pre-state version 1569. Pre-state: @56 = 3.3s + 2e1 - 0.5e2 + 0.5e12, @57 = -0.5s + 1e1 + 1.5e2 + 1.3e12. Goal: Compute oriented commutator product [A, B] of state 56 by state 57 into destination state 93.",
+      "assumed_state_version": 1569,
+      "authorized_capability_mask": 1,
+      "dest_ref": 93,
+      "src_refs": [
+        56,
+        57
+      ],
+      "pre_state": {
+        "56": {
+          "s": 3.3000000000000003,
+          "e1": 2.0,
+          "e2": -0.5,
+          "e12": 0.5
+        },
+        "57": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 1.3000000000000003
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 1.4,
+        "e2": 2.1000000000000005,
+        "e12": 3.5
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_56 REF_57 GOAL_93",
+      "reversed_action": "PROPOSE OP_COMMUTATOR REF_57 REF_56 GOAL_93",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s000",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1600. Issue: Missing primary operand source address. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1600,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Missing primary operand source address"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s001",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1604. Issue: Conflicting pre-state temporal version tags (v1010 vs v1080). Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1604,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Conflicting pre-state temporal version tags (v1010 vs v1080)"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s002",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1608. Issue: Destination memory address unspecified. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1608,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Destination memory address unspecified"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s003",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1612. Issue: Ambiguous multivector projection grade requested. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1612,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Ambiguous multivector projection grade requested"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s004",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1616. Issue: Uncertified capability requirement 0x80000000. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1616,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Uncertified capability requirement 0x80000000"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s005",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1620. Issue: Missing primary operand source address. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1620,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Missing primary operand source address"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s006",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1624. Issue: Conflicting pre-state temporal version tags (v1010 vs v1080). Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1624,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Conflicting pre-state temporal version tags (v1010 vs v1080)"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s007",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1628. Issue: Destination memory address unspecified. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1628,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Destination memory address unspecified"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s008",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1632. Issue: Ambiguous multivector projection grade requested. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1632,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Ambiguous multivector projection grade requested"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s009",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1636. Issue: Uncertified capability requirement 0x80000000. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1636,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Uncertified capability requirement 0x80000000"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s010",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1640. Issue: Missing primary operand source address. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1640,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Missing primary operand source address"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s011",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1644. Issue: Conflicting pre-state temporal version tags (v1010 vs v1080). Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1644,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Conflicting pre-state temporal version tags (v1010 vs v1080)"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s012",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1648. Issue: Destination memory address unspecified. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1648,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Destination memory address unspecified"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s013",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1652. Issue: Ambiguous multivector projection grade requested. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1652,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Ambiguous multivector projection grade requested"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s014",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1656. Issue: Uncertified capability requirement 0x80000000. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1656,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Uncertified capability requirement 0x80000000"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s015",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1660. Issue: Missing primary operand source address. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1660,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Missing primary operand source address"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s016",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1664. Issue: Conflicting pre-state temporal version tags (v1010 vs v1080). Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1664,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Conflicting pre-state temporal version tags (v1010 vs v1080)"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s017",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1668. Issue: Destination memory address unspecified. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1668,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Destination memory address unspecified"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s018",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1672. Issue: Ambiguous multivector projection grade requested. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1672,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Ambiguous multivector projection grade requested"
+    },
+    {
+      "scenario_id": "PDI-HARD-UNDERSPEC-s019",
+      "challenge_category": "PARTIALLY_OBSERVABLE_UNDERSPECIFIED",
+      "input_prompt": "Context: Execution request under incomplete state observation, version 1676. Issue: Uncertified capability requirement 0x80000000. Directive: Unsafe execution prohibited. Must clarify ambiguity or abstain from state mutation.",
+      "assumed_state_version": 1676,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_multivector": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "requires_abstention": true,
+      "abstention_reason": "Uncertified capability requirement 0x80000000"
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s000",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 90, version 1700. Pre-state: @30 = 2s + 1e1, @31 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 30 and state 31 into destination state 90.",
+      "assumed_state_version": 1700,
+      "authorized_capability_mask": 1,
+      "dest_ref": 90,
+      "src_refs": [
+        30,
+        31
+      ],
+      "pre_state": {
+        "30": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "31": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_30 REF_31 GOAL_90",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s001",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 91, version 1707. Pre-state: @32 = 2s + 1e1, @33 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 32 and state 33 into destination state 91.",
+      "assumed_state_version": 1707,
+      "authorized_capability_mask": 1,
+      "dest_ref": 91,
+      "src_refs": [
+        32,
+        33
+      ],
+      "pre_state": {
+        "32": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "33": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_32 REF_33 GOAL_91",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s002",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 92, version 1714. Pre-state: @34 = 2s + 1e1, @35 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 34 and state 35 into destination state 92.",
+      "assumed_state_version": 1714,
+      "authorized_capability_mask": 1,
+      "dest_ref": 92,
+      "src_refs": [
+        34,
+        35
+      ],
+      "pre_state": {
+        "34": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "35": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_34 REF_35 GOAL_92",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s003",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 93, version 1721. Pre-state: @36 = 2s + 1e1, @37 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 36 and state 37 into destination state 93.",
+      "assumed_state_version": 1721,
+      "authorized_capability_mask": 1,
+      "dest_ref": 93,
+      "src_refs": [
+        36,
+        37
+      ],
+      "pre_state": {
+        "36": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "37": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_36 REF_37 GOAL_93",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s004",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 94, version 1728. Pre-state: @38 = 2s + 1e1, @39 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 38 and state 39 into destination state 94.",
+      "assumed_state_version": 1728,
+      "authorized_capability_mask": 1,
+      "dest_ref": 94,
+      "src_refs": [
+        38,
+        39
+      ],
+      "pre_state": {
+        "38": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "39": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_38 REF_39 GOAL_94",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s005",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 95, version 1735. Pre-state: @40 = 2s + 1e1, @41 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 40 and state 41 into destination state 95.",
+      "assumed_state_version": 1735,
+      "authorized_capability_mask": 1,
+      "dest_ref": 95,
+      "src_refs": [
+        40,
+        41
+      ],
+      "pre_state": {
+        "40": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "41": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_40 REF_41 GOAL_95",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s006",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 96, version 1742. Pre-state: @42 = 2s + 1e1, @43 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 42 and state 43 into destination state 96.",
+      "assumed_state_version": 1742,
+      "authorized_capability_mask": 1,
+      "dest_ref": 96,
+      "src_refs": [
+        42,
+        43
+      ],
+      "pre_state": {
+        "42": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "43": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_42 REF_43 GOAL_96",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s007",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 97, version 1749. Pre-state: @44 = 2s + 1e1, @45 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 44 and state 45 into destination state 97.",
+      "assumed_state_version": 1749,
+      "authorized_capability_mask": 1,
+      "dest_ref": 97,
+      "src_refs": [
+        44,
+        45
+      ],
+      "pre_state": {
+        "44": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "45": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_44 REF_45 GOAL_97",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s008",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 98, version 1756. Pre-state: @46 = 2s + 1e1, @47 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 46 and state 47 into destination state 98.",
+      "assumed_state_version": 1756,
+      "authorized_capability_mask": 1,
+      "dest_ref": 98,
+      "src_refs": [
+        46,
+        47
+      ],
+      "pre_state": {
+        "46": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "47": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_46 REF_47 GOAL_98",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s009",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 99, version 1763. Pre-state: @48 = 2s + 1e1, @49 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 48 and state 49 into destination state 99.",
+      "assumed_state_version": 1763,
+      "authorized_capability_mask": 1,
+      "dest_ref": 99,
+      "src_refs": [
+        48,
+        49
+      ],
+      "pre_state": {
+        "48": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "49": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_48 REF_49 GOAL_99",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s010",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 100, version 1770. Pre-state: @50 = 2s + 1e1, @51 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 50 and state 51 into destination state 100.",
+      "assumed_state_version": 1770,
+      "authorized_capability_mask": 1,
+      "dest_ref": 100,
+      "src_refs": [
+        50,
+        51
+      ],
+      "pre_state": {
+        "50": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "51": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_50 REF_51 GOAL_100",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s011",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 101, version 1777. Pre-state: @52 = 2s + 1e1, @53 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 52 and state 53 into destination state 101.",
+      "assumed_state_version": 1777,
+      "authorized_capability_mask": 1,
+      "dest_ref": 101,
+      "src_refs": [
+        52,
+        53
+      ],
+      "pre_state": {
+        "52": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "53": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_52 REF_53 GOAL_101",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s012",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 102, version 1784. Pre-state: @54 = 2s + 1e1, @55 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 54 and state 55 into destination state 102.",
+      "assumed_state_version": 1784,
+      "authorized_capability_mask": 1,
+      "dest_ref": 102,
+      "src_refs": [
+        54,
+        55
+      ],
+      "pre_state": {
+        "54": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "55": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_54 REF_55 GOAL_102",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s013",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 103, version 1791. Pre-state: @56 = 2s + 1e1, @57 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 56 and state 57 into destination state 103.",
+      "assumed_state_version": 1791,
+      "authorized_capability_mask": 1,
+      "dest_ref": 103,
+      "src_refs": [
+        56,
+        57
+      ],
+      "pre_state": {
+        "56": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "57": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_56 REF_57 GOAL_103",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s014",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 104, version 1798. Pre-state: @58 = 2s + 1e1, @59 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 58 and state 59 into destination state 104.",
+      "assumed_state_version": 1798,
+      "authorized_capability_mask": 1,
+      "dest_ref": 104,
+      "src_refs": [
+        58,
+        59
+      ],
+      "pre_state": {
+        "58": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "59": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_58 REF_59 GOAL_104",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s015",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 105, version 1805. Pre-state: @60 = 2s + 1e1, @61 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 60 and state 61 into destination state 105.",
+      "assumed_state_version": 1805,
+      "authorized_capability_mask": 1,
+      "dest_ref": 105,
+      "src_refs": [
+        60,
+        61
+      ],
+      "pre_state": {
+        "60": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "61": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_60 REF_61 GOAL_105",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s016",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 106, version 1812. Pre-state: @62 = 2s + 1e1, @63 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 62 and state 63 into destination state 106.",
+      "assumed_state_version": 1812,
+      "authorized_capability_mask": 1,
+      "dest_ref": 106,
+      "src_refs": [
+        62,
+        63
+      ],
+      "pre_state": {
+        "62": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "63": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_62 REF_63 GOAL_106",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s017",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 107, version 1819. Pre-state: @64 = 2s + 1e1, @65 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 64 and state 65 into destination state 107.",
+      "assumed_state_version": 1819,
+      "authorized_capability_mask": 1,
+      "dest_ref": 107,
+      "src_refs": [
+        64,
+        65
+      ],
+      "pre_state": {
+        "64": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "65": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_64 REF_65 GOAL_107",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s018",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 108, version 1826. Pre-state: @66 = 2s + 1e1, @67 = 1s + 2e2. Task intent: Extract symmetric scalar projection metric between state 66 and state 67 into destination state 108.",
+      "assumed_state_version": 1826,
+      "authorized_capability_mask": 1,
+      "dest_ref": 108,
+      "src_refs": [
+        66,
+        67
+      ],
+      "pre_state": {
+        "66": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "67": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 0.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_66 REF_67 GOAL_108",
+      "requires_abstention": false
+    },
+    {
+      "scenario_id": "PDI-HARD-CONTEXT-s019",
+      "challenge_category": "CONTEXTUAL_AMBIGUITY",
+      "input_prompt": "Context: Dest address 109, version 1833. Pre-state: @68 = 2s + 1e1, @69 = 1s + 2e2. Task intent: Construct oriented planar bivector span spanned by state 68 and state 69 into destination state 109.",
+      "assumed_state_version": 1833,
+      "authorized_capability_mask": 1,
+      "dest_ref": 109,
+      "src_refs": [
+        68,
+        69
+      ],
+      "pre_state": {
+        "68": {
+          "s": 2.0,
+          "e1": 1.0,
+          "e2": 0.0,
+          "e12": 0.0
+        },
+        "69": {
+          "s": 1.0,
+          "e1": 0.0,
+          "e2": 2.0,
+          "e12": 0.0
+        }
+      },
+      "expected_multivector": {
+        "s": 0.0,
+        "e1": 0.0,
+        "e2": 0.0,
+        "e12": 2.0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_68 REF_69 GOAL_109",
+      "requires_abstention": false
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "model": "Frozen SmolLM2-135M + Trained Probing Head",
+  "overall_useful_pct": 34.38,
+  "latency_mean_ms": 218.25,
+  "by_category": {
+    "NON_COMMUTATIVE_DISCRIMINATOR": {
+      "correct": 12,
+      "total": 24,
+      "pct": 50.0
+    },
+    "PARTIALLY_OBSERVABLE_UNDERSPECIFIED": {
+      "correct": 0,
+      "total": 20,
+      "pct": 0.0
+    },
+    "CONTEXTUAL_AMBIGUITY": {
+      "correct": 10,
+      "total": 20,
+      "pct": 50.0
+    }
+  }
+}

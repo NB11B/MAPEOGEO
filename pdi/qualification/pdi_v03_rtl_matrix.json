@@ -3,7 +3,7 @@
     "experiment": "PDI-135M-v0.3",
     "suite": "R01_R15_DIFFERENTIAL_EQUIVALENCE",
     "simulator": "Icarus Verilog 12.0 (WSL)",
-    "simulation_wallclock_seconds": 0.099,
+    "simulation_wallclock_seconds": 0.098,
     "target_fabric": "MAPEOGEO P0 Fabric",
     "bridge": "pdi_uow_bridge"
   },
