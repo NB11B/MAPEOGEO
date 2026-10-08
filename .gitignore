@@ -28,3 +28,11 @@ artifacts/
 data/sources/
 *.pdf
 .crossbranch/
+
+# Simulation binaries & dumps
+*.vvp
+*.vcd
+fabric_p0/scratch/
+
+# Large datasets
+graph_download/
