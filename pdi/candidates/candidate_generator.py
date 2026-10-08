@@ -18,6 +18,7 @@ import hashlib
 import json
 from pathlib import Path
 import random
+import re
 import sys
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -133,64 +134,79 @@ class DeterministicCandidateGenerator:
 
         prompt_lower = input_prompt.lower()
 
-        # Heuristic detection of candidate families matching context without seeing target label
+        # Robust detection of candidate opcodes from prompt text
         detected_opcodes: List[int] = []
 
-        if "add" in prompt_lower or "+" in prompt_lower or "addition" in prompt_lower:
-            detected_opcodes.extend([1, 31]) # OP_ADD, OP_ALU_ADD
-        if "sub" in prompt_lower or "-" in prompt_lower or "subtract" in prompt_lower:
-            detected_opcodes.extend([2, 32]) # OP_SUB, OP_ALU_SUB
-        if "mul" in prompt_lower or "*" in prompt_lower or "multiply" in prompt_lower:
-            detected_opcodes.extend([3, 33]) # OP_MUL, OP_ALU_MUL
-        if "clifford" in prompt_lower or "geometric product" in prompt_lower:
-            detected_opcodes.extend([5, 17]) # OP_CL20_PRODUCT, OP_COMPOSE
-        if "reverse" in prompt_lower or "reversion" in prompt_lower:
-            detected_opcodes.append(6)       # OP_REVERSE
-        if "involution" in prompt_lower:
-            detected_opcodes.append(7)       # OP_GRADE_INVOLUTION
-        if "conjugate" in prompt_lower:
-            detected_opcodes.append(8)       # OP_CLIFFORD_CONJUGATE
-        if "dot" in prompt_lower:
-            detected_opcodes.append(9)       # OP_VECTOR_DOT
-        if "wedge" in prompt_lower:
-            detected_opcodes.append(10)      # OP_VECTOR_WEDGE
-        if "commutator" in prompt_lower and "anticommutator" not in prompt_lower:
-            detected_opcodes.append(11)      # OP_COMMUTATOR
-        if "anticommutator" in prompt_lower:
-            detected_opcodes.append(12)      # OP_ANTICOMMUTATOR
-        if "scalar" in prompt_lower and "projection" in prompt_lower:
-            detected_opcodes.append(13)      # OP_SCALAR_PROJECTION
-        if "vector" in prompt_lower and "projection" in prompt_lower:
-            detected_opcodes.append(14)      # OP_VECTOR_PROJECTION
-        if "bivector" in prompt_lower and "projection" in prompt_lower:
-            detected_opcodes.append(15)      # OP_BIVECTOR_PROJECTION
-        if "norm" in prompt_lower:
-            detected_opcodes.append(16)      # OP_NORM_SQUARED
-        if "matrix" in prompt_lower:
-            detected_opcodes.extend([18, 19])# OP_MATRIX_TO_CL20, OP_CL20_TO_MATRIX
+        # 1. Exact mnemonic matching across all registered operators (e.g. OP_MUL, OP_REVERSE, OP_ALU_LOAD)
+        for op_id, op_info in self.operators.items():
+            mne = op_info["mnemonic"].lower()
+            # Match "OP_XYZ" or "xyz" as whole word
+            if re.search(r"\b" + re.escape(mne) + r"\b", prompt_lower) or re.search(r"\b" + re.escape(mne.replace("op_", "")) + r"\b", prompt_lower):
+                if op_id != 0 and op_id not in detected_opcodes:
+                    # Avoid false match on "add" inside "address"
+                    if mne in ("op_add", "op_alu_add") and not re.search(r"\b(add|addition|\+)\b", prompt_lower):
+                        continue
+                    detected_opcodes.append(op_id)
+
+        # 2. Semantic keyword matching
+        if re.search(r"\b(add|addition|\+)\b", prompt_lower) and 1 not in detected_opcodes:
+            detected_opcodes.extend([1, 31])
+        if re.search(r"\b(sub|subtract|subtraction|-)\b", prompt_lower) and 2 not in detected_opcodes:
+            detected_opcodes.extend([2, 32])
+        if re.search(r"\b(mul|multiply|multiplication|\*)\b", prompt_lower) and 3 not in detected_opcodes:
+            detected_opcodes.extend([3, 33])
+        if re.search(r"\b(clifford|geometric\s+product)\b", prompt_lower) and 5 not in detected_opcodes:
+            detected_opcodes.extend([5, 17])
+        if re.search(r"\b(reverse|reversion)\b", prompt_lower) and 6 not in detected_opcodes:
+            detected_opcodes.append(6)
+        if re.search(r"\b(involution)\b", prompt_lower) and 7 not in detected_opcodes:
+            detected_opcodes.append(7)
+        if re.search(r"\b(conjugate|conjugation)\b", prompt_lower) and 8 not in detected_opcodes:
+            detected_opcodes.append(8)
+        if re.search(r"\b(dot)\b", prompt_lower) and 9 not in detected_opcodes:
+            detected_opcodes.append(9)
+        if re.search(r"\b(wedge)\b", prompt_lower) and 10 not in detected_opcodes:
+            detected_opcodes.append(10)
+        if re.search(r"\b(commutator)\b", prompt_lower) and not re.search(r"\b(anticommutator)\b", prompt_lower) and 11 not in detected_opcodes:
+            detected_opcodes.append(11)
+        if re.search(r"\b(anticommutator)\b", prompt_lower) and 12 not in detected_opcodes:
+            detected_opcodes.append(12)
+        if re.search(r"\b(scalar\s+projection)\b", prompt_lower) and 13 not in detected_opcodes:
+            detected_opcodes.append(13)
+        if re.search(r"\b(vector\s+projection)\b", prompt_lower) and 14 not in detected_opcodes:
+            detected_opcodes.append(14)
+        if re.search(r"\b(bivector\s+projection)\b", prompt_lower) and 15 not in detected_opcodes:
+            detected_opcodes.append(15)
+        if re.search(r"\b(norm)\b", prompt_lower) and 16 not in detected_opcodes:
+            detected_opcodes.append(16)
+        if re.search(r"\b(matrix)\b", prompt_lower) and 18 not in detected_opcodes:
+            detected_opcodes.extend([18, 19])
 
         # If no specific operator detected, fallback to standard basis operators
         if not detected_opcodes:
             detected_opcodes = [1, 2, 4, 5, 9, 10]
 
-        # Deduplicate detected opcodes while preserving order
-        unique_opcodes: List[int] = []
-        for op in detected_opcodes:
-            if op not in unique_opcodes:
-                unique_opcodes.append(op)
+        # Extract operands directly from prompt's goal clause if available
+        goal_clause_match = re.search(r"(?:goal|request|apply)[:\s]+(.*)", prompt_lower)
+        goal_text = goal_clause_match.group(1) if goal_clause_match else prompt_lower
+        extracted_goal_refs = [int(x) for x in re.findall(r"(?:state|ref|word|address)\s*[_:]?\s*(\d+)", goal_text)]
 
-        # 1. Synthesize candidate work units for slots 1..7
-        # Strategy:
-        # Candidate A: Detected operator with first 2 visible refs and goal
-        r0 = refs[0] if len(refs) > 0 else 10
-        r1 = refs[1] if len(refs) > 1 else (refs[0] if len(refs) > 0 else 11)
+        # Determine primary operands
+        if len(extracted_goal_refs) >= 2:
+            r0 = extracted_goal_refs[0]
+            r1 = extracted_goal_refs[1]
+        elif len(extracted_goal_refs) == 1:
+            r0 = extracted_goal_refs[0]
+            r1 = refs[1] if len(refs) > 1 and refs[1] != r0 else (refs[0] if refs and refs[0] != r0 else r0 + 1)
+        else:
+            r0 = refs[0] if len(refs) > 0 else 10
+            r1 = refs[1] if len(refs) > 1 else (refs[0] if len(refs) > 0 else 11)
 
         candidate_actions: List[Tuple[str, Optional[int], List[int], Optional[int]]] = []
 
-        # Generate action variations
-        for op in unique_opcodes[:4]:
+        # Generate action variations for detected opcodes
+        for op in detected_opcodes[:4]:
             mne = OPCODE_TO_MNEMONIC.get(op, f"OP_{op}")
-            # Two operands if arity >= 2
             arity = self.operators.get(op, {}).get("arity", 2)
             if arity >= 2:
                 action = f"PROPOSE {mne} REF_{r0} REF_{r1}"
@@ -198,7 +214,6 @@ class DeterministicCandidateGenerator:
                     action += f" GOAL_{goal}"
                 candidate_actions.append((action, op, [r0, r1], goal))
 
-                # Reverse operand permutation
                 action_rev = f"PROPOSE {mne} REF_{r1} REF_{r0}"
                 if goal is not None:
                     action_rev += f" GOAL_{goal}"
@@ -210,13 +225,34 @@ class DeterministicCandidateGenerator:
                 candidate_actions.append((action, op, [r0], goal))
 
         # Add COMPARE alternative
-        if len(refs) >= 2:
+        if re.search(r"\b(compare|equivalence)\b", prompt_lower):
+            candidate_actions.insert(0, (f"COMPARE REF_{r0} REF_{r1}", 4, [r0, r1], None))
+        else:
             candidate_actions.append((f"COMPARE REF_{r0} REF_{r1}", 4, [r0, r1], None))
 
         # Add OBSERVE alternative
-        candidate_actions.append(("OBSERVE TARGET_STATE REF_0", None, [0], None))
-        candidate_actions.append(("OBSERVE TARGET_TELEMETRY REF_0", None, [0], None))
-        candidate_actions.append(("OBSERVE TARGET_EVIDENCE REF_0", None, [0], None))
+        obs_match = re.search(r"observe target\s+(\w+)", prompt_lower)
+        if obs_match:
+            o_kind = obs_match.group(1).upper()
+            candidate_actions.insert(0, (f"OBSERVE TARGET_{o_kind} REF_{r0}", None, [r0], None))
+        else:
+            candidate_actions.append(("OBSERVE TARGET_STATE REF_0", None, [0], None))
+
+        # Add CLARIFY alternative
+        clr_match = re.search(r"missing (?:required )?(?:parameter )?(\w+)", prompt_lower)
+        if clr_match:
+            c_slot = clr_match.group(1)
+            candidate_actions.insert(0, (f"CLARIFY SLOT_{c_slot} REASON_missing_required_{c_slot}", None, [], None))
+        else:
+            candidate_actions.append(("CLARIFY SLOT_operator_id REASON_unspecified_ambiguity", None, [], None))
+
+        # Add ESCALATE alternative
+        esc_match = re.search(r"(?:capability|token)\s+(0x[0-9a-fA-F]+|\d+)", prompt_lower)
+        if esc_match:
+            cap_str = esc_match.group(1)
+            candidate_actions.insert(0, (f"ESCALATE CAP_{cap_str} REASON_unauthorized_capability_required", None, [], None))
+        else:
+            candidate_actions.append(("ESCALATE CAP_0x80000000 REASON_unauthorized_capability_required", None, [], None))
 
         # Add CLARIFY alternative
         candidate_actions.append(("CLARIFY SLOT_operator_id REASON_unspecified_ambiguity", None, [], None))
