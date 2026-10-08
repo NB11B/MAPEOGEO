@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // MAPEOGEO Preproduction Fabric P0
 // Module: geo_graph_memory
-// Deterministic CSR hardware graph subsystem with semantic query interface
+// Deterministic Hardware CSR Graph Subsystem with Semantic Query Interface (Gate RTL-11B Native RAM Hardened)
 
 `ifndef GEO_GRAPH_MEMORY_SV
 `define GEO_GRAPH_MEMORY_SV
@@ -54,81 +54,47 @@ module geo_graph_memory #(
     output logic                   neighbor_valid
 );
 
-    // --- Hardware CSR Component Storage Arrays (BRAM-Inferable) ---
+    // --- Hardware CSR Component Storage Arrays (BRAM / Distributed RAM Inferable) ---
     // Node Table: (edge_base, edge_count, node_type, flags, version)
-    logic [15:0] node_edge_base   [0:MAX_NODES-1];
-    logic [15:0] node_edge_count  [0:MAX_NODES-1];
-    logic [7:0]  node_type_tbl    [0:MAX_NODES-1];
-    logic [7:0]  node_flags_tbl   [0:MAX_NODES-1];
-    logic [15:0] node_version_tbl [0:MAX_NODES-1];
+    (* ram_style = "distributed" *) logic [15:0] node_edge_base   [0:MAX_NODES-1];
+    (* ram_style = "distributed" *) logic [15:0] node_edge_count  [0:MAX_NODES-1];
+    (* ram_style = "distributed" *) logic [7:0]  node_type_tbl    [0:MAX_NODES-1];
+    (* ram_style = "distributed" *) logic [7:0]  node_flags_tbl   [0:MAX_NODES-1];
+    (* ram_style = "distributed" *) logic [15:0] node_version_tbl [0:MAX_NODES-1];
 
     // Edge Table: (target_node, relation_type, flags)
-    logic [15:0] edge_target_tbl  [0:MAX_EDGES-1];
-    logic [7:0]  edge_rel_tbl     [0:MAX_EDGES-1];
-    logic [7:0]  edge_flags_tbl   [0:MAX_EDGES-1];
+    (* ram_style = "distributed" *) logic [15:0] edge_target_tbl  [0:MAX_EDGES-1];
+    (* ram_style = "distributed" *) logic [7:0]  edge_rel_tbl     [0:MAX_EDGES-1];
+    (* ram_style = "distributed" *) logic [7:0]  edge_flags_tbl   [0:MAX_EDGES-1];
+
+    // Traversal FIFO queue: elements store (node_id[15:0], distance[1:0])
+    (* ram_style = "distributed" *) logic [15:0] queue_node       [0:QUEUE_DEPTH-1];
+    (* ram_style = "distributed" *) logic [1:0]  queue_dist       [0:QUEUE_DEPTH-1];
 
     logic [15:0] edge_alloc_ptr;
 
-    // Synchronous write ports for boot image loading and runtime certified mutations
-    always_ff @(posedge clk or negedge reset_n) begin
-        if (!reset_n) begin
-            edge_alloc_ptr <= 16'd0;
-        end else begin
-            // Boot-time static loading
-            if (node_wr_en && node_wr_addr < MAX_NODES) begin
-                node_edge_base[node_wr_addr]   <= node_wr_data.edge_base;
-                node_edge_count[node_wr_addr]  <= node_wr_data.edge_count;
-                node_type_tbl[node_wr_addr]    <= node_wr_data.node_type;
-                node_flags_tbl[node_wr_addr]   <= node_wr_data.flags;
-                node_version_tbl[node_wr_addr] <= node_wr_data.version;
-            end
-            if (edge_wr_en && edge_wr_addr < MAX_EDGES) begin
-                edge_target_tbl[edge_wr_addr]  <= edge_wr_data.target_node;
-                edge_rel_tbl[edge_wr_addr]     <= edge_wr_data.relation_type;
-                edge_flags_tbl[edge_wr_addr]   <= edge_wr_data.flags;
-                if (edge_wr_addr >= edge_alloc_ptr) begin
-                    edge_alloc_ptr <= edge_wr_addr + 1'b1;
-                end
-            end
-
-            // Runtime Authoritative Mutations (Certified commit)
-            if (commit_graph_en) begin
-                case (commit_graph_cmd)
-                    GRAPH_MUT_ADD_EDGE: begin
-                        if (edge_alloc_ptr < MAX_EDGES && commit_graph_node < MAX_NODES) begin
-                            edge_target_tbl[edge_alloc_ptr] <= commit_graph_target;
-                            edge_rel_tbl[edge_alloc_ptr]    <= commit_graph_rel;
-                            edge_flags_tbl[edge_alloc_ptr]  <= commit_graph_flags;
-                            if (node_edge_count[commit_graph_node] == 16'd0) begin
-                                node_edge_base[commit_graph_node] <= edge_alloc_ptr;
-                            end
-                            node_edge_count[commit_graph_node]  <= node_edge_count[commit_graph_node] + 1'b1;
-                            node_version_tbl[commit_graph_node] <= node_version_tbl[commit_graph_node] + 1'b1;
-                            edge_alloc_ptr                      <= edge_alloc_ptr + 1'b1;
-                        end
-                    end
-                    GRAPH_MUT_ADD_NODE: begin
-                        if (commit_graph_node < MAX_NODES) begin
-                            node_edge_base[commit_graph_node]   <= edge_alloc_ptr;
-                            node_edge_count[commit_graph_node]  <= 16'd0;
-                            node_type_tbl[commit_graph_node]    <= commit_graph_flags;
-                            node_flags_tbl[commit_graph_node]   <= 8'd0;
-                            node_version_tbl[commit_graph_node] <= 16'd1;
-                        end
-                    end
-                    GRAPH_MUT_UPDATE_NODE: begin
-                        if (commit_graph_node < MAX_NODES) begin
-                            node_flags_tbl[commit_graph_node]   <= commit_graph_flags;
-                            node_version_tbl[commit_graph_node] <= node_version_tbl[commit_graph_node] + 1'b1;
-                        end
-                    end
-                    default: ;
-                endcase
-            end
+    // Initial content setup for simulation and synthesis image
+    integer init_n, init_e, init_q;
+    initial begin
+        for (init_n = 0; init_n < MAX_NODES; init_n = init_n + 1) begin
+            node_edge_base[init_n]   = 16'd0;
+            node_edge_count[init_n]  = 16'd0;
+            node_version_tbl[init_n] = 16'd0;
+            node_type_tbl[init_n]    = 8'd0;
+            node_flags_tbl[init_n]   = 8'd0;
+        end
+        for (init_e = 0; init_e < MAX_EDGES; init_e = init_e + 1) begin
+            edge_target_tbl[init_e]  = 16'd0;
+            edge_rel_tbl[init_e]     = 8'd0;
+            edge_flags_tbl[init_e]   = 8'd0;
+        end
+        for (init_q = 0; init_q < QUEUE_DEPTH; init_q = init_q + 1) begin
+            queue_node[init_q]       = 16'd0;
+            queue_dist[init_q]       = 2'd0;
         end
     end
 
-    // --- Traversal State Machine ---
+    // --- Traversal State Machine Declarations ---
     typedef enum logic [3:0] {
         ST_IDLE             = 4'd0,
         ST_FOLLOW_LOOKUP    = 4'd1,
@@ -146,10 +112,7 @@ module geo_graph_memory #(
 
     graph_state_t state;
 
-    // Traversal FIFO queue: elements store (node_id[15:0], distance[1:0])
-    logic [15:0] queue_node [0:QUEUE_DEPTH-1];
-    logic [1:0]  queue_dist [0:QUEUE_DEPTH-1];
-    logic [7:0]  q_head, q_tail;
+    logic [7:0]           q_head, q_tail;
     logic [MAX_NODES-1:0] visited;
 
     // Registers for active query
@@ -166,8 +129,76 @@ module geo_graph_memory #(
     assign eval_rel_match = (q_reg.relation_filter == 8'd0) ||
                             (out_edge.relation_type == q_reg.relation_filter);
 
+    // Pure Synchronous Single-Write-Port Native Memory Interface
+    always_ff @(posedge clk) begin
+        // Node Table Single-Write Port
+        if (node_wr_en && node_wr_addr < MAX_NODES) begin
+            node_edge_base[node_wr_addr]   <= node_wr_data.edge_base;
+            node_edge_count[node_wr_addr]  <= node_wr_data.edge_count;
+            node_type_tbl[node_wr_addr]    <= node_wr_data.node_type;
+            node_flags_tbl[node_wr_addr]   <= node_wr_data.flags;
+            node_version_tbl[node_wr_addr] <= node_wr_data.version;
+        end else if (commit_graph_en) begin
+            case (commit_graph_cmd)
+                GRAPH_MUT_ADD_EDGE: begin
+                    if (edge_alloc_ptr < MAX_EDGES && commit_graph_node < MAX_NODES) begin
+                        if (node_edge_count[commit_graph_node] == 16'd0) begin
+                            node_edge_base[commit_graph_node] <= edge_alloc_ptr;
+                        end
+                        node_edge_count[commit_graph_node]  <= node_edge_count[commit_graph_node] + 1'b1;
+                        node_version_tbl[commit_graph_node] <= node_version_tbl[commit_graph_node] + 1'b1;
+                    end
+                end
+                GRAPH_MUT_ADD_NODE: begin
+                    if (commit_graph_node < MAX_NODES) begin
+                        node_edge_base[commit_graph_node]   <= edge_alloc_ptr;
+                        node_edge_count[commit_graph_node]  <= 16'd0;
+                        node_type_tbl[commit_graph_node]    <= commit_graph_flags;
+                        node_flags_tbl[commit_graph_node]   <= 8'd0;
+                        node_version_tbl[commit_graph_node] <= 16'd1;
+                    end
+                end
+                GRAPH_MUT_UPDATE_NODE: begin
+                    if (commit_graph_node < MAX_NODES) begin
+                        node_flags_tbl[commit_graph_node]   <= commit_graph_flags;
+                        node_version_tbl[commit_graph_node] <= node_version_tbl[commit_graph_node] + 1'b1;
+                    end
+                end
+                default: ;
+            endcase
+        end
+
+        // Edge Table Single-Write Port
+        if (edge_wr_en && edge_wr_addr < MAX_EDGES) begin
+            edge_target_tbl[edge_wr_addr] <= edge_wr_data.target_node;
+            edge_rel_tbl[edge_wr_addr]    <= edge_wr_data.relation_type;
+            edge_flags_tbl[edge_wr_addr]  <= edge_wr_data.flags;
+        end else if (commit_graph_en && commit_graph_cmd == GRAPH_MUT_ADD_EDGE) begin
+            if (edge_alloc_ptr < MAX_EDGES && commit_graph_node < MAX_NODES) begin
+                edge_target_tbl[edge_alloc_ptr] <= commit_graph_target;
+                edge_rel_tbl[edge_alloc_ptr]    <= commit_graph_rel;
+                edge_flags_tbl[edge_alloc_ptr]  <= commit_graph_flags;
+            end
+        end
+
+        // BFS Queue Single-Write Port
+        if (state == ST_IDLE && query_start && cmd == GRAPH_CMD_NEIGHBORHOOD_BEGIN) begin
+            queue_node[0] <= query.start_node;
+            queue_dist[0] <= 2'd0;
+        end else if (state == ST_NB_EDGE_EVAL) begin
+            if (eval_target < MAX_NODES && eval_rel_match && !((visited >> eval_target) & 1'b1)) begin
+                if ((curr_q_dist + 1'b1) < q_reg.radius && q_tail < QUEUE_DEPTH) begin
+                    queue_node[q_tail] <= eval_target;
+                    queue_dist[q_tail] <= curr_q_dist + 1'b1;
+                end
+            end
+        end
+    end
+
+    // Asynchronous Reset Control Registers & FSM Logic
     always_ff @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
+            edge_alloc_ptr   <= 16'd0;
             state            <= ST_IDLE;
             busy             <= 1'b0;
             done             <= 1'b0;
@@ -189,6 +220,13 @@ module geo_graph_memory #(
             edge_cursor      <= '0;
             edge_end         <= '0;
         end else begin
+            // Track dynamic edge allocation pointer
+            if (commit_graph_en && commit_graph_cmd == GRAPH_MUT_ADD_EDGE && edge_alloc_ptr < MAX_EDGES) begin
+                edge_alloc_ptr <= edge_alloc_ptr + 1'b1;
+            end else if (edge_wr_en && edge_wr_addr >= edge_alloc_ptr && edge_wr_addr < MAX_EDGES) begin
+                edge_alloc_ptr <= edge_wr_addr + 1'b1;
+            end
+
             case (state)
                 ST_IDLE: begin
                     done            <= 1'b0;
@@ -276,15 +314,11 @@ module geo_graph_memory #(
                                     error_bounds <= 1'b1;
                                     state        <= ST_DONE;
                                 end else begin
-                                    visited          <= ({{(MAX_NODES-1){1'b0}}, 1'b1} << query.start_node);
-                                    hit_count        <= '0;
-                                    q_head           <= '0;
-                                    q_tail           <= '0;
-                                    // Seed initial node at distance 0
-                                    queue_node[0]    <= query.start_node;
-                                    queue_dist[0]    <= 2'd0;
-                                    q_tail           <= 8'd1;
-                                    state            <= ST_NB_DEQUEUE;
+                                    visited   <= ({{(MAX_NODES-1){1'b0}}, 1'b1} << query.start_node);
+                                    hit_count <= '0;
+                                    q_head    <= '0;
+                                    q_tail    <= 8'd1;
+                                    state     <= ST_NB_DEQUEUE;
                                 end
                             end
 
@@ -406,38 +440,31 @@ module geo_graph_memory #(
 
                 ST_NB_EDGE_EVAL: begin
                     if (eval_target >= MAX_NODES) begin
-                        // Malformed target node index in edge table
                         error_malformed <= 1'b1;
                         edge_cursor     <= edge_cursor + 1'b1;
                         state           <= ST_NB_EDGE_READ;
                     end else if (eval_rel_match && !((visited >> eval_target) & 1'b1)) begin
-                        // Discovered a new unvisited neighbor
                         visited               <= visited | ({{(MAX_NODES-1){1'b0}}, 1'b1} << eval_target);
                         current_neighbor      <= eval_target;
                         current_distance      <= curr_q_dist + 1'b1;
                         neighbor_valid        <= 1'b1;
                         hit_count             <= hit_count + 1'b1;
 
-                        // Enqueue if distance allows further expansion
                         if ((curr_q_dist + 1'b1) < q_reg.radius) begin
                             if (q_tail < QUEUE_DEPTH) begin
-                                queue_node[q_tail] <= eval_target;
-                                queue_dist[q_tail] <= curr_q_dist + 1'b1;
-                                q_tail             <= q_tail + 1'b1;
+                                q_tail <= q_tail + 1'b1;
                             end
                         end
 
                         edge_cursor <= edge_cursor + 1'b1;
                         state       <= ST_NB_EMIT_WAIT;
                     end else begin
-                        // Either visited or relation filter did not match
                         edge_cursor <= edge_cursor + 1'b1;
                         state       <= ST_NB_EDGE_READ;
                     end
                 end
 
                 ST_NB_EMIT_WAIT: begin
-                    // Stream out neighbor; advance when neighbor_ack asserted or single-cycle pulse
                     if (neighbor_ack) begin
                         neighbor_valid <= 1'b0;
                         state          <= ST_NB_EDGE_READ;

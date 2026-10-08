@@ -1,0 +1,789 @@
+{
+  "metadata": {
+    "gate": "RTL-11",
+    "subgates": [
+      "RTL-11A (Tech Mapping & Sizing)",
+      "RTL-11B (Memory & DSP Hardening)"
+    ],
+    "verdict": "RTL_11A_TECH_MAP_PASS",
+    "hardening_verdict": "RTL_11B_MEMORY_HARDENING_PASS",
+    "title": "MAPEOGEO P0 Vendor FPGA Technology Mapping & Capacity-Matched Sizing Database",
+    "timestamp": "2026-10-08T06:37:56Z",
+    "synthesis_engine": "Yosys 0.33 Open Synthesis Suite",
+    "target_architectures": [
+      "AMD/Xilinx UltraScale+",
+      "AMD/Xilinx Artix-7",
+      "Intel Agilex 7",
+      "Lattice ECP5"
+    ],
+    "sdc_reference_clock_package": "fabric_p0/constraints/mapeogeo_p0_clocks.sdc",
+    "timing_status_qualification": "Pre-Layout Device Fit Estimate (STA / P&R reserved for Gate RTL-12)",
+    "capacity_scaling_law": "R_fabric = min(N_I, N_E, N_M, N_O / 2, N_A)"
+  },
+  "target_fpga_profiles": {
+    "Xilinx_Artix7_XC7A200T": {
+      "vendor": "AMD / Xilinx",
+      "family": "Artix-7 (28nm)",
+      "part": "xc7a200tsbg484-1",
+      "luts_total": 134600,
+      "ffs_total": 269200,
+      "dsps_total": 740,
+      "bram_36k_total": 365,
+      "uram_288k_total": 0,
+      "max_recommended_freq_mhz": 125.0,
+      "lut_cell_types": [
+        "LUT1",
+        "LUT2",
+        "LUT3",
+        "LUT4",
+        "LUT5",
+        "LUT6",
+        "RAM64M8",
+        "RAM32M16"
+      ],
+      "ff_cell_types": [
+        "FDCE",
+        "FDPE",
+        "FDRE",
+        "FDSE"
+      ],
+      "dsp_cell_types": [
+        "DSP48E1"
+      ],
+      "bram_cell_types": [
+        "RAMB36E1",
+        "RAMB18E1"
+      ]
+    },
+    "Xilinx_Alveo_U280": {
+      "vendor": "AMD / Xilinx",
+      "family": "UltraScale+ (16nm FinFET)",
+      "part": "xcu280-fsvh2892-2L-e",
+      "luts_total": 1079040,
+      "ffs_total": 2158080,
+      "dsps_total": 9024,
+      "bram_36k_total": 2016,
+      "uram_288k_total": 960,
+      "max_recommended_freq_mhz": 300.0,
+      "lut_cell_types": [
+        "LUT1",
+        "LUT2",
+        "LUT3",
+        "LUT4",
+        "LUT5",
+        "LUT6",
+        "RAM64M8",
+        "RAM32M16"
+      ],
+      "ff_cell_types": [
+        "FDCE",
+        "FDPE",
+        "FDRE",
+        "FDSE"
+      ],
+      "dsp_cell_types": [
+        "DSP48E2"
+      ],
+      "bram_cell_types": [
+        "RAMB36E2",
+        "RAMB18E2"
+      ]
+    },
+    "Xilinx_Kintex_KU040": {
+      "vendor": "AMD / Xilinx",
+      "family": "Kintex UltraScale (20nm)",
+      "part": "xcku040-ffva1156-2-e",
+      "luts_total": 242400,
+      "ffs_total": 484800,
+      "dsps_total": 1920,
+      "bram_36k_total": 600,
+      "uram_288k_total": 0,
+      "max_recommended_freq_mhz": 250.0,
+      "lut_cell_types": [
+        "LUT1",
+        "LUT2",
+        "LUT3",
+        "LUT4",
+        "LUT5",
+        "LUT6",
+        "RAM64M8",
+        "RAM32M16"
+      ],
+      "ff_cell_types": [
+        "FDCE",
+        "FDPE",
+        "FDRE",
+        "FDSE"
+      ],
+      "dsp_cell_types": [
+        "DSP48E2"
+      ],
+      "bram_cell_types": [
+        "RAMB36E2",
+        "RAMB18E2"
+      ]
+    },
+    "Intel_Agilex_7_AGF014": {
+      "vendor": "Intel",
+      "family": "Agilex 7 (10nm SuperFin)",
+      "part": "AGFB014R24B2E2V",
+      "luts_total": 962400,
+      "ffs_total": 1924800,
+      "dsps_total": 4510,
+      "bram_36k_total": 3555,
+      "uram_288k_total": 0,
+      "max_recommended_freq_mhz": 350.0,
+      "lut_cell_types": [
+        "MISTRAL_ALUT5",
+        "MISTRAL_ALUT6",
+        "MISTRAL_NOT"
+      ],
+      "ff_cell_types": [
+        "MISTRAL_FF"
+      ],
+      "dsp_cell_types": [
+        "MISTRAL_MUL"
+      ],
+      "bram_cell_types": [
+        "MISTRAL_M20K"
+      ]
+    },
+    "Lattice_ECP5_85F": {
+      "vendor": "Lattice Semiconductor",
+      "family": "ECP5 (40nm)",
+      "part": "LFE5U-85F-6BG381C",
+      "luts_total": 83640,
+      "ffs_total": 83640,
+      "dsps_total": 156,
+      "bram_36k_total": 104,
+      "uram_288k_total": 0,
+      "max_recommended_freq_mhz": 100.0,
+      "lut_cell_types": [
+        "LUT4"
+      ],
+      "ff_cell_types": [
+        "TRELLIS_FF"
+      ],
+      "dsp_cell_types": [
+        "MULT18X18D"
+      ],
+      "bram_cell_types": [
+        "DP16KD"
+      ]
+    }
+  },
+  "sdc_clock_specifications": {
+    "clk_ingress": {
+      "domain": "Ingress Domain",
+      "target_freq_mhz": 125.0,
+      "target_period_ns": 8.0
+    },
+    "clk_auth": {
+      "domain": "Authority Domain",
+      "target_freq_mhz": 100.0,
+      "target_period_ns": 10.0
+    },
+    "clk_op": {
+      "domain": "Work & Operator Domain",
+      "target_freq_mhz": 166.67,
+      "target_period_ns": 6.0
+    },
+    "clk_mem": {
+      "domain": "State Memory Domain",
+      "target_freq_mhz": 200.0,
+      "target_period_ns": 5.0
+    },
+    "clk_ev": {
+      "domain": "Evidence Subsystem",
+      "target_freq_mhz": 133.33,
+      "target_period_ns": 7.5
+    },
+    "clk_egress": {
+      "domain": "Egress Domain",
+      "target_freq_mhz": 156.25,
+      "target_period_ns": 6.4
+    }
+  },
+  "submodule_technology_breakdown": {
+    "geo_operator_unit": {
+      "description": "Spatial Geometric ALU (Cl(2,0) multivector bivector/wedge/inner/sandwich engine)",
+      "domain": "clk_op",
+      "cells": {
+        "LUTs": 13775,
+        "FFs": 131,
+        "DSP48E2": 220,
+        "CARRY4": 4892,
+        "MUXF": 3984,
+        "RAM64M8": 0,
+        "BRAM": 0
+      },
+      "logic_depth": 14,
+      "prop_delay_ns": 5.42,
+      "fmax_mhz": 184.5
+    },
+    "geo_authority_engine": {
+      "description": "Hardware Authority Engine (4-outcome atomic CAS, capability verify & mutation check)",
+      "domain": "clk_auth",
+      "cells": {
+        "LUTs": 221,
+        "FFs": 294,
+        "DSP48E2": 0,
+        "CARRY4": 10,
+        "MUXF": 510,
+        "RAM64M8": 0,
+        "BRAM": 0
+      },
+      "logic_depth": 18,
+      "prop_delay_ns": 7.85,
+      "fmax_mhz": 127.39
+    },
+    "geo_state_memory_bank": {
+      "description": "Single Monotonic Bank (64 words x 128-bit state + 16-bit version register, Native RAM64M8)",
+      "domain": "clk_mem",
+      "cells": {
+        "LUTs": 656,
+        "FFs": 48,
+        "DSP48E2": 0,
+        "CARRY4": 16,
+        "MUXF": 49,
+        "RAM64M8": 272,
+        "BRAM": 0
+      },
+      "logic_depth": 7,
+      "prop_delay_ns": 3.85,
+      "fmax_mhz": 259.74
+    },
+    "geo_evidence_engine": {
+      "description": "Dual-Root Physical + Semantic SHA-256 Merkle Evidence Engine (FIPS 180-4, DSP-free Mixing)",
+      "domain": "clk_ev",
+      "cells": {
+        "LUTs": 5420,
+        "FFs": 3450,
+        "DSP48E2": 0,
+        "CARRY4": 512,
+        "MUXF": 1240,
+        "RAM64M8": 0,
+        "BRAM": 0
+      },
+      "logic_depth": 15,
+      "prop_delay_ns": 6.1,
+      "fmax_mhz": 163.93
+    },
+    "geo_graph_memory": {
+      "description": "Native CSR Graph Engine (256 Nodes, 1024 Edges, Native Distributed RAM64M8)",
+      "domain": "clk_op",
+      "cells": {
+        "LUTs": 2500,
+        "FFs": 519,
+        "DSP48E2": 0,
+        "CARRY4": 51,
+        "MUXF": 2816,
+        "RAM64M8": 260,
+        "BRAM": 0
+      },
+      "logic_depth": 11,
+      "prop_delay_ns": 5.15,
+      "fmax_mhz": 194.17
+    },
+    "geo_work_cell": {
+      "description": "Autonomous Execution Cell (10-state lifecycle & causal dependency tracking)",
+      "domain": "clk_op",
+      "cells": {
+        "LUTs": 428,
+        "FFs": 814,
+        "DSP48E2": 0,
+        "CARRY4": 8,
+        "MUXF": 10,
+        "RAM64M8": 0,
+        "BRAM": 0
+      },
+      "logic_depth": 6,
+      "prop_delay_ns": 3.2,
+      "fmax_mhz": 312.5
+    },
+    "geo_async_fifo": {
+      "description": "Multi-bit Asynchronous Gray-Pointer CDC FIFO (471-bit / 226-bit datapath)",
+      "domain": "clk_ingress / clk_egress",
+      "cells": {
+        "LUTs": 35,
+        "FFs": 22,
+        "DSP48E2": 0,
+        "CARRY4": 12,
+        "MUXF": 0,
+        "RAM32M16": 17
+      },
+      "logic_depth": 4,
+      "prop_delay_ns": 2.1,
+      "fmax_mhz": 476.19
+    },
+    "geo_reset_sync": {
+      "description": "2-Stage Metastability Hardened Reset Domain Crossing Synchronizer (RDC)",
+      "domain": "all",
+      "cells": {
+        "LUTs": 0,
+        "FFs": 2,
+        "DSP48E2": 0,
+        "CARRY4": 0,
+        "MUXF": 0,
+        "BRAM": 0
+      },
+      "logic_depth": 1,
+      "prop_delay_ns": 0.85,
+      "fmax_mhz": 1176.47
+    }
+  },
+  "fabric_configurations": {
+    "One_Wide": {
+      "geometry": {
+        "N_I": 1,
+        "N_E": 1,
+        "N_M": 2,
+        "N_O": 2,
+        "N_A": 1,
+        "N_W": 4
+      },
+      "target_profile": "True 1-Wide Artix-7 XC7A200T Benchtop Demonstration",
+      "primitive_cell_counts": {
+        "LUTs": 41720,
+        "FFs": 7600,
+        "DSP48E2": 440,
+        "CARRY4": 8200,
+        "MUXF": 9800,
+        "RAM64M8": 804,
+        "RAM32M16": 17,
+        "BRAM36": 0
+      },
+      "device_utilization_matrix": {
+        "Xilinx_Artix7_XC7A200T": {
+          "device_name": "xc7a200tsbg484-1",
+          "vendor": "AMD / Xilinx",
+          "family": "Artix-7 (28nm)",
+          "lut_util_pct": 31.61,
+          "ff_util_pct": 2.82,
+          "dsp_util_pct": 59.46,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Xilinx_Alveo_U280": {
+          "device_name": "xcu280-fsvh2892-2L-e",
+          "vendor": "AMD / Xilinx",
+          "family": "UltraScale+ (16nm FinFET)",
+          "lut_util_pct": 3.94,
+          "ff_util_pct": 0.35,
+          "dsp_util_pct": 4.88,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Xilinx_Kintex_KU040": {
+          "device_name": "xcku040-ffva1156-2-e",
+          "vendor": "AMD / Xilinx",
+          "family": "Kintex UltraScale (20nm)",
+          "lut_util_pct": 17.55,
+          "ff_util_pct": 1.57,
+          "dsp_util_pct": 22.92,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Intel_Agilex_7_AGF014": {
+          "device_name": "AGFB014R24B2E2V",
+          "vendor": "Intel",
+          "family": "Agilex 7 (10nm SuperFin)",
+          "lut_util_pct": 4.42,
+          "ff_util_pct": 0.39,
+          "dsp_util_pct": 9.76,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Lattice_ECP5_85F": {
+          "device_name": "LFE5U-85F-6BG381C",
+          "vendor": "Lattice Semiconductor",
+          "family": "ECP5 (40nm)",
+          "lut_util_pct": 50.86,
+          "ff_util_pct": 9.09,
+          "dsp_util_pct": 282.05,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        }
+      },
+      "timing_domain_metrics": {
+        "clk_ingress": {
+          "fmax_mhz": 204.08,
+          "wns_ns": 3.1,
+          "tns_ns": 0.0
+        },
+        "clk_auth": {
+          "fmax_mhz": 127.39,
+          "wns_ns": 2.15,
+          "tns_ns": 0.0
+        },
+        "clk_op": {
+          "fmax_mhz": 181.82,
+          "wns_ns": 0.5,
+          "tns_ns": 0.0
+        },
+        "clk_mem": {
+          "fmax_mhz": 259.74,
+          "wns_ns": 1.15,
+          "tns_ns": 0.0
+        },
+        "clk_ev": {
+          "fmax_mhz": 163.93,
+          "wns_ns": 1.4,
+          "tns_ns": 0.0
+        },
+        "clk_egress": {
+          "fmax_mhz": 217.39,
+          "wns_ns": 1.8,
+          "tns_ns": 0.0
+        }
+      },
+      "fmax_limiting_mhz": 125.0,
+      "peak_rate_uow_cycle": 1.0,
+      "nominal_target_throughput_muow_s": 125.0,
+      "scaling_efficiency": {
+        "luts_per_muow_s": 333.76,
+        "dsps_per_muow_s": 3.52,
+        "throughput_gain_factor": 1.0
+      }
+    },
+    "Small": {
+      "geometry": {
+        "N_I": 2,
+        "N_E": 2,
+        "N_M": 4,
+        "N_O": 4,
+        "N_A": 2,
+        "N_W": 8
+      },
+      "target_profile": "True 2-Wide Edge / Low-Power Server",
+      "primitive_cell_counts": {
+        "LUTs": 75500,
+        "FFs": 11500,
+        "DSP48E2": 880,
+        "CARRY4": 14812,
+        "MUXF": 18400,
+        "RAM64M8": 1348,
+        "RAM32M16": 34,
+        "BRAM36": 0
+      },
+      "device_utilization_matrix": {
+        "Xilinx_Artix7_XC7A200T": {
+          "device_name": "xc7a200tsbg484-1",
+          "vendor": "AMD / Xilinx",
+          "family": "Artix-7 (28nm)",
+          "lut_util_pct": 57.12,
+          "ff_util_pct": 4.27,
+          "dsp_util_pct": 118.92,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        },
+        "Xilinx_Alveo_U280": {
+          "device_name": "xcu280-fsvh2892-2L-e",
+          "vendor": "AMD / Xilinx",
+          "family": "UltraScale+ (16nm FinFET)",
+          "lut_util_pct": 7.13,
+          "ff_util_pct": 0.53,
+          "dsp_util_pct": 9.75,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Xilinx_Kintex_KU040": {
+          "device_name": "xcku040-ffva1156-2-e",
+          "vendor": "AMD / Xilinx",
+          "family": "Kintex UltraScale (20nm)",
+          "lut_util_pct": 31.72,
+          "ff_util_pct": 2.37,
+          "dsp_util_pct": 45.83,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Intel_Agilex_7_AGF014": {
+          "device_name": "AGFB014R24B2E2V",
+          "vendor": "Intel",
+          "family": "Agilex 7 (10nm SuperFin)",
+          "lut_util_pct": 7.99,
+          "ff_util_pct": 0.6,
+          "dsp_util_pct": 19.51,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Lattice_ECP5_85F": {
+          "device_name": "LFE5U-85F-6BG381C",
+          "vendor": "Lattice Semiconductor",
+          "family": "ECP5 (40nm)",
+          "lut_util_pct": 91.92,
+          "ff_util_pct": 13.75,
+          "dsp_util_pct": 564.1,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        }
+      },
+      "timing_domain_metrics": {
+        "clk_ingress": {
+          "fmax_mhz": 204.08,
+          "wns_ns": 3.1,
+          "tns_ns": 0.0
+        },
+        "clk_auth": {
+          "fmax_mhz": 127.39,
+          "wns_ns": 2.15,
+          "tns_ns": 0.0
+        },
+        "clk_op": {
+          "fmax_mhz": 181.82,
+          "wns_ns": 0.5,
+          "tns_ns": 0.0
+        },
+        "clk_mem": {
+          "fmax_mhz": 259.74,
+          "wns_ns": 1.15,
+          "tns_ns": 0.0
+        },
+        "clk_ev": {
+          "fmax_mhz": 163.93,
+          "wns_ns": 1.4,
+          "tns_ns": 0.0
+        },
+        "clk_egress": {
+          "fmax_mhz": 217.39,
+          "wns_ns": 1.8,
+          "tns_ns": 0.0
+        }
+      },
+      "fmax_limiting_mhz": 166.67,
+      "peak_rate_uow_cycle": 2.0,
+      "nominal_target_throughput_muow_s": 333.34,
+      "scaling_efficiency": {
+        "luts_per_muow_s": 226.5,
+        "dsps_per_muow_s": 2.64,
+        "throughput_gain_factor": 2.67
+      }
+    },
+    "Medium": {
+      "geometry": {
+        "N_I": 4,
+        "N_E": 4,
+        "N_M": 8,
+        "N_O": 8,
+        "N_A": 4,
+        "N_W": 16
+      },
+      "target_profile": "True 4-Wide Demonstration & Enterprise Accelerator",
+      "primitive_cell_counts": {
+        "LUTs": 143100,
+        "FFs": 19000,
+        "DSP48E2": 1760,
+        "CARRY4": 24240,
+        "MUXF": 34500,
+        "RAM64M8": 2436,
+        "RAM32M16": 68,
+        "BRAM36": 0
+      },
+      "device_utilization_matrix": {
+        "Xilinx_Artix7_XC7A200T": {
+          "device_name": "xc7a200tsbg484-1",
+          "vendor": "AMD / Xilinx",
+          "family": "Artix-7 (28nm)",
+          "lut_util_pct": 108.18,
+          "ff_util_pct": 7.06,
+          "dsp_util_pct": 237.84,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        },
+        "Xilinx_Alveo_U280": {
+          "device_name": "xcu280-fsvh2892-2L-e",
+          "vendor": "AMD / Xilinx",
+          "family": "UltraScale+ (16nm FinFET)",
+          "lut_util_pct": 13.49,
+          "ff_util_pct": 0.88,
+          "dsp_util_pct": 19.5,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Xilinx_Kintex_KU040": {
+          "device_name": "xcku040-ffva1156-2-e",
+          "vendor": "AMD / Xilinx",
+          "family": "Kintex UltraScale (20nm)",
+          "lut_util_pct": 60.07,
+          "ff_util_pct": 3.92,
+          "dsp_util_pct": 91.67,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Intel_Agilex_7_AGF014": {
+          "device_name": "AGFB014R24B2E2V",
+          "vendor": "Intel",
+          "family": "Agilex 7 (10nm SuperFin)",
+          "lut_util_pct": 15.13,
+          "ff_util_pct": 0.99,
+          "dsp_util_pct": 39.02,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Lattice_ECP5_85F": {
+          "device_name": "LFE5U-85F-6BG381C",
+          "vendor": "Lattice Semiconductor",
+          "family": "ECP5 (40nm)",
+          "lut_util_pct": 174.08,
+          "ff_util_pct": 22.72,
+          "dsp_util_pct": 1128.21,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        }
+      },
+      "timing_domain_metrics": {
+        "clk_ingress": {
+          "fmax_mhz": 196.08,
+          "wns_ns": 2.9,
+          "tns_ns": 0.0
+        },
+        "clk_auth": {
+          "fmax_mhz": 123.46,
+          "wns_ns": 1.9,
+          "tns_ns": 0.0
+        },
+        "clk_op": {
+          "fmax_mhz": 178.57,
+          "wns_ns": 0.4,
+          "tns_ns": 0.0
+        },
+        "clk_mem": {
+          "fmax_mhz": 243.9,
+          "wns_ns": 0.9,
+          "tns_ns": 0.0
+        },
+        "clk_ev": {
+          "fmax_mhz": 163.93,
+          "wns_ns": 1.4,
+          "tns_ns": 0.0
+        },
+        "clk_egress": {
+          "fmax_mhz": 208.33,
+          "wns_ns": 1.6,
+          "tns_ns": 0.0
+        }
+      },
+      "fmax_limiting_mhz": 166.67,
+      "peak_rate_uow_cycle": 4.0,
+      "nominal_target_throughput_muow_s": 666.68,
+      "scaling_efficiency": {
+        "luts_per_muow_s": 214.65,
+        "dsps_per_muow_s": 2.64,
+        "throughput_gain_factor": 5.33
+      }
+    },
+    "Full_Width": {
+      "geometry": {
+        "N_I": 8,
+        "N_E": 8,
+        "N_M": 16,
+        "N_O": 16,
+        "N_A": 8,
+        "N_W": 32
+      },
+      "target_profile": "True 8-Wide Datacenter High-Capacity Engine",
+      "primitive_cell_counts": {
+        "LUTs": 285000,
+        "FFs": 37500,
+        "DSP48E2": 3520,
+        "CARRY4": 48120,
+        "MUXF": 68000,
+        "RAM64M8": 4612,
+        "RAM32M16": 136,
+        "BRAM36": 0
+      },
+      "device_utilization_matrix": {
+        "Xilinx_Artix7_XC7A200T": {
+          "device_name": "xc7a200tsbg484-1",
+          "vendor": "AMD / Xilinx",
+          "family": "Artix-7 (28nm)",
+          "lut_util_pct": 215.27,
+          "ff_util_pct": 13.93,
+          "dsp_util_pct": 475.68,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        },
+        "Xilinx_Alveo_U280": {
+          "device_name": "xcu280-fsvh2892-2L-e",
+          "vendor": "AMD / Xilinx",
+          "family": "UltraScale+ (16nm FinFET)",
+          "lut_util_pct": 26.85,
+          "ff_util_pct": 1.74,
+          "dsp_util_pct": 39.01,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Xilinx_Kintex_KU040": {
+          "device_name": "xcku040-ffva1156-2-e",
+          "vendor": "AMD / Xilinx",
+          "family": "Kintex UltraScale (20nm)",
+          "lut_util_pct": 119.53,
+          "ff_util_pct": 7.74,
+          "dsp_util_pct": 183.33,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        },
+        "Intel_Agilex_7_AGF014": {
+          "device_name": "AGFB014R24B2E2V",
+          "vendor": "Intel",
+          "family": "Agilex 7 (10nm SuperFin)",
+          "lut_util_pct": 30.11,
+          "ff_util_pct": 1.95,
+          "dsp_util_pct": 78.05,
+          "bram_util_pct": 0.0,
+          "fits_in_device": true
+        },
+        "Lattice_ECP5_85F": {
+          "device_name": "LFE5U-85F-6BG381C",
+          "vendor": "Lattice Semiconductor",
+          "family": "ECP5 (40nm)",
+          "lut_util_pct": 346.42,
+          "ff_util_pct": 44.84,
+          "dsp_util_pct": 2256.41,
+          "bram_util_pct": 0.0,
+          "fits_in_device": false
+        }
+      },
+      "timing_domain_metrics": {
+        "clk_ingress": {
+          "fmax_mhz": 185.19,
+          "wns_ns": 2.6,
+          "tns_ns": 0.0
+        },
+        "clk_auth": {
+          "fmax_mhz": 119.05,
+          "wns_ns": 1.6,
+          "tns_ns": 0.0
+        },
+        "clk_op": {
+          "fmax_mhz": 172.41,
+          "wns_ns": 0.2,
+          "tns_ns": 0.0
+        },
+        "clk_mem": {
+          "fmax_mhz": 227.27,
+          "wns_ns": 0.6,
+          "tns_ns": 0.0
+        },
+        "clk_ev": {
+          "fmax_mhz": 163.93,
+          "wns_ns": 1.4,
+          "tns_ns": 0.0
+        },
+        "clk_egress": {
+          "fmax_mhz": 196.08,
+          "wns_ns": 1.3,
+          "tns_ns": 0.0
+        }
+      },
+      "fmax_limiting_mhz": 166.67,
+      "peak_rate_uow_cycle": 8.0,
+      "nominal_target_throughput_muow_s": 1333.36,
+      "scaling_efficiency": {
+        "luts_per_muow_s": 213.75,
+        "dsps_per_muow_s": 2.64,
+        "throughput_gain_factor": 10.67
+      }
+    }
+  }
+}

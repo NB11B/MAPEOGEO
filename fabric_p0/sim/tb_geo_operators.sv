@@ -32,10 +32,14 @@ module tb_geo_operators;
 
     cl20_mv_t          phi_A, phi_B, phi_AB;
 
+`ifndef SYNTHESIS
     geo_operator_unit #(
         .WIDTH(WIDTH),
         .FRAC(FRAC)
     ) dut (
+`else
+    geo_operator_unit dut (
+`endif
         .clk(clk),
         .reset_n(reset_n),
         .start(start),

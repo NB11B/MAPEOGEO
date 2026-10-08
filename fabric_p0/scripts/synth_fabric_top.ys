@@ -1,0 +1,22 @@
+# Yosys Synthesis Script: MAPEOGEO P0 Top-Level Fabric
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/common/geo_defs.svh
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_fixed_arith.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_cl20_multivector.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_unary_ops.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_bilinear_ops.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_matrix_bridge.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_operator_unit.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/compute/geo_general_alu.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/memory/geo_state_memory.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/authority/geo_authority_engine.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/evidence/geo_sha256_core.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/evidence/geo_evidence_engine.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/graph/geo_graph_memory.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/work_fabric/geo_work_cell.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/work_fabric/geo_work_fabric.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/top/mapeogeo_p0_fabric.sv
+
+hierarchy -top mapeogeo_p0_fabric
+proc; opt; fsm; opt; memory; opt;
+check
+write_verilog -noattr fabric_p0/netlists/synth_mapeogeo_p0_fabric.v

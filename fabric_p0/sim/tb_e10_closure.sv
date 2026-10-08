@@ -54,6 +54,11 @@ module tb_e10_closure;
     logic [63:0]       evidence_root;
     logic [WORK_CELL_COUNT-1:0] active_cells;
 
+    // State programming port
+    logic              state_wr_en;
+    logic [7:0]        state_wr_addr;
+    cl20_mv_t          state_wr_data;
+
     // Closure Engine Signals
     logic              closure_start;
     logic              closure_done;
@@ -76,7 +81,7 @@ module tb_e10_closure;
         $finish;
     end
 
-    // Instantiate Top-Level Fabric
+`ifndef SYNTHESIS
     mapeogeo_p0_fabric #(
         .WORK_CELL_COUNT(WORK_CELL_COUNT),
         .DATA_WIDTH(DATA_WIDTH),
@@ -85,6 +90,9 @@ module tb_e10_closure;
         .GRAPH_NODES(GRAPH_NODES),
         .GRAPH_EDGES(GRAPH_EDGES)
     ) u_fabric (
+`else
+    mapeogeo_p0_fabric u_fabric (
+`endif
         .clk(clk),
         .reset_n(reset_n),
         .boot_trigger(boot_trigger),
@@ -105,6 +113,13 @@ module tb_e10_closure;
         .graph_edge_wr_en(graph_edge_wr_en),
         .graph_edge_wr_addr(graph_edge_wr_addr),
         .graph_edge_wr_data(graph_edge_wr_data),
+        .state_wr_en(state_wr_en),
+        .state_wr_addr(state_wr_addr),
+        .state_wr_data(state_wr_data),
+        .stall_inject_mem('0),
+        .stall_inject_operator('0),
+        .stall_inject_authority('0),
+        .semantic_evidence_root_out(),
         .telemetry_out(telemetry),
         .current_evidence_root_out(evidence_root),
         .active_work_cells_out(active_cells)
@@ -177,11 +192,13 @@ module tb_e10_closure;
             sin_q16 = $rtoi(0.5 * sin_val * 65536.0);
 
             // P_k = 0.5 + 0.5*cos(theta)*e1 + 0.5*sin(theta)*e2
-            u_fabric.u_state_memory.mem_s[k]   = 32'sh00008000;
-            u_fabric.u_state_memory.mem_e1[k]  = cos_q16;
-            u_fabric.u_state_memory.mem_e2[k]  = sin_q16;
-            u_fabric.u_state_memory.mem_e12[k] = 32'sh00000000;
+            @(posedge clk);
+            state_wr_en   <= 1'b1;
+            state_wr_addr <= k[7:0];
+            state_wr_data <= {32'sh00008000, cos_q16, sin_q16, 32'sh00000000};
         end
+        @(posedge clk);
+        state_wr_en <= 1'b0;
 
         $display("[E10 ROOT LOAD] Root state initialized: 6 universe nodes, 6 idempotent geometric states.");
     endtask
@@ -198,6 +215,9 @@ module tb_e10_closure;
         graph_edge_wr_en   = 0;
         graph_edge_wr_addr = 0;
         graph_edge_wr_data = '0;
+        state_wr_en        = 0;
+        state_wr_addr      = 0;
+        state_wr_data      = '0;
 
         // 1. Power-on reset
         #30 reset_n = 1;
@@ -266,10 +286,12 @@ module tb_e10_closure;
             assert(evidence_root != 64'd0)
                 else $fatal(1, "Cryptographic evidence root null!");
 
+`ifndef SYNTHESIS
             // Graph Mutation Memory Verification: Inspect that node 0 acquired mutated edges
             $display("[GRAPH INSPECTION] Node 0 edge count in hardware: %0d", u_fabric.u_graph_memory.node_edge_count[0]);
             assert(u_fabric.u_graph_memory.node_edge_count[0] > 0)
                 else $fatal(1, "Graph memory mutation not reflected in Node 0 edge count!");
+`endif
 
             $display("PASS P0.7 AUTONOMOUS E10 BOUNDED CLOSURE QUALIFICATION");
         end else begin

@@ -54,6 +54,11 @@ module mapeogeo_p0_fabric #(
     input  logic [15:0]            graph_edge_wr_addr = 16'd0,
     input  graph_edge_t            graph_edge_wr_data = '0,
 
+    // State Memory Boot Programming Port
+    input  logic                   state_wr_en = 1'b0,
+    input  logic [7:0]             state_wr_addr = 8'd0,
+    input  cl20_mv_t               state_wr_data = '0,
+
     // Diagnostic Inspection Port (Section 13 / 17)
     output geo_telemetry_t         telemetry_out,
     output logic [63:0]            current_evidence_root_out,
@@ -63,7 +68,16 @@ module mapeogeo_p0_fabric #(
     input  logic [MEMORY_BANKS-1:0]             stall_inject_mem = '0,
     input  logic [OPERATOR_LANES-1:0]           stall_inject_operator = '0,
     input  logic [AUTHORITY_ENGINES-1:0]        stall_inject_authority = '0,
-    output logic [63:0]                         semantic_evidence_root_out
+    output logic [63:0]                         semantic_evidence_root_out,
+
+    // P0.9 Integrated Candidate Scorer Co-Processor Ports
+    input  logic                                pdi_scorer_start = 1'b0,
+    input  logic [3:0]                          pdi_scorer_cand_id = 4'd0,
+    input  logic [255:0]                        pdi_scorer_features = '0,
+    output logic                                pdi_scorer_busy,
+    output logic                                pdi_scorer_done,
+    output logic [3:0]                          pdi_scorer_cand_out,
+    output logic signed [31:0]                  pdi_scorer_score_out
 );
 
     // --- Boot State Machine (Section 11.1) ---
@@ -144,6 +158,9 @@ module mapeogeo_p0_fabric #(
     ) u_state_memory (
         .clk(clk),
         .reset_n(reset_n),
+        .boot_wr_en(state_wr_en),
+        .boot_wr_addr(state_wr_addr),
+        .boot_wr_data(state_wr_data),
         .rd_a_addr(mem_rd_a_addr),
         .rd_a_data(mem_rd_a_data),
         .rd_a_version(mem_rd_a_ver),
@@ -164,15 +181,18 @@ module mapeogeo_p0_fabric #(
 
     // --- Evidence Engine ---
     logic        ev_append_req;
+    logic        ev_append_ack;
     logic [31:0] ev_uow_id;
     logic [63:0] ev_pre_state_hash;
     logic [63:0] ev_post_state_hash;
     logic [63:0] ev_candidate_hash;
     logic [31:0] ev_cert_id;
     logic [31:0] ev_causal_seq;
-    logic        ev_append_ack;
-    logic [63:0] ev_current_root;
-    logic [31:0] ev_record_count;
+    logic [255:0] ev_phys_root_256;
+    logic [255:0] ev_sem_root_256;
+    logic [63:0]  ev_sem_test_64;
+    logic [63:0]  ev_current_root;
+    logic [31:0]  ev_record_count;
     evidence_record_t ev_latest_record;
 
     geo_evidence_engine #(
@@ -188,12 +208,17 @@ module mapeogeo_p0_fabric #(
         .cert_id(ev_cert_id),
         .causal_seq(ev_causal_seq),
         .append_ack(ev_append_ack),
-        .current_evidence_root(ev_current_root),
+        .engine_busy(),
         .record_count(ev_record_count),
-        .latest_record(ev_latest_record)
+        .latest_record(ev_latest_record),
+        .physical_evidence_root_256(ev_phys_root_256),
+        .semantic_evidence_root_256(ev_sem_root_256),
+        .semantic_evidence_test_64(ev_sem_test_64),
+        .current_evidence_root(ev_current_root)
     );
 
     assign current_evidence_root_out = ev_current_root;
+
 
     // --- Graph Subsystem (Section 7 & P0.5) ---
     logic        graph_query_start;
@@ -336,6 +361,31 @@ module mapeogeo_p0_fabric #(
 
     assign telemetry_out         = fabric_telemetry;
     assign active_work_cells_out = fabric_committed_mask;
+
+    // =========================================================================
+    // P0.9: Integrated PSMSL Candidate Scorer Co-Processor
+    // =========================================================================
+    // Strictly read-only: zero memory write ports, zero authority mutation signals.
+`ifdef PDI_ENABLE_ONCHIP_SCORER
+    geo_psmsl_scorer #(
+        .MEM_DIR("fabric_p0/rtl/scorer/")
+    ) u_psmsl_scorer (
+        .clk(clk),
+        .rst_n(reset_n),
+        .start(pdi_scorer_start),
+        .cand_id_in(pdi_scorer_cand_id),
+        .features_in_bus(pdi_scorer_features),
+        .busy(pdi_scorer_busy),
+        .done(pdi_scorer_done),
+        .cand_id_out(pdi_scorer_cand_out),
+        .score_out(pdi_scorer_score_out)
+    );
+`else
+    assign pdi_scorer_busy      = 1'b0;
+    assign pdi_scorer_done      = 1'b0;
+    assign pdi_scorer_cand_out  = 4'd0;
+    assign pdi_scorer_score_out = 32'sd0;
+`endif
 
 endmodule
 

@@ -50,6 +50,10 @@ module tb_e7_workload;
     logic [63:0]       evidence_root;
     logic [WORK_CELL_COUNT-1:0] active_cells;
 
+    logic              state_wr_en;
+    logic [7:0]        state_wr_addr;
+    cl20_mv_t          state_wr_data;
+
     logic [31:0]       metric_triples;
     logic [31:0]       metric_cycles;
     logic [31:0]       metric_kappa_colls;
@@ -63,13 +67,16 @@ module tb_e7_workload;
         $finish;
     end
 
-    // Instantiate Fabric
+`ifndef SYNTHESIS
     mapeogeo_p0_fabric #(
         .WORK_CELL_COUNT(WORK_CELL_COUNT),
         .DATA_WIDTH(DATA_WIDTH),
         .FRAC_BITS(FRAC_BITS),
         .STATE_WORDS(STATE_WORDS)
     ) u_fabric (
+`else
+    mapeogeo_p0_fabric u_fabric (
+`endif
         .clk(clk),
         .reset_n(reset_n),
         .boot_trigger(boot_trigger),
@@ -90,6 +97,13 @@ module tb_e7_workload;
         .graph_edge_wr_en(1'b0),
         .graph_edge_wr_addr(16'd0),
         .graph_edge_wr_data('0),
+        .state_wr_en(state_wr_en),
+        .state_wr_addr(state_wr_addr),
+        .state_wr_data(state_wr_data),
+        .stall_inject_mem('0),
+        .stall_inject_operator('0),
+        .stall_inject_authority('0),
+        .semantic_evidence_root_out(),
         .telemetry_out(telemetry),
         .current_evidence_root_out(evidence_root),
         .active_work_cells_out(active_cells)
@@ -120,14 +134,12 @@ module tb_e7_workload;
         .oriented_separations_detected(metric_oriented_seps)
     );
 
-    // Egress debug monitor
+
+
     always_ff @(posedge clk) begin
         if (egress_valid && egress_ready) begin
-            if (egress_status != OUTCOME_COMMIT) begin
-                $display("[REJECT] UoW=%0d (step=%0d, triple=%0d), status=%0d, failed_checks=0x%02h",
-                    egress_uow_id, egress_uow_id[31:16], egress_uow_id[15:0], egress_status,
-                    u_fabric.u_work_fabric.auth_failed_checks[0]);
-            end
+            $display("[EGRESS DEBUG] Time=%0t uow_id=%0d status=%0d result: s=%h e1=%h e2=%h e12=%h",
+                $time, egress_uow_id, egress_status, egress_result.s, egress_result.e1, egress_result.e2, egress_result.e12);
         end
     end
 
@@ -147,11 +159,13 @@ module tb_e7_workload;
             sin_q16 = $rtoi(0.5 * sin_val * 65536.0);
 
             // P_k = 0.5 + 0.5*cos(theta)*e1 + 0.5*sin(theta)*e2
-            u_fabric.u_state_memory.mem_s[k]   = 32'sh00008000; // 0.5 in Q16.16
-            u_fabric.u_state_memory.mem_e1[k]  = cos_q16;
-            u_fabric.u_state_memory.mem_e2[k]  = sin_q16;
-            u_fabric.u_state_memory.mem_e12[k] = 32'sh00000000;
+            @(posedge clk);
+            state_wr_en   <= 1'b1;
+            state_wr_addr <= k[7:0];
+            state_wr_data <= {32'sh00008000, cos_q16, sin_q16, 32'sh00000000};
         end
+        @(posedge clk);
+        state_wr_en <= 1'b0;
         $display("[E7 INIT] 32 idempotent projectors initialized in State[0..31].");
     endtask
 
@@ -161,6 +175,9 @@ module tb_e7_workload;
         boot_trigger = 0;
         gen_start    = 0;
         egress_ready = 1;
+        state_wr_en   = 0;
+        state_wr_addr = 0;
+        state_wr_data = '0;
 
         #20 reset_n = 1;
         #10;

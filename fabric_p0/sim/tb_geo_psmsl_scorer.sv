@@ -69,17 +69,17 @@ module tb_geo_psmsl_scorer;
         rst_n = 1;
         #20;
 
-        file_fd = $fopen("fabric_p0/sim/psmsl_test_vectors.txt", "r");
+        file_fd = $fopen("fabric_p0/sim/psmsl_transfer_all512.txt", "r");
         if (file_fd == 0) begin
-            $display("[FAIL] Could not open fabric_p0/sim/psmsl_test_vectors.txt");
+            $display("[FAIL] Could not open fabric_p0/sim/psmsl_transfer_all512.txt");
             $finish;
         end
 
         $display("==================================================================");
-        $display("Starting PDI-v0.8 Bit-Exact RTL Differential Simulation");
+        $display("Starting PDI-v0.9 Bit-Exact Differential Simulation (All 512 Vectors)");
         $display("==================================================================");
 
-        for (vec_idx = 0; vec_idx < 80; vec_idx = vec_idx + 1) begin
+        for (vec_idx = 0; vec_idx < 512; vec_idx = vec_idx + 1) begin
             scan_ret = $fscanf(file_fd, "%d", exp_cid);
 
             for (i = 0; i < 32; i = i + 1) begin
@@ -125,14 +125,14 @@ module tb_geo_psmsl_scorer;
         $fclose(file_fd);
 
         $display("------------------------------------------------------------------");
-        $display("PDI-v0.8 Differential Verification Results:");
-        $display("  Total Vectors Tested: %0d", vec_idx);
+        $display("PDI-v0.9 Differential Verification Results:");
+        $display("  Total Vectors Tested: %0d (64 Menus x 8 Candidates)", vec_idx);
         $display("  Bit-Exact Matches:   %0d", pass_count);
         $display("  Mismatches:          %0d", fail_count);
         $display("==================================================================");
 
-        if (fail_count == 0 && pass_count > 0) begin
-            $display("[SUCCESS] All %0d vectors matched bit-exact down to LSB!", pass_count);
+        if (fail_count == 0 && pass_count == 512) begin
+            $display("[SUCCESS] All 512 transfer vectors matched bit-exact down to LSB across all 64 menus!");
         end else begin
             $display("[FAILURE] Verification failed with %0d mismatches!", fail_count);
         end

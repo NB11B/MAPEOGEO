@@ -1,0 +1,8 @@
+# Yosys Synthesis Script: State Memory
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/common/geo_defs.svh
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/memory/geo_state_memory.sv
+
+hierarchy -top geo_state_memory -chparam MEMORY_BANKS 4 -chparam AUTHORITY_ENGINES 4
+proc; opt; memory; opt;
+check
+write_verilog -noattr fabric_p0/netlists/synth_geo_state_memory.v

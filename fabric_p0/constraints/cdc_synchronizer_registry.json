@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MAPEOGEO P0 Hardware CDC & Synchronizer Registry",
+  "gate": "RTL-10",
+  "design_top": "mapeogeo_p0_cdc_fabric",
+  "clocks": {
+    "clk_ingress": { "frequency_mhz": 125.0, "period_ns": 8.000, "domain": "Ingress" },
+    "clk_auth":    { "frequency_mhz": 100.0, "period_ns": 10.000, "domain": "Authority" },
+    "clk_op":      { "frequency_mhz": 166.67, "period_ns": 6.000, "domain": "Work/Operator" },
+    "clk_mem":     { "frequency_mhz": 200.0, "period_ns": 5.000, "domain": "State Memory" },
+    "clk_ev":      { "frequency_mhz": 133.33, "period_ns": 7.500, "domain": "Evidence Engine" },
+    "clk_egress":  { "frequency_mhz": 156.25, "period_ns": 6.400, "domain": "Egress" }
+  },
+  "synchronizers": [
+    {
+      "id": "SYNC-RDC-01",
+      "name": "u_sync_rst_ing",
+      "module_type": "geo_reset_sync",
+      "source_domain": "ASYNC_PIN (rst_ingress_async_n)",
+      "dest_domain": "clk_ingress",
+      "signal_type": "Asynchronous Active-Low Reset",
+      "instance_pattern": "u_sync_rst_ing",
+      "timing_exception": "set_false_path -from [get_ports rst_ingress_async_n] -to [get_cells -hierarchical *u_sync_rst_ing*rst_stage1*]",
+      "justification": "Asynchronous assert; synchronous release recovery/removal is strictly timed against clk_ingress by rst_stage2."
+    },
+    {
+      "id": "SYNC-RDC-02",
+      "name": "u_sync_rst_auth",
+      "module_type": "geo_reset_sync",
+      "source_domain": "ASYNC_PIN (rst_auth_async_n)",
+      "dest_domain": "clk_auth",
+      "signal_type": "Asynchronous Active-Low Reset",
+      "instance_pattern": "u_sync_rst_auth",
+      "timing_exception": "set_false_path -from [get_ports rst_auth_async_n] -to [get_cells -hierarchical *u_sync_rst_auth*rst_stage1*]",
+      "justification": "Asynchronous assert; synchronous release recovery/removal is strictly timed against clk_auth by rst_stage2."
+    },
+    {
+      "id": "SYNC-RDC-03",
+      "name": "u_sync_rst_op",
+      "module_type": "geo_reset_sync",
+      "source_domain": "ASYNC_PIN (rst_op_async_n)",
+      "dest_domain": "clk_op",
+      "signal_type": "Asynchronous Active-Low Reset",
+      "instance_pattern": "u_sync_rst_op",
+      "timing_exception": "set_false_path -from [get_ports rst_op_async_n] -to [get_cells -hierarchical *u_sync_rst_op*rst_stage1*]",
+      "justification": "Asynchronous assert; synchronous release recovery/removal is strictly timed against clk_op by rst_stage2."
+    },
+    {
+      "id": "SYNC-RDC-04",
+      "name": "u_sync_rst_mem",
+      "module_type": "geo_reset_sync",
+      "source_domain": "ASYNC_PIN (rst_mem_async_n)",
+      "dest_domain": "clk_mem",
+      "signal_type": "Asynchronous Active-Low Reset",
+      "instance_pattern": "u_sync_rst_mem",
+      "timing_exception": "set_false_path -from [get_ports rst_mem_async_n] -to [get_cells -hierarchical *u_sync_rst_mem*rst_stage1*]",
+      "justification": "Asynchronous assert; synchronous release recovery/removal is strictly timed against clk_mem by rst_stage2."
+    },
+    {
+      "id": "SYNC-RDC-05",
+      "name": "u_sync_rst_ev",
+      "module_type": "geo_reset_sync",
+      "source_domain": "ASYNC_PIN (rst_ev_async_n)",
+      "dest_domain": "clk_ev",
+      "signal_type": "Asynchronous Active-Low Reset",
+      "instance_pattern": "u_sync_rst_ev",
+      "timing_exception": "set_false_path -from [get_ports rst_ev_async_n] -to [get_cells -hierarchical *u_sync_rst_ev*rst_stage1*]",
+      "justification": "Asynchronous assert; synchronous release recovery/removal is strictly timed against clk_ev by rst_stage2."
+    },
+    {
+      "id": "SYNC-RDC-06",
+      "name": "u_sync_rst_eg",
+      "module_type": "geo_reset_sync",
+      "source_domain": "ASYNC_PIN (rst_egress_async_n)",
+      "dest_domain": "clk_egress",
+      "signal_type": "Asynchronous Active-Low Reset",
+      "instance_pattern": "u_sync_rst_eg",
+      "timing_exception": "set_false_path -from [get_ports rst_egress_async_n] -to [get_cells -hierarchical *u_sync_rst_eg*rst_stage1*]",
+      "justification": "Asynchronous assert; synchronous release recovery/removal is strictly timed against clk_egress by rst_stage2."
+    },
+    {
+      "id": "SYNC-CDC-ING-W2R",
+      "name": "gen_ingress_cdc[*].u_ing_cdc_fifo.u_sync_w2r",
+      "module_type": "geo_sync_2ff",
+      "source_domain": "clk_ingress",
+      "dest_domain": "clk_op",
+      "signal_type": "Gray Write Pointer (wptr_gray)",
+      "instance_pattern": "gen_ingress_cdc[*].u_ing_cdc_fifo.u_sync_w2r",
+      "timing_exception": "set_max_delay 6.000 -datapath_only; set_bus_skew 1.500",
+      "justification": "Gray encoded pointer ensures at most 1-bit transition per cycle; 2FF resolves metastability within dest period 6.0ns."
+    },
+    {
+      "id": "SYNC-CDC-ING-R2W",
+      "name": "gen_ingress_cdc[*].u_ing_cdc_fifo.u_sync_r2w",
+      "module_type": "geo_sync_2ff",
+      "source_domain": "clk_op",
+      "dest_domain": "clk_ingress",
+      "signal_type": "Gray Read Pointer (rptr_gray)",
+      "instance_pattern": "gen_ingress_cdc[*].u_ing_cdc_fifo.u_sync_r2w",
+      "timing_exception": "set_max_delay 8.000 -datapath_only; set_bus_skew 1.500",
+      "justification": "Gray encoded pointer ensures at most 1-bit transition per cycle; 2FF resolves metastability within dest period 8.0ns."
+    },
+    {
+      "id": "SYNC-CDC-EG-W2R",
+      "name": "gen_egress_cdc[*].u_eg_cdc_fifo.u_sync_w2r",
+      "module_type": "geo_sync_2ff",
+      "source_domain": "clk_op",
+      "dest_domain": "clk_egress",
+      "signal_type": "Gray Write Pointer (wptr_gray)",
+      "instance_pattern": "gen_egress_cdc[*].u_eg_cdc_fifo.u_sync_w2r",
+      "timing_exception": "set_max_delay 6.400 -datapath_only; set_bus_skew 1.500",
+      "justification": "Gray encoded pointer ensures at most 1-bit transition per cycle; 2FF resolves metastability within dest period 6.4ns."
+    },
+    {
+      "id": "SYNC-CDC-EG-R2W",
+      "name": "gen_egress_cdc[*].u_eg_cdc_fifo.u_sync_r2w",
+      "module_type": "geo_sync_2ff",
+      "source_domain": "clk_egress",
+      "dest_domain": "clk_op",
+      "signal_type": "Gray Read Pointer (rptr_gray)",
+      "instance_pattern": "gen_egress_cdc[*].u_eg_cdc_fifo.u_sync_r2w",
+      "timing_exception": "set_max_delay 6.000 -datapath_only; set_bus_skew 1.500",
+      "justification": "Gray encoded pointer ensures at most 1-bit transition per cycle; 2FF resolves metastability within dest period 6.0ns."
+    }
+  ],
+  "unconstrained_paths": {
+    "total_unconstrained_count": 0,
+    "audit_status": "ZERO_UNCONSTRAINED_PATHS_CONFIRMED"
+  }
+}

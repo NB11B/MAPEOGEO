@@ -104,62 +104,62 @@ module geo_work_fabric #(
     output logic [63:0]                         semantic_evidence_root
 );
 
-    // --- Work Cell Signals ---
-    logic [WORK_CELL_COUNT-1:0] alloc_en;
-    uow_desc_t                  alloc_desc [0:WORK_CELL_COUNT-1];
+    // --- Work Cell Signals (Packed vectors to prevent synthesis array-flattening issues) ---
+    logic [WORK_CELL_COUNT-1:0]         alloc_en;
+    logic [WORK_CELL_COUNT*471-1:0]     alloc_desc;
 
-    logic [WORK_CELL_COUNT-1:0] cell_dispatch_req;
-    geo_opcode_t                cell_dispatch_opcode [0:WORK_CELL_COUNT-1];
-    cl20_mv_t                   cell_dispatch_op_a   [0:WORK_CELL_COUNT-1];
-    cl20_mv_t                   cell_dispatch_op_b   [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_dispatch_ack;
-    logic [WORK_CELL_COUNT-1:0] cell_exec_done;
-    cl20_mv_t                   cell_exec_result     [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_exec_overflow;
+    logic [WORK_CELL_COUNT-1:0]         cell_dispatch_req;
+    logic [WORK_CELL_COUNT*6-1:0]       cell_dispatch_opcode;
+    logic [WORK_CELL_COUNT*128-1:0]     cell_dispatch_op_a;
+    logic [WORK_CELL_COUNT*128-1:0]     cell_dispatch_op_b;
+    logic [WORK_CELL_COUNT-1:0]         cell_dispatch_ack;
+    logic [WORK_CELL_COUNT-1:0]         cell_exec_done;
+    logic [WORK_CELL_COUNT*128-1:0]     cell_exec_result;
+    logic [WORK_CELL_COUNT-1:0]         cell_exec_overflow;
 
-    logic [WORK_CELL_COUNT-1:0] cell_waiting_dep;
-    logic [WORK_CELL_COUNT-1:0] cell_waiting_operator;
-    logic [WORK_CELL_COUNT-1:0] cell_waiting_auth;
-    logic [WORK_CELL_COUNT-1:0] cell_waiting_mem;
+    logic [WORK_CELL_COUNT-1:0]         cell_waiting_dep;
+    logic [WORK_CELL_COUNT-1:0]         cell_waiting_operator;
+    logic [WORK_CELL_COUNT-1:0]         cell_waiting_auth;
+    logic [WORK_CELL_COUNT-1:0]         cell_waiting_mem;
 
-    logic [WORK_CELL_COUNT-1:0] cell_cert_req;
-    logic [31:0]                cell_cert_uow_id     [0:WORK_CELL_COUNT-1];
-    logic [7:0]                 cell_cert_dest_addr  [0:WORK_CELL_COUNT-1];
-    cl20_mv_t                   cell_cert_cand_res   [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_cert_cand_ovf;
-    logic [31:0]                cell_cert_pre_hash   [0:WORK_CELL_COUNT-1];
-    logic [31:0]                cell_cert_auth_token [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_cert_deps_sat;
-    logic [WORK_CELL_COUNT-1:0] cell_cert_has_graph_mut;
-    graph_mut_cmd_t             cell_cert_graph_cmd    [0:WORK_CELL_COUNT-1];
-    logic [15:0]                cell_cert_graph_node   [0:WORK_CELL_COUNT-1];
-    logic [15:0]                cell_cert_graph_target [0:WORK_CELL_COUNT-1];
-    logic [7:0]                 cell_cert_graph_rel    [0:WORK_CELL_COUNT-1];
-    logic [7:0]                 cell_cert_graph_flags  [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_cert_done;
-    commit_outcome_t            cell_cert_outcome    [0:WORK_CELL_COUNT-1];
+    logic [WORK_CELL_COUNT-1:0]         cell_cert_req;
+    logic [WORK_CELL_COUNT*32-1:0]      cell_cert_uow_id;
+    logic [WORK_CELL_COUNT*8-1:0]       cell_cert_dest_addr;
+    logic [WORK_CELL_COUNT*128-1:0]     cell_cert_cand_res;
+    logic [WORK_CELL_COUNT-1:0]         cell_cert_cand_ovf;
+    logic [WORK_CELL_COUNT*32-1:0]      cell_cert_pre_hash;
+    logic [WORK_CELL_COUNT*32-1:0]      cell_cert_auth_token;
+    logic [WORK_CELL_COUNT-1:0]         cell_cert_deps_sat;
+    logic [WORK_CELL_COUNT-1:0]         cell_cert_has_graph_mut;
+    logic [WORK_CELL_COUNT*2-1:0]       cell_cert_graph_cmd;
+    logic [WORK_CELL_COUNT*16-1:0]      cell_cert_graph_node;
+    logic [WORK_CELL_COUNT*16-1:0]      cell_cert_graph_target;
+    logic [WORK_CELL_COUNT*8-1:0]       cell_cert_graph_rel;
+    logic [WORK_CELL_COUNT*8-1:0]       cell_cert_graph_flags;
+    logic [WORK_CELL_COUNT-1:0]         cell_cert_done;
+    logic [WORK_CELL_COUNT*2-1:0]       cell_cert_outcome;
 
-    logic [WORK_CELL_COUNT-1:0] cell_mem_rd_req;
-    logic [7:0]                 cell_mem_rd_a_addr   [0:WORK_CELL_COUNT-1];
-    logic [7:0]                 cell_mem_rd_b_addr   [0:WORK_CELL_COUNT-1];
-    cl20_mv_t                   cell_mem_rd_a_data   [0:WORK_CELL_COUNT-1];
-    cl20_mv_t                   cell_mem_rd_b_data   [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_mem_rd_valid;
+    logic [WORK_CELL_COUNT-1:0]         cell_mem_rd_req;
+    logic [WORK_CELL_COUNT*8-1:0]       cell_mem_rd_a_addr;
+    logic [WORK_CELL_COUNT*8-1:0]       cell_mem_rd_b_addr;
+    logic [WORK_CELL_COUNT*128-1:0]     cell_mem_rd_a_data;
+    logic [WORK_CELL_COUNT*128-1:0]     cell_mem_rd_b_data;
+    logic [WORK_CELL_COUNT-1:0]         cell_mem_rd_valid;
 
     // Cell Graph Query Signals (P0.5)
-    logic [WORK_CELL_COUNT-1:0] cell_graph_req;
-    graph_cmd_t                 cell_graph_cmd   [0:WORK_CELL_COUNT-1];
-    graph_query_t               cell_graph_query [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_graph_ack;
-    logic [WORK_CELL_COUNT-1:0] cell_graph_done;
-    logic [WORK_CELL_COUNT-1:0] cell_graph_matched;
+    logic [WORK_CELL_COUNT-1:0]         cell_graph_req;
+    logic [WORK_CELL_COUNT*4-1:0]       cell_graph_cmd;
+    logic [WORK_CELL_COUNT*34-1:0]      cell_graph_query;
+    logic [WORK_CELL_COUNT-1:0]         cell_graph_ack;
+    logic [WORK_CELL_COUNT-1:0]         cell_graph_done;
+    logic [WORK_CELL_COUNT-1:0]         cell_graph_matched;
 
-    work_state_t                cell_state           [0:WORK_CELL_COUNT-1];
-    logic [31:0]                cell_active_uow      [0:WORK_CELL_COUNT-1];
-    logic [31:0]                cell_causal_cnt      [0:WORK_CELL_COUNT-1];
-    commit_outcome_t            cell_disp            [0:WORK_CELL_COUNT-1];
-    logic [WORK_CELL_COUNT-1:0] cell_ready;
-    logic [WORK_CELL_COUNT-1:0] cell_active_mask;
+    logic [WORK_CELL_COUNT*4-1:0]       cell_state;
+    logic [WORK_CELL_COUNT*32-1:0]      cell_active_uow;
+    logic [WORK_CELL_COUNT*32-1:0]      cell_causal_cnt;
+    logic [WORK_CELL_COUNT*2-1:0]       cell_disp;
+    logic [WORK_CELL_COUNT-1:0]         cell_ready;
+    logic [WORK_CELL_COUNT-1:0]         cell_active_mask;
 
     // Committed status register
     logic [WORK_CELL_COUNT-1:0] committed_reg;
@@ -176,51 +176,51 @@ module geo_work_fabric #(
                 .clk(clk),
                 .reset_n(reset_n),
                 .alloc_en(alloc_en[c]),
-                .alloc_desc(alloc_desc[c]),
+                .alloc_desc(alloc_desc[c*471 +: 471]),
                 .global_committed_mask(committed_reg),
                 .resource_available(1'b1), // Shared resources arbitrated below
                 .dispatch_req(cell_dispatch_req[c]),
-                .dispatch_opcode(cell_dispatch_opcode[c]),
-                .dispatch_op_a(cell_dispatch_op_a[c]),
-                .dispatch_op_b(cell_dispatch_op_b[c]),
+                .dispatch_opcode(cell_dispatch_opcode[c*6 +: 6]),
+                .dispatch_op_a(cell_dispatch_op_a[c*128 +: 128]),
+                .dispatch_op_b(cell_dispatch_op_b[c*128 +: 128]),
                 .dispatch_ack(cell_dispatch_ack[c]),
                 .exec_done(cell_exec_done[c]),
-                .exec_result(cell_exec_result[c]),
+                .exec_result(cell_exec_result[c*128 +: 128]),
                 .exec_overflow(cell_exec_overflow[c]),
                 .cert_req(cell_cert_req[c]),
-                .cert_uow_id(cell_cert_uow_id[c]),
-                .cert_dest_addr(cell_cert_dest_addr[c]),
-                .cert_candidate_result(cell_cert_cand_res[c]),
+                .cert_uow_id(cell_cert_uow_id[c*32 +: 32]),
+                .cert_dest_addr(cell_cert_dest_addr[c*8 +: 8]),
+                .cert_candidate_result(cell_cert_cand_res[c*128 +: 128]),
                 .cert_candidate_overflow(cell_cert_cand_ovf[c]),
-                .cert_pre_state_hash(cell_cert_pre_hash[c]),
-                .cert_auth_token(cell_cert_auth_token[c]),
+                .cert_pre_state_hash(cell_cert_pre_hash[c*32 +: 32]),
+                .cert_auth_token(cell_cert_auth_token[c*32 +: 32]),
                 .cert_deps_satisfied(cell_cert_deps_sat[c]),
                 .cert_has_graph_mut(cell_cert_has_graph_mut[c]),
-                .cert_graph_cmd(cell_cert_graph_cmd[c]),
-                .cert_graph_node(cell_cert_graph_node[c]),
-                .cert_graph_target(cell_cert_graph_target[c]),
-                .cert_graph_rel(cell_cert_graph_rel[c]),
-                .cert_graph_flags(cell_cert_graph_flags[c]),
+                .cert_graph_cmd(cell_cert_graph_cmd[c*2 +: 2]),
+                .cert_graph_node(cell_cert_graph_node[c*16 +: 16]),
+                .cert_graph_target(cell_cert_graph_target[c*16 +: 16]),
+                .cert_graph_rel(cell_cert_graph_rel[c*8 +: 8]),
+                .cert_graph_flags(cell_cert_graph_flags[c*8 +: 8]),
                 .cert_done(cell_cert_done[c]),
-                .cert_outcome(cell_cert_outcome[c]),
+                .cert_outcome(cell_cert_outcome[c*2 +: 2]),
                 .mem_rd_req(cell_mem_rd_req[c]),
-                .mem_rd_a_addr(cell_mem_rd_a_addr[c]),
-                .mem_rd_b_addr(cell_mem_rd_b_addr[c]),
-                .mem_rd_a_data(cell_mem_rd_a_data[c]),
-                .mem_rd_b_data(cell_mem_rd_b_data[c]),
+                .mem_rd_a_addr(cell_mem_rd_a_addr[c*8 +: 8]),
+                .mem_rd_b_addr(cell_mem_rd_b_addr[c*8 +: 8]),
+                .mem_rd_a_data(cell_mem_rd_a_data[c*128 +: 128]),
+                .mem_rd_b_data(cell_mem_rd_b_data[c*128 +: 128]),
                 .mem_rd_valid(cell_mem_rd_valid[c]),
                 .graph_req(cell_graph_req[c]),
-                .graph_cmd(cell_graph_cmd[c]),
-                .graph_query(cell_graph_query[c]),
+                .graph_cmd(cell_graph_cmd[c*4 +: 4]),
+                .graph_query(cell_graph_query[c*34 +: 34]),
                 .graph_ack(cell_graph_ack[c]),
                 .graph_done(cell_graph_done[c]),
                 .graph_matched(cell_graph_matched[c]),
                 .graph_hit_count(graph_hit_count),
                 .graph_target_node(graph_out_edge.target_node),
-                .cell_state(cell_state[c]),
-                .active_uow_id(cell_active_uow[c]),
-                .local_causal_counter(cell_causal_cnt[c]),
-                .terminal_disposition(cell_disp[c]),
+                .cell_state(cell_state[c*4 +: 4]),
+                .active_uow_id(cell_active_uow[c*32 +: 32]),
+                .local_causal_counter(cell_causal_cnt[c*32 +: 32]),
+                .terminal_disposition(cell_disp[c*2 +: 2]),
                 .is_ready(cell_ready[c]),
                 .is_active(cell_active_mask[c]),
                 .is_waiting_dep(cell_waiting_dep[c]),
@@ -231,49 +231,36 @@ module geo_work_fabric #(
         end
     endgenerate
 
-    // Unpack 1D vector of ingress descriptors
-    uow_desc_t ingress_desc_unpacked [0:INGRESS_LANES-1];
-    genvar gi;
-    generate
-        for (gi = 0; gi < INGRESS_LANES; gi = gi + 1) begin : gen_ingress_unpack
-            assign ingress_desc_unpacked[gi] = ingress_desc[gi*471 +: 471];
-        end
-    endgenerate
-
     // --- Ingress Allocation Logic (Multi-Lane, P0.6F) ---
     // Finds first EMPTY or recyclable cell for each active ingress lane
     logic [WORK_CELL_COUNT-1:0] empty_cells;
     logic [WORK_CELL_COUNT-1:0] recyclable_cells;
     always_comb begin
-        int e;
-        for (e = 0; e < WORK_CELL_COUNT; e = e + 1) begin
-            empty_cells[e]      = (cell_state[e] == STATE_EMPTY);
-            recyclable_cells[e] = (cell_state[e] == STATE_COMMITTED || cell_state[e] == STATE_REJECTED);
+        for (int e = 0; e < WORK_CELL_COUNT; e = e + 1) begin
+            empty_cells[e]      = (cell_state[e*4 +: 4] == STATE_EMPTY);
+            recyclable_cells[e] = (cell_state[e*4 +: 4] == STATE_COMMITTED || cell_state[e*4 +: 4] == STATE_REJECTED);
         end
     end
 
     logic [WORK_CELL_COUNT-1:0] cell_allocated_comb;
     logic [INGRESS_LANES-1:0]   lane_served;
     always_comb begin
-        int l, e;
         cell_allocated_comb = '0;
         alloc_en            = '0;
         lane_served         = '0;
         ingress_ready       = '0;
-        for (e = 0; e < WORK_CELL_COUNT; e = e + 1) begin
-            alloc_desc[e] = '0;
-        end
+        alloc_desc          = '0;
 
-        for (l = 0; l < INGRESS_LANES; l = l + 1) begin
-            for (e = 0; e < WORK_CELL_COUNT; e = e + 1) begin
+        for (int l = 0; l < INGRESS_LANES; l = l + 1) begin
+            for (int e = 0; e < WORK_CELL_COUNT; e = e + 1) begin
                 if (!cell_allocated_comb[e] && !lane_served[l]) begin
                     if (empty_cells[e] || ((cell_active_mask == '0) && recyclable_cells[e])) begin
                         ingress_ready[l] = 1'b1;
                         if (ingress_valid[l]) begin
-                            cell_allocated_comb[e] = 1'b1;
-                            lane_served[l]         = 1'b1;
-                            alloc_en[e]            = 1'b1;
-                            alloc_desc[e]          = ingress_desc_unpacked[l];
+                            cell_allocated_comb[e]        = 1'b1;
+                            lane_served[l]                = 1'b1;
+                            alloc_en[e]                   = 1'b1;
+                            alloc_desc[e*471 +: 471]      = ingress_desc[l*471 +: 471];
                         end
                     end
                 end
@@ -285,52 +272,49 @@ module geo_work_fabric #(
     // Connects pending cell read requests to matching independent memory banks in parallel
     logic [MEMORY_BANKS-1:0] bank_read_served;
     always_comb begin
-        int b_idx, c_idx;
-        bank_read_served  = '0;
-        cell_mem_rd_valid = '0;
-        mem_rd_a_addr     = '0;
-        mem_rd_b_addr     = '0;
-        for (c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
-            cell_mem_rd_a_data[c_idx] = '0;
-            cell_mem_rd_b_data[c_idx] = '0;
-        end
+        bank_read_served   = '0;
+        cell_mem_rd_valid  = '0;
+        mem_rd_a_addr      = '0;
+        mem_rd_b_addr      = '0;
+        cell_mem_rd_a_data = '0;
+        cell_mem_rd_b_data = '0;
 
-        for (c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
+        for (int c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
             if (cell_mem_rd_req[c_idx]) begin
                 int req_bank;
-                req_bank = cell_mem_rd_a_addr[c_idx] % MEMORY_BANKS;
+                req_bank = cell_mem_rd_a_addr[c_idx*8 +: 8] % MEMORY_BANKS;
                 if (!bank_read_served[req_bank] && !stall_inject_mem[req_bank]) begin
                     bank_read_served[req_bank]                    = 1'b1;
-                    mem_rd_a_addr[req_bank*8 +: 8]                = cell_mem_rd_a_addr[c_idx];
-                    mem_rd_b_addr[req_bank*8 +: 8]                = cell_mem_rd_b_addr[c_idx];
+                    mem_rd_a_addr[req_bank*8 +: 8]                = cell_mem_rd_a_addr[c_idx*8 +: 8];
+                    mem_rd_b_addr[req_bank*8 +: 8]                = cell_mem_rd_b_addr[c_idx*8 +: 8];
                     cell_mem_rd_valid[c_idx]                      = 1'b1;
-                    cell_mem_rd_a_data[c_idx]                     = mem_rd_a_data[req_bank*128 +: 128];
-                    cell_mem_rd_b_data[c_idx]                     = mem_rd_b_data[req_bank*128 +: 128];
+                    cell_mem_rd_a_data[c_idx*128 +: 128]          = mem_rd_a_data[req_bank*128 +: 128];
+                    cell_mem_rd_b_data[c_idx*128 +: 128]          = mem_rd_b_data[req_bank*128 +: 128];
                 end
             end
         end
     end
 
     // --- Shared Functional Execution Units (Multi-Lane Datapath) ---
-    logic        op_lane_start        [0:OPERATOR_LANES-1];
-    geo_opcode_t op_lane_opcode       [0:OPERATOR_LANES-1];
-    cl20_mv_t    op_lane_op_a         [0:OPERATOR_LANES-1];
-    cl20_mv_t    op_lane_op_b         [0:OPERATOR_LANES-1];
+    logic [OPERATOR_LANES-1:0]          op_lane_start;
+    logic [OPERATOR_LANES*6-1:0]        op_lane_opcode;
+    logic [OPERATOR_LANES*128-1:0]      op_lane_op_a;
+    logic [OPERATOR_LANES*128-1:0]      op_lane_op_b;
 
-    logic        op_lane_done_raw     [0:OPERATOR_LANES-1];
-    cl20_mv_t    op_lane_result_raw   [0:OPERATOR_LANES-1];
-    logic        op_lane_overflow_raw [0:OPERATOR_LANES-1];
-    logic        op_lane_cmp_raw      [0:OPERATOR_LANES-1];
+    logic [OPERATOR_LANES-1:0]          op_lane_done_raw;
+    logic [OPERATOR_LANES*128-1:0]      op_lane_result_raw;
+    logic [OPERATOR_LANES-1:0]          op_lane_overflow_raw;
+    logic [OPERATOR_LANES-1:0]          op_lane_cmp_raw;
 
-    logic        op_lane_done         [0:OPERATOR_LANES-1];
-    cl20_mv_t    op_lane_result       [0:OPERATOR_LANES-1];
-    logic        op_lane_overflow     [0:OPERATOR_LANES-1];
-    logic        op_lane_cmp          [0:OPERATOR_LANES-1];
+    logic [OPERATOR_LANES-1:0]          op_lane_done;
+    logic [OPERATOR_LANES*128-1:0]      op_lane_result;
+    logic [OPERATOR_LANES-1:0]          op_lane_overflow;
+    logic [OPERATOR_LANES-1:0]          op_lane_cmp;
 
-    logic        lane_hold_valid      [0:OPERATOR_LANES-1];
-    cl20_mv_t    lane_hold_result     [0:OPERATOR_LANES-1];
-    logic        lane_hold_overflow   [0:OPERATOR_LANES-1];
-    logic        lane_hold_cmp        [0:OPERATOR_LANES-1];
+    logic [OPERATOR_LANES-1:0]          lane_hold_valid;
+    logic [OPERATOR_LANES*128-1:0]      lane_hold_result;
+    logic [OPERATOR_LANES-1:0]          lane_hold_overflow;
+    logic [OPERATOR_LANES-1:0]          lane_hold_cmp;
 
     genvar l_idx;
     generate
@@ -339,11 +323,11 @@ module geo_work_fabric #(
                 .clk(clk),
                 .reset_n(reset_n),
                 .start(op_lane_start[l_idx]),
-                .opcode(op_lane_opcode[l_idx]),
-                .operand_a(op_lane_op_a[l_idx]),
-                .operand_b(op_lane_op_b[l_idx]),
+                .opcode(op_lane_opcode[l_idx*6 +: 6]),
+                .operand_a(op_lane_op_a[l_idx*128 +: 128]),
+                .operand_b(op_lane_op_b[l_idx*128 +: 128]),
                 .done(op_lane_done_raw[l_idx]),
-                .result(op_lane_result_raw[l_idx]),
+                .result(op_lane_result_raw[l_idx*128 +: 128]),
                 .overflow(op_lane_overflow_raw[l_idx]),
                 .comparison_result(op_lane_cmp_raw[l_idx])
             );
@@ -352,80 +336,67 @@ module geo_work_fabric #(
 
     // P0.8 Operator Lane Stall Injection Skid Buffering
     always_ff @(posedge clk or negedge reset_n) begin
-        int l;
         if (!reset_n) begin
-            for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
-                lane_hold_valid[l]    <= 1'b0;
-                lane_hold_result[l]   <= '0;
-                lane_hold_overflow[l] <= 1'b0;
-                lane_hold_cmp[l]      <= 1'b0;
-            end
+            lane_hold_valid    <= '0;
+            lane_hold_result   <= '0;
+            lane_hold_overflow <= '0;
+            lane_hold_cmp      <= '0;
         end else begin
-            for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
+            for (int l = 0; l < OPERATOR_LANES; l = l + 1) begin
                 if (op_lane_done_raw[l] && stall_inject_operator[l]) begin
-                    lane_hold_valid[l]    <= 1'b1;
-                    lane_hold_result[l]   <= op_lane_result_raw[l];
-                    lane_hold_overflow[l] <= op_lane_overflow_raw[l];
-                    lane_hold_cmp[l]      <= op_lane_cmp_raw[l];
+                    lane_hold_valid[l]                    <= 1'b1;
+                    lane_hold_result[l*128 +: 128]        <= op_lane_result_raw[l*128 +: 128];
+                    lane_hold_overflow[l]                 <= op_lane_overflow_raw[l];
+                    lane_hold_cmp[l]                      <= op_lane_cmp_raw[l];
                 end else if (lane_hold_valid[l] && !stall_inject_operator[l]) begin
-                    lane_hold_valid[l]    <= 1'b0;
+                    lane_hold_valid[l]                    <= 1'b0;
                 end
             end
         end
     end
 
     always_comb begin
-        int l;
-        for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
+        for (int l = 0; l < OPERATOR_LANES; l = l + 1) begin
             if (lane_hold_valid[l]) begin
-                op_lane_done[l]     = !stall_inject_operator[l];
-                op_lane_result[l]   = lane_hold_result[l];
-                op_lane_overflow[l] = lane_hold_overflow[l];
-                op_lane_cmp[l]      = lane_hold_cmp[l];
+                op_lane_done[l]                 = !stall_inject_operator[l];
+                op_lane_result[l*128 +: 128]    = lane_hold_result[l*128 +: 128];
+                op_lane_overflow[l]             = lane_hold_overflow[l];
+                op_lane_cmp[l]                  = lane_hold_cmp[l];
             end else begin
-                op_lane_done[l]     = op_lane_done_raw[l] && !stall_inject_operator[l];
-                op_lane_result[l]   = op_lane_result_raw[l];
-                op_lane_overflow[l] = op_lane_overflow_raw[l];
-                op_lane_cmp[l]      = op_lane_cmp_raw[l];
+                op_lane_done[l]                 = op_lane_done_raw[l] && !stall_inject_operator[l];
+                op_lane_result[l*128 +: 128]    = op_lane_result_raw[l*128 +: 128];
+                op_lane_overflow[l]             = op_lane_overflow_raw[l];
+                op_lane_cmp[l]                  = op_lane_cmp_raw[l];
             end
         end
     end
 
     // Multi-Lane Operator Dispatch Arbiter
-    logic [OPERATOR_LANES-1:0]  lane_busy;
-    logic [WORK_CELL_COUNT-1:0] lane_cell_mask     [0:OPERATOR_LANES-1];
-    logic [OPERATOR_LANES-1:0]  lane_dispatch_start;
-    logic [WORK_CELL_COUNT-1:0] lane_dispatch_cell [0:OPERATOR_LANES-1];
+    logic [OPERATOR_LANES-1:0]                      lane_busy;
+    logic [OPERATOR_LANES*WORK_CELL_COUNT-1:0]      lane_cell_mask;
+    logic [OPERATOR_LANES-1:0]                      lane_dispatch_start;
+    logic [OPERATOR_LANES*WORK_CELL_COUNT-1:0]      lane_dispatch_cell;
 
     always_comb begin
-        int d, l;
-        d = 0;
-        l = 0;
         cell_dispatch_ack   = '0;
         lane_dispatch_start = '0;
-        for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
-            op_lane_start[l]        = 1'b0;
-            op_lane_opcode[l]       = OP_NOP;
-            op_lane_op_a[l]         = '0;
-            op_lane_op_b[l]         = '0;
-            lane_dispatch_cell[l]   = '0;
-        end
+        op_lane_start       = '0;
+        op_lane_opcode      = '0;
+        op_lane_op_a        = '0;
+        op_lane_op_b        = '0;
+        lane_dispatch_cell  = '0;
 
-        for (d = 0; d < WORK_CELL_COUNT; d = d + 1) begin
+        for (int d = 0; d < WORK_CELL_COUNT; d = d + 1) begin
             if (cell_dispatch_req[d]) begin
-                for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
+                for (int l = 0; l < OPERATOR_LANES; l = l + 1) begin
                     if (!lane_busy[l] && !lane_dispatch_start[l] && !cell_dispatch_ack[d]) begin
-                        op_lane_start[l]         = 1'b1;
-                        lane_dispatch_start[l]   = 1'b1;
-`ifdef SYNTHESIS
-                        op_lane_opcode[l]        = cell_dispatch_opcode[d];
-`else
-                        op_lane_opcode[l]        = geo_opcode_t'(cell_dispatch_opcode[d]);
-`endif
-                        op_lane_op_a[l]          = cell_dispatch_op_a[d];
-                        op_lane_op_b[l]          = cell_dispatch_op_b[d];
-                        cell_dispatch_ack[d]     = 1'b1;
-                        lane_dispatch_cell[l][d] = 1'b1;
+                        op_lane_start[l]                          = 1'b1;
+                        lane_dispatch_start[l]                    = 1'b1;
+                        op_lane_opcode[l*6 +: 6]                  = cell_dispatch_opcode[d*6 +: 6];
+                        op_lane_op_a[l*128 +: 128]                = cell_dispatch_op_a[d*128 +: 128];
+                        op_lane_op_b[l*128 +: 128]                = cell_dispatch_op_b[d*128 +: 128];
+                        cell_dispatch_ack[d]                      = 1'b1;
+                        lane_dispatch_cell[l*WORK_CELL_COUNT + d] = 1'b1;
                     end
                 end
             end
@@ -433,42 +404,34 @@ module geo_work_fabric #(
     end
 
     always_ff @(posedge clk or negedge reset_n) begin
-        int l;
-        l = 0;
         if (!reset_n) begin
-            for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
-                lane_busy[l]      <= 1'b0;
-                lane_cell_mask[l] <= '0;
-            end
+            lane_busy      <= '0;
+            lane_cell_mask <= '0;
         end else begin
-            for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
+            for (int l = 0; l < OPERATOR_LANES; l = l + 1) begin
                 if (lane_dispatch_start[l]) begin
-                    lane_busy[l]      <= 1'b1;
-                    lane_cell_mask[l] <= lane_dispatch_cell[l];
+                    lane_busy[l]                                          <= 1'b1;
+                    lane_cell_mask[l*WORK_CELL_COUNT +: WORK_CELL_COUNT] <= lane_dispatch_cell[l*WORK_CELL_COUNT +: WORK_CELL_COUNT];
                 end else if (op_lane_done[l]) begin
-                    lane_busy[l]      <= 1'b0;
-                    lane_cell_mask[l] <= '0;
+                    lane_busy[l]                                          <= 1'b0;
+                    lane_cell_mask[l*WORK_CELL_COUNT +: WORK_CELL_COUNT] <= '0;
                 end
             end
         end
     end
 
     always_comb begin
-        int d, l;
-        d = 0;
-        l = 0;
-        cell_exec_done = '0;
-        for (d = 0; d < WORK_CELL_COUNT; d = d + 1) begin
-            cell_exec_result[d]   = '0;
-            cell_exec_overflow[d] = 1'b0;
-        end
-        for (l = 0; l < OPERATOR_LANES; l = l + 1) begin
+        cell_exec_done     = '0;
+        cell_exec_result   = '0;
+        cell_exec_overflow = '0;
+
+        for (int l = 0; l < OPERATOR_LANES; l = l + 1) begin
             if (op_lane_done[l]) begin
-                for (d = 0; d < WORK_CELL_COUNT; d = d + 1) begin
-                    if (lane_cell_mask[l][d]) begin
-                        cell_exec_done[d]     = 1'b1;
-                        cell_exec_result[d]   = op_lane_result[l];
-                        cell_exec_overflow[d] = op_lane_overflow[l];
+                for (int d = 0; d < WORK_CELL_COUNT; d = d + 1) begin
+                    if (lane_cell_mask[l*WORK_CELL_COUNT + d]) begin
+                        cell_exec_done[d]              = 1'b1;
+                        cell_exec_result[d*128 +: 128] = op_lane_result[l*128 +: 128];
+                        cell_exec_overflow[d]          = op_lane_overflow[l];
                     end
                 end
             end
@@ -484,8 +447,6 @@ module geo_work_fabric #(
     assign graph_direct_edge_idx = 16'd0;
 
     always_comb begin
-        int g;
-        g = 0;
         graph_query_start = 1'b0;
         graph_cmd         = GRAPH_CMD_NOP;
         graph_query       = '0;
@@ -493,15 +454,15 @@ module geo_work_fabric #(
         graph_found       = 1'b0;
 
         if (!graph_busy && !graph_busy_latch) begin
-            for (g = 0; g < WORK_CELL_COUNT; g = g + 1) begin
+            for (int g = 0; g < WORK_CELL_COUNT; g = g + 1) begin
                 if (cell_graph_req[g] && !graph_found) begin
                     graph_query_start = 1'b1;
 `ifdef SYNTHESIS
-                    graph_cmd         = cell_graph_cmd[g];
+                    graph_cmd         = cell_graph_cmd[g*4 +: 4];
 `else
-                    graph_cmd         = graph_cmd_t'(cell_graph_cmd[g]);
+                    graph_cmd         = graph_cmd_t'(cell_graph_cmd[g*4 +: 4]);
 `endif
-                    graph_query       = cell_graph_query[g];
+                    graph_query       = cell_graph_query[g*34 +: 34];
                     cell_graph_ack[g] = 1'b1;
                     graph_found       = 1'b1;
                 end
@@ -527,71 +488,70 @@ module geo_work_fabric #(
     assign cell_graph_done    = graph_done ? active_graph_cell_reg : '0;
     assign cell_graph_matched = (graph_hit_count > 16'd0 && !graph_error_bounds && !graph_error_malformed) ? active_graph_cell_reg : '0;
 
-    // --- Partitioned Authority & Commit Engines (P0.6D) ---
-    logic [AUTHORITY_ENGINES-1:0] auth_cert_req;
-    logic [31:0]                  auth_candidate_uow_id     [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_candidate_dest_addr  [0:AUTHORITY_ENGINES-1];
-    cl20_mv_t                     auth_candidate_result     [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_candidate_overflow;
-    logic [31:0]                  auth_req_pre_state_hash   [0:AUTHORITY_ENGINES-1];
-    logic [31:0]                  auth_req_auth_token       [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_deps_all_satisfied;
-    logic [AUTHORITY_ENGINES-1:0] auth_candidate_has_graph_mut;
-    graph_mut_cmd_t               auth_candidate_graph_cmd  [0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_candidate_graph_node [0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_candidate_graph_target [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_candidate_graph_rel  [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_candidate_graph_flags[0:AUTHORITY_ENGINES-1];
+    logic [AUTHORITY_ENGINES-1:0]       auth_cert_req;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_candidate_uow_id;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_candidate_dest_addr;
+    logic [AUTHORITY_ENGINES*128-1:0]   auth_candidate_result;
+    logic [AUTHORITY_ENGINES-1:0]       auth_candidate_overflow;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_req_pre_state_hash;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_req_auth_token;
+    logic [AUTHORITY_ENGINES-1:0]       auth_deps_all_satisfied;
+    logic [AUTHORITY_ENGINES-1:0]       auth_candidate_has_graph_mut;
+    logic [AUTHORITY_ENGINES*2-1:0]     auth_candidate_graph_cmd;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_candidate_graph_node;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_candidate_graph_target;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_candidate_graph_rel;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_candidate_graph_flags;
 
-    logic [AUTHORITY_ENGINES-1:0] auth_cert_done_raw;
-    commit_outcome_t              auth_outcome_raw          [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_commit_permit_raw;
-    logic [7:0]                   auth_commit_addr_raw      [0:AUTHORITY_ENGINES-1];
-    cl20_mv_t                     auth_commit_data_raw      [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_commit_graph_en_raw;
-    graph_mut_cmd_t               auth_commit_graph_cmd_raw [0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_commit_graph_node_raw[0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_commit_graph_target_raw[0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_commit_graph_rel_raw [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_commit_graph_flags_raw[0:AUTHORITY_ENGINES-1];
-    logic [31:0]                  auth_cert_id_raw          [0:AUTHORITY_ENGINES-1];
-    logic [31:0]                  auth_certified_uow_id_raw [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_failed_checks_raw    [0:AUTHORITY_ENGINES-1];
+    logic [AUTHORITY_ENGINES-1:0]       auth_cert_done_raw;
+    logic [AUTHORITY_ENGINES*2-1:0]     auth_outcome_raw;
+    logic [AUTHORITY_ENGINES-1:0]       auth_commit_permit_raw;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_commit_addr_raw;
+    logic [AUTHORITY_ENGINES*128-1:0]   auth_commit_data_raw;
+    logic [AUTHORITY_ENGINES-1:0]       auth_commit_graph_en_raw;
+    logic [AUTHORITY_ENGINES*2-1:0]     auth_commit_graph_cmd_raw;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_commit_graph_node_raw;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_commit_graph_target_raw;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_commit_graph_rel_raw;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_commit_graph_flags_raw;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_cert_id_raw;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_certified_uow_id_raw;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_failed_checks_raw;
 
-    logic [AUTHORITY_ENGINES-1:0] auth_cert_done;
-    commit_outcome_t              auth_outcome              [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_commit_permit;
-    logic [7:0]                   auth_commit_addr          [0:AUTHORITY_ENGINES-1];
-    cl20_mv_t                     auth_commit_data          [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_commit_graph_en;
-    graph_mut_cmd_t               auth_commit_graph_cmd     [0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_commit_graph_node    [0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_commit_graph_target  [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_commit_graph_rel     [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_commit_graph_flags   [0:AUTHORITY_ENGINES-1];
-    logic [31:0]                  auth_cert_id              [0:AUTHORITY_ENGINES-1];
-    logic [31:0]                  auth_certified_uow_id     [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_failed_checks        [0:AUTHORITY_ENGINES-1];
+    logic [AUTHORITY_ENGINES-1:0]       auth_cert_done;
+    logic [AUTHORITY_ENGINES*2-1:0]     auth_outcome;
+    logic [AUTHORITY_ENGINES-1:0]       auth_commit_permit;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_commit_addr;
+    logic [AUTHORITY_ENGINES*128-1:0]   auth_commit_data;
+    logic [AUTHORITY_ENGINES-1:0]       auth_commit_graph_en;
+    logic [AUTHORITY_ENGINES*2-1:0]     auth_commit_graph_cmd;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_commit_graph_node;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_commit_graph_target;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_commit_graph_rel;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_commit_graph_flags;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_cert_id;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_certified_uow_id;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_failed_checks;
 
-    logic [AUTHORITY_ENGINES-1:0] auth_hold_valid;
-    commit_outcome_t              auth_hold_outcome          [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_hold_permit;
-    logic [7:0]                   auth_hold_commit_addr      [0:AUTHORITY_ENGINES-1];
-    cl20_mv_t                     auth_hold_commit_data      [0:AUTHORITY_ENGINES-1];
-    logic [AUTHORITY_ENGINES-1:0] auth_hold_graph_en;
-    graph_mut_cmd_t               auth_hold_graph_cmd        [0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_hold_graph_node       [0:AUTHORITY_ENGINES-1];
-    logic [15:0]                  auth_hold_graph_target     [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_hold_graph_rel        [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_hold_graph_flags      [0:AUTHORITY_ENGINES-1];
-    logic [31:0]                  auth_hold_cert_id          [0:AUTHORITY_ENGINES-1];
-    logic [31:0]                  auth_hold_certified_uow_id [0:AUTHORITY_ENGINES-1];
-    logic [7:0]                   auth_hold_failed_checks    [0:AUTHORITY_ENGINES-1];
+    logic [AUTHORITY_ENGINES-1:0]       auth_hold_valid;
+    logic [AUTHORITY_ENGINES*2-1:0]     auth_hold_outcome;
+    logic [AUTHORITY_ENGINES-1:0]       auth_hold_permit;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_hold_commit_addr;
+    logic [AUTHORITY_ENGINES*128-1:0]   auth_hold_commit_data;
+    logic [AUTHORITY_ENGINES-1:0]       auth_hold_graph_en;
+    logic [AUTHORITY_ENGINES*2-1:0]     auth_hold_graph_cmd;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_hold_graph_node;
+    logic [AUTHORITY_ENGINES*16-1:0]    auth_hold_graph_target;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_hold_graph_rel;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_hold_graph_flags;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_hold_cert_id;
+    logic [AUTHORITY_ENGINES*32-1:0]    auth_hold_certified_uow_id;
+    logic [AUTHORITY_ENGINES*8-1:0]     auth_hold_failed_checks;
 
     genvar a_chk;
     generate
         for (a_chk = 0; a_chk < AUTHORITY_ENGINES; a_chk = a_chk + 1) begin : gen_auth_chk
-            assign auth_check_dest_addr[a_chk*8 +: 8] = auth_candidate_dest_addr[a_chk];
+            assign auth_check_dest_addr[a_chk*8 +: 8] = auth_candidate_dest_addr[a_chk*8 +: 8];
         end
     endgenerate
 
@@ -604,247 +564,199 @@ module geo_work_fabric #(
                 .clk(clk),
                 .reset_n(reset_n),
                 .cert_req(auth_cert_req[a_idx]),
-                .candidate_uow_id(auth_candidate_uow_id[a_idx]),
-                .candidate_dest_addr(auth_candidate_dest_addr[a_idx]),
-                .candidate_result(auth_candidate_result[a_idx]),
+                .candidate_uow_id(auth_candidate_uow_id[a_idx*32 +: 32]),
+                .candidate_dest_addr(auth_candidate_dest_addr[a_idx*8 +: 8]),
+                .candidate_result(auth_candidate_result[a_idx*128 +: 128]),
                 .candidate_overflow(auth_candidate_overflow[a_idx]),
-                .req_pre_state_hash(auth_req_pre_state_hash[a_idx]),
-                .req_auth_token(auth_req_auth_token[a_idx]),
+                .req_pre_state_hash(auth_req_pre_state_hash[a_idx*32 +: 32]),
+                .req_auth_token(auth_req_auth_token[a_idx*32 +: 32]),
                 .deps_all_satisfied(auth_deps_all_satisfied[a_idx]),
                 .candidate_has_graph_mut(auth_candidate_has_graph_mut[a_idx]),
-                .candidate_graph_cmd(auth_candidate_graph_cmd[a_idx]),
-                .candidate_graph_node(auth_candidate_graph_node[a_idx]),
-                .candidate_graph_target(auth_candidate_graph_target[a_idx]),
-                .candidate_graph_rel(auth_candidate_graph_rel[a_idx]),
-                .candidate_graph_flags(auth_candidate_graph_flags[a_idx]),
+                .candidate_graph_cmd(auth_candidate_graph_cmd[a_idx*2 +: 2]),
+                .candidate_graph_node(auth_candidate_graph_node[a_idx*16 +: 16]),
+                .candidate_graph_target(auth_candidate_graph_target[a_idx*16 +: 16]),
+                .candidate_graph_rel(auth_candidate_graph_rel[a_idx*8 +: 8]),
+                .candidate_graph_flags(auth_candidate_graph_flags[a_idx*8 +: 8]),
                 .actual_pre_state_hash(32'd0),
-                .read_dest_version(auth_req_pre_state_hash[a_idx][15:0]),
+                .read_dest_version(auth_req_pre_state_hash[a_idx*32 +: 16]),
                 .current_dest_version(auth_current_dest_version[a_idx*16 +: 16]),
                 .authorized_capability_mask(authorized_capability_mask),
                 .cert_done(auth_cert_done_raw[a_idx]),
-                .outcome(auth_outcome_raw[a_idx]),
+                .outcome(auth_outcome_raw[a_idx*2 +: 2]),
                 .commit_permit(auth_commit_permit_raw[a_idx]),
-                .commit_addr(auth_commit_addr_raw[a_idx]),
-                .commit_data(auth_commit_data_raw[a_idx]),
+                .commit_addr(auth_commit_addr_raw[a_idx*8 +: 8]),
+                .commit_data(auth_commit_data_raw[a_idx*128 +: 128]),
                 .commit_graph_en(auth_commit_graph_en_raw[a_idx]),
-                .commit_graph_cmd(auth_commit_graph_cmd_raw[a_idx]),
-                .commit_graph_node(auth_commit_graph_node_raw[a_idx]),
-                .commit_graph_target(auth_commit_graph_target_raw[a_idx]),
-                .commit_graph_rel(auth_commit_graph_rel_raw[a_idx]),
-                .commit_graph_flags(auth_commit_graph_flags_raw[a_idx]),
-                .cert_id(auth_cert_id_raw[a_idx]),
-                .certified_uow_id(auth_certified_uow_id_raw[a_idx]),
-                .failed_check_mask(auth_failed_checks_raw[a_idx])
+                .commit_graph_cmd(auth_commit_graph_cmd_raw[a_idx*2 +: 2]),
+                .commit_graph_node(auth_commit_graph_node_raw[a_idx*16 +: 16]),
+                .commit_graph_target(auth_commit_graph_target_raw[a_idx*16 +: 16]),
+                .commit_graph_rel(auth_commit_graph_rel_raw[a_idx*8 +: 8]),
+                .commit_graph_flags(auth_commit_graph_flags_raw[a_idx*8 +: 8]),
+                .cert_id(auth_cert_id_raw[a_idx*32 +: 32]),
+                .certified_uow_id(auth_certified_uow_id_raw[a_idx*32 +: 32]),
+                .failed_check_mask(auth_failed_checks_raw[a_idx*8 +: 8])
             );
         end
     endgenerate
 
     // P0.8 Authority Engine Stall Injection Skid Buffering
     always_ff @(posedge clk or negedge reset_n) begin
-        int a;
         if (!reset_n) begin
-            for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
-                auth_hold_valid[a]            <= 1'b0;
-                auth_hold_outcome[a]          <= OUTCOME_REJECT;
-                auth_hold_permit[a]           <= 1'b0;
-                auth_hold_commit_addr[a]      <= '0;
-                auth_hold_commit_data[a]      <= '0;
-                auth_hold_graph_en[a]         <= 1'b0;
-                auth_hold_graph_cmd[a]        <= GRAPH_MUT_NOP;
-                auth_hold_graph_node[a]       <= '0;
-                auth_hold_graph_target[a]     <= '0;
-                auth_hold_graph_rel[a]        <= '0;
-                auth_hold_graph_flags[a]      <= '0;
-                auth_hold_cert_id[a]          <= '0;
-                auth_hold_certified_uow_id[a] <= '0;
-                auth_hold_failed_checks[a]    <= '0;
-            end
+            auth_hold_valid            <= '0;
+            auth_hold_outcome          <= '0;
+            auth_hold_permit           <= '0;
+            auth_hold_commit_addr      <= '0;
+            auth_hold_commit_data      <= '0;
+            auth_hold_graph_en         <= '0;
+            auth_hold_graph_cmd        <= '0;
+            auth_hold_graph_node       <= '0;
+            auth_hold_graph_target     <= '0;
+            auth_hold_graph_rel        <= '0;
+            auth_hold_graph_flags      <= '0;
+            auth_hold_cert_id          <= '0;
+            auth_hold_certified_uow_id <= '0;
+            auth_hold_failed_checks    <= '0;
         end else begin
-            for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+            for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
                 if (auth_cert_done_raw[a] && stall_inject_authority[a]) begin
-                    auth_hold_valid[a]            <= 1'b1;
-`ifdef SYNTHESIS
-                    auth_hold_outcome[a]          <= auth_outcome_raw[a];
-`else
-                    auth_hold_outcome[a]          <= commit_outcome_t'(auth_outcome_raw[a]);
-`endif
-                    auth_hold_permit[a]           <= auth_commit_permit_raw[a];
-                    auth_hold_commit_addr[a]      <= auth_commit_addr_raw[a];
-                    auth_hold_commit_data[a]      <= auth_commit_data_raw[a];
-                    auth_hold_graph_en[a]         <= auth_commit_graph_en_raw[a];
-`ifdef SYNTHESIS
-                    auth_hold_graph_cmd[a]        <= auth_commit_graph_cmd_raw[a];
-`else
-                    auth_hold_graph_cmd[a]        <= graph_mut_cmd_t'(auth_commit_graph_cmd_raw[a]);
-`endif
-                    auth_hold_graph_node[a]       <= auth_commit_graph_node_raw[a];
-                    auth_hold_graph_target[a]     <= auth_commit_graph_target_raw[a];
-                    auth_hold_graph_rel[a]        <= auth_commit_graph_rel_raw[a];
-                    auth_hold_graph_flags[a]      <= auth_commit_graph_flags_raw[a];
-                    auth_hold_cert_id[a]          <= auth_cert_id_raw[a];
-                    auth_hold_certified_uow_id[a] <= auth_certified_uow_id_raw[a];
-                    auth_hold_failed_checks[a]    <= auth_failed_checks_raw[a];
+                    auth_hold_valid[a]                     <= 1'b1;
+                    auth_hold_outcome[a*2 +: 2]            <= auth_outcome_raw[a*2 +: 2];
+                    auth_hold_permit[a]                    <= auth_commit_permit_raw[a];
+                    auth_hold_commit_addr[a*8 +: 8]        <= auth_commit_addr_raw[a*8 +: 8];
+                    auth_hold_commit_data[a*128 +: 128]    <= auth_commit_data_raw[a*128 +: 128];
+                    auth_hold_graph_en[a]                  <= auth_commit_graph_en_raw[a];
+                    auth_hold_graph_cmd[a*2 +: 2]          <= auth_commit_graph_cmd_raw[a*2 +: 2];
+                    auth_hold_graph_node[a*16 +: 16]       <= auth_commit_graph_node_raw[a*16 +: 16];
+                    auth_hold_graph_target[a*16 +: 16]     <= auth_commit_graph_target_raw[a*16 +: 16];
+                    auth_hold_graph_rel[a*8 +: 8]          <= auth_commit_graph_rel_raw[a*8 +: 8];
+                    auth_hold_graph_flags[a*8 +: 8]        <= auth_commit_graph_flags_raw[a*8 +: 8];
+                    auth_hold_cert_id[a*32 +: 32]          <= auth_cert_id_raw[a*32 +: 32];
+                    auth_hold_certified_uow_id[a*32 +: 32] <= auth_certified_uow_id_raw[a*32 +: 32];
+                    auth_hold_failed_checks[a*8 +: 8]      <= auth_failed_checks_raw[a*8 +: 8];
                 end else if (auth_hold_valid[a] && !stall_inject_authority[a]) begin
-                    auth_hold_valid[a]            <= 1'b0;
+                    auth_hold_valid[a]                     <= 1'b0;
                 end
             end
         end
     end
 
     always_comb begin
-        int a;
-        for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+        for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
             if (auth_hold_valid[a]) begin
-                auth_cert_done[a]            = !stall_inject_authority[a];
-`ifdef SYNTHESIS
-                auth_outcome[a]              = auth_hold_outcome[a];
-`else
-                auth_outcome[a]              = commit_outcome_t'(auth_hold_outcome[a]);
-`endif
-                auth_commit_permit[a]        = auth_hold_permit[a] && !stall_inject_authority[a];
-                auth_commit_addr[a]          = auth_hold_commit_addr[a];
-                auth_commit_data[a]          = auth_hold_commit_data[a];
-                auth_commit_graph_en[a]      = auth_hold_graph_en[a] && !stall_inject_authority[a];
-`ifdef SYNTHESIS
-                auth_commit_graph_cmd[a]     = auth_hold_graph_cmd[a];
-`else
-                auth_commit_graph_cmd[a]     = graph_mut_cmd_t'(auth_hold_graph_cmd[a]);
-`endif
-                auth_commit_graph_node[a]    = auth_hold_graph_node[a];
-                auth_commit_graph_target[a]  = auth_hold_graph_target[a];
-                auth_commit_graph_rel[a]     = auth_hold_graph_rel[a];
-                auth_commit_graph_flags[a]   = auth_hold_graph_flags[a];
-                auth_cert_id[a]              = auth_hold_cert_id[a];
-                auth_certified_uow_id[a]     = auth_hold_certified_uow_id[a];
-                auth_failed_checks[a]        = auth_hold_failed_checks[a];
+                auth_cert_done[a]                        = !stall_inject_authority[a];
+                auth_outcome[a*2 +: 2]                   = auth_hold_outcome[a*2 +: 2];
+                auth_commit_permit[a]                    = auth_hold_permit[a] && !stall_inject_authority[a];
+                auth_commit_addr[a*8 +: 8]               = auth_hold_commit_addr[a*8 +: 8];
+                auth_commit_data[a*128 +: 128]           = auth_hold_commit_data[a*128 +: 128];
+                auth_commit_graph_en[a]                  = auth_hold_graph_en[a] && !stall_inject_authority[a];
+                auth_commit_graph_cmd[a*2 +: 2]          = auth_hold_graph_cmd[a*2 +: 2];
+                auth_commit_graph_node[a*16 +: 16]       = auth_hold_graph_node[a*16 +: 16];
+                auth_commit_graph_target[a*16 +: 16]     = auth_hold_graph_target[a*16 +: 16];
+                auth_commit_graph_rel[a*8 +: 8]          = auth_hold_graph_rel[a*8 +: 8];
+                auth_commit_graph_flags[a*8 +: 8]        = auth_hold_graph_flags[a*8 +: 8];
+                auth_cert_id[a*32 +: 32]                 = auth_hold_cert_id[a*32 +: 32];
+                auth_certified_uow_id[a*32 +: 32]        = auth_hold_certified_uow_id[a*32 +: 32];
+                auth_failed_checks[a*8 +: 8]             = auth_hold_failed_checks[a*8 +: 8];
             end else begin
-                auth_cert_done[a]            = auth_cert_done_raw[a] && !stall_inject_authority[a];
-`ifdef SYNTHESIS
-                auth_outcome[a]              = auth_outcome_raw[a];
-`else
-                auth_outcome[a]              = commit_outcome_t'(auth_outcome_raw[a]);
-`endif
-                auth_commit_permit[a]        = auth_commit_permit_raw[a] && !stall_inject_authority[a];
-                auth_commit_addr[a]          = auth_commit_addr_raw[a];
-                auth_commit_data[a]          = auth_commit_data_raw[a];
-                auth_commit_graph_en[a]      = auth_commit_graph_en_raw[a] && !stall_inject_authority[a];
-`ifdef SYNTHESIS
-                auth_commit_graph_cmd[a]     = auth_commit_graph_cmd_raw[a];
-`else
-                auth_commit_graph_cmd[a]     = graph_mut_cmd_t'(auth_commit_graph_cmd_raw[a]);
-`endif
-                auth_commit_graph_node[a]    = auth_commit_graph_node_raw[a];
-                auth_commit_graph_target[a]  = auth_commit_graph_target_raw[a];
-                auth_commit_graph_rel[a]     = auth_commit_graph_rel_raw[a];
-                auth_commit_graph_flags[a]   = auth_commit_graph_flags_raw[a];
-                auth_cert_id[a]              = auth_cert_id_raw[a];
-                auth_certified_uow_id[a]     = auth_certified_uow_id_raw[a];
-                auth_failed_checks[a]        = auth_failed_checks_raw[a];
+                auth_cert_done[a]                        = auth_cert_done_raw[a] && !stall_inject_authority[a];
+                auth_outcome[a*2 +: 2]                   = auth_outcome_raw[a*2 +: 2];
+                auth_commit_permit[a]                    = auth_commit_permit_raw[a] && !stall_inject_authority[a];
+                auth_commit_addr[a*8 +: 8]               = auth_commit_addr_raw[a*8 +: 8];
+                auth_commit_data[a*128 +: 128]           = auth_commit_data_raw[a*128 +: 128];
+                auth_commit_graph_en[a]                  = auth_commit_graph_en_raw[a] && !stall_inject_authority[a];
+                auth_commit_graph_cmd[a*2 +: 2]          = auth_commit_graph_cmd_raw[a*2 +: 2];
+                auth_commit_graph_node[a*16 +: 16]       = auth_commit_graph_node_raw[a*16 +: 16];
+                auth_commit_graph_target[a*16 +: 16]     = auth_commit_graph_target_raw[a*16 +: 16];
+                auth_commit_graph_rel[a*8 +: 8]          = auth_commit_graph_rel_raw[a*8 +: 8];
+                auth_commit_graph_flags[a*8 +: 8]        = auth_commit_graph_flags_raw[a*8 +: 8];
+                auth_cert_id[a*32 +: 32]                 = auth_cert_id_raw[a*32 +: 32];
+                auth_certified_uow_id[a*32 +: 32]        = auth_certified_uow_id_raw[a*32 +: 32];
+                auth_failed_checks[a*8 +: 8]             = auth_failed_checks_raw[a*8 +: 8];
             end
         end
     end
 
     // Domain-Partitioned Authority Arbiter:
-    // Cell c targeting dest_addr belongs to domain (dest_addr % AUTHORITY_ENGINES)
-    // Same state domain -> serialize; Independent state domains -> parallel evaluate!
-    logic [AUTHORITY_ENGINES-1:0] engine_requested;
-    logic [AUTHORITY_ENGINES-1:0] engine_busy;
-    logic [WORK_CELL_COUNT-1:0]   engine_eval_cell    [0:AUTHORITY_ENGINES-1];
-    logic [WORK_CELL_COUNT-1:0]   certifying_cell_reg [0:AUTHORITY_ENGINES-1];
+    logic [AUTHORITY_ENGINES-1:0]                 engine_busy;
+    logic [AUTHORITY_ENGINES*WORK_CELL_COUNT-1:0] engine_eval_cell;
+    logic [AUTHORITY_ENGINES*WORK_CELL_COUNT-1:0] certifying_cell_reg;
 
     always_comb begin
-        int a;
-        for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+        for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
             engine_busy[a] = auth_hold_valid[a] || stall_inject_authority[a];
         end
     end
 
     always_comb begin
-        int a, c_idx;
-        engine_requested            = '0;
-        auth_cert_req               = '0;
-        auth_candidate_overflow     = '0;
-        auth_deps_all_satisfied     = '0;
-        auth_candidate_has_graph_mut= '0;
+        auth_cert_req                = '0;
+        auth_candidate_overflow      = '0;
+        auth_deps_all_satisfied      = '0;
+        auth_candidate_has_graph_mut = '0;
+        auth_candidate_uow_id        = '0;
+        auth_candidate_dest_addr     = '0;
+        auth_candidate_result        = '0;
+        auth_req_pre_state_hash      = '0;
+        auth_req_auth_token          = '0;
+        auth_candidate_graph_cmd     = '0;
+        auth_candidate_graph_node    = '0;
+        auth_candidate_graph_target  = '0;
+        auth_candidate_graph_rel     = '0;
+        auth_candidate_graph_flags   = '0;
+        engine_eval_cell             = '0;
 
-        for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
-            auth_candidate_uow_id[a]       = '0;
-            auth_candidate_dest_addr[a]    = '0;
-            auth_candidate_result[a]       = '0;
-            auth_req_pre_state_hash[a]     = '0;
-            auth_req_auth_token[a]         = '0;
-            auth_candidate_graph_cmd[a]    = GRAPH_MUT_NOP;
-            auth_candidate_graph_node[a]   = '0;
-            auth_candidate_graph_target[a] = '0;
-            auth_candidate_graph_rel[a]    = '0;
-            auth_candidate_graph_flags[a]  = '0;
-            engine_eval_cell[a]            = '0;
-        end
-
-        for (c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
-            if (cell_cert_req[c_idx] && !cell_cert_done[c_idx]) begin
-                int domain;
-                domain = cell_cert_dest_addr[c_idx] % AUTHORITY_ENGINES;
-                if (!engine_requested[domain] && !engine_busy[domain]) begin
-                    engine_requested[domain]            = 1'b1;
-                    auth_cert_req[domain]               = 1'b1;
-                    auth_candidate_uow_id[domain]       = cell_cert_uow_id[c_idx];
-                    auth_candidate_dest_addr[domain]    = cell_cert_dest_addr[c_idx];
-                    auth_candidate_result[domain]       = cell_cert_cand_res[c_idx];
-                    auth_candidate_overflow[domain]     = cell_cert_cand_ovf[c_idx];
-                    auth_req_pre_state_hash[domain]     = cell_cert_pre_hash[c_idx];
-                    auth_req_auth_token[domain]         = cell_cert_auth_token[c_idx];
-                    auth_deps_all_satisfied[domain]     = cell_cert_deps_sat[c_idx];
-                    auth_candidate_has_graph_mut[domain]= cell_cert_has_graph_mut[c_idx];
-                    case (cell_cert_graph_cmd[c_idx])
-                        GRAPH_MUT_ADD_EDGE:    auth_candidate_graph_cmd[domain] = GRAPH_MUT_ADD_EDGE;
-                        GRAPH_MUT_ADD_NODE:    auth_candidate_graph_cmd[domain] = GRAPH_MUT_ADD_NODE;
-                        GRAPH_MUT_UPDATE_NODE: auth_candidate_graph_cmd[domain] = GRAPH_MUT_UPDATE_NODE;
-                        default:               auth_candidate_graph_cmd[domain] = GRAPH_MUT_NOP;
-                    endcase
-                    auth_candidate_graph_node[domain]   = cell_cert_graph_node[c_idx];
-                    auth_candidate_graph_target[domain] = cell_cert_graph_target[c_idx];
-                    auth_candidate_graph_rel[domain]    = cell_cert_graph_rel[c_idx];
-                    auth_candidate_graph_flags[domain]  = cell_cert_graph_flags[c_idx];
-                    engine_eval_cell[domain][c_idx]     = 1'b1;
+        for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+            for (int c = 0; c < WORK_CELL_COUNT; c = c + 1) begin
+                if (cell_cert_req[c] && !cell_cert_done[c] && !engine_busy[a]) begin
+                    if ((cell_cert_dest_addr[c*8 +: 8] % AUTHORITY_ENGINES) == a) begin
+                        if (!auth_cert_req[a]) begin
+                            auth_cert_req[a]                               = 1'b1;
+                            auth_candidate_uow_id[a*32 +: 32]              = cell_cert_uow_id[c*32 +: 32];
+                            auth_candidate_dest_addr[a*8 +: 8]             = cell_cert_dest_addr[c*8 +: 8];
+                            auth_candidate_result[a*128 +: 128]            = cell_cert_cand_res[c*128 +: 128];
+                            auth_candidate_overflow[a]                     = cell_cert_cand_ovf[c];
+                            auth_req_pre_state_hash[a*32 +: 32]            = cell_cert_pre_hash[c*32 +: 32];
+                            auth_req_auth_token[a*32 +: 32]                = cell_cert_auth_token[c*32 +: 32];
+                            auth_deps_all_satisfied[a]                     = cell_cert_deps_sat[c];
+                            auth_candidate_has_graph_mut[a]                = cell_cert_has_graph_mut[c];
+                            auth_candidate_graph_cmd[a*2 +: 2]             = cell_cert_graph_cmd[c*2 +: 2];
+                            auth_candidate_graph_node[a*16 +: 16]          = cell_cert_graph_node[c*16 +: 16];
+                            auth_candidate_graph_target[a*16 +: 16]        = cell_cert_graph_target[c*16 +: 16];
+                            auth_candidate_graph_rel[a*8 +: 8]             = cell_cert_graph_rel[c*8 +: 8];
+                            auth_candidate_graph_flags[a*8 +: 8]           = cell_cert_graph_flags[c*8 +: 8];
+                            engine_eval_cell[a*WORK_CELL_COUNT + c]        = 1'b1;
+                        end
+                    end
                 end
             end
         end
     end
 
     always_ff @(posedge clk or negedge reset_n) begin
-        int a;
         if (!reset_n) begin
-            for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
-                certifying_cell_reg[a] <= '0;
-            end
+            certifying_cell_reg <= '0;
         end else begin
-            for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+            for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
                 if (auth_cert_req[a]) begin
-                    certifying_cell_reg[a] <= engine_eval_cell[a];
+                    certifying_cell_reg[a*WORK_CELL_COUNT +: WORK_CELL_COUNT] <= engine_eval_cell[a*WORK_CELL_COUNT +: WORK_CELL_COUNT];
                 end else if (auth_cert_done[a]) begin
-                    certifying_cell_reg[a] <= '0;
+                    certifying_cell_reg[a*WORK_CELL_COUNT +: WORK_CELL_COUNT] <= '0;
                 end
             end
         end
     end
 
     always_comb begin
-        int a, c_idx;
-        cell_cert_done = '0;
-        for (c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
-            cell_cert_outcome[c_idx] = OUTCOME_REJECT;
+        cell_cert_done    = '0;
+        cell_cert_outcome = '0;
+        for (int c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
+            cell_cert_outcome[c_idx*2 +: 2] = OUTCOME_REJECT;
         end
-        for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+        for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
             if (auth_cert_done[a]) begin
-                for (c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
-                    if (certifying_cell_reg[a][c_idx]) begin
-                        cell_cert_done[c_idx]    = 1'b1;
-`ifdef SYNTHESIS
-                        cell_cert_outcome[c_idx] = auth_outcome[a];
-`else
-                        cell_cert_outcome[c_idx] = commit_outcome_t'(auth_outcome[a]);
-`endif
+                for (int c_idx = 0; c_idx < WORK_CELL_COUNT; c_idx = c_idx + 1) begin
+                    if (certifying_cell_reg[a*WORK_CELL_COUNT + c_idx]) begin
+                        cell_cert_done[c_idx]           = 1'b1;
+                        cell_cert_outcome[c_idx*2 +: 2] = auth_outcome[a*2 +: 2];
                     end
                 end
             end
@@ -853,19 +765,18 @@ module geo_work_fabric #(
 
     // Multi-Bank Memory Commit Routing
     always_comb begin
-        int a;
         mem_commit_en   = '0;
         mem_commit_addr = '0;
         mem_commit_data = '0;
 
-        for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+        for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
             if (auth_commit_permit[a]) begin
                 int b_dest;
-                b_dest = auth_commit_addr[a] % MEMORY_BANKS;
+                b_dest = auth_commit_addr[a*8 +: 8] % MEMORY_BANKS;
                 if (!mem_commit_en[b_dest]) begin
-                    mem_commit_en[b_dest]               = 1'b1;
-                    mem_commit_addr[b_dest*8 +: 8]      = auth_commit_addr[a];
-                    mem_commit_data[b_dest*128 +: 128]  = auth_commit_data[a];
+                    mem_commit_en[b_dest]              = 1'b1;
+                    mem_commit_addr[b_dest*8 +: 8]     = auth_commit_addr[a*8 +: 8];
+                    mem_commit_data[b_dest*128 +: 128] = auth_commit_data[a*128 +: 128];
                 end
             end
         end
@@ -873,25 +784,24 @@ module geo_work_fabric #(
 
     // Graph mutation commit routing (single graph commit port)
     always_comb begin
-        int a;
         commit_graph_en     = 1'b0;
         commit_graph_cmd    = GRAPH_MUT_NOP;
         commit_graph_node   = '0;
         commit_graph_target = '0;
         commit_graph_rel    = '0;
         commit_graph_flags  = '0;
-        for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+        for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
             if (auth_commit_graph_en[a] && !commit_graph_en) begin
                 commit_graph_en     = 1'b1;
 `ifdef SYNTHESIS
-                commit_graph_cmd    = auth_commit_graph_cmd[a];
+                commit_graph_cmd    = auth_commit_graph_cmd[a*2 +: 2];
 `else
-                commit_graph_cmd    = graph_mut_cmd_t'(auth_commit_graph_cmd[a]);
+                commit_graph_cmd    = graph_mut_cmd_t'(auth_commit_graph_cmd[a*2 +: 2]);
 `endif
-                commit_graph_node   = auth_commit_graph_node[a];
-                commit_graph_target = auth_commit_graph_target[a];
-                commit_graph_rel    = auth_commit_graph_rel[a];
-                commit_graph_flags  = auth_commit_graph_flags[a];
+                commit_graph_node   = auth_commit_graph_node[a*16 +: 16];
+                commit_graph_target = auth_commit_graph_target[a*16 +: 16];
+                commit_graph_rel    = auth_commit_graph_rel[a*8 +: 8];
+                commit_graph_flags  = auth_commit_graph_flags[a*8 +: 8];
             end
         end
     end
@@ -900,10 +810,9 @@ module geo_work_fabric #(
     logic [7:0] lane_done_count;
     logic [7:0] lane_overflow_count;
     always_comb begin
-        int l_c;
-        lane_done_count = '0;
+        lane_done_count     = '0;
         lane_overflow_count = '0;
-        for (l_c = 0; l_c < OPERATOR_LANES; l_c = l_c + 1) begin
+        for (int l_c = 0; l_c < OPERATOR_LANES; l_c = l_c + 1) begin
             if (op_lane_done[l_c]) begin
                 lane_done_count = lane_done_count + 1'b1;
                 if (op_lane_overflow[l_c]) begin
@@ -918,17 +827,16 @@ module geo_work_fabric #(
     logic [7:0] active_read_banks;
     logic [7:0] active_write_banks;
     always_comb begin
-        int a_c, b_c;
         engine_commit_count = '0;
         active_read_banks   = '0;
         active_write_banks  = '0;
-        for (a_c = 0; a_c < AUTHORITY_ENGINES; a_c = a_c + 1) begin
-            if (auth_cert_done[a_c] && (auth_outcome[a_c] == OUTCOME_COMMIT)) begin
+        for (int a_c = 0; a_c < AUTHORITY_ENGINES; a_c = a_c + 1) begin
+            if (auth_cert_done[a_c] && (auth_outcome[a_c*2 +: 2] == OUTCOME_COMMIT)) begin
                 engine_commit_count = engine_commit_count + 1'b1;
             end
         end
-        for (b_c = 0; b_c < MEMORY_BANKS; b_c = b_c + 1) begin
-            if (bank_read_served[b_c]) active_read_banks = active_read_banks + 1'b1;
+        for (int b_c = 0; b_c < MEMORY_BANKS; b_c = b_c + 1) begin
+            if (bank_read_served[b_c]) active_read_banks  = active_read_banks + 1'b1;
             if (mem_commit_en[b_c])    active_write_banks = active_write_banks + 1'b1;
         end
     end
@@ -936,9 +844,8 @@ module geo_work_fabric #(
     // Real-time cell occupancy
     logic [31:0] current_occupancy;
     always_comb begin
-        int o_idx;
         current_occupancy = '0;
-        for (o_idx = 0; o_idx < WORK_CELL_COUNT; o_idx = o_idx + 1) begin
+        for (int o_idx = 0; o_idx < WORK_CELL_COUNT; o_idx = o_idx + 1) begin
             if (cell_active_mask[o_idx]) begin
                 current_occupancy = current_occupancy + 1'b1;
             end
@@ -948,8 +855,8 @@ module geo_work_fabric #(
     // Egress and Evidence Queue (Buffers completions from multi-engine parallel commits)
     localparam int CMPL_DEPTH = 64;
     logic [31:0]       cmpl_uow_id    [0:CMPL_DEPTH-1];
-    commit_outcome_t   cmpl_status    [0:CMPL_DEPTH-1];
-    cl20_mv_t          cmpl_result    [0:CMPL_DEPTH-1];
+    logic [1:0]        cmpl_status    [0:CMPL_DEPTH-1];
+    logic [127:0]      cmpl_result    [0:CMPL_DEPTH-1];
     logic [31:0]       cmpl_cert_id   [0:CMPL_DEPTH-1];
     logic [5:0]        cmpl_wr_ptr;
     logic [5:0]        cmpl_rd_ptr;
@@ -957,7 +864,6 @@ module geo_work_fabric #(
 
     // Committed status register & Telemetry tracking
     always_ff @(posedge clk or negedge reset_n) begin
-        int k, a;
         if (!reset_n) begin
             committed_reg             <= '0;
             egress_valid              <= '0;
@@ -1069,31 +975,31 @@ module geo_work_fabric #(
                 faults_this_cycle  = 0;
                 cycle_semantic_xor = '0;
 
-                for (a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
+                for (int a = 0; a < AUTHORITY_ENGINES; a = a + 1) begin
                     if (auth_cert_done[a]) begin
                         logic [5:0] slot;
                         slot = (cmpl_wr_ptr + push_count) % CMPL_DEPTH;
-                        case (auth_outcome[a])
+                        case (auth_outcome[a*2 +: 2])
                             OUTCOME_COMMIT: begin
-                                cl20_mv_t a_comm_mv;
-                                logic [63:0] commit_fingerprint;
-                                a_comm_mv = auth_commit_data[a];
-                                commit_fingerprint = {auth_certified_uow_id[a], auth_commit_addr[a], 24'h5A5A5A} ^
-                                                     {a_comm_mv.s, a_comm_mv.e1} ^
-                                                     {a_comm_mv.e2, a_comm_mv.e12};
+                                logic [127:0] a_data;
+                                logic [63:0]  commit_fingerprint;
+                                a_data = auth_commit_data[a*128 +: 128];
+                                commit_fingerprint = {auth_certified_uow_id[a*32 +: 32], auth_commit_addr[a*8 +: 8], 24'h5A5A5A} ^
+                                                     a_data[127:64] ^
+                                                     a_data[63:0];
                                 cycle_semantic_xor = cycle_semantic_xor ^ commit_fingerprint;
                                 commits_this_cycle = commits_this_cycle + 1;
-                                for (k = 0; k < WORK_CELL_COUNT; k = k + 1) begin
-                                    if (certifying_cell_reg[a][k]) begin
+                                for (int k = 0; k < WORK_CELL_COUNT; k = k + 1) begin
+                                    if (certifying_cell_reg[a*WORK_CELL_COUNT + k]) begin
                                         committed_reg[k] <= 1'b1;
                                     end
                                 end
                                 evidence_append_req <= 1'b1;
-                                ev_uow_id           <= auth_certified_uow_id[a];
+                                ev_uow_id           <= auth_certified_uow_id[a*32 +: 32];
                                 ev_pre_state_hash   <= 64'd0;
                                 ev_post_state_hash  <= 64'd0;
-                                ev_candidate_hash   <= {a_comm_mv.s, a_comm_mv.e1};
-                                ev_cert_id          <= auth_cert_id[a];
+                                ev_candidate_hash   <= a_data[127:64];
+                                ev_cert_id          <= auth_cert_id[a*32 +: 32];
                                 ev_causal_seq       <= telemetry.uow_committed + commits_this_cycle;
                             end
                             OUTCOME_REJECT: rejects_this_cycle = rejects_this_cycle + 1;
@@ -1101,10 +1007,10 @@ module geo_work_fabric #(
                             OUTCOME_FAULT:  faults_this_cycle  = faults_this_cycle + 1;
                         endcase
 
-                        cmpl_uow_id[slot]  <= auth_certified_uow_id[a];
-                        cmpl_status[slot]  <= auth_outcome[a];
-                        cmpl_result[slot]  <= auth_commit_data[a];
-                        cmpl_cert_id[slot] <= auth_cert_id[a];
+                        cmpl_uow_id[slot]  <= auth_certified_uow_id[a*32 +: 32];
+                        cmpl_status[slot]  <= auth_outcome[a*2 +: 2];
+                        cmpl_result[slot]  <= auth_commit_data[a*128 +: 128];
+                        cmpl_cert_id[slot] <= auth_cert_id[a*32 +: 32];
                         push_count         = push_count + 1'b1;
                     end
                 end
@@ -1116,7 +1022,7 @@ module geo_work_fabric #(
                 telemetry.fault_events  <= telemetry.fault_events  + faults_this_cycle;
 
                 // Determine in-order multi-lane dequeue count
-                for (k = 0; k < EGRESS_LANES; k = k + 1) begin
+                for (int k = 0; k < EGRESS_LANES; k = k + 1) begin
                     if ((k < cmpl_count) && (!egress_valid[k] || egress_ready[k])) begin
                         if (pop_count == k) begin
                             pop_count = pop_count + 1;
@@ -1125,21 +1031,17 @@ module geo_work_fabric #(
                 end
 
                 // Dequeue to Multi-Lane Egress Stream
-                for (k = 0; k < EGRESS_LANES; k = k + 1) begin
+                for (int k = 0; k < EGRESS_LANES; k = k + 1) begin
                     if (k < pop_count) begin
                         logic [5:0] rslot;
                         rslot = (cmpl_rd_ptr + k) % CMPL_DEPTH;
-                        egress_valid[k]                     <= 1'b1;
-                        egress_uow_id[k*32 +: 32]           <= cmpl_uow_id[rslot];
-`ifdef SYNTHESIS
-                        egress_status[k*2 +: 2]             <= cmpl_status[rslot];
-`else
-                        egress_status[k*2 +: 2]             <= commit_outcome_t'(cmpl_status[rslot]);
-`endif
-                        egress_result[k*128 +: 128]         <= cmpl_result[rslot];
-                        egress_evidence_root[k*64 +: 64]    <= ev_current_root;
+                        egress_valid[k]                  <= 1'b1;
+                        egress_uow_id[k*32 +: 32]        <= cmpl_uow_id[rslot];
+                        egress_status[k*2 +: 2]          <= cmpl_status[rslot];
+                        egress_result[k*128 +: 128]      <= cmpl_result[rslot];
+                        egress_evidence_root[k*64 +: 64] <= ev_current_root;
                     end else if (egress_ready[k] && egress_valid[k]) begin
-                        egress_valid[k]                     <= 1'b0;
+                        egress_valid[k]                  <= 1'b0;
                     end
                 end
 

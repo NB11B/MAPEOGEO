@@ -1,0 +1,68 @@
+{
+  "track": "PDI-v0.9",
+  "qualification_status": "QUALIFIED",
+  "target_fpga": "AMD / Xilinx Artix-7 (xc7a100tcsg324-1)",
+  "clock_frequency_mhz": 100.0,
+  "clock_period_ns": 10.0,
+  "gate_g1_full_corpus_rtl_equivalence": {
+    "total_transfer_scenarios": 64,
+    "total_candidates_evaluated": 512,
+    "differential_rtl_matches": "512 / 512 (100.0%)",
+    "lsb_mismatches": 0,
+    "top1_rank_agreement_pct": 100.0,
+    "useful_selection_accuracy_pct": 84.38
+  },
+  "gate_g2_feature_extractor_footprint": {
+    "module": "geo_psmsl_fe",
+    "feature_dimension": 32,
+    "lut_count": 39,
+    "lut_utilization_pct": 0.06,
+    "ff_count": 34,
+    "ff_utilization_pct": 0.03,
+    "dsp48e1_count": 0,
+    "bram_count": 0
+  },
+  "gate_g3_scorer_reconciled_hardware": {
+    "module": "geo_psmsl_scorer",
+    "parameter_count": 4225,
+    "dsp48e1_count": 6,
+    "dsp48e1_breakdown": {
+      "quad_mac_lanes": 4,
+      "layer1_rescaling_multiplier": 1,
+      "layer2_rescaling_multiplier": 1
+    },
+    "dsp48e1_utilization_pct": 2.50,
+    "lut_count": 1246,
+    "lut_utilization_pct": 1.97,
+    "ff_count": 1109,
+    "ff_utilization_pct": 0.87,
+    "bram_count": 0,
+    "cycles_per_candidate": 1036,
+    "latency_per_candidate_us": 10.36,
+    "cycles_per_8candidate_menu": 8288,
+    "latency_per_8candidate_menu_us": 82.88
+  },
+  "gate_g4_top_fabric_integration": {
+    "top_module": "mapeogeo_p0_fabric",
+    "synthesis_tool": "Yosys 0.33 (synth_xilinx -family xc7)",
+    "total_fabric_cells": 85837,
+    "total_fabric_dsp48e1": 226,
+    "authority_isolation_verified": true,
+    "scorer_write_ports_to_state_memory": 0,
+    "scorer_bus_master_ports": 0,
+    "unauthorized_dispatch_blocked": true
+  },
+  "gate_g5_complete_goal_dag_qualification": {
+    "dag_compilation_rate_pct": 100.0,
+    "goal_certification_rate_pct": 100.0,
+    "shadow_register_hazard_freedom": true,
+    "fault_injection_rollback_verified": true,
+    "state_corruption_on_fault": false
+  },
+  "regression_test_suite": {
+    "passed": 62,
+    "failed": 0,
+    "total": 62,
+    "pass_rate_pct": 100.0
+  }
+}

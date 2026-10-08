@@ -1,0 +1,10 @@
+# Yosys Synthesis Script: Authority Engine
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/common/geo_defs.svh
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_fixed_arith.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_cl20_multivector.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/authority/geo_authority_engine.sv
+
+hierarchy -top geo_authority_engine
+proc; opt; memory; opt;
+check
+write_verilog -noattr fabric_p0/netlists/synth_geo_authority_engine.v

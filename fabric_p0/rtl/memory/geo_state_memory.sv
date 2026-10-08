@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // MAPEOGEO Preproduction Fabric P0
 // Module: geo_state_memory
-// Parameterized Multi-Bank Authoritative State Memory with Hardware Commit Gating and Version Tracking (P0.6D)
+// Parameterized Multi-Bank Native RAM State Memory with Monotonic Version Tracking (Gate RTL-11B Optimized)
 
 `ifndef GEO_STATE_MEMORY_SV
 `define GEO_STATE_MEMORY_SV
@@ -39,6 +39,11 @@ module geo_state_memory #(
     input  logic [MEMORY_BANKS*128-1:0]         commit_data,
     output logic [MEMORY_BANKS*16-1:0]          post_commit_version,
 
+    // Boot Initialization Port
+    input  logic                                boot_wr_en = 1'b0,
+    input  logic [ADDR_WIDTH-1:0]               boot_wr_addr = '0,
+    input  logic [127:0]                        boot_wr_data = '0,
+
     // Diagnostic/Hash Port
     input  logic [ADDR_WIDTH-1:0]               diag_addr,
     output cl20_mv_t                            diag_data,
@@ -48,14 +53,26 @@ module geo_state_memory #(
     output logic [31:0]                         mem_writes
 );
 
-    // Authoritative State Memory Array
-    // Exposed as mem_s, mem_e1, mem_e2, mem_e12 for simulation peek/poke parity across all testbenches
-    logic signed [31:0] mem_s   [0:WORDS-1];
-    logic signed [31:0] mem_e1  [0:WORDS-1];
-    logic signed [31:0] mem_e2  [0:WORDS-1];
-    logic signed [31:0] mem_e12 [0:WORDS-1];
-    logic [15:0]        versions[0:WORDS-1];
+    // Native Storage Arrays (BRAM / Distributed RAM Inferable)
+    // Directly exposed as mem_s, mem_e1, mem_e2, mem_e12, versions for testbench peek/poke parity
+    (* ram_style = "distributed" *) logic signed [31:0] mem_s   [0:WORDS-1];
+    (* ram_style = "distributed" *) logic signed [31:0] mem_e1  [0:WORDS-1];
+    (* ram_style = "distributed" *) logic signed [31:0] mem_e2  [0:WORDS-1];
+    (* ram_style = "distributed" *) logic signed [31:0] mem_e12 [0:WORDS-1];
+    (* ram_style = "distributed" *) logic [15:0]        versions[0:WORDS-1];
 
+    integer w_init;
+    initial begin
+        for (w_init = 0; w_init < WORDS; w_init = w_init + 1) begin
+            mem_s[w_init]    = 32'sd0;
+            mem_e1[w_init]   = 32'sd0;
+            mem_e2[w_init]   = 32'sd0;
+            mem_e12[w_init]  = 32'sd0;
+            versions[w_init] = 16'd0;
+        end
+    end
+
+    // Multi-Bank Read Ports with Asynchronous Distributed RAM Lookups
     genvar b;
     generate
         for (b = 0; b < MEMORY_BANKS; b = b + 1) begin : gen_bank_rd
@@ -70,17 +87,17 @@ module geo_state_memory #(
         end
     endgenerate
 
-    // Authority version lookup with Write-Bypass Forwarding
+    // Authority Version Inspection Port with Real-Time Commit Forwarding
     genvar a_ver;
     generate
         for (a_ver = 0; a_ver < AUTHORITY_ENGINES; a_ver = a_ver + 1) begin : gen_auth_ver
             wire [ADDR_WIDTH-1:0] a_addr = auth_check_addr[a_ver*ADDR_WIDTH +: ADDR_WIDTH];
             logic pending_commit_match;
             always_comb begin
-                int b;
+                int b_chk;
                 pending_commit_match = 1'b0;
-                for (b = 0; b < MEMORY_BANKS; b = b + 1) begin
-                    if (commit_en[b] && (commit_addr[b*ADDR_WIDTH +: ADDR_WIDTH] == a_addr)) begin
+                for (b_chk = 0; b_chk < MEMORY_BANKS; b_chk = b_chk + 1) begin
+                    if (commit_en[b_chk] && (commit_addr[b_chk*ADDR_WIDTH +: ADDR_WIDTH] == a_addr)) begin
                         pending_commit_match = 1'b1;
                     end
                 end
@@ -90,23 +107,36 @@ module geo_state_memory #(
         end
     endgenerate
 
-    // Diagnostic read
+    // Diagnostic Read Port
     assign diag_data = {mem_s[diag_addr], mem_e1[diag_addr], mem_e2[diag_addr], mem_e12[diag_addr]};
 
-    // Synchronous Commit Write and Version Tracking
-    integer w_init;
+    // Pure Synchronous Memory Write Interface (Native BRAM / RAM64M8 inferable)
+    always_ff @(posedge clk) begin
+        if (boot_wr_en) begin
+            mem_s[boot_wr_addr]   <= boot_wr_data[127:96];
+            mem_e1[boot_wr_addr]  <= boot_wr_data[95:64];
+            mem_e2[boot_wr_addr]  <= boot_wr_data[63:32];
+            mem_e12[boot_wr_addr] <= boot_wr_data[31:0];
+        end else begin
+            int b_wr;
+            for (b_wr = 0; b_wr < MEMORY_BANKS; b_wr = b_wr + 1) begin
+                if (commit_en[b_wr]) begin
+                    mem_s[commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH]]    <= commit_data[b_wr*128 + 96 +: 32];
+                    mem_e1[commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH]]   <= commit_data[b_wr*128 + 64 +: 32];
+                    mem_e2[commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH]]   <= commit_data[b_wr*128 + 32 +: 32];
+                    mem_e12[commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH]]  <= commit_data[b_wr*128 +  0 +: 32];
+                    versions[commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH]] <= versions[commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH]] + 16'd1;
+                end
+            end
+        end
+    end
+
+    // Asynchronous Reset Control Registers
     always_ff @(posedge clk or negedge reset_n) begin
         if (!reset_n) begin
             post_commit_version <= '0;
             mem_reads           <= '0;
             mem_writes          <= '0;
-            for (w_init = 0; w_init < WORDS; w_init = w_init + 1) begin
-                mem_s[w_init]    <= 32'sd0;
-                mem_e1[w_init]   <= 32'sd0;
-                mem_e2[w_init]   <= 32'sd0;
-                mem_e12[w_init]  <= 32'sd0;
-                versions[w_init] <= 16'd0;
-            end
         end else begin
             int b_wr;
             if (|commit_en) begin
@@ -114,16 +144,7 @@ module geo_state_memory #(
             end
             for (b_wr = 0; b_wr < MEMORY_BANKS; b_wr = b_wr + 1) begin
                 if (commit_en[b_wr]) begin
-                    logic [ADDR_WIDTH-1:0] b_addr;
-                    cl20_mv_t              b_data;
-                    b_addr = commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH];
-                    b_data = commit_data[b_wr*128 +: 128];
-                    mem_s[b_addr]                      <= b_data.s;
-                    mem_e1[b_addr]                     <= b_data.e1;
-                    mem_e2[b_addr]                     <= b_data.e2;
-                    mem_e12[b_addr]                    <= b_data.e12;
-                    versions[b_addr]                   <= versions[b_addr] + 1'b1;
-                    post_commit_version[b_wr*16 +: 16] <= versions[b_addr] + 1'b1;
+                    post_commit_version[b_wr*16 +: 16] <= versions[commit_addr[b_wr*ADDR_WIDTH +: ADDR_WIDTH]] + 16'd1;
                 end
             end
         end

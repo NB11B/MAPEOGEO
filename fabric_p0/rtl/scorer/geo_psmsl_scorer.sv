@@ -62,9 +62,10 @@ module geo_psmsl_scorer #(
     reg [2:0] state;
 
     // Fixed-Point Scale & Shift Constants (from bit_exact_scorer.py)
-    localparam signed [31:0] M1     = 32'sd642;
+    // 18-bit constants to map into single DSP48E1 25x18 multiplier
+    localparam signed [17:0] M1     = 18'sd642;
     localparam        [4:0]  SHIFT1 = 5'd16;
-    localparam signed [31:0] M2     = 32'sd173;
+    localparam signed [17:0] M2     = 18'sd173;
     localparam        [4:0]  SHIFT2 = 5'd16;
 
     // Weight & Bias ROM Arrays
@@ -154,15 +155,19 @@ module geo_psmsl_scorer #(
                                   ($signed(op_a2) * $signed(op_w2)) +
                                   ($signed(op_a3) * $signed(op_w3));
 
-    // Scaling & Activation Logic
+    // Scaling & Activation Logic (Mapped to single DSP48E1: 25-bit accum * 18-bit M)
     wire signed [31:0] final_accum_l1  = accum + mac_quad;
-    wire signed [63:0] scaled_accum_l1 = $signed(final_accum_l1) * $signed(M1);
+    wire signed [24:0] accum_25_l1     = (final_accum_l1 > 32'sd16777215) ? 25'sd16777215 :
+                                         (final_accum_l1 < -32'sd16777216) ? -25'sd16777216 : final_accum_l1[24:0];
+    wire signed [42:0] scaled_accum_l1 = accum_25_l1 * M1;
     wire signed [31:0] shifted_l1      = scaled_accum_l1 >>> SHIFT1;
     wire signed [7:0]  relu_l1          = (shifted_l1 < 0) ? 8'sd0 :
                                          (shifted_l1 > 127) ? 8'sd127 : shifted_l1[7:0];
 
     wire signed [31:0] final_accum_l2  = accum + mac_quad;
-    wire signed [63:0] scaled_accum_l2 = $signed(final_accum_l2) * $signed(M2);
+    wire signed [24:0] accum_25_l2     = (final_accum_l2 > 32'sd16777215) ? 25'sd16777215 :
+                                         (final_accum_l2 < -32'sd16777216) ? -25'sd16777216 : final_accum_l2[24:0];
+    wire signed [42:0] scaled_accum_l2 = accum_25_l2 * M2;
     wire signed [31:0] shifted_l2      = scaled_accum_l2 >>> SHIFT2;
     wire signed [7:0]  relu_l2          = (shifted_l2 < 0) ? 8'sd0 :
                                          (shifted_l2 > 127) ? 8'sd127 : shifted_l2[7:0];

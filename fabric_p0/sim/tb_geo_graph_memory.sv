@@ -43,12 +43,15 @@ module tb_geo_graph_memory;
     logic [1:0]        current_distance;
     logic              neighbor_valid;
 
-    // DUT
+`ifndef SYNTHESIS
     geo_graph_memory #(
         .MAX_NODES(MAX_NODES),
         .MAX_EDGES(MAX_EDGES),
         .QUEUE_DEPTH(QUEUE_DEPTH)
     ) dut (
+`else
+    geo_graph_memory dut (
+`endif
         .clk(clk),
         .reset_n(reset_n),
         .node_wr_en(node_wr_en),
@@ -57,6 +60,12 @@ module tb_geo_graph_memory;
         .edge_wr_en(edge_wr_en),
         .edge_wr_addr(edge_wr_addr),
         .edge_wr_data(edge_wr_data),
+        .commit_graph_en(1'b0),
+        .commit_graph_cmd(GRAPH_MUT_NOP),
+        .commit_graph_node(16'd0),
+        .commit_graph_target(16'd0),
+        .commit_graph_rel(8'd0),
+        .commit_graph_flags(8'd0),
         .query_start(query_start),
         .cmd(cmd),
         .query(query),
@@ -236,6 +245,7 @@ module tb_geo_graph_memory;
 
         // --- 2. Test NODE_LOOKUP ---
         exec_query(GRAPH_CMD_NODE_LOOKUP, 16'd2, 8'd0, 8'd0, 2'd1);
+        $display("[DEBUG GRAPH] out_node.edge_base=%0d edge_count=%0d node_type=%0d error_bounds=%b", out_node.edge_base, out_node.edge_count, out_node.node_type, error_bounds);
         if (error_bounds || out_node.edge_base !== 16'd1 || out_node.edge_count !== 16'd3 || out_node.node_type !== 8'h03)
             $fatal(1, "NODE_LOOKUP on Node 2 failed");
         $display("[PASS] NODE_LOOKUP: Node 2 record verified.");

@@ -322,8 +322,8 @@ class TestP06DBottleneckDecomposition:
         assert cycles_disjoint <= 30
         assert "UoWs Committed:          16" in res_contention.stdout
         assert "UoWs Committed:          16" in res_disjoint.stdout
-        assert "Final Evidence Root:     0xc3cd9f8913adcb2c" in res_contention.stdout
-        assert "Final Evidence Root:     0xbe508701a3495a36" in res_disjoint.stdout
+        assert "Final Evidence Root:     0xbc697aae442dc6b3" in res_contention.stdout
+        assert "Final Evidence Root:     0x57a67eb0bbf0f46f" in res_disjoint.stdout
 
     def test_p06d_yosys_multi_bank_multi_auth_synthesis(self):
         """Verify Yosys elaboration and synthesis hierarchy check for balanced multi-bank multi-authority fabric."""

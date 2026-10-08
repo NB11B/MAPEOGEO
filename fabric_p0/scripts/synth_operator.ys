@@ -1,0 +1,13 @@
+# Yosys Synthesis Script: Operator Unit
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/common/geo_defs.svh
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_fixed_arith.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_cl20_multivector.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_unary_ops.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_bilinear_ops.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_matrix_bridge.sv
+read_verilog -sv -Ifabric_p0/rtl/common fabric_p0/rtl/operators/geo_operator_unit.sv
+
+hierarchy -top geo_operator_unit
+proc; opt; memory; opt;
+check
+write_verilog -noattr fabric_p0/netlists/synth_geo_operator_unit.v
