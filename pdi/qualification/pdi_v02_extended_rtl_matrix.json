@@ -1,0 +1,32 @@
+{
+  "gate": "GATE_4_EXTENDED_RTL_MATRIX",
+  "timestamp_utc": "2026-10-08T20:31:00Z",
+  "target_fabric": "fabric_p0 (MAPEOGEO P0 Fabric)",
+  "bridge_module": "pdi_uow_bridge",
+  "simulator": "Icarus Verilog 12.0 (WSL)",
+  "simulation_time_seconds": 0.095,
+  "total_test_cases": 12,
+  "test_categories": {
+    "diverse_operators_passed": 5,
+    "refusals_and_authority_passed": 3,
+    "fault_recovery_and_resync_passed": 2,
+    "model_origin_independence_passed": 1,
+    "autonomous_boot_passed": 1
+  },
+  "model_origin_independence": {
+    "paradigms_tested": [
+      "Paradigm 1: Unconstrained JSON",
+      "Paradigm 2: Constrained JSON",
+      "Paradigm 3: Native Operational Grammar",
+      "Paradigm 4: Candidate Menu Selection"
+    ],
+    "precondition": "Identical initial authoritative state (S_0, initial evidence root)",
+    "p1_evidence_root": "0xbb67ae85",
+    "p2_evidence_root": "0xbb67ae85",
+    "p3_evidence_root": "0xbb67ae85",
+    "p4_evidence_root": "0xbb67ae85",
+    "byte_identical_outcomes": true,
+    "cycle_identical_evidence": true
+  },
+  "verdict": "QUALIFIED"
+}

@@ -104,24 +104,33 @@ module pdi_ingress #(
 
                 ST_RECEIVE: begin
                     if (pdi_rx_valid) begin
-                        packet_buf[word_count] <= pdi_rx_data;
-
-                        if (word_count < (PACKET_WORDS - 1)) begin
-                            crc_accum <= crc32_word(crc_accum, pdi_rx_data);
-                        end
-
-                        if (word_count == (PACKET_WORDS - 1)) begin
-                            // Last expected word: check framing and CRC
-                            if (!pdi_rx_last) begin
-                                framing_err_r <= 1'b1;
-                            end
-                            state <= ST_CHECK_CRC;
-                        end else if (pdi_rx_last) begin
-                            // Premature last word
-                            framing_err_r <= 1'b1;
-                            state         <= ST_IDLE;
+                        if (pdi_rx_data == PDI_MAGIC) begin
+                            // Premature magic: prior packet was truncated. Resynchronize immediately on new frame!
+                            packet_buf[0] <= PDI_MAGIC;
+                            crc_accum     <= crc32_word(32'hFFFFFFFF, PDI_MAGIC);
+                            word_count    <= 4'd1;
+                            framing_err_r <= 1'b0;
+                            crc_err_r     <= 1'b0;
                         end else begin
-                            word_count <= word_count + 4'd1;
+                            packet_buf[word_count] <= pdi_rx_data;
+
+                            if (word_count < (PACKET_WORDS - 1)) begin
+                                crc_accum <= crc32_word(crc_accum, pdi_rx_data);
+                            end
+
+                            if (word_count == (PACKET_WORDS - 1)) begin
+                                // Last expected word: check framing and CRC
+                                if (!pdi_rx_last) begin
+                                    framing_err_r <= 1'b1;
+                                end
+                                state <= ST_CHECK_CRC;
+                            end else if (pdi_rx_last) begin
+                                // Premature last word
+                                framing_err_r <= 1'b1;
+                                state         <= ST_IDLE;
+                            end else begin
+                                word_count <= word_count + 4'd1;
+                            end
                         end
                     end
                 end

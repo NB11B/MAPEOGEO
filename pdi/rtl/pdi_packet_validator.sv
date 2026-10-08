@@ -87,6 +87,7 @@ module pdi_packet_validator #(
     wire chk_opcode_pass   = (opcode <= 6'd33);
     wire chk_addr_pass     = (dest_addr < STATE_WORDS) && (src_a < STATE_WORDS) && (src_b < STATE_WORDS);
     wire chk_auth_pass     = (auth_tok != 32'd0) && ((auth_tok & authorized_capability_mask) == auth_tok);
+    wire chk_version_pass  = (state_ver < 32'd1000);
     wire chk_graph_pass    = (!has_gmut) || (g_node < GRAPH_NODES && g_target < GRAPH_NODES);
 
     typedef enum logic [1:0] {
@@ -151,6 +152,9 @@ module pdi_packet_validator #(
                             v_state  <= V_REFUSE;
                         end else if (!chk_addr_pass || !chk_graph_pass) begin
                             r_reason <= 32'd5; // ERR_OUT_OF_BOUNDS_REF
+                            v_state  <= V_REFUSE;
+                        end else if (!chk_version_pass) begin
+                            r_reason <= 32'd6; // ERR_STALE_STATE_VERSION
                             v_state  <= V_REFUSE;
                         end else if (!chk_auth_pass) begin
                             r_reason <= 32'd7; // ERR_UNAUTHORIZED_CAPABILITY

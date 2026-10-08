@@ -1,0 +1,51 @@
+{
+  "benchmark": "PDI-135M-v0.2 Paradigm Comparison",
+  "timestamp_utc": "2026-10-08T20:25:18Z",
+  "total_holdouts": 49,
+  "paradigms": {
+    "P1_unconstrained_json": {
+      "total_examples": 49,
+      "valid_syntax_count": 6,
+      "syntax_validity_pct": 12.24,
+      "semantic_match_count": 3,
+      "semantic_correctness_pct": 6.12,
+      "accepted_by_adapter_count": 6,
+      "proposal_acceptance_pct": 12.24,
+      "mean_token_count": 56.63,
+      "mean_latency_ms": 1654.69
+    },
+    "P2_constrained_json": {
+      "total_examples": 49,
+      "valid_syntax_count": 49,
+      "syntax_validity_pct": 100.0,
+      "semantic_match_count": 6,
+      "semantic_correctness_pct": 12.24,
+      "accepted_by_adapter_count": 49,
+      "proposal_acceptance_pct": 100.0,
+      "mean_token_count": 58.27,
+      "mean_latency_ms": 1814.82
+    },
+    "P3_native_grammar": {
+      "total_examples": 49,
+      "valid_syntax_count": 49,
+      "syntax_validity_pct": 100.0,
+      "semantic_match_count": 3,
+      "semantic_correctness_pct": 6.12,
+      "accepted_by_adapter_count": 49,
+      "proposal_acceptance_pct": 100.0,
+      "mean_token_count": 21.55,
+      "mean_latency_ms": 658.9
+    },
+    "P4_menu_selection": {
+      "total_examples": 49,
+      "valid_syntax_count": 49,
+      "syntax_validity_pct": 100.0,
+      "semantic_match_count": 15,
+      "semantic_correctness_pct": 30.61,
+      "accepted_by_adapter_count": 49,
+      "proposal_acceptance_pct": 100.0,
+      "mean_token_count": 3.22,
+      "mean_latency_ms": 99.77
+    }
+  }
+}
