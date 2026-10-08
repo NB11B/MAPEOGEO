@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "program": "PDI-135M-v0.4-Freeze",
+  "timestamp_utc": "2026-10-08T21:16:00Z",
+  "git_baseline": {
+    "v03_freeze": "6631b99",
+    "v04_freeze_tag": "pdi-v0.4-freeze",
+    "v04_commit": "9d2bf97",
+    "v04_branch": "experiment/pdi-135m-v0.4-scoring"
+  },
+  "asset_hashes": {
+    "base_model": {
+      "model_id": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "revision": "12fd25f77366fa6b3b4b768ec3050bf629380bac"
+    },
+    "lora_adapter_weights": {
+      "path": "pdi/checkpoints/lora_scorer_v04/adapter/adapter_model.safetensors",
+      "sha256": "af235297cc3088e8372fbb7d795cb22c226a4feca4e0c24ee6603d0af811e2ba"
+    },
+    "lora_score_head": {
+      "path": "pdi/checkpoints/lora_scorer_v04/score_head.pt",
+      "sha256": "dc0bbebbdbeb2b53108398fb9b8d84712c9050dc5e53f733f22d46e99b910de9"
+    },
+    "probing_head": {
+      "path": "pdi/checkpoints/probing_head_v04.pt",
+      "sha256": "cb1a20aa1406537e9f10a70680f7723102db6ed20f569ea4fc7ddb4420d8aa4c"
+    },
+    "prospective_corpus_256": {
+      "path": "pdi/data/pdi_v04_prospective_corpus.json",
+      "sha256": "615b7ddfa6713dde726982b3c7960012f9f5c08f9987608d4ce27ad676ed5d6b"
+    },
+    "hard_ambiguity_challenge_64": {
+      "path": "pdi/data/pdi_v04_hard_ambiguity_challenge.json",
+      "sha256": "a2b6a52e81ccff9a9e9b6eaf82bafbc005cc429ea2196ff20a3c992304c4166f"
+    },
+    "operator_registry": {
+      "path": "pdi/spec/pdi_v0_operators.json",
+      "sha256": "540b686504b03ae602669da41cff0b07a6ea259607d9eacb4e51cabb6053dd5c"
+    }
+  }
+}
