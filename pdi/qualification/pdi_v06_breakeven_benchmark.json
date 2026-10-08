@@ -1,0 +1,193 @@
+{
+  "metadata": {
+    "program": "PDI-135M-v0.6",
+    "phase": "PHASE_1_ECONOMIC_BREAKEVEN",
+    "baseline_freeze": "pdi-v0.5.1-audit (4735687)",
+    "empirical_parameters": {
+      "delta_r_hard_pre_latency": 5.832,
+      "latency_neural_ms": 36.13,
+      "c_latency_default": 0.05,
+      "v_hard_default": 4.026
+    }
+  },
+  "mixture_sweeps": [
+    {
+      "p": 0.0,
+      "utility_guarded_rules": 9.999,
+      "utility_hybrid": 9.999,
+      "v_net": 0.0,
+      "mean_latency_ms": 0.01
+    },
+    {
+      "p": 0.1,
+      "utility_guarded_rules": 8.805,
+      "utility_hybrid": 9.207,
+      "v_net": 0.403,
+      "mean_latency_ms": 3.62
+    },
+    {
+      "p": 0.2,
+      "utility_guarded_rules": 7.61,
+      "utility_hybrid": 8.416,
+      "v_net": 0.805,
+      "mean_latency_ms": 7.23
+    },
+    {
+      "p": 0.3,
+      "utility_guarded_rules": 6.416,
+      "utility_hybrid": 7.624,
+      "v_net": 1.208,
+      "mean_latency_ms": 10.85
+    },
+    {
+      "p": 0.4,
+      "utility_guarded_rules": 5.222,
+      "utility_hybrid": 6.832,
+      "v_net": 1.61,
+      "mean_latency_ms": 14.46
+    },
+    {
+      "p": 0.5,
+      "utility_guarded_rules": 4.027,
+      "utility_hybrid": 6.04,
+      "v_net": 2.013,
+      "mean_latency_ms": 18.07
+    },
+    {
+      "p": 0.562,
+      "utility_guarded_rules": 3.287,
+      "utility_hybrid": 5.549,
+      "v_net": 2.262,
+      "mean_latency_ms": 20.31
+    },
+    {
+      "p": 0.6,
+      "utility_guarded_rules": 2.833,
+      "utility_hybrid": 5.248,
+      "v_net": 2.415,
+      "mean_latency_ms": 21.68
+    },
+    {
+      "p": 0.7,
+      "utility_guarded_rules": 1.639,
+      "utility_hybrid": 4.457,
+      "v_net": 2.818,
+      "mean_latency_ms": 25.29
+    },
+    {
+      "p": 0.8,
+      "utility_guarded_rules": 0.445,
+      "utility_hybrid": 3.665,
+      "v_net": 3.22,
+      "mean_latency_ms": 28.91
+    },
+    {
+      "p": 0.9,
+      "utility_guarded_rules": -0.75,
+      "utility_hybrid": 2.873,
+      "v_net": 3.623,
+      "mean_latency_ms": 32.52
+    },
+    {
+      "p": 1.0,
+      "utility_guarded_rules": -1.944,
+      "utility_hybrid": 2.081,
+      "v_net": 4.025,
+      "mean_latency_ms": 36.13
+    }
+  ],
+  "fixed_cost_frontiers": [
+    {
+      "c_fixed_pts": 0.0,
+      "p_star": 0.0,
+      "p_star_pct": 0.0,
+      "viable_on_workload": true
+    },
+    {
+      "c_fixed_pts": 0.1,
+      "p_star": 0.0248,
+      "p_star_pct": 2.48,
+      "viable_on_workload": true
+    },
+    {
+      "c_fixed_pts": 0.25,
+      "p_star": 0.0621,
+      "p_star_pct": 6.21,
+      "viable_on_workload": true
+    },
+    {
+      "c_fixed_pts": 0.5,
+      "p_star": 0.1242,
+      "p_star_pct": 12.42,
+      "viable_on_workload": true
+    },
+    {
+      "c_fixed_pts": 0.75,
+      "p_star": 0.1863,
+      "p_star_pct": 18.63,
+      "viable_on_workload": true
+    },
+    {
+      "c_fixed_pts": 1.0,
+      "p_star": 0.2484,
+      "p_star_pct": 24.84,
+      "viable_on_workload": true
+    },
+    {
+      "c_fixed_pts": 1.5,
+      "p_star": 0.3726,
+      "p_star_pct": 37.26,
+      "viable_on_workload": true
+    },
+    {
+      "c_fixed_pts": 2.0,
+      "p_star": 0.4968,
+      "p_star_pct": 49.68,
+      "viable_on_workload": true
+    }
+  ],
+  "latency_sensitivity": [
+    {
+      "c_latency_pts_per_ms": 0.01,
+      "latency_cost_pts": 0.361,
+      "v_hard": 5.471,
+      "p_star_cf05": 0.0914
+    },
+    {
+      "c_latency_pts_per_ms": 0.02,
+      "latency_cost_pts": 0.723,
+      "v_hard": 5.109,
+      "p_star_cf05": 0.0979
+    },
+    {
+      "c_latency_pts_per_ms": 0.05,
+      "latency_cost_pts": 1.807,
+      "v_hard": 4.025,
+      "p_star_cf05": 0.1242
+    },
+    {
+      "c_latency_pts_per_ms": 0.075,
+      "latency_cost_pts": 2.71,
+      "v_hard": 3.122,
+      "p_star_cf05": 0.1601
+    },
+    {
+      "c_latency_pts_per_ms": 0.1,
+      "latency_cost_pts": 3.613,
+      "v_hard": 2.219,
+      "p_star_cf05": 0.2253
+    },
+    {
+      "c_latency_pts_per_ms": 0.15,
+      "latency_cost_pts": 5.42,
+      "v_hard": 0.412,
+      "p_star_cf05": 1.2121
+    },
+    {
+      "c_latency_pts_per_ms": 0.2,
+      "latency_cost_pts": 7.226,
+      "v_hard": -1.394,
+      "p_star_cf05": null
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "metadata": {
+    "program": "PDI-135M-v0.6",
+    "phase": "PHASE_2_INDEPENDENT_TRANSFER",
+    "baseline_freeze": "pdi-v0.5.1-audit (4735687)",
+    "total_scenarios": 64,
+    "routing_distribution": {
+      "RULE": 4,
+      "NEURAL": 60,
+      "CLARIFY": 0,
+      "REFUSE": 0
+    }
+  },
+  "arms": {
+    "arm_a_rules_unguarded": {
+      "useful_count": 17,
+      "useful_pct": 26.56,
+      "mean_latency_ms": 0.02,
+      "mean_reward_pre_lat": -4.69,
+      "mean_net_utility": -4.69,
+      "by_regime": {
+        "MULTI_STEP_COMPOSITION": {
+          "total": 20,
+          "useful": 3
+        },
+        "PARAPHRASED_NATURAL_GOALS": {
+          "total": 24,
+          "useful": 9
+        },
+        "REPRESENTATIONAL_TRANSFER": {
+          "total": 20,
+          "useful": 5
+        }
+      }
+    },
+    "arm_b_guarded_rules": {
+      "useful_count": 17,
+      "useful_pct": 26.56,
+      "mean_latency_ms": 0.01,
+      "mean_reward_pre_lat": -4.69,
+      "mean_net_utility": -4.69,
+      "by_regime": {
+        "MULTI_STEP_COMPOSITION": {
+          "total": 20,
+          "useful": 3
+        },
+        "PARAPHRASED_NATURAL_GOALS": {
+          "total": 24,
+          "useful": 9
+        },
+        "REPRESENTATIONAL_TRANSFER": {
+          "total": 20,
+          "useful": 5
+        }
+      }
+    },
+    "arm_c_guarded_neural": {
+      "useful_count": 40,
+      "useful_pct": 62.5,
+      "mean_latency_ms": 35.24,
+      "mean_reward_pre_lat": 2.5,
+      "mean_net_utility": 0.74,
+      "by_regime": {
+        "MULTI_STEP_COMPOSITION": {
+          "total": 20,
+          "useful": 14
+        },
+        "PARAPHRASED_NATURAL_GOALS": {
+          "total": 24,
+          "useful": 16
+        },
+        "REPRESENTATIONAL_TRANSFER": {
+          "total": 20,
+          "useful": 10
+        }
+      }
+    },
+    "arm_d_guarded_random": {
+      "useful_count": 30,
+      "useful_pct": 46.88,
+      "mean_latency_ms": 0.04,
+      "mean_reward_pre_lat": -0.62,
+      "mean_net_utility": -0.63,
+      "by_regime": {
+        "MULTI_STEP_COMPOSITION": {
+          "total": 20,
+          "useful": 9
+        },
+        "PARAPHRASED_NATURAL_GOALS": {
+          "total": 24,
+          "useful": 12
+        },
+        "REPRESENTATIONAL_TRANSFER": {
+          "total": 20,
+          "useful": 9
+        }
+      }
+    }
+  },
+  "delta_neural_given_guard_mean": 5.43,
+  "delta_learned_vs_chance_mean": 1.36
+}

@@ -1,0 +1,970 @@
+{
+  "metadata": {
+    "suite_id": "PDI_V06_INDEPENDENT_TRANSFER_SUITE",
+    "total_scenarios": 64,
+    "regimes": {
+      "MULTI_STEP_COMPOSITION": 20,
+      "PARAPHRASED_NATURAL_GOALS": 24,
+      "REPRESENTATIONAL_TRANSFER": 20
+    },
+    "note": "REPRESENTATIONAL_TRANSFER is evaluated strictly for semantic scoring transfer; native P0 execution is Cl(2,0)."
+  },
+  "records": [
+    {
+      "scenario_id": "PDI-V06-COMP-000",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 100, version 4000. Pre-state: state 10, state 11, state 12. Goal: Execute composite geometric pipeline: first compute wedge product of state 10 and state 11 into destination 100, followed by contraction with state 12.",
+      "assumed_state_version": 4000,
+      "authorized_capability_mask": 1,
+      "dest_ref": 100,
+      "src_refs": [
+        10,
+        11
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_10 REF_11 GOAL_100",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-001",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 101, version 4004. Pre-state: state 12, state 13, state 14. Goal: Two-stage multivector rotor application: first form geometric product of state 12 and state 13 into destination 101.",
+      "assumed_state_version": 4004,
+      "authorized_capability_mask": 1,
+      "dest_ref": 101,
+      "src_refs": [
+        12,
+        13
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_12 REF_13 GOAL_101",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-002",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 102, version 4008. Pre-state: state 14, state 15, state 16. Goal: Cascade vector addition then geometric product: add state 14 and state 15 into destination 102 prior to multiplication with state 16.",
+      "assumed_state_version": 4008,
+      "authorized_capability_mask": 1,
+      "dest_ref": 102,
+      "src_refs": [
+        14,
+        15
+      ],
+      "canonical_action": "PROPOSE OP_ADD REF_14 REF_15 GOAL_102",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-003",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 103, version 4012. Pre-state: state 16, state 17, state 18. Goal: Form geometric commutator bracket: evaluate commutator product of state 16 and state 17 targeting destination 103.",
+      "assumed_state_version": 4012,
+      "authorized_capability_mask": 1,
+      "dest_ref": 103,
+      "src_refs": [
+        16,
+        17
+      ],
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_16 REF_17 GOAL_103",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-004",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 104, version 4016. Pre-state: state 18, state 19, state 20. Goal: Execute composite geometric pipeline: first compute wedge product of state 18 and state 19 into destination 104, followed by contraction with state 20.",
+      "assumed_state_version": 4016,
+      "authorized_capability_mask": 1,
+      "dest_ref": 104,
+      "src_refs": [
+        18,
+        19
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_18 REF_19 GOAL_104",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-005",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 105, version 4020. Pre-state: state 20, state 21, state 22. Goal: Two-stage multivector rotor application: first form geometric product of state 20 and state 21 into destination 105.",
+      "assumed_state_version": 4020,
+      "authorized_capability_mask": 1,
+      "dest_ref": 105,
+      "src_refs": [
+        20,
+        21
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_20 REF_21 GOAL_105",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-006",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 106, version 4024. Pre-state: state 22, state 23, state 24. Goal: Cascade vector addition then geometric product: add state 22 and state 23 into destination 106 prior to multiplication with state 24.",
+      "assumed_state_version": 4024,
+      "authorized_capability_mask": 1,
+      "dest_ref": 106,
+      "src_refs": [
+        22,
+        23
+      ],
+      "canonical_action": "PROPOSE OP_ADD REF_22 REF_23 GOAL_106",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-007",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 107, version 4028. Pre-state: state 24, state 25, state 26. Goal: Form geometric commutator bracket: evaluate commutator product of state 24 and state 25 targeting destination 107.",
+      "assumed_state_version": 4028,
+      "authorized_capability_mask": 1,
+      "dest_ref": 107,
+      "src_refs": [
+        24,
+        25
+      ],
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_24 REF_25 GOAL_107",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-008",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 108, version 4032. Pre-state: state 26, state 27, state 28. Goal: Execute composite geometric pipeline: first compute wedge product of state 26 and state 27 into destination 108, followed by contraction with state 28.",
+      "assumed_state_version": 4032,
+      "authorized_capability_mask": 1,
+      "dest_ref": 108,
+      "src_refs": [
+        26,
+        27
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_26 REF_27 GOAL_108",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-009",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 109, version 4036. Pre-state: state 28, state 29, state 30. Goal: Two-stage multivector rotor application: first form geometric product of state 28 and state 29 into destination 109.",
+      "assumed_state_version": 4036,
+      "authorized_capability_mask": 1,
+      "dest_ref": 109,
+      "src_refs": [
+        28,
+        29
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_28 REF_29 GOAL_109",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-010",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 110, version 4040. Pre-state: state 30, state 31, state 32. Goal: Cascade vector addition then geometric product: add state 30 and state 31 into destination 110 prior to multiplication with state 32.",
+      "assumed_state_version": 4040,
+      "authorized_capability_mask": 1,
+      "dest_ref": 110,
+      "src_refs": [
+        30,
+        31
+      ],
+      "canonical_action": "PROPOSE OP_ADD REF_30 REF_31 GOAL_110",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-011",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 111, version 4044. Pre-state: state 32, state 33, state 34. Goal: Form geometric commutator bracket: evaluate commutator product of state 32 and state 33 targeting destination 111.",
+      "assumed_state_version": 4044,
+      "authorized_capability_mask": 1,
+      "dest_ref": 111,
+      "src_refs": [
+        32,
+        33
+      ],
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_32 REF_33 GOAL_111",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-012",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 112, version 4048. Pre-state: state 34, state 35, state 36. Goal: Execute composite geometric pipeline: first compute wedge product of state 34 and state 35 into destination 112, followed by contraction with state 36.",
+      "assumed_state_version": 4048,
+      "authorized_capability_mask": 1,
+      "dest_ref": 112,
+      "src_refs": [
+        34,
+        35
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_34 REF_35 GOAL_112",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-013",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 113, version 4052. Pre-state: state 36, state 37, state 38. Goal: Two-stage multivector rotor application: first form geometric product of state 36 and state 37 into destination 113.",
+      "assumed_state_version": 4052,
+      "authorized_capability_mask": 1,
+      "dest_ref": 113,
+      "src_refs": [
+        36,
+        37
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_36 REF_37 GOAL_113",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-014",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 114, version 4056. Pre-state: state 38, state 39, state 40. Goal: Cascade vector addition then geometric product: add state 38 and state 39 into destination 114 prior to multiplication with state 40.",
+      "assumed_state_version": 4056,
+      "authorized_capability_mask": 1,
+      "dest_ref": 114,
+      "src_refs": [
+        38,
+        39
+      ],
+      "canonical_action": "PROPOSE OP_ADD REF_38 REF_39 GOAL_114",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-015",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 115, version 4060. Pre-state: state 40, state 41, state 42. Goal: Form geometric commutator bracket: evaluate commutator product of state 40 and state 41 targeting destination 115.",
+      "assumed_state_version": 4060,
+      "authorized_capability_mask": 1,
+      "dest_ref": 115,
+      "src_refs": [
+        40,
+        41
+      ],
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_40 REF_41 GOAL_115",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-016",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 116, version 4064. Pre-state: state 42, state 43, state 44. Goal: Execute composite geometric pipeline: first compute wedge product of state 42 and state 43 into destination 116, followed by contraction with state 44.",
+      "assumed_state_version": 4064,
+      "authorized_capability_mask": 1,
+      "dest_ref": 116,
+      "src_refs": [
+        42,
+        43
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_42 REF_43 GOAL_116",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-017",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 117, version 4068. Pre-state: state 44, state 45, state 46. Goal: Two-stage multivector rotor application: first form geometric product of state 44 and state 45 into destination 117.",
+      "assumed_state_version": 4068,
+      "authorized_capability_mask": 1,
+      "dest_ref": 117,
+      "src_refs": [
+        44,
+        45
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_44 REF_45 GOAL_117",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-018",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 118, version 4072. Pre-state: state 46, state 47, state 48. Goal: Cascade vector addition then geometric product: add state 46 and state 47 into destination 118 prior to multiplication with state 48.",
+      "assumed_state_version": 4072,
+      "authorized_capability_mask": 1,
+      "dest_ref": 118,
+      "src_refs": [
+        46,
+        47
+      ],
+      "canonical_action": "PROPOSE OP_ADD REF_46 REF_47 GOAL_118",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-COMP-019",
+      "regime": "MULTI_STEP_COMPOSITION",
+      "input_prompt": "Context: Dest address 119, version 4076. Pre-state: state 48, state 49, state 50. Goal: Form geometric commutator bracket: evaluate commutator product of state 48 and state 49 targeting destination 119.",
+      "assumed_state_version": 4076,
+      "authorized_capability_mask": 1,
+      "dest_ref": 119,
+      "src_refs": [
+        48,
+        49
+      ],
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_48 REF_49 GOAL_119",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-020",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 120, version 4100. Pre-state: state 20, state 21. Goal: Compute the directed bivector area planar bivector span of state 20 and state 21 into destination 120.",
+      "assumed_state_version": 4100,
+      "authorized_capability_mask": 1,
+      "dest_ref": 120,
+      "src_refs": [
+        20,
+        21
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_20 REF_21 GOAL_120",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-021",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 121, version 4104. Pre-state: state 22, state 23. Goal: Contract state 22 with state 23 via vector dot product into destination 121.",
+      "assumed_state_version": 4104,
+      "authorized_capability_mask": 1,
+      "dest_ref": 121,
+      "src_refs": [
+        22,
+        23
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_22 REF_23 GOAL_121",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-022",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 122, version 4108. Pre-state: state 24, state 25. Goal: Calculate the Clifford geometric product of state 24 and state 25 into destination 122.",
+      "assumed_state_version": 4108,
+      "authorized_capability_mask": 1,
+      "dest_ref": 122,
+      "src_refs": [
+        24,
+        25
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_24 REF_25 GOAL_122",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-023",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 123, version 4112. Pre-state: state 26, state 27. Goal: Find the metric dot product between state 26 and state 27 into destination 123.",
+      "assumed_state_version": 4112,
+      "authorized_capability_mask": 1,
+      "dest_ref": 123,
+      "src_refs": [
+        26,
+        27
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_26 REF_27 GOAL_123",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-024",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 124, version 4116. Pre-state: state 28, state 29. Goal: Synthesize the oriented wedge product of state 28 and state 29 into destination 124.",
+      "assumed_state_version": 4116,
+      "authorized_capability_mask": 1,
+      "dest_ref": 124,
+      "src_refs": [
+        28,
+        29
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_28 REF_29 GOAL_124",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-025",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 125, version 4120. Pre-state: state 30, state 31. Goal: Apply grade involution to state 30 into destination 125.",
+      "assumed_state_version": 4120,
+      "authorized_capability_mask": 1,
+      "dest_ref": 125,
+      "src_refs": [
+        30
+      ],
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_30 GOAL_125",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-026",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 126, version 4124. Pre-state: state 32, state 33. Goal: Compute the directed bivector area planar bivector span of state 32 and state 33 into destination 126.",
+      "assumed_state_version": 4124,
+      "authorized_capability_mask": 1,
+      "dest_ref": 126,
+      "src_refs": [
+        32,
+        33
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_32 REF_33 GOAL_126",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-027",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 127, version 4128. Pre-state: state 34, state 35. Goal: Contract state 34 with state 35 via vector dot product into destination 127.",
+      "assumed_state_version": 4128,
+      "authorized_capability_mask": 1,
+      "dest_ref": 127,
+      "src_refs": [
+        34,
+        35
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_34 REF_35 GOAL_127",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-028",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 128, version 4132. Pre-state: state 36, state 37. Goal: Calculate the Clifford geometric product of state 36 and state 37 into destination 128.",
+      "assumed_state_version": 4132,
+      "authorized_capability_mask": 1,
+      "dest_ref": 128,
+      "src_refs": [
+        36,
+        37
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_36 REF_37 GOAL_128",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-029",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 129, version 4136. Pre-state: state 38, state 39. Goal: Find the metric dot product between state 38 and state 39 into destination 129.",
+      "assumed_state_version": 4136,
+      "authorized_capability_mask": 1,
+      "dest_ref": 129,
+      "src_refs": [
+        38,
+        39
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_38 REF_39 GOAL_129",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-030",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 130, version 4140. Pre-state: state 40, state 41. Goal: Synthesize the oriented wedge product of state 40 and state 41 into destination 130.",
+      "assumed_state_version": 4140,
+      "authorized_capability_mask": 1,
+      "dest_ref": 130,
+      "src_refs": [
+        40,
+        41
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_40 REF_41 GOAL_130",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-031",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 131, version 4144. Pre-state: state 42, state 43. Goal: Apply grade involution to state 42 into destination 131.",
+      "assumed_state_version": 4144,
+      "authorized_capability_mask": 1,
+      "dest_ref": 131,
+      "src_refs": [
+        42
+      ],
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_42 GOAL_131",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-032",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 132, version 4148. Pre-state: state 44, state 45. Goal: Compute the directed bivector area planar bivector span of state 44 and state 45 into destination 132.",
+      "assumed_state_version": 4148,
+      "authorized_capability_mask": 1,
+      "dest_ref": 132,
+      "src_refs": [
+        44,
+        45
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_44 REF_45 GOAL_132",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-033",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 133, version 4152. Pre-state: state 46, state 47. Goal: Contract state 46 with state 47 via vector dot product into destination 133.",
+      "assumed_state_version": 4152,
+      "authorized_capability_mask": 1,
+      "dest_ref": 133,
+      "src_refs": [
+        46,
+        47
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_46 REF_47 GOAL_133",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-034",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 134, version 4156. Pre-state: state 48, state 49. Goal: Calculate the Clifford geometric product of state 48 and state 49 into destination 134.",
+      "assumed_state_version": 4156,
+      "authorized_capability_mask": 1,
+      "dest_ref": 134,
+      "src_refs": [
+        48,
+        49
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_48 REF_49 GOAL_134",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-035",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 135, version 4160. Pre-state: state 50, state 51. Goal: Find the metric dot product between state 50 and state 51 into destination 135.",
+      "assumed_state_version": 4160,
+      "authorized_capability_mask": 1,
+      "dest_ref": 135,
+      "src_refs": [
+        50,
+        51
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_50 REF_51 GOAL_135",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-036",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 136, version 4164. Pre-state: state 52, state 53. Goal: Synthesize the oriented wedge product of state 52 and state 53 into destination 136.",
+      "assumed_state_version": 4164,
+      "authorized_capability_mask": 1,
+      "dest_ref": 136,
+      "src_refs": [
+        52,
+        53
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_52 REF_53 GOAL_136",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-037",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 137, version 4168. Pre-state: state 54, state 55. Goal: Apply grade involution to state 54 into destination 137.",
+      "assumed_state_version": 4168,
+      "authorized_capability_mask": 1,
+      "dest_ref": 137,
+      "src_refs": [
+        54
+      ],
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_54 GOAL_137",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-038",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 138, version 4172. Pre-state: state 56, state 57. Goal: Compute the directed bivector area planar bivector span of state 56 and state 57 into destination 138.",
+      "assumed_state_version": 4172,
+      "authorized_capability_mask": 1,
+      "dest_ref": 138,
+      "src_refs": [
+        56,
+        57
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_56 REF_57 GOAL_138",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-039",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 139, version 4176. Pre-state: state 58, state 59. Goal: Contract state 58 with state 59 via vector dot product into destination 139.",
+      "assumed_state_version": 4176,
+      "authorized_capability_mask": 1,
+      "dest_ref": 139,
+      "src_refs": [
+        58,
+        59
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_58 REF_59 GOAL_139",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-040",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 140, version 4180. Pre-state: state 60, state 61. Goal: Calculate the Clifford geometric product of state 60 and state 61 into destination 140.",
+      "assumed_state_version": 4180,
+      "authorized_capability_mask": 1,
+      "dest_ref": 140,
+      "src_refs": [
+        60,
+        61
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_60 REF_61 GOAL_140",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-041",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 141, version 4184. Pre-state: state 62, state 63. Goal: Find the metric dot product between state 62 and state 63 into destination 141.",
+      "assumed_state_version": 4184,
+      "authorized_capability_mask": 1,
+      "dest_ref": 141,
+      "src_refs": [
+        62,
+        63
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_62 REF_63 GOAL_141",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-042",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 142, version 4188. Pre-state: state 64, state 65. Goal: Synthesize the oriented wedge product of state 64 and state 65 into destination 142.",
+      "assumed_state_version": 4188,
+      "authorized_capability_mask": 1,
+      "dest_ref": 142,
+      "src_refs": [
+        64,
+        65
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_64 REF_65 GOAL_142",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-PARA-043",
+      "regime": "PARAPHRASED_NATURAL_GOALS",
+      "input_prompt": "Context: Dest address 143, version 4192. Pre-state: state 66, state 67. Goal: Apply grade involution to state 66 into destination 143.",
+      "assumed_state_version": 4192,
+      "authorized_capability_mask": 1,
+      "dest_ref": 143,
+      "src_refs": [
+        66
+      ],
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_66 GOAL_143",
+      "is_abstention": false,
+      "is_representational_only": false
+    },
+    {
+      "scenario_id": "PDI-V06-REP-044",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 150, version 4200. Pre-state: state 40, state 41. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] Evaluate 3D spatial rotor: geometric product of state 40 and state 41 into destination 150.",
+      "assumed_state_version": 4200,
+      "authorized_capability_mask": 1,
+      "dest_ref": 150,
+      "src_refs": [
+        40,
+        41
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_40 REF_41 GOAL_150",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-045",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 151, version 4204. Pre-state: state 42, state 43. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Minkowski spacetime boost generator: wedge product of state 42 and state 43 into destination 151.",
+      "assumed_state_version": 4204,
+      "authorized_capability_mask": 1,
+      "dest_ref": 151,
+      "src_refs": [
+        42,
+        43
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_42 REF_43 GOAL_151",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-046",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 152, version 4208. Pre-state: state 44, state 45. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] 3D spatial duality contraction: vector dot of state 44 and state 45 into destination 152.",
+      "assumed_state_version": 4208,
+      "authorized_capability_mask": 1,
+      "dest_ref": 152,
+      "src_refs": [
+        44,
+        45
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_44 REF_45 GOAL_152",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-047",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 153, version 4212. Pre-state: state 46, state 47. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Spacetime invariant: vector dot contraction of state 46 and state 47 into destination 153.",
+      "assumed_state_version": 4212,
+      "authorized_capability_mask": 1,
+      "dest_ref": 153,
+      "src_refs": [
+        46,
+        47
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_46 REF_47 GOAL_153",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-048",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 154, version 4216. Pre-state: state 48, state 49. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] Evaluate 3D spatial rotor: geometric product of state 48 and state 49 into destination 154.",
+      "assumed_state_version": 4216,
+      "authorized_capability_mask": 1,
+      "dest_ref": 154,
+      "src_refs": [
+        48,
+        49
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_48 REF_49 GOAL_154",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-049",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 155, version 4220. Pre-state: state 50, state 51. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Minkowski spacetime boost generator: wedge product of state 50 and state 51 into destination 155.",
+      "assumed_state_version": 4220,
+      "authorized_capability_mask": 1,
+      "dest_ref": 155,
+      "src_refs": [
+        50,
+        51
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_50 REF_51 GOAL_155",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-050",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 156, version 4224. Pre-state: state 52, state 53. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] 3D spatial duality contraction: vector dot of state 52 and state 53 into destination 156.",
+      "assumed_state_version": 4224,
+      "authorized_capability_mask": 1,
+      "dest_ref": 156,
+      "src_refs": [
+        52,
+        53
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_52 REF_53 GOAL_156",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-051",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 157, version 4228. Pre-state: state 54, state 55. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Spacetime invariant: vector dot contraction of state 54 and state 55 into destination 157.",
+      "assumed_state_version": 4228,
+      "authorized_capability_mask": 1,
+      "dest_ref": 157,
+      "src_refs": [
+        54,
+        55
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_54 REF_55 GOAL_157",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-052",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 158, version 4232. Pre-state: state 56, state 57. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] Evaluate 3D spatial rotor: geometric product of state 56 and state 57 into destination 158.",
+      "assumed_state_version": 4232,
+      "authorized_capability_mask": 1,
+      "dest_ref": 158,
+      "src_refs": [
+        56,
+        57
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_56 REF_57 GOAL_158",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-053",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 159, version 4236. Pre-state: state 58, state 59. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Minkowski spacetime boost generator: wedge product of state 58 and state 59 into destination 159.",
+      "assumed_state_version": 4236,
+      "authorized_capability_mask": 1,
+      "dest_ref": 159,
+      "src_refs": [
+        58,
+        59
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_58 REF_59 GOAL_159",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-054",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 160, version 4240. Pre-state: state 60, state 61. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] 3D spatial duality contraction: vector dot of state 60 and state 61 into destination 160.",
+      "assumed_state_version": 4240,
+      "authorized_capability_mask": 1,
+      "dest_ref": 160,
+      "src_refs": [
+        60,
+        61
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_60 REF_61 GOAL_160",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-055",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 161, version 4244. Pre-state: state 62, state 63. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Spacetime invariant: vector dot contraction of state 62 and state 63 into destination 161.",
+      "assumed_state_version": 4244,
+      "authorized_capability_mask": 1,
+      "dest_ref": 161,
+      "src_refs": [
+        62,
+        63
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_62 REF_63 GOAL_161",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-056",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 162, version 4248. Pre-state: state 64, state 65. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] Evaluate 3D spatial rotor: geometric product of state 64 and state 65 into destination 162.",
+      "assumed_state_version": 4248,
+      "authorized_capability_mask": 1,
+      "dest_ref": 162,
+      "src_refs": [
+        64,
+        65
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_64 REF_65 GOAL_162",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-057",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 163, version 4252. Pre-state: state 66, state 67. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Minkowski spacetime boost generator: wedge product of state 66 and state 67 into destination 163.",
+      "assumed_state_version": 4252,
+      "authorized_capability_mask": 1,
+      "dest_ref": 163,
+      "src_refs": [
+        66,
+        67
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_66 REF_67 GOAL_163",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-058",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 164, version 4256. Pre-state: state 68, state 69. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] 3D spatial duality contraction: vector dot of state 68 and state 69 into destination 164.",
+      "assumed_state_version": 4256,
+      "authorized_capability_mask": 1,
+      "dest_ref": 164,
+      "src_refs": [
+        68,
+        69
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_68 REF_69 GOAL_164",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-059",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 165, version 4260. Pre-state: state 70, state 71. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Spacetime invariant: vector dot contraction of state 70 and state 71 into destination 165.",
+      "assumed_state_version": 4260,
+      "authorized_capability_mask": 1,
+      "dest_ref": 165,
+      "src_refs": [
+        70,
+        71
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_70 REF_71 GOAL_165",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-060",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 166, version 4264. Pre-state: state 72, state 73. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] Evaluate 3D spatial rotor: geometric product of state 72 and state 73 into destination 166.",
+      "assumed_state_version": 4264,
+      "authorized_capability_mask": 1,
+      "dest_ref": 166,
+      "src_refs": [
+        72,
+        73
+      ],
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_72 REF_73 GOAL_166",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-061",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 167, version 4268. Pre-state: state 74, state 75. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Minkowski spacetime boost generator: wedge product of state 74 and state 75 into destination 167.",
+      "assumed_state_version": 4268,
+      "authorized_capability_mask": 1,
+      "dest_ref": 167,
+      "src_refs": [
+        74,
+        75
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_74 REF_75 GOAL_167",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-062",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 168, version 4272. Pre-state: state 76, state 77. Goal: [REPRESENTATIONAL TRANSFER Cl(3,0)] 3D spatial duality contraction: vector dot of state 76 and state 77 into destination 168.",
+      "assumed_state_version": 4272,
+      "authorized_capability_mask": 1,
+      "dest_ref": 168,
+      "src_refs": [
+        76,
+        77
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_76 REF_77 GOAL_168",
+      "is_abstention": false,
+      "is_representational_only": true
+    },
+    {
+      "scenario_id": "PDI-V06-REP-063",
+      "regime": "REPRESENTATIONAL_TRANSFER",
+      "input_prompt": "Context: Dest address 169, version 4276. Pre-state: state 78, state 79. Goal: [REPRESENTATIONAL TRANSFER Cl(1,3)] Spacetime invariant: vector dot contraction of state 78 and state 79 into destination 169.",
+      "assumed_state_version": 4276,
+      "authorized_capability_mask": 1,
+      "dest_ref": 169,
+      "src_refs": [
+        78,
+        79
+      ],
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_78 REF_79 GOAL_169",
+      "is_abstention": false,
+      "is_representational_only": true
+    }
+  ]
+}
