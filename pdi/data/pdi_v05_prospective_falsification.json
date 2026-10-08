@@ -1,0 +1,3533 @@
+{
+  "schema_version": "1.0.0",
+  "corpus_id": "pdi-v05-prospective-falsification-128",
+  "total_records": 128,
+  "distribution": {
+    "held_out_operators": 32,
+    "inadmissible_refusal": 24,
+    "insufficient_clarification": 24,
+    "unseen_ambiguity_challenge": 48
+  },
+  "records": [
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s000",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 140, version 3000. Pre-state: @40 = (1.0, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 40 into destination 140.",
+      "assumed_state_version": 3000,
+      "authorized_capability_mask": 1,
+      "dest_ref": 140,
+      "src_refs": [
+        40
+      ],
+      "pre_state": {
+        "40": {
+          "s": 1.0,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "41": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 65536,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_40 GOAL_140",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s001",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 141, version 3004. Pre-state: @42 = (1.0500030517578125, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 42 into destination 141.",
+      "assumed_state_version": 3004,
+      "authorized_capability_mask": 1,
+      "dest_ref": 141,
+      "src_refs": [
+        42
+      ],
+      "pre_state": {
+        "42": {
+          "s": 1.0500030517578125,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "43": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 68813,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_42 GOAL_141",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s002",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 142, version 3008. Pre-state: @44 = (1.100006103515625, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 44 into destination 142.",
+      "assumed_state_version": 3008,
+      "authorized_capability_mask": 1,
+      "dest_ref": 142,
+      "src_refs": [
+        44
+      ],
+      "pre_state": {
+        "44": {
+          "s": 1.100006103515625,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "45": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 72090,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_44 GOAL_142",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s003",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 143, version 3012. Pre-state: @46 = (1.149993896484375, 1.5, -0.5, 0.75), @47 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 46 and state 47 into destination 143.",
+      "assumed_state_version": 3012,
+      "authorized_capability_mask": 1,
+      "dest_ref": 143,
+      "src_refs": [
+        46,
+        47
+      ],
+      "pre_state": {
+        "46": {
+          "s": 1.149993896484375,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "47": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 13927,
+        "e1": 11141,
+        "e2": 106823,
+        "e12": -43418
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_46 REF_47 GOAL_143",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s004",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 144, version 3016. Pre-state: @48 = (1.1999969482421875, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 48 into destination 144.",
+      "assumed_state_version": 3016,
+      "authorized_capability_mask": 1,
+      "dest_ref": 144,
+      "src_refs": [
+        48
+      ],
+      "pre_state": {
+        "48": {
+          "s": 1.1999969482421875,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "49": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 78643,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_48 GOAL_144",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s005",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 145, version 3020. Pre-state: @50 = (1.25, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 50 into destination 145.",
+      "assumed_state_version": 3020,
+      "authorized_capability_mask": 1,
+      "dest_ref": 145,
+      "src_refs": [
+        50
+      ],
+      "pre_state": {
+        "50": {
+          "s": 1.25,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "51": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 81920,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_50 GOAL_145",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s006",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 146, version 3024. Pre-state: @52 = (1.3000030517578125, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 52 into destination 146.",
+      "assumed_state_version": 3024,
+      "authorized_capability_mask": 1,
+      "dest_ref": 146,
+      "src_refs": [
+        52
+      ],
+      "pre_state": {
+        "52": {
+          "s": 1.3000030517578125,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "53": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 85197,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_52 GOAL_146",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s007",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 147, version 3028. Pre-state: @54 = (1.350006103515625, 1.5, -0.5, 0.75), @55 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 54 and state 55 into destination 147.",
+      "assumed_state_version": 3028,
+      "authorized_capability_mask": 1,
+      "dest_ref": 147,
+      "src_refs": [
+        54,
+        55
+      ],
+      "pre_state": {
+        "54": {
+          "s": 1.350006103515625,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "55": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 7373,
+        "e1": 21627,
+        "e2": 122553,
+        "e12": -46695
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_54 REF_55 GOAL_147",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s008",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 148, version 3032. Pre-state: @56 = (1.399993896484375, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 56 into destination 148.",
+      "assumed_state_version": 3032,
+      "authorized_capability_mask": 1,
+      "dest_ref": 148,
+      "src_refs": [
+        56
+      ],
+      "pre_state": {
+        "56": {
+          "s": 1.399993896484375,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "57": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 91750,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_56 GOAL_148",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s009",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 149, version 3036. Pre-state: @58 = (1.4499969482421875, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 58 into destination 149.",
+      "assumed_state_version": 3036,
+      "authorized_capability_mask": 1,
+      "dest_ref": 149,
+      "src_refs": [
+        58
+      ],
+      "pre_state": {
+        "58": {
+          "s": 1.4499969482421875,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "59": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 95027,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_58 GOAL_149",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s010",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 150, version 3040. Pre-state: @60 = (1.5, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 60 into destination 150.",
+      "assumed_state_version": 3040,
+      "authorized_capability_mask": 1,
+      "dest_ref": 150,
+      "src_refs": [
+        60
+      ],
+      "pre_state": {
+        "60": {
+          "s": 1.5,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "61": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 98304,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_60 GOAL_150",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s011",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 151, version 3044. Pre-state: @62 = (1.5500030517578125, 1.5, -0.5, 0.75), @63 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 62 and state 63 into destination 151.",
+      "assumed_state_version": 3044,
+      "authorized_capability_mask": 1,
+      "dest_ref": 151,
+      "src_refs": [
+        62,
+        63
+      ],
+      "pre_state": {
+        "62": {
+          "s": 1.5500030517578125,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "63": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 819,
+        "e1": 32113,
+        "e2": 138281,
+        "e12": -49971
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_62 REF_63 GOAL_151",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s012",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 152, version 3048. Pre-state: @64 = (1.600006103515625, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 64 into destination 152.",
+      "assumed_state_version": 3048,
+      "authorized_capability_mask": 1,
+      "dest_ref": 152,
+      "src_refs": [
+        64
+      ],
+      "pre_state": {
+        "64": {
+          "s": 1.600006103515625,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "65": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 104858,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_64 GOAL_152",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s013",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 153, version 3052. Pre-state: @66 = (1.649993896484375, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 66 into destination 153.",
+      "assumed_state_version": 3052,
+      "authorized_capability_mask": 1,
+      "dest_ref": 153,
+      "src_refs": [
+        66
+      ],
+      "pre_state": {
+        "66": {
+          "s": 1.649993896484375,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "67": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 108134,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_66 GOAL_153",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s014",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 154, version 3056. Pre-state: @68 = (1.6999969482421875, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 68 into destination 154.",
+      "assumed_state_version": 3056,
+      "authorized_capability_mask": 1,
+      "dest_ref": 154,
+      "src_refs": [
+        68
+      ],
+      "pre_state": {
+        "68": {
+          "s": 1.6999969482421875,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "69": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 111411,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_68 GOAL_154",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s015",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 155, version 3060. Pre-state: @70 = (1.75, 1.5, -0.5, 0.75), @71 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 70 and state 71 into destination 155.",
+      "assumed_state_version": 3060,
+      "authorized_capability_mask": 1,
+      "dest_ref": 155,
+      "src_refs": [
+        70,
+        71
+      ],
+      "pre_state": {
+        "70": {
+          "s": 1.75,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "71": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": -5734,
+        "e1": 42599,
+        "e2": 154009,
+        "e12": -53248
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_70 REF_71 GOAL_155",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s016",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 156, version 3064. Pre-state: @72 = (1.8000030517578125, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 72 into destination 156.",
+      "assumed_state_version": 3064,
+      "authorized_capability_mask": 1,
+      "dest_ref": 156,
+      "src_refs": [
+        72
+      ],
+      "pre_state": {
+        "72": {
+          "s": 1.8000030517578125,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "73": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 117965,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_72 GOAL_156",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s017",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 157, version 3068. Pre-state: @74 = (1.850006103515625, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 74 into destination 157.",
+      "assumed_state_version": 3068,
+      "authorized_capability_mask": 1,
+      "dest_ref": 157,
+      "src_refs": [
+        74
+      ],
+      "pre_state": {
+        "74": {
+          "s": 1.850006103515625,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "75": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 121242,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_74 GOAL_157",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s018",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 158, version 3072. Pre-state: @76 = (1.899993896484375, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 76 into destination 158.",
+      "assumed_state_version": 3072,
+      "authorized_capability_mask": 1,
+      "dest_ref": 158,
+      "src_refs": [
+        76
+      ],
+      "pre_state": {
+        "76": {
+          "s": 1.899993896484375,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "77": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 124518,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_76 GOAL_158",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s019",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 159, version 3076. Pre-state: @78 = (1.9499969482421875, 1.5, -0.5, 0.75), @79 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 78 and state 79 into destination 159.",
+      "assumed_state_version": 3076,
+      "authorized_capability_mask": 1,
+      "dest_ref": 159,
+      "src_refs": [
+        78,
+        79
+      ],
+      "pre_state": {
+        "78": {
+          "s": 1.9499969482421875,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "79": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": -12288,
+        "e1": 53084,
+        "e2": 169738,
+        "e12": -56525
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_78 REF_79 GOAL_159",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s020",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 160, version 3080. Pre-state: @80 = (2.0, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 80 into destination 160.",
+      "assumed_state_version": 3080,
+      "authorized_capability_mask": 1,
+      "dest_ref": 160,
+      "src_refs": [
+        80
+      ],
+      "pre_state": {
+        "80": {
+          "s": 2.0,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "81": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 131072,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_80 GOAL_160",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s021",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 161, version 3084. Pre-state: @82 = (2.0500030517578125, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 82 into destination 161.",
+      "assumed_state_version": 3084,
+      "authorized_capability_mask": 1,
+      "dest_ref": 161,
+      "src_refs": [
+        82
+      ],
+      "pre_state": {
+        "82": {
+          "s": 2.0500030517578125,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "83": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 134349,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_82 GOAL_161",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s022",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 162, version 3088. Pre-state: @84 = (2.100006103515625, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 84 into destination 162.",
+      "assumed_state_version": 3088,
+      "authorized_capability_mask": 1,
+      "dest_ref": 162,
+      "src_refs": [
+        84
+      ],
+      "pre_state": {
+        "84": {
+          "s": 2.100006103515625,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "85": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 137626,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_84 GOAL_162",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s023",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 163, version 3092. Pre-state: @86 = (2.149993896484375, 1.5, -0.5, 0.75), @87 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 86 and state 87 into destination 163.",
+      "assumed_state_version": 3092,
+      "authorized_capability_mask": 1,
+      "dest_ref": 163,
+      "src_refs": [
+        86,
+        87
+      ],
+      "pre_state": {
+        "86": {
+          "s": 2.149993896484375,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "87": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": -18841,
+        "e1": 63570,
+        "e2": 185466,
+        "e12": -59802
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_86 REF_87 GOAL_163",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s024",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 164, version 3096. Pre-state: @88 = (2.1999969482421875, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 88 into destination 164.",
+      "assumed_state_version": 3096,
+      "authorized_capability_mask": 1,
+      "dest_ref": 164,
+      "src_refs": [
+        88
+      ],
+      "pre_state": {
+        "88": {
+          "s": 2.1999969482421875,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "89": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 144179,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_88 GOAL_164",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s025",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 165, version 3100. Pre-state: @90 = (2.25, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 90 into destination 165.",
+      "assumed_state_version": 3100,
+      "authorized_capability_mask": 1,
+      "dest_ref": 165,
+      "src_refs": [
+        90
+      ],
+      "pre_state": {
+        "90": {
+          "s": 2.25,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "91": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 147456,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_90 GOAL_165",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s026",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 166, version 3104. Pre-state: @92 = (2.3000030517578125, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 92 into destination 166.",
+      "assumed_state_version": 3104,
+      "authorized_capability_mask": 1,
+      "dest_ref": 166,
+      "src_refs": [
+        92
+      ],
+      "pre_state": {
+        "92": {
+          "s": 2.3000030517578125,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "93": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 150733,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_92 GOAL_166",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s027",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 167, version 3108. Pre-state: @94 = (2.350006103515625, 1.5, -0.5, 0.75), @95 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 94 and state 95 into destination 167.",
+      "assumed_state_version": 3108,
+      "authorized_capability_mask": 1,
+      "dest_ref": 167,
+      "src_refs": [
+        94,
+        95
+      ],
+      "pre_state": {
+        "94": {
+          "s": 2.350006103515625,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "95": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": -25395,
+        "e1": 74056,
+        "e2": 201196,
+        "e12": -63079
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_94 REF_95 GOAL_167",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s028",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 168, version 3112. Pre-state: @96 = (2.399993896484375, 1.5, -0.5, 0.75). Goal: Apply Clifford reversion to state 96 into destination 168.",
+      "assumed_state_version": 3112,
+      "authorized_capability_mask": 1,
+      "dest_ref": 168,
+      "src_refs": [
+        96
+      ],
+      "pre_state": {
+        "96": {
+          "s": 2.399993896484375,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "97": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 157286,
+        "e1": 98304,
+        "e2": -32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_REVERSE REF_96 GOAL_168",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s029",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 169, version 3116. Pre-state: @98 = (2.4499969482421875, 1.5, -0.5, 0.75). Goal: Apply grade involution to state 98 into destination 169.",
+      "assumed_state_version": 3116,
+      "authorized_capability_mask": 1,
+      "dest_ref": 169,
+      "src_refs": [
+        98
+      ],
+      "pre_state": {
+        "98": {
+          "s": 2.4499969482421875,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "99": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 160563,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_GRADE_INVOLUTION REF_98 GOAL_169",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s030",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 170, version 3120. Pre-state: @40 = (2.5, 1.5, -0.5, 0.75). Goal: Apply Clifford conjugation to state 40 into destination 170.",
+      "assumed_state_version": 3120,
+      "authorized_capability_mask": 1,
+      "dest_ref": 170,
+      "src_refs": [
+        40
+      ],
+      "pre_state": {
+        "40": {
+          "s": 2.5,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "41": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": 163840,
+        "e1": -98304,
+        "e2": 32768,
+        "e12": -49152
+      },
+      "canonical_action": "PROPOSE OP_CLIFFORD_CONJUGATE REF_40 GOAL_170",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-HELDOUT-s031",
+      "regime": "HELD_OUT_OPERATORS",
+      "input_prompt": "Context: Dest address 171, version 3124. Pre-state: @42 = (2.5500030517578125, 1.5, -0.5, 0.75), @43 = (-0.5, 0.8000030517578125, 1.1999969482421875, -0.25). Goal: Compute anticommutator product {A, B} of state 42 and state 43 into destination 171.",
+      "assumed_state_version": 3124,
+      "authorized_capability_mask": 1,
+      "dest_ref": 171,
+      "src_refs": [
+        42,
+        43
+      ],
+      "pre_state": {
+        "42": {
+          "s": 2.5500030517578125,
+          "e1": 1.5,
+          "e2": -0.5,
+          "e12": 0.75
+        },
+        "43": {
+          "s": -0.5,
+          "e1": 0.8000030517578125,
+          "e2": 1.1999969482421875,
+          "e12": -0.25
+        }
+      },
+      "expected_q16": {
+        "s": -31949,
+        "e1": 84542,
+        "e2": 216924,
+        "e12": -66355
+      },
+      "canonical_action": "PROPOSE OP_ANTICOMMUTATOR REF_42 REF_43 GOAL_171",
+      "expected_route": "RULE",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s000",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 300, version 3500. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Destination memory address out of bounds (dest=300 >= 256). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_300.",
+      "assumed_state_version": 3500,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s001",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 50, version 3503. Pre-state: @280 = 1s, @11 = 2s. Security constraint: Source operand address out of bounds (src=280 >= 256). Request: PROPOSE OP_ADD REF_280 REF_11 GOAL_50.",
+      "assumed_state_version": 3503,
+      "authorized_capability_mask": 1,
+      "dest_ref": 50,
+      "src_refs": [
+        280,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s002",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 60, version 3506. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Uncertified capability mask requirement (cap=0x80000000). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_60.",
+      "assumed_state_version": 3506,
+      "authorized_capability_mask": 2147483648,
+      "dest_ref": 60,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s003",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 70, version 3509. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Stale state temporal sequence violation (requested v900 < current v1500). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_70.",
+      "assumed_state_version": 3509,
+      "authorized_capability_mask": 1,
+      "dest_ref": 70,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s004",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 300, version 3512. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Destination memory address out of bounds (dest=300 >= 256). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_300.",
+      "assumed_state_version": 3512,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s005",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 50, version 3515. Pre-state: @280 = 1s, @11 = 2s. Security constraint: Source operand address out of bounds (src=280 >= 256). Request: PROPOSE OP_ADD REF_280 REF_11 GOAL_50.",
+      "assumed_state_version": 3515,
+      "authorized_capability_mask": 1,
+      "dest_ref": 50,
+      "src_refs": [
+        280,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s006",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 60, version 3518. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Uncertified capability mask requirement (cap=0x80000000). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_60.",
+      "assumed_state_version": 3518,
+      "authorized_capability_mask": 2147483648,
+      "dest_ref": 60,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s007",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 70, version 3521. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Stale state temporal sequence violation (requested v900 < current v1500). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_70.",
+      "assumed_state_version": 3521,
+      "authorized_capability_mask": 1,
+      "dest_ref": 70,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s008",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 300, version 3524. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Destination memory address out of bounds (dest=300 >= 256). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_300.",
+      "assumed_state_version": 3524,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s009",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 50, version 3527. Pre-state: @280 = 1s, @11 = 2s. Security constraint: Source operand address out of bounds (src=280 >= 256). Request: PROPOSE OP_ADD REF_280 REF_11 GOAL_50.",
+      "assumed_state_version": 3527,
+      "authorized_capability_mask": 1,
+      "dest_ref": 50,
+      "src_refs": [
+        280,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s010",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 60, version 3530. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Uncertified capability mask requirement (cap=0x80000000). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_60.",
+      "assumed_state_version": 3530,
+      "authorized_capability_mask": 2147483648,
+      "dest_ref": 60,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s011",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 70, version 3533. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Stale state temporal sequence violation (requested v900 < current v1500). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_70.",
+      "assumed_state_version": 3533,
+      "authorized_capability_mask": 1,
+      "dest_ref": 70,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s012",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 300, version 3536. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Destination memory address out of bounds (dest=300 >= 256). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_300.",
+      "assumed_state_version": 3536,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s013",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 50, version 3539. Pre-state: @280 = 1s, @11 = 2s. Security constraint: Source operand address out of bounds (src=280 >= 256). Request: PROPOSE OP_ADD REF_280 REF_11 GOAL_50.",
+      "assumed_state_version": 3539,
+      "authorized_capability_mask": 1,
+      "dest_ref": 50,
+      "src_refs": [
+        280,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s014",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 60, version 3542. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Uncertified capability mask requirement (cap=0x80000000). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_60.",
+      "assumed_state_version": 3542,
+      "authorized_capability_mask": 2147483648,
+      "dest_ref": 60,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s015",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 70, version 3545. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Stale state temporal sequence violation (requested v900 < current v1500). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_70.",
+      "assumed_state_version": 3545,
+      "authorized_capability_mask": 1,
+      "dest_ref": 70,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s016",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 300, version 3548. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Destination memory address out of bounds (dest=300 >= 256). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_300.",
+      "assumed_state_version": 3548,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s017",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 50, version 3551. Pre-state: @280 = 1s, @11 = 2s. Security constraint: Source operand address out of bounds (src=280 >= 256). Request: PROPOSE OP_ADD REF_280 REF_11 GOAL_50.",
+      "assumed_state_version": 3551,
+      "authorized_capability_mask": 1,
+      "dest_ref": 50,
+      "src_refs": [
+        280,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s018",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 60, version 3554. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Uncertified capability mask requirement (cap=0x80000000). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_60.",
+      "assumed_state_version": 3554,
+      "authorized_capability_mask": 2147483648,
+      "dest_ref": 60,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s019",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 70, version 3557. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Stale state temporal sequence violation (requested v900 < current v1500). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_70.",
+      "assumed_state_version": 3557,
+      "authorized_capability_mask": 1,
+      "dest_ref": 70,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s020",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 300, version 3560. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Destination memory address out of bounds (dest=300 >= 256). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_300.",
+      "assumed_state_version": 3560,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s021",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 50, version 3563. Pre-state: @280 = 1s, @11 = 2s. Security constraint: Source operand address out of bounds (src=280 >= 256). Request: PROPOSE OP_ADD REF_280 REF_11 GOAL_50.",
+      "assumed_state_version": 3563,
+      "authorized_capability_mask": 1,
+      "dest_ref": 50,
+      "src_refs": [
+        280,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s022",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 60, version 3566. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Uncertified capability mask requirement (cap=0x80000000). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_60.",
+      "assumed_state_version": 3566,
+      "authorized_capability_mask": 2147483648,
+      "dest_ref": 60,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-REFUSE-s023",
+      "regime": "INADMISSIBLE_REFUSAL",
+      "input_prompt": "Context: Dest address 70, version 3569. Pre-state: @10 = 1s, @11 = 2s. Security constraint: Stale state temporal sequence violation (requested v900 < current v1500). Request: PROPOSE OP_ADD REF_10 REF_11 GOAL_70.",
+      "assumed_state_version": 3569,
+      "authorized_capability_mask": 1,
+      "dest_ref": 70,
+      "src_refs": [
+        10,
+        11
+      ],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "ABSTAIN / NONE_OF_THE_ABOVE",
+      "expected_route": "REFUSE",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s000",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4000. State memory observation. Notice: Missing primary operand source address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4000,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s001",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4005. State memory observation. Notice: Unspecified destination memory address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4005,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s002",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4010. State memory observation. Notice: Ambiguous multivector projection grade requested. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4010,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s003",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4015. State memory observation. Notice: Conflicting pre-state temporal version tags (v1010 vs v1080). Work request requires resolution before dispatch.",
+      "assumed_state_version": 4015,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s004",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4020. State memory observation. Notice: Missing primary operand source address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4020,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s005",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4025. State memory observation. Notice: Unspecified destination memory address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4025,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s006",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4030. State memory observation. Notice: Ambiguous multivector projection grade requested. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4030,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s007",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4035. State memory observation. Notice: Conflicting pre-state temporal version tags (v1010 vs v1080). Work request requires resolution before dispatch.",
+      "assumed_state_version": 4035,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s008",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4040. State memory observation. Notice: Missing primary operand source address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4040,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s009",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4045. State memory observation. Notice: Unspecified destination memory address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4045,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s010",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4050. State memory observation. Notice: Ambiguous multivector projection grade requested. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4050,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s011",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4055. State memory observation. Notice: Conflicting pre-state temporal version tags (v1010 vs v1080). Work request requires resolution before dispatch.",
+      "assumed_state_version": 4055,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s012",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4060. State memory observation. Notice: Missing primary operand source address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4060,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s013",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4065. State memory observation. Notice: Unspecified destination memory address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4065,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s014",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4070. State memory observation. Notice: Ambiguous multivector projection grade requested. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4070,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s015",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4075. State memory observation. Notice: Conflicting pre-state temporal version tags (v1010 vs v1080). Work request requires resolution before dispatch.",
+      "assumed_state_version": 4075,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s016",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4080. State memory observation. Notice: Missing primary operand source address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4080,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s017",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4085. State memory observation. Notice: Unspecified destination memory address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4085,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s018",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4090. State memory observation. Notice: Ambiguous multivector projection grade requested. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4090,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s019",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4095. State memory observation. Notice: Conflicting pre-state temporal version tags (v1010 vs v1080). Work request requires resolution before dispatch.",
+      "assumed_state_version": 4095,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s020",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4100. State memory observation. Notice: Missing primary operand source address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4100,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s021",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4105. State memory observation. Notice: Unspecified destination memory address. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4105,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s022",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4110. State memory observation. Notice: Ambiguous multivector projection grade requested. Work request requires resolution before dispatch.",
+      "assumed_state_version": 4110,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-CLARIFY-s023",
+      "regime": "INSUFFICIENT_CLARIFICATION",
+      "input_prompt": "Context: Pre-state version 4115. State memory observation. Notice: Conflicting pre-state temporal version tags (v1010 vs v1080). Work request requires resolution before dispatch.",
+      "assumed_state_version": 4115,
+      "authorized_capability_mask": 1,
+      "dest_ref": null,
+      "src_refs": [],
+      "pre_state": {},
+      "expected_q16": null,
+      "canonical_action": "CLARIFY SLOT_operator_id REASON_unspecified_ambiguity",
+      "expected_route": "CLARIFY",
+      "is_abstention": true
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s000",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 180, version 4500. Pre-state: @70 = (1.5, 0.0, -1.0, 0.5), @71 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 70 by state 71 into destination state 180.",
+      "assumed_state_version": 4500,
+      "authorized_capability_mask": 1,
+      "dest_ref": 180,
+      "src_refs": [
+        70,
+        71
+      ],
+      "pre_state": {
+        "70": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "71": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_70 REF_71 GOAL_180",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s001",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 181, version 4507. Pre-state: @72 = (1.5, 0.5, -1.0, 0.5), @73 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 72 by state 73 into destination state 181.",
+      "assumed_state_version": 4507,
+      "authorized_capability_mask": 1,
+      "dest_ref": 181,
+      "src_refs": [
+        72,
+        73
+      ],
+      "pre_state": {
+        "72": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "73": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_72 REF_73 GOAL_181",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s002",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 182, version 4514. Pre-state: @74 = (1.5, 1.0, -1.0, 0.5), @75 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 74 and state 75 into destination state 182.",
+      "assumed_state_version": 4514,
+      "authorized_capability_mask": 1,
+      "dest_ref": 182,
+      "src_refs": [
+        74,
+        75
+      ],
+      "pre_state": {
+        "74": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "75": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_74 REF_75 GOAL_182",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s003",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 183, version 4521. Pre-state: @76 = (1.5, 0.0, -1.0, 0.5), @77 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 76 by state 77 into destination state 183.",
+      "assumed_state_version": 4521,
+      "authorized_capability_mask": 1,
+      "dest_ref": 183,
+      "src_refs": [
+        76,
+        77
+      ],
+      "pre_state": {
+        "76": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "77": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_76 REF_77 GOAL_183",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s004",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 184, version 4528. Pre-state: @78 = (1.5, 0.5, -1.0, 0.5), @79 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 78 by state 79 into destination state 184.",
+      "assumed_state_version": 4528,
+      "authorized_capability_mask": 1,
+      "dest_ref": 184,
+      "src_refs": [
+        78,
+        79
+      ],
+      "pre_state": {
+        "78": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "79": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_78 REF_79 GOAL_184",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s005",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 185, version 4535. Pre-state: @80 = (1.5, 1.0, -1.0, 0.5), @81 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 80 and state 81 into destination state 185.",
+      "assumed_state_version": 4535,
+      "authorized_capability_mask": 1,
+      "dest_ref": 185,
+      "src_refs": [
+        80,
+        81
+      ],
+      "pre_state": {
+        "80": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "81": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_80 REF_81 GOAL_185",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s006",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 186, version 4542. Pre-state: @82 = (1.5, 0.0, -1.0, 0.5), @83 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 82 by state 83 into destination state 186.",
+      "assumed_state_version": 4542,
+      "authorized_capability_mask": 1,
+      "dest_ref": 186,
+      "src_refs": [
+        82,
+        83
+      ],
+      "pre_state": {
+        "82": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "83": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_82 REF_83 GOAL_186",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s007",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 187, version 4549. Pre-state: @84 = (1.5, 0.5, -1.0, 0.5), @85 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 84 by state 85 into destination state 187.",
+      "assumed_state_version": 4549,
+      "authorized_capability_mask": 1,
+      "dest_ref": 187,
+      "src_refs": [
+        84,
+        85
+      ],
+      "pre_state": {
+        "84": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "85": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_84 REF_85 GOAL_187",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s008",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 188, version 4556. Pre-state: @86 = (1.5, 1.0, -1.0, 0.5), @87 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 86 and state 87 into destination state 188.",
+      "assumed_state_version": 4556,
+      "authorized_capability_mask": 1,
+      "dest_ref": 188,
+      "src_refs": [
+        86,
+        87
+      ],
+      "pre_state": {
+        "86": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "87": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_86 REF_87 GOAL_188",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s009",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 189, version 4563. Pre-state: @88 = (1.5, 0.0, -1.0, 0.5), @89 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 88 by state 89 into destination state 189.",
+      "assumed_state_version": 4563,
+      "authorized_capability_mask": 1,
+      "dest_ref": 189,
+      "src_refs": [
+        88,
+        89
+      ],
+      "pre_state": {
+        "88": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "89": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_88 REF_89 GOAL_189",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s010",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 190, version 4570. Pre-state: @90 = (1.5, 0.5, -1.0, 0.5), @91 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 90 by state 91 into destination state 190.",
+      "assumed_state_version": 4570,
+      "authorized_capability_mask": 1,
+      "dest_ref": 190,
+      "src_refs": [
+        90,
+        91
+      ],
+      "pre_state": {
+        "90": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "91": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_90 REF_91 GOAL_190",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s011",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 191, version 4577. Pre-state: @92 = (1.5, 1.0, -1.0, 0.5), @93 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 92 and state 93 into destination state 191.",
+      "assumed_state_version": 4577,
+      "authorized_capability_mask": 1,
+      "dest_ref": 191,
+      "src_refs": [
+        92,
+        93
+      ],
+      "pre_state": {
+        "92": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "93": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_92 REF_93 GOAL_191",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s012",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 192, version 4584. Pre-state: @94 = (1.5, 0.0, -1.0, 0.5), @95 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 94 by state 95 into destination state 192.",
+      "assumed_state_version": 4584,
+      "authorized_capability_mask": 1,
+      "dest_ref": 192,
+      "src_refs": [
+        94,
+        95
+      ],
+      "pre_state": {
+        "94": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "95": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_94 REF_95 GOAL_192",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s013",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 193, version 4591. Pre-state: @96 = (1.5, 0.5, -1.0, 0.5), @97 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 96 by state 97 into destination state 193.",
+      "assumed_state_version": 4591,
+      "authorized_capability_mask": 1,
+      "dest_ref": 193,
+      "src_refs": [
+        96,
+        97
+      ],
+      "pre_state": {
+        "96": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "97": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_96 REF_97 GOAL_193",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s014",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 194, version 4598. Pre-state: @98 = (1.5, 1.0, -1.0, 0.5), @99 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 98 and state 99 into destination state 194.",
+      "assumed_state_version": 4598,
+      "authorized_capability_mask": 1,
+      "dest_ref": 194,
+      "src_refs": [
+        98,
+        99
+      ],
+      "pre_state": {
+        "98": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "99": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_98 REF_99 GOAL_194",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s015",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 195, version 4605. Pre-state: @100 = (1.5, 0.0, -1.0, 0.5), @101 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 100 by state 101 into destination state 195.",
+      "assumed_state_version": 4605,
+      "authorized_capability_mask": 1,
+      "dest_ref": 195,
+      "src_refs": [
+        100,
+        101
+      ],
+      "pre_state": {
+        "100": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "101": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_100 REF_101 GOAL_195",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s016",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 196, version 4612. Pre-state: @102 = (1.5, 0.5, -1.0, 0.5), @103 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 102 by state 103 into destination state 196.",
+      "assumed_state_version": 4612,
+      "authorized_capability_mask": 1,
+      "dest_ref": 196,
+      "src_refs": [
+        102,
+        103
+      ],
+      "pre_state": {
+        "102": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "103": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_102 REF_103 GOAL_196",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s017",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 197, version 4619. Pre-state: @104 = (1.5, 1.0, -1.0, 0.5), @105 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 104 and state 105 into destination state 197.",
+      "assumed_state_version": 4619,
+      "authorized_capability_mask": 1,
+      "dest_ref": 197,
+      "src_refs": [
+        104,
+        105
+      ],
+      "pre_state": {
+        "104": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "105": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_104 REF_105 GOAL_197",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s018",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 198, version 4626. Pre-state: @106 = (1.5, 0.0, -1.0, 0.5), @107 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 106 by state 107 into destination state 198.",
+      "assumed_state_version": 4626,
+      "authorized_capability_mask": 1,
+      "dest_ref": 198,
+      "src_refs": [
+        106,
+        107
+      ],
+      "pre_state": {
+        "106": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "107": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_106 REF_107 GOAL_198",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s019",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 199, version 4633. Pre-state: @108 = (1.5, 0.5, -1.0, 0.5), @109 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 108 by state 109 into destination state 199.",
+      "assumed_state_version": 4633,
+      "authorized_capability_mask": 1,
+      "dest_ref": 199,
+      "src_refs": [
+        108,
+        109
+      ],
+      "pre_state": {
+        "108": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "109": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_108 REF_109 GOAL_199",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s020",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 200, version 4640. Pre-state: @70 = (1.5, 1.0, -1.0, 0.5), @71 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 70 and state 71 into destination state 200.",
+      "assumed_state_version": 4640,
+      "authorized_capability_mask": 1,
+      "dest_ref": 200,
+      "src_refs": [
+        70,
+        71
+      ],
+      "pre_state": {
+        "70": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "71": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_70 REF_71 GOAL_200",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s021",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 201, version 4647. Pre-state: @72 = (1.5, 0.0, -1.0, 0.5), @73 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 72 by state 73 into destination state 201.",
+      "assumed_state_version": 4647,
+      "authorized_capability_mask": 1,
+      "dest_ref": 201,
+      "src_refs": [
+        72,
+        73
+      ],
+      "pre_state": {
+        "72": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "73": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_72 REF_73 GOAL_201",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s022",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 202, version 4654. Pre-state: @74 = (1.5, 0.5, -1.0, 0.5), @75 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 74 by state 75 into destination state 202.",
+      "assumed_state_version": 4654,
+      "authorized_capability_mask": 1,
+      "dest_ref": 202,
+      "src_refs": [
+        74,
+        75
+      ],
+      "pre_state": {
+        "74": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "75": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_74 REF_75 GOAL_202",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s023",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 203, version 4661. Pre-state: @76 = (1.5, 1.0, -1.0, 0.5), @77 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 76 and state 77 into destination state 203.",
+      "assumed_state_version": 4661,
+      "authorized_capability_mask": 1,
+      "dest_ref": 203,
+      "src_refs": [
+        76,
+        77
+      ],
+      "pre_state": {
+        "76": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "77": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_76 REF_77 GOAL_203",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s024",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 204, version 4668. Pre-state: @78 = (1.5, 0.0, -1.0, 0.5), @79 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 78 by state 79 into destination state 204.",
+      "assumed_state_version": 4668,
+      "authorized_capability_mask": 1,
+      "dest_ref": 204,
+      "src_refs": [
+        78,
+        79
+      ],
+      "pre_state": {
+        "78": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "79": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_78 REF_79 GOAL_204",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s025",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 205, version 4675. Pre-state: @80 = (1.5, 0.5, -1.0, 0.5), @81 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 80 by state 81 into destination state 205.",
+      "assumed_state_version": 4675,
+      "authorized_capability_mask": 1,
+      "dest_ref": 205,
+      "src_refs": [
+        80,
+        81
+      ],
+      "pre_state": {
+        "80": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "81": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_80 REF_81 GOAL_205",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s026",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 206, version 4682. Pre-state: @82 = (1.5, 1.0, -1.0, 0.5), @83 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 82 and state 83 into destination state 206.",
+      "assumed_state_version": 4682,
+      "authorized_capability_mask": 1,
+      "dest_ref": 206,
+      "src_refs": [
+        82,
+        83
+      ],
+      "pre_state": {
+        "82": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "83": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_82 REF_83 GOAL_206",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s027",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 207, version 4689. Pre-state: @84 = (1.5, 0.0, -1.0, 0.5), @85 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 84 by state 85 into destination state 207.",
+      "assumed_state_version": 4689,
+      "authorized_capability_mask": 1,
+      "dest_ref": 207,
+      "src_refs": [
+        84,
+        85
+      ],
+      "pre_state": {
+        "84": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "85": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_84 REF_85 GOAL_207",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s028",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 208, version 4696. Pre-state: @86 = (1.5, 0.5, -1.0, 0.5), @87 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 86 by state 87 into destination state 208.",
+      "assumed_state_version": 4696,
+      "authorized_capability_mask": 1,
+      "dest_ref": 208,
+      "src_refs": [
+        86,
+        87
+      ],
+      "pre_state": {
+        "86": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "87": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_86 REF_87 GOAL_208",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s029",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 209, version 4703. Pre-state: @88 = (1.5, 1.0, -1.0, 0.5), @89 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 88 and state 89 into destination state 209.",
+      "assumed_state_version": 4703,
+      "authorized_capability_mask": 1,
+      "dest_ref": 209,
+      "src_refs": [
+        88,
+        89
+      ],
+      "pre_state": {
+        "88": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "89": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_88 REF_89 GOAL_209",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s030",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 210, version 4710. Pre-state: @90 = (1.5, 0.0, -1.0, 0.5), @91 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 90 by state 91 into destination state 210.",
+      "assumed_state_version": 4710,
+      "authorized_capability_mask": 1,
+      "dest_ref": 210,
+      "src_refs": [
+        90,
+        91
+      ],
+      "pre_state": {
+        "90": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "91": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_90 REF_91 GOAL_210",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s031",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 211, version 4717. Pre-state: @92 = (1.5, 0.5, -1.0, 0.5), @93 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 92 by state 93 into destination state 211.",
+      "assumed_state_version": 4717,
+      "authorized_capability_mask": 1,
+      "dest_ref": 211,
+      "src_refs": [
+        92,
+        93
+      ],
+      "pre_state": {
+        "92": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "93": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_92 REF_93 GOAL_211",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s032",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 212, version 4724. Pre-state: @94 = (1.5, 1.0, -1.0, 0.5), @95 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 94 and state 95 into destination state 212.",
+      "assumed_state_version": 4724,
+      "authorized_capability_mask": 1,
+      "dest_ref": 212,
+      "src_refs": [
+        94,
+        95
+      ],
+      "pre_state": {
+        "94": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "95": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_94 REF_95 GOAL_212",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s033",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 213, version 4731. Pre-state: @96 = (1.5, 0.0, -1.0, 0.5), @97 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 96 by state 97 into destination state 213.",
+      "assumed_state_version": 4731,
+      "authorized_capability_mask": 1,
+      "dest_ref": 213,
+      "src_refs": [
+        96,
+        97
+      ],
+      "pre_state": {
+        "96": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "97": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_96 REF_97 GOAL_213",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s034",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 214, version 4738. Pre-state: @98 = (1.5, 0.5, -1.0, 0.5), @99 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 98 by state 99 into destination state 214.",
+      "assumed_state_version": 4738,
+      "authorized_capability_mask": 1,
+      "dest_ref": 214,
+      "src_refs": [
+        98,
+        99
+      ],
+      "pre_state": {
+        "98": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "99": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_98 REF_99 GOAL_214",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s035",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 215, version 4745. Pre-state: @100 = (1.5, 1.0, -1.0, 0.5), @101 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 100 and state 101 into destination state 215.",
+      "assumed_state_version": 4745,
+      "authorized_capability_mask": 1,
+      "dest_ref": 215,
+      "src_refs": [
+        100,
+        101
+      ],
+      "pre_state": {
+        "100": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "101": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_100 REF_101 GOAL_215",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s036",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 216, version 4752. Pre-state: @102 = (1.5, 0.0, -1.0, 0.5), @103 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 102 by state 103 into destination state 216.",
+      "assumed_state_version": 4752,
+      "authorized_capability_mask": 1,
+      "dest_ref": 216,
+      "src_refs": [
+        102,
+        103
+      ],
+      "pre_state": {
+        "102": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "103": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_102 REF_103 GOAL_216",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s037",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 217, version 4759. Pre-state: @104 = (1.5, 0.5, -1.0, 0.5), @105 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 104 by state 105 into destination state 217.",
+      "assumed_state_version": 4759,
+      "authorized_capability_mask": 1,
+      "dest_ref": 217,
+      "src_refs": [
+        104,
+        105
+      ],
+      "pre_state": {
+        "104": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "105": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_104 REF_105 GOAL_217",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s038",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 218, version 4766. Pre-state: @106 = (1.5, 1.0, -1.0, 0.5), @107 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 106 and state 107 into destination state 218.",
+      "assumed_state_version": 4766,
+      "authorized_capability_mask": 1,
+      "dest_ref": 218,
+      "src_refs": [
+        106,
+        107
+      ],
+      "pre_state": {
+        "106": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "107": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_106 REF_107 GOAL_218",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s039",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 219, version 4773. Pre-state: @108 = (1.5, 0.0, -1.0, 0.5), @109 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 108 by state 109 into destination state 219.",
+      "assumed_state_version": 4773,
+      "authorized_capability_mask": 1,
+      "dest_ref": 219,
+      "src_refs": [
+        108,
+        109
+      ],
+      "pre_state": {
+        "108": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "109": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_108 REF_109 GOAL_219",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s040",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 220, version 4780. Pre-state: @70 = (1.5, 0.5, -1.0, 0.5), @71 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 70 by state 71 into destination state 220.",
+      "assumed_state_version": 4780,
+      "authorized_capability_mask": 1,
+      "dest_ref": 220,
+      "src_refs": [
+        70,
+        71
+      ],
+      "pre_state": {
+        "70": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "71": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_70 REF_71 GOAL_220",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s041",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 221, version 4787. Pre-state: @72 = (1.5, 1.0, -1.0, 0.5), @73 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 72 and state 73 into destination state 221.",
+      "assumed_state_version": 4787,
+      "authorized_capability_mask": 1,
+      "dest_ref": 221,
+      "src_refs": [
+        72,
+        73
+      ],
+      "pre_state": {
+        "72": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "73": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_72 REF_73 GOAL_221",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s042",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 222, version 4794. Pre-state: @74 = (1.5, 0.0, -1.0, 0.5), @75 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented geometric Clifford product of state 74 by state 75 into destination state 222.",
+      "assumed_state_version": 4794,
+      "authorized_capability_mask": 1,
+      "dest_ref": 222,
+      "src_refs": [
+        74,
+        75
+      ],
+      "pre_state": {
+        "74": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "75": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -147456,
+        "e1": 147456,
+        "e2": 147456,
+        "e12": 49152
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_74 REF_75 GOAL_222",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s043",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 223, version 4801. Pre-state: @76 = (1.5, 0.5, -1.0, 0.5), @77 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented commutator product [A, B] of state 76 by state 77 into destination state 223.",
+      "assumed_state_version": 4801,
+      "authorized_capability_mask": 1,
+      "dest_ref": 223,
+      "src_refs": [
+        76,
+        77
+      ],
+      "pre_state": {
+        "76": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "77": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 16384,
+        "e2": -49152,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_76 REF_77 GOAL_223",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s044",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 224, version 4808. Pre-state: @78 = (1.5, 1.0, -1.0, 0.5), @79 = (-0.5, 1.0, 1.5, 0.0). Task intent: Extract symmetric scalar projection metric between state 78 and state 79 into destination state 224.",
+      "assumed_state_version": 4808,
+      "authorized_capability_mask": 1,
+      "dest_ref": 224,
+      "src_refs": [
+        78,
+        79
+      ],
+      "pre_state": {
+        "78": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "79": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": -32768,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_DOT REF_78 REF_79 GOAL_224",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s045",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 225, version 4815. Pre-state: @80 = (1.5, 0.0, -1.0, 0.5), @81 = (-0.5, 1.0, 1.5, -0.5). Goal: Compute oriented geometric Clifford product of state 80 by state 81 into destination state 225.",
+      "assumed_state_version": 4815,
+      "authorized_capability_mask": 1,
+      "dest_ref": 225,
+      "src_refs": [
+        80,
+        81
+      ],
+      "pre_state": {
+        "80": {
+          "s": 1.5,
+          "e1": 0.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "81": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": -131072,
+        "e1": 114688,
+        "e2": 147456,
+        "e12": 0
+      },
+      "canonical_action": "PROPOSE OP_CL20_PRODUCT REF_80 REF_81 GOAL_225",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s046",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 226, version 4822. Pre-state: @82 = (1.5, 0.5, -1.0, 0.5), @83 = (-0.5, 1.0, 1.5, 0.0). Goal: Compute oriented commutator product [A, B] of state 82 by state 83 into destination state 226.",
+      "assumed_state_version": 4822,
+      "authorized_capability_mask": 1,
+      "dest_ref": 226,
+      "src_refs": [
+        82,
+        83
+      ],
+      "pre_state": {
+        "82": {
+          "s": 1.5,
+          "e1": 0.5,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "83": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": 0.0
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 49152,
+        "e2": -32768,
+        "e12": 114688
+      },
+      "canonical_action": "PROPOSE OP_COMMUTATOR REF_82 REF_83 GOAL_226",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    },
+    {
+      "scenario_id": "PDI-V05-AMBIG-s047",
+      "regime": "UNSEEN_AMBIGUITY_CHALLENGE",
+      "input_prompt": "Context: Dest address 227, version 4829. Pre-state: @84 = (1.5, 1.0, -1.0, 0.5), @85 = (-0.5, 1.0, 1.5, -0.5). Task intent: Construct oriented planar bivector span spanned by state 84 and state 85 into destination state 227.",
+      "assumed_state_version": 4829,
+      "authorized_capability_mask": 1,
+      "dest_ref": 227,
+      "src_refs": [
+        84,
+        85
+      ],
+      "pre_state": {
+        "84": {
+          "s": 1.5,
+          "e1": 1.0,
+          "e2": -1.0,
+          "e12": 0.5
+        },
+        "85": {
+          "s": -0.5,
+          "e1": 1.0,
+          "e2": 1.5,
+          "e12": -0.5
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 163840
+      },
+      "canonical_action": "PROPOSE OP_VECTOR_WEDGE REF_84 REF_85 GOAL_227",
+      "expected_route": "NEURAL",
+      "is_abstention": false
+    }
+  ]
+}
