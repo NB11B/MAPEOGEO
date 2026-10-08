@@ -1,0 +1,52 @@
+{
+  "metadata": {
+    "program": "PDI-135M-v0.7A",
+    "suite_id": "COMPLETE_WORK_DAG_QUALIFICATION",
+    "total_goals": 128,
+    "supported_goals": 112,
+    "unsupported_goals": 16,
+    "timestamp": "2026-10-08T18:19:15Z"
+  },
+  "gates": {
+    "dag_compilation_rate_supported": 100.0,
+    "unsupported_fail_closed_rate": 100.0,
+    "hazard_free_allocation_rate": 100.0,
+    "c_first_rate": 100.0,
+    "c_goal_rate": 100.0,
+    "isolation_verified_rate": 100.0,
+    "version_consistency_rate": 100.0,
+    "evidence_integrity_rate": 100.0,
+    "fault_recovery_clean_rate": 100.0
+  },
+  "family_breakdown": {
+    "CONTRACTION_WEDGE": {
+      "total": 40,
+      "compiled": 40,
+      "c_first": 40,
+      "c_goal": 40,
+      "fail_closed": 0
+    },
+    "COMMUTATOR_BRACKET": {
+      "total": 40,
+      "compiled": 40,
+      "c_first": 40,
+      "c_goal": 40,
+      "fail_closed": 0
+    },
+    "ROTOR_SANDWICH": {
+      "total": 32,
+      "compiled": 32,
+      "c_first": 32,
+      "c_goal": 32,
+      "fail_closed": 0
+    },
+    "UNSUPPORTED": {
+      "total": 16,
+      "compiled": 0,
+      "c_first": 0,
+      "c_goal": 16,
+      "fail_closed": 16
+    }
+  },
+  "supervision_records_count": 112
+}

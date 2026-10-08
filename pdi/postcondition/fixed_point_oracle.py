@@ -97,6 +97,18 @@ class Q16Multivector:
     def to_floats(self) -> Tuple[float, float, float, float]:
         return (from_q16(self.s), from_q16(self.e1), from_q16(self.e2), from_q16(self.e12))
 
+    def to_dict(self) -> dict[str, int]:
+        return {"s": self.s, "e1": self.e1, "e2": self.e2, "e12": self.e12}
+
+    def copy(self) -> Q16Multivector:
+        return Q16Multivector(self.s, self.e1, self.e2, self.e12)
+
+    def equals(self, other: Q16Multivector) -> bool:
+        return (self.s == other.s and self.e1 == other.e1 and self.e2 == other.e2 and self.e12 == other.e12)
+
+    def canonical_hex(self) -> str:
+        return f"{self.s & 0xFFFFFFFF:08x}_{self.e1 & 0xFFFFFFFF:08x}_{self.e2 & 0xFFFFFFFF:08x}_{self.e12 & 0xFFFFFFFF:08x}"
+
 
 class RTLCliffordSimulator:
     """Bit-exact software execution of geo_cl20_multivector.sv."""
@@ -204,3 +216,34 @@ class RTLCliffordSimulator:
         res_e2, _ = rtl_mul(diff_e2, half)
         res_e12, _ = rtl_mul(diff_e12, half)
         return Q16Multivector(res_s, res_e1, res_e2, res_e12), False
+
+    @classmethod
+    def compute_op(cls, op: str, srcs: list[Q16Multivector]) -> Tuple[Q16Multivector, bool]:
+        if op in ("OP_VECTOR_WEDGE", "wedge"):
+            return cls.vector_wedge(srcs[0], srcs[1])
+        elif op in ("OP_VECTOR_DOT", "dot"):
+            return cls.vector_dot(srcs[0], srcs[1])
+        elif op in ("OP_CL20_PRODUCT", "mul", "geometric"):
+            return cls.cl20_product(srcs[0], srcs[1])
+        elif op in ("OP_COMMUTATOR", "commutator"):
+            return cls.commutator(srcs[0], srcs[1])
+        elif op in ("OP_SUB", "sub"):
+            s, o1 = rtl_sub(srcs[0].s, srcs[1].s)
+            e1, o2 = rtl_sub(srcs[0].e1, srcs[1].e1)
+            e2, o3 = rtl_sub(srcs[0].e2, srcs[1].e2)
+            e12, o4 = rtl_sub(srcs[0].e12, srcs[1].e12)
+            return Q16Multivector(s, e1, e2, e12), (o1 or o2 or o3 or o4)
+        elif op in ("OP_ADD", "add"):
+            s, o1 = rtl_add(srcs[0].s, srcs[1].s)
+            e1, o2 = rtl_add(srcs[0].e1, srcs[1].e1)
+            e2, o3 = rtl_add(srcs[0].e2, srcs[1].e2)
+            e12, o4 = rtl_add(srcs[0].e12, srcs[1].e12)
+            return Q16Multivector(s, e1, e2, e12), (o1 or o2 or o3 or o4)
+        elif op in ("OP_REVERSE", "reverse"):
+            return Q16Multivector(srcs[0].s, srcs[0].e1, srcs[0].e2, -srcs[0].e12), False
+        elif op in ("OP_GRADE_INVOLUTION", "grade_involution"):
+            return Q16Multivector(srcs[0].s, -srcs[0].e1, -srcs[0].e2, srcs[0].e12), False
+        elif op in ("OP_CLIFFORD_CONJUGATE", "clifford_conjugate"):
+            return Q16Multivector(srcs[0].s, -srcs[0].e1, -srcs[0].e2, -srcs[0].e12), False
+        raise ValueError(f"Operator {op} not supported in RTLCliffordSimulator")
+

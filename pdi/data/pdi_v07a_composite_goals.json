@@ -1,0 +1,4438 @@
+{
+  "metadata": {
+    "suite_id": "PDI_V07A_COMPOSITE_GOALS_128",
+    "total_scenarios": 128,
+    "distribution": {
+      "CONTRACTION_WEDGE": 40,
+      "COMMUTATOR_BRACKET": 40,
+      "ROTOR_SANDWICH": 32,
+      "UNSUPPORTED_FAIL_CLOSED": 16
+    }
+  },
+  "records": [
+    {
+      "scenario_id": "PDI-V07A-COMP-s000",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 10 ^ state 11) . state 12",
+      "input_prompt": "Goal 0: Compute contraction of exterior product: (state 10 ^ state 11) . state 12 into destination 100.",
+      "dest_ref": 100,
+      "src_refs": [
+        10,
+        11,
+        12
+      ],
+      "initial_state": {
+        "10": {
+          "s": -756,
+          "e1": -89039,
+          "e2": 23150,
+          "e12": -1929
+        },
+        "11": {
+          "s": 92960,
+          "e1": -88173,
+          "e2": -30715,
+          "e12": -26853
+        },
+        "12": {
+          "s": 94273,
+          "e1": -58522,
+          "e2": -59248,
+          "e12": 78358
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_10 REF_11 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s001",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 13 ^ state 14) . state 15",
+      "input_prompt": "Goal 1: Compute contraction of exterior product: (state 13 ^ state 14) . state 15 into destination 101.",
+      "dest_ref": 101,
+      "src_refs": [
+        13,
+        14,
+        15
+      ],
+      "initial_state": {
+        "13": {
+          "s": -18824,
+          "e1": 16675,
+          "e2": 73290,
+          "e12": 96798
+        },
+        "14": {
+          "s": 76205,
+          "e1": 50741,
+          "e2": -24654,
+          "e12": 19962
+        },
+        "15": {
+          "s": -16908,
+          "e1": -42052,
+          "e2": 72322,
+          "e12": 88635
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_13 REF_14 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s002",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 16 ^ state 17) . state 18",
+      "input_prompt": "Goal 2: Compute contraction of exterior product: (state 16 ^ state 17) . state 18 into destination 102.",
+      "dest_ref": 102,
+      "src_refs": [
+        16,
+        17,
+        18
+      ],
+      "initial_state": {
+        "16": {
+          "s": 26233,
+          "e1": 75742,
+          "e2": 22100,
+          "e12": 12987
+        },
+        "17": {
+          "s": 43897,
+          "e1": 25581,
+          "e2": -10057,
+          "e12": -20429
+        },
+        "18": {
+          "s": 27835,
+          "e1": -72324,
+          "e2": 31157,
+          "e12": 13643
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_16 REF_17 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s003",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 19 ^ state 20) . state 21",
+      "input_prompt": "Goal 3: Compute contraction of exterior product: (state 19 ^ state 20) . state 21 into destination 103.",
+      "dest_ref": 103,
+      "src_refs": [
+        19,
+        20,
+        21
+      ],
+      "initial_state": {
+        "19": {
+          "s": -15350,
+          "e1": 61500,
+          "e2": 17671,
+          "e12": 33109
+        },
+        "20": {
+          "s": -31485,
+          "e1": 74325,
+          "e2": -1612,
+          "e12": -31605
+        },
+        "21": {
+          "s": 70813,
+          "e1": 56070,
+          "e2": 50991,
+          "e12": 35398
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_19 REF_20 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s004",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 22 ^ state 23) . state 24",
+      "input_prompt": "Goal 4: Compute contraction of exterior product: (state 22 ^ state 23) . state 24 into destination 104.",
+      "dest_ref": 104,
+      "src_refs": [
+        22,
+        23,
+        24
+      ],
+      "initial_state": {
+        "22": {
+          "s": 68366,
+          "e1": -85589,
+          "e2": 28805,
+          "e12": 3659
+        },
+        "23": {
+          "s": 79114,
+          "e1": -71385,
+          "e2": 31944,
+          "e12": -88125
+        },
+        "24": {
+          "s": 3856,
+          "e1": -24967,
+          "e2": 51947,
+          "e12": -20030
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_22 REF_23 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s005",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 25 ^ state 26) . state 27",
+      "input_prompt": "Goal 5: Compute contraction of exterior product: (state 25 ^ state 26) . state 27 into destination 105.",
+      "dest_ref": 105,
+      "src_refs": [
+        25,
+        26,
+        27
+      ],
+      "initial_state": {
+        "25": {
+          "s": -14311,
+          "e1": -5136,
+          "e2": 42269,
+          "e12": -57515
+        },
+        "26": {
+          "s": 82573,
+          "e1": 59544,
+          "e2": 83074,
+          "e12": -93643
+        },
+        "27": {
+          "s": 94049,
+          "e1": -64799,
+          "e2": 28809,
+          "e12": -81181
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_25 REF_26 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s006",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 28 ^ state 29) . state 30",
+      "input_prompt": "Goal 6: Compute contraction of exterior product: (state 28 ^ state 29) . state 30 into destination 106.",
+      "dest_ref": 106,
+      "src_refs": [
+        28,
+        29,
+        30
+      ],
+      "initial_state": {
+        "28": {
+          "s": -20958,
+          "e1": -47857,
+          "e2": -20576,
+          "e12": 71476
+        },
+        "29": {
+          "s": 96552,
+          "e1": -10993,
+          "e2": -91480,
+          "e12": 57637
+        },
+        "30": {
+          "s": -146,
+          "e1": 33700,
+          "e2": 92078,
+          "e12": 16998
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_28 REF_29 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s007",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 31 ^ state 32) . state 33",
+      "input_prompt": "Goal 7: Compute contraction of exterior product: (state 31 ^ state 32) . state 33 into destination 107.",
+      "dest_ref": 107,
+      "src_refs": [
+        31,
+        32,
+        33
+      ],
+      "initial_state": {
+        "31": {
+          "s": 93072,
+          "e1": -94956,
+          "e2": -49806,
+          "e12": 75671
+        },
+        "32": {
+          "s": -48978,
+          "e1": 90872,
+          "e2": -49830,
+          "e12": -72888
+        },
+        "33": {
+          "s": -15875,
+          "e1": -38731,
+          "e2": 69662,
+          "e12": -68599
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_31 REF_32 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s008",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 34 ^ state 35) . state 36",
+      "input_prompt": "Goal 8: Compute contraction of exterior product: (state 34 ^ state 35) . state 36 into destination 108.",
+      "dest_ref": 108,
+      "src_refs": [
+        34,
+        35,
+        36
+      ],
+      "initial_state": {
+        "34": {
+          "s": -27456,
+          "e1": 23162,
+          "e2": 34751,
+          "e12": -75404
+        },
+        "35": {
+          "s": 84915,
+          "e1": -33762,
+          "e2": 17155,
+          "e12": -1733
+        },
+        "36": {
+          "s": 15653,
+          "e1": -9369,
+          "e2": -67625,
+          "e12": -69260
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_34 REF_35 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s009",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 37 ^ state 38) . state 39",
+      "input_prompt": "Goal 9: Compute contraction of exterior product: (state 37 ^ state 38) . state 39 into destination 109.",
+      "dest_ref": 109,
+      "src_refs": [
+        37,
+        38,
+        39
+      ],
+      "initial_state": {
+        "37": {
+          "s": -54896,
+          "e1": -42155,
+          "e2": -50941,
+          "e12": 1435
+        },
+        "38": {
+          "s": 96257,
+          "e1": -87595,
+          "e2": 46362,
+          "e12": 91636
+        },
+        "39": {
+          "s": 40790,
+          "e1": -92393,
+          "e2": -78235,
+          "e12": -46679
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_37 REF_38 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s010",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 40 ^ state 41) . state 42",
+      "input_prompt": "Goal 10: Compute contraction of exterior product: (state 40 ^ state 41) . state 42 into destination 110.",
+      "dest_ref": 110,
+      "src_refs": [
+        40,
+        41,
+        42
+      ],
+      "initial_state": {
+        "40": {
+          "s": -65459,
+          "e1": -13208,
+          "e2": 72357,
+          "e12": 78700
+        },
+        "41": {
+          "s": 43749,
+          "e1": -47558,
+          "e2": 21484,
+          "e12": 63024
+        },
+        "42": {
+          "s": -16661,
+          "e1": -35162,
+          "e2": -83537,
+          "e12": 59226
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_40 REF_41 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s011",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 43 ^ state 44) . state 45",
+      "input_prompt": "Goal 11: Compute contraction of exterior product: (state 43 ^ state 44) . state 45 into destination 111.",
+      "dest_ref": 111,
+      "src_refs": [
+        43,
+        44,
+        45
+      ],
+      "initial_state": {
+        "43": {
+          "s": 78155,
+          "e1": -84899,
+          "e2": -72960,
+          "e12": -78314
+        },
+        "44": {
+          "s": -86299,
+          "e1": -2165,
+          "e2": 74737,
+          "e12": 2114
+        },
+        "45": {
+          "s": -55862,
+          "e1": -85449,
+          "e2": -63586,
+          "e12": 1526
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_43 REF_44 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s012",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 46 ^ state 47) . state 48",
+      "input_prompt": "Goal 12: Compute contraction of exterior product: (state 46 ^ state 47) . state 48 into destination 112.",
+      "dest_ref": 112,
+      "src_refs": [
+        46,
+        47,
+        48
+      ],
+      "initial_state": {
+        "46": {
+          "s": -68013,
+          "e1": 84028,
+          "e2": 460,
+          "e12": -50724
+        },
+        "47": {
+          "s": -94984,
+          "e1": 74286,
+          "e2": -82910,
+          "e12": -7987
+        },
+        "48": {
+          "s": 44612,
+          "e1": -36844,
+          "e2": -71598,
+          "e12": -60366
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_46 REF_47 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s013",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 49 ^ state 50) . state 51",
+      "input_prompt": "Goal 13: Compute contraction of exterior product: (state 49 ^ state 50) . state 51 into destination 113.",
+      "dest_ref": 113,
+      "src_refs": [
+        49,
+        50,
+        51
+      ],
+      "initial_state": {
+        "49": {
+          "s": 18992,
+          "e1": 91745,
+          "e2": -19345,
+          "e12": 60554
+        },
+        "50": {
+          "s": -66062,
+          "e1": -7252,
+          "e2": 16147,
+          "e12": 92211
+        },
+        "51": {
+          "s": 83197,
+          "e1": 25392,
+          "e2": 38972,
+          "e12": 53482
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_49 REF_50 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s014",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 52 ^ state 53) . state 54",
+      "input_prompt": "Goal 14: Compute contraction of exterior product: (state 52 ^ state 53) . state 54 into destination 114.",
+      "dest_ref": 114,
+      "src_refs": [
+        52,
+        53,
+        54
+      ],
+      "initial_state": {
+        "52": {
+          "s": -73957,
+          "e1": -39364,
+          "e2": -20994,
+          "e12": 95731
+        },
+        "53": {
+          "s": -5024,
+          "e1": 56309,
+          "e2": -37806,
+          "e12": 80536
+        },
+        "54": {
+          "s": 94233,
+          "e1": 52080,
+          "e2": 88895,
+          "e12": -56753
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_52 REF_53 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s015",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 55 ^ state 56) . state 57",
+      "input_prompt": "Goal 15: Compute contraction of exterior product: (state 55 ^ state 56) . state 57 into destination 115.",
+      "dest_ref": 115,
+      "src_refs": [
+        55,
+        56,
+        57
+      ],
+      "initial_state": {
+        "55": {
+          "s": -59439,
+          "e1": 21094,
+          "e2": 2918,
+          "e12": 6110
+        },
+        "56": {
+          "s": -20669,
+          "e1": 41656,
+          "e2": -32569,
+          "e12": -6622
+        },
+        "57": {
+          "s": 36527,
+          "e1": -81323,
+          "e2": 29633,
+          "e12": -81567
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_55 REF_56 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s016",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 58 ^ state 59) . state 60",
+      "input_prompt": "Goal 16: Compute contraction of exterior product: (state 58 ^ state 59) . state 60 into destination 116.",
+      "dest_ref": 116,
+      "src_refs": [
+        58,
+        59,
+        60
+      ],
+      "initial_state": {
+        "58": {
+          "s": -24983,
+          "e1": 49277,
+          "e2": -49354,
+          "e12": 35066
+        },
+        "59": {
+          "s": 34697,
+          "e1": -10022,
+          "e2": 91023,
+          "e12": -96767
+        },
+        "60": {
+          "s": 17913,
+          "e1": 43772,
+          "e2": 65382,
+          "e12": 47832
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_58 REF_59 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s017",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 61 ^ state 62) . state 63",
+      "input_prompt": "Goal 17: Compute contraction of exterior product: (state 61 ^ state 62) . state 63 into destination 117.",
+      "dest_ref": 117,
+      "src_refs": [
+        61,
+        62,
+        63
+      ],
+      "initial_state": {
+        "61": {
+          "s": -91802,
+          "e1": -17734,
+          "e2": 45376,
+          "e12": -93799
+        },
+        "62": {
+          "s": -58871,
+          "e1": 15786,
+          "e2": -76987,
+          "e12": -22791
+        },
+        "63": {
+          "s": 22772,
+          "e1": 16687,
+          "e2": -39274,
+          "e12": -33362
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_61 REF_62 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s018",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 64 ^ state 65) . state 66",
+      "input_prompt": "Goal 18: Compute contraction of exterior product: (state 64 ^ state 65) . state 66 into destination 118.",
+      "dest_ref": 118,
+      "src_refs": [
+        64,
+        65,
+        66
+      ],
+      "initial_state": {
+        "64": {
+          "s": 38387,
+          "e1": -21381,
+          "e2": -36279,
+          "e12": -52542
+        },
+        "65": {
+          "s": -58861,
+          "e1": 15091,
+          "e2": -70228,
+          "e12": 44279
+        },
+        "66": {
+          "s": 78974,
+          "e1": -66832,
+          "e2": -33031,
+          "e12": -22821
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_64 REF_65 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s019",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 67 ^ state 68) . state 69",
+      "input_prompt": "Goal 19: Compute contraction of exterior product: (state 67 ^ state 68) . state 69 into destination 119.",
+      "dest_ref": 119,
+      "src_refs": [
+        67,
+        68,
+        69
+      ],
+      "initial_state": {
+        "67": {
+          "s": -4284,
+          "e1": -69411,
+          "e2": 70662,
+          "e12": 62626
+        },
+        "68": {
+          "s": -87033,
+          "e1": 11883,
+          "e2": -2180,
+          "e12": -47119
+        },
+        "69": {
+          "s": 53647,
+          "e1": -58327,
+          "e2": 6108,
+          "e12": -24261
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_67 REF_68 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s020",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 70 ^ state 71) . state 72",
+      "input_prompt": "Goal 20: Compute contraction of exterior product: (state 70 ^ state 71) . state 72 into destination 120.",
+      "dest_ref": 120,
+      "src_refs": [
+        70,
+        71,
+        72
+      ],
+      "initial_state": {
+        "70": {
+          "s": 70711,
+          "e1": -9128,
+          "e2": -85855,
+          "e12": 88982
+        },
+        "71": {
+          "s": -17618,
+          "e1": -79429,
+          "e2": 6865,
+          "e12": 11185
+        },
+        "72": {
+          "s": 55395,
+          "e1": -17956,
+          "e2": -17523,
+          "e12": -35292
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_70 REF_71 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s021",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 73 ^ state 74) . state 75",
+      "input_prompt": "Goal 21: Compute contraction of exterior product: (state 73 ^ state 74) . state 75 into destination 121.",
+      "dest_ref": 121,
+      "src_refs": [
+        73,
+        74,
+        75
+      ],
+      "initial_state": {
+        "73": {
+          "s": 14591,
+          "e1": -37295,
+          "e2": 60761,
+          "e12": -15799
+        },
+        "74": {
+          "s": -19486,
+          "e1": 70684,
+          "e2": -28222,
+          "e12": 67191
+        },
+        "75": {
+          "s": -80748,
+          "e1": -15736,
+          "e2": -94774,
+          "e12": 44905
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_73 REF_74 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s022",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 76 ^ state 77) . state 78",
+      "input_prompt": "Goal 22: Compute contraction of exterior product: (state 76 ^ state 77) . state 78 into destination 122.",
+      "dest_ref": 122,
+      "src_refs": [
+        76,
+        77,
+        78
+      ],
+      "initial_state": {
+        "76": {
+          "s": -65486,
+          "e1": 65807,
+          "e2": -12143,
+          "e12": 92842
+        },
+        "77": {
+          "s": 25765,
+          "e1": 63227,
+          "e2": 77188,
+          "e12": -32808
+        },
+        "78": {
+          "s": 24857,
+          "e1": -45141,
+          "e2": 87125,
+          "e12": -79531
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_76 REF_77 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s023",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 79 ^ state 80) . state 81",
+      "input_prompt": "Goal 23: Compute contraction of exterior product: (state 79 ^ state 80) . state 81 into destination 123.",
+      "dest_ref": 123,
+      "src_refs": [
+        79,
+        80,
+        81
+      ],
+      "initial_state": {
+        "79": {
+          "s": 46062,
+          "e1": -79281,
+          "e2": 76655,
+          "e12": 90370
+        },
+        "80": {
+          "s": 12897,
+          "e1": -9651,
+          "e2": -60837,
+          "e12": -94222
+        },
+        "81": {
+          "s": 27555,
+          "e1": 57735,
+          "e2": 61542,
+          "e12": -93561
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_79 REF_80 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s024",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 82 ^ state 83) . state 84",
+      "input_prompt": "Goal 24: Compute contraction of exterior product: (state 82 ^ state 83) . state 84 into destination 124.",
+      "dest_ref": 124,
+      "src_refs": [
+        82,
+        83,
+        84
+      ],
+      "initial_state": {
+        "82": {
+          "s": -40523,
+          "e1": 23081,
+          "e2": -61695,
+          "e12": -16035
+        },
+        "83": {
+          "s": -57902,
+          "e1": -65703,
+          "e2": 86847,
+          "e12": 22040
+        },
+        "84": {
+          "s": 78364,
+          "e1": -10763,
+          "e2": -90063,
+          "e12": -34653
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_82 REF_83 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s025",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 85 ^ state 86) . state 87",
+      "input_prompt": "Goal 25: Compute contraction of exterior product: (state 85 ^ state 86) . state 87 into destination 125.",
+      "dest_ref": 125,
+      "src_refs": [
+        85,
+        86,
+        87
+      ],
+      "initial_state": {
+        "85": {
+          "s": 13459,
+          "e1": -18950,
+          "e2": -23190,
+          "e12": 96838
+        },
+        "86": {
+          "s": -22808,
+          "e1": 748,
+          "e2": 12400,
+          "e12": 2544
+        },
+        "87": {
+          "s": 64913,
+          "e1": -88272,
+          "e2": 11695,
+          "e12": -2775
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_85 REF_86 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s026",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 88 ^ state 89) . state 90",
+      "input_prompt": "Goal 26: Compute contraction of exterior product: (state 88 ^ state 89) . state 90 into destination 126.",
+      "dest_ref": 126,
+      "src_refs": [
+        88,
+        89,
+        90
+      ],
+      "initial_state": {
+        "88": {
+          "s": 80390,
+          "e1": 67200,
+          "e2": -79533,
+          "e12": -73708
+        },
+        "89": {
+          "s": -44461,
+          "e1": 96258,
+          "e2": -47579,
+          "e12": -35666
+        },
+        "90": {
+          "s": 16683,
+          "e1": -10417,
+          "e2": -21198,
+          "e12": 91742
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_88 REF_89 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s027",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 91 ^ state 92) . state 93",
+      "input_prompt": "Goal 27: Compute contraction of exterior product: (state 91 ^ state 92) . state 93 into destination 127.",
+      "dest_ref": 127,
+      "src_refs": [
+        91,
+        92,
+        93
+      ],
+      "initial_state": {
+        "91": {
+          "s": -11269,
+          "e1": 24055,
+          "e2": -19732,
+          "e12": 74088
+        },
+        "92": {
+          "s": -61484,
+          "e1": -89867,
+          "e2": 29890,
+          "e12": 34221
+        },
+        "93": {
+          "s": 85564,
+          "e1": -13460,
+          "e2": -4004,
+          "e12": -9832
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_91 REF_92 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s028",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 94 ^ state 95) . state 96",
+      "input_prompt": "Goal 28: Compute contraction of exterior product: (state 94 ^ state 95) . state 96 into destination 128.",
+      "dest_ref": 128,
+      "src_refs": [
+        94,
+        95,
+        96
+      ],
+      "initial_state": {
+        "94": {
+          "s": 17606,
+          "e1": -7799,
+          "e2": -79264,
+          "e12": 10120
+        },
+        "95": {
+          "s": 21786,
+          "e1": 81202,
+          "e2": -48372,
+          "e12": -6657
+        },
+        "96": {
+          "s": -86861,
+          "e1": 72590,
+          "e2": -78487,
+          "e12": -57693
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_94 REF_95 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s029",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 97 ^ state 98) . state 99",
+      "input_prompt": "Goal 29: Compute contraction of exterior product: (state 97 ^ state 98) . state 99 into destination 129.",
+      "dest_ref": 129,
+      "src_refs": [
+        97,
+        98,
+        99
+      ],
+      "initial_state": {
+        "97": {
+          "s": -14257,
+          "e1": -32966,
+          "e2": -32692,
+          "e12": 6193
+        },
+        "98": {
+          "s": 96274,
+          "e1": -34949,
+          "e2": -77887,
+          "e12": -2565
+        },
+        "99": {
+          "s": -12494,
+          "e1": -46043,
+          "e2": 91165,
+          "e12": 65339
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_97 REF_98 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s030",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 100 ^ state 101) . state 102",
+      "input_prompt": "Goal 30: Compute contraction of exterior product: (state 100 ^ state 101) . state 102 into destination 130.",
+      "dest_ref": 130,
+      "src_refs": [
+        100,
+        101,
+        102
+      ],
+      "initial_state": {
+        "100": {
+          "s": -7046,
+          "e1": 22101,
+          "e2": -8558,
+          "e12": -7533
+        },
+        "101": {
+          "s": -71840,
+          "e1": 16761,
+          "e2": -44211,
+          "e12": -34838
+        },
+        "102": {
+          "s": -26240,
+          "e1": 7627,
+          "e2": 70174,
+          "e12": -61207
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_100 REF_101 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s031",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 103 ^ state 104) . state 105",
+      "input_prompt": "Goal 31: Compute contraction of exterior product: (state 103 ^ state 104) . state 105 into destination 131.",
+      "dest_ref": 131,
+      "src_refs": [
+        103,
+        104,
+        105
+      ],
+      "initial_state": {
+        "103": {
+          "s": 91211,
+          "e1": -88529,
+          "e2": -26662,
+          "e12": 54831
+        },
+        "104": {
+          "s": -75345,
+          "e1": -62391,
+          "e2": -29681,
+          "e12": -38633
+        },
+        "105": {
+          "s": -54732,
+          "e1": -81676,
+          "e2": 92391,
+          "e12": 19981
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_103 REF_104 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s032",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 106 ^ state 107) . state 108",
+      "input_prompt": "Goal 32: Compute contraction of exterior product: (state 106 ^ state 107) . state 108 into destination 132.",
+      "dest_ref": 132,
+      "src_refs": [
+        106,
+        107,
+        108
+      ],
+      "initial_state": {
+        "106": {
+          "s": -49460,
+          "e1": 31414,
+          "e2": 62643,
+          "e12": -76718
+        },
+        "107": {
+          "s": 47596,
+          "e1": -89453,
+          "e2": 17371,
+          "e12": 65491
+        },
+        "108": {
+          "s": 19327,
+          "e1": 81409,
+          "e2": 36026,
+          "e12": 22148
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_106 REF_107 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s033",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 109 ^ state 110) . state 111",
+      "input_prompt": "Goal 33: Compute contraction of exterior product: (state 109 ^ state 110) . state 111 into destination 133.",
+      "dest_ref": 133,
+      "src_refs": [
+        109,
+        110,
+        111
+      ],
+      "initial_state": {
+        "109": {
+          "s": 28356,
+          "e1": -55723,
+          "e2": -39008,
+          "e12": 30573
+        },
+        "110": {
+          "s": 68975,
+          "e1": 87770,
+          "e2": 72984,
+          "e12": -83632
+        },
+        "111": {
+          "s": 90143,
+          "e1": 47565,
+          "e2": -49023,
+          "e12": -44291
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_109 REF_110 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s034",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 112 ^ state 113) . state 114",
+      "input_prompt": "Goal 34: Compute contraction of exterior product: (state 112 ^ state 113) . state 114 into destination 134.",
+      "dest_ref": 134,
+      "src_refs": [
+        112,
+        113,
+        114
+      ],
+      "initial_state": {
+        "112": {
+          "s": -8351,
+          "e1": 30394,
+          "e2": 74115,
+          "e12": -14409
+        },
+        "113": {
+          "s": 68389,
+          "e1": -43372,
+          "e2": 41346,
+          "e12": 28688
+        },
+        "114": {
+          "s": -86652,
+          "e1": -28973,
+          "e2": 2624,
+          "e12": -87363
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_112 REF_113 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s035",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 115 ^ state 116) . state 117",
+      "input_prompt": "Goal 35: Compute contraction of exterior product: (state 115 ^ state 116) . state 117 into destination 135.",
+      "dest_ref": 135,
+      "src_refs": [
+        115,
+        116,
+        117
+      ],
+      "initial_state": {
+        "115": {
+          "s": 49507,
+          "e1": -87840,
+          "e2": 12145,
+          "e12": -51429
+        },
+        "116": {
+          "s": 69862,
+          "e1": -27299,
+          "e2": 72436,
+          "e12": 19367
+        },
+        "117": {
+          "s": 43054,
+          "e1": 75614,
+          "e2": -36372,
+          "e12": -57862
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_115 REF_116 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s036",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 118 ^ state 119) . state 120",
+      "input_prompt": "Goal 36: Compute contraction of exterior product: (state 118 ^ state 119) . state 120 into destination 136.",
+      "dest_ref": 136,
+      "src_refs": [
+        118,
+        119,
+        120
+      ],
+      "initial_state": {
+        "118": {
+          "s": 8620,
+          "e1": 58372,
+          "e2": 45232,
+          "e12": 27967
+        },
+        "119": {
+          "s": -64223,
+          "e1": 55964,
+          "e2": 12180,
+          "e12": -76798
+        },
+        "120": {
+          "s": -66951,
+          "e1": 20930,
+          "e2": -14904,
+          "e12": 48645
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_118 REF_119 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s037",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 121 ^ state 122) . state 123",
+      "input_prompt": "Goal 37: Compute contraction of exterior product: (state 121 ^ state 122) . state 123 into destination 137.",
+      "dest_ref": 137,
+      "src_refs": [
+        121,
+        122,
+        123
+      ],
+      "initial_state": {
+        "121": {
+          "s": -25829,
+          "e1": 23734,
+          "e2": 62652,
+          "e12": 18141
+        },
+        "122": {
+          "s": -88110,
+          "e1": -85522,
+          "e2": -89747,
+          "e12": -67857
+        },
+        "123": {
+          "s": -91871,
+          "e1": -55781,
+          "e2": -42312,
+          "e12": -51569
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_121 REF_122 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s038",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 124 ^ state 125) . state 126",
+      "input_prompt": "Goal 38: Compute contraction of exterior product: (state 124 ^ state 125) . state 126 into destination 138.",
+      "dest_ref": 138,
+      "src_refs": [
+        124,
+        125,
+        126
+      ],
+      "initial_state": {
+        "124": {
+          "s": 83308,
+          "e1": 12464,
+          "e2": 45331,
+          "e12": 33430
+        },
+        "125": {
+          "s": -40555,
+          "e1": -87556,
+          "e2": 57122,
+          "e12": -42345
+        },
+        "126": {
+          "s": 32533,
+          "e1": -41888,
+          "e2": -35654,
+          "e12": -6058
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_124 REF_125 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMP-s039",
+      "family": "CONTRACTION_WEDGE",
+      "expression": "(state 127 ^ state 128) . state 129",
+      "input_prompt": "Goal 39: Compute contraction of exterior product: (state 127 ^ state 128) . state 129 into destination 139.",
+      "dest_ref": 139,
+      "src_refs": [
+        127,
+        128,
+        129
+      ],
+      "initial_state": {
+        "127": {
+          "s": -26974,
+          "e1": 68598,
+          "e2": 15203,
+          "e12": 24759
+        },
+        "128": {
+          "s": -22491,
+          "e1": -82285,
+          "e2": -79976,
+          "e12": 72645
+        },
+        "129": {
+          "s": 75345,
+          "e1": 62379,
+          "e2": -61011,
+          "e12": -87426
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 0,
+        "e2": 0,
+        "e12": 0
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_VECTOR_WEDGE REF_127 REF_128 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s040",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 20 and state 21",
+      "input_prompt": "Goal 40: Compute non-commutative commutator bracket: [state 20, state 21] into destination 140.",
+      "dest_ref": 140,
+      "src_refs": [
+        20,
+        21
+      ],
+      "initial_state": {
+        "20": {
+          "s": -67433,
+          "e1": 96805,
+          "e2": 84676,
+          "e12": 77023
+        },
+        "21": {
+          "s": 64631,
+          "e1": -93923,
+          "e2": 14270,
+          "e12": 20728
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -20022,
+        "e2": 282008,
+        "e12": 284866
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_20 REF_21 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s041",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 22 and state 23",
+      "input_prompt": "Goal 41: Compute non-commutative commutator bracket: [state 22, state 23] into destination 141.",
+      "dest_ref": 141,
+      "src_refs": [
+        22,
+        23
+      ],
+      "initial_state": {
+        "22": {
+          "s": 90946,
+          "e1": 89599,
+          "e2": 92024,
+          "e12": 24992
+        },
+        "23": {
+          "s": -1900,
+          "e1": -20390,
+          "e2": -54779,
+          "e12": 2989
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -50174,
+        "e2": 23724,
+        "e12": -92522
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_22 REF_23 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s042",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 24 and state 25",
+      "input_prompt": "Goal 42: Compute non-commutative commutator bracket: [state 24, state 25] into destination 142.",
+      "dest_ref": 142,
+      "src_refs": [
+        24,
+        25
+      ],
+      "initial_state": {
+        "24": {
+          "s": -92425,
+          "e1": 67193,
+          "e2": 43217,
+          "e12": 47246
+        },
+        "25": {
+          "s": 8368,
+          "e1": 2200,
+          "e2": -24444,
+          "e12": -85250
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 77190,
+        "e2": -177982,
+        "e12": -53026
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_24 REF_25 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s043",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 26 and state 27",
+      "input_prompt": "Goal 43: Compute non-commutative commutator bracket: [state 26, state 27] into destination 143.",
+      "dest_ref": 143,
+      "src_refs": [
+        26,
+        27
+      ],
+      "initial_state": {
+        "26": {
+          "s": 71444,
+          "e1": 13168,
+          "e2": -83605,
+          "e12": -46753
+        },
+        "27": {
+          "s": -38280,
+          "e1": -42931,
+          "e2": -61609,
+          "e12": -10330
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 61548,
+        "e2": -65406,
+        "e12": -134294
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_26 REF_27 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s044",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 28 and state 29",
+      "input_prompt": "Goal 44: Compute non-commutative commutator bracket: [state 28, state 29] into destination 144.",
+      "dest_ref": 144,
+      "src_refs": [
+        28,
+        29
+      ],
+      "initial_state": {
+        "28": {
+          "s": -71594,
+          "e1": -64750,
+          "e2": 38907,
+          "e12": 71815
+        },
+        "29": {
+          "s": 4096,
+          "e1": 23683,
+          "e2": -26321,
+          "e12": -21023
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -32724,
+        "e2": -10362,
+        "e12": 23890
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_28 REF_29 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s045",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 30 and state 31",
+      "input_prompt": "Goal 45: Compute non-commutative commutator bracket: [state 30, state 31] into destination 145.",
+      "dest_ref": 145,
+      "src_refs": [
+        30,
+        31
+      ],
+      "initial_state": {
+        "30": {
+          "s": -44824,
+          "e1": 56267,
+          "e2": 79297,
+          "e12": 93669
+        },
+        "31": {
+          "s": -67519,
+          "e1": -73706,
+          "e2": 62825,
+          "e12": 37283
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 89364,
+        "e2": 274712,
+        "e12": 286244
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_30 REF_31 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s046",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 32 and state 33",
+      "input_prompt": "Goal 46: Compute non-commutative commutator bracket: [state 32, state 33] into destination 146.",
+      "dest_ref": 146,
+      "src_refs": [
+        32,
+        33
+      ],
+      "initial_state": {
+        "32": {
+          "s": 40422,
+          "e1": 22670,
+          "e2": 29959,
+          "e12": 7442
+        },
+        "33": {
+          "s": 51039,
+          "e1": 27329,
+          "e2": 58264,
+          "e12": -22268
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 33592,
+        "e2": -21612,
+        "e12": 15322
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_32 REF_33 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s047",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 34 and state 35",
+      "input_prompt": "Goal 47: Compute non-commutative commutator bracket: [state 34, state 35] into destination 147.",
+      "dest_ref": 147,
+      "src_refs": [
+        34,
+        35
+      ],
+      "initial_state": {
+        "34": {
+          "s": 23882,
+          "e1": 13060,
+          "e2": 86820,
+          "e12": -19984
+        },
+        "35": {
+          "s": -67834,
+          "e1": 93729,
+          "e2": 77324,
+          "e12": -77240
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 157492,
+        "e2": 26378,
+        "e12": -217520
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_34 REF_35 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s048",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 36 and state 37",
+      "input_prompt": "Goal 48: Compute non-commutative commutator bracket: [state 36, state 37] into destination 148.",
+      "dest_ref": 148,
+      "src_refs": [
+        36,
+        37
+      ],
+      "initial_state": {
+        "36": {
+          "s": -67057,
+          "e1": -50502,
+          "e2": 21161,
+          "e12": -88559
+        },
+        "37": {
+          "s": 59787,
+          "e1": 1046,
+          "e2": -89014,
+          "e12": -15291
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 250444,
+        "e2": 26392,
+        "e12": 136512
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_36 REF_37 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s049",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 38 and state 39",
+      "input_prompt": "Goal 49: Compute non-commutative commutator bracket: [state 38, state 39] into destination 149.",
+      "dest_ref": 149,
+      "src_refs": [
+        38,
+        39
+      ],
+      "initial_state": {
+        "38": {
+          "s": 82257,
+          "e1": -57144,
+          "e2": 51200,
+          "e12": -94034
+        },
+        "39": {
+          "s": -55402,
+          "e1": 92728,
+          "e2": 93171,
+          "e12": -76035
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -148568,
+        "e2": 398698,
+        "e12": -307368
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_38 REF_39 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s050",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 40 and state 41",
+      "input_prompt": "Goal 50: Compute non-commutative commutator bracket: [state 40, state 41] into destination 150.",
+      "dest_ref": 150,
+      "src_refs": [
+        40,
+        41
+      ],
+      "initial_state": {
+        "40": {
+          "s": -61123,
+          "e1": -48086,
+          "e2": 34862,
+          "e12": 57139
+        },
+        "41": {
+          "s": -17887,
+          "e1": -77835,
+          "e2": -53993,
+          "e12": -33802
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -58188,
+        "e2": 185328,
+        "e12": 162042
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_40 REF_41 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s051",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 42 and state 43",
+      "input_prompt": "Goal 51: Compute non-commutative commutator bracket: [state 42, state 43] into destination 151.",
+      "dest_ref": 151,
+      "src_refs": [
+        42,
+        43
+      ],
+      "initial_state": {
+        "42": {
+          "s": 87342,
+          "e1": 39495,
+          "e2": 14690,
+          "e12": 28732
+        },
+        "43": {
+          "s": -56447,
+          "e1": -34468,
+          "e2": 44735,
+          "e12": -13584
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 45316,
+        "e2": 13850,
+        "e12": 69370
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_42 REF_43 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s052",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 44 and state 45",
+      "input_prompt": "Goal 52: Compute non-commutative commutator bracket: [state 44, state 45] into destination 152.",
+      "dest_ref": 152,
+      "src_refs": [
+        44,
+        45
+      ],
+      "initial_state": {
+        "44": {
+          "s": -37445,
+          "e1": 72828,
+          "e2": -86370,
+          "e12": -29450
+        },
+        "45": {
+          "s": 34107,
+          "e1": 60070,
+          "e2": 23336,
+          "e12": -41867
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -131328,
+        "e2": -39062,
+        "e12": 210198
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_44 REF_45 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s053",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 46 and state 47",
+      "input_prompt": "Goal 53: Compute non-commutative commutator bracket: [state 46, state 47] into destination 153.",
+      "dest_ref": 153,
+      "src_refs": [
+        46,
+        47
+      ],
+      "initial_state": {
+        "46": {
+          "s": 22234,
+          "e1": -90255,
+          "e2": -32881,
+          "e12": -17013
+        },
+        "47": {
+          "s": -47234,
+          "e1": -3476,
+          "e2": -6424,
+          "e12": -30984
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -27754,
+        "e2": 83538,
+        "e12": 14206
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_46 REF_47 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s054",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 48 and state 49",
+      "input_prompt": "Goal 54: Compute non-commutative commutator bracket: [state 48, state 49] into destination 154.",
+      "dest_ref": 154,
+      "src_refs": [
+        48,
+        49
+      ],
+      "initial_state": {
+        "48": {
+          "s": 34425,
+          "e1": 85919,
+          "e2": -27424,
+          "e12": 1593
+        },
+        "49": {
+          "s": 60513,
+          "e1": 43737,
+          "e2": -37220,
+          "e12": -14795
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -14192,
+        "e2": -40920,
+        "e12": -60988
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_48 REF_49 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s055",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 50 and state 51",
+      "input_prompt": "Goal 55: Compute non-commutative commutator bracket: [state 50, state 51] into destination 155.",
+      "dest_ref": 155,
+      "src_refs": [
+        50,
+        51
+      ],
+      "initial_state": {
+        "50": {
+          "s": 48405,
+          "e1": 6956,
+          "e2": -85274,
+          "e12": 28730
+        },
+        "51": {
+          "s": 81508,
+          "e1": 10863,
+          "e2": 33535,
+          "e12": 61448
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 189312,
+        "e2": 3520,
+        "e12": 35388
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_50 REF_51 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s056",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 52 and state 53",
+      "input_prompt": "Goal 56: Compute non-commutative commutator bracket: [state 52, state 53] into destination 156.",
+      "dest_ref": 156,
+      "src_refs": [
+        52,
+        53
+      ],
+      "initial_state": {
+        "52": {
+          "s": 69963,
+          "e1": -47681,
+          "e2": -23605,
+          "e12": -58008
+        },
+        "53": {
+          "s": -40459,
+          "e1": -94160,
+          "e2": 26570,
+          "e12": -2286
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -48682,
+        "e2": -163362,
+        "e12": -106492
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_52 REF_53 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s057",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 54 and state 55",
+      "input_prompt": "Goal 57: Compute non-commutative commutator bracket: [state 54, state 55] into destination 157.",
+      "dest_ref": 157,
+      "src_refs": [
+        54,
+        55
+      ],
+      "initial_state": {
+        "54": {
+          "s": -41050,
+          "e1": -95559,
+          "e2": 54966,
+          "e12": -48603
+        },
+        "55": {
+          "s": -72569,
+          "e1": 30273,
+          "e2": -16027,
+          "e12": 23067
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -14922,
+        "e2": -22366,
+        "e12": -4042
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_54 REF_55 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s058",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 56 and state 57",
+      "input_prompt": "Goal 58: Compute non-commutative commutator bracket: [state 56, state 57] into destination 158.",
+      "dest_ref": 158,
+      "src_refs": [
+        56,
+        57
+      ],
+      "initial_state": {
+        "56": {
+          "s": -45994,
+          "e1": 67019,
+          "e2": -32081,
+          "e12": 40068
+        },
+        "57": {
+          "s": 23038,
+          "e1": 61626,
+          "e2": -79097,
+          "e12": 44224
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -53422,
+        "e2": 15096,
+        "e12": -101440
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_56 REF_57 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s059",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 58 and state 59",
+      "input_prompt": "Goal 59: Compute non-commutative commutator bracket: [state 58, state 59] into destination 159.",
+      "dest_ref": 159,
+      "src_refs": [
+        58,
+        59
+      ],
+      "initial_state": {
+        "58": {
+          "s": -14909,
+          "e1": -25432,
+          "e2": -1350,
+          "e12": 65914
+        },
+        "59": {
+          "s": -69839,
+          "e1": -22167,
+          "e2": 5656,
+          "e12": 8054
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 11710,
+        "e2": 38340,
+        "e12": -5304
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_58 REF_59 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s060",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 60 and state 61",
+      "input_prompt": "Goal 60: Compute non-commutative commutator bracket: [state 60, state 61] into destination 160.",
+      "dest_ref": 160,
+      "src_refs": [
+        60,
+        61
+      ],
+      "initial_state": {
+        "60": {
+          "s": 45383,
+          "e1": -80292,
+          "e2": -63797,
+          "e12": 22543
+        },
+        "61": {
+          "s": 16389,
+          "e1": -67848,
+          "e2": -65630,
+          "e12": 33961
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 20970,
+        "e2": -36540,
+        "e12": 28718
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_60 REF_61 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s061",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 62 and state 63",
+      "input_prompt": "Goal 61: Compute non-commutative commutator bracket: [state 62, state 63] into destination 161.",
+      "dest_ref": 161,
+      "src_refs": [
+        62,
+        63
+      ],
+      "initial_state": {
+        "62": {
+          "s": 82872,
+          "e1": -45755,
+          "e2": 372,
+          "e12": 5853
+        },
+        "63": {
+          "s": -47930,
+          "e1": 86486,
+          "e2": -17143,
+          "e12": 91438
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -4100,
+        "e2": -143126,
+        "e12": 22956
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_62 REF_63 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s062",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 64 and state 65",
+      "input_prompt": "Goal 62: Compute non-commutative commutator bracket: [state 64, state 65] into destination 162.",
+      "dest_ref": 162,
+      "src_refs": [
+        64,
+        65
+      ],
+      "initial_state": {
+        "64": {
+          "s": 83006,
+          "e1": -85285,
+          "e2": -98197,
+          "e12": 14974
+        },
+        "65": {
+          "s": -55272,
+          "e1": 93039,
+          "e2": -41048,
+          "e12": -26295
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -97558,
+        "e2": 25922,
+        "e12": 385650
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_64 REF_65 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s063",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 66 and state 67",
+      "input_prompt": "Goal 63: Compute non-commutative commutator bracket: [state 66, state 67] into destination 163.",
+      "dest_ref": 163,
+      "src_refs": [
+        66,
+        67
+      ],
+      "initial_state": {
+        "66": {
+          "s": -2355,
+          "e1": -61283,
+          "e2": 37718,
+          "e12": -24264
+        },
+        "67": {
+          "s": -23071,
+          "e1": 32344,
+          "e2": 43500,
+          "e12": 36054
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -73710,
+        "e2": -43478,
+        "e12": -118584
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_66 REF_67 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s064",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 68 and state 69",
+      "input_prompt": "Goal 64: Compute non-commutative commutator bracket: [state 68, state 69] into destination 164.",
+      "dest_ref": 164,
+      "src_refs": [
+        68,
+        69
+      ],
+      "initial_state": {
+        "68": {
+          "s": -36615,
+          "e1": -17029,
+          "e2": 50743,
+          "e12": -21307
+        },
+        "69": {
+          "s": -17432,
+          "e1": -70995,
+          "e2": 29901,
+          "e12": -13607
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 1630,
+        "e2": -39092,
+        "e12": 94400
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_68 REF_69 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s065",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 70 and state 71",
+      "input_prompt": "Goal 65: Compute non-commutative commutator bracket: [state 70, state 71] into destination 165.",
+      "dest_ref": 165,
+      "src_refs": [
+        70,
+        71
+      ],
+      "initial_state": {
+        "70": {
+          "s": -66790,
+          "e1": 64402,
+          "e2": -31048,
+          "e12": 50483
+        },
+        "71": {
+          "s": -79631,
+          "e1": -86812,
+          "e2": -1451,
+          "e12": 25019
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 21470,
+        "e2": 182916,
+        "e12": -85108
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_70 REF_71 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s066",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 72 and state 73",
+      "input_prompt": "Goal 66: Compute non-commutative commutator bracket: [state 72, state 73] into destination 166.",
+      "dest_ref": 166,
+      "src_refs": [
+        72,
+        73
+      ],
+      "initial_state": {
+        "72": {
+          "s": -58266,
+          "e1": 82905,
+          "e2": 49285,
+          "e12": 53078
+        },
+        "73": {
+          "s": 40799,
+          "e1": -34553,
+          "e2": -9759,
+          "e12": -20698
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 15324,
+        "e2": 3602,
+        "e12": 27280
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_72 REF_73 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s067",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 74 and state 75",
+      "input_prompt": "Goal 67: Compute non-commutative commutator bracket: [state 74, state 75] into destination 167.",
+      "dest_ref": 167,
+      "src_refs": [
+        74,
+        75
+      ],
+      "initial_state": {
+        "74": {
+          "s": -81855,
+          "e1": -2554,
+          "e2": 25725,
+          "e12": 82549
+        },
+        "75": {
+          "s": 66434,
+          "e1": 51040,
+          "e2": -2613,
+          "e12": -80627
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 56716,
+        "e2": -122296,
+        "e12": -39866
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_74 REF_75 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s068",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 76 and state 77",
+      "input_prompt": "Goal 68: Compute non-commutative commutator bracket: [state 76, state 77] into destination 168.",
+      "dest_ref": 168,
+      "src_refs": [
+        76,
+        77
+      ],
+      "initial_state": {
+        "76": {
+          "s": 33873,
+          "e1": 24411,
+          "e2": 17732,
+          "e12": -64289
+        },
+        "77": {
+          "s": 32088,
+          "e1": -17493,
+          "e2": 64464,
+          "e12": 3193
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -128202,
+        "e2": -31942,
+        "e12": 57490
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_76 REF_77 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s069",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 78 and state 79",
+      "input_prompt": "Goal 69: Compute non-commutative commutator bracket: [state 78, state 79] into destination 169.",
+      "dest_ref": 169,
+      "src_refs": [
+        78,
+        79
+      ],
+      "initial_state": {
+        "78": {
+          "s": 41122,
+          "e1": 51008,
+          "e2": -68077,
+          "e12": -93901
+        },
+        "79": {
+          "s": -60084,
+          "e1": 41449,
+          "e2": 75539,
+          "e12": -88858
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -401072,
+        "e2": -19542,
+        "e12": 203700
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_78 REF_79 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s070",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 80 and state 81",
+      "input_prompt": "Goal 70: Compute non-commutative commutator bracket: [state 80, state 81] into destination 170.",
+      "dest_ref": 170,
+      "src_refs": [
+        80,
+        81
+      ],
+      "initial_state": {
+        "80": {
+          "s": -88369,
+          "e1": -83103,
+          "e2": -16041,
+          "e12": -1233
+        },
+        "81": {
+          "s": 74079,
+          "e1": 46413,
+          "e2": 62638,
+          "e12": -46670
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -25202,
+        "e2": 120106,
+        "e12": -136136
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_80 REF_81 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s071",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 82 and state 83",
+      "input_prompt": "Goal 71: Compute non-commutative commutator bracket: [state 82, state 83] into destination 171.",
+      "dest_ref": 171,
+      "src_refs": [
+        82,
+        83
+      ],
+      "initial_state": {
+        "82": {
+          "s": -23114,
+          "e1": 78002,
+          "e2": -45186,
+          "e12": -94530
+        },
+        "83": {
+          "s": -23795,
+          "e1": 49792,
+          "e2": 40179,
+          "e12": 80635
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -4716,
+        "e2": 335588,
+        "e12": 164306
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_82 REF_83 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s072",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 84 and state 85",
+      "input_prompt": "Goal 72: Compute non-commutative commutator bracket: [state 84, state 85] into destination 172.",
+      "dest_ref": 172,
+      "src_refs": [
+        84,
+        85
+      ],
+      "initial_state": {
+        "84": {
+          "s": -10149,
+          "e1": 23496,
+          "e2": 10109,
+          "e12": 89260
+        },
+        "85": {
+          "s": 10516,
+          "e1": 47379,
+          "e2": 58568,
+          "e12": 65025
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 139480,
+        "e2": -82434,
+        "e12": 27380
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_84 REF_85 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s073",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 86 and state 87",
+      "input_prompt": "Goal 73: Compute non-commutative commutator bracket: [state 86, state 87] into destination 173.",
+      "dest_ref": 173,
+      "src_refs": [
+        86,
+        87
+      ],
+      "initial_state": {
+        "86": {
+          "s": -57259,
+          "e1": 18059,
+          "e2": -36578,
+          "e12": 2764
+        },
+        "87": {
+          "s": -7327,
+          "e1": 4717,
+          "e2": -55736,
+          "e12": -56954
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -68278,
+        "e2": -31786,
+        "e12": -25452
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_86 REF_87 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s074",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 88 and state 89",
+      "input_prompt": "Goal 74: Compute non-commutative commutator bracket: [state 88, state 89] into destination 174.",
+      "dest_ref": 174,
+      "src_refs": [
+        88,
+        89
+      ],
+      "initial_state": {
+        "88": {
+          "s": 3845,
+          "e1": 27759,
+          "e2": -32989,
+          "e12": -46113
+        },
+        "89": {
+          "s": 89152,
+          "e1": -58986,
+          "e2": -78183,
+          "e12": -16497
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 93416,
+        "e2": -96984,
+        "e12": -125616
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_88 REF_89 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s075",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 90 and state 91",
+      "input_prompt": "Goal 75: Compute non-commutative commutator bracket: [state 90, state 91] into destination 175.",
+      "dest_ref": 175,
+      "src_refs": [
+        90,
+        91
+      ],
+      "initial_state": {
+        "90": {
+          "s": 13060,
+          "e1": 16017,
+          "e2": -27304,
+          "e12": -91954
+        },
+        "91": {
+          "s": 1671,
+          "e1": 74966,
+          "e2": -50650,
+          "e12": 3644
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 145170,
+        "e2": 212152,
+        "e12": 37708
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_90 REF_91 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s076",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 92 and state 93",
+      "input_prompt": "Goal 76: Compute non-commutative commutator bracket: [state 92, state 93] into destination 176.",
+      "dest_ref": 176,
+      "src_refs": [
+        92,
+        93
+      ],
+      "initial_state": {
+        "92": {
+          "s": 54916,
+          "e1": -58808,
+          "e2": 39869,
+          "e12": 75796
+        },
+        "93": {
+          "s": 58080,
+          "e1": 22121,
+          "e2": 53237,
+          "e12": 38771
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 75972,
+        "e2": -120750,
+        "e12": -122458
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_92 REF_93 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s077",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 94 and state 95",
+      "input_prompt": "Goal 77: Compute non-commutative commutator bracket: [state 94, state 95] into destination 177.",
+      "dest_ref": 177,
+      "src_refs": [
+        94,
+        95
+      ],
+      "initial_state": {
+        "94": {
+          "s": 362,
+          "e1": -79568,
+          "e2": -71263,
+          "e12": 24058
+        },
+        "95": {
+          "s": 6713,
+          "e1": -27818,
+          "e2": -32623,
+          "e12": 34048
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 50094,
+        "e2": -62252,
+        "e12": 18718
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_94 REF_95 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s078",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 96 and state 97",
+      "input_prompt": "Goal 78: Compute non-commutative commutator bracket: [state 96, state 97] into destination 178.",
+      "dest_ref": 178,
+      "src_refs": [
+        96,
+        97
+      ],
+      "initial_state": {
+        "96": {
+          "s": -39899,
+          "e1": 21175,
+          "e2": -72000,
+          "e12": 365
+        },
+        "97": {
+          "s": 81634,
+          "e1": 97236,
+          "e2": 645,
+          "e12": 59033
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": 129720,
+        "e2": 37064,
+        "e12": 214070
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_96 REF_97 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-COMM-s079",
+      "family": "COMMUTATOR_BRACKET",
+      "expression": "commutator bracket of state 98 and state 99",
+      "input_prompt": "Goal 79: Compute non-commutative commutator bracket: [state 98, state 99] into destination 179.",
+      "dest_ref": 179,
+      "src_refs": [
+        98,
+        99
+      ],
+      "initial_state": {
+        "98": {
+          "s": 97655,
+          "e1": -30848,
+          "e2": -19097,
+          "e12": 54252
+        },
+        "99": {
+          "s": 36824,
+          "e1": 23505,
+          "e2": 9718,
+          "e12": -42864
+        }
+      },
+      "expected_q16": {
+        "s": 0,
+        "e1": -8890,
+        "e2": 1436,
+        "e12": 4550
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_CL20_PRODUCT REF_98 REF_99 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s080",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 30 and state 31",
+      "input_prompt": "Goal 80: Apply sandwich rotor transformation of state 30 on state 31 into destination 180.",
+      "dest_ref": 180,
+      "src_refs": [
+        30,
+        31
+      ],
+      "initial_state": {
+        "30": {
+          "s": 54097,
+          "e1": 0,
+          "e2": 0,
+          "e12": 36992
+        },
+        "31": {
+          "s": -86564,
+          "e1": 51286,
+          "e2": 94967,
+          "e12": -22907
+        }
+      },
+      "expected_q16": {
+        "s": -86563,
+        "e1": 107100,
+        "e2": -13341,
+        "e12": -22907
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_30 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s081",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 32 and state 33",
+      "input_prompt": "Goal 81: Apply sandwich rotor transformation of state 32 on state 33 into destination 181.",
+      "dest_ref": 181,
+      "src_refs": [
+        32,
+        33
+      ],
+      "initial_state": {
+        "32": {
+          "s": 57220,
+          "e1": 0,
+          "e2": 0,
+          "e12": 31950
+        },
+        "33": {
+          "s": 5337,
+          "e1": 80819,
+          "e2": 20482,
+          "e12": 76566
+        }
+      },
+      "expected_q16": {
+        "s": 5337,
+        "e1": 59838,
+        "e2": -58057,
+        "e12": 76564
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_32 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s082",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 34 and state 35",
+      "input_prompt": "Goal 82: Apply sandwich rotor transformation of state 34 on state 35 into destination 182.",
+      "dest_ref": 182,
+      "src_refs": [
+        34,
+        35
+      ],
+      "initial_state": {
+        "34": {
+          "s": 65088,
+          "e1": 0,
+          "e2": 0,
+          "e12": 7641
+        },
+        "35": {
+          "s": 6359,
+          "e1": 76046,
+          "e2": -13013,
+          "e12": -15
+        }
+      },
+      "expected_q16": {
+        "s": 6359,
+        "e1": 70962,
+        "e2": -30270,
+        "e12": -15
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_34 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s083",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 36 and state 37",
+      "input_prompt": "Goal 83: Apply sandwich rotor transformation of state 36 on state 37 into destination 183.",
+      "dest_ref": 183,
+      "src_refs": [
+        36,
+        37
+      ],
+      "initial_state": {
+        "36": {
+          "s": 40017,
+          "e1": 0,
+          "e2": 0,
+          "e12": 51899
+        },
+        "37": {
+          "s": -88356,
+          "e1": -2273,
+          "e2": 20580,
+          "e12": -78034
+        }
+      },
+      "expected_q16": {
+        "s": -88354,
+        "e1": 20481,
+        "e2": -3035,
+        "e12": -78031
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_36 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s084",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 38 and state 39",
+      "input_prompt": "Goal 84: Apply sandwich rotor transformation of state 38 on state 39 into destination 184.",
+      "dest_ref": 184,
+      "src_refs": [
+        38,
+        39
+      ],
+      "initial_state": {
+        "38": {
+          "s": 60161,
+          "e1": 0,
+          "e2": 0,
+          "e12": 25991
+        },
+        "39": {
+          "s": 55359,
+          "e1": -9162,
+          "e2": 18019,
+          "e12": 436
+        }
+      },
+      "expected_q16": {
+        "s": 55359,
+        "e1": 6840,
+        "e2": 19022,
+        "e12": 436
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_38 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s085",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 40 and state 41",
+      "input_prompt": "Goal 85: Apply sandwich rotor transformation of state 40 on state 41 into destination 185.",
+      "dest_ref": 185,
+      "src_refs": [
+        40,
+        41
+      ],
+      "initial_state": {
+        "40": {
+          "s": 62354,
+          "e1": 0,
+          "e2": 0,
+          "e12": 20171
+        },
+        "41": {
+          "s": -11159,
+          "e1": -18385,
+          "e2": -90826,
+          "e12": -55370
+        }
+      },
+      "expected_q16": {
+        "s": -11159,
+        "e1": -68096,
+        "e2": -62848,
+        "e12": -55369
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_40 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s086",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 42 and state 43",
+      "input_prompt": "Goal 86: Apply sandwich rotor transformation of state 42 on state 43 into destination 186.",
+      "dest_ref": 186,
+      "src_refs": [
+        42,
+        43
+      ],
+      "initial_state": {
+        "42": {
+          "s": 35552,
+          "e1": 0,
+          "e2": 0,
+          "e12": 55054
+        },
+        "43": {
+          "s": 36821,
+          "e1": 74554,
+          "e2": -22974,
+          "e12": -70290
+        }
+      },
+      "expected_q16": {
+        "s": 36821,
+        "e1": -51611,
+        "e2": -58499,
+        "e12": -70289
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_42 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s087",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 44 and state 45",
+      "input_prompt": "Goal 87: Apply sandwich rotor transformation of state 44 on state 45 into destination 187.",
+      "dest_ref": 187,
+      "src_refs": [
+        44,
+        45
+      ],
+      "initial_state": {
+        "44": {
+          "s": 54383,
+          "e1": 0,
+          "e2": 0,
+          "e12": 36571
+        },
+        "45": {
+          "s": 26695,
+          "e1": -46044,
+          "e2": 91483,
+          "e12": -52850
+        }
+      },
+      "expected_q16": {
+        "s": 26695,
+        "e1": 67357,
+        "e2": 77150,
+        "e12": -52850
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_44 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s088",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 46 and state 47",
+      "input_prompt": "Goal 88: Apply sandwich rotor transformation of state 46 on state 47 into destination 188.",
+      "dest_ref": 188,
+      "src_refs": [
+        46,
+        47
+      ],
+      "initial_state": {
+        "46": {
+          "s": 41387,
+          "e1": 0,
+          "e2": 0,
+          "e12": 50813
+        },
+        "47": {
+          "s": -12025,
+          "e1": 64814,
+          "e2": 51965,
+          "e12": -15992
+        }
+      },
+      "expected_q16": {
+        "s": -12025,
+        "e1": 37774,
+        "e2": -73986,
+        "e12": -15990
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_46 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s089",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 48 and state 49",
+      "input_prompt": "Goal 89: Apply sandwich rotor transformation of state 48 on state 49 into destination 189.",
+      "dest_ref": 189,
+      "src_refs": [
+        48,
+        49
+      ],
+      "initial_state": {
+        "48": {
+          "s": 58485,
+          "e1": 0,
+          "e2": 0,
+          "e12": 29569
+        },
+        "49": {
+          "s": 44526,
+          "e1": -9067,
+          "e2": 27932,
+          "e12": 60122
+        }
+      },
+      "expected_q16": {
+        "s": 44524,
+        "e1": 17120,
+        "e2": 23860,
+        "e12": 60119
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_48 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s090",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 50 and state 51",
+      "input_prompt": "Goal 90: Apply sandwich rotor transformation of state 50 on state 51 into destination 190.",
+      "dest_ref": 190,
+      "src_refs": [
+        50,
+        51
+      ],
+      "initial_state": {
+        "50": {
+          "s": 61632,
+          "e1": 0,
+          "e2": 0,
+          "e12": 22279
+        },
+        "51": {
+          "s": 73705,
+          "e1": 1497,
+          "e2": -15738,
+          "e12": -29612
+        }
+      },
+      "expected_q16": {
+        "s": 73703,
+        "e1": -8911,
+        "e2": -13057,
+        "e12": -29611
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_50 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s091",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 52 and state 53",
+      "input_prompt": "Goal 91: Apply sandwich rotor transformation of state 52 on state 53 into destination 191.",
+      "dest_ref": 191,
+      "src_refs": [
+        52,
+        53
+      ],
+      "initial_state": {
+        "52": {
+          "s": 37696,
+          "e1": 0,
+          "e2": 0,
+          "e12": 53608
+        },
+        "53": {
+          "s": 56096,
+          "e1": 79523,
+          "e2": 43177,
+          "e12": 3582
+        }
+      },
+      "expected_q16": {
+        "s": 56094,
+        "e1": 13730,
+        "e2": -89437,
+        "e12": 3581
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_52 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s092",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 54 and state 55",
+      "input_prompt": "Goal 92: Apply sandwich rotor transformation of state 54 on state 55 into destination 192.",
+      "dest_ref": 192,
+      "src_refs": [
+        54,
+        55
+      ],
+      "initial_state": {
+        "54": {
+          "s": 24672,
+          "e1": 0,
+          "e2": 0,
+          "e12": 60714
+        },
+        "55": {
+          "s": -30161,
+          "e1": -39397,
+          "e2": 33607,
+          "e12": -11742
+        }
+      },
+      "expected_q16": {
+        "s": -30161,
+        "e1": 51671,
+        "e2": 3400,
+        "e12": -11742
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_54 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s093",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 56 and state 57",
+      "input_prompt": "Goal 93: Apply sandwich rotor transformation of state 56 on state 57 into destination 193.",
+      "dest_ref": 193,
+      "src_refs": [
+        56,
+        57
+      ],
+      "initial_state": {
+        "56": {
+          "s": 19020,
+          "e1": 0,
+          "e2": 0,
+          "e12": 62715
+        },
+        "57": {
+          "s": 43003,
+          "e1": 39700,
+          "e2": 16888,
+          "e12": 49434
+        }
+      },
+      "expected_q16": {
+        "s": 43002,
+        "e1": -23632,
+        "e2": -36094,
+        "e12": 49434
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_56 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s094",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 58 and state 59",
+      "input_prompt": "Goal 94: Apply sandwich rotor transformation of state 58 on state 59 into destination 194.",
+      "dest_ref": 194,
+      "src_refs": [
+        58,
+        59
+      ],
+      "initial_state": {
+        "58": {
+          "s": 26324,
+          "e1": 0,
+          "e2": 0,
+          "e12": 60016
+        },
+        "59": {
+          "s": -52596,
+          "e1": 53654,
+          "e2": 33869,
+          "e12": 52033
+        }
+      },
+      "expected_q16": {
+        "s": -52595,
+        "e1": -11423,
+        "e2": -62411,
+        "e12": 52032
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_58 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s095",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 60 and state 61",
+      "input_prompt": "Goal 95: Apply sandwich rotor transformation of state 60 on state 61 into destination 195.",
+      "dest_ref": 195,
+      "src_refs": [
+        60,
+        61
+      ],
+      "initial_state": {
+        "60": {
+          "s": 56546,
+          "e1": 0,
+          "e2": 0,
+          "e12": 33127
+        },
+        "61": {
+          "s": -55742,
+          "e1": -59542,
+          "e2": 86897,
+          "e12": -63310
+        }
+      },
+      "expected_q16": {
+        "s": -55741,
+        "e1": 46686,
+        "e2": 94425,
+        "e12": -63309
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_60 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s096",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 62 and state 63",
+      "input_prompt": "Goal 96: Apply sandwich rotor transformation of state 62 on state 63 into destination 196.",
+      "dest_ref": 196,
+      "src_refs": [
+        62,
+        63
+      ],
+      "initial_state": {
+        "62": {
+          "s": 11659,
+          "e1": 0,
+          "e2": 0,
+          "e12": 64490
+        },
+        "63": {
+          "s": 78708,
+          "e1": 67209,
+          "e2": -70747,
+          "e12": -14808
+        }
+      },
+      "expected_q16": {
+        "s": 78707,
+        "e1": -87724,
+        "e2": 42736,
+        "e12": -14808
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_62 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s097",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 64 and state 65",
+      "input_prompt": "Goal 97: Apply sandwich rotor transformation of state 64 on state 65 into destination 197.",
+      "dest_ref": 197,
+      "src_refs": [
+        64,
+        65
+      ],
+      "initial_state": {
+        "64": {
+          "s": 8545,
+          "e1": 0,
+          "e2": 0,
+          "e12": 64976
+        },
+        "65": {
+          "s": -74415,
+          "e1": -8117,
+          "e2": -89905,
+          "e12": 32040
+        }
+      },
+      "expected_q16": {
+        "s": -74414,
+        "e1": -15403,
+        "e2": 88945,
+        "e12": 32039
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_64 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s098",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 66 and state 67",
+      "input_prompt": "Goal 98: Apply sandwich rotor transformation of state 66 on state 67 into destination 198.",
+      "dest_ref": 198,
+      "src_refs": [
+        66,
+        67
+      ],
+      "initial_state": {
+        "66": {
+          "s": 40818,
+          "e1": 0,
+          "e2": 0,
+          "e12": 51271
+        },
+        "67": {
+          "s": -33285,
+          "e1": 14274,
+          "e2": 60157,
+          "e12": -56713
+        }
+      },
+      "expected_q16": {
+        "s": -33284,
+        "e1": 55425,
+        "e2": -27393,
+        "e12": -56711
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_66 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s099",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 68 and state 69",
+      "input_prompt": "Goal 99: Apply sandwich rotor transformation of state 68 on state 69 into destination 199.",
+      "dest_ref": 199,
+      "src_refs": [
+        68,
+        69
+      ],
+      "initial_state": {
+        "68": {
+          "s": 41580,
+          "e1": 0,
+          "e2": 0,
+          "e12": 50655
+        },
+        "69": {
+          "s": -1928,
+          "e1": 22520,
+          "e2": 44030,
+          "e12": 88339
+        }
+      },
+      "expected_q16": {
+        "s": -1928,
+        "e1": 38795,
+        "e2": -30668,
+        "e12": 88337
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_68 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s100",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 70 and state 71",
+      "input_prompt": "Goal 100: Apply sandwich rotor transformation of state 70 on state 71 into destination 200.",
+      "dest_ref": 200,
+      "src_refs": [
+        70,
+        71
+      ],
+      "initial_state": {
+        "70": {
+          "s": 39890,
+          "e1": 0,
+          "e2": 0,
+          "e12": 51996
+        },
+        "71": {
+          "s": -48819,
+          "e1": -11047,
+          "e2": 28127,
+          "e12": -80852
+        }
+      },
+      "expected_q16": {
+        "s": -48818,
+        "e1": 30027,
+        "e2": 3385,
+        "e12": -80849
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_70 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s101",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 72 and state 73",
+      "input_prompt": "Goal 101: Apply sandwich rotor transformation of state 72 on state 73 into destination 201.",
+      "dest_ref": 201,
+      "src_refs": [
+        72,
+        73
+      ],
+      "initial_state": {
+        "72": {
+          "s": 58879,
+          "e1": 0,
+          "e2": 0,
+          "e12": 28778
+        },
+        "73": {
+          "s": 21609,
+          "e1": 85052,
+          "e2": 23747,
+          "e12": 31129
+        }
+      },
+      "expected_q16": {
+        "s": 21609,
+        "e1": 70988,
+        "e2": -52519,
+        "e12": 31128
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_72 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s102",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 74 and state 75",
+      "input_prompt": "Goal 102: Apply sandwich rotor transformation of state 74 on state 75 into destination 202.",
+      "dest_ref": 202,
+      "src_refs": [
+        74,
+        75
+      ],
+      "initial_state": {
+        "74": {
+          "s": 36420,
+          "e1": 0,
+          "e2": 0,
+          "e12": 54483
+        },
+        "75": {
+          "s": -8441,
+          "e1": -47202,
+          "e2": -95528,
+          "e12": -87856
+        }
+      },
+      "expected_q16": {
+        "s": -8441,
+        "e1": -70222,
+        "e2": 80135,
+        "e12": -87853
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_74 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s103",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 76 and state 77",
+      "input_prompt": "Goal 103: Apply sandwich rotor transformation of state 76 on state 77 into destination 203.",
+      "dest_ref": 203,
+      "src_refs": [
+        76,
+        77
+      ],
+      "initial_state": {
+        "76": {
+          "s": 38871,
+          "e1": 0,
+          "e2": 0,
+          "e12": 52763
+        },
+        "77": {
+          "s": 79541,
+          "e1": -9318,
+          "e2": -58183,
+          "e12": -33288
+        }
+      },
+      "expected_q16": {
+        "s": 79540,
+        "e1": -52806,
+        "e2": 26144,
+        "e12": -33287
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_76 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s104",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 78 and state 79",
+      "input_prompt": "Goal 104: Apply sandwich rotor transformation of state 78 on state 79 into destination 204.",
+      "dest_ref": 204,
+      "src_refs": [
+        78,
+        79
+      ],
+      "initial_state": {
+        "78": {
+          "s": 40447,
+          "e1": 0,
+          "e2": 0,
+          "e12": 51564
+        },
+        "79": {
+          "s": -94262,
+          "e1": 32802,
+          "e2": -55365,
+          "e12": -45500
+        }
+      },
+      "expected_q16": {
+        "s": -94259,
+        "e1": -61583,
+        "e2": -18671,
+        "e12": -45499
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_78 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s105",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 80 and state 81",
+      "input_prompt": "Goal 105: Apply sandwich rotor transformation of state 80 on state 81 into destination 205.",
+      "dest_ref": 205,
+      "src_refs": [
+        80,
+        81
+      ],
+      "initial_state": {
+        "80": {
+          "s": 11858,
+          "e1": 0,
+          "e2": 0,
+          "e12": 64454
+        },
+        "81": {
+          "s": -11275,
+          "e1": 34892,
+          "e2": -64370,
+          "e12": -53962
+        }
+      },
+      "expected_q16": {
+        "s": -11275,
+        "e1": -55516,
+        "e2": 47737,
+        "e12": -53961
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_80 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s106",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 82 and state 83",
+      "input_prompt": "Goal 106: Apply sandwich rotor transformation of state 82 on state 83 into destination 206.",
+      "dest_ref": 206,
+      "src_refs": [
+        82,
+        83
+      ],
+      "initial_state": {
+        "82": {
+          "s": 39177,
+          "e1": 0,
+          "e2": 0,
+          "e12": 52536
+        },
+        "83": {
+          "s": 97018,
+          "e1": -96385,
+          "e2": -87904,
+          "e12": -20312
+        }
+      },
+      "expected_q16": {
+        "s": 97015,
+        "e1": -56753,
+        "e2": 117454,
+        "e12": -20312
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_82 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s107",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 84 and state 85",
+      "input_prompt": "Goal 107: Apply sandwich rotor transformation of state 84 on state 85 into destination 207.",
+      "dest_ref": 207,
+      "src_refs": [
+        84,
+        85
+      ],
+      "initial_state": {
+        "84": {
+          "s": 60032,
+          "e1": 0,
+          "e2": 0,
+          "e12": 26288
+        },
+        "85": {
+          "s": 32306,
+          "e1": 11945,
+          "e2": 90402,
+          "e12": -75488
+        }
+      },
+      "expected_q16": {
+        "s": 32306,
+        "e1": 74535,
+        "e2": 52532,
+        "e12": -75487
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_84 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s108",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 86 and state 87",
+      "input_prompt": "Goal 108: Apply sandwich rotor transformation of state 86 on state 87 into destination 208.",
+      "dest_ref": 208,
+      "src_refs": [
+        86,
+        87
+      ],
+      "initial_state": {
+        "86": {
+          "s": 53320,
+          "e1": 0,
+          "e2": 0,
+          "e12": 38103
+        },
+        "87": {
+          "s": 81037,
+          "e1": 74570,
+          "e2": 36732,
+          "e12": 38623
+        }
+      },
+      "expected_q16": {
+        "s": 81035,
+        "e1": 58904,
+        "e2": -58649,
+        "e12": 38623
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_86 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s109",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 88 and state 89",
+      "input_prompt": "Goal 109: Apply sandwich rotor transformation of state 88 on state 89 into destination 209.",
+      "dest_ref": 209,
+      "src_refs": [
+        88,
+        89
+      ],
+      "initial_state": {
+        "88": {
+          "s": 65275,
+          "e1": 0,
+          "e2": 0,
+          "e12": 5833
+        },
+        "89": {
+          "s": 28722,
+          "e1": -866,
+          "e2": -32826,
+          "e12": 82482
+        }
+      },
+      "expected_q16": {
+        "s": 28721,
+        "e1": -6673,
+        "e2": -32151,
+        "e12": 82481
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_88 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s110",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 90 and state 91",
+      "input_prompt": "Goal 110: Apply sandwich rotor transformation of state 90 on state 91 into destination 210.",
+      "dest_ref": 210,
+      "src_refs": [
+        90,
+        91
+      ],
+      "initial_state": {
+        "90": {
+          "s": 61259,
+          "e1": 0,
+          "e2": 0,
+          "e12": 23285
+        },
+        "91": {
+          "s": -18247,
+          "e1": 12380,
+          "e2": 11449,
+          "e12": -71498
+        }
+      },
+      "expected_q16": {
+        "s": -18246,
+        "e1": 16858,
+        "e2": 335,
+        "e12": -71497
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_90 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-ROTOR-s111",
+      "family": "ROTOR_SANDWICH",
+      "expression": "rotor sandwich of state 92 and state 93",
+      "input_prompt": "Goal 111: Apply sandwich rotor transformation of state 92 on state 93 into destination 211.",
+      "dest_ref": 211,
+      "src_refs": [
+        92,
+        93
+      ],
+      "initial_state": {
+        "92": {
+          "s": 62117,
+          "e1": 0,
+          "e2": 0,
+          "e12": 20890
+        },
+        "93": {
+          "s": 67678,
+          "e1": 70876,
+          "e2": -92763,
+          "e12": 55553
+        }
+      },
+      "expected_q16": {
+        "s": 67677,
+        "e1": 419,
+        "e2": -116738,
+        "e12": 55552
+      },
+      "is_supported": true,
+      "first_step_canonical": "PROPOSE OP_REVERSE REF_92 STAGE_0"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s112",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 112: Compute division of state 50 / state 51 into destination 220.",
+      "input_prompt": "Goal 112: Compute division of state 50 / state 51 into destination 220.",
+      "dest_ref": 220,
+      "src_refs": [
+        50,
+        51
+      ],
+      "initial_state": {
+        "50": {
+          "s": 42065,
+          "e1": 34777,
+          "e2": 53026,
+          "e12": 21771
+        },
+        "51": {
+          "s": -48033,
+          "e1": -56938,
+          "e2": -77228,
+          "e12": -2983
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s113",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 113: Calculate matrix_inverse of state 51 into destination 221.",
+      "input_prompt": "Goal 113: Calculate matrix_inverse of state 51 into destination 221.",
+      "dest_ref": 221,
+      "src_refs": [
+        51,
+        52
+      ],
+      "initial_state": {
+        "51": {
+          "s": -37169,
+          "e1": -97865,
+          "e2": -24822,
+          "e12": 5416
+        },
+        "52": {
+          "s": 69683,
+          "e1": 52668,
+          "e2": -52785,
+          "e12": -40540
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s114",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 114: Evaluate transcendental sin(state 52) into destination 222.",
+      "input_prompt": "Goal 114: Evaluate transcendental sin(state 52) into destination 222.",
+      "dest_ref": 222,
+      "src_refs": [
+        52,
+        53
+      ],
+      "initial_state": {
+        "52": {
+          "s": 38045,
+          "e1": 15571,
+          "e2": 12712,
+          "e12": -50482
+        },
+        "53": {
+          "s": 30789,
+          "e1": -12343,
+          "e2": 84909,
+          "e12": -54476
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s115",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 115: Compute square root sqrt(state 53) into destination 223.",
+      "input_prompt": "Goal 115: Compute square root sqrt(state 53) into destination 223.",
+      "dest_ref": 223,
+      "src_refs": [
+        53,
+        54
+      ],
+      "initial_state": {
+        "53": {
+          "s": 25705,
+          "e1": 93714,
+          "e2": -48732,
+          "e12": -39417
+        },
+        "54": {
+          "s": 38740,
+          "e1": 56510,
+          "e2": 22872,
+          "e12": 91130
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s116",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 116: Compute division of state 54 / state 55 into destination 224.",
+      "input_prompt": "Goal 116: Compute division of state 54 / state 55 into destination 224.",
+      "dest_ref": 224,
+      "src_refs": [
+        54,
+        55
+      ],
+      "initial_state": {
+        "54": {
+          "s": -80569,
+          "e1": -32487,
+          "e2": 13638,
+          "e12": -38300
+        },
+        "55": {
+          "s": 69958,
+          "e1": 17283,
+          "e2": -96041,
+          "e12": 60206
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s117",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 117: Calculate matrix_inverse of state 55 into destination 225.",
+      "input_prompt": "Goal 117: Calculate matrix_inverse of state 55 into destination 225.",
+      "dest_ref": 225,
+      "src_refs": [
+        55,
+        56
+      ],
+      "initial_state": {
+        "55": {
+          "s": 26441,
+          "e1": 90133,
+          "e2": -69255,
+          "e12": 60079
+        },
+        "56": {
+          "s": -25990,
+          "e1": 14254,
+          "e2": -45378,
+          "e12": 16496
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s118",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 118: Evaluate transcendental sin(state 56) into destination 226.",
+      "input_prompt": "Goal 118: Evaluate transcendental sin(state 56) into destination 226.",
+      "dest_ref": 226,
+      "src_refs": [
+        56,
+        57
+      ],
+      "initial_state": {
+        "56": {
+          "s": 80405,
+          "e1": -95669,
+          "e2": -89407,
+          "e12": 45880
+        },
+        "57": {
+          "s": 72754,
+          "e1": 63529,
+          "e2": 30227,
+          "e12": -73475
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s119",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 119: Compute square root sqrt(state 57) into destination 227.",
+      "input_prompt": "Goal 119: Compute square root sqrt(state 57) into destination 227.",
+      "dest_ref": 227,
+      "src_refs": [
+        57,
+        58
+      ],
+      "initial_state": {
+        "57": {
+          "s": 43333,
+          "e1": 18909,
+          "e2": 42468,
+          "e12": -87685
+        },
+        "58": {
+          "s": -88050,
+          "e1": 64810,
+          "e2": -85543,
+          "e12": 64812
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s120",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 120: Compute division of state 58 / state 59 into destination 228.",
+      "input_prompt": "Goal 120: Compute division of state 58 / state 59 into destination 228.",
+      "dest_ref": 228,
+      "src_refs": [
+        58,
+        59
+      ],
+      "initial_state": {
+        "58": {
+          "s": -5721,
+          "e1": 71929,
+          "e2": -26099,
+          "e12": -39009
+        },
+        "59": {
+          "s": -40164,
+          "e1": 2503,
+          "e2": -76284,
+          "e12": -23368
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s121",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 121: Calculate matrix_inverse of state 59 into destination 229.",
+      "input_prompt": "Goal 121: Calculate matrix_inverse of state 59 into destination 229.",
+      "dest_ref": 229,
+      "src_refs": [
+        59,
+        60
+      ],
+      "initial_state": {
+        "59": {
+          "s": -66086,
+          "e1": 55374,
+          "e2": -92675,
+          "e12": 3235
+        },
+        "60": {
+          "s": -71150,
+          "e1": 47105,
+          "e2": 82250,
+          "e12": 72088
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s122",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 122: Evaluate transcendental sin(state 60) into destination 230.",
+      "input_prompt": "Goal 122: Evaluate transcendental sin(state 60) into destination 230.",
+      "dest_ref": 230,
+      "src_refs": [
+        60,
+        61
+      ],
+      "initial_state": {
+        "60": {
+          "s": 8755,
+          "e1": -64358,
+          "e2": 26556,
+          "e12": 805
+        },
+        "61": {
+          "s": 72502,
+          "e1": 32947,
+          "e2": -59096,
+          "e12": -50685
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s123",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 123: Compute square root sqrt(state 61) into destination 231.",
+      "input_prompt": "Goal 123: Compute square root sqrt(state 61) into destination 231.",
+      "dest_ref": 231,
+      "src_refs": [
+        61,
+        62
+      ],
+      "initial_state": {
+        "61": {
+          "s": -46628,
+          "e1": 87531,
+          "e2": -72910,
+          "e12": -34818
+        },
+        "62": {
+          "s": -16435,
+          "e1": -55338,
+          "e2": -51654,
+          "e12": 89304
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s124",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 124: Compute division of state 62 / state 63 into destination 232.",
+      "input_prompt": "Goal 124: Compute division of state 62 / state 63 into destination 232.",
+      "dest_ref": 232,
+      "src_refs": [
+        62,
+        63
+      ],
+      "initial_state": {
+        "62": {
+          "s": 13562,
+          "e1": -10205,
+          "e2": 70311,
+          "e12": 76918
+        },
+        "63": {
+          "s": 45619,
+          "e1": -85676,
+          "e2": -61537,
+          "e12": -17904
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s125",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 125: Calculate matrix_inverse of state 63 into destination 233.",
+      "input_prompt": "Goal 125: Calculate matrix_inverse of state 63 into destination 233.",
+      "dest_ref": 233,
+      "src_refs": [
+        63,
+        64
+      ],
+      "initial_state": {
+        "63": {
+          "s": -9072,
+          "e1": 93689,
+          "e2": 78928,
+          "e12": 92186
+        },
+        "64": {
+          "s": -28400,
+          "e1": -26318,
+          "e2": -50811,
+          "e12": 43526
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s126",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 126: Evaluate transcendental sin(state 64) into destination 234.",
+      "input_prompt": "Goal 126: Evaluate transcendental sin(state 64) into destination 234.",
+      "dest_ref": 234,
+      "src_refs": [
+        64,
+        65
+      ],
+      "initial_state": {
+        "64": {
+          "s": 37679,
+          "e1": 43952,
+          "e2": 71100,
+          "e12": 17739
+        },
+        "65": {
+          "s": -22725,
+          "e1": -91410,
+          "e2": -72792,
+          "e12": -991
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    },
+    {
+      "scenario_id": "PDI-V07A-UNSUP-s127",
+      "family": "UNSUPPORTED",
+      "expression": "Goal 127: Compute square root sqrt(state 65) into destination 235.",
+      "input_prompt": "Goal 127: Compute square root sqrt(state 65) into destination 235.",
+      "dest_ref": 235,
+      "src_refs": [
+        65,
+        66
+      ],
+      "initial_state": {
+        "65": {
+          "s": -26584,
+          "e1": 23175,
+          "e2": 38487,
+          "e12": 14288
+        },
+        "66": {
+          "s": -34130,
+          "e1": 67632,
+          "e2": 24790,
+          "e12": 33357
+        }
+      },
+      "expected_q16": null,
+      "is_supported": false,
+      "first_step_canonical": "REFUSE"
+    }
+  ]
+}
