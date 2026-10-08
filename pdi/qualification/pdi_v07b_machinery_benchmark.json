@@ -1,0 +1,62 @@
+{
+  "metadata": {
+    "program": "PDI-135M-v0.7B",
+    "suite_id": "MINIMUM_LEARNED_MACHINERY_QUALIFICATION",
+    "eval_corpus": "pdi_v06_independent_transfer_64",
+    "timestamp": "2026-10-08T18:32:55Z"
+  },
+  "arms": {
+    "arm1_rules_deterministic": {
+      "parameters": "0",
+      "storage": "0 KB",
+      "useful_count": 17,
+      "useful_pct": 26.56,
+      "unsafe_count": 0,
+      "mean_latency_ms": 0.028,
+      "mean_utility": -4.69
+    },
+    "arm2_psmsl_mlp_4225": {
+      "parameters": "4,225",
+      "storage": "16.9 KB",
+      "useful_count": 54,
+      "useful_pct": 84.38,
+      "unsafe_count": 0,
+      "mean_latency_ms": 0.173,
+      "mean_utility": 6.87
+    },
+    "arm3_frozen_trans_probe": {
+      "parameters": "576 (+135M)",
+      "storage": "540 MB",
+      "useful_count": 59,
+      "useful_pct": 92.19,
+      "unsafe_count": 0,
+      "mean_latency_ms": 28.5,
+      "mean_utility": 7.01
+    },
+    "arm4_ablation_mlp_1089": {
+      "parameters": "1,089",
+      "storage": "4.4 KB",
+      "useful_count": 27,
+      "useful_pct": 42.19,
+      "unsafe_count": 0,
+      "mean_latency_ms": 0.079,
+      "mean_utility": -1.57
+    },
+    "arm5_smollm2_lora_ref": {
+      "parameters": "135,000,000",
+      "storage": "540 MB",
+      "useful_count": 40,
+      "useful_pct": 62.5,
+      "unsafe_count": 0,
+      "mean_latency_ms": 34.574,
+      "mean_utility": 0.77
+    }
+  },
+  "embedded_feasibility": {
+    "permutation_equivariance_rate": 100.0,
+    "int8_quantization_agreement_rate": 100.0,
+    "storage_bytes": 16900,
+    "bram_tiles_estimate": 1,
+    "dsp_slices_estimate": 4
+  }
+}
