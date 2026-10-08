@@ -186,3 +186,106 @@ def train_single_arm(
         torch.cuda.empty_cache()
 
     return arm_summary
+
+
+def run_training_campaign(device: Optional[str] = None) -> dict[str, Any]:
+    dev = device or ("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"=== PDI-135M Training Campaign on {dev} ===")
+
+    cfg = yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    train_recs = [r for r in manifest["records"] if r["partition"] == "train"]
+
+    base_model_id = cfg["base_model"]
+    base_revision = cfg["base_revision"]
+
+    print(f"Loading tokenizer {base_model_id}...")
+    tokenizer = AutoTokenizer.from_pretrained(base_model_id, revision=base_revision)
+    if tokenizer.pad_token_id is None:
+        tokenizer.pad_token_id = tokenizer.eos_token_id
+
+    print(f"Preparing {len(train_recs)} training sequences...")
+    train_inputs, train_labels = prepare_training_tensors(train_recs, tokenizer)
+
+    # 1. Arm A: Frozen H3 Baseline Evaluation
+    h3_path = cfg["arms"]["A"]["checkpoint_path"]
+    eval_a = evaluate_arm("Arm A: Frozen H3 Baseline", h3_path, MANIFEST_PATH, device=dev)
+
+    # 2. Arm B: H3 + PDI LoRA Training & Evaluation
+    arm_b_cfg = cfg["arms"]["B"]
+    arm_b_dir = PACKAGE_ROOT / arm_b_cfg["output_dir"]
+    train_b = train_single_arm(
+        arm_id="B",
+        arm_name=arm_b_cfg["name"],
+        base_model_id=base_model_id,
+        base_revision=base_revision,
+        cfg=cfg,
+        train_inputs=train_inputs,
+        train_labels=train_labels,
+        output_dir=arm_b_dir,
+        device=dev,
+        starting_weights=arm_b_cfg["starting_weights"],
+        init_adapter_path=arm_b_cfg["checkpoint_path"],
+    )
+    eval_b = evaluate_arm("Arm B: H3 + PDI LoRA", arm_b_dir, MANIFEST_PATH, device=dev)
+
+    # 3. Arm C: Original SmolLM2 + PDI LoRA Training & Evaluation
+    arm_c_cfg = cfg["arms"]["C"]
+    arm_c_dir = PACKAGE_ROOT / arm_c_cfg["output_dir"]
+    train_c = train_single_arm(
+        arm_id="C",
+        arm_name=arm_c_cfg["name"],
+        base_model_id=base_model_id,
+        base_revision=base_revision,
+        cfg=cfg,
+        train_inputs=train_inputs,
+        train_labels=train_labels,
+        output_dir=arm_c_dir,
+        device=dev,
+        starting_weights=arm_c_cfg["starting_weights"],
+    )
+    eval_c = evaluate_arm("Arm C: Original SmolLM2 + PDI LoRA", arm_c_dir, MANIFEST_PATH, device=dev)
+
+    comparison_results = {
+        "program": "PDI-135M-v0.1",
+        "timestamp_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "base_model": base_model_id,
+        "base_revision": base_revision,
+        "device": dev,
+        "total_training_examples": len(train_recs),
+        "total_holdout_examples": len(manifest["records"]) - len(train_recs),
+        "arms": {
+            "A_frozen_h3": {
+                "train_summary": None,
+                "evaluation": eval_a,
+            },
+            "B_h3_pdi_transfer": {
+                "train_summary": train_b,
+                "evaluation": eval_b,
+            },
+            "C_smollm2_fresh_pdi": {
+                "train_summary": train_c,
+                "evaluation": eval_c,
+            },
+        },
+        "summary_table": {
+            "arm_a_syntax_pct": eval_a["syntax_rate_pct"],
+            "arm_a_semantic_pct": eval_a["semantic_rate_pct"],
+            "arm_a_unsafe_pct": eval_a["unsafe_rate_pct"],
+            "arm_b_syntax_pct": eval_b["syntax_rate_pct"],
+            "arm_b_semantic_pct": eval_b["semantic_rate_pct"],
+            "arm_b_unsafe_pct": eval_b["unsafe_rate_pct"],
+            "arm_c_syntax_pct": eval_c["syntax_rate_pct"],
+            "arm_c_semantic_pct": eval_c["semantic_rate_pct"],
+            "arm_c_unsafe_pct": eval_c["unsafe_rate_pct"],
+        },
+    }
+
+    out_json = PACKAGE_ROOT / "pdi" / "qualification" / "pdi_model_comparison.json"
+    out_json.write_text(json.dumps(comparison_results, indent=2), encoding="utf-8")
+    print(f"\nSaved PDI Model Comparison Results to: {out_json}")
+    return comparison_results
+
+
+if __name__ == "__main__":
+    run_training_campaign()

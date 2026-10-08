@@ -1,0 +1,59 @@
+{
+  "gate": "GATE_4_RTL_EQUIVALENCE",
+  "timestamp_utc": "2026-10-08T20:12:30Z",
+  "target_fabric": "fabric_p0 (MAPEOGEO P0 Fabric)",
+  "bridge_module": "pdi_uow_bridge",
+  "simulator": "Icarus Verilog 12.0 (WSL)",
+  "simulation_time_seconds": 0.089,
+  "test_cases": [
+    {
+      "id": "TC_BOOT",
+      "name": "Autonomous Boot & Ingress Synchronization",
+      "status": "PASS",
+      "description": "Fabric transitions from RESET to RUN and assets boot_complete and ingress_ready."
+    },
+    {
+      "id": "TC_VALID_PROPOSAL",
+      "name": "Streaming Proposal Ingress & Commitment (OP_ADD)",
+      "status": "PASS",
+      "expected_outcome": "COMMIT (0)",
+      "expected_reason": "REASON_COMMITTED (0)",
+      "actual_outcome": "COMMIT (0)",
+      "actual_reason": "REASON_COMMITTED (0)"
+    },
+    {
+      "id": "TC_UNKNOWN_OPERATOR",
+      "name": "Unregistered Opcode Interception (Opcode 45)",
+      "status": "PASS",
+      "expected_outcome": "REFUSE (2)",
+      "expected_reason": "ERR_UNKNOWN_OPERATOR (4)",
+      "actual_outcome": "REFUSE (2)",
+      "actual_reason": "ERR_UNKNOWN_OPERATOR (4)"
+    },
+    {
+      "id": "TC_UNAUTHORIZED_CAPABILITY",
+      "name": "Authority Mask Enforcement (Token 0x80000000)",
+      "status": "PASS",
+      "expected_outcome": "REFUSE (2)",
+      "expected_reason": "ERR_UNAUTHORIZED_CAPABILITY (7)",
+      "actual_outcome": "REFUSE (2)",
+      "actual_reason": "ERR_UNAUTHORIZED_CAPABILITY (7)"
+    }
+  ],
+  "verdict": "QUALIFIED",
+  "zero_unauthorized_mutation": true,
+  "log_excerpt": [
+    "=== STEP 1: AUTONOMOUS FABRIC BOOT ===",
+    "PASS: Autonomous boot complete! Ingress ready.",
+    "=== TEST A: VALID PROPOSAL (OP_ADD: Add state 10 and state 11 -> state 12) ===",
+    "Captured disposition: magic=0x50444930, type_ver_out=0x00000102, seq=101, id=2001, reason=0",
+    "PASS: Valid proposal successfully executed, committed, and returned disposition!",
+    "=== TEST B: UNKNOWN OPERATOR CODE REFUSAL ===",
+    "Captured refusal: outcome=2, reason=4",
+    "PASS: Hardware validator intercepted unregistered opcode without mutating state!",
+    "=== TEST C: UNAUTHORIZED CAPABILITY REFUSAL ===",
+    "Captured refusal: outcome=2, reason=7",
+    "PASS: Hardware authority check blocked unauthorized capability escalation!",
+    "=== ALL PDI BRIDGE RTL QUALIFICATION TESTS PASSED SUCCESSFULLY! ==="
+  ]
+}
