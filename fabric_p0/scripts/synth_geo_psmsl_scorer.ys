@@ -1,0 +1,5 @@
+# Yosys synthesis script for geo_psmsl_scorer targeting Xilinx Artix-7 / 7-series
+read_verilog -sv fabric_p0/rtl/scorer/geo_psmsl_scorer.sv
+hierarchy -check -top geo_psmsl_scorer
+synth_xilinx -family xc7 -top geo_psmsl_scorer
+stat -tech xilinx

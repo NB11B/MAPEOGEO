@@ -32,6 +32,7 @@ if str(PACKAGE_ROOT) not in sys.path:
 from pdi.candidates.candidate_generator import DeterministicCandidateGenerator
 from pdi.candidates.observable_state import ObservableStateExtractor
 from pdi.models.formal_routing_policy import FormalRoutingPolicy, RouteDecision
+from pdi.models.observable_guard import ObservableStateGuard
 from pdi.models.rule_scorer import DeterministicRelationScorer
 from pdi.models.train_lora_scorer import SmolLM2LoRAScorer
 from pdi.postcondition.fixed_point_oracle import Q16Multivector, RTLCliffordSimulator
@@ -172,13 +173,15 @@ def run_attribution_audit() -> Dict[str, Any]:
         if uns_a:
             data["arm_a_rules_unguarded"]["by_regime"][reg]["unsafe"] += 1
 
+        obs_viol, obs_clarify = ObservableStateGuard.evaluate(prompt, ctx, sigs)
+
         # =====================================================================
         # Arm B: 4-Way Guard + Deterministic Scorer
         # =====================================================================
         t0 = time.perf_counter()
-        if reg == "INADMISSIBLE_REFUSAL":
+        if obs_viol:
             sig_b = next((x for x in sigs if x.constraints.is_abstention), sigs[-1])
-        elif reg == "INSUFFICIENT_CLARIFICATION":
+        elif obs_clarify:
             sig_b = next((x for x in sigs if x.constraints.is_abstention or "CLARIFY" in x.action_line), sigs[-1])
         else:
             sig_b = DeterministicRelationScorer.select_candidate(sigs, prompt)
@@ -202,8 +205,7 @@ def run_attribution_audit() -> Dict[str, Any]:
         route_c = hybrid_policy.route(
             sigs,
             prompt,
-            is_partially_observable=(reg == "INSUFFICIENT_CLARIFICATION"),
-            has_constraint_violation=(reg == "INADMISSIBLE_REFUSAL"),
+            context=ctx,
         )
         lat_c = (time.perf_counter() - t0) * 1000.0
         u_c, uns_c = verify_outcome(rec, route_c.selected_sig.action_line)
@@ -222,9 +224,9 @@ def run_attribution_audit() -> Dict[str, Any]:
         # Arm D: 4-Way Guard + Random Tiebreaker Control
         # =====================================================================
         t0 = time.perf_counter()
-        if reg == "INADMISSIBLE_REFUSAL":
+        if obs_viol:
             sig_d = next((x for x in sigs if x.constraints.is_abstention), sigs[-1])
-        elif reg == "INSUFFICIENT_CLARIFICATION":
+        elif obs_clarify:
             sig_d = next((x for x in sigs if x.constraints.is_abstention or "CLARIFY" in x.action_line), sigs[-1])
         else:
             # Check if unambiguous by rule margin

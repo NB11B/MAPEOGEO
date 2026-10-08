@@ -32,15 +32,14 @@ class ObservableStateExtractor:
         dest_match = re.search(r"(?:dest(?:ination)?\s+(?:address\s+)?|into\s+state\s+|dest=REF_)(\d+)", input_prompt, re.IGNORECASE)
         dest_ref = int(dest_match.group(1)) if dest_match else None
 
-        # 3. Visible references: all "state (\d+)", "REF_(\d+)", "words? (\d+)"
+        # 3. Visible references: all "state (\d+)", "REF_(\d+)", "@(\d+)", "words? (\d+)"
         refs: Set[int] = set()
-        for m in re.finditer(r"(?:state|ref|node|word|address|slot)\s*[_:]?\s*(\d+)", input_prompt, re.IGNORECASE):
+        for m in re.finditer(r"(?:state|ref|node|word|address|slot|@)\s*[_:]?\s*(\d+)", input_prompt, re.IGNORECASE):
             refs.add(int(m.group(1)))
 
-        # Also find comma-separated numbers like "10, 11, 12"
-        num_list_match = re.search(r"(\d+(?:\s*,\s*\d+)+)", input_prompt)
-        if num_list_match:
-            for item in num_list_match.group(1).split(","):
+        # Also find isolated comma-separated integers like "10, 11, 12" (not decimals of floats)
+        for m in re.finditer(r"(?<![\.\d])(\d{1,3}(?:\s*,\s*\d{1,3})+)(?![\.\d])", input_prompt):
+            for item in m.group(1).split(","):
                 try:
                     refs.add(int(item.strip()))
                 except ValueError:

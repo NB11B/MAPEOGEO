@@ -209,8 +209,7 @@ def run_v05_utility_evaluation():
         route_ctx = policy.route(
             sigs,
             prompt,
-            is_partially_observable=(reg == "INSUFFICIENT_CLARIFICATION"),
-            has_constraint_violation=(reg == "INADMISSIBLE_REFUSAL"),
+            context=ctx,
         )
         hybrid_lat = (time.perf_counter() - t0) * 1000.0
         routing_distribution[route_ctx.decision.value] += 1
@@ -244,8 +243,7 @@ def run_v05_utility_evaluation():
             r_ctx = sweep_pol.route(
                 sigs,
                 prompt,
-                is_partially_observable=(r["regime"] == "INSUFFICIENT_CLARIFICATION"),
-                has_constraint_violation=(r["regime"] == "INADMISSIBLE_REFUSAL"),
+                context=ctx,
             )
             lat = (time.perf_counter() - t0) * 1000.0
             u_ok, un_bad = verify_outcome(r, r_ctx.selected_sig.action_line, r_ctx.selected_sig.cand_id)

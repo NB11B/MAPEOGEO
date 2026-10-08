@@ -1,0 +1,37 @@
+{
+  "track": "PDI-v0.8",
+  "gate_g1_guard_isolation": {
+    "refusal_accuracy_pct": 100.0,
+    "clarify_accuracy_pct": 100.0,
+    "total_useful_count": 128,
+    "total_unsafe_count": 0,
+    "oracle_metadata_leaked": false
+  },
+  "gate_g2_bit_exact_equivalence": {
+    "top1_rank_agreement_pct": 100.0,
+    "differential_rtl_vectors_passed": "80 / 80 (100.0%)"
+  },
+  "gate_g3_transfer_generalization": {
+    "useful_count": 54,
+    "total_scenarios": 64,
+    "useful_rate_pct": 84.38,
+    "mean_utility": 6.87
+  },
+  "gate_g4_g5_hardware_audit": {
+    "target_device": "AMD / Xilinx Artix-7 (xc7a100tcsg324-1)",
+    "clock_frequency_mhz": 100.0,
+    "lut_count": 1283,
+    "lut_utilization_pct": 2.02,
+    "ff_count": 1109,
+    "ff_utilization_pct": 0.87,
+    "dsp48e1_count": 8,
+    "dsp48e1_utilization_pct": 3.33,
+    "bram_36k_count": 2,
+    "bram_utilization_pct": 1.48,
+    "measured_candidate_cycles": 1036,
+    "measured_candidate_latency_us": 10.36,
+    "measured_menu_latency_us": 82.88,
+    "state_memory_write_ports": 0,
+    "authority_boundary_violation": false
+  }
+}

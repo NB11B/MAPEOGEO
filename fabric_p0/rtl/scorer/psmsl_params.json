@@ -1,0 +1,12 @@
+{
+  "scale_x": 127.0,
+  "scale_w1": 25.0,
+  "scale_w2": 254.0,
+  "scale_w3": 420.0,
+  "m1": 642,
+  "shift1": 16,
+  "m2": 173,
+  "shift2": 16,
+  "total_weights": 4128,
+  "total_biases": 97
+}

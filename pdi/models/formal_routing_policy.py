@@ -91,9 +91,24 @@ class FormalRoutingPolicy:
         self,
         signatures: List[WorkRelationSignature],
         input_prompt: str,
-        is_partially_observable: bool = False,
-        has_constraint_violation: bool = False,
+        context: Optional[StateContext] = None,
+        is_partially_observable: Optional[bool] = None,
+        has_constraint_violation: Optional[bool] = None,
     ) -> RoutingContext:
+        from pdi.models.observable_guard import ObservableStateGuard
+
+        if context is not None and (is_partially_observable is None or has_constraint_violation is None):
+            obs_viol, obs_clarify = ObservableStateGuard.evaluate(input_prompt, context, signatures)
+            if has_constraint_violation is None:
+                has_constraint_violation = obs_viol
+            if is_partially_observable is None:
+                is_partially_observable = obs_clarify
+        else:
+            if has_constraint_violation is None:
+                has_constraint_violation = False
+            if is_partially_observable is None:
+                is_partially_observable = False
+
         prompt_lower = input_prompt.lower()
 
         # Gate 1: Check for hard constraint violations -> REFUSE
