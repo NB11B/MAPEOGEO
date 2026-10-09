@@ -38,8 +38,11 @@ from experiments.intelligence_integration.v0_1.adapter import (
 )
 from experiments.intelligence_integration.v0_1.contract import (
     AdapterContract,
+    CLOCK_IDENTITY_PREFIX,
     ClockDomain,
     ProjectionStatus,
+    decode_clock_identity,
+    encode_clock_identity,
 )
 from experiments.intelligence_integration.v0_1.cases import (
     build_constructed_capacity_snapshot,
@@ -355,14 +358,82 @@ class TestIntelligenceIntegration(unittest.TestCase):
         projected = self.adapter.project_graph_to_case(snapshot_empty, self.manifest)
         self.assertEqual(projected.status, ProjectionStatus.INVALID_INPUT)
 
-    def test_ambiguous_clock_domain_delimiters_rejected(self):
-        """ClockDomain and local_actor reject '::' to prevent ambiguous delimiter collisions."""
+    def test_clock_identity_codec_contract_and_rejections(self):
+        """Clock identity codec preserves scalar components and rejects invalid/noncanonical inputs."""
+        # Nonempty and valid roundtrip
+        d, a = "ops:", "analyst"
+        enc = encode_clock_identity(d, a)
+        self.assertEqual(enc, 'uow-clock:v1:["ops:","analyst"]')
+        dec_d, dec_a = decode_clock_identity(enc)
+        self.assertEqual((dec_d, dec_a), (d, a))
+
+        # Rejections: empty strings, wrong types, surrogate code points
         with self.assertRaises(ValueError):
-            ClockDomain(domain_id="uow::bad", owner_boundary="b", description="desc")
-        
-        cd = ClockDomain(domain_id="uow01", owner_boundary="b", description="desc")
+            encode_clock_identity("", "analyst")
         with self.assertRaises(ValueError):
-            cd.format_event_actor("bad::actor")
+            encode_clock_identity("ops", "")
+        with self.assertRaises(TypeError):
+            encode_clock_identity(123, "analyst")  # type: ignore
+        with self.assertRaises(ValueError):
+            encode_clock_identity("ops\uD800", "analyst")
+
+        # Noncanonical decoding rejections
+        with self.assertRaises(ValueError):
+            decode_clock_identity('uow-clock:v1:["ops", "analyst"]')  # space after comma
+        with self.assertRaises(ValueError):
+            decode_clock_identity('bad-prefix:v1:["ops","analyst"]')
+
+    def test_boundary_overlap_counterexample_and_adapter_entry_point(self):
+        """Counterexample streams (ops:, analyst) vs (ops, :analyst) survive adapter projection and remain unknown."""
+        cd1 = ClockDomain(domain_id="ops:", owner_boundary="b1", description="Stream 1")
+        cd2 = ClockDomain(domain_id="ops", owner_boundary="b2", description="Stream 2")
+
+        act1 = cd1.format_event_actor("analyst")
+        act2 = cd2.format_event_actor(":analyst")
+
+        # 1. Verify unambiguous encoding (distinct actors, not colliding into 'ops:::analyst')
+        self.assertNotEqual(act1, act2)
+        self.assertEqual(act1, 'uow-clock:v1:["ops:","analyst"]')
+        self.assertEqual(act2, 'uow-clock:v1:["ops",":analyst"]')
+
+        # 2. Exercise the ACTUAL adapter entry point with both streams
+        manifest = deepcopy(self.manifest)
+        manifest["timeline_events"] = [
+            {"id": "evt-overlap-01", "actor": act1, "seq": 1, "parents": []},
+            {"id": "evt-overlap-02", "actor": act2, "seq": 2, "parents": []},
+        ]
+        projected = self.adapter.project_graph_to_case(self.snapshot, manifest)
+
+        # 3. Both events survive projection
+        proj_events = {e["id"]: e for e in projected.timeline_events}
+        self.assertIn("evt-overlap-01", proj_events)
+        self.assertIn("evt-overlap-02", proj_events)
+        self.assertEqual(proj_events["evt-overlap-01"]["actor"], act1)
+        self.assertEqual(proj_events["evt-overlap-02"]["actor"], act2)
+
+        # 4. Without connecting parent, reference workflow evaluates relation as 'unknown'
+        rel_unconnected = event_relation("evt-overlap-01", "evt-overlap-02", projected.timeline_events)
+        self.assertEqual(rel_unconnected, "unknown", "Distinct streams must remain unordered without a causal parent")
+
+        # 5. With explicit causal parent, order is established as 'before'
+        manifest_parent = deepcopy(self.manifest)
+        manifest_parent["timeline_events"] = [
+            {"id": "evt-overlap-01", "actor": act1, "seq": 1, "parents": []},
+            {"id": "evt-overlap-02", "actor": act2, "seq": 2, "parents": ["evt-overlap-01"]},
+        ]
+        projected_parent = self.adapter.project_graph_to_case(self.snapshot, manifest_parent)
+        rel_connected = event_relation("evt-overlap-01", "evt-overlap-02", projected_parent.timeline_events)
+        self.assertEqual(rel_connected, "before", "Explicit causal parent must establish 'before' order")
+
+        # 6. Preserved record of old formula collision
+        legacy_actor1 = "ops:" + "::" + "analyst"
+        legacy_actor2 = "ops" + "::" + ":analyst"
+        self.assertEqual(legacy_actor1, legacy_actor2, "Legacy formula produced collision 'ops:::analyst'")
+        legacy_events = {
+            "e1": {"id": "e1", "actor": legacy_actor1, "seq": 1, "parents": []},
+            "e2": {"id": "e2", "actor": legacy_actor2, "seq": 2, "parents": []},
+        }
+        self.assertEqual(event_relation("e1", "e2", legacy_events), "before", "Legacy collision manufactured artificial 'before'")
 
     def test_unsupported_actual_lifecycle_projection_in_v0_1(self):
         """Actual lifecycle projection (grant expiry invalidation, cancellation release) is declared unsupported in v0.1."""

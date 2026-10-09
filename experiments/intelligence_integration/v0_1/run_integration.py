@@ -206,8 +206,8 @@ Parameters and state spaces were projected directly from host graph nodes:
 ## 5. Architectural Guarantees & Precise Wording
 
 1. **Semantic Fidelity:** A declared subset of MAPEOGEO records translates into an intelligence analysis case without mutating identity, interpretation, evidence status, or uncertainty.
-2. **Timeline Clock Domain Isolation:** Independent UoW event streams are scoped to explicit clock domains (`f"{{domain_id}}::{{actor}}"`). Where no causal dependency connects events across distinct domains, **no causal order is established from the supplied history (relation remains `unknown`)**.
-3. **Delimiter Security:** `ClockDomain` rejects delimiters (`::`) in domain IDs and local actor names, preventing cross-boundary spoofing or accidental alias collisions.
+2. **Timeline Clock Domain Isolation & Canonical Encoding:** Independent UoW event streams are scoped to explicit clock domains via canonical JSON encoding (`uow-clock:v1:[domain_id, local_actor]`). Where no causal dependency connects events across distinct domains, **no causal order is established from the supplied history (relation remains `unknown`)**.
+3. **Unambiguous Identifier Representation:** The canonical JSON codec provides unambiguous, invertible encoding under the declared identifier contract ($D(E(d, a)) = (d, a)$), completely avoiding boundary-overlap collisions like `("ops:", "analyst")` vs `("ops", ":analyst")`.
 4. **Representation Discipline:** Candidate representations (`CANDIDATE_EO`, `CANDIDATE_GEO`, `CANDIDATE_REPRESENTS`) are barred from implicit promotion to semantic equivalence (`SAME_SEMANTICS`).
 5. **Authority Separation:** Source assertions claiming authority remain strictly informational and cannot supply admission or grants for actual work.
 6. **Zero-Fabrication:** Missing facts remain explicitly unknown; no default truth values, zero quantities, or synthetic fallbacks are injected.
@@ -216,12 +216,14 @@ Parameters and state spaces were projected directly from host graph nodes:
 
 ---
 
-## 6. Selected Host Compatibility Test Suites
+## 6. Scope of Reproduction & Host Test Context
 
-The integration was qualified alongside the following core MAPEOGEO test suites:
-- `tests/test_generic_math_ir.py`: **7/7 passed**.
-- `tests/test_m0e1_durable_admission.py`: **11/11 passed**.
-- `tests/test_certifiable_semantics_census.py`: Verified census structure and model contracts.
+- **Reproduction Dependency:** Reproduction from a fresh checkout requires unpacking the pristine, digest-verified reference archive `intelligence_qualification_v0_3.zip` (`c8747ad59f3f3c0e17a1e5e397ed4c4c981d6210ca498f25fa8d2d088b5ab9a7`).
+- **Qualification Scope:** Agrees with the pinned reference on the declared finite cases and tested boundaries across:
+  - Reference Qualification Suite (`intel_uow`): **152/152 pass**, legacy grammar baseline **19/24 pass, 5 preserved documented disagreements**.
+  - Integration Test Suite (`test_integration.py`): **18/18 pass**, **15/15 parity checks agree**.
+  - Clock Identity Verification Suite (`verify_clock_identity.py`): **7/7 pass**, boundary overlap regression verified.
+- **Host Test Context:** Candidate host test suites in the working tree (`test_generic_math_ir.py`, `test_m0e1_durable_admission.py`) belong to separate historical experimental milestones outside the pristine Git base commit (`c9d9fb0`); this clean checkout milestone qualifies the relocated reference and adapter suites independently.
 """
 
     report_path = output_dir / "INTEGRATION_REPORT.md"

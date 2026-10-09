@@ -117,30 +117,39 @@ SEMANTIC_EQUIVALENCE_EDGES: FrozenSet[str] = frozenset({
 })
 
 
+from experiments.intelligence_integration.v0_1.clock_identity import (
+    CLOCK_IDENTITY_PREFIX,
+    encode_clock_identity,
+    decode_clock_identity,
+)
+
 # ==============================================================================
 # 4. TIMELINE CLOCK DOMAIN OWNERSHIP & ENCODING RULES
 # ==============================================================================
 
 @dataclass(frozen=True)
 class ClockDomain:
-    """Explicitly bounds sequence counter ownership to prevent cross-UoW ordering."""
+    """Explicitly bounds sequence counter ownership to prevent cross-UoW ordering.
+    
+    Uses canonical JSON encoding 'uow-clock:v1:[domain_id, local_actor]' to ensure
+    unambiguous, invertible representation across all Unicode scalar values and
+    arbitrary internal delimiters.
+    """
     domain_id: str
     owner_boundary: str  # e.g., 'uow:boundary:uow-01', 'worker:proc:1024'
     description: str
 
     def __post_init__(self) -> None:
-        if not self.domain_id or "::" in self.domain_id:
-            raise ValueError(f"domain_id must be nonempty and cannot contain '::', got: {self.domain_id}")
+        if not self.domain_id:
+            raise ValueError(f"domain_id must be a nonempty string, got: {self.domain_id!r}")
 
     def format_event_actor(self, local_actor: str) -> str:
         """Namespaces the actor to its clock domain so workflow.py's `(actor, seq)`
-
         partial order respects the local timeline and avoids collisions.
-        Requires local_actor to be free of '::' to prevent ambiguous delimiter collisions.
+        Uses canonical, unambiguous versioned JSON encoding:
+            uow-clock:v1:[domain_id, local_actor]
         """
-        if not local_actor or "::" in local_actor:
-            raise ValueError(f"local_actor must be nonempty and cannot contain '::', got: {local_actor}")
-        return f"{self.domain_id}::{local_actor}"
+        return encode_clock_identity(self.domain_id, local_actor)
 
     def format_event_id(self, local_event_id: str) -> str:
         """Namespaces event identifiers to avoid collision across domains."""

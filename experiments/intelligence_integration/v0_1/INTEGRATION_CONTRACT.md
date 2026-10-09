@@ -88,11 +88,13 @@ If MAPEOGEO maps a participant directly to `actor` across two independent UoWs, 
 1. **Colliding Sequence Identifiers:** Both UoWs emitting `seq = 1` cause a duplicate key error in `actor_sequences[(e['actor'], e['seq'])]`.
 2. **Spurious Causal Ordering:** Events across independent, concurrent UoWs are falsely chained into a linear timeline (`seq 1 -> seq 2`), manufacturing an ordering where none exists.
 
-### 3.3 The Adapter Resolution & Delimiter Security
-The adapter enforces explicit clock domain namespacing:
+### 3.3 The Adapter Resolution & Canonical JSON Clock Identity
+The adapter enforces explicit clock domain namespacing via canonical JSON encoding:
 - **Sequence Ownership:** The sequence counter is owned by the stream `(domain_id, local_actor)`.
-- **Namespaced Actor:** `event_actor = f"{clock_domain.domain_id}::{local_actor}"`.
-- **Delimiter Security:** To prevent ambiguous collisions between `("a::b", "c")` and `("a", "b::c")`, `ClockDomain` explicitly validates that neither `domain_id` nor `local_actor` contains `::`, raising a `ValueError` on malformed inputs.
+- **Unambiguous Canonical Encoding:**
+  `event_actor = f"uow-clock:v1:{json.dumps([domain_id, local_actor], ensure_ascii=False, separators=(',', ':'))}"`
+- **Invertible Representation:** The codec strictly satisfies $D(E(d, a)) = (d, a)$. Decoding validates that re-encoding reproduces the exact string.
+- **Boundary Overlap Immunity:** Component boundaries are preserved cleanly across all character contents (including colons, quotes, slashes, whitespace, combining characters, and arbitrary Unicode scalar values). Pairs like `("ops:", "analyst")` and `("ops", ":analyst")` produce distinct encodings (`uow-clock:v1:["ops:","analyst"]` and `uow-clock:v1:["ops",":analyst"]`), eliminating the boundary-overlap collision.
 - **Causal Parent Preservation:** Unrelated UoWs remain completely concurrent. When comparing events across independent clock domains with no causal dependency, **no causal order is established from the supplied history (relation remains `unknown`)**. Order across clock domains is established **only** if an explicit causal parent link (`parents: ["evt-earlier"]`) connects them.
 
 ---

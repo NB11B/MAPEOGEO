@@ -39,6 +39,7 @@ from intel_uow.workflow import Workflow
 
 from .contract import (
     AdapterContract,
+    CLOCK_IDENTITY_PREFIX,
     ClockDomain,
     GraphLayer,
     MAPEOGEO_NODE_TO_LAYER,
@@ -243,10 +244,10 @@ class MAPEOGEOAnalysisAdapter:
                 e_copy = deepcopy(evt)
                 actor = e_copy.get("actor", "")
                 try:
-                    if "::" not in actor:
+                    if isinstance(actor, str) and not actor.startswith(CLOCK_IDENTITY_PREFIX):
                         e_copy["actor"] = c_dom.format_event_actor(actor)
-                except ValueError as exc:
-                    diagnostics.append(f"Ambiguous event actor rejected: {exc}")
+                except (ValueError, TypeError) as exc:
+                    diagnostics.append(f"Ambiguous or invalid event actor rejected: {exc}")
                 timeline_events.append(e_copy)
 
         # Determine projection status
