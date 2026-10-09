@@ -1,0 +1,535 @@
+{
+  "adapted_evaluation": {
+    "baseline_evaluation": {
+      "capability": "unresolved",
+      "nominal_completion": "unresolved",
+      "option_upper_bounds": {
+        "bridge": "6",
+        "existing": "10"
+      },
+      "per_state": {
+        "c3a0": {
+          "bridge_worst_case_shortfall": "6",
+          "capability": "refuted_under_model",
+          "existing_worst_case_shortfall": "10",
+          "nominal_completion": "refuted_under_model",
+          "nominal_delivered": "4",
+          "preferred_options": [
+            "bridge"
+          ]
+        },
+        "c3a1": {
+          "bridge_worst_case_shortfall": "3",
+          "capability": "refuted_under_model",
+          "existing_worst_case_shortfall": "7",
+          "nominal_completion": "refuted_under_model",
+          "nominal_delivered": "7",
+          "preferred_options": [
+            "bridge"
+          ]
+        },
+        "c6a0": {
+          "bridge_worst_case_shortfall": "6",
+          "capability": "refuted_under_model",
+          "existing_worst_case_shortfall": "10",
+          "nominal_completion": "refuted_under_model",
+          "nominal_delivered": "4",
+          "preferred_options": [
+            "bridge"
+          ]
+        },
+        "c6a1": {
+          "bridge_worst_case_shortfall": "0",
+          "capability": "supported_under_model",
+          "existing_worst_case_shortfall": "6",
+          "nominal_completion": "supported_under_model",
+          "nominal_delivered": "10",
+          "preferred_options": [
+            "bridge"
+          ]
+        }
+      },
+      "preferred_options": [
+        "bridge"
+      ],
+      "risk": {
+        "scenario_worst_case_values": [
+          "0",
+          "3",
+          "6"
+        ],
+        "upper_bound": "6"
+      },
+      "robust_preferred_options": [
+        "bridge"
+      ],
+      "status": "evaluated"
+    },
+    "case_id": "capacity-continuity-case",
+    "evidence_summary": {
+      "contested_report_ids": [],
+      "disposition": "conflict",
+      "identity_diagnostics": [],
+      "opposing_origins": [
+        "origin-2"
+      ],
+      "opposing_report_ids": [
+        "negative-report"
+      ],
+      "supporting_origins": [
+        "origin-1"
+      ],
+      "supporting_report_ids": [
+        "positive-report"
+      ],
+      "unaligned_report_ids": [],
+      "unassessed_report_ids": [],
+      "unreviewed_report_ids": []
+    },
+    "field_provenance": [
+      {
+        "extracted_value": 10,
+        "field_name": "demand",
+        "host_node_id": "src:service_contract:v1",
+        "source_attribute": "demand_units"
+      },
+      {
+        "extracted_value": 4,
+        "field_name": "regular_capacity",
+        "host_node_id": "src:carrier_schedule:v1",
+        "source_attribute": "regular_capacity"
+      },
+      {
+        "extracted_value": 6,
+        "field_name": "bridge_capacity",
+        "host_node_id": "src:carrier_schedule:v1",
+        "source_attribute": "bridge_capacity"
+      },
+      {
+        "extracted_value": 10,
+        "field_name": "loading_capacity",
+        "host_node_id": "src:carrier_schedule:v1",
+        "source_attribute": "loading_capacity"
+      },
+      {
+        "extracted_value": [
+          3,
+          6
+        ],
+        "field_name": "capacity_values",
+        "host_node_id": "obj:carrier_capacity_model:v1",
+        "source_attribute": "capacity_values"
+      },
+      {
+        "extracted_value": [
+          0,
+          1
+        ],
+        "field_name": "availability_values",
+        "host_node_id": "obj:carrier_capacity_model:v1",
+        "source_attribute": "availability_values"
+      }
+    ],
+    "grammar_interpretation": {
+      "actual_world_changed": false,
+      "authority_result": "not_assessed",
+      "candidates": [
+        "assess_claim"
+      ],
+      "diagnostics": [],
+      "identifiability": "unique",
+      "interpretation_resolution": "resolved_within_scope",
+      "interpretations": [
+        {
+          "author_disposition": "accepted",
+          "candidate_operator": "assess_claim",
+          "conditions": [
+            "the focal source expression has the assessment_record reading"
+          ],
+          "context_ref": {
+            "id": "meaning-context",
+            "revision": 1
+          },
+          "evidence_refs": [
+            "review-witness"
+          ],
+          "gaps": [],
+          "id": "meaning-context:review-witness:assess_claim",
+          "interpretation_is_conditional": true,
+          "occurrence_evidence": "not_assessed",
+          "source_convention_ref": {
+            "id": "review-language",
+            "revision": 1
+          },
+          "transition_check": "matched",
+          "underlying_proposition_evidence": "unresolved"
+        }
+      ],
+      "occurrence_evidence": "not_assessed",
+      "status": "evaluated",
+      "unmodeled_alternatives": []
+    },
+    "hypothetical_consequences": {
+      "actual_world_changed": false,
+      "interpretation": "hypothetical",
+      "states": [
+        {
+          "A": 0,
+          "C": 3,
+          "id": "c3a0"
+        },
+        {
+          "A": 1,
+          "C": 3,
+          "id": "c3a1"
+        },
+        {
+          "A": 0,
+          "C": 6,
+          "id": "c6a0"
+        },
+        {
+          "A": 1,
+          "C": 6,
+          "id": "c6a1"
+        }
+      ],
+      "status": "observed"
+    },
+    "immutability_verified": true,
+    "meaningful_gaps": [
+      {
+        "candidate_values": [
+          3,
+          6
+        ],
+        "field": "C",
+        "question_ref": {
+          "id": "capacity-continuity-case-question",
+          "revision": 1
+        },
+        "reason": "varying_values",
+        "scope": {
+          "subject": "reserve-carrier",
+          "window": "service-window"
+        }
+      },
+      {
+        "candidate_values": [
+          0,
+          1
+        ],
+        "field": "A",
+        "question_ref": {
+          "id": "capacity-continuity-case-question",
+          "revision": 1
+        },
+        "reason": "varying_values",
+        "scope": {
+          "subject": "reserve-carrier",
+          "window": "service-window"
+        }
+      }
+    ],
+    "projection_status": "supported_case",
+    "reassessment_result": {
+      "changed_dependencies": [
+        "loading-model"
+      ],
+      "newly_relevant": [
+        "alternative-realization"
+      ],
+      "reasons": [
+        "pinned known dependencies changed",
+        "new candidate dependencies require relevance assessment"
+      ],
+      "requires_reassessment": true
+    },
+    "revision": 1,
+    "source_snapshot_digest": "51aef515a69c754c2b5dfb5cbe26836818b506c4e5e1dba010843d87aae0f99b"
+  },
+  "direct_evaluation": {
+    "baseline": {
+      "capability": "unresolved",
+      "nominal_completion": "unresolved",
+      "option_upper_bounds": {
+        "bridge": "6",
+        "existing": "10"
+      },
+      "per_state": {
+        "c3a0": {
+          "bridge_worst_case_shortfall": "6",
+          "capability": "refuted_under_model",
+          "existing_worst_case_shortfall": "10",
+          "nominal_completion": "refuted_under_model",
+          "nominal_delivered": "4",
+          "preferred_options": [
+            "bridge"
+          ]
+        },
+        "c3a1": {
+          "bridge_worst_case_shortfall": "3",
+          "capability": "refuted_under_model",
+          "existing_worst_case_shortfall": "7",
+          "nominal_completion": "refuted_under_model",
+          "nominal_delivered": "7",
+          "preferred_options": [
+            "bridge"
+          ]
+        },
+        "c6a0": {
+          "bridge_worst_case_shortfall": "6",
+          "capability": "refuted_under_model",
+          "existing_worst_case_shortfall": "10",
+          "nominal_completion": "refuted_under_model",
+          "nominal_delivered": "4",
+          "preferred_options": [
+            "bridge"
+          ]
+        },
+        "c6a1": {
+          "bridge_worst_case_shortfall": "0",
+          "capability": "supported_under_model",
+          "existing_worst_case_shortfall": "6",
+          "nominal_completion": "supported_under_model",
+          "nominal_delivered": "10",
+          "preferred_options": [
+            "bridge"
+          ]
+        }
+      },
+      "preferred_options": [
+        "bridge"
+      ],
+      "risk": {
+        "scenario_worst_case_values": [
+          "0",
+          "3",
+          "6"
+        ],
+        "upper_bound": "6"
+      },
+      "robust_preferred_options": [
+        "bridge"
+      ],
+      "status": "evaluated"
+    },
+    "evidence": {
+      "contested_report_ids": [],
+      "disposition": "conflict",
+      "identity_diagnostics": [],
+      "opposing_origins": [
+        "origin-2"
+      ],
+      "opposing_report_ids": [
+        "negative-report"
+      ],
+      "supporting_origins": [
+        "origin-1"
+      ],
+      "supporting_report_ids": [
+        "positive-report"
+      ],
+      "unaligned_report_ids": [],
+      "unassessed_report_ids": [],
+      "unreviewed_report_ids": []
+    },
+    "gaps": [
+      {
+        "candidate_values": [
+          3,
+          6
+        ],
+        "field": "C",
+        "question_ref": {
+          "id": "capacity-continuity-case-question",
+          "revision": 1
+        },
+        "reason": "varying_values",
+        "scope": {
+          "subject": "reserve-carrier",
+          "window": "service-window"
+        }
+      },
+      {
+        "candidate_values": [
+          0,
+          1
+        ],
+        "field": "A",
+        "question_ref": {
+          "id": "capacity-continuity-case-question",
+          "revision": 1
+        },
+        "reason": "varying_values",
+        "scope": {
+          "subject": "reserve-carrier",
+          "window": "service-window"
+        }
+      }
+    ],
+    "hypothetical": {
+      "actual_world_changed": false,
+      "interpretation": "hypothetical",
+      "states": [
+        {
+          "A": 0,
+          "C": 3,
+          "id": "c3a0"
+        },
+        {
+          "A": 1,
+          "C": 3,
+          "id": "c3a1"
+        },
+        {
+          "A": 0,
+          "C": 6,
+          "id": "c6a0"
+        },
+        {
+          "A": 1,
+          "C": 6,
+          "id": "c6a1"
+        }
+      ],
+      "status": "observed"
+    },
+    "interpretation": {
+      "actual_world_changed": false,
+      "authority_result": "not_assessed",
+      "candidates": [
+        "assess_claim"
+      ],
+      "diagnostics": [],
+      "identifiability": "unique",
+      "interpretation_resolution": "resolved_within_scope",
+      "interpretations": [
+        {
+          "author_disposition": "accepted",
+          "candidate_operator": "assess_claim",
+          "conditions": [
+            "the focal source expression has the assessment_record reading"
+          ],
+          "context_ref": {
+            "id": "meaning-context",
+            "revision": 1
+          },
+          "evidence_refs": [
+            "review-witness"
+          ],
+          "gaps": [],
+          "id": "meaning-context:review-witness:assess_claim",
+          "interpretation_is_conditional": true,
+          "occurrence_evidence": "not_assessed",
+          "source_convention_ref": {
+            "id": "review-language",
+            "revision": 1
+          },
+          "transition_check": "matched",
+          "underlying_proposition_evidence": "unresolved"
+        }
+      ],
+      "occurrence_evidence": "not_assessed",
+      "status": "evaluated",
+      "unmodeled_alternatives": []
+    },
+    "reassessment": {
+      "changed_dependencies": [
+        "loading-model"
+      ],
+      "newly_relevant": [
+        "alternative-realization"
+      ],
+      "reasons": [
+        "pinned known dependencies changed",
+        "new candidate dependencies require relevance assessment"
+      ],
+      "requires_reassessment": true
+    }
+  },
+  "duration_seconds": 0.0201,
+  "environment": {
+    "adapter_version": "0.1.0",
+    "base_commit": "c9d9fb0747a6e3a89f8654c70e9f2b48d5f97c53",
+    "branch": "experiment/intelligence-integration-v0.1",
+    "reference_package_sha256": "c8747ad59f3f3c0e17a1e5e397ed4c4c981d6210ca498f25fa8d2d088b5ab9a7",
+    "reference_version": "0.3",
+    "repository": "MAPEOGEO-frozen-main"
+  },
+  "host_provenance": [
+    {
+      "extracted_value": 10,
+      "field_name": "demand",
+      "host_node_id": "src:service_contract:v1",
+      "source_attribute": "demand_units"
+    },
+    {
+      "extracted_value": 4,
+      "field_name": "regular_capacity",
+      "host_node_id": "src:carrier_schedule:v1",
+      "source_attribute": "regular_capacity"
+    },
+    {
+      "extracted_value": 6,
+      "field_name": "bridge_capacity",
+      "host_node_id": "src:carrier_schedule:v1",
+      "source_attribute": "bridge_capacity"
+    },
+    {
+      "extracted_value": 10,
+      "field_name": "loading_capacity",
+      "host_node_id": "src:carrier_schedule:v1",
+      "source_attribute": "loading_capacity"
+    },
+    {
+      "extracted_value": [
+        3,
+        6
+      ],
+      "field_name": "capacity_values",
+      "host_node_id": "obj:carrier_capacity_model:v1",
+      "source_attribute": "capacity_values"
+    },
+    {
+      "extracted_value": [
+        0,
+        1
+      ],
+      "field_name": "availability_values",
+      "host_node_id": "obj:carrier_capacity_model:v1",
+      "source_attribute": "availability_values"
+    }
+  ],
+  "parity_summary": {
+    "all_parity_passed": true,
+    "checks": {
+      "baseline_capability_matches": true,
+      "baseline_preferred_options_matches": true,
+      "baseline_risk_matches": true,
+      "baseline_status_matches": true,
+      "evidence_disposition_matches": true,
+      "grammar_interpretation_resolution_matches": true,
+      "host_provenance_verified": true,
+      "hypothetical_states_matches": true,
+      "hypothetical_status_matches": true,
+      "immutability_verified": true,
+      "meaningful_gaps_matches": true,
+      "opposing_origins_matches": true,
+      "option_upper_bounds_matches": true,
+      "reassessment_matches": true,
+      "supporting_origins_matches": true
+    },
+    "passed_checks": 15,
+    "total_checks": 15
+  },
+  "run_id": "run-20261009-v0_1-01",
+  "tests_summary": {
+    "all_tests_passed": true,
+    "error_methods": 0,
+    "failed_methods": 0,
+    "passed_methods": 17,
+    "total_methods": 17
+  },
+  "timestamp": "2026-10-09T23:19:35Z"
+}
