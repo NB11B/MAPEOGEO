@@ -1,0 +1,68 @@
+{
+  "status": "PASSED",
+  "platform_operator_basis": [
+    "C",
+    "D",
+    "E",
+    "F",
+    "K",
+    "O",
+    "S"
+  ],
+  "domains_evaluated": [
+    "mathematics",
+    "software",
+    "intelligence",
+    "authority",
+    "physics"
+  ],
+  "domain_grammar_factoring": {
+    "mathematics": {
+      "O": "Source ingestion and corpus capture (M0a/M0b/M0c)",
+      "E": "Extraction of mathematical claims and MathIR compilation",
+      "K": "Kernel verification and proof falsification (GFYProof / Lean)",
+      "C": "Reconciliation across mathematical families and definitions",
+      "F": "Frontier exploration and bibliographic expansion",
+      "D": "Proof witness durability and canonical graph persistence",
+      "S": "Soundness invariants and circularity detection"
+    },
+    "software": {
+      "O": "Telemetry capture, system log ingestion, source monitoring",
+      "E": "AST parsing, bytecode decompilation, call-graph extraction",
+      "K": "Static analysis, unit test execution, property verification",
+      "C": "Dependency conflict reconciliation, merge validation",
+      "F": "Build graph planning, release packaging pipeline",
+      "D": "Durable task dispatch, execution queue lifecycle",
+      "S": "Sandbox confinement, authorization checks, resource quota"
+    },
+    "intelligence": {
+      "O": "Sensor data acquisition, telemetry ingest (FACT_GAP -> O)",
+      "E": "Analytical extraction, relation extraction, semantic parsing",
+      "K": "Epistemic classification, hypothesis falsification (INTERPRETATION_GAP -> K)",
+      "C": "Cross-source corroboration, boundary comparison (COVERAGE_GAP -> C)",
+      "F": "Course-of-action formulation (OPERATION_DEFINITION_GAP -> F)",
+      "D": "Execution custody tracking, durable dispatch (CUSTODY_TRANSFER_GAP -> O/D)",
+      "S": "Classification boundaries, security compartmentation (AUTHORIZATION_GAP -> K/S)"
+    },
+    "authority": {
+      "O": "Legal source discovery and rule pack intake",
+      "E": "Applicability predicate extraction and condition parsing",
+      "K": "Hohfeldian classification and modal verification",
+      "C": "Rule conflict resolution, priority ordering (lex superior/specialis)",
+      "F": "Delegation chain composition and scope attenuation",
+      "D": "Operational admission decision recording and durable commit",
+      "S": "Statutory safeguard validation and obstruction enforcement"
+    },
+    "physics": {
+      "O": "Sensor measurement acquisition and experimental observation",
+      "E": "Feature extraction and dimensional analysis",
+      "K": "Physical conservation law verification (energy, momentum)",
+      "C": "Model-to-experiment reconciliation and residual analysis",
+      "F": "Phase space trajectory prediction and forward integration",
+      "D": "Durable experimental telemetry logging and state retention",
+      "S": "Operational safety envelope enforcement and limit monitoring"
+    }
+  },
+  "basis_completeness": true,
+  "invariant": "All domain actions and deficiencies project into Sigma_W without creating an 8th operator"
+}
