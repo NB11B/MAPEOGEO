@@ -1,0 +1,50 @@
+{
+  "status": "PASSED",
+  "isolated_witness_types": {
+    "MathWitness": {
+      "domain": "mathematics",
+      "payload_fields": [
+        "theorem_id",
+        "proof_format",
+        "verifier_version",
+        "falsification_digest"
+      ],
+      "cannot_certify": [
+        "authority",
+        "execution",
+        "operational_admission"
+      ]
+    },
+    "AuthorityCertificateWitness": {
+      "domain": "authority",
+      "payload_fields": [
+        "certificate_id",
+        "outcome",
+        "status",
+        "decisive_rules",
+        "conditions_evaluated"
+      ],
+      "cannot_certify": [
+        "mathematical_truth",
+        "physical_truth",
+        "execution_completion"
+      ]
+    },
+    "ExecutionReceipt": {
+      "domain": "uow_execution",
+      "payload_fields": [
+        "task_id",
+        "worker_id",
+        "exit_code",
+        "stdout_digest",
+        "resource_usage"
+      ],
+      "cannot_certify": [
+        "legal_authority",
+        "mathematical_soundness"
+      ]
+    }
+  },
+  "four_outcome_model_verified": true,
+  "invariant": "MathWitness != AuthorityCertificateWitness != ExecutionReceipt; UNRESOLVED never collapses"
+}

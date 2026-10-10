@@ -28,3 +28,8 @@ artifacts/
 data/sources/
 *.pdf
 .crossbranch/
+
+# Security & Authority Credentials
+evidence/.uow_authority_key
+evidence/*.sqlite3
+

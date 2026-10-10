@@ -1,0 +1,143 @@
+[
+  {
+    "actor_capacity_kinds": [
+      "regulator",
+      "investigator",
+      "licensee",
+      "auditor",
+      "citizen",
+      "third_party"
+    ],
+    "affected_role_kinds": [
+      "custodian",
+      "data_subject",
+      "target_record_holder"
+    ],
+    "effect_definitions": [
+      {
+        "effect_kind": "informational_notice",
+        "ref": "effect:record_requested"
+      }
+    ],
+    "functional_lenses": [
+      "investigative",
+      "governance"
+    ],
+    "parameter_spec": [
+      {
+        "name": "record_type",
+        "required": true,
+        "type_ref": "string"
+      },
+      {
+        "name": "urgency",
+        "required": false,
+        "type_ref": "string"
+      }
+    ],
+    "ref": "op:request_record"
+  },
+  {
+    "actor_capacity_kinds": [
+      "regulator",
+      "investigator"
+    ],
+    "affected_role_kinds": [
+      "compelled_entity",
+      "subpoenaed_party"
+    ],
+    "effect_definitions": [
+      {
+        "effect_kind": "mandatory_custody_transfer",
+        "ref": "effect:record_compelled"
+      }
+    ],
+    "functional_lenses": [
+      "enforcement",
+      "coercive"
+    ],
+    "parameter_spec": [
+      {
+        "name": "warrant_id",
+        "required": true,
+        "type_ref": "string"
+      },
+      {
+        "name": "penalty_terms",
+        "required": true,
+        "type_ref": "string"
+      }
+    ],
+    "ref": "op:compel_record"
+  },
+  {
+    "actor_capacity_kinds": [
+      "regulator",
+      "investigator",
+      "licensee",
+      "auditor"
+    ],
+    "affected_role_kinds": [
+      "record_subject",
+      "beneficiary"
+    ],
+    "effect_definitions": [
+      {
+        "effect_kind": "custodial_lock",
+        "ref": "effect:record_retained"
+      }
+    ],
+    "functional_lenses": [
+      "custodial",
+      "compliance"
+    ],
+    "parameter_spec": [
+      {
+        "name": "retention_period_days",
+        "required": true,
+        "type_ref": "integer"
+      },
+      {
+        "name": "security_tier",
+        "required": true,
+        "type_ref": "string"
+      }
+    ],
+    "ref": "op:retain_record"
+  },
+  {
+    "actor_capacity_kinds": [
+      "licensee",
+      "auditor",
+      "third_party",
+      "regulator"
+    ],
+    "affected_role_kinds": [
+      "data_subject",
+      "affected_carrier"
+    ],
+    "effect_definitions": [
+      {
+        "effect_kind": "third_party_access",
+        "ref": "effect:record_disclosed"
+      }
+    ],
+    "functional_lenses": [
+      "transmissive",
+      "collaboration"
+    ],
+    "parameter_spec": [
+      {
+        "name": "recipient_ref",
+        "required": true,
+        "type_ref": "reference"
+      },
+      {
+        "name": "disclosure_purpose",
+        "required": true,
+        "type_ref": "string"
+      }
+    ],
+    "ref": "op:share_record"
+  }
+]

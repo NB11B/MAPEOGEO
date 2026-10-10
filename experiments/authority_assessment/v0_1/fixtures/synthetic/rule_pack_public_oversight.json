@@ -1,0 +1,84 @@
+{
+  "name": "Public Oversight Statutory Powers Pack",
+  "ref": "pack:public_oversight_v1",
+  "rules": [
+    {
+      "description": "Regulatory agencies possess legal power to compel records from regulated entities under active warrant.",
+      "indispensable_conditions": [
+        "cond:has_active_warrant_or_order"
+      ],
+      "interest_ref": "interest:compliance",
+      "name": "Statutory Regulatory Compulsion Power",
+      "norm_kind": "power",
+      "operation_ref": "op:compel_record",
+      "performer_capacities": [
+        "regulator",
+        "investigator"
+      ],
+      "ref": "rule:over:01",
+      "target_capacities": [
+        "licensee",
+        "auditor",
+        "third_party"
+      ]
+    },
+    {
+      "description": "The regulatory board possesses statutory immunity against compulsion by regulated or third-party actors.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:due_process",
+      "name": "Immunity of Oversight Board",
+      "norm_kind": "prohibition",
+      "operation_ref": "op:compel_record",
+      "performer_capacities": [
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ],
+      "ref": "rule:over:02",
+      "target_capacities": [
+        "regulator"
+      ]
+    },
+    {
+      "description": "Licensees and auditors have an affirmative legal duty to disclose completed audit records to oversight authorities.",
+      "indispensable_conditions": [
+        "cond:audit_completed"
+      ],
+      "interest_ref": "interest:transparency",
+      "name": "Mandatory Audit Disclosure Duty",
+      "norm_kind": "duty",
+      "operation_ref": "op:share_record",
+      "performer_capacities": [
+        "licensee",
+        "auditor"
+      ],
+      "ref": "rule:over:03",
+      "target_capacities": [
+        "regulator",
+        "investigator"
+      ]
+    },
+    {
+      "description": "Statutory duty of regulators, investigators, and operating licensees to preserve and retain regulatory records with respect to regulated subjects.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:compliance",
+      "name": "Mandatory Record Retention for Oversight",
+      "norm_kind": "duty",
+      "operation_ref": "op:retain_record",
+      "performer_capacities": [
+        "regulator",
+        "investigator",
+        "licensee"
+      ],
+      "ref": "rule:over:04",
+      "target_capacities": [
+        "licensee",
+        "citizen",
+        "auditor",
+        "third_party"
+      ]
+    }
+  ],
+  "version": "1.0.0"
+}

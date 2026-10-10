@@ -1,0 +1,226 @@
+{
+  "files": [
+    {
+      "path": "fixtures/legal_packs/statute_stored_communications_act_v1.json",
+      "sha256": "92541525c32df61b7b5b05fe40e9a0848a9355b0f0c2840fb3970c94963b1a8f",
+      "size_bytes": 2962,
+      "line_ending": "LF"
+    },
+    {
+      "path": "fixtures/legal_packs/statute_stored_communications_act_v1.txt",
+      "sha256": "d1e16bbd2b9b799adf149785981a030cb2bf6b08f271967cfe843c21a907189e",
+      "size_bytes": 1828,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/authority.py",
+      "sha256": "2b6f00d4416fda4f7a886446979d5c6f1532fd67172289be2d53bf63b9e5c903",
+      "size_bytes": 6390,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/__init__.py",
+      "sha256": "77b70ae11950a1bb36f809eb6fb2ffd917ae4c47334cb5db4f6c6fcce952df9b",
+      "size_bytes": 448,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/__init__.py",
+      "sha256": "e20b8c3e62468a9a2bce9f3209370e53c229f80a9dd9db50217ebf30c5e01a62",
+      "size_bytes": 1913,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/adapter.py",
+      "sha256": "42c6ac915d38be6566fe582db325d49fd38c13f9334a760824bd97ea32bd3ce8",
+      "size_bytes": 4701,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/certification.py",
+      "sha256": "d9bad249ef5097076cbc3babf5215bee8e23873dd96531d9e784a6cf4f7364f3",
+      "size_bytes": 5254,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/delegation.py",
+      "sha256": "2525644f951409374ec08943a8e8fbb0b78214645b9c64f0e329e0d5a6dc3818",
+      "size_bytes": 1578,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/evaluator.py",
+      "sha256": "625bb1776bba2583809ec0f87c9556165bf44d51452c9bfffa81a0512e6e0f3c",
+      "size_bytes": 3052,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/impact.py",
+      "sha256": "e1f090da50e9382e2537d46989da904dd58166b9c6268752b02f6566e5b4e17a",
+      "size_bytes": 7378,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/intake.py",
+      "sha256": "eb3dd5852c5a5915a85b43eca61d8f6d41669da528acc5240f6fef4a4e71e7e8",
+      "size_bytes": 10274,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/ontology.py",
+      "sha256": "b28d4ccb75af9c429e4e060198b48a488f29bf0676a9950117cc1ac6ea1fabb0",
+      "size_bytes": 2336,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/qualification.py",
+      "sha256": "4bb9f76c296c4a8c6923c2fd4ebe0724b9c2c649868a8ecd2d68ae0158b966a5",
+      "size_bytes": 3264,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/authority/rules.py",
+      "sha256": "f5ef02e09d968ebbbf3e6ecd1f6dc77a4007c54433d4e9df60c6baf589fdf740",
+      "size_bytes": 1265,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/__init__.py",
+      "sha256": "e708f7fc0c3fdb7ffbe70711a2529136bc6615d858ec21573303c4a97691f72c",
+      "size_bytes": 1535,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/adapter.py",
+      "sha256": "d9cd5557db33d8582323c611d86ccc553e95d99598375222476731874635e518",
+      "size_bytes": 1642,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/analysis.py",
+      "sha256": "2cbd730e88a313cf9a7bb19d8c3ccb8e7470fbd53c39053b19b1e2aef5d081e9",
+      "size_bytes": 7016,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/functions.py",
+      "sha256": "00d2861e657cc657fb27df506d289645ff9220f590508c297d5fb37e71669c4c",
+      "size_bytes": 3860,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/gap_engine.py",
+      "sha256": "f9086d764a7fbbe6a355e6f9b02e86e8b034d93f5ad805a5834b379e6b8d9c2d",
+      "size_bytes": 5838,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/grammar_mapping.py",
+      "sha256": "4fb83695470f497f06f457681bec3ced55268a38c46c4395588a19788c5748a3",
+      "size_bytes": 1800,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/ontology.py",
+      "sha256": "f9b807d070e699fe1814b7427d177c676333263d449de8fc2285615d64c84bce",
+      "size_bytes": 1606,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/planner.py",
+      "sha256": "fbae2b2e18b35ac361161660d3b13e70c0d48c702ce0f3c2259080f02bc998b8",
+      "size_bytes": 7390,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/domains/intelligence/qualification.py",
+      "sha256": "ed400b1480f502befc554ffbb27e389f5ae456b9e1f504798659fff9e2633f30",
+      "size_bytes": 1914,
+      "line_ending": "LF"
+    },
+    {
+      "path": "mapeogeo/intelligence.py",
+      "sha256": "f4597394eb88e5f95548eb37d9df0b184a61acdb1d1ee1f17e604ec682b784c4",
+      "size_bytes": 8555,
+      "line_ending": "LF"
+    },
+    {
+      "path": "scripts/c10_scale_benchmark.py",
+      "sha256": "e845179179d0f64ffbef2b27cd77d63aed8f7483833cbf6ff154473a989e2157",
+      "size_bytes": 14824,
+      "line_ending": "LF"
+    },
+    {
+      "path": "scripts/c13_publish_release.py",
+      "sha256": "5720ab41d74ed9b1054984a3ab23ef4df958e9204f7f1456dd7113c656d2e876",
+      "size_bytes": 20491,
+      "line_ending": "LF"
+    },
+    {
+      "path": "scripts/c5_cross_domain_qualification.py",
+      "sha256": "3badb1af56894dbfe4998138bc09f1a87d0e240c5bab912c7d96d365b4f34ae9",
+      "size_bytes": 28027,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c10_scale_benchmark.py",
+      "sha256": "3ae93098cbb324600a0d075f739e2e1457973db4cab57005429d35553a93454d",
+      "size_bytes": 3462,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c11_adversarial_falsification.py",
+      "sha256": "c0b9a5348a9d7e4102e3f9131031ac566639cd9a5cb566e0239ad8afec0a18ce",
+      "size_bytes": 9055,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c12_cli_interfaces.py",
+      "sha256": "12510a3de1d4b4d806dacc9bf4e2c4cd4ddc13fbb9249087a7fc840910f1913b",
+      "size_bytes": 4378,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c13_release_manifest.py",
+      "sha256": "e4330cf740c22235619fd374993187dee70b7eadd0c16739e14ad032205a5d20",
+      "size_bytes": 6293,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c4_domain_promotion.py",
+      "sha256": "0a12ccec328180c2d75618a517956483ddaa8fb0ef924e2496fb088da5862491",
+      "size_bytes": 10303,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c5_cross_domain_qualification.py",
+      "sha256": "b5e8728f1c4bf5c9b7b1bcfbe54fbe3c01483da200715cd1b64d9d64b6e89eb6",
+      "size_bytes": 4234,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c6_legal_intake.py",
+      "sha256": "5f6559c21d6c7b6c4f6ad64777cbe42c1eb4d4ebe512ee615b6c9d68a564db7f",
+      "size_bytes": 6075,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c7_network_intelligence.py",
+      "sha256": "77a5b1646be3aabd0fec2917b0acf49b83f55011480a41432d71602ac276be1c",
+      "size_bytes": 7309,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c8_course_planner.py",
+      "sha256": "37e15cbeb4065937dcd8a7fd3138de8211bd6a5e74016528de5bff5de983e681",
+      "size_bytes": 6193,
+      "line_ending": "LF"
+    },
+    {
+      "path": "tests/test_c9_tertiary_impact.py",
+      "sha256": "206a502d8c9fadd2e201525b58d1b69d13098973b5dabdb27ed750f46ee5336f",
+      "size_bytes": 5926,
+      "line_ending": "LF"
+    }
+  ]
+}

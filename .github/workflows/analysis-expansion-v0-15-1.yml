@@ -60,7 +60,7 @@ jobs:
 
       - name: Reconstruct clean-room mathematical dependency chain
         run: |
-          python scripts/reconstruct_pipeline.py --target-stage v0.15.1
+          python scripts/reconstruct_pipeline.py
 
       - name: Run Pytest test suite
         run: |

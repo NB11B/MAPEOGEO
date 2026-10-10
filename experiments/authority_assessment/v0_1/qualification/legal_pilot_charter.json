@@ -1,0 +1,1726 @@
+{
+  "charter_id": "legal_pilot_charter_v0_1",
+  "version": "0.1.0",
+  "status": "reviewed_and_frozen",
+  "legal_scope": "commercial_privacy_and_public_oversight",
+  "qualified_reviewer": "Synthetic Authority Profile Assessor (Pre-Commissioning Baseline)",
+  "review_date": "2026-10-09",
+  "qualification_classification": "synthetic_authority_profile_pilot",
+  "accepted_source_packs": [
+    "pack:commercial_privacy_v1",
+    "pack:public_oversight_v1"
+  ],
+  "scope_determinations": {
+    "applicability": "Applies to commercial data handling, licensee reporting, and statutory regulatory oversight.",
+    "interpretations": "Hohfeldian classification strictly enforced: privileges, duties, claims, immunities, and powers.",
+    "exceptions": "Explicit warrant or statutory mandate overrides commercial privacy duty only when validly attested.",
+    "priorities": "Public oversight statutory mandate supersedes general commercial privacy default liberties.",
+    "affected_interests": [
+      "interest:commercial_privacy",
+      "interest:public_compliance",
+      "interest:data_subject_protection"
+    ],
+    "exclusions": [
+      "criminal_sanctions",
+      "cross_border_treaties",
+      "military_command"
+    ]
+  },
+  "claim_limit": "Operational sampling budget across 30 representative cases; establishes 30/30 synthetic authority-profile pilot agreement; does not assert real-world statutory legal correctness.",
+  "pilot_summary": {
+    "total_cases": 30,
+    "direct_cases": 12,
+    "reverse_cases": 8,
+    "course_and_history_cases": 10
+  },
+  "cases": [
+    {
+      "case_id": "pilot_direct_01",
+      "category": "direct",
+      "cell_id": "cell_001",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:request_record toward actor:regulator:alpha",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:regulator:alpha",
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_requested",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:regulator:alpha",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_001",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_regulator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_001",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_001",
+          "revision": 1
+        },
+        "id": "case:cell_001",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_001",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:request_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "record_type": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "audit_log"
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          },
+          "urgency": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "routine"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:request_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "supported_within_scope",
+      "expected_rules": [
+        "rule:priv:01"
+      ],
+      "material_explanation_criteria": "Voluntary record request is an established liberty under rule:priv:01; no entry conditions required.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_02",
+      "category": "direct",
+      "cell_id": "cell_005",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:request_record toward actor:investigator:beta",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:investigator:beta",
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_requested",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:investigator:beta",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_005",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_investigator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_005",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_005",
+          "revision": 1
+        },
+        "id": "case:cell_005",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_005",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:request_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "record_type": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "audit_log"
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          },
+          "urgency": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "routine"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:request_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "supported_within_scope",
+      "expected_rules": [
+        "rule:priv:01"
+      ],
+      "material_explanation_criteria": "Voluntary record request is an established liberty under rule:priv:01; no entry conditions required.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_03",
+      "category": "direct",
+      "cell_id": "cell_009",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:request_record toward actor:licensee:gamma",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:licensee:gamma",
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_requested",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:licensee:gamma",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_009",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_licensee"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_009",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_009",
+          "revision": 1
+        },
+        "id": "case:cell_009",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_009",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:request_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "record_type": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "audit_log"
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          },
+          "urgency": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "routine"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:request_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "supported_within_scope",
+      "expected_rules": [
+        "rule:priv:01"
+      ],
+      "material_explanation_criteria": "Voluntary record request is an established liberty under rule:priv:01; no entry conditions required.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_04",
+      "category": "direct",
+      "cell_id": "cell_011",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:retain_record toward actor:licensee:gamma",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:licensee:gamma",
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_retained",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:licensee:gamma",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_011",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_licensee"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_011",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_011",
+          "revision": 1
+        },
+        "id": "case:cell_011",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_011",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:retain_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "retention_period_days": {
+            "type": "integer",
+            "unit_ref": null,
+            "value": 365
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "security_tier": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "restricted"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:retain_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "supported_within_scope",
+      "expected_rules": [
+        "rule:priv:04"
+      ],
+      "material_explanation_criteria": "Record retention is permitted under rule:priv:04; retention window condition is supported.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_05",
+      "category": "direct",
+      "cell_id": "cell_050",
+      "description": "Reviewed pilot evaluation of actor:licensee:gamma executing op:compel_record toward actor:regulator:alpha",
+      "actor": "actor:licensee:gamma",
+      "affected": "actor:regulator:alpha",
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:licensee:gamma",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_compelled",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:regulator:alpha",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_050",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_regulator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_050",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:licensee:gamma:operator",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_050",
+          "revision": 1
+        },
+        "id": "case:cell_050",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_050",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:compel_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "penalty_terms": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "statutory_civil_penalty"
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          },
+          "warrant_id": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "war:2024:001"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:compel_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:licensee:gamma",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "prohibited_under_reviewed_rule",
+      "expected_rules": [
+        "rule:priv:02"
+      ],
+      "material_explanation_criteria": "Private entity is explicitly prohibited from coercive compulsion under reviewed rule rule:priv:02.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_06",
+      "category": "direct",
+      "cell_id": "cell_054",
+      "description": "Reviewed pilot evaluation of actor:licensee:gamma executing op:compel_record toward actor:investigator:beta",
+      "actor": "actor:licensee:gamma",
+      "affected": "actor:investigator:beta",
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:licensee:gamma",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_compelled",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:investigator:beta",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_054",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_investigator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_054",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:licensee:gamma:operator",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_054",
+          "revision": 1
+        },
+        "id": "case:cell_054",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_054",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:compel_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "penalty_terms": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "statutory_civil_penalty"
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          },
+          "warrant_id": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "war:2024:001"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:compel_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:licensee:gamma",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "prohibited_under_reviewed_rule",
+      "expected_rules": [
+        "rule:priv:02"
+      ],
+      "material_explanation_criteria": "Private entity is explicitly prohibited from coercive compulsion under reviewed rule rule:priv:02.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_07",
+      "category": "direct",
+      "cell_id": "cell_068",
+      "description": "Reviewed pilot evaluation of actor:licensee:gamma executing op:share_record toward actor:citizen:epsilon",
+      "actor": "actor:licensee:gamma",
+      "affected": "actor:citizen:epsilon",
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:licensee:gamma",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_disclosed",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:citizen:epsilon",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_068",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_citizen"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_068",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:licensee:gamma:operator",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_068",
+          "revision": 1
+        },
+        "id": "case:cell_068",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_068",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:share_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "disclosure_purpose": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "oversight_compliance"
+          },
+          "recipient_ref": {
+            "type": "reference",
+            "unit_ref": null,
+            "value": {
+              "id": "actor:citizen:epsilon",
+              "revision": 1
+            }
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:share_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:citizen:epsilon",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "conditions_unmet",
+      "expected_rules": [
+        "rule:priv:03"
+      ],
+      "material_explanation_criteria": "Explicit consent condition is demonstrably refuted by input evidence ev:consent:denied under rule:priv:03; conditions unmet.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_08",
+      "category": "direct",
+      "cell_id": "cell_092",
+      "description": "Reviewed pilot evaluation of actor:auditor:delta executing op:share_record toward actor:citizen:epsilon",
+      "actor": "actor:auditor:delta",
+      "affected": "actor:citizen:epsilon",
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:auditor:delta",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_disclosed",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:citizen:epsilon",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_092",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_citizen"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_092",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:auditor:delta:independent_audit",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_092",
+          "revision": 1
+        },
+        "id": "case:cell_092",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_092",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:share_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "disclosure_purpose": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "oversight_compliance"
+          },
+          "recipient_ref": {
+            "type": "reference",
+            "unit_ref": null,
+            "value": {
+              "id": "actor:citizen:epsilon",
+              "revision": 1
+            }
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:share_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:citizen:epsilon",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "conditions_unmet",
+      "expected_rules": [
+        "rule:priv:03"
+      ],
+      "material_explanation_criteria": "Explicit consent condition is demonstrably refuted by input evidence ev:consent:denied under rule:priv:03; conditions unmet.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_09",
+      "category": "direct",
+      "cell_id": "cell_002",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:compel_record toward actor:regulator:alpha",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:regulator:alpha",
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_compelled",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:regulator:alpha",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_002",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_regulator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_002",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_002",
+          "revision": 1
+        },
+        "id": "case:cell_002",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_002",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:compel_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "penalty_terms": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "statutory_civil_penalty"
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          },
+          "warrant_id": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "war:2024:001"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:compel_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "unresolved",
+      "expected_rules": [],
+      "material_explanation_criteria": "Commercial privacy pack provides no power route for regulatory compulsion, but asserts no prohibition; unresolved pending statutory basis.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_10",
+      "category": "direct",
+      "cell_id": "cell_003",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:retain_record toward actor:regulator:alpha",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:regulator:alpha",
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_retained",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:regulator:alpha",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_003",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_regulator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_003",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_003",
+          "revision": 1
+        },
+        "id": "case:cell_003",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_003",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:retain_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "retention_period_days": {
+            "type": "integer",
+            "unit_ref": null,
+            "value": 365
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "security_tier": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "restricted"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:retain_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "unresolved",
+      "expected_rules": [],
+      "material_explanation_criteria": "Actor capacity not covered by privacy retention permission; unresolved.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_11",
+      "category": "direct",
+      "cell_id": "cell_004",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:share_record toward actor:regulator:alpha",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:regulator:alpha",
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_disclosed",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:regulator:alpha",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_004",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_regulator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_004",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_004",
+          "revision": 1
+        },
+        "id": "case:cell_004",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_004",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:share_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "disclosure_purpose": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "oversight_compliance"
+          },
+          "recipient_ref": {
+            "type": "reference",
+            "unit_ref": null,
+            "value": {
+              "id": "actor:regulator:alpha",
+              "revision": 1
+            }
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:share_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "unresolved",
+      "expected_rules": [],
+      "material_explanation_criteria": "No applicable sharing rule under privacy pack for this performer capacity; unresolved.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_direct_12",
+      "category": "direct",
+      "cell_id": "cell_006",
+      "description": "Reviewed pilot evaluation of actor:regulator:alpha executing op:compel_record toward actor:investigator:beta",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:investigator:beta",
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "case": {
+        "actor_ref": {
+          "id": "actor:regulator:alpha",
+          "revision": 1
+        },
+        "affected_scope": {
+          "bindings": [
+            {
+              "collective_scope_ref": null,
+              "effect_refs": [
+                {
+                  "id": "effect:record_compelled",
+                  "revision": 1
+                }
+              ],
+              "entity_ref": {
+                "id": "actor:investigator:beta",
+                "revision": 1
+              },
+              "evidence_refs": [
+                {
+                  "id": "ev:scope:cell_006",
+                  "revision": 1
+                }
+              ],
+              "evidence_state": "supported",
+              "interest_refs": [
+                {
+                  "id": "interest:confidentiality",
+                  "revision": 1
+                },
+                {
+                  "id": "interest:due_process",
+                  "revision": 1
+                }
+              ],
+              "relationship_role": "target_investigator"
+            }
+          ],
+          "coverage_ref": {
+            "id": "cov:cell_006",
+            "revision": 1
+          },
+          "known_empty": false
+        },
+        "capacity_ref": {
+          "id": "cap:regulator:alpha:oversight",
+          "revision": 1
+        },
+        "context_ref": {
+          "id": "ctx:assessment:cell_006",
+          "revision": 1
+        },
+        "id": "case:cell_006",
+        "jurisdiction_context_ref": {
+          "id": "jur:fictional:state",
+          "revision": 1
+        },
+        "legal_reference_context_ref": {
+          "id": "ctx:legal_ref:v1",
+          "revision": 1
+        },
+        "mode": "proposed_actual",
+        "object_refs": [
+          {
+            "id": "obj:record:cell_006",
+            "revision": 1
+          }
+        ],
+        "operation_ref": {
+          "id": "op:compel_record",
+          "revision": 1
+        },
+        "operation_revision": 1,
+        "parameters": {
+          "penalty_terms": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "statutory_civil_penalty"
+          },
+          "scope_designation": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "standard_fictional_records"
+          },
+          "target_partition": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "tier_1"
+          },
+          "warrant_id": {
+            "type": "string",
+            "unit_ref": null,
+            "value": "war:2024:001"
+          }
+        },
+        "purpose_ref": {
+          "id": "purpose:synthetic:compel_record",
+          "revision": 1
+        },
+        "recipients": [
+          {
+            "id": "actor:regulator:alpha",
+            "revision": 1
+          }
+        ],
+        "revision": 1
+      },
+      "expected_disposition": "unresolved",
+      "expected_rules": [],
+      "material_explanation_criteria": "Commercial privacy pack provides no power route for regulatory compulsion, but asserts no prohibition; unresolved pending statutory basis.",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_01",
+      "category": "reverse",
+      "query_type": "actions",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:regulator:alpha",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "op:request_record"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_02",
+      "category": "reverse",
+      "query_type": "actions",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:investigator:beta",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "op:request_record"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_03",
+      "category": "reverse",
+      "query_type": "actions",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:licensee:gamma",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_04",
+      "category": "reverse",
+      "query_type": "actions",
+      "actor": "actor:regulator:alpha",
+      "affected": "actor:auditor:delta",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "op:request_record"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_05",
+      "category": "reverse",
+      "query_type": "actors",
+      "operation": "op:request_record",
+      "affected": "actor:regulator:alpha",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_06",
+      "category": "reverse",
+      "query_type": "actors",
+      "operation": "op:request_record",
+      "affected": "actor:investigator:beta",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_07",
+      "category": "reverse",
+      "query_type": "actors",
+      "operation": "op:request_record",
+      "affected": "actor:licensee:gamma",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_reverse_08",
+      "category": "reverse",
+      "query_type": "actors",
+      "operation": "op:request_record",
+      "affected": "actor:auditor:delta",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_01",
+      "category": "course_or_history",
+      "description": "Two-step sequential dependent course evaluation.",
+      "test_kind": "sequential_course",
+      "expected_status": "assessed",
+      "expected_blocked": false,
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_02",
+      "category": "course_or_history",
+      "description": "Three-step course with prohibited step yielding blocking witness.",
+      "test_kind": "blocked_course_witness",
+      "expected_status": "assessed",
+      "expected_blocked": true,
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_03",
+      "category": "course_or_history",
+      "description": "Shared resource allocation preventing double-spending across UoWs.",
+      "test_kind": "allocation_double_spend",
+      "expected_status": "reservation_denied",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_04",
+      "category": "course_or_history",
+      "description": "Cancellation request preserves reservation without premature release.",
+      "test_kind": "cancellation_hold",
+      "expected_status": "held",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_05",
+      "category": "course_or_history",
+      "description": "Causal history stream-local ordering with parent link.",
+      "test_kind": "causal_local_precedes",
+      "expected_relation": "before",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_06",
+      "category": "course_or_history",
+      "description": "Cross-stream unlinked events correctly yield unknown causal relation.",
+      "test_kind": "causal_unlinked_unknown",
+      "expected_relation": "unknown",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_07",
+      "category": "course_or_history",
+      "description": "Course evaluation under budget exhaustion returns partial result.",
+      "test_kind": "course_budget_cutoff",
+      "expected_status": "partial",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_08",
+      "category": "course_or_history",
+      "description": "Dynamic rule amendment preserves immutable historical replay.",
+      "test_kind": "immutable_replay",
+      "expected_replay": "identical",
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_09",
+      "category": "course_or_history",
+      "description": "Multi-step course with condition failure yields conditions_unmet witness.",
+      "test_kind": "conditions_unmet_witness",
+      "expected_blocked": true,
+      "reviewed": true
+    },
+    {
+      "case_id": "pilot_course_10",
+      "category": "course_or_history",
+      "description": "Decision frontier contingent branch observation guard.",
+      "test_kind": "decision_frontier_guard",
+      "expected_status": "guarded",
+      "reviewed": true
+    }
+  ]
+}

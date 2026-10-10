@@ -1,0 +1,15 @@
+{
+  "stage": "host",
+  "run_id": "c2_pre_refactor",
+  "status": "passed",
+  "runtime_seconds": 0.001,
+  "counters": {
+    "host_checks_passed": 18,
+    "host_checks_total": 18,
+    "snapshot_immutability_verified": true
+  },
+  "gates": {
+    "gate_g3_host_projection": "passed"
+  },
+  "critical_defects": 0
+}

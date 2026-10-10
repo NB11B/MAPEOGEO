@@ -1,0 +1,267 @@
+{
+  "modules": {
+    "__init__.py": {
+      "nonblank_lines": 1,
+      "classes": [],
+      "top_level_functions": []
+    },
+    "adapters.py": {
+      "nonblank_lines": 164,
+      "classes": [
+        "ReferenceAdapterError",
+        "TypedValueError",
+        "ClockStreamAdapter"
+      ],
+      "top_level_functions": [
+        "validate_authority_reference",
+        "validate_base_reference",
+        "authority_to_base_ref",
+        "base_to_authority_ref",
+        "create_typed_value",
+        "extract_typed_value"
+      ]
+    },
+    "allocations.py": {
+      "nonblank_lines": 191,
+      "classes": [
+        "AllocationState",
+        "AuthorityAllocationConstraint",
+        "PlatformResourceEngine",
+        "AllocationManager"
+      ],
+      "top_level_functions": [
+        "_ref_id",
+        "_normalize_ref"
+      ]
+    },
+    "case_bindings.py": {
+      "nonblank_lines": 165,
+      "classes": [
+        "JurisdictionKind",
+        "ActionCaseBuilder"
+      ],
+      "top_level_functions": [
+        "compute_case_digest",
+        "mutate_case_dimension"
+      ]
+    },
+    "catalog_extension.py": {
+      "nonblank_lines": 165,
+      "classes": [
+        "AuthorityCatalog",
+        "AuthorityGraph"
+      ],
+      "top_level_functions": []
+    },
+    "causal.py": {
+      "nonblank_lines": 182,
+      "classes": [
+        "EventRelationKind",
+        "LegalTimeRelationKind",
+        "PlatformCausalDAG"
+      ],
+      "top_level_functions": [
+        "_ref_id",
+        "_event_key",
+        "relate_events",
+        "compare_legal_reference"
+      ]
+    },
+    "certificate_bridge.py": {
+      "nonblank_lines": 149,
+      "classes": [
+        "AuthorityDisposition",
+        "CertificateOutcome",
+        "AuthorityCertificateWitness",
+        "StandardDeficiency"
+      ],
+      "top_level_functions": [
+        "evaluate_authority_certificate",
+        "map_authority_deficiencies"
+      ]
+    },
+    "cli.py": {
+      "nonblank_lines": 200,
+      "classes": [],
+      "top_level_functions": [
+        "_load_json_file",
+        "_write_output",
+        "cmd_assess",
+        "cmd_enumerate",
+        "cmd_gaps",
+        "cmd_compare",
+        "build_parser",
+        "main"
+      ]
+    },
+    "condition_verifier.py": {
+      "nonblank_lines": 284,
+      "classes": [
+        "EvidenceState",
+        "BilateralState",
+        "ConditionVerifier"
+      ],
+      "top_level_functions": [
+        "evaluate_four_state_not",
+        "evaluate_four_state_and",
+        "evaluate_four_state_or"
+      ]
+    },
+    "courses.py": {
+      "nonblank_lines": 258,
+      "classes": [],
+      "top_level_functions": [
+        "certify_authority",
+        "_canonical_digest",
+        "_normalize_ref",
+        "_ref_id",
+        "assess_course",
+        "compare_courses"
+      ]
+    },
+    "delegation.py": {
+      "nonblank_lines": 321,
+      "classes": [
+        "DelegationState",
+        "DelegationVerificationResult",
+        "DelegationVerifier"
+      ],
+      "top_level_functions": [
+        "_ref_id",
+        "verify_scope_attenuation"
+      ]
+    },
+    "evaluator.py": {
+      "nonblank_lines": 506,
+      "classes": [
+        "LegalEvaluator"
+      ],
+      "top_level_functions": [
+        "_canonical_json_bytes",
+        "_canonical_digest",
+        "_normalize_ref",
+        "_ref_id",
+        "assess_case"
+      ]
+    },
+    "functional_matrix.py": {
+      "nonblank_lines": 89,
+      "classes": [
+        "OrganizationalFunction",
+        "FunctionalEdge",
+        "FunctionalMatrix"
+      ],
+      "top_level_functions": []
+    },
+    "gaps.py": {
+      "nonblank_lines": 195,
+      "classes": [
+        "GapKind",
+        "PlatformDeficiency",
+        "Materiality"
+      ],
+      "top_level_functions": [
+        "to_platform_deficiency",
+        "_normalize_ref",
+        "_ref_id",
+        "derive_authority_gaps"
+      ]
+    },
+    "projection.py": {
+      "nonblank_lines": 343,
+      "classes": [
+        "ProjectedAuthorityCase"
+      ],
+      "top_level_functions": [
+        "_validate_snapshot_integrity",
+        "project_host_case"
+      ]
+    },
+    "provenance_evidence.py": {
+      "nonblank_lines": 237,
+      "classes": [
+        "ProvenanceError",
+        "TrustMode",
+        "ProvenanceClosureTrace",
+        "SourceRegistry"
+      ],
+      "top_level_functions": [
+        "_normalize_ref"
+      ]
+    },
+    "queries.py": {
+      "nonblank_lines": 182,
+      "classes": [
+        "AuthorityActionQuery",
+        "AuthorityActorQuery"
+      ],
+      "top_level_functions": [
+        "_canonical_digest",
+        "_normalize_ref",
+        "_ref_id",
+        "evaluate_candidate_domain",
+        "enumerate_actions",
+        "enumerate_actors"
+      ]
+    },
+    "reassessment.py": {
+      "nonblank_lines": 113,
+      "classes": [
+        "AuthorityDependencyProfile"
+      ],
+      "top_level_functions": [
+        "_canonical_digest",
+        "_normalize_ref",
+        "_ref_id",
+        "find_reassessment"
+      ]
+    },
+    "reporting.py": {
+      "nonblank_lines": 250,
+      "classes": [
+        "AccessContext"
+      ],
+      "top_level_functions": [
+        "filter_assessment_for_reader",
+        "render_explanation",
+        "format_json_report",
+        "render_reverse_query_report",
+        "render_course_comparison_report"
+      ]
+    },
+    "store.py": {
+      "nonblank_lines": 208,
+      "classes": [
+        "PublicationStatus",
+        "AuthorityRecordSchema",
+        "PlatformRecordStore",
+        "AuthorityStore"
+      ],
+      "top_level_functions": [
+        "_canonical_json_bytes",
+        "_canonical_digest",
+        "_normalize_ref",
+        "_ref_id",
+        "publish_assessment"
+      ]
+    },
+    "uow_bridge.py": {
+      "nonblank_lines": 262,
+      "classes": [
+        "UowEntryStatus",
+        "NativeUoWWork",
+        "PlatformAdmissionSpine"
+      ],
+      "top_level_functions": [
+        "_canonical_digest",
+        "_normalize_ref",
+        "_ref_id",
+        "compile_authority_work",
+        "adapt_platform_decision",
+        "assess_uow_entry"
+      ]
+    }
+  },
+  "total_nonblank_lines": 4465,
+  "module_count": 21
+}

@@ -1,0 +1,29 @@
+{
+  "reference_version": "0.3",
+  "archive_name": "intelligence_qualification_v0_3.zip",
+  "archive_sha256": "c8747ad59f3f3c0e17a1e5e397ed4c4c981d6210ca498f25fa8d2d088b5ab9a7",
+  "archive_byte_length": 546355,
+  "provenance": {
+    "source_archive": "C:\\Users\\nateb\\Downloads\\intelligence_qualification_v0_3.zip",
+    "delivery_campaign": "intelligence_qualification_v0_3",
+    "validation_record": "package_validation_v0_3.json",
+    "sha256_verified": true
+  },
+  "repository": {
+    "introduced_commit": "c9d9fb0747a6e3a89f8654c70e9f2b48d5f97c53",
+    "introduced_branch": "experiment/intelligence-integration-v0.1",
+    "target_artifact_directory": "artifacts/intelligence_qualification/v0_3/intelligence_qualification_v0_3"
+  },
+  "qualification_metrics": {
+    "current_test_methods": "152/152 pass",
+    "frozen_qualification_obligations": "24/24 pass",
+    "legacy_grammar_baseline": "19/24 pass with 5 documented preserved disagreements",
+    "contextual_grammar_replay": "24/24 pass (labeled regression against visible corpus)",
+    "independent_numerical_challenge": "36/36 aggregate vectors agree, 97/97 constituent states agree",
+    "semantic_boundary_families": "12/12 pass",
+    "integrated_review_families": "12/12 pass after documented repairs",
+    "record_envelopes_checked": 42,
+    "required_field_omission_checks": 467
+  },
+  "installed_at": "2026-10-09T19:03:00-04:00"
+}

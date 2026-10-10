@@ -1,0 +1,51 @@
+{
+  "package": "MAPEOGEO_Authority_Engineering_Handoff",
+  "design_version": "1.0",
+  "target_implementation_version": "0.1",
+  "date": "2026-10-09",
+  "copyright": "© 2026 Nathanael J. Bocker. All Rights Reserved.",
+  "status": "engineering_plan_and_declarative_catalogs_no_product_implementation",
+  "manifest_excludes_itself": true,
+  "files": [
+    {
+      "path": "PLAN_VALIDATION.json",
+      "sha256": "9ce6e15392e7e5e08b907376b8986854bd6445a8ad843c000bf4db0f09617a44",
+      "size_bytes": 1261
+    },
+    {
+      "path": "README.txt",
+      "sha256": "37747e13222a63c805c0cb6d0058270fb2785055017fc318e95eeab6dd4b2df1",
+      "size_bytes": 2522
+    },
+    {
+      "path": "baseline_manifest.json",
+      "sha256": "51948bb8d92bcdb4c6c266adb2828d8b851451d127df86a350d159506237dd75",
+      "size_bytes": 4198
+    },
+    {
+      "path": "contracts/authority_contracts_v0_1.json",
+      "sha256": "11b95c0d26dd461c38b1bf1964804271691c9d8f82b1b69fbf963db7aebf9bda",
+      "size_bytes": 40031
+    },
+    {
+      "path": "docs/superpowers/plans/2026-10-09-authority-platform-implementation.md",
+      "sha256": "fb6dd6482150fb0be2fdddcd317a3b7bc1753960735aa05486ad518ad6fbcbdb",
+      "size_bytes": 36942
+    },
+    {
+      "path": "docs/superpowers/specs/2026-10-09-authority-model-design.md",
+      "sha256": "b4b95b3d5b046e0c76c007dac45f351b007a2a0f4d2861f8470f03db704d5377",
+      "size_bytes": 40762
+    },
+    {
+      "path": "qualification/authority_case_catalog.md",
+      "sha256": "02d22f51e847d1cd6c5b7a31c3e9d066d2bcd938317c3a88119352d6a77599a2",
+      "size_bytes": 20849
+    },
+    {
+      "path": "qualification/authority_cases_v0_1.json",
+      "sha256": "ef80855805f7e82243b0eed5c19c7dc1bed3684fffd2312ebe2de5c0c90d0300",
+      "size_bytes": 38636
+    }
+  ]
+}

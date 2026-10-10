@@ -1,0 +1,62 @@
+[
+  {
+    "actor_ref": "actor:regulator:alpha",
+    "capacity_kind": "regulator",
+    "evidence_refs": [
+      "ev:cap:alpha_statute"
+    ],
+    "evidence_state": "supported",
+    "ref": "cap:regulator:alpha:oversight",
+    "scope_ref": "scope:public_oversight"
+  },
+  {
+    "actor_ref": "actor:investigator:beta",
+    "capacity_kind": "investigator",
+    "evidence_refs": [
+      "ev:cap:beta_delegation"
+    ],
+    "evidence_state": "supported",
+    "ref": "cap:investigator:beta:enforcement",
+    "scope_ref": "scope:statutory_enforcement"
+  },
+  {
+    "actor_ref": "actor:licensee:gamma",
+    "capacity_kind": "licensee",
+    "evidence_refs": [
+      "ev:cap:gamma_operating_cert"
+    ],
+    "evidence_state": "supported",
+    "ref": "cap:licensee:gamma:operator",
+    "scope_ref": "scope:commercial_operations"
+  },
+  {
+    "actor_ref": "actor:auditor:delta",
+    "capacity_kind": "auditor",
+    "evidence_refs": [
+      "ev:cap:delta_engagement"
+    ],
+    "evidence_state": "supported",
+    "ref": "cap:auditor:delta:independent_audit",
+    "scope_ref": "scope:compliance_auditing"
+  },
+  {
+    "actor_ref": "actor:citizen:epsilon",
+    "capacity_kind": "citizen",
+    "evidence_refs": [
+      "ev:cap:epsilon_residence"
+    ],
+    "evidence_state": "supported",
+    "ref": "cap:citizen:epsilon:individual",
+    "scope_ref": "scope:individual_interests"
+  },
+  {
+    "actor_ref": "actor:third_party:zeta",
+    "capacity_kind": "third_party",
+    "evidence_refs": [
+      "ev:cap:zeta_master_contract"
+    ],
+    "evidence_state": "supported",
+    "ref": "cap:third_party:zeta:commercial_service",
+    "scope_ref": "scope:third_party_contracting"
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "modules_evaluated": 21,
+  "duplicate_generic_owners_pre": 8,
+  "duplicate_generic_owners_post": 0,
+  "reuse_modules_consolidated": [
+    "gaps.py",
+    "queries.py",
+    "allocations.py",
+    "courses.py",
+    "causal.py",
+    "store.py",
+    "reassessment.py",
+    "provenance_evidence.py"
+  ],
+  "wrappers_remaining": [
+    "AllocationManager (deprecated compatibility wrapper -> PlatformResourceEngine)",
+    "AuthorityStore (domain store adapter -> PlatformRecordStore)",
+    "AuthorityRecordSchema (payload normalization -> PlatformRecordStore)",
+    "PlatformCausalDAG (DAG reachability & cycle detection adapter)",
+    "evaluate_candidate_domain (candidate router engine adapter)"
+  ],
+  "domain_neutrality_verified": true,
+  "all_modules_declared_in_manifest": true,
+  "n_duplicate_generic_owners_post": 0
+}

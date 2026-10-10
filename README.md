@@ -1,24 +1,4 @@
-# Historical Research & Scientific Custody Notice
-
-> [!IMPORTANT]
-> **Repository Role: Scientific Custody & Historical Lineage Archive**
-> 
-> This repository (`NB11B/MAPEOGEO`) is the historical research laboratory and scientific custody archive for the MAPEOGEO research program. It preserves the complete experimental lineage, exploratory branch history, and frozen scientific artifacts (Generative Curricula Gen 2–Gen 12, UoW Kernel lineages v0.1–v0.9, Work Router iterations v0.1–v0.9, and the OpenAI Math intake).
->
-> **Canonical Production Architecture**:
-> Canonical implementation, production development, and modular domain adaptation have transitioned to:
-> $$\boxed{\textbf{NB11B/MAPEOGEOv2}}$$
-> - **Canonical Repository**: [https://github.com/NB11B/MAPEOGEOv2](https://github.com/NB11B/MAPEOGEOv2)
-> - **Official v2 Release**: [`v2.0.0`](https://github.com/NB11B/MAPEOGEOv2/releases/tag/v2.0.0) (commit `1346330`)
-> - **Candidate Bootstrap Parent**: `6a0509c`
->
-> All historical branches and artifacts in this repository remain permanently frozen and preserved for scientific reproducibility. No retroactive modifications will be made to historical research results.
->
-> *This repository remains how the architecture was discovered; `MAPEOGEOv2` is the architecture that survived consolidation.*
-
----
-
-# MAPEOGEO (Historical Research Archive)
+# MAPEOGEO
 
 MAPEOGEO is a source-grounded mathematical knowledge graph whose primary object is the **relationship structure of mathematics**.
 
@@ -84,30 +64,6 @@ shared canonical neighborhood != proof of equivalence
 ```
 
 ---
-
-## Complete OpenAI mathematics source corpus
-
-The `openai-math` reconstruction stage adds the entire tracked
-[`openai/math`](https://github.com/openai/math) repository at commit
-`adc7f1241b42e322a6451854ab7e4b4c146bf78a` to the foundation graph. It covers
-**132,851 files**, **372 catalogue families**, **722 manuscripts**, all **405
-Comparator configurations**, and their **507 selected theorem occurrences**.
-Every tracked file has a Git blob identity, SHA-256, locator, and extraction
-disposition. Lean and TeX records preserve exact byte spans and source context.
-
-This additive source corpus uses `SOURCE_RECORD` candidates with unresolved
-mathematical interpretation and untested kernel status. Its counts are reported
-separately from the admitted historical declarations below. Existing node and
-edge payloads are preserved; source intake issues no new proof certificates or
-semantic equivalence edges.
-
-See [the intake guide](docs/OPENAI_MATH_INTAKE.md) for reproduction commands,
-the streamed graph and manifest format, lexical limitations, and the independent
-verification command. The [source pin](formal/openai_math_source_pin.json)
-fixes the complete inventory and catalogue denominators. The
-[acceptance receipt](evidence/openai_math_intake_acceptance.json) records the
-complete independent audit: **3,762,712 lexical records**, **4,224,730 graph
-nodes**, and **4,547,502 graph edges**.
 
 ## Current mathematical coverage snapshot
 

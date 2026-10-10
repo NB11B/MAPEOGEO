@@ -1,0 +1,70 @@
+{
+  "clock_identity_format": "uow-clock:v1:[domain_id, local_actor]",
+  "clock_identity_specification": {
+    "domain_epoch": "Stream-local monotonically increasing integer sequence >= 1 initialized at boundary start",
+    "event_identity_and_causal_parents": {
+      "causal_ordering_rule": "Events across distinct clock domains without explicit causal edges have relation UNKNOWN. Order is established ONLY via explicit causal edges in parents list.",
+      "event_format": "{domain_id}:{local_event_id}",
+      "separation_of_legal_time": "A legal reference mapping (interval attestation) cannot backdate causal receipt events or manufacture knowledge at an earlier decision point."
+    },
+    "format": "uow-clock:v1:[domain_id, local_actor]",
+    "identity_classes": {
+      "clock_stream": "Owned counter stream (domain_id, local_actor)",
+      "execution_perimeter": "Boundary admitting transactions and validating authority",
+      "legal_actor_principal": "Attributed entity or organization (e.g. actor:regulator:alpha, analyst)",
+      "uow_boundary": "Specific admitted work instance (e.g. uow:task:review_01)"
+    },
+    "stream_owner": "Local execution boundary (e.g. uow:boundary:uow-01 or host task process)"
+  },
+  "contract_id": "mapeogeo_authority_host_mapping_contract_v0_1_2",
+  "date": "2026-10-09",
+  "excluded_surfaces": [
+    "actual_lifecycle_projection",
+    "dynamic_grant_expiry_invalidation",
+    "cancellation_reservation_release",
+    "live_mutation_of_host_graph"
+  ],
+  "gate_g0b_determination": "Host commit f7e6ee6, adapter, and clock identity are verified. Node attributes, runtime entry contracts, stream ownership, and causal/legal-time separation are strictly defined.",
+  "host_grounded_nodes": [
+    {
+      "attributes": [
+        "demand_units",
+        "window",
+        "hash"
+      ],
+      "description": "Master Service Delivery Contract specifying demand volume units and temporal delivery window.",
+      "node_id": "src:service_contract:v1"
+    },
+    {
+      "attributes": [
+        "regular_capacity",
+        "bridge_capacity",
+        "loading_capacity"
+      ],
+      "description": "Carrier Allocation Schedule specifying discrete transport capacities.",
+      "node_id": "src:carrier_schedule:v1"
+    },
+    {
+      "attributes": [
+        "capacity_values",
+        "availability_values",
+        "domain",
+        "carrier"
+      ],
+      "description": "Mathematical state space model defining discrete capacity and availability vectors.",
+      "node_id": "obj:carrier_capacity_model:v1"
+    }
+  ],
+  "inspected_clock_identity": "experiments/intelligence_integration/v0_1/clock_identity.py",
+  "inspected_host_adapter": "experiments/intelligence_integration/v0_1/adapter.py",
+  "inspected_host_commit": "f7e6ee6b12c28bca95a967e212593bbadb7b8bb9",
+  "runtime_shape_and_entry_contract": {
+    "entry_adapter_class": "experiments.intelligence_integration.v0_1.adapter.MAPEOGEOAnalysisAdapter",
+    "evaluation_interface": "evaluate_case(case: ProjectedAnalysisCase, snapshot_ref: Optional[Dict[str, Any]] = None) -> AttributedAnalysisResult",
+    "projected_case_type": "ProjectedAnalysisCase",
+    "projection_interface": "project_graph_to_case(snapshot: Dict[str, Any], selection_manifest: Dict[str, Any], clock_domain: Optional[ClockDomain] = None) -> ProjectedAnalysisCase",
+    "result_type": "AttributedAnalysisResult"
+  },
+  "status": "gate_g0b_inspected_and_complete",
+  "version": "0.1.2"
+}

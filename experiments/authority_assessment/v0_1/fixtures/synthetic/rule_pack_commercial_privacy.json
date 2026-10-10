@@ -1,0 +1,95 @@
+{
+  "name": "Commercial Privacy Baseline Rule Pack",
+  "ref": "pack:commercial_privacy_v1",
+  "rules": [
+    {
+      "description": "Any entity may initiate a voluntary informational request.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:transparency",
+      "name": "Liberty of Voluntary Inquiry",
+      "norm_kind": "permission",
+      "operation_ref": "op:request_record",
+      "performer_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ],
+      "ref": "rule:priv:01",
+      "target_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ]
+    },
+    {
+      "description": "Private commercial actors and citizens are strictly prohibited from exercising coercive record compulsion.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:due_process",
+      "name": "Prohibition of Private Compulsion",
+      "norm_kind": "prohibition",
+      "operation_ref": "op:compel_record",
+      "performer_capacities": [
+        "licensee",
+        "citizen",
+        "third_party"
+      ],
+      "ref": "rule:priv:02",
+      "target_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ]
+    },
+    {
+      "description": "Commercial record sharing requires affirmative data subject consent.",
+      "indispensable_conditions": [
+        "cond:has_explicit_consent"
+      ],
+      "interest_ref": "interest:confidentiality",
+      "name": "Consent-Grounded Commercial Record Sharing",
+      "norm_kind": "permission",
+      "operation_ref": "op:share_record",
+      "performer_capacities": [
+        "licensee",
+        "auditor",
+        "third_party"
+      ],
+      "ref": "rule:priv:03",
+      "target_capacities": [
+        "citizen",
+        "licensee"
+      ]
+    },
+    {
+      "description": "Commercial custodians may retain records within statutory retention windows.",
+      "indispensable_conditions": [
+        "cond:within_statutory_window"
+      ],
+      "interest_ref": "interest:compliance",
+      "name": "Custodial Record Retention",
+      "norm_kind": "permission",
+      "operation_ref": "op:retain_record",
+      "performer_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor"
+      ],
+      "ref": "rule:priv:04",
+      "target_capacities": [
+        "licensee",
+        "citizen"
+      ]
+    }
+  ],
+  "version": "1.0.0"
+}

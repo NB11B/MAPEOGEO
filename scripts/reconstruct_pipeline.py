@@ -61,22 +61,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Reconstruct MAPEOGEO mathematical graph chain")
     parser.add_argument(
         "--target-stage",
-        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation", "openai-math"],
+        choices=["v0.6", "v0.7", "v0.8", "v0.9", "v0.11", "v0.12", "v0.13", "v0.14", "v0.15.1", "v0.15.2", "v0.16", "v0.17", "v0.18", "v0.19", "foundation"],
         default="v0.19",
     )
     parser.add_argument("--pdf-path", type=Path, default=MATH_DEEP_PATH)
     parser.add_argument("--from-scratch", action="store_true", help="Re-derive historical v0.6-v0.11 stages from raw source PDF")
-    parser.add_argument(
-        "--openai-math-source",
-        type=Path,
-        help="Existing pinned openai/math checkout required for --target-stage openai-math",
-    )
     args = parser.parse_args()
-    if args.target_stage == "openai-math":
-        if args.openai_math_source is None:
-            parser.error("--openai-math-source is required for --target-stage openai-math")
-        if not args.openai_math_source.is_dir():
-            parser.error("--openai-math-source must be an existing checkout directory")
 
     print("==========================================================")
     print("  MAPEOGEO Clean-Room Dependency Chain Reconstructor")
@@ -404,21 +394,6 @@ def main() -> int:
             str(ROOT / "artifacts" / "foundation_backfill" / "foundation_backfill_scientific_results.json"),
         ],
     )
-
-    if args.target_stage == "openai-math":
-        run_stage(
-            "Complete OpenAI Math Source Repository Intake",
-            [
-                sys.executable,
-                str(ROOT / "scripts" / "openai_math_intake.py"),
-                "--source-repo",
-                str(args.openai_math_source.resolve()),
-                "--base-graph",
-                str(ROOT / "artifacts" / "foundation_backfill" / "mapeogeo_foundation_graph.json.gz"),
-                "--out-dir",
-                str(ROOT / "artifacts" / "openai_math"),
-            ],
-        )
 
     total_time = time.time() - t_start
     print("==========================================================")

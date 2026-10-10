@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "codec_checks": {
+    "test_256_ordered_pairs": {
+      "pairs_tested": 256,
+      "unique_encodings": 256,
+      "status": "PASS"
+    },
+    "test_invalid_inputs_rejected": {
+      "cases_tested": 6,
+      "rejected_correctly": 6,
+      "status": "PASS"
+    },
+    "test_noncanonical_decode_rejected": {
+      "cases_tested": 8,
+      "rejected_correctly": 8,
+      "status": "PASS"
+    }
+  },
+  "reference_workflow_checks": {
+    "boundary_overlap_distinct_streams": {
+      "enc1": "uow-clock:v1:[\"ops:\",\"analyst\"]",
+      "enc2": "uow-clock:v1:[\"ops\",\":analyst\"]",
+      "observed_relation": "unknown",
+      "status": "PASS"
+    },
+    "explicit_causal_parent_orders_streams": {
+      "observed_relation": "before",
+      "status": "PASS"
+    },
+    "same_stream_sequential_ordering": {
+      "observed_relation": "before",
+      "status": "PASS"
+    },
+    "independent_domains_same_participant_seq1": {
+      "observed_relation": "unknown",
+      "status": "PASS"
+    }
+  },
+  "preserved_counterexample": {
+    "d1": "ops:",
+    "a1": "analyst",
+    "d2": "ops",
+    "a2": ":analyst",
+    "legacy_actor1": "ops:::analyst",
+    "legacy_actor2": "ops:::analyst",
+    "collided": true,
+    "observed_relation": "before",
+    "explanation": "Legacy concatenation '::' caused boundary overlap collision, manufacturing artificial 'before' relation."
+  }
+}

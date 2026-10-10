@@ -1,0 +1,74 @@
+[
+  {
+    "ref": "actor:regulator:alpha",
+    "name": "Alpha Oversight Board",
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:regulator:alpha:oversight"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:alpha_statute"
+    ]
+  },
+  {
+    "ref": "actor:investigator:beta",
+    "name": "Beta Investigation Unit",
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:investigator:beta:enforcement"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:beta_charter"
+    ]
+  },
+  {
+    "ref": "actor:licensee:gamma",
+    "name": "Gamma Commercial Carrier",
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:licensee:gamma:operator"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:gamma_license"
+    ]
+  },
+  {
+    "ref": "actor:auditor:delta",
+    "name": "Delta Compliance Auditor",
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:auditor:delta:independent_audit"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:delta_accreditation"
+    ]
+  },
+  {
+    "ref": "actor:citizen:epsilon",
+    "name": "Epsilon Private Subject",
+    "kind": "person",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:citizen:epsilon:individual"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:epsilon_record"
+    ]
+  },
+  {
+    "ref": "actor:third_party:zeta",
+    "name": "Zeta Data Services",
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:third_party:zeta:commercial_service"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:zeta_registration"
+    ]
+  }
+]

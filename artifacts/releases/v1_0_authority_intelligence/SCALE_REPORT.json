@@ -1,0 +1,69 @@
+{
+  "stage": "C10",
+  "title": "Scale Benchmark and Ground-Truth Computational Profiling Report",
+  "scale_1k": {
+    "num_nodes": 1000,
+    "num_edges": 1001,
+    "construction_time_sec": 0.0032,
+    "matrix_projection_sec": 0.0007,
+    "path_finding_sec": 1.1e-05,
+    "paths_discovered": 2,
+    "chokepoint_detection_sec": 0.0003,
+    "chokepoints_detected": 3,
+    "ground_truth_oracle_passed": true,
+    "expected_chokepoints_recovered": [
+      "actor:gt:chokepoint_alpha",
+      "actor:gt:chokepoint_beta1",
+      "actor:gt:chokepoint_beta2"
+    ]
+  },
+  "scale_10k": {
+    "num_nodes": 10000,
+    "num_edges": 10001,
+    "construction_time_sec": 0.0154,
+    "matrix_projection_sec": 0.0072,
+    "path_finding_sec": 1.4e-05,
+    "paths_discovered": 2,
+    "chokepoint_detection_sec": 0.0028,
+    "chokepoints_detected": 3,
+    "ground_truth_oracle_passed": true,
+    "expected_chokepoints_recovered": [
+      "actor:gt:chokepoint_alpha",
+      "actor:gt:chokepoint_beta1",
+      "actor:gt:chokepoint_beta2"
+    ]
+  },
+  "scale_100k": {
+    "num_nodes": 100000,
+    "num_edges": 100001,
+    "construction_time_sec": 0.2348,
+    "matrix_projection_sec": 0.0804,
+    "path_finding_sec": 2.1e-05,
+    "paths_discovered": 2,
+    "chokepoint_detection_sec": 0.0425,
+    "chokepoints_detected": 3,
+    "ground_truth_oracle_passed": true,
+    "expected_chokepoints_recovered": [
+      "actor:gt:chokepoint_alpha",
+      "actor:gt:chokepoint_beta1",
+      "actor:gt:chokepoint_beta2"
+    ]
+  },
+  "authority_evaluator_throughput": {
+    "evaluations_performed": 1000,
+    "elapsed_sec": 0.03,
+    "throughput_evals_per_sec": 33365.48,
+    "avg_latency_ms": 0.03
+  },
+  "ground_truth_verification": {
+    "oracle_status": "PASSED",
+    "recovered_articulation_points": [
+      "actor:gt:chokepoint_alpha",
+      "actor:gt:chokepoint_beta1",
+      "actor:gt:chokepoint_beta2"
+    ],
+    "negative_controls_rejected": true,
+    "deterministic_paths_recovered": 2
+  },
+  "status": "PASSED"
+}

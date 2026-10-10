@@ -1,0 +1,42 @@
+{
+  "repository": "MAPEOGEO",
+  "source_branch": "experiment/authority-c2-consolidation",
+  "source_commit": "ad487a24b4566cac3c391777d920ce13ddef0f05",
+  "base_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
+  "authority_reference_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
+  "authority_reference_manifest": "evidence/authority_assessment/v0_1/PACKAGE_MANIFEST.json",
+  "intelligence_reference_digest": "89a104c5dfa62e2bd93453136657ecabaaaca5354e5e07121d00dbd3f78e037b",
+  "statutory_sources": [
+    {
+      "pack_id": "pack:statute:stored_communications_act_v1",
+      "citation": "18 U.S.C. 2701 et seq. (2024)",
+      "source_text_file": "fixtures/legal_packs/statute_stored_communications_act_v1.txt",
+      "source_text_sha256": "d1e16bbd2b9b799adf149785981a030cb2bf6b08f271967cfe843c21a907189e",
+      "rules_digest": "de5ef81b5fd3e8e71c8c6385a8f2ee5336ff53ed1a4af2851503c9747848fc91",
+      "reviewer_record_signature": "sig:sha256:e69b3415c230b6e89cd410248fd886f5",
+      "integrity_binding_mechanism": "deterministic_sha256_over_public_schema",
+      "epistemic_tier": "reviewed_legal_source"
+    }
+  ],
+  "functional_ontology": {
+    "matrix_dimension": "7x7",
+    "functions": [
+      "ENFORCEMENT",
+      "FINANCE",
+      "FORCE",
+      "GOVERNANCE",
+      "INTELLIGENCE",
+      "PERCEPTION",
+      "PRODUCTION_POPULACE"
+    ],
+    "ontology_source": "mapeogeo/domains/intelligence/ontology.py",
+    "platform_grammar_basis": "Sigma_W = {O, E, K, C, F, D, S}"
+  },
+  "governing_invariants": [
+    "AQ01-AQ20 (Full Authority Assessment Invariant Set)",
+    "AQ07 (No Law by Silence / Non-Collapsing UNRESOLVED)",
+    "AQ20 (Mandatory Reviewed Legal Pack Integrity)",
+    "Core Platform Domain-Neutrality (Core Platform -/-> Domain Profiles)",
+    "Separation of Analytical Exploration from Operational Admission"
+  ]
+}

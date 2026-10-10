@@ -1,0 +1,84 @@
+{
+  "evidence_facts": [
+    {
+      "description": "Citizen epsilon affirmatively and explicitly refused disclosure consent.",
+      "predicate_ref": "cond:has_explicit_consent",
+      "ref": "ev:consent:denied",
+      "subject_ref": "actor:citizen:epsilon",
+      "value": "refuted"
+    },
+    {
+      "description": "Regulatory enforcement warrant duly issued and valid.",
+      "predicate_ref": "cond:has_active_warrant_or_order",
+      "ref": "ev:warrant:active",
+      "subject_ref": "actor:regulator:alpha",
+      "value": "supported"
+    },
+    {
+      "description": "Annual operational compliance audit successfully filed.",
+      "predicate_ref": "cond:audit_completed",
+      "ref": "ev:audit:completed",
+      "subject_ref": "actor:licensee:gamma",
+      "value": "supported"
+    },
+    {
+      "description": "Retention duration within statutory 5-year retention window.",
+      "predicate_ref": "cond:within_statutory_window",
+      "ref": "ev:retention:window_active",
+      "subject_ref": "actor:licensee:gamma",
+      "value": "supported"
+    }
+  ],
+  "review_records": [
+    {
+      "acceptance_receipt_ref": "rcpt:rev:privacy:01",
+      "decision": "accepted",
+      "rationale": "Verified legislative authentic text and normalized statutory norm rules.",
+      "ref": "rev:formalization:privacy_v1",
+      "review_kind": "formalization",
+      "reviewer_ref": "actor:auditor:delta",
+      "scope_ref": "scope:commercial_privacy",
+      "subject_ref": "source:fictional:privacy_statute_2024"
+    },
+    {
+      "acceptance_receipt_ref": "rcpt:rev:oversight:01",
+      "decision": "accepted",
+      "rationale": "Verified regulatory powers statute text and encoded coercive bounds.",
+      "ref": "rev:formalization:oversight_v1",
+      "review_kind": "formalization",
+      "reviewer_ref": "actor:auditor:delta",
+      "scope_ref": "scope:public_oversight",
+      "subject_ref": "source:fictional:regulatory_powers_act_2023"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "digest": "sha256:d8a9b1c2e3f405162738495a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c",
+      "issuing_body": "Fictional Legislature",
+      "kind": "legislation",
+      "provisions": [
+        "Section 4 (Voluntary Inquiries)",
+        "Section 9 (Prohibition on Private Compulsion)",
+        "Section 12 (Consent for Disclosures)",
+        "Section 15 (Custodial Retention)"
+      ],
+      "ref": "source:fictional:privacy_statute_2024",
+      "title": "Fictional Commercial Privacy and Data Protection Act",
+      "version": "2024.1"
+    },
+    {
+      "digest": "sha256:e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8",
+      "issuing_body": "Fictional Legislature",
+      "kind": "legislation",
+      "provisions": [
+        "Section 101 (Regulatory Compulsion Power)",
+        "Section 104 (Immunity of Oversight Board)",
+        "Section 108 (Mandatory Auditor Disclosures)",
+        "Section 112 (Mandatory Record Retention)"
+      ],
+      "ref": "source:fictional:regulatory_powers_act_2023",
+      "title": "Fictional Regulatory Powers and Oversight Act",
+      "version": "2023.2"
+    }
+  ]
+}

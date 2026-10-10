@@ -1,0 +1,94 @@
+{
+  "status": "PASSED",
+  "homonymous_terms_audited": [
+    "power",
+    "field",
+    "ring",
+    "authority",
+    "operator"
+  ],
+  "definitions": {
+    "power": [
+      {
+        "domain": "authority",
+        "namespaced_form": "hohfeldian:modality:power",
+        "semantic_role": "Legal capacity to alter legal relations"
+      },
+      {
+        "domain": "mathematics",
+        "namespaced_form": "math:operator:exponentiation",
+        "semantic_role": "Multiplicative exponentiation operation"
+      },
+      {
+        "domain": "physics",
+        "namespaced_form": "physics:quantity:power_watt",
+        "semantic_role": "Rate of energy transfer per unit time"
+      }
+    ],
+    "field": [
+      {
+        "domain": "mathematics",
+        "namespaced_form": "math:structure:field_f",
+        "semantic_role": "Algebraic structure with commutativity and inverses"
+      },
+      {
+        "domain": "platform",
+        "namespaced_form": "schema:attribute:record_field",
+        "semantic_role": "Typed attribute within a structured data schema"
+      },
+      {
+        "domain": "physics",
+        "namespaced_form": "physics:continuum:scalar_field",
+        "semantic_role": "Physical quantity specified at all points in spacetime"
+      }
+    ],
+    "ring": [
+      {
+        "domain": "mathematics",
+        "namespaced_form": "math:structure:ring_r",
+        "semantic_role": "Algebraic ring with addition and multiplication"
+      },
+      {
+        "domain": "software",
+        "namespaced_form": "network:topology:ring_buffer",
+        "semantic_role": "Circular buffer or ring network topology"
+      }
+    ],
+    "authority": [
+      {
+        "domain": "authority",
+        "namespaced_form": "legal:predicate:normative_authority",
+        "semantic_role": "Reviewed legal basis to conduct an operation"
+      },
+      {
+        "domain": "platform",
+        "namespaced_form": "platform:crypto:root_authority",
+        "semantic_role": "Cryptographic signature root / trust anchor"
+      },
+      {
+        "domain": "intelligence",
+        "namespaced_form": "org:hierarchy:command_authority",
+        "semantic_role": "Organizational supervisory command relation"
+      }
+    ],
+    "operator": [
+      {
+        "domain": "platform",
+        "namespaced_form": "uow:grammar:sigma_w_operator",
+        "semantic_role": "One of the 7 primitive operators in Sigma_W"
+      },
+      {
+        "domain": "mathematics",
+        "namespaced_form": "math:analysis:hilbert_operator",
+        "semantic_role": "Linear mapping between function spaces"
+      },
+      {
+        "domain": "intelligence",
+        "namespaced_form": "org:role:human_operator",
+        "semantic_role": "Human operational actor executing a field task"
+      }
+    ]
+  },
+  "all_definitions_namespaced": true,
+  "invariant": "Every domain-specific homonym possesses canonical URI prefix (no unnamespaced collisions)"
+}
