@@ -2,7 +2,7 @@
   "stage": "mechanical",
   "run_id": "campaign_final_v0_1",
   "status": "passed",
-  "runtime_seconds": 0.0406,
+  "runtime_seconds": 0.0391,
   "counters": {
     "reference_methods_passed": 152,
     "reference_methods_total": 152,

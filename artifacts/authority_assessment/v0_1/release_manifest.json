@@ -35,7 +35,7 @@
     "experiments/authority_assessment/v0_1/qualification/authority_cases_v0_1.json": "ef80855805f7e82243b0eed5c19c7dc1bed3684fffd2312ebe2de5c0c90d0300",
     "experiments/authority_assessment/v0_1/qualification/direct_oracle_v0_1.json": "3e9404fa3a0f984bf0fc561970e558cbf4b1ad25166aaaaab123cf5800666837",
     "experiments/authority_assessment/v0_1/qualification/reverse_domains_v0_1.json": "c4360cf43cee2557e2af8a915457ae8ab3afd026c350d9451b0bd68e24a3a151",
-    "experiments/authority_assessment/v0_1/qualification/legal_pilot_charter.json": "309ac3359bd0fe2196345ca52110c861efb404b237cb3c44726156692853e33b",
+    "experiments/authority_assessment/v0_1/qualification/legal_pilot_charter.json": "09e0b9b39d3167c1c3bcb78269236455b59a5ba0c581be8b1db87e55495648a2",
     "experiments/authority_assessment/v0_1/qualification/frozen_expectations_manifest.json": "89a23f765b19dffb65c3a8cd0c7c603ed51c9a1d52abc667d51ee0fbc5b08253",
     "experiments/authority_assessment/v0_1/intel_authority/catalog_extension.py": "6681d308f59287197f58400b67ea0a040548798a106d26d1ca8c12ef33b9d6a1",
     "experiments/intelligence_integration/v0_2/authority_adapter.py": "9618ed8bff52e39d6096cef753159d0fe84728242bb14da941c29207e6785b78"

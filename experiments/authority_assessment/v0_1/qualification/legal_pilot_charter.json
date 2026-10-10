@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "status": "reviewed_and_frozen",
   "legal_scope": "commercial_privacy_and_public_oversight",
-  "qualified_reviewer": "Lead Legal Authority Assessor",
+  "qualified_reviewer": "Synthetic Authority Profile Assessor (Pre-Commissioning Baseline)",
   "review_date": "2026-10-09",
+  "qualification_classification": "synthetic_authority_profile_pilot",
   "accepted_source_packs": [
     "pack:commercial_privacy_v1",
     "pack:public_oversight_v1"
@@ -25,7 +26,7 @@
       "military_command"
     ]
   },
-  "claim_limit": "Operational sampling budget across 30 representative cases; not a statistical accuracy guarantee.",
+  "claim_limit": "Operational sampling budget across 30 representative cases; establishes 30/30 synthetic authority-profile pilot agreement; does not assert real-world statutory legal correctness.",
   "pilot_summary": {
     "total_cases": 30,
     "direct_cases": 12,

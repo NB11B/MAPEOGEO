@@ -2,7 +2,7 @@
   "stage": "pilot",
   "run_id": "campaign_final_v0_1",
   "status": "passed",
-  "runtime_seconds": 0.0031,
+  "runtime_seconds": 0.003,
   "counters": {
     "pilot_cases_evaluated": 30,
     "pilot_cases_total": 30,
