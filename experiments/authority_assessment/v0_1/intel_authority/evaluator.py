@@ -184,7 +184,12 @@ class LegalEvaluator:
                 all_rules.append((pack, rule))
 
         rule_eval_count = 0
-        max_rules = budget.get("max_rules", 1024) if budget else 1024
+        if isinstance(budget, int):
+            max_rules = budget
+        elif isinstance(budget, dict):
+            max_rules = budget.get("max_rules", 1024)
+        else:
+            max_rules = 1024
 
         for pack, rule in all_rules:
             rule_eval_count += 1
