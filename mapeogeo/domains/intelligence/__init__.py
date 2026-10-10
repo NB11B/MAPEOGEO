@@ -21,6 +21,14 @@ from mapeogeo.domains.intelligence.grammar_mapping import (
     map_intelligence_deficiency,
 )
 from mapeogeo.domains.intelligence.adapter import IntelligenceAdapter
+from mapeogeo.domains.intelligence.analysis import (
+    NetworkIntelligenceGraph,
+    NetworkNode,
+)
+from mapeogeo.domains.intelligence.gap_engine import (
+    IntelligenceGapEngine,
+    PrioritizedIntelligenceRequirement,
+)
 
 __all__ = [
     "OrganizationalFunction",
@@ -34,4 +42,8 @@ __all__ = [
     "INTELLIGENCE_GAP_TO_OPERATOR",
     "map_intelligence_deficiency",
     "IntelligenceAdapter",
+    "NetworkIntelligenceGraph",
+    "NetworkNode",
+    "IntelligenceGapEngine",
+    "PrioritizedIntelligenceRequirement",
 ]
