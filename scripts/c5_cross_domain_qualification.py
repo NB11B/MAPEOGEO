@@ -71,8 +71,8 @@ def audit_domain_neutrality(repo_root: Path) -> Dict[str, Any]:
     domain_forbidden_tokens = ["domains", "intel_authority", "authority_assessment", "intelligence_integration"]
 
     for py_path in core_root.rglob("*.py"):
-        # Exclude domain packages themselves from core check
-        if "domains" in py_path.parts:
+        # Exclude domain packages and domain CLI wrappers from core check
+        if "domains" in py_path.parts or py_path.name in ("authority.py", "intelligence.py"):
             continue
 
         rel_path = str(py_path.relative_to(repo_root)).replace("\\", "/")

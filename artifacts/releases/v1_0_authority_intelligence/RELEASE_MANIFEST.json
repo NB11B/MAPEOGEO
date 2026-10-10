@@ -1,0 +1,18 @@
+{
+  "release": "v1.0-authority-intelligence",
+  "build_timestamp": "2026-10-10T06:00:54.036844+00:00",
+  "status": "QUALIFIED",
+  "architecture": "MAPEOGEO Platform + Intelligence Domain Profile + Authority Domain Profile",
+  "invariants": {
+    "no_parallel_engines": true,
+    "core_domain_neutrality": true,
+    "non_collapsing_4_outcomes": true,
+    "pure_lf_line_endings": true,
+    "grammar_factor_sigma_w": true
+  },
+  "delivered_files_count": 43,
+  "test_suites_passed": 10,
+  "test_suites_total": 10,
+  "test_output_summary": "OK",
+  "crlf_violations": []
+}
