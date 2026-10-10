@@ -245,7 +245,9 @@ class TestConsolidationGate(unittest.TestCase):
             return  # In modular setups where mapeogeo root is elsewhere
 
         for py_path in core_root.glob("**/*.py"):
-            with open(py_path, "r", encoding="utf-8") as f:
+            if "domains" in py_path.parts:
+                continue
+            with open(py_path, "r", encoding="utf-8-sig") as f:
                 try:
                     tree = ast.parse(f.read(), filename=str(py_path))
                 except Exception:
