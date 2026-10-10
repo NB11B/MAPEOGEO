@@ -35,7 +35,7 @@
 ---
 
 ## 4. Verification Evidence & Sealed Hashes
-- **Source Commit**: `4a75101a44746a97972331caa0bdc8ef8806b1e0`
+- **Source Commit**: `ad487a24b4566cac3c391777d920ce13ddef0f05`
 - **Package Inventory Digest**: `23bfd8dd33b02cb463d2f92298b11e6dd331022c5770780233c6e3d8d6d65184`
 - **Cross-Domain Audit Digest**: `d087734e54c79637853b1661f97446dbe1af4a20e7a523a6fc73e57fdbe2e5d1`
 - **Scale Benchmark Digest**: `115b706fa2feeaf3608c356f104f47f5ebe383061a5524366da5b1a61f3e31bb`

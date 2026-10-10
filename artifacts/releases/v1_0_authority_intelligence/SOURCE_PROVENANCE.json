@@ -1,7 +1,7 @@
 {
   "repository": "MAPEOGEO",
   "source_branch": "experiment/authority-c2-consolidation",
-  "source_commit": "4a75101a44746a97972331caa0bdc8ef8806b1e0",
+  "source_commit": "ad487a24b4566cac3c391777d920ce13ddef0f05",
   "base_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
   "authority_reference_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
   "authority_reference_manifest": "evidence/authority_assessment/v0_1/PACKAGE_MANIFEST.json",

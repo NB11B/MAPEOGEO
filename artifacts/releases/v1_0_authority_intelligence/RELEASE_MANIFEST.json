@@ -1,10 +1,10 @@
 {
   "release": "v1.0-authority-intelligence-rc1",
   "release_tag": "v1.0-authority-intelligence-rc1",
-  "build_timestamp": "2026-10-10T06:14:09.168384+00:00",
+  "build_timestamp": "2026-10-10T06:14:35.553565+00:00",
   "status": "QUALIFIED",
   "architecture": "MAPEOGEO Platform + Intelligence Domain Profile + Authority Domain Profile",
-  "source_commit": "4a75101a44746a97972331caa0bdc8ef8806b1e0",
+  "source_commit": "ad487a24b4566cac3c391777d920ce13ddef0f05",
   "source_branch": "experiment/authority-c2-consolidation",
   "base_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
   "authority_reference_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
@@ -12,14 +12,14 @@
   "package_inventory_sha256": "23bfd8dd33b02cb463d2f92298b11e6dd331022c5770780233c6e3d8d6d65184",
   "cross_domain_report_sha256": "d087734e54c79637853b1661f97446dbe1af4a20e7a523a6fc73e57fdbe2e5d1",
   "benchmark_report_sha256": "115b706fa2feeaf3608c356f104f47f5ebe383061a5524366da5b1a61f3e31bb",
-  "qualification_results_sha256": "6c6229d59e660886840ab518d713ca20b9ecd81fc8f89e67e223a10cd9e0db20",
-  "source_provenance_sha256": "e718aadda3892cc7b090f71d460cce3a74662c6852890cce6cf89d06127421d9",
+  "qualification_results_sha256": "a9ff49e0a80c2b41bc7706d304c807207dcdc6d770fbeb2821b9dbd6bc93b308",
+  "source_provenance_sha256": "939b98b52f3f99b6b63e6db6c5610a2211a15dc4ae9daff42642791e2955b987",
   "known_limitations_sha256": "7305a3b0ecaf7df64a25cc2c33a8d081c0607f268fc5eb5502f8801f0e6bfcc3",
   "qualification_run_ids": [
-    "run_mechanical_run_1791612850_ae8d0eda",
-    "run_host_run_1791612850_ae8d0eda",
-    "run_pilot_run_1791612850_ae8d0eda",
-    "run_c_series_1791612850"
+    "run_mechanical_run_1791612876_2c8c4999",
+    "run_host_run_1791612876_2c8c4999",
+    "run_pilot_run_1791612876_2c8c4999",
+    "run_c_series_1791612876"
   ],
   "invariants": {
     "no_parallel_engines": true,

@@ -9,8 +9,14 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import unittest
 
-from math2.bridge.mapeogeo import build_edge_certificate
+try:
+    from math2.bridge.mapeogeo import build_edge_certificate
+    HAS_MATH2 = True
+except ImportError:
+    build_edge_certificate = None
+    HAS_MATH2 = False
 
 from mapeogeo.gfyproof_bridge import apply_gfyproof_certificate
 from scripts.compute_foundation_depth import compute_foundation_metrics
@@ -205,6 +211,7 @@ def _real_foundation_slice() -> tuple[dict, dict, dict]:
     )
 
 
+@unittest.skipIf(not HAS_MATH2, "math2 bridge not available in this environment")
 def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
     (
         graph,
