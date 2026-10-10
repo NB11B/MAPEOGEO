@@ -1,13 +1,15 @@
 {
-  "pack_id": "pack:commercial_privacy_v1",
+  "ref": "pack:commercial_privacy_v1",
   "name": "Fictional Commercial Privacy & Data Protection Rules",
   "version": "1.0",
+  "source_artifact_ref": "source:fictional:privacy_statute_2024",
+  "review_ref": "rev:fictional:privacy_review_v1",
   "rules": [
     {
-      "id": "rule:priv:01",
-      "name": "Voluntary Request Permission",
-      "operation": "op:request_record",
-      "norm": "permission",
+      "ref": "rule:priv:01",
+      "name": "Voluntary Request Liberty",
+      "norm_kind": "permission",
+      "operation_ref": "op:request_record",
       "performer_capacities": [
         "regulator",
         "investigator",
@@ -24,14 +26,15 @@
         "citizen",
         "third_party"
       ],
-      "condition": "true",
-      "interest": "interest:transparency"
+      "indispensable_conditions": [],
+      "interest_ref": "interest:transparency",
+      "description": "Any actor is permitted to request records voluntarily without legal compulsion."
     },
     {
-      "id": "rule:priv:02",
-      "name": "Coercive Compulsion Prohibition on Private Entities",
-      "operation": "op:compel_record",
-      "norm": "prohibition",
+      "ref": "rule:priv:02",
+      "name": "Private Coercion Prohibition",
+      "norm_kind": "prohibition",
+      "operation_ref": "op:compel_record",
       "performer_capacities": [
         "licensee",
         "citizen",
@@ -45,14 +48,15 @@
         "citizen",
         "third_party"
       ],
-      "condition": "true",
-      "interest": "interest:due_process"
+      "indispensable_conditions": [],
+      "interest_ref": "interest:due_process",
+      "description": "Private entities (licensees, individuals, third parties) are explicitly prohibited under reviewed rule from issuing coercive compulsion."
     },
     {
-      "id": "rule:priv:03",
-      "name": "Data Sharing Requires Explicit Consent",
-      "operation": "op:share_record",
-      "norm": "permission",
+      "ref": "rule:priv:03",
+      "name": "Consensual Record Sharing",
+      "norm_kind": "permission",
+      "operation_ref": "op:share_record",
       "performer_capacities": [
         "licensee",
         "auditor",
@@ -62,14 +66,17 @@
         "citizen",
         "licensee"
       ],
-      "condition": "has_explicit_consent",
-      "interest": "interest:confidentiality"
+      "indispensable_conditions": [
+        "cond:has_explicit_consent"
+      ],
+      "interest_ref": "interest:confidentiality",
+      "description": "Sharing records requires affirmative explicit consent. Where consent is demonstrably refuted across all routes, conditions are unmet."
     },
     {
-      "id": "rule:priv:04",
-      "name": "Retention Restricted to Operating Scope",
-      "operation": "op:retain_record",
-      "norm": "permission",
+      "ref": "rule:priv:04",
+      "name": "Custodial Retention Permitted in Window",
+      "norm_kind": "permission",
+      "operation_ref": "op:retain_record",
       "performer_capacities": [
         "regulator",
         "investigator",
@@ -80,8 +87,11 @@
         "licensee",
         "citizen"
       ],
-      "condition": "within_statutory_window",
-      "interest": "interest:compliance"
+      "indispensable_conditions": [
+        "cond:within_statutory_window"
+      ],
+      "interest_ref": "interest:compliance",
+      "description": "Retention of records is permitted within the authorized statutory retention window."
     }
   ]
 }

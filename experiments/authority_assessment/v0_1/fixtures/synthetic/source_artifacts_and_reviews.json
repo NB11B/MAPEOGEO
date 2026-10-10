@@ -1,0 +1,50 @@
+{
+  "source_artifacts": [
+    {
+      "ref": "source:fictional:privacy_statute_2024",
+      "title": "Fictional Commercial Privacy and Data Protection Act",
+      "kind": "legislation",
+      "version": "2024.1",
+      "digest": "sha256:d8a9b1c2e3f405162738495a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c",
+      "issuing_body": "Fictional Legislature",
+      "provisions": [
+        "Section 4 (Voluntary Inquiries)",
+        "Section 9 (Prohibition on Private Compulsion)",
+        "Section 12 (Consent for Disclosures)",
+        "Section 15 (Custodial Retention)"
+      ]
+    },
+    {
+      "source_ref": "source:fictional:regulatory_powers_act_2023",
+      "title": "Fictional Regulatory Powers and Public Oversight Statute",
+      "kind": "legislation",
+      "version": "2023.2",
+      "digest": "sha256:a1b2c3d4e5f60718293a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e",
+      "issuing_body": "Fictional State Council",
+      "provisions": [
+        "Article 3 (Regulatory Compulsion)",
+        "Article 6 (Immunity of Oversight Body)",
+        "Article 8 (Mandatory Audit Disclosure)",
+        "Article 11 (Statutory Record Preservation)"
+      ]
+    }
+  ],
+  "review_records": [
+    {
+      "ref": "rev:fictional:privacy_review_v1",
+      "source_ref": "source:fictional:privacy_statute_2024",
+      "reviewer": "Reviewer:LegalAnalysisGroup",
+      "review_date": "2026-10-01",
+      "status": "accepted_legal_position",
+      "interpretation_summary": "Strict protection of commercial privacy; absolute bar on coercive acts by private non-statutory actors; consent indispensable for disclosure."
+    },
+    {
+      "ref": "rev:fictional:oversight_review_v1",
+      "source_ref": "source:fictional:regulatory_powers_act_2023",
+      "reviewer": "Reviewer:PublicLawChambers",
+      "review_date": "2026-10-01",
+      "status": "accepted_legal_position",
+      "interpretation_summary": "Recognizes coercive authority only in regulator and designated investigator; requires active order; absolute prohibition against compelling regulator."
+    }
+  ]
+}

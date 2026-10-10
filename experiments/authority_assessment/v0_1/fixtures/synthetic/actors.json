@@ -1,38 +1,74 @@
 [
   {
-    "id": "actor:regulator:alpha",
+    "ref": "actor:regulator:alpha",
     "name": "Alpha Oversight Board",
-    "capacity": "regulator",
-    "jurisdiction": "jur:fictional:state"
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:regulator:alpha:oversight"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:alpha_statute"
+    ]
   },
   {
-    "id": "actor:investigator:beta",
+    "ref": "actor:investigator:beta",
     "name": "Beta Investigation Unit",
-    "capacity": "investigator",
-    "jurisdiction": "jur:fictional:state"
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:investigator:beta:enforcement"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:beta_charter"
+    ]
   },
   {
-    "id": "actor:licensee:gamma",
+    "ref": "actor:licensee:gamma",
     "name": "Gamma Commercial Carrier",
-    "capacity": "licensee",
-    "jurisdiction": "jur:fictional:state"
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:licensee:gamma:operator"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:gamma_license"
+    ]
   },
   {
-    "id": "actor:auditor:delta",
+    "ref": "actor:auditor:delta",
     "name": "Delta Compliance Auditor",
-    "capacity": "auditor",
-    "jurisdiction": "jur:fictional:state"
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:auditor:delta:independent_audit"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:delta_accreditation"
+    ]
   },
   {
-    "id": "actor:citizen:epsilon",
+    "ref": "actor:citizen:epsilon",
     "name": "Epsilon Private Subject",
-    "capacity": "citizen",
-    "jurisdiction": "jur:fictional:state"
+    "kind": "person",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:citizen:epsilon:individual"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:epsilon_record"
+    ]
   },
   {
-    "id": "actor:third_party:zeta",
+    "ref": "actor:third_party:zeta",
     "name": "Zeta Data Services",
-    "capacity": "third_party",
-    "jurisdiction": "jur:fictional:state"
+    "kind": "organization",
+    "jurisdiction": "jur:fictional:state",
+    "capacity_refs": [
+      "cap:third_party:zeta:commercial_service"
+    ],
+    "identity_evidence_refs": [
+      "ev:ident:zeta_registration"
+    ]
   }
 ]

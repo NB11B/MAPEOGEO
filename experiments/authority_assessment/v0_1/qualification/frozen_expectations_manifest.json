@@ -12,38 +12,48 @@
     },
     {
       "path": "qualification/direct_oracle_v0_1.json",
-      "sha256": "2ca98accddb2d98bf6b5e74524140cf9b4b45f410381ed815fc7fd87e25331f6",
-      "size_bytes": 209005
+      "sha256": "768d598fdeeba0b6814b63ed0db223a3031499b978e014b299f0fcc0961809b1",
+      "size_bytes": 741690
     },
     {
       "path": "qualification/reverse_domains_v0_1.json",
-      "sha256": "57dc4c19ad5bf1e256f7b7d0336a385ae8c3afb99c86561d43099a8004fe0cdf",
-      "size_bytes": 1353
+      "sha256": "e8c5aefeaa51261de340f2bae418ff7e077ced5eb2b10854bea3ecdd8f8374b1",
+      "size_bytes": 29573
     },
     {
       "path": "fixtures/synthetic/actors.json",
-      "sha256": "03e6b4edd6798dbef9f185154f11b3426aeae6e16e2e347abae678c83cd7c382",
-      "size_bytes": 958
+      "sha256": "eba96959f52829b20a820f0e2339a02d0addadacdd4316573681cca897a2611c",
+      "size_bytes": 1845
+    },
+    {
+      "path": "fixtures/synthetic/capacities.json",
+      "sha256": "7ffe1d4975aa4631b1bcd13afeee22c42d84da3b850a42e6630588a7bb02f1bf",
+      "size_bytes": 1719
     },
     {
       "path": "fixtures/synthetic/interests.json",
-      "sha256": "fc5148441f903932a4846e425e4b0e925208f6e5ff60f7db44475429e231a11d",
-      "size_bytes": 393
+      "sha256": "19e06842ceb31a24115761485c476690ae200e54f9b46e7e3737a04d8d9aa0bd",
+      "size_bytes": 1203
     },
     {
       "path": "fixtures/synthetic/operations.json",
-      "sha256": "90a09a12140f54211437b9bdcb55c29dc2df9e02b7c34979128ab1dfa6a8559b",
-      "size_bytes": 524
+      "sha256": "7d8f8c9d800430db01f0f7e5c80b7848df816332be11ea12f43ac60917e52de8",
+      "size_bytes": 2924
     },
     {
       "path": "fixtures/synthetic/rule_pack_commercial_privacy.json",
-      "sha256": "06e330f8d3bc2f70fe9c41464da01f2c1267a247863d5ce4c1126583552fef36",
-      "size_bytes": 2178
+      "sha256": "5e85edb3799234624ce8f090c2e014280fa284b9b141081a6e17a4b82f785e24",
+      "size_bytes": 2947
     },
     {
       "path": "fixtures/synthetic/rule_pack_public_oversight.json",
-      "sha256": "8c38d0a2dc5b00beb133698cc838f8333118d4200f9183b2ed60c11c2ae0af07",
-      "size_bytes": 1923
+      "sha256": "661c4d030742d61c10bb61beb58d095ef4ed0ef9f9a60c35246d1e069de9fe62",
+      "size_bytes": 2777
+    },
+    {
+      "path": "fixtures/synthetic/source_artifacts_and_reviews.json",
+      "sha256": "0e41de1414f28914d9e1550be5bcad6cc3f2b6c421d8a28c7b0be80159595a02",
+      "size_bytes": 2103
     }
   ],
   "freeze_id": "authority_v0_1_qualification_freeze_g0a",

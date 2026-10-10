@@ -1,18 +1,42 @@
 [
   {
-    "id": "interest:confidentiality",
-    "name": "Commercial and Personal Confidentiality"
+    "ref": "interest:confidentiality",
+    "holder_ref": "actor:citizen:epsilon",
+    "bearer_ref": "actor:licensee:gamma",
+    "interest_kind": "privacy_and_trade_secrecy",
+    "scope_ref": "scope:confidential_information",
+    "evidence_refs": [
+      "ev:interest:privacy_charter"
+    ]
   },
   {
-    "id": "interest:due_process",
-    "name": "Due Process & Statutory Authority Limits"
+    "ref": "interest:due_process",
+    "holder_ref": "actor:licensee:gamma",
+    "bearer_ref": "actor:regulator:alpha",
+    "interest_kind": "statutory_authority_limits",
+    "scope_ref": "scope:procedural_fairness",
+    "evidence_refs": [
+      "ev:interest:due_process_statute"
+    ]
   },
   {
-    "id": "interest:compliance",
-    "name": "Operational Regulatory Compliance"
+    "ref": "interest:compliance",
+    "holder_ref": "actor:regulator:alpha",
+    "bearer_ref": "actor:licensee:gamma",
+    "interest_kind": "regulatory_mandate",
+    "scope_ref": "scope:operating_standards",
+    "evidence_refs": [
+      "ev:interest:license_condition"
+    ]
   },
   {
-    "id": "interest:transparency",
-    "name": "Public Record Transparency"
+    "ref": "interest:transparency",
+    "holder_ref": "actor:regulator:alpha",
+    "bearer_ref": "actor:auditor:delta",
+    "interest_kind": "public_oversight",
+    "scope_ref": "scope:oversight_reporting",
+    "evidence_refs": [
+      "ev:interest:sunshine_statute"
+    ]
   }
 ]

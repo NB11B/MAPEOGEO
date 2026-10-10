@@ -1,0 +1,106 @@
+{
+  "catalog_id": "authority_aq_subcase_index",
+  "version": "0.1",
+  "status": "frozen_mapping",
+  "mappings": [
+    {
+      "aq_id": "AQ01",
+      "name": "direct_supported_with_complete_basis",
+      "exercised_by_cells": [
+        "cell_001",
+        "cell_002",
+        "cell_151"
+      ],
+      "verification_invariant": "Complete decisive trace, valid role, supported conditions -> supported_within_scope"
+    },
+    {
+      "aq_id": "AQ02",
+      "name": "explicit_prohibition_requires_positive_basis",
+      "exercised_by_cells": [
+        "cell_010",
+        "cell_014",
+        "cell_146"
+      ],
+      "verification_invariant": "Private compulsion under rule:priv:02 yields prohibited_under_reviewed_rule; missing power without prohibition yields unresolved"
+    },
+    {
+      "aq_id": "AQ03",
+      "name": "known_unmet_condition_differs_from_unknown_condition",
+      "exercised_by_cells": [
+        "cell_012",
+        "cell_024",
+        "cell_036"
+      ],
+      "verification_invariant": "Refuted consent yields conditions_unmet; unknown consent yields unresolved with missing_factual_evidence gap"
+    },
+    {
+      "aq_id": "AQ04",
+      "name": "competing_rules_require_reviewed_resolution",
+      "exercised_by_cells": [
+        "cell_146",
+        "cell_150"
+      ],
+      "verification_invariant": "Prioritized rule resolves disposition; unadjudicated priority retains conflict record and unresolved disposition"
+    },
+    {
+      "aq_id": "AQ05",
+      "name": "any_actor_pair_preserves_direction_and_interests",
+      "exercised_by_cells": [
+        "cell_001",
+        "cell_005",
+        "cell_025"
+      ],
+      "verification_invariant": "Self-pairs valid; swapping performers/targets changes case digest; unfamiliar actor yields unresolved binding"
+    },
+    {
+      "aq_id": "AQ09",
+      "name": "grant_binds_exact_action_and_parties",
+      "exercised_by_cells": [
+        "cell_001",
+        "cell_002"
+      ],
+      "verification_invariant": "Mutating any individual field (performer, operation, affected) changes case_digest and invalidates grant coverage"
+    },
+    {
+      "aq_id": "AQ13",
+      "name": "jurisdiction_types_are_not_interchangeable",
+      "exercised_by_cells": [
+        "cell_145",
+        "cell_146"
+      ],
+      "verification_invariant": "Territorial jurisdiction cannot substitute for subject-matter capacity; taxonomy preserved"
+    },
+    {
+      "aq_id": "AQ25",
+      "name": "what_actions_returns_exact_bounded_candidates",
+      "exercised_by_cells": [
+        "action_enumeration_expectations"
+      ],
+      "verification_invariant": "enumerate_actions matches exact pre-computed expected_supported_operations set without omission"
+    },
+    {
+      "aq_id": "AQ26",
+      "name": "which_actors_returns_exact_bounded_candidates",
+      "exercised_by_cells": [
+        "actor_enumeration_expectations"
+      ],
+      "verification_invariant": "enumerate_actors matches exact pre-computed expected_supported_actors set without omission"
+    },
+    {
+      "aq_id": "AQ41",
+      "name": "clock_identity_encoding_preserves_distinct_streams",
+      "exercised_by_cells": [
+        "test_clock_identity_codec"
+      ],
+      "verification_invariant": "uow-clock:v1:[d, a] preserves boundary-overlap pairs (ops: / analyst vs ops / :analyst); explicit parents order events"
+    },
+    {
+      "aq_id": "AQ56",
+      "name": "input_and_budget_boundaries_do_not_masquerade_as_law",
+      "exercised_by_cells": [
+        "test_validation_result"
+      ],
+      "verification_invariant": "Malformed inputs and limits emit technical Diagnostic errors and NO legal disposition"
+    }
+  ]
+}

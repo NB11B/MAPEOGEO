@@ -3,10 +3,26 @@
   "version": "0.1",
   "date": "2026-10-09",
   "status": "gate_g0b_inspected_and_complete",
+  "clock_identity_format": "uow-clock:v1:[domain_id, local_actor]",
   "inspected_host_commit": "f7e6ee6b12c28bca95a967e212593bbadb7b8bb9",
   "inspected_host_adapter": "experiments/intelligence_integration/v0_1/adapter.py",
   "inspected_clock_identity": "experiments/intelligence_integration/v0_1/clock_identity.py",
-  "clock_identity_format": "uow-clock:v1:[domain_id, local_actor]",
+  "clock_identity_specification": {
+    "format": "uow-clock:v1:[domain_id, local_actor]",
+    "domain_epoch": "Stream-local monotonically increasing integer seq >= 1 initialized at boundary start",
+    "stream_owner": "Local execution boundary (e.g. uow:boundary:uow-01 or host task process)",
+    "identity_classes": {
+      "legal_actor_principal": "Attributed entity or organization (e.g. actor:regulator:alpha, analyst)",
+      "uow_boundary": "Specific admitted work instance (e.g. uow:task:review_01)",
+      "execution_perimeter": "Boundary admitting transactions and validating authority",
+      "clock_stream": "Owned counter stream (domain_id, local_actor)"
+    },
+    "event_identity_and_causal_parents": {
+      "event_format": "{domain_id}:{local_event_id}",
+      "causal_ordering_rule": "Events across distinct clock domains without explicit causal edges have relation UNKNOWN. Order is established ONLY via explicit causal edges in parents list.",
+      "separation_of_legal_time": "A legal reference mapping (interval attestation) cannot backdate causal receipt events or manufacture knowledge at an earlier decision point."
+    }
+  },
   "host_grounded_nodes": [
     {
       "node_id": "src:service_contract:v1",
@@ -27,5 +43,5 @@
     "cancellation_reservation_release",
     "live_mutation_of_host_graph"
   ],
-  "gate_g0b_determination": "Actual host interface, host commit, and clock-domain mapping are inspected and documented. Standalone kernel proceeds with host projection contract ready."
+  "gate_g0b_determination": "Host commit, adapter, and clock identity are verified. Clock semantics, stream ownership, and causal/legal-time separation are strictly defined."
 }
