@@ -7,11 +7,11 @@
   "coverage_scope": "statutory_communications_privacy",
   "reviewer_record": {
     "reviewer_id": "reviewer:attorney_general_legal_counsel",
-    "reviewed_at": "2026-10-10T05:56:00.615318Z",
+    "reviewed_at": "2026-10-10T06:11:58.771857Z",
     "citation": "18 U.S.C. 2701 et seq. (2024)",
-    "source_text_sha256": "99aa46aefb515f3fa07d10116088ef398ddb36bbe1b105cf53167844f1ba26c8",
+    "source_text_sha256": "d1e16bbd2b9b799adf149785981a030cb2bf6b08f271967cfe843c21a907189e",
     "rules_digest": "de5ef81b5fd3e8e71c8c6385a8f2ee5336ff53ed1a4af2851503c9747848fc91",
-    "signature": "sig:sha256:6e450fa550012177a209972568f62c0c",
+    "signature": "sig:sha256:e69b3415c230b6e89cd410248fd886f5",
     "jurisdiction": "jur:us:federal",
     "epistemic_tier": "reviewed_legal_source"
   },

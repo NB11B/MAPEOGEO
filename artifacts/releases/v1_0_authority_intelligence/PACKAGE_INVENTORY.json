@@ -2,14 +2,14 @@
   "files": [
     {
       "path": "fixtures/legal_packs/statute_stored_communications_act_v1.json",
-      "sha256": "6fc09dea052cf84b7d59f54679b2278b89490aaae64352f600fec85af4318ecc",
+      "sha256": "92541525c32df61b7b5b05fe40e9a0848a9355b0f0c2840fb3970c94963b1a8f",
       "size_bytes": 2962,
       "line_ending": "LF"
     },
     {
       "path": "fixtures/legal_packs/statute_stored_communications_act_v1.txt",
-      "sha256": "99aa46aefb515f3fa07d10116088ef398ddb36bbe1b105cf53167844f1ba26c8",
-      "size_bytes": 862,
+      "sha256": "d1e16bbd2b9b799adf149785981a030cb2bf6b08f271967cfe843c21a907189e",
+      "size_bytes": 1828,
       "line_ending": "LF"
     },
     {
@@ -62,8 +62,8 @@
     },
     {
       "path": "mapeogeo/domains/authority/intake.py",
-      "sha256": "04f49280320f368e73a622c6191305ca34acf884a2a68bcafc003507cb105746",
-      "size_bytes": 9706,
+      "sha256": "eb3dd5852c5a5915a85b43eca61d8f6d41669da528acc5240f6fef4a4e71e7e8",
+      "size_bytes": 10274,
       "line_ending": "LF"
     },
     {
@@ -146,20 +146,26 @@
     },
     {
       "path": "scripts/c10_scale_benchmark.py",
-      "sha256": "4eb66f8216c1dcf9d9dbfbd728266773b6669e3ec235475670ce40d3ebd915a2",
-      "size_bytes": 8600,
+      "sha256": "e845179179d0f64ffbef2b27cd77d63aed8f7483833cbf6ff154473a989e2157",
+      "size_bytes": 14824,
+      "line_ending": "LF"
+    },
+    {
+      "path": "scripts/c13_publish_release.py",
+      "sha256": "5720ab41d74ed9b1054984a3ab23ef4df958e9204f7f1456dd7113c656d2e876",
+      "size_bytes": 20491,
       "line_ending": "LF"
     },
     {
       "path": "scripts/c5_cross_domain_qualification.py",
-      "sha256": "69a3c804009e48e691221e647a9edf742f44f0b5e3d98bf4571152f7c3d6059b",
-      "size_bytes": 27720,
+      "sha256": "3badb1af56894dbfe4998138bc09f1a87d0e240c5bab912c7d96d365b4f34ae9",
+      "size_bytes": 28027,
       "line_ending": "LF"
     },
     {
       "path": "tests/test_c10_scale_benchmark.py",
-      "sha256": "2869af63d10b42044971032d73b8f6b73607a79d3a36756f6ca8ee54770134c0",
-      "size_bytes": 1987,
+      "sha256": "3ae93098cbb324600a0d075f739e2e1457973db4cab57005429d35553a93454d",
+      "size_bytes": 3462,
       "line_ending": "LF"
     },
     {
@@ -176,8 +182,8 @@
     },
     {
       "path": "tests/test_c13_release_manifest.py",
-      "sha256": "463f39447d356ecf0ae099897ee8d7e42ba754a17b7730c63ff497e4e593495e",
-      "size_bytes": 3082,
+      "sha256": "e4330cf740c22235619fd374993187dee70b7eadd0c16739e14ad032205a5d20",
+      "size_bytes": 6293,
       "line_ending": "LF"
     },
     {
@@ -214,48 +220,6 @@
       "path": "tests/test_c9_tertiary_impact.py",
       "sha256": "206a502d8c9fadd2e201525b58d1b69d13098973b5dabdb27ed750f46ee5336f",
       "size_bytes": 5926,
-      "line_ending": "LF"
-    },
-    {
-      "path": "tests/test_certifiable_semantics_census.py",
-      "sha256": "fd313a74bc6ecd1d6ca006e806b8f3a35234818cfda95c5f4289aec30c2faae8",
-      "size_bytes": 12178,
-      "line_ending": "LF"
-    },
-    {
-      "path": "tests/test_complex_analysis_expansion_v0_19.py",
-      "sha256": "2180c4e6297f356f58d1c7e033d040aa1ba827b35f93b64ce7460bed2ade5d62",
-      "size_bytes": 5956,
-      "line_ending": "LF"
-    },
-    {
-      "path": "tests/test_complex_analysis_integrity.py",
-      "sha256": "8356798fe30c1b34fad5c43760812b6a2dae245032b617ba0887a364a41aa21b",
-      "size_bytes": 19170,
-      "line_ending": "LF"
-    },
-    {
-      "path": "tests/test_convex_expansion_v0_14.py",
-      "sha256": "461c5ec766bde165c92715414474be947b50edfe05a53fd07fc1047d02b55bff",
-      "size_bytes": 6375,
-      "line_ending": "LF"
-    },
-    {
-      "path": "tests/test_corpus_dualizer.py",
-      "sha256": "23e295deadea926a22dbe4b1f39364dfc0d2933311823a7e1b9547d66e7d6312",
-      "size_bytes": 3626,
-      "line_ending": "LF"
-    },
-    {
-      "path": "tests/test_cross_source_v0_12.py",
-      "sha256": "d01f28657ccd35480adf9dc14f40a594e0c35c5a3d8cf778f271a6d21ce150d9",
-      "size_bytes": 6635,
-      "line_ending": "LF"
-    },
-    {
-      "path": "tests/test_current_integrity_reporting.py",
-      "sha256": "4502d1c068285aba7bf4c0eeca48c865d7aebcecf5c0a41755e9bb0948e8ee11",
-      "size_bytes": 3536,
       "line_ending": "LF"
     }
   ]

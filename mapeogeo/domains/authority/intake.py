@@ -1,11 +1,17 @@
-"""Real Legal-Pack Intake & Reviewer Pipeline for Authority Domain.
+"""Real Statutory-Source Intake with Deterministic Integrity Binding & Reviewer-Record Schema.
 
 Enforces:
 1. Formal legal pack intake schema (statutes, administrative rules, institutional regulations).
 2. Reviewer record binding: citation, authoritative source digest, review timestamp,
-   jurisdiction, and reviewer signature.
+   jurisdiction, and deterministic integrity signature (SHA-256 over reviewer_id, citation,
+   source text digest, and rules digest).
 3. Invariant AQ20: Unauthenticated retrieved sources cannot act as reviewed law packs.
    Packs without valid reviewer records or with digest mismatches are rejected.
+
+Note:
+The reviewer_record signature provides deterministic integrity binding and schema conformance
+over public fields; it proves self-contained pack integrity and structural conformance,
+not external PKI certificate chains or asymmetric cryptographic sign-offs.
 """
 
 from __future__ import annotations
@@ -27,7 +33,11 @@ from mapeogeo.domains.authority.rules import (
 
 @dataclass(frozen=True)
 class ReviewerRecord:
-    """Formal reviewer sign-off attesting that legal rules faithfully encode source text."""
+    """Formal reviewer record binding legal rules to authoritative source text via deterministic integrity digest.
+
+    Provides deterministic SHA-256 integrity binding across reviewer identifier, statutory citation,
+    source text digest, and canonical rules digest.
+    """
     reviewer_id: str
     reviewed_at: str
     citation: str

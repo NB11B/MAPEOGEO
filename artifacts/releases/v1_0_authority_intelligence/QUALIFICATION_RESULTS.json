@@ -1,0 +1,89 @@
+{
+  "status": "QUALIFIED",
+  "campaign_timestamp": "2026-10-10T06:14:09.168384+00:00",
+  "run_ids": [
+    "run_mechanical_run_1791612850_ae8d0eda",
+    "run_host_run_1791612850_ae8d0eda",
+    "run_pilot_run_1791612850_ae8d0eda",
+    "run_c_series_1791612850"
+  ],
+  "scorecard": {
+    "reference_methods_passed": 152,
+    "reference_methods_total": 152,
+    "direct_oracle_cells_matched": 288,
+    "direct_oracle_cells_total": 288,
+    "action_queries_matched": 72,
+    "action_queries_total": 72,
+    "actor_queries_matched": 48,
+    "actor_queries_total": 48,
+    "aq_obligations_passed": 56,
+    "aq_obligations_total": 56,
+    "host_checks_passed": 18,
+    "host_checks_total": 18,
+    "pilot_cases_evaluated": 30,
+    "pilot_agreements": 30,
+    "c_series_suites_passed": 10,
+    "c_series_suites_total": 10
+  },
+  "stage_reports": {
+    "mechanical": {
+      "stage": "mechanical",
+      "run_id": "run_1791612850_ae8d0eda",
+      "status": "passed",
+      "runtime_seconds": 0.0426,
+      "counters": {
+        "reference_methods_passed": 152,
+        "reference_methods_total": 152,
+        "reference_qf_cases_passed": 19,
+        "reference_qf_legacy_disagreements": 5,
+        "reference_qf_cases_total": 24,
+        "direct_oracle_cells_matched": 288,
+        "direct_oracle_cells_total": 288,
+        "action_queries_matched": 72,
+        "action_queries_total": 72,
+        "actor_queries_matched": 48,
+        "actor_queries_total": 48,
+        "aq_obligations_passed": 56,
+        "aq_obligations_total": 56
+      },
+      "gates": {
+        "gate_g1_direct_oracle": "passed",
+        "gate_g4_finite_mechanical": "passed"
+      },
+      "critical_defects": 0
+    },
+    "host": {
+      "stage": "host",
+      "run_id": "run_1791612850_ae8d0eda",
+      "status": "passed",
+      "runtime_seconds": 0.0011,
+      "counters": {
+        "host_checks_passed": 18,
+        "host_checks_total": 18,
+        "snapshot_immutability_verified": true
+      },
+      "gates": {
+        "gate_g3_host_projection": "passed"
+      },
+      "critical_defects": 0
+    },
+    "pilot": {
+      "stage": "pilot",
+      "run_id": "run_1791612850_ae8d0eda",
+      "status": "passed",
+      "runtime_seconds": 0.0027,
+      "counters": {
+        "pilot_cases_evaluated": 30,
+        "pilot_cases_total": 30,
+        "pilot_agreements": 30,
+        "direct_cases": 12,
+        "reverse_cases": 8,
+        "course_or_history_cases": 10
+      },
+      "gates": {
+        "gate_g5_reviewed_pilot": "passed"
+      },
+      "critical_defects": 0
+    }
+  }
+}

@@ -1,0 +1,305 @@
+{
+  "stage": "C5",
+  "title": "Cross-Domain Qualification and Platform Integrity Report",
+  "status": "PASSED",
+  "audits": {
+    "domain_neutrality": {
+      "status": "PASSED",
+      "core_files_audited": 20,
+      "violations_count": 0,
+      "violations": [],
+      "invariant": "Core Platform -/-> Domain Profile"
+    },
+    "representation_collision": {
+      "status": "PASSED",
+      "declared_edge_types": {
+        "CANDIDATE_REPRESENTS": {
+          "tier": "heuristic_hypothesis",
+          "epistemic_requirement": "unverified",
+          "allows_operational_execution": false,
+          "allows_formal_substitution": false,
+          "description": "Observed or extracted entity hypothesized to map to a formal model object"
+        },
+        "REPRESENTS": {
+          "tier": "operational_binding",
+          "epistemic_requirement": "grounded_evidence",
+          "allows_operational_execution": true,
+          "allows_formal_substitution": false,
+          "description": "Verified empirical or system grounding between concrete state and model node"
+        },
+        "SAME_SEMANTICS": {
+          "tier": "formal_equivalence",
+          "epistemic_requirement": "mathematical_proof_or_exact_isomorphism",
+          "allows_operational_execution": true,
+          "allows_formal_substitution": true,
+          "description": "Strict semantic identity under mathematical or logical verification"
+        }
+      },
+      "pairwise_collisions": [],
+      "strict_discrimination_verified": true,
+      "invariant": "CANDIDATE_REPRESENTS != REPRESENTS != SAME_SEMANTICS"
+    },
+    "graph_label_collision": {
+      "status": "PASSED",
+      "homonymous_terms_audited": [
+        "power",
+        "field",
+        "ring",
+        "authority",
+        "operator"
+      ],
+      "definitions": {
+        "power": [
+          {
+            "domain": "authority",
+            "namespaced_form": "hohfeldian:modality:power",
+            "semantic_role": "Legal capacity to alter legal relations"
+          },
+          {
+            "domain": "mathematics",
+            "namespaced_form": "math:operator:exponentiation",
+            "semantic_role": "Multiplicative exponentiation operation"
+          },
+          {
+            "domain": "physics",
+            "namespaced_form": "physics:quantity:power_watt",
+            "semantic_role": "Rate of energy transfer per unit time"
+          }
+        ],
+        "field": [
+          {
+            "domain": "mathematics",
+            "namespaced_form": "math:structure:field_f",
+            "semantic_role": "Algebraic structure with commutativity and inverses"
+          },
+          {
+            "domain": "platform",
+            "namespaced_form": "schema:attribute:record_field",
+            "semantic_role": "Typed attribute within a structured data schema"
+          },
+          {
+            "domain": "physics",
+            "namespaced_form": "physics:continuum:scalar_field",
+            "semantic_role": "Physical quantity specified at all points in spacetime"
+          }
+        ],
+        "ring": [
+          {
+            "domain": "mathematics",
+            "namespaced_form": "math:structure:ring_r",
+            "semantic_role": "Algebraic ring with addition and multiplication"
+          },
+          {
+            "domain": "software",
+            "namespaced_form": "network:topology:ring_buffer",
+            "semantic_role": "Circular buffer or ring network topology"
+          }
+        ],
+        "authority": [
+          {
+            "domain": "authority",
+            "namespaced_form": "legal:predicate:normative_authority",
+            "semantic_role": "Reviewed legal basis to conduct an operation"
+          },
+          {
+            "domain": "platform",
+            "namespaced_form": "platform:crypto:root_authority",
+            "semantic_role": "Cryptographic signature root / trust anchor"
+          },
+          {
+            "domain": "intelligence",
+            "namespaced_form": "org:hierarchy:command_authority",
+            "semantic_role": "Organizational supervisory command relation"
+          }
+        ],
+        "operator": [
+          {
+            "domain": "platform",
+            "namespaced_form": "uow:grammar:sigma_w_operator",
+            "semantic_role": "One of the 7 primitive operators in Sigma_W"
+          },
+          {
+            "domain": "mathematics",
+            "namespaced_form": "math:analysis:hilbert_operator",
+            "semantic_role": "Linear mapping between function spaces"
+          },
+          {
+            "domain": "intelligence",
+            "namespaced_form": "org:role:human_operator",
+            "semantic_role": "Human operational actor executing a field task"
+          }
+        ]
+      },
+      "all_definitions_namespaced": true,
+      "invariant": "Every domain-specific homonym possesses canonical URI prefix (no unnamespaced collisions)"
+    },
+    "grammar_factoring": {
+      "status": "PASSED",
+      "platform_operator_basis": [
+        "C",
+        "D",
+        "E",
+        "F",
+        "K",
+        "O",
+        "S"
+      ],
+      "domains_evaluated": [
+        "mathematics",
+        "software",
+        "intelligence",
+        "authority",
+        "physics"
+      ],
+      "domain_grammar_factoring": {
+        "mathematics": {
+          "O": "Source ingestion and corpus capture (M0a/M0b/M0c)",
+          "E": "Extraction of mathematical claims and MathIR compilation",
+          "K": "Kernel verification and proof falsification (GFYProof / Lean)",
+          "C": "Reconciliation across mathematical families and definitions",
+          "F": "Frontier exploration and bibliographic expansion",
+          "D": "Proof witness durability and canonical graph persistence",
+          "S": "Soundness invariants and circularity detection"
+        },
+        "software": {
+          "O": "Telemetry capture, system log ingestion, source monitoring",
+          "E": "AST parsing, bytecode decompilation, call-graph extraction",
+          "K": "Static analysis, unit test execution, property verification",
+          "C": "Dependency conflict reconciliation, merge validation",
+          "F": "Build graph planning, release packaging pipeline",
+          "D": "Durable task dispatch, execution queue lifecycle",
+          "S": "Sandbox confinement, authorization checks, resource quota"
+        },
+        "intelligence": {
+          "O": "Sensor data acquisition, telemetry ingest (FACT_GAP -> O)",
+          "E": "Analytical extraction, relation extraction, semantic parsing",
+          "K": "Epistemic classification, hypothesis falsification (INTERPRETATION_GAP -> K)",
+          "C": "Cross-source corroboration, boundary comparison (COVERAGE_GAP -> C)",
+          "F": "Course-of-action formulation (OPERATION_DEFINITION_GAP -> F)",
+          "D": "Execution custody tracking, durable dispatch (CUSTODY_TRANSFER_GAP -> O/D)",
+          "S": "Classification boundaries, security compartmentation (AUTHORIZATION_GAP -> K/S)"
+        },
+        "authority": {
+          "O": "Legal source discovery and rule pack intake",
+          "E": "Applicability predicate extraction and condition parsing",
+          "K": "Hohfeldian classification and modal verification",
+          "C": "Rule conflict resolution, priority ordering (lex superior/specialis)",
+          "F": "Delegation chain composition and scope attenuation",
+          "D": "Operational admission decision recording and durable commit",
+          "S": "Statutory safeguard validation and obstruction enforcement"
+        },
+        "physics": {
+          "O": "Sensor measurement acquisition and experimental observation",
+          "E": "Feature extraction and dimensional analysis",
+          "K": "Physical conservation law verification (energy, momentum)",
+          "C": "Model-to-experiment reconciliation and residual analysis",
+          "F": "Phase space trajectory prediction and forward integration",
+          "D": "Durable experimental telemetry logging and state retention",
+          "S": "Operational safety envelope enforcement and limit monitoring"
+        }
+      },
+      "basis_completeness": true,
+      "invariant": "All domain actions and deficiencies project into Sigma_W without creating an 8th operator"
+    },
+    "certification_isolation": {
+      "status": "PASSED",
+      "isolated_witness_types": {
+        "MathWitness": {
+          "domain": "mathematics",
+          "payload_fields": [
+            "theorem_id",
+            "proof_format",
+            "verifier_version",
+            "falsification_digest"
+          ],
+          "cannot_certify": [
+            "authority",
+            "execution",
+            "operational_admission"
+          ]
+        },
+        "AuthorityCertificateWitness": {
+          "domain": "authority",
+          "payload_fields": [
+            "certificate_id",
+            "outcome",
+            "status",
+            "decisive_rules",
+            "conditions_evaluated"
+          ],
+          "cannot_certify": [
+            "mathematical_truth",
+            "physical_truth",
+            "execution_completion"
+          ]
+        },
+        "ExecutionReceipt": {
+          "domain": "uow_execution",
+          "payload_fields": [
+            "task_id",
+            "worker_id",
+            "exit_code",
+            "stdout_digest",
+            "resource_usage"
+          ],
+          "cannot_certify": [
+            "legal_authority",
+            "mathematical_soundness"
+          ]
+        }
+      },
+      "four_outcome_model_verified": true,
+      "invariant": "MathWitness != AuthorityCertificateWitness != ExecutionReceipt; UNRESOLVED never collapses"
+    },
+    "cross_domain_composition": {
+      "status": "PASSED",
+      "software_event": {
+        "event_id": "evt:syslog:net_traffic_spike_001",
+        "source_subsystem": "firewall_gateway",
+        "timestamp": "2026-10-10T01:00:00Z",
+        "actor_ip": "192.168.1.105",
+        "target_service": "telemetry_vault",
+        "operator": "O"
+      },
+      "intelligence_deficiency": {
+        "target_subject": "actor:licensee:gamma",
+        "required_operator": "O",
+        "gap_kind": "fact_gap",
+        "is_unresolved": true,
+        "context": {
+          "event_ref": "evt:syslog:net_traffic_spike_001"
+        }
+      },
+      "authority_assessment_disposition": "supported_within_scope",
+      "authority_witness": {
+        "work_id": "assessment:case:cell_001",
+        "outcome": "CERTIFIED",
+        "status": "admitted",
+        "decisive_rules": [
+          "rule:priv:01"
+        ]
+      },
+      "admission_decision": {
+        "decision_id": "adm:assessment:case:cell_001",
+        "uow_status": "SCHEDULED",
+        "admission_authority_witness": "assessment:case:cell_001",
+        "governing_rules": [
+          "rule:priv:01"
+        ],
+        "cross_domain_pipeline": [
+          "Software::EventCapture (O)",
+          "Intelligence::DeficiencyMapping (O -> D)",
+          "Authority::LegalAssessment (M_A)",
+          "UoW::OperationalAdmission (Certify)"
+        ]
+      },
+      "composition_trace_complete": true,
+      "invariant": "Software Event -> Intel Observation -> Authority Assessment -> UoW Admission executed cleanly"
+    }
+  },
+  "summary": {
+    "all_audits_passed": true,
+    "total_audits": 6,
+    "passed_audits": 6
+  }
+}

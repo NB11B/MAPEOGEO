@@ -57,6 +57,7 @@ from mapeogeo.domains.intelligence import (
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 OUTPUT_DIR = REPO_ROOT / "artifacts" / "cross_domain"
+RELEASE_DIR = REPO_ROOT / "artifacts" / "releases" / "v1_0_authority_intelligence"
 
 
 # ==============================================================================
@@ -538,6 +539,11 @@ def run_c5_cross_domain_campaign(repo_root: Optional[Path] = None) -> Dict[str, 
 
     with open(OUTPUT_DIR / "CERTIFICATION_ISOLATION.json", "w", encoding="utf-8") as f:
         json.dump(cert_res, f, indent=2)
+
+    # Save to release artifacts
+    os.makedirs(RELEASE_DIR, exist_ok=True)
+    with open(RELEASE_DIR / "CROSS_DOMAIN_REPORT.json", "w", encoding="utf-8", newline="\n") as f:
+        json.dump(campaign_report, f, indent=2)
 
     # Write Markdown Report
     report_md = f"""# C5 Cross-Domain Qualification & Platform Integrity Report
