@@ -35,17 +35,45 @@ class AuthorityDisposition(str, Enum):
     UNRESOLVED = "unresolved"
 
 
+class CertificateOutcome(str, Enum):
+    """Explicit certification outcomes preserving legal uncertainty without collapse."""
+    CERTIFIED = "CERTIFIED"       # supported within scope
+    OBSTRUCTED = "OBSTRUCTED"     # prohibited or conditions unmet
+    UNRESOLVED = "UNRESOLVED"     # material legal or factual uncertainty remains
+
+
 @dataclass
 class AuthorityCertificateWitness:
-    """Certificate witness supplying C_A into MAPEOGEO candidate course evaluation."""
+    """Certificate witness supplying C_A into MAPEOGEO candidate course evaluation.
+
+    Explicit 4-outcome distinction:
+    - CERTIFIED: Supported within scope (witness present, work admitted).
+    - OBSTRUCTED: Explicit prohibition or unmet indispensable condition.
+    - UNRESOLVED: Material uncertainty remains; insufficient authority evidence
+      (does NOT collapse into either certified or prohibited).
+    """
     work_id: str
-    status: str  # "admitted", "obstructed"
+    outcome: CertificateOutcome
+    status: str  # "certified" (or "admitted"), "obstructed", "unresolved"
     disposition: str
     is_supported: bool
     witness_ref: Optional[Dict[str, Any]]
     decisive_rule_refs: List[str]
     obstruction_reason: Optional[str] = None
+    uncertainty_description: Optional[str] = None
     diagnostics: List[Dict[str, Any]] = field(default_factory=list)
+
+    @property
+    def is_certified(self) -> bool:
+        return self.outcome == CertificateOutcome.CERTIFIED
+
+    @property
+    def is_obstructed(self) -> bool:
+        return self.outcome == CertificateOutcome.OBSTRUCTED
+
+    @property
+    def is_unresolved(self) -> bool:
+        return self.outcome == CertificateOutcome.UNRESOLVED
 
 
 @dataclass
@@ -72,32 +100,51 @@ def evaluate_authority_certificate(
     context: Dict[str, Any],
     budget: Optional[Dict[str, Any]] = None,
 ) -> AuthorityCertificateWitness:
-    """Evaluates case and generates domain certificate witness for platform admission."""
+    """Evaluates case and generates domain certificate witness for platform admission.
+
+    Preserves the four explicit authority outcomes:
+    - CERTIFIED: supported within scope
+    - OBSTRUCTED: prohibited
+    - OBSTRUCTED: conditions unmet
+    - UNRESOLVED: material legal or factual uncertainty remains
+    """
     assessment = assess_case(case, context, budget=budget)
     disp = assessment.get("disposition", AuthorityDisposition.UNRESOLVED.value)
-    is_supp = (disp == AuthorityDisposition.SUPPORTED.value)
-
     decisive_rules = assessment.get("decisive_rule_refs", [])
     work_id = case.get("id", "work:unnamed")
 
-    if is_supp:
+    if disp == AuthorityDisposition.SUPPORTED.value:
         return AuthorityCertificateWitness(
             work_id=work_id,
+            outcome=CertificateOutcome.CERTIFIED,
             status="admitted",
             disposition=disp,
             is_supported=True,
             witness_ref={"id": f"witness:authority:{work_id}", "revision": 1},
             decisive_rule_refs=decisive_rules,
         )
-    else:
+    elif disp in (AuthorityDisposition.PROHIBITED.value, AuthorityDisposition.CONDITIONS_UNMET.value):
         return AuthorityCertificateWitness(
             work_id=work_id,
+            outcome=CertificateOutcome.OBSTRUCTED,
             status="obstructed",
             disposition=disp,
             is_supported=False,
             witness_ref=None,
             decisive_rule_refs=decisive_rules,
             obstruction_reason=f"Authority certification failed: disposition is '{disp}'",
+            diagnostics=assessment.get("diagnostics", []),
+        )
+    else:  # UNRESOLVED
+        return AuthorityCertificateWitness(
+            work_id=work_id,
+            outcome=CertificateOutcome.UNRESOLVED,
+            status="unresolved",
+            disposition=disp,
+            is_supported=False,
+            witness_ref=None,
+            decisive_rule_refs=decisive_rules,
+            uncertainty_description="Insufficient authority evidence to certify this work; material uncertainty remains.",
             diagnostics=assessment.get("diagnostics", []),
         )
 
