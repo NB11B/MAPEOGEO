@@ -1,0 +1,92 @@
+{
+  "id": "pack:statute:stored_communications_act_v1",
+  "ref": "pack:statute:stored_communications_act_v1",
+  "name": "Electronic Communications Privacy Act - Stored Communications (18 U.S.C. 2701 et seq.)",
+  "title": "Electronic Communications Privacy Act - Stored Communications (18 U.S.C. 2701 et seq.)",
+  "jurisdiction": "jur:us:federal",
+  "coverage_scope": "statutory_communications_privacy",
+  "reviewer_record": {
+    "reviewer_id": "reviewer:attorney_general_legal_counsel",
+    "reviewed_at": "2026-10-10T05:56:00.615318Z",
+    "citation": "18 U.S.C. 2701 et seq. (2024)",
+    "source_text_sha256": "99aa46aefb515f3fa07d10116088ef398ddb36bbe1b105cf53167844f1ba26c8",
+    "rules_digest": "de5ef81b5fd3e8e71c8c6385a8f2ee5336ff53ed1a4af2851503c9747848fc91",
+    "signature": "sig:sha256:6e450fa550012177a209972568f62c0c",
+    "jurisdiction": "jur:us:federal",
+    "epistemic_tier": "reviewed_legal_source"
+  },
+  "rules": [
+    {
+      "id": "rule:ecpa:2701_a:general_prohibition",
+      "ref": "rule:ecpa:2701_a:general_prohibition",
+      "name": "Prohibition on Unauthorized Access to Stored Communications",
+      "effect": "prohibit",
+      "norm_kind": "prohibition",
+      "applicable_operations": [
+        "op:access_stored_communication"
+      ],
+      "operation_ref": "op:access_stored_communication",
+      "performer_capacities": [
+        "external",
+        "unaffiliated_user",
+        "attacker",
+        "third_party"
+      ],
+      "target_capacities": [
+        "telecom",
+        "provider",
+        "carrier"
+      ],
+      "conditions": [],
+      "indispensable_conditions": [],
+      "priority": 50
+    },
+    {
+      "id": "rule:ecpa:2701_c1:provider_exception",
+      "ref": "rule:ecpa:2701_c1:provider_exception",
+      "name": "Service Provider Authorization Exception",
+      "effect": "permit",
+      "norm_kind": "permission",
+      "applicable_operations": [
+        "op:access_stored_communication"
+      ],
+      "operation_ref": "op:access_stored_communication",
+      "performer_capacities": [
+        "telecom",
+        "provider"
+      ],
+      "target_capacities": [
+        "telecom",
+        "provider",
+        "carrier"
+      ],
+      "conditions": [],
+      "indispensable_conditions": [],
+      "priority": 80
+    },
+    {
+      "id": "rule:ecpa:2703_a:warrant_requirement",
+      "ref": "rule:ecpa:2703_a:warrant_requirement",
+      "name": "Governmental Access Under Judicial Warrant",
+      "effect": "empower",
+      "norm_kind": "power",
+      "applicable_operations": [
+        "op:compel_disclosure_stored_communication"
+      ],
+      "operation_ref": "op:compel_disclosure_stored_communication",
+      "performer_capacities": [
+        "investigator",
+        "law_enforcement",
+        "regulator"
+      ],
+      "target_capacities": [
+        "telecom",
+        "provider",
+        "carrier"
+      ],
+      "conditions": [],
+      "indispensable_conditions": [],
+      "priority": 90
+    }
+  ]
+}

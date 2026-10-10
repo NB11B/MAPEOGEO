@@ -27,6 +27,11 @@ from mapeogeo.domains.authority.certification import (
     map_authority_deficiencies,
 )
 from mapeogeo.domains.authority.adapter import AuthorityAdapter
+from mapeogeo.domains.authority.intake import (
+    LegalPackIntake,
+    LegalPackIntakeResult,
+    ReviewerRecord,
+)
 
 __all__ = [
     "ActionCase",
@@ -46,4 +51,7 @@ __all__ = [
     "create_authority_certificate",
     "map_authority_deficiencies",
     "AuthorityAdapter",
+    "LegalPackIntake",
+    "LegalPackIntakeResult",
+    "ReviewerRecord",
 ]
