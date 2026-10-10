@@ -1,0 +1,31 @@
+{
+  "stage": "C10",
+  "title": "Scale Benchmark and Computational Profiling Report",
+  "scale_1k": {
+    "num_nodes": 1000,
+    "num_edges": 5000,
+    "construction_time_sec": 0.0102,
+    "matrix_projection_sec": 0.0045,
+    "path_finding_sec": 0.0003,
+    "paths_discovered": 0,
+    "chokepoint_detection_sec": 0.0021,
+    "chokepoints_detected": 997
+  },
+  "scale_10k": {
+    "num_nodes": 10000,
+    "num_edges": 50000,
+    "construction_time_sec": 0.1296,
+    "matrix_projection_sec": 0.0468,
+    "path_finding_sec": 0.0005,
+    "paths_discovered": 0,
+    "chokepoint_detection_sec": 0.0246,
+    "chokepoints_detected": 9962
+  },
+  "authority_evaluator_throughput": {
+    "evaluations_performed": 1000,
+    "elapsed_sec": 0.0325,
+    "throughput_evals_per_sec": 30749.65,
+    "avg_latency_ms": 0.0325
+  },
+  "status": "PASSED"
+}
