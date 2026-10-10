@@ -1,0 +1,10 @@
+{
+  "release_version": "0.1",
+  "selection_date": "2026-10-09",
+  "qualified_author": "Antigravity Engineering Lead",
+  "selected_runs": {
+    "mechanical": "runs/campaign_final_v0_1/qualification_report_mechanical.json",
+    "host": "runs/campaign_final_v0_1/qualification_report_host.json",
+    "pilot": "runs/campaign_final_v0_1/qualification_report_pilot.json"
+  }
+}

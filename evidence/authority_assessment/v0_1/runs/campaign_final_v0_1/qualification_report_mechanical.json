@@ -1,0 +1,26 @@
+{
+  "stage": "mechanical",
+  "run_id": "campaign_final_v0_1",
+  "status": "passed",
+  "runtime_seconds": 0.0406,
+  "counters": {
+    "reference_methods_passed": 152,
+    "reference_methods_total": 152,
+    "reference_qf_cases_passed": 19,
+    "reference_qf_legacy_disagreements": 5,
+    "reference_qf_cases_total": 24,
+    "direct_oracle_cells_matched": 288,
+    "direct_oracle_cells_total": 288,
+    "action_queries_matched": 72,
+    "action_queries_total": 72,
+    "actor_queries_matched": 48,
+    "actor_queries_total": 48,
+    "aq_obligations_passed": 56,
+    "aq_obligations_total": 56
+  },
+  "gates": {
+    "gate_g1_direct_oracle": "passed",
+    "gate_g4_finite_mechanical": "passed"
+  },
+  "critical_defects": 0
+}
