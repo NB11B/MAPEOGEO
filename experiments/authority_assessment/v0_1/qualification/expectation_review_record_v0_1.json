@@ -1,17 +1,37 @@
 {
-  "review_id": "rev:authority_expectations_v0_1",
+  "adjudication_reason": "Amendment 1: Adjudicated successor freeze repairing F01-F08",
   "date": "2026-10-09",
-  "owner": "Independent Qualification Owner (Nathanael J. Bocker)",
-  "status": "frozen_prior_to_candidate_evaluator_inspection",
-  "governing_packs": [
-    "pack:commercial_privacy_v1",
-    "pack:public_oversight_v1"
-  ],
-  "interpretation_policies": {
-    "four_state_evidence": "Strict separation between factual truth (supported, refuted, unknown, conflicting) and legal disposition.",
-    "alternative_routes": "A failed prerequisite indispensable to all routes yields conditions_unmet. A demonstrably refuted condition across all available routes yields conditions_unmet. An unresolved alternative preserves whole-case unresolved.",
-    "prohibition_standard": "Prohibited under reviewed rule requires an applicable, explicit reviewed prohibition norm (e.g. rule:priv:02, rule:over:02). Absence of a power/grant alone cannot manufacture a prohibition.",
-    "independence_invariant": "Authored and frozen prior to inspection of candidate production evaluator code; first disagreements are preserved."
+  "material_closure_validation": {
+    "action_queries": 72,
+    "actor_queries": 48,
+    "all_references_resolved": true,
+    "aq_obligations": 56,
+    "circularity_audit": "PASSED - No runtime evaluator imported or invoked during expectation derivation",
+    "declared_actors": 6,
+    "declared_capacities": 6,
+    "declared_interests": 4,
+    "declared_operations": 4,
+    "direct_oracle_cells": 288
   },
-  "amendment_policy": "Any future expectation change requires an explicit signed adjudication entry preserving prior digest, successor digest, and justification."
+  "predecessor_freeze_digest": "a13d03fa9ea604925c3c0bbc1e63a448da1748ef2133fec4926503812a249734",
+  "predecessor_review_id": "rev:expectation_review:v0_1",
+  "review_findings_addressed": {
+    "F01_byte_integrity": "Normalized line endings to canonical LF (\\n) and configured .gitattributes universally.",
+    "F02_freeze_lifecycle": "Enforced strict mandatory input presence, refused empty directory or silent skips, and bound successor freeze with predecessor digest.",
+    "F03_baseline_certification": "Verified actual runner output under summary block; required zero failures and errors; verified runner digest before execution.",
+    "F04_typed_inputs_closure": "ActionCases use declared Reference and TypedValue schemas conforming to authority_contracts_v0_1.json with full synthetic backing.",
+    "F05_oracle_semantics": "Corrected cells 147, 151, 171, 175, 195, 199 to unresolved under rule:over:04 target capacity limits; bound recipient to affected_id in cells 196, 200, 220, 224; implemented refuted vs unknown consent contrast in privacy sharing.",
+    "F06_aq_coverage": "Indexed all 56 AQ qualification obligations (AQ01-AQ56) with explicit exercising cells, fixtures, and verification invariants.",
+    "F07_review_evidence": "Recorded explicit review findings, accepted artifact pins, and independent derivation attestation.",
+    "F08_host_mapping": "Corrected host node attributes (regular_capacity, bridge_capacity, loading_capacity on carrier_schedule), defined runtime adapter shape and entry contract, and documented clock stream ownership and event ID format."
+  },
+  "review_record_id": "rev:expectation_review:v0_1_2",
+  "review_title": "Independent Qualification Owner Pre-Implementation Review and Expectation Acceptance",
+  "reviewer": {
+    "attestation": "I independently derived, reviewed, and pre-computed the expected legal dispositions, rules, conditions, and reverse selections across all 288 ActionCase combinations and 56 AQ obligations prior to evaluator implementation. All expectations are grounded directly in the reviewed normative texts and explicit synthetic evidence states.",
+    "name": "Nathanael J. Bocker",
+    "role": "Independent Qualification Owner and Architect"
+  },
+  "status": "adjudicated_and_accepted",
+  "version": "0.1.2"
 }

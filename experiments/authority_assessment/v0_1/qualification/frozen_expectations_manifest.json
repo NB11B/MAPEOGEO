@@ -1,4 +1,5 @@
 {
+  "adjudication_reason": "Amendment 1: Adjudicated successor freeze repairing F01-F08",
   "declared_files": [
     {
       "path": "contracts/authority_contracts_v0_1.json",
@@ -12,50 +13,73 @@
     },
     {
       "path": "qualification/direct_oracle_v0_1.json",
-      "sha256": "768d598fdeeba0b6814b63ed0db223a3031499b978e014b299f0fcc0961809b1",
-      "size_bytes": 741690
+      "sha256": "3e9404fa3a0f984bf0fc561970e558cbf4b1ad25166aaaaab123cf5800666837",
+      "size_bytes": 1068571
     },
     {
       "path": "qualification/reverse_domains_v0_1.json",
-      "sha256": "e8c5aefeaa51261de340f2bae418ff7e077ced5eb2b10854bea3ecdd8f8374b1",
-      "size_bytes": 29573
+      "sha256": "c4360cf43cee2557e2af8a915457ae8ab3afd026c350d9451b0bd68e24a3a151",
+      "size_bytes": 27636
     },
     {
-      "path": "fixtures/synthetic/actors.json",
-      "sha256": "eba96959f52829b20a820f0e2339a02d0addadacdd4316573681cca897a2611c",
-      "size_bytes": 1845
+      "path": "qualification/aq_subcase_index_v0_1.json",
+      "sha256": "20965da3ee121f36ba4faf68e2fffb0a4f6e5a1c08d93f3509ff87f14e3452de",
+      "size_bytes": 43639
     },
     {
-      "path": "fixtures/synthetic/capacities.json",
-      "sha256": "7ffe1d4975aa4631b1bcd13afeee22c42d84da3b850a42e6630588a7bb02f1bf",
-      "size_bytes": 1719
+      "path": "qualification/expectation_review_record_v0_1.json",
+      "sha256": "67b5f62ea77d630cc91fa67e82a3391fc0aa35cce3b7720459f5a83fa57e99bf",
+      "size_bytes": 2811
     },
     {
-      "path": "fixtures/synthetic/interests.json",
-      "sha256": "19e06842ceb31a24115761485c476690ae200e54f9b46e7e3737a04d8d9aa0bd",
-      "size_bytes": 1203
-    },
-    {
-      "path": "fixtures/synthetic/operations.json",
-      "sha256": "7d8f8c9d800430db01f0f7e5c80b7848df816332be11ea12f43ac60917e52de8",
-      "size_bytes": 2924
+      "path": "host_mapping_contract.json",
+      "sha256": "7d982daf25f5c27ecb1c825b06be2414c66c76862d6481a76e6e4c5b8a2d178c",
+      "size_bytes": 3459
     },
     {
       "path": "fixtures/synthetic/rule_pack_commercial_privacy.json",
-      "sha256": "5e85edb3799234624ce8f090c2e014280fa284b9b141081a6e17a4b82f785e24",
-      "size_bytes": 2947
+      "sha256": "0faf9fb17f46ef329f5b9a06ce190cd2e7bd47cf5c5e126784119c8a5b040038",
+      "size_bytes": 2611
     },
     {
       "path": "fixtures/synthetic/rule_pack_public_oversight.json",
-      "sha256": "661c4d030742d61c10bb61beb58d095ef4ed0ef9f9a60c35246d1e069de9fe62",
-      "size_bytes": 2777
+      "sha256": "fad47f513cdf5d9e64524e8cc4a861bb6c1c44ef1fb497f4c6350920e880381f",
+      "size_bytes": 2527
+    },
+    {
+      "path": "fixtures/synthetic/operations.json",
+      "sha256": "f28775d1b70c96e1edef069cd057cff1413683001fa491431d50d716924bc5d3",
+      "size_bytes": 2783
+    },
+    {
+      "path": "fixtures/synthetic/interests.json",
+      "sha256": "664e426eb03804129cb3c92c931cb1661812a9f2a1ccbf14a9e34ba6bfd50ad8",
+      "size_bytes": 1163
+    },
+    {
+      "path": "fixtures/synthetic/capacities.json",
+      "sha256": "cdd381a633ae19e64616a6d2f1bdb8ce6870d7244d4fd90ef4e0f2c9f8b4e86c",
+      "size_bytes": 1659
     },
     {
       "path": "fixtures/synthetic/source_artifacts_and_reviews.json",
-      "sha256": "0e41de1414f28914d9e1550be5bcad6cc3f2b6c421d8a28c7b0be80159595a02",
-      "size_bytes": 2103
+      "sha256": "94de044ef8314e3e3bfdc3546c88626aa035eb62de5ed355fdff956b55845f7d",
+      "size_bytes": 3110
     }
   ],
-  "freeze_id": "authority_v0_1_qualification_freeze_g0a",
-  "status": "frozen_immutable_expectations"
+  "declared_files_count": 13,
+  "freeze_id": "authority_qualification_freeze_v0_1_2",
+  "predecessor_freeze_id": "authority_v0_1_qualification_freeze_g0a",
+  "predecessor_manifest_sha256": "a13d03fa9ea604925c3c0bbc1e63a448da1748ef2133fec4926503812a249734",
+  "review_findings_addressed": [
+    "F01_byte_integrity",
+    "F02_freeze_lifecycle",
+    "F03_baseline_certification",
+    "F04_typed_inputs_closure",
+    "F05_oracle_semantics",
+    "F06_aq_coverage",
+    "F07_review_evidence",
+    "F08_host_mapping"
+  ],
+  "status": "frozen_adjudicated_successor_expectations"
 }

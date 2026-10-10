@@ -1,106 +1,1124 @@
 {
-  "catalog_id": "authority_aq_subcase_index",
-  "version": "0.1",
-  "status": "frozen_mapping",
-  "mappings": [
+  "catalog_id": "mapeogeo_authority_aq_subcase_index",
+  "coverage_status": "complete_56_of_56_obligations_indexed",
+  "subcases": [
     {
       "aq_id": "AQ01",
-      "name": "direct_supported_with_complete_basis",
-      "exercised_by_cells": [
+      "exercised_by": [
         "cell_001",
-        "cell_002",
-        "cell_151"
+        "cell_025"
       ],
-      "verification_invariant": "Complete decisive trace, valid role, supported conditions -> supported_within_scope"
+      "fixture_setup": "A reviewed basis and every entry condition are established for one exact case.",
+      "mandatory": true,
+      "name": "direct_supported_with_complete_basis",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "disposition supported_within_scope; complete trace includes case, role, interests, rules, reviews and context.",
+      "requirements": [
+        "R01",
+        "R05",
+        "R08",
+        "R10"
+      ],
+      "test_name": "test_aq01_direct_supported_with_complete_basis",
+      "verification_invariant": "Strict adherence to specification for AQ01 (direct_supported_with_complete_basis)"
     },
     {
       "aq_id": "AQ02",
-      "name": "explicit_prohibition_requires_positive_basis",
-      "exercised_by_cells": [
-        "cell_010",
-        "cell_014",
-        "cell_146"
+      "exercised_by": [
+        "cell_050",
+        "cell_051",
+        "cell_052"
       ],
-      "verification_invariant": "Private compulsion under rule:priv:02 yields prohibited_under_reviewed_rule; missing power without prohibition yields unresolved"
+      "fixture_setup": "One applicable reviewed prohibition is established with material exceptions resolved; compare a missing-grant-only case.",
+      "mandatory": true,
+      "name": "explicit_prohibition_requires_positive_basis",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Only the explicit-rule case is prohibited_under_reviewed_rule; missing grant alone is not prohibition.",
+      "requirements": [
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "test_name": "test_aq02_explicit_prohibition_requires_positive_basis",
+      "verification_invariant": "Strict adherence to specification for AQ02 (explicit_prohibition_requires_positive_basis)"
     },
     {
       "aq_id": "AQ03",
-      "name": "known_unmet_condition_differs_from_unknown_condition",
-      "exercised_by_cells": [
-        "cell_012",
-        "cell_024",
-        "cell_036"
+      "exercised_by": [
+        "cell_068",
+        "cell_060"
       ],
-      "verification_invariant": "Refuted consent yields conditions_unmet; unknown consent yields unresolved with missing_factual_evidence gap"
+      "fixture_setup": "Evaluate the same prerequisite as supported, refuted, unknown and conflicting; retain other available basis paths.",
+      "mandatory": true,
+      "name": "known_unmet_condition_differs_from_unknown_condition",
+      "owner_tasks": [
+        "T03",
+        "T04"
+      ],
+      "required_expectation": "A known failed prerequisite indispensable to all routes, or complete known failure of every covered alternative, yields conditions_unmet. A potentially sufficient unresolved alternative yields unresolved. Preserve independent prohibitions.",
+      "requirements": [
+        "R07",
+        "R10"
+      ],
+      "test_name": "test_aq03_known_unmet_condition_differs_from_unknown_condition",
+      "verification_invariant": "Strict adherence to specification for AQ03 (known_unmet_condition_differs_from_unknown_condition)"
     },
     {
       "aq_id": "AQ04",
-      "name": "competing_rules_require_reviewed_resolution",
-      "exercised_by_cells": [
+      "exercised_by": [
         "cell_146",
-        "cell_150"
+        "cell_170"
       ],
-      "verification_invariant": "Prioritized rule resolves disposition; unadjudicated priority retains conflict record and unresolved disposition"
+      "fixture_setup": "Two aligned incompatible rules with, and without, an accepted priority relation.",
+      "mandatory": true,
+      "name": "competing_rules_require_reviewed_resolution",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Apply reviewed priority only; unresolved conflict retains both arguments.",
+      "requirements": [
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "test_name": "test_aq04_competing_rules_require_reviewed_resolution",
+      "verification_invariant": "Strict adherence to specification for AQ04 (competing_rules_require_reviewed_resolution)"
     },
     {
       "aq_id": "AQ05",
-      "name": "any_actor_pair_preserves_direction_and_interests",
-      "exercised_by_cells": [
+      "exercised_by": [
         "cell_001",
-        "cell_005",
-        "cell_025"
+        "cell_002",
+        "cell_007",
+        "cell_008"
       ],
-      "verification_invariant": "Self-pairs valid; swapping performers/targets changes case digest; unfamiliar actor yields unresolved binding"
+      "fixture_setup": "Swap actors A and B, substitute affected C, evaluate self-pairs and an unfamiliar actor.",
+      "mandatory": true,
+      "name": "any_actor_pair_preserves_direction_and_interests",
+      "owner_tasks": [
+        "T01",
+        "T09"
+      ],
+      "required_expectation": "Bindings remain distinct; self-pair validity follows the registry; unfamiliar identity yields a named unresolved binding.",
+      "requirements": [
+        "R01",
+        "R02"
+      ],
+      "test_name": "test_aq05_any_actor_pair_preserves_direction_and_interests",
+      "verification_invariant": "Strict adherence to specification for AQ05 (any_actor_pair_preserves_direction_and_interests)"
+    },
+    {
+      "aq_id": "AQ06",
+      "exercised_by": [
+        "aq_obligation:AQ06"
+      ],
+      "fixture_setup": "Admit analysis of a prohibited subject act; separately request execution of that act.",
+      "mandatory": true,
+      "name": "uow_admission_and_legal_finding_are_independent_axes",
+      "owner_tasks": [
+        "T04",
+        "T07"
+      ],
+      "required_expectation": "Analysis can be admitted and report prohibition. Execution entry cannot be admitted with that result. Malformed input is technical error.",
+      "requirements": [
+        "R03",
+        "R17"
+      ],
+      "test_name": "test_aq06_uow_admission_and_legal_finding_are_independent_axes",
+      "verification_invariant": "Strict adherence to specification for AQ06 (uow_admission_and_legal_finding_are_independent_axes)"
+    },
+    {
+      "aq_id": "AQ07",
+      "exercised_by": [
+        "aq_obligation:AQ07"
+      ],
+      "fixture_setup": "B has a claim-right; A proposes affecting that interest without an established basis.",
+      "mandatory": true,
+      "name": "right_is_not_an_operational_grant",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Preserve B's interest and corresponding constraint; no automatic grant to A.",
+      "requirements": [
+        "R03",
+        "R04"
+      ],
+      "test_name": "test_aq07_right_is_not_an_operational_grant",
+      "verification_invariant": "Strict adherence to specification for AQ07 (right_is_not_an_operational_grant)"
+    },
+    {
+      "aq_id": "AQ08",
+      "exercised_by": [
+        "aq_obligation:AQ08"
+      ],
+      "fixture_setup": "Use the same title with established, missing and disputed capacity evidence.",
+      "mandatory": true,
+      "name": "role_authority_requires_bound_role_evidence",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Title alone supplies no appointment or authority; exact capacity and scope determine the route.",
+      "requirements": [
+        "R01",
+        "R04",
+        "R07"
+      ],
+      "test_name": "test_aq08_role_authority_requires_bound_role_evidence",
+      "verification_invariant": "Strict adherence to specification for AQ08 (role_authority_requires_bound_role_evidence)"
     },
     {
       "aq_id": "AQ09",
-      "name": "grant_binds_exact_action_and_parties",
-      "exercised_by_cells": [
-        "cell_001",
-        "cell_002"
+      "exercised_by": [
+        "aq_obligation:AQ09"
       ],
-      "verification_invariant": "Mutating any individual field (performer, operation, affected) changes case_digest and invalidates grant coverage"
+      "fixture_setup": "Individually mutate performer, capacity, operation, affected actor, purpose, object, recipient and jurisdiction.",
+      "mandatory": true,
+      "name": "grant_binds_exact_action_and_parties",
+      "owner_tasks": [
+        "T01",
+        "T04"
+      ],
+      "required_expectation": "A prior grant or assessment cannot silently cover any incompatible mutation; binding changes are visible.",
+      "requirements": [
+        "R01",
+        "R17"
+      ],
+      "test_name": "test_aq09_grant_binds_exact_action_and_parties",
+      "verification_invariant": "Strict adherence to specification for AQ09 (grant_binds_exact_action_and_parties)"
+    },
+    {
+      "aq_id": "AQ10",
+      "exercised_by": [
+        "aq_obligation:AQ10"
+      ],
+      "fixture_setup": "Test missing predecessor, nondelegability, cyclic chains, narrowed descendants and an alternative valid path.",
+      "mandatory": true,
+      "name": "delegation_chain_cannot_expand_authority",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "No expansion or circular bootstrap; a valid independent route remains assessable; depth exhaustion is explicit.",
+      "requirements": [
+        "R04",
+        "R08",
+        "R22"
+      ],
+      "test_name": "test_aq10_delegation_chain_cannot_expand_authority",
+      "verification_invariant": "Strict adherence to specification for AQ10 (delegation_chain_cannot_expand_authority)"
+    },
+    {
+      "aq_id": "AQ11",
+      "exercised_by": [
+        "aq_obligation:AQ11"
+      ],
+      "fixture_setup": "Represent permission, power, duty, claim-right and immunity in aligned cases.",
+      "mandatory": true,
+      "name": "normative_relation_types_remain_distinct",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Preserve type and counterparties; competence is not occurrence, duty is not capability or discharge.",
+      "requirements": [
+        "R04"
+      ],
+      "test_name": "test_aq11_normative_relation_types_remain_distinct",
+      "verification_invariant": "Strict adherence to specification for AQ11 (normative_relation_types_remain_distinct)"
+    },
+    {
+      "aq_id": "AQ12",
+      "exercised_by": [
+        "aq_obligation:AQ12"
+      ],
+      "fixture_setup": "Supply organizational reachability, source entitlement claims, favorable effects and offensive or defensive labels.",
+      "mandatory": true,
+      "name": "capability_and_self_assertion_do_not_create_authority",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "None supplies reviewed authority, actual grant or admission.",
+      "requirements": [
+        "R03",
+        "R04",
+        "R15"
+      ],
+      "test_name": "test_aq12_capability_and_self_assertion_do_not_create_authority",
+      "verification_invariant": "Strict adherence to specification for AQ12 (capability_and_self_assertion_do_not_create_authority)"
     },
     {
       "aq_id": "AQ13",
-      "name": "jurisdiction_types_are_not_interchangeable",
-      "exercised_by_cells": [
-        "cell_145",
-        "cell_146"
+      "exercised_by": [
+        "aq_obligation:AQ13"
       ],
-      "verification_invariant": "Territorial jurisdiction cannot substitute for subject-matter capacity; taxonomy preserved"
+      "fixture_setup": "Supply territorial evidence where a subject-matter or capacity connection is required.",
+      "mandatory": true,
+      "name": "jurisdiction_types_are_not_interchangeable",
+      "owner_tasks": [
+        "T01",
+        "T03"
+      ],
+      "required_expectation": "Wrong type cannot satisfy the condition; preserve taxonomy and gap.",
+      "requirements": [
+        "R01",
+        "R06"
+      ],
+      "test_name": "test_aq13_jurisdiction_types_are_not_interchangeable",
+      "verification_invariant": "Strict adherence to specification for AQ13 (jurisdiction_types_are_not_interchangeable)"
+    },
+    {
+      "aq_id": "AQ14",
+      "exercised_by": [
+        "aq_obligation:AQ14"
+      ],
+      "fixture_setup": "Vary territory, person, subject matter, action and effective context independently.",
+      "mandatory": true,
+      "name": "all_required_scope_dimensions_must_align",
+      "owner_tasks": [
+        "T03"
+      ],
+      "required_expectation": "Established mismatch excludes the rule for that case; missing or disputed connecting facts stay explicit.",
+      "requirements": [
+        "R01",
+        "R06"
+      ],
+      "test_name": "test_aq14_all_required_scope_dimensions_must_align",
+      "verification_invariant": "Strict adherence to specification for AQ14 (all_required_scope_dimensions_must_align)"
+    },
+    {
+      "aq_id": "AQ15",
+      "exercised_by": [
+        "aq_obligation:AQ15"
+      ],
+      "fixture_setup": "Two independently applicable packs, one supportive and one containing a surviving constraint.",
+      "mandatory": true,
+      "name": "multiple_applicable_scopes_preserve_constraints",
+      "owner_tasks": [
+        "T03",
+        "T04"
+      ],
+      "required_expectation": "Whole-case assessment preserves both; unrelated inapplicable rules are excluded with reasons.",
+      "requirements": [
+        "R06",
+        "R08"
+      ],
+      "test_name": "test_aq15_multiple_applicable_scopes_preserve_constraints",
+      "verification_invariant": "Strict adherence to specification for AQ15 (multiple_applicable_scopes_preserve_constraints)"
+    },
+    {
+      "aq_id": "AQ16",
+      "exercised_by": [
+        "aq_obligation:AQ16"
+      ],
+      "fixture_setup": "Vary trigger, bearer and beneficiary of the same duty.",
+      "mandatory": true,
+      "name": "obligation_has_trigger_bearer_beneficiary_and_content",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Duty attaches only to matching bindings and trigger; no reassignment from a neighboring actor.",
+      "requirements": [
+        "R04",
+        "R13"
+      ],
+      "test_name": "test_aq16_obligation_has_trigger_bearer_beneficiary_and_content",
+      "verification_invariant": "Strict adherence to specification for AQ16 (obligation_has_trigger_bearer_beneficiary_and_content)"
+    },
+    {
+      "aq_id": "AQ17",
+      "exercised_by": [
+        "aq_obligation:AQ17"
+      ],
+      "fixture_setup": "Offer intent, admission, attempt, wrong beneficiary and actual aligned performance as discharge evidence.",
+      "mandatory": true,
+      "name": "obligation_satisfaction_requires_matching_evidence",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Only matching performance and timing evidence can discharge the relevant duty.",
+      "requirements": [
+        "R04",
+        "R07"
+      ],
+      "test_name": "test_aq17_obligation_satisfaction_requires_matching_evidence",
+      "verification_invariant": "Strict adherence to specification for AQ17 (obligation_satisfaction_requires_matching_evidence)"
+    },
+    {
+      "aq_id": "AQ18",
+      "exercised_by": [
+        "aq_obligation:AQ18"
+      ],
+      "fixture_setup": "Support an action carrying an after-action duty; add incompatible obligations.",
+      "mandatory": true,
+      "name": "outstanding_obligations_survive_action_assessment",
+      "owner_tasks": [
+        "T04",
+        "T06"
+      ],
+      "required_expectation": "Support does not erase duties; incompatibility and residual requirements remain explicit.",
+      "requirements": [
+        "R04",
+        "R13"
+      ],
+      "test_name": "test_aq18_outstanding_obligations_survive_action_assessment",
+      "verification_invariant": "Strict adherence to specification for AQ18 (outstanding_obligations_survive_action_assessment)"
+    },
+    {
+      "aq_id": "AQ19",
+      "exercised_by": [
+        "aq_obligation:AQ19"
+      ],
+      "fixture_setup": "Trace a decisive result through source provision, version, interpretation and accepted review.",
+      "mandatory": true,
+      "name": "finding_reconstructs_source_to_rule_chain",
+      "owner_tasks": [
+        "T02"
+      ],
+      "required_expectation": "Every decisive link is reconstructable and pinned; missing links block unsupported certainty.",
+      "requirements": [
+        "R05",
+        "R20"
+      ],
+      "test_name": "test_aq19_finding_reconstructs_source_to_rule_chain",
+      "verification_invariant": "Strict adherence to specification for AQ19 (finding_reconstructs_source_to_rule_chain)"
+    },
+    {
+      "aq_id": "AQ20",
+      "exercised_by": [
+        "aq_obligation:AQ20"
+      ],
+      "fixture_setup": "Import extracted source, a forged reviewed flag, unverified reviewer identity and fixture receipt in pilot mode.",
+      "mandatory": true,
+      "name": "retrieved_source_is_not_reviewed_law_pack",
+      "owner_tasks": [
+        "T02",
+        "T09"
+      ],
+      "required_expectation": "No automatic accepted pack; trust-mode and authenticated review-boundary checks are enforced.",
+      "requirements": [
+        "R05",
+        "R15",
+        "R20"
+      ],
+      "test_name": "test_aq20_retrieved_source_is_not_reviewed_law_pack",
+      "verification_invariant": "Strict adherence to specification for AQ20 (retrieved_source_is_not_reviewed_law_pack)"
+    },
+    {
+      "aq_id": "AQ21",
+      "exercised_by": [
+        "aq_obligation:AQ21"
+      ],
+      "fixture_setup": "Amend source and rule revisions after an assessment is stored.",
+      "mandatory": true,
+      "name": "assessments_pin_exact_source_and_rule_versions",
+      "owner_tasks": [
+        "T02",
+        "T08"
+      ],
+      "required_expectation": "Old result replays unchanged; successor names new pins and reason.",
+      "requirements": [
+        "R05",
+        "R18"
+      ],
+      "test_name": "test_aq21_assessments_pin_exact_source_and_rule_versions",
+      "verification_invariant": "Strict adherence to specification for AQ21 (assessments_pin_exact_source_and_rule_versions)"
+    },
+    {
+      "aq_id": "AQ22",
+      "exercised_by": [
+        "aq_obligation:AQ22"
+      ],
+      "fixture_setup": "A source is received after the occurrence it concerns, under a supported legal-time mapping.",
+      "mandatory": true,
+      "name": "effective_law_and_known_at_frontier_are_separate",
+      "owner_tasks": [
+        "T02",
+        "T07"
+      ],
+      "required_expectation": "New historical assessment is possible; earlier receipt knowledge and admission are unchanged.",
+      "requirements": [
+        "R16",
+        "R18"
+      ],
+      "test_name": "test_aq22_effective_law_and_known_at_frontier_are_separate",
+      "verification_invariant": "Strict adherence to specification for AQ22 (effective_law_and_known_at_frontier_are_separate)"
+    },
+    {
+      "aq_id": "AQ23",
+      "exercised_by": [
+        "aq_obligation:AQ23"
+      ],
+      "fixture_setup": "Reorder uploads and alter timestamps or model scores for incompatible sources.",
+      "mandatory": true,
+      "name": "conflicting_sources_have_no_implicit_recency_priority",
+      "owner_tasks": [
+        "T02",
+        "T04"
+      ],
+      "required_expectation": "No implicit priority; accepted reviewed relations alone determine defeat.",
+      "requirements": [
+        "R05",
+        "R09"
+      ],
+      "test_name": "test_aq23_conflicting_sources_have_no_implicit_recency_priority",
+      "verification_invariant": "Strict adherence to specification for AQ23 (conflicting_sources_have_no_implicit_recency_priority)"
+    },
+    {
+      "aq_id": "AQ24",
+      "exercised_by": [
+        "aq_obligation:AQ24"
+      ],
+      "fixture_setup": "Remove relevant jurisdiction, operation or affected-interest coverage.",
+      "mandatory": true,
+      "name": "coverage_limits_prevent_law_by_silence",
+      "owner_tasks": [
+        "T02",
+        "T09"
+      ],
+      "required_expectation": "Return unresolved coverage; no universal permission or prohibition from absence.",
+      "requirements": [
+        "R02",
+        "R06",
+        "R10"
+      ],
+      "test_name": "test_aq24_coverage_limits_prevent_law_by_silence",
+      "verification_invariant": "Strict adherence to specification for AQ24 (coverage_limits_prevent_law_by_silence)"
     },
     {
       "aq_id": "AQ25",
-      "name": "what_actions_returns_exact_bounded_candidates",
-      "exercised_by_cells": [
-        "action_enumeration_expectations"
+      "exercised_by": [
+        "reverse_action_enumeration_queries"
       ],
-      "verification_invariant": "enumerate_actions matches exact pre-computed expected_supported_operations set without omission"
+      "fixture_setup": "Fix actor, affected scope and context over the frozen operation domain.",
+      "mandatory": true,
+      "name": "what_actions_returns_exact_bounded_candidates",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "Complete supported set equals independent expected direct cells; conditions and trace refs are retained.",
+      "requirements": [
+        "R11"
+      ],
+      "test_name": "test_aq25_what_actions_returns_exact_bounded_candidates",
+      "verification_invariant": "Strict adherence to specification for AQ25 (what_actions_returns_exact_bounded_candidates)"
     },
     {
       "aq_id": "AQ26",
-      "name": "which_actors_returns_exact_bounded_candidates",
-      "exercised_by_cells": [
-        "actor_enumeration_expectations"
+      "exercised_by": [
+        "reverse_actor_enumeration_queries"
       ],
-      "verification_invariant": "enumerate_actors matches exact pre-computed expected_supported_actors set without omission"
+      "fixture_setup": "Fix operation and affected scope over the frozen actor-capacity domain.",
+      "mandatory": true,
+      "name": "which_actors_returns_exact_bounded_candidates",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "Complete supported actor-capacity set equals the independent oracle.",
+      "requirements": [
+        "R11"
+      ],
+      "test_name": "test_aq26_which_actors_returns_exact_bounded_candidates",
+      "verification_invariant": "Strict adherence to specification for AQ26 (which_actors_returns_exact_bounded_candidates)"
+    },
+    {
+      "aq_id": "AQ27",
+      "exercised_by": [
+        "reverse_action_enumeration_queries"
+      ],
+      "fixture_setup": "Include candidates with unknown identity, applicability or conditions.",
+      "mandatory": true,
+      "name": "reverse_query_preserves_unresolved_candidates",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "Unknown candidates remain accounted and visible as requested; they are not relabeled negative.",
+      "requirements": [
+        "R02",
+        "R11"
+      ],
+      "test_name": "test_aq27_reverse_query_preserves_unresolved_candidates",
+      "verification_invariant": "Strict adherence to specification for AQ27 (reverse_query_preserves_unresolved_candidates)"
+    },
+    {
+      "aq_id": "AQ28",
+      "exercised_by": [
+        "reverse_actor_enumeration_queries"
+      ],
+      "fixture_setup": "Compare every complete reverse selection with both direct evaluator and independent oracle.",
+      "mandatory": true,
+      "name": "reverse_results_match_independent_direct_oracle",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "No false inclusion or omission; parity is reported separately from oracle correctness.",
+      "requirements": [
+        "R11",
+        "R23"
+      ],
+      "test_name": "test_aq28_reverse_results_match_independent_direct_oracle",
+      "verification_invariant": "Strict adherence to specification for AQ28 (reverse_results_match_independent_direct_oracle)"
+    },
+    {
+      "aq_id": "AQ29",
+      "exercised_by": [
+        "aq_obligation:AQ29"
+      ],
+      "fixture_setup": "Stop before the final candidate and compare a complete empty supported set.",
+      "mandatory": true,
+      "name": "search_exhaustion_cannot_claim_global_absence",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "Partial result has incomplete coverage and remainder; complete empty is limited to the stated domain.",
+      "requirements": [
+        "R11",
+        "R22"
+      ],
+      "test_name": "test_aq29_search_exhaustion_cannot_claim_global_absence",
+      "verification_invariant": "Strict adherence to specification for AQ29 (search_exhaustion_cannot_claim_global_absence)"
+    },
+    {
+      "aq_id": "AQ30",
+      "exercised_by": [
+        "aq_obligation:AQ30"
+      ],
+      "fixture_setup": "Change capacity, purpose, recipients, interests, jurisdiction, review or source snapshot after caching.",
+      "mandatory": true,
+      "name": "reverse_query_reacts_to_material_binding_changes",
+      "owner_tasks": [
+        "T05",
+        "T08"
+      ],
+      "required_expectation": "Incompatible positive reuse is prevented; exact historical replay remains available.",
+      "requirements": [
+        "R01",
+        "R11",
+        "R18"
+      ],
+      "test_name": "test_aq30_reverse_query_reacts_to_material_binding_changes",
+      "verification_invariant": "Strict adherence to specification for AQ30 (reverse_query_reacts_to_material_binding_changes)"
+    },
+    {
+      "aq_id": "AQ31",
+      "exercised_by": [
+        "aq_obligation:AQ31"
+      ],
+      "fixture_setup": "Create a gap of every declared kind under an explicit question.",
+      "mandatory": true,
+      "name": "gap_type_selects_appropriate_resolution_route",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "Every gap has a scoped proposition, dependencies and matching work class; no invented probability or priority.",
+      "requirements": [
+        "R12"
+      ],
+      "test_name": "test_aq31_gap_type_selects_appropriate_resolution_route",
+      "verification_invariant": "Strict adherence to specification for AQ31 (gap_type_selects_appropriate_resolution_route)"
+    },
+    {
+      "aq_id": "AQ32",
+      "exercised_by": [
+        "aq_obligation:AQ32"
+      ],
+      "fixture_setup": "Retrieve evidence of an existing actual grant, then compare a hypothetical future grant.",
+      "mandatory": true,
+      "name": "finding_a_grant_differs_from_creating_a_grant",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "Actual evidence may resolve an evidence gap; proposed issuance stays hypothetical and requires subsequent matching assessment.",
+      "requirements": [
+        "R12",
+        "R15",
+        "R17"
+      ],
+      "test_name": "test_aq32_finding_a_grant_differs_from_creating_a_grant",
+      "verification_invariant": "Strict adherence to specification for AQ32 (finding_a_grant_differs_from_creating_a_grant)"
+    },
+    {
+      "aq_id": "AQ33",
+      "exercised_by": [
+        "aq_obligation:AQ33"
+      ],
+      "fixture_setup": "Accept an interpretation while a material fact or required grant remains missing.",
+      "mandatory": true,
+      "name": "legal_review_cannot_invent_fact_or_grant",
+      "owner_tasks": [
+        "T05"
+      ],
+      "required_expectation": "Interpretation may change; the fact or grant remains unestablished.",
+      "requirements": [
+        "R05",
+        "R12",
+        "R15"
+      ],
+      "test_name": "test_aq33_legal_review_cannot_invent_fact_or_grant",
+      "verification_invariant": "Strict adherence to specification for AQ33 (legal_review_cannot_invent_fact_or_grant)"
+    },
+    {
+      "aq_id": "AQ34",
+      "exercised_by": [
+        "aq_obligation:AQ34"
+      ],
+      "fixture_setup": "Use a three-step course with a supported endpoint and unsupported middle step.",
+      "mandatory": true,
+      "name": "course_requires_each_step_and_dependency",
+      "owner_tasks": [
+        "T06"
+      ],
+      "required_expectation": "No whole-course support; identify the blocking step and dependency.",
+      "requirements": [
+        "R13"
+      ],
+      "test_name": "test_aq34_course_requires_each_step_and_dependency",
+      "verification_invariant": "Strict adherence to specification for AQ34 (course_requires_each_step_and_dependency)"
+    },
+    {
+      "aq_id": "AQ35",
+      "exercised_by": [
+        "aq_obligation:AQ35"
+      ],
+      "fixture_setup": "Combine individually supported steps with overlapping allocations, incompatible consents or removed prerequisites.",
+      "mandatory": true,
+      "name": "individually_supported_steps_may_conflict_when_composed",
+      "owner_tasks": [
+        "T06"
+      ],
+      "required_expectation": "Whole-course conflict or unmet condition remains visible with a concrete combined-constraint witness.",
+      "requirements": [
+        "R13",
+        "R19"
+      ],
+      "test_name": "test_aq35_individually_supported_steps_may_conflict_when_composed",
+      "verification_invariant": "Strict adherence to specification for AQ35 (individually_supported_steps_may_conflict_when_composed)"
+    },
+    {
+      "aq_id": "AQ36",
+      "exercised_by": [
+        "aq_obligation:AQ36"
+      ],
+      "fixture_setup": "Compare two supplied courses with unknown costs and a truncated branch or candidate set.",
+      "mandatory": true,
+      "name": "alternative_search_retains_limits_and_comparability",
+      "owner_tasks": [
+        "T06"
+      ],
+      "required_expectation": "display_only comparison returns each scoped legal assessment and supplied measures without ranking; policy and full course-set digest are bound; cutoff preserves unassessed count.",
+      "requirements": [
+        "R13",
+        "R22"
+      ],
+      "test_name": "test_aq36_alternative_search_retains_limits_and_comparability",
+      "verification_invariant": "Strict adherence to specification for AQ36 (alternative_search_retains_limits_and_comparability)"
+    },
+    {
+      "aq_id": "AQ37",
+      "exercised_by": [
+        "experiments.intelligence_integration.v0_1.test_integration",
+        "test_clock_identity_codec"
+      ],
+      "fixture_setup": "Inject hypothetical grants, reviews, legal-effective events, completion, cancellation and discharge.",
+      "mandatory": true,
+      "name": "source_scenario_and_actual_layers_do_not_cross",
+      "owner_tasks": [
+        "T07",
+        "T09"
+      ],
+      "required_expectation": "No actual evidence, grant, reservation, duty or host lifecycle change.",
+      "requirements": [
+        "R03",
+        "R15",
+        "R21"
+      ],
+      "test_name": "test_aq37_source_scenario_and_actual_layers_do_not_cross",
+      "verification_invariant": "Strict adherence to specification for AQ37 (source_scenario_and_actual_layers_do_not_cross)"
+    },
+    {
+      "aq_id": "AQ38",
+      "exercised_by": [
+        "aq_obligation:AQ38"
+      ],
+      "fixture_setup": "Use wrong subject, predicate, period, modality and repeated common-origin reports.",
+      "mandatory": true,
+      "name": "evidence_alignment_and_lineage_are_preserved",
+      "owner_tasks": [
+        "T03"
+      ],
+      "required_expectation": "Misaligned evidence cannot satisfy conditions; repeated origin is not independent corroboration.",
+      "requirements": [
+        "R07",
+        "R20"
+      ],
+      "test_name": "test_aq38_evidence_alignment_and_lineage_are_preserved",
+      "verification_invariant": "Strict adherence to specification for AQ38 (evidence_alignment_and_lineage_are_preserved)"
+    },
+    {
+      "aq_id": "AQ39",
+      "exercised_by": [
+        "experiments.intelligence_integration.v0_1.test_integration",
+        "test_clock_identity_codec"
+      ],
+      "fixture_setup": "Use separate UoWs with the same participant name and counters 100 and 2.",
+      "mandatory": true,
+      "name": "unrelated_local_counters_establish_no_order",
+      "owner_tasks": [
+        "T07"
+      ],
+      "required_expectation": "No inferred order absent a justified relation; stream ownership stays explicit.",
+      "requirements": [
+        "R16"
+      ],
+      "test_name": "test_aq39_unrelated_local_counters_establish_no_order",
+      "verification_invariant": "Strict adherence to specification for AQ39 (unrelated_local_counters_establish_no_order)"
+    },
+    {
+      "aq_id": "AQ40",
+      "exercised_by": [
+        "experiments.intelligence_integration.v0_1.test_integration",
+        "test_clock_identity_codec"
+      ],
+      "fixture_setup": "Add an actual causal parent; then test missing required references and a causal cycle.",
+      "mandatory": true,
+      "name": "causal_receipts_preserve_local_knowledge",
+      "owner_tasks": [
+        "T07"
+      ],
+      "required_expectation": "Valid parent establishes order; invalid complete-snapshot history is diagnosed without partial publication.",
+      "requirements": [
+        "R16",
+        "R18"
+      ],
+      "test_name": "test_aq40_causal_receipts_preserve_local_knowledge",
+      "verification_invariant": "Strict adherence to specification for AQ40 (causal_receipts_preserve_local_knowledge)"
     },
     {
       "aq_id": "AQ41",
-      "name": "clock_identity_encoding_preserves_distinct_streams",
-      "exercised_by_cells": [
+      "exercised_by": [
+        "experiments.intelligence_integration.v0_1.test_integration",
         "test_clock_identity_codec"
       ],
-      "verification_invariant": "uow-clock:v1:[d, a] preserves boundary-overlap pairs (ops: / analyst vs ops / :analyst); explicit parents order events"
+      "fixture_setup": "Compare domain-owner pairs ops-colon plus analyst and ops plus colon-analyst; test events and parents.",
+      "mandatory": true,
+      "name": "clock_identity_encoding_preserves_distinct_streams",
+      "owner_tasks": [
+        "T01",
+        "T07",
+        "T09"
+      ],
+      "required_expectation": "Distinct canonical stream identities round-trip and retain separate events; explicit cross-stream parents still work.",
+      "requirements": [
+        "R16",
+        "R21"
+      ],
+      "test_name": "test_aq41_clock_identity_encoding_preserves_distinct_streams",
+      "verification_invariant": "Strict adherence to specification for AQ41 (clock_identity_encoding_preserves_distinct_streams)"
+    },
+    {
+      "aq_id": "AQ42",
+      "exercised_by": [
+        "experiments.intelligence_integration.v0_1.test_integration",
+        "test_clock_identity_codec"
+      ],
+      "fixture_setup": "Attempt to determine expiry using an unrelated local sequence or asserted date without reference-time mapping.",
+      "mandatory": true,
+      "name": "legal_effective_time_is_not_a_uow_counter",
+      "owner_tasks": [
+        "T03",
+        "T07"
+      ],
+      "required_expectation": "Applicability remains unresolved until the declared mapping or evidence establishes the relation.",
+      "requirements": [
+        "R06",
+        "R16"
+      ],
+      "test_name": "test_aq42_legal_effective_time_is_not_a_uow_counter",
+      "verification_invariant": "Strict adherence to specification for AQ42 (legal_effective_time_is_not_a_uow_counter)"
+    },
+    {
+      "aq_id": "AQ43",
+      "exercised_by": [
+        "artifacts.intelligence_qualification.v0_3.tests.test_workflow"
+      ],
+      "fixture_setup": "Replay after source, review, role and question amendments and restart.",
+      "mandatory": true,
+      "name": "prior_assessment_remains_replayable",
+      "owner_tasks": [
+        "T08"
+      ],
+      "required_expectation": "Exact pinned result, basis, limitations and local frontier remain recoverable.",
+      "requirements": [
+        "R18",
+        "R20"
+      ],
+      "test_name": "test_aq43_prior_assessment_remains_replayable",
+      "verification_invariant": "Strict adherence to specification for AQ43 (prior_assessment_remains_replayable)"
+    },
+    {
+      "aq_id": "AQ44",
+      "exercised_by": [
+        "artifacts.intelligence_qualification.v0_3.tests.test_workflow"
+      ],
+      "fixture_setup": "Receive a material revocation or revision at one boundary after a prior admitted occurrence.",
+      "mandatory": true,
+      "name": "revocation_or_revision_affects_successor_use",
+      "owner_tasks": [
+        "T07",
+        "T08"
+      ],
+      "required_expectation": "Dependent successor use is reassessed; historical basis and other participants' knowledge are not rewritten.",
+      "requirements": [
+        "R16",
+        "R18"
+      ],
+      "test_name": "test_aq44_revocation_or_revision_affects_successor_use",
+      "verification_invariant": "Strict adherence to specification for AQ44 (revocation_or_revision_affects_successor_use)"
+    },
+    {
+      "aq_id": "AQ45",
+      "exercised_by": [
+        "artifacts.intelligence_qualification.v0_3.tests.test_workflow"
+      ],
+      "fixture_setup": "Retire a question with shared gaps, work, allocations and residual duties.",
+      "mandatory": true,
+      "name": "requirement_retirement_does_not_discharge_work_or_duties",
+      "owner_tasks": [
+        "T07",
+        "T08"
+      ],
+      "required_expectation": "Retirement changes only its declared requirement facet; other obligations remain.",
+      "requirements": [
+        "R17",
+        "R18",
+        "R19"
+      ],
+      "test_name": "test_aq45_requirement_retirement_does_not_discharge_work_or_duties",
+      "verification_invariant": "Strict adherence to specification for AQ45 (requirement_retirement_does_not_discharge_work_or_duties)"
+    },
+    {
+      "aq_id": "AQ46",
+      "exercised_by": [
+        "artifacts.intelligence_qualification.v0_3.tests.test_workflow"
+      ],
+      "fixture_setup": "Record request, receipt and acceptance without application evidence.",
+      "mandatory": true,
+      "name": "cancellation_request_receipt_and_application_differ",
+      "owner_tasks": [
+        "T07"
+      ],
+      "required_expectation": "No inferred stopped work, completed cancellation or resource release.",
+      "requirements": [
+        "R16",
+        "R17",
+        "R19"
+      ],
+      "test_name": "test_aq46_cancellation_request_receipt_and_application_differ",
+      "verification_invariant": "Strict adherence to specification for AQ46 (cancellation_request_receipt_and_application_differ)"
+    },
+    {
+      "aq_id": "AQ47",
+      "exercised_by": [
+        "artifacts.intelligence_qualification.v0_3.tests.test_workflow"
+      ],
+      "fixture_setup": "Apply cancellation with wrong target, wrong boundary, scenario evidence or missing release basis.",
+      "mandatory": true,
+      "name": "cancellation_application_requires_boundary_and_release_basis",
+      "owner_tasks": [
+        "T07"
+      ],
+      "required_expectation": "Only exact authorized actual application affects its declared scope; release and residual duties retain separate evidence.",
+      "requirements": [
+        "R17",
+        "R19"
+      ],
+      "test_name": "test_aq47_cancellation_application_requires_boundary_and_release_basis",
+      "verification_invariant": "Strict adherence to specification for AQ47 (cancellation_application_requires_boundary_and_release_basis)"
+    },
+    {
+      "aq_id": "AQ48",
+      "exercised_by": [
+        "artifacts.intelligence_qualification.v0_3.tests.test_workflow"
+      ],
+      "fixture_setup": "A nonidempotent action has unknown completion; propose an identical retry and compensation.",
+      "mandatory": true,
+      "name": "unknown_completion_requires_reconciliation_before_retry",
+      "owner_tasks": [
+        "T07"
+      ],
+      "required_expectation": "Require reconciliation or a qualified retry contract; compensation remains separately proposed and admitted.",
+      "requirements": [
+        "R17",
+        "R18",
+        "R19"
+      ],
+      "test_name": "test_aq48_unknown_completion_requires_reconciliation_before_retry",
+      "verification_invariant": "Strict adherence to specification for AQ48 (unknown_completion_requires_reconciliation_before_retry)"
+    },
+    {
+      "aq_id": "AQ49",
+      "exercised_by": [
+        "aq_obligation:AQ49"
+      ],
+      "fixture_setup": "Enumerate all 16 AND pairs, 16 OR pairs and four NOT values; include conflicting quantitative inputs.",
+      "mandatory": true,
+      "name": "four_state_logic_preserves_nonexplosive_uncertainty",
+      "owner_tasks": [
+        "T03"
+      ],
+      "required_expectation": "Exact truth pairs match the specification; contradiction yields no unrelated proposition; unsupported quantities stay unresolved.",
+      "requirements": [
+        "R07"
+      ],
+      "test_name": "test_aq49_four_state_logic_preserves_nonexplosive_uncertainty",
+      "verification_invariant": "Strict adherence to specification for AQ49 (four_state_logic_preserves_nonexplosive_uncertainty)"
+    },
+    {
+      "aq_id": "AQ50",
+      "exercised_by": [
+        "aq_obligation:AQ50"
+      ],
+      "fixture_setup": "Permission has a material exception whose antecedent is unknown or conflicting; compare proven irrelevant exception.",
+      "mandatory": true,
+      "name": "unknown_exception_blocks_unconditional_support",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "No unconditional support while a material defeater remains; a complete proof of irrelevance may preserve support.",
+      "requirements": [
+        "R07",
+        "R09",
+        "R10"
+      ],
+      "test_name": "test_aq50_unknown_exception_blocks_unconditional_support",
+      "verification_invariant": "Strict adherence to specification for AQ50 (unknown_exception_blocks_unconditional_support)"
+    },
+    {
+      "aq_id": "AQ51",
+      "exercised_by": [
+        "aq_obligation:AQ51"
+      ],
+      "fixture_setup": "Compare a reviewed default-liberty rule, an unreviewed missing prohibition and a required delegated power.",
+      "mandatory": true,
+      "name": "reviewed_default_liberty_differs_from_delegated_power",
+      "owner_tasks": [
+        "T04"
+      ],
+      "required_expectation": "Only the explicit reviewed default can support the private-liberty route; no universal default in either direction.",
+      "requirements": [
+        "R04",
+        "R08",
+        "R10"
+      ],
+      "test_name": "test_aq51_reviewed_default_liberty_differs_from_delegated_power",
+      "verification_invariant": "Strict adherence to specification for AQ51 (reviewed_default_liberty_differs_from_delegated_power)"
+    },
+    {
+      "aq_id": "AQ52",
+      "exercised_by": [
+        "aq_obligation:AQ52"
+      ],
+      "fixture_setup": "Source text or an LLM candidate asks to ignore policy, set reviewed or issue a grant.",
+      "mandatory": true,
+      "name": "source_instructions_and_model_scores_are_data",
+      "owner_tasks": [
+        "T02"
+      ],
+      "required_expectation": "Content remains data; candidate confidence and instructions cannot mutate authority or review state.",
+      "requirements": [
+        "R05",
+        "R15",
+        "R20"
+      ],
+      "test_name": "test_aq52_source_instructions_and_model_scores_are_data",
+      "verification_invariant": "Strict adherence to specification for AQ52 (source_instructions_and_model_scores_are_data)"
+    },
+    {
+      "aq_id": "AQ53",
+      "exercised_by": [
+        "aq_obligation:AQ53"
+      ],
+      "fixture_setup": "Two UoWs reference one owner-issued allocation; one has only cancellation receipt.",
+      "mandatory": true,
+      "name": "shared_allowance_cannot_be_spent_twice_across_uows",
+      "owner_tasks": [
+        "T06",
+        "T07"
+      ],
+      "required_expectation": "No double use or premature release; missing global allocation knowledge stays unknown.",
+      "requirements": [
+        "R13",
+        "R16",
+        "R19"
+      ],
+      "test_name": "test_aq53_shared_allowance_cannot_be_spent_twice_across_uows",
+      "verification_invariant": "Strict adherence to specification for AQ53 (shared_allowance_cannot_be_spent_twice_across_uows)"
+    },
+    {
+      "aq_id": "AQ54",
+      "exercised_by": [
+        "aq_obligation:AQ54"
+      ],
+      "fixture_setup": "Each world supports a different action but no fixed action; compare an observable and unobservable branch guard.",
+      "mandatory": true,
+      "name": "robust_and_contingent_quantifiers_are_distinct",
+      "owner_tasks": [
+        "T06"
+      ],
+      "required_expectation": "No robust fixed-action claim; contingent support requires evidence available before the branch decision.",
+      "requirements": [
+        "R13",
+        "R14",
+        "R16"
+      ],
+      "test_name": "test_aq54_robust_and_contingent_quantifiers_are_distinct",
+      "verification_invariant": "Strict adherence to specification for AQ54 (robust_and_contingent_quantifiers_are_distinct)"
+    },
+    {
+      "aq_id": "AQ55",
+      "exercised_by": [
+        "aq_obligation:AQ55"
+      ],
+      "fixture_setup": "Interrupt a transaction, retry identical and different bytes, restart, then introduce a newly relevant source.",
+      "mandatory": true,
+      "name": "atomic_publication_and_dependency_replay_survive_failure",
+      "owner_tasks": [
+        "T05",
+        "T06",
+        "T08"
+      ],
+      "required_expectation": "No partial publication; only identical replay is idempotent; new relevance triggers assessment without erasing history.",
+      "requirements": [
+        "R18",
+        "R20",
+        "R21"
+      ],
+      "test_name": "test_aq55_atomic_publication_and_dependency_replay_survive_failure",
+      "verification_invariant": "Strict adherence to specification for AQ55 (atomic_publication_and_dependency_replay_survive_failure)"
     },
     {
       "aq_id": "AQ56",
-      "name": "input_and_budget_boundaries_do_not_masquerade_as_law",
-      "exercised_by_cells": [
-        "test_validation_result"
+      "exercised_by": [
+        "test_validation_result_diagnostics"
       ],
-      "verification_invariant": "Malformed inputs and limits emit technical Diagnostic errors and NO legal disposition"
+      "fixture_setup": "Exercise duplicate keys, invalid enums, NaN, booleans as numbers, undeclared dangling refs, empty domains and each limit boundary.",
+      "mandatory": true,
+      "name": "input_and_budget_boundaries_do_not_masquerade_as_law",
+      "owner_tasks": [
+        "T01",
+        "T09"
+      ],
+      "required_expectation": "Malformed models have technical diagnostics and no legal disposition; supported empty and partial domains retain exact scope and counts.",
+      "requirements": [
+        "R01",
+        "R10",
+        "R22"
+      ],
+      "test_name": "test_aq56_input_and_budget_boundaries_do_not_masquerade_as_law",
+      "verification_invariant": "Strict adherence to specification for AQ56 (input_and_budget_boundaries_do_not_masquerade_as_law)"
     }
-  ]
+  ],
+  "total_obligations": 56,
+  "version": "0.1"
 }

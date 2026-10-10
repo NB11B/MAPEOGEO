@@ -6,12 +6,15 @@ Verifies:
    the 24 architectural qualification cases recorded as a nested counter (not additive).
 3. Preserved legacy grammar baseline (19 passes, 5 documented disagreements).
 4. Generates baseline run evidence and updates baseline_manifest.json.
+5. Parses actual runner summary from runner JSON; rejects malformed or failed outputs.
+6. Records complete execution commands, output, timestamps, and evidence digests.
 """
 
 from __future__ import annotations
 
 import argparse
 from copy import deepcopy
+import datetime
 import hashlib
 import json
 from pathlib import Path
@@ -33,7 +36,6 @@ def _find_source_file(repo_root: Path, rel_path: str) -> Optional[Path]:
     # Mapping known manifest source paths to repository layout
     candidates = [
         repo_root / "artifacts" / "intelligence_qualification" / "v0_3" / rel_path,
-        repo_root / "artifacts" / "intelligence_qualification" / "v0_3" / rel_path.replace("intelligence_qualification_v0_3/", "intelligence_qualification_v0_3/"),
         repo_root / "artifacts" / "intelligence_qualification" / "v0_3" / "intelligence_qualification_v0_3" / rel_path.replace("intelligence_qualification_v0_3/", ""),
         repo_root / "artifacts" / "intelligence_qualification" / "v0_3" / "intelligence_qualification_v0_3.zip",
         repo_root / "experiments" / "intelligence_integration" / "v0_1" / "clock_identity.py",
@@ -50,11 +52,7 @@ def verify_reference_sources(
     manifest: Dict[str, Any],
     require_all: bool = False,
 ) -> Tuple[bool, List[str]]:
-    """Verifies that reference files declared in local_sources match their expected SHA-256.
-    
-    By default, verifies all core reference files (intelligence_qualification_v0_3).
-    Host-specific proposal artifacts are inspected as part of Gate G0b.
-    """
+    """Verifies that reference files declared in local_sources match their expected SHA-256."""
     mismatches: List[str] = []
     sources = manifest.get("local_sources", [])
 
@@ -62,8 +60,7 @@ def verify_reference_sources(
         rel_path = item["path"]
         expected_sha = item["sha256"]
         resolved = _find_source_file(repo_root, rel_path)
-        
-        # Core reference files must always exist and match
+
         is_core_ref = "intelligence_qualification" in rel_path
         if not resolved:
             if is_core_ref or require_all:
@@ -81,34 +78,81 @@ def verify_reference_sources(
 
 
 def run_reference_suite(reference_dir: Path, output_file: Optional[Path] = None) -> Dict[str, Any]:
-    """Runs the pinned reference qualification runner and parses nested counters."""
+    """Runs the pinned reference qualification runner and strictly parses summary counters.
+
+    Rejects malformed outputs, non-zero exit codes, test failures, or missing summary blocks.
+    """
     ref_dir_abs = reference_dir.resolve()
     runner = ref_dir_abs / "run_qualification.py"
     if not runner.exists():
         raise FileNotFoundError(f"Reference qualification runner not found: {runner}")
 
     out_json = (output_file or (ref_dir_abs / "reference_baseline_run.json")).resolve()
+    if out_json.exists():
+        out_json.unlink()
     cmd = [sys.executable, "-B", str(runner), "--output", str(out_json)]
+
+    start_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
     proc = subprocess.run(cmd, cwd=str(ref_dir_abs), capture_output=True, text=True)
+    end_time = datetime.datetime.now(datetime.timezone.utc).isoformat()
 
     if proc.returncode != 0:
-        raise RuntimeError(f"Reference qualification failed with code {proc.returncode}:\n{proc.stderr}\n{proc.stdout}")
+        raise RuntimeError(f"Reference qualification runner exited with non-zero code {proc.returncode}:\n{proc.stderr}\n{proc.stdout}")
 
     if not out_json.exists():
         raise RuntimeError(f"Reference runner completed but output file missing: {out_json}")
 
-    data = json.loads(out_json.read_text(encoding="utf-8"))
+    raw_text = out_json.read_text(encoding="utf-8")
+    data = json.loads(raw_text)
+
+    # Finding F03: Parse counters strictly from 'summary' block, NOT top level
+    summary = data.get("summary")
+    if not isinstance(summary, dict):
+        raise ValueError(f"Reference runner output missing 'summary' dictionary in: {out_json}")
+
+    test_methods_run = summary.get("test_methods_run")
+    passed_methods = summary.get("passed_methods")
+    failed_methods = summary.get("failed_methods", 0)
+    error_methods = summary.get("error_methods", 0)
+
+    if test_methods_run is None or passed_methods is None:
+        raise ValueError(f"Reference runner summary missing required test method counts: {summary}")
+
+    if failed_methods > 0 or error_methods > 0 or passed_methods != test_methods_run:
+        raise RuntimeError(
+            f"Reference qualification suite contains failures: run={test_methods_run}, passed={passed_methods}, "
+            f"failed={failed_methods}, errors={error_methods}"
+        )
+
+    # Verify contextual grammar replay
+    cgr = data.get("contextual_grammar_replay", {})
+    agreed_cases = cgr.get("agreed", 0)
+    total_cases = len(cgr.get("cases", []))
+    if agreed_cases != 24 or total_cases != 24:
+        raise RuntimeError(f"Contextual grammar replay did not pass 24 cases: agreed={agreed_cases}/{total_cases}")
+
+    evidence_digest = hashlib.sha256(raw_text.encode("utf-8")).hexdigest()
+
     return {
-        "return_code": proc.returncode,
-        "stdout": proc.stdout.strip(),
-        "runner_data": data,
-        "test_methods_run": data.get("test_methods_run", 152),
-        "passed_methods": data.get("passed_methods", 152),
-        "failed_methods": data.get("failed_methods", 0),
+        "execution_record": {
+            "command": cmd,
+            "cwd": str(ref_dir_abs),
+            "runner_path": str(runner),
+            "start_time": start_time,
+            "end_time": end_time,
+            "return_code": proc.returncode,
+            "stdout": proc.stdout.strip(),
+            "stderr": proc.stderr.strip(),
+        },
+        "test_methods_run": test_methods_run,
+        "passed_methods": passed_methods,
+        "failed_methods": failed_methods,
+        "error_methods": error_methods,
         "nested_qualification_obligations": 24,  # Included within the 152 methods
         "legacy_grammar_matches": 19,
         "legacy_grammar_disagreements": 5,
         "result_file": str(out_json),
+        "result_digest": evidence_digest,
     }
 
 
@@ -141,16 +185,23 @@ def capture_baseline_manifest(
     manifest["status"] = "baseline_qualification_passed_gate_g0a"
     manifest["retained_evidence"] = {
         "reference_unittest_methods": run_info["test_methods_run"],
+        "passed_methods": run_info["passed_methods"],
+        "failed_methods": run_info["failed_methods"],
+        "error_methods": run_info["error_methods"],
         "frozen_obligations_included_in_methods": run_info["nested_qualification_obligations"],
         "original_grammar_matches": run_info["legacy_grammar_matches"],
         "original_grammar_cases": 24,
         "original_grammar_disagreements": run_info["legacy_grammar_disagreements"],
         "evidence_file": str(ref_out.resolve()),
+        "evidence_digest": run_info["result_digest"],
+        "execution": run_info["execution_record"],
         "counters_classification": "nested_not_additive",  # 24 QF cases are part of the 152 methods
     }
 
     output_manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    output_manifest_path.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    with open(output_manifest_path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(manifest, f, indent=2, sort_keys=True)
+        f.write("\n")
     return manifest
 
 

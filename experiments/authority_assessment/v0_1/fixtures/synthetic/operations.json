@@ -1,18 +1,5 @@
 [
   {
-    "ref": "op:request_record",
-    "parameter_spec": [
-      {
-        "name": "record_type",
-        "type_ref": "string",
-        "required": true
-      },
-      {
-        "name": "urgency",
-        "type_ref": "string",
-        "required": false
-      }
-    ],
     "actor_capacity_kinds": [
       "regulator",
       "investigator",
@@ -28,29 +15,29 @@
     ],
     "effect_definitions": [
       {
-        "ref": "effect:record_requested",
-        "effect_kind": "informational_notice"
+        "effect_kind": "informational_notice",
+        "ref": "effect:record_requested"
       }
     ],
     "functional_lenses": [
       "investigative",
       "governance"
-    ]
-  },
-  {
-    "ref": "op:compel_record",
+    ],
     "parameter_spec": [
       {
-        "name": "warrant_id",
-        "type_ref": "string",
-        "required": true
+        "name": "record_type",
+        "required": true,
+        "type_ref": "string"
       },
       {
-        "name": "penalty_terms",
-        "type_ref": "string",
-        "required": true
+        "name": "urgency",
+        "required": false,
+        "type_ref": "string"
       }
     ],
+    "ref": "op:request_record"
+  },
+  {
     "actor_capacity_kinds": [
       "regulator",
       "investigator"
@@ -61,29 +48,29 @@
     ],
     "effect_definitions": [
       {
-        "ref": "effect:record_compelled",
-        "effect_kind": "mandatory_custody_transfer"
+        "effect_kind": "mandatory_custody_transfer",
+        "ref": "effect:record_compelled"
       }
     ],
     "functional_lenses": [
       "enforcement",
       "coercive"
-    ]
-  },
-  {
-    "ref": "op:retain_record",
+    ],
     "parameter_spec": [
       {
-        "name": "retention_period_days",
-        "type_ref": "integer",
-        "required": true
+        "name": "warrant_id",
+        "required": true,
+        "type_ref": "string"
       },
       {
-        "name": "security_tier",
-        "type_ref": "string",
-        "required": true
+        "name": "penalty_terms",
+        "required": true,
+        "type_ref": "string"
       }
     ],
+    "ref": "op:compel_record"
+  },
+  {
     "actor_capacity_kinds": [
       "regulator",
       "investigator",
@@ -96,29 +83,29 @@
     ],
     "effect_definitions": [
       {
-        "ref": "effect:record_retained",
-        "effect_kind": "custodial_lock"
+        "effect_kind": "custodial_lock",
+        "ref": "effect:record_retained"
       }
     ],
     "functional_lenses": [
       "custodial",
       "compliance"
-    ]
-  },
-  {
-    "ref": "op:share_record",
+    ],
     "parameter_spec": [
       {
-        "name": "recipient_ref",
-        "type_ref": "reference",
-        "required": true
+        "name": "retention_period_days",
+        "required": true,
+        "type_ref": "integer"
       },
       {
-        "name": "disclosure_purpose",
-        "type_ref": "string",
-        "required": true
+        "name": "security_tier",
+        "required": true,
+        "type_ref": "string"
       }
     ],
+    "ref": "op:retain_record"
+  },
+  {
     "actor_capacity_kinds": [
       "licensee",
       "auditor",
@@ -131,13 +118,26 @@
     ],
     "effect_definitions": [
       {
-        "ref": "effect:record_disclosed",
-        "effect_kind": "third_party_access"
+        "effect_kind": "third_party_access",
+        "ref": "effect:record_disclosed"
       }
     ],
     "functional_lenses": [
       "transmissive",
       "collaboration"
-    ]
+    ],
+    "parameter_spec": [
+      {
+        "name": "recipient_ref",
+        "required": true,
+        "type_ref": "reference"
+      },
+      {
+        "name": "disclosure_purpose",
+        "required": true,
+        "type_ref": "string"
+      }
+    ],
+    "ref": "op:share_record"
   }
 ]

@@ -1,975 +1,932 @@
 {
+  "action_queries": [
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:request_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:request_record"
+      ],
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:compel_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:compel_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:compel_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:compel_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:compel_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:investigator:beta",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:compel_record",
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:share_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:share_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:licensee:gamma",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [
+        "op:retain_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [
+        "op:share_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [
+        "op:share_record"
+      ],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:auditor:delta",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:citizen:epsilon",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "actor": "actor:third_party:zeta",
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_operations": [],
+      "scope_pack": "pack:public_oversight_v1"
+    }
+  ],
+  "actor_queries": [
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:citizen:epsilon",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha",
+        "actor:third_party:zeta"
+      ],
+      "operation": "op:request_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:commercial_privacy_v1"
+    },
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [],
+      "operation": "op:request_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [],
+      "operation": "op:request_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [],
+      "operation": "op:request_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [],
+      "operation": "op:request_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [],
+      "operation": "op:request_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [],
+      "operation": "op:request_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [
+        "actor:investigator:beta",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [
+        "actor:investigator:beta",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [
+        "actor:investigator:beta",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:compel_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [
+        "actor:investigator:beta",
+        "actor:licensee:gamma",
+        "actor:regulator:alpha"
+      ],
+      "operation": "op:retain_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:regulator:alpha",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:licensee:gamma"
+      ],
+      "operation": "op:share_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:investigator:beta",
+      "expected_supported_actors": [
+        "actor:auditor:delta",
+        "actor:licensee:gamma"
+      ],
+      "operation": "op:share_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:licensee:gamma",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:auditor:delta",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:citizen:epsilon",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:public_oversight_v1"
+    },
+    {
+      "affected_actor": "actor:third_party:zeta",
+      "expected_supported_actors": [],
+      "operation": "op:share_record",
+      "scope_pack": "pack:public_oversight_v1"
+    }
+  ],
   "catalog_id": "mapeogeo_authority_reverse_domains",
-  "version": "0.1",
-  "status": "frozen_reverse_domains",
-  "author": "Nathanael J. Bocker",
-  "complete_actor_domain": [
-    "actor:regulator:alpha",
-    "actor:investigator:beta",
-    "actor:licensee:gamma",
-    "actor:auditor:delta",
-    "actor:citizen:epsilon",
-    "actor:third_party:zeta"
-  ],
-  "complete_capacity_domain": [
-    "regulator",
-    "investigator",
-    "licensee",
-    "auditor",
-    "citizen",
-    "third_party"
-  ],
-  "complete_operation_domain": [
-    "op:request_record",
-    "op:compel_record",
-    "op:retain_record",
-    "op:share_record"
-  ],
-  "scope_packs": [
-    "pack:commercial_privacy_v1",
-    "pack:public_oversight_v1"
-  ],
-  "action_enumeration_expectations": [
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_operations": [
-        "op:request_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:compel_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:compel_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:regulator:alpha",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:compel_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:compel_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:compel_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:investigator:beta",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:compel_record",
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record",
-        "op:share_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record",
-        "op:share_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:licensee:gamma",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:retain_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:share_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": [
-        "op:share_record"
-      ]
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:auditor:delta",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:citizen:epsilon",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    },
-    {
-      "actor": "actor:third_party:zeta",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_operations": []
-    }
-  ],
-  "actor_enumeration_expectations": [
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:citizen:epsilon",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha",
-        "actor:third_party:zeta"
-      ]
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:citizen:epsilon",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha",
-        "actor:third_party:zeta"
-      ]
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:citizen:epsilon",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha",
-        "actor:third_party:zeta"
-      ]
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:citizen:epsilon",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha",
-        "actor:third_party:zeta"
-      ]
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:citizen:epsilon",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha",
-        "actor:third_party:zeta"
-      ]
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:citizen:epsilon",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha",
-        "actor:third_party:zeta"
-      ]
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:commercial_privacy_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:request_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:compel_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:retain_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:investigator:beta",
-        "actor:licensee:gamma",
-        "actor:regulator:alpha"
-      ]
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:regulator:alpha",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:licensee:gamma"
-      ]
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:investigator:beta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": [
-        "actor:auditor:delta",
-        "actor:licensee:gamma"
-      ]
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:licensee:gamma",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:auditor:delta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:citizen:epsilon",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    },
-    {
-      "operation": "op:share_record",
-      "affected_actor": "actor:third_party:zeta",
-      "scope_pack": "pack:public_oversight_v1",
-      "expected_supported_actors": []
-    }
-  ]
+  "status": "frozen_independent_reverse_expectations",
+  "total_action_queries": 72,
+  "total_actor_queries": 48,
+  "version": "0.1"
 }

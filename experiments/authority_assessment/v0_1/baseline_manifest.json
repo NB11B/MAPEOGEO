@@ -97,11 +97,31 @@
   "reference_archive_sha256": "c8747ad59f3f3c0e17a1e5e397ed4c4c981d6210ca498f25fa8d2d088b5ab9a7",
   "retained_evidence": {
     "counters_classification": "nested_not_additive",
+    "error_methods": 0,
+    "evidence_digest": "fbdbb074f1d5d15f850f87fb12ccbe48147a3150cc0e93e86f84900d7948dcc9",
     "evidence_file": "C:\\Users\\nateb\\Documents\\MAPEOGEO-frozen-main\\evidence\\authority_assessment\\v0_1\\baseline\\reference_baseline_execution.json",
+    "execution": {
+      "command": [
+        "C:\\Users\\nateb\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "-B",
+        "C:\\Users\\nateb\\Documents\\MAPEOGEO-frozen-main\\artifacts\\intelligence_qualification\\v0_3\\intelligence_qualification_v0_3\\run_qualification.py",
+        "--output",
+        "C:\\Users\\nateb\\Documents\\MAPEOGEO-frozen-main\\evidence\\authority_assessment\\v0_1\\baseline\\reference_baseline_execution.json"
+      ],
+      "cwd": "C:\\Users\\nateb\\Documents\\MAPEOGEO-frozen-main\\artifacts\\intelligence_qualification\\v0_3\\intelligence_qualification_v0_3",
+      "end_time": "2026-10-10T02:09:13.531141+00:00",
+      "return_code": 0,
+      "runner_path": "C:\\Users\\nateb\\Documents\\MAPEOGEO-frozen-main\\artifacts\\intelligence_qualification\\v0_3\\intelligence_qualification_v0_3\\run_qualification.py",
+      "start_time": "2026-10-10T02:09:12.818398+00:00",
+      "stderr": "",
+      "stdout": "{\n  \"outcome\": \"new_reference_checks_passed_with_preserved_legacy_disagreements\",\n  \"test_methods_run\": 152,\n  \"passed_methods\": 152,\n  \"failed_methods\": 0,\n  \"error_methods\": 0,\n  \"method_statuses\": {\n    \"passed\": 152\n  },\n  \"result_file\": \"C:\\\\Users\\\\nateb\\\\Documents\\\\MAPEOGEO-frozen-main\\\\evidence\\\\authority_assessment\\\\v0_1\\\\baseline\\\\reference_baseline_execution.json\"\n}"
+    },
+    "failed_methods": 0,
     "frozen_obligations_included_in_methods": 24,
     "original_grammar_cases": 24,
     "original_grammar_disagreements": 5,
     "original_grammar_matches": 19,
+    "passed_methods": 152,
     "reference_unittest_methods": 152
   },
   "status": "baseline_qualification_passed_gate_g0a"

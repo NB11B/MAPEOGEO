@@ -1,12 +1,13 @@
 {
+  "name": "Public Oversight Statutory Powers Pack",
   "ref": "pack:public_oversight_v1",
-  "name": "Fictional Public Oversight & Statutory Compulsion Rules",
-  "version": "1.0",
-  "source_artifact_ref": "source:fictional:regulatory_powers_act_2023",
-  "review_ref": "rev:fictional:oversight_review_v1",
   "rules": [
     {
-      "ref": "rule:over:01",
+      "description": "Regulatory agencies possess legal power to compel records from regulated entities under active warrant.",
+      "indispensable_conditions": [
+        "cond:has_active_warrant_or_order"
+      ],
+      "interest_ref": "interest:compliance",
       "name": "Statutory Regulatory Compulsion Power",
       "norm_kind": "power",
       "operation_ref": "op:compel_record",
@@ -14,20 +15,18 @@
         "regulator",
         "investigator"
       ],
+      "ref": "rule:over:01",
       "target_capacities": [
         "licensee",
         "auditor",
         "third_party"
-      ],
-      "indispensable_conditions": [
-        "cond:has_active_warrant_or_order"
-      ],
-      "interest_ref": "interest:compliance",
-      "description": "Statutory power of regulator and investigator to compel records from regulated entities, requiring an active warrant/order."
+      ]
     },
     {
-      "ref": "rule:over:02",
-      "name": "Immunity of Regulatory Board Against Subpoena",
+      "description": "The regulatory board possesses statutory immunity against compulsion by regulated or third-party actors.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:due_process",
+      "name": "Immunity of Oversight Board",
       "norm_kind": "prohibition",
       "operation_ref": "op:compel_record",
       "performer_capacities": [
@@ -36,34 +35,34 @@
         "citizen",
         "third_party"
       ],
+      "ref": "rule:over:02",
       "target_capacities": [
         "regulator"
-      ],
-      "indispensable_conditions": [],
-      "interest_ref": "interest:due_process",
-      "description": "Regulated entities and private parties are strictly prohibited from attempting to compel records from the regulatory board."
+      ]
     },
     {
-      "ref": "rule:over:03",
-      "name": "Statutory Audit Disclosure Duty",
+      "description": "Licensees and auditors have an affirmative legal duty to disclose completed audit records to oversight authorities.",
+      "indispensable_conditions": [
+        "cond:audit_completed"
+      ],
+      "interest_ref": "interest:transparency",
+      "name": "Mandatory Audit Disclosure Duty",
       "norm_kind": "duty",
       "operation_ref": "op:share_record",
       "performer_capacities": [
         "licensee",
         "auditor"
       ],
+      "ref": "rule:over:03",
       "target_capacities": [
         "regulator",
         "investigator"
-      ],
-      "indispensable_conditions": [
-        "cond:audit_completed"
-      ],
-      "interest_ref": "interest:transparency",
-      "description": "Licensees and auditors have an affirmative legal duty to disclose completed audit records to the oversight authorities."
+      ]
     },
     {
-      "ref": "rule:over:04",
+      "description": "Statutory duty of regulators, investigators, and operating licensees to preserve and retain regulatory records with respect to regulated subjects.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:compliance",
       "name": "Mandatory Record Retention for Oversight",
       "norm_kind": "duty",
       "operation_ref": "op:retain_record",
@@ -72,15 +71,14 @@
         "investigator",
         "licensee"
       ],
+      "ref": "rule:over:04",
       "target_capacities": [
         "licensee",
         "citizen",
         "auditor",
         "third_party"
-      ],
-      "indispensable_conditions": [],
-      "interest_ref": "interest:compliance",
-      "description": "Statutory duty of regulators, investigators, and operating licensees to preserve and retain regulatory records."
+      ]
     }
-  ]
+  ],
+  "version": "1.0.0"
 }

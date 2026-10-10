@@ -1,13 +1,12 @@
 {
+  "name": "Commercial Privacy Baseline Rule Pack",
   "ref": "pack:commercial_privacy_v1",
-  "name": "Fictional Commercial Privacy & Data Protection Rules",
-  "version": "1.0",
-  "source_artifact_ref": "source:fictional:privacy_statute_2024",
-  "review_ref": "rev:fictional:privacy_review_v1",
   "rules": [
     {
-      "ref": "rule:priv:01",
-      "name": "Voluntary Request Liberty",
+      "description": "Any entity may initiate a voluntary informational request.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:transparency",
+      "name": "Liberty of Voluntary Inquiry",
       "norm_kind": "permission",
       "operation_ref": "op:request_record",
       "performer_capacities": [
@@ -18,6 +17,7 @@
         "citizen",
         "third_party"
       ],
+      "ref": "rule:priv:01",
       "target_capacities": [
         "regulator",
         "investigator",
@@ -25,14 +25,13 @@
         "auditor",
         "citizen",
         "third_party"
-      ],
-      "indispensable_conditions": [],
-      "interest_ref": "interest:transparency",
-      "description": "Any actor is permitted to request records voluntarily without legal compulsion."
+      ]
     },
     {
-      "ref": "rule:priv:02",
-      "name": "Private Coercion Prohibition",
+      "description": "Private commercial actors and citizens are strictly prohibited from exercising coercive record compulsion.",
+      "indispensable_conditions": [],
+      "interest_ref": "interest:due_process",
+      "name": "Prohibition of Private Compulsion",
       "norm_kind": "prohibition",
       "operation_ref": "op:compel_record",
       "performer_capacities": [
@@ -40,6 +39,7 @@
         "citizen",
         "third_party"
       ],
+      "ref": "rule:priv:02",
       "target_capacities": [
         "regulator",
         "investigator",
@@ -47,14 +47,15 @@
         "auditor",
         "citizen",
         "third_party"
-      ],
-      "indispensable_conditions": [],
-      "interest_ref": "interest:due_process",
-      "description": "Private entities (licensees, individuals, third parties) are explicitly prohibited under reviewed rule from issuing coercive compulsion."
+      ]
     },
     {
-      "ref": "rule:priv:03",
-      "name": "Consensual Record Sharing",
+      "description": "Commercial record sharing requires affirmative data subject consent.",
+      "indispensable_conditions": [
+        "cond:has_explicit_consent"
+      ],
+      "interest_ref": "interest:confidentiality",
+      "name": "Consent-Grounded Commercial Record Sharing",
       "norm_kind": "permission",
       "operation_ref": "op:share_record",
       "performer_capacities": [
@@ -62,19 +63,19 @@
         "auditor",
         "third_party"
       ],
+      "ref": "rule:priv:03",
       "target_capacities": [
         "citizen",
         "licensee"
-      ],
-      "indispensable_conditions": [
-        "cond:has_explicit_consent"
-      ],
-      "interest_ref": "interest:confidentiality",
-      "description": "Sharing records requires affirmative explicit consent. Where consent is demonstrably refuted across all routes, conditions are unmet."
+      ]
     },
     {
-      "ref": "rule:priv:04",
-      "name": "Custodial Retention Permitted in Window",
+      "description": "Commercial custodians may retain records within statutory retention windows.",
+      "indispensable_conditions": [
+        "cond:within_statutory_window"
+      ],
+      "interest_ref": "interest:compliance",
+      "name": "Custodial Record Retention",
       "norm_kind": "permission",
       "operation_ref": "op:retain_record",
       "performer_capacities": [
@@ -83,15 +84,12 @@
         "licensee",
         "auditor"
       ],
+      "ref": "rule:priv:04",
       "target_capacities": [
         "licensee",
         "citizen"
-      ],
-      "indispensable_conditions": [
-        "cond:within_statutory_window"
-      ],
-      "interest_ref": "interest:compliance",
-      "description": "Retention of records is permitted within the authorized statutory retention window."
+      ]
     }
-  ]
+  ],
+  "version": "1.0.0"
 }
