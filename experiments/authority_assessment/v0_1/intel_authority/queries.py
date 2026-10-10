@@ -63,20 +63,36 @@ def _ref_id(ref_val: Any) -> str:
     return str(ref_val)
 
 
-def enumerate_actions(
-    query: Dict[str, Any],
-    context: Dict[str, Any],
+@dataclass
+class AuthorityActionQuery:
+    """Authority-domain action query specification."""
+    actor_ref: Dict[str, Any]
+    capacity_ref: Dict[str, Any]
+    affected_ref: Dict[str, Any]
+    candidate_cases: List[Dict[str, Any]]
+    domain_ref: Dict[str, Any] = field(default_factory=lambda: {"id": "domain:actions", "revision": 1})
+
+
+@dataclass
+class AuthorityActorQuery:
+    """Authority-domain actor query specification."""
+    operation_ref: Dict[str, Any]
+    affected_ref: Dict[str, Any]
+    candidate_cases: List[Dict[str, Any]]
+    domain_ref: Dict[str, Any] = field(default_factory=lambda: {"id": "domain:actors", "revision": 1})
+
+
+def evaluate_candidate_domain(
+    candidate_cases: List[Dict[str, Any]],
+    eval_fn: Any,
     budget: Optional[Dict[str, Any]] = None,
+    extract_target_ref_fn: Optional[Any] = None,
 ) -> Dict[str, Any]:
-    """Enumerates candidate actions for a fixed actor and affected scope (AQ25).
-
-    Returns CandidateResult containing supported, unresolved, and excluded operations.
+    """Shared platform candidate domain router with bounded budget cutoff and partial semantics.
+    
+    This encapsulates the generic router engine: candidate enumeration, finite budget cutoff,
+    evaluated/unassessed counters, stopping reasons, and partial-result tracking.
     """
-    domain = query.get("domain", {})
-    candidate_cases = domain.get("case_bindings", [])
-    domain_ref = _normalize_ref(domain.get("ref", "domain:actions"))
-    domain_digest = _canonical_digest(domain)
-
     max_candidates = budget.get("max_candidates", 4096) if budget else 4096
 
     supported_refs: List[Dict[str, Any]] = []
@@ -95,20 +111,20 @@ def enumerate_actions(
             break
 
         evaluated_count += 1
-        assessment = assess_case(case, context, budget)
+        assessment = eval_fn(case)
         ass_ref = assessment.get("ref", {})
         assessment_refs.append(ass_ref)
         derived_records.append(assessment)
 
         disp = assessment.get("disposition")
-        op_ref = case.get("operation_ref", {})
+        target_ref = extract_target_ref_fn(case) if extract_target_ref_fn else case.get("ref", {})
 
         if disp == "supported_within_scope":
-            supported_refs.append(op_ref)
+            supported_refs.append(target_ref)
         elif disp == "unresolved":
-            unresolved_refs.append(op_ref)
+            unresolved_refs.append(target_ref)
         else:  # prohibited or conditions_unmet
-            excluded_refs.append(op_ref)
+            excluded_refs.append(target_ref)
 
     is_complete = (unassessed_count == 0)
     status = "assessed" if is_complete else "partial"
@@ -116,8 +132,6 @@ def enumerate_actions(
 
     return {
         "status": status,
-        "domain_ref": domain_ref,
-        "domain_digest": domain_digest,
         "assessment_refs": assessment_refs,
         "supported_refs": supported_refs,
         "unresolved_refs": unresolved_refs,
@@ -139,6 +153,38 @@ def enumerate_actions(
         ],
         "derived_records": derived_records,
     }
+
+
+def enumerate_actions(
+    query: Dict[str, Any],
+    context: Dict[str, Any],
+    budget: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    """Enumerates candidate actions for a fixed actor and affected scope (AQ25).
+
+    Delegates generic candidate iteration and budget cutoff to evaluate_candidate_domain,
+    supplying domain-specific case assessment predicate and operation extraction.
+    """
+    domain = query.get("domain", {})
+    candidate_cases = domain.get("case_bindings", [])
+    domain_ref = _normalize_ref(domain.get("ref", "domain:actions"))
+    domain_digest = _canonical_digest(domain)
+
+    # Authority domain predicate
+    def assess_predicate(case: Dict[str, Any]) -> Dict[str, Any]:
+        return assess_case(case, context, budget)
+
+    # Execute shared candidate routing
+    router_res = evaluate_candidate_domain(
+        candidate_cases=candidate_cases,
+        eval_fn=assess_predicate,
+        budget=budget,
+        extract_target_ref_fn=lambda c: c.get("operation_ref", {}),
+    )
+
+    router_res["domain_ref"] = domain_ref
+    router_res["domain_digest"] = domain_digest
+    return router_res
 
 
 def enumerate_actors(
@@ -148,72 +194,27 @@ def enumerate_actors(
 ) -> Dict[str, Any]:
     """Enumerates candidate actors for a fixed operation and affected scope (AQ26).
 
-    Returns CandidateResult containing supported, unresolved, and excluded actors.
+    Delegates generic candidate iteration and budget cutoff to evaluate_candidate_domain,
+    supplying domain-specific case assessment predicate and actor extraction.
     """
     domain = query.get("domain", {})
     candidate_cases = domain.get("case_bindings", [])
     domain_ref = _normalize_ref(domain.get("ref", "domain:actors"))
     domain_digest = _canonical_digest(domain)
 
-    max_candidates = budget.get("max_candidates", 4096) if budget else 4096
+    # Authority domain predicate
+    def assess_predicate(case: Dict[str, Any]) -> Dict[str, Any]:
+        return assess_case(case, context, budget)
 
-    supported_refs: List[Dict[str, Any]] = []
-    unresolved_refs: List[Dict[str, Any]] = []
-    excluded_refs: List[Dict[str, Any]] = []
-    assessment_refs: List[Dict[str, Any]] = []
-    derived_records: List[Dict[str, Any]] = []
+    # Execute shared candidate routing
+    router_res = evaluate_candidate_domain(
+        candidate_cases=candidate_cases,
+        eval_fn=assess_predicate,
+        budget=budget,
+        extract_target_ref_fn=lambda c: c.get("actor_ref", {}),
+    )
 
-    evaluated_count = 0
-    total_candidates = len(candidate_cases)
-    unassessed_count = 0
+    router_res["domain_ref"] = domain_ref
+    router_res["domain_digest"] = domain_digest
+    return router_res
 
-    for case in candidate_cases:
-        if evaluated_count >= max_candidates:
-            unassessed_count = total_candidates - evaluated_count
-            break
-
-        evaluated_count += 1
-        assessment = assess_case(case, context, budget)
-        ass_ref = assessment.get("ref", {})
-        assessment_refs.append(ass_ref)
-        derived_records.append(assessment)
-
-        disp = assessment.get("disposition")
-        act_ref = case.get("actor_ref", {})
-
-        if disp == "supported_within_scope":
-            supported_refs.append(act_ref)
-        elif disp == "unresolved":
-            unresolved_refs.append(act_ref)
-        else:
-            excluded_refs.append(act_ref)
-
-    is_complete = (unassessed_count == 0)
-    status = "assessed" if is_complete else "partial"
-    stopping_reason = "complete" if is_complete else "candidate_budget"
-
-    return {
-        "status": status,
-        "domain_ref": domain_ref,
-        "domain_digest": domain_digest,
-        "assessment_refs": assessment_refs,
-        "supported_refs": supported_refs,
-        "unresolved_refs": unresolved_refs,
-        "excluded_refs": excluded_refs,
-        "evaluated_count": evaluated_count,
-        "unassessed_count": unassessed_count,
-        "complete": is_complete,
-        "coverage_ref": _normalize_ref("cov:complete" if is_complete else "cov:partial"),
-        "budget_used": {
-            "candidates_evaluated": evaluated_count,
-            "rule_evaluations": evaluated_count * 4,
-            "context_branches_evaluated": 0,
-            "courses_evaluated": 0,
-            "trace_nodes": evaluated_count * 2,
-            "stopping_reason": stopping_reason,
-        },
-        "diagnostics": [] if is_complete else [
-            {"code": "BUDGET_CUTOFF", "message": f"Candidate limit {max_candidates} reached; {unassessed_count} unassessed", "severity": "warning"}
-        ],
-        "derived_records": derived_records,
-    }

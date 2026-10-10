@@ -47,6 +47,67 @@ class GapKind(str, Enum):
     ADMISSION_REQUIRED = "admission_required"
 
 
+# Canonical alias for domain-specific gap taxonomy
+AuthorityGapKind = GapKind
+
+
+# Mapping: AuthorityGapKind -> required work operator in \Sigma_W = {O, E, K, C, F, D, S}
+AUTHORITY_GAP_TO_OPERATOR: Dict[str, str] = {
+    GapKind.FACT_GAP.value: "O",                          # Observe: Inquire/acquire factual source evidence
+    GapKind.AUTHORITY_EVIDENCE_MISSING.value: "K",        # Classify: Retrieve warrant / existing grant
+    GapKind.GRANT_REQUIRED.value: "S",                    # Select: Propose grant to competent principal
+    GapKind.SOURCE_APPLICABILITY_GAP.value: "C",          # Compare: Perform legal scope interpretation
+    GapKind.INTERPRETATION_GAP.value: "K",                # Classify: Review interpretation profile
+    GapKind.COVERAGE_GAP.value: "C",                      # Compare: Expand coverage contract
+    GapKind.OPERATION_DEFINITION_GAP.value: "F",          # Form: Formalize operation contract
+    GapKind.RESOURCE_COMMITMENT_REQUIRED.value: "S",      # Select: Request resource allocation
+    GapKind.COMPLETION_RECONCILIATION_REQUIRED.value: "O",# Observe: Reconcile UoW completion frontier
+    GapKind.ADMISSION_REQUIRED.value: "S",                # Select: Submit UoW admission proposal
+}
+
+
+@dataclass
+class PlatformDeficiency:
+    r"""Thin domain projection of authority gap into platform deficiency D = R \setminus G.
+    
+    The authority domain owns only the gap classification and proposition derivation;
+    generic deficiency lifecycle, storage, and scheduling belong to the platform.
+    """
+    target_subject: str
+    required_operator: str
+    authority_gap_kind: str
+    supporting_assessment_ref: Dict[str, Any]
+    dependency_refs: List[Dict[str, Any]]
+    scope_ref: Dict[str, Any]
+    witness_refs: List[Dict[str, Any]]
+    is_unresolved: bool
+    resolution_routes: List[str]
+    materiality: str
+    raw_gap_ref: Dict[str, Any]
+
+
+def to_platform_deficiency(authority_gap: Dict[str, Any]) -> PlatformDeficiency:
+    """Projects an authority domain gap into a standard platform deficiency without inference."""
+    kind = authority_gap.get("kind", GapKind.FACT_GAP.value)
+    op = AUTHORITY_GAP_TO_OPERATOR.get(kind, "O")
+    prop = authority_gap.get("proposition_ref", {})
+    subject = prop.get("id", str(prop)) if isinstance(prop, dict) else str(prop)
+
+    return PlatformDeficiency(
+        target_subject=subject,
+        required_operator=op,
+        authority_gap_kind=kind,
+        supporting_assessment_ref=authority_gap.get("assessment_ref", {}),
+        dependency_refs=authority_gap.get("dependency_refs", []),
+        scope_ref=authority_gap.get("scope_ref", {}),
+        witness_refs=authority_gap.get("witness_refs", []),
+        is_unresolved=(authority_gap.get("actual_resolution_state") == "open"),
+        resolution_routes=authority_gap.get("resolution_route_kinds", []),
+        materiality=authority_gap.get("materiality", Materiality.OUTCOME_CHANGE_WITNESSED.value),
+        raw_gap_ref=authority_gap.get("ref", {}),
+    )
+
+
 class Materiality(str, Enum):
     OUTCOME_CHANGE_WITNESSED = "outcome_change_witnessed"
     BASIS_CHANGE_WITNESSED = "basis_change_witnessed"

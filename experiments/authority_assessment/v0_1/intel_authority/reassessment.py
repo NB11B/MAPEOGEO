@@ -22,6 +22,7 @@ REUSE SPECIFICATION (Amendment 1, Page 4):
 
 from __future__ import annotations
 
+from dataclasses import dataclass, field
 import hashlib
 import json
 from typing import Any, Dict, List, Optional, Set
@@ -29,6 +30,20 @@ from typing import Any, Dict, List, Optional, Set
 from experiments.authority_assessment.v0_1.intel_authority.adapters import (
     validate_authority_reference,
 )
+
+
+@dataclass
+class AuthorityDependencyProfile:
+    r"""Declarative dependency profile for LegalAssessment.
+    
+    The authority domain declares what dependencies govern the assessment;
+    the platform invalidation engine triggers \Delta dependency => InvalidateDependentAssessment.
+    """
+    rule_pack_refs: List[Dict[str, Any]] = field(default_factory=list)
+    evidence_frontier_refs: List[Dict[str, Any]] = field(default_factory=list)
+    actor_binding_refs: List[Dict[str, Any]] = field(default_factory=list)
+    operation_refs: List[Dict[str, Any]] = field(default_factory=list)
+    applicability_context_digest: Optional[str] = None
 
 
 def _canonical_digest(data: Any) -> str:

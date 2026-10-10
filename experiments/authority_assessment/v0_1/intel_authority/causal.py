@@ -55,73 +55,48 @@ def _event_key(event_ref: Dict[str, Any]) -> Tuple[str, int]:
     return stream, seq
 
 
-def relate_events(
-    left_ref: Dict[str, Any],
-    right_ref: Dict[str, Any],
-    snapshot: Dict[str, Any],
-) -> Dict[str, Any]:
-    """Evaluates causal ordering between two events across causal streams (AQ39, AQ40).
+class PlatformCausalDAG:
+    """Platform causal DAG owning event sequencing, cross-stream parent reachability, and cycle detection."""
 
-    Invariants:
-    - Same stream: compares integer sequence numbers.
-    - Different streams: follows explicit causal parent edges in snapshot.
-    - If no causal path exists: returns 'unknown' (AQ39: unrelated counters establish no order).
-    - Causal cycle or broken parent reference produces 'context_or_model_error'.
-    """
-    left_stream = left_ref.get("stream_id")
-    right_stream = right_ref.get("stream_id")
-    left_seq = left_ref.get("sequence", 0)
-    right_seq = right_ref.get("sequence", 0)
+    def __init__(self, events: List[Dict[str, Any]]) -> None:
+        self.events = events
+        self.event_map: Dict[Tuple[str, int], Dict[str, Any]] = {
+            (ev.get("stream_id", ""), ev.get("sequence", 0)): ev
+            for ev in events
+        }
 
-    # 1. Same stream
-    if left_stream == right_stream:
-        if left_seq < right_seq:
-            return {"relation": EventRelationKind.BEFORE.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
-        elif left_seq > right_seq:
-            return {"relation": EventRelationKind.AFTER.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
-        else:
-            return {"relation": EventRelationKind.SAME.value, "witness_refs": [left_ref], "diagnostics": []}
+    @classmethod
+    def from_snapshot(cls, snapshot: Dict[str, Any]) -> PlatformCausalDAG:
+        return cls(events=snapshot.get("events", []))
 
-    # 2. Cross-stream traversal using snapshot events
-    events = snapshot.get("events", [])
-    event_map: Dict[Tuple[str, int], Dict[str, Any]] = {}
-    for ev in events:
-        key = (ev.get("stream_id", ""), ev.get("sequence", 0))
-        event_map[key] = ev
+    def detect_cycles(self) -> bool:
+        """Returns True if any cycle exists in the causal parent graph."""
+        visited_all: Set[Tuple[str, int]] = set()
+        rec_stack: Set[Tuple[str, int]] = set()
 
-    # Check for cycles anywhere in the causal snapshot (AQ40)
-    visited_all: Set[Tuple[str, int]] = set()
-    rec_stack: Set[Tuple[str, int]] = set()
-
-    def has_cycle(node: Tuple[str, int]) -> bool:
-        visited_all.add(node)
-        rec_stack.add(node)
-        curr_ev = event_map.get(node)
-        if curr_ev:
-            for p in curr_ev.get("causal_parent_refs", []):
-                p_key = (p.get("stream_id", ""), p.get("sequence", 0))
-                if p_key not in visited_all:
-                    if has_cycle(p_key):
+        def has_cycle(node: Tuple[str, int]) -> bool:
+            visited_all.add(node)
+            rec_stack.add(node)
+            curr_ev = self.event_map.get(node)
+            if curr_ev:
+                for p in curr_ev.get("causal_parent_refs", []):
+                    p_key = (p.get("stream_id", ""), p.get("sequence", 0))
+                    if p_key not in visited_all:
+                        if has_cycle(p_key):
+                            return True
+                    elif p_key in rec_stack:
                         return True
-                elif p_key in rec_stack:
+            rec_stack.remove(node)
+            return False
+
+        for node in list(self.event_map.keys()):
+            if node not in visited_all:
+                if has_cycle(node):
                     return True
-        rec_stack.remove(node)
         return False
 
-    for node in list(event_map.keys()):
-        if node not in visited_all:
-            if has_cycle(node):
-                return {
-                    "relation": EventRelationKind.CONTEXT_OR_MODEL_ERROR.value,
-                    "witness_refs": [],
-                    "diagnostics": [{"code": "CAUSAL_CYCLE", "message": "Cycle detected in causal graph", "severity": "fatal"}],
-                }
-
-    # Reachability check
-    left_key = (left_stream, left_seq)
-    right_key = (right_stream, right_seq)
-
-    def is_ancestor(ancestor_key: Tuple[str, int], target_key: Tuple[str, int]) -> bool:
+    def is_ancestor(self, ancestor_key: Tuple[str, int], target_key: Tuple[str, int]) -> bool:
+        """Checks reachability from target_key back to ancestor_key through causal parents."""
         visited: Set[Tuple[str, int]] = set()
         queue = [target_key]
         while queue:
@@ -129,7 +104,7 @@ def relate_events(
             if curr in visited:
                 continue
             visited.add(curr)
-            curr_ev = event_map.get(curr)
+            curr_ev = self.event_map.get(curr)
             if not curr_ev:
                 continue
             parents = curr_ev.get("causal_parent_refs", [])
@@ -142,20 +117,64 @@ def relate_events(
                 queue.append(p_key)
         return False
 
-    left_before_right = is_ancestor(left_key, right_key)
-    if left_before_right:
-        return {"relation": EventRelationKind.BEFORE.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
+    def relate_events(
+        self,
+        left_ref: Dict[str, Any],
+        right_ref: Dict[str, Any],
+    ) -> Dict[str, Any]:
+        """Evaluates causal order between two events (AQ39, AQ40)."""
+        left_stream = left_ref.get("stream_id")
+        right_stream = right_ref.get("stream_id")
+        left_seq = left_ref.get("sequence", 0)
+        right_seq = right_ref.get("sequence", 0)
 
-    right_before_left = is_ancestor(right_key, left_key)
-    if right_before_left:
-        return {"relation": EventRelationKind.AFTER.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
+        # 1. Same stream
+        if left_stream == right_stream:
+            if left_seq < right_seq:
+                return {"relation": EventRelationKind.BEFORE.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
+            elif left_seq > right_seq:
+                return {"relation": EventRelationKind.AFTER.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
+            else:
+                return {"relation": EventRelationKind.SAME.value, "witness_refs": [left_ref], "diagnostics": []}
 
-    # No justified causal order (AQ39)
-    return {
-        "relation": EventRelationKind.UNKNOWN.value,
-        "witness_refs": [],
-        "diagnostics": [],
-    }
+        # 2. Cycle check
+        if self.detect_cycles():
+            return {
+                "relation": EventRelationKind.CONTEXT_OR_MODEL_ERROR.value,
+                "witness_refs": [],
+                "diagnostics": [{"code": "CAUSAL_CYCLE", "message": "Cycle detected in causal graph", "severity": "fatal"}],
+            }
+
+        # 3. Cross-stream ancestor check
+        left_key = (left_stream, left_seq)
+        right_key = (right_stream, right_seq)
+
+        if self.is_ancestor(left_key, right_key):
+            return {"relation": EventRelationKind.BEFORE.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
+
+        if self.is_ancestor(right_key, left_key):
+            return {"relation": EventRelationKind.AFTER.value, "witness_refs": [left_ref, right_ref], "diagnostics": []}
+
+        # No justified causal order (AQ39: unrelated counters establish no order)
+        return {
+            "relation": EventRelationKind.UNKNOWN.value,
+            "witness_refs": [],
+            "diagnostics": [],
+        }
+
+
+def relate_events(
+    left_ref: Dict[str, Any],
+    right_ref: Dict[str, Any],
+    snapshot: Dict[str, Any],
+) -> Dict[str, Any]:
+    """[DELEGATING ADAPTER] Evaluates causal ordering between two events across causal streams (AQ39, AQ40).
+    
+    Delegates generic DAG reachability and cycle detection to PlatformCausalDAG.
+    """
+    dag = PlatformCausalDAG.from_snapshot(snapshot)
+    return dag.relate_events(left_ref, right_ref)
+
 
 
 def compare_legal_reference(

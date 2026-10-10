@@ -1,0 +1,18 @@
+{
+  "stage": "pilot",
+  "run_id": "c3_post_consolidation",
+  "status": "passed",
+  "runtime_seconds": 0.0027,
+  "counters": {
+    "pilot_cases_evaluated": 30,
+    "pilot_cases_total": 30,
+    "pilot_agreements": 30,
+    "direct_cases": 12,
+    "reverse_cases": 8,
+    "course_or_history_cases": 10
+  },
+  "gates": {
+    "gate_g5_reviewed_pilot": "passed"
+  },
+  "critical_defects": 0
+}

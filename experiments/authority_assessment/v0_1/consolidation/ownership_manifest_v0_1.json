@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifest_version": "v0.1",
+  "milestone": "C2_consolidation",
+  "target_architecture": "MAPEOGEO_UOW_KERNEL + INTELLIGENCE_PROFILE + AUTHORITY_PROFILE",
+  "modules": [
+    {
+      "module": "condition_verifier.py",
+      "classification": "DOMAIN_SEMANTIC",
+      "platform_owner": null,
+      "authority_owned_semantics": [
+        "bilateral 4-state logic over legal conditions",
+        "multi-source corroboration lineage",
+        "statutory temporal interval qualification"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "evaluator.py",
+      "classification": "DOMAIN_SEMANTIC",
+      "platform_owner": null,
+      "authority_owned_semantics": [
+        "hohfeldian legal assessment",
+        "legal rule applicability and scope",
+        "statutory conflict resolution and priority"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "delegation.py",
+      "classification": "DOMAIN_SEMANTIC",
+      "platform_owner": null,
+      "authority_owned_semantics": [
+        "scope attenuation across delegation chain",
+        "delegation ancestry tracing and cycle detection under legal rules",
+        "revocation propagation under reviewed rules"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "functional_matrix.py",
+      "classification": "DOMAIN_SEMANTIC",
+      "platform_owner": null,
+      "authority_owned_semantics": [
+        "7x7 functional matrix coordinate vocabulary",
+        "cross-functional boundary dependency queries"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "certificate_bridge.py",
+      "classification": "ADAPTER",
+      "platform_owner": "MAPEOGEO certification port",
+      "authority_owned_semantics": [
+        "domain certificate witness C_A generation",
+        "non-collapsing 4-outcome mapping",
+        "authority deficiency translation to Sigma_W"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "case_bindings.py",
+      "classification": "ADAPTER",
+      "platform_owner": "MAPEOGEO graph node schema",
+      "authority_owned_semantics": [
+        "actor, capacity, operation, and affected party typed bindings",
+        "case canonical digest computation"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "projection.py",
+      "classification": "ADAPTER",
+      "platform_owner": "MAPEOGEO host projection layer",
+      "authority_owned_semantics": [
+        "host service contract and carrier schedule mapping to authority cases"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "adapters.py",
+      "classification": "ADAPTER",
+      "platform_owner": "MAPEOGEO catalog & clock layer",
+      "authority_owned_semantics": [
+        "authority reference validation",
+        "typed value extraction",
+        "clock stream mapping"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "catalog_extension.py",
+      "classification": "ADAPTER",
+      "platform_owner": "MAPEOGEO contract catalog",
+      "authority_owned_semantics": [
+        "authority domain type definitions registration"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "cli.py",
+      "classification": "ADAPTER",
+      "platform_owner": "MAPEOGEO CLI framework",
+      "authority_owned_semantics": [
+        "authority subcommands and argument parsing"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "reporting.py",
+      "classification": "ADAPTER",
+      "platform_owner": "MAPEOGEO report & audit subsystem",
+      "authority_owned_semantics": [
+        "structured legal trace explanation formatting",
+        "reader access control filtering"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "uow_bridge.py",
+      "classification": "ADAPTER",
+      "platform_owner": "UoW admission boundary",
+      "authority_owned_semantics": [
+        "analytical inquiry vs operational action separation",
+        "domain witness attachment"
+      ],
+      "generic_semantics_to_remove": [
+        "independent application admission decision logic"
+      ]
+    },
+    {
+      "module": "__init__.py",
+      "classification": "ADAPTER",
+      "platform_owner": "Package root",
+      "authority_owned_semantics": [
+        "package initialization and exports"
+      ],
+      "generic_semantics_to_remove": []
+    },
+    {
+      "module": "gaps.py",
+      "classification": "REUSE",
+      "platform_owner": "MAPEOGEO deficiency machinery",
+      "authority_owned_semantics": [
+        "authority gap kinds",
+        "authority-specific resolution route mapping"
+      ],
+      "generic_semantics_to_remove": [
+        "generic deficiency lifecycle",
+        "generic deficiency storage",
+        "generic work routing",
+        "generic open/resolved state tracking"
+      ]
+    },
+    {
+      "module": "queries.py",
+      "classification": "REUSE",
+      "platform_owner": "MAPEOGEO query router",
+      "authority_owned_semantics": [
+        "authority reverse query formation",
+        "candidate-to-case predicate mapping"
+      ],
+      "generic_semantics_to_remove": [
+        "generic candidate iteration",
+        "generic budget cutoff bookkeeping",
+        "generic partial-result tracking"
+      ]
+    },
+    {
+      "module": "allocations.py",
+      "classification": "REUSE",
+      "platform_owner": "UoW resource engine",
+      "authority_owned_semantics": [
+        "legal reservation constraints and statutory limits",
+        "irrevocable reservation release checks"
+      ],
+      "generic_semantics_to_remove": [
+        "generic reservation ledger",
+        "generic lease lifecycle",
+        "generic double-spend tracking"
+      ]
+    },
+    {
+      "module": "courses.py",
+      "classification": "REUSE",
+      "platform_owner": "UoW course planner / workflow DAG",
+      "authority_owned_semantics": [
+        "cumulative statutory limits across course steps",
+        "contingent frontier observation guards",
+        "authority step certification witness"
+      ],
+      "generic_semantics_to_remove": [
+        "generic DAG traversal",
+        "generic step dependency scheduling",
+        "generic branch evaluation",
+        "generic resource accounting"
+      ]
+    },
+    {
+      "module": "causal.py",
+      "classification": "REUSE",
+      "platform_owner": "UoW causal history",
+      "authority_owned_semantics": [
+        "legal reference time mapping",
+        "statutory interval comparison"
+      ],
+      "generic_semantics_to_remove": [
+        "generic event sequencing",
+        "generic causal graph DAG traversal",
+        "generic cycle detection",
+        "generic stream ownership"
+      ]
+    },
+    {
+      "module": "store.py",
+      "classification": "REUSE",
+      "platform_owner": "MAPEOGEO / UoW durable store",
+      "authority_owned_semantics": [
+        "authority record serialization and type registration",
+        "authority-specific validation"
+      ],
+      "generic_semantics_to_remove": [
+        "generic SQLite transactional persistence",
+        "generic revision indexing",
+        "generic immutable history engine"
+      ]
+    },
+    {
+      "module": "reassessment.py",
+      "classification": "REUSE",
+      "platform_owner": "MAPEOGEO / UoW cache & replay engine",
+      "authority_owned_semantics": [
+        "authority dependency declarations (rule packs, evidence frontier, actor bindings)"
+      ],
+      "generic_semantics_to_remove": [
+        "generic invalidation traversal",
+        "generic replay engine"
+      ]
+    },
+    {
+      "module": "provenance_evidence.py",
+      "classification": "REUSE",
+      "platform_owner": "MAPEOGEO proof & UoW evidence ledger",
+      "authority_owned_semantics": [
+        "legal source, review record, and rule pack evidence translation",
+        "review semantics (accepted/contested/rejected)"
+      ],
+      "generic_semantics_to_remove": [
+        "generic evidence ledger",
+        "generic digest storage",
+        "generic certificate publication"
+      ]
+    }
+  ]
+}

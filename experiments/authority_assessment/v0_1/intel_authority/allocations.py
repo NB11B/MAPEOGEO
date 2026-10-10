@@ -55,8 +55,26 @@ def _normalize_ref(ref_val: Any) -> Dict[str, Any]:
     return {"id": str(ref_val), "revision": 1}
 
 
-class AllocationManager:
-    """Manages shared limits, quotas, and indivisible resource reservations across UoWs."""
+@dataclass
+class AuthorityAllocationConstraint:
+    """Authority domain constraint on resource allocations."""
+    actor_ref: Dict[str, Any]
+    resource_ref: Dict[str, Any]
+    max_statutory_limit: Optional[Decimal] = None
+    purpose_scope_ref: Optional[Dict[str, Any]] = None
+
+    def verify_statutory_compliance(self, quantity: Any) -> Tuple[bool, Optional[str]]:
+        """Verifies that requested allocation does not exceed statutory bounds."""
+        if self.max_statutory_limit is None:
+            return True, None
+        val = extract_typed_value(quantity) if isinstance(quantity, dict) else Decimal(str(quantity))
+        if val > self.max_statutory_limit:
+            return False, f"Requested quantity {val} exceeds statutory limit {self.max_statutory_limit}"
+        return True, None
+
+
+class PlatformResourceEngine:
+    """Platform resource engine owning reservation lifecycle, leases, and double-spend exclusion."""
 
     def __init__(self, records: Optional[List[Dict[str, Any]]] = None) -> None:
         self.records: List[Dict[str, Any]] = records or []
@@ -81,11 +99,18 @@ class AllocationManager:
         uow_ref: Dict[str, Any] | str,
         quantity: Any,
         unit: Optional[str] = None,
+        authority_constraint: Optional[AuthorityAllocationConstraint] = None,
     ) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
         """Attempts to reserve a shared resource for a UoW (AQ53).
 
-        Fails if already reserved by another UoW.
+        Fails if already reserved by another UoW (double-spending prohibited)
+        or if authority precondition constraint fails.
         """
+        if authority_constraint:
+            ok, err = authority_constraint.verify_statutory_compliance(quantity)
+            if not ok:
+                return False, None, err
+
         r_id = _ref_id(resource_ref)
         target_uow = _ref_id(uow_ref)
 
@@ -133,7 +158,6 @@ class AllocationManager:
         alloc_id = _ref_id(allocation_ref)
         for rec in self.records:
             if _ref_id(rec.get("ref")) == alloc_id:
-                # Retains state RESERVED; does NOT change to RELEASED
                 return (
                     True,
                     f"Cancellation request recorded for '{alloc_id}'; reservation remains active pending authorized release basis",
@@ -153,3 +177,52 @@ class AllocationManager:
                 rec["release_basis_ref"] = _normalize_ref(release_basis_ref)
                 return True, None
         return False, f"Allocation '{alloc_id}' not found"
+
+
+class AllocationManager:
+    """[DEPRECATED in C2] Compatibility adapter delegating to PlatformResourceEngine.
+    
+    The authority domain supplies legal precondition checks; the platform owns reservation state.
+    """
+
+    def __init__(self, records: Optional[List[Dict[str, Any]]] = None) -> None:
+        self._engine = PlatformResourceEngine(records=records)
+
+    @property
+    def records(self) -> List[Dict[str, Any]]:
+        return self._engine.records
+
+    @records.setter
+    def records(self, val: List[Dict[str, Any]]) -> None:
+        self._engine.records = val
+
+    def get_active_reservation(
+        self,
+        resource_ref: Dict[str, Any] | str,
+    ) -> Optional[Dict[str, Any]]:
+        return self._engine.get_active_reservation(resource_ref)
+
+    def reserve(
+        self,
+        allocation_ref: Dict[str, Any] | str,
+        owner_ref: Dict[str, Any] | str,
+        resource_ref: Dict[str, Any] | str,
+        uow_ref: Dict[str, Any] | str,
+        quantity: Any,
+        unit: Optional[str] = None,
+    ) -> Tuple[bool, Optional[Dict[str, Any]], Optional[str]]:
+        return self._engine.reserve(allocation_ref, owner_ref, resource_ref, uow_ref, quantity, unit)
+
+    def request_cancellation(
+        self,
+        allocation_ref: Dict[str, Any] | str,
+    ) -> Tuple[bool, Optional[str]]:
+        return self._engine.request_cancellation(allocation_ref)
+
+    def release(
+        self,
+        allocation_ref: Dict[str, Any] | str,
+        release_basis_ref: Dict[str, Any] | str,
+    ) -> Tuple[bool, Optional[str]]:
+        return self._engine.release(allocation_ref, release_basis_ref)
+

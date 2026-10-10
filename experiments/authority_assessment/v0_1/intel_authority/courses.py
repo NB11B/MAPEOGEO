@@ -46,9 +46,27 @@ from experiments.authority_assessment.v0_1.intel_authority.allocations import (
 from experiments.authority_assessment.v0_1.intel_authority.case_bindings import (
     compute_case_digest,
 )
+from experiments.authority_assessment.v0_1.intel_authority.certificate_bridge import (
+    AuthorityCertificateWitness,
+    evaluate_authority_certificate,
+)
 from experiments.authority_assessment.v0_1.intel_authority.evaluator import (
     assess_case,
 )
+
+
+def certify_authority(
+    step: Dict[str, Any],
+    context: Dict[str, Any],
+    budget: Optional[Dict[str, Any]] = None,
+) -> Tuple[AuthorityCertificateWitness, Dict[str, Any]]:
+    """Evaluates authority certification witness for a workflow course step."""
+    case = step.get("case", {})
+    if not case and "case_ref" in step:
+        case = context.get("cases_by_id", {}).get(_ref_id(step["case_ref"]), {})
+    witness = evaluate_authority_certificate(case, context, budget=budget)
+    raw_assessment = assess_case(case, context, budget=budget)
+    return witness, raw_assessment
 
 
 def _canonical_digest(data: Any) -> str:
@@ -139,8 +157,8 @@ def assess_course(
                 })
                 break
 
-        # 3. Assess step ActionCase
-        step_ass = assess_case(case, context, budget)
+        # 3. Assess step ActionCase via domain certification witness
+        step_witness, step_ass = certify_authority(step, context, budget)
         step_results[s_id] = step_ass
         step_ass_ref = step_ass.get("ref", _normalize_ref(f"assessment:{s_id}"))
         step_assessment_refs.append(step_ass_ref)

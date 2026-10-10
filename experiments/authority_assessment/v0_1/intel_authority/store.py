@@ -63,8 +63,28 @@ def _ref_id(ref_val: Any) -> str:
     return str(ref_val)
 
 
-class AuthorityStore:
-    """SQLite-backed atomic revision store for published authority records."""
+class AuthorityRecordSchema:
+    """Authority domain serialization and validation schema adapter.
+    
+    The authority domain owns only type serialization and payload validation;
+    atomic SQLite persistence and transactional commit belong to the platform store.
+    """
+
+    @staticmethod
+    def strip_transport_metadata(result: Dict[str, Any]) -> Dict[str, Any]:
+        """Strips transport-only fields (derived_records) before canonical serialization."""
+        return {k: v for k, v in result.items() if k != "derived_records"}
+
+    @staticmethod
+    def serialize_payload(payload: Dict[str, Any]) -> Tuple[bytes, str, str]:
+        """Produces canonical bytes, SHA-256 digest, and decoded JSON string."""
+        payload_bytes = _canonical_json_bytes(payload)
+        digest = hashlib.sha256(payload_bytes).hexdigest()
+        return payload_bytes, digest, payload_bytes.decode("utf-8")
+
+
+class PlatformRecordStore:
+    """Platform atomic transactional store for immutable published records."""
 
     def __init__(self, database_path: str | Path) -> None:
         self.db_path = str(database_path)
@@ -107,18 +127,19 @@ class AuthorityStore:
             conn.close()
 
 
+class AuthorityStore(PlatformRecordStore):
+    """Authority domain store adapter extending PlatformRecordStore."""
+    pass
+
+
 def publish_assessment(
     result: Dict[str, Any],
     store: AuthorityStore,
     access_context: Optional[Dict[str, Any]] = None,
 ) -> Dict[str, Any]:
     """Atomically publishes a LegalAssessment or CourseAssessment to the store (AQ55).
-
-    Rules:
-    - Transport field 'derived_records' is stripped before hashing and persisting.
-    - If (record_id, revision) does not exist: writes atomically -> 'published'.
-    - If (record_id, revision) exists with IDENTICAL digest -> 'identical_replay'.
-    - If (record_id, revision) exists with DIFFERENT digest -> 'context_or_model_error' (mutation rejected).
+    
+    Delegates payload serialization to AuthorityRecordSchema and storage to PlatformRecordStore.
     """
     ref = result.get("ref")
     if not ref:
