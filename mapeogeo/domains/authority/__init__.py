@@ -32,6 +32,14 @@ from mapeogeo.domains.authority.intake import (
     LegalPackIntakeResult,
     ReviewerRecord,
 )
+from mapeogeo.domains.authority.impact import (
+    CounterpartyInterestEvaluator,
+    HOHFELDIAN_CORRELATIVES,
+    HOHFELDIAN_OPPOSITES,
+    ImpactAssessmentReport,
+    ImpactConstraintStatus,
+    TertiaryExposureRecord,
+)
 
 __all__ = [
     "ActionCase",
@@ -54,4 +62,10 @@ __all__ = [
     "LegalPackIntake",
     "LegalPackIntakeResult",
     "ReviewerRecord",
+    "CounterpartyInterestEvaluator",
+    "ImpactAssessmentReport",
+    "ImpactConstraintStatus",
+    "TertiaryExposureRecord",
+    "HOHFELDIAN_CORRELATIVES",
+    "HOHFELDIAN_OPPOSITES",
 ]

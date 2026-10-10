@@ -18,6 +18,7 @@ class HohfeldianModality(str, Enum):
     """The 8 fundamental Hohfeldian legal modalities."""
     PRIVILEGE = "privilege"   # Liberty to act; opposite of duty
     CLAIM = "claim"           # Entitlement against another; correlate of duty
+    RIGHT = "claim"           # Standard legal synonym for claim-right
     POWER = "power"           # Capacity to alter legal relations; correlate of liability
     IMMUNITY = "immunity"     # Freedom from legal alteration; opposite of liability
     DUTY = "duty"             # Obligation to act or forebear; correlate of claim
