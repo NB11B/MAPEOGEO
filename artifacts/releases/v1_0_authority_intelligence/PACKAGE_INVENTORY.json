@@ -152,8 +152,8 @@
     },
     {
       "path": "scripts/c13_publish_release.py",
-      "sha256": "5720ab41d74ed9b1054984a3ab23ef4df958e9204f7f1456dd7113c656d2e876",
-      "size_bytes": 20491,
+      "sha256": "3017043db3789879ed87ac3a19fee5168d17eb3563e558450f3a139c22ae1c89",
+      "size_bytes": 24439,
       "line_ending": "LF"
     },
     {
@@ -182,8 +182,8 @@
     },
     {
       "path": "tests/test_c13_release_manifest.py",
-      "sha256": "e4330cf740c22235619fd374993187dee70b7eadd0c16739e14ad032205a5d20",
-      "size_bytes": 6293,
+      "sha256": "3fa996b7a28dbb1927ec730e9fd0c50f08e7cc79092ae04050b1e1e1e1f42341",
+      "size_bytes": 6300,
       "line_ending": "LF"
     },
     {

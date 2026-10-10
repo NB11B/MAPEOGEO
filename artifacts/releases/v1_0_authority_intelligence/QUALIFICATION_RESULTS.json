@@ -1,11 +1,11 @@
 {
   "status": "QUALIFIED",
-  "campaign_timestamp": "2026-10-10T06:14:35.553565+00:00",
+  "campaign_timestamp": "2026-10-10T06:20:56.202963+00:00",
   "run_ids": [
-    "run_mechanical_run_1791612876_2c8c4999",
-    "run_host_run_1791612876_2c8c4999",
-    "run_pilot_run_1791612876_2c8c4999",
-    "run_c_series_1791612876"
+    "run_mechanical_run_1791613257_bb94d2ad",
+    "run_host_run_1791613257_bb94d2ad",
+    "run_pilot_run_1791613257_bb94d2ad",
+    "run_c_series_1791613257"
   ],
   "scorecard": {
     "reference_methods_passed": 152,
@@ -22,15 +22,15 @@
     "host_checks_total": 18,
     "pilot_cases_evaluated": 30,
     "pilot_agreements": 30,
-    "c_series_suites_passed": 10,
-    "c_series_suites_total": 10
+    "c_series_suites_passed": 11,
+    "c_series_suites_total": 11
   },
   "stage_reports": {
     "mechanical": {
       "stage": "mechanical",
-      "run_id": "run_1791612876_2c8c4999",
+      "run_id": "run_1791613257_bb94d2ad",
       "status": "passed",
-      "runtime_seconds": 0.0407,
+      "runtime_seconds": 0.0404,
       "counters": {
         "reference_methods_passed": 152,
         "reference_methods_total": 152,
@@ -54,7 +54,7 @@
     },
     "host": {
       "stage": "host",
-      "run_id": "run_1791612876_2c8c4999",
+      "run_id": "run_1791613257_bb94d2ad",
       "status": "passed",
       "runtime_seconds": 0.0011,
       "counters": {
@@ -69,7 +69,7 @@
     },
     "pilot": {
       "stage": "pilot",
-      "run_id": "run_1791612876_2c8c4999",
+      "run_id": "run_1791613257_bb94d2ad",
       "status": "passed",
       "runtime_seconds": 0.0027,
       "counters": {

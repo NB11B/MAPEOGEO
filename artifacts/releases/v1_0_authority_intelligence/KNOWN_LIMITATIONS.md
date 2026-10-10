@@ -1,5 +1,14 @@
 # Known Limitations and Epistemic Boundaries
-## Release v1.0 Candidate: Intelligence & Legal Authority Subsystems
+## Release v1.0: Intelligence & Legal Authority Subsystems
+
+### Epistemic Status & Mandatory Naming Distinction
+Two distinct classification labels govern this platform and must never be conflated:
+1. **Software Qualification (`QUALIFIED`)**:
+   Certifies that the software implementation has rigorously passed its declared mechanical, host, cross-domain, scale, and domain regression test suites (including 100% agreement across 288 direct oracle cells, 72 action queries, 48 actor queries, 56 AQ governance obligations, 18 host checks, and 30 synthetic pilot cases).
+2. **Legal Correctness (`REVIEWED WITHIN DECLARED LEGAL PACK`)**:
+   Reserved strictly for legal packs that have undergone authenticated, independent legal review by certified legal counsel in the governing jurisdiction. The current statutory pack provides deterministic integrity binding and schema validation over source text; it does not substitute for authenticated legal review.
+
+---
 
 ### 1. Synthetic Profile Agreement vs. Real-World Legal Correctness
 The qualification and verification suites demonstrate mechanical parity, algorithmic correctness, and exact schema compliance under synthetic test cases and scoped statutory packs. **Synthetic profile agreement does not constitute general legal correctness or definitive statutory interpretation.** Real-world operational deployment must be accompanied by certified statutory rule packs formally reviewed and signed off by qualified legal counsel in the governing jurisdiction.

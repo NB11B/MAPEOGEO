@@ -1,0 +1,15 @@
+{
+  "qualified_source_commit": "e571ffa5910dd6c0804a4573b06c2542e81f11f9",
+  "qualified_tag": "v1.0-authority-intelligence-rc1",
+  "target_repository": "https://github.com/NB11B/MAPEOGEO.git",
+  "target_branch": "main",
+  "target_base_commit": "c9d9fb0747a6e3a89f8654c70e9f2b48d5f97c53",
+  "integration_strategy": "merge",
+  "downstream_production_target": {
+    "target_repository": "https://github.com/NB11B/MAPEOGEOv2.git",
+    "target_branch": "main",
+    "target_base_commit": "1346330145ac37a991a22e159a6064cfa0856300",
+    "integration_strategy": "domain-adapter-promotion"
+  },
+  "rationale": "NB11B/MAPEOGEO is the historical research laboratory and scientific custody archive preserving the permanent research baseline. Merging experiment/authority-c2-consolidation into main seals the intelligence and authority subsystems within this repository's mainline via clean descendant merge. Canonical production architecture in NB11B/MAPEOGEOv2 consumes these validated domain profiles via its modular domain-adapter framework."
+}

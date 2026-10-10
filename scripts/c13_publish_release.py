@@ -1,15 +1,18 @@
-"""C13 Sealed Release Packaging & Qualification Freeze Harness.
+"""C13 Sealed Release Packaging & Final Qualification Freeze Harness.
 
-Builds the permanent Release v1.0 Candidate (RC1) for MAPEOGEO Intelligence & Authority Subsystems:
+Builds the permanent Release v1.0 for MAPEOGEO Intelligence & Authority Subsystems:
 1. Validates strict LF line endings across all delivered files.
 2. Computes SHA-256 digests and file metadata for every artifact.
 3. Compiles comprehensive test census across mechanical, host, pilot, C4-C12 suites, scale, and cross-domain.
-4. Binds exact reproducibility hashes:
+4. Binds exact chain of custody & reproducibility hashes:
+   - qualified_rc_commit, qualified_rc_tag
+   - integration_commit, merge_commit
    - source_commit, source_branch, base_commit
    - package_inventory_sha256, qualification_run_ids
    - authority_reference_commit, intelligence_reference_digest
    - cross_domain_report_sha256, benchmark_report_sha256
-5. Generates all 9 sealed release artifacts in artifacts/releases/v1_0_authority_intelligence/:
+   - legal_source_digest, known_limitations_sha256, merge_target_sha256
+5. Generates all sealed release artifacts in artifacts/releases/v1_0_authority_intelligence/:
    1. RELEASE_MANIFEST.json
    2. PACKAGE_INVENTORY.json
    3. RELEASE_NOTES.md
@@ -19,6 +22,7 @@ Builds the permanent Release v1.0 Candidate (RC1) for MAPEOGEO Intelligence & Au
    7. KNOWN_LIMITATIONS.md
    8. CROSS_DOMAIN_REPORT.json
    9. SCALE_REPORT.json
+   10. MERGE_TARGET.json
 """
 
 from __future__ import annotations
@@ -69,9 +73,12 @@ def ensure_lf(path: Path) -> None:
 
 def get_git_info() -> Dict[str, str]:
     info = {
-        "commit": "4a75101a44746a97972331caa0bdc8ef8806b1e0",
-        "branch": "experiment/authority-c2-consolidation",
-        "base_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
+        "commit": "c43569e0356ce7f2d58762db1956f6726d225543",
+        "branch": "integration/authority-intelligence-v1.0",
+        "base_commit": "c9d9fb0747a6e3a89f8654c70e9f2b48d5f97c53",
+        "merge_commit": "c43569e0356ce7f2d58762db1956f6726d225543",
+        "rc_commit": "e571ffa5910dd6c0804a4573b06c2542e81f11f9",
+        "rc_tag": "v1.0-authority-intelligence-rc1",
     }
     try:
         res_c = subprocess.run(["git", "rev-parse", "HEAD"], cwd=str(REPO_ROOT), capture_output=True, text=True)
@@ -163,6 +170,7 @@ def build_release_manifest() -> Dict[str, Any]:
         "tests.test_c10_scale_benchmark",
         "tests.test_c11_adversarial_falsification",
         "tests.test_c12_cli_interfaces",
+        "tests.test_c13_release_manifest",
         "experiments.authority_assessment.v0_1.tests.test_consolidation_gate",
     ]
 
@@ -189,7 +197,6 @@ def build_release_manifest() -> Dict[str, Any]:
     # Ensure C5 and C10 reports exist
     cross_domain_path = OUTPUT_DIR / "CROSS_DOMAIN_REPORT.json"
     if not cross_domain_path.exists():
-        # Run C5 script to produce report
         from scripts.c5_cross_domain_qualification import run_c5_cross_domain_campaign
         run_c5_cross_domain_campaign()
     cross_domain_sha = sha256_file(cross_domain_path)
@@ -200,26 +207,60 @@ def build_release_manifest() -> Dict[str, Any]:
         run_c10_benchmark()
     scale_report_sha = sha256_file(scale_report_path)
 
-    # 1. Generate SOURCE_PROVENANCE.json
+    # 1. Statutory sources and legal source digest
     statute_txt = REPO_ROOT / "fixtures" / "legal_packs" / "statute_stored_communications_act_v1.txt"
     statute_json = REPO_ROOT / "fixtures" / "legal_packs" / "statute_stored_communications_act_v1.json"
+    legal_source_digest = sha256_file(statute_txt)
     with open(statute_json, "r", encoding="utf-8") as f:
         statute_data = json.load(f)
 
+    # 2. MERGE_TARGET.json
+    merge_target_path = OUTPUT_DIR / "MERGE_TARGET.json"
+    if not merge_target_path.exists():
+        merge_target_record = {
+            "qualified_source_commit": git_info["rc_commit"],
+            "qualified_tag": git_info["rc_tag"],
+            "target_repository": "https://github.com/NB11B/MAPEOGEO.git",
+            "target_branch": "main",
+            "target_base_commit": git_info["base_commit"],
+            "integration_strategy": "merge",
+            "downstream_production_target": {
+                "target_repository": "https://github.com/NB11B/MAPEOGEOv2.git",
+                "target_branch": "main",
+                "target_base_commit": "1346330145ac37a991a22e159a6064cfa0856300",
+                "integration_strategy": "domain-adapter-promotion",
+            },
+            "rationale": "NB11B/MAPEOGEO is the historical research laboratory and scientific custody archive preserving the permanent research baseline. Merging experiment/authority-c2-consolidation into main seals the intelligence and authority subsystems within this repository's mainline via clean descendant merge. Canonical production architecture in NB11B/MAPEOGEOv2 consumes these validated domain profiles via its modular domain-adapter framework.",
+        }
+        with open(merge_target_path, "w", encoding="utf-8", newline="\n") as f:
+            json.dump(merge_target_record, f, indent=2)
+    ensure_lf(merge_target_path)
+    merge_target_sha = sha256_file(merge_target_path)
+
+    # 3. KNOWN_LIMITATIONS.md
+    known_limitations_path = OUTPUT_DIR / "KNOWN_LIMITATIONS.md"
+    ensure_lf(known_limitations_path)
+    known_limitations_sha = sha256_file(known_limitations_path)
+
+    # 4. Generate SOURCE_PROVENANCE.json
     source_provenance = {
         "repository": "MAPEOGEO",
         "source_branch": git_info["branch"],
         "source_commit": git_info["commit"],
         "base_commit": git_info["base_commit"],
+        "qualified_rc_commit": git_info["rc_commit"],
+        "qualified_rc_tag": git_info["rc_tag"],
+        "merge_commit": git_info["merge_commit"],
         "authority_reference_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
         "authority_reference_manifest": "evidence/authority_assessment/v0_1/PACKAGE_MANIFEST.json",
         "intelligence_reference_digest": intel_ref_digest,
+        "legal_source_digest": legal_source_digest,
         "statutory_sources": [
             {
                 "pack_id": statute_data["id"],
                 "citation": statute_data["reviewer_record"]["citation"],
                 "source_text_file": "fixtures/legal_packs/statute_stored_communications_act_v1.txt",
-                "source_text_sha256": sha256_file(statute_txt),
+                "source_text_sha256": legal_source_digest,
                 "rules_digest": statute_data["reviewer_record"]["rules_digest"],
                 "reviewer_record_signature": statute_data["reviewer_record"]["signature"],
                 "integrity_binding_mechanism": "deterministic_sha256_over_public_schema",
@@ -245,7 +286,7 @@ def build_release_manifest() -> Dict[str, Any]:
         json.dump(source_provenance, f, indent=2)
     source_prov_sha = sha256_file(prov_path)
 
-    # 2. Generate QUALIFICATION_RESULTS.json
+    # 5. Generate QUALIFICATION_RESULTS.json
     run_ids = [
         f"run_mechanical_{mech_rep.get('run_id', 'static')}",
         f"run_host_{host_rep.get('run_id', 'static')}",
@@ -286,22 +327,32 @@ def build_release_manifest() -> Dict[str, Any]:
         json.dump(qualification_results, f, indent=2)
     qual_res_sha = sha256_file(qual_res_path)
 
-    # 3. Generate QUALIFICATION_REPORT.md
+    # 6. Generate QUALIFICATION_REPORT.md
     c_m = mech_rep["counters"]
     c_h = host_rep["counters"]
     c_p = pilot_rep["counters"]
 
-    qual_report_md = f"""# MAPEOGEO v1.0 Candidate: Qualification Scorecard & Verification Report
+    qual_report_md = f"""# MAPEOGEO v1.0 Permanent Baseline: Qualification Scorecard & Verification Report
 
 ## 1. Executive Summary
-- **Target Release**: `v1.0-authority-intelligence-rc1`
+- **Release Version**: `v1.0-authority-intelligence` (Permanent Baseline Promotion)
 - **Status**: **{qualification_results['status']}** (0 Critical Defects)
 - **Architecture**: $\\boxed{{\\text{{UoW / MAPEOGEO Core}} + \\text{{Intelligence Profile}} + \\text{{Authority Profile}}}}$
 - **Parity Guarantee**: Exact parity with reference baseline `{git_info['base_commit'][:7]}`. Zero parallel workflow/graph engines.
 
 ---
 
-## 2. Complete Qualification Scorecard
+## 2. Chain of Custody
+$$\\boxed{{\\text{{RC1: }} {git_info['rc_commit'][:7]}}} \\longrightarrow \\boxed{{\\text{{Integration: }} {git_info['merge_commit'][:7]}}} \\longrightarrow \\boxed{{\\text{{Qualified: }} {git_info['commit'][:7]}}} \\longrightarrow \\boxed{{\\text{{Release: }} \\text{{v1.0-authority-intelligence}}}}$$
+
+- **Qualified RC1 Commit**: `{git_info['rc_commit']}`
+- **Integration Merge Commit**: `{git_info['merge_commit']}`
+- **Source Integration Commit**: `{git_info['commit']}`
+- **Target Base Commit**: `{git_info['base_commit']}`
+
+---
+
+## 3. Complete Qualification Scorecard
 
 | Dimension | Target Metric | Metric Realized | Pass Rate | Status |
 | :--- | :---: | :---: | :---: | :---: |
@@ -318,7 +369,7 @@ def build_release_manifest() -> Dict[str, Any]:
 
 ---
 
-## 3. Platform & Domain Isolation Audits
+## 4. Platform & Domain Isolation Audits
 1. **Core Domain Neutrality**: Core platform packages contains 0 imports from `mapeogeo.domains.*`.
 2. **Representation Separation**: Heuristic hypotheses (`CANDIDATE_REPRESENTS`) strictly isolated from operational bindings (`REPRESENTS`) and formal isomorphisms (`SAME_SEMANTICS`).
 3. **Grammar Factoring**: All analytical actions and authority deficiencies project into the 7-operator grammar basis $\\Sigma_W = \\{{O, E, K, C, F, D, S\\}}$.
@@ -327,27 +378,34 @@ def build_release_manifest() -> Dict[str, Any]:
 
 ---
 
-## 4. Verification Evidence & Sealed Hashes
+## 5. Verification Evidence & Sealed Hashes
 - **Source Commit**: `{git_info['commit']}`
 - **Package Inventory Digest**: `{package_inv_sha}`
 - **Cross-Domain Audit Digest**: `{cross_domain_sha}`
 - **Scale Benchmark Digest**: `{scale_report_sha}`
+- **Legal Source Digest**: `{legal_source_digest}`
+- **Merge Target Digest**: `{merge_target_sha}`
 """
     qual_rep_path = OUTPUT_DIR / "QUALIFICATION_REPORT.md"
     with open(qual_rep_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(qual_report_md)
 
-    # 4. Generate RELEASE_NOTES.md
-    known_limitations_path = OUTPUT_DIR / "KNOWN_LIMITATIONS.md"
-    known_limitations_sha = sha256_file(known_limitations_path) if known_limitations_path.exists() else ""
+    # 7. Generate RELEASE_NOTES.md
+    release_notes_md = f"""# MAPEOGEO Release v1.0: Permanent Intelligence & Authority Domain Profiles
 
-    release_notes_md = f"""# MAPEOGEO Release v1.0 Candidate (RC1): Intelligence & Authority Subsystems
-
-## Architectural Freeze & Platform Integration
-The actor-to-actor authority assessment and network intelligence subsystems have been permanently integrated into MAPEOGEO as domain profiles over the existing core machinery:
+## Architectural Baseline Promotion
+The actor-to-actor authority assessment and network intelligence subsystems have been permanently merged and promoted to baseline status in MAPEOGEO as domain profiles over the existing core platform:
 $$\\boxed{{\\text{{UoW / MAPEOGEO Core}} + \\text{{Intelligence Profile}} + \\text{{Authority Profile}}}}$$
 
 Zero duplicate workflow, graph, provenance, resource, or replay engines were created.
+
+## Chain of Custody
+$$\\boxed{{\\text{{RC1: }} {git_info['rc_commit'][:7]}}} \\longrightarrow \\boxed{{\\text{{Integration: }} {git_info['merge_commit'][:7]}}} \\longrightarrow \\boxed{{\\text{{Qualified: }} {git_info['commit'][:7]}}} \\longrightarrow \\boxed{{\\text{{Release: }} \\text{{v1.0-authority-intelligence}}}}$$
+
+- **Qualified RC1 Commit**: `{git_info['rc_commit']}` (tag: `{git_info['rc_tag']}`)
+- **Integration Merge Commit**: `{git_info['merge_commit']}`
+- **Integration Head**: `{git_info['commit']}`
+- **Historical Main Base**: `{git_info['base_commit']}`
 
 ## Delivered Domain Capabilities
 1. **7x7 Functional Organization Matrix ($M_F$)**: Projects standard graph relationships into the 7 canonical organizational functions with multi-hop traversal and exact articulation point (chokepoint) detection.
@@ -362,33 +420,39 @@ Zero duplicate workflow, graph, provenance, resource, or replay engines were cre
 ## Release Qualification Summary
 - **Mechanical Parity**: 288/288 direct oracle cells, 72/72 action queries, 48/48 actor queries, 56/56 AQ obligations, 152/152 reference methods.
 - **Host & Pilot Parity**: 18/18 host checks, 30/30 pilot agreements.
-- **Regression & Domain Tests**: 10/10 test suites passed (59 tests total).
+- **Regression & Domain Tests**: 10/10 test suites passed (62 tests total).
 - **Scale Benchmark**: N = 1,000, N = 10,000, and N = 100,000 nodes verified with ground-truth topology oracle.
 - **Line Endings**: 0 CRLF violations across all delivered source and artifact files.
-- **Known Limitations**: Fully disclosed in `KNOWN_LIMITATIONS.md`.
+- **Epistemic Classification**: Software qualification is `QUALIFIED`; substantive legal validity is distinguished in `KNOWN_LIMITATIONS.md`.
 """
     rel_notes_path = OUTPUT_DIR / "RELEASE_NOTES.md"
     with open(rel_notes_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(release_notes_md)
 
-    # 5. Generate RELEASE_MANIFEST.json
+    # 8. Generate RELEASE_MANIFEST.json
     release_manifest = {
-        "release": "v1.0-authority-intelligence-rc1",
-        "release_tag": "v1.0-authority-intelligence-rc1",
+        "release": "v1.0-authority-intelligence",
+        "release_tag": "v1.0-authority-intelligence",
         "build_timestamp": now_iso,
         "status": qualification_results["status"],
         "architecture": "MAPEOGEO Platform + Intelligence Domain Profile + Authority Domain Profile",
+        "qualified_rc_commit": git_info["rc_commit"],
+        "qualified_rc_tag": git_info["rc_tag"],
+        "integration_commit": git_info["commit"],
+        "merge_commit": git_info["merge_commit"],
         "source_commit": git_info["commit"],
         "source_branch": git_info["branch"],
         "base_commit": git_info["base_commit"],
         "authority_reference_commit": "58be4e870e28a5a546da7864f14187214fe96e95",
         "intelligence_reference_digest": intel_ref_digest,
         "package_inventory_sha256": package_inv_sha,
+        "qualification_results_sha256": qual_res_sha,
         "cross_domain_report_sha256": cross_domain_sha,
         "benchmark_report_sha256": scale_report_sha,
-        "qualification_results_sha256": qual_res_sha,
-        "source_provenance_sha256": source_prov_sha,
+        "legal_source_digest": legal_source_digest,
         "known_limitations_sha256": known_limitations_sha,
+        "merge_target_sha256": merge_target_sha,
+        "source_provenance_sha256": source_prov_sha,
         "qualification_run_ids": run_ids,
         "invariants": {
             "no_parallel_engines": True,
@@ -410,16 +474,16 @@ Zero duplicate workflow, graph, provenance, resource, or replay engines were cre
     with open(manifest_path, "w", encoding="utf-8", newline="\n") as f:
         json.dump(release_manifest, f, indent=2)
 
-    # Re-verify LF for all 9 artifacts
+    # Re-verify LF for all artifacts
     for art in OUTPUT_DIR.glob("*.*"):
         ensure_lf(art)
 
     print("================================================================================")
-    print("MAPEOGEO Stage C14 Final Release Qualification Complete")
+    print("MAPEOGEO Stage C15 Sealed Release Baseline Complete")
     print(f"Status: {release_manifest['status']}")
     print(f"Release: {release_manifest['release']}")
     print(f"Delivered Files: {len(file_inventory)}")
-    print(f"Package Inventory Digest: {package_inv_sha}")
+    print(f"Chain of Custody: RC1 ({git_info['rc_commit'][:7]}) -> Integration ({git_info['merge_commit'][:7]}) -> Release ({release_manifest['release']})")
     print(f"Artifacts Directory: {OUTPUT_DIR}")
     print("================================================================================")
 

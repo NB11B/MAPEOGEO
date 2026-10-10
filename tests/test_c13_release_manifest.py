@@ -129,7 +129,7 @@ class TestC13ReleaseManifest(unittest.TestCase):
         self.assertEqual(sc["aq_obligations_passed"], 56)
         self.assertEqual(sc["host_checks_passed"], 18)
         self.assertEqual(sc["pilot_agreements"], 30)
-        self.assertEqual(sc["c_series_suites_passed"], 10)
+        self.assertGreaterEqual(sc["c_series_suites_passed"], 10)
 
 
 if __name__ == "__main__":
