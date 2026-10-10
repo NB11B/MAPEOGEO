@@ -1,0 +1,51 @@
+{
+  "declared_files": [
+    {
+      "path": "contracts/authority_contracts_v0_1.json",
+      "sha256": "11b95c0d26dd461c38b1bf1964804271691c9d8f82b1b69fbf963db7aebf9bda",
+      "size_bytes": 40031
+    },
+    {
+      "path": "qualification/authority_cases_v0_1.json",
+      "sha256": "ef80855805f7e82243b0eed5c19c7dc1bed3684fffd2312ebe2de5c0c90d0300",
+      "size_bytes": 38636
+    },
+    {
+      "path": "qualification/direct_oracle_v0_1.json",
+      "sha256": "2ca98accddb2d98bf6b5e74524140cf9b4b45f410381ed815fc7fd87e25331f6",
+      "size_bytes": 209005
+    },
+    {
+      "path": "qualification/reverse_domains_v0_1.json",
+      "sha256": "57dc4c19ad5bf1e256f7b7d0336a385ae8c3afb99c86561d43099a8004fe0cdf",
+      "size_bytes": 1353
+    },
+    {
+      "path": "fixtures/synthetic/actors.json",
+      "sha256": "03e6b4edd6798dbef9f185154f11b3426aeae6e16e2e347abae678c83cd7c382",
+      "size_bytes": 958
+    },
+    {
+      "path": "fixtures/synthetic/interests.json",
+      "sha256": "fc5148441f903932a4846e425e4b0e925208f6e5ff60f7db44475429e231a11d",
+      "size_bytes": 393
+    },
+    {
+      "path": "fixtures/synthetic/operations.json",
+      "sha256": "90a09a12140f54211437b9bdcb55c29dc2df9e02b7c34979128ab1dfa6a8559b",
+      "size_bytes": 524
+    },
+    {
+      "path": "fixtures/synthetic/rule_pack_commercial_privacy.json",
+      "sha256": "06e330f8d3bc2f70fe9c41464da01f2c1267a247863d5ce4c1126583552fef36",
+      "size_bytes": 2178
+    },
+    {
+      "path": "fixtures/synthetic/rule_pack_public_oversight.json",
+      "sha256": "8c38d0a2dc5b00beb133698cc838f8333118d4200f9183b2ed60c11c2ae0af07",
+      "size_bytes": 1923
+    }
+  ],
+  "freeze_id": "authority_v0_1_qualification_freeze_g0a",
+  "status": "frozen_immutable_expectations"
+}

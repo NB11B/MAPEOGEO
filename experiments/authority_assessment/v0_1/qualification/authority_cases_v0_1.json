@@ -1,0 +1,1038 @@
+{
+  "catalog_id": "authority_qualification_v0_1",
+  "version": "0.1",
+  "status": "specified_not_executed",
+  "author": "Nathanael J. Bocker",
+  "copyright": "© 2026 Nathanael J. Bocker. All Rights Reserved.",
+  "declared_obligation_count": 56,
+  "cases": [
+    {
+      "id": "AQ01",
+      "name": "direct_supported_with_complete_basis",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R01",
+        "R05",
+        "R08",
+        "R10"
+      ],
+      "fixture_setup": "A reviewed basis and every entry condition are established for one exact case.",
+      "required_expectation": "disposition supported_within_scope; complete trace includes case, role, interests, rules, reviews and context.",
+      "test_name": "test_aq01_direct_supported_with_complete_basis"
+    },
+    {
+      "id": "AQ02",
+      "name": "explicit_prohibition_requires_positive_basis",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "fixture_setup": "One applicable reviewed prohibition is established with material exceptions resolved; compare a missing-grant-only case.",
+      "required_expectation": "Only the explicit-rule case is prohibited_under_reviewed_rule; missing grant alone is not prohibition.",
+      "test_name": "test_aq02_explicit_prohibition_requires_positive_basis"
+    },
+    {
+      "id": "AQ03",
+      "name": "known_unmet_condition_differs_from_unknown_condition",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T03",
+        "T04"
+      ],
+      "requirements": [
+        "R07",
+        "R10"
+      ],
+      "fixture_setup": "Evaluate the same prerequisite as supported, refuted, unknown and conflicting; retain other available basis paths.",
+      "required_expectation": "A known failed prerequisite indispensable to all routes, or complete known failure of every covered alternative, yields conditions_unmet. A potentially sufficient unresolved alternative yields unresolved. Preserve independent prohibitions.",
+      "test_name": "test_aq03_known_unmet_condition_differs_from_unknown_condition"
+    },
+    {
+      "id": "AQ04",
+      "name": "competing_rules_require_reviewed_resolution",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "fixture_setup": "Two aligned incompatible rules with, and without, an accepted priority relation.",
+      "required_expectation": "Apply reviewed priority only; unresolved conflict retains both arguments.",
+      "test_name": "test_aq04_competing_rules_require_reviewed_resolution"
+    },
+    {
+      "id": "AQ05",
+      "name": "any_actor_pair_preserves_direction_and_interests",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T01",
+        "T09"
+      ],
+      "requirements": [
+        "R01",
+        "R02"
+      ],
+      "fixture_setup": "Swap actors A and B, substitute affected C, evaluate self-pairs and an unfamiliar actor.",
+      "required_expectation": "Bindings remain distinct; self-pair validity follows the registry; unfamiliar identity yields a named unresolved binding.",
+      "test_name": "test_aq05_any_actor_pair_preserves_direction_and_interests"
+    },
+    {
+      "id": "AQ06",
+      "name": "uow_admission_and_legal_finding_are_independent_axes",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04",
+        "T07"
+      ],
+      "requirements": [
+        "R03",
+        "R17"
+      ],
+      "fixture_setup": "Admit analysis of a prohibited subject act; separately request execution of that act.",
+      "required_expectation": "Analysis can be admitted and report prohibition. Execution entry cannot be admitted with that result. Malformed input is technical error.",
+      "test_name": "test_aq06_uow_admission_and_legal_finding_are_independent_axes",
+      "required_subcases": [
+        "Admitted assess_case UoW reports prohibited subject conduct without authorizing that conduct.",
+        "An execute_assessed_action proposal with that same prohibited result cannot pass entry.",
+        "Admission for one enumeration domain cannot cover an expanded domain with the same first case.",
+        "Adding a course or changing a comparison policy requires successor admission."
+      ]
+    },
+    {
+      "id": "AQ07",
+      "name": "right_is_not_an_operational_grant",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R03",
+        "R04"
+      ],
+      "fixture_setup": "B has a claim-right; A proposes affecting that interest without an established basis.",
+      "required_expectation": "Preserve B's interest and corresponding constraint; no automatic grant to A.",
+      "test_name": "test_aq07_right_is_not_an_operational_grant"
+    },
+    {
+      "id": "AQ08",
+      "name": "role_authority_requires_bound_role_evidence",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R01",
+        "R04",
+        "R07"
+      ],
+      "fixture_setup": "Use the same title with established, missing and disputed capacity evidence.",
+      "required_expectation": "Title alone supplies no appointment or authority; exact capacity and scope determine the route.",
+      "test_name": "test_aq08_role_authority_requires_bound_role_evidence"
+    },
+    {
+      "id": "AQ09",
+      "name": "grant_binds_exact_action_and_parties",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T01",
+        "T04"
+      ],
+      "requirements": [
+        "R01",
+        "R17"
+      ],
+      "fixture_setup": "Individually mutate performer, capacity, operation, affected actor, purpose, object, recipient and jurisdiction.",
+      "required_expectation": "A prior grant or assessment cannot silently cover any incompatible mutation; binding changes are visible.",
+      "test_name": "test_aq09_grant_binds_exact_action_and_parties"
+    },
+    {
+      "id": "AQ10",
+      "name": "delegation_chain_cannot_expand_authority",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R04",
+        "R08",
+        "R22"
+      ],
+      "fixture_setup": "Test missing predecessor, nondelegability, cyclic chains, narrowed descendants and an alternative valid path.",
+      "required_expectation": "No expansion or circular bootstrap; a valid independent route remains assessable; depth exhaustion is explicit.",
+      "test_name": "test_aq10_delegation_chain_cannot_expand_authority"
+    },
+    {
+      "id": "AQ11",
+      "name": "normative_relation_types_remain_distinct",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R04"
+      ],
+      "fixture_setup": "Represent permission, power, duty, claim-right and immunity in aligned cases.",
+      "required_expectation": "Preserve type and counterparties; competence is not occurrence, duty is not capability or discharge.",
+      "test_name": "test_aq11_normative_relation_types_remain_distinct"
+    },
+    {
+      "id": "AQ12",
+      "name": "capability_and_self_assertion_do_not_create_authority",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R03",
+        "R04",
+        "R15"
+      ],
+      "fixture_setup": "Supply organizational reachability, source entitlement claims, favorable effects and offensive or defensive labels.",
+      "required_expectation": "None supplies reviewed authority, actual grant or admission.",
+      "test_name": "test_aq12_capability_and_self_assertion_do_not_create_authority"
+    },
+    {
+      "id": "AQ13",
+      "name": "jurisdiction_types_are_not_interchangeable",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T01",
+        "T03"
+      ],
+      "requirements": [
+        "R01",
+        "R06"
+      ],
+      "fixture_setup": "Supply territorial evidence where a subject-matter or capacity connection is required.",
+      "required_expectation": "Wrong type cannot satisfy the condition; preserve taxonomy and gap.",
+      "test_name": "test_aq13_jurisdiction_types_are_not_interchangeable"
+    },
+    {
+      "id": "AQ14",
+      "name": "all_required_scope_dimensions_must_align",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T03"
+      ],
+      "requirements": [
+        "R01",
+        "R06"
+      ],
+      "fixture_setup": "Vary territory, person, subject matter, action and effective context independently.",
+      "required_expectation": "Established mismatch excludes the rule for that case; missing or disputed connecting facts stay explicit.",
+      "test_name": "test_aq14_all_required_scope_dimensions_must_align"
+    },
+    {
+      "id": "AQ15",
+      "name": "multiple_applicable_scopes_preserve_constraints",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T03",
+        "T04"
+      ],
+      "requirements": [
+        "R06",
+        "R08"
+      ],
+      "fixture_setup": "Two independently applicable packs, one supportive and one containing a surviving constraint.",
+      "required_expectation": "Whole-case assessment preserves both; unrelated inapplicable rules are excluded with reasons.",
+      "test_name": "test_aq15_multiple_applicable_scopes_preserve_constraints"
+    },
+    {
+      "id": "AQ16",
+      "name": "obligation_has_trigger_bearer_beneficiary_and_content",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R04",
+        "R13"
+      ],
+      "fixture_setup": "Vary trigger, bearer and beneficiary of the same duty.",
+      "required_expectation": "Duty attaches only to matching bindings and trigger; no reassignment from a neighboring actor.",
+      "test_name": "test_aq16_obligation_has_trigger_bearer_beneficiary_and_content"
+    },
+    {
+      "id": "AQ17",
+      "name": "obligation_satisfaction_requires_matching_evidence",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R04",
+        "R07"
+      ],
+      "fixture_setup": "Offer intent, admission, attempt, wrong beneficiary and actual aligned performance as discharge evidence.",
+      "required_expectation": "Only matching performance and timing evidence can discharge the relevant duty.",
+      "test_name": "test_aq17_obligation_satisfaction_requires_matching_evidence"
+    },
+    {
+      "id": "AQ18",
+      "name": "outstanding_obligations_survive_action_assessment",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04",
+        "T06"
+      ],
+      "requirements": [
+        "R04",
+        "R13"
+      ],
+      "fixture_setup": "Support an action carrying an after-action duty; add incompatible obligations.",
+      "required_expectation": "Support does not erase duties; incompatibility and residual requirements remain explicit.",
+      "test_name": "test_aq18_outstanding_obligations_survive_action_assessment"
+    },
+    {
+      "id": "AQ19",
+      "name": "finding_reconstructs_source_to_rule_chain",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T02"
+      ],
+      "requirements": [
+        "R05",
+        "R20"
+      ],
+      "fixture_setup": "Trace a decisive result through source provision, version, interpretation and accepted review.",
+      "required_expectation": "Every decisive link is reconstructable and pinned; missing links block unsupported certainty.",
+      "test_name": "test_aq19_finding_reconstructs_source_to_rule_chain"
+    },
+    {
+      "id": "AQ20",
+      "name": "retrieved_source_is_not_reviewed_law_pack",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T02",
+        "T09"
+      ],
+      "requirements": [
+        "R05",
+        "R15",
+        "R20"
+      ],
+      "fixture_setup": "Import extracted source, a forged reviewed flag, unverified reviewer identity and fixture receipt in pilot mode.",
+      "required_expectation": "No automatic accepted pack; trust-mode and authenticated review-boundary checks are enforced.",
+      "test_name": "test_aq20_retrieved_source_is_not_reviewed_law_pack"
+    },
+    {
+      "id": "AQ21",
+      "name": "assessments_pin_exact_source_and_rule_versions",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T02",
+        "T08"
+      ],
+      "requirements": [
+        "R05",
+        "R18"
+      ],
+      "fixture_setup": "Amend source and rule revisions after an assessment is stored.",
+      "required_expectation": "Old result replays unchanged; successor names new pins and reason.",
+      "test_name": "test_aq21_assessments_pin_exact_source_and_rule_versions"
+    },
+    {
+      "id": "AQ22",
+      "name": "effective_law_and_known_at_frontier_are_separate",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T02",
+        "T07"
+      ],
+      "requirements": [
+        "R16",
+        "R18"
+      ],
+      "fixture_setup": "A source is received after the occurrence it concerns, under a supported legal-time mapping.",
+      "required_expectation": "New historical assessment is possible; earlier receipt knowledge and admission are unchanged.",
+      "test_name": "test_aq22_effective_law_and_known_at_frontier_are_separate"
+    },
+    {
+      "id": "AQ23",
+      "name": "conflicting_sources_have_no_implicit_recency_priority",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T02",
+        "T04"
+      ],
+      "requirements": [
+        "R05",
+        "R09"
+      ],
+      "fixture_setup": "Reorder uploads and alter timestamps or model scores for incompatible sources.",
+      "required_expectation": "No implicit priority; accepted reviewed relations alone determine defeat.",
+      "test_name": "test_aq23_conflicting_sources_have_no_implicit_recency_priority"
+    },
+    {
+      "id": "AQ24",
+      "name": "coverage_limits_prevent_law_by_silence",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T02",
+        "T09"
+      ],
+      "requirements": [
+        "R02",
+        "R06",
+        "R10"
+      ],
+      "fixture_setup": "Remove relevant jurisdiction, operation or affected-interest coverage.",
+      "required_expectation": "Return unresolved coverage; no universal permission or prohibition from absence.",
+      "test_name": "test_aq24_coverage_limits_prevent_law_by_silence"
+    },
+    {
+      "id": "AQ25",
+      "name": "what_actions_returns_exact_bounded_candidates",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R11"
+      ],
+      "fixture_setup": "Fix actor, affected scope and context over the frozen operation domain.",
+      "required_expectation": "Complete supported set equals independent expected direct cells; conditions and trace refs are retained.",
+      "test_name": "test_aq25_what_actions_returns_exact_bounded_candidates"
+    },
+    {
+      "id": "AQ26",
+      "name": "which_actors_returns_exact_bounded_candidates",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R11"
+      ],
+      "fixture_setup": "Fix operation and affected scope over the frozen actor-capacity domain.",
+      "required_expectation": "Complete supported actor-capacity set equals the independent oracle.",
+      "test_name": "test_aq26_which_actors_returns_exact_bounded_candidates"
+    },
+    {
+      "id": "AQ27",
+      "name": "reverse_query_preserves_unresolved_candidates",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R02",
+        "R11"
+      ],
+      "fixture_setup": "Include candidates with unknown identity, applicability or conditions.",
+      "required_expectation": "Unknown candidates remain accounted and visible as requested; they are not relabeled negative.",
+      "test_name": "test_aq27_reverse_query_preserves_unresolved_candidates"
+    },
+    {
+      "id": "AQ28",
+      "name": "reverse_results_match_independent_direct_oracle",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R11",
+        "R23"
+      ],
+      "fixture_setup": "Compare every complete reverse selection with both direct evaluator and independent oracle.",
+      "required_expectation": "No false inclusion or omission; parity is reported separately from oracle correctness.",
+      "test_name": "test_aq28_reverse_results_match_independent_direct_oracle"
+    },
+    {
+      "id": "AQ29",
+      "name": "search_exhaustion_cannot_claim_global_absence",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R11",
+        "R22"
+      ],
+      "fixture_setup": "Stop before the final candidate and compare a complete empty supported set.",
+      "required_expectation": "Partial result has incomplete coverage and remainder; complete empty is limited to the stated domain.",
+      "test_name": "test_aq29_search_exhaustion_cannot_claim_global_absence"
+    },
+    {
+      "id": "AQ30",
+      "name": "reverse_query_reacts_to_material_binding_changes",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05",
+        "T08"
+      ],
+      "requirements": [
+        "R01",
+        "R11",
+        "R18"
+      ],
+      "fixture_setup": "Change capacity, purpose, recipients, interests, jurisdiction, review or source snapshot after caching.",
+      "required_expectation": "Incompatible positive reuse is prevented; exact historical replay remains available.",
+      "test_name": "test_aq30_reverse_query_reacts_to_material_binding_changes"
+    },
+    {
+      "id": "AQ31",
+      "name": "gap_type_selects_appropriate_resolution_route",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R12"
+      ],
+      "fixture_setup": "Create a gap of every declared kind under an explicit question.",
+      "required_expectation": "Every gap has a scoped proposition, dependencies and matching work class; no invented probability or priority.",
+      "test_name": "test_aq31_gap_type_selects_appropriate_resolution_route"
+    },
+    {
+      "id": "AQ32",
+      "name": "finding_a_grant_differs_from_creating_a_grant",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R12",
+        "R15",
+        "R17"
+      ],
+      "fixture_setup": "Retrieve evidence of an existing actual grant, then compare a hypothetical future grant.",
+      "required_expectation": "Actual evidence may resolve an evidence gap; proposed issuance stays hypothetical and requires subsequent matching assessment.",
+      "test_name": "test_aq32_finding_a_grant_differs_from_creating_a_grant"
+    },
+    {
+      "id": "AQ33",
+      "name": "legal_review_cannot_invent_fact_or_grant",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05"
+      ],
+      "requirements": [
+        "R05",
+        "R12",
+        "R15"
+      ],
+      "fixture_setup": "Accept an interpretation while a material fact or required grant remains missing.",
+      "required_expectation": "Interpretation may change; the fact or grant remains unestablished.",
+      "test_name": "test_aq33_legal_review_cannot_invent_fact_or_grant"
+    },
+    {
+      "id": "AQ34",
+      "name": "course_requires_each_step_and_dependency",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T06"
+      ],
+      "requirements": [
+        "R13"
+      ],
+      "fixture_setup": "Use a three-step course with a supported endpoint and unsupported middle step.",
+      "required_expectation": "No whole-course support; identify the blocking step and dependency.",
+      "test_name": "test_aq34_course_requires_each_step_and_dependency"
+    },
+    {
+      "id": "AQ35",
+      "name": "individually_supported_steps_may_conflict_when_composed",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T06"
+      ],
+      "requirements": [
+        "R13",
+        "R19"
+      ],
+      "fixture_setup": "Combine individually supported steps with overlapping allocations, incompatible consents or removed prerequisites.",
+      "required_expectation": "Whole-course conflict or unmet condition remains visible with a concrete combined-constraint witness.",
+      "test_name": "test_aq35_individually_supported_steps_may_conflict_when_composed"
+    },
+    {
+      "id": "AQ36",
+      "name": "alternative_search_retains_limits_and_comparability",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T06"
+      ],
+      "requirements": [
+        "R13",
+        "R22"
+      ],
+      "fixture_setup": "Compare two supplied courses with unknown costs and a truncated branch or candidate set.",
+      "required_expectation": "display_only comparison returns each scoped legal assessment and supplied measures without ranking; policy and full course-set digest are bound; cutoff preserves unassessed count.",
+      "test_name": "test_aq36_alternative_search_retains_limits_and_comparability"
+    },
+    {
+      "id": "AQ37",
+      "name": "source_scenario_and_actual_layers_do_not_cross",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07",
+        "T09"
+      ],
+      "requirements": [
+        "R03",
+        "R15",
+        "R21"
+      ],
+      "fixture_setup": "Inject hypothetical grants, reviews, legal-effective events, completion, cancellation and discharge.",
+      "required_expectation": "No actual evidence, grant, reservation, duty or host lifecycle change.",
+      "test_name": "test_aq37_source_scenario_and_actual_layers_do_not_cross"
+    },
+    {
+      "id": "AQ38",
+      "name": "evidence_alignment_and_lineage_are_preserved",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T03"
+      ],
+      "requirements": [
+        "R07",
+        "R20"
+      ],
+      "fixture_setup": "Use wrong subject, predicate, period, modality and repeated common-origin reports.",
+      "required_expectation": "Misaligned evidence cannot satisfy conditions; repeated origin is not independent corroboration.",
+      "test_name": "test_aq38_evidence_alignment_and_lineage_are_preserved"
+    },
+    {
+      "id": "AQ39",
+      "name": "unrelated_local_counters_establish_no_order",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07"
+      ],
+      "requirements": [
+        "R16"
+      ],
+      "fixture_setup": "Use separate UoWs with the same participant name and counters 100 and 2.",
+      "required_expectation": "No inferred order absent a justified relation; stream ownership stays explicit.",
+      "test_name": "test_aq39_unrelated_local_counters_establish_no_order"
+    },
+    {
+      "id": "AQ40",
+      "name": "causal_receipts_preserve_local_knowledge",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07"
+      ],
+      "requirements": [
+        "R16",
+        "R18"
+      ],
+      "fixture_setup": "Add an actual causal parent; then test missing required references and a causal cycle.",
+      "required_expectation": "Valid parent establishes order; invalid complete-snapshot history is diagnosed without partial publication.",
+      "test_name": "test_aq40_causal_receipts_preserve_local_knowledge"
+    },
+    {
+      "id": "AQ41",
+      "name": "clock_identity_encoding_preserves_distinct_streams",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T01",
+        "T07",
+        "T09"
+      ],
+      "requirements": [
+        "R16",
+        "R21"
+      ],
+      "fixture_setup": "Compare domain-owner pairs ops-colon plus analyst and ops plus colon-analyst; test events and parents.",
+      "required_expectation": "Distinct canonical stream identities round-trip and retain separate events; explicit cross-stream parents still work.",
+      "test_name": "test_aq41_clock_identity_encoding_preserves_distinct_streams"
+    },
+    {
+      "id": "AQ42",
+      "name": "legal_effective_time_is_not_a_uow_counter",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T03",
+        "T07"
+      ],
+      "requirements": [
+        "R06",
+        "R16"
+      ],
+      "fixture_setup": "Attempt to determine expiry using an unrelated local sequence or asserted date without reference-time mapping.",
+      "required_expectation": "Applicability remains unresolved until the declared mapping or evidence establishes the relation.",
+      "test_name": "test_aq42_legal_effective_time_is_not_a_uow_counter"
+    },
+    {
+      "id": "AQ43",
+      "name": "prior_assessment_remains_replayable",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T08"
+      ],
+      "requirements": [
+        "R18",
+        "R20"
+      ],
+      "fixture_setup": "Replay after source, review, role and question amendments and restart.",
+      "required_expectation": "Exact pinned result, basis, limitations and local frontier remain recoverable.",
+      "test_name": "test_aq43_prior_assessment_remains_replayable"
+    },
+    {
+      "id": "AQ44",
+      "name": "revocation_or_revision_affects_successor_use",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07",
+        "T08"
+      ],
+      "requirements": [
+        "R16",
+        "R18"
+      ],
+      "fixture_setup": "Receive a material revocation or revision at one boundary after a prior admitted occurrence.",
+      "required_expectation": "Dependent successor use is reassessed; historical basis and other participants' knowledge are not rewritten.",
+      "test_name": "test_aq44_revocation_or_revision_affects_successor_use"
+    },
+    {
+      "id": "AQ45",
+      "name": "requirement_retirement_does_not_discharge_work_or_duties",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07",
+        "T08"
+      ],
+      "requirements": [
+        "R17",
+        "R18",
+        "R19"
+      ],
+      "fixture_setup": "Retire a question with shared gaps, work, allocations and residual duties.",
+      "required_expectation": "Retirement changes only its declared requirement facet; other obligations remain.",
+      "test_name": "test_aq45_requirement_retirement_does_not_discharge_work_or_duties"
+    },
+    {
+      "id": "AQ46",
+      "name": "cancellation_request_receipt_and_application_differ",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07"
+      ],
+      "requirements": [
+        "R16",
+        "R17",
+        "R19"
+      ],
+      "fixture_setup": "Record request, receipt and acceptance without application evidence.",
+      "required_expectation": "No inferred stopped work, completed cancellation or resource release.",
+      "test_name": "test_aq46_cancellation_request_receipt_and_application_differ"
+    },
+    {
+      "id": "AQ47",
+      "name": "cancellation_application_requires_boundary_and_release_basis",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07"
+      ],
+      "requirements": [
+        "R17",
+        "R19"
+      ],
+      "fixture_setup": "Apply cancellation with wrong target, wrong boundary, scenario evidence or missing release basis.",
+      "required_expectation": "Only exact authorized actual application affects its declared scope; release and residual duties retain separate evidence.",
+      "test_name": "test_aq47_cancellation_application_requires_boundary_and_release_basis"
+    },
+    {
+      "id": "AQ48",
+      "name": "unknown_completion_requires_reconciliation_before_retry",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T07"
+      ],
+      "requirements": [
+        "R17",
+        "R18",
+        "R19"
+      ],
+      "fixture_setup": "A nonidempotent action has unknown completion; propose an identical retry and compensation.",
+      "required_expectation": "Require reconciliation or a qualified retry contract; compensation remains separately proposed and admitted.",
+      "test_name": "test_aq48_unknown_completion_requires_reconciliation_before_retry"
+    },
+    {
+      "id": "AQ49",
+      "name": "four_state_logic_preserves_nonexplosive_uncertainty",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T03"
+      ],
+      "requirements": [
+        "R07"
+      ],
+      "fixture_setup": "Enumerate all 16 AND pairs, 16 OR pairs and four NOT values; include conflicting quantitative inputs.",
+      "required_expectation": "Exact truth pairs match the specification; contradiction yields no unrelated proposition; unsupported quantities stay unresolved.",
+      "test_name": "test_aq49_four_state_logic_preserves_nonexplosive_uncertainty",
+      "required_subcases": [
+        "16 AND pairs, 16 OR pairs and four NOT inputs follow the specified equations.",
+        "Case parameter 4 units compared with limit 5 units evaluates supported for le; incompatible units are invalid.",
+        "Two conflicting supported quantity values do not yield an unsupported inequality; return unknown with quantity_conflict.",
+        "A proposition leaf resolves all aligned accepted evidence rather than one selected report."
+      ]
+    },
+    {
+      "id": "AQ50",
+      "name": "unknown_exception_blocks_unconditional_support",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R07",
+        "R09",
+        "R10"
+      ],
+      "fixture_setup": "Permission has a material exception whose antecedent is unknown or conflicting; compare proven irrelevant exception.",
+      "required_expectation": "No unconditional support while a material defeater remains; a complete proof of irrelevance may preserve support.",
+      "test_name": "test_aq50_unknown_exception_blocks_unconditional_support"
+    },
+    {
+      "id": "AQ51",
+      "name": "reviewed_default_liberty_differs_from_delegated_power",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T04"
+      ],
+      "requirements": [
+        "R04",
+        "R08",
+        "R10"
+      ],
+      "fixture_setup": "Compare a reviewed default-liberty rule, an unreviewed missing prohibition and a required delegated power.",
+      "required_expectation": "Only the explicit reviewed default can support the private-liberty route; no universal default in either direction.",
+      "test_name": "test_aq51_reviewed_default_liberty_differs_from_delegated_power"
+    },
+    {
+      "id": "AQ52",
+      "name": "source_instructions_and_model_scores_are_data",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T02"
+      ],
+      "requirements": [
+        "R05",
+        "R15",
+        "R20"
+      ],
+      "fixture_setup": "Source text or an LLM candidate asks to ignore policy, set reviewed or issue a grant.",
+      "required_expectation": "Content remains data; candidate confidence and instructions cannot mutate authority or review state.",
+      "test_name": "test_aq52_source_instructions_and_model_scores_are_data"
+    },
+    {
+      "id": "AQ53",
+      "name": "shared_allowance_cannot_be_spent_twice_across_uows",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T06",
+        "T07"
+      ],
+      "requirements": [
+        "R13",
+        "R16",
+        "R19"
+      ],
+      "fixture_setup": "Two UoWs reference one owner-issued allocation; one has only cancellation receipt.",
+      "required_expectation": "No double use or premature release; missing global allocation knowledge stays unknown.",
+      "test_name": "test_aq53_shared_allowance_cannot_be_spent_twice_across_uows"
+    },
+    {
+      "id": "AQ54",
+      "name": "robust_and_contingent_quantifiers_are_distinct",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T06"
+      ],
+      "requirements": [
+        "R13",
+        "R14",
+        "R16"
+      ],
+      "fixture_setup": "Each world supports a different action but no fixed action; compare an observable and unobservable branch guard.",
+      "required_expectation": "No robust fixed-action claim; contingent support requires evidence available before the branch decision.",
+      "test_name": "test_aq54_robust_and_contingent_quantifiers_are_distinct",
+      "required_subcases": [
+        "Supported in one branch and prohibited in another yields aggregate unresolved.",
+        "Different supported actions in each branch do not imply one robust fixed action.",
+        "A legal-reference time mapping alone cannot satisfy information availability for a course guard."
+      ]
+    },
+    {
+      "id": "AQ55",
+      "name": "atomic_publication_and_dependency_replay_survive_failure",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T05",
+        "T06",
+        "T08"
+      ],
+      "requirements": [
+        "R18",
+        "R20",
+        "R21"
+      ],
+      "fixture_setup": "Interrupt a transaction, retry identical and different bytes, restart, then introduce a newly relevant source.",
+      "required_expectation": "No partial publication; only identical replay is idempotent; new relevance triggers assessment without erasing history.",
+      "test_name": "test_aq55_atomic_publication_and_dependency_replay_survive_failure",
+      "required_subcases": [
+        "A read-only direct, candidate or course result returns every fresh referenced derivation in its owning closure without store mutation.",
+        "A returned assessment extracted from a query or course keeps the same normalized content hash when its owning closure is attached for publication.",
+        "A missing material derived record or same-ID/revision payload collision is rejected before publication.",
+        "Root and derived records publish atomically; an interrupted transaction leaves neither a partial root nor partial links.",
+        "Identical normalized bytes permit replay, changed bytes do not; successor relevance never rewrites prior assessment history."
+      ]
+    },
+    {
+      "id": "AQ56",
+      "name": "input_and_budget_boundaries_do_not_masquerade_as_law",
+      "mandatory": true,
+      "execution_status": "not_run",
+      "owner_tasks": [
+        "T01",
+        "T09"
+      ],
+      "requirements": [
+        "R01",
+        "R10",
+        "R22"
+      ],
+      "fixture_setup": "Exercise duplicate keys, invalid enums, NaN, booleans as numbers, undeclared dangling refs, empty domains and each limit boundary.",
+      "required_expectation": "Malformed models have technical diagnostics and no legal disposition; supported empty and partial domains retain exact scope and counts.",
+      "test_name": "test_aq56_input_and_budget_boundaries_do_not_masquerade_as_law"
+    }
+  ],
+  "direct_oracle": {
+    "status": "to_be_authored_and_frozen_by_independent_qualification_owner_at_G0a",
+    "actors": 6,
+    "affected_actors": 6,
+    "operations": 4,
+    "fictional_scope_packs": 2,
+    "snapshots": 1,
+    "cells": 288,
+    "operation_names": [
+      "request_record",
+      "compel_record",
+      "retain_record",
+      "share_record"
+    ],
+    "expected_fields": [
+      "case_digest",
+      "disposition",
+      "applicable_rule_refs",
+      "decisive_rule_refs",
+      "condition_states",
+      "affected_interest_refs",
+      "coverage_state",
+      "expected_gap_kinds"
+    ],
+    "independence_rule": "Expected results are frozen before oracle author inspects candidate production code; first disagreements are retained."
+  },
+  "pilot": {
+    "status": "planned_not_executed",
+    "legal_scopes": 1,
+    "cases": 30,
+    "direct": 12,
+    "reverse": 8,
+    "courses_or_history": 10,
+    "review": "Independent human disposition and accepted source/formalization/applicability/priority/coverage review. Scope and operation subset frozen in pilot charter.",
+    "claim_limit": "Operational sampling budget; not an accuracy estimate."
+  },
+  "release": {
+    "required_obligations": "56 of 56 including all specified subcases",
+    "required_direct_oracle": "288 of 288 exact expected cells",
+    "critical_defects_allowed": 0,
+    "unresolved_rate_target": null,
+    "stop": "Close the declared release after mechanical gates, inspected host integration and reviewed pilot meet the specified scope. Scope expansion requires a successor contract."
+  },
+  "governance_checks": [
+    {
+      "id": "GQ01",
+      "owner_tasks": [
+        "T10"
+      ],
+      "requirements": [
+        "R24"
+      ],
+      "execution_status": "not_run",
+      "required_expectation": "A release record closes the fixed campaign after its declared applicable gates pass. New scope requires a successor contract; an optional test count cannot override a failed required gate."
+    },
+    {
+      "id": "GQ02",
+      "owner_tasks": [
+        "T10"
+      ],
+      "requirements": [
+        "R21",
+        "R23",
+        "R24"
+      ],
+      "execution_status": "not_run",
+      "required_expectation": "Standalone mechanical publication explicitly marks unavailable host or pilot gates. Integrated release requires G3; a reviewed integrated pilot claim additionally requires G5. No most-recent wall-clock record is silently selected as release authority."
+    }
+  ]
+}

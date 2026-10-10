@@ -1,0 +1,76 @@
+{
+  "pack_id": "pack:public_oversight_v1",
+  "name": "Fictional Public Oversight & Statutory Compulsion Rules",
+  "version": "1.0",
+  "rules": [
+    {
+      "id": "rule:over:01",
+      "name": "Statutory Regulatory Compulsion Power",
+      "operation": "op:compel_record",
+      "norm": "power",
+      "performer_capacities": [
+        "regulator",
+        "investigator"
+      ],
+      "target_capacities": [
+        "licensee",
+        "auditor",
+        "third_party"
+      ],
+      "condition": "has_active_warrant_or_order",
+      "interest": "interest:compliance"
+    },
+    {
+      "id": "rule:over:02",
+      "name": "Compulsion of Regulatory Authority Prohibited",
+      "operation": "op:compel_record",
+      "norm": "prohibition",
+      "performer_capacities": [
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ],
+      "target_capacities": [
+        "regulator"
+      ],
+      "condition": "true",
+      "interest": "interest:due_process"
+    },
+    {
+      "id": "rule:over:03",
+      "name": "Mandatory Regulatory Audit Sharing",
+      "operation": "op:share_record",
+      "norm": "duty",
+      "performer_capacities": [
+        "licensee",
+        "auditor"
+      ],
+      "target_capacities": [
+        "regulator",
+        "investigator"
+      ],
+      "condition": "audit_completed",
+      "interest": "interest:transparency"
+    },
+    {
+      "id": "rule:over:04",
+      "name": "Statutory Retention Obligation for Oversight",
+      "operation": "op:retain_record",
+      "norm": "duty",
+      "performer_capacities": [
+        "regulator",
+        "investigator",
+        "licensee"
+      ],
+      "target_capacities": [
+        "licensee",
+        "citizen",
+        "auditor",
+        "third_party"
+      ],
+      "condition": "true",
+      "interest": "interest:compliance"
+    }
+  ]
+}

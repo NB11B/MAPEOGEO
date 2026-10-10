@@ -1,0 +1,87 @@
+{
+  "pack_id": "pack:commercial_privacy_v1",
+  "name": "Fictional Commercial Privacy & Data Protection Rules",
+  "version": "1.0",
+  "rules": [
+    {
+      "id": "rule:priv:01",
+      "name": "Voluntary Request Permission",
+      "operation": "op:request_record",
+      "norm": "permission",
+      "performer_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ],
+      "target_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ],
+      "condition": "true",
+      "interest": "interest:transparency"
+    },
+    {
+      "id": "rule:priv:02",
+      "name": "Coercive Compulsion Prohibition on Private Entities",
+      "operation": "op:compel_record",
+      "norm": "prohibition",
+      "performer_capacities": [
+        "licensee",
+        "citizen",
+        "third_party"
+      ],
+      "target_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor",
+        "citizen",
+        "third_party"
+      ],
+      "condition": "true",
+      "interest": "interest:due_process"
+    },
+    {
+      "id": "rule:priv:03",
+      "name": "Data Sharing Requires Explicit Consent",
+      "operation": "op:share_record",
+      "norm": "permission",
+      "performer_capacities": [
+        "licensee",
+        "auditor",
+        "third_party"
+      ],
+      "target_capacities": [
+        "citizen",
+        "licensee"
+      ],
+      "condition": "has_explicit_consent",
+      "interest": "interest:confidentiality"
+    },
+    {
+      "id": "rule:priv:04",
+      "name": "Retention Restricted to Operating Scope",
+      "operation": "op:retain_record",
+      "norm": "permission",
+      "performer_capacities": [
+        "regulator",
+        "investigator",
+        "licensee",
+        "auditor"
+      ],
+      "target_capacities": [
+        "licensee",
+        "citizen"
+      ],
+      "condition": "within_statutory_window",
+      "interest": "interest:compliance"
+    }
+  ]
+}

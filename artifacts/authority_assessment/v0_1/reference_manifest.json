@@ -1,0 +1,30 @@
+{
+  "reference_version": "1.0-design / 0.1-impl",
+  "archive_name": "MAPEOGEO_Authority_Engineering_Handoff.zip",
+  "archive_sha256": "3cb49a46320092c463ba319409848f98a2872ff7e42d8dc8c6ebf2617f69ee4c",
+  "archive_byte_length": 68585,
+  "provenance": {
+    "source_archive": "C:\\Users\\nateb\\Downloads\\MAPEOGEO_Authority_Engineering_Handoff.zip",
+    "delivery_campaign": "MAPEOGEO_Authority_Engineering_Handoff",
+    "validation_record": "PLAN_VALIDATION.json",
+    "sha256_verified": true
+  },
+  "repository": {
+    "introduced_commit": "f7e6ee6b12c28bca95a967e212593bbadb7b8bb9",
+    "introduced_branch": "experiment/authority-assessment-v0.1",
+    "target_experiment_directory": "experiments/authority_assessment/v0_1"
+  },
+  "handoff_metrics": {
+    "declared_types": 86,
+    "persistent_record_types": 28,
+    "public_interfaces": 16,
+    "mapped_requirements": 24,
+    "implementation_tasks": 11,
+    "named_authority_obligations": 56,
+    "planned_direct_oracle_cells": 288,
+    "planned_pilot_cases": 30,
+    "gate_g0a_status": "PASSED (pinned baseline and qualification expectations frozen)",
+    "gate_g0b_status": "PASSED (host interface and clock domain mapping inspected)"
+  },
+  "installed_at": "2026-10-09T21:20:00-04:00"
+}

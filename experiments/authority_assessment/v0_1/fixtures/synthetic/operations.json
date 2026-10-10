@@ -1,0 +1,26 @@
+[
+  {
+    "id": "op:request_record",
+    "name": "request_record",
+    "mode": "voluntary",
+    "requires_coercion": false
+  },
+  {
+    "id": "op:compel_record",
+    "name": "compel_record",
+    "mode": "coercive",
+    "requires_coercion": true
+  },
+  {
+    "id": "op:retain_record",
+    "name": "retain_record",
+    "mode": "custodial",
+    "requires_coercion": false
+  },
+  {
+    "id": "op:share_record",
+    "name": "share_record",
+    "mode": "transmissive",
+    "requires_coercion": false
+  }
+]

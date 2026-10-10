@@ -1,0 +1,973 @@
+{
+  "catalog_id": "mapeogeo_authority_contracts",
+  "version": "0.1",
+  "status": "engineering_contract_not_implemented",
+  "author": "Nathanael J. Bocker",
+  "copyright": "© 2026 Nathanael J. Bocker. All Rights Reserved.",
+  "primitive_types": [
+    "string",
+    "nonempty_string",
+    "positive_integer",
+    "nonnegative_integer",
+    "boolean",
+    "sha256_hex",
+    "canonical_decimal_string",
+    "absolute_path",
+    "JSON_value",
+    "JSON_object",
+    "null",
+    "false"
+  ],
+  "named_enums": {
+    "EvidenceState": [
+      "supported",
+      "refuted",
+      "unknown",
+      "conflicting"
+    ]
+  },
+  "notation": "Every listed record field is required. A union with null permits an explicit null, not omission. [] means a finite sequence; map means a finite string-key map. Reference pins resolve against the declared complete snapshot. These are declarative types and semantic obligations, not executable JSON Schema. Fields named in transport_fields are mandatory in interface delivery values and omitted from canonical persisted payloads and logical-record hashes.",
+  "records": {
+    "Reference": {
+      "id": "nonempty_string",
+      "revision": "positive_integer"
+    },
+    "ValidationResult": {
+      "valid": "boolean",
+      "errors": "Diagnostic[]",
+      "warnings": "Diagnostic[]"
+    },
+    "Diagnostic": {
+      "code": "nonempty_string",
+      "path": "string",
+      "message": "string",
+      "related_refs": "Reference[]"
+    },
+    "RegistrySnapshot": {
+      "ref": "Reference",
+      "actors": "ActorRecord[]",
+      "capacities": "CapacityRecord[]",
+      "operations": "OperationDefinition[]",
+      "interests": "InterestRecord[]",
+      "scope_taxonomy_ref": "Reference"
+    },
+    "ActorRecord": {
+      "ref": "Reference",
+      "kind": "person|organization|collective|unresolved",
+      "identity_evidence_refs": "Reference[]",
+      "capacity_refs": "Reference[]"
+    },
+    "CapacityRecord": {
+      "ref": "Reference",
+      "actor_ref": "Reference",
+      "capacity_kind": "nonempty_string",
+      "scope_ref": "Reference",
+      "evidence_refs": "Reference[]",
+      "evidence_state": "EvidenceState"
+    },
+    "InterestRecord": {
+      "ref": "Reference",
+      "holder_ref": "Reference",
+      "bearer_ref": "Reference|null",
+      "interest_kind": "nonempty_string",
+      "scope_ref": "Reference",
+      "evidence_refs": "Reference[]"
+    },
+    "OperationDefinition": {
+      "ref": "Reference",
+      "parameter_spec": "ParameterSpec[]",
+      "actor_capacity_kinds": "string[]",
+      "affected_role_kinds": "string[]",
+      "effect_definitions": "EffectDefinition[]",
+      "functional_lenses": "string[]"
+    },
+    "ParameterSpec": {
+      "name": "nonempty_string",
+      "value_type": "string|integer|decimal|boolean|reference|reference_set",
+      "required": "boolean",
+      "unit_ref": "Reference|null",
+      "allowed_values": "TypedValue[]"
+    },
+    "TypedValue": {
+      "type": "string|integer|decimal|boolean|reference|reference_set",
+      "value": "JSON_value",
+      "unit_ref": "Reference|null"
+    },
+    "EffectDefinition": {
+      "ref": "Reference",
+      "kind": "conduct|legal_relationship_change|data_change|resource_change",
+      "affected_interest_kinds": "string[]",
+      "condition_ref": "Reference|null",
+      "model_ref": "Reference|null"
+    },
+    "AffectedBinding": {
+      "entity_ref": "Reference|null",
+      "collective_scope_ref": "Reference|null",
+      "relationship_role": "nonempty_string",
+      "interest_refs": "Reference[]",
+      "effect_refs": "Reference[]",
+      "evidence_state": "EvidenceState",
+      "evidence_refs": "Reference[]"
+    },
+    "AffectedScope": {
+      "bindings": "AffectedBinding[]",
+      "coverage_ref": "Reference",
+      "known_empty": "boolean"
+    },
+    "ActionCase": {
+      "id": "nonempty_string",
+      "revision": "positive_integer",
+      "actor_ref": "Reference",
+      "capacity_ref": "Reference",
+      "operation_ref": "Reference",
+      "operation_revision": "positive_integer",
+      "parameters": "map<string,TypedValue>",
+      "affected_scope": "AffectedScope",
+      "recipients": "Reference[]",
+      "object_refs": "Reference[]",
+      "purpose_ref": "Reference",
+      "jurisdiction_context_ref": "Reference",
+      "legal_reference_context_ref": "Reference",
+      "mode": "observed_claim|proposed_actual|hypothetical",
+      "context_ref": "Reference"
+    },
+    "ClaimOfAuthority": {
+      "ref": "Reference",
+      "claimant_ref": "Reference",
+      "case_ref": "Reference",
+      "source_refs": "Reference[]",
+      "claim_text": "string",
+      "evidence_state": "EvidenceState",
+      "mode": "actual_evidence|hypothetical"
+    },
+    "SourceArtifact": {
+      "ref": "Reference",
+      "source_kind": "legislation|judicial_decision|regulation|contract|internal_policy|grant_instrument|attributed_claim",
+      "uri": "string",
+      "provision_locators": "string[]",
+      "issuer_claim_ref": "Reference|null",
+      "provenance_refs": "Reference[]",
+      "legal_time_claim_refs": "Reference[]",
+      "content_digest": "sha256_hex"
+    },
+    "ReviewRecord": {
+      "ref": "Reference",
+      "reviewer_ref": "Reference",
+      "review_capacity_ref": "Reference",
+      "review_kind": "authenticity|formalization|applicability|priority|coverage|interpretation",
+      "subject_refs": "Reference[]",
+      "decision": "accepted|contested|rejected",
+      "scope_ref": "Reference",
+      "rationale": "string",
+      "limitations": "string[]",
+      "receipt_event_ref": "EventRef",
+      "boundary_ref": "Reference",
+      "acceptance_receipt_ref": "Reference",
+      "trust_mode": "trusted_fixture|reviewed_pilot"
+    },
+    "ReviewContext": {
+      "mode": "trusted_fixture|reviewed_pilot",
+      "boundary_ref": "Reference",
+      "accepted_receipt_refs": "Reference[]",
+      "review_records": "ReviewRecord[]",
+      "observer_frontier": "ObserverFrontier",
+      "verifier_identity_ref": "Reference"
+    },
+    "PackValidation": {
+      "status": "accepted|unresolved|context_or_model_error",
+      "pack_ref": "Reference",
+      "accepted_review_refs": "Reference[]",
+      "unresolved_review_refs": "Reference[]",
+      "diagnostics": "Diagnostic[]"
+    },
+    "ConditionExpr": {
+      "op": "fact|all|any|not|eq|ge|le",
+      "args": "ConditionExpr[]",
+      "fact_ref": "Reference|null",
+      "left": "Operand|null",
+      "right": "Operand|null"
+    },
+    "NormPosition": {
+      "kind": "permission|power|prohibition|duty|claim_right|immunity",
+      "actor_ref": "Reference",
+      "capacity_ref": "Reference|null",
+      "counterparty_refs": "Reference[]",
+      "operation_ref": "Reference|null",
+      "interest_refs": "Reference[]",
+      "effect_refs": "Reference[]",
+      "duty_ref": "Reference|null",
+      "scope_ref": "Reference"
+    },
+    "DutyRecord": {
+      "ref": "Reference",
+      "bearer_ref": "Reference",
+      "beneficiary_refs": "Reference[]",
+      "conduct_ref": "Reference",
+      "trigger": "ConditionExpr",
+      "phase": "entry|during|after|on_failure|on_cancellation",
+      "timing_ref": "Reference",
+      "satisfaction_contract_ref": "Reference",
+      "evidence_refs": "Reference[]",
+      "discharge_state": "EvidenceState"
+    },
+    "NormRule": {
+      "ref": "Reference",
+      "source_refs": "Reference[]",
+      "provision_locators": "string[]",
+      "formalization_review_refs": "Reference[]",
+      "applicability": "ConditionExpr",
+      "antecedent": "ConditionExpr",
+      "conclusion": "NormPosition",
+      "entry_conditions": "ConditionExpr[]",
+      "duty_refs": "Reference[]",
+      "exception_rule_refs": "Reference[]",
+      "priority_edges": "PriorityEdge[]"
+    },
+    "PriorityEdge": {
+      "defeating_rule_ref": "Reference",
+      "defeated_rule_ref": "Reference",
+      "scope_ref": "Reference",
+      "review_ref": "Reference"
+    },
+    "RulePack": {
+      "ref": "Reference",
+      "source_refs": "Reference[]",
+      "review_refs": "Reference[]",
+      "jurisdiction_profile_ref": "Reference",
+      "interpretation_profile_ref": "Reference",
+      "coverage_ref": "Reference",
+      "rules": "NormRule[]",
+      "basis_policy": "affirmative_basis|reviewed_default_basis",
+      "default_basis_rule_refs": "Reference[]",
+      "composition_policy_ref": "Reference",
+      "registry_ref": "Reference",
+      "semantic_profile": "authority_grounded_v0_1"
+    },
+    "EvidenceFact": {
+      "ref": "Reference",
+      "subject_ref": "Reference",
+      "predicate_ref": "Reference",
+      "value": "TypedValue",
+      "modality": "actual_assertion|hypothesis|model_assumption",
+      "legal_reference_context_ref": "Reference",
+      "origin_ref": "Reference|null",
+      "review_state": "accepted|unreviewed|contested",
+      "polarity": "support|refutation",
+      "mode": "actual_evidence|hypothetical",
+      "receipt_event_ref": "EventRef|null"
+    },
+    "EvidenceValue": {
+      "support": "boolean",
+      "refutation": "boolean",
+      "support_refs": "Reference[]",
+      "refutation_refs": "Reference[]",
+      "excluded_refs": "Reference[]",
+      "diagnostics": "Diagnostic[]"
+    },
+    "EvidenceSnapshot": {
+      "ref": "Reference",
+      "facts": "EvidenceFact[]",
+      "coverage_ref": "Reference",
+      "observer_frontier": "ObserverFrontier",
+      "propositions": "PropositionBinding[]"
+    },
+    "CoverageContract": {
+      "ref": "Reference",
+      "actor_domain_refs": "Reference[]",
+      "operation_domain_refs": "Reference[]",
+      "parameter_domain_refs": "Reference[]",
+      "interest_domain_refs": "Reference[]",
+      "regime_candidates": "Reference[]",
+      "temporal_scope_ref": "Reference",
+      "review_refs": "Reference[]",
+      "state": "adequate_within_scope|incomplete|contested",
+      "exclusions": "string[]"
+    },
+    "JurisdictionContext": {
+      "ref": "Reference",
+      "territorial_facts": "Reference[]",
+      "subject_matter_facts": "Reference[]",
+      "personal_connection_facts": "Reference[]",
+      "forum_facts": "Reference[]",
+      "capacity_facts": "Reference[]",
+      "taxonomy_ref": "Reference"
+    },
+    "LegalReferenceContext": {
+      "ref": "Reference",
+      "occurrence_refs": "Reference[]",
+      "source_interval_refs": "Reference[]",
+      "reference_time_mapping_refs": "Reference[]",
+      "comparison_state": "established|unknown|conflicting"
+    },
+    "AssessmentContext": {
+      "ref": "Reference",
+      "registry": "RegistrySnapshot",
+      "packs": "RulePack[]",
+      "review_context": "ReviewContext",
+      "evidence": "EvidenceSnapshot",
+      "coverage": "CoverageContract",
+      "jurisdiction": "JurisdictionContext",
+      "legal_reference": "LegalReferenceContext",
+      "observer_frontier": "ObserverFrontier",
+      "interpretation_branch_refs": "Reference[]",
+      "branch_coverage_ref": "Reference",
+      "access_context": "AccessContext",
+      "scenario_ref": "Reference|null",
+      "record_snapshot": "RecordSnapshot"
+    },
+    "ApplicabilityFinding": {
+      "rule_ref": "Reference",
+      "state": "included|excluded|unresolved|conflicting",
+      "evidence_refs": "Reference[]",
+      "review_refs": "Reference[]",
+      "reasons": "Diagnostic[]"
+    },
+    "ApplicabilityAssessment": {
+      "case_digest": "sha256_hex",
+      "context_digest": "sha256_hex",
+      "findings": "ApplicabilityFinding[]",
+      "coverage_ref": "Reference",
+      "complete": "boolean",
+      "diagnostics": "Diagnostic[]"
+    },
+    "BasisPath": {
+      "ref": "Reference",
+      "regime_ref": "Reference",
+      "rule_refs": "Reference[]",
+      "grant_refs": "Reference[]",
+      "state": "established|failed_condition|unresolved|defeated",
+      "evidence_refs": "Reference[]",
+      "review_refs": "Reference[]",
+      "condition_refs": "Reference[]"
+    },
+    "ConflictRecord": {
+      "ref": "Reference",
+      "kind": "fact_conflict|applicability_conflict|interpretation_conflict|normative_conflict|duty_incompatibility",
+      "position_refs": "Reference[]",
+      "evidence_refs": "Reference[]",
+      "scope_ref": "Reference",
+      "resolution_review_ref": "Reference|null"
+    },
+    "ProofNode": {
+      "ref": "Reference",
+      "kind": "source|review|fact|condition|applicability|basis|constraint|disposition",
+      "input_refs": "Reference[]",
+      "rule_ref": "Reference|null",
+      "finding": "string"
+    },
+    "LegalAssessment": {
+      "ref": "Reference",
+      "status": "assessed|partial|context_or_model_error",
+      "disposition": "supported_within_scope|conditions_unmet|prohibited_under_reviewed_rule|unresolved|null",
+      "case_ref": "Reference",
+      "case_digest": "sha256_hex",
+      "context_ref": "Reference",
+      "context_digest": "sha256_hex",
+      "applicability": "ApplicabilityAssessment",
+      "normative_positions": "NormPosition[]",
+      "basis_paths": "BasisPath[]",
+      "conditions": "ConditionExpr[]",
+      "duties": "DutyRecord[]",
+      "conflicts": "ConflictRecord[]",
+      "evidence_refs": "Reference[]",
+      "review_refs": "Reference[]",
+      "coverage_ref": "Reference",
+      "gap_refs": "Reference[]",
+      "dependency_refs": "Reference[]",
+      "budget_used": "BudgetUsage",
+      "trace": "ProofNode[]",
+      "diagnostics": "Diagnostic[]",
+      "robust_supported": "boolean",
+      "branch_result_refs": "Reference[]",
+      "mode": "actual_context|hypothetical_context",
+      "derived_records": "ResolvedRecord[]"
+    },
+    "EvaluationBudget": {
+      "max_candidates": "nonnegative_integer",
+      "max_rules": "nonnegative_integer",
+      "max_condition_depth": "nonnegative_integer",
+      "max_rule_evaluations": "nonnegative_integer",
+      "max_context_branches": "nonnegative_integer",
+      "max_course_nodes": "nonnegative_integer",
+      "max_courses": "nonnegative_integer",
+      "max_delegation_edges": "nonnegative_integer",
+      "max_trace_nodes": "nonnegative_integer"
+    },
+    "BudgetUsage": {
+      "candidates_evaluated": "nonnegative_integer",
+      "rule_evaluations": "nonnegative_integer",
+      "context_branches_evaluated": "nonnegative_integer",
+      "courses_evaluated": "nonnegative_integer",
+      "trace_nodes": "nonnegative_integer",
+      "stopping_reason": "complete|candidate_budget|rule_budget|branch_budget|course_budget|delegation_budget|trace_budget|profile_limit|model_error"
+    },
+    "CandidateDomain": {
+      "ref": "Reference",
+      "case_bindings": "ActionCase[]",
+      "coverage_ref": "Reference",
+      "declared_count": "nonnegative_integer"
+    },
+    "ActionQuery": {
+      "ref": "Reference",
+      "fixed_actor_ref": "Reference",
+      "fixed_affected_scope": "AffectedScope",
+      "domain": "CandidateDomain",
+      "include_unresolved": "boolean"
+    },
+    "ActorQuery": {
+      "ref": "Reference",
+      "fixed_operation_ref": "Reference",
+      "fixed_affected_scope": "AffectedScope",
+      "domain": "CandidateDomain",
+      "include_unresolved": "boolean"
+    },
+    "CandidateResult": {
+      "status": "assessed|partial|context_or_model_error",
+      "domain_ref": "Reference",
+      "domain_digest": "sha256_hex",
+      "assessment_refs": "Reference[]",
+      "supported_refs": "Reference[]",
+      "unresolved_refs": "Reference[]",
+      "excluded_refs": "Reference[]",
+      "evaluated_count": "nonnegative_integer",
+      "unassessed_count": "nonnegative_integer",
+      "complete": "boolean",
+      "coverage_ref": "Reference",
+      "budget_used": "BudgetUsage",
+      "diagnostics": "Diagnostic[]",
+      "derived_records": "ResolvedRecord[]"
+    },
+    "IntelligenceQuestionRef": {
+      "ref": "Reference",
+      "purpose": "string",
+      "materiality_policy_ref": "Reference",
+      "adequacy_contract_ref": "Reference",
+      "scope_ref": "Reference"
+    },
+    "AuthorityGap": {
+      "ref": "Reference",
+      "kind": "fact_gap|authority_evidence_missing|grant_required|source_applicability_gap|interpretation_gap|coverage_gap|operation_definition_gap|resource_commitment_required|completion_reconciliation_required|admission_required",
+      "proposition_ref": "Reference",
+      "scope_ref": "Reference",
+      "assessment_ref": "Reference",
+      "question_ref": "Reference",
+      "dependency_refs": "Reference[]",
+      "resolution_route_kinds": "string[]",
+      "materiality": "outcome_change_witnessed|basis_change_witnessed|coverage_required|undetermined",
+      "witness_refs": "Reference[]",
+      "actual_resolution_state": "open|resolved_within_scope|conflicting"
+    },
+    "CourseStep": {
+      "ref": "Reference",
+      "case_ref": "Reference",
+      "depends_on": "Reference[]",
+      "guard_ref": "Reference|null",
+      "deciding_actor_ref": "Reference",
+      "decision_frontier": "ObserverFrontier",
+      "input_refs": "Reference[]",
+      "proposed_effect_refs": "Reference[]",
+      "resource_refs": "Reference[]",
+      "duty_refs": "Reference[]"
+    },
+    "CourseOfAction": {
+      "ref": "Reference",
+      "steps": "CourseStep[]",
+      "objective_ref": "Reference",
+      "comparison_policy_ref": "Reference",
+      "coverage_ref": "Reference",
+      "mode": "proposed_actual|hypothetical"
+    },
+    "CourseAssessment": {
+      "ref": "Reference",
+      "status": "assessed|partial|context_or_model_error",
+      "disposition": "supported_within_scope|conditions_unmet|prohibited_under_reviewed_rule|unresolved|null",
+      "course_ref": "Reference",
+      "context_digest": "sha256_hex",
+      "step_assessment_refs": "Reference[]",
+      "branch_result_refs": "Reference[]",
+      "combined_constraint_refs": "Reference[]",
+      "residual_duty_refs": "Reference[]",
+      "allocation_refs": "Reference[]",
+      "conflicts": "ConflictRecord[]",
+      "coverage_ref": "Reference",
+      "trace": "ProofNode[]",
+      "budget_used": "BudgetUsage",
+      "diagnostics": "Diagnostic[]",
+      "derived_records": "ResolvedRecord[]"
+    },
+    "AllocationRecord": {
+      "ref": "Reference",
+      "owner_ref": "Reference",
+      "resource_or_allowance_ref": "Reference",
+      "uow_ref": "Reference",
+      "quantity": "TypedValue",
+      "scope_ref": "Reference",
+      "state": "reserved|consumed|released|unknown",
+      "authority_ref": "Reference",
+      "occurrence_ref": "EventRef",
+      "receipt_ref": "EventRef",
+      "release_basis_ref": "Reference|null"
+    },
+    "AuthorityWorkProposal": {
+      "ref": "Reference",
+      "work_kind": "assess_case|enumerate_actions|enumerate_actors|assess_course|compare_courses|execute_assessed_action",
+      "subject": "WorkSubject",
+      "legal_assessment_ref": "Reference|null",
+      "legacy_proposal": "LegacyProposal",
+      "mode": "actual"
+    },
+    "LegacyProposal": {
+      "id": "nonempty_string",
+      "revision": "positive_integer",
+      "actor": "nonempty_string",
+      "action": "nonempty_string",
+      "purpose": "JSON_value",
+      "scope": "JSON_value",
+      "resources": "map<string,canonical_decimal_string>",
+      "recipients": "string[]"
+    },
+    "AdmissionContext": {
+      "ref": "Reference",
+      "boundary_ref": "Reference",
+      "actual_policy_views": "JSON_object[]",
+      "enforcement_contract_ref": "Reference",
+      "allocation_refs": "Reference[]",
+      "observer_frontier": "ObserverFrontier",
+      "access_context": "AccessContext",
+      "assessment_context_ref": "Reference|null"
+    },
+    "UowEntryDecision": {
+      "ref": "Reference",
+      "status": "admitted|rejected|unresolved|context_or_model_error|unsupported_projection",
+      "work_proposal_ref": "Reference",
+      "work_proposal_digest": "sha256_hex",
+      "legacy_admission_ref": "Reference|null",
+      "legal_assessment_ref": "Reference|null",
+      "boundary_ref": "Reference",
+      "reason_refs": "Reference[]",
+      "external_execution_enabled": "false"
+    },
+    "EventRef": {
+      "domain_id": "nonempty_string",
+      "epoch_id": "nonempty_string",
+      "stream_owner": "nonempty_string",
+      "event_id": "nonempty_string"
+    },
+    "CausalEvent": {
+      "ref": "EventRef",
+      "local_seq": "nonnegative_integer",
+      "actor_ref": "Reference",
+      "parents": "EventRef[]",
+      "kind": "nonempty_string",
+      "payload_ref": "Reference|null"
+    },
+    "ObserverFrontier": {
+      "observer_ref": "Reference",
+      "uow_ref": "Reference",
+      "stream_positions": "StreamPosition[]",
+      "received_event_refs": "EventRef[]"
+    },
+    "StreamPosition": {
+      "domain_id": "nonempty_string",
+      "epoch_id": "nonempty_string",
+      "stream_owner": "nonempty_string",
+      "local_seq": "nonnegative_integer"
+    },
+    "CausalSnapshot": {
+      "ref": "Reference",
+      "events": "CausalEvent[]",
+      "complete_reference_scope": "boolean",
+      "reference_time_mapping_refs": "Reference[]"
+    },
+    "EventRelation": {
+      "relation": "before|after|same|unknown|context_or_model_error",
+      "witness_refs": "EventRef[]",
+      "diagnostics": "Diagnostic[]"
+    },
+    "AccessContext": {
+      "ref": "Reference",
+      "requester_ref": "Reference",
+      "analysis_uow_ref": "Reference",
+      "admission_ref": "Reference",
+      "audience_refs": "Reference[]",
+      "allowed_source_scope_ref": "Reference",
+      "boundary_receipt_ref": "Reference"
+    },
+    "RecordStore": {
+      "database_path": "absolute_path",
+      "catalog_ref": "Reference",
+      "schema_version": "authority_store_v0_1"
+    },
+    "PublicationReceipt": {
+      "status": "published|identical_replay|rejected|context_or_model_error",
+      "record_ref": "Reference|null",
+      "transaction_ref": "Reference|null",
+      "diagnostics": "Diagnostic[]"
+    },
+    "DependencyRef": {
+      "ref": "Reference",
+      "kind": "case|context|registry|source|rule|review|coverage|evidence|frontier|affected_interest|allocation"
+    },
+    "AssessmentRef": {
+      "ref": "Reference",
+      "dependency_refs": "DependencyRef[]",
+      "context_digest": "sha256_hex"
+    },
+    "ReassessmentResult": {
+      "required": "boolean",
+      "changed_refs": "DependencyRef[]",
+      "newly_relevant_refs": "DependencyRef[]",
+      "prior_assessment_ref": "Reference",
+      "reasons": "Diagnostic[]"
+    },
+    "HostSnapshot": {
+      "ref": "Reference",
+      "host_commit": "string",
+      "source_records": "JSON_object[]",
+      "access_context": "AccessContext",
+      "mapping_scope_ref": "Reference"
+    },
+    "HostMappingContract": {
+      "ref": "Reference",
+      "host_commit": "string",
+      "adapter_module": "string",
+      "adapter_entry_point": "string",
+      "field_mappings": "JSON_object[]",
+      "stream_ownership_ref": "Reference",
+      "allowed_layers": "string[]",
+      "excluded_operations": "string[]"
+    },
+    "ProjectionResult": {
+      "status": "projected|unresolved|unsupported_projection|context_or_model_error",
+      "case": "ActionCase|null",
+      "context": "AssessmentContext|null",
+      "field_provenance_refs": "Reference[]",
+      "host_snapshot_digest": "sha256_hex",
+      "diagnostics": "Diagnostic[]"
+    },
+    "ContentPin": {
+      "ref": "Reference",
+      "sha256": "sha256_hex"
+    },
+    "ResolvedRecord": {
+      "ref": "Reference",
+      "type_name": "nonempty_string",
+      "payload": "JSON_object",
+      "sha256": "sha256_hex"
+    },
+    "RecordSnapshot": {
+      "ref": "Reference",
+      "records": "ResolvedRecord[]",
+      "unresolved_refs": "Reference[]",
+      "pins": "ContentPin[]",
+      "complete_reference_scope": "boolean"
+    },
+    "PropositionBinding": {
+      "ref": "Reference",
+      "subject_ref": "Reference",
+      "predicate_ref": "Reference",
+      "expected_value": "TypedValue|null",
+      "value_type": "string|integer|decimal|boolean|reference",
+      "unit_ref": "Reference|null",
+      "modality": "actual_assertion|hypothesis|model_assumption",
+      "legal_reference_context_ref": "Reference",
+      "evidence_refs": "Reference[]"
+    },
+    "Operand": {
+      "kind": "literal|case_parameter|proposition_value",
+      "literal": "TypedValue|null",
+      "parameter_name": "string|null",
+      "proposition_ref": "Reference|null"
+    },
+    "CompositionPolicy": {
+      "ref": "Reference",
+      "mandatory_regime_refs": "Reference[]",
+      "basis_groups": "BasisGroup[]",
+      "choice_relations": "ChoiceRelation[]",
+      "review_refs": "Reference[]"
+    },
+    "BasisGroup": {
+      "regime_ref": "Reference",
+      "alternative_rule_refs": "Reference[]",
+      "basis_policy": "affirmative_basis|reviewed_default_basis",
+      "coverage_ref": "Reference"
+    },
+    "ChoiceRelation": {
+      "selected_regime_ref": "Reference",
+      "displaced_regime_ref": "Reference",
+      "conditions": "ConditionExpr",
+      "scope_ref": "Reference",
+      "review_ref": "Reference"
+    },
+    "GrantScope": {
+      "ref": "Reference",
+      "operation_refs": "Reference[]",
+      "purpose_refs": "Reference[]",
+      "affected_scope_ref": "Reference",
+      "object_refs": "Reference[]",
+      "recipient_refs": "Reference[]",
+      "jurisdiction_refs": "Reference[]",
+      "temporal_condition": "ConditionExpr",
+      "quantity_limits": "map<string,TypedValue>",
+      "eligible_delegate_refs": "Reference[]",
+      "membership_evidence_refs": "Reference[]"
+    },
+    "GrantRecord": {
+      "ref": "Reference",
+      "issuer_ref": "Reference",
+      "grantee_ref": "Reference",
+      "capacity_ref": "Reference",
+      "scope": "GrantScope",
+      "issuer_competence_rule_refs": "Reference[]",
+      "parent_grant_ref": "Reference|null",
+      "redelegation_allowed": "boolean",
+      "issuance_event_ref": "EventRef|null",
+      "effectiveness": "ConditionExpr",
+      "source_refs": "Reference[]",
+      "review_refs": "Reference[]",
+      "revocation_fact_refs": "Reference[]",
+      "mode": "actual_evidence|hypothetical"
+    },
+    "InterpretationBranch": {
+      "ref": "Reference",
+      "selected_rule_refs": "Reference[]",
+      "interpretation_profile_ref": "Reference",
+      "evidence_context_ref": "Reference",
+      "assumption_refs": "Reference[]",
+      "mode": "actual_context|hypothetical_context",
+      "coverage_ref": "Reference"
+    },
+    "ReferenceTimeMapping": {
+      "ref": "Reference",
+      "source_domain_ref": "Reference",
+      "target_domain_ref": "Reference",
+      "covered_event_refs": "EventRef[]",
+      "target_interval_ref": "Reference",
+      "relation": "before|within|after|overlap|unknown",
+      "evidence_refs": "Reference[]",
+      "review_refs": "Reference[]",
+      "scope_ref": "Reference",
+      "state": "established|unknown|conflicting"
+    },
+    "LegalTimeRelation": {
+      "relation": "before|within|after|overlap|unknown|context_or_model_error",
+      "mapping_ref": "Reference",
+      "occurrence_ref": "EventRef",
+      "evidence_refs": "Reference[]",
+      "diagnostics": "Diagnostic[]"
+    },
+    "CourseComparisonPolicy": {
+      "ref": "Reference",
+      "mode": "display_only",
+      "objective_ref": "Reference",
+      "display_measure_refs": "Reference[]",
+      "review_refs": "Reference[]"
+    },
+    "CourseSet": {
+      "ref": "Reference",
+      "courses": "CourseOfAction[]",
+      "comparison_policy_ref": "Reference",
+      "coverage_ref": "Reference",
+      "declared_count": "nonnegative_integer"
+    },
+    "CourseComparison": {
+      "status": "assessed|partial|context_or_model_error",
+      "course_set_ref": "Reference",
+      "domain_digest": "sha256_hex",
+      "comparison_policy_ref": "Reference",
+      "assessment_refs": "Reference[]",
+      "comparability": "not_ranked|identical_displayed_measures|unassessed",
+      "evaluated_count": "nonnegative_integer",
+      "unassessed_count": "nonnegative_integer",
+      "complete": "boolean",
+      "coverage_ref": "Reference",
+      "budget_used": "BudgetUsage",
+      "diagnostics": "Diagnostic[]",
+      "derived_records": "ResolvedRecord[]"
+    },
+    "WorkSubject": {
+      "kind": "case|action_query|actor_query|course|course_set",
+      "ref": "Reference",
+      "content_digest": "sha256_hex",
+      "context_ref": "Reference",
+      "context_digest": "sha256_hex"
+    }
+  },
+  "set_fields": [
+    "ActionCase.recipients",
+    "ActionCase.object_refs",
+    "AffectedBinding.interest_refs",
+    "AffectedBinding.effect_refs",
+    "OperationDefinition.functional_lenses"
+  ],
+  "interfaces": [
+    {
+      "name": "validate_case",
+      "input": "case:ActionCase, registry:RegistrySnapshot",
+      "output": "ValidationResult"
+    },
+    {
+      "name": "verify_pack",
+      "input": "pack:RulePack, review_context:ReviewContext",
+      "output": "PackValidation"
+    },
+    {
+      "name": "evaluate_condition",
+      "input": "expression:ConditionExpr, case:ActionCase, evidence:EvidenceSnapshot, context:AssessmentContext",
+      "output": "EvidenceValue"
+    },
+    {
+      "name": "resolve_applicability",
+      "input": "case:ActionCase, packs:RulePack[], context:AssessmentContext",
+      "output": "ApplicabilityAssessment"
+    },
+    {
+      "name": "assess_case",
+      "input": "case:ActionCase, context:AssessmentContext, budget:EvaluationBudget",
+      "output": "LegalAssessment"
+    },
+    {
+      "name": "enumerate_actions",
+      "input": "query:ActionQuery, context:AssessmentContext, budget:EvaluationBudget",
+      "output": "CandidateResult"
+    },
+    {
+      "name": "enumerate_actors",
+      "input": "query:ActorQuery, context:AssessmentContext, budget:EvaluationBudget",
+      "output": "CandidateResult"
+    },
+    {
+      "name": "derive_authority_gaps",
+      "input": "assessment:LegalAssessment, question:IntelligenceQuestionRef",
+      "output": "AuthorityGap[]"
+    },
+    {
+      "name": "assess_course",
+      "input": "course:CourseOfAction, context:AssessmentContext, budget:EvaluationBudget",
+      "output": "CourseAssessment"
+    },
+    {
+      "name": "assess_uow_entry",
+      "input": "proposal:AuthorityWorkProposal, admission_context:AdmissionContext",
+      "output": "UowEntryDecision"
+    },
+    {
+      "name": "relate_events",
+      "input": "left_ref:EventRef, right_ref:EventRef, snapshot:CausalSnapshot",
+      "output": "EventRelation"
+    },
+    {
+      "name": "publish_assessment",
+      "input": "result:LegalAssessment|CourseAssessment, store:RecordStore, access_context:AccessContext",
+      "output": "PublicationReceipt"
+    },
+    {
+      "name": "find_reassessment",
+      "input": "prior:AssessmentRef, current_context:AssessmentContext, new_candidates:DependencyRef[]",
+      "output": "ReassessmentResult"
+    },
+    {
+      "name": "project_host_case",
+      "input": "snapshot:HostSnapshot, mapping_contract:HostMappingContract",
+      "output": "ProjectionResult"
+    },
+    {
+      "name": "compare_courses",
+      "input": "courses:CourseSet, context:AssessmentContext, comparison_policy:CourseComparisonPolicy, budget:EvaluationBudget",
+      "output": "CourseComparison"
+    },
+    {
+      "name": "compare_legal_reference",
+      "input": "mapping:ReferenceTimeMapping, occurrence_ref:EventRef, context:AssessmentContext",
+      "output": "LegalTimeRelation"
+    }
+  ],
+  "limits": {
+    "max_candidates": 4096,
+    "max_rules": 1024,
+    "max_condition_depth": 32,
+    "max_rule_evaluations": 65536,
+    "max_context_branches": 64,
+    "max_course_nodes": 8,
+    "max_courses": 64,
+    "max_delegation_edges": 16,
+    "max_trace_nodes": 16384
+  },
+  "semantic_requirements": [
+    "Reference binds exact ID and revision. ContentPin binds resolved record bytes separately in RecordSnapshot; its complete dependency manifest is included in the context digest. Cross-references do not recursively embed target digests. Source content hashes do not authenticate an issuer.",
+    "ActionCase.operation_revision must equal operation_ref.revision.",
+    "AffectedBinding requires exactly one of entity_ref or collective_scope_ref unless an explicit unresolved binding is carried through the coverage record. No fabricated actor is permitted.",
+    "AffectedScope.known_empty true requires empty bindings and an operation definition permitting no affected party. Otherwise an empty binding list is unresolved coverage.",
+    "ConditionExpr fields are discriminated by op: fact uses a PropositionBinding reference, all/any use nonempty args, not uses exactly one arg, and eq/ge/le use two Operand values. Nonapplicable fields are null or empty. Operand selects exactly one literal, case parameter name or proposition-value reference.",
+    "Comparisons resolve literals, exact current-case parameters or uniquely established aligned proposition values. Missing or multiply supported or contradicted quantities yield unknown comparison with diagnostics; refuting one exact value establishes no other value or inequality. eq requires compatible types; ge/le require finite numbers and compatible units.",
+    "Four-state evidence: NOT swaps bits; AND is all supports and any refutation; OR is any support and all refutations.",
+    "Canonical decimal strings use a minus sign only for negative nonzero values, no exponent or plus sign, no redundant leading or trailing zeros, and 0 for every zero. Units must be explicit for quantitative constraints.",
+    "Review receipt trust mode must match assessment mode; trusted_fixture can never enter reviewed_pilot.",
+    "Rule dependency and priority graphs are acyclic in authority_grounded_v0_1. General recursive semantics are unsupported.",
+    "An unknown material exception prevents unconditional support unless its irrelevance is established by a complete scoped proof.",
+    "All mandatory applicable regimes and constraints survive combination; alternative legal bases are OR paths only where the reviewed composition policy permits.",
+    "LegalAssessment.status context_or_model_error requires disposition null. Partial requires unresolved. supported_within_scope requires full decisive trace and adequate declared coverage.",
+    "An absent grant is not an explicit prohibition. A reviewed default basis must be represented as an actual rule with its review and scope.",
+    "robust_supported requires a nonempty adequately covered context set and the identical fixed ActionCase supported in every branch.",
+    "Course branch guards use evidence available to the deciding actor at its declared frontier.",
+    "ClaimOfAuthority and hypothetical evidence never create review acceptance, actual grants, admissions, effects or discharges.",
+    "EventRef identity includes domain, epoch, stream owner and event ID. relate_events reports only stream-local and actual causal order. compare_legal_reference is separate and cannot create causal parents, receipt knowledge or branch-guard availability.",
+    "ObserverFrontier does not assert a globally current snapshot or a common clock.",
+    "An assessment UoW may report a prohibited subject action. An execute_assessed_action entry requires a matching actual supported result plus independent operational authority.",
+    "external_execution_enabled is always false in v0.1.",
+    "CandidateResult evaluated_count plus unassessed_count equals the declared candidate domain after explicitly documented exclusions; excluded items remain accounted.",
+    "RecordStore published ID/revision pairs are immutable. Identical replay is accepted; differing bytes with the same ID/revision are rejected.",
+    "A passed legal finding, task completion, cancellation receipt or requirement retirement does not discharge a duty or release an allocation.",
+    "HostProjection must preserve field provenance and the host snapshot digest, and cannot modify actual lifecycle records.",
+    "RecordSnapshot requires each material reference to resolve to a matching validated record or an explicit unresolved_refs entry. An undeclared dangling required model reference is a technical error. An explicitly unresolved world identity or missing legal source produces the relevant unresolved assessment.",
+    "ResolvedRecord.sha256 hashes the canonical typed payload, including its logical ID and revision, but excluding the enclosing sha256 field and declared transport-only fields. RecordSnapshot pins the collection; it does not recursively hash target references.",
+    "Canonical scope-bound actor unknowns may be added to a copied analytical context as explicit unresolved bindings, never as established identity evidence or changes to the source graph.",
+    "conditions_unmet requires known failure indispensable to every relevant basis or complete known failure of all covered alternatives. A potentially sufficient unresolved alternative prevents this disposition.",
+    "Across a nonempty adequately covered branch set, a non-unresolved aggregate disposition requires that same established disposition in every branch. Mixed or materially unresolved branches aggregate to unresolved.",
+    "AuthorityWorkProposal.subject must match work_kind and bind the full query domain, case, course or course set and context. Domain expansion or a changed step or comparison policy requires successor admission in v0.1.",
+    "CompositionPolicy and every material choice relation require accepted review. Actual GrantRecord requires competence, issuance and effectiveness evidence independently of SourceArtifact classification.",
+    "CourseComparisonPolicy v0.1 is display_only: present separate legal assessments and declared measures, with no preference, dominance, optimality or ranking.",
+    "Delegation requires child issuer equal parent grantee, explicit redelegation permission and eligible recipient, and containment of the child's scope and limits under established membership evidence. Missing scope membership remains unresolved.",
+    "Assessment, query and comparison deliveries include a flat derived_records closure of fresh cases, assessments, branch results, gaps and other generated records referenced by the result. References resolve against the immutable input snapshot plus that returned closure. Read-only evaluation never relies on an unpublished global lookup or mutates a store.",
+    "derived_records is transport-only metadata, excluded from every logical-record content hash and stripped from persisted payloads. The root record is excluded from its closure; nested delivery records use empty closures and resolve against the owning delivery. Reattaching an owning closure when extracting an assessment does not alter its logical ID, revision or content hash. Duplicate ID/revision with differing normalized payloads is an error.",
+    "publish_assessment validates the selected LegalAssessment or CourseAssessment and the supplied delivery closure, then atomically publishes the root and required fresh dependency records. Missing material derived records cannot be silently discarded. CandidateResult and CourseComparison are returned envelopes, not independently persisted domain records.",
+    "A RulePack basis_policy and each referenced BasisGroup policy must agree with the accepted CompositionPolicy; an outcome-determining mismatch is context_or_model_error."
+  ],
+  "persistent_record_types": [
+    "ActorRecord",
+    "CapacityRecord",
+    "InterestRecord",
+    "OperationDefinition",
+    "ActionCase",
+    "ClaimOfAuthority",
+    "SourceArtifact",
+    "ReviewRecord",
+    "RulePack",
+    "NormRule",
+    "DutyRecord",
+    "EvidenceFact",
+    "CoverageContract",
+    "JurisdictionContext",
+    "LegalReferenceContext",
+    "AssessmentContext",
+    "LegalAssessment",
+    "AuthorityGap",
+    "CourseOfAction",
+    "CourseAssessment",
+    "AllocationRecord",
+    "AuthorityWorkProposal",
+    "PropositionBinding",
+    "CompositionPolicy",
+    "GrantRecord",
+    "InterpretationBranch",
+    "ReferenceTimeMapping",
+    "CourseSet"
+  ],
+  "record_classification": "The records map includes value objects, interface inputs and result envelopes. Only persistent_record_types are proposed persisted domain records. They are an additive extension and must not be counted as fully implemented semantic contracts.",
+  "transport_fields": [
+    "LegalAssessment.derived_records",
+    "CandidateResult.derived_records",
+    "CourseAssessment.derived_records",
+    "CourseComparison.derived_records"
+  ]
+}

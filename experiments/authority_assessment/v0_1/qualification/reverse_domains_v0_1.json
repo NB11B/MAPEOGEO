@@ -1,0 +1,53 @@
+{
+  "catalog_id": "mapeogeo_authority_reverse_domains",
+  "version": "0.1",
+  "status": "frozen_reverse_domains",
+  "complete_actor_domain": [
+    "actor:regulator:alpha",
+    "actor:investigator:beta",
+    "actor:licensee:gamma",
+    "actor:auditor:delta",
+    "actor:citizen:epsilon",
+    "actor:third_party:zeta"
+  ],
+  "complete_capacity_domain": [
+    "auditor",
+    "citizen",
+    "investigator",
+    "licensee",
+    "regulator",
+    "third_party"
+  ],
+  "complete_operation_domain": [
+    "op:request_record",
+    "op:compel_record",
+    "op:retain_record",
+    "op:share_record"
+  ],
+  "scope_packs": [
+    "pack:commercial_privacy_v1",
+    "pack:public_oversight_v1"
+  ],
+  "sample_queries": [
+    {
+      "query_type": "enumerate_actions",
+      "actor": "actor:regulator:alpha",
+      "affected_actor": "actor:licensee:gamma",
+      "scope_pack": "pack:commercial_privacy_v1",
+      "expected_supported_actions": [
+        "op:request_record",
+        "op:retain_record"
+      ]
+    },
+    {
+      "query_type": "enumerate_actors",
+      "operation": "op:compel_record",
+      "affected_actor": "actor:licensee:gamma",
+      "scope_pack": "pack:public_oversight_v1",
+      "expected_supported_actors": [
+        "actor:regulator:alpha",
+        "actor:investigator:beta"
+      ]
+    }
+  ]
+}

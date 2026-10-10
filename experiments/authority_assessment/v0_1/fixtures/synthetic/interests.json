@@ -1,0 +1,18 @@
+[
+  {
+    "id": "interest:confidentiality",
+    "name": "Commercial and Personal Confidentiality"
+  },
+  {
+    "id": "interest:due_process",
+    "name": "Due Process & Statutory Authority Limits"
+  },
+  {
+    "id": "interest:compliance",
+    "name": "Operational Regulatory Compliance"
+  },
+  {
+    "id": "interest:transparency",
+    "name": "Public Record Transparency"
+  }
+]

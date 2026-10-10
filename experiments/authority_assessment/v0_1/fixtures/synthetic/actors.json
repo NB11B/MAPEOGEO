@@ -1,0 +1,38 @@
+[
+  {
+    "id": "actor:regulator:alpha",
+    "name": "Alpha Oversight Board",
+    "capacity": "regulator",
+    "jurisdiction": "jur:fictional:state"
+  },
+  {
+    "id": "actor:investigator:beta",
+    "name": "Beta Investigation Unit",
+    "capacity": "investigator",
+    "jurisdiction": "jur:fictional:state"
+  },
+  {
+    "id": "actor:licensee:gamma",
+    "name": "Gamma Commercial Carrier",
+    "capacity": "licensee",
+    "jurisdiction": "jur:fictional:state"
+  },
+  {
+    "id": "actor:auditor:delta",
+    "name": "Delta Compliance Auditor",
+    "capacity": "auditor",
+    "jurisdiction": "jur:fictional:state"
+  },
+  {
+    "id": "actor:citizen:epsilon",
+    "name": "Epsilon Private Subject",
+    "capacity": "citizen",
+    "jurisdiction": "jur:fictional:state"
+  },
+  {
+    "id": "actor:third_party:zeta",
+    "name": "Zeta Data Services",
+    "capacity": "third_party",
+    "jurisdiction": "jur:fictional:state"
+  }
+]

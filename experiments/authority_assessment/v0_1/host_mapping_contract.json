@@ -1,0 +1,31 @@
+{
+  "contract_id": "mapeogeo_authority_host_mapping_contract_v0_1",
+  "version": "0.1",
+  "date": "2026-10-09",
+  "status": "gate_g0b_inspected_and_complete",
+  "inspected_host_commit": "f7e6ee6b12c28bca95a967e212593bbadb7b8bb9",
+  "inspected_host_adapter": "experiments/intelligence_integration/v0_1/adapter.py",
+  "inspected_clock_identity": "experiments/intelligence_integration/v0_1/clock_identity.py",
+  "clock_identity_format": "uow-clock:v1:[domain_id, local_actor]",
+  "host_grounded_nodes": [
+    {
+      "node_id": "src:service_contract:v1",
+      "attribute": "demand_units"
+    },
+    {
+      "node_id": "src:carrier_schedule:v1",
+      "attribute": "capacity_values"
+    },
+    {
+      "node_id": "obj:carrier_capacity_model:v1",
+      "attribute": "capacity_values"
+    }
+  ],
+  "excluded_surfaces": [
+    "actual_lifecycle_projection",
+    "dynamic_grant_expiry_invalidation",
+    "cancellation_reservation_release",
+    "live_mutation_of_host_graph"
+  ],
+  "gate_g0b_determination": "Actual host interface, host commit, and clock-domain mapping are inspected and documented. Standalone kernel proceeds with host projection contract ready."
+}

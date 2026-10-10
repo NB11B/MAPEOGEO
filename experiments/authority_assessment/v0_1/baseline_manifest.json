@@ -1,0 +1,108 @@
+{
+  "date": "2026-10-09",
+  "external_sources": [
+    {
+      "id": "W1",
+      "purpose": "Representation design reference; no conformance claim.",
+      "title": "LegalRuleML Core Specification Version 1.0",
+      "url": "https://docs.oasis-open.org/legalruleml/legalruleml-core-spec/v1.0/os/legalruleml-core-spec-v1.0-os.html"
+    },
+    {
+      "id": "W2",
+      "purpose": "Provenance concepts.",
+      "title": "PROV-DM The PROV Data Model",
+      "url": "https://www.w3.org/TR/prov-dm/"
+    },
+    {
+      "id": "W3",
+      "purpose": "Separate operational access-control design.",
+      "title": "NIST SP 800-162",
+      "url": "https://csrc.nist.gov/pubs/sp/800/162/upd2/final"
+    },
+    {
+      "id": "W4",
+      "purpose": "Uncertainty, alternative explanation and source-quality design reference; no blanket compliance claim.",
+      "title": "ICD 203 Analytic Standards",
+      "url": "https://www.dni.gov/files/documents/ICD/ICD-203.pdf"
+    }
+  ],
+  "local_sources": [
+    {
+      "path": "intelligence_qualification_v0_3/README.txt",
+      "sha256": "64d442a97504242c870b6f332c2e5861e5f0d385853108139e7092b59642db26",
+      "size_bytes": 5392
+    },
+    {
+      "path": "intelligence_qualification_v0_3/docs/API_CONTRACT.txt",
+      "sha256": "9157dea39dc3ba29b4edaf5b7dab68fbebd7c9e0a94f4c5cc6a980610940b555",
+      "size_bytes": 13632
+    },
+    {
+      "path": "intelligence_qualification_v0_3/intel_uow/workflow.py",
+      "sha256": "53d717256dbe43b5e253b575844f28bc3383eff53ea91d465db4a62b455f11f0",
+      "size_bytes": 32512
+    },
+    {
+      "path": "intelligence_qualification_v0_3/intel_uow/catalog.py",
+      "sha256": "6d8f306ba841026c8e4c4e0f31734b5ae80c0c9391f8004c0da959ead36a5336",
+      "size_bytes": 8982
+    },
+    {
+      "path": "intelligence_qualification_v0_3/intel_uow/analysis.py",
+      "sha256": "38c47f4b68326d102d3bb4a88e9b458b4459301b898c473b2e497a270a491133",
+      "size_bytes": 25110
+    },
+    {
+      "path": "intelligence_qualification_v0_3/intel_uow/grammar.py",
+      "sha256": "1be39c8cd043eecee3381e6045ebeb9b9b2612de2370b026499278d91dccf673",
+      "size_bytes": 8759
+    },
+    {
+      "path": "intelligence_qualification_v0_3/fixtures/intelligence_architecture_v0_3/intelligence_architecture_contracts_v0_3.json",
+      "sha256": "2658a2f4544fdce5bd9f7ec6f2e1d90901e44b82f6626504eccf9738d7c48c2e",
+      "size_bytes": 105823
+    },
+    {
+      "path": "intelligence_qualification_v0_3/qualification_report_v0_3.txt",
+      "sha256": "39d9a3e08b070c7d7ec4843512e07df546c6d261d79554574fec95e68e6c9d22",
+      "size_bytes": 23464
+    },
+    {
+      "path": "intelligence_qualification_deliverables/intelligence_qualification_v0_3.zip",
+      "sha256": "c8747ad59f3f3c0e17a1e5e397ed4c4c981d6210ca498f25fa8d2d088b5ab9a7",
+      "size_bytes": 546355
+    },
+    {
+      "path": "clock_identity_correction_v0_1_1/README.txt",
+      "sha256": "5c6b77cb4936741ece3fa02dbe2b70727447996d5e34a30ca62ee29b5d1fd758",
+      "size_bytes": 6124
+    },
+    {
+      "path": "clock_identity_correction_v0_1_1/clock_identity.py",
+      "sha256": "b558f7fb7d6e9d06d845299e44224ef176aa5411cfe31244de21198966101e5f",
+      "size_bytes": 2229
+    },
+    {
+      "path": "clock_identity_correction_v0_1_1/PACKAGE_MANIFEST.json",
+      "sha256": "18843c6e4c69fa18b9345b6246c1d4284ef876352055d8ddb2bd8c3777933ed1",
+      "size_bytes": 1009
+    },
+    {
+      "path": "upload/Pasted text(20261009-232329).txt",
+      "sha256": "466dc9c33c4f961fcddc538100baae9641cee8a826e30d8e12f211ab24f0698c",
+      "size_bytes": 16629
+    }
+  ],
+  "manifest_id": "authority_plan_source_baseline_v1",
+  "reference_archive_sha256": "c8747ad59f3f3c0e17a1e5e397ed4c4c981d6210ca498f25fa8d2d088b5ab9a7",
+  "retained_evidence": {
+    "counters_classification": "nested_not_additive",
+    "evidence_file": "C:\\Users\\nateb\\Documents\\MAPEOGEO-frozen-main\\evidence\\authority_assessment\\v0_1\\baseline\\reference_baseline_execution.json",
+    "frozen_obligations_included_in_methods": 24,
+    "original_grammar_cases": 24,
+    "original_grammar_disagreements": 5,
+    "original_grammar_matches": 19,
+    "reference_unittest_methods": 152
+  },
+  "status": "baseline_qualification_passed_gate_g0a"
+}
