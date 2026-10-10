@@ -29,6 +29,12 @@ from mapeogeo.domains.intelligence.gap_engine import (
     IntelligenceGapEngine,
     PrioritizedIntelligenceRequirement,
 )
+from mapeogeo.domains.intelligence.planner import (
+    CandidateCourse,
+    CoursePlanner,
+    CourseStatus,
+    CourseStep,
+)
 
 __all__ = [
     "OrganizationalFunction",
@@ -46,4 +52,8 @@ __all__ = [
     "NetworkNode",
     "IntelligenceGapEngine",
     "PrioritizedIntelligenceRequirement",
+    "CoursePlanner",
+    "CandidateCourse",
+    "CourseStep",
+    "CourseStatus",
 ]
