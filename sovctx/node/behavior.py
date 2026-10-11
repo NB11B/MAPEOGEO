@@ -85,15 +85,15 @@ class ConfusionMatrix:
                     "details": result.details,
                 })
 
-    def precision(self, b_class: str) -> float:
+    def precision(self, b_class: str) -> Optional[float]:
         tp = self.matrix[b_class][b_class]
         fp = sum(self.matrix[other][b_class] for other in self.classes if other != b_class)
-        return round(tp / (tp + fp), 4) if (tp + fp) > 0 else 1.0
+        return round(tp / (tp + fp), 4) if (tp + fp) > 0 else None
 
-    def recall(self, b_class: str) -> float:
+    def recall(self, b_class: str) -> Optional[float]:
         tp = self.matrix[b_class][b_class]
         fn = sum(self.matrix[b_class][other] for other in self.classes if other != b_class)
-        return round(tp / (tp + fn), 4) if (tp + fn) > 0 else 1.0
+        return round(tp / (tp + fn), 4) if (tp + fn) > 0 else None
 
     def accuracy(self) -> float:
         return round(self.correct_cases / self.total_cases, 4) if self.total_cases > 0 else 0.0

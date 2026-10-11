@@ -96,7 +96,9 @@ def main() -> int:
     print(f"  {'Class':<22} | {'Support':<8} | {'Precision':<10} | {'Recall':<10}")
     print("  " + "-" * 56)
     for b_class, met in res["per_class_metrics"].items():
-        print(f"  {b_class:<22} | {met['support']:<8} | {met['precision']:<10.2f} | {met['recall']:<10.2f}")
+        p_str = f"{met['precision']:.2f}" if met['precision'] is not None else "N/A"
+        r_str = f"{met['recall']:.2f}" if met['recall'] is not None else "N/A"
+        print(f"  {b_class:<22} | {met['support']:<8} | {p_str:<10} | {r_str:<10}")
 
     print("-----------------------------------------------------------")
     print(f"Overall Route Accuracy     : {res['overall_accuracy'] * 100:.1f}% (Threshold: >= 95.0%)")

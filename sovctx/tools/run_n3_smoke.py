@@ -251,7 +251,9 @@ def run_physical_n3_smoke(config: NanoConfig) -> dict[str, Any]:
 
     for b_class, met in summary["per_class_metrics"].items():
         desc = class_descriptions.get(b_class, "")
-        md_lines.append(f"| `{b_class}` | {met['support']} | {met['precision']:.2f} | {met['recall']:.2f} | {desc} |")
+        p_str = f"{met['precision']:.2f}" if met['precision'] is not None else "N/A"
+        r_str = f"{met['recall']:.2f}" if met['recall'] is not None else "N/A"
+        md_lines.append(f"| `{b_class}` | {met['support']} | {p_str} | {r_str} | {desc} |")
 
     md_lines.extend([
         "",

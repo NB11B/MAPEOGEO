@@ -62,14 +62,14 @@ class ReferenceCandidateRecord:
 # 1. Russian: "Тихонов А. Н.", "Тихонов А.Н.", "А. Н. Тихонов", "А.Н. Тихонов"
 # 2. Latin: "Tikhonov A. N.", "A. N. Tikhonov"
 AUTHOR_SURNAME_INITIALS = re.compile(
-    r"\b([А-ЯЁA-Z][а-яёa-z]+)\s+([А-ЯЁA-Z]\.\s*[А-ЯЁA-Z]\.?|[А-ЯЁA-Z]\.)",
+    r"\b([А-ЯЁA-Z][а-яёa-z\u00C0-\u017F]+)\s+([А-ЯЁA-Z]\.\s*[А-ЯЁA-Z]\.?|[А-ЯЁA-Z]\.)",
 )
 AUTHOR_INITIALS_SURNAME = re.compile(
-    r"\b([А-ЯЁA-Z]\.\s*[А-ЯЁA-Z]\.?|[А-ЯЁA-Z]\.)\s+([А-ЯЁA-Z][а-яёa-z]+)",
+    r"\b([А-ЯЁA-Z]\.\s*[А-ЯЁA-Z]\.?|[А-ЯЁA-Z]\.)\s+([А-ЯЁA-Z][а-яёa-z\u00C0-\u017F]+)",
 )
 
-# Year pattern: 1800 - 2029
-YEAR_PATTERN = re.compile(r"\b(18\d{2}|19\d{2}|20[0-2]\d)(?:\s*г\.?)?\b")
+# Year pattern: 1600 - 2029
+YEAR_PATTERN = re.compile(r"\b(1[6-9]\d{2}|20[0-2]\d)(?:\s*г\.?)?\b")
 
 # Volume pattern: "Т. 151", "Т. 39", "Vol. 151"
 VOLUME_PATTERN = re.compile(r"\b(?:Т\.|Том|Vol\.|Volume)\s*(\d+)\b", re.IGNORECASE)

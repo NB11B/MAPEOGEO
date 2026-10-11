@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-WORK_SCHEMA_VERSION = "0.3"
+WORK_SCHEMA_VERSION = "0.4"
 
 WORK_PRAGMAS = """
 PRAGMA journal_mode = WAL;
@@ -390,6 +390,61 @@ CREATE TABLE IF NOT EXISTS entity_mentions (
     details_json TEXT
 );
 
+-- 28. Complete acquisition causality ledger (Source <- Nom <- Frontier <- Evidence <- Origin)
+CREATE TABLE IF NOT EXISTS acquisition_provenance (
+    source_id TEXT PRIMARY KEY,
+    generation INTEGER NOT NULL DEFAULT 0,
+    nomination_id TEXT,
+    frontier_id TEXT,
+    origin_source_id TEXT,
+    origin_passage_id TEXT,
+    frontier_type TEXT,
+    reason TEXT,
+    resolution_state TEXT,
+    parent_path_json TEXT,
+    recorded_at TEXT NOT NULL
+);
+
+-- 29. Source-family classification (IDENTICAL_BLOB, SAME_SCAN, SAME_EDITION, SAME_WORK, TRANSLATION_OF, DERIVED_FROM, UNKNOWN_RELATION)
+CREATE TABLE IF NOT EXISTS source_family_relations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_id_a TEXT NOT NULL,
+    source_id_b TEXT NOT NULL,
+    relationship TEXT NOT NULL,
+    confidence REAL NOT NULL DEFAULT 1.0,
+    details_json TEXT,
+    observed_at TEXT NOT NULL
+);
+
+-- 30. Candidate research school clusters (Person -> Institution -> Publication -> Term -> Method)
+CREATE TABLE IF NOT EXISTS research_school_candidates (
+    id TEXT PRIMARY KEY,
+    school_label TEXT NOT NULL,
+    lead_person TEXT NOT NULL,
+    institution TEXT NOT NULL,
+    methods_json TEXT NOT NULL,
+    terms_json TEXT NOT NULL,
+    supporting_sources_json TEXT NOT NULL,
+    subgraph_json TEXT NOT NULL,
+    confidence REAL NOT NULL,
+    discovered_at TEXT NOT NULL
+);
+
+-- 31. First-class temporal intervals for historical entities and institutional lineages
+CREATE TABLE IF NOT EXISTS temporal_entity_intervals (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    entity_name TEXT NOT NULL,
+    entity_type TEXT NOT NULL,
+    valid_from INTEGER,
+    valid_to INTEGER,
+    source_date INTEGER,
+    observation_date TEXT,
+    asserted_date TEXT,
+    relation_type TEXT,
+    target_entity TEXT,
+    observed_at TEXT NOT NULL
+);
+
 -- Performance Indexes
 CREATE INDEX IF NOT EXISTS idx_fetch_queue_status_prio ON fetch_queue(status, priority);
 CREATE INDEX IF NOT EXISTS idx_fetch_attempts_queue ON fetch_attempts(queue_id);
@@ -418,4 +473,9 @@ CREATE INDEX IF NOT EXISTS idx_frontier_ev_front ON frontier_evidence(frontier_i
 CREATE INDEX IF NOT EXISTS idx_src_nom_front ON source_nominations(frontier_id);
 CREATE INDEX IF NOT EXISTS idx_src_nom_status ON source_nominations(status);
 CREATE INDEX IF NOT EXISTS idx_entity_type_norm ON entity_mentions(entity_type, normalized_name);
+CREATE INDEX IF NOT EXISTS idx_acq_prov_gen ON acquisition_provenance(generation);
+CREATE INDEX IF NOT EXISTS idx_acq_prov_origin ON acquisition_provenance(origin_source_id);
+CREATE INDEX IF NOT EXISTS idx_src_family_rel ON source_family_relations(source_id_a, source_id_b);
+CREATE INDEX IF NOT EXISTS idx_research_school_lead ON research_school_candidates(lead_person);
+CREATE INDEX IF NOT EXISTS idx_temp_entity_name ON temporal_entity_intervals(entity_name);
 """
