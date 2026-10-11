@@ -7,3 +7,15 @@
 {"id":"SYMBOL:GZ_L","type":"SYMBOL","namespace":"CASE","label":"L","symbol":"L","semantic_role":"circumference of nesting tube","verification_status":"secondary_transcription","dimension":"length"}
 {"id":"SYMBOL:GZ_N","type":"SYMBOL","namespace":"CASE","label":"n","symbol":"n","semantic_role":"harmonic number","verification_status":"secondary_transcription","dimension":"dimensionless"}
 {"id":"SYMBOL:GZ_K","type":"SYMBOL","namespace":"CASE","label":"k","symbol":"k","semantic_role":"natural-number index","verification_status":"secondary_transcription","dimension":"dimensionless"}
+{"id":"SYMBOL:LYAP_XK","type":"SYMBOL","namespace":"ANC","label":"x_k","symbol":"x_k","semantic_role":"state-coordinate deviation variable"}
+{"id":"SYMBOL:LYAP_T","type":"SYMBOL","namespace":"ANC","label":"t","symbol":"t","semantic_role":"time"}
+{"id":"SYMBOL:LYAP_XFIELD_K","type":"SYMBOL","namespace":"ANC","label":"X_k","symbol":"X_k","semantic_role":"right-hand-side function of time and state"}
+{"id":"SYMBOL:TIKH_Z","type":"SYMBOL","namespace":"SOV","label":"z(s)","symbol":"z(s)","semantic_role":"unknown function to reconstruct"}
+{"id":"SYMBOL:TIKH_U","type":"SYMBOL","namespace":"SOV","label":"u(x)","symbol":"u(x)","semantic_role":"given/observed function"}
+{"id":"SYMBOL:TIKH_UBAR","type":"SYMBOL","namespace":"SOV","label":"ū(x)","symbol":"\\bar u(x)","semantic_role":"given approximate/noisy function"}
+{"id":"SYMBOL:TIKH_KERNEL","type":"SYMBOL","namespace":"SOV","label":"K(x,s)","symbol":"K(x,s)","semantic_role":"Fredholm kernel"}
+{"id":"SYMBOL:TIKH_ALPHA","type":"SYMBOL","namespace":"SOV","label":"alpha","symbol":"\\alpha","semantic_role":"regularization parameter","dimension":"dimensionless_or_problem_scaled"}
+{"id":"SYMBOL:TIKH_N","type":"SYMBOL","namespace":"SOV","label":"N","symbol":"N","semantic_role":"quadratic data-misfit functional"}
+{"id":"SYMBOL:TIKH_OMEGA","type":"SYMBOL","namespace":"SOV","label":"Omega","symbol":"\\Omega","semantic_role":"regularizing/smoothing functional"}
+{"id":"SYMBOL:TIKH_KWEIGHT","type":"SYMBOL","namespace":"SOV","label":"k(s)","symbol":"k(s)","semantic_role":"positive derivative penalty weight"}
+{"id":"SYMBOL:TIKH_PWEIGHT","type":"SYMBOL","namespace":"SOV","label":"p(s)","symbol":"p(s)","semantic_role":"positive amplitude penalty weight"}
