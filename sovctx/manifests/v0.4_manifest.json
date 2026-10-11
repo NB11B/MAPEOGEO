@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.1",
+  "release_id": "SOVCTX-KG-v0.4",
+  "status": "FRAGMENT_PROVENANCE_STATIC_PASS",
+  "branch": "research/sovctx-kg",
+  "parent_release": "SOVCTX-KG-v0.3",
+  "qualified_date": "2026-10-11",
+  "graph": {
+    "records": 150,
+    "nodes": 88,
+    "edges": 62,
+    "source_fragments": 9,
+    "claims": 13,
+    "operators": 25,
+    "open_questions": 8
+  },
+  "verification_counts": {
+    "verified_primary": 19,
+    "verified_bibliographic": 9,
+    "needs_primary_verification": 8
+  },
+  "branch_state": {
+    "ahead_of_main": 67,
+    "behind_main": 0,
+    "changed_files": 31
+  },
+  "runtime_qualification": "pending_actual_execution",
+  "gates": {
+    "fragment_provenance": "PASS",
+    "typed_evidence_edges": "PASS",
+    "semantic_boundary": "PASS",
+    "comparison_isolation": "PASS",
+    "branch_isolation": "PASS"
+  }
+}
