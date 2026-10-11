@@ -23,3 +23,4 @@
 {"id":"OP:TASK_REPRESENT","type":"OPERATOR","namespace":"OP","label":"Task-relative representation","definition":"Choose a system description according to the problem being solved rather than requiring a complete isomorphic description."}
 {"id":"OP:DYNAMIC_PARTITION","type":"OPERATOR","namespace":"OP","label":"Dynamic partition","definition":"Reclassify variables into functional groups as their role in the problem changes over time."}
 {"id":"OP:INVERSE_DESIGN","type":"OPERATOR","namespace":"OP","label":"Inverse design","definition":"Construct a source, geometry, or system from a specified desired output behavior, subject to realizability constraints."}
+{"id":"OP:STABILITY","type":"OPERATOR","namespace":"OP","label":"State stability","definition":"Characterize whether state trajectories remain near or return toward a reference motion under perturbation."}
