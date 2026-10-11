@@ -33,11 +33,6 @@ def main() -> int:
 
     signatures = build_signatures()
     if args.equation:
-        signatures = [
-            s for s in signatures
-            if s["equation_id"] == args.equation
-            or True
-        ]
         target = next((s for s in signatures if s["equation_id"] == args.equation), None)
         if target is None:
             raise SystemExit(f"unknown equation: {args.equation}")
