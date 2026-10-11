@@ -99,11 +99,11 @@ ENGINEERING_TRANSFER_REGISTRY: list[EngineeringTransferLine] = [
             TransferNode("Ляпунов А. М.", "MATHEMATICIAN", 1892, "General Problem of the Stability of Motion", "DOCUMENTED"),
             TransferNode("Андронов А. А. & Понтрягин Л. С.", "MATHEMATICIAN", 1937, "Introduction of structural stability (rough systems)", "DOCUMENTED"),
             TransferNode("Понтрягин, Болтянский, Гамкрелидзе, Мищенко", "MATHEMATICIAN", 1956, "Discovery of the Maximum Principle with bounded control sets", "DOCUMENTED"),
-            TransferNode("Красовский Н. Н.", "MATHEMATICIAN", 1959, "Theory of optimal regulation for aircraft and rocket trajectories", "CANDIDATE"),
+            TransferNode("Красовский Н. Н.", "MATHEMATICIAN", 1959, "Synthesizes Lyapunov stability with Pontryagin optimal regulation in PMM", "DOCUMENTED"),
             TransferNode("NASA MSC", "INSTITUTION", 1963, "Application of Pontryagin Maximum Principle to Apollo lunar orbit rendezvous trajectories", "DOCUMENTED"),
             TransferNode("ОКБ-1 / НИИ-885", "INSTITUTION", 1964, "Implementation of relay attitude control in lunar/interplanetary probes", "SYNTHESIS"),
         ],
-        documented_sources=["HIST:LYAPUNOV_2007_KRYLOV", "PUB:PONTRYAGIN_1960_MAXIMUM", "BENCH_02_PONTRYAGIN", "BENCH_07_ANDRONOV_PONTRYAGIN"],
+        documented_sources=["HIST:LYAPUNOV_2007_KRYLOV", "PUB:PONTRYAGIN_1960_MAXIMUM", "PUB:KRASOVSKII_1959_OPTIMAL_REGULATION", "BENCH_02_PONTRYAGIN", "BENCH_07_ANDRONOV_PONTRYAGIN"],
         next_acquisition_targets=[
             "Krasovskii N. N. 1959-1962 monographs on stabilization and flight dynamics",
             "NII-885 / OKB-1 technical documentation for Vostok/Soyuz orientation logic",
@@ -111,7 +111,8 @@ ENGINEERING_TRANSFER_REGISTRY: list[EngineeringTransferLine] = [
         ],
         historical_summary=(
             "Starting from Lyapunov's phase-space stability and Andronov's non-linear oscillations, Pontryagin "
-            "formalized optimal control with hard actuator constraints (u in U). While international adoption for space "
+            "formalized optimal control with hard actuator constraints (u in U). Krasovskii (1959, PMM) rigorously "
+            "united optimal regulation with Lyapunov functions for flight dynamics. While international adoption for space "
             "trajectories is documented (e.g. NASA's 1963 Apollo rendezvous studies), specific Soviet design bureau "
             "transfer chains to OKB-1/NII-885 guidance micro-logic remain candidate hypotheses awaiting primary source acquisition."
         ),
@@ -138,11 +139,11 @@ ENGINEERING_TRANSFER_REGISTRY: list[EngineeringTransferLine] = [
         lineage_milestones=[
             TransferNode("Власов А. А.", "MATHEMATICIAN", 1938, "Formulates collisionless kinetic equation with self-consistent field", "DOCUMENTED"),
             TransferNode("Боголюбов Н. Н.", "MATHEMATICIAN", 1946, "Derives kinetic equations from BBGKY hierarchy of classical mechanics", "DOCUMENTED"),
-            TransferNode("Шафранов В. Д.", "MATHEMATICIAN", 1958, "Derives Grad–Shafranov MHD equilibrium for toroidal plasma pinches", "DOCUMENTED"),
+            TransferNode("Шафранов В. Д.", "MATHEMATICIAN", 1962, "Derives Grad–Shafranov MHD equilibrium for toroidal plasma pinches in Atomnaya Energiya", "DOCUMENTED"),
             TransferNode("Курчатов И. В. & Арцимович Л. А.", "INSTITUTION", 1968, "T-3 Tokamak achieves thermonuclear temperatures confirming magnetic confinement", "DOCUMENTED"),
             TransferNode("НИРФИ (Горький) / Салют", "INSTITUTION", 1970, "Development of gyrotrons for ECRH plasma heating", "CANDIDATE"),
         ],
-        documented_sources=["PUB:VLASOV_1967_REPRODUCTION", "BENCH_03_VLASOV", "BENCH_06_BOGOLYUBOV"],
+        documented_sources=["PUB:VLASOV_1967_REPRODUCTION", "PUB:SHAFRANOV_1962_PLASMA_EQUILIBRIUM", "BENCH_03_VLASOV", "BENCH_06_BOGOLYUBOV"],
         next_acquisition_targets=[
             "Shafranov V. D. 1958 Atomnaya Energiya papers on toroidal plasma equilibrium",
             "Artsimovich L. A. 1969 IAEA Novosibirsk conference reports on T-3 Tokamak",
@@ -257,20 +258,20 @@ ENGINEERING_TRANSFER_REGISTRY: list[EngineeringTransferLine] = [
             TransferNode("Чебышев П. Л.", "MATHEMATICIAN", 1853, "Theory of mechanisms known as parallelograms and uniform approximation", "DOCUMENTED"),
             TransferNode("Чебышев П. Л.", "MATHEMATICIAN", 1859, "Functions least deviating from zero and orthogonal polynomials", "DOCUMENTED"),
             TransferNode("Ремез Е. Я.", "MATHEMATICIAN", 1934, "Constructive exchange algorithms for Chebyshev polynomial approximation", "DOCUMENTED"),
-            TransferNode("ИТМиВТ АН СССР", "INSTITUTION", 1967, "BESM-6 mathematical software library development", "CANDIDATE"),
+            TransferNode("ИТМиВТ АН СССР / ВЦ АН СССР", "INSTITUTION", 1968, "BESM-6 standard subroutine library evaluates elementary functions via Chebyshev polynomials", "DOCUMENTED"),
         ],
-        documented_sources=["PUB:CHEBYSHEV_1854_PARALLELOGRAMS", "BENCH_05_CHEBYSHEV", "BENCH_09_MARKOV"],
+        documented_sources=["PUB:CHEBYSHEV_1854_PARALLELOGRAMS", "PUB:BESM6_BSP_ELEMENTARY_FUNCTIONS", "BENCH_05_CHEBYSHEV", "BENCH_09_MARKOV"],
         next_acquisition_targets=[
-            "BESM-6 standard subroutine library documentation (VTS AN SSSR)",
+            "BESM-6 complete assembly listing for BSP math subroutines (VTs AN SSSR archive)",
             "Remez E. Ya. 1935 monograph on Chebyshev numerical methods (AN USSR, Kyiv)",
             "Soviet radio engineering textbooks on Chebyshev passive/active filter synthesis",
         ],
         historical_summary=(
             "Chebyshev's uniform approximation originated in Watt steam engine linkage design. In the 20th century, "
             "his minimax equioscillation polynomials became foundational for analog and digital filter synthesis "
-            "worldwide. While BESM-6 served as the premier scientific supercomputer for the Soviet space and nuclear "
-            "programs, the specific claim that Chebyshev polynomials formed its core microcode remains a candidate "
-            "hypothesis requiring verified compiler/microcode assembly listings."
+            "worldwide. For BESM-6, mathematical documentation confirms that the standard subroutine library (BSP) "
+            "utilized Chebyshev polynomials for elementary function evaluations, while the hypothesis of hardwired "
+            "polynomial microcode remains a candidate awaiting direct processor micro-instruction listings."
         ),
     ),
 ]

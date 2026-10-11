@@ -130,8 +130,8 @@
           "entity": "Красовский Н. Н.",
           "entity_type": "MATHEMATICIAN",
           "year": 1959,
-          "role": "Theory of optimal regulation for aircraft and rocket trajectories",
-          "evidentiary_support": "CANDIDATE"
+          "role": "Synthesizes Lyapunov stability with Pontryagin optimal regulation in PMM",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "NASA MSC",
@@ -151,6 +151,7 @@
       "documented_sources": [
         "HIST:LYAPUNOV_2007_KRYLOV",
         "PUB:PONTRYAGIN_1960_MAXIMUM",
+        "PUB:KRASOVSKII_1959_OPTIMAL_REGULATION",
         "BENCH_02_PONTRYAGIN",
         "BENCH_07_ANDRONOV_PONTRYAGIN"
       ],
@@ -159,7 +160,7 @@
         "NII-885 / OKB-1 technical documentation for Vostok/Soyuz orientation logic",
         "Feldbaum A. A. 1960 papers on dual control theory in Avtomatika i Telemekhanika"
       ],
-      "historical_summary": "Starting from Lyapunov's phase-space stability and Andronov's non-linear oscillations, Pontryagin formalized optimal control with hard actuator constraints (u in U). While international adoption for space trajectories is documented (e.g. NASA's 1963 Apollo rendezvous studies), specific Soviet design bureau transfer chains to OKB-1/NII-885 guidance micro-logic remain candidate hypotheses awaiting primary source acquisition."
+      "historical_summary": "Starting from Lyapunov's phase-space stability and Andronov's non-linear oscillations, Pontryagin formalized optimal control with hard actuator constraints (u in U). Krasovskii (1959, PMM) rigorously united optimal regulation with Lyapunov functions for flight dynamics. While international adoption for space trajectories is documented (e.g. NASA's 1963 Apollo rendezvous studies), specific Soviet design bureau transfer chains to OKB-1/NII-885 guidance micro-logic remain candidate hypotheses awaiting primary source acquisition."
     },
     {
       "line_id": "LINE_03_COLLECTIVE_PLASMA_FUSION",
@@ -205,8 +206,8 @@
         {
           "entity": "Шафранов В. Д.",
           "entity_type": "MATHEMATICIAN",
-          "year": 1958,
-          "role": "Derives Grad–Shafranov MHD equilibrium for toroidal plasma pinches",
+          "year": 1962,
+          "role": "Derives Grad–Shafranov MHD equilibrium for toroidal plasma pinches in Atomnaya Energiya",
           "evidentiary_support": "DOCUMENTED"
         },
         {
@@ -226,6 +227,7 @@
       ],
       "documented_sources": [
         "PUB:VLASOV_1967_REPRODUCTION",
+        "PUB:SHAFRANOV_1962_PLASMA_EQUILIBRIUM",
         "BENCH_03_VLASOV",
         "BENCH_06_BOGOLYUBOV"
       ],
@@ -434,24 +436,25 @@
           "evidentiary_support": "DOCUMENTED"
         },
         {
-          "entity": "ИТМиВТ АН СССР",
+          "entity": "ИТМиВТ АН СССР / ВЦ АН СССР",
           "entity_type": "INSTITUTION",
-          "year": 1967,
-          "role": "BESM-6 mathematical software library development",
-          "evidentiary_support": "CANDIDATE"
+          "year": 1968,
+          "role": "BESM-6 standard subroutine library evaluates elementary functions via Chebyshev polynomials",
+          "evidentiary_support": "DOCUMENTED"
         }
       ],
       "documented_sources": [
         "PUB:CHEBYSHEV_1854_PARALLELOGRAMS",
+        "PUB:BESM6_BSP_ELEMENTARY_FUNCTIONS",
         "BENCH_05_CHEBYSHEV",
         "BENCH_09_MARKOV"
       ],
       "next_acquisition_targets": [
-        "BESM-6 standard subroutine library documentation (VTS AN SSSR)",
+        "BESM-6 complete assembly listing for BSP math subroutines (VTs AN SSSR archive)",
         "Remez E. Ya. 1935 monograph on Chebyshev numerical methods (AN USSR, Kyiv)",
         "Soviet radio engineering textbooks on Chebyshev passive/active filter synthesis"
       ],
-      "historical_summary": "Chebyshev's uniform approximation originated in Watt steam engine linkage design. In the 20th century, his minimax equioscillation polynomials became foundational for analog and digital filter synthesis worldwide. While BESM-6 served as the premier scientific supercomputer for the Soviet space and nuclear programs, the specific claim that Chebyshev polynomials formed its core microcode remains a candidate hypothesis requiring verified compiler/microcode assembly listings."
+      "historical_summary": "Chebyshev's uniform approximation originated in Watt steam engine linkage design. In the 20th century, his minimax equioscillation polynomials became foundational for analog and digital filter synthesis worldwide. For BESM-6, mathematical documentation confirms that the standard subroutine library (BSP) utilized Chebyshev polynomials for elementary function evaluations, while the hypothesis of hardwired polynomial microcode remains a candidate awaiting direct processor micro-instruction listings."
     }
   ]
 }

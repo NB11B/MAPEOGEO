@@ -56,12 +56,12 @@ within the common international mathematical heritage:
 
 | Term (Native) | English Concept | Connected Institutes | Key Connected Institutions |
 |---|---|---:|---|
-| `преобразование` | **Transformation / Transform** | 17 | NASA MSC, ГИФТИ (Горький), ИТМиВТ АН СССР, ИТМиВТ АН СССР (Лебедев) |
-| `краевое условие` | **Boundary Condition** | 17 | ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР, ИТМиВТ АН СССР, ИТМиВТ АН СССР (Лебедев) |
+| `преобразование` | **Transformation / Transform** | 17 | NASA MSC, ГИФТИ (Горький), ИТМиВТ АН СССР (Лебедев), ИТМиВТ АН СССР / ВЦ АН СССР |
+| `краевое условие` | **Boundary Condition** | 17 | ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР, ИТМиВТ АН СССР (Лебедев), ИТМиВТ АН СССР / ВЦ АН СССР |
 | `допустимый` | **Admissible** | 16 | NASA MSC, ГИФТИ (Горький), ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР |
 | `оператор` | **Operator** | 12 | ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР, ИТФ им. Ландау (Черноголовка), ИФЗ / МГУ |
 | `обратная задача` | **Inverse Problem** | 12 | ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР, ИТФ им. Ландау (Черноголовка), ИФЗ / МГУ |
-| `отображение` | **Mapping** | 11 | ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР, ИТМиВТ АН СССР, ИТМиВТ АН СССР (Лебедев) |
+| `отображение` | **Mapping** | 11 | ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР, ИТМиВТ АН СССР (Лебедев), ИТМиВТ АН СССР / ВЦ АН СССР |
 | `состояние / фазовые координаты` | **State / Phase Coordinates** | 11 | NASA MSC, ГИФТИ (Горький), Институт атомной энергии им. Курчатова (ИАЭ), Институт проблем управления (ИАТ АН СССР) |
 | `функционал` | **Functional** | 10 | NASA MSC, ГИФТИ (Горький), ИПМ им. Келдыша, ИПМ им. Келдыша АН СССР |
 
@@ -137,12 +137,12 @@ within the common international mathematical heritage:
   - Релейные системы ориентации спутников (bang-bang control)
   - Траекторная оптимизация сближения на орбите (NASA Apollo 1963 / ОКБ-1)
   - Теория дуального управления Фельдбаума
-- **Documented Sources**: `HIST:LYAPUNOV_2007_KRYLOV`, `PUB:PONTRYAGIN_1960_MAXIMUM`, `BENCH_02_PONTRYAGIN`, `BENCH_07_ANDRONOV_PONTRYAGIN`
+- **Documented Sources**: `HIST:LYAPUNOV_2007_KRYLOV`, `PUB:PONTRYAGIN_1960_MAXIMUM`, `PUB:KRASOVSKII_1959_OPTIMAL_REGULATION`, `BENCH_02_PONTRYAGIN`, `BENCH_07_ANDRONOV_PONTRYAGIN`
 - **Next Acquisition Targets**:
   - Krasovskii N. N. 1959-1962 monographs on stabilization and flight dynamics
   - NII-885 / OKB-1 technical documentation for Vostok/Soyuz orientation logic
   - Feldbaum A. A. 1960 papers on dual control theory in Avtomatika i Telemekhanika
-- **Historical Context**: Starting from Lyapunov's phase-space stability and Andronov's non-linear oscillations, Pontryagin formalized optimal control with hard actuator constraints (u in U). While international adoption for space trajectories is documented (e.g. NASA's 1963 Apollo rendezvous studies), specific Soviet design bureau transfer chains to OKB-1/NII-885 guidance micro-logic remain candidate hypotheses awaiting primary source acquisition.
+- **Historical Context**: Starting from Lyapunov's phase-space stability and Andronov's non-linear oscillations, Pontryagin formalized optimal control with hard actuator constraints (u in U). Krasovskii (1959, PMM) rigorously united optimal regulation with Lyapunov functions for flight dynamics. While international adoption for space trajectories is documented (e.g. NASA's 1963 Apollo rendezvous studies), specific Soviet design bureau transfer chains to OKB-1/NII-885 guidance micro-logic remain candidate hypotheses awaiting primary source acquisition.
 
 ### LINE_03_COLLECTIVE_PLASMA_FUSION: Vlasov-Bogolyubov Kinetic Theory to Tokamak Equilibrium & Plasma Confinement
 **[DOCUMENTED_LINEAGE / Confidence: HIGH]**
@@ -155,7 +155,7 @@ within the common international mathematical heritage:
   - Магнитное удержание плазмы в установках Токамак (Т-3, Т-4, Т-10)
   - Равновесие плазменного шнура (уравнение Града — Шафранова)
   - Высокочастотный нагрев плазмы и гиротроны NIRFI (гипотеза)
-- **Documented Sources**: `PUB:VLASOV_1967_REPRODUCTION`, `BENCH_03_VLASOV`, `BENCH_06_BOGOLYUBOV`
+- **Documented Sources**: `PUB:VLASOV_1967_REPRODUCTION`, `PUB:SHAFRANOV_1962_PLASMA_EQUILIBRIUM`, `BENCH_03_VLASOV`, `BENCH_06_BOGOLYUBOV`
 - **Next Acquisition Targets**:
   - Shafranov V. D. 1958 Atomnaya Energiya papers on toroidal plasma equilibrium
   - Artsimovich L. A. 1969 IAEA Novosibirsk conference reports on T-3 Tokamak
@@ -208,12 +208,12 @@ within the common international mathematical heritage:
   - Синтез кинематических шарнирных механизмов станков и двигателей
   - Оптимальные аналоговые и цифровые фильтры с равномерной пульсацией
   - Таблично-полиномиальные аппроксимации функций в ЭВМ БЭСМ (гипотеза)
-- **Documented Sources**: `PUB:CHEBYSHEV_1854_PARALLELOGRAMS`, `BENCH_05_CHEBYSHEV`, `BENCH_09_MARKOV`
+- **Documented Sources**: `PUB:CHEBYSHEV_1854_PARALLELOGRAMS`, `PUB:BESM6_BSP_ELEMENTARY_FUNCTIONS`, `BENCH_05_CHEBYSHEV`, `BENCH_09_MARKOV`
 - **Next Acquisition Targets**:
-  - BESM-6 standard subroutine library documentation (VTS AN SSSR)
+  - BESM-6 complete assembly listing for BSP math subroutines (VTs AN SSSR archive)
   - Remez E. Ya. 1935 monograph on Chebyshev numerical methods (AN USSR, Kyiv)
   - Soviet radio engineering textbooks on Chebyshev passive/active filter synthesis
-- **Historical Context**: Chebyshev's uniform approximation originated in Watt steam engine linkage design. In the 20th century, his minimax equioscillation polynomials became foundational for analog and digital filter synthesis worldwide. While BESM-6 served as the premier scientific supercomputer for the Soviet space and nuclear programs, the specific claim that Chebyshev polynomials formed its core microcode remains a candidate hypothesis requiring verified compiler/microcode assembly listings.
+- **Historical Context**: Chebyshev's uniform approximation originated in Watt steam engine linkage design. In the 20th century, his minimax equioscillation polynomials became foundational for analog and digital filter synthesis worldwide. For BESM-6, mathematical documentation confirms that the standard subroutine library (BSP) utilized Chebyshev polynomials for elementary function evaluations, while the hypothesis of hardwired polynomial microcode remains a candidate awaiting direct processor micro-instruction listings.
 
 ---
 
