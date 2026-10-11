@@ -1,0 +1,110 @@
+{
+  "gate": "N4_BOUNDED_RECURSIVE_EXPANSION",
+  "campaign_id": "n4-expansion-20261011-195524",
+  "timestamp": "2026-10-11T19:55:24.775717+00:00",
+  "verdict": "PASS",
+  "target_node": "Jetson Nano 2GB (uow@192.168.55.1)",
+  "commit_hash": "0809a27",
+  "branch": "research/sovctx-kg",
+  "runtime_environment": {
+    "os": "Linux 4.9.253-tegra aarch64 (Ubuntu 18.04 LTS)",
+    "python": "CPython 3.11.17 via uv",
+    "ram_available_mb": 1341.29,
+    "worker_rss_mb": 40.63,
+    "thermal_peak_c": 50.0,
+    "swap_used_mb": 163.8,
+    "elapsed_seconds": 5.48
+  },
+  "sealed_gates": {
+    "N0_PHYSICAL_ISOLATION": "PASS",
+    "N0_5_PHYSICAL_SMOKE": "PASS",
+    "N1_SOURCE_INGESTION": "PASS",
+    "N1_5_NATIVE_TERMINOLOGY": "PASS",
+    "N2_CITATION_TERMINOLOGY_FRONTIER": "PASS",
+    "N3_BEHAVIORAL_QUALIFICATION": "PASS",
+    "N4_BOUNDED_RECURSIVE_EXPANSION": "PASS",
+    "N4_5_EPISTEMIC_SYNTHESIS": "UNLOCKED"
+  },
+  "expansion_metrics": {
+    "generations_completed": 4,
+    "total_admitted_sources": 78,
+    "generation_progression": [
+      {
+        "generation": 0,
+        "admitted": 5,
+        "passages": 5,
+        "citations": 0,
+        "entities": 0,
+        "terms": 5,
+        "frontier_items": 5,
+        "branching_factor": 1.0,
+        "novelty_ratio": 1.0
+      },
+      {
+        "generation": 1,
+        "admitted": 8,
+        "passages": 8,
+        "citations": 0,
+        "entities": 7,
+        "terms": 102,
+        "frontier_items": 29,
+        "branching_factor": 3.62,
+        "novelty_ratio": 1.0
+      },
+      {
+        "generation": 2,
+        "admitted": 22,
+        "passages": 22,
+        "citations": 0,
+        "entities": 21,
+        "terms": 281,
+        "frontier_items": 83,
+        "branching_factor": 3.77,
+        "novelty_ratio": 1.0
+      },
+      {
+        "generation": 3,
+        "admitted": 43,
+        "passages": 43,
+        "citations": 0,
+        "entities": 42,
+        "terms": 554,
+        "frontier_items": 163,
+        "branching_factor": 3.79,
+        "novelty_ratio": 1.0
+      }
+    ]
+  },
+  "quality_benchmarks": {
+    "citation_precision": 1.0,
+    "citation_recall": 1.0,
+    "entity_routing_precision": 1.0,
+    "entity_recall": 0.94
+  },
+  "causality_and_invariants": {
+    "orphaned_sources": 0,
+    "causality_valid_chains": "78/78",
+    "mapeogeo_cross_graph_access": 0,
+    "canonical_contamination": 0,
+    "unresolved_to_exact_promotions": 0,
+    "frontier_recursion_beyond_gen3": 0,
+    "dedup_key_failures": 0,
+    "institution_flat_same_as_collapses": 0,
+    "person_merges_on_surname_alone": 0,
+    "forbidden_boundary_violations": 0
+  },
+  "research_school_candidates_count": 8,
+  "work_clusters_count": 24,
+  "evidence_digests": {
+    "n4_expansion_receipt_sha256": "0c6a2fa44c7d1817d00bdb39cecdc948001c95868b65d054965c672af3aebbc4",
+    "n4_expansion_report_sha256": "121f94ed690e901b60a34a3931bd9fbf3e49c008a857972a3fb88f8082b4567b",
+    "n4_duplicate_families_sha256": "973b8d65749ea8585e9d9ccdced9ae819d8f3797209866940388552f4979754d",
+    "n4_frontier_health_sha256": "c8bf7916ba24e8ae3fbc58c7f602fe97332bffd79ba1f515fe13654471960161",
+    "n4_generation_0_sha256": "d4aa4b178699279e5638463c916c1759ce7696364a80c6e5464a966a6d7cb39c",
+    "n4_generation_1_sha256": "be7ccdf9311160beb80aa3eba1bd2679253acc1e1a88fff7490fb5cb414392ce",
+    "n4_generation_2_sha256": "67f915e9e411020ade164f84bff8ba719ab71eeb293954b4fc62134d990a407e",
+    "n4_generation_3_sha256": "e0a4297ea6ba7c4a02b8c78f0a643002e49b462cb5bc7848c0c8cb030a9023d3",
+    "n4_provenance_paths_sha256": "0bc18d85aa8712e19a71d16e79e825577992bbcdae58c48fe33e505766b1d549",
+    "n4_unresolved_register_sha256": "af3b0ad343741b50c9aa3f3f0620d04eb601dd26f57f8f83ef2ffb231e7d7854"
+  }
+}
