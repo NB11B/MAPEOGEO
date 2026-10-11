@@ -11,6 +11,7 @@ JSONL_FILES = [
     ROOT / "corpus" / "sources.jsonl",
     ROOT / "corpus" / "source_fragments.jsonl",
     ROOT / "graph" / "equations.jsonl",
+    ROOT / "graph" / "equation_families.jsonl",
     ROOT / "graph" / "symbols.jsonl",
     ROOT / "graph" / "assumptions.jsonl",
     ROOT / "graph" / "behavioral_tests.jsonl",
