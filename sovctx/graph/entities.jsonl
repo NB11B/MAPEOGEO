@@ -25,3 +25,7 @@
 {"id":"INSTITUTION:ST_PETERSBURG_ACADEMY","type":"INSTITUTION","namespace":"ANC","label":"Imperial St. Petersburg Academy of Sciences"}
 {"id":"CONCEPT:ANALYSIS_SITUS","type":"CONCEPT","namespace":"ANC","label":"Analysis situs / geometria situs"}
 {"id":"CONCEPT:LEIBNIZ_DIFFERENTIAL_CALCULUS","type":"CONCEPT","namespace":"ANC","label":"Leibniz differential calculus"}
+{"id":"PERSON:KOZLOV_VV","type":"PERSON","namespace":"RUS","label":"V. V. Kozlov"}
+{"id":"PERSON:MARKOV_AA","type":"PERSON","namespace":"ANC","label":"A. A. Markov","valid_from":"1856","valid_to":"1922"}
+{"id":"PERSON:LYAPUNOV_AM","type":"PERSON","namespace":"ANC","label":"A. M. Lyapunov","valid_from":"1857","valid_to":"1918"}
+{"id":"SCHOOL:PETERSBURG_MATHEMATICS","type":"SCHOOL","namespace":"ANC","label":"St. Petersburg mathematical school"}
