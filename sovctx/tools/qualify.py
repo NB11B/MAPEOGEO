@@ -62,6 +62,17 @@ def qualify() -> dict[str, object]:
     )
     assert path, "documented source-native Gelfand-Tsetlin -> Bernstein path missing"
 
+    ancestry_path = query_graph.shortest_path(
+        "PERSON:MARKOV_AA",
+        "PERSON:LEIBNIZ_GW",
+        node_by_id,
+        edges,
+        max_depth=5,
+        documented_only=True,
+        source_native_only=True,
+    )
+    assert ancestry_path, "documented Markov -> Chebyshev -> Euler -> Leibniz ancestry path missing"
+
     open_questions = [
         node["id"]
         for node in nodes
@@ -77,6 +88,7 @@ def qualify() -> dict[str, object]:
         "source_fragments": expected_fragments,
         "claim_fragment_links": expected_claim_fragments,
         "documented_gt1961_bernstein_path_length": len(path),
+        "documented_markov_leibniz_path_length": len(ancestry_path),
         "open_questions": len(open_questions),
         "equation_behavior_status": equation_result["status"],
         "equation_behavior_pass_count": equation_result["pass_count"],
