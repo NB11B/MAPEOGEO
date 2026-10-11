@@ -100,17 +100,39 @@ def test_resource_guard_evaluation_thresholds() -> None:
     )
     assert verdict_stop == "STOP"
 
-    # 7. Load Stop
-    verdict, reasons = guard.evaluate(
-        disk_free_gb=25.0,
-        ram_available_mb=1000.0,
-        swap_used_gb=0.2,
-        thermal_max_c=45.0,
-        load_1m=3.5,
-        worker_rss_mb=120.0,
+    # 7. Load: transient spike gives WARN, persistent spike (3 samples) gives STOP
+    guard.consecutive_load_breaches = 0
+    # First breach: WARN
+    v1, r1 = guard.evaluate(
+        disk_free_gb=25.0, ram_available_mb=1000.0, swap_used_gb=0.2,
+        thermal_max_c=45.0, load_1m=3.5, worker_rss_mb=120.0,
     )
-    assert verdict == "STOP"
-    assert any("1-min load" in r for r in reasons)
+    assert v1 == "WARN"
+    assert any("breach 1/3" in r for r in r1)
+
+    # Second breach: WARN
+    v2, r2 = guard.evaluate(
+        disk_free_gb=25.0, ram_available_mb=1000.0, swap_used_gb=0.2,
+        thermal_max_c=45.0, load_1m=3.5, worker_rss_mb=120.0,
+    )
+    assert v2 == "WARN"
+    assert any("breach 2/3" in r for r in r2)
+
+    # Third consecutive breach: STOP
+    v3, r3 = guard.evaluate(
+        disk_free_gb=25.0, ram_available_mb=1000.0, swap_used_gb=0.2,
+        thermal_max_c=45.0, load_1m=3.5, worker_rss_mb=120.0,
+    )
+    assert v3 == "STOP"
+    assert any("3 consecutive samples" in r for r in r3)
+
+    # Recovery resets counter
+    v4, _ = guard.evaluate(
+        disk_free_gb=25.0, ram_available_mb=1000.0, swap_used_gb=0.2,
+        thermal_max_c=45.0, load_1m=1.0, worker_rss_mb=120.0,
+    )
+    assert v4 == "GREEN"
+    assert guard.consecutive_load_breaches == 0
 
     # 8. Worker RSS Stop
     verdict, reasons = guard.evaluate(

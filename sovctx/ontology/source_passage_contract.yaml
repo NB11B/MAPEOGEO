@@ -1,0 +1,29 @@
+version: 0.1
+type: PASSAGE
+description: "Fine-grained text span or layout block extracted from an immutable source CAS blob."
+identity:
+  format: "SOVPASS:<sha256_of_locator_and_offsets>"
+  source_id_format: "SOVSRC:<blob_sha256>"
+required_fields:
+  - id
+  - type
+  - source_id
+  - page_physical
+  - page_printed
+  - block_index
+  - char_start
+  - char_end
+  - language
+  - script
+  - extraction_method
+  - extractor_version
+allowed_extraction_methods:
+  - pdf_text
+  - html_text
+  - plain_text
+  - ocr_transcription
+rules:
+  - "The original raw source blob is immutable and identified by SOVSRC:<sha256>."
+  - "A passage must record both physical page index and printed/source page number."
+  - "OCR output must never be treated as identity-equivalent to original source scans."
+  - "Scanned material transcribed via OCR must use extraction_method: ocr_transcription and link via OCR_TRANSCRIPTION_OF edge."

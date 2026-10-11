@@ -1,0 +1,15 @@
+version: 0.1
+type: TERM
+description: "Primary linguistic evidence preservation for Soviet and Russian scientific vocabulary."
+primary_evidence_fields:
+  - surface_form
+  - normalized_unicode
+interpretive_relation_edges:
+  - LEMMATIZED_AS
+  - TRANSLITERATED_AS
+  - LITERAL_TRANSLATION
+  - TECHNICAL_TRANSLATION
+rules:
+  - "Primary evidence is strictly bounded to surface_form and normalized_unicode."
+  - "English translations, transliterations, and lemma candidates are interpretive relations and must never overwrite native Russian terminology."
+  - "Edges between source passages and terms must use USES_TERM or DEFINES_TERM."

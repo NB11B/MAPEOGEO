@@ -33,6 +33,7 @@ def test_work_db_schema_initialization() -> None:
             "daemon_runs",
             "resource_samples",
         }
+        assert len(expected_tables) == 15
 
         with db.get_connection() as con:
             cur = con.execute("SELECT name FROM sqlite_master WHERE type='table'")

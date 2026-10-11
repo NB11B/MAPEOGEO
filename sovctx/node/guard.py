@@ -51,11 +51,13 @@ class ResourceGuard:
       - Physical isolation boundaries (MAPEOGEO canonical DB access blocked)
     """
 
-    def __init__(self, config: Optional[NanoConfig] = None) -> None:
+    def __init__(self, config: Optional[NanoConfig] = None, required_consecutive_load_breaches: int = 3) -> None:
         self.config = config or load_config()
         self.pause_file = self.config.pause_file
         self.limits = self.config.resources
         self.isolation = self.config.isolation
+        self.required_consecutive_load_breaches = required_consecutive_load_breaches
+        self.consecutive_load_breaches: int = 0
 
     # ------------------------------------------------------------------
     # Physical Isolation
@@ -268,12 +270,22 @@ class ResourceGuard:
                     f"Thermal peak {thermal_max_c}°C >= warn threshold {self.limits.thermal_warn_c}°C"
                 )
 
-        # Load
+        # Load: requires persistence (e.g. 3 consecutive breaches) to avoid flapping on transient compiler/OCR bursts
         if load_1m is not None:
             if load_1m >= self.limits.load1_stop:
-                stop_reasons.append(
-                    f"1-min load {load_1m} >= stop threshold {self.limits.load1_stop}"
-                )
+                self.consecutive_load_breaches += 1
+                if self.consecutive_load_breaches >= self.required_consecutive_load_breaches:
+                    stop_reasons.append(
+                        f"1-min load {load_1m} >= stop threshold {self.limits.load1_stop} "
+                        f"for {self.consecutive_load_breaches} consecutive samples"
+                    )
+                else:
+                    warn_reasons.append(
+                        f"1-min load {load_1m} >= stop threshold {self.limits.load1_stop} "
+                        f"(breach {self.consecutive_load_breaches}/{self.required_consecutive_load_breaches} before STOP)"
+                    )
+            else:
+                self.consecutive_load_breaches = 0
 
         # Worker RSS
         if worker_rss_mb is not None:

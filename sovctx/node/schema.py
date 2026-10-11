@@ -13,12 +13,13 @@ PRAGMA foreign_keys = ON;
 """
 
 WORK_SCHEMA = """
+-- 1. Metadata and schema version tracking
 CREATE TABLE IF NOT EXISTS work_metadata (
     key TEXT PRIMARY KEY,
     value TEXT NOT NULL
 );
 
--- 1. Fetch queue for bounded discovery and acquisition
+-- 2. Fetch queue for bounded discovery and acquisition
 CREATE TABLE IF NOT EXISTS fetch_queue (
     id TEXT PRIMARY KEY,
     source_id TEXT,
@@ -34,7 +35,7 @@ CREATE TABLE IF NOT EXISTS fetch_queue (
     updated_at TEXT NOT NULL
 );
 
--- 2. Audit ledger of every fetch attempt
+-- 3. Audit ledger of every fetch attempt
 CREATE TABLE IF NOT EXISTS fetch_attempts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     queue_id TEXT NOT NULL,
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS fetch_attempts (
     FOREIGN KEY(queue_id) REFERENCES fetch_queue(id)
 );
 
--- 3. Content-Addressed Store (CAS) registry of raw immutable source blobs
+-- 4. Content-Addressed Store (CAS) registry of raw immutable source blobs
 CREATE TABLE IF NOT EXISTS source_blobs (
     sha256 TEXT PRIMARY KEY,
     storage_path TEXT NOT NULL,
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS source_blobs (
     verified_hash INTEGER NOT NULL DEFAULT 1
 );
 
--- 4. Extracted candidate sources (before canonical promotion)
+-- 5. Extracted candidate sources (before canonical promotion)
 CREATE TABLE IF NOT EXISTS candidate_sources (
     id TEXT PRIMARY KEY,
     source_url TEXT NOT NULL,
@@ -76,7 +77,7 @@ CREATE TABLE IF NOT EXISTS candidate_sources (
     FOREIGN KEY(sha256) REFERENCES source_blobs(sha256)
 );
 
--- 5. Extracted candidate fragments grounded in source blobs
+-- 6. Extracted candidate fragments grounded in source blobs
 CREATE TABLE IF NOT EXISTS candidate_fragments (
     id TEXT PRIMARY KEY,
     candidate_source_id TEXT NOT NULL,
@@ -91,7 +92,7 @@ CREATE TABLE IF NOT EXISTS candidate_fragments (
     FOREIGN KEY(candidate_source_id) REFERENCES candidate_sources(id)
 );
 
--- 6. Candidate equations bound to fragments
+-- 7. Candidate equations bound to fragments
 CREATE TABLE IF NOT EXISTS candidate_equations (
     id TEXT PRIMARY KEY,
     source_fragment_id TEXT NOT NULL,
@@ -106,7 +107,7 @@ CREATE TABLE IF NOT EXISTS candidate_equations (
     FOREIGN KEY(source_fragment_id) REFERENCES candidate_fragments(id)
 );
 
--- 7. Candidate symbols from equations
+-- 8. Candidate symbols from equations
 CREATE TABLE IF NOT EXISTS candidate_symbols (
     id TEXT PRIMARY KEY,
     candidate_equation_id TEXT NOT NULL,
@@ -120,7 +121,7 @@ CREATE TABLE IF NOT EXISTS candidate_symbols (
     FOREIGN KEY(candidate_equation_id) REFERENCES candidate_equations(id)
 );
 
--- 8. Candidate historical claims
+-- 9. Candidate historical claims
 CREATE TABLE IF NOT EXISTS candidate_claims (
     id TEXT PRIMARY KEY,
     source_url TEXT NOT NULL,
@@ -134,7 +135,7 @@ CREATE TABLE IF NOT EXISTS candidate_claims (
     rejection_reason TEXT
 );
 
--- 9. Candidate graph edges
+-- 10. Candidate graph edges
 CREATE TABLE IF NOT EXISTS candidate_edges (
     id TEXT PRIMARY KEY,
     edge_type TEXT NOT NULL,
@@ -146,7 +147,7 @@ CREATE TABLE IF NOT EXISTS candidate_edges (
     rejection_reason TEXT
 );
 
--- 10. Behavioral test execution records
+-- 11. Behavioral test execution records
 CREATE TABLE IF NOT EXISTS behavior_runs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     candidate_equation_id TEXT NOT NULL,
@@ -159,7 +160,7 @@ CREATE TABLE IF NOT EXISTS behavior_runs (
     FOREIGN KEY(candidate_equation_id) REFERENCES candidate_equations(id)
 );
 
--- 11. Staging queue for canonical promotion review
+-- 12. Staging queue for canonical promotion review
 CREATE TABLE IF NOT EXISTS promotion_queue (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     candidate_id TEXT NOT NULL,
@@ -173,7 +174,7 @@ CREATE TABLE IF NOT EXISTS promotion_queue (
     reviewer_notes TEXT
 );
 
--- 12. Quarantine ledger for unsafe/oversized/malformed payloads
+-- 13. Quarantine ledger for unsafe/oversized/malformed payloads
 CREATE TABLE IF NOT EXISTS quarantine (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     url TEXT,
@@ -184,7 +185,7 @@ CREATE TABLE IF NOT EXISTS quarantine (
     metadata_json TEXT
 );
 
--- 13. Daemon lifecycle and telemetry ledger
+-- 14. Daemon lifecycle and telemetry ledger
 CREATE TABLE IF NOT EXISTS daemon_runs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     daemon_name TEXT NOT NULL,
@@ -198,7 +199,7 @@ CREATE TABLE IF NOT EXISTS daemon_runs (
     metrics_json TEXT
 );
 
--- 14. Hardware resource telemetry samples
+-- 15. Hardware resource telemetry samples
 CREATE TABLE IF NOT EXISTS resource_samples (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     sampled_at TEXT NOT NULL,

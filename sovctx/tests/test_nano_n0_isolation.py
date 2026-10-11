@@ -100,7 +100,7 @@ def test_gate_n0_work_db_and_cas_integrity() -> None:
         db = WorkDatabase(config.work_db_path, config.sqlite)
         db.init_db()
 
-        # Check all 14 tables exist
+        # Check all 15 tables exist
         with db.get_connection() as con:
             tables = {
                 row[0]
@@ -109,6 +109,7 @@ def test_gate_n0_work_db_and_cas_integrity() -> None:
                 ).fetchall()
             }
             required = {
+                "work_metadata",
                 "fetch_queue",
                 "fetch_attempts",
                 "source_blobs",
@@ -124,6 +125,7 @@ def test_gate_n0_work_db_and_cas_integrity() -> None:
                 "daemon_runs",
                 "resource_samples",
             }
+            assert len(required) == 15
             assert required.issubset(tables)
 
         # CAS verification

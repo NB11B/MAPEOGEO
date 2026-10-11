@@ -10,6 +10,7 @@ from .schema import WORK_SCHEMA, WORK_PRAGMAS
 from .work_db import WorkDatabase, QueueItem
 from .cas import BlobStore, PayloadTooLargeError
 from .acquire import AcquisitionDaemon, FetchResult
+from .smoke import SmokeQualification, SmokeReceipt
 
 __all__ = [
     "NanoConfig",
@@ -25,4 +26,6 @@ __all__ = [
     "PayloadTooLargeError",
     "AcquisitionDaemon",
     "FetchResult",
+    "SmokeQualification",
+    "SmokeReceipt",
 ]
