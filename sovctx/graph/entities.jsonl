@@ -12,3 +12,6 @@
 {"id":"PERSON:BERNSTEIN_NA","type":"PERSON","namespace":"SOV","label":"N. A. Bernstein"}
 {"id":"PERSON:GURFINKEL_VS","type":"PERSON","namespace":"SOV","label":"V. S. Gurfinkel"}
 {"id":"INSTITUTION:USSR_ACADEMY_SCIENCES","type":"INSTITUTION","namespace":"SOV","label":"USSR Academy of Sciences"}
+{"id":"PERSON:ZELKIN_EG","type":"PERSON","namespace":"SOV","label":"E. G. Zelkin"}
+{"id":"PERSON:ALEKSEEV_AS","type":"PERSON","namespace":"SOV","label":"A. S. Alekseev"}
+{"id":"CONCEPT:RODIMOV_SELF_OSCILLATORY_QM","type":"CONCEPT","namespace":"SOV","label":"Rodimov self-oscillatory quantum mechanics"}
