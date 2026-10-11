@@ -8,3 +8,4 @@
 {"id":"PERSON:FADDEEV_LD","type":"PERSON","namespace":"SOV","label":"L. D. Faddeev"}
 {"id":"PERSON:TSETLIN_ML","type":"PERSON","namespace":"SOV","label":"M. L. Tsetlin"}
 {"id":"PERSON:GLUSHKOV_VM","type":"PERSON","namespace":"SOV","label":"V. M. Glushkov"}
+{"id":"INSTITUTION:TOMSK_STATE_UNIVERSITY","type":"INSTITUTION","namespace":"SOV","label":"Tomsk State University"}
