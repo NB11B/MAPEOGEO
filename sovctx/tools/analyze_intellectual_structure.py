@@ -143,7 +143,8 @@ def main() -> int:
     args = parser.parse_args()
 
     config = load_config(args.config)
-    audit_dir = config.root / "audits" / "intellectual_structure"
+    sovctx_dir = Path(__file__).resolve().parents[1]
+    audit_dir = sovctx_dir / "audits" / "intellectual_structure"
     evidence_dir = config.evidence_dir / "intellectual_structure"
 
     print("===========================================================")
