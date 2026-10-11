@@ -11,6 +11,7 @@ documentary:
   - CORRESPONDED_WITH
   - RESPONDED_TO
   - REPRODUCES
+  - EDITION_OF
   - SUPPORTS
   - EXTRACTED_FROM
 intellectual:
