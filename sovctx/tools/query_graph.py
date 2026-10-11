@@ -132,6 +132,9 @@ def main() -> int:
     p_eq = sub.add_parser("equation")
     p_eq.add_argument("id")
 
+    p_family = sub.add_parser("family")
+    p_family.add_argument("id")
+
     sub.add_parser("open")
 
     p_claims = sub.add_parser("claims")
@@ -174,6 +177,22 @@ def main() -> int:
                 set(args.edge_type) or None,
             )
         )
+        return 0
+
+    if args.command == "family":
+        if args.id not in nodes or nodes[args.id].get("type") != "EQUATION_FAMILY":
+            raise SystemExit(f"unknown equation family: {args.id}")
+        members = [
+            {"edge": edge, "equation": nodes.get(edge["source"])}
+            for edge in edges
+            if edge["edge_type"] == "MEMBER_OF_EQUATION_FAMILY" and edge["target"] == args.id
+        ]
+        sources = [
+            {"edge": edge, "source": nodes.get(edge["source"])}
+            for edge in edges
+            if edge["edge_type"] == "SOURCE_TARGETS_EQUATION_FAMILY" and edge["target"] == args.id
+        ]
+        dump({"family": nodes[args.id], "equations": members, "sources": sources})
         return 0
 
     if args.command == "equation":
