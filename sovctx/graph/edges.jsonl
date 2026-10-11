@@ -1,0 +1,5 @@
+{"id":"EDGE:GZ1986_ASSERTS_MODEL","type":"EDGE","namespace":"CASE","label":"GZ 1986 asserts EPS model","edge_type":"ASSERTS","source":"PUB:GZ_1986_EPS","target":"CLAIM:GZ_1986_EPS_MODEL"}
+{"id":"EDGE:GZ1986_ASSERTS_TORSION","type":"EDGE","namespace":"CASE","label":"GZ 1986 asserts torsion result","edge_type":"ASSERTS","source":"PUB:GZ_1986_EPS","target":"CLAIM:GZ_1986_TORSION"}
+{"id":"EDGE:CLAIM_MODEL_TO_EPS","type":"EDGE","namespace":"CASE","label":"Claim concerns EPS concept","edge_type":"MENTIONS","source":"CLAIM:GZ_1986_EPS_MODEL","target":"CONCEPT:EPS"}
+{"id":"EDGE:CLAIM_TORSION_TO_OBS","type":"EDGE","namespace":"CASE","label":"Claim concerns reported torsion displacement","edge_type":"MEASURES","source":"CLAIM:GZ_1986_TORSION","target":"OBS:GZ_TORSION_DISPLACEMENT"}
+{"id":"EDGE:GZ_FORCE_OPEN_REQUIRES_SOURCE","type":"EDGE","namespace":"OPEN","label":"Force coupling requires source evidence","edge_type":"REQUIRES_SOURCE","source":"OPEN:GZ_FORCE_COUPLING","target":"PUB:GZ_1986_EPS"}
