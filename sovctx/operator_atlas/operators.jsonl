@@ -24,3 +24,6 @@
 {"id":"OP:DYNAMIC_PARTITION","type":"OPERATOR","namespace":"OP","label":"Dynamic partition","definition":"Reclassify variables into functional groups as their role in the problem changes over time."}
 {"id":"OP:INVERSE_DESIGN","type":"OPERATOR","namespace":"OP","label":"Inverse design","definition":"Construct a source, geometry, or system from a specified desired output behavior, subject to realizability constraints."}
 {"id":"OP:STABILITY","type":"OPERATOR","namespace":"OP","label":"State stability","definition":"Characterize whether state trajectories remain near or return toward a reference motion under perturbation."}
+{"id":"OP:CONTROL","type":"OPERATOR","namespace":"OP","label":"Admissible control","definition":"Select a time-varying admissible control that drives a state-space system through allowed trajectories."}
+{"id":"OP:OPTIMIZE","type":"OPERATOR","namespace":"OP","label":"Optimize objective","definition":"Select parameters, trajectories, controls, or structures to minimize or maximize a declared source-native objective."}
+{"id":"OP:MINIMAX_APPROXIMATE","type":"OPERATOR","namespace":"OP","label":"Minimax approximation","definition":"Choose an approximant to minimize the maximum deviation over a finite interval rather than only local error near one point."}
