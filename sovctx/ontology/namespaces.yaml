@@ -1,0 +1,15 @@
+version: 0.1
+namespaces:
+  SOV: source-native Soviet material
+  RUS: source-native Russian/post-Soviet material
+  WEST: quarantined Western comparison material
+  SYN: SOVCTX analytical synthesis
+  MOD: modern engineering derivative
+  CASE: case-study objects
+  OPEN: unresolved questions
+  OP: operator atlas
+rules:
+  - WEST nodes may connect to SOV/RUS nodes only through comparison edge types.
+  - MOD nodes may TEST historical claims but may not be historical evidence for them.
+  - SYN nodes may summarize structure but may not be cited as SOURCE_NATIVE.
+  - CASE nodes do not imply truth of source claims.
