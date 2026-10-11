@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.1",
+  "release_id": "SOVCTX-KG-v0.3",
+  "status": "SOURCE_CLUSTER_PASS",
+  "branch": "research/sovctx-kg",
+  "qualified_date": "2026-10-11",
+  "parent_release": "SOVCTX-KG-v0.2",
+  "record_count": 94,
+  "node_count": 66,
+  "edge_count": 28,
+  "verification_counts": {
+    "verified_primary": 8,
+    "verified_bibliographic": 3,
+    "needs_primary_verification": 9
+  },
+  "branch_state": {
+    "ahead_of_main": 33,
+    "behind_main": 0
+  },
+  "next_gate": "P0 full-text extraction with claim fragments and equation verification"
+}
