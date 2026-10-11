@@ -519,7 +519,149 @@ class WorkDatabase:
             )
             con.commit()
 
-    # ------------------------------------------------------------------
+    def insert_candidate_terms_batch(
+        self,
+        terms: list[Any],
+        occurrences: list[Any],
+        relations: list[Any],
+        definitions: list[Any],
+        symbols: list[Any],
+        equations: list[Any],
+    ) -> None:
+        with self.get_connection() as con:
+            for t in terms:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO candidate_terms (
+                        id, surface_form, normalized_unicode, language, script,
+                        term_type, technicality_score, signals_json, status, rejection_reason
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        t.id,
+                        t.surface_form,
+                        t.normalized_unicode,
+                        t.language,
+                        t.script,
+                        t.term_type,
+                        t.technicality_score,
+                        json.dumps(t.signals, ensure_ascii=False),
+                        t.status,
+                        t.rejection_reason,
+                    ),
+                )
+
+            for o in occurrences:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO candidate_term_occurrences (
+                        id, term_id, passage_id, source_id, surface_form,
+                        char_start, char_end, sentence_index, context_snippet
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        o.id,
+                        o.term_id,
+                        o.passage_id,
+                        o.source_id,
+                        o.surface_form,
+                        o.char_start,
+                        o.char_end,
+                        o.sentence_index,
+                        o.context_snippet,
+                    ),
+                )
+
+            for r in relations:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO candidate_term_relations (
+                        id, from_term_id, to_term_id, relation_type, method, confidence, details_json
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        r.id,
+                        r.from_term_id,
+                        r.to_term_id,
+                        r.relation_type,
+                        r.method,
+                        r.confidence,
+                        json.dumps(r.details, ensure_ascii=False),
+                    ),
+                )
+
+            for d in definitions:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO candidate_definition_spans (
+                        id, passage_id, source_id, subject_term_id, trigger, defining_span, confidence
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        d.id,
+                        d.passage_id,
+                        d.source_id,
+                        d.subject_term_id,
+                        d.trigger,
+                        d.defining_span,
+                        d.confidence,
+                    ),
+                )
+
+            for s in symbols:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO candidate_symbol_occurrences (
+                        id, symbol, source_id, passage_id, equation_witness_id, surface_context, meaning_candidate
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        s.id,
+                        s.symbol,
+                        s.source_id,
+                        s.passage_id,
+                        s.equation_witness_id,
+                        s.surface_context,
+                        s.meaning_candidate,
+                    ),
+                )
+
+            for e in equations:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO candidate_equation_witnesses (
+                        id, source_id, passage_id, page_physical, surface_representation,
+                        locator, neighboring_terms_json, neighboring_symbols_json,
+                        extraction_method, confidence
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        e.id,
+                        e.source_id,
+                        e.passage_id,
+                        e.page_physical,
+                        e.surface_representation,
+                        e.locator,
+                        json.dumps(e.neighboring_terms, ensure_ascii=False),
+                        json.dumps(e.neighboring_symbols, ensure_ascii=False),
+                        e.extraction_method,
+                        e.confidence,
+                    ),
+                )
+            con.commit()
+
+    def get_terminology_stats(self) -> dict[str, int]:
+        with self.get_connection() as con:
+            return {
+                "terms": con.execute("SELECT COUNT(*) FROM candidate_terms").fetchone()[0],
+                "occurrences": con.execute("SELECT COUNT(*) FROM candidate_term_occurrences").fetchone()[0],
+                "relations": con.execute("SELECT COUNT(*) FROM candidate_term_relations").fetchone()[0],
+                "definitions": con.execute("SELECT COUNT(*) FROM candidate_definition_spans").fetchone()[0],
+                "symbols": con.execute("SELECT COUNT(*) FROM candidate_symbol_occurrences").fetchone()[0],
+                "equation_witnesses": con.execute("SELECT COUNT(*) FROM candidate_equation_witnesses").fetchone()[0],
+            }
+
+
     # Canonical Ingestion Queue Importer
     # ------------------------------------------------------------------
 

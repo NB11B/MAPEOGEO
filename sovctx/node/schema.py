@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-WORK_SCHEMA_VERSION = "0.1"
+WORK_SCHEMA_VERSION = "0.2"
 
 WORK_PRAGMAS = """
 PRAGMA journal_mode = WAL;
@@ -213,6 +213,87 @@ CREATE TABLE IF NOT EXISTS resource_samples (
     guard_reasons TEXT
 );
 
+-- 16. Native terms identified across passages
+CREATE TABLE IF NOT EXISTS candidate_terms (
+    id TEXT PRIMARY KEY,
+    surface_form TEXT NOT NULL,
+    normalized_unicode TEXT NOT NULL,
+    language TEXT NOT NULL DEFAULT 'ru',
+    script TEXT NOT NULL DEFAULT 'Cyrillic',
+    term_type TEXT NOT NULL,
+    technicality_score REAL NOT NULL,
+    signals_json TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'CANDIDATE',
+    rejection_reason TEXT
+);
+
+-- 17. Grounded occurrences of terms in specific passages
+CREATE TABLE IF NOT EXISTS candidate_term_occurrences (
+    id TEXT PRIMARY KEY,
+    term_id TEXT NOT NULL,
+    passage_id TEXT NOT NULL,
+    source_id TEXT NOT NULL,
+    surface_form TEXT NOT NULL,
+    char_start INTEGER NOT NULL,
+    char_end INTEGER NOT NULL,
+    sentence_index INTEGER NOT NULL,
+    context_snippet TEXT,
+    FOREIGN KEY(term_id) REFERENCES candidate_terms(id),
+    FOREIGN KEY(passage_id) REFERENCES candidate_fragments(id)
+);
+
+-- 18. Interpretive and morphological relationships between terms
+CREATE TABLE IF NOT EXISTS candidate_term_relations (
+    id TEXT PRIMARY KEY,
+    from_term_id TEXT NOT NULL,
+    to_term_id TEXT NOT NULL,
+    relation_type TEXT NOT NULL,
+    method TEXT NOT NULL,
+    confidence REAL NOT NULL,
+    details_json TEXT,
+    FOREIGN KEY(from_term_id) REFERENCES candidate_terms(id)
+);
+
+-- 19. Candidate definition spans and trigger patterns
+CREATE TABLE IF NOT EXISTS candidate_definition_spans (
+    id TEXT PRIMARY KEY,
+    passage_id TEXT NOT NULL,
+    source_id TEXT NOT NULL,
+    subject_term_id TEXT,
+    trigger TEXT NOT NULL,
+    defining_span TEXT NOT NULL,
+    confidence REAL NOT NULL,
+    FOREIGN KEY(passage_id) REFERENCES candidate_fragments(id),
+    FOREIGN KEY(subject_term_id) REFERENCES candidate_terms(id)
+);
+
+-- 20. Mathematical symbol occurrences bound to local context
+CREATE TABLE IF NOT EXISTS candidate_symbol_occurrences (
+    id TEXT PRIMARY KEY,
+    symbol TEXT NOT NULL,
+    source_id TEXT NOT NULL,
+    passage_id TEXT NOT NULL,
+    equation_witness_id TEXT,
+    surface_context TEXT NOT NULL,
+    meaning_candidate TEXT,
+    FOREIGN KEY(passage_id) REFERENCES candidate_fragments(id)
+);
+
+-- 21. Historical equation witnesses preserving unnormalized surface notation
+CREATE TABLE IF NOT EXISTS candidate_equation_witnesses (
+    id TEXT PRIMARY KEY,
+    source_id TEXT NOT NULL,
+    passage_id TEXT NOT NULL,
+    page_physical INTEGER NOT NULL,
+    surface_representation TEXT NOT NULL,
+    locator TEXT,
+    neighboring_terms_json TEXT,
+    neighboring_symbols_json TEXT,
+    extraction_method TEXT NOT NULL,
+    confidence REAL NOT NULL,
+    FOREIGN KEY(passage_id) REFERENCES candidate_fragments(id)
+);
+
 -- Performance Indexes
 CREATE INDEX IF NOT EXISTS idx_fetch_queue_status_prio ON fetch_queue(status, priority);
 CREATE INDEX IF NOT EXISTS idx_fetch_attempts_queue ON fetch_attempts(queue_id);
@@ -224,4 +305,11 @@ CREATE INDEX IF NOT EXISTS idx_cand_eq_status ON candidate_equations(status);
 CREATE INDEX IF NOT EXISTS idx_behavior_runs_eq ON behavior_runs(candidate_equation_id);
 CREATE INDEX IF NOT EXISTS idx_resource_samples_time ON resource_samples(sampled_at);
 CREATE INDEX IF NOT EXISTS idx_promo_queue_decision ON promotion_queue(decision);
+CREATE INDEX IF NOT EXISTS idx_cand_terms_norm ON candidate_terms(normalized_unicode);
+CREATE INDEX IF NOT EXISTS idx_cand_term_occ_term ON candidate_term_occurrences(term_id);
+CREATE INDEX IF NOT EXISTS idx_cand_term_occ_pass ON candidate_term_occurrences(passage_id);
+CREATE INDEX IF NOT EXISTS idx_cand_term_rel_from ON candidate_term_relations(from_term_id);
+CREATE INDEX IF NOT EXISTS idx_cand_def_pass ON candidate_definition_spans(passage_id);
+CREATE INDEX IF NOT EXISTS idx_cand_sym_occ_pass ON candidate_symbol_occurrences(passage_id);
+CREATE INDEX IF NOT EXISTS idx_cand_eq_wit_pass ON candidate_equation_witnesses(passage_id);
 """
