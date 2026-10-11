@@ -1,0 +1,20 @@
+version: 0.1
+purpose: >
+  Derive deterministic behavioral signatures from equation records so equations
+  from different historical schools can be compared by observable/operator
+  behavior without promoting analogy to semantic or physical equivalence.
+signature_fields:
+  - equation_id
+  - namespace
+  - equation_kind
+  - family_ids
+  - operator_ids
+  - behavioral_test_types
+  - assumption_ids
+  - invariant_ids
+  - verification_status
+  - transcription_status
+comparison_rule:
+  - Shared signature features may create CANDIDATE structural analogies only.
+  - Similarity must never create SAME_OPERATOR, EQUIVALENT_TO, or SAME_SEMANTICS.
+  - Source-native symbols and ontology remain attached to the original equation.
