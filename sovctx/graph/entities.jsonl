@@ -18,3 +18,10 @@
 {"id":"PERSON:GREBENNIKOV_SV","type":"PERSON","namespace":"SOV","label":"S. V. Grebennikov"}
 {"id":"PERSON:KIRYUSHIN_VI","type":"PERSON","namespace":"SOV","label":"V. I. Kiryushin"}
 {"id":"INSTITUTION:SIBNIIZKH","type":"INSTITUTION","namespace":"SOV","label":"Siberian Research Institute of Agriculture and Agricultural Chemistry, Siberian Branch VASKhNIL"}
+{"id":"PERSON:LEIBNIZ_GW","type":"PERSON","namespace":"ANC","label":"Gottfried Wilhelm Leibniz","valid_from":"1646","valid_to":"1716"}
+{"id":"PERSON:EULER_L","type":"PERSON","namespace":"ANC","label":"Leonhard Euler","valid_from":"1707","valid_to":"1783"}
+{"id":"PERSON:BERNOULLI_JOHANN","type":"PERSON","namespace":"ANC","label":"Johann Bernoulli","valid_from":"1667","valid_to":"1748"}
+{"id":"PERSON:CHEBYSHEV_PL","type":"PERSON","namespace":"ANC","label":"P. L. Chebyshev","valid_from":"1821","valid_to":"1894"}
+{"id":"INSTITUTION:ST_PETERSBURG_ACADEMY","type":"INSTITUTION","namespace":"ANC","label":"Imperial St. Petersburg Academy of Sciences"}
+{"id":"CONCEPT:ANALYSIS_SITUS","type":"CONCEPT","namespace":"ANC","label":"Analysis situs / geometria situs"}
+{"id":"CONCEPT:LEIBNIZ_DIFFERENTIAL_CALCULUS","type":"CONCEPT","namespace":"ANC","label":"Leibniz differential calculus"}
