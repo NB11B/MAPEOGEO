@@ -1,0 +1,5 @@
+{"id":"PERSON:RODIMOV_BN","type":"PERSON","namespace":"SOV","label":"B. N. Rodimov"}
+{"id":"PERSON:ZOLOTAREV_VF","type":"PERSON","namespace":"SOV","label":"V. F. Zolotarev"}
+{"id":"PERSON:GREBENNIKOV_VS","type":"PERSON","namespace":"SOV","label":"V. S. Grebennikov"}
+{"id":"CONCEPT:EPS","type":"CONCEPT","namespace":"CASE","label":"Cavity structure effect / EPS source-native concept"}
+{"id":"OBS:GZ_TORSION_DISPLACEMENT","type":"OBSERVABLE","namespace":"CASE","label":"Reported torsion-balance angular displacement"}
