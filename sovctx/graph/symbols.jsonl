@@ -49,3 +49,8 @@
 {"id":"SYMBOL:PON_H","type":"SYMBOL","namespace":"SOV","label":"H","symbol":"H(\\psi,x,u)","semantic_role":"Hamiltonian function"}
 {"id":"SYMBOL:PON_M","type":"SYMBOL","namespace":"SOV","label":"M","symbol":"M(\\psi,x)","semantic_role":"supremum of Hamiltonian over admissible control values"}
 {"id":"SYMBOL:PON_CONTROL_SET","type":"SYMBOL","namespace":"SOV","label":"U","symbol":"U","semantic_role":"control region / admissible instantaneous control set"}
+{"id":"SYMBOL:GL_F","type":"SYMBOL","namespace":"SOV","label":"f(x,y)","symbol":"f(x,y)","semantic_role":"kernel constructed from spectral-measure data"}
+{"id":"SYMBOL:GL_K","type":"SYMBOL","namespace":"SOV","label":"K(x,y)","symbol":"K(x,y)","semantic_role":"transformation-kernel solution of Gelfand-Levitan equation"}
+{"id":"SYMBOL:GL_Q","type":"SYMBOL","namespace":"SOV","label":"q(x)","symbol":"q(x)","semantic_role":"reconstructed Sturm-Liouville potential"}
+{"id":"SYMBOL:GL_PHI0","type":"SYMBOL","namespace":"SOV","label":"phi_0","symbol":"\\varphi_0","semantic_role":"reference solution used to construct spectral kernel"}
+{"id":"SYMBOL:GL_TAU","type":"SYMBOL","namespace":"SOV","label":"d tau","symbol":"d\\tau","semantic_role":"spectral-measure difference/input to reconstruction"}
