@@ -1,0 +1,27 @@
+{
+  "schema_version": "0.1",
+  "release_id": "SOVCTX-KG-v0.2",
+  "status": "PRIMARY_INGESTION_PASS",
+  "branch": "research/sovctx-kg",
+  "qualified_date": "2026-10-11",
+  "parent_release": "SOVCTX-KG-v0.1",
+  "record_count": 81,
+  "node_count": 60,
+  "verified_primary_records": [
+    "PUB:GELFAND_LEVITAN_1951",
+    "PUB:FADDEEV_1959",
+    "PUB:GELFAND_TSETLIN_1961_NONLOCAL",
+    "PUB:GELFAND_TSETLIN_1962",
+    "PUB:GLUSHKOV_1962_SELF_ORGANIZING",
+    "CLAIM:GELFAND_LEVITAN_1951_RECONSTRUCT",
+    "CLAIM:GELFAND_LEVITAN_1951_ADMISSIBILITY",
+    "CLAIM:GLUSHKOV_1962_VARIABLE_STRUCTURE"
+  ],
+  "qualification_gates": {
+    "KG1_provenance": "PASS",
+    "KG2_temporal_validity": "PASS_FOR_INGESTED_EDGES",
+    "KG3_semantic_boundary": "PASS",
+    "KG4_operator_completeness": "OPEN_QUESTIONS_RETAINED",
+    "KG5_comparison_isolation": "PASS"
+  }
+}
