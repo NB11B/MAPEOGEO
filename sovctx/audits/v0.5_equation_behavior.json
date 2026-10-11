@@ -1,0 +1,19 @@
+{
+  "release_id": "SOVCTX-KG-v0.5",
+  "status": "EQUATION_ATLAS_STATIC_PASS",
+  "equation_behavior_status": "PASS",
+  "pass_count": 9,
+  "fail_count": 0,
+  "results": {
+    "TEST:GZ_SCALE_L": "PASS",
+    "TEST:GZ_INCREMENT_K": "PASS",
+    "TEST:GZ_INCREMENT_N": "PASS",
+    "TEST:GZ_DIMENSIONAL": "PASS",
+    "TEST:LEIBNIZ_PRODUCT_DX_ZERO": "PASS",
+    "TEST:LEIBNIZ_PRODUCT_DY_ZERO": "PASS",
+    "TEST:LEIBNIZ_PRODUCT_SWAP": "PASS",
+    "TEST:LEIBNIZ_POWER_A1": "PASS",
+    "TEST:LEIBNIZ_POWER_A0": "PASS"
+  },
+  "semantics": "Behavior pass confirms consequences of the recorded equations only; it does not establish source authenticity beyond recorded verification status or physical truth."
+}
