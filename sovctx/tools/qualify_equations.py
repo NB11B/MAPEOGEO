@@ -200,6 +200,40 @@ def tikh_penalty_nonnegative() -> bool:
     return all(k > 0 and p > 0 and k * zp * zp + p * z * z >= 0 for k, p, zp, z in samples)
 
 
+def vlasov_reduced_omega2(N: Fraction, e: Fraction, m: Fraction) -> Fraction:
+    # 4*pi is a common positive factor and cancels in the exact scaling tests.
+    return N * e * e / m
+
+
+def vlasov_freq_density_scale() -> bool:
+    for N in (Fraction(1), Fraction(3), Fraction(7, 2)):
+        for e in (Fraction(1), Fraction(-2), Fraction(5, 3)):
+            for m in (Fraction(1), Fraction(4), Fraction(9, 2)):
+                for s in (Fraction(2), Fraction(5, 3)):
+                    if vlasov_reduced_omega2(s * N, e, m) != s * vlasov_reduced_omega2(N, e, m):
+                        return False
+    return True
+
+
+def vlasov_freq_charge_sign() -> bool:
+    for N in (Fraction(1), Fraction(3)):
+        for e in (Fraction(1), Fraction(2), Fraction(5, 3)):
+            for m in (Fraction(1), Fraction(4)):
+                if vlasov_reduced_omega2(N, -e, m) != vlasov_reduced_omega2(N, e, m):
+                    return False
+    return True
+
+
+def vlasov_freq_mass_scale() -> bool:
+    for N in (Fraction(1), Fraction(3), Fraction(7, 2)):
+        for e in (Fraction(1), Fraction(-2), Fraction(5, 3)):
+            for m in (Fraction(1), Fraction(4), Fraction(9, 2)):
+                for s in (Fraction(2), Fraction(5, 3)):
+                    if vlasov_reduced_omega2(N, e, s * m) != vlasov_reduced_omega2(N, e, m) / s:
+                        return False
+    return True
+
+
 EVALUATORS: dict[str, Callable[[], bool]] = {
     "gz_scale_l": test_gz_scale_l,
     "gz_increment_k": test_gz_increment_k,
@@ -218,6 +252,9 @@ EVALUATORS: dict[str, Callable[[], bool]] = {
     "tikh_misfit_zero": tikh_misfit_zero,
     "tikh_penalty_zero": tikh_penalty_zero,
     "tikh_penalty_nonnegative": tikh_penalty_nonnegative,
+    "vlasov_freq_density_scale": vlasov_freq_density_scale,
+    "vlasov_freq_charge_sign": vlasov_freq_charge_sign,
+    "vlasov_freq_mass_scale": vlasov_freq_mass_scale,
 }
 
 
