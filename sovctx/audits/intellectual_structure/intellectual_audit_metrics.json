@@ -1,0 +1,890 @@
+{
+  "title": "SOVCTX Quantitative Intellectual Structure Audit",
+  "audit_scope": "Source-derived metrics across 8 anchor schools, 13 core operator terms, 6 transfer lines, and 6 epistemic formulations",
+  "metrics": {
+    "term_centrality_ranking": [
+      {
+        "native_term": "преобразование",
+        "english_concept": "Transformation / Transform",
+        "school_count": 4,
+        "primary_schools": [
+          "CHEBYSHEV",
+          "GELFAND",
+          "FADDEEV",
+          "PONTRYAGIN"
+        ],
+        "equation_count": 13,
+        "centrality_rank": 1
+      },
+      {
+        "native_term": "состояние / фазовые координаты",
+        "english_concept": "State / Phase Coordinates",
+        "school_count": 4,
+        "primary_schools": [
+          "LYAPUNOV",
+          "PONTRYAGIN",
+          "VLASOV",
+          "BOGOLYUBOV"
+        ],
+        "equation_count": 12,
+        "centrality_rank": 2
+      },
+      {
+        "native_term": "инвариант",
+        "english_concept": "Invariant",
+        "school_count": 4,
+        "primary_schools": [
+          "LYAPUNOV",
+          "VLASOV",
+          "ANDRONOV",
+          "FADDEEV"
+        ],
+        "equation_count": 8,
+        "centrality_rank": 3
+      },
+      {
+        "native_term": "допустимый",
+        "english_concept": "Admissible",
+        "school_count": 3,
+        "primary_schools": [
+          "TIKHONOV",
+          "PONTRYAGIN",
+          "GELFAND"
+        ],
+        "equation_count": 12,
+        "centrality_rank": 4
+      },
+      {
+        "native_term": "краевое условие",
+        "english_concept": "Boundary Condition",
+        "school_count": 3,
+        "primary_schools": [
+          "GELFAND",
+          "TIKHONOV",
+          "CHEBYSHEV"
+        ],
+        "equation_count": 10,
+        "centrality_rank": 5
+      },
+      {
+        "native_term": "оператор",
+        "english_concept": "Operator",
+        "school_count": 3,
+        "primary_schools": [
+          "GELFAND",
+          "TIKHONOV",
+          "FADDEEV"
+        ],
+        "equation_count": 9,
+        "centrality_rank": 6
+      },
+      {
+        "native_term": "обратная задача",
+        "english_concept": "Inverse Problem",
+        "school_count": 3,
+        "primary_schools": [
+          "TIKHONOV",
+          "GELFAND",
+          "FADDEEV"
+        ],
+        "equation_count": 9,
+        "centrality_rank": 7
+      },
+      {
+        "native_term": "траектория",
+        "english_concept": "Trajectory",
+        "school_count": 3,
+        "primary_schools": [
+          "LYAPUNOV",
+          "ANDRONOV",
+          "PONTRYAGIN"
+        ],
+        "equation_count": 7,
+        "centrality_rank": 8
+      },
+      {
+        "native_term": "устойчивость / грубость",
+        "english_concept": "Stability / Structural Robustness",
+        "school_count": 3,
+        "primary_schools": [
+          "LYAPUNOV",
+          "ANDRONOV",
+          "TIKHONOV"
+        ],
+        "equation_count": 6,
+        "centrality_rank": 9
+      },
+      {
+        "native_term": "приближение",
+        "english_concept": "Approximation",
+        "school_count": 3,
+        "primary_schools": [
+          "CHEBYSHEV",
+          "LYAPUNOV",
+          "BOGOLYUBOV"
+        ],
+        "equation_count": 6,
+        "centrality_rank": 10
+      },
+      {
+        "native_term": "функционал",
+        "english_concept": "Functional",
+        "school_count": 2,
+        "primary_schools": [
+          "TIKHONOV",
+          "PONTRYAGIN"
+        ],
+        "equation_count": 9,
+        "centrality_rank": 11
+      },
+      {
+        "native_term": "отображение",
+        "english_concept": "Mapping",
+        "school_count": 2,
+        "primary_schools": [
+          "CHEBYSHEV",
+          "TIKHONOV"
+        ],
+        "equation_count": 7,
+        "centrality_rank": 12
+      },
+      {
+        "native_term": "регуляризация",
+        "english_concept": "Regularization",
+        "school_count": 1,
+        "primary_schools": [
+          "TIKHONOV"
+        ],
+        "equation_count": 4,
+        "centrality_rank": 13
+      }
+    ],
+    "institutional_connectivity_ranking": [
+      {
+        "native_term": "преобразование",
+        "english_concept": "Transformation / Transform",
+        "institution_count": 17,
+        "connected_institutions": [
+          "NASA MSC",
+          "ГИФТИ (Горький)",
+          "ИТМиВТ АН СССР",
+          "ИТМиВТ АН СССР (Лебедев)",
+          "ИТФ им. Ландау (Черноголовка)",
+          "Императорская Академия Наук",
+          "Институт биофизики АН СССР",
+          "Институт кибернетики АН УССР (Киев)",
+          "Институт проблем передачи информации (ИППИ АН СССР)",
+          "Институт проблем управления (ИАТ АН СССР)",
+          "ЛОМИ АН СССР (Ленинград)",
+          "МГУ им. Ломоносова",
+          "МИАН им. Стеклова",
+          "Математический институт им. В. А. Стеклова",
+          "ОКБ-1 / НИИ-885",
+          "Санкт-Петербургский университет",
+          "ФТИНТ АН УССР (Харьков)"
+        ]
+      },
+      {
+        "native_term": "краевое условие",
+        "english_concept": "Boundary Condition",
+        "institution_count": 17,
+        "connected_institutions": [
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИТМиВТ АН СССР",
+          "ИТМиВТ АН СССР (Лебедев)",
+          "ИТФ им. Ландау (Черноголовка)",
+          "ИФЗ / МГУ",
+          "Императорская Академия Наук",
+          "Институт биофизики АН СССР",
+          "Институт кибернетики АН УССР (Киев)",
+          "Институт проблем передачи информации (ИППИ АН СССР)",
+          "Институт физики Земли АН СССР",
+          "ЛОМИ АН СССР (Ленинград)",
+          "МГУ им. Ломоносова",
+          "МИАН им. Стеклова",
+          "Математический институт им. В. А. Стеклова",
+          "Санкт-Петербургский университет",
+          "ФТИНТ АН УССР (Харьков)"
+        ]
+      },
+      {
+        "native_term": "допустимый",
+        "english_concept": "Admissible",
+        "institution_count": 16,
+        "connected_institutions": [
+          "NASA MSC",
+          "ГИФТИ (Горький)",
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИТФ им. Ландау (Черноголовка)",
+          "ИФЗ / МГУ",
+          "Институт биофизики АН СССР",
+          "Институт кибернетики АН УССР (Киев)",
+          "Институт проблем передачи информации (ИППИ АН СССР)",
+          "Институт проблем управления (ИАТ АН СССР)",
+          "Институт физики Земли АН СССР",
+          "ЛОМИ АН СССР (Ленинград)",
+          "МГУ им. Ломоносова",
+          "МИАН им. Стеклова",
+          "ОКБ-1 / НИИ-885",
+          "ФТИНТ АН УССР (Харьков)"
+        ]
+      },
+      {
+        "native_term": "оператор",
+        "english_concept": "Operator",
+        "institution_count": 12,
+        "connected_institutions": [
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИТФ им. Ландау (Черноголовка)",
+          "ИФЗ / МГУ",
+          "Институт биофизики АН СССР",
+          "Институт кибернетики АН УССР (Киев)",
+          "Институт проблем передачи информации (ИППИ АН СССР)",
+          "Институт физики Земли АН СССР",
+          "ЛОМИ АН СССР (Ленинград)",
+          "МГУ им. Ломоносова",
+          "МИАН им. Стеклова",
+          "ФТИНТ АН УССР (Харьков)"
+        ]
+      },
+      {
+        "native_term": "обратная задача",
+        "english_concept": "Inverse Problem",
+        "institution_count": 12,
+        "connected_institutions": [
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИТФ им. Ландау (Черноголовка)",
+          "ИФЗ / МГУ",
+          "Институт биофизики АН СССР",
+          "Институт кибернетики АН УССР (Киев)",
+          "Институт проблем передачи информации (ИППИ АН СССР)",
+          "Институт физики Земли АН СССР",
+          "ЛОМИ АН СССР (Ленинград)",
+          "МГУ им. Ломоносова",
+          "МИАН им. Стеклова",
+          "ФТИНТ АН УССР (Харьков)"
+        ]
+      },
+      {
+        "native_term": "отображение",
+        "english_concept": "Mapping",
+        "institution_count": 11,
+        "connected_institutions": [
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИТМиВТ АН СССР",
+          "ИТМиВТ АН СССР (Лебедев)",
+          "ИФЗ / МГУ",
+          "Императорская Академия Наук",
+          "Институт физики Земли АН СССР",
+          "МГУ им. Ломоносова",
+          "МИАН им. Стеклова",
+          "Математический институт им. В. А. Стеклова",
+          "Санкт-Петербургский университет"
+        ]
+      },
+      {
+        "native_term": "состояние / фазовые координаты",
+        "english_concept": "State / Phase Coordinates",
+        "institution_count": 11,
+        "connected_institutions": [
+          "NASA MSC",
+          "ГИФТИ (Горький)",
+          "Институт атомной энергии им. Курчатова (ИАЭ)",
+          "Институт проблем управления (ИАТ АН СССР)",
+          "Курчатов И. В. & Арцимович Л. А.",
+          "МГУ им. Ломоносова",
+          "МГУ им. Ломоносова (физфак)",
+          "МИАН им. Стеклова",
+          "НИРФИ (Горький) / Салют",
+          "ОИЯИ (Дубна)",
+          "ОКБ-1 / НИИ-885"
+        ]
+      },
+      {
+        "native_term": "функционал",
+        "english_concept": "Functional",
+        "institution_count": 10,
+        "connected_institutions": [
+          "NASA MSC",
+          "ГИФТИ (Горький)",
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИФЗ / МГУ",
+          "Институт проблем управления (ИАТ АН СССР)",
+          "Институт физики Земли АН СССР",
+          "МГУ им. Ломоносова",
+          "МИАН им. Стеклова",
+          "ОКБ-1 / НИИ-885"
+        ]
+      },
+      {
+        "native_term": "инвариант",
+        "english_concept": "Invariant",
+        "institution_count": 6,
+        "connected_institutions": [
+          "Институт атомной энергии им. Курчатова (ИАЭ)",
+          "Курчатов И. В. & Арцимович Л. А.",
+          "МГУ им. Ломоносова",
+          "МГУ им. Ломоносова (физфак)",
+          "НИРФИ (Горький) / Салют",
+          "ОИЯИ (Дубна)"
+        ]
+      },
+      {
+        "native_term": "приближение",
+        "english_concept": "Approximation",
+        "institution_count": 6,
+        "connected_institutions": [
+          "ИТМиВТ АН СССР",
+          "ИТМиВТ АН СССР (Лебедев)",
+          "Императорская Академия Наук",
+          "МИАН им. Стеклова",
+          "Математический институт им. В. А. Стеклова",
+          "Санкт-Петербургский университет"
+        ]
+      },
+      {
+        "native_term": "траектория",
+        "english_concept": "Trajectory",
+        "institution_count": 5,
+        "connected_institutions": [
+          "NASA MSC",
+          "ГИФТИ (Горький)",
+          "Институт проблем управления (ИАТ АН СССР)",
+          "МИАН им. Стеклова",
+          "ОКБ-1 / НИИ-885"
+        ]
+      },
+      {
+        "native_term": "устойчивость / грубость",
+        "english_concept": "Stability / Structural Robustness",
+        "institution_count": 5,
+        "connected_institutions": [
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИФЗ / МГУ",
+          "Институт физики Земли АН СССР",
+          "МГУ им. Ломоносова"
+        ]
+      },
+      {
+        "native_term": "регуляризация",
+        "english_concept": "Regularization",
+        "institution_count": 5,
+        "connected_institutions": [
+          "ИПМ им. Келдыша",
+          "ИПМ им. Келдыша АН СССР",
+          "ИФЗ / МГУ",
+          "Институт физики Земли АН СССР",
+          "МГУ им. Ломоносова"
+        ]
+      }
+    ],
+    "temporal_persistence_ranking": [
+      {
+        "native_term": "преобразование",
+        "english_concept": "Transformation / Transform",
+        "earliest_year": 1853,
+        "latest_year": 1991,
+        "span_years": 138,
+        "primary_milestones": [
+          "1853: Earliest documented occurrence in corpus",
+          "1853–1890: Kinematic mechanism transformations (Chebyshev).",
+          "1937–1960: Canonical transformations in phase space and Hamiltonian control (Pontryagin).",
+          "1951–1970: Volterra transformation operator in inverse spectral theory (Gelfand–Levitan)."
+        ]
+      },
+      {
+        "native_term": "отображение",
+        "english_concept": "Mapping",
+        "earliest_year": 1853,
+        "latest_year": 1991,
+        "span_years": 138,
+        "primary_milestones": [
+          "1853: Earliest documented occurrence in corpus",
+          "1853–1938: Chebyshev interval mapping and Lavrentyev continuous/quasiconformal mappings.",
+          "1943–1965: Forward and inverse mappings between state and data spaces (Tikhonov)."
+        ]
+      },
+      {
+        "native_term": "краевое условие",
+        "english_concept": "Boundary Condition",
+        "earliest_year": 1853,
+        "latest_year": 1991,
+        "span_years": 138,
+        "primary_milestones": [
+          "1853: Earliest documented occurrence in corpus",
+          "1853–1930: Endpoint extrema in Chebyshev approximation and classical Sturm–Liouville boundary values.",
+          "1951–1965: Normalization of transformation kernels via boundary conditions (Gelfand–Levitan)."
+        ]
+      },
+      {
+        "native_term": "приближение",
+        "english_concept": "Approximation",
+        "earliest_year": 1853,
+        "latest_year": 1991,
+        "span_years": 138,
+        "primary_milestones": [
+          "1853: Earliest documented occurrence in corpus",
+          "1853–1890: Chebyshev uniform approximation (наилучшее приближение) on compact intervals.",
+          "1892–1937: Lyapunov first-order approximation in stability theory.",
+          "1937–1960: Asymptotic Krylov–Bogolyubov–Mitropolsky averaging and perturbation approximations."
+        ]
+      },
+      {
+        "native_term": "состояние / фазовые координаты",
+        "english_concept": "State / Phase Coordinates",
+        "earliest_year": 1892,
+        "latest_year": 1991,
+        "span_years": 99,
+        "primary_milestones": [
+          "1892: Earliest documented occurrence in corpus",
+          "1892–1930: Lyapunov perturbed and unperturbed state trajectories.",
+          "1938–1946: Collective state in phase space: distribution function f(r, v, t) (Vlasov, Bogolyubov).",
+          "1956–1961: Pontryagin phase state x(t) and conjugate momentum psi(t)."
+        ]
+      },
+      {
+        "native_term": "траектория",
+        "english_concept": "Trajectory",
+        "earliest_year": 1892,
+        "latest_year": 1991,
+        "span_years": 99,
+        "primary_milestones": [
+          "1892: Earliest documented occurrence in corpus",
+          "1892–1937: Lyapunov stability of trajectories and Andronov phase-space limit cycles.",
+          "1956–1961: Pontryagin optimal trajectory connecting initial state x_0 to target set X_1."
+        ]
+      },
+      {
+        "native_term": "устойчивость / грубость",
+        "english_concept": "Stability / Structural Robustness",
+        "earliest_year": 1892,
+        "latest_year": 1991,
+        "span_years": 99,
+        "primary_milestones": [
+          "1892: Earliest documented occurrence in corpus",
+          "1892–1920: Lyapunov stability: boundedness of trajectories under initial perturbations.",
+          "1937–1955: Andronov–Pontryagin structural stability (грубость).",
+          "1943–1963: Tikhonov stability of inverse operators under observation noise."
+        ]
+      },
+      {
+        "native_term": "инвариант",
+        "english_concept": "Invariant",
+        "earliest_year": 1892,
+        "latest_year": 1991,
+        "span_years": 99,
+        "primary_milestones": [
+          "1892: Earliest documented occurrence in corpus",
+          "1892–1938: First integrals of motion (Lyapunov) and Liouville phase-volume invariance (Vlasov).",
+          "1937–1970: Topological invariants of dynamical systems and gauge invariants in field theory (Faddeev)."
+        ]
+      },
+      {
+        "native_term": "оператор",
+        "english_concept": "Operator",
+        "earliest_year": 1935,
+        "latest_year": 1991,
+        "span_years": 56,
+        "primary_milestones": [
+          "1935: Earliest documented occurrence in corpus",
+          "1935–1945: Abstract functional analysis and normed rings (Gelfand). Operators as elements of algebraic structures.",
+          "1951–1959: Transformation operators (операторы преобразования, Povzner–Levitan–Marchenko).",
+          "1960–1975: Ill-posed operator equations and regularizing operators (Tikhonov). Resolvent operators in scattering (Faddeev)."
+        ]
+      },
+      {
+        "native_term": "функционал",
+        "english_concept": "Functional",
+        "earliest_year": 1943,
+        "latest_year": 1991,
+        "span_years": 48,
+        "primary_milestones": [
+          "1943: Earliest documented occurrence in corpus",
+          "1943–1963: Tikhonov smoothing functional: M^alpha[z] = ||Az - u||^2 + alpha * Omega[z].",
+          "1956–1961: Pontryagin cost functional: J = integral f^0(x, u) dt."
+        ]
+      },
+      {
+        "native_term": "допустимый",
+        "english_concept": "Admissible",
+        "earliest_year": 1943,
+        "latest_year": 1991,
+        "span_years": 48,
+        "primary_milestones": [
+          "1943: Earliest documented occurrence in corpus",
+          "1943–1963: Tikhonov admissible class of solutions (допустимое множество).",
+          "1951–1960: Gelfand–Levitan admissible spectral functions.",
+          "1956–1961: Pontryagin admissible control (допустимое управление)."
+        ]
+      },
+      {
+        "native_term": "обратная задача",
+        "english_concept": "Inverse Problem",
+        "earliest_year": 1943,
+        "latest_year": 1991,
+        "span_years": 48,
+        "primary_milestones": [
+          "1943: Earliest documented occurrence in corpus",
+          "1943–1950: Geophysical potential field inversion and Cauchy problem for elliptic equations (Tikhonov).",
+          "1951–1959: Inverse Sturm–Liouville spectral problem (Gelfand–Levitan, Marchenko).",
+          "1959–1970: Quantum inverse scattering theory (Faddeev)."
+        ]
+      },
+      {
+        "native_term": "регуляризация",
+        "english_concept": "Regularization",
+        "earliest_year": 1963,
+        "latest_year": 1991,
+        "span_years": 28,
+        "primary_milestones": [
+          "1963: Earliest documented occurrence in corpus",
+          "1963–1965: Foundational Tikhonov regularization of Fredholm integral equations of the first kind.",
+          "1966–1980: Discrepancy principle (принцип невязки, Morozov) and regularized numerical algorithms (Samarsky)."
+        ]
+      }
+    ],
+    "institutional_bridges_ranking": [
+      {
+        "institution_name": "Институт прикладной математики им. М. В. Келдыша (ИПМ АН СССР)",
+        "city": "Москва",
+        "foundation_year": 1953,
+        "pure_math_connections": [
+          "Тихонов (регуляризация)",
+          "Самарский (разностные схемы)",
+          "Келдыш (вычисления)"
+        ],
+        "engineering_domain_connections": [
+          "Баллистика космических аппаратов",
+          "Газодинамика ядерного взрыва",
+          "Теплозащита спускаемых аппаратов"
+        ],
+        "bridge_score": 9.8,
+        "role_description": "Direct operational bridge between pure mathematical regularization, numerical hydrocodes, and Soviet atomic/space programs."
+      },
+      {
+        "institution_name": "Математический институт им. В. А. Стеклова (МИАН АН СССР)",
+        "city": "Москва / Ленинград",
+        "foundation_year": 1934,
+        "pure_math_connections": [
+          "Понтрягин (управление)",
+          "Гельфанд (спектры)",
+          "Чебышев (наследие)",
+          "Фаддеев (ЛОМИ)"
+        ],
+        "engineering_domain_connections": [
+          "Оптимальное управление ракетами",
+          "Квантовое рассеяние",
+          "Обратные задачи волноводов"
+        ],
+        "bridge_score": 9.5,
+        "role_description": "Premier theoretical mathematical institute acting as the apex formalizer for optimal control, inverse spectra, and non-linear dynamics."
+      },
+      {
+        "institution_name": "Московский государственный университет им. М. В. Ломоносова (МГУ)",
+        "city": "Москва",
+        "foundation_year": 1755,
+        "pure_math_connections": [
+          "Мехмат (Тихонов, Гельфанд, Понтрягин)",
+          "Физфак (Власов, Боголюбов)"
+        ],
+        "engineering_domain_connections": [
+          "Магнитотеллурическое зондирование",
+          "Плазменные ускорители",
+          "Теория антенн"
+        ],
+        "bridge_score": 9.2,
+        "role_description": "Primary training and foundational research cradle uniting pure functional analysis with theoretical plasma and earth sciences."
+      },
+      {
+        "institution_name": "Институт атомной энергии им. И. В. Курчатова (ИАЭ)",
+        "city": "Москва",
+        "foundation_year": 1943,
+        "pure_math_connections": [
+          "Боголюбов (кинетика)",
+          "Шафранов (МГД-равновесие)",
+          "Леонтович"
+        ],
+        "engineering_domain_connections": [
+          "Установки Токамак (Т-3, Т-4, Т-10)",
+          "Магнитные ловушки",
+          "Термоядерный синтез"
+        ],
+        "bridge_score": 9.1,
+        "role_description": "Primary implementation node of Vlasov-Bogolyubov collective kinetics into Tokamak magnetic confinement devices."
+      },
+      {
+        "institution_name": "Горьковский исследовательский физико-технический институт (ГИФТИ / НИРФИ)",
+        "city": "Горький (Нижний Новгород)",
+        "foundation_year": 1932,
+        "pure_math_connections": [
+          "Андронов (грубые системы)",
+          "Горелик",
+          "Гапонов-Грехов"
+        ],
+        "engineering_domain_connections": [
+          "Нелинейные генераторы",
+          "Радиолокация миллиметрового диапазона",
+          "Гиротроны для УТС"
+        ],
+        "bridge_score": 8.9,
+        "role_description": "Epicenter of the Soviet non-linear oscillation school, directly bridging limit-cycle topology to high-power radar transmitters."
+      },
+      {
+        "institution_name": "Институт кибернетики АН УССР",
+        "city": "Киев",
+        "foundation_year": 1957,
+        "pure_math_connections": [
+          "Глушков (автоматы)",
+          "Ремез (аппроксимация)",
+          "Михалевич"
+        ],
+        "engineering_domain_connections": [
+          "ЭВМ Днепр, Мир",
+          "АСУ промышленных предприятий (ОГАС)",
+          "Робототехнические комплексы"
+        ],
+        "bridge_score": 8.7,
+        "role_description": "Ukrainian cybernetic hub translating discrete variable-structure automata and Chebyshev minimax algorithms into industrial automation."
+      },
+      {
+        "institution_name": "Институт точной механики и вычислительной техники (ИТМиВТ АН СССР)",
+        "city": "Москва",
+        "foundation_year": 1948,
+        "pure_math_connections": [
+          "Лебедев",
+          "Чебышевское наследие полиномиальной аппроксимации"
+        ],
+        "engineering_domain_connections": [
+          "Суперкомпьютеры БЭСМ-6",
+          "Системы ПРО (А-35)",
+          "Космическая баллистика ЦУП"
+        ],
+        "bridge_score": 8.5,
+        "role_description": "Premier high-performance computing hardware bureau implementing numerical approximations for strategic missile defense and space navigation."
+      }
+    ]
+  },
+  "terminology_evolution_and_invariance": [
+    {
+      "mathematical_invariant_concept": "Structural Invariance under Perturbation (Surviving Uncertainty)",
+      "terminological_phases": [
+        {
+          "term": "устойчивость движения (Lyapunov, 1892)",
+          "target_of_perturbation": "Initial state trajectory displacement: delta x_0",
+          "mathematical_mechanism": "Lyapunov candidate functions V(x) with negative-definite time derivative"
+        },
+        {
+          "term": "грубость / структурная устойчивость (Andronov & Pontryagin, 1937)",
+          "target_of_perturbation": "Vector field deformation: dot(x) = F(x) + delta F(x)",
+          "mathematical_mechanism": "Topological equivalence (homeomorphism) preserving phase portrait limit cycles"
+        },
+        {
+          "term": "корректность по Тихонову / регуляризация (Tikhonov, 1943/1963)",
+          "target_of_perturbation": "Observation data noise: u_delta = u + delta u",
+          "mathematical_mechanism": "Parametric functional penalty z_alpha minimizing data misfit within compact class"
+        }
+      ],
+      "underlying_invariant_structure": "The epistemic question remains identical across 70 years: 'Does qualitative/quantitative structure survive perturbation in the presence of physical uncertainty?' Only the mathematical object subjected to perturbation varies (state -> vector field -> observation data)."
+    },
+    {
+      "mathematical_invariant_concept": "Transformation Operators Bridging Inaccessible Interiors",
+      "terminological_phases": [
+        {
+          "term": "преобразование координат / механизмов (Chebyshev, 1853)",
+          "target_of_perturbation": "Kinematic linkage coordinate transformations",
+          "mathematical_mechanism": "Linear and algebraic transformations mapping geometric paths to linear motion"
+        },
+        {
+          "term": "оператор преобразования Повзнера — Левитана — Марченко (1951)",
+          "target_of_perturbation": "Differential operator potential q(x) -> spectral measure",
+          "mathematical_mechanism": "Triangular Volterra integral operator I + K relating perturbed equation to unperturbed equation"
+        },
+        {
+          "term": "метод обратной задачи рассеяния / пары Лакса (Zakharov-Shabat, 1971)",
+          "target_of_perturbation": "Nonlinear wave evolution u(x,t)",
+          "mathematical_mechanism": "Associating nonlinear PDE with linear spectral operator L(u) whose eigenvalues are invariant integrals of motion"
+        }
+      ],
+      "underlying_invariant_structure": "Representing an intractable or inaccessible nonlinear interaction as a linear transformation operator acting on a known base system."
+    }
+  ],
+  "chronological_formulations_comparison": [
+    {
+      "domain": "Ill-Posed Inverse Problems",
+      "soviet_school": "Tikhonov Regularization (1943, 1963)",
+      "alternative_tradition": "Hadamard Well-Posedness Criterion (1902, 1923)",
+      "chronological_relationship": "EXTENDS_PREVIOUS_CRITERION",
+      "key_dates_comparison": "Hadamard (1902/1923) -> Tikhonov (1943/1963)",
+      "historical_verdict": "Hadamard established diagnostic criteria classifying ill-posedness; Tikhonov systematically created constructive regularized approximation methods to solve them."
+    },
+    {
+      "domain": "Optimal Control Theory",
+      "soviet_school": "Pontryagin Maximum Principle (1956, 1961)",
+      "alternative_tradition": "Bellman Dynamic Programming (1957) & Classical Variations",
+      "chronological_relationship": "PARALLELS_AND_INTERACTS",
+      "key_dates_comparison": "Pontryagin (1956) <-> Bellman (1957) <-> NASA Apollo rendezvous (1963)",
+      "historical_verdict": "Different mathematical formulations for optimal control. Pontryagin's method directly accommodates closed control boundaries and bang-bang switching; immediately crossed borders into Western aerospace."
+    },
+    {
+      "domain": "Nonlinear Oscillation & Stability",
+      "soviet_school": "Andronov-Pontryagin Rough Systems (1937)",
+      "alternative_tradition": "Bode & Nyquist Linear Frequency Domain (1932, 1945)",
+      "chronological_relationship": "PARALLELS_COMPLEMENTARY_DOMAINS",
+      "key_dates_comparison": "Nyquist (1932) <-> Andronov (1937) -> Lefschetz English translation (1949) -> Smale (1960s)",
+      "historical_verdict": "Andronov pioneered qualitative phase-space analysis of nonlinear limit cycles; Nyquist/Bode analyzed linear feedback frequency response. Both solve distinct engineering domains."
+    },
+    {
+      "domain": "Plasma Kinetics",
+      "soviet_school": "Vlasov Self-Consistent Collective Field (1938, 1945)",
+      "alternative_tradition": "Boltzmann Binary Collision Kinetics (1896, 1939)",
+      "chronological_relationship": "NEW_PHYSICAL_REGIME",
+      "key_dates_comparison": "Boltzmann (1896) -> Chapman-Cowling (1939) vs Vlasov (1938) -> Landau damping (1946)",
+      "historical_verdict": "Vlasov established that long-range Coulomb interactions supersede Boltzmann's binary collision model in high-temperature plasmas, creating modern plasma kinetics."
+    },
+    {
+      "domain": "Nonlinear Wave Solitons",
+      "soviet_school": "Zakharov-Shabat & Faddeev Inverse Scattering (1971)",
+      "alternative_tradition": "Gardner-Greene-Kruskal-Miura & Lax (1967, 1968)",
+      "chronological_relationship": "CO_DEVELOPED_INTERNATIONALLY",
+      "key_dates_comparison": "Gelfand-Levitan (1951) -> GGKM (1967) -> Lax (1968) -> Zakharov-Shabat (1971)",
+      "historical_verdict": "Exemplary international mathematical synergy: US and Soviet mathematicians rapidly built on each other's inverse spectral results to formalize soliton integration."
+    },
+    {
+      "domain": "Approximation Theory",
+      "soviet_school": "Chebyshev Minimax Polynomials & Remez Algorithm (1853, 1934)",
+      "alternative_tradition": "Taylor Local Point Expansion (1715) & Runge Approximation",
+      "chronological_relationship": "ALTERNATIVE_APPROXIMATION_GOAL",
+      "key_dates_comparison": "Taylor (1715) vs Chebyshev (1853) -> Remez (1934) -> Parks-McClellan (1972)",
+      "historical_verdict": "Chebyshev established constructive approximation minimizing peak error over intervals, foundational for worldwide digital filter design and numerical software."
+    }
+  ],
+  "core_motif_matrix": [
+    {
+      "motif": "Stability / Structural Robustness (устойчивость / грубость)",
+      "schools": [
+        "LYAPUNOV",
+        "ANDRONOV",
+        "PONTRYAGIN",
+        "TIKHONOV"
+      ],
+      "earliest_evidence_year": 1892,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Nonlinear limit-cycle oscillators and radio pulse circuits (Andronov)",
+        "Flight attitude stabilization and robust control margins"
+      ],
+      "engineering_descendants_candidate": [
+        "Aerodynamic flutter boundary control in supersonic aircraft",
+        "Interconnected power grid frequency-lock stability"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Perturbation invariance of qualitative system behavior across state displacement (Lyapunov), vector fields (Andronov), and observation noise (Tikhonov)."
+    },
+    {
+      "motif": "State Representation (состояние / фазовые координаты)",
+      "schools": [
+        "LYAPUNOV",
+        "PONTRYAGIN",
+        "VLASOV",
+        "BOGOLYUBOV"
+      ],
+      "earliest_evidence_year": 1892,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Symplectic Hamiltonian phase trajectories for spacecraft control (Pontryagin)",
+        "Kinetic beam phase space in charged particle accelerators"
+      ],
+      "engineering_descendants_candidate": [
+        "Multi-target tracking filters under incomplete state observation"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Prioritizing internal multi-dimensional state coordinates x(t) or distribution f(r,v,t) over external black-box input-output transfer functions."
+    },
+    {
+      "motif": "Inverse Reconstruction (обратная задача & регуляризация)",
+      "schools": [
+        "TIKHONOV",
+        "GELFAND_LEVITAN",
+        "MARCHENKO",
+        "FADDEEV"
+      ],
+      "earliest_evidence_year": 1943,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Zelkin radar antenna aperture synthesis from radiation patterns (1963)",
+        "Magnetotelluric sounding (MTZ) geophysical underground conductivity inversion",
+        "Inverse scattering integration of optical soliton transmission (Zakharov-Shabat 1971)"
+      ],
+      "engineering_descendants_candidate": [
+        "Heat-shield ablative thermal conductivity recovery during re-entry",
+        "Acoustic ocean floor impedance reconstruction for submarine detection"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Treating indirect, noisy observation not as a defective experiment, but as a first-class mathematical reconstruction problem regularized on compact sets."
+    },
+    {
+      "motif": "Hard Admissibility Constraints (допустимый: u in U, z in Z_ad)",
+      "schools": [
+        "PONTRYAGIN",
+        "TIKHONOV",
+        "GELFAND"
+      ],
+      "earliest_evidence_year": 1943,
+      "cross_school_recurrence": "MEDIUM-HIGH",
+      "engineering_descendants_documented": [
+        "Time-optimal relay (bang-bang) control with hard actuator limits",
+        "Compact constraint sets restoring numerical well-posedness in Fredholm equations"
+      ],
+      "engineering_descendants_candidate": [
+        "Fuel-optimal spacecraft de-orbit burns with bounded thrust throttles"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Mathematics + physical actuator/solution bounds = realizable solution, superseding unrestricted smooth variational extrema."
+    },
+    {
+      "motif": "Collective State Distribution (самосогласованное поле & кинетика)",
+      "schools": [
+        "VLASOV",
+        "BOGOLYUBOV"
+      ],
+      "earliest_evidence_year": 1938,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Tokamak plasma equilibrium and stability (Grad-Shafranov MHD theory)",
+        "Relativistic electron beam dynamics and high-power microwave tubes"
+      ],
+      "engineering_descendants_candidate": [
+        "Millimeter-wave gyrotrons for thermonuclear plasma heating (NIRFI)"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Replacing discrete binary collision tracking with macroscopic self-consistent electromagnetic fields in long-range Coulomb ensembles."
+    },
+    {
+      "motif": "Minimax / Global Error Guarantee (приближение Чебышева)",
+      "schools": [
+        "CHEBYSHEV",
+        "MARKOV",
+        "BERNSTEIN"
+      ],
+      "earliest_evidence_year": 1853,
+      "cross_school_recurrence": "MEDIUM",
+      "engineering_descendants_documented": [
+        "Chebyshev equal-ripple analog and digital filter synthesis",
+        "Steam engine parallelogram linkage kinematics (Watt linkage optimization)",
+        "Remez exchange algorithm for computer arithmetic functions"
+      ],
+      "engineering_descendants_candidate": [
+        "BESM-6 elementary function evaluation polynomial microcode"
+      ],
+      "evidentiary_confidence": "MEDIUM (Filters HIGH / Microcode CANDIDATE)",
+      "epistemic_essence": "Minimizing worst-case peak error uniformly across a compact operating interval rather than relying on local Taylor derivative smoothness."
+    }
+  ]
+}

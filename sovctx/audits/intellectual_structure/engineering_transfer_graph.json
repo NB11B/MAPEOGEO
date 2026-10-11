@@ -1,6 +1,9 @@
 {
   "title": "SOVCTX Mathematical Foundation to Applied Engineering Transfer Graph",
+  "evidentiary_policy": "Lines are strictly divided between DOCUMENTED_LINEAGE (supported by primary citations) and HYPOTHESIZED_LINEAGE (plausible mathematical foundations requiring primary bureau records).",
   "total_lines": 6,
+  "documented_lines_count": 4,
+  "hypothesized_lines_count": 2,
   "transfer_lines": [
     {
       "line_id": "LINE_01_INVERSE_GEOPHYSICS_RADAR",
@@ -19,7 +22,7 @@
       "applied_engineering_domains": [
         "Магнитотеллурическое зондирование (МТЗ) в геофизике",
         "Синтез диаграмм направленности антенн и фазированных решеток (РЛС)",
-        "Вычислительная газовая динамика и теплозащита космических аппаратов"
+        "Вычислительная газовая динамика и теплозащита космических аппаратов (гипотеза)"
       ],
       "operator_bridges": [
         "OP:INVERSE",
@@ -27,30 +30,36 @@
         "OP:FIELD_SYNTHESIS",
         "OP:INVERSE_DESIGN"
       ],
+      "lineage_status": "DOCUMENTED_LINEAGE",
+      "evidentiary_confidence": "HIGH",
       "lineage_milestones": [
         {
           "entity": "Тихонов А. Н.",
           "entity_type": "MATHEMATICIAN",
           "year": 1943,
-          "role": "Formulates stability of inverse problem for geophysics in DAN SSSR"
+          "role": "Formulates stability of inverse problems for geophysics in DAN SSSR",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "ИФЗ / МГУ",
           "entity_type": "INSTITUTION",
           "year": 1950,
-          "role": "Applies regularization to magnetotelluric geological prospecting"
+          "role": "Applies regularization to magnetotelluric geological prospecting",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Зелкин Е. Г.",
           "entity_type": "MATHEMATICIAN",
           "year": 1963,
-          "role": "Publishes monograph 'Constructing a Radiating System from a Specified Radiation Pattern'"
+          "role": "Publishes monograph 'Constructing a Radiating System from a Specified Radiation Pattern'",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "ИПМ им. Келдыша",
           "entity_type": "INSTITUTION",
           "year": 1965,
-          "role": "Samarsky and Tikhonov regularize finite-difference hydrocodes for re-entry and nuclear physics"
+          "role": "Samarsky and Tikhonov regularize finite-difference hydrocodes for re-entry and nuclear physics",
+          "evidentiary_support": "CANDIDATE"
         }
       ],
       "documented_sources": [
@@ -58,11 +67,15 @@
         "PUB:TIKHONOV_1963_ILLPOSED",
         "PUB:ZELKIN_1963"
       ],
-      "historical_summary": "Tikhonov's regularization arose directly from geophysical sounding where surface measurements must invert electromagnetic diffusion to recover underground conductivity layers. Because high-frequency spatial modes decay exponentially, inversion is numerically catastrophic. By 1963, this exact Fredholm operator framework was transferred by E. G. Zelkin into Soviet radar engineering to synthesize antenna apertures from desired radiation patterns without producing infinite reactive fields."
+      "next_acquisition_targets": [
+        "Zelkin 1963 monograph full text (Сов. радио) for direct equation concordance",
+        "IPM Keldysh technical reports on re-entry boundary layer finite difference schemes"
+      ],
+      "historical_summary": "Tikhonov's regularization arose directly from geophysical sounding where surface measurements must invert electromagnetic diffusion to recover underground conductivity layers. By 1963, this exact Fredholm operator framework was transferred by E. G. Zelkin into Soviet radar engineering to synthesize antenna apertures from desired radiation patterns without producing infinite reactive fields. The transfer to spacecraft heat-shield hydrocodes remains a plausible candidate lineage requiring bureau archival evidence."
     },
     {
       "line_id": "LINE_02_DYNAMICS_AEROSPACE_CONTROL",
-      "label": "Chebyshev-Lyapunov-Andronov-Pontryagin to Aerospace & Missile Guidance",
+      "label": "Chebyshev-Lyapunov-Andronov-Pontryagin to Optimal Flight & Guidance Control",
       "foundation_school": "PONTRYAGIN",
       "foundational_authors": [
         "Чебышев П. Л.",
@@ -77,10 +90,10 @@
         "Институт проблем управления (ИАТ АН СССР)"
       ],
       "applied_engineering_domains": [
-        "Оптимальное управление ракетами-носителями и спускаемыми аппаратами",
-        "Рандеву и стыковка космических кораблей (Восток, Союз)",
-        "Теория дуального управления и самонастраивающиеся следящие приводы",
-        "Релейные системы ориентации спутников (bang-bang control)"
+        "Теория оптимального управления летательными аппаратами",
+        "Релейные системы ориентации спутников (bang-bang control)",
+        "Траекторная оптимизация сближения на орбите (NASA Apollo 1963 / ОКБ-1)",
+        "Теория дуального управления Фельдбаума"
       ],
       "operator_bridges": [
         "OP:STATE",
@@ -89,36 +102,50 @@
         "OP:OPTIMIZE",
         "OP:STRUCTURAL_ROBUSTNESS"
       ],
+      "lineage_status": "HYPOTHESIZED_LINEAGE",
+      "evidentiary_confidence": "MEDIUM",
       "lineage_milestones": [
         {
           "entity": "Ляпунов А. М.",
           "entity_type": "MATHEMATICIAN",
           "year": 1892,
-          "role": "General Problem of the Stability of Motion"
+          "role": "General Problem of the Stability of Motion",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Андронов А. А. & Понтрягин Л. С.",
           "entity_type": "MATHEMATICIAN",
           "year": 1937,
-          "role": "Introduction of structural stability (rough systems)"
+          "role": "Introduction of structural stability (rough systems)",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Понтрягин, Болтянский, Гамкрелидзе, Мищенко",
           "entity_type": "MATHEMATICIAN",
           "year": 1956,
-          "role": "Discovery of the Maximum Principle with bounded control sets"
+          "role": "Discovery of the Maximum Principle with bounded control sets",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Красовский Н. Н.",
           "entity_type": "MATHEMATICIAN",
           "year": 1959,
-          "role": "Theory of optimal regulation for aircraft and rocket trajectories"
+          "role": "Theory of optimal regulation for aircraft and rocket trajectories",
+          "evidentiary_support": "CANDIDATE"
         },
         {
-          "entity": "Фейльдбаум А. А.",
-          "entity_type": "MATHEMATICIAN",
-          "year": 1960,
-          "role": "Dual control theory under incomplete information in IAT"
+          "entity": "NASA MSC",
+          "entity_type": "INSTITUTION",
+          "year": 1963,
+          "role": "Application of Pontryagin Maximum Principle to Apollo lunar orbit rendezvous trajectories",
+          "evidentiary_support": "DOCUMENTED"
+        },
+        {
+          "entity": "ОКБ-1 / НИИ-885",
+          "entity_type": "INSTITUTION",
+          "year": 1964,
+          "role": "Implementation of relay attitude control in lunar/interplanetary probes",
+          "evidentiary_support": "SYNTHESIS"
         }
       ],
       "documented_sources": [
@@ -127,11 +154,16 @@
         "BENCH_02_PONTRYAGIN",
         "BENCH_07_ANDRONOV_PONTRYAGIN"
       ],
-      "historical_summary": "Starting from Lyapunov's phase-space stability and Andronov's non-linear oscillations, the Steklov Institute team under Pontryagin broke with Western variational smoothness to handle bounded actuator limits (u in U). The resulting Maximum Principle and relay (bang-bang) control provided the direct mathematical foundation for Soviet ballistic missile guidance, optimal burn scheduling for orbital insertion, and spacecraft attitude control."
+      "next_acquisition_targets": [
+        "Krasovskii N. N. 1959-1962 monographs on stabilization and flight dynamics",
+        "NII-885 / OKB-1 technical documentation for Vostok/Soyuz orientation logic",
+        "Feldbaum A. A. 1960 papers on dual control theory in Avtomatika i Telemekhanika"
+      ],
+      "historical_summary": "Starting from Lyapunov's phase-space stability and Andronov's non-linear oscillations, Pontryagin formalized optimal control with hard actuator constraints (u in U). While international adoption for space trajectories is documented (e.g. NASA's 1963 Apollo rendezvous studies), specific Soviet design bureau transfer chains to OKB-1/NII-885 guidance micro-logic remain candidate hypotheses awaiting primary source acquisition."
     },
     {
       "line_id": "LINE_03_COLLECTIVE_PLASMA_FUSION",
-      "label": "Vlasov-Bogolyubov Kinetic Theory to Tokamak Fusion & High-Current Beams",
+      "label": "Vlasov-Bogolyubov Kinetic Theory to Tokamak Equilibrium & Plasma Confinement",
       "foundation_school": "VLASOV",
       "foundational_authors": [
         "Власов А. А.",
@@ -145,38 +177,51 @@
       ],
       "applied_engineering_domains": [
         "Магнитное удержание плазмы в установках Токамак (Т-3, Т-4, Т-10)",
-        "Релятивистские электронные пучки и гиротроны миллиметрового диапазона",
-        "Высокочастотный нагрев плазмы и бесстолкновительное поглощение волн"
+        "Равновесие плазменного шнура (уравнение Града — Шафранова)",
+        "Высокочастотный нагрев плазмы и гиротроны NIRFI (гипотеза)"
       ],
       "operator_bridges": [
         "OP:SELF_CONSISTENT_FIELD",
         "OP:SELF_OSCILLATE",
         "OP:DYNAMIC_PARTITION"
       ],
+      "lineage_status": "DOCUMENTED_LINEAGE",
+      "evidentiary_confidence": "HIGH",
       "lineage_milestones": [
         {
           "entity": "Власов А. А.",
           "entity_type": "MATHEMATICIAN",
           "year": 1938,
-          "role": "Formulates collisionless kinetic equation with self-consistent field"
+          "role": "Formulates collisionless kinetic equation with self-consistent field",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Боголюбов Н. Н.",
           "entity_type": "MATHEMATICIAN",
           "year": 1946,
-          "role": "Derives kinetic equations from BBGKY hierarchy of classical mechanics"
-        },
-        {
-          "entity": "Курчатов И. В. & Арцимович Л. А.",
-          "entity_type": "INSTITUTION",
-          "year": 1956,
-          "role": "Construct first Tokamak devices based on collective plasma equilibrium"
+          "role": "Derives kinetic equations from BBGKY hierarchy of classical mechanics",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Шафранов В. Д.",
           "entity_type": "MATHEMATICIAN",
-          "year": 1966,
-          "role": "Develops Grad–Shafranov magnetohydrodynamic equilibrium from Vlasov moments"
+          "year": 1958,
+          "role": "Derives Grad–Shafranov MHD equilibrium for toroidal plasma pinches",
+          "evidentiary_support": "DOCUMENTED"
+        },
+        {
+          "entity": "Курчатов И. В. & Арцимович Л. А.",
+          "entity_type": "INSTITUTION",
+          "year": 1968,
+          "role": "T-3 Tokamak achieves thermonuclear temperatures confirming magnetic confinement",
+          "evidentiary_support": "DOCUMENTED"
+        },
+        {
+          "entity": "НИРФИ (Горький) / Салют",
+          "entity_type": "INSTITUTION",
+          "year": 1970,
+          "role": "Development of gyrotrons for ECRH plasma heating",
+          "evidentiary_support": "CANDIDATE"
         }
       ],
       "documented_sources": [
@@ -184,11 +229,16 @@
         "BENCH_03_VLASOV",
         "BENCH_06_BOGOLYUBOV"
       ],
-      "historical_summary": "Vlasov's realization that long-range Coulomb interactions dominate over local pair collisions replaced the Boltzmann gas paradigm with self-consistent collective fields. When rigorous microscopic backing was supplied by Bogolyubov's BBGKY hierarchy, this framework became the primary computational and analytical foundation of the Soviet magnetic fusion program, leading directly to the Tokamak design."
+      "next_acquisition_targets": [
+        "Shafranov V. D. 1958 Atomnaya Energiya papers on toroidal plasma equilibrium",
+        "Artsimovich L. A. 1969 IAEA Novosibirsk conference reports on T-3 Tokamak",
+        "Gaponov-Grekhov A. V. NIRFI technical reports on relativistic gyrotrons"
+      ],
+      "historical_summary": "Vlasov's realization that long-range Coulomb interactions dominate over local pair collisions provided the macroscopic foundation for high-temperature plasma dynamics. Grounded by Bogolyubov's BBGKY hierarchy, this theory transferred directly through Shafranov and Artsimovich into Tokamak magnetic equilibrium and stability analysis, making this one of the most rigorously documented Soviet scientific transfers."
     },
     {
       "line_id": "LINE_04_INVERSE_SPECTRAL_SOLITONS",
-      "label": "Gelfand-Levitan-Marchenko Inverse Spectra to Solitons & Non-Invasive Sounding",
+      "label": "Gelfand-Levitan-Marchenko Inverse Spectra to Solitons & Nonlinear Wave Optics",
       "foundation_school": "GELFAND",
       "foundational_authors": [
         "Гельфанд И. М.",
@@ -205,8 +255,9 @@
       ],
       "applied_engineering_domains": [
         "Нелинейная волоконная оптика и оптические солитоны",
+        "Интегрирование нелинейных эволюционных уравнений (КдФ, НУШ)",
         "Синтез акустических и гидроакустических профилей скорости",
-        "Неразрушающий контроль слоистых композитных материалов"
+        "Квантовая обратная задача рассеяния"
       ],
       "operator_bridges": [
         "OP:INVERSE",
@@ -214,30 +265,43 @@
         "OP:SCATTER_INVERSE",
         "OP:CLASS_ADMISSIBILITY"
       ],
+      "lineage_status": "DOCUMENTED_LINEAGE",
+      "evidentiary_confidence": "HIGH",
       "lineage_milestones": [
         {
           "entity": "Гельфанд И. М. & Левитан Б. М.",
           "entity_type": "MATHEMATICIAN",
           "year": 1951,
-          "role": "Derives linear integral equation reconstructing Sturm–Liouville operator"
+          "role": "Derives linear integral equation reconstructing Sturm–Liouville operator",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Марченко В. А.",
           "entity_type": "MATHEMATICIAN",
           "year": 1952,
-          "role": "Solves inverse problem of scattering theory for one-dimensional Schrodinger operator"
+          "role": "Solves inverse problem of scattering theory for one-dimensional Schrodinger operator",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Фаддеев Л. Д.",
           "entity_type": "MATHEMATICIAN",
           "year": 1959,
-          "role": "Establishes multi-dimensional inverse scattering and quantum three-body equations"
+          "role": "Establishes multi-dimensional inverse scattering and quantum three-body equations",
+          "evidentiary_support": "DOCUMENTED"
+        },
+        {
+          "entity": "Gardner, Greene, Kruskal, Miura / Lax",
+          "entity_type": "MATHEMATICIAN",
+          "year": 1968,
+          "role": "US discovery of inverse scattering transform for KdV",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Захаров В. Е. & Шабат А. Б.",
           "entity_type": "MATHEMATICIAN",
           "year": 1971,
-          "role": "Applies inverse scattering transform (IST) to integrate nonlinear Schrodinger equation"
+          "role": "Applies inverse scattering transform (IST) to integrate nonlinear Schrodinger equation",
+          "evidentiary_support": "DOCUMENTED"
         }
       ],
       "documented_sources": [
@@ -245,11 +309,15 @@
         "PUB:FADDEEV_1959",
         "PUB:GONCHAR_NOVIKOVA_HENKIN_1991"
       ],
-      "historical_summary": "The transformation operator method developed by Gelfand, Levitan, and Marchenko proved that an inaccessible spatial potential can be reconstructed exactly from its boundary spectral response. In 1971, Zakharov and Shabat at the Landau Institute realized that this inverse spectral linear apparatus could integrate completely nonlinear wave equations, establishing the modern theory of optical solitons and acoustic profile inversion."
+      "next_acquisition_targets": [
+        "Zakharov V. E., Shabat A. B. 1971 ZhETF paper on exact theory of 2D self-focusing",
+        "Faddeev L. D., Takhtajan L. A. Hamiltonian Methods in the Theory of Solitons (1986)"
+      ],
+      "historical_summary": "The transformation operator method developed by Gelfand, Levitan, and Marchenko proved that an inaccessible spatial potential can be reconstructed exactly from boundary spectral data. In 1971, Zakharov and Shabat at the Landau Institute proved that this inverse spectral apparatus integrates nonlinear wave equations, establishing modern soliton theory in close, productive interaction with contemporary Western discoveries by Lax, Gardner, Greene, Kruskal, and Miura."
     },
     {
       "line_id": "LINE_05_COMPLEX_CONTROL_CYBERNETICS",
-      "label": "Bernstein-Gelfand-Tsetlin to Adaptive Automata & Industrial Cybernetics",
+      "label": "Bernstein-Gelfand-Tsetlin to Adaptive Automata & Variable-Structure Systems",
       "foundation_school": "GELFAND",
       "foundational_authors": [
         "Бернштейн Н. А.",
@@ -264,8 +332,8 @@
         "Институт кибернетики АН УССР (Киев)"
       ],
       "applied_engineering_domains": [
-        "Адаптивные конечные автоматы в случайных средах",
-        "Дискретные самоорганизующиеся системы с переменной структурой",
+        "Адаптивные конечные автоматы в случайных средах (автоматы Цетлина)",
+        "Дискретные самоорганизующиеся системы с переменной структурой (Глушков)",
         "Алгоритмы координации многозвенных робототехнических манипуляторов"
       ],
       "operator_bridges": [
@@ -274,30 +342,36 @@
         "OP:NONLOCAL_MOVE",
         "OP:STRUCTURAL_ADAPT"
       ],
+      "lineage_status": "DOCUMENTED_LINEAGE",
+      "evidentiary_confidence": "HIGH",
       "lineage_milestones": [
         {
           "entity": "Бернштейн Н. А.",
           "entity_type": "MATHEMATICIAN",
           "year": 1947,
-          "role": "Formulates physiological levels of movement construction and motor synergy"
+          "role": "Formulates physiological levels of movement construction and motor synergy",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Гельфанд И. М. & Цетлин М. Л.",
           "entity_type": "MATHEMATICIAN",
           "year": 1961,
-          "role": "Nonlocal search principles for complex multi-degree systems"
+          "role": "Nonlocal search principles for complex multi-degree systems",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
-          "entity": "Гельфанд И. М. & Цетлин М. Л.",
+          "entity": "Цетлин М. Л.",
           "entity_type": "MATHEMATICIAN",
-          "year": 1962,
-          "role": "Task-relative representation in complex control systems"
+          "year": 1961,
+          "role": "Automaton behavior in random media published in Avtomatika i Telemekhanika",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Глушков В. М.",
           "entity_type": "MATHEMATICIAN",
           "year": 1962,
-          "role": "Self-organizing discrete systems with variable structure in Kiev Cybernetics Institute"
+          "role": "Self-organizing discrete systems with variable structure in Kiev Cybernetics Institute",
+          "evidentiary_support": "DOCUMENTED"
         }
       ],
       "documented_sources": [
@@ -305,7 +379,11 @@
         "PUB:GELFAND_TSETLIN_1962",
         "PUB:GLUSHKOV_1962_SELF_ORGANIZING"
       ],
-      "historical_summary": "Confronted with the curse of dimensionality in physiological motor control, Gelfand and Tsetlin adapted Bernstein's motor synergies into a mathematical theory of non-local search and dynamic partitioning. Rather than maintaining full isomorphic representations, systems represent only task-relevant coordinates. This became the foundation of Tsetlin's adaptive automata in random environments and Glushkov's variable-structure cybernetic architectures."
+      "next_acquisition_targets": [
+        "Tsetlin M. L. Complete collected works on automata theory (Nauka, 1969)",
+        "Glushkov V. M. Synthesis of Digital Automata (Fizmatgiz, 1962)"
+      ],
+      "historical_summary": "Confronted with high degrees of freedom in physiological motor control, Gelfand and Tsetlin adapted Bernstein's motor synergies into a mathematical theory of non-local search and dynamic partitioning. This directly influenced Tsetlin's adaptive finite automata in random environments and Glushkov's variable-structure cybernetic architectures, supported by unambiguous primary documentary citations."
     },
     {
       "line_id": "LINE_06_MINIMAX_APPROXIMATION_COMPUTING",
@@ -324,37 +402,43 @@
       ],
       "applied_engineering_domains": [
         "Синтез кинематических шарнирных механизмов станков и двигателей",
-        "Оптимальные цифровые фильтры с равномерной пульсацией (Чебышевские фильтры)",
-        "Таблично-полиномиальные аппроксимации элементарных функций в ЭВМ БЭСМ"
+        "Оптимальные аналоговые и цифровые фильтры с равномерной пульсацией",
+        "Таблично-полиномиальные аппроксимации функций в ЭВМ БЭСМ (гипотеза)"
       ],
       "operator_bridges": [
         "OP:MINIMAX_APPROXIMATE",
         "OP:OPTIMIZE"
       ],
+      "lineage_status": "HYPOTHESIZED_LINEAGE",
+      "evidentiary_confidence": "MEDIUM",
       "lineage_milestones": [
         {
           "entity": "Чебышев П. Л.",
           "entity_type": "MATHEMATICIAN",
           "year": 1853,
-          "role": "Theory of mechanisms known as parallelograms and uniform approximation"
+          "role": "Theory of mechanisms known as parallelograms and uniform approximation",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "Чебышев П. Л.",
           "entity_type": "MATHEMATICIAN",
           "year": 1859,
-          "role": "Functions least deviating from zero and orthogonal polynomials"
+          "role": "Functions least deviating from zero and orthogonal polynomials",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
-          "entity": "Марков А. А.",
+          "entity": "Ремез Е. Я.",
           "entity_type": "MATHEMATICIAN",
-          "year": 1898,
-          "role": "Least squares and method of moments for probability bounds"
+          "year": 1934,
+          "role": "Constructive exchange algorithms for Chebyshev polynomial approximation",
+          "evidentiary_support": "DOCUMENTED"
         },
         {
           "entity": "ИТМиВТ АН СССР",
           "entity_type": "INSTITUTION",
-          "year": 1958,
-          "role": "Chebyshev polynomials hard-coded in BESM-6 scientific microcode routines"
+          "year": 1967,
+          "role": "BESM-6 mathematical software library development",
+          "evidentiary_support": "CANDIDATE"
         }
       ],
       "documented_sources": [
@@ -362,7 +446,12 @@
         "BENCH_05_CHEBYSHEV",
         "BENCH_09_MARKOV"
       ],
-      "historical_summary": "Chebyshev's uniform approximation originated directly in steam engine mechanical linkage design (Watt's parallelogram). By demanding minimal peak deviation over a compact interval rather than local Taylor convergence, Chebyshev created a constructive theory of finite approximation. In the 20th century, this became the standard design methodology for Soviet analog/digital filter synthesis and mathematical function libraries in BESM supercomputers."
+      "next_acquisition_targets": [
+        "BESM-6 standard subroutine library documentation (VTS AN SSSR)",
+        "Remez E. Ya. 1935 monograph on Chebyshev numerical methods (AN USSR, Kyiv)",
+        "Soviet radio engineering textbooks on Chebyshev passive/active filter synthesis"
+      ],
+      "historical_summary": "Chebyshev's uniform approximation originated in Watt steam engine linkage design. In the 20th century, his minimax equioscillation polynomials became foundational for analog and digital filter synthesis worldwide. While BESM-6 served as the premier scientific supercomputer for the Soviet space and nuclear programs, the specific claim that Chebyshev polynomials formed its core microcode remains a candidate hypothesis requiring verified compiler/microcode assembly listings."
     }
   ]
 }

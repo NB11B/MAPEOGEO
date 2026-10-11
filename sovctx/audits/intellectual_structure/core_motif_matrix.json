@@ -1,0 +1,126 @@
+{
+  "title": "SOVCTX Core Mathematical Motif Matrix",
+  "total_motifs": 6,
+  "motifs": [
+    {
+      "motif": "Stability / Structural Robustness (устойчивость / грубость)",
+      "schools": [
+        "LYAPUNOV",
+        "ANDRONOV",
+        "PONTRYAGIN",
+        "TIKHONOV"
+      ],
+      "earliest_evidence_year": 1892,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Nonlinear limit-cycle oscillators and radio pulse circuits (Andronov)",
+        "Flight attitude stabilization and robust control margins"
+      ],
+      "engineering_descendants_candidate": [
+        "Aerodynamic flutter boundary control in supersonic aircraft",
+        "Interconnected power grid frequency-lock stability"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Perturbation invariance of qualitative system behavior across state displacement (Lyapunov), vector fields (Andronov), and observation noise (Tikhonov)."
+    },
+    {
+      "motif": "State Representation (состояние / фазовые координаты)",
+      "schools": [
+        "LYAPUNOV",
+        "PONTRYAGIN",
+        "VLASOV",
+        "BOGOLYUBOV"
+      ],
+      "earliest_evidence_year": 1892,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Symplectic Hamiltonian phase trajectories for spacecraft control (Pontryagin)",
+        "Kinetic beam phase space in charged particle accelerators"
+      ],
+      "engineering_descendants_candidate": [
+        "Multi-target tracking filters under incomplete state observation"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Prioritizing internal multi-dimensional state coordinates x(t) or distribution f(r,v,t) over external black-box input-output transfer functions."
+    },
+    {
+      "motif": "Inverse Reconstruction (обратная задача & регуляризация)",
+      "schools": [
+        "TIKHONOV",
+        "GELFAND_LEVITAN",
+        "MARCHENKO",
+        "FADDEEV"
+      ],
+      "earliest_evidence_year": 1943,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Zelkin radar antenna aperture synthesis from radiation patterns (1963)",
+        "Magnetotelluric sounding (MTZ) geophysical underground conductivity inversion",
+        "Inverse scattering integration of optical soliton transmission (Zakharov-Shabat 1971)"
+      ],
+      "engineering_descendants_candidate": [
+        "Heat-shield ablative thermal conductivity recovery during re-entry",
+        "Acoustic ocean floor impedance reconstruction for submarine detection"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Treating indirect, noisy observation not as a defective experiment, but as a first-class mathematical reconstruction problem regularized on compact sets."
+    },
+    {
+      "motif": "Hard Admissibility Constraints (допустимый: u in U, z in Z_ad)",
+      "schools": [
+        "PONTRYAGIN",
+        "TIKHONOV",
+        "GELFAND"
+      ],
+      "earliest_evidence_year": 1943,
+      "cross_school_recurrence": "MEDIUM-HIGH",
+      "engineering_descendants_documented": [
+        "Time-optimal relay (bang-bang) control with hard actuator limits",
+        "Compact constraint sets restoring numerical well-posedness in Fredholm equations"
+      ],
+      "engineering_descendants_candidate": [
+        "Fuel-optimal spacecraft de-orbit burns with bounded thrust throttles"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Mathematics + physical actuator/solution bounds = realizable solution, superseding unrestricted smooth variational extrema."
+    },
+    {
+      "motif": "Collective State Distribution (самосогласованное поле & кинетика)",
+      "schools": [
+        "VLASOV",
+        "BOGOLYUBOV"
+      ],
+      "earliest_evidence_year": 1938,
+      "cross_school_recurrence": "HIGH",
+      "engineering_descendants_documented": [
+        "Tokamak plasma equilibrium and stability (Grad-Shafranov MHD theory)",
+        "Relativistic electron beam dynamics and high-power microwave tubes"
+      ],
+      "engineering_descendants_candidate": [
+        "Millimeter-wave gyrotrons for thermonuclear plasma heating (NIRFI)"
+      ],
+      "evidentiary_confidence": "HIGH",
+      "epistemic_essence": "Replacing discrete binary collision tracking with macroscopic self-consistent electromagnetic fields in long-range Coulomb ensembles."
+    },
+    {
+      "motif": "Minimax / Global Error Guarantee (приближение Чебышева)",
+      "schools": [
+        "CHEBYSHEV",
+        "MARKOV",
+        "BERNSTEIN"
+      ],
+      "earliest_evidence_year": 1853,
+      "cross_school_recurrence": "MEDIUM",
+      "engineering_descendants_documented": [
+        "Chebyshev equal-ripple analog and digital filter synthesis",
+        "Steam engine parallelogram linkage kinematics (Watt linkage optimization)",
+        "Remez exchange algorithm for computer arithmetic functions"
+      ],
+      "engineering_descendants_candidate": [
+        "BESM-6 elementary function evaluation polynomial microcode"
+      ],
+      "evidentiary_confidence": "MEDIUM (Filters HIGH / Microcode CANDIDATE)",
+      "epistemic_essence": "Minimizing worst-case peak error uniformly across a compact operating interval rather than relying on local Taylor derivative smoothness."
+    }
+  ]
+}

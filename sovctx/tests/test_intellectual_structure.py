@@ -14,6 +14,9 @@ from sovctx.node.epistemic_contrasts import (
     EPISTEMIC_CONTRASTS_REGISTRY,
     EpistemicContrastsAnalyzer,
 )
+from sovctx.node.intellectual_audit import (
+    IntellectualStructureAuditor,
+)
 from sovctx.node.operator_vocabulary import (
     OPERATOR_VOCABULARY_REGISTRY,
     OperatorVocabularyAnalyzer,
@@ -58,6 +61,9 @@ def test_engineering_transfer_lines() -> None:
         assert len(line.applied_engineering_domains) >= 2
         assert len(line.operator_bridges) >= 2
         assert len(line.lineage_milestones) >= 3
+        assert line.lineage_status in {"DOCUMENTED_LINEAGE", "HYPOTHESIZED_LINEAGE"}
+        assert line.evidentiary_confidence in {"HIGH", "MEDIUM", "CANDIDATE"}
+        assert len(line.next_acquisition_targets) >= 1
 
 
 def test_epistemic_contrasts() -> None:
@@ -75,11 +81,48 @@ def test_epistemic_contrasts() -> None:
     for cid in expected_contrasts:
         contrast = analyzer.get_contrast_by_id(cid)
         assert contrast is not None, f"Epistemic contrast '{cid}' must exist"
-        assert len(contrast.western_tradition.key_authors) >= 1
-        assert len(contrast.soviet_tradition.key_authors) >= 1
-        assert len(contrast.decisive_divergence_point) > 20
+        assert len(contrast.alternative_contemporary_formulation.key_authors) >= 1
+        assert len(contrast.soviet_emphasized_formulation.key_authors) >= 1
+        assert len(contrast.decisive_distinction) > 20
         assert len(contrast.epistemic_consequences) >= 2
-        assert len(contrast.technological_manifestations) >= 2
+        assert len(contrast.international_cross_pollination) >= 1
+
+        # Check backward-compatibility accessors
+        assert contrast.western_tradition == contrast.alternative_contemporary_formulation
+        assert contrast.soviet_tradition == contrast.soviet_emphasized_formulation
+        assert contrast.decisive_divergence_point == contrast.decisive_distinction
+
+
+def test_intellectual_structure_auditor() -> None:
+    auditor = IntellectualStructureAuditor()
+
+    centrality = auditor.compute_term_centrality()
+    assert len(centrality) == 13
+    assert centrality[0].school_count >= centrality[-1].school_count
+    assert centrality[0].centrality_rank == 1
+
+    connectivity = auditor.compute_institutional_connectivity()
+    assert len(connectivity) == 13
+    assert connectivity[0].institution_count >= 1
+
+    persistence = auditor.compute_temporal_persistence()
+    assert len(persistence) == 13
+    assert any(p.span_years > 100 for p in persistence)
+
+    bridges = auditor.compute_institutional_bridges()
+    assert len(bridges) >= 5
+    assert any("Стеклова" in b.institution_name for b in bridges)
+    assert any("Келдыша" in b.institution_name for b in bridges)
+
+    matrix = auditor.build_core_motif_matrix()
+    assert len(matrix) == 6
+    motifs = {m.motif for m in matrix}
+    assert any("Stability" in m for m in motifs)
+    assert any("State" in m for m in motifs)
+    assert any("Inverse" in m for m in motifs)
+    assert any("Admissibility" in m for m in motifs)
+    assert any("Collective" in m for m in motifs)
+    assert any("Minimax" in m for m in motifs)
 
 
 def test_markdown_synthesis_rendering() -> None:
@@ -88,14 +131,20 @@ def test_markdown_synthesis_rendering() -> None:
         v_analyzer = OperatorVocabularyAnalyzer()
         t_analyzer = EngineeringTransferAnalyzer()
         c_analyzer = EpistemicContrastsAnalyzer()
+        auditor = IntellectualStructureAuditor()
 
         v_data = v_analyzer.export_vocabulary_dossier(temp_dir / "v.json")
         t_data = t_analyzer.export_transfer_dossier(temp_dir / "t.json")
         c_data = c_analyzer.export_contrasts_dossier(temp_dir / "c.json")
+        a_data = auditor.export_full_audit_dossier(temp_dir)
 
-        md = render_intellectual_structure_markdown(v_data, t_data, c_data)
+        md = render_intellectual_structure_markdown(v_data, t_data, c_data, a_data)
         assert "# SOVCTX Intellectual Structure & Epistemic Synthesis Report" in md
-        assert "Axis A: Core Operator Vocabulary" in md
-        assert "Axis B: Science-to-Engineering Transmission Lines" in md
-        assert "Axis C: Distinctive Epistemological Contrasts" in md
+        assert "Core Mathematical Motif Matrix" in md
+        assert "Cross-School Term Centrality" in md
+        assert "Institutional Bridges" in md
+        assert "Terminology Evolution vs. Mathematical Invariance" in md
+        assert "Science-to-Engineering Transmission Lines" in md
+        assert "DOCUMENTED_LINEAGE" in md
         assert "CONTRAST_01_TIKHONOV_VS_HADAMARD" in md
+        assert "International Cross-Pollination" in md

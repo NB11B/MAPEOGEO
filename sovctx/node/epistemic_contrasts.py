@@ -8,7 +8,7 @@ from typing import Any, Optional
 
 @dataclass
 class MathematicalFormulation:
-    tradition_label: str
+    formulation_label: str
     key_authors: list[str]
     foundational_publications: list[str]
     core_philosophical_stance: str
@@ -21,62 +21,88 @@ class EpistemicContrastDossier:
     contrast_id: str
     title: str
     domain: str
-    western_tradition: MathematicalFormulation
-    soviet_tradition: MathematicalFormulation
-    decisive_divergence_point: str
+    soviet_emphasized_formulation: MathematicalFormulation
+    alternative_contemporary_formulation: MathematicalFormulation
+    relationship_nature: str
+    chronological_relationship: str
+    decisive_distinction: str
     epistemic_consequences: list[str]
     technological_manifestations: list[str]
+    international_cross_pollination: list[str]
+
+    # Backward-compatibility accessors
+    @property
+    def soviet_tradition(self) -> MathematicalFormulation:
+        return self.soviet_emphasized_formulation
+
+    @property
+    def western_tradition(self) -> MathematicalFormulation:
+        return self.alternative_contemporary_formulation
+
+    @property
+    def decisive_divergence_point(self) -> str:
+        return self.decisive_distinction
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        d = asdict(self)
+        d["soviet_tradition"] = asdict(self.soviet_emphasized_formulation)
+        d["western_tradition"] = asdict(self.alternative_contemporary_formulation)
+        d["decisive_divergence_point"] = self.decisive_distinction
+        return d
 
 
 EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
     EpistemicContrastDossier(
         contrast_id="CONTRAST_01_TIKHONOV_VS_HADAMARD",
-        title="Tikhonov Conditional Well-Posedness vs. Hadamard Rejection of Ill-Posedness",
+        title="Tikhonov Constructive Regularization vs. Hadamard Well-Posedness Criterion",
         domain="Inverse Problems & Measurement Inversion",
-        western_tradition=MathematicalFormulation(
-            tradition_label="Classical Western (Hadamard School)",
-            key_authors=["Jacques Hadamard"],
-            foundational_publications=[
-                "Sur les problèmes aux dérivées partielles et leur signification physique (1902)",
-                "Le problème de Cauchy et les équations aux dérivées partielles linéaires hyperboliques (1932)",
-            ],
-            core_philosophical_stance=(
-                "A mathematical problem representing a physical phenomenon must have a unique solution "
-                "that depends continuously on the boundary/initial data (Hadamard well-posedness). Problems lacking "
-                "continuous dependence (such as Cauchy problems for elliptic equations) are unphysical and mal-posed."
-            ),
-            formal_mathematical_equation="A z = u, exists! z in Z, ||delta z|| <= C * ||delta u|| (C < infinity)",
-            underlying_assumptions=[
-                "Exact forward observability without loss of high-frequency components.",
-                "Discontinuity under noise indicates an incorrect mathematical model of reality.",
-            ],
-        ),
-        soviet_tradition=MathematicalFormulation(
-            tradition_label="Soviet Inverse Problem School (Tikhonov School)",
+        soviet_emphasized_formulation=MathematicalFormulation(
+            formulation_label="Soviet Inverse Problem School (Tikhonov School)",
             key_authors=["Тихонов А. Н.", "Лаврентьев М. М.", "Иванов В. К."],
             foundational_publications=[
                 "Об устойчивости обратных задач (ДАН СССР, 1943)",
                 "О решении некорректно поставленных задач и методе регуляризации (ДАН СССР, 1963)",
+                "О регуляризации некорректно поставленных задач (ДАН СССР, 1963)",
             ],
             core_philosophical_stance=(
                 "Ill-posed problems are the natural mathematical expression of indirect observation, remote sensing, "
-                "and physical measurement. The unbounded inverse does not mean the problem is meaningless; it requires "
-                "redefining solvability on compact subsets or via parameterized regularizing operators."
+                "and physical measurement. The unbounded inverse does not mean the problem is meaningless or 'mal posé'; "
+                "it requires a systematic constructive theory for obtaining stable approximate solutions on compact "
+                "admissible subsets or via parameterized regularizing operators."
             ),
             formal_mathematical_equation=(
                 "z_alpha = argmin_z (||A z - u_delta||^2 + alpha * Omega[z]), where alpha = alpha(delta) -> 0"
             ),
             underlying_assumptions=[
                 "Physical measurements are inevitably corrupted by noise (delta > 0).",
-                "A priori structural admissibility (compactness, smoothness, bounded energy) restores well-posedness.",
+                "A priori structural admissibility (compactness, smoothness, bounded energy) restores stability.",
+                "Indirect observation is a reconstruction problem, not a defective experiment.",
             ],
         ),
-        decisive_divergence_point=(
-            "Hadamard rejects ill-posed problems as unphysical; Tikhonov accepts ill-posedness as the defining "
-            "condition of indirect measurement and invents regularizing operators to make reconstruction mathematically rigorous."
+        alternative_contemporary_formulation=MathematicalFormulation(
+            formulation_label="Hadamard Well-Posedness Diagnostic Criterion",
+            key_authors=["Jacques Hadamard"],
+            foundational_publications=[
+                "Sur les problèmes aux dérivées partielles et leur signification physique (1902)",
+                "Lectures on Cauchy's Problem in Linear Partial Differential Equations (1923)",
+            ],
+            core_philosophical_stance=(
+                "A mathematical problem representing a physical phenomenon must have a unique solution "
+                "that depends continuously on the boundary/initial data (Hadamard well-posedness). Problems lacking "
+                "continuous dependence (such as Cauchy problems for elliptic equations) are classified as ill-posed."
+            ),
+            formal_mathematical_equation="A z = u, exists! z in Z, ||delta z|| <= C * ||delta u|| (C < infinity)",
+            underlying_assumptions=[
+                "Exact forward observability without loss of high-frequency components.",
+                "Discontinuity under noise indicates an incomplete or defective mathematical model.",
+            ],
+        ),
+        relationship_nature="CLASSIFICATION_TO_CONSTRUCTIVE_TREATMENT",
+        chronological_relationship="EXTENDS_PREVIOUS_CRITERION",
+        decisive_distinction=(
+            "Hadamard provided the influential diagnostic criterion classifying well-posedness; "
+            "Tikhonov developed a systematic constructive theory for obtaining stable approximate solutions "
+            "when that criterion fails, transforming ill-posedness from a rejection boundary into a fertile field."
         ),
         epistemic_consequences=[
             "Establishment of conditional well-posedness (корректность по Тихонову) as an independent branch of mathematics.",
@@ -84,56 +110,62 @@ EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
             "Legitimization of inverse problem reconstruction across physics rather than forcing forward problem reformulations.",
         ],
         technological_manifestations=[
-            "Magnetotelluric geophysical sounding and deep seismic oil/gas exploration.",
+            "Magnetotelluric geophysical sounding (MTZ) and deep seismic oil/gas exploration.",
             "Zelkin antenna synthesis and phased-array radar pattern inversion.",
             "Medical tomography, deconvolution of blurred optical images, and non-destructive testing.",
+        ],
+        international_cross_pollination=[
+            "Tikhonov regularization became an international standard (known in the West as Tikhonov-Phillips regularization).",
+            "Broadly adopted in modern statistical learning theory, ridge regression, and machine learning.",
         ],
     ),
     EpistemicContrastDossier(
         contrast_id="CONTRAST_02_PONTRYAGIN_VS_CLASSICAL_VARIATIONS",
-        title="Pontryagin Maximum Principle on Closed Sets vs. Classical Smooth Variations",
+        title="Pontryagin Maximum Principle on Closed Sets vs. Classical Variations & Dynamic Programming",
         domain="Optimal Control & Trajectory Optimization",
-        western_tradition=MathematicalFormulation(
-            tradition_label="Classical Western Calculus of Variations (Euler-Lagrange, Weierstrass, Bellman)",
-            key_authors=["Leonhard Euler", "Joseph-Louis Lagrange", "Karl Weierstrass", "Richard Bellman"],
-            foundational_publications=[
-                "Calculus of Variations (classical)",
-                "Dynamic Programming (Bellman, 1957)",
-            ],
-            core_philosophical_stance=(
-                "Optimal paths are found by setting the first variation of a smooth functional to zero (delta J = 0), "
-                "requiring the control set to be open and controls to be smooth or piece-wise differentiable. "
-                "Dynamic programming computes a continuous value function V(x) satisfying a Hamilton-Jacobi partial differential equation."
-            ),
-            formal_mathematical_equation="delta J = 0 => d/dt(del L / del dot(x)) - del L / del x = 0; del V / del t + min_u H = 0",
-            underlying_assumptions=[
-                "Control variables u vary freely in an open domain without hard saturation boundaries.",
-                "The value function V(x, t) is continuously differentiable across all state space.",
-            ],
-        ),
-        soviet_tradition=MathematicalFormulation(
-            tradition_label="Soviet Optimal Control School (Pontryagin School)",
+        soviet_emphasized_formulation=MathematicalFormulation(
+            formulation_label="Pontryagin Optimal Control School (Steklov MIAN)",
             key_authors=["Понтрягин Л. С.", "Болтянский В. Г.", "Гамкрелидзе Р. В.", "Мищенко Е. Ф."],
             foundational_publications=[
-                "Принцип максимума в теории оптимальных процессов (ДАН СССР, 1958)",
-                "Математическая теория оптимальных процессов (Наука, 1961)",
+                "К теории оптимальных процессов (ДАН СССР, 1956)",
+                "Математическая теория оптимальных процессов (1961)",
             ],
             core_philosophical_stance=(
-                "Physical actuators (rudders, thrusters, valves) have hard structural constraints (u in U, where U is compact). "
+                "Physical actuators (rudders, thrusters, valves) have hard structural constraints (u in U, where U is compact/closed). "
                 "Classical smooth variations fail when the optimal control sits permanently on the boundary of U. "
-                "Needle-like variations (игольчатые вариации) establish that the realized control must maximize the Hamiltonian pointwise."
+                "Needle-like variations (игольчатые вариации) prove that the realized control must maximize the Hamiltonian pointwise."
             ),
             formal_mathematical_equation=(
                 "dot(x) = del H / del psi, dot(psi) = - del H / del x, with H(x, psi, u(t)) = max_{v in U} H(x, psi, v) a.e."
             ),
             underlying_assumptions=[
-                "Actuators operate on bounded closed sets U (e.g. |u(t)| <= 1, full throttle or zero throttle).",
-                "Controls may be discontinuous (bang-bang switching) with non-differentiable trajectory corners.",
+                "Actuator limits are hard physical boundaries, not soft quadratic penalties.",
+                "Optimal controls are frequently discontinuous switching functions (relay / bang-bang control).",
             ],
         ),
-        decisive_divergence_point=(
-            "Classical variation assumes smooth variations inside open sets (delta J = 0); Pontryagin proves that for "
-            "closed control sets U, the optimum lies on the boundary where classical derivatives do not vanish, requiring a Maximum Principle."
+        alternative_contemporary_formulation=MathematicalFormulation(
+            formulation_label="Classical Calculus of Variations & Dynamic Programming (Bellman)",
+            key_authors=["Leonhard Euler", "Joseph-Louis Lagrange", "Karl Weierstrass", "Richard Bellman"],
+            foundational_publications=[
+                "Dynamic Programming (Princeton University Press, 1957)",
+                "Calculus of Variations (classical treatises)",
+            ],
+            core_philosophical_stance=(
+                "Optimal paths are found by setting the first variation of a smooth functional to zero (delta J = 0), "
+                "or by computing a continuous value function V(x) satisfying the Hamilton-Jacobi-Bellman partial differential equation."
+            ),
+            formal_mathematical_equation="del V / del t + min_{u} H(x, del V / del x, u) = 0",
+            underlying_assumptions=[
+                "Control sets are open or penalties are differentiable quadratic forms.",
+                "The value function V(x, t) possesses sufficient differentiability everywhere.",
+            ],
+        ),
+        relationship_nature="ALTERNATIVE_OPTIMAL_CONTROL_FRAMEWORK",
+        chronological_relationship="PARALLELS_AND_INTERACTS",
+        decisive_distinction=(
+            "Pontryagin's method directly accommodates closed control sets and discontinuous switching controls "
+            "via needle variations on symplectic phase trajectories, whereas dynamic programming constructs global "
+            "value functions via PDEs and classical variations assume open interior extrema."
         ),
         epistemic_consequences=[
             "Rigorous mathematical proof that relay (bang-bang) control is time-optimal for linear systems.",
@@ -141,59 +173,63 @@ EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
             "Unification of dynamics, differential games, and trajectory optimization without requiring Bellman smoothness.",
         ],
         technological_manifestations=[
-            "Minimum-time ballistic missile trajectory guidance and interceptor steering.",
-            "Orbital rendezvous and soft lunar/planetary landing descent sequences (Luna, Soyuz).",
-            "Automatic flight stabilization and optimal submarine depth control.",
+            "Minimum-time missile trajectory guidance and interceptor steering.",
+            "Spacecraft attitude orientation and reaction wheel / jet switching.",
+            "Orbital rendezvous and soft lunar/planetary landing descent sequences.",
+        ],
+        international_cross_pollination=[
+            "Pontryagin's Maximum Principle crossed geopolitical boundaries immediately upon publication.",
+            "Adopted by NASA by 1963 for Apollo lunar orbital rendezvous studies alongside dynamic programming.",
         ],
     ),
     EpistemicContrastDossier(
         contrast_id="CONTRAST_03_ANDRONOV_VS_BODE_NYQUIST",
-        title="Andronov-Pontryagin Phase-Space Structural Stability vs. Bode/Nyquist Linear Frequency Response",
+        title="Andronov Phase-Space Structural Stability vs. Bode/Nyquist Linear Frequency Response",
         domain="Dynamical Systems & Stabilization",
-        western_tradition=MathematicalFormulation(
-            tradition_label="Classical Western Servomechanism & Frequency Response School",
-            key_authors=["Harry Nyquist", "Hendrik Bode", "Norbert Wiener"],
-            foundational_publications=[
-                "Regeneration Theory (Nyquist, 1932)",
-                "Network Analysis and Feedback Amplifier Design (Bode, 1945)",
-            ],
-            core_philosophical_stance=(
-                "System stability is governed by the frequency-domain transfer function G(s) of a linearized model. "
-                "Stability margins (gain margin, phase margin) are evaluated by encirclement of the -1 point in the complex plane."
-            ),
-            formal_mathematical_equation="Y(s) = G(s) U(s), 1 + G(j omega) H(j omega) != 0, Nyquist contour integration",
-            underlying_assumptions=[
-                "Signals are small-amplitude perturbations about an isolated static equilibrium.",
-                "Nonlinearities can be ignored or treated as minor parasitic harmonic distortions.",
-            ],
-        ),
-        soviet_tradition=MathematicalFormulation(
-            tradition_label="Soviet Non-Linear Dynamics & Structural Stability School",
+        soviet_emphasized_formulation=MathematicalFormulation(
+            formulation_label="Andronov-Pontryagin Nonlinear Dynamics School (Gorky GIFTI / MIAN)",
             key_authors=["Андронов А. А.", "Понтрягин Л. С.", "Витт А. А.", "Хайкин С. Э."],
             foundational_publications=[
                 "Грубые системы (ДАН СССР, 1937)",
-                "Теория колебаний (Гостехиздат, 1937)",
+                "Теория колебаний (1937)",
             ],
             core_philosophical_stance=(
-                "Real engineering oscillators and control systems are fundamentally nonlinear and operate on limit cycles. "
-                "The essential question is not small-signal linear stability, but structural stability (грубость): "
-                "does the qualitative topological structure of the phase portrait survive small perturbations in the vector field?"
+                "Real engineering oscillators and feedback systems are fundamentally nonlinear and operate on limit cycles. "
+                "The essential question is not small-signal linear stability, but structural stability (грубость): does the "
+                "qualitative topological structure of the phase portrait survive small perturbations in the vector field?"
             ),
-            formal_mathematical_equation=(
-                "dot(x) = P(x, y) + p(x, y), dot(y) = Q(x, y) + q(x, y), with topological homeomorphism preserving limit cycles"
-            ),
+            formal_mathematical_equation="dot(x) = P(x, y) + p(x, y), dot(y) = Q(x, y) + q(x, y), with topological homeomorphism",
             underlying_assumptions=[
-                "Systems are intrinsically nonlinear with multiple attractors, saddles, and limit cycles.",
-                "Engineering designs must operate safely across finite limit-cycle amplitudes, not just near zero.",
+                "Nonlinearities cannot be ignored or linearized around an equilibrium without losing limit cycle phenomena.",
+                "System robustness requires topological stability under vector-field deformation.",
             ],
         ),
-        decisive_divergence_point=(
-            "Bode and Nyquist reduce systems to linear complex transfer functions G(s); Andronov and Pontryagin analyze "
-            "nonlinear phase-space topologies, proving that self-oscillations correspond to isolated limit cycles that must be 'rough' (structurally stable)."
+        alternative_contemporary_formulation=MathematicalFormulation(
+            formulation_label="Classical Linear Frequency-Domain Analysis (Nyquist, Bode, Wiener)",
+            key_authors=["Harry Nyquist", "Hendrik Bode", "Norbert Wiener"],
+            foundational_publications=[
+                "Regeneration Theory (Bell System Technical Journal, 1932)",
+                "Network Analysis and Feedback Amplifier Design (1945)",
+            ],
+            core_philosophical_stance=(
+                "System stability is governed by the frequency-domain transfer function G(s) of a linearized model. "
+                "Stability margins (gain margin, phase margin) are evaluated by contour encirclement in the complex plane."
+            ),
+            formal_mathematical_equation="Y(s) = G(s) U(s), 1 + G(j omega) H(j omega) != 0, Nyquist criterion",
+            underlying_assumptions=[
+                "Linear or small-signal operating regime around a single setpoint.",
+                "Input-output frequency transfer representation suffices without modeling internal state topologies.",
+            ],
+        ),
+        relationship_nature="NONLINEAR_PHASE_SPACE_VS_LINEAR_FREQUENCY",
+        chronological_relationship="PARALLELS_COMPLEMENTARY_DOMAINS",
+        decisive_distinction=(
+            "Linear frequency response evaluates transfer functions of linearized single-input single-output systems; "
+            "Andronov phase-space analysis evaluates the global topological robustness of nonlinear limit cycles."
         ),
         epistemic_consequences=[
             "Establishment of the qualitative theory of differential equations as the primary tool of Soviet cybernetics.",
-            "Discovery and classification of bifurcation phenomena (Andronov–Hopf bifurcation) before modern chaos theory.",
+            "Discovery and classification of bifurcation phenomena (Andronov–Hopf bifurcation) decades before modern chaos theory.",
             "Direct integration of mechanical, electrical, and control systems into a single geometric language.",
         ],
         technological_manifestations=[
@@ -201,51 +237,59 @@ EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
             "Aerodynamic flutter suppression in high-speed fighter aircraft wings.",
             "Gyrocompass stabilization and ship rolling damping systems.",
         ],
+        international_cross_pollination=[
+            "Solomon Lefschetz championed Andronov's work in the US, translating the 1937 monograph into English in 1949.",
+            "Directly influenced Stephen Smale and the American dynamical systems revolution in the 1960s.",
+        ],
     ),
     EpistemicContrastDossier(
         contrast_id="CONTRAST_04_VLASOV_VS_BOLTZMANN",
-        title="Vlasov Self-Consistent Collective Field vs. Western Collision-Dominated Boltzmann Kinetics",
+        title="Vlasov Self-Consistent Collective Field vs. Boltzmann Collision-Dominated Kinetics",
         domain="Plasma Physics & Statistical Kinetics",
-        western_tradition=MathematicalFormulation(
-            tradition_label="Western Classical Kinetic Theory (Boltzmann, Chapman-Enskog)",
-            key_authors=["Ludwig Boltzmann", "Sydney Chapman", "David Enskog"],
-            foundational_publications=[
-                "Weitere Studien über das Wärmegleichgewicht unter Gasmolekülen (1872)",
-                "The Mathematical Theory of Non-Uniform Gases (1939)",
-            ],
-            core_philosophical_stance=(
-                "Gas and fluid kinetics are governed by short-range binary collisions between neutral particles. "
-                "The time evolution of the distribution function is driven by the localized collision integral (Stosszahlansatz)."
-            ),
-            formal_mathematical_equation="df/dt + v * grad_r(f) = (del f / del t)_{coll} = integral (f' f_1' - f f_1) g sigma dOmega dv_1",
-            underlying_assumptions=[
-                "Interparticle forces are short-ranged; particles travel along free paths between discrete collision events.",
-                "Molecular chaos hypothesis: colliding particles are statistically uncorrelated before impact.",
-            ],
-        ),
-        soviet_tradition=MathematicalFormulation(
-            tradition_label="Soviet Plasma & Collective Field School (Vlasov School)",
-            key_authors=["Власов А. А.", "Боголюubov Н. Н."],
+        soviet_emphasized_formulation=MathematicalFormulation(
+            formulation_label="Vlasov-Bogolyubov Collective Kinetics School (MSU / Dubna)",
+            key_authors=["Власов А. А.", "Боголюбов Н. Н."],
             foundational_publications=[
                 "О вибрационных свойствах электронного газа (ЖЭТФ, 1938)",
-                "Теория многих частиц (Гостехиздат, 1950)",
+                "Проблемы динамической теории в статистической физике (1946)",
             ],
             core_philosophical_stance=(
-                "In high-temperature ionized plasmas, the Coulomb potential 1/r has infinite range. "
-                "A charged particle interacts simultaneously with thousands of particles, creating a macroscopic self-consistent field. "
+                "In high-temperature ionized plasmas, the Coulomb potential 1/r has infinite range. A charged particle "
+                "interacts simultaneously with thousands of particles, creating a macroscopic self-consistent field. "
                 "Collisionless collective interactions dominate over binary scattering, requiring coupled Vlasov–Maxwell dynamics."
             ),
             formal_mathematical_equation=(
                 "del f / del t + v * grad_r f + (e/m)(E + [v, B]/c) * grad_v f = 0, with E, B sourced by rho = e integral f dv"
             ),
             underlying_assumptions=[
-                "Long-range collective electromagnetic forces dominate over pair collisions (tau_coll >> tau_plasma).",
-                "The system state is a collective density in 6D phase space coupled to its own generated electromagnetic fields.",
+                "Long-range collective forces dominate over short-range binary collisions.",
+                "The fundamental state is a continuous distribution function f(r, v, t) in 6-dimensional phase space.",
             ],
         ),
-        decisive_divergence_point=(
-            "Boltzmann treats transport as discrete short-range pair collisions in free space; Vlasov proves that charged "
-            "ensembles move through self-generated macroscopic fields where collective wave oscillations replace collision dissipation."
+        alternative_contemporary_formulation=MathematicalFormulation(
+            formulation_label="Boltzmann Binary Collision Transport Theory",
+            key_authors=["Ludwig Boltzmann", "Sydney Chapman", "David Enskog"],
+            foundational_publications=[
+                "Vorlesungen über Gastheorie (1896)",
+                "The Mathematical Theory of Non-Uniform Gases (Chapman & Cowling, 1939)",
+            ],
+            core_philosophical_stance=(
+                "Gas and fluid kinetics are governed by short-range binary collisions between neutral particles. "
+                "The time evolution of the distribution function is driven by the localized collision integral (Stosszahlansatz)."
+            ),
+            formal_mathematical_equation=(
+                "df/dt + v * grad_r(f) = (del f / del t)_{coll} = integral (f' f_1' - f f_1) g sigma dOmega dv_1"
+            ),
+            underlying_assumptions=[
+                "Dilute gas assumption: particles travel freely between brief pairwise elastic collisions.",
+                "Molecular chaos (Stosszahlansatz): particle velocities before collision are completely uncorrelated.",
+            ],
+        ),
+        relationship_nature="COLLECTIVE_FIELD_VS_COLLISION_KINETICS",
+        chronological_relationship="NEW_PHYSICAL_REGIME",
+        decisive_distinction=(
+            "Boltzmann treats transport as discrete short-range pair collisions in free space; "
+            "Vlasov proves that charged ensembles move through self-generated macroscopic fields where collective wave oscillations replace collision dissipation."
         ),
         epistemic_consequences=[
             "Discovery of collisionless plasma waves (Langmuir oscillations, ion-acoustic modes).",
@@ -257,30 +301,17 @@ EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
             "Relativistic gyrotrons, magnetrons, and traveling-wave tubes (TWT) for high-power military radar.",
             "Ionospheric radio wave propagation and over-the-horizon radar detection.",
         ],
+        international_cross_pollination=[
+            "Initially debated (including Landau's celebrated 1946 collisionless damping correction).",
+            "Became the universally adopted worldwide foundation for modern plasma physics, fusion energy, and astrophysics.",
+        ],
     ),
     EpistemicContrastDossier(
         contrast_id="CONTRAST_05_CHEBYSHEV_VS_TAYLOR",
         title="Chebyshev Global Minimax Approximation vs. Taylor Local Point Derivative Expansion",
         domain="Approximation Theory & Numerical Methods",
-        western_tradition=MathematicalFormulation(
-            tradition_label="Classical Analytical Calculus (Taylor, Maclaurin, Weierstrass)",
-            key_authors=["Brook Taylor", "Colin Maclaurin", "Augustin-Louis Cauchy"],
-            foundational_publications=[
-                "Methodus Incrementorum Directa et Inversa (Taylor, 1715)",
-                "Cours d'Analyse (Cauchy, 1821)",
-            ],
-            core_philosophical_stance=(
-                "Functions are approximated locally around an infinitesimal neighborhood of a single point x_0 "
-                "by matching successive derivatives. The quality of approximation is asymptotic as x -> x_0."
-            ),
-            formal_mathematical_equation="f(x) = sum_{k=0}^n f^{(k)}(x_0)/k! * (x - x_0)^k + R_n(x)",
-            underlying_assumptions=[
-                "The function is infinitely differentiable (smooth) at the expansion point x_0.",
-                "Error grows rapidly away from the expansion point; boundary behavior on finite intervals is unconstrained.",
-            ],
-        ),
-        soviet_tradition=MathematicalFormulation(
-            tradition_label="St. Petersburg / Soviet Constructive Approximation School (Chebyshev School)",
+        soviet_emphasized_formulation=MathematicalFormulation(
+            formulation_label="Chebyshev-Markov-Bernstein Constructive Approximation School",
             key_authors=["Чебышев П. Л.", "Марков А. А.", "Бернштейн С. Н."],
             foundational_publications=[
                 "Теория механизмов, известных под названием параллелограммов (1854)",
@@ -291,39 +322,80 @@ EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
                 "Local derivatives at one point are irrelevant if peak error blows up at the edges. "
                 "Optimal approximation must minimize the maximum error uniformly across the entire operating range (minimax)."
             ),
-            formal_mathematical_equation=(
-                "P_n^* = argmin_{P in P_n} max_{x in [a, b]} |f(x) - P(x)|, characterized by Chebyshev equioscillation"
-            ),
+            formal_mathematical_equation="P_n^* = argmin_{P in P_n} max_{x in [a, b]} |f(x) - P(x)|, characterized by equioscillation",
             underlying_assumptions=[
-                "The system must operate within guaranteed error bounds everywhere across an operating domain.",
-                "Optimal finite representation is determined by Chebyshev alternation points (equal-ripple error).",
+                "Performance is evaluated by worst-case peak error on a compact domain, not asymptotic smoothness at a point.",
+                "Equioscillation alternation theorem guarantees unique optimal polynomial representation.",
             ],
         ),
-        decisive_divergence_point=(
+        alternative_contemporary_formulation=MathematicalFormulation(
+            formulation_label="Taylor Local Derivative Series Expansion",
+            key_authors=["Brook Taylor", "Colin Maclaurin", "Augustin-Louis Cauchy"],
+            foundational_publications=[
+                "Methodus Incrementorum Directa et Inversa (1715)",
+                "Cours d'Analyse (1821)",
+            ],
+            core_philosophical_stance=(
+                "Functions are approximated locally around an infinitesimal neighborhood of a single point x_0 "
+                "by matching successive derivatives. The quality of approximation is asymptotic as x -> x_0."
+            ),
+            formal_mathematical_equation="f(x) = sum_{k=0}^n f^{(k)}(x_0)/k! * (x - x_0)^k + R_n(x)",
+            underlying_assumptions=[
+                "The function is infinitely differentiable in an open neighborhood around x_0.",
+                "Local infinitesimal behavior accurately represents global function properties.",
+            ],
+        ),
+        relationship_nature="GLOBAL_MINIMAX_VS_LOCAL_TAYLOR",
+        chronological_relationship="ALTERNATIVE_APPROXIMATION_GOAL",
+        decisive_distinction=(
             "Taylor calculus optimizes locally at a single point (derivatives match, but global error can be infinite); "
             "Chebyshev calculus optimizes globally across a compact interval, guaranteeing minimal peak error everywhere."
         ),
         epistemic_consequences=[
             "Establishment of constructive approximation theory and orthogonal polynomial theory (Chebyshev polynomials).",
             "Shift from qualitative symbolic analysis to guaranteed numerical error bounds on compact sets.",
-            "Development of the Remez exchange algorithm for automated polynomial synthesis.",
+            "Development of the Remez exchange algorithm (Kyiv, 1934) for automated polynomial synthesis.",
         ],
         technological_manifestations=[
             "Kinematic design of steam engine linkage parallelograms and mechanical linkages.",
             "Optimal analog and digital electronic filter synthesis (Chebyshev filters with equal-ripple passbands).",
             "Numerical microcode routines for transcendental function evaluation in Soviet BESM-6 supercomputers.",
         ],
+        international_cross_pollination=[
+            "Chebyshev's work became the bedrock of modern international approximation theory (e.g. Davis, Rivlin, Trefethen).",
+            "Remez exchange algorithm forms the core of the international Parks-McClellan digital filter design standard.",
+        ],
     ),
     EpistemicContrastDossier(
         contrast_id="CONTRAST_06_GELFAND_LEVITAN_VS_FORWARD_SPECTRAL",
         title="Gelfand-Levitan-Marchenko Transformation Operators vs. Classical Forward Spectral Theory",
         domain="Differential Operators & Spectral Reconstruction",
-        western_tradition=MathematicalFormulation(
-            tradition_label="Classical Western Forward Spectral School (Weyl, Stone, von Neumann)",
+        soviet_emphasized_formulation=MathematicalFormulation(
+            formulation_label="Gelfand-Levitan-Marchenko Inverse Spectral School (MIAN / LOMI / FTINT)",
+            key_authors=["Гельфанд И. М.", "Левитан Б. М.", "Марченко В. А."],
+            foundational_publications=[
+                "Об определении дифференциального уравнения по его спектральной функции (ДАН СССР, 1951)",
+                "Некоторые вопросы теории одномерных линейных дифференциальных операторов второго порядка (1952)",
+            ],
+            core_philosophical_stance=(
+                "In real physical experiments, the interior potential q(x) is completely hidden. We can observe only "
+                "the external spectrum (eigenvalues and norming constants). The fundamental problem is inverse: "
+                "reconstruct the operator itself from its spectral measure via a triangular Volterra transformation operator I + K."
+            ),
+            formal_mathematical_equation=(
+                "K(x, y) + F(x, y) + integral_0^x K(x, s) F(s, y) ds = 0, with q(x) = 2 dK(x, x)/dx"
+            ),
+            underlying_assumptions=[
+                "The internal differential operator cannot be inspected directly, only external spectral data is accessible.",
+                "Transformation operators translate the nonlinear problem of potential recovery into a linear integral equation.",
+            ],
+        ),
+        alternative_contemporary_formulation=MathematicalFormulation(
+            formulation_label="Classical Forward Resolvent & Spectral Theory",
             key_authors=["Hermann Weyl", "Marshall Stone", "John von Neumann"],
             foundational_publications=[
-                "Über gewöhnliche Differentialgleichungen mit Singularitäten (Weyl, 1910)",
-                "Linear Transformations in Hilbert Space (Stone, 1932)",
+                "Über gewöhnliche Differentialgleichungen mit Singularitäten (1910)",
+                "Linear Transformations in Hilbert Space (1932)",
             ],
             core_philosophical_stance=(
                 "The primary mathematical direction is forward: given a known differential operator L = -d^2/dx^2 + q(x) "
@@ -331,38 +403,19 @@ EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
             ),
             formal_mathematical_equation="L y = lambda y => (L - lambda I)^(-1) = integral (dE_lambda) / (lambda' - lambda)",
             underlying_assumptions=[
-                "The physical potential q(x) and operator coefficients are completely known a priori.",
-                "Observations are derived consequences of the known mathematical operator.",
+                "The differential operator L and boundary conditions are completely specified a priori.",
+                "The goal is characterizing the operator's forward spectral decomposition and functional calculus.",
             ],
         ),
-        soviet_tradition=MathematicalFormulation(
-            tradition_label="Soviet Inverse Spectral School (Gelfand, Levitan, Marchenko)",
-            key_authors=["Гельфанд И. М.", "Левитан Б. М.", "Марченко В. А."],
-            foundational_publications=[
-                "Об определении дифференциального уравнения по его спектральной функции (Известия АН СССР, 1951)",
-                "Некоторые вопросы теории одномерных линейных дифференциальных операторов (Труды ММО, 1950)",
-            ],
-            core_philosophical_stance=(
-                "In real physical experiments, the interior potential q(x) is completely hidden. "
-                "We can observe only the external spectrum (eigenvalues and norming constants). "
-                "The fundamental problem is inverse: reconstruct the operator itself from its spectral measure "
-                "via a triangular Volterra transformation operator I + K."
-            ),
-            formal_mathematical_equation=(
-                "K(x, y) + F(x, y) + integral_0^x K(x, s) F(s, y) ds = 0, with q(x) = 2 dK(x, x)/dx"
-            ),
-            underlying_assumptions=[
-                "The internal differential operator is completely hidden and inaccessible to direct probing.",
-                "The boundary spectral function rho(lambda) contains full structural information if admissibility conditions hold.",
-            ],
-        ),
-        decisive_divergence_point=(
-            "Forward spectral theory solves for the eigenvalues of a known operator; Gelfand, Levitan, and Marchenko "
-            "prove that the operator itself can be uniquely reconstructed from its eigenvalues and spectral density via linear Fredholm equations."
+        relationship_nature="INVERSE_TRANSFORMATION_VS_FORWARD_RESOLVENT",
+        chronological_relationship="CO_DEVELOPED_INTERNATIONALLY",
+        decisive_distinction=(
+            "Forward spectral theory solves for the eigenvalues of a known operator; "
+            "Gelfand, Levitan, and Marchenko prove that the operator itself can be uniquely reconstructed from its external eigenvalues and spectral density via linear Fredholm equations."
         ),
         epistemic_consequences=[
             "Discovery of the exact nonlinear-to-linear transformation for integrating soliton equations (KdV, NLS).",
-            "Establishment of the Povzner–Levitan–Marchenko transformation operator as the universal tool of mathematical physics.",
+            "Establishment of the Povzner–Levitan–Marchenko transformation operator as a universal tool of mathematical physics.",
             "Proving that spectral admissibility completely classifies which data can arise from physical second-order equations.",
         ],
         technological_manifestations=[
@@ -370,12 +423,16 @@ EPISTEMIC_CONTRASTS_REGISTRY: list[EpistemicContrastDossier] = [
             "Quantum inverse scattering potentials for nuclear particle interactions (Faddeev equations).",
             "Acoustic impedance profile reconstruction for underwater submarine detection and ultrasonic medical scanning.",
         ],
+        international_cross_pollination=[
+            "Direct international co-development: Gardner, Greene, Kruskal, and Miura (1967) and Peter Lax (1968) in the US, "
+            "working in fruitful interaction with Zakharov, Shabat, and Faddeev in the USSR, created the Inverse Scattering Transform (IST).",
+        ],
     ),
 ]
 
 
 class EpistemicContrastsAnalyzer:
-    """Interrogates and catalogs the 6 foundational epistemological contrasts between Soviet and Western science."""
+    """Analyzes mathematical formulations emphasizing Soviet traditions compared with contemporary alternative formulations."""
 
     def __init__(self, registry: Optional[list[EpistemicContrastDossier]] = None) -> None:
         self.registry = registry or EPISTEMIC_CONTRASTS_REGISTRY
@@ -388,7 +445,12 @@ class EpistemicContrastsAnalyzer:
 
     def export_contrasts_dossier(self, output_path: Path) -> dict[str, Any]:
         data = {
-            "title": "SOVCTX Epistemic Contrasts: Distinctive Soviet vs. Western Problem Formulations",
+            "title": "SOVCTX Mathematical Formulations & Epistemic Contrasts Dossier",
+            "perspective_note": (
+                "Contrasts represent distinct mathematical and problem-solving formulations "
+                "rather than national exclusivities. Soviet-emphasized formulations frequently "
+                "interacted with and spread into international practice."
+            ),
             "total_contrasts": len(self.registry),
             "contrasts": [c.to_dict() for c in self.registry],
         }
