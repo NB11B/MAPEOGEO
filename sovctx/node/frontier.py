@@ -38,7 +38,15 @@ def make_dedup_key(
     namespace: str = "sovctx",
 ) -> str:
     """Deterministic deduplication key preventing duplicate frontier items and recursive loops: K = H(type || target || ns)."""
-    preimage = f"{frontier_type.strip().upper()}\0{normalized_target.strip().lower()}\0{namespace.strip().lower()}"
+    import re
+    import unicodedata
+
+    norm_target = unicodedata.normalize("NFC", normalized_target)
+    clean_target = re.sub(r"\s+", " ", norm_target.strip().lower())
+    clean_type = frontier_type.strip().upper()
+    clean_ns = namespace.strip().lower()
+
+    preimage = f"{clean_type}\0{clean_target}\0{clean_ns}"
     return hashlib.sha256(preimage.encode("utf-8")).hexdigest()
 
 

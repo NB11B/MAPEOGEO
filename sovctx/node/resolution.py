@@ -32,11 +32,31 @@ class ReferenceResolutionAttempt:
         return asdict(self)
 
 
+def _stem_russian(word: str) -> str:
+    suffixes = (
+        "ость", "ости", "остью", "остях",
+        "ского", "скому", "ским", "ском", "ских", "скими", "ские", "ской", "ская", "ское",
+        "ного", "ному", "ным", "ном", "ных", "ными", "ные", "ной", "ная", "ное",
+        "того", "тому", "тым", "том", "тых", "тыми", "тые", "той", "тая", "тое",
+        "ями", "ами", "ях", "ах", "ов", "ев", "ей", "ем", "ом", "ам", "ям",
+        "ых", "их", "ые", "ие", "ой", "ей", "ая", "яя", "ое", "ее",
+        "ы", "и", "а", "я", "у", "ю", "е", "о",
+    )
+    for suf in suffixes:
+        if word.endswith(suf) and len(word) - len(suf) >= 4:
+            return word[:-len(suf)]
+    return word
+
+
 def _normalize_tokens(text: Optional[str]) -> set[str]:
     if not text:
         return set()
     cleaned = re.sub(r"[^\w\s]", " ", text.lower())
-    return {w for w in cleaned.split() if len(w) > 1}
+    tokens = set()
+    for w in cleaned.split():
+        if len(w) > 1:
+            tokens.add(_stem_russian(w))
+    return tokens
 
 
 def _compute_jaccard(tokens1: set[str], tokens2: set[str]) -> float:
@@ -70,7 +90,11 @@ def score_author_match(ref_authors: list[str], target_authors: list[str]) -> flo
 def score_title_match(ref_title: Optional[str], target_title: Optional[str]) -> float:
     t1 = _normalize_tokens(ref_title)
     t2 = _normalize_tokens(target_title)
-    return _compute_jaccard(t1, t2)
+    if not t1 or not t2:
+        return 0.0
+    jaccard = _compute_jaccard(t1, t2)
+    containment = len(t1.intersection(t2)) / min(len(t1), len(t2))
+    return round(0.5 * jaccard + 0.5 * containment, 3)
 
 
 def score_year_match(ref_year: Optional[int], target_year: Optional[int]) -> float:
@@ -81,6 +105,8 @@ def score_year_match(ref_year: Optional[int], target_year: Optional[int]) -> flo
         return 1.0
     elif diff == 1:
         return 0.5
+    elif diff >= 5:
+        return -1.0
     return 0.0
 
 
@@ -89,7 +115,7 @@ def score_identifier_match(ref_id: Optional[str], target_id: Optional[str]) -> f
         return 0.0
     norm_ref = ref_id.strip().lower()
     norm_tgt = target_id.strip().lower()
-    return 1.0 if norm_ref == norm_tgt else 0.0
+    return 1.0 if norm_ref == norm_tgt else -1.0
 
 
 def resolve_reference(
@@ -136,6 +162,12 @@ def resolve_reference(
         # If exact identifier matches, confidence is immediately >= 0.95
         if i_score == 1.0:
             total_conf = 0.95 + 0.05 * max(a_score, t_score)
+        elif i_score == -1.0:
+            # Conflicting persistent identifier: hard contradiction
+            total_conf = 0.0
+        elif y_score < 0:
+            # Year divergence >= 5 years without identifier cannot match
+            total_conf = 0.15 * max(0.0, a_score)
         else:
             # Weighted resolution formula: C_resolve = 0.35 A + 0.35 T + 0.20 Y + 0.10 P
             total_conf = (0.35 * a_score) + (0.35 * t_score) + (0.20 * y_score) + (0.10 * p_score)

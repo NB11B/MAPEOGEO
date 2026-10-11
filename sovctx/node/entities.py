@@ -217,9 +217,13 @@ def extract_entity_mentions(
             )
 
     # 3. Persons
-    # Match full surname + initials pattern or standalone known surnames
+    # Match full surname + initials pattern or known surnames with grammatical case inflections
     for key, canonical in KNOWN_SOVIET_PERSONS.items():
-        pattern = r"\b" + re.escape(key) + r"\b"
+        if key.endswith("ский"):
+            stem = key[:-4]
+            pattern = r"\b" + re.escape(stem) + r"ск(?:ий|ого|ому|им|ом)\b"
+        else:
+            pattern = r"\b" + re.escape(key) + r"(?:а|у|ом|ем|ым|е)?\b"
         for m in re.finditer(pattern, text_lower):
             start, end = m.span()
             surface = passage_text[start:end]

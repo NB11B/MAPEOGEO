@@ -104,8 +104,10 @@ def extract_authors(text: str) -> list[str]:
     """Extract list of structured author names in 'Surname I. O.' format."""
     authors: list[str] = []
     seen: set[str] = set()
+    matched_spans: list[tuple[int, int]] = []
 
     for m in AUTHOR_SURNAME_INITIALS.finditer(text):
+        matched_spans.append((m.start(), m.end()))
         surname, initials = m.group(1), m.group(2).replace(" ", "")
         name = f"{surname} {initials}"
         if name not in seen:
@@ -113,6 +115,9 @@ def extract_authors(text: str) -> list[str]:
             authors.append(name)
 
     for m in AUTHOR_INITIALS_SURNAME.finditer(text):
+        start, end = m.start(), m.end()
+        if any(not (end <= s or start >= e) for s, e in matched_spans):
+            continue
         initials, surname = m.group(1).replace(" ", ""), m.group(2)
         name = f"{surname} {initials}"
         if name not in seen:
@@ -197,11 +202,9 @@ def parse_single_reference(
         after_slash = parts[1].strip()
 
         authors = extract_authors(before_slash)
-        # Title is what remains of before_slash after removing authors
-        title_cand = before_slash
-        for a in authors:
-            title_cand = title_cand.replace(a, "").strip()
-        # Clean leading/trailing punctuation
+        # Title is what remains of before_slash after removing author patterns
+        title_cand = AUTHOR_SURNAME_INITIALS.sub("", before_slash)
+        title_cand = AUTHOR_INITIALS_SURNAME.sub("", title_cand)
         title = title_cand.strip(" .,-–—") if title_cand else None
 
         # Publication venue is the text in after_slash before year / volume
@@ -215,12 +218,11 @@ def parse_single_reference(
     else:
         authors = extract_authors(content_text)
         # Attempt to split title and publisher/location
-        rem = content_text
-        for a in authors:
-            rem = rem.replace(a, "").strip()
+        rem = AUTHOR_SURNAME_INITIALS.sub("", content_text)
+        rem = AUTHOR_INITIALS_SURNAME.sub("", rem)
         rem = rem.strip(" .,-–—")
         # Split on city/publisher pattern: e.g. "М.: Наука" or "М.: Гостехиздат"
-        pub_split = re.split(r"\b([М|Л|СПб|Киев|Харьков|Новосибирск]\s*:\s*[^,\.]+)", rem)
+        pub_split = re.split(r"\b((?:М|Л|СПб|Киев|Харьков|Новосибирск)\.?\s*:\s*[^,\.]+)", rem)
         if len(pub_split) > 1:
             title = pub_split[0].strip(" .,-–—")
             publication = pub_split[1].strip(" .,-–—")
