@@ -7,12 +7,15 @@ from pathlib import Path
 
 import build_sqlite
 import query_graph
+import qualify_equations
 import validate_graph
 from graph_io import canonical_digest, load_records, split_records
 
 
 def qualify() -> dict[str, object]:
     validate_graph.main()
+    equation_result = qualify_equations.qualify()
+    assert equation_result["status"] == "PASS", equation_result
 
     records = load_records()
     nodes, edges = split_records(records)
@@ -75,6 +78,9 @@ def qualify() -> dict[str, object]:
         "claim_fragment_links": expected_claim_fragments,
         "documented_gt1961_bernstein_path_length": len(path),
         "open_questions": len(open_questions),
+        "equation_behavior_status": equation_result["status"],
+        "equation_behavior_pass_count": equation_result["pass_count"],
+        "equation_behavior_fail_count": equation_result["fail_count"],
     }
 
 
