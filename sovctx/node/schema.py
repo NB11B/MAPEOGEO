@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-WORK_SCHEMA_VERSION = "0.4"
+WORK_SCHEMA_VERSION = "0.5"
 
 WORK_PRAGMAS = """
 PRAGMA journal_mode = WAL;
@@ -445,6 +445,47 @@ CREATE TABLE IF NOT EXISTS temporal_entity_intervals (
     observed_at TEXT NOT NULL
 );
 
+-- 32. Historical synthesis dossiers with explicit evidence packets and support classes
+CREATE TABLE IF NOT EXISTS historical_synthesis_dossiers (
+    id TEXT PRIMARY KEY,
+    proposed_label TEXT NOT NULL,
+    candidate_type TEXT NOT NULL,
+    promotion_state TEXT NOT NULL,
+    support_class TEXT NOT NULL,
+    raw_sources_count INTEGER NOT NULL,
+    independent_sources_count INTEGER NOT NULL,
+    independence_ratio REAL NOT NULL,
+    earliest_year INTEGER,
+    latest_year INTEGER,
+    temporal_validity TEXT NOT NULL,
+    dossier_json TEXT NOT NULL,
+    synthesized_at TEXT NOT NULL
+);
+
+-- 33. Multi-type historical lineages (intellectual, institutional, terminological, technical)
+CREATE TABLE IF NOT EXISTS lineage_candidates (
+    id TEXT PRIMARY KEY,
+    lineage_type TEXT NOT NULL,
+    source_entity TEXT NOT NULL,
+    target_entity TEXT NOT NULL,
+    temporal_span_json TEXT NOT NULL,
+    supporting_sources_json TEXT NOT NULL,
+    confidence REAL NOT NULL,
+    details_json TEXT NOT NULL,
+    discovered_at TEXT NOT NULL
+);
+
+-- 34. First-class contradiction sets preserving conflicting claims and attribution
+CREATE TABLE IF NOT EXISTS contradiction_sets (
+    id TEXT PRIMARY KEY,
+    contradiction_type TEXT NOT NULL,
+    entity_or_subject TEXT NOT NULL,
+    claim_a_json TEXT NOT NULL,
+    claim_b_json TEXT NOT NULL,
+    description TEXT NOT NULL,
+    observed_at TEXT NOT NULL
+);
+
 -- Performance Indexes
 CREATE INDEX IF NOT EXISTS idx_fetch_queue_status_prio ON fetch_queue(status, priority);
 CREATE INDEX IF NOT EXISTS idx_fetch_attempts_queue ON fetch_attempts(queue_id);
@@ -478,4 +519,7 @@ CREATE INDEX IF NOT EXISTS idx_acq_prov_origin ON acquisition_provenance(origin_
 CREATE INDEX IF NOT EXISTS idx_src_family_rel ON source_family_relations(source_id_a, source_id_b);
 CREATE INDEX IF NOT EXISTS idx_research_school_lead ON research_school_candidates(lead_person);
 CREATE INDEX IF NOT EXISTS idx_temp_entity_name ON temporal_entity_intervals(entity_name);
+CREATE INDEX IF NOT EXISTS idx_synth_dossiers_type ON historical_synthesis_dossiers(candidate_type);
+CREATE INDEX IF NOT EXISTS idx_lineage_type ON lineage_candidates(lineage_type);
+CREATE INDEX IF NOT EXISTS idx_contradictions_type ON contradiction_sets(contradiction_type);
 """
