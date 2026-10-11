@@ -22,3 +22,4 @@
 {"id":"OP:SCATTER_INVERSE","type":"OPERATOR","namespace":"OP","label":"Scattering inverse","definition":"Reconstruct a hidden interaction or potential from scattering data."}
 {"id":"OP:TASK_REPRESENT","type":"OPERATOR","namespace":"OP","label":"Task-relative representation","definition":"Choose a system description according to the problem being solved rather than requiring a complete isomorphic description."}
 {"id":"OP:DYNAMIC_PARTITION","type":"OPERATOR","namespace":"OP","label":"Dynamic partition","definition":"Reclassify variables into functional groups as their role in the problem changes over time."}
+{"id":"OP:INVERSE_DESIGN","type":"OPERATOR","namespace":"OP","label":"Inverse design","definition":"Construct a source, geometry, or system from a specified desired output behavior, subject to realizability constraints."}
