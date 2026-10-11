@@ -31,7 +31,19 @@ Petersburg mathematical tradition
 Chebyshev -> Markov / Lyapunov -> later Russian/Soviet schools
 ```
 
-Only the Leibniz -> Euler geometria-situs link is currently represented as a documentary ancestry edge.
+Current documented chain includes:
+
+```
+Markov ----\
+            > Chebyshev -> Euler -> Leibniz
+Lyapunov --/
+```
+
+- Euler -> Leibniz: Euler's own `geometria situs` paper explicitly attributes the concept to Leibniz.
+- Chebyshev -> Euler: Kozlov's Russian Mathematical Surveys institutional history states that Chebyshev actively edited and published Euler's works.
+- Markov/Lyapunov -> Chebyshev: the same source identifies them among Chebyshev's students.
+
+These are ancestry/transmission facts. They do not mean every later theorem of Markov or Lyapunov is derived from Leibniz.
 
 ## Equation ancestry
 
