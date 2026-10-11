@@ -10,6 +10,7 @@ documentary:
   - MENTIONS
   - CORRESPONDED_WITH
   - RESPONDED_TO
+  - REPRODUCES
   - SUPPORTS
   - EXTRACTED_FROM
 intellectual:
