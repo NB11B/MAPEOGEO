@@ -1,0 +1,152 @@
+{
+  "gate": "N5_S0_AUTONOMOUS_SHAKEDOWN",
+  "campaign_id": "n5-endurance-20261011-201456",
+  "timestamp": "2026-10-11T21:14:58.950567+00:00",
+  "verdict": "PASS",
+  "target_node": "Jetson Nano 2GB (uow@192.168.55.1)",
+  "commit_hash": "77090efbbad05855e28065e0a79e0b43f0944762",
+  "branch": "research/sovctx-kg",
+  "runtime_environment": {
+    "os": "Linux 4.9.253-tegra aarch64 (Ubuntu 18.04 LTS)",
+    "python": "CPython 3.11.17 via uv",
+    "ram_available_mb": 1330.38,
+    "worker_rss_mb": 28.28,
+    "thermal_peak_c": 50.0,
+    "swap_used_mb": 153.6,
+    "actual_duration_seconds": 3600.25
+  },
+  "sealed_gates": {
+    "N0_PHYSICAL_ISOLATION": "PASS",
+    "N0_5_PHYSICAL_SMOKE": "PASS",
+    "N1_SOURCE_INGESTION": "PASS",
+    "N1_5_NATIVE_TERMINOLOGY": "PASS",
+    "N2_CITATION_TERMINOLOGY_FRONTIER": "PASS",
+    "N3_BEHAVIORAL_QUALIFICATION": "PASS",
+    "N4_BOUNDED_RECURSIVE_EXPANSION": "PASS",
+    "N4_5_EPISTEMIC_SYNTHESIS": "PASS",
+    "N5_S0_AUTONOMOUS_SHAKEDOWN": "PASS",
+    "N5_A_RECOVERY_ENDURANCE": "UNLOCKED"
+  },
+  "campaign_telemetry": {
+    "duration_configured_seconds": 3600,
+    "duration_actual_seconds": 3600.25,
+    "termination_reason": "DURATION_REACHED",
+    "epochs_completed": 6,
+    "epoch_duration_seconds": 600,
+    "sources_attempted": 1000,
+    "sources_admitted": 1000,
+    "pacing_delay_seconds": 3.6,
+    "useful_growth_efficiency": 2.0,
+    "epistemic_error_rate_re_t": 0.0
+  },
+  "start_end_deltas": {
+    "candidate_sources_start": 1025,
+    "candidate_sources_end": 2025,
+    "candidate_sources_delta": 1000,
+    "source_blobs_start": 1128,
+    "source_blobs_end": 2128,
+    "source_blobs_delta": 1000,
+    "historical_synthesis_dossiers": 8,
+    "lineage_candidates": 18,
+    "contradiction_sets": 4,
+    "dirty_synthesis_keys_at_seal": 0
+  },
+  "epoch_progression": [
+    {
+      "epoch_id": "EPOCH_0001",
+      "duration_sec": 601.33,
+      "sources_admitted": 168,
+      "r_sources": 0.2794,
+      "r_frontier": 1.1176,
+      "frontier_entropy": 1.6687,
+      "worker_rss_mb": 28.15,
+      "thermal_peak_c": 50.0,
+      "state_hash": "798d178c18f016c426a831291d0d45958a1b5c0a875e7f8aec86eaf0d425ad02"
+    },
+    {
+      "epoch_id": "EPOCH_0002",
+      "duration_sec": 601.22,
+      "sources_admitted": 167,
+      "r_sources": 0.2778,
+      "r_frontier": 1.1111,
+      "frontier_entropy": 1.4499,
+      "worker_rss_mb": 28.27,
+      "thermal_peak_c": 50.0,
+      "state_hash": "a4fdd282c54eec641d89d68f6d67428973ba393a2a8a74ca130dd66e2cf52d86"
+    },
+    {
+      "epoch_id": "EPOCH_0003",
+      "duration_sec": 601.22,
+      "sources_admitted": 167,
+      "r_sources": 0.2778,
+      "r_frontier": 1.1111,
+      "frontier_entropy": 1.3444,
+      "worker_rss_mb": 28.28,
+      "thermal_peak_c": 50.0,
+      "state_hash": "938879a632ad26d4b4acf15146520bc644c9688bead8ebd1180f44ec16aa9e3e"
+    },
+    {
+      "epoch_id": "EPOCH_0004",
+      "duration_sec": 601.22,
+      "sources_admitted": 167,
+      "r_sources": 0.2778,
+      "r_frontier": 1.1111,
+      "frontier_entropy": 1.2814,
+      "worker_rss_mb": 28.28,
+      "thermal_peak_c": 50.0,
+      "state_hash": "4132f48a1ed3683515f87fe87d0f7f11ee4c738a6e57c7ee119d08ad218a3d39"
+    },
+    {
+      "epoch_id": "EPOCH_0005",
+      "duration_sec": 601.22,
+      "sources_admitted": 167,
+      "r_sources": 0.2778,
+      "r_frontier": 1.1111,
+      "frontier_entropy": 1.2391,
+      "worker_rss_mb": 28.28,
+      "thermal_peak_c": 50.0,
+      "state_hash": "4f3ba1ca9c6ad164b946046557571e5ed7c2e07708f50f9ef4fd4ff8ff429bfb"
+    },
+    {
+      "epoch_id": "EPOCH_0006",
+      "duration_sec": 594.02,
+      "sources_admitted": 164,
+      "r_sources": 0.2761,
+      "r_frontier": 1.1043,
+      "frontier_entropy": 1.2091,
+      "worker_rss_mb": 28.28,
+      "thermal_peak_c": 50.0,
+      "state_hash": "4c6b2807ff6981ddb2201f2a2d40a578bebb407dc2b6ccb38800ee799f008c4d"
+    }
+  ],
+  "sentinel_schools": {
+    "TIKHONOV": "HISTORICALLY_ATTESTED",
+    "PONTRYAGIN": "HISTORICALLY_ATTESTED",
+    "VLASOV": "HISTORICALLY_ATTESTED",
+    "GELFAND": "HISTORICALLY_ATTESTED",
+    "CHEBYSHEV": "HISTORICALLY_ATTESTED",
+    "BOGOLYUBOV": "HISTORICALLY_ATTESTED",
+    "LYAPUNOV": "HISTORICALLY_ATTESTED",
+    "FADDEEV": "HISTORICALLY_ATTESTED"
+  },
+  "invariants_ledger": {
+    "canonical_promotion_violations": 0,
+    "mapeogeo_cross_graph_access": 0,
+    "orphaned_sources": 0,
+    "unresolved_to_exact_promotions": 0,
+    "unsupported_same_as_collapses": 0,
+    "temporal_impossibilities": 0,
+    "mirror_inflation_violations": 0,
+    "provenance_completeness_met": 1,
+    "epistemic_errors_total": 0
+  },
+  "evidence_digests": {
+    "n5_endurance_receipt_sha256": "3af6b7a7335ebb1a8fa7de7fa3321b02eb6e4fdf0a64b115b202bf09cb5bedc3",
+    "n5_endurance_report_sha256": "4543cfb877928906b9e999d1f1b78f9273f2f5538023583163ba9d4be843e39d",
+    "n5_resource_summary_sha256": "46daf6206f94dcb31a31ccb754bc9d17bd46a6cc13135e1673ace7b2f327b084",
+    "n5_epistemic_summary_sha256": "48ac65da71cd94a1276df788f100b1018ad0348335e4641238c1028363766df2",
+    "n5_growth_summary_sha256": "a0c86a63344a9cbe233291d123115653957e78df60c9ce35ea49dfb9edbb4e88",
+    "n5_recovery_summary_sha256": "a33ee2e7cf073d1ba6af907d35f05f38523820ef8efdfd9b45d0d494d702bd6e",
+    "n5_campaign_manifest_sha256": "3af6b7a7335ebb1a8fa7de7fa3321b02eb6e4fdf0a64b115b202bf09cb5bedc3"
+  }
+}
