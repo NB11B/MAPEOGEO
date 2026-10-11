@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 JSONL_FILES = [
     ROOT / "operator_atlas" / "operators.jsonl",
     ROOT / "corpus" / "sources.jsonl",
+    ROOT / "corpus" / "source_fragments.jsonl",
     ROOT / "graph" / "equations.jsonl",
     ROOT / "unresolved" / "open_questions.jsonl",
     ROOT / "graph" / "entities.jsonl",
@@ -67,13 +68,41 @@ def validate_source(path: Path, record: dict[str, Any]) -> None:
             raise ValidationError(f"{path}: source {record['id']} missing {key}")
 
 
-def validate_claim(path: Path, record: dict[str, Any]) -> None:
+def validate_fragment(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "SOURCE_FRAGMENT":
+        return
+    for key in ("source_id", "locator", "evidence_basis", "verification_status"):
+        if not record.get(key):
+            raise ValidationError(f"{path}: source fragment {record['id']} missing {key}")
+    source = nodes.get(record["source_id"])
+    if not source or source.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+        raise ValidationError(f"{path}: source fragment {record['id']} references invalid source {record['source_id']}")
+
+
+def validate_claim(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
     if record["type"] != "CLAIM":
         return
     status = record.get("knowledge_status")
     sources = record.get("source_ids", [])
     if status not in {"I", "H", "M", "A"} and not sources:
         raise ValidationError(f"{path}: claim {record['id']} requires source_ids or explicit inferred/synthesis status")
+
+    fragments = record.get("source_fragment_ids", [])
+    if record.get("verification_status") == "verified_primary":
+        if not fragments:
+            raise ValidationError(f"{path}: verified_primary claim {record['id']} requires source_fragment_ids")
+        for fragment_id in fragments:
+            fragment = nodes.get(fragment_id)
+            if not fragment or fragment.get("type") != "SOURCE_FRAGMENT":
+                raise ValidationError(f"{path}: claim {record['id']} references invalid fragment {fragment_id}")
+            if fragment.get("verification_status") not in {"verified_primary", "verified_scan"}:
+                raise ValidationError(
+                    f"{path}: verified_primary claim {record['id']} relies on non-primary fragment {fragment_id}"
+                )
+            if fragment.get("source_id") not in sources:
+                raise ValidationError(
+                    f"{path}: claim {record['id']} fragment {fragment_id} comes from uncited source {fragment.get('source_id')}"
+                )
 
 
 def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
@@ -132,7 +161,8 @@ def main() -> int:
 
     for path, record in records:
         validate_source(path, record)
-        validate_claim(path, record)
+        validate_fragment(path, record, nodes)
+        validate_claim(path, record, nodes)
 
     for path, record in records:
         validate_edge(path, record, nodes)
