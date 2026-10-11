@@ -9,7 +9,12 @@ interpretive_relation_edges:
   - TRANSLITERATED_AS
   - LITERAL_TRANSLATION
   - TECHNICAL_TRANSLATION
+  - VARIANT_SPELLING_OF
+  - HISTORICAL_SPELLING_OF
+  - ABBREVIATION_OF
+  - SYMBOLIZED_AS
 rules:
   - "Primary evidence is strictly bounded to surface_form and normalized_unicode."
   - "English translations, transliterations, and lemma candidates are interpretive relations and must never overwrite native Russian terminology."
   - "Edges between source passages and terms must use USES_TERM or DEFINES_TERM."
+  - "Technical translation must never be collapsed into concept identity (TECHNICAL_TRANSLATION does not establish SAME_CONCEPT)."
