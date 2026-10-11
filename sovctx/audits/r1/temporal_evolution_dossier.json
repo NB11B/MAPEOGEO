@@ -1,0 +1,426 @@
+{
+  "campaign": "SOVCTX-R1: Temporal Evolution and Priority Shifts (1750–Present)",
+  "historical_slices": [
+    {
+      "slice_id": "SLICE_1_1750_1850",
+      "slice_name": "1750–1850: Imperial Academy Foundations",
+      "start_year": 1700,
+      "end_year": 1850,
+      "historical_character": "Eulerian foundational mechanics, early geometry/analysis situs, and nascent Chebyshev approximation.",
+      "active_entity_count": 8,
+      "active_edge_count": 14,
+      "verb_frequencies": {
+        "OBSERVE": 1,
+        "INFER": 8,
+        "MAP": 3,
+        "REPRESENT": 2
+      },
+      "verb_shares_percent": {
+        "OBSERVE": 7.14,
+        "INFER": 57.14,
+        "MAP": 21.43,
+        "REPRESENT": 14.29
+      },
+      "dominant_verbs": [
+        "INFER",
+        "MAP",
+        "REPRESENT",
+        "OBSERVE"
+      ],
+      "dominant_bigrams": [
+        "INFER->INFER",
+        "INFER->MAP",
+        "MAP->INFER",
+        "INFER->REPRESENT",
+        "REPRESENT->INFER"
+      ],
+      "priority_order": [
+        "INFER",
+        "MAP",
+        "REPRESENT",
+        "OBSERVE"
+      ]
+    },
+    {
+      "slice_id": "SLICE_2_1850_1917",
+      "slice_name": "1850–1917: St. Petersburg Mathematical School",
+      "start_year": 1851,
+      "end_year": 1917,
+      "historical_character": "Chebyshev best approximation, Lyapunov general stability of motion, Markov stochastic processes.",
+      "active_entity_count": 43,
+      "active_edge_count": 69,
+      "verb_frequencies": {
+        "INFER": 8,
+        "REPRESENT": 26,
+        "MAP": 8,
+        "OBSERVE": 4,
+        "CONSTRAIN": 4,
+        "STABILIZE": 9,
+        "PRESERVE": 2,
+        "APPROXIMATE": 4,
+        "OPTIMIZE": 4
+      },
+      "verb_shares_percent": {
+        "INFER": 11.59,
+        "REPRESENT": 37.68,
+        "MAP": 11.59,
+        "OBSERVE": 5.8,
+        "CONSTRAIN": 5.8,
+        "STABILIZE": 13.04,
+        "PRESERVE": 2.9,
+        "APPROXIMATE": 5.8,
+        "OPTIMIZE": 5.8
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "STABILIZE",
+        "INFER",
+        "MAP",
+        "OBSERVE"
+      ],
+      "dominant_bigrams": [
+        "INFER->REPRESENT",
+        "REPRESENT->REPRESENT",
+        "INFER->INFER",
+        "REPRESENT->MAP",
+        "REPRESENT->INFER"
+      ],
+      "priority_order": [
+        "REPRESENT",
+        "STABILIZE",
+        "INFER",
+        "MAP",
+        "OBSERVE",
+        "CONSTRAIN",
+        "APPROXIMATE",
+        "OPTIMIZE",
+        "PRESERVE"
+      ]
+    },
+    {
+      "slice_id": "SLICE_3_1917_1945",
+      "slice_name": "1917–1945: Early Soviet Mechanics and Collective Kinetics",
+      "start_year": 1918,
+      "end_year": 1945,
+      "historical_character": "Andronov-Pontryagin rough systems and self-oscillations, Vlasov self-consistent kinetic plasma theory.",
+      "active_entity_count": 12,
+      "active_edge_count": 22,
+      "verb_frequencies": {
+        "REPRESENT": 12,
+        "MAP": 7,
+        "OBSERVE": 1,
+        "PERTURB": 1,
+        "EVOLVE": 1
+      },
+      "verb_shares_percent": {
+        "REPRESENT": 54.55,
+        "MAP": 31.82,
+        "OBSERVE": 4.55,
+        "PERTURB": 4.55,
+        "EVOLVE": 4.55
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "MAP",
+        "OBSERVE",
+        "PERTURB",
+        "EVOLVE"
+      ],
+      "dominant_bigrams": [
+        "REPRESENT->MAP",
+        "REPRESENT->REPRESENT",
+        "MAP->REPRESENT"
+      ],
+      "priority_order": [
+        "REPRESENT",
+        "MAP",
+        "OBSERVE",
+        "PERTURB",
+        "EVOLVE"
+      ]
+    },
+    {
+      "slice_id": "SLICE_4_1945_1970",
+      "slice_name": "1945–1970: High Cold War Synthesis, Control, and Computing",
+      "start_year": 1946,
+      "end_year": 1970,
+      "historical_character": "Pontryagin maximum principle, Tikhonov regularization, Gelfand-Levitan spectral inversion, Krasovskii optimal stabilization, Glushkov cybernetics, Shafranov equilibrium, BESM-6 Chebyshev subroutines.",
+      "active_entity_count": 201,
+      "active_edge_count": 257,
+      "verb_frequencies": {
+        "REPRESENT": 87,
+        "REDUCE": 14,
+        "RECONSTRUCT": 8,
+        "INFER": 37,
+        "INVERT": 9,
+        "CONSTRAIN": 11,
+        "CONTROL": 7,
+        "MAP": 24,
+        "OBSERVE": 19,
+        "TRANSFORM": 1,
+        "STABILIZE": 21,
+        "PRESERVE": 7,
+        "REGULARIZE": 3,
+        "EVOLVE": 5,
+        "OPTIMIZE": 3,
+        "APPROXIMATE": 1
+      },
+      "verb_shares_percent": {
+        "REPRESENT": 33.85,
+        "REDUCE": 5.45,
+        "RECONSTRUCT": 3.11,
+        "INFER": 14.4,
+        "INVERT": 3.5,
+        "CONSTRAIN": 4.28,
+        "CONTROL": 2.72,
+        "MAP": 9.34,
+        "OBSERVE": 7.39,
+        "TRANSFORM": 0.39,
+        "STABILIZE": 8.17,
+        "PRESERVE": 2.72,
+        "REGULARIZE": 1.17,
+        "EVOLVE": 1.95,
+        "OPTIMIZE": 1.17,
+        "APPROXIMATE": 0.39
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "INFER",
+        "MAP",
+        "STABILIZE",
+        "OBSERVE"
+      ],
+      "dominant_bigrams": [
+        "REPRESENT->REPRESENT",
+        "INFER->OBSERVE",
+        "INFER->INFER",
+        "INFER->REPRESENT",
+        "REPRESENT->INFER"
+      ],
+      "priority_order": [
+        "REPRESENT",
+        "INFER",
+        "MAP",
+        "STABILIZE",
+        "OBSERVE",
+        "REDUCE",
+        "CONSTRAIN",
+        "INVERT",
+        "RECONSTRUCT",
+        "CONTROL",
+        "PRESERVE",
+        "EVOLVE",
+        "REGULARIZE",
+        "OPTIMIZE",
+        "TRANSFORM",
+        "APPROXIMATE"
+      ]
+    },
+    {
+      "slice_id": "SLICE_5_1970_1991",
+      "slice_name": "1970–1991: Late Soviet Applied Systems and Inverse Problems",
+      "start_year": 1971,
+      "end_year": 1991,
+      "historical_character": "Multi-dimensional inverse scattering, applied microwave/radar synthesis, Henkin integral representations, Grebennikov-Zolotarev cavity structures.",
+      "active_entity_count": 63,
+      "active_edge_count": 84,
+      "verb_frequencies": {
+        "INFER": 10,
+        "MAP": 12,
+        "OBSERVE": 11,
+        "REPRESENT": 19,
+        "STABILIZE": 12,
+        "CONSTRAIN": 7,
+        "PRESERVE": 3,
+        "RECONSTRUCT": 4,
+        "INVERT": 6
+      },
+      "verb_shares_percent": {
+        "INFER": 11.9,
+        "MAP": 14.29,
+        "OBSERVE": 13.1,
+        "REPRESENT": 22.62,
+        "STABILIZE": 14.29,
+        "CONSTRAIN": 8.33,
+        "PRESERVE": 3.57,
+        "RECONSTRUCT": 4.76,
+        "INVERT": 7.14
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "MAP",
+        "STABILIZE",
+        "OBSERVE",
+        "INFER"
+      ],
+      "dominant_bigrams": [
+        "MAP->INFER",
+        "INFER->OBSERVE",
+        "MAP->OBSERVE",
+        "INFER->MAP",
+        "INFER->INFER"
+      ],
+      "priority_order": [
+        "REPRESENT",
+        "MAP",
+        "STABILIZE",
+        "OBSERVE",
+        "INFER",
+        "CONSTRAIN",
+        "INVERT",
+        "RECONSTRUCT",
+        "PRESERVE"
+      ]
+    },
+    {
+      "slice_id": "SLICE_6_1991_PRES",
+      "slice_name": "1991–Present: Post-Soviet Codification and Heritage Analysis",
+      "start_year": 1992,
+      "end_year": 2030,
+      "historical_character": "Retrospective Academy editions, Steklov Institute historical surveys (Kozlov), archival synthesis.",
+      "active_entity_count": 20,
+      "active_edge_count": 25,
+      "verb_frequencies": {
+        "OBSERVE": 4,
+        "INFER": 8,
+        "REPRESENT": 7,
+        "CONSTRAIN": 1,
+        "PERTURB": 1,
+        "STABILIZE": 2,
+        "MAP": 2
+      },
+      "verb_shares_percent": {
+        "OBSERVE": 16.0,
+        "INFER": 32.0,
+        "REPRESENT": 28.0,
+        "CONSTRAIN": 4.0,
+        "PERTURB": 4.0,
+        "STABILIZE": 8.0,
+        "MAP": 8.0
+      },
+      "dominant_verbs": [
+        "INFER",
+        "REPRESENT",
+        "OBSERVE",
+        "STABILIZE",
+        "MAP"
+      ],
+      "dominant_bigrams": [
+        "INFER->INFER",
+        "INFER->OBSERVE",
+        "OBSERVE->INFER",
+        "OBSERVE->OBSERVE",
+        "MAP->REPRESENT"
+      ],
+      "priority_order": [
+        "INFER",
+        "REPRESENT",
+        "OBSERVE",
+        "STABILIZE",
+        "MAP",
+        "CONSTRAIN",
+        "PERTURB"
+      ]
+    }
+  ],
+  "priority_shift_trajectory": {
+    "eras": [
+      "1750–1850",
+      "1850–1917",
+      "1917–1945",
+      "1945–1970",
+      "1970–1991",
+      "1991–Present"
+    ],
+    "verb_trajectories": {
+      "APPROXIMATE": [
+        0.0,
+        5.8,
+        0.0,
+        0.39,
+        0.0,
+        0.0
+      ],
+      "STABILIZE": [
+        0.0,
+        13.04,
+        0.0,
+        8.17,
+        14.29,
+        8.0
+      ],
+      "REPRESENT": [
+        14.29,
+        37.68,
+        54.55,
+        33.85,
+        22.62,
+        28.0
+      ],
+      "CONTROL": [
+        0.0,
+        0.0,
+        0.0,
+        2.72,
+        0.0,
+        0.0
+      ],
+      "INVERT": [
+        0.0,
+        0.0,
+        0.0,
+        3.5,
+        7.14,
+        0.0
+      ],
+      "REGULARIZE": [
+        0.0,
+        0.0,
+        0.0,
+        1.17,
+        0.0,
+        0.0
+      ],
+      "EVOLVE": [
+        0.0,
+        0.0,
+        4.55,
+        1.95,
+        0.0,
+        0.0
+      ],
+      "REDUCE": [
+        0.0,
+        0.0,
+        0.0,
+        5.45,
+        0.0,
+        0.0
+      ],
+      "CONSTRAIN": [
+        0.0,
+        5.8,
+        0.0,
+        4.28,
+        8.33,
+        4.0
+      ],
+      "OBSERVE": [
+        7.14,
+        5.8,
+        4.55,
+        7.39,
+        13.1,
+        16.0
+      ]
+    },
+    "key_priority_transitions": [
+      "1750–1850 -> 1850–1917: Rise of CHEBYSHEV approximation and LYAPUNOV phase stability (APPROXIMATE, STABILIZE).",
+      "1850–1917 -> 1917–1945: Shift from mechanical equilibrium to non-equilibrium self-oscillations and collective kinetics (PERTURB, EVOLVE).",
+      "1917–1945 -> 1945–1970: High Cold War convergence: optimal control synthesis meets Fredholm/spectral inverse theory (CONTROL, INVERT, REGULARIZE).",
+      "1945–1970 -> 1970–1991: Direct hardware and computing transfer: microwave cavity design, supercomputing subroutines (BESM-6), inverse radar (RECONSTRUCT).",
+      "1970–1991 -> 1991–Pres: Retrospective Steklov codification and historical lineage preservation."
+    ],
+    "synthesis_summary": "The temporal trajectory traces a clear intellectual sequence across 250 years: from classical approximation and equilibrium (1750–1917) to dynamical vector-field stability (1892–1945), culminating in the Cold War twin pinnacles of admissible optimal control (Pontryagin, Krasovskii) and ill-posed inverse regularization (Tikhonov, Gelfand-Levitan). The overarching grammatical evolution demonstrates that the Soviet mathematical style is not static dogma but an expanding operator calculus adapting continuously from Imperial mechanics to Cold War technology."
+  }
+}

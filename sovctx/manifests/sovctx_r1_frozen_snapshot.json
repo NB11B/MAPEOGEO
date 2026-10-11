@@ -1,0 +1,32 @@
+{
+  "manifest_version": "1.0",
+  "campaign": "SOVCTX-R1: Relational Duality and Mathematical Grammar",
+  "status": "FROZEN_BASELINE",
+  "frozen_at": "2026-10-11T19:18:00-04:00",
+  "canonical_graph_digest": "76a8c1fd84ec295e430a585651aa5b0443597bf1c3a57c07cbb4136b2beac030",
+  "record_counts": {
+    "total_records": 821,
+    "nodes": 368,
+    "edges": 453
+  },
+  "canonical_files": [
+    "operator_atlas/operators.jsonl",
+    "corpus/sources.jsonl",
+    "corpus/source_fragments.jsonl",
+    "graph/equations.jsonl",
+    "graph/equation_families.jsonl",
+    "graph/invariants.jsonl",
+    "graph/behavioral_tests.jsonl",
+    "graph/assumptions.jsonl",
+    "graph/symbols.jsonl",
+    "unresolved/open_questions.jsonl",
+    "graph/entities.jsonl",
+    "graph/claims.jsonl",
+    "graph/edges.jsonl"
+  ],
+  "invariants": {
+    "canonical_graph_unaltered_during_r1": true,
+    "analytical_projections_only": true,
+    "mapeogeo_cross_contamination": 0
+  }
+}
