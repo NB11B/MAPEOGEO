@@ -1,0 +1,47 @@
+version: 0.1
+type: EQUATION
+purpose: >
+  Catalogue source-native mathematics as behaviorally testable objects without
+  requiring prior adjudication under a different mathematical foundation.
+required:
+  - id
+  - type
+  - namespace
+  - label
+  - latex
+  - equation_kind
+  - source_ids
+  - transcription_status
+  - verification_status
+recommended:
+  - source_fragment_ids
+  - original_notation
+  - normalized_notation
+  - input_symbol_ids
+  - output_symbol_ids
+  - symbol_ids
+  - assumption_ids
+  - invariant_ids
+  - operator_ids
+  - behavioral_test_ids
+  - dimensional_status
+  - native_context
+  - notes
+verification_rules:
+  - Exact source notation must be preserved when available.
+  - Normalized notation must never overwrite original notation.
+  - Secondary transcriptions remain secondary even when behavioral tests pass.
+  - Behavioral qualification tests consequences of the equation as recorded; it does not establish physical truth.
+  - Dimensional checks are annotations, not promotion gates unless the source itself requires dimensional consistency.
+behavior_classes:
+  - substitution
+  - scaling
+  - index_shift
+  - symmetry
+  - composition
+  - limiting_case
+  - dimensional
+  - monotonicity
+  - invariance
+  - reversibility
+  - domain_boundary
