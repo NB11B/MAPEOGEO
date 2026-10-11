@@ -1,0 +1,50 @@
+version: 0.1
+runtime:
+  root: /home/uow/sovctx-kg
+  data_root: /home/uow/sovctx-data
+  canonical_repo_branch: research/sovctx-kg
+  nano_candidate_branch: nano/sovctx-ingest
+isolation:
+  forbidden_write_paths:
+    - /home/uow/mapeogeo-m0/evidence/mapeogeo_canonical_graph_indexed.sqlite3
+  normal_runtime_reads_mapeogeo: false
+resources:
+  disk_warn_free_gb: 18
+  disk_stop_free_gb: 14
+  ram_warn_available_mb: 450
+  ram_stop_available_mb: 300
+  swap_stop_used_gb: 2.5
+  thermal_warn_c: 70
+  thermal_stop_c: 77
+  load1_stop: 3.25
+  max_worker_rss_mb: 650
+workers:
+  network: 2
+  extraction: 1
+  qualification: 1
+storage_caps:
+  raw_gb: 6
+  cache_gb: 2
+  work_db_gb: 2
+  graph_db_gb: 3
+  evidence_gb: 2
+  snapshots_gb: 2
+  temp_quarantine_gb: 1
+sqlite:
+  journal_mode: WAL
+  synchronous: NORMAL
+  temp_store: FILE
+  cache_kib: 65536
+  mmap_bytes: 67108864
+  busy_timeout_ms: 5000
+batch:
+  source_documents: 25
+  fragments: 100
+  equations: 100
+crawler:
+  max_citation_depth: 2
+  max_new_urls_per_source: 25
+  max_payload_mb: 100
+promotion:
+  auto_canonical: false
+  require_full_qualification: true
