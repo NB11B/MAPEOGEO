@@ -109,6 +109,55 @@ def validate_claim(path: Path, record: dict[str, Any], nodes: dict[str, dict[str
                 )
 
 
+
+def validate_equation(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "EQUATION":
+        return
+    for key in ("latex", "equation_kind", "source_ids", "transcription_status", "verification_status"):
+        if not record.get(key):
+            raise ValidationError(f"{path}: equation {record['id']} missing {key}")
+    for source_id in record.get("source_ids", []):
+        source = nodes.get(source_id)
+        if not source or source.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+            raise ValidationError(f"{path}: equation {record['id']} references invalid source {source_id}")
+    for fragment_id in record.get("source_fragment_ids", []):
+        fragment = nodes.get(fragment_id)
+        if not fragment or fragment.get("type") != "SOURCE_FRAGMENT":
+            raise ValidationError(f"{path}: equation {record['id']} references invalid fragment {fragment_id}")
+        if fragment.get("source_id") not in record.get("source_ids", []):
+            raise ValidationError(
+                f"{path}: equation {record['id']} fragment {fragment_id} comes from uncited source"
+            )
+    typed_lists = {
+        "symbol_ids": "SYMBOL",
+        "assumption_ids": "ASSUMPTION",
+        "invariant_ids": "INVARIANT",
+        "behavioral_test_ids": "BEHAVIORAL_TEST",
+    }
+    for field, expected_type in typed_lists.items():
+        for node_id in record.get(field, []):
+            node = nodes.get(node_id)
+            if not node or node.get("type") != expected_type:
+                raise ValidationError(
+                    f"{path}: equation {record['id']} {field} references non-{expected_type} {node_id}"
+                )
+
+
+def validate_behavioral_test(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "BEHAVIORAL_TEST":
+        return
+    for key in ("equation_id", "test_type", "expected", "qualification_role"):
+        if not record.get(key):
+            raise ValidationError(f"{path}: behavioral test {record['id']} missing {key}")
+    equation = nodes.get(record["equation_id"])
+    if not equation or equation.get("type") != "EQUATION":
+        raise ValidationError(f"{path}: behavioral test {record['id']} references invalid equation")
+    if record["id"] not in equation.get("behavioral_test_ids", []):
+        raise ValidationError(
+            f"{path}: behavioral test {record['id']} not declared by equation {equation['id']}"
+        )
+
+
 def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
     if record["type"] != "EDGE":
         return
@@ -188,6 +237,8 @@ def main() -> int:
         validate_source(path, record)
         validate_fragment(path, record, nodes)
         validate_claim(path, record, nodes)
+        validate_equation(path, record, nodes)
+        validate_behavioral_test(path, record, nodes)
 
     support_pairs: set[tuple[str, str]] = set()
     for path, record in records:
