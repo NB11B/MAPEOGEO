@@ -1,0 +1,52 @@
+{
+  "gate": "N3_BEHAVIORAL_QUALIFICATION",
+  "campaign_id": "n3-smoke-20261011-194320",
+  "timestamp": "2026-10-11T19:43:20.782588+00:00",
+  "verdict": "PASS",
+  "target_node": "Jetson Nano 2GB (uow@192.168.55.1)",
+  "commit_hash": "6727042",
+  "branch": "research/sovctx-kg",
+  "runtime_environment": {
+    "os": "Linux 4.9.253-tegra aarch64 (Ubuntu 18.04 LTS)",
+    "python": "CPython 3.11.17 via uv",
+    "ram_available_mb": 1359.98,
+    "worker_rss_mb": 27.76,
+    "thermal_peak_c": 50.0,
+    "swap_used_mb": 174.1,
+    "elapsed_seconds": 0.079
+  },
+  "sealed_gates": {
+    "N0_PHYSICAL_ISOLATION": "PASS",
+    "N0_5_PHYSICAL_SMOKE": "PASS",
+    "N1_SOURCE_INGESTION": "PASS",
+    "N1_5_NATIVE_TERMINOLOGY": "PASS",
+    "N2_CITATION_TERMINOLOGY_FRONTIER": "PASS",
+    "N3_BEHAVIORAL_QUALIFICATION": "PASS",
+    "N4_EXPANSION_QUALIFICATION": "UNLOCKED"
+  },
+  "behavioral_qualification": {
+    "corpus_cases_evaluated": 62,
+    "corpus_cases_passed": 62,
+    "overall_route_accuracy": 1.0,
+    "critical_violations_count": 0,
+    "counterfactual_pairs_evaluated": 6,
+    "counterfactual_pairs_passed": 6,
+    "families_evaluated": 6,
+    "families_passed": 6,
+    "classes_evaluated": 10,
+    "invariants_checked": 10,
+    "invariants_passed": 10
+  },
+  "counterfactual_pairs": {
+    "PAIR_A": "PASS",
+    "PAIR_B": "PASS",
+    "PAIR_C": "PASS",
+    "PAIR_D": "PASS",
+    "PAIR_E": "PASS",
+    "PAIR_F": "PASS"
+  },
+  "evidence_digests": {
+    "n3_smoke_receipt_sha256": "6c317ba66bd7d8c714f37fd360ecddc03b1e2a4dc34949f18e85de21778c6948",
+    "n3_smoke_report_sha256": "2538c4fdee23008a13076eb8be9063ebacad3c103687a44924c9462467d85d90"
+  }
+}
