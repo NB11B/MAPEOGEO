@@ -12,6 +12,7 @@ CANONICAL_JSONL = (
     ROOT / "corpus" / "sources.jsonl",
     ROOT / "corpus" / "source_fragments.jsonl",
     ROOT / "graph" / "equations.jsonl",
+    ROOT / "graph" / "equation_families.jsonl",
     ROOT / "graph" / "invariants.jsonl",
     ROOT / "graph" / "behavioral_tests.jsonl",
     ROOT / "graph" / "assumptions.jsonl",
