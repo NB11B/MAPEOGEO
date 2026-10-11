@@ -34,8 +34,8 @@ def utc_now_iso() -> str:
 
 @dataclass
 class CampaignCeilings:
-    max_sources: int = 1000
-    max_blobs: int = 2000
+    max_sources: int = 1500
+    max_blobs: int = 3000
     max_depth: int = 6
     max_open_frontier: int = 10000
     max_unresolved: int = 5000
@@ -59,12 +59,14 @@ class EnduranceSupervisor:
         duration_seconds: int = 3600,
         epoch_duration_seconds: int = 600,
         ceilings: Optional[CampaignCeilings] = None,
+        pace_seconds: float = 0.0,
     ) -> None:
         self.config = config
         self.db = db
         self.duration_seconds = duration_seconds
         self.epoch_duration_seconds = epoch_duration_seconds
         self.ceilings = ceilings or CampaignCeilings()
+        self.pace_seconds = pace_seconds
 
         self.n5_dir = config.evidence_dir / "n5"
         self.n5_dir.mkdir(parents=True, exist_ok=True)
@@ -120,12 +122,14 @@ class EnduranceSupervisor:
         }
 
         termination_reason = "DURATION_REACHED"
+        last_heartbeat_time = campaign_start
 
         # -------------------------------------------------------------
         # 2. Main Autonomous Scheduler Loop
         # -------------------------------------------------------------
         cycle_count = 0
         while (time.time() - campaign_start) < self.duration_seconds:
+            cycle_start = time.time()
             cycle_count += 1
             now = time.time()
 
@@ -165,7 +169,13 @@ class EnduranceSupervisor:
             total_sources_attempted += 1
 
             sid = f"SOVSRC:N5_{b_doc.doc_id}_{cycle_count:04d}"
-            sha = hashlib.sha256(f"{sid}_{b_doc.title}".encode("utf-8")).hexdigest()
+            payload = f"{sid}\n{b_doc.title}\n{b_doc.text_content}".encode("utf-8")
+            sha = hashlib.sha256(payload).hexdigest()
+            blob_rel_path = f"cas/{sha[:2]}/{sha}"
+            blob_abs_path = self.config.cas_dir / sha[:2] / sha
+            blob_abs_path.parent.mkdir(parents=True, exist_ok=True)
+            if not blob_abs_path.exists():
+                blob_abs_path.write_bytes(payload)
 
             with self.db.get_connection() as con:
                 con.execute(
@@ -173,7 +183,7 @@ class EnduranceSupervisor:
                     INSERT OR IGNORE INTO source_blobs (sha256, storage_path, byte_size, content_type, first_acquired_at, first_url)
                     VALUES (?, ?, ?, ?, ?, ?)
                     """,
-                    (sha, f"cas/{sha[:2]}/{sha}", len(b_doc.text_content.encode("utf-8")), "text/plain", utc_now_iso(), f"https://mathnet.ru/{b_doc.doc_id}.pdf")
+                    (sha, blob_rel_path, len(payload), "text/plain", utc_now_iso(), f"https://mathnet.ru/{b_doc.doc_id}.pdf")
                 )
                 con.execute(
                     """
@@ -265,6 +275,14 @@ class EnduranceSupervisor:
 
                 self.metrics_tracker.record_epoch(epoch_record)
                 self.checkpoint_subsystem.create_checkpoint(epoch_index, sentinel_states)
+                print(
+                    f"[{epoch_record.epoch_id}] COMPLETED at t={int(now - campaign_start)}s | "
+                    f"Duration: {epoch_duration:.1f}s | Admitted: {epoch_sources_admitted} | "
+                    f"r_s: {rates['r_sources']:.2f}/s | r_f: {rates['r_frontier']:.2f}/s | "
+                    f"H_F: {entropy:.2f} | RSS: {rss_mb:.1f} MB | Temp: {res_telemetry['thermal_peak_c']}°C | "
+                    f"State: {state_hash[:8]}...",
+                    flush=True,
+                )
 
                 # Reset epoch counters
                 epoch_index += 1
@@ -276,8 +294,26 @@ class EnduranceSupervisor:
                 epoch_duplicates_delta = 0
                 epoch_contradictions_delta = 0
 
-            # Yield briefly to maintain low system impact
-            time.sleep(0.01)
+            # Periodic Heartbeat every 60s
+            if (now - last_heartbeat_time) >= 60.0:
+                last_heartbeat_time = now
+                temp_val = current_sample.thermal_max_c if current_sample else "N/A"
+                ram_val = round(current_sample.ram_available_mb, 1) if current_sample else "N/A"
+                rss_mb = round(proc.memory_info().rss / (1024 * 1024), 2)
+                print(
+                    f"[N5 HEARTBEAT t={int(now - campaign_start)}s] "
+                    f"Sources: {total_sources_admitted} | Epoch: {epoch_index} | "
+                    f"RSS: {rss_mb:.1f} MB | Temp: {temp_val}°C | RAM Avail: {ram_val} MB",
+                    flush=True,
+                )
+
+            # Yield with pacing to maintain low system impact and paced throughput
+            cycle_elapsed = time.time() - cycle_start
+            if self.pace_seconds > 0:
+                sleep_time = max(0.005, self.pace_seconds - cycle_elapsed)
+                time.sleep(sleep_time)
+            else:
+                time.sleep(0.01)
 
         # Seal final epoch if any elapsed time remains
         if epoch_sources_attempted > 0 or not self.metrics_tracker.epochs:
@@ -324,6 +360,13 @@ class EnduranceSupervisor:
             )
             self.metrics_tracker.record_epoch(final_epoch)
             self.checkpoint_subsystem.create_checkpoint(epoch_index)
+            print(
+                f"[{final_epoch.epoch_id}] (FINAL SEAL) at t={int(now - campaign_start)}s | "
+                f"Duration: {epoch_duration:.1f}s | Admitted: {epoch_sources_admitted} | "
+                f"r_s: {rates['r_sources']:.2f}/s | r_f: {rates['r_frontier']:.2f}/s | "
+                f"H_F: {entropy:.2f} | RSS: {rss_mb:.1f} MB",
+                flush=True,
+            )
 
         campaign_elapsed = round(time.time() - campaign_start, 2)
 

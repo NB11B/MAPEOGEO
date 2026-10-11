@@ -169,3 +169,26 @@ def test_full_n5_qualification_harness() -> None:
     assert res["verdict"] == "PASS"
     for t_name, passed in res["thresholds"].items():
         assert passed is True, f"Threshold failed: {t_name}"
+
+
+def test_paced_campaign_execution() -> None:
+    with tempfile.TemporaryDirectory() as td:
+        temp_dir = Path(td)
+        db_path = temp_dir / "pace_test.sqlite3"
+        db = WorkDatabase(db_path)
+        config = load_config()
+        config.data_root = temp_dir
+
+        ceilings = CampaignCeilings(max_sources=10, max_blobs=20)
+        supervisor = EnduranceSupervisor(
+            config=config,
+            db=db,
+            duration_seconds=2,
+            epoch_duration_seconds=1,
+            ceilings=ceilings,
+            pace_seconds=0.05,
+        )
+        receipt = supervisor.run_campaign()
+        assert receipt["verdict"] == "PASS"
+        assert receipt["epochs_completed"] >= 1
+        assert receipt["total_sources_admitted"] > 0

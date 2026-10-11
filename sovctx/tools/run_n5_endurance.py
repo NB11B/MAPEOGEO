@@ -18,8 +18,9 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="SOVCTX Gate N5 Autonomous Endurance Campaign Runner")
     parser.add_argument("--duration", type=int, default=3600, help="Campaign duration in seconds (default: 3600s / 1 hour)")
     parser.add_argument("--epoch-duration", type=int, default=600, help="Epoch duration in seconds (default: 600s / 10 minutes)")
-    parser.add_argument("--max-sources", type=int, default=1000, help="Ceiling on admitted sources")
-    parser.add_argument("--max-blobs", type=int, default=2000, help="Ceiling on CAS blobs")
+    parser.add_argument("--max-sources", type=int, default=1500, help="Ceiling on admitted sources (default: 1500)")
+    parser.add_argument("--max-blobs", type=int, default=3000, help="Ceiling on CAS blobs (default: 3000)")
+    parser.add_argument("--pace-seconds", type=float, default=3.6, help="Pacing delay in seconds between acquisition cycles (default: 3.6s)")
     parser.add_argument("--config", type=Path, default=None, help="Path to config.yaml")
     args = parser.parse_args()
 
@@ -41,11 +42,12 @@ def main() -> int:
         duration_seconds=args.duration,
         epoch_duration_seconds=args.epoch_duration,
         ceilings=ceilings,
+        pace_seconds=args.pace_seconds,
     )
 
     print("===========================================================")
     print("SOVCTX Gate N5 Autonomous Endurance Expansion Campaign")
-    print(f"Target Duration: {args.duration} s ({args.duration/3600:.2f} h) | Epoch Duration: {args.epoch_duration} s")
+    print(f"Target Duration: {args.duration} s ({args.duration/3600:.2f} h) | Epoch Duration: {args.epoch_duration} s | Pace: {args.pace_seconds} s/source")
     print(f"Node: Jetson Nano 2GB (uow@192.168.55.1) | Work DB: {config.work_db_path}")
     print("===========================================================")
 
