@@ -199,6 +199,24 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
     if edge_type == "USES_OPERATOR" and t.get("type") != "OPERATOR":
         raise ValidationError(f"{path}: USES_OPERATOR target must be OPERATOR: {record['id']}")
 
+    if edge_type == "ENCODES_EQUATION":
+        if s.get("type") != "SOURCE_FRAGMENT" or t.get("type") != "EQUATION":
+            raise ValidationError(f"{path}: ENCODES_EQUATION must connect SOURCE_FRAGMENT -> EQUATION: {record['id']}")
+        if s.get("source_id") not in t.get("source_ids", []):
+            raise ValidationError(f"{path}: ENCODES_EQUATION fragment source is not cited by equation: {record['id']}")
+
+    typed_targets = {
+        "HAS_SYMBOL": "SYMBOL",
+        "HAS_ASSUMPTION": "ASSUMPTION",
+        "HAS_BEHAVIORAL_TEST": "BEHAVIORAL_TEST",
+        "PRESERVES_INVARIANT": "INVARIANT",
+    }
+    if edge_type in typed_targets:
+        if s.get("type") != "EQUATION" or t.get("type") != typed_targets[edge_type]:
+            raise ValidationError(
+                f"{path}: {edge_type} has invalid endpoint types on {record['id']}"
+            )
+
 
 def validate_temporal_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
     if record.get("type") != "EDGE":
