@@ -127,6 +127,9 @@ def main() -> int:
     p_op = sub.add_parser("operator")
     p_op.add_argument("id")
 
+    p_eq = sub.add_parser("equation")
+    p_eq.add_argument("id")
+
     sub.add_parser("open")
 
     p_claims = sub.add_parser("claims")
@@ -169,6 +172,25 @@ def main() -> int:
                 set(args.edge_type) or None,
             )
         )
+        return 0
+
+    if args.command == "equation":
+        if args.id not in nodes or nodes[args.id].get("type") != "EQUATION":
+            raise SystemExit(f"unknown equation: {args.id}")
+        equation = nodes[args.id]
+        related = []
+        for edge in edges:
+            if edge["source"] == args.id and edge["edge_type"] in {
+                "HAS_SYMBOL", "HAS_ASSUMPTION", "HAS_BEHAVIORAL_TEST",
+                "PRESERVES_INVARIANT", "IMPLEMENTS_OPERATOR"
+            }:
+                related.append({"edge": edge, "target": nodes.get(edge["target"])})
+        fragments = [
+            nodes.get(fid)
+            for fid in equation.get("source_fragment_ids", [])
+            if fid in nodes
+        ]
+        dump({"equation": equation, "source_fragments": fragments, "behavior": related})
         return 0
 
     if args.command == "operator":
