@@ -119,6 +119,10 @@ class NanoConfig:
         return self.data_root / "raw"
 
     @property
+    def cas_dir(self) -> Path:
+        return self.data_root / "raw"
+
+    @property
     def cache_dir(self) -> Path:
         return self.data_root / "cache"
 

@@ -1,0 +1,76 @@
+{
+  "gate": "N5_AUTONOMOUS_ENDURANCE_EXPANSION",
+  "artifact": "n5_parent_baseline.json",
+  "status": "SUBSTRATE_FROZEN",
+  "description": "Immutable qualification substrate defining Gates N0 through N4.5 baseline for N5 autonomous endurance campaigns",
+  "created_at": "2026-10-11T20:05:00+00:00",
+  "target_node": "Jetson Nano 2GB (uow@192.168.55.1)",
+  "commit_hash": "a270eae",
+  "branch": "research/sovctx-kg",
+  "schema_version": "0.5",
+  "sealed_gate_manifests": {
+    "N0_PHYSICAL_ISOLATION": {
+      "manifest": "v0.6_manifest.json",
+      "sha256": "ba9f34111c5af3de6b953c18c432fc7201724723d488fff4945795ea32607f69",
+      "status": "PASS"
+    },
+    "N0_5_PHYSICAL_SMOKE": {
+      "manifest": "n05_physical_smoke_manifest.json",
+      "sha256": "d5c50ca88aa8e356b45d654ca718395bf6903c513ee2c829684412e874729dcf",
+      "status": "PASS"
+    },
+    "N1_SOURCE_INGESTION": {
+      "manifest": "n1_ingest_qualified",
+      "status": "PASS"
+    },
+    "N1_5_NATIVE_TERMINOLOGY": {
+      "manifest": "n15_native_terminology_manifest.json",
+      "sha256": "1379370f36420fc75a53292312c17f1919994f0483e84809f5001ecb523d7117",
+      "status": "PASS"
+    },
+    "N2_CITATION_TERMINOLOGY_FRONTIER": {
+      "manifest": "n2_frontier_manifest.json",
+      "sha256": "0ccf49f21242292ab64be76cbc5efff66b9daf2076877a272e24b8bc5a72e492",
+      "status": "PASS"
+    },
+    "N3_BEHAVIORAL_QUALIFICATION": {
+      "manifest": "n3_behavior_manifest.json",
+      "sha256": "553d2cbbd69f5610b1883a93dd1fe984dc60cd6e055e1cb91852a8cc25cacaff",
+      "status": "PASS",
+      "corpus_cases_count": 62,
+      "counterfactual_pairs_count": 6
+    },
+    "N4_BOUNDED_RECURSIVE_EXPANSION": {
+      "manifest": "n4_expansion_manifest.json",
+      "sha256": "2fc3b82556cbcbe46834d5e4827f54ca5002b7ccdd6749a1edd8ae917c4e216d",
+      "status": "PASS",
+      "generations_completed": 4,
+      "admitted_sources_count": 78
+    },
+    "N4_5_EPISTEMIC_SYNTHESIS": {
+      "manifest": "n45_synthesis_manifest.json",
+      "sha256": "b2dbfb3e48042a233368271bb94813098a359824b994430bd648b8051e71cb90",
+      "status": "PASS",
+      "dossiers_synthesized": 8,
+      "lineages_extracted": 18,
+      "contradictions_cataloged": 4
+    }
+  },
+  "qualification_thresholds": {
+    "provenance_completeness": 1.0,
+    "canonical_contamination": 0,
+    "mapeogeo_cross_graph_access": 0,
+    "unresolved_to_exact_promotions": 0,
+    "unsupported_same_as_collapses": 0,
+    "temporal_impossibilities": 0,
+    "mirror_inflation": 0,
+    "epistemic_drift_rate_re_t": 0.0,
+    "minimum_efficiency_eg": 0.10
+  },
+  "runtime_invariants": {
+    "western_comparison_enabled": false,
+    "candidate_only_writes": true,
+    "circuit_breakers_active": ["RESOURCE_PAUSE", "EPISTEMIC_PAUSE"],
+    "dirty_bit_synthesis": true
+  }
+}
