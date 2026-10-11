@@ -202,6 +202,10 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
         if s.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"} or t.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"}:
             raise ValidationError(f"{path}: REPRODUCES must connect source record -> source record: {record['id']}")
 
+    if edge_type == "EDITION_OF":
+        if s.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"} or t.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+            raise ValidationError(f"{path}: EDITION_OF must connect source record -> source record: {record['id']}")
+
     if edge_type == "USES_OPERATOR" and t.get("type") != "OPERATOR":
         raise ValidationError(f"{path}: USES_OPERATOR target must be OPERATOR: {record['id']}")
 
