@@ -19,3 +19,5 @@
 {"id":"EDGE:FADDEEV1959_USES_SCATTER_INVERSE","type":"EDGE","namespace":"SYN","label":"Faddeev 1959 classified as scattering inverse","edge_type":"USES_OPERATOR","source":"PUB:FADDEEV_1959","target":"OP:SCATTER_INVERSE"}
 {"id":"EDGE:GT1961_USES_NONLOCAL_MOVE","type":"EDGE","namespace":"SYN","label":"Gelfand-Tsetlin 1961 classified as nonlocal search","edge_type":"USES_OPERATOR","source":"PUB:GELFAND_TSETLIN_1961_NONLOCAL","target":"OP:NONLOCAL_MOVE"}
 {"id":"EDGE:GLUSHKOV1962_USES_STRUCTURAL_ADAPT","type":"EDGE","namespace":"SYN","label":"Glushkov 1962 classified as structural adaptation","edge_type":"USES_OPERATOR","source":"PUB:GLUSHKOV_1962_SELF_ORGANIZING","target":"OP:STRUCTURAL_ADAPT"}
+{"id":"EDGE:RODIMOV1976_AUTHOR","type":"EDGE","namespace":"SOV","label":"Rodimov authored 1976 monograph","edge_type":"AUTHORED","source":"PERSON:RODIMOV_BN","target":"PUB:RODIMOV_1976"}
+{"id":"EDGE:RODIMOV1976_PUBLISHED_BY_TSU","type":"EDGE","namespace":"SOV","label":"Rodimov 1976 monograph published by Tomsk State University","edge_type":"PUBLISHED_BY","source":"PUB:RODIMOV_1976","target":"INSTITUTION:TOMSK_STATE_UNIVERSITY"}
