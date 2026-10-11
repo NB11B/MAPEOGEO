@@ -3,3 +3,8 @@
 {"id":"PERSON:GREBENNIKOV_VS","type":"PERSON","namespace":"SOV","label":"V. S. Grebennikov"}
 {"id":"CONCEPT:EPS","type":"CONCEPT","namespace":"CASE","label":"Cavity structure effect / EPS source-native concept"}
 {"id":"OBS:GZ_TORSION_DISPLACEMENT","type":"OBSERVABLE","namespace":"CASE","label":"Reported torsion-balance angular displacement"}
+{"id":"PERSON:GELFAND_IM","type":"PERSON","namespace":"SOV","label":"I. M. Gelfand"}
+{"id":"PERSON:LEVITAN_BM","type":"PERSON","namespace":"SOV","label":"B. M. Levitan"}
+{"id":"PERSON:FADDEEV_LD","type":"PERSON","namespace":"SOV","label":"L. D. Faddeev"}
+{"id":"PERSON:TSETLIN_ML","type":"PERSON","namespace":"SOV","label":"M. L. Tsetlin"}
+{"id":"PERSON:GLUSHKOV_VM","type":"PERSON","namespace":"SOV","label":"V. M. Glushkov"}
