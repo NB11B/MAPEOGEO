@@ -50,6 +50,18 @@ def run_physical_n2_smoke(config: NanoConfig) -> dict[str, Any]:
         except Exception as e:
             print(f"  Note during ingest {sha[:12]}: {e}")
 
+    # Refresh candidate tables to clear prior uncalibrated witnesses
+    with db.get_connection() as con:
+        con.execute("DELETE FROM candidate_equation_witnesses")
+        con.execute("DELETE FROM candidate_definition_spans")
+        con.execute("DELETE FROM reference_candidates")
+        con.execute("DELETE FROM reference_resolution_attempts")
+        con.execute("DELETE FROM frontier_items")
+        con.execute("DELETE FROM frontier_evidence")
+        con.execute("DELETE FROM source_nominations")
+        con.execute("DELETE FROM entity_mentions")
+        con.commit()
+
     # 2. Extract calibrated terminology across passages
     term_extractor = TerminologyExtractor(config=config, db=db)
     passages: list[PassageRecord] = []
