@@ -25,9 +25,11 @@ DOCUMENTARY_EDGE_TYPES = {
     "DOCUMENTED_INFLUENCE",
     "USES_CONCEPT_FROM",
     "USES_EQUATION_FROM",
+    "DOCUMENTED_ANCESTRY",
+    "TRANSMITTED_THROUGH",
 }
 
-SOURCE_NATIVE_NAMESPACES = {"SOV", "RUS", "CASE", "OPEN"}
+SOURCE_NATIVE_NAMESPACES = {"ANC", "SOV", "RUS", "CASE", "OPEN"}
 
 
 def load() -> tuple[dict[str, dict[str, Any]], list[dict[str, Any]]]:
