@@ -1,0 +1,33 @@
+{
+  "schema_version": "0.1",
+  "release_id": "SOVCTX-KG-v0.1",
+  "status": "QUALIFIED_SCAFFOLD",
+  "branch": "research/sovctx-kg",
+  "base_branch": "main",
+  "qualified_date": "2026-10-11",
+  "record_count": 52,
+  "node_count": 47,
+  "namespaces": [
+    "SOV",
+    "RUS",
+    "WEST",
+    "SYN",
+    "MOD",
+    "CASE",
+    "OPEN",
+    "OP"
+  ],
+  "qualification_gates": {
+    "KG1_provenance": "PASS",
+    "KG2_temporal_validity": "SEEDED_NO_VIOLATIONS",
+    "KG3_semantic_boundary": "PASS",
+    "KG4_operator_completeness": "PARTIAL_OPEN_QUESTIONS_EXPLICIT",
+    "KG5_comparison_isolation": "PASS"
+  },
+  "warnings": [
+    "Conversation seed is not historical evidence.",
+    "Seed source records marked needs_primary_verification require direct archival inspection before promotion.",
+    "GZ force coupling remains unresolved.",
+    "Zolotarev/Rodimov candidate frequency equation requires source-level transcription audit."
+  ]
+}
