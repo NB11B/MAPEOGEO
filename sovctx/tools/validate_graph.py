@@ -11,13 +11,17 @@ JSONL_FILES = [
     ROOT / "corpus" / "sources.jsonl",
     ROOT / "corpus" / "source_fragments.jsonl",
     ROOT / "graph" / "equations.jsonl",
+    ROOT / "graph" / "symbols.jsonl",
+    ROOT / "graph" / "assumptions.jsonl",
+    ROOT / "graph" / "behavioral_tests.jsonl",
+    ROOT / "graph" / "invariants.jsonl",
     ROOT / "unresolved" / "open_questions.jsonl",
     ROOT / "graph" / "entities.jsonl",
     ROOT / "graph" / "claims.jsonl",
     ROOT / "graph" / "edges.jsonl",
 ]
 
-ALLOWED_NAMESPACES = {"SOV", "RUS", "WEST", "SYN", "MOD", "CASE", "OPEN", "OP"}
+ALLOWED_NAMESPACES = {"ANC", "SOV", "RUS", "WEST", "SYN", "MOD", "CASE", "OPEN", "OP"}
 COMPARISON_EDGES = {"PARALLEL_TO", "STRUCTURALLY_ANALOGOUS_TO", "DIFFERS_FROM", "ALTERNATE_INTERPRETATION_OF"}
 FORBIDDEN_EDGE_TYPES = {"SAME_OPERATOR", "EQUIVALENT_TO"}
 SOURCE_NATIVE_NAMESPACES = {"SOV", "RUS"}
