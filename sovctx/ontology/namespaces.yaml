@@ -1,5 +1,6 @@
 version: 0.1
 namespaces:
+  ANC: pre-Soviet ancestry and transmission material
   SOV: source-native Soviet material
   RUS: source-native Russian/post-Soviet material
   WEST: quarantined Western comparison material
@@ -9,6 +10,7 @@ namespaces:
   OPEN: unresolved questions
   OP: operator atlas
 rules:
+  - ANC nodes represent ancestry and are not Western-comparison evidence by default.
   - WEST nodes may connect to SOV/RUS nodes only through comparison edge types.
   - MOD nodes may TEST historical claims but may not be historical evidence for them.
   - SYN nodes may summarize structure but may not be cited as SOURCE_NATIVE.
