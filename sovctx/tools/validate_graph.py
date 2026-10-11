@@ -205,6 +205,18 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
         if s.get("source_id") not in t.get("source_ids", []):
             raise ValidationError(f"{path}: ENCODES_EQUATION fragment source is not cited by equation: {record['id']}")
 
+    if edge_type == "MEMBER_OF_EQUATION_FAMILY":
+        if s.get("type") != "EQUATION" or t.get("type") != "EQUATION_FAMILY":
+            raise ValidationError(f"{path}: MEMBER_OF_EQUATION_FAMILY must connect EQUATION -> EQUATION_FAMILY: {record['id']}")
+
+    if edge_type == "SOURCE_TARGETS_EQUATION_FAMILY":
+        if s.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"} or t.get("type") != "EQUATION_FAMILY":
+            raise ValidationError(f"{path}: SOURCE_TARGETS_EQUATION_FAMILY must connect source -> EQUATION_FAMILY: {record['id']}")
+
+    if edge_type == "IMPLEMENTS_OPERATOR":
+        if s.get("type") != "EQUATION" or t.get("type") != "OPERATOR":
+            raise ValidationError(f"{path}: IMPLEMENTS_OPERATOR must connect EQUATION -> OPERATOR: {record['id']}")
+
     typed_targets = {
         "HAS_SYMBOL": "SYMBOL",
         "HAS_ASSUMPTION": "ASSUMPTION",
