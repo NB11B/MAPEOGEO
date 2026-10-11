@@ -234,6 +234,129 @@ def vlasov_freq_mass_scale() -> bool:
     return True
 
 
+def cheb_eq1_residual(error: Fraction, L: Fraction) -> Fraction:
+    return error * error - L * L
+
+
+def cheb_eq1_pos() -> bool:
+    for L in (Fraction(1), Fraction(3, 2), Fraction(7)):
+        if cheb_eq1_residual(L, L) != 0:
+            return False
+    return True
+
+
+def cheb_eq1_neg() -> bool:
+    for L in (Fraction(1), Fraction(3, 2), Fraction(7)):
+        if cheb_eq1_residual(-L, L) != 0:
+            return False
+    return True
+
+
+def cheb_eq1_sign() -> bool:
+    for error in (Fraction(-5), Fraction(-1, 2), Fraction(0), Fraction(7, 3)):
+        for L in (Fraction(1), Fraction(2)):
+            if cheb_eq1_residual(error, L) != cheb_eq1_residual(-error, L):
+                return False
+    return True
+
+
+def cheb_eq2_value(x: Fraction, a: Fraction, h: Fraction, derivative: Fraction) -> Fraction:
+    return (x - a + h) * (x - a - h) * derivative
+
+
+def cheb_eq2_left() -> bool:
+    for a, h, derivative in (
+        (Fraction(0), Fraction(1), Fraction(7)),
+        (Fraction(3), Fraction(2), Fraction(-5)),
+    ):
+        if cheb_eq2_value(a - h, a, h, derivative) != 0:
+            return False
+    return True
+
+
+def cheb_eq2_right() -> bool:
+    for a, h, derivative in (
+        (Fraction(0), Fraction(1), Fraction(7)),
+        (Fraction(3), Fraction(2), Fraction(-5)),
+    ):
+        if cheb_eq2_value(a + h, a, h, derivative) != 0:
+            return False
+    return True
+
+
+def cheb_eq2_stationary() -> bool:
+    for x, a, h in (
+        (Fraction(0), Fraction(0), Fraction(1)),
+        (Fraction(5, 2), Fraction(3), Fraction(2)),
+    ):
+        if cheb_eq2_value(x, a, h, Fraction(0)) != 0:
+            return False
+    return True
+
+
+def cheb_map_z(x: Fraction, a: Fraction, h: Fraction) -> Fraction:
+    return (x - a) / h
+
+
+def cheb_map_left() -> bool:
+    return all(
+        cheb_map_z(a - h, a, h) == -1
+        for a, h in ((Fraction(0), Fraction(1)), (Fraction(3), Fraction(2)))
+    )
+
+
+def cheb_map_center() -> bool:
+    return all(
+        cheb_map_z(a, a, h) == 0
+        for a, h in ((Fraction(0), Fraction(1)), (Fraction(3), Fraction(2)))
+    )
+
+
+def cheb_map_right() -> bool:
+    return all(
+        cheb_map_z(a + h, a, h) == 1
+        for a, h in ((Fraction(0), Fraction(1)), (Fraction(3), Fraction(2)))
+    )
+
+
+def pon_dot(psi: tuple[Fraction, ...], f: tuple[Fraction, ...]) -> Fraction:
+    return sum((a * b for a, b in zip(psi, f)), Fraction(0))
+
+
+def pon_cost_zero() -> bool:
+    samples = (Fraction(0), Fraction(0), Fraction(0), Fraction(0))
+    return sum(samples, Fraction(0)) == 0
+
+
+def pon_cost_concat() -> bool:
+    left = (Fraction(1, 2), Fraction(2), Fraction(-1, 3))
+    right = (Fraction(7, 4), Fraction(5, 2))
+    total = left + right
+    return sum(total, Fraction(0)) == sum(left, Fraction(0)) + sum(right, Fraction(0))
+
+
+def pon_h_psi_add() -> bool:
+    f = (Fraction(2), Fraction(-3), Fraction(5, 2))
+    psi1 = (Fraction(1), Fraction(2), Fraction(-1))
+    psi2 = (Fraction(4), Fraction(-1), Fraction(3))
+    combined = tuple(a + b for a, b in zip(psi1, psi2))
+    return pon_dot(combined, f) == pon_dot(psi1, f) + pon_dot(psi2, f)
+
+
+def pon_h_psi_scale() -> bool:
+    f = (Fraction(2), Fraction(-3), Fraction(5, 2))
+    psi = (Fraction(1), Fraction(2), Fraction(-1))
+    c = Fraction(7, 3)
+    scaled = tuple(c * x for x in psi)
+    return pon_dot(scaled, f) == c * pon_dot(psi, f)
+
+
+def pon_max_finite() -> bool:
+    values = (Fraction(-3), Fraction(5, 2), Fraction(7), Fraction(1, 3))
+    M = max(values)
+    return M in values and all(M >= value for value in values)
+
+
 EVALUATORS: dict[str, Callable[[], bool]] = {
     "gz_scale_l": test_gz_scale_l,
     "gz_increment_k": test_gz_increment_k,
@@ -255,6 +378,20 @@ EVALUATORS: dict[str, Callable[[], bool]] = {
     "vlasov_freq_density_scale": vlasov_freq_density_scale,
     "vlasov_freq_charge_sign": vlasov_freq_charge_sign,
     "vlasov_freq_mass_scale": vlasov_freq_mass_scale,
+    "cheb_eq1_pos": cheb_eq1_pos,
+    "cheb_eq1_neg": cheb_eq1_neg,
+    "cheb_eq1_sign": cheb_eq1_sign,
+    "cheb_eq2_left": cheb_eq2_left,
+    "cheb_eq2_right": cheb_eq2_right,
+    "cheb_eq2_stationary": cheb_eq2_stationary,
+    "cheb_map_left": cheb_map_left,
+    "cheb_map_center": cheb_map_center,
+    "cheb_map_right": cheb_map_right,
+    "pon_cost_zero": pon_cost_zero,
+    "pon_cost_concat": pon_cost_concat,
+    "pon_h_psi_add": pon_h_psi_add,
+    "pon_h_psi_scale": pon_h_psi_scale,
+    "pon_max_finite": pon_max_finite,
 }
 
 
