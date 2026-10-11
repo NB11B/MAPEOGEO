@@ -1,0 +1,30 @@
+version: 0.1
+provenance_classes:
+  S1: Soviet/Russian primary institutional publication, academy paper, monograph, patent, or official proceedings
+  S2: formal Soviet/Russian theoretical or engineering school
+  S3: technical report, specialist proceedings, deposited manuscript, or institute communication
+  S4: documented individual research program
+  S5: later Russian reconstruction, memoir, transcription, or retrospective source
+  W1: Western primary institutional publication
+  W2: Western formal research school
+  W3: Western technical report or proceedings
+  W4: Western documented individual program
+  W5: Western retrospective source
+knowledge_status:
+  D: directly documented
+  I: inference from documented material
+  H: historical hypothesis requiring evidence
+  E: experimental claim reported by a source
+  M: SOVCTX mathematical reconstruction
+  A: modern application
+verification_status:
+  - verified_primary
+  - verified_scan
+  - secondary_transcription
+  - needs_primary_verification
+  - ambiguous
+source_layers:
+  - SOURCE_NATIVE
+  - LATER_INTERPRETATION
+  - MODERN_COMPARISON
+  - OUR_SYNTHESIS
