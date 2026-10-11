@@ -1,0 +1,48 @@
+{
+  "gate": "N1.5_NATIVE_TERMINOLOGY",
+  "campaign_id": "N1.5_SMOKE_20261011_190811",
+  "timestamp": "2026-10-11T19:08:11.214390+00:00",
+  "verdict": "PASS",
+  "target_node": "Jetson Nano 2GB (uow@192.168.55.1)",
+  "commit_hash": "816fb15",
+  "branch": "research/sovctx-kg",
+  "runtime_environment": {
+    "os": "Linux 4.9.253-tegra aarch64 (Ubuntu 18.04 LTS)",
+    "python": "CPython 3.11.17 via uv",
+    "ram_total_mb": 1976.0,
+    "ram_available_mb": 1366.31,
+    "worker_rss_mb": 45.5,
+    "thermal_peak_c": 50.0,
+    "elapsed_seconds": 2.73
+  },
+  "sealed_gates": {
+    "N0_PHYSICAL_ISOLATION": "PASS",
+    "N0_5_PHYSICAL_SMOKE": "PASS",
+    "N1_SOURCE_INGESTION": "PASS",
+    "N1_5_NATIVE_TERMINOLOGY": "PASS",
+    "N2_CITATION_FRONTIER": "UNLOCKED"
+  },
+  "adversarial_qualification": {
+    "cases_evaluated": 16,
+    "cases_passed": 16,
+    "invariants_checked": 10,
+    "invariants_passed": 10
+  },
+  "cohort_metrics": {
+    "sources_processed": 5,
+    "passages_processed": 89,
+    "russian_passages": 73,
+    "terms_extracted": 1489,
+    "unique_native_terms": 999,
+    "multiword_terms": 110,
+    "historical_forms": 27,
+    "symbol_witnesses": 700,
+    "equation_witnesses": 443,
+    "definition_candidates": 0,
+    "extractor_errors": 0
+  },
+  "evidence_digests": {
+    "n15_smoke_receipt_sha256": "d717f0d70d764db39223d98c79bd8dc2a3e961b3afc0e4eabaff756336839d03",
+    "n15_smoke_report_sha256": "1b96df343392050a0db7c0d7922f334c993c1cde73727733652fc7dd24ca82a1"
+  }
+}
