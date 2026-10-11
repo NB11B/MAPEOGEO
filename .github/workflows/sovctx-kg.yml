@@ -28,6 +28,9 @@ jobs:
       - name: Validate canonical graph
         run: python sovctx/tools/validate_graph.py
 
+      - name: Qualify equation behavior
+        run: python sovctx/tools/qualify_equations.py
+
       - name: End-to-end qualification
         run: python sovctx/tools/qualify.py
 
