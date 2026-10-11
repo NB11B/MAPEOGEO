@@ -1,0 +1,146 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any, Iterable
+
+ROOT = Path(__file__).resolve().parents[1]
+
+JSONL_FILES = [
+    ROOT / "operator_atlas" / "operators.jsonl",
+    ROOT / "corpus" / "sources.jsonl",
+    ROOT / "graph" / "equations.jsonl",
+    ROOT / "unresolved" / "open_questions.jsonl",
+    ROOT / "graph" / "entities.jsonl",
+    ROOT / "graph" / "claims.jsonl",
+    ROOT / "graph" / "edges.jsonl",
+]
+
+ALLOWED_NAMESPACES = {"SOV", "RUS", "WEST", "SYN", "MOD", "CASE", "OPEN", "OP"}
+COMPARISON_EDGES = {"PARALLEL_TO", "STRUCTURALLY_ANALOGOUS_TO", "DIFFERS_FROM", "ALTERNATE_INTERPRETATION_OF"}
+FORBIDDEN_EDGE_TYPES = {"SAME_OPERATOR", "EQUIVALENT_TO"}
+SOURCE_NATIVE_NAMESPACES = {"SOV", "RUS"}
+
+
+class ValidationError(RuntimeError):
+    pass
+
+
+def read_jsonl(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    records: list[dict[str, Any]] = []
+    for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            obj = json.loads(line)
+        except json.JSONDecodeError as exc:
+            raise ValidationError(f"{path}:{lineno}: invalid JSON: {exc}") from exc
+        if not isinstance(obj, dict):
+            raise ValidationError(f"{path}:{lineno}: JSONL record must be an object")
+        records.append(obj)
+    return records
+
+
+def iter_records() -> Iterable[tuple[Path, dict[str, Any]]]:
+    for path in JSONL_FILES:
+        for record in read_jsonl(path):
+            yield path, record
+
+
+def validate_common(path: Path, record: dict[str, Any]) -> None:
+    for key in ("id", "type", "namespace", "label"):
+        if key not in record or record[key] in ("", None):
+            raise ValidationError(f"{path}: record missing required field {key}: {record}")
+    if record["namespace"] not in ALLOWED_NAMESPACES:
+        raise ValidationError(f"{path}: invalid namespace {record['namespace']} for {record['id']}")
+
+
+def validate_source(path: Path, record: dict[str, Any]) -> None:
+    if record["type"] not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+        return
+    if record["id"] == "SRC:CHAT_SEED_000":
+        return
+    for key in ("provenance_class", "knowledge_status", "verification_status"):
+        if not record.get(key):
+            raise ValidationError(f"{path}: source {record['id']} missing {key}")
+
+
+def validate_claim(path: Path, record: dict[str, Any]) -> None:
+    if record["type"] != "CLAIM":
+        return
+    status = record.get("knowledge_status")
+    sources = record.get("source_ids", [])
+    if status not in {"I", "H", "M", "A"} and not sources:
+        raise ValidationError(f"{path}: claim {record['id']} requires source_ids or explicit inferred/synthesis status")
+
+
+def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "EDGE":
+        return
+    edge_type = record.get("edge_type")
+    if not edge_type:
+        raise ValidationError(f"{path}: edge {record['id']} missing edge_type")
+    if edge_type in FORBIDDEN_EDGE_TYPES:
+        raise ValidationError(f"{path}: forbidden strong semantic edge {edge_type}: {record['id']}")
+    source_id = record.get("source")
+    target_id = record.get("target")
+    if not source_id or not target_id:
+        raise ValidationError(f"{path}: edge {record['id']} missing source/target")
+    s = nodes.get(source_id)
+    t = nodes.get(target_id)
+    if not s or not t:
+        raise ValidationError(f"{path}: edge {record['id']} references unknown node(s)")
+    namespaces = {s["namespace"], t["namespace"]}
+    if "WEST" in namespaces and namespaces & SOURCE_NATIVE_NAMESPACES and edge_type not in COMPARISON_EDGES:
+        raise ValidationError(f"{path}: WEST/SOV-RUS edge must be comparison-only: {record['id']}")
+
+
+def validate_temporal_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record.get("type") != "EDGE":
+        return
+    if record.get("edge_type") not in {"DOCUMENTED_INFLUENCE", "USES_CONCEPT_FROM", "USES_EQUATION_FROM", "CITES"}:
+        return
+    s = nodes.get(record.get("source"))
+    t = nodes.get(record.get("target"))
+    if not s or not t:
+        return
+    s_date = str(s.get("publication_date") or s.get("valid_from") or "")
+    t_date = str(t.get("publication_date") or t.get("valid_from") or "")
+    # Only compare leading ISO years; ambiguous or absent dates fail open here and must be audited separately.
+    if len(s_date) >= 4 and len(t_date) >= 4 and s_date[:4].isdigit() and t_date[:4].isdigit():
+        if int(t_date[:4]) > int(s_date[:4]):
+            raise ValidationError(
+                f"{path}: temporal violation on {record['id']}: source-side event {s_date} depends on later target {t_date}"
+            )
+
+
+def main() -> int:
+    records = list(iter_records())
+    seen: dict[str, Path] = {}
+    nodes: dict[str, dict[str, Any]] = {}
+
+    for path, record in records:
+        validate_common(path, record)
+        rid = record["id"]
+        if rid in seen:
+            raise ValidationError(f"duplicate id {rid} in {seen[rid]} and {path}")
+        seen[rid] = path
+        if record["type"] != "EDGE":
+            nodes[rid] = record
+
+    for path, record in records:
+        validate_source(path, record)
+        validate_claim(path, record)
+
+    for path, record in records:
+        validate_edge(path, record, nodes)
+        validate_temporal_edge(path, record, nodes)
+
+    print(f"SOVCTX validation PASS: {len(records)} records, {len(nodes)} nodes")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
