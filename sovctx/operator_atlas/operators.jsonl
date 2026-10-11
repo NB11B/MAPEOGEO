@@ -17,3 +17,6 @@
 {"id":"OP:DEPHASE","type":"OPERATOR","namespace":"OP","label":"Dephase","definition":"Lose macroscopic coherence through phase dispersion without requiring state erasure."}
 {"id":"OP:REPHASE","type":"OPERATOR","namespace":"OP","label":"Rephase","definition":"Recover macroscopic coherence through a subsequent structured interaction."}
 {"id":"OP:ABSTRACT_BIOLOGICAL_OPERATOR","type":"OPERATOR","namespace":"OP","label":"Abstract biological operator","definition":"Separate a biological transformation from its specific biological implementation."}
+{"id":"OP:SPECTRAL_INVERSE","type":"OPERATOR","namespace":"OP","label":"Spectral inverse","definition":"Reconstruct a hidden differential operator or coefficient from admissible spectral data."}
+{"id":"OP:CLASS_ADMISSIBILITY","type":"OPERATOR","namespace":"OP","label":"Class admissibility","definition":"Determine whether observations can belong to the response family of a proposed operator class."}
+{"id":"OP:SCATTER_INVERSE","type":"OPERATOR","namespace":"OP","label":"Scattering inverse","definition":"Reconstruct a hidden interaction or potential from scattering data."}
