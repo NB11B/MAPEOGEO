@@ -1,0 +1,42 @@
+{
+  "gate": "N0.5_PHYSICAL_SMOKE",
+  "campaign_id": "N0.5_SMOKE_20261011_180343",
+  "timestamp": "2026-10-11T18:03:43.442467+00:00",
+  "verdict": "PASS",
+  "target_node": "Jetson Nano 2GB (uow@192.168.55.1)",
+  "commit_hash": "f5a202d",
+  "branch": "research/sovctx-kg",
+  "runtime_environment": {
+    "os": "Linux 4.9.253-tegra aarch64 (Ubuntu 18.04 LTS)",
+    "python": "CPython 3.11.17 via uv",
+    "ram_total_mb": 1976.0,
+    "ram_available_mb": 1381.13,
+    "thermal_peak_c": 50.0,
+    "load_peak": 0.17
+  },
+  "sealed_gates": {
+    "N0_PHYSICAL_ISOLATION": "PASS",
+    "N0_5_PHYSICAL_SMOKE": "PASS",
+    "N1_SOURCE_INGESTION": "PASS",
+    "N1_5_NATIVE_TERMINOLOGY": "CONTRACT_FROZEN"
+  },
+  "evidence_digests": {
+    "n05_smoke_receipt_sha256": "c9065e6dd1d5e53683d312415af947399518b73b38c3bee77af0c54e8bc150b7",
+    "n05_smoke_report_sha256": "5882bf6359d9d0ceb90ac360b20392d3780fdde5a46d3f32fd21986e46a3342b"
+  },
+  "acceptance_criteria_13_of_13": {
+    "isolation_violations == 0": true,
+    "cas_checksum_failures == 0": true,
+    "orphaned_temp_files == 0": true,
+    "lost_queue_entries == 0": true,
+    "duplicate_physical_blobs == 0": true,
+    "unexpected_mapeogeo_reads == 0": true,
+    "unexpected_mapeogeo_writes == 0": true,
+    "pause_state_errors == 0": true,
+    "worker_rss < 650 MB": true,
+    "available_ram > 300 MB": true,
+    "swap_growth_bounded": true,
+    "temperature < 77 C": true,
+    "free_disk > 14 GB": true
+  }
+}
