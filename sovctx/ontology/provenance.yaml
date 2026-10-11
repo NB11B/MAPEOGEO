@@ -1,5 +1,10 @@
 version: 0.1
 provenance_classes:
+  A1: primary pre-Soviet/ancestral publication, manuscript, or academy record
+  A2: established pre-Soviet mathematical or scientific school
+  A3: pre-Soviet technical report, proceedings, correspondence, or institutional record
+  A4: documented individual pre-Soviet research program
+  A5: later scholarly/institutional reconstruction of pre-Soviet ancestry
   S1: Soviet/Russian primary institutional publication, academy paper, monograph, patent, or official proceedings
   S2: formal Soviet/Russian theoretical or engineering school
   S3: technical report, specialist proceedings, deposited manuscript, or institute communication
