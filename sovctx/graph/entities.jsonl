@@ -9,3 +9,6 @@
 {"id":"PERSON:TSETLIN_ML","type":"PERSON","namespace":"SOV","label":"M. L. Tsetlin"}
 {"id":"PERSON:GLUSHKOV_VM","type":"PERSON","namespace":"SOV","label":"V. M. Glushkov"}
 {"id":"INSTITUTION:TOMSK_STATE_UNIVERSITY","type":"INSTITUTION","namespace":"SOV","label":"Tomsk State University"}
+{"id":"PERSON:BERNSTEIN_NA","type":"PERSON","namespace":"SOV","label":"N. A. Bernstein"}
+{"id":"PERSON:GURFINKEL_VS","type":"PERSON","namespace":"SOV","label":"V. S. Gurfinkel"}
+{"id":"INSTITUTION:USSR_ACADEMY_SCIENCES","type":"INSTITUTION","namespace":"SOV","label":"USSR Academy of Sciences"}
