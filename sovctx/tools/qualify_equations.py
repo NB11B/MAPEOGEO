@@ -30,7 +30,7 @@ def test_gz_scale_l() -> bool:
 
 
 def test_gz_increment_k() -> bool:
-    for L in (0.5, 1.0, 3.0):
+    for L in (Fraction(1, 2), Fraction(1), Fraction(3)):
         for n in (0, 1, 4):
             for k in (0, 1, 3):
                 if gz_ell(L, n, k + 1) != 2 * gz_ell(L, n, k):
@@ -39,7 +39,7 @@ def test_gz_increment_k() -> bool:
 
 
 def test_gz_increment_n() -> bool:
-    for L in (0.5, 1.0, 3.0):
+    for L in (Fraction(1, 2), Fraction(1), Fraction(3)):
         for n in (0, 1, 4):
             for k in (0, 1, 3):
                 lhs = gz_ell(L, n + 1, k) - gz_ell(L, n, k)
