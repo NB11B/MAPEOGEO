@@ -1,0 +1,25 @@
+version: 0.1
+type: SOURCE_FRAGMENT
+required:
+  - id
+  - type
+  - namespace
+  - label
+  - source_id
+  - locator
+  - evidence_basis
+  - verification_status
+recommended:
+  - source_language
+  - extraction_language
+  - translation_status
+  - normalized_summary
+  - url
+rules:
+  - A verified_primary CLAIM must list one or more source_fragment_ids.
+  - Each listed fragment must be verified_primary or verified_scan.
+  - Each listed fragment source_id must appear in the claim source_ids.
+  - Each listed fragment must have a SUPPORTS edge to the claim.
+  - Each SOURCE_FRAGMENT must have EXTRACTED_FROM to exactly its source_id.
+  - Bibliographic verification alone cannot support source-content claims.
+  - Normalized summaries are preferred over long quotations.
