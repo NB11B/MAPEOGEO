@@ -1,0 +1,41 @@
+name: SOVCTX-KG Qualification
+
+on:
+  push:
+    paths:
+      - "sovctx/**"
+      - ".github/workflows/sovctx-kg.yml"
+  pull_request:
+    paths:
+      - "sovctx/**"
+      - ".github/workflows/sovctx-kg.yml"
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile tools
+        run: python -m compileall -q sovctx/tools
+
+      - name: Validate canonical graph
+        run: python sovctx/tools/validate_graph.py
+
+      - name: End-to-end qualification
+        run: python sovctx/tools/qualify.py
+
+      - name: Materialize SQLite
+        run: python sovctx/tools/build_sqlite.py --output /tmp/sovctx.sqlite
+
+      - name: Query smoke tests
+        run: |
+          python sovctx/tools/query_graph.py stats
+          python sovctx/tools/query_graph.py operator OP:NONLOCAL_MOVE
+          python sovctx/tools/query_graph.py path PUB:GELFAND_TSETLIN_1961_NONLOCAL PERSON:BERNSTEIN_NA --documented-only --source-native-only
