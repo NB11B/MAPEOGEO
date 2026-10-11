@@ -1,0 +1,47 @@
+{
+  "gate": "N2_CITATION_TERMINOLOGY_FRONTIER",
+  "campaign_id": "N2_SMOKE_20261011_193413",
+  "timestamp": "2026-10-11T19:34:13.692165+00:00",
+  "verdict": "PASS",
+  "target_node": "Jetson Nano 2GB (uow@192.168.55.1)",
+  "commit_hash": "7d34da2",
+  "branch": "research/sovctx-kg",
+  "runtime_environment": {
+    "os": "Linux 4.9.253-tegra aarch64 (Ubuntu 18.04 LTS)",
+    "python": "CPython 3.11.17 via uv",
+    "ram_total_mb": 1976.0,
+    "ram_available_mb": 1345.09,
+    "worker_rss_mb": 45.34,
+    "thermal_peak_c": 50.0,
+    "elapsed_seconds": 2.99
+  },
+  "sealed_gates": {
+    "N0_PHYSICAL_ISOLATION": "PASS",
+    "N0_5_PHYSICAL_SMOKE": "PASS",
+    "N1_SOURCE_INGESTION": "PASS",
+    "N1_5_NATIVE_TERMINOLOGY": "PASS",
+    "N2_CITATION_TERMINOLOGY_FRONTIER": "PASS",
+    "N3_BEHAVIORAL_QUALIFICATION": "UNLOCKED"
+  },
+  "adversarial_qualification": {
+    "cases_evaluated": 15,
+    "cases_passed": 15,
+    "invariants_checked": 10,
+    "invariants_passed": 10
+  },
+  "cohort_metrics": {
+    "sources_processed": 5,
+    "references_extracted": 1,
+    "resolutions_attempted": 1,
+    "entity_mentions_extracted": 4,
+    "frontier_items_created": 3,
+    "frontier_evidence_recorded": 5,
+    "nominations_generated": 1,
+    "negative_controls_rejected": 5,
+    "html_equation_witnesses": 0
+  },
+  "evidence_digests": {
+    "n2_smoke_receipt_sha256": "c7c0675789697f707b054ebddd61cb6d8dc74ddfec233e45e4085d3f34991d82",
+    "n2_smoke_report_sha256": "cccb41bedc9a47fdcef0073d96ed02a632e52316d52c7ee780ac7c1e77bb8b3c"
+  }
+}
