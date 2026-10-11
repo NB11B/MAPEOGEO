@@ -116,6 +116,90 @@ def test_leibniz_power_a0() -> bool:
     return True
 
 
+def tikh_forward(kernel: tuple[tuple[Fraction, ...], ...], z: tuple[Fraction, ...]) -> tuple[Fraction, ...]:
+    return tuple(
+        sum((row[j] * z[j] for j in range(len(z))), Fraction(0))
+        for row in kernel
+    )
+
+
+def tikh_m_alpha(N: Fraction, alpha: Fraction, omega: Fraction) -> Fraction:
+    return N + alpha * omega
+
+
+def tikh_forward_add() -> bool:
+    K = (
+        (Fraction(1), Fraction(2), Fraction(-1)),
+        (Fraction(3), Fraction(0), Fraction(4)),
+    )
+    z1 = (Fraction(1), Fraction(2), Fraction(3))
+    z2 = (Fraction(-2), Fraction(5), Fraction(1))
+    lhs = tikh_forward(K, tuple(a + b for a, b in zip(z1, z2)))
+    a = tikh_forward(K, z1)
+    b = tikh_forward(K, z2)
+    rhs = tuple(x + y for x, y in zip(a, b))
+    return lhs == rhs
+
+
+def tikh_forward_scale() -> bool:
+    K = (
+        (Fraction(1), Fraction(2), Fraction(-1)),
+        (Fraction(3), Fraction(0), Fraction(4)),
+    )
+    z = (Fraction(1), Fraction(2), Fraction(3))
+    c = Fraction(7, 3)
+    lhs = tikh_forward(K, tuple(c * x for x in z))
+    rhs = tuple(c * x for x in tikh_forward(K, z))
+    return lhs == rhs
+
+
+def tikh_alpha_zero() -> bool:
+    for N in (Fraction(0), Fraction(3), Fraction(7, 2)):
+        for omega in (Fraction(0), Fraction(5), Fraction(11, 3)):
+            if tikh_m_alpha(N, Fraction(0), omega) != N:
+                return False
+    return True
+
+
+def tikh_omega_zero() -> bool:
+    for N in (Fraction(0), Fraction(3), Fraction(7, 2)):
+        for alpha in (Fraction(1, 10), Fraction(1), Fraction(5)):
+            if tikh_m_alpha(N, alpha, Fraction(0)) != N:
+                return False
+    return True
+
+
+def tikh_positive_penalty() -> bool:
+    for N in (Fraction(0), Fraction(3), Fraction(7, 2)):
+        for alpha in (Fraction(1, 10), Fraction(1), Fraction(5)):
+            for omega in (Fraction(0), Fraction(2), Fraction(11, 3)):
+                if tikh_m_alpha(N, alpha, omega) < N:
+                    return False
+    return True
+
+
+def tikh_misfit_zero() -> bool:
+    residuals = (Fraction(0), Fraction(0), Fraction(0))
+    return sum((r * r for r in residuals), Fraction(0)) == 0
+
+
+def tikh_penalty_zero() -> bool:
+    samples = (
+        (Fraction(2), Fraction(3), Fraction(0), Fraction(0)),
+        (Fraction(5), Fraction(7), Fraction(0), Fraction(0)),
+    )
+    return all(k * zp * zp + p * z * z == 0 for k, p, zp, z in samples)
+
+
+def tikh_penalty_nonnegative() -> bool:
+    samples = (
+        (Fraction(2), Fraction(3), Fraction(4), Fraction(-5)),
+        (Fraction(5), Fraction(7), Fraction(-2), Fraction(1)),
+        (Fraction(1, 3), Fraction(2, 5), Fraction(7, 4), Fraction(-3, 2)),
+    )
+    return all(k > 0 and p > 0 and k * zp * zp + p * z * z >= 0 for k, p, zp, z in samples)
+
+
 EVALUATORS: dict[str, Callable[[], bool]] = {
     "gz_scale_l": test_gz_scale_l,
     "gz_increment_k": test_gz_increment_k,
@@ -126,6 +210,14 @@ EVALUATORS: dict[str, Callable[[], bool]] = {
     "leibniz_product_swap": test_leibniz_product_swap,
     "leibniz_power_a1": test_leibniz_power_a1,
     "leibniz_power_a0": test_leibniz_power_a0,
+    "tikh_forward_add": tikh_forward_add,
+    "tikh_forward_scale": tikh_forward_scale,
+    "tikh_alpha_zero": tikh_alpha_zero,
+    "tikh_omega_zero": tikh_omega_zero,
+    "tikh_positive_penalty": tikh_positive_penalty,
+    "tikh_misfit_zero": tikh_misfit_zero,
+    "tikh_penalty_zero": tikh_penalty_zero,
+    "tikh_penalty_nonnegative": tikh_penalty_nonnegative,
 }
 
 
