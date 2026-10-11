@@ -89,6 +89,9 @@ def qualify() -> dict[str, object]:
     assert family_counts.get("FAMILY:VLASOV_COLLECTIVE_FIELD") == 4
     assert family_counts.get("FAMILY:LEIBNIZ_DIFFERENTIAL_RULES") == 2
     assert family_counts.get("FAMILY:LYAPUNOV_STABILITY") == 1
+    assert family_counts.get("FAMILY:GELFAND_LEVITAN_INVERSE_SPECTRAL") == 3
+    assert family_counts.get("FAMILY:PONTRYAGIN_OPTIMAL_CONTROL") == 5
+    assert family_counts.get("FAMILY:CHEBYSHEV_MECHANISM_SYNTHESIS") == 3
 
     return {
         "status": "PASS",
