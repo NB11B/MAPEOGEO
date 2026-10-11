@@ -45,16 +45,16 @@ def main() -> int:
         pace_seconds=args.pace_seconds,
     )
 
-    print("===========================================================")
-    print("SOVCTX Gate N5 Autonomous Endurance Expansion Campaign")
-    print(f"Target Duration: {args.duration} s ({args.duration/3600:.2f} h) | Epoch Duration: {args.epoch_duration} s | Pace: {args.pace_seconds} s/source")
-    print(f"Node: Jetson Nano 2GB (uow@192.168.55.1) | Work DB: {config.work_db_path}")
-    print("===========================================================")
+    print("===========================================================", flush=True)
+    print("SOVCTX Gate N5 Autonomous Endurance Expansion Campaign", flush=True)
+    print(f"Target Duration: {args.duration} s ({args.duration/3600:.2f} h) | Epoch Duration: {args.epoch_duration} s | Pace: {args.pace_seconds} s/source", flush=True)
+    print(f"Node: Jetson Nano 2GB (uow@192.168.55.1) | Work DB: {config.work_db_path}", flush=True)
+    print("===========================================================", flush=True)
 
     receipt = supervisor.run_campaign()
 
     print("\n===========================================================")
-    print(f"Gate N5 Campaign Verdict  : {receipt['verdict']}")
+    print(f"Gate N5 Campaign Verdict  : {receipt['verdict']}", flush=True)
     print(f"Campaign ID               : {receipt['campaign_id']}")
     print(f"Termination Reason        : {receipt['termination_reason']}")
     print(f"Actual Duration           : {receipt['duration_actual_seconds']} s ({receipt['duration_actual_seconds']/3600:.2f} h)")

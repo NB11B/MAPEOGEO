@@ -85,6 +85,9 @@ class EnduranceSupervisor:
 
     def run_campaign(self) -> dict[str, Any]:
         campaign_start = time.time()
+        self.campaign_id = f"n5-endurance-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}"
+        campaign_tag = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        print(f"[{self.campaign_id}] Starting Autonomous Campaign | Duration: {self.duration_seconds}s | Epochs: {self.epoch_duration_seconds}s | Pace: {self.pace_seconds}s", flush=True)
         self.db.init_db()
 
         # -------------------------------------------------------------
@@ -168,7 +171,7 @@ class EnduranceSupervisor:
             epoch_sources_attempted += 1
             total_sources_attempted += 1
 
-            sid = f"SOVSRC:N5_{b_doc.doc_id}_{cycle_count:04d}"
+            sid = f"SOVSRC:N5_{campaign_tag}_{b_doc.doc_id}_{cycle_count:04d}"
             payload = f"{sid}\n{b_doc.title}\n{b_doc.text_content}".encode("utf-8")
             sha = hashlib.sha256(payload).hexdigest()
             blob_rel_path = f"cas/{sha[:2]}/{sha}"
@@ -376,7 +379,7 @@ class EnduranceSupervisor:
         synthesis_result = self.synthesis_engine.run_synthesis()
 
         final_receipt = {
-            "campaign_id": f"n5-endurance-{datetime.now(timezone.utc).strftime('%Y%m%d-%H%M%S')}",
+            "campaign_id": self.campaign_id,
             "timestamp": utc_now_iso(),
             "gate": "N5_AUTONOMOUS_ENDURANCE_EXPANSION",
             "verdict": "PASS" if self.metrics_tracker.total_epistemic_errors == 0 else "FAIL",
