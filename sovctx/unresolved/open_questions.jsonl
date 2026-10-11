@@ -1,0 +1,8 @@
+{"id":"OPEN:GZ_FORCE_COUPLING","type":"OPEN_QUESTION","namespace":"OPEN","label":"EPS field-state to mechanical-force coupling","requires":["REQUIRES_SOURCE","REQUIRES_MATHEMATICAL_CHECK"],"status":"open"}
+{"id":"OPEN:RODIMOV_EXACT_FREQ_EQUATION","type":"OPEN_QUESTION","namespace":"OPEN","label":"Rodimov exact de Broglie frequency equation","requires":["REQUIRES_SOURCE","REQUIRES_TRANSCRIPTION","REQUIRES_MATHEMATICAL_CHECK"],"status":"open"}
+{"id":"OPEN:GZ_L_VARIABLE_SEMANTICS","type":"OPEN_QUESTION","namespace":"OPEN","label":"Exact source-native semantics of L across GZ equations","requires":["REQUIRES_SOURCE","REQUIRES_TRANSCRIPTION"],"status":"open"}
+{"id":"OPEN:GZ_BEETLE_SPECIES","type":"OPEN_QUESTION","namespace":"OPEN","label":"Identity of the beetle species in later Grebennikov account","requires":["REQUIRES_SOURCE"],"status":"open"}
+{"id":"OPEN:WATCH_CLOCK_TYPE","type":"OPEN_QUESTION","namespace":"OPEN","label":"Type and construction of watch/clock in Grebennikov anomaly account","requires":["REQUIRES_SOURCE"],"status":"open"}
+{"id":"OPEN:PLATFORM_MATERIAL_COMPOSITION","type":"OPEN_QUESTION","namespace":"OPEN","label":"Material attached to or constituting platform louvre sectors","requires":["REQUIRES_SOURCE"],"status":"open"}
+{"id":"OPEN:1962_GGT_FULL_TEXT","type":"OPEN_QUESTION","namespace":"OPEN","label":"Recover exact pp. 66-73 Gelfand/Gurfinkel/Tsetlin biological-cybernetics text","requires":["REQUIRES_SOURCE"],"status":"open"}
+{"id":"OPEN:1956_OKHOTSIMSKY_REPORT","type":"OPEN_QUESTION","namespace":"OPEN","label":"Recover 1956 oriented-Earth-satellite report","requires":["REQUIRES_SOURCE"],"status":"open"}
