@@ -125,6 +125,27 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
     if "WEST" in namespaces and namespaces & SOURCE_NATIVE_NAMESPACES and edge_type not in COMPARISON_EDGES:
         raise ValidationError(f"{path}: WEST/SOV-RUS edge must be comparison-only: {record['id']}")
 
+    if edge_type == "SUPPORTS":
+        if s.get("type") != "SOURCE_FRAGMENT" or t.get("type") != "CLAIM":
+            raise ValidationError(f"{path}: SUPPORTS must connect SOURCE_FRAGMENT -> CLAIM: {record['id']}")
+        if s["id"] not in t.get("source_fragment_ids", []):
+            raise ValidationError(f"{path}: SUPPORTS edge not declared by claim fragment list: {record['id']}")
+
+    if edge_type == "EXTRACTED_FROM":
+        if s.get("type") != "SOURCE_FRAGMENT" or t.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+            raise ValidationError(f"{path}: EXTRACTED_FROM must connect SOURCE_FRAGMENT -> source record: {record['id']}")
+        if s.get("source_id") != t.get("id"):
+            raise ValidationError(f"{path}: EXTRACTED_FROM target disagrees with fragment source_id: {record['id']}")
+
+    if edge_type == "ASSERTS":
+        if s.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"} or t.get("type") != "CLAIM":
+            raise ValidationError(f"{path}: ASSERTS must connect source record -> CLAIM: {record['id']}")
+        if s["id"] not in t.get("source_ids", []):
+            raise ValidationError(f"{path}: ASSERTS source is not cited by target claim: {record['id']}")
+
+    if edge_type == "USES_OPERATOR" and t.get("type") != "OPERATOR":
+        raise ValidationError(f"{path}: USES_OPERATOR target must be OPERATOR: {record['id']}")
+
 
 def validate_temporal_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
     if record.get("type") != "EDGE":
@@ -164,9 +185,21 @@ def main() -> int:
         validate_fragment(path, record, nodes)
         validate_claim(path, record, nodes)
 
+    support_pairs: set[tuple[str, str]] = set()
     for path, record in records:
         validate_edge(path, record, nodes)
         validate_temporal_edge(path, record, nodes)
+        if record.get("type") == "EDGE" and record.get("edge_type") == "SUPPORTS":
+            support_pairs.add((record["source"], record["target"]))
+
+    for record in nodes.values():
+        if record.get("type") != "CLAIM":
+            continue
+        for fragment_id in record.get("source_fragment_ids", []):
+            if (fragment_id, record["id"]) not in support_pairs:
+                raise ValidationError(
+                    f"claim {record['id']} lists fragment {fragment_id} but lacks SUPPORTS edge"
+                )
 
     print(f"SOVCTX validation PASS: {len(records)} records, {len(nodes)} nodes")
     return 0
