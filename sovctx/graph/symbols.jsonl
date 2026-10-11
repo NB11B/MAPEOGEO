@@ -19,3 +19,16 @@
 {"id":"SYMBOL:TIKH_OMEGA","type":"SYMBOL","namespace":"SOV","label":"Omega","symbol":"\\Omega","semantic_role":"regularizing/smoothing functional"}
 {"id":"SYMBOL:TIKH_KWEIGHT","type":"SYMBOL","namespace":"SOV","label":"k(s)","symbol":"k(s)","semantic_role":"positive derivative penalty weight"}
 {"id":"SYMBOL:TIKH_PWEIGHT","type":"SYMBOL","namespace":"SOV","label":"p(s)","symbol":"p(s)","semantic_role":"positive amplitude penalty weight"}
+{"id":"SYMBOL:VLASOV_RHO1","type":"SYMBOL","namespace":"SOV","label":"rho_1","symbol":"\\rho_1","semantic_role":"small electron mass-density perturbation"}
+{"id":"SYMBOL:VLASOV_RHO0","type":"SYMBOL","namespace":"SOV","label":"rho_0","symbol":"\\rho_0","semantic_role":"stationary electron mass density"}
+{"id":"SYMBOL:VLASOV_U1","type":"SYMBOL","namespace":"SOV","label":"u_1","symbol":"\\mathbf u_1","semantic_role":"small electron velocity perturbation"}
+{"id":"SYMBOL:VLASOV_E1","type":"SYMBOL","namespace":"SOV","label":"E_1","symbol":"\\mathbf E_1","semantic_role":"small electric-field perturbation"}
+{"id":"SYMBOL:VLASOV_OMEGA0","type":"SYMBOL","namespace":"SOV","label":"omega_0","symbol":"\\omega_0","semantic_role":"electron-plasma oscillation frequency"}
+{"id":"SYMBOL:VLASOV_N","type":"SYMBOL","namespace":"SOV","label":"N","symbol":"N","semantic_role":"electron number density"}
+{"id":"SYMBOL:VLASOV_ECHARGE","type":"SYMBOL","namespace":"SOV","label":"e","symbol":"e","semantic_role":"electron charge magnitude/sign as used in source relation"}
+{"id":"SYMBOL:VLASOV_M","type":"SYMBOL","namespace":"SOV","label":"m","symbol":"m","semantic_role":"electron mass"}
+{"id":"SYMBOL:VLASOV_FI","type":"SYMBOL","namespace":"SOV","label":"f_i","symbol":"f_i","semantic_role":"phase-space distribution function for species i"}
+{"id":"SYMBOL:VLASOV_E","type":"SYMBOL","namespace":"SOV","label":"E","symbol":"\\mathbf E","semantic_role":"self-consistent electric field"}
+{"id":"SYMBOL:VLASOV_H","type":"SYMBOL","namespace":"SOV","label":"H","symbol":"\\mathbf H","semantic_role":"self-consistent magnetic field"}
+{"id":"SYMBOL:VLASOV_RHO","type":"SYMBOL","namespace":"SOV","label":"rho","symbol":"\\rho","semantic_role":"charge-density source constructed from distributions"}
+{"id":"SYMBOL:VLASOV_J","type":"SYMBOL","namespace":"SOV","label":"j","symbol":"\\mathbf j","semantic_role":"current-density source constructed from distributions"}
