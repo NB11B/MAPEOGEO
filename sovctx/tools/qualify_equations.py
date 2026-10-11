@@ -357,6 +357,75 @@ def pon_max_finite() -> bool:
     return M in values and all(M >= value for value in values)
 
 
+def gl_linear_operator(F: tuple[tuple[Fraction, ...], ...], K: tuple[Fraction, ...]) -> tuple[Fraction, ...]:
+    # Finite exact analogue of K + T_F K for fixed F.
+    return tuple(
+        K[i] + sum((F[i][j] * K[j] for j in range(len(K))), Fraction(0))
+        for i in range(len(K))
+    )
+
+
+def gl_f_zero_measure() -> bool:
+    weights = (Fraction(0), Fraction(0), Fraction(0))
+    phi_x = (Fraction(1), Fraction(2), Fraction(-3))
+    phi_y = (Fraction(4), Fraction(-1), Fraction(5))
+    f = sum((a * b * w for a, b, w in zip(phi_x, phi_y, weights)), Fraction(0))
+    return f == 0
+
+
+def gl_linear_k_add() -> bool:
+    F = (
+        (Fraction(1), Fraction(2), Fraction(0)),
+        (Fraction(-1), Fraction(3), Fraction(1)),
+        (Fraction(2), Fraction(0), Fraction(4)),
+    )
+    K1 = (Fraction(1), Fraction(2), Fraction(-1))
+    K2 = (Fraction(4), Fraction(-3), Fraction(5))
+    lhs = gl_linear_operator(F, tuple(a + b for a, b in zip(K1, K2)))
+    a = gl_linear_operator(F, K1)
+    b = gl_linear_operator(F, K2)
+    return lhs == tuple(x + y for x, y in zip(a, b))
+
+
+def gl_linear_k_scale() -> bool:
+    F = (
+        (Fraction(1), Fraction(2)),
+        (Fraction(-1), Fraction(3)),
+    )
+    K = (Fraction(4), Fraction(-3))
+    c = Fraction(7, 3)
+    lhs = gl_linear_operator(F, tuple(c * x for x in K))
+    rhs = tuple(c * x for x in gl_linear_operator(F, K))
+    return lhs == rhs
+
+
+def gl_zero_f() -> bool:
+    F = (
+        (Fraction(0), Fraction(0)),
+        (Fraction(0), Fraction(0)),
+    )
+    # Equation is (I+T_F)K=-f, so with F=f=0 the only exact result is K=0.
+    K = (Fraction(0), Fraction(0))
+    return gl_linear_operator(F, K) == (Fraction(0), Fraction(0))
+
+
+def gl_constant_diagonal() -> bool:
+    # Exact finite-difference analogue of derivative of a constant diagonal.
+    diag = (Fraction(5), Fraction(5), Fraction(5), Fraction(5))
+    differences = tuple(diag[i+1] - diag[i] for i in range(len(diag)-1))
+    q = tuple(2 * d for d in differences)
+    return all(value == 0 for value in q)
+
+
+def gl_diagonal_scale() -> bool:
+    diag = (Fraction(1), Fraction(4), Fraction(9), Fraction(16))
+    c = Fraction(5, 2)
+    q = tuple(2 * (diag[i+1] - diag[i]) for i in range(len(diag)-1))
+    scaled = tuple(c * x for x in diag)
+    q_scaled = tuple(2 * (scaled[i+1] - scaled[i]) for i in range(len(scaled)-1))
+    return q_scaled == tuple(c * x for x in q)
+
+
 EVALUATORS: dict[str, Callable[[], bool]] = {
     "gz_scale_l": test_gz_scale_l,
     "gz_increment_k": test_gz_increment_k,
@@ -392,6 +461,12 @@ EVALUATORS: dict[str, Callable[[], bool]] = {
     "pon_h_psi_add": pon_h_psi_add,
     "pon_h_psi_scale": pon_h_psi_scale,
     "pon_max_finite": pon_max_finite,
+    "gl_f_zero_measure": gl_f_zero_measure,
+    "gl_linear_k_add": gl_linear_k_add,
+    "gl_linear_k_scale": gl_linear_k_scale,
+    "gl_zero_f": gl_zero_f,
+    "gl_constant_diagonal": gl_constant_diagonal,
+    "gl_diagonal_scale": gl_diagonal_scale,
 }
 
 
