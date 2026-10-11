@@ -1,28 +1,29 @@
 from __future__ import annotations
 
 import json
+from fractions import Fraction
 from typing import Callable
 
 from graph_io import ROOT, read_jsonl
 
 
-def gz_ell(L: float, n: int, k: int) -> float:
-    return 2.0 * L * (n + 1) * (2 ** k)
+def gz_ell(L: Fraction, n: int, k: int) -> Fraction:
+    return 2 * L * (n + 1) * (2 ** k)
 
 
-def leibniz_product_rhs(x: float, y: float, dx: float, dy: float) -> float:
+def leibniz_product_rhs(x: Fraction, y: Fraction, dx: Fraction, dy: Fraction) -> Fraction:
     return x * dy + y * dx
 
 
-def leibniz_power_rhs(x: float, a: float, dx: float) -> float:
+def leibniz_power_rhs(x: Fraction, a: int, dx: Fraction) -> Fraction:
     return a * (x ** (a - 1)) * dx
 
 
 def test_gz_scale_l() -> bool:
-    for L in (0.5, 1.0, 3.0):
+    for L in (Fraction(1, 2), Fraction(1), Fraction(3)):
         for n in (0, 1, 4):
             for k in (0, 1, 3):
-                for s in (2.0, 5.0):
+                for s in (Fraction(2), Fraction(5)):
                     if gz_ell(s * L, n, k) != s * gz_ell(L, n, k):
                         return False
     return True
@@ -49,25 +50,43 @@ def test_gz_increment_n() -> bool:
 
 
 def test_gz_dimensional() -> bool:
-    return True
+    symbols = {item["id"]: item for item in read_jsonl(ROOT / "graph" / "symbols.jsonl")}
+    return (
+        symbols["SYMBOL:GZ_ELL"].get("dimension") == "length"
+        and symbols["SYMBOL:GZ_L"].get("dimension") == "length"
+        and symbols["SYMBOL:GZ_N"].get("dimension") == "dimensionless"
+        and symbols["SYMBOL:GZ_K"].get("dimension") == "dimensionless"
+    )
 
 
 def test_leibniz_product_dx_zero() -> bool:
-    for x, y, dy in ((2, 3, 5), (-2, 7, 1), (0.5, 4, -3)):
+    for x, y, dy in (
+        (Fraction(2), Fraction(3), Fraction(5)),
+        (Fraction(-2), Fraction(7), Fraction(1)),
+        (Fraction(1, 2), Fraction(4), Fraction(-3)),
+    ):
         if leibniz_product_rhs(x, y, 0, dy) != x * dy:
             return False
     return True
 
 
 def test_leibniz_product_dy_zero() -> bool:
-    for x, y, dx in ((2, 3, 5), (-2, 7, 1), (0.5, 4, -3)):
+    for x, y, dx in (
+        (Fraction(2), Fraction(3), Fraction(5)),
+        (Fraction(-2), Fraction(7), Fraction(1)),
+        (Fraction(1, 2), Fraction(4), Fraction(-3)),
+    ):
         if leibniz_product_rhs(x, y, dx, 0) != y * dx:
             return False
     return True
 
 
 def test_leibniz_product_swap() -> bool:
-    for x, y, dx, dy in ((2, 3, 5, 7), (-2, 7, 1, -4), (0.5, 4, -3, 2)):
+    for x, y, dx, dy in (
+        (Fraction(2), Fraction(3), Fraction(5), Fraction(7)),
+        (Fraction(-2), Fraction(7), Fraction(1), Fraction(-4)),
+        (Fraction(1, 2), Fraction(4), Fraction(-3), Fraction(2)),
+    ):
         a = leibniz_product_rhs(x, y, dx, dy)
         b = leibniz_product_rhs(y, x, dy, dx)
         if a != b:
@@ -76,14 +95,22 @@ def test_leibniz_product_swap() -> bool:
 
 
 def test_leibniz_power_a1() -> bool:
-    for x, dx in ((2, 3), (-2, 5), (0.5, -4)):
+    for x, dx in (
+        (Fraction(2), Fraction(3)),
+        (Fraction(-2), Fraction(5)),
+        (Fraction(1, 2), Fraction(-4)),
+    ):
         if leibniz_power_rhs(x, 1, dx) != dx:
             return False
     return True
 
 
 def test_leibniz_power_a0() -> bool:
-    for x, dx in ((2, 3), (-2, 5), (0.5, -4)):
+    for x, dx in (
+        (Fraction(2), Fraction(3)),
+        (Fraction(-2), Fraction(5)),
+        (Fraction(1, 2), Fraction(-4)),
+    ):
         if leibniz_power_rhs(x, 0, dx) != 0:
             return False
     return True
