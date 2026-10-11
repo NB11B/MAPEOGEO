@@ -10,6 +10,10 @@ from typing import Any
 
 from .config import SQLiteSettings
 from .schema import WORK_PRAGMAS, WORK_SCHEMA, WORK_SCHEMA_VERSION
+from .citations import ReferenceCandidateRecord
+from .resolution import ReferenceResolutionAttempt
+from .frontier import FrontierItemRecord, FrontierEvidenceRecord, SourceNominationRecord
+from .entities import EntityMentionRecord
 
 
 def utc_now_iso() -> str:
@@ -660,6 +664,257 @@ class WorkDatabase:
                 "symbols": con.execute("SELECT COUNT(*) FROM candidate_symbol_occurrences").fetchone()[0],
                 "equation_witnesses": con.execute("SELECT COUNT(*) FROM candidate_equation_witnesses").fetchone()[0],
             }
+
+    # ------------------------------------------------------------------
+    # N2: Citations, Resolution, Frontier, Nominations, Entities
+    # ------------------------------------------------------------------
+
+    def save_reference_candidates(self, candidates: list[ReferenceCandidateRecord]) -> None:
+        if not candidates:
+            return
+        with self.get_connection() as con:
+            for r in candidates:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO reference_candidates (
+                        id, source_id, passage_id, reference_index, raw_reference,
+                        authors_raw, title_raw, publication_raw, year_raw, volume_raw,
+                        issue_raw, pages_raw, identifier_raw, language,
+                        extraction_method, confidence
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        r.id,
+                        r.source_id,
+                        r.passage_id,
+                        r.reference_index,
+                        r.raw_reference,
+                        r.authors_raw,
+                        r.title_raw,
+                        r.publication_raw,
+                        r.year_raw,
+                        r.volume_raw,
+                        r.issue_raw,
+                        r.pages_raw,
+                        r.identifier_raw,
+                        r.language,
+                        r.extraction_method,
+                        r.confidence,
+                    ),
+                )
+            con.commit()
+
+    def save_reference_resolution(self, attempt: ReferenceResolutionAttempt) -> None:
+        with self.get_connection() as con:
+            con.execute(
+                """
+                INSERT INTO reference_resolution_attempts (
+                    reference_id, candidate_source_id, resolution_state, confidence,
+                    resolved_url, author_score, title_score, year_score,
+                    identifier_score, attempted_at, details_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    attempt.reference_id,
+                    attempt.candidate_source_id,
+                    attempt.resolution_state,
+                    attempt.confidence,
+                    attempt.resolved_url,
+                    attempt.author_score,
+                    attempt.title_score,
+                    attempt.year_score,
+                    attempt.identifier_score,
+                    attempt.attempted_at,
+                    attempt.details_json,
+                ),
+            )
+            con.commit()
+
+    def upsert_frontier_item(
+        self,
+        item: FrontierItemRecord,
+        evidence: list[FrontierEvidenceRecord] | None = None,
+    ) -> None:
+        with self.get_connection() as con:
+            con.execute(
+                """
+                INSERT INTO frontier_items (
+                    id, frontier_type, priority, dedup_key, target_label,
+                    normalized_target, origin_source_id, origin_passage_id,
+                    raw_support_count, independent_source_count, status,
+                    attempt_count, created_at, updated_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ON CONFLICT(dedup_key) DO UPDATE SET
+                    raw_support_count = frontier_items.raw_support_count + excluded.raw_support_count,
+                    independent_source_count = frontier_items.independent_source_count + excluded.independent_source_count,
+                    updated_at = excluded.updated_at
+                """,
+                (
+                    item.id,
+                    item.frontier_type,
+                    item.priority,
+                    item.dedup_key,
+                    item.target_label,
+                    item.normalized_target,
+                    item.origin_source_id,
+                    item.origin_passage_id,
+                    item.raw_support_count,
+                    item.independent_source_count,
+                    item.status,
+                    item.attempt_count,
+                    item.created_at,
+                    item.updated_at,
+                ),
+            )
+            if evidence:
+                for ev in evidence:
+                    con.execute(
+                        """
+                        INSERT INTO frontier_evidence (
+                            frontier_id, evidence_type, evidence_id, source_id,
+                            passage_id, weight, observed_at
+                        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                        """,
+                        (
+                            ev.frontier_id,
+                            ev.evidence_type,
+                            ev.evidence_id,
+                            ev.source_id,
+                            ev.passage_id,
+                            ev.weight,
+                            ev.observed_at,
+                        ),
+                    )
+            con.commit()
+
+    def get_frontier_items(
+        self,
+        frontier_type: str | None = None,
+        status: str | None = None,
+        limit: int = 100,
+    ) -> list[FrontierItemRecord]:
+        with self.get_connection() as con:
+            cur = con.execute(
+                """
+                SELECT id, frontier_type, priority, dedup_key, target_label,
+                       normalized_target, origin_source_id, origin_passage_id,
+                       raw_support_count, independent_source_count, status,
+                       attempt_count, created_at, updated_at
+                FROM frontier_items
+                WHERE (? IS NULL OR frontier_type = ?)
+                  AND (? IS NULL OR status = ?)
+                ORDER BY priority ASC, raw_support_count DESC, created_at ASC
+                LIMIT ?
+                """,
+                (frontier_type, frontier_type, status, status, limit),
+            )
+            items: list[FrontierItemRecord] = []
+            for r in cur.fetchall():
+                items.append(
+                    FrontierItemRecord(
+                        id=r["id"],
+                        frontier_type=r["frontier_type"],
+                        priority=r["priority"],
+                        dedup_key=r["dedup_key"],
+                        target_label=r["target_label"],
+                        normalized_target=r["normalized_target"],
+                        origin_source_id=r["origin_source_id"],
+                        origin_passage_id=r["origin_passage_id"],
+                        raw_support_count=r["raw_support_count"],
+                        independent_source_count=r["independent_source_count"],
+                        status=r["status"],
+                        attempt_count=r["attempt_count"],
+                        created_at=r["created_at"],
+                        updated_at=r["updated_at"],
+                    )
+                )
+            return items
+
+    def save_source_nominations(self, nominations: list[SourceNominationRecord]) -> None:
+        if not nominations:
+            return
+        with self.get_connection() as con:
+            for nom in nominations:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO source_nominations (
+                        id, frontier_id, nominated_url, goal, priority,
+                        nomination_reason, nominated_at, status, acquired_source_id
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        nom.id,
+                        nom.frontier_id,
+                        nom.nominated_url,
+                        nom.goal,
+                        nom.priority,
+                        nom.nomination_reason,
+                        nom.nominated_at,
+                        nom.status,
+                        nom.acquired_source_id,
+                    ),
+                )
+            con.commit()
+
+    def save_entity_mentions(self, mentions: list[EntityMentionRecord]) -> None:
+        if not mentions:
+            return
+        with self.get_connection() as con:
+            for m in mentions:
+                con.execute(
+                    """
+                    INSERT OR REPLACE INTO entity_mentions (
+                        id, entity_type, surface_text, normalized_name, source_id,
+                        passage_id, char_start, char_end, confidence, details_json
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        m.id,
+                        m.entity_type,
+                        m.surface_text,
+                        m.normalized_name,
+                        m.source_id,
+                        m.passage_id,
+                        m.char_start,
+                        m.char_end,
+                        m.confidence,
+                        m.details_json,
+                    ),
+                )
+            con.commit()
+
+    def get_frontier_stats(self) -> dict[str, Any]:
+        with self.get_connection() as con:
+            total = con.execute("SELECT COUNT(*) FROM frontier_items").fetchone()[0]
+            by_type = {}
+            for row in con.execute("SELECT frontier_type, COUNT(*) FROM frontier_items GROUP BY frontier_type"):
+                by_type[row[0]] = row[1]
+            nominations = con.execute("SELECT COUNT(*) FROM source_nominations").fetchone()[0]
+            evidence = con.execute("SELECT COUNT(*) FROM frontier_evidence").fetchone()[0]
+            return {
+                "total_frontier_items": total,
+                "by_type": by_type,
+                "total_nominations": nominations,
+                "total_evidence": evidence,
+            }
+
+    def get_reference_stats(self) -> dict[str, Any]:
+        with self.get_connection() as con:
+            total_refs = con.execute("SELECT COUNT(*) FROM reference_candidates").fetchone()[0]
+            by_state = {}
+            for row in con.execute("SELECT resolution_state, COUNT(*) FROM reference_resolution_attempts GROUP BY resolution_state"):
+                by_state[row[0]] = row[1]
+            return {
+                "total_references": total_refs,
+                "resolutions_by_state": by_state,
+            }
+
+    def get_entity_stats(self) -> dict[str, int]:
+        with self.get_connection() as con:
+            stats = {}
+            for row in con.execute("SELECT entity_type, COUNT(*) FROM entity_mentions GROUP BY entity_type"):
+                stats[row[0]] = row[1]
+            return stats
 
 
     # Canonical Ingestion Queue Importer

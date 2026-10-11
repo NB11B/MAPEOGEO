@@ -65,6 +65,10 @@ def extract_equation_witnesses_from_passage(
         if not line_s:
             continue
 
+        from .calibration import is_valid_equation_line
+        if not is_valid_equation_line(line_s):
+            continue
+
         # Check for equation relational operator or LaTeX commands
         has_eq_op = EQUATION_OPERATOR_PATTERN.search(line_s) is not None
         has_math_cmd = any(cmd in line_s for cmd in (r"\int", r"\sum", r"\partial", r"\frac", "^2", "_t", "_x"))

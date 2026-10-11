@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-WORK_SCHEMA_VERSION = "0.2"
+WORK_SCHEMA_VERSION = "0.3"
 
 WORK_PRAGMAS = """
 PRAGMA journal_mode = WAL;
@@ -294,6 +294,102 @@ CREATE TABLE IF NOT EXISTS candidate_equation_witnesses (
     FOREIGN KEY(passage_id) REFERENCES candidate_fragments(id)
 );
 
+-- 22. Bibliographic reference candidates extracted from literature (SOVREF:...)
+CREATE TABLE IF NOT EXISTS reference_candidates (
+    id TEXT PRIMARY KEY,
+    source_id TEXT NOT NULL,
+    passage_id TEXT NOT NULL,
+    reference_index INTEGER,
+    raw_reference TEXT NOT NULL,
+    authors_raw TEXT,
+    title_raw TEXT,
+    publication_raw TEXT,
+    year_raw INTEGER,
+    volume_raw TEXT,
+    issue_raw TEXT,
+    pages_raw TEXT,
+    identifier_raw TEXT,
+    language TEXT NOT NULL DEFAULT 'ru',
+    extraction_method TEXT NOT NULL DEFAULT 'regex_citations_v0.2',
+    confidence REAL NOT NULL DEFAULT 0.85
+);
+
+-- 23. Resolution attempts matching reference candidates to candidate sources
+CREATE TABLE IF NOT EXISTS reference_resolution_attempts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    reference_id TEXT NOT NULL,
+    candidate_source_id TEXT,
+    resolution_state TEXT NOT NULL DEFAULT 'UNRESOLVED',
+    confidence REAL NOT NULL DEFAULT 0.0,
+    resolved_url TEXT,
+    author_score REAL NOT NULL DEFAULT 0.0,
+    title_score REAL NOT NULL DEFAULT 0.0,
+    year_score REAL NOT NULL DEFAULT 0.0,
+    identifier_score REAL NOT NULL DEFAULT 0.0,
+    attempted_at TEXT NOT NULL,
+    details_json TEXT,
+    FOREIGN KEY(reference_id) REFERENCES reference_candidates(id)
+);
+
+-- 24. Frontier items driving targeted acquisition and expansion (SOVFRONT:...)
+CREATE TABLE IF NOT EXISTS frontier_items (
+    id TEXT PRIMARY KEY,
+    frontier_type TEXT NOT NULL,
+    priority TEXT NOT NULL DEFAULT 'P1',
+    dedup_key TEXT NOT NULL UNIQUE,
+    target_label TEXT NOT NULL,
+    normalized_target TEXT NOT NULL,
+    origin_source_id TEXT NOT NULL,
+    origin_passage_id TEXT,
+    raw_support_count INTEGER NOT NULL DEFAULT 1,
+    independent_source_count INTEGER NOT NULL DEFAULT 1,
+    status TEXT NOT NULL DEFAULT 'OPEN',
+    attempt_count INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+);
+
+-- 25. Evidence links binding frontier items to citations, terms, or entities
+CREATE TABLE IF NOT EXISTS frontier_evidence (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    frontier_id TEXT NOT NULL,
+    evidence_type TEXT NOT NULL,
+    evidence_id TEXT NOT NULL,
+    source_id TEXT NOT NULL,
+    passage_id TEXT,
+    weight REAL NOT NULL DEFAULT 1.0,
+    observed_at TEXT NOT NULL,
+    FOREIGN KEY(frontier_id) REFERENCES frontier_items(id)
+);
+
+-- 26. Concrete source nominations feeding into fetch_queue (SOVNOM:...)
+CREATE TABLE IF NOT EXISTS source_nominations (
+    id TEXT PRIMARY KEY,
+    frontier_id TEXT NOT NULL,
+    nominated_url TEXT NOT NULL,
+    goal TEXT NOT NULL,
+    priority TEXT NOT NULL DEFAULT 'P1',
+    nomination_reason TEXT NOT NULL,
+    nominated_at TEXT NOT NULL,
+    status TEXT NOT NULL DEFAULT 'PENDING',
+    acquired_source_id TEXT,
+    FOREIGN KEY(frontier_id) REFERENCES frontier_items(id)
+);
+
+-- 27. Historical entity mentions (Person, Institution, Method, Instrument)
+CREATE TABLE IF NOT EXISTS entity_mentions (
+    id TEXT PRIMARY KEY,
+    entity_type TEXT NOT NULL,
+    surface_text TEXT NOT NULL,
+    normalized_name TEXT NOT NULL,
+    source_id TEXT NOT NULL,
+    passage_id TEXT NOT NULL,
+    char_start INTEGER NOT NULL,
+    char_end INTEGER NOT NULL,
+    confidence REAL NOT NULL DEFAULT 0.85,
+    details_json TEXT
+);
+
 -- Performance Indexes
 CREATE INDEX IF NOT EXISTS idx_fetch_queue_status_prio ON fetch_queue(status, priority);
 CREATE INDEX IF NOT EXISTS idx_fetch_attempts_queue ON fetch_attempts(queue_id);
@@ -312,4 +408,14 @@ CREATE INDEX IF NOT EXISTS idx_cand_term_rel_from ON candidate_term_relations(fr
 CREATE INDEX IF NOT EXISTS idx_cand_def_pass ON candidate_definition_spans(passage_id);
 CREATE INDEX IF NOT EXISTS idx_cand_sym_occ_pass ON candidate_symbol_occurrences(passage_id);
 CREATE INDEX IF NOT EXISTS idx_cand_eq_wit_pass ON candidate_equation_witnesses(passage_id);
+CREATE INDEX IF NOT EXISTS idx_ref_cand_src ON reference_candidates(source_id);
+CREATE INDEX IF NOT EXISTS idx_ref_cand_pass ON reference_candidates(passage_id);
+CREATE INDEX IF NOT EXISTS idx_ref_res_ref ON reference_resolution_attempts(reference_id);
+CREATE INDEX IF NOT EXISTS idx_ref_res_state ON reference_resolution_attempts(resolution_state);
+CREATE INDEX IF NOT EXISTS idx_frontier_type_prio ON frontier_items(frontier_type, priority);
+CREATE INDEX IF NOT EXISTS idx_frontier_dedup ON frontier_items(dedup_key);
+CREATE INDEX IF NOT EXISTS idx_frontier_ev_front ON frontier_evidence(frontier_id);
+CREATE INDEX IF NOT EXISTS idx_src_nom_front ON source_nominations(frontier_id);
+CREATE INDEX IF NOT EXISTS idx_src_nom_status ON source_nominations(status);
+CREATE INDEX IF NOT EXISTS idx_entity_type_norm ON entity_mentions(entity_type, normalized_name);
 """

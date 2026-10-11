@@ -111,17 +111,9 @@ class DefinitionCandidate:
 
 
 # Bounded definition trigger regex patterns
-DEFINITION_TRIGGERS: list[tuple[re.Pattern[str], str, float]] = [
-    (re.compile(r"\bназывается\b", re.IGNORECASE), "называется", 0.90),
-    (re.compile(r"\bбудем\s+называть\b", re.IGNORECASE), "будем называть", 0.92),
-    (re.compile(r"\bназовем\b", re.IGNORECASE), "назовем", 0.88),
-    (re.compile(r"\bназовём\b", re.IGNORECASE), "назовём", 0.88),
-    (re.compile(r"\bобозначим\b", re.IGNORECASE), "обозначим", 0.85),
-    (re.compile(r"\bпод\s+(.+?)\s+понимается\b", re.IGNORECASE), "под ... понимается", 0.90),
-    (re.compile(r"\bпод\s+(.+?)\s+будем\s+понимать\b", re.IGNORECASE), "под ... будем понимать", 0.90),
-    (re.compile(r"\bопределяется\s+как\b", re.IGNORECASE), "определяется как", 0.92),
-    (re.compile(r"\bпредставляет\s+собой\b", re.IGNORECASE), "представляет собой", 0.80),
-]
+from .calibration import CALIBRATED_DEFINITION_TRIGGERS, is_negative_control_phrase
+
+DEFINITION_TRIGGERS: list[tuple[re.Pattern[str], str, float]] = CALIBRATED_DEFINITION_TRIGGERS
 
 # Morphological / scientific root patterns in Russian
 SCIENTIFIC_STEM_PATTERNS = re.compile(
@@ -205,7 +197,9 @@ def compute_technicality(
     is_abbreviation: bool = False,
     is_eponym: bool = False,
 ) -> TechnicalityScore:
-    """Compute continuous technicality score in [0.0, 1.0] with explainable evidence signals."""
+    if is_negative_control_phrase(term):
+        return TechnicalityScore(score=0.15, signals=["negative_control_phrase"])
+
     signals: list[str] = []
     score = 0.35  # Baseline
 
