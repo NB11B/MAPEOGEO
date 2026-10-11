@@ -251,6 +251,13 @@ class SmokeQualification:
         md_content = self._render_markdown_report(campaign_id, now_str, overall_verdict, measurements, acceptance_criteria)
         report_path.write_text(md_content, encoding="utf-8")
 
+        # Also write top-level evidence copies for convenience
+        try:
+            (self.config.evidence_dir / "n05_smoke_receipt.json").write_text(json.dumps(receipt_data, indent=2), encoding="utf-8")
+            (self.config.evidence_dir / "n05_smoke_report.md").write_text(md_content, encoding="utf-8")
+        except Exception:
+            pass
+
         return SmokeReceipt(
             campaign_id=campaign_id,
             timestamp=now_str,
