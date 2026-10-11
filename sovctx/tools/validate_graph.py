@@ -134,6 +134,7 @@ def validate_equation(path: Path, record: dict[str, Any], nodes: dict[str, dict[
         "assumption_ids": "ASSUMPTION",
         "invariant_ids": "INVARIANT",
         "behavioral_test_ids": "BEHAVIORAL_TEST",
+        "operator_ids": "OPERATOR",
     }
     for field, expected_type in typed_lists.items():
         for node_id in record.get(field, []):
@@ -272,11 +273,14 @@ def main() -> int:
         validate_behavioral_test(path, record, nodes)
 
     support_pairs: set[tuple[str, str]] = set()
+    encoded_equation_pairs: set[tuple[str, str]] = set()
     for path, record in records:
         validate_edge(path, record, nodes)
         validate_temporal_edge(path, record, nodes)
         if record.get("type") == "EDGE" and record.get("edge_type") == "SUPPORTS":
             support_pairs.add((record["source"], record["target"]))
+        if record.get("type") == "EDGE" and record.get("edge_type") == "ENCODES_EQUATION":
+            encoded_equation_pairs.add((record["source"], record["target"]))
 
     for record in nodes.values():
         if record.get("type") != "CLAIM":
@@ -285,6 +289,15 @@ def main() -> int:
             if (fragment_id, record["id"]) not in support_pairs:
                 raise ValidationError(
                     f"claim {record['id']} lists fragment {fragment_id} but lacks SUPPORTS edge"
+                )
+
+    for record in nodes.values():
+        if record.get("type") != "EQUATION":
+            continue
+        for fragment_id in record.get("source_fragment_ids", []):
+            if (fragment_id, record["id"]) not in encoded_equation_pairs:
+                raise ValidationError(
+                    f"equation {record['id']} lists fragment {fragment_id} but lacks ENCODES_EQUATION edge"
                 )
 
     print(f"SOVCTX validation PASS: {len(records)} records, {len(nodes)} nodes")
