@@ -80,6 +80,16 @@ def qualify() -> dict[str, object]:
     ]
     assert "OPEN:GZ_FORCE_COUPLING" in open_questions
 
+    family_counts: dict[str, int] = {}
+    for edge in edges:
+        if edge["edge_type"] == "MEMBER_OF_EQUATION_FAMILY":
+            family_counts[edge["target"]] = family_counts.get(edge["target"], 0) + 1
+
+    assert family_counts.get("FAMILY:TIKHONOV_REGULARIZATION") == 4
+    assert family_counts.get("FAMILY:VLASOV_COLLECTIVE_FIELD") == 4
+    assert family_counts.get("FAMILY:LEIBNIZ_DIFFERENTIAL_RULES") == 2
+    assert family_counts.get("FAMILY:LYAPUNOV_STABILITY") == 1
+
     return {
         "status": "PASS",
         "canonical_sha256": canonical_digest(),
@@ -90,6 +100,7 @@ def qualify() -> dict[str, object]:
         "documented_gt1961_bernstein_path_length": len(path),
         "documented_markov_leibniz_path_length": len(ancestry_path),
         "open_questions": len(open_questions),
+        "equation_family_counts": family_counts,
         "equation_behavior_status": equation_result["status"],
         "equation_behavior_pass_count": equation_result["pass_count"],
         "equation_behavior_fail_count": equation_result["fail_count"],
