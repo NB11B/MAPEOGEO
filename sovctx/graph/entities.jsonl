@@ -15,3 +15,6 @@
 {"id":"PERSON:ZELKIN_EG","type":"PERSON","namespace":"SOV","label":"E. G. Zelkin"}
 {"id":"PERSON:ALEKSEEV_AS","type":"PERSON","namespace":"SOV","label":"A. S. Alekseev"}
 {"id":"CONCEPT:RODIMOV_SELF_OSCILLATORY_QM","type":"CONCEPT","namespace":"SOV","label":"Rodimov self-oscillatory quantum mechanics"}
+{"id":"PERSON:GREBENNIKOV_SV","type":"PERSON","namespace":"SOV","label":"S. V. Grebennikov"}
+{"id":"PERSON:KIRYUSHIN_VI","type":"PERSON","namespace":"SOV","label":"V. I. Kiryushin"}
+{"id":"INSTITUTION:SIBNIIZKH","type":"INSTITUTION","namespace":"SOV","label":"Siberian Research Institute of Agriculture and Agricultural Chemistry, Siberian Branch VASKhNIL"}
