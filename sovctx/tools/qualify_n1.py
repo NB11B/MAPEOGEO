@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import io
 import json
 import sys
 import tempfile
@@ -40,14 +41,63 @@ def create_minimal_pdf(pages_text: list[str]) -> bytes:
         return pdf_bytes
 
     if pypdf is not None:
+        from pypdf.generic import DecodedStreamObject, DictionaryObject, NameObject
         writer = pypdf.PdfWriter()
         for text in pages_text:
-            writer.add_blank_page(width=612, height=792)
-        # Note: raw blank pages
-        buf = tempfile.SpooledTemporaryFile()
+            page = writer.add_blank_page(width=612, height=792)
+            if not text:
+                continue
+            unique_chars = sorted(set(text.replace("\n", " ")))
+            char_to_code = {c: i + 32 for i, c in enumerate(unique_chars)}
+
+            cmap_lines = [
+                "/CIDInit /ProcSet findresource begin",
+                "12 dict begin",
+                "begincmap",
+                "/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def",
+                "/CMapName /Custom-ToUnicode def",
+                "/CMapType 2 def",
+                "1 begincodespacerange",
+                "<00> <FF>",
+                "endcodespacerange",
+                f"{len(char_to_code)} beginbfchar",
+            ]
+            for c, code in char_to_code.items():
+                cmap_lines.append(f"<{code:02X}> <{ord(c):04X}>")
+            cmap_lines.extend(["endbfchar", "endcmap", "CMapName currentdict /CMap defineresource pop", "end", "end"])
+            cmap_bytes = "\n".join(cmap_lines).encode("latin1")
+
+            to_unicode_stream = DecodedStreamObject()
+            to_unicode_stream.set_data(cmap_bytes)
+
+            font_dict = DictionaryObject({
+                NameObject("/Type"): NameObject("/Font"),
+                NameObject("/Subtype"): NameObject("/Type1"),
+                NameObject("/BaseFont"): NameObject("/Helvetica"),
+                NameObject("/ToUnicode"): to_unicode_stream,
+            })
+            page[NameObject("/Resources")] = DictionaryObject({
+                NameObject("/Font"): DictionaryObject({NameObject("/F1"): font_dict})
+            })
+
+            content_cmds = ["BT", "/F1 12 Tf", "72 720 Td"]
+            for line in text.split("\n"):
+                line = line.strip()
+                if not line:
+                    content_cmds.append("0 -18 Td")
+                    continue
+                hex_line = "".join(f"{char_to_code[c]:02X}" for c in line)
+                content_cmds.append(f"<{hex_line}> Tj")
+                content_cmds.append("0 -18 Td")
+            content_cmds.append("ET")
+
+            stream = DecodedStreamObject()
+            stream.set_data(" ".join(content_cmds).encode("latin1"))
+            page.replace_contents(stream)
+
+        buf = io.BytesIO()
         writer.write(buf)
-        buf.seek(0)
-        return buf.read()
+        return buf.getvalue()
 
     # Raw fallback minimal valid PDF
     return b"%PDF-1.4\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n3 0 obj\n<< /Type /Page /Parent 2 0 R >>\nendobj\nxref\n0 4\n0000000000 65535 f \n0000000009 00000 n \n0000000058 00000 n \n0000000115 00000 n \ntrailer\n<< /Size 4 /Root 1 0 R >>\nstartxref\n165\n%%EOF\n"
