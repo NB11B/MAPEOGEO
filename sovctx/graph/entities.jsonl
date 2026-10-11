@@ -29,3 +29,14 @@
 {"id":"PERSON:MARKOV_AA","type":"PERSON","namespace":"ANC","label":"A. A. Markov","valid_from":"1856","valid_to":"1922"}
 {"id":"PERSON:LYAPUNOV_AM","type":"PERSON","namespace":"ANC","label":"A. M. Lyapunov","valid_from":"1857","valid_to":"1918"}
 {"id":"SCHOOL:PETERSBURG_MATHEMATICS","type":"SCHOOL","namespace":"ANC","label":"St. Petersburg mathematical school"}
+{"id":"PERSON:ANDRONOV_AA","type":"PERSON","namespace":"SOV","label":"A. A. Andronov","valid_from":"1901","valid_to":"1952"}
+{"id":"PERSON:PONTRYAGIN_LS","type":"PERSON","namespace":"SOV","label":"L. S. Pontryagin","valid_from":"1908","valid_to":"1988"}
+{"id":"PERSON:BOLTYANSKII_VG","type":"PERSON","namespace":"SOV","label":"V. G. Boltyanskii"}
+{"id":"PERSON:GAMKRELIDZE_RV","type":"PERSON","namespace":"SOV","label":"R. V. Gamkrelidze"}
+{"id":"PERSON:TIKHONOV_AN","type":"PERSON","namespace":"SOV","label":"A. N. Tikhonov","valid_from":"1906","valid_to":"1993"}
+{"id":"PERSON:VLASOV_AA","type":"PERSON","namespace":"SOV","label":"A. A. Vlasov","valid_from":"1908","valid_to":"1975"}
+{"id":"CONCEPT:LYAPUNOV_STABILITY","type":"CONCEPT","namespace":"ANC","label":"Lyapunov stability of motion"}
+{"id":"CONCEPT:TIKHONOV_REGULARIZATION","type":"CONCEPT","namespace":"SOV","label":"Tikhonov regularization"}
+{"id":"CONCEPT:ANDRONOV_ROUGH_SYSTEM","type":"CONCEPT","namespace":"SOV","label":"Rough / structurally stable dynamical system"}
+{"id":"CONCEPT:PONTRYAGIN_MAXIMUM_PRINCIPLE","type":"CONCEPT","namespace":"SOV","label":"Pontryagin maximum principle"}
+{"id":"CONCEPT:VLASOV_COLLECTIVE_FIELD","type":"CONCEPT","namespace":"SOV","label":"Vlasov collective electron-gas field dynamics"}
