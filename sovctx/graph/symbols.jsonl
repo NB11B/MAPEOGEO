@@ -32,3 +32,20 @@
 {"id":"SYMBOL:VLASOV_H","type":"SYMBOL","namespace":"SOV","label":"H","symbol":"\\mathbf H","semantic_role":"self-consistent magnetic field"}
 {"id":"SYMBOL:VLASOV_RHO","type":"SYMBOL","namespace":"SOV","label":"rho","symbol":"\\rho","semantic_role":"charge-density source constructed from distributions"}
 {"id":"SYMBOL:VLASOV_J","type":"SYMBOL","namespace":"SOV","label":"j","symbol":"\\mathbf j","semantic_role":"current-density source constructed from distributions"}
+{"id":"SYMBOL:CHEB_F","type":"SYMBOL","namespace":"ANC","label":"f(x)","symbol":"f(x)","semantic_role":"function to be approximated"}
+{"id":"SYMBOL:CHEB_U","type":"SYMBOL","namespace":"ANC","label":"U(x)","symbol":"U(x)","semantic_role":"degree-n approximating polynomial"}
+{"id":"SYMBOL:CHEB_L","type":"SYMBOL","namespace":"ANC","label":"L","symbol":"L","semantic_role":"common absolute extremal deviation"}
+{"id":"SYMBOL:CHEB_X","type":"SYMBOL","namespace":"ANC","label":"x","symbol":"x","semantic_role":"independent variable"}
+{"id":"SYMBOL:CHEB_A","type":"SYMBOL","namespace":"ANC","label":"a","symbol":"a","semantic_role":"center of approximation interval"}
+{"id":"SYMBOL:CHEB_H","type":"SYMBOL","namespace":"ANC","label":"h","symbol":"h","semantic_role":"half-width of approximation interval"}
+{"id":"SYMBOL:CHEB_Z","type":"SYMBOL","namespace":"ANC","label":"z","symbol":"z","semantic_role":"normalized interval coordinate"}
+{"id":"SYMBOL:CHEB_N","type":"SYMBOL","namespace":"ANC","label":"n","symbol":"n","semantic_role":"degree of approximating polynomial"}
+{"id":"SYMBOL:PON_X","type":"SYMBOL","namespace":"SOV","label":"x","symbol":"x","semantic_role":"phase/state vector"}
+{"id":"SYMBOL:PON_U","type":"SYMBOL","namespace":"SOV","label":"u","symbol":"u","semantic_role":"control value/function"}
+{"id":"SYMBOL:PON_F","type":"SYMBOL","namespace":"SOV","label":"f(x,u)","symbol":"f(x,u)","semantic_role":"controlled state vector field"}
+{"id":"SYMBOL:PON_F0","type":"SYMBOL","namespace":"SOV","label":"f^0(x,u)","symbol":"f^0(x,u)","semantic_role":"running objective integrand"}
+{"id":"SYMBOL:PON_J","type":"SYMBOL","namespace":"SOV","label":"J","symbol":"J","semantic_role":"objective functional"}
+{"id":"SYMBOL:PON_PSI","type":"SYMBOL","namespace":"SOV","label":"psi","symbol":"\\psi","semantic_role":"adjoint/conjugate vector"}
+{"id":"SYMBOL:PON_H","type":"SYMBOL","namespace":"SOV","label":"H","symbol":"H(\\psi,x,u)","semantic_role":"Hamiltonian function"}
+{"id":"SYMBOL:PON_M","type":"SYMBOL","namespace":"SOV","label":"M","symbol":"M(\\psi,x)","semantic_role":"supremum of Hamiltonian over admissible control values"}
+{"id":"SYMBOL:PON_CONTROL_SET","type":"SYMBOL","namespace":"SOV","label":"U","symbol":"U","semantic_role":"control region / admissible instantaneous control set"}
