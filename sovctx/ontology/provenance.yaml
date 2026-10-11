@@ -19,10 +19,18 @@ knowledge_status:
   A: modern application
 verification_status:
   - verified_primary
+  - verified_bibliographic
   - verified_scan
   - secondary_transcription
   - needs_primary_verification
   - ambiguous
+verification_scope:
+  verified_primary: source identity and relevant source content inspected directly in a primary or institutional repository
+  verified_bibliographic: source identity and metadata verified by an authoritative institutional catalog; source content not yet inspected
+  verified_scan: source image/scan inspected directly
+  secondary_transcription: content available only through a later transcription
+  needs_primary_verification: candidate record awaiting direct source verification
+  ambiguous: source or transcription remains materially ambiguous
 source_layers:
   - SOURCE_NATIVE
   - LATER_INTERPRETATION
