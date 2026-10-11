@@ -1,0 +1,51 @@
+{
+  "schema_version": "0.2",
+  "release_id": "SOVCTX-KG-v0.6",
+  "status": "ANCESTRY_EQUATION_STATIC_PASS",
+  "branch": "research/sovctx-kg",
+  "parent_release": "SOVCTX-KG-v0.5",
+  "qualified_date": "2026-10-11",
+  "graph": {
+    "records": 276,
+    "nodes": 149,
+    "edges": 127,
+    "equations": 4,
+    "symbols": 9,
+    "assumptions": 4,
+    "behavioral_tests": 9,
+    "invariants": 2,
+    "claims": 18,
+    "source_fragments": 20,
+    "open_questions": 8
+  },
+  "verification_counts": {
+    "verified_primary": 27,
+    "verified_bibliographic": 11,
+    "secondary_transcription": 21,
+    "needs_primary_verification": 6
+  },
+  "ancestry_paths": {
+    "markov_to_leibniz": [
+      "PERSON:MARKOV_AA",
+      "PERSON:CHEBYSHEV_PL",
+      "PERSON:EULER_L",
+      "PERSON:LEIBNIZ_GW"
+    ],
+    "lyapunov_to_leibniz": [
+      "PERSON:LYAPUNOV_AM",
+      "PERSON:CHEBYSHEV_PL",
+      "PERSON:EULER_L",
+      "PERSON:LEIBNIZ_GW"
+    ]
+  },
+  "equation_behavior": {
+    "status": "PASS",
+    "test_count": 9,
+    "arithmetic": "exact Fraction where applicable"
+  },
+  "branch_state": {
+    "ahead_of_main": 116,
+    "behind_main": 0,
+    "changed_files": 42
+  }
+}
