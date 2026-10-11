@@ -1,0 +1,36 @@
+version: 0.1
+node_types:
+  - PERSON
+  - INSTITUTION
+  - PUBLICATION
+  - ARCHIVAL_DOCUMENT
+  - SCHOOL
+  - CONCEPT
+  - TERM
+  - MATHEMATICAL_OBJECT
+  - EQUATION
+  - OPERATOR
+  - PHYSICAL_ENTITY
+  - GEOMETRY
+  - EXPERIMENT
+  - APPARATUS
+  - CONTROL_VARIABLE
+  - OBSERVABLE
+  - CLAIM
+  - HYPOTHESIS
+  - PREDICTION
+  - EVIDENCE
+  - OPEN_QUESTION
+  - MODERN_DERIVATIVE
+  - COMPARISON_NODE
+required_common_fields:
+  - id
+  - type
+  - namespace
+  - label
+historical_optional_fields:
+  - valid_from
+  - valid_to
+  - observed_date
+  - publication_date
+  - source_ids
