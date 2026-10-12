@@ -1,0 +1,50 @@
+{
+  "timestamp": 1791782677.219763,
+  "qualified_commit": "c8a975e974e3a12af94f647944ac56d1fb8597fc",
+  "concurrency_sweep": [
+    {
+      "concurrency": 1,
+      "num_uows": 8,
+      "total_time_s": 0.08518320001894608,
+      "avg_latency_s": 0.010548425001616124,
+      "p95_latency_s": 0.0109284000354819,
+      "throughput_uow_per_s": 93.91523209060794,
+      "throughput_candidates_per_s": 375.6609283624318,
+      "min_ram_avail_mb": 11709.14,
+      "peak_rss_mb": 67.74,
+      "safety_threshold_met": true,
+      "backpressure_floor_respected": true,
+      "backpressure_events": 0
+    },
+    {
+      "concurrency": 2,
+      "num_uows": 8,
+      "total_time_s": 0.0815370999625884,
+      "avg_latency_s": 0.02020965001429431,
+      "p95_latency_s": 0.020679500012192875,
+      "throughput_uow_per_s": 98.11484592499161,
+      "throughput_candidates_per_s": 392.45938369996645,
+      "min_ram_avail_mb": 11707.03,
+      "peak_rss_mb": 67.82,
+      "safety_threshold_met": true,
+      "backpressure_floor_respected": true,
+      "backpressure_events": 0
+    },
+    {
+      "concurrency": 4,
+      "num_uows": 8,
+      "total_time_s": 0.08606820000568405,
+      "avg_latency_s": 0.038944662490393966,
+      "p95_latency_s": 0.05279679998056963,
+      "throughput_uow_per_s": 92.94954465727957,
+      "throughput_candidates_per_s": 371.7981786291183,
+      "min_ram_avail_mb": 11707.27,
+      "peak_rss_mb": 67.95,
+      "safety_threshold_met": true,
+      "backpressure_floor_respected": true,
+      "backpressure_events": 0
+    }
+  ],
+  "backpressure_protocol_verified": true,
+  "safety_envelope_2gb_status": "PASS"
+}

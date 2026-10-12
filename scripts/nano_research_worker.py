@@ -17,7 +17,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from sovctx.node.nano_research_worker import NanoResearchWorker
+from sovctx.node.nano_research_worker import (
+    CandidateBundleVerifier,
+    NanoResearchWorker,
+)
 from sovctx.node.research_frontier import ResearchFrontierCoordinator
 
 
@@ -30,6 +33,17 @@ def main() -> int:
     parser.add_argument("--parent-uow-id", type=str, default=None, help="Parent Unit of Work ID")
     parser.add_argument("--telemetry-dir", type=Path, default=Path("evidence/n5"), help="Telemetry output directory")
     parser.add_argument("--single-uow", action="store_true", help="Execute single bounded UoW and exit")
+    parser.add_argument(
+        "--target-query",
+        type=str,
+        default=None,
+        help="Primary research query to investigate in the local corpus cache",
+    )
+    parser.add_argument(
+        "--verify-admission",
+        action="store_true",
+        help="Run control-plane CandidateBundleVerifier gate to simulate regulatory review",
+    )
     args = parser.parse_args()
 
     print("=" * 80)
@@ -38,7 +52,6 @@ def main() -> int:
     print(f"Self-Observation: G1 Geometric Observer (k={args.tracker_k}, alpha={args.tracker_alpha}) [SHADOW_MODE]")
     print("=" * 80)
 
-    coord = ResearchFrontierCoordinator()
     worker = NanoResearchWorker(
         worker_id=args.worker_id,
         tracker_k=args.tracker_k,
@@ -47,14 +60,23 @@ def main() -> int:
         output_telemetry_dir=args.telemetry_dir,
     )
 
-    open_qs = coord.ledger.get_open_questions()
-    selected_qs = open_qs[:5]
+    if args.target_query:
+        print(f"\n[WORK PLANE] Executing Primary Research UoW: '{args.target_query}'")
+        packet = worker.execute_primary_research_uow(
+            uow_id=args.uow_id,
+            target_query=args.target_query,
+            parent_uow_id=args.parent_uow_id,
+        )
+    else:
+        coord = ResearchFrontierCoordinator()
+        open_qs = coord.ledger.get_open_questions()
+        selected_qs = open_qs[:5]
 
-    packet = worker.process_work_unit(
-        uow_id=args.uow_id,
-        parent_uow_id=args.parent_uow_id,
-        questions_to_probe=selected_qs,
-    )
+        packet = worker.process_work_unit(
+            uow_id=args.uow_id,
+            parent_uow_id=args.parent_uow_id,
+            questions_to_probe=selected_qs,
+        )
 
     geom = packet.geometric_observation
     bundle = packet.candidate_bundle
@@ -62,10 +84,25 @@ def main() -> int:
     print("\n--- Work Plane Execution Complete ---")
     print(f"UoW ID:                 {packet.uow_id}")
     print(f"Causal Sequence:        {packet.causal_sequence_id}")
-    print(f"Candidate Hash:         {bundle.content_hash[:16]}... (PROPOSED != AUTHORIZED)")
-    print(f"Proposed Sources:       {len(bundle.sources)}")
-    print(f"Proposed Relations:     {len(bundle.relations)}")
-    print(f"Proposed Questions:     {len(bundle.questions)}")
+    print(f"Candidate Hash:         {bundle.candidate_bundle_hash[:16]}... (PROPOSED != AUTHORIZED)")
+    print(f"Software Commit:        {bundle.software_commit[:10]}")
+    print(f"Source Manifest:        {bundle.source_manifest}")
+    print(f"Extracted Fragments:    {len(bundle.source_fragments)}")
+    print(f"Proposed Entities:      {len(bundle.candidate_entities)}")
+    print(f"Proposed Relations:     {len(bundle.candidate_relations)}")
+    print(f"Proposed Claims:        {len(bundle.candidate_claims)}")
+    print(f"Proposed Questions:     {len(bundle.candidate_questions)}")
+
+    if bundle.candidate_claims:
+        print("\n--- Extracted Candidate Claims ---")
+        for cl in bundle.candidate_claims:
+            print(f"  [{cl.epistemic_status}] {cl.claim_id}: {cl.subject_id} --({cl.predicate})--> {cl.object_val}")
+
+    if bundle.source_fragments:
+        print("\n--- Ground-Truth Evidence Fragments ---")
+        for fr in bundle.source_fragments:
+            print(f"  [{fr.fragment_id}] ({fr.locator}): \"{fr.text}\"")
+
     print("\n--- G1 Geometric Self-Observation Telemetry ---")
     print(f"Reorientation Speed:    {geom.speed_max_angle:.4f} rad")
     print(f"Residual Novelty:       {geom.residual_norm:.4f}")
@@ -80,6 +117,23 @@ def main() -> int:
     print(f"Worker RSS:             {packet.worker_rss_mb:.1f} MB")
     print(f"Thermal Max:            {packet.thermal_max_c:.1f} °C")
     print(f"Backpressure Flag:      {packet.backpressure_flag}")
+
+    if args.verify_admission:
+        print("\n" + "=" * 80)
+        print("REGULATORY CONTROL PLANE GATEWAY (SIMULATING UNO Q ADMISSION)")
+        print("=" * 80)
+        verifier = CandidateBundleVerifier(
+            allowed_software_commits={bundle.software_commit},
+        )
+        decision = verifier.verify_bundle(bundle)
+        print(f"Admission Verdict:      {decision.verdict.value}")
+        print(f"Gateway Decision:       {decision.reason}")
+        if decision.quarantined_items:
+            print(f"Quarantined Items:      {len(decision.quarantined_items)}")
+        if decision.downgraded_items:
+            print(f"Downgraded Items:       {len(decision.downgraded_items)}")
+        if decision.deduplicated_items:
+            print(f"Deduplicated Items:     {len(decision.deduplicated_items)}")
 
     return 0
 
