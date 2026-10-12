@@ -110,3 +110,15 @@ def test_7stage_composable_pipeline_construction() -> None:
         "APPROXIMATE",
         "RECONSTRUCT",
     ]
+
+
+if __name__ == "__main__":
+    test_worker_discovers_12_transformation_proposals()
+    test_all_proposals_have_mathematical_realm()
+    test_proposals_conserve_work_plane_authority_boundary()
+    test_proposals_ground_in_operator_atlas()
+    test_vlasov_oscillator_reduction_assumptions()
+    test_pontryagin_special_case_mayer()
+    test_tikhonov_regularization_assumptions()
+    test_7stage_composable_pipeline_construction()
+    print("ALL 8 SOVCTX-M1 WORKER TESTS PASSED CLEANLY ON HARDWARE")
