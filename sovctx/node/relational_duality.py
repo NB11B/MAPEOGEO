@@ -143,10 +143,18 @@ class NGramOccurrence:
 class TargetGrammarAuditResult:
     target_sequence: str
     sequence_verbs: list[str]
-    raw_count: int
+    raw_path_count: int
+    unique_source_publications: list[str]
+    unique_equation_families: list[str]
+    unique_equations: list[str]
     found_in_schools: list[str]
     sample_entity_paths: list[str]
     grammatical_interpretation: str
+    structural_compression_ratio: float = 1.0
+
+    @property
+    def raw_count(self) -> int:
+        return self.raw_path_count
 
 
 @dataclass
@@ -161,8 +169,15 @@ class SchoolRecoveryMetric:
 class GraphCompressionComparison:
     entity_graph_entropy_bits: float
     relation_graph_entropy_bits: float
-    compression_gain_percent: float
+    marginal_verb_entropy_bits: float
+    relation_transition_entropy_reduction_percent: float
+    structural_entropy_reduction_percent: float
     description: str
+
+    # Backwards compatibility alias
+    @property
+    def compression_gain_percent(self) -> float:
+        return self.structural_entropy_reduction_percent
 
 
 class RelationalDualityEngine:
@@ -172,6 +187,11 @@ class RelationalDualityEngine:
         self.records = records or load_records()
         self.nodes, self.edges = split_records(self.records)
         self.node_map = {n["id"]: n for n in self.nodes}
+
+        self.eq_families: dict[str, str] = {}
+        for e in self.edges:
+            if e.get("edge_type") == "MEMBER_OF_EQUATION_FAMILY":
+                self.eq_families[e["source"]] = e["target"]
 
         # Build G, I(G), and G*
         self._build_projections()
@@ -397,6 +417,9 @@ class RelationalDualityEngine:
             k = len(seq_verbs)
             matches = 0
             schools_found: set[str] = set()
+            pubs_found: set[str] = set()
+            families_found: set[str] = set()
+            eqs_found: set[str] = set()
             sample_paths: list[str] = []
 
             # Search paths matching this verb sequence in G* dual graph
@@ -411,12 +434,20 @@ class RelationalDualityEngine:
                         matches += 1
                         for rid in path:
                             rn = self.relation_map[rid]
-                            s_src = entity_schools.get(rn.source_entity)
-                            s_tgt = entity_schools.get(rn.target_entity)
-                            if s_src:
-                                schools_found.add(s_src)
-                            if s_tgt:
-                                schools_found.add(s_tgt)
+                            for ent in (rn.source_entity, rn.target_entity):
+                                if ent.startswith("PUB:"):
+                                    pubs_found.add(ent)
+                                elif ent.startswith("EQ:"):
+                                    eqs_found.add(ent)
+                                    fam = self.eq_families.get(ent)
+                                    if fam:
+                                        families_found.add(fam)
+                                elif ent.startswith("FAMILY:"):
+                                    families_found.add(ent)
+                                s = entity_schools.get(ent)
+                                if s:
+                                    schools_found.add(s)
+
                         if len(sample_paths) < 3:
                             path_desc = " -> ".join(
                                 f"{self.relation_map[rid].normalized_verb}({self.relation_map[rid].source_entity}->{self.relation_map[rid].target_entity})"
@@ -430,14 +461,20 @@ class RelationalDualityEngine:
                         if nxt_r.normalized_verb == target_verb and nxt_r.relation_id not in path:
                             queue.append((nxt_r.relation_id, step + 1, path + [nxt_r.relation_id]))
 
+            comp_ratio = round(matches / float(max(1, len(eqs_found))), 2)
+
             audits.append(
                 TargetGrammarAuditResult(
                     target_sequence=seq_str,
                     sequence_verbs=seq_verbs,
-                    raw_count=matches,
+                    raw_path_count=matches,
+                    unique_source_publications=sorted(list(pubs_found)),
+                    unique_equation_families=sorted(list(families_found)),
+                    unique_equations=sorted(list(eqs_found)),
                     found_in_schools=sorted(list(schools_found)),
                     sample_entity_paths=sample_paths,
                     grammatical_interpretation=interpretation,
+                    structural_compression_ratio=comp_ratio,
                 )
             )
 
@@ -492,6 +529,11 @@ class RelationalDualityEngine:
         num_edge_types = len(EDGE_TYPE_TO_VERB)
         entity_cost_per_edge = 2 * math.log2(num_entities) + math.log2(num_edge_types)
 
+        # Marginal verb entropy: H(R)
+        verb_counts = Counter(r.normalized_verb for r in self.relation_nodes)
+        total_verbs = sum(verb_counts.values()) or 1
+        marginal_entropy = -sum((c / total_verbs) * math.log2(c / total_verbs) for c in verb_counts.values())
+
         # Relation-first entropy: H(R_next | R_curr) transition entropy
         transition_counts: Counter[tuple[str, str]] = Counter()
         curr_counts: Counter[str] = Counter()
@@ -509,17 +551,21 @@ class RelationalDualityEngine:
             p_cond = count / float(curr_counts[v_a])
             cond_entropy -= p_joint * math.log2(p_cond)
 
-        # Gain
-        gain = ((entity_cost_per_edge - cond_entropy) / entity_cost_per_edge) * 100.0
+        # Gains
+        transition_gain = ((marginal_entropy - cond_entropy) / marginal_entropy) * 100.0 if marginal_entropy else 0.0
+        structural_gain = ((entity_cost_per_edge - cond_entropy) / entity_cost_per_edge) * 100.0
 
         return GraphCompressionComparison(
             entity_graph_entropy_bits=round(entity_cost_per_edge, 2),
             relation_graph_entropy_bits=round(cond_entropy, 2),
-            compression_gain_percent=round(gain, 2),
+            marginal_verb_entropy_bits=round(marginal_entropy, 2),
+            relation_transition_entropy_reduction_percent=round(transition_gain, 2),
+            structural_entropy_reduction_percent=round(structural_gain, 2),
             description=(
-                f"The relation-first representation compresses edge sequences from {entity_cost_per_edge:.1f} bits/edge "
-                f"down to {cond_entropy:.1f} bits/edge ({gain:.1f}% reduction), demonstrating that Soviet mathematical "
-                f"work exhibits high relational grammar predictability."
+                f"Conditional relation transition entropy is {cond_entropy:.2f} bits/edge compared to a zero-memory "
+                f"marginal verb entropy of {marginal_entropy:.2f} bits/edge ({transition_gain:.2f}% predictability gain) "
+                f"and an entity-relational tuple description length of {entity_cost_per_edge:.2f} bits/edge "
+                f"({structural_gain:.2f}% structural description reduction), demonstrating high predictability in mathematical transitions."
             ),
         )
 

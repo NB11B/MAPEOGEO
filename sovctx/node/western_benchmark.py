@@ -1,0 +1,257 @@
+from __future__ import annotations
+
+import json
+from dataclasses import asdict, dataclass
+from pathlib import Path
+from typing import Any, Optional
+
+
+@dataclass
+class MatchedCorpusPair:
+    domain_field: str
+    mathematical_focus: str
+    soviet_anchor_school: str
+    soviet_landmark_publications: list[str]
+    soviet_key_equations: list[str]
+    western_counterpart_school: str
+    western_landmark_publications: list[str]
+    western_key_equations: list[str]
+    expected_relational_contrast: str
+
+
+@dataclass
+class FormalHypothesis:
+    hypothesis_id: str
+    formula: str
+    title: str
+    description: str
+    test_statistic: str
+    falsification_condition: str
+
+
+@dataclass
+class MatchingProtocol:
+    chronological_bins: list[str]
+    schema_uniformity: str
+    citation_density_normalization: str
+    extraction_guardrails: str
+
+
+class WesternBenchmarkSpecification:
+    """Formal specification for the Matched Western Comparison Corpus.
+
+    Defines paired literature corpora, ontology matching criteria, and
+    information-theoretic hypothesis tests to evaluate whether the relational grammar
+    is uniquely characteristic of the Russian/Soviet school.
+    """
+
+    MATCHED_PAIRS = [
+        MatchedCorpusPair(
+            domain_field="DYNAMICAL_SYSTEMS_AND_OPTIMAL_CONTROL",
+            mathematical_focus="Nonlinear stability of motion, structural robustness, and optimal actuator trajectories.",
+            soviet_anchor_school="LYAPUNOV_PONTRYAGIN_KRASOVSKII",
+            soviet_landmark_publications=[
+                "Lyapunov (1892) The General Problem of Stability of Motion",
+                "Andronov & Pontryagin (1937) Systèmes Grossiers (Rough Systems)",
+                "Pontryagin, Boltyanskii, Gamkrelidze, Mishchenko (1960) Mathematical Theory of Optimal Processes",
+                "Krasovskii (1959) Some Problems in the Theory of Stability of Motion",
+            ],
+            soviet_key_equations=[
+                "Lyapunov general differential system dx_k/dt = X_k",
+                "Pontryagin Hamiltonian H(x, psi, u) and costate adjoint equations",
+                "Pontryagin Maximum Principle condition max_u H",
+            ],
+            western_counterpart_school="BELLMAN_KALMAN_LASALLE",
+            western_landmark_publications=[
+                "Bellman (1957) Dynamic Programming",
+                "Kalman (1960) A New Approach to Linear Filtering and Prediction Problems",
+                "Kalman (1960) Contributions to the Theory of Optimal Control",
+                "LaSalle (1960) Some Extensions of Liapunov's Second Method",
+            ],
+            western_key_equations=[
+                "Hamilton-Jacobi-Bellman PDE partial V / partial t + min_u [...] = 0",
+                "Riccati algebraic differential equation for Kalman gain",
+                "Linear-Quadratic-Gaussian state-space observer",
+            ],
+            expected_relational_contrast=(
+                "Soviet emphasis traces continuous geometric vector-field perturbation into boundary maximum conditions; "
+                "Western counterpart emphasizes discrete dynamic programming stages and stochastic variance minimization."
+            ),
+        ),
+        MatchedCorpusPair(
+            domain_field="INVERSE_PROBLEMS_AND_REGULARIZATION",
+            mathematical_focus="Stable reconstruction of internal parameters and sources from incomplete indirect boundary data.",
+            soviet_anchor_school="TIKHONOV_GELFAND_LEVITAN_HENKIN",
+            soviet_landmark_publications=[
+                "Gelfand & Levitan (1951) On the Determination of a Differential Equation from its Spectral Function",
+                "Tikhonov (1963) Solution of Incorrectly Formulated Problems and the Regularization Method",
+                "Gonchar, Novikova, Henkin (1991) Integral Geometry and Inverse Radar Problems",
+            ],
+            soviet_key_equations=[
+                "Gelfand-Levitan linear integral equation K(x,t) + F(x,t) + int K(x,s)F(s,t)ds = 0",
+                "Tikhonov regularized functional M_alpha[z] = ||Az - u||^2 + alpha ||z||^2",
+                "Regularized Euler-Lagrange equation (A*A + alpha E)z = A*u",
+            ],
+            western_counterpart_school="HADAMARD_PHILLIPS_TWOMEY_CALDERON",
+            western_landmark_publications=[
+                "Hadamard (1923) Lectures on Cauchy's Problem in Linear Partial Differential Equations",
+                "Phillips (1962) A Technique for the Numerical Solution of Certain Integral Equations of First Kind",
+                "Twomey (1963) On the Numerical Solution of Fredholm Integral Equations of the First Kind",
+                "Calderón (1980) On an Inverse Boundary Value Problem",
+            ],
+            western_key_equations=[
+                "Hadamard well-posedness criteria (existence, uniqueness, continuous dependence)",
+                "Phillips constrained minimum curvature integral min int (f'')^2",
+                "Dirichlet-to-Neumann map Lambda_gamma",
+            ],
+            expected_relational_contrast=(
+                "Soviet framework operationalizes ill-posedness via compact a priori constraint classes and stable regularization operators; "
+                "Western framework historically categorized ill-posed problems as physically non-meaningful until post-1960 numerical inversion."
+            ),
+        ),
+        MatchedCorpusPair(
+            domain_field="COLLECTIVE_KINETICS_AND_PLASMA_PHYSICS",
+            mathematical_focus="Self-consistent field dynamics and kinetic transport without two-body collision approximations.",
+            soviet_anchor_school="VLASOV_BOGOLYUBOV_SHAFRANOV",
+            soviet_landmark_publications=[
+                "Vlasov (1938) On the Vibration Properties of an Electron Gas",
+                "Bogolyubov (1946) Problems of a Dynamical Theory in Statistical Physics",
+                "Shafranov (1962) Plasma Equilibrium in a Magnetic Field",
+            ],
+            soviet_key_equations=[
+                "Vlasov kinetic equation with self-consistent electromagnetic field",
+                "BBGKY hierarchy truncation via distribution functions",
+                "Grad-Shafranov equilibrium equation for axisymmetric toroidal plasma",
+            ],
+            western_counterpart_school="MAXWELL_BOLTZMANN_LANDAU_WESTERN_BGK",
+            western_landmark_publications=[
+                "Bernstein, Greene, Kruskal (1957) Exact Nonlinear Plasma Waves (BGK Modes)",
+                "Rosenbluth, MacDonald, Judd (1957) Fokker-Planck Equation for an Inverse-Square Force",
+                "Grad & Rubin (1958) Hydromagnetic Equilibria and Force-Free Fields",
+            ],
+            western_key_equations=[
+                "BGK trapped particle distribution functions",
+                "Fokker-Planck diffusion coefficients in velocity space",
+                "MHD macroscopic momentum balance grad p = j x B",
+            ],
+            expected_relational_contrast=(
+                "Soviet kinetic tradition treats the self-consistent field as primary and collective oscillations as intrinsic non-local modes; "
+                "Western tradition initially attempted collisional Boltzmann expansions before adopting BGK nonlinear trapping states."
+            ),
+        ),
+        MatchedCorpusPair(
+            domain_field="APPROXIMATION_AND_NUMERICAL_SYNTHESIS",
+            mathematical_focus="Minimax polynomial approximation and mechanical/computational realization.",
+            soviet_anchor_school="CHEBYSHEV_MARKOV_BESM6",
+            soviet_landmark_publications=[
+                "Chebyshev (1854) Theory of Mechanisms Known as Parallelograms",
+                "Markov (1906) Extension of the Law of Large Numbers to Dependent Quantities",
+                "BESM-6 BSP Elementary Functions Library (1968)",
+            ],
+            soviet_key_equations=[
+                "Chebyshev equioscillation alternation theorem: n+2 alternating extremum points",
+                "Markov chain transition matrix and moment problem bounds",
+                "BESM-6 minimax polynomial coefficients for transcendental evaluation",
+            ],
+            western_counterpart_school="REMEZ_WEIERSTRASS_PARKS_MCCLELLAN",
+            western_landmark_publications=[
+                "Remez (1934) Sur la détermination des polynômes d'approximation de degré donné",
+                "Parks & McClellan (1972) Chebyshev Approximation for Nonrecursive Digital Filters",
+                "De Boor (1978) A Practical Guide to Splines",
+            ],
+            western_key_equations=[
+                "Remez exchange algorithm iteration step",
+                "Parks-McClellan equiripple FIR filter formulation",
+                "B-spline recursion formula",
+            ],
+            expected_relational_contrast=(
+                "Soviet school links approximation directly to physical kinematic admissibility and hardware register limits; "
+                "Western development focused on general algorithmic exchange proofs and digital signal processing architectures."
+            ),
+        ),
+    ]
+
+    FORMAL_HYPOTHESES = [
+        FormalHypothesis(
+            hypothesis_id="H1_TRANSITION_ENTROPY_DIFFERENTIAL",
+            formula="H(R_{next} | R_{curr})_{Soviet} < H(R_{next} | R_{curr})_{Western}",
+            title="Grammatical Transition Predictability Differential",
+            description=(
+                "The conditional Shannon entropy of relational transitions between normalized operators and edge types "
+                "is strictly lower in the Soviet corpus than in the matched Western corpus. This reflects a more constrained, "
+                "tightly codified sequence of mathematical operations across independent Soviet research schools."
+            ),
+            test_statistic="Delta_H = H_cond(Soviet) - H_cond(Western)",
+            falsification_condition="Delta_H >= 0 (no significant entropy reduction in Soviet transitions).",
+        ),
+        FormalHypothesis(
+            hypothesis_id="H2_TARGET_GRAMMAR_EPISODE_DENSITY",
+            formula="Density(S_i)_{Soviet} >> Density(S_i)_{Western}  for i in {1, 2, 3}",
+            title="Multi-Resolution Episode Density for Target Grammars",
+            description=(
+                "The density of multi-resolution episodes corresponding to S1 (Observe->Invert->Constrain->Stabilize), "
+                "S2 (Represent->Perturb->Stabilize->Control), and S3 (Represent->Reduce->Evolve->Reconstruct) "
+                "measured across unique equation families and source publications is significantly higher in the Soviet corpus."
+            ),
+            test_statistic="Episode_Ratio(S_i) = Episodes(S_i)_{Soviet} / Episodes(S_i)_{Western}",
+            falsification_condition="Episode_Ratio(S_i) <= 1.5 across all three target grammars.",
+        ),
+        FormalHypothesis(
+            hypothesis_id="H3_RELATIONAL_OPERATOR_DIVERGENCE",
+            formula="D_{KL}(P_{Soviet}(R) || P_{Western}(R)) > 0",
+            title="Relational Verb Vocabulary Divergence",
+            description=(
+                "The marginal distribution of normalized relation verbs exhibits distinct operational priorities: "
+                "Soviet mathematics exhibits statistically significant enrichment in STABILIZE, CONSTRAIN, INVERT, and RECONSTRUCT, "
+                "while Western mathematics exhibits higher relative density in MAP and unconstrained INFER."
+            ),
+            test_statistic="Kullback-Leibler divergence D_KL(P_sov || P_west) and verb-by-verb odds ratios",
+            falsification_condition="D_KL < 0.15 bits or failure of STABILIZE/CONSTRAIN enrichment.",
+        ),
+    ]
+
+    def export_specification(self, output_dir: Path) -> dict[str, Any]:
+        """Exports the formal Western comparison specification dossier."""
+        output_dir.mkdir(parents=True, exist_ok=True)
+
+        data = {
+            "campaign": "SOVCTX-R1: Matched Western Comparison Specification",
+            "objective": (
+                "Provide an un-biased, falsifiable comparative framework pairing Soviet and Western "
+                "mathematical literature across identical chronological slices, domains, and ontology schemas."
+            ),
+            "matching_protocol": {
+                "chronological_slices": [
+                    "Slice 2: 1850-1917 (Classical Foundations)",
+                    "Slice 3: 1917-1945 (Interwar Mechanics)",
+                    "Slice 4: 1945-1970 (High Cold War Cybernetics & Control)",
+                    "Slice 5: 1970-1991 (Late Cold War Computational Synthesis)",
+                ],
+                "schema_uniformity": (
+                    "Western records must be extracted into identical JSONL entity/edge types using the same 17 "
+                    "normalized verbs, operator mappings, and equation family hierarchies."
+                ),
+                "citation_density_normalization": (
+                    "Because Western post-war literature has higher total citation counts, comparison metrics "
+                    "are normalized per 1,000 relation edges and evaluated via conditional entropy rather than raw counts."
+                ),
+            },
+            "matched_field_pairs": [asdict(p) for p in self.MATCHED_PAIRS],
+            "formal_hypotheses": [asdict(h) for h in self.FORMAL_HYPOTHESES],
+            "verdict_criteria": {
+                "STRONG_CONFIRMATION": "All three hypotheses (H1, H2, H3) confirmed at p < 0.01.",
+                "MODERATE_CONFIRMATION": "H1 confirmed (entropy reduction) and H2 confirmed on at least 2/3 target grammars.",
+                "FALSIFICATION": "H1 fails (Delta_H >= 0), indicating relational transitions are universal to applied mathematics rather than culturally or epistemically distinct.",
+            },
+        }
+
+        out_file = output_dir / "western_comparison_specification.json"
+        out_file.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+        return data
+
+
+if __name__ == "__main__":
+    benchmark = WesternBenchmarkSpecification()
+    spec = benchmark.export_specification(Path("sovctx/audits/r1"))
+    print("Exported Western comparison specification successfully.")
+    print(f"Defined {len(spec['matched_field_pairs'])} matched domain pairs and {len(spec['formal_hypotheses'])} formal hypotheses.")

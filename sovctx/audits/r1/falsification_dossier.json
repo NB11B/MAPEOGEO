@@ -1,0 +1,745 @@
+{
+  "campaign": "SOVCTX-R1: Falsification Audit (LOSO & LOEO)",
+  "baseline_grammars": {
+    "S1_INVERSE_GRAMMAR": {
+      "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+      "raw_path_count": 1648,
+      "unique_equations_count": 7,
+      "unique_publications_count": 3,
+      "schools": [
+        "GELFAND",
+        "TIKHONOV"
+      ]
+    },
+    "S2_DYNAMICAL_CONTROL_GRAMMAR": {
+      "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+      "raw_path_count": 378,
+      "unique_equations_count": 6,
+      "unique_publications_count": 2,
+      "schools": [
+        "LYAPUNOV",
+        "PONTRYAGIN"
+      ]
+    },
+    "S3_KINETIC_CYBERNETIC_GRAMMAR": {
+      "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+      "raw_path_count": 260,
+      "unique_equations_count": 4,
+      "unique_publications_count": 3,
+      "schools": [
+        "VLASOV"
+      ]
+    }
+  },
+  "leave_one_school_out_loso": [
+    {
+      "omitted_school": "CHEBYSHEV",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Exclusion of CHEBYSHEV leaves core target grammars completely intact."
+    },
+    {
+      "omitted_school": "LYAPUNOV",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 0,
+          "retention_rate_pct": 0.0,
+          "surviving_schools": [],
+          "surviving_equations_count": 0,
+          "surviving_publications_count": 0,
+          "is_falsified": true
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "S2 bridges Lyapunov (1892 foundations) and Pontryagin (1960 control). Omitting LYAPUNOV reduces S2 to 0 paths, demonstrating an inter-school synthesis."
+    },
+    {
+      "omitted_school": "ANDRONOV",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Exclusion of ANDRONOV leaves core target grammars completely intact."
+    },
+    {
+      "omitted_school": "PONTRYAGIN",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 0,
+          "retention_rate_pct": 0.0,
+          "surviving_schools": [],
+          "surviving_equations_count": 0,
+          "surviving_publications_count": 0,
+          "is_falsified": true
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "S2 bridges Lyapunov (1892 foundations) and Pontryagin (1960 control). Omitting PONTRYAGIN reduces S2 to 0 paths, demonstrating an inter-school synthesis."
+    },
+    {
+      "omitted_school": "TIKHONOV",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 840,
+          "retention_rate_pct": 50.97,
+          "surviving_schools": [
+            "GELFAND"
+          ],
+          "surviving_equations_count": 3,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Excluding Tikhonov preserves 840 S1 paths (50.97%) via Gelfand-Levitan, proving inverse problem grammar is not an artifact of Tikhonov alone."
+    },
+    {
+      "omitted_school": "VLASOV",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 0,
+          "retention_rate_pct": 0.0,
+          "surviving_schools": [],
+          "surviving_equations_count": 0,
+          "surviving_publications_count": 0,
+          "is_falsified": true
+        }
+      ],
+      "interpretation": "S3 is anchored in Vlasov kinetic theory and nonlocal self-consistent field formulations."
+    },
+    {
+      "omitted_school": "GELFAND",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 96,
+          "retention_rate_pct": 5.83,
+          "surviving_schools": [
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 1,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Excluding Gelfand preserves 96 S1 paths (5.83%) via Tikhonov regularization."
+    },
+    {
+      "omitted_school": "FADDEEV",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Exclusion of FADDEEV leaves core target grammars completely intact."
+    },
+    {
+      "omitted_school": "MARKOV",
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Exclusion of MARKOV leaves core target grammars completely intact."
+    }
+  ],
+  "leave_one_era_out_loeo": [
+    {
+      "omitted_slice_id": "SLICE_1_1750_1850",
+      "slice_name": "1750–1850: Imperial Academy Foundations",
+      "start_year": 1700,
+      "end_year": 1850,
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Imperial foundations omission does not alter 20th-century operational grammar walks."
+    },
+    {
+      "omitted_slice_id": "SLICE_2_1850_1917",
+      "slice_name": "1850–1917: St. Petersburg Mathematical School",
+      "start_year": 1851,
+      "end_year": 1917,
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 0,
+          "retention_rate_pct": 0.0,
+          "surviving_schools": [],
+          "surviving_equations_count": 0,
+          "surviving_publications_count": 0,
+          "is_falsified": true
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 240,
+          "retention_rate_pct": 92.31,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 1,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Omitting St. Petersburg era removes Lyapunov (1892), breaking the temporal bridge into Pontryagin optimal control (S2 = 0%)."
+    },
+    {
+      "omitted_slice_id": "SLICE_3_1917_1945",
+      "slice_name": "1917–1945: Early Soviet Mechanics and Collective Kinetics",
+      "start_year": 1918,
+      "end_year": 1945,
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 357,
+          "retention_rate_pct": 94.44,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 0,
+          "retention_rate_pct": 0.0,
+          "surviving_schools": [],
+          "surviving_equations_count": 0,
+          "surviving_publications_count": 0,
+          "is_falsified": true
+        }
+      ],
+      "interpretation": "Omitting Early Soviet era eliminates Vlasov (1938), falsifying S3 retention within this era."
+    },
+    {
+      "omitted_slice_id": "SLICE_4_1945_1970",
+      "slice_name": "1945–1970: High Cold War Synthesis, Control, and Computing",
+      "start_year": 1946,
+      "end_year": 1970,
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 0,
+          "retention_rate_pct": 0.0,
+          "surviving_schools": [],
+          "surviving_equations_count": 0,
+          "surviving_publications_count": 0,
+          "is_falsified": true
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 0,
+          "retention_rate_pct": 0.0,
+          "surviving_schools": [],
+          "surviving_equations_count": 0,
+          "surviving_publications_count": 0,
+          "is_falsified": true
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 160,
+          "retention_rate_pct": 61.54,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 1,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "High Cold War synthesis is the structural apex of the Soviet stack; omitting this slice eliminates S1 (Gelfand-Levitan, Tikhonov) and S2 (Pontryagin, Krasovskii)."
+    },
+    {
+      "omitted_slice_id": "SLICE_5_1970_1991",
+      "slice_name": "1970–1991: Late Soviet Applied Systems and Inverse Problems",
+      "start_year": 1971,
+      "end_year": 1991,
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 96,
+          "retention_rate_pct": 5.83,
+          "surviving_schools": [
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 1,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 378,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Omitting late Soviet applied systems removes Gonchar-Novikova-Henkin radar synthesis but retains core Tikhonov 1963 S1 paths (96 paths)."
+    },
+    {
+      "omitted_slice_id": "SLICE_6_1991_PRES",
+      "slice_name": "1991–Present: Post-Soviet Codification and Heritage Analysis",
+      "start_year": 1992,
+      "end_year": 2030,
+      "grammar_retentions": [
+        {
+          "grammar_id": "S1_INVERSE_GRAMMAR",
+          "target_sequence": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE",
+          "baseline_paths": 1648,
+          "surviving_paths": 1648,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "GELFAND",
+            "TIKHONOV"
+          ],
+          "surviving_equations_count": 7,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S2_DYNAMICAL_CONTROL_GRAMMAR",
+          "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
+          "baseline_paths": 378,
+          "surviving_paths": 357,
+          "retention_rate_pct": 94.44,
+          "surviving_schools": [
+            "LYAPUNOV",
+            "PONTRYAGIN"
+          ],
+          "surviving_equations_count": 6,
+          "surviving_publications_count": 2,
+          "is_falsified": false
+        },
+        {
+          "grammar_id": "S3_KINETIC_CYBERNETIC_GRAMMAR",
+          "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
+          "baseline_paths": 260,
+          "surviving_paths": 260,
+          "retention_rate_pct": 100.0,
+          "surviving_schools": [
+            "VLASOV"
+          ],
+          "surviving_equations_count": 4,
+          "surviving_publications_count": 3,
+          "is_falsified": false
+        }
+      ],
+      "interpretation": "Post-Soviet codification omission preserves 94.4% of S2 and 100% of S1 and S3."
+    }
+  ],
+  "falsification_verdict": {
+    "S1_INVERSE_GRAMMAR": "CONFIRMED_CROSS_SCHOOL (survives Tikhonov omission at 50.97% and Gelfand omission at 5.83%; multi-school distributed origin).",
+    "S2_DYNAMICAL_CONTROL_GRAMMAR": "CONFIRMED_INTER_ERA_SYNTHESIS (bridges Lyapunov 1892 and Pontryagin 1960; requires both foundations).",
+    "S3_KINETIC_CYBERNETIC_GRAMMAR": "ANCHORED_KINETIC_LINEAGE (originates in Vlasov 1938 collisionless kinetics, persistent across post-war era).",
+    "ERA_ACCUMULATION_HYPOTHESIS": "CONFIRMED (Slice 4 [1945-1970] functions as the structural codification apex uniting 19th-century and pre-war operations into engineering practice)."
+  }
+}

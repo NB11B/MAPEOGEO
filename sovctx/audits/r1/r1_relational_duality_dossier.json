@@ -151,14 +151,15 @@
         "INFER",
         "INFER"
       ],
-      "count": 31,
-      "frequency_ratio": 0.1498,
+      "count": 34,
+      "frequency_ratio": 0.165,
       "participating_schools": [
         "CHEBYSHEV",
         "GELFAND",
         "LYAPUNOV",
         "MARKOV",
-        "TIKHONOV"
+        "PONTRYAGIN",
+        "VLASOV"
       ]
     },
     {
@@ -166,23 +167,8 @@
         "INFER",
         "OBSERVE"
       ],
-      "count": 23,
-      "frequency_ratio": 0.1111,
-      "participating_schools": [
-        "CHEBYSHEV",
-        "GELFAND",
-        "LYAPUNOV",
-        "TIKHONOV",
-        "VLASOV"
-      ]
-    },
-    {
-      "ngram": [
-        "OBSERVE",
-        "INFER"
-      ],
-      "count": 18,
-      "frequency_ratio": 0.087,
+      "count": 19,
+      "frequency_ratio": 0.0922,
       "participating_schools": [
         "CHEBYSHEV",
         "GELFAND",
@@ -191,15 +177,27 @@
     },
     {
       "ngram": [
-        "REPRESENT",
-        "REPRESENT"
+        "OBSERVE",
+        "INFER"
       ],
-      "count": 14,
-      "frequency_ratio": 0.0676,
+      "count": 18,
+      "frequency_ratio": 0.0874,
       "participating_schools": [
-        "ANDRONOV",
+        "CHEBYSHEV",
         "GELFAND",
-        "PONTRYAGIN"
+        "LYAPUNOV"
+      ]
+    },
+    {
+      "ngram": [
+        "INFER",
+        "MAP"
+      ],
+      "count": 13,
+      "frequency_ratio": 0.0631,
+      "participating_schools": [
+        "CHEBYSHEV",
+        "GELFAND"
       ]
     },
     {
@@ -208,7 +206,7 @@
         "REDUCE"
       ],
       "count": 12,
-      "frequency_ratio": 0.058,
+      "frequency_ratio": 0.0583,
       "participating_schools": [
         "GELFAND"
       ]
@@ -216,13 +214,30 @@
     {
       "ngram": [
         "INFER",
-        "MAP"
+        "REPRESENT"
       ],
       "count": 12,
-      "frequency_ratio": 0.058,
+      "frequency_ratio": 0.0583,
       "participating_schools": [
         "CHEBYSHEV",
-        "GELFAND"
+        "GELFAND",
+        "LYAPUNOV",
+        "MARKOV",
+        "TIKHONOV",
+        "VLASOV"
+      ]
+    },
+    {
+      "ngram": [
+        "REPRESENT",
+        "REPRESENT"
+      ],
+      "count": 11,
+      "frequency_ratio": 0.0534,
+      "participating_schools": [
+        "ANDRONOV",
+        "GELFAND",
+        "PONTRYAGIN"
       ]
     },
     {
@@ -230,25 +245,11 @@
         "MAP",
         "INFER"
       ],
-      "count": 11,
-      "frequency_ratio": 0.0531,
-      "participating_schools": [
-        "CHEBYSHEV"
-      ]
-    },
-    {
-      "ngram": [
-        "INFER",
-        "REPRESENT"
-      ],
       "count": 10,
-      "frequency_ratio": 0.0483,
+      "frequency_ratio": 0.0485,
       "participating_schools": [
         "CHEBYSHEV",
-        "GELFAND",
-        "LYAPUNOV",
-        "MARKOV",
-        "PONTRYAGIN"
+        "GELFAND"
       ]
     },
     {
@@ -257,7 +258,7 @@
         "MAP"
       ],
       "count": 9,
-      "frequency_ratio": 0.0435,
+      "frequency_ratio": 0.0437,
       "participating_schools": [
         "ANDRONOV",
         "FADDEEV",
@@ -273,7 +274,7 @@
         "REPRESENT"
       ],
       "count": 9,
-      "frequency_ratio": 0.0435,
+      "frequency_ratio": 0.0437,
       "participating_schools": [
         "ANDRONOV",
         "FADDEEV",
@@ -288,8 +289,8 @@
         "REPRESENT",
         "INFER"
       ],
-      "count": 8,
-      "frequency_ratio": 0.0386,
+      "count": 7,
+      "frequency_ratio": 0.034,
       "participating_schools": [
         "CHEBYSHEV",
         "GELFAND",
@@ -299,12 +300,32 @@
     {
       "ngram": [
         "RECONSTRUCT",
-        "RECONSTRUCT"
+        "OBSERVE"
       ],
-      "count": 8,
-      "frequency_ratio": 0.0386,
+      "count": 5,
+      "frequency_ratio": 0.0243,
       "participating_schools": [
         "GELFAND",
+        "TIKHONOV"
+      ]
+    },
+    {
+      "ngram": [
+        "MAP",
+        "OBSERVE"
+      ],
+      "count": 4,
+      "frequency_ratio": 0.0194,
+      "participating_schools": []
+    },
+    {
+      "ngram": [
+        "RECONSTRUCT",
+        "RECONSTRUCT"
+      ],
+      "count": 4,
+      "frequency_ratio": 0.0194,
+      "participating_schools": [
         "TIKHONOV"
       ]
     },
@@ -314,31 +335,9 @@
         "REPRESENT"
       ],
       "count": 3,
-      "frequency_ratio": 0.0145,
+      "frequency_ratio": 0.0146,
       "participating_schools": [
         "GELFAND"
-      ]
-    },
-    {
-      "ngram": [
-        "REPRESENT",
-        "RECONSTRUCT"
-      ],
-      "count": 3,
-      "frequency_ratio": 0.0145,
-      "participating_schools": [
-        "TIKHONOV"
-      ]
-    },
-    {
-      "ngram": [
-        "OBSERVE",
-        "RECONSTRUCT"
-      ],
-      "count": 3,
-      "frequency_ratio": 0.0145,
-      "participating_schools": [
-        "TIKHONOV"
       ]
     }
   ],
@@ -346,25 +345,11 @@
     {
       "ngram": [
         "MAP",
-        "REPRESENT",
-        "REPRESENT"
-      ],
-      "count": 5,
-      "frequency_ratio": 0.0877,
-      "participating_schools": [
-        "ANDRONOV",
-        "GELFAND",
-        "PONTRYAGIN"
-      ]
-    },
-    {
-      "ngram": [
-        "MAP",
         "INFER",
         "INFER"
       ],
       "count": 5,
-      "frequency_ratio": 0.0877,
+      "frequency_ratio": 0.0893,
       "participating_schools": [
         "CHEBYSHEV",
         "LYAPUNOV",
@@ -373,12 +358,26 @@
     },
     {
       "ngram": [
+        "MAP",
+        "REPRESENT",
+        "REPRESENT"
+      ],
+      "count": 4,
+      "frequency_ratio": 0.0714,
+      "participating_schools": [
+        "ANDRONOV",
+        "GELFAND",
+        "PONTRYAGIN"
+      ]
+    },
+    {
+      "ngram": [
         "REPRESENT",
         "MAP",
         "REPRESENT"
       ],
       "count": 3,
-      "frequency_ratio": 0.0526,
+      "frequency_ratio": 0.0536,
       "participating_schools": [
         "ANDRONOV",
         "GELFAND",
@@ -388,11 +387,11 @@
     {
       "ngram": [
         "INFER",
-        "REPRESENT",
-        "CONTROL"
+        "OBSERVE",
+        "INFER"
       ],
-      "count": 2,
-      "frequency_ratio": 0.0351,
+      "count": 3,
+      "frequency_ratio": 0.0536,
       "participating_schools": [
         "GELFAND"
       ]
@@ -404,7 +403,7 @@
         "MAP"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
     },
     {
@@ -414,7 +413,7 @@
         "INFER"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
     },
     {
@@ -424,7 +423,7 @@
         "INFER"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
     },
     {
@@ -434,7 +433,7 @@
         "OBSERVE"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
     },
     {
@@ -444,37 +443,7 @@
         "INFER"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
-      "participating_schools": []
-    },
-    {
-      "ngram": [
-        "INFER",
-        "INFER",
-        "MAP"
-      ],
-      "count": 2,
-      "frequency_ratio": 0.0351,
-      "participating_schools": []
-    },
-    {
-      "ngram": [
-        "INFER",
-        "INFER",
-        "OBSERVE"
-      ],
-      "count": 2,
-      "frequency_ratio": 0.0351,
-      "participating_schools": []
-    },
-    {
-      "ngram": [
-        "INFER",
-        "OBSERVE",
-        "INFER"
-      ],
-      "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
     },
     {
@@ -484,7 +453,27 @@
         "MAP"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
+      "participating_schools": []
+    },
+    {
+      "ngram": [
+        "INFER",
+        "INFER",
+        "MAP"
+      ],
+      "count": 2,
+      "frequency_ratio": 0.0357,
+      "participating_schools": []
+    },
+    {
+      "ngram": [
+        "INFER",
+        "INFER",
+        "OBSERVE"
+      ],
+      "count": 2,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
     },
     {
@@ -494,7 +483,7 @@
         "INFER"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
     },
     {
@@ -504,8 +493,20 @@
         "OBSERVE"
       ],
       "count": 2,
-      "frequency_ratio": 0.0351,
+      "frequency_ratio": 0.0357,
       "participating_schools": []
+    },
+    {
+      "ngram": [
+        "REPRESENT",
+        "INVERT",
+        "MAP"
+      ],
+      "count": 1,
+      "frequency_ratio": 0.0179,
+      "participating_schools": [
+        "FADDEEV"
+      ]
     }
   ],
   "top_relation_4grams": [
@@ -582,28 +583,6 @@
     {
       "ngram": [
         "INFER",
-        "INFER",
-        "MAP",
-        "OBSERVE"
-      ],
-      "count": 2,
-      "frequency_ratio": 0.069,
-      "participating_schools": []
-    },
-    {
-      "ngram": [
-        "INFER",
-        "INFER",
-        "OBSERVE",
-        "MAP"
-      ],
-      "count": 2,
-      "frequency_ratio": 0.069,
-      "participating_schools": []
-    },
-    {
-      "ngram": [
-        "INFER",
         "OBSERVE",
         "INFER",
         "MAP"
@@ -618,6 +597,28 @@
         "OBSERVE",
         "MAP",
         "INFER"
+      ],
+      "count": 2,
+      "frequency_ratio": 0.069,
+      "participating_schools": []
+    },
+    {
+      "ngram": [
+        "INFER",
+        "INFER",
+        "MAP",
+        "OBSERVE"
+      ],
+      "count": 2,
+      "frequency_ratio": 0.069,
+      "participating_schools": []
+    },
+    {
+      "ngram": [
+        "INFER",
+        "INFER",
+        "OBSERVE",
+        "MAP"
       ],
       "count": 2,
       "frequency_ratio": 0.069,
@@ -680,17 +681,36 @@
         "CONSTRAIN",
         "STABILIZE"
       ],
-      "raw_count": 1648,
+      "raw_path_count": 1648,
+      "unique_source_publications": [
+        "PUB:GELFAND_LEVITAN_1951",
+        "PUB:GONCHAR_NOVIKOVA_HENKIN_1991",
+        "PUB:TIKHONOV_1963_ILLPOSED"
+      ],
+      "unique_equation_families": [
+        "FAMILY:GELFAND_LEVITAN_INVERSE_SPECTRAL",
+        "FAMILY:TIKHONOV_REGULARIZATION"
+      ],
+      "unique_equations": [
+        "EQ:GELFAND_LEVITAN_1991_KERNEL_EQ",
+        "EQ:GELFAND_LEVITAN_1991_POTENTIAL_RECOVERY",
+        "EQ:GELFAND_LEVITAN_1991_SPECTRAL_KERNEL",
+        "EQ:TIKHONOV_1963_DATA_MISFIT",
+        "EQ:TIKHONOV_1963_FORWARD_OPERATOR",
+        "EQ:TIKHONOV_1963_REGULARIZED_FUNCTIONAL",
+        "EQ:TIKHONOV_1963_SMOOTHING_PENALTY"
+      ],
       "found_in_schools": [
         "GELFAND",
         "TIKHONOV"
       ],
       "sample_entity_paths": [
-        "OBSERVE(FRAG:GELFAND_LEVITAN_1951_TITLE->PUB:GELFAND_LEVITAN_1951) -> INVERT(PUB:GELFAND_LEVITAN_1951->OP:SPECTRAL_INVERSE) -> CONSTRAIN(PUB:GELFAND_LEVITAN_1951->OP:CLASS_ADMISSIBILITY) -> STABILIZE(EQ:GELFAND_LEVITAN_1991_KERNEL_EQ->TEST:GL_LINEAR_K_ADD)",
-        "OBSERVE(FRAG:GELFAND_LEVITAN_1951_TITLE->PUB:GELFAND_LEVITAN_1951) -> INVERT(PUB:GELFAND_LEVITAN_1951->OP:SPECTRAL_INVERSE) -> CONSTRAIN(PUB:GELFAND_LEVITAN_1951->OP:CLASS_ADMISSIBILITY) -> STABILIZE(EQ:GELFAND_LEVITAN_1991_KERNEL_EQ->TEST:GL_LINEAR_K_SCALE)",
-        "OBSERVE(FRAG:GELFAND_LEVITAN_1951_TITLE->PUB:GELFAND_LEVITAN_1951) -> INVERT(PUB:GELFAND_LEVITAN_1951->OP:SPECTRAL_INVERSE) -> CONSTRAIN(PUB:GELFAND_LEVITAN_1951->OP:CLASS_ADMISSIBILITY) -> STABILIZE(EQ:GELFAND_LEVITAN_1991_KERNEL_EQ->TEST:GL_ZERO_F)"
+        "OBSERVE(FRAG:GELFAND_LEVITAN_1951_TITLE->PUB:GELFAND_LEVITAN_1951) -> INVERT(PUB:GELFAND_LEVITAN_1951->OP:SPECTRAL_INVERSE) -> CONSTRAIN(EQ:GELFAND_LEVITAN_1991_KERNEL_EQ->ASSUMPTION:GL_FIXED_F) -> STABILIZE(EQ:TIKHONOV_1963_FORWARD_OPERATOR->TEST:TIKH_FORWARD_ADD)",
+        "OBSERVE(FRAG:GELFAND_LEVITAN_1951_TITLE->PUB:GELFAND_LEVITAN_1951) -> INVERT(PUB:GELFAND_LEVITAN_1951->OP:SPECTRAL_INVERSE) -> CONSTRAIN(EQ:GELFAND_LEVITAN_1991_KERNEL_EQ->ASSUMPTION:GL_FIXED_F) -> STABILIZE(EQ:TIKHONOV_1963_FORWARD_OPERATOR->TEST:TIKH_FORWARD_SCALE)",
+        "OBSERVE(FRAG:GELFAND_LEVITAN_1951_TITLE->PUB:GELFAND_LEVITAN_1951) -> INVERT(PUB:GELFAND_LEVITAN_1951->OP:SPECTRAL_INVERSE) -> CONSTRAIN(EQ:GELFAND_LEVITAN_1991_KERNEL_EQ->ASSUMPTION:GL_FIXED_F) -> STABILIZE(EQ:GELFAND_LEVITAN_1991_KERNEL_EQ->TEST:GL_LINEAR_K_ADD)"
       ],
-      "grammatical_interpretation": "Inverse problem grammar: indirect measurement inverted under compact admissibility constraints to guarantee stable recovery."
+      "grammatical_interpretation": "Inverse problem grammar: indirect measurement inverted under compact admissibility constraints to guarantee stable recovery.",
+      "structural_compression_ratio": 235.43
     },
     {
       "target_sequence": "REPRESENT -> PERTURB -> STABILIZE -> CONTROL",
@@ -700,17 +720,34 @@
         "STABILIZE",
         "CONTROL"
       ],
-      "raw_count": 378,
+      "raw_path_count": 378,
+      "unique_source_publications": [
+        "PUB:KRASOVSKII_1959_OPTIMAL_REGULATION",
+        "PUB:LYAPUNOV_1892_GENERAL_STABILITY"
+      ],
+      "unique_equation_families": [
+        "FAMILY:LYAPUNOV_STABILITY",
+        "FAMILY:PONTRYAGIN_OPTIMAL_CONTROL"
+      ],
+      "unique_equations": [
+        "EQ:LYAPUNOV_1892_GENERAL_SYSTEM",
+        "EQ:PONTRYAGIN_1960_CANONICAL",
+        "EQ:PONTRYAGIN_1960_COST",
+        "EQ:PONTRYAGIN_1960_HAMILTONIAN",
+        "EQ:PONTRYAGIN_1960_MAXIMUM_CONDITION",
+        "EQ:PONTRYAGIN_1960_STATE"
+      ],
       "found_in_schools": [
         "LYAPUNOV",
         "PONTRYAGIN"
       ],
       "sample_entity_paths": [
-        "REPRESENT(PERSON:LYAPUNOV_AM->PUB:LYAPUNOV_1892_GENERAL_STABILITY) -> PERTURB(EQ:LYAPUNOV_1892_GENERAL_SYSTEM->TEST:LYAP_ZERO_VECTOR_FIELD) -> STABILIZE(EQ:PONTRYAGIN_1960_CANONICAL->TEST:PON_CANONICAL_STATE_RECOVERY) -> CONTROL(EQ:PONTRYAGIN_1960_MAXIMUM_CONDITION->OP:CONTROL)",
         "REPRESENT(PERSON:LYAPUNOV_AM->PUB:LYAPUNOV_1892_GENERAL_STABILITY) -> PERTURB(EQ:LYAPUNOV_1892_GENERAL_SYSTEM->TEST:LYAP_ZERO_VECTOR_FIELD) -> STABILIZE(EQ:PONTRYAGIN_1960_CANONICAL->TEST:PON_CANONICAL_STATE_RECOVERY) -> CONTROL(EQ:PONTRYAGIN_1960_COST->OP:CONTROL)",
-        "REPRESENT(PERSON:LYAPUNOV_AM->PUB:LYAPUNOV_1892_GENERAL_STABILITY) -> PERTURB(EQ:LYAPUNOV_1892_GENERAL_SYSTEM->TEST:LYAP_ZERO_VECTOR_FIELD) -> STABILIZE(EQ:PONTRYAGIN_1960_CANONICAL->TEST:PON_CANONICAL_STATE_RECOVERY) -> CONTROL(EQ:PONTRYAGIN_1960_CANONICAL->OP:CONTROL)"
+        "REPRESENT(PERSON:LYAPUNOV_AM->PUB:LYAPUNOV_1892_GENERAL_STABILITY) -> PERTURB(EQ:LYAPUNOV_1892_GENERAL_SYSTEM->TEST:LYAP_ZERO_VECTOR_FIELD) -> STABILIZE(EQ:PONTRYAGIN_1960_CANONICAL->TEST:PON_CANONICAL_STATE_RECOVERY) -> CONTROL(EQ:PONTRYAGIN_1960_MAXIMUM_CONDITION->OP:CONTROL)",
+        "REPRESENT(PERSON:LYAPUNOV_AM->PUB:LYAPUNOV_1892_GENERAL_STABILITY) -> PERTURB(EQ:LYAPUNOV_1892_GENERAL_SYSTEM->TEST:LYAP_ZERO_VECTOR_FIELD) -> STABILIZE(EQ:PONTRYAGIN_1960_CANONICAL->TEST:PON_CANONICAL_STATE_RECOVERY) -> CONTROL(EQ:PONTRYAGIN_1960_STATE->OP:CONTROL)"
       ],
-      "grammatical_interpretation": "Dynamical control grammar: state representation subjected to vector-field perturbation and evaluated for limit-cycle stability before applying optimal actuator control."
+      "grammatical_interpretation": "Dynamical control grammar: state representation subjected to vector-field perturbation and evaluated for limit-cycle stability before applying optimal actuator control.",
+      "structural_compression_ratio": 63.0
     },
     {
       "target_sequence": "REPRESENT -> REDUCE -> EVOLVE -> RECONSTRUCT",
@@ -720,16 +757,31 @@
         "EVOLVE",
         "RECONSTRUCT"
       ],
-      "raw_count": 260,
+      "raw_path_count": 260,
+      "unique_source_publications": [
+        "PUB:SHAFRANOV_1962_PLASMA_EQUILIBRIUM",
+        "PUB:VLASOV_1938_ELECTRON_GAS",
+        "PUB:VLASOV_1967_REPRODUCTION"
+      ],
+      "unique_equation_families": [
+        "FAMILY:VLASOV_COLLECTIVE_FIELD"
+      ],
+      "unique_equations": [
+        "EQ:VLASOV_1938_KINETIC_FIELD_CORE",
+        "EQ:VLASOV_1938_LINEARIZED_SYSTEM_A",
+        "EQ:VLASOV_1938_MAXWELL_COUPLING",
+        "EQ:VLASOV_1938_PLASMA_OSCILLATOR"
+      ],
       "found_in_schools": [
         "VLASOV"
       ],
       "sample_entity_paths": [
-        "REPRESENT(PERSON:VLASOV_AA->PUB:VLASOV_1938_ELECTRON_GAS) -> REDUCE(EQ:VLASOV_1938_KINETIC_FIELD_CORE->ASSUMPTION:VLASOV_COLLISIONLESS_LIMIT) -> EVOLVE(PUB:SHAFRANOV_1962_PLASMA_EQUILIBRIUM->OP:SELF_CONSISTENT_FIELD) -> RECONSTRUCT(EQ:VLASOV_1938_MAXWELL_COUPLING->TEST:VLASOV_SOURCE_FIELD_LOOP)",
+        "REPRESENT(PERSON:VLASOV_AA->PUB:VLASOV_1938_ELECTRON_GAS) -> REDUCE(EQ:VLASOV_1938_KINETIC_FIELD_CORE->ASSUMPTION:VLASOV_COLLISIONLESS_LIMIT) -> EVOLVE(EQ:VLASOV_1938_MAXWELL_COUPLING->OP:SELF_CONSISTENT_FIELD) -> RECONSTRUCT(EQ:VLASOV_1938_MAXWELL_COUPLING->TEST:VLASOV_SOURCE_FIELD_LOOP)",
         "REPRESENT(PERSON:VLASOV_AA->PUB:VLASOV_1938_ELECTRON_GAS) -> REDUCE(EQ:VLASOV_1938_KINETIC_FIELD_CORE->ASSUMPTION:VLASOV_COLLISIONLESS_LIMIT) -> EVOLVE(EQ:VLASOV_1938_PLASMA_OSCILLATOR->OP:SELF_CONSISTENT_FIELD) -> RECONSTRUCT(EQ:VLASOV_1938_MAXWELL_COUPLING->TEST:VLASOV_SOURCE_FIELD_LOOP)",
-        "REPRESENT(PERSON:VLASOV_AA->PUB:VLASOV_1938_ELECTRON_GAS) -> REDUCE(EQ:VLASOV_1938_KINETIC_FIELD_CORE->ASSUMPTION:VLASOV_COLLISIONLESS_LIMIT) -> EVOLVE(EQ:VLASOV_1938_MAXWELL_COUPLING->OP:SELF_CONSISTENT_FIELD) -> RECONSTRUCT(EQ:VLASOV_1938_MAXWELL_COUPLING->TEST:VLASOV_SOURCE_FIELD_LOOP)"
+        "REPRESENT(PERSON:VLASOV_AA->PUB:VLASOV_1938_ELECTRON_GAS) -> REDUCE(EQ:VLASOV_1938_KINETIC_FIELD_CORE->ASSUMPTION:VLASOV_COLLISIONLESS_LIMIT) -> EVOLVE(EQ:VLASOV_1938_KINETIC_FIELD_CORE->OP:SELF_CONSISTENT_FIELD) -> RECONSTRUCT(EQ:VLASOV_1938_MAXWELL_COUPLING->TEST:VLASOV_SOURCE_FIELD_LOOP)"
       ],
-      "grammatical_interpretation": "Collective kinetics & cybernetics grammar: multi-dimensional distribution partitioned or reduced via dynamic invariants, evolved, and used to reconstruct macro-observables."
+      "grammatical_interpretation": "Collective kinetics & cybernetics grammar: multi-dimensional distribution partitioned or reduced via dynamic invariants, evolved, and used to reconstruct macro-observables.",
+      "structural_compression_ratio": 65.0
     }
   ],
   "blinded_school_recovery": [
@@ -844,7 +896,9 @@
   "graph_compression_comparison": {
     "entity_graph_entropy_bits": 21.8,
     "relation_graph_entropy_bits": 2.96,
-    "compression_gain_percent": 86.41,
-    "description": "The relation-first representation compresses edge sequences from 21.8 bits/edge down to 3.0 bits/edge (86.4% reduction), demonstrating that Soviet mathematical work exhibits high relational grammar predictability."
+    "marginal_verb_entropy_bits": 3.12,
+    "relation_transition_entropy_reduction_percent": 4.94,
+    "structural_entropy_reduction_percent": 86.41,
+    "description": "Conditional relation transition entropy is 2.96 bits/edge compared to a zero-memory marginal verb entropy of 3.12 bits/edge (4.94% predictability gain) and an entity-relational tuple description length of 21.80 bits/edge (86.41% structural description reduction), demonstrating high predictability in mathematical transitions."
   }
 }

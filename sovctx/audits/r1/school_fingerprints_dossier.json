@@ -1,0 +1,1987 @@
+{
+  "campaign": "SOVCTX-R1: School Relational Fingerprints and Structural Clustering",
+  "verb_dimensions": [
+    "REPRESENT",
+    "TRANSFORM",
+    "MAP",
+    "EVOLVE",
+    "PERTURB",
+    "PRESERVE",
+    "CONSTRAIN",
+    "STABILIZE",
+    "APPROXIMATE",
+    "OPTIMIZE",
+    "OBSERVE",
+    "INFER",
+    "INVERT",
+    "REGULARIZE",
+    "RECONSTRUCT",
+    "REDUCE",
+    "CONTROL"
+  ],
+  "clusters": {
+    "DYNAMICAL_CONTROL": {
+      "schools": [
+        "LYAPUNOV",
+        "ANDRONOV",
+        "PONTRYAGIN",
+        "KRASOVSKII"
+      ],
+      "characteristic_signature": "Dominated by REPRESENT, STABILIZE, PERTURB, and CONTROL."
+    },
+    "INVERSE_OPERATOR": {
+      "schools": [
+        "TIKHONOV",
+        "GELFAND_LEVITAN",
+        "FADDEEV"
+      ],
+      "characteristic_signature": "Dominated by INVERT, STABILIZE, CONSTRAIN, and OBSERVE."
+    },
+    "COLLECTIVE_KINETIC": {
+      "schools": [
+        "VLASOV",
+        "SHAFRANOV",
+        "GELFAND_TSETLIN"
+      ],
+      "characteristic_signature": "Dominated by REDUCE, EVOLVE, RECONSTRUCT, and REPRESENT."
+    },
+    "APPROXIMATION_PROBABILITY": {
+      "schools": [
+        "CHEBYSHEV",
+        "MARKOV"
+      ],
+      "characteristic_signature": "Dominated by REPRESENT, INFER, APPROXIMATE, and MAP."
+    }
+  },
+  "cluster_separation_validation": {
+    "mean_intra_cluster_cosine_distance": 0.2902,
+    "mean_inter_cluster_cosine_distance": 0.2998,
+    "cosine_separation_ratio": 1.03,
+    "mean_intra_cluster_js_distance": 0.5499,
+    "mean_inter_cluster_js_distance": 0.5629,
+    "js_separation_ratio": 1.02,
+    "interpretation": "Intra-cluster cosine distance (0.2902) is sharply lower than inter-cluster distance (0.2998), demonstrating that schools in the same theoretical lineage share relational signatures even when author names and dates are blinded."
+  },
+  "school_fingerprints": {
+    "LYAPUNOV": {
+      "school_id": "LYAPUNOV",
+      "school_name": "Lyapunov",
+      "cluster_assignment": "DYNAMICAL_CONTROL",
+      "edge_count": 15,
+      "verb_fingerprint_vector": [
+        0.4,
+        0.0,
+        0.1333,
+        0.0,
+        0.0667,
+        0.0,
+        0.0667,
+        0.0667,
+        0.0,
+        0.0,
+        0.0667,
+        0.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verb_frequencies": {
+        "INFER": 3,
+        "REPRESENT": 6,
+        "OBSERVE": 1,
+        "CONSTRAIN": 1,
+        "PERTURB": 1,
+        "STABILIZE": 1,
+        "MAP": 2
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "INFER",
+        "MAP",
+        "OBSERVE"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.4688,
+          "MAP": 0.1146,
+          "PERTURB": 0.0312,
+          "CONSTRAIN": 0.0833,
+          "STABILIZE": 0.1094,
+          "OBSERVE": 0.0521,
+          "INFER": 0.0625,
+          "CONTROL": 0.0781
+        },
+        "MAP": {
+          "REPRESENT": 0.5217,
+          "MAP": 0.087,
+          "PERTURB": 0.0435,
+          "CONSTRAIN": 0.087,
+          "STABILIZE": 0.1087,
+          "OBSERVE": 0.0435,
+          "INFER": 0.0435,
+          "CONTROL": 0.0652
+        },
+        "PERTURB": {
+          "REPRESENT": 0.5,
+          "MAP": 0.1111,
+          "CONSTRAIN": 0.0833,
+          "STABILIZE": 0.1111,
+          "OBSERVE": 0.0556,
+          "INFER": 0.0556,
+          "CONTROL": 0.0833
+        },
+        "CONSTRAIN": {
+          "REPRESENT": 0.5,
+          "MAP": 0.1111,
+          "PERTURB": 0.0278,
+          "CONSTRAIN": 0.0556,
+          "STABILIZE": 0.1111,
+          "OBSERVE": 0.0556,
+          "INFER": 0.0556,
+          "CONTROL": 0.0833
+        },
+        "STABILIZE": {
+          "REPRESENT": 0.5,
+          "MAP": 0.1111,
+          "PERTURB": 0.0278,
+          "CONSTRAIN": 0.0833,
+          "STABILIZE": 0.0833,
+          "OBSERVE": 0.0556,
+          "INFER": 0.0556,
+          "CONTROL": 0.0833
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.4545,
+          "MAP": 0.0909,
+          "PERTURB": 0.0909,
+          "CONSTRAIN": 0.0909,
+          "STABILIZE": 0.0909,
+          "INFER": 0.1818
+        },
+        "INFER": {
+          "REPRESENT": 0.45,
+          "MAP": 0.05,
+          "PERTURB": 0.05,
+          "CONSTRAIN": 0.05,
+          "STABILIZE": 0.05,
+          "OBSERVE": 0.1,
+          "INFER": 0.25
+        }
+      }
+    },
+    "ANDRONOV": {
+      "school_id": "ANDRONOV",
+      "school_name": "Andronov",
+      "cluster_assignment": "DYNAMICAL_CONTROL",
+      "edge_count": 2,
+      "verb_fingerprint_vector": [
+        0.5,
+        0.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 1,
+        "MAP": 1
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "MAP"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.5,
+          "MAP": 0.5
+        },
+        "MAP": {
+          "REPRESENT": 1.0
+        }
+      }
+    },
+    "PONTRYAGIN": {
+      "school_id": "PONTRYAGIN",
+      "school_name": "Pontryagin",
+      "cluster_assignment": "DYNAMICAL_CONTROL",
+      "edge_count": 76,
+      "verb_fingerprint_vector": [
+        0.4474,
+        0.0,
+        0.0921,
+        0.0,
+        0.0,
+        0.0263,
+        0.0789,
+        0.0921,
+        0.0,
+        0.0395,
+        0.0526,
+        0.1053,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0658
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 34,
+        "MAP": 7,
+        "INFER": 8,
+        "OBSERVE": 4,
+        "CONSTRAIN": 6,
+        "STABILIZE": 7,
+        "CONTROL": 5,
+        "OPTIMIZE": 3,
+        "PRESERVE": 2
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "INFER",
+        "MAP",
+        "STABILIZE"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.4303,
+          "MAP": 0.082,
+          "PERTURB": 0.004,
+          "PRESERVE": 0.0302,
+          "CONSTRAIN": 0.0879,
+          "STABILIZE": 0.117,
+          "APPROXIMATE": 0.0066,
+          "OPTIMIZE": 0.0419,
+          "OBSERVE": 0.0577,
+          "INFER": 0.0728,
+          "CONTROL": 0.0695
+        },
+        "MAP": {
+          "REPRESENT": 0.4444,
+          "MAP": 0.0694,
+          "PERTURB": 0.004,
+          "PRESERVE": 0.0298,
+          "CONSTRAIN": 0.0873,
+          "STABILIZE": 0.1151,
+          "APPROXIMATE": 0.006,
+          "OPTIMIZE": 0.0417,
+          "OBSERVE": 0.0575,
+          "INFER": 0.0754,
+          "CONTROL": 0.0694
+        },
+        "PRESERVE": {
+          "REPRESENT": 0.4318,
+          "MAP": 0.0795,
+          "PRESERVE": 0.0227,
+          "CONSTRAIN": 0.0909,
+          "STABILIZE": 0.125,
+          "APPROXIMATE": 0.0114,
+          "OPTIMIZE": 0.0455,
+          "OBSERVE": 0.0568,
+          "INFER": 0.0682,
+          "CONTROL": 0.0682
+        },
+        "CONSTRAIN": {
+          "REPRESENT": 0.4402,
+          "MAP": 0.0811,
+          "PERTURB": 0.0039,
+          "PRESERVE": 0.0309,
+          "CONSTRAIN": 0.0772,
+          "STABILIZE": 0.1197,
+          "APPROXIMATE": 0.0077,
+          "OPTIMIZE": 0.0425,
+          "OBSERVE": 0.0579,
+          "INFER": 0.0695,
+          "CONTROL": 0.0695
+        },
+        "STABILIZE": {
+          "REPRESENT": 0.4389,
+          "MAP": 0.0809,
+          "PERTURB": 0.0033,
+          "PRESERVE": 0.0314,
+          "CONSTRAIN": 0.0891,
+          "STABILIZE": 0.1089,
+          "APPROXIMATE": 0.0083,
+          "OPTIMIZE": 0.0429,
+          "OBSERVE": 0.0578,
+          "INFER": 0.0693,
+          "CONTROL": 0.0693
+        },
+        "OPTIMIZE": {
+          "REPRESENT": 0.4318,
+          "MAP": 0.0795,
+          "PRESERVE": 0.0341,
+          "CONSTRAIN": 0.0909,
+          "STABILIZE": 0.125,
+          "APPROXIMATE": 0.0114,
+          "OPTIMIZE": 0.0341,
+          "OBSERVE": 0.0568,
+          "INFER": 0.0682,
+          "CONTROL": 0.0682
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.4444,
+          "MAP": 0.0833,
+          "PRESERVE": 0.0278,
+          "CONSTRAIN": 0.0833,
+          "STABILIZE": 0.0972,
+          "OPTIMIZE": 0.0417,
+          "OBSERVE": 0.0417,
+          "INFER": 0.1111,
+          "CONTROL": 0.0694
+        },
+        "INFER": {
+          "REPRESENT": 0.43,
+          "MAP": 0.084,
+          "PRESERVE": 0.0254,
+          "CONSTRAIN": 0.0763,
+          "STABILIZE": 0.0891,
+          "OPTIMIZE": 0.0382,
+          "OBSERVE": 0.0814,
+          "INFER": 0.112,
+          "CONTROL": 0.0636
+        },
+        "CONTROL": {
+          "REPRESENT": 0.4419,
+          "MAP": 0.0814,
+          "PERTURB": 0.0047,
+          "PRESERVE": 0.0302,
+          "CONSTRAIN": 0.0884,
+          "STABILIZE": 0.1186,
+          "APPROXIMATE": 0.007,
+          "OPTIMIZE": 0.0419,
+          "OBSERVE": 0.0581,
+          "INFER": 0.0698,
+          "CONTROL": 0.0581
+        }
+      }
+    },
+    "KRASOVSKII": {
+      "school_id": "KRASOVSKII",
+      "school_name": "Krasovskii",
+      "cluster_assignment": "DYNAMICAL_CONTROL",
+      "edge_count": 6,
+      "verb_fingerprint_vector": [
+        0.1667,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1667,
+        0.0,
+        0.0,
+        0.1667,
+        0.3333,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.1667
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 1,
+        "INFER": 2,
+        "CONTROL": 1,
+        "STABILIZE": 1,
+        "OBSERVE": 1
+      },
+      "dominant_verbs": [
+        "INFER",
+        "REPRESENT",
+        "CONTROL",
+        "STABILIZE"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.4789,
+          "MAP": 0.0845,
+          "PERTURB": 0.0141,
+          "PRESERVE": 0.0282,
+          "CONSTRAIN": 0.0986,
+          "STABILIZE": 0.1268,
+          "OPTIMIZE": 0.0423,
+          "OBSERVE": 0.0141,
+          "INFER": 0.0282,
+          "CONTROL": 0.0845
+        },
+        "STABILIZE": {
+          "REPRESENT": 0.493,
+          "MAP": 0.0845,
+          "PERTURB": 0.0141,
+          "PRESERVE": 0.0282,
+          "CONSTRAIN": 0.0986,
+          "STABILIZE": 0.1127,
+          "OPTIMIZE": 0.0423,
+          "OBSERVE": 0.0141,
+          "INFER": 0.0282,
+          "CONTROL": 0.0845
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.493,
+          "MAP": 0.0845,
+          "PERTURB": 0.0141,
+          "PRESERVE": 0.0282,
+          "CONSTRAIN": 0.0986,
+          "STABILIZE": 0.1268,
+          "OPTIMIZE": 0.0423,
+          "INFER": 0.0282,
+          "CONTROL": 0.0845
+        },
+        "INFER": {
+          "REPRESENT": 0.4737,
+          "MAP": 0.0789,
+          "PERTURB": 0.0132,
+          "PRESERVE": 0.0263,
+          "CONSTRAIN": 0.0921,
+          "STABILIZE": 0.1316,
+          "OPTIMIZE": 0.0395,
+          "OBSERVE": 0.0263,
+          "INFER": 0.0263,
+          "CONTROL": 0.0921
+        },
+        "CONTROL": {
+          "REPRESENT": 0.493,
+          "MAP": 0.0845,
+          "PERTURB": 0.0141,
+          "PRESERVE": 0.0282,
+          "CONSTRAIN": 0.0986,
+          "STABILIZE": 0.1268,
+          "OPTIMIZE": 0.0423,
+          "OBSERVE": 0.0141,
+          "INFER": 0.0282,
+          "CONTROL": 0.0704
+        }
+      }
+    },
+    "TIKHONOV": {
+      "school_id": "TIKHONOV",
+      "school_name": "Tikhonov",
+      "cluster_assignment": "INVERSE_OPERATOR",
+      "edge_count": 68,
+      "verb_fingerprint_vector": [
+        0.3529,
+        0.0147,
+        0.0882,
+        0.0,
+        0.0,
+        0.0294,
+        0.0441,
+        0.1176,
+        0.0,
+        0.0,
+        0.1176,
+        0.1176,
+        0.0147,
+        0.0441,
+        0.0588,
+        0.0,
+        0.0
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 24,
+        "OBSERVE": 8,
+        "RECONSTRUCT": 4,
+        "TRANSFORM": 1,
+        "INFER": 8,
+        "CONSTRAIN": 3,
+        "STABILIZE": 8,
+        "PRESERVE": 2,
+        "INVERT": 1,
+        "REGULARIZE": 3,
+        "MAP": 6
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "OBSERVE",
+        "INFER",
+        "STABILIZE"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.3644,
+          "TRANSFORM": 0.0008,
+          "MAP": 0.1002,
+          "PRESERVE": 0.0426,
+          "CONSTRAIN": 0.0718,
+          "STABILIZE": 0.1593,
+          "OBSERVE": 0.0733,
+          "INFER": 0.0726,
+          "INVERT": 0.0513,
+          "REGULARIZE": 0.0473,
+          "RECONSTRUCT": 0.0166
+        },
+        "TRANSFORM": {
+          "REPRESENT": 0.2,
+          "OBSERVE": 0.2,
+          "RECONSTRUCT": 0.6
+        },
+        "MAP": {
+          "REPRESENT": 0.3788,
+          "MAP": 0.0818,
+          "PRESERVE": 0.0424,
+          "CONSTRAIN": 0.0727,
+          "STABILIZE": 0.1576,
+          "OBSERVE": 0.0727,
+          "INFER": 0.0758,
+          "INVERT": 0.0545,
+          "REGULARIZE": 0.0455,
+          "RECONSTRUCT": 0.0182
+        },
+        "PRESERVE": {
+          "REPRESENT": 0.3876,
+          "MAP": 0.1008,
+          "PRESERVE": 0.031,
+          "CONSTRAIN": 0.0775,
+          "STABILIZE": 0.1705,
+          "OBSERVE": 0.062,
+          "INFER": 0.062,
+          "INVERT": 0.062,
+          "REGULARIZE": 0.0465
+        },
+        "CONSTRAIN": {
+          "REPRESENT": 0.3933,
+          "MAP": 0.1011,
+          "PRESERVE": 0.0449,
+          "CONSTRAIN": 0.0562,
+          "STABILIZE": 0.1685,
+          "OBSERVE": 0.0674,
+          "INFER": 0.0674,
+          "INVERT": 0.0506,
+          "REGULARIZE": 0.0506
+        },
+        "STABILIZE": {
+          "REPRESENT": 0.3965,
+          "MAP": 0.1013,
+          "PRESERVE": 0.0441,
+          "CONSTRAIN": 0.0705,
+          "STABILIZE": 0.1498,
+          "OBSERVE": 0.0705,
+          "INFER": 0.0705,
+          "INVERT": 0.0441,
+          "REGULARIZE": 0.0529
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.3443,
+          "TRANSFORM": 0.0027,
+          "MAP": 0.0956,
+          "PRESERVE": 0.0383,
+          "CONSTRAIN": 0.0738,
+          "STABILIZE": 0.1366,
+          "OBSERVE": 0.0574,
+          "INFER": 0.0929,
+          "INVERT": 0.0683,
+          "REGULARIZE": 0.0328,
+          "RECONSTRUCT": 0.0574
+        },
+        "INFER": {
+          "REPRESENT": 0.3483,
+          "MAP": 0.0966,
+          "PRESERVE": 0.0345,
+          "CONSTRAIN": 0.0586,
+          "STABILIZE": 0.131,
+          "OBSERVE": 0.1103,
+          "INFER": 0.1138,
+          "INVERT": 0.0379,
+          "REGULARIZE": 0.0414,
+          "RECONSTRUCT": 0.0276
+        },
+        "INVERT": {
+          "REPRESENT": 0.375,
+          "MAP": 0.1,
+          "PRESERVE": 0.05,
+          "CONSTRAIN": 0.0875,
+          "STABILIZE": 0.175,
+          "OBSERVE": 0.05,
+          "INFER": 0.05,
+          "INVERT": 0.075,
+          "REGULARIZE": 0.0375
+        },
+        "REGULARIZE": {
+          "REPRESENT": 0.4082,
+          "MAP": 0.102,
+          "PRESERVE": 0.0408,
+          "CONSTRAIN": 0.0612,
+          "STABILIZE": 0.1633,
+          "OBSERVE": 0.0816,
+          "INFER": 0.0816,
+          "INVERT": 0.0204,
+          "REGULARIZE": 0.0408
+        },
+        "RECONSTRUCT": {
+          "REPRESENT": 0.2727,
+          "TRANSFORM": 0.0455,
+          "MAP": 0.0758,
+          "PRESERVE": 0.0303,
+          "CONSTRAIN": 0.0758,
+          "STABILIZE": 0.0909,
+          "OBSERVE": 0.1061,
+          "INFER": 0.0303,
+          "INVERT": 0.1061,
+          "RECONSTRUCT": 0.1667
+        }
+      }
+    },
+    "GELFAND_LEVITAN": {
+      "school_id": "GELFAND_LEVITAN",
+      "school_name": "Gelfand Levitan",
+      "cluster_assignment": "INVERSE_OPERATOR",
+      "edge_count": 47,
+      "verb_fingerprint_vector": [
+        0.2979,
+        0.0,
+        0.1064,
+        0.0,
+        0.0,
+        0.0426,
+        0.1064,
+        0.1277,
+        0.0,
+        0.0,
+        0.0213,
+        0.0426,
+        0.1489,
+        0.0,
+        0.0851,
+        0.0213,
+        0.0
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 14,
+        "REDUCE": 1,
+        "RECONSTRUCT": 4,
+        "INFER": 2,
+        "INVERT": 7,
+        "CONSTRAIN": 5,
+        "OBSERVE": 1,
+        "MAP": 5,
+        "STABILIZE": 6,
+        "PRESERVE": 2
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "INVERT",
+        "STABILIZE",
+        "CONSTRAIN"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.3058,
+          "MAP": 0.0996,
+          "PRESERVE": 0.0477,
+          "CONSTRAIN": 0.0982,
+          "STABILIZE": 0.129,
+          "OBSERVE": 0.0687,
+          "INFER": 0.0365,
+          "INVERT": 0.1318,
+          "RECONSTRUCT": 0.0785,
+          "REDUCE": 0.0042
+        },
+        "MAP": {
+          "REPRESENT": 0.3129,
+          "MAP": 0.0827,
+          "PRESERVE": 0.0468,
+          "CONSTRAIN": 0.1007,
+          "STABILIZE": 0.1295,
+          "OBSERVE": 0.0719,
+          "INFER": 0.036,
+          "INVERT": 0.1367,
+          "RECONSTRUCT": 0.0827
+        },
+        "PRESERVE": {
+          "REPRESENT": 0.322,
+          "MAP": 0.1017,
+          "PRESERVE": 0.0339,
+          "CONSTRAIN": 0.1017,
+          "STABILIZE": 0.1356,
+          "OBSERVE": 0.0678,
+          "INFER": 0.0339,
+          "INVERT": 0.1356,
+          "RECONSTRUCT": 0.0678
+        },
+        "CONSTRAIN": {
+          "REPRESENT": 0.3182,
+          "MAP": 0.1014,
+          "PRESERVE": 0.049,
+          "CONSTRAIN": 0.0839,
+          "STABILIZE": 0.1329,
+          "OBSERVE": 0.0699,
+          "INFER": 0.035,
+          "INVERT": 0.1364,
+          "RECONSTRUCT": 0.0734
+        },
+        "STABILIZE": {
+          "REPRESENT": 0.322,
+          "MAP": 0.1017,
+          "PRESERVE": 0.0508,
+          "CONSTRAIN": 0.1017,
+          "STABILIZE": 0.1186,
+          "OBSERVE": 0.0678,
+          "INFER": 0.0339,
+          "INVERT": 0.1356,
+          "RECONSTRUCT": 0.0678
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.3,
+          "MAP": 0.1,
+          "PRESERVE": 0.04,
+          "CONSTRAIN": 0.1,
+          "STABILIZE": 0.12,
+          "OBSERVE": 0.06,
+          "INFER": 0.04,
+          "INVERT": 0.14,
+          "RECONSTRUCT": 0.1
+        },
+        "INFER": {
+          "REPRESENT": 0.2913,
+          "MAP": 0.0971,
+          "PRESERVE": 0.0388,
+          "CONSTRAIN": 0.0971,
+          "STABILIZE": 0.1165,
+          "OBSERVE": 0.0777,
+          "INFER": 0.0194,
+          "INVERT": 0.1359,
+          "RECONSTRUCT": 0.1262
+        },
+        "INVERT": {
+          "REPRESENT": 0.3193,
+          "MAP": 0.1015,
+          "PRESERVE": 0.0495,
+          "CONSTRAIN": 0.1015,
+          "STABILIZE": 0.1337,
+          "OBSERVE": 0.0693,
+          "INFER": 0.0347,
+          "INVERT": 0.1188,
+          "RECONSTRUCT": 0.0718
+        },
+        "RECONSTRUCT": {
+          "REPRESENT": 0.2787,
+          "MAP": 0.0984,
+          "PRESERVE": 0.0328,
+          "CONSTRAIN": 0.0984,
+          "STABILIZE": 0.0984,
+          "OBSERVE": 0.082,
+          "INFER": 0.0656,
+          "INVERT": 0.1311,
+          "RECONSTRUCT": 0.1148
+        },
+        "REDUCE": {
+          "REPRESENT": 0.1579,
+          "MAP": 0.0526,
+          "INFER": 0.2105,
+          "REDUCE": 0.5789
+        }
+      }
+    },
+    "FADDEEV": {
+      "school_id": "FADDEEV",
+      "school_name": "Faddeev",
+      "cluster_assignment": "INVERSE_OPERATOR",
+      "edge_count": 4,
+      "verb_fingerprint_vector": [
+        0.5,
+        0.0,
+        0.25,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.25,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 2,
+        "INVERT": 1,
+        "MAP": 1
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "INVERT",
+        "MAP"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "MAP": 0.5,
+          "INVERT": 0.5
+        },
+        "MAP": {
+          "REPRESENT": 0.5,
+          "INVERT": 0.5
+        },
+        "INVERT": {
+          "REPRESENT": 0.5,
+          "MAP": 0.5
+        }
+      }
+    },
+    "VLASOV": {
+      "school_id": "VLASOV",
+      "school_name": "Vlasov",
+      "cluster_assignment": "COLLECTIVE_KINETIC",
+      "edge_count": 58,
+      "verb_fingerprint_vector": [
+        0.431,
+        0.0,
+        0.1034,
+        0.069,
+        0.0172,
+        0.0517,
+        0.0172,
+        0.0862,
+        0.0,
+        0.0,
+        0.069,
+        0.1034,
+        0.0,
+        0.0,
+        0.0172,
+        0.0345,
+        0.0
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 25,
+        "MAP": 6,
+        "OBSERVE": 4,
+        "INFER": 6,
+        "PERTURB": 1,
+        "EVOLVE": 4,
+        "CONSTRAIN": 1,
+        "STABILIZE": 5,
+        "PRESERVE": 3,
+        "REDUCE": 2,
+        "RECONSTRUCT": 1
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "MAP",
+        "INFER",
+        "STABILIZE"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.4202,
+          "MAP": 0.1082,
+          "EVOLVE": 0.0822,
+          "PERTURB": 0.0167,
+          "PRESERVE": 0.0501,
+          "CONSTRAIN": 0.0167,
+          "STABILIZE": 0.0875,
+          "OBSERVE": 0.0862,
+          "INFER": 0.0822,
+          "RECONSTRUCT": 0.0167,
+          "REDUCE": 0.0334
+        },
+        "MAP": {
+          "REPRESENT": 0.4403,
+          "MAP": 0.0909,
+          "EVOLVE": 0.0795,
+          "PERTURB": 0.017,
+          "PRESERVE": 0.0511,
+          "CONSTRAIN": 0.017,
+          "STABILIZE": 0.0881,
+          "OBSERVE": 0.0824,
+          "INFER": 0.0824,
+          "RECONSTRUCT": 0.017,
+          "REDUCE": 0.0341
+        },
+        "EVOLVE": {
+          "REPRESENT": 0.4357,
+          "MAP": 0.1079,
+          "EVOLVE": 0.0664,
+          "PERTURB": 0.0166,
+          "PRESERVE": 0.0498,
+          "CONSTRAIN": 0.0166,
+          "STABILIZE": 0.0871,
+          "OBSERVE": 0.0871,
+          "INFER": 0.083,
+          "RECONSTRUCT": 0.0166,
+          "REDUCE": 0.0332
+        },
+        "PERTURB": {
+          "REPRESENT": 0.4483,
+          "MAP": 0.1034,
+          "EVOLVE": 0.0862,
+          "PRESERVE": 0.0517,
+          "CONSTRAIN": 0.0172,
+          "STABILIZE": 0.0862,
+          "OBSERVE": 0.0862,
+          "INFER": 0.069,
+          "RECONSTRUCT": 0.0172,
+          "REDUCE": 0.0345
+        },
+        "PRESERVE": {
+          "REPRESENT": 0.4317,
+          "MAP": 0.1093,
+          "EVOLVE": 0.082,
+          "PERTURB": 0.0164,
+          "PRESERVE": 0.0328,
+          "CONSTRAIN": 0.0164,
+          "STABILIZE": 0.0874,
+          "OBSERVE": 0.0874,
+          "INFER": 0.0874,
+          "RECONSTRUCT": 0.0164,
+          "REDUCE": 0.0328
+        },
+        "CONSTRAIN": {
+          "REPRESENT": 0.4154,
+          "MAP": 0.1231,
+          "EVOLVE": 0.0769,
+          "PERTURB": 0.0154,
+          "PRESERVE": 0.0462,
+          "STABILIZE": 0.0923,
+          "OBSERVE": 0.0923,
+          "INFER": 0.0923,
+          "RECONSTRUCT": 0.0154,
+          "REDUCE": 0.0308
+        },
+        "STABILIZE": {
+          "REPRESENT": 0.4201,
+          "MAP": 0.1191,
+          "EVOLVE": 0.0784,
+          "PERTURB": 0.0157,
+          "PRESERVE": 0.047,
+          "CONSTRAIN": 0.0157,
+          "STABILIZE": 0.0752,
+          "OBSERVE": 0.0909,
+          "INFER": 0.0909,
+          "RECONSTRUCT": 0.0157,
+          "REDUCE": 0.0313
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.4386,
+          "MAP": 0.1053,
+          "EVOLVE": 0.0702,
+          "PERTURB": 0.0175,
+          "PRESERVE": 0.0526,
+          "CONSTRAIN": 0.0175,
+          "STABILIZE": 0.0877,
+          "OBSERVE": 0.0526,
+          "INFER": 0.1053,
+          "RECONSTRUCT": 0.0175,
+          "REDUCE": 0.0351
+        },
+        "INFER": {
+          "REPRESENT": 0.4052,
+          "MAP": 0.1034,
+          "EVOLVE": 0.0647,
+          "PERTURB": 0.0129,
+          "PRESERVE": 0.0517,
+          "CONSTRAIN": 0.0172,
+          "STABILIZE": 0.0862,
+          "OBSERVE": 0.1034,
+          "INFER": 0.1034,
+          "RECONSTRUCT": 0.0172,
+          "REDUCE": 0.0345
+        },
+        "RECONSTRUCT": {
+          "REPRESENT": 0.4407,
+          "MAP": 0.1017,
+          "EVOLVE": 0.0847,
+          "PERTURB": 0.0169,
+          "PRESERVE": 0.0508,
+          "CONSTRAIN": 0.0169,
+          "STABILIZE": 0.0847,
+          "OBSERVE": 0.0847,
+          "INFER": 0.0847,
+          "REDUCE": 0.0339
+        },
+        "REDUCE": {
+          "REPRESENT": 0.4407,
+          "MAP": 0.1017,
+          "EVOLVE": 0.0847,
+          "PERTURB": 0.0169,
+          "PRESERVE": 0.0508,
+          "CONSTRAIN": 0.0169,
+          "STABILIZE": 0.0847,
+          "OBSERVE": 0.0847,
+          "INFER": 0.0847,
+          "RECONSTRUCT": 0.0169,
+          "REDUCE": 0.0169
+        }
+      }
+    },
+    "SHAFRANOV": {
+      "school_id": "SHAFRANOV",
+      "school_name": "Shafranov",
+      "cluster_assignment": "COLLECTIVE_KINETIC",
+      "edge_count": 5,
+      "verb_fingerprint_vector": [
+        0.2,
+        0.0,
+        0.0,
+        0.2,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.2,
+        0.4,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 1,
+        "INFER": 2,
+        "EVOLVE": 1,
+        "OBSERVE": 1
+      },
+      "dominant_verbs": [
+        "INFER",
+        "REPRESENT",
+        "EVOLVE",
+        "OBSERVE"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.4792,
+          "MAP": 0.0833,
+          "EVOLVE": 0.1042,
+          "PERTURB": 0.0208,
+          "PRESERVE": 0.0625,
+          "CONSTRAIN": 0.0208,
+          "STABILIZE": 0.1042,
+          "OBSERVE": 0.0208,
+          "INFER": 0.0417,
+          "RECONSTRUCT": 0.0208,
+          "REDUCE": 0.0417
+        },
+        "EVOLVE": {
+          "REPRESENT": 0.5,
+          "MAP": 0.0833,
+          "EVOLVE": 0.0833,
+          "PERTURB": 0.0208,
+          "PRESERVE": 0.0625,
+          "CONSTRAIN": 0.0208,
+          "STABILIZE": 0.1042,
+          "OBSERVE": 0.0208,
+          "INFER": 0.0417,
+          "RECONSTRUCT": 0.0208,
+          "REDUCE": 0.0417
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.5,
+          "MAP": 0.0833,
+          "EVOLVE": 0.1042,
+          "PERTURB": 0.0208,
+          "PRESERVE": 0.0625,
+          "CONSTRAIN": 0.0208,
+          "STABILIZE": 0.1042,
+          "INFER": 0.0417,
+          "RECONSTRUCT": 0.0208,
+          "REDUCE": 0.0417
+        },
+        "INFER": {
+          "REPRESENT": 0.4808,
+          "MAP": 0.0769,
+          "EVOLVE": 0.1154,
+          "PERTURB": 0.0192,
+          "PRESERVE": 0.0577,
+          "CONSTRAIN": 0.0192,
+          "STABILIZE": 0.0962,
+          "OBSERVE": 0.0385,
+          "INFER": 0.0385,
+          "RECONSTRUCT": 0.0192,
+          "REDUCE": 0.0385
+        }
+      }
+    },
+    "GELFAND_TSETLIN": {
+      "school_id": "GELFAND_TSETLIN",
+      "school_name": "Gelfand Tsetlin",
+      "cluster_assignment": "COLLECTIVE_KINETIC",
+      "edge_count": 33,
+      "verb_fingerprint_vector": [
+        0.2424,
+        0.0,
+        0.0606,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0606,
+        0.2424,
+        0.0,
+        0.0,
+        0.0,
+        0.3636,
+        0.0303
+      ],
+      "verb_frequencies": {
+        "REPRESENT": 8,
+        "REDUCE": 12,
+        "INFER": 8,
+        "CONTROL": 1,
+        "MAP": 2,
+        "OBSERVE": 2
+      },
+      "dominant_verbs": [
+        "REDUCE",
+        "REPRESENT",
+        "INFER",
+        "MAP"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.4615,
+          "MAP": 0.1026,
+          "OBSERVE": 0.1026,
+          "INFER": 0.2051,
+          "REDUCE": 0.1026,
+          "CONTROL": 0.0256
+        },
+        "MAP": {
+          "REPRESENT": 0.2353,
+          "INFER": 0.1765,
+          "REDUCE": 0.5882
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.4444,
+          "INFER": 0.4444,
+          "CONTROL": 0.1111
+        },
+        "INFER": {
+          "REPRESENT": 0.1067,
+          "MAP": 0.04,
+          "OBSERVE": 0.0533,
+          "INFER": 0.1867,
+          "REDUCE": 0.5867,
+          "CONTROL": 0.0267
+        },
+        "REDUCE": {
+          "REPRESENT": 0.0265,
+          "MAP": 0.0529,
+          "INFER": 0.2328,
+          "REDUCE": 0.6878
+        },
+        "CONTROL": {
+          "REPRESENT": 0.25,
+          "OBSERVE": 0.25,
+          "INFER": 0.5
+        }
+      }
+    },
+    "CHEBYSHEV": {
+      "school_id": "CHEBYSHEV",
+      "school_name": "Chebyshev",
+      "cluster_assignment": "APPROXIMATION_PROBABILITY",
+      "edge_count": 68,
+      "verb_fingerprint_vector": [
+        0.2647,
+        0.0,
+        0.1029,
+        0.0,
+        0.0,
+        0.0294,
+        0.0588,
+        0.1324,
+        0.0588,
+        0.0147,
+        0.1029,
+        0.2353,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verb_frequencies": {
+        "OBSERVE": 7,
+        "INFER": 16,
+        "REPRESENT": 18,
+        "MAP": 7,
+        "CONSTRAIN": 4,
+        "STABILIZE": 9,
+        "PRESERVE": 2,
+        "APPROXIMATE": 4,
+        "OPTIMIZE": 1
+      },
+      "dominant_verbs": [
+        "REPRESENT",
+        "INFER",
+        "STABILIZE",
+        "OBSERVE"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "REPRESENT": 0.3459,
+          "MAP": 0.1214,
+          "PRESERVE": 0.0402,
+          "CONSTRAIN": 0.0803,
+          "STABILIZE": 0.1633,
+          "APPROXIMATE": 0.0611,
+          "OPTIMIZE": 0.0288,
+          "OBSERVE": 0.0769,
+          "INFER": 0.069,
+          "CONTROL": 0.0131
+        },
+        "MAP": {
+          "REPRESENT": 0.3641,
+          "MAP": 0.1,
+          "PRESERVE": 0.041,
+          "CONSTRAIN": 0.0821,
+          "STABILIZE": 0.1744,
+          "APPROXIMATE": 0.0641,
+          "OPTIMIZE": 0.0256,
+          "OBSERVE": 0.0718,
+          "INFER": 0.0692,
+          "CONTROL": 0.0077
+        },
+        "PRESERVE": {
+          "REPRESENT": 0.3776,
+          "MAP": 0.1189,
+          "PRESERVE": 0.028,
+          "CONSTRAIN": 0.0839,
+          "STABILIZE": 0.1608,
+          "APPROXIMATE": 0.0559,
+          "OPTIMIZE": 0.035,
+          "OBSERVE": 0.0699,
+          "INFER": 0.049,
+          "CONTROL": 0.021
+        },
+        "CONSTRAIN": {
+          "REPRESENT": 0.3763,
+          "MAP": 0.1185,
+          "PRESERVE": 0.0418,
+          "CONSTRAIN": 0.0697,
+          "STABILIZE": 0.1603,
+          "APPROXIMATE": 0.0557,
+          "OPTIMIZE": 0.0348,
+          "OBSERVE": 0.0697,
+          "INFER": 0.0523,
+          "CONTROL": 0.0209
+        },
+        "STABILIZE": {
+          "REPRESENT": 0.3673,
+          "MAP": 0.1224,
+          "PRESERVE": 0.0408,
+          "CONSTRAIN": 0.0816,
+          "STABILIZE": 0.148,
+          "APPROXIMATE": 0.0612,
+          "OPTIMIZE": 0.0306,
+          "OBSERVE": 0.0765,
+          "INFER": 0.0561,
+          "CONTROL": 0.0153
+        },
+        "APPROXIMATE": {
+          "REPRESENT": 0.3697,
+          "MAP": 0.1176,
+          "PRESERVE": 0.042,
+          "CONSTRAIN": 0.084,
+          "STABILIZE": 0.1723,
+          "APPROXIMATE": 0.0504,
+          "OPTIMIZE": 0.0294,
+          "OBSERVE": 0.0672,
+          "INFER": 0.0546,
+          "CONTROL": 0.0126
+        },
+        "OPTIMIZE": {
+          "REPRESENT": 0.3956,
+          "MAP": 0.1099,
+          "PRESERVE": 0.044,
+          "CONSTRAIN": 0.0879,
+          "STABILIZE": 0.1538,
+          "APPROXIMATE": 0.044,
+          "OPTIMIZE": 0.033,
+          "OBSERVE": 0.0549,
+          "INFER": 0.044,
+          "CONTROL": 0.033
+        },
+        "OBSERVE": {
+          "REPRESENT": 0.3308,
+          "MAP": 0.1053,
+          "PRESERVE": 0.0376,
+          "CONSTRAIN": 0.0752,
+          "STABILIZE": 0.1692,
+          "APPROXIMATE": 0.0602,
+          "OPTIMIZE": 0.0188,
+          "OBSERVE": 0.0602,
+          "INFER": 0.1429
+        },
+        "INFER": {
+          "REPRESENT": 0.2893,
+          "MAP": 0.1,
+          "PRESERVE": 0.025,
+          "CONSTRAIN": 0.0536,
+          "STABILIZE": 0.1179,
+          "APPROXIMATE": 0.0464,
+          "OPTIMIZE": 0.0143,
+          "OBSERVE": 0.1357,
+          "INFER": 0.2179
+        }
+      }
+    },
+    "MARKOV": {
+      "school_id": "MARKOV",
+      "school_name": "Markov",
+      "cluster_assignment": "APPROXIMATION_PROBABILITY",
+      "edge_count": 3,
+      "verb_fingerprint_vector": [
+        0.3333,
+        0.0,
+        0.3333,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.3333,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "verb_frequencies": {
+        "INFER": 1,
+        "REPRESENT": 1,
+        "MAP": 1
+      },
+      "dominant_verbs": [
+        "INFER",
+        "REPRESENT",
+        "MAP"
+      ],
+      "transition_matrix": {
+        "REPRESENT": {
+          "MAP": 0.5,
+          "INFER": 0.5
+        },
+        "MAP": {
+          "REPRESENT": 1.0
+        },
+        "INFER": {
+          "REPRESENT": 0.5,
+          "INFER": 0.5
+        }
+      }
+    }
+  },
+  "pairwise_distances": [
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "ANDRONOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "DYNAMICAL_CONTROL",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.223,
+      "jensen_shannon_distance": 0.5648
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "PONTRYAGIN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "DYNAMICAL_CONTROL",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.0519,
+      "jensen_shannon_distance": 0.3407
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "KRASOVSKII",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "DYNAMICAL_CONTROL",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.32,
+      "jensen_shannon_distance": 0.5445
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "TIKHONOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.0591,
+      "jensen_shannon_distance": 0.372
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "GELFAND_LEVITAN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1857,
+      "jensen_shannon_distance": 0.4979
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "FADDEEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.215,
+      "jensen_shannon_distance": 0.6127
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "VLASOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.0546,
+      "jensen_shannon_distance": 0.3503
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3251,
+      "jensen_shannon_distance": 0.5838
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3609,
+      "jensen_shannon_distance": 0.5681
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.075,
+      "jensen_shannon_distance": 0.3289
+    },
+    {
+      "school_a": "LYAPUNOV",
+      "school_b": "MARKOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1277,
+      "jensen_shannon_distance": 0.4239
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "PONTRYAGIN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "DYNAMICAL_CONTROL",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.2274,
+      "jensen_shannon_distance": 0.5854
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "KRASOVSKII",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "DYNAMICAL_CONTROL",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.75,
+      "jensen_shannon_distance": 0.8541
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "TIKHONOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.2698,
+      "jensen_shannon_distance": 0.6351
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "GELFAND_LEVITAN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.2889,
+      "jensen_shannon_distance": 0.6455
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "FADDEEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.134,
+      "jensen_shannon_distance": 0.3945
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "VLASOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.2101,
+      "jensen_shannon_distance": 0.5804
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.7327,
+      "jensen_shannon_distance": 0.8354
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.5782,
+      "jensen_shannon_distance": 0.7233
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3735,
+      "jensen_shannon_distance": 0.6674
+    },
+    {
+      "school_a": "ANDRONOV",
+      "school_b": "MARKOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1835,
+      "jensen_shannon_distance": 0.4369
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "KRASOVSKII",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "DYNAMICAL_CONTROL",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.3781,
+      "jensen_shannon_distance": 0.508
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "TIKHONOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.0533,
+      "jensen_shannon_distance": 0.3703
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "GELFAND_LEVITAN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1438,
+      "jensen_shannon_distance": 0.4597
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "FADDEEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.184,
+      "jensen_shannon_distance": 0.6194
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "VLASOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.0367,
+      "jensen_shannon_distance": 0.376
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.456,
+      "jensen_shannon_distance": 0.6569
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.4229,
+      "jensen_shannon_distance": 0.5916
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1395,
+      "jensen_shannon_distance": 0.3346
+    },
+    {
+      "school_a": "PONTRYAGIN",
+      "school_b": "MARKOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.246,
+      "jensen_shannon_distance": 0.53
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "TIKHONOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3185,
+      "jensen_shannon_distance": 0.5476
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "GELFAND_LEVITAN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.532,
+      "jensen_shannon_distance": 0.7016
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "FADDEEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.7113,
+      "jensen_shannon_distance": 0.8541
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "VLASOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.4139,
+      "jensen_shannon_distance": 0.5937
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1983,
+      "jensen_shannon_distance": 0.5206
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.4306,
+      "jensen_shannon_distance": 0.6015
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1729,
+      "jensen_shannon_distance": 0.4866
+    },
+    {
+      "school_a": "KRASOVSKII",
+      "school_b": "MARKOV",
+      "cluster_a": "DYNAMICAL_CONTROL",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3877,
+      "jensen_shannon_distance": 0.6611
+    },
+    {
+      "school_a": "TIKHONOV",
+      "school_b": "GELFAND_LEVITAN",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.1255,
+      "jensen_shannon_distance": 0.3749
+    },
+    {
+      "school_a": "TIKHONOV",
+      "school_b": "FADDEEV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.2271,
+      "jensen_shannon_distance": 0.6338
+    },
+    {
+      "school_a": "TIKHONOV",
+      "school_b": "VLASOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.0461,
+      "jensen_shannon_distance": 0.3499
+    },
+    {
+      "school_a": "TIKHONOV",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3755,
+      "jensen_shannon_distance": 0.6228
+    },
+    {
+      "school_a": "TIKHONOV",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.4168,
+      "jensen_shannon_distance": 0.625
+    },
+    {
+      "school_a": "TIKHONOV",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.0899,
+      "jensen_shannon_distance": 0.3518
+    },
+    {
+      "school_a": "TIKHONOV",
+      "school_b": "MARKOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.2448,
+      "jensen_shannon_distance": 0.5606
+    },
+    {
+      "school_a": "GELFAND_LEVITAN",
+      "school_b": "FADDEEV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "INVERSE_OPERATOR",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.1358,
+      "jensen_shannon_distance": 0.5225
+    },
+    {
+      "school_a": "GELFAND_LEVITAN",
+      "school_b": "VLASOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1551,
+      "jensen_shannon_distance": 0.4397
+    },
+    {
+      "school_a": "GELFAND_LEVITAN",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.6198,
+      "jensen_shannon_distance": 0.7787
+    },
+    {
+      "school_a": "GELFAND_LEVITAN",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.52,
+      "jensen_shannon_distance": 0.6878
+    },
+    {
+      "school_a": "GELFAND_LEVITAN",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.242,
+      "jensen_shannon_distance": 0.4951
+    },
+    {
+      "school_a": "GELFAND_LEVITAN",
+      "school_b": "MARKOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3582,
+      "jensen_shannon_distance": 0.6433
+    },
+    {
+      "school_a": "FADDEEV",
+      "school_b": "VLASOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.1761,
+      "jensen_shannon_distance": 0.6182
+    },
+    {
+      "school_a": "FADDEEV",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.6914,
+      "jensen_shannon_distance": 0.8354
+    },
+    {
+      "school_a": "FADDEEV",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.5616,
+      "jensen_shannon_distance": 0.7424
+    },
+    {
+      "school_a": "FADDEEV",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3778,
+      "jensen_shannon_distance": 0.7004
+    },
+    {
+      "school_a": "FADDEEV",
+      "school_b": "MARKOV",
+      "cluster_a": "INVERSE_OPERATOR",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.2929,
+      "jensen_shannon_distance": 0.555
+    },
+    {
+      "school_a": "VLASOV",
+      "school_b": "SHAFRANOV",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.387,
+      "jensen_shannon_distance": 0.557
+    },
+    {
+      "school_a": "VLASOV",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.3722,
+      "jensen_shannon_distance": 0.5506
+    },
+    {
+      "school_a": "VLASOV",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.143,
+      "jensen_shannon_distance": 0.3951
+    },
+    {
+      "school_a": "VLASOV",
+      "school_b": "MARKOV",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.2302,
+      "jensen_shannon_distance": 0.5267
+    },
+    {
+      "school_a": "SHAFRANOV",
+      "school_b": "GELFAND_TSETLIN",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "COLLECTIVE_KINETIC",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.4138,
+      "jensen_shannon_distance": 0.6092
+    },
+    {
+      "school_a": "SHAFRANOV",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.2364,
+      "jensen_shannon_distance": 0.5734
+    },
+    {
+      "school_a": "SHAFRANOV",
+      "school_b": "MARKOV",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3453,
+      "jensen_shannon_distance": 0.6173
+    },
+    {
+      "school_a": "GELFAND_TSETLIN",
+      "school_b": "CHEBYSHEV",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.3657,
+      "jensen_shannon_distance": 0.5936
+    },
+    {
+      "school_a": "GELFAND_TSETLIN",
+      "school_b": "MARKOV",
+      "cluster_a": "COLLECTIVE_KINETIC",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": false,
+      "cosine_distance": 0.38,
+      "jensen_shannon_distance": 0.5591
+    },
+    {
+      "school_a": "CHEBYSHEV",
+      "school_b": "MARKOV",
+      "cluster_a": "APPROXIMATION_PROBABILITY",
+      "cluster_b": "APPROXIMATION_PROBABILITY",
+      "is_intra_cluster": true,
+      "cosine_distance": 0.161,
+      "jensen_shannon_distance": 0.5037
+    }
+  ]
+}

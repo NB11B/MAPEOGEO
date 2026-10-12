@@ -97,7 +97,7 @@ class TemporalRelationsEngine:
             if val and str(val).isdigit():
                 return int(val)
         text = n.get("id", "") + " " + n.get("label", "")
-        match = re.search(r"\b(1[6-9]\d\d|20\d\d)\b", text)
+        match = re.search(r"(?:^|[^0-9])(1[6-9]\d\d|20\d\d)(?:$|[^0-9])", text)
         if match:
             return int(match.group(1))
         return None
