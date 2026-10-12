@@ -554,7 +554,7 @@ class GraphPerspectiveSweepEngine:
                 k_omit.append(f"OMIT:INDIVIDUAL_MICROSCOPIC_PARTICLE_HISTORIES_FOR_{q.id}")
                 k_cons.append("CONSTRAINT:SELF_CONSISTENT_MEAN_FIELD_COUPLING_CLOSURE")
                 k_quest.append(f"QUESTION:WHAT_IS_THE_RESONANT_COLLECTIVE_MODE_FOR_{q.id}")
-                k_comp = "Reduces infinite N-body trajectory hierarchy to coupled low-order moment ODEs"
+                k_comp = "Replaces N-body microscopic collision trajectories with collisionless single-particle distribution evolving under self-consistent mean-field"
                 is_lossless = False
                 is_q_sufficient = True
             elif "DUAL_INVERSE_OMISSION" in perspective_id:
