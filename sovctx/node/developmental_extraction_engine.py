@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 r"""
 Developmental Extraction Engine.
-Extracts and Manages Structured Pedagogical Episodes across the Pre-Reform Soviet Mathematics Arc.
+Extracts and Manages Structured Pedagogical Episodes across the Pre-Reform Soviet Mathematics Arc,
+Olympiad Enrichment Track, and the Kolmogorov Modernist Reform.
 
 Implements the standardized 9-element schema:
     grade/stage -> problem presented -> representation supplied -> representation student must invent ->
@@ -15,6 +16,7 @@ Epistemic Isolation Guarantee:
 from __future__ import annotations
 
 import json
+from collections import Counter
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -36,6 +38,8 @@ class DevelopmentalExtractionEngine:
         self.episodes: Dict[str, DevelopmentalEpisode] = {}
         self.primitive_mappings: Dict[str, PrimitiveMappingRecord] = {}
         self._initialize_canonical_batch_a_episodes()
+        self._initialize_canonical_batch_b_episodes()
+        self._initialize_canonical_batch_c_episodes()
 
     def _initialize_canonical_batch_a_episodes(self) -> None:
         """Initializes canonical extraction episodes for Batch A (A1 to A7)."""
@@ -81,7 +85,7 @@ class DevelopmentalExtractionEngine:
         )
 
         # ---------------------------------------------------------------------
-        # A1: Popova (1933) - Part 2: Crossing the Decade
+        # A1: Popova (1933) - Part 2: Crossing the Decade (Addition)
         # ---------------------------------------------------------------------
         ep_a1_2 = DevelopmentalEpisode(
             episode_id="DEV-A1-POP-02",
@@ -117,6 +121,46 @@ class DevelopmentalExtractionEngine:
                 },
                 structural_concordance=0.98,
                 epistemic_notes="Earliest explicit auxiliary construction in elementary arithmetic.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # A1: Popova (1933) - Part 2: Crossing the Decade (Subtraction)
+        # ---------------------------------------------------------------------
+        ep_a1_3 = DevelopmentalEpisode(
+            episode_id="DEV-A1-POP-03",
+            source_id="A1_POPOVA_1933",
+            source_citation="Попова Н. С. Учебник арифметики для начальной школы. Ч. 2. — М.: Учпедгиз, 1933. — С. 34.",
+            corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
+            grade_stage=DevelopmentalStage.GRADE_1_SECOND_DECADE,
+            problem_presented="Subtraction crossing the decade: Compute 13 - 5 (Вычитание с переходом через десяток двумя способами).",
+            representation_supplied="13 counters arranged as 1 full bundle of 10 and 3 separate units.",
+            representation_invented="Dual decomposition schema: Route 1: 13 - 3 - 2 = 10 - 2 = 8; Route 2: (10 - 5) + 3 = 5 + 3 = 8.",
+            allowed_operations=[
+                "Decomposing subtrahend 5 into 3 and 2",
+                "Subtracting from 10 directly and adding remaining units",
+                "Associative subtraction",
+            ],
+            hint_scaffold="Teacher asks: 'Way 1: Subtract 3 first to reach 10, then how many more? (2). Way 2: Take 5 directly from the ten bundle (leaving 5), and add the 3 units.'",
+            key_mathematical_move="Establishing computational equivalence between two alternative auxiliary decomposition paths through the decade boundary.",
+            what_need_not_be_computed="Counting backwards by ones from 13 down to 8 (12, 11, 10, 9, 8).",
+            expected_new_capability="Dual operational flexibility; reversibility of place-value regrouping.",
+            pedagogical_intent="Popova trains pupils to realize that subtraction through 10 has multiple valid decompositions, cultivating algebraic choice.",
+            page_reference="Part 2, p. 34",
+            original_russian_text="Вычесть 5 из 13: 1-й способ: 13 - 3 = 10, 10 - 2 = 8; 2-й способ: 10 - 5 = 5, 5 + 3 = 8.",
+        )
+        self.register_episode(ep_a1_3)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_a1_3.episode_id,
+                primitive_symbols=["Ax", "Iv", "Sr"],
+                mapping_breakdown={
+                    "Ax": "Auxiliary Construction: choice of intermediate decade bridge (13-3 or 10-5).",
+                    "Iv": "Inverse Reasoning: subtraction conceived as inverse complement of decade addition.",
+                    "Sr": "State Reduction: reduces compound subtraction to two single-digit table facts.",
+                },
+                structural_concordance=0.97,
+                epistemic_notes="Demonstrates early operational commutativity and alternative decomposition pathways.",
             )
         )
 
@@ -322,6 +366,46 @@ class DevelopmentalExtractionEngine:
         )
 
         # ---------------------------------------------------------------------
+        # A5: Kiselev (1938) - Geometry: Pythagorean Theorem & Area Shear
+        # ---------------------------------------------------------------------
+        ep_a5_2 = DevelopmentalEpisode(
+            episode_id="DEV-A5-KIS-GEOM-02",
+            source_id="A5_KISELEV_GEOMETRY_1938",
+            source_citation="Киселев А. П. Геометрия. Ч. 1: Планиметрия. — М.: Учпедгиз, 1938. — С. 118–121.",
+            corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
+            grade_stage=DevelopmentalStage.GRADE_6_7_PLANAR_GEOMETRY,
+            problem_presented="Theorem of Pythagoras: In a right-angled triangle ABC, the square on the hypotenuse equals the sum of squares on the legs (c^2 = a^2 + b^2).",
+            representation_supplied="Right triangle with three squares constructed externally on its sides ('Euclid's Bride' / Pythagoras windmill).",
+            representation_invented="Auxiliary altitude dropped from right angle C through hypotenuse square, bisecting it into two rectangles; connecting lines forming sheared triangles.",
+            allowed_operations=[
+                "Parallel area shear (triangles on the same base between parallel lines have equal area)",
+                "SAS triangle congruence",
+                "Additive composition of areas",
+            ],
+            hint_scaffold="Euclid-Kiselev scaffold: 'Drop a perpendicular from C to the base of the hypotenuse square. Can you show that rectangle BLKD has twice the area of triangle ABD?'",
+            key_mathematical_move="Auxiliary dissection of the hypotenuse square into two rectangles whose areas match the leg squares via area-preserving shear invariance.",
+            what_need_not_be_computed="Numerical lengths, square roots, or algebraic coordinates.",
+            expected_new_capability="Area shear invariance; auxiliary line routing in 2D Euclidean geometry.",
+            pedagogical_intent="Kiselev presents the classical synthetic proof to demonstrate how auxiliary lines unveil invariant area equalities.",
+            page_reference="pp. 118-121",
+            original_russian_text="Теорема Пифагора: Квадрат, построенный на гипотенузе, равен сумме квадратов, построенных на катетах. Опустим перпендикуляр из вершины прямого угла на основание квадрата гипотенузы...",
+        )
+        self.register_episode(ep_a5_2)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_a5_2.episode_id,
+                primitive_symbols=["Ax", "I", "Rs"],
+                mapping_breakdown={
+                    "Ax": "Auxiliary Construction: altitude segment extending across hypotenuse square and connecting diagonals.",
+                    "I": "Invariant Reasoning: area invariance under shear and rotation.",
+                    "Rs": "Representation Shift: metric length identity c^2 = a^2 + b^2 -> area decomposition equality.",
+                },
+                structural_concordance=0.98,
+                epistemic_notes="Classical synthetic proof of Pythagoras via geometric shear invariance.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
         # A6: Kiselev (1938) - Algebra: Factoring by Grouping
         # ---------------------------------------------------------------------
         ep_a6_1 = DevelopmentalEpisode(
@@ -358,6 +442,46 @@ class DevelopmentalExtractionEngine:
                 },
                 structural_concordance=0.96,
                 epistemic_notes="Demonstrates modular sub-expression recognition as state reduction.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # A6: Kiselev (1938) - Algebra: Completing the Square
+        # ---------------------------------------------------------------------
+        ep_a6_2 = DevelopmentalEpisode(
+            episode_id="DEV-A6-KIS-ALG-02",
+            source_id="A6_KISELEV_ALGEBRA_1938",
+            source_citation="Киселев А. П. Алгебра. Ч. 2. — М.: Учпедгиз, 1938. — С. 45–48.",
+            corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
+            grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            problem_presented="Solve the quadratic equation x^2 + px + q = 0 by completing the square (Выделение полного квадрата).",
+            representation_supplied="Quadratic equation in canonical form x^2 + px + q = 0.",
+            representation_invented="Auxiliary completion of the binomial square: add and subtract (p/2)^2 to synthesize (x + p/2)^2 = (p/2)^2 - q.",
+            allowed_operations=[
+                "Adding and subtracting an auxiliary balanced term (p/2)^2",
+                "Synthesizing the perfect square trinomial (x + p/2)^2",
+                "Extracting square roots via inverse reasoning",
+            ],
+            hint_scaffold="Teacher prompt: 'Look at x^2 + 2*(p/2)*x. What constant term is needed to make this an exact square of a sum? Add (p/2)^2 to both sides of the equation.'",
+            key_mathematical_move="Auxiliary construction of the missing constant term (p/2)^2, converting a non-invertible quadratic into an invertible linear squared form.",
+            what_need_not_be_computed="Blind memorization of the quadratic formula without geometric/algebraic insight.",
+            expected_new_capability="Auxiliary completion of algebraic invariants; inversion of quadratic dependencies.",
+            pedagogical_intent="Kiselev derives the quadratic formula through transparent auxiliary completion rather than dogmatic rote presentation.",
+            page_reference="Part 2, pp. 45-48",
+            original_russian_text="Выделение полного квадрата: x^2 + px = -q. Прибавим к обеим частям (p/2)^2: (x + p/2)^2 = p^2/4 - q.",
+        )
+        self.register_episode(ep_a6_2)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_a6_2.episode_id,
+                primitive_symbols=["Ax", "Iv", "Sr"],
+                mapping_breakdown={
+                    "Ax": "Auxiliary Construction: adding balanced auxiliary term (p/2)^2.",
+                    "Iv": "Inverse Reasoning: inverting the quadratic function via square root extraction.",
+                    "Sr": "State Reduction: reduces quadratic polynomial equation to elementary linear shifts.",
+                },
+                structural_concordance=0.98,
+                epistemic_notes="Pivotal auxiliary completion technique in secondary algebra.",
             )
         )
 
@@ -401,6 +525,331 @@ class DevelopmentalExtractionEngine:
             )
         )
 
+    def _initialize_canonical_batch_b_episodes(self) -> None:
+        """Initializes canonical extraction episodes for Batch B (Olympiad & Circles: B1 to B4)."""
+
+        # ---------------------------------------------------------------------
+        # B1: Bonchkovsky (1936) - Moscow Olympiad 1935: Parity Invariant
+        # ---------------------------------------------------------------------
+        ep_b1_1 = DevelopmentalEpisode(
+            episode_id="DEV-B1-BONCH-01",
+            source_id="B1_BONCHKOVSKY_OLYMPIAD_1936",
+            source_citation="Бончковский Р. Н. Московские математические олимпиады 1935 и 1936 годов. — М.–Л.: ОНТИ, 1936. — С. 18–21.",
+            corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
+            grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            problem_presented="1935 Moscow Olympiad: Can an 8x8 chessboard with two opposite corner squares removed be completely covered by 31 dominoes of size 1x2?",
+            representation_supplied="Deficient chessboard grid of 62 unit squares; physical domino tiles covering 2 squares.",
+            representation_invented="Two-color invariant coloring chi: Z^2 -> {Black, White}; parity balance equation: dominoes = 31, Black = 32, White = 30.",
+            allowed_operations=[
+                "Bi-coloring the grid in alternating checkerboard pattern",
+                "Counting black and white cells covered by an arbitrary 1x2 domino (always 1 Black + 1 White)",
+                "Global parity contradiction deduction",
+            ],
+            hint_scaffold="Olympiad hint: 'Consider the colors of the two removed opposite corner squares. Are they of the same color or different colors?'",
+            key_mathematical_move="Global invariant coloring: proving that every domino covers exactly 1 black and 1 white square, establishing an insurmountable parity obstruction (31 dominoes require 31 black and 31 white squares).",
+            what_need_not_be_computed="Exhaustive combinatorial testing of tiling combinations (approx. 2^62 configurations).",
+            expected_new_capability="Global invariant obstruction reasoning; non-constructive impossibility proof.",
+            pedagogical_intent="Bonchkovsky highlights this problem as the archetype of Olympiad thinking: avoiding brute-force search by constructing a global conservation invariant.",
+            page_reference="pp. 18-21",
+            original_russian_text="Задача о покрытии доски домино: каждое домино покрывает одно черное и одно белое поле. Противоположные углы одного цвета. Покрытие невозможно по соображению четности цветов.",
+        )
+        self.register_episode(ep_b1_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_b1_1.episode_id,
+                primitive_symbols=["I", "N", "G"],
+                mapping_breakdown={
+                    "I": "Invariant Reasoning: black-white parity conservation under domino covering.",
+                    "N": "Negative Information: complete elimination of combinatorial tiling attempts.",
+                    "G": "Global Reasoning: global cell count discrepancy supersedes local geometric fitting.",
+                },
+                structural_concordance=0.99,
+                epistemic_notes="Landmark Soviet Olympiad parity invariant problem.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # B2: Shklyarsky et al. (1950) - Arithmetic: Dirichlet Pigeonhole Principle
+        # ---------------------------------------------------------------------
+        ep_b2_1 = DevelopmentalEpisode(
+            episode_id="DEV-B2-SHK-ARITH-01",
+            source_id="B2_SHKLYARSKY_ARITH_ALG_1950",
+            source_citation="Шклярский Д. О., Ченцов Н. Н., Яглом И. М. Избранные задачи и теоремы: Арифметика и алгебра. — М.–Л.: ГИТТЛ, 1950. — Задача 42, с. 24.",
+            corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
+            grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            problem_presented="Theorem of Divisibility: Among any (n + 1) positive integers chosen from {1, 2, ..., 2n}, there always exist two integers such that one divides the other.",
+            representation_supplied="Arbitrary subset of (n + 1) integers chosen from the sequence 1 to 2n.",
+            representation_invented="Dyadic factorization representation: write each integer x in the form x = 2^k * m, where m is an odd integer in {1, 3, 5, ..., 2n - 1}.",
+            allowed_operations=[
+                "Factoring out all powers of 2",
+                "Classifying integers into n pigeonhole bins indexed by their odd part m",
+                "Application of Dirichlet's Principle (Pigeonhole Principle)",
+            ],
+            hint_scaffold="Scaffold prompt: 'How many odd numbers are there in the set {1, 2, ..., 2n}? Exactly n. If we have n + 1 numbers, what can we say about their odd parts?'",
+            key_mathematical_move="Representation shift factoring each number into an odd kernel m and a dyadic scale 2^k, reducing a quadratic number of pairwise divisibility tests to n pigeonhole categories.",
+            what_need_not_be_computed="All C(n+1, 2) pairwise divisibility checks across the chosen subset.",
+            expected_new_capability="Pigeonhole partitioning via canonical representation shifts; non-constructive existence proof.",
+            pedagogical_intent="Shklyarsky and Yaglom use this problem to cultivate the habit of classifying infinite or complex arithmetic structures into finite invariant pigeonholes.",
+            page_reference="p. 24, Problem 42",
+            original_russian_text="Среди любых n+1 чисел из 1, 2, ..., 2n найдутся два, из которых одно делится на другое. Представим каждое число в виде x = 2^k * m, где m — нечетное. Нечетных чисел всего n. По принципу Дирихле...",
+        )
+        self.register_episode(ep_b2_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_b2_1.episode_id,
+                primitive_symbols=["Rs", "Ii", "N"],
+                mapping_breakdown={
+                    "Rs": "Representation Shift: integer x -> dyadic pair (k, m) where m is odd.",
+                    "Ii": "Indirect Inference: Dirichlet pigeonhole principle establishing existence without identifying the specific pair.",
+                    "N": "Negative Information: avoids testing C(n+1, 2) divisibility pairs.",
+                },
+                structural_concordance=0.98,
+                epistemic_notes="Pivotal math-circle application of representation shifts and indirect inference.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # B3: Shklyarsky et al. (1952) - Planimetry: Heron's Shortest Path via Reflection
+        # ---------------------------------------------------------------------
+        ep_b3_1 = DevelopmentalEpisode(
+            episode_id="DEV-B3-SHK-GEOM-01",
+            source_id="B3_SHKLYARSKY_GEOM_1952_1954",
+            source_citation="Шклярский Д. О., Ченцов Н. Н., Яглом И. М. Избранные задачи и теоремы: Планиметрия. — М.: ГИТТЛ, 1952. — Задача 15, с. 18.",
+            corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
+            grade_stage=DevelopmentalStage.GRADE_6_7_PLANAR_GEOMETRY,
+            problem_presented="Heron's Extremum Problem: Given two points A and B on the same side of straight line L, find point P on line L that minimizes the path length |AP| + |PB|.",
+            representation_supplied="Two points A, B in half-plane and line L; broken path APB.",
+            representation_invented="Auxiliary symmetry reflection: reflect point B across line L to B'; straight line segment AB' intersecting L at optimal point P*.",
+            allowed_operations=[
+                "Axial symmetry reflection across line L",
+                "Triangle inequality: straight line segment is the shortest distance between two points",
+                "Isometry preservation of distances: |PB| = |PB'|",
+            ],
+            hint_scaffold="Circle prompt: 'If a ray of light starts at A, reflects off mirror L, and reaches B, how does it travel? Reflect point B to the other side of the mirror.'",
+            key_mathematical_move="Auxiliary reflection converting a non-differentiable broken path minimization into a straight Euclidean line segment.",
+            what_need_not_be_computed="Calculus derivatives, coordinate calculations, or numerical search.",
+            expected_new_capability="Geometric extremum reasoning via symmetry transformations.",
+            pedagogical_intent="Demonstrates how geometric transformations (isometries) solve variational optimization problems without calculus.",
+            page_reference="p. 18, Problem 15",
+            original_russian_text="Кратчайший путь от точки A к точке B с заходом на прямую L: отразим точку B относительно прямой L в точку B'. Кратчайший путь — отрезок AB'. Точка P — точка пересечения AB' с L.",
+        )
+        self.register_episode(ep_b3_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_b3_1.episode_id,
+                primitive_symbols=["Ax", "Rs", "E", "I"],
+                mapping_breakdown={
+                    "Ax": "Auxiliary Construction: reflected symmetry point B'.",
+                    "Rs": "Representation Shift: broken path |AP| + |PB| -> straight line segment |AB'|.",
+                    "E": "Extremal Reasoning: minimizing total distance via triangle inequality.",
+                    "I": "Invariant Reasoning: reflection isometry preserves lengths.",
+                },
+                structural_concordance=0.99,
+                epistemic_notes="Classic variational optimization via geometric symmetry.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # B4: Moscow Olympiad Corpus (1954) - Central Symmetry Game Strategy
+        # ---------------------------------------------------------------------
+        ep_b4_1 = DevelopmentalEpisode(
+            episode_id="DEV-B4-MOSCOW_OLYMPIADS_1935_1957",
+            source_id="B4_MOSCOW_OLYMPIADS_1935_1957",
+            source_citation="Московские математические олимпиады 1935–1957 гг. — М.: МЦНМО, 2006. — 1954 г., с. 142.",
+            corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
+            grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            problem_presented="Game of Pennies on a Table (1954): Two players take turns placing identical circular coins on a round table without overlapping. The last player who can place a coin wins. Who has a winning strategy?",
+            representation_supplied="Circular table of radius R; identical circular coins of radius r; sequential alternating game tree.",
+            representation_invented="Central symmetry involution: center of table O as fixed point; reflection map S_O(X) = X' across O.",
+            allowed_operations=[
+                "First move at table center O",
+                "Symmetric response: for any move by Player 2 at X, Player 1 places coin at central reflection X' = 2*O - X",
+                "Proof of admissibility: if position X is available, position X' is also available by symmetry",
+            ],
+            hint_scaffold="Olympiad committee scaffold: 'The table has central symmetry. Can Player 1 maintain a symmetric state after every one of his turns?'",
+            key_mathematical_move="Control strategy synthesized via geometric involution invariance: maintaining a symmetric configuration guarantees that whenever Player 2 has a move, Player 1 has an unblocked counterpart move.",
+            what_need_not_be_computed="Combinatorial tree search over the continuous space of possible coin packings.",
+            expected_new_capability="Game-theoretic strategy synthesis via geometric symmetry invariants.",
+            pedagogical_intent="Trains students to view adversarial games through the lens of group symmetries and invariant sets.",
+            page_reference="1954, p. 142",
+            original_russian_text="Игра с монетами на круглом столе. Первый игрок ставит первую монету в центр стола, а затем отвечает центрально-симметрично на каждый ход второго игрока. Первый всегда побеждает.",
+        )
+        self.register_episode(ep_b4_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_b4_1.episode_id,
+                primitive_symbols=["I", "C", "N"],
+                mapping_breakdown={
+                    "I": "Invariant Reasoning: central point symmetry involution S_O.",
+                    "C": "Control Intervention: closed-loop policy responding to Player 2's actions.",
+                    "N": "Negative Information: complete omission of game-tree branch evaluation.",
+                },
+                structural_concordance=0.98,
+                epistemic_notes="Foundational game-theoretic invariant strategy.",
+            )
+        )
+
+    def _initialize_canonical_batch_c_episodes(self) -> None:
+        """Initializes canonical extraction episodes for Batch C (Kolmogorov Reform: C1 to C4)."""
+
+        # ---------------------------------------------------------------------
+        # C1: Kolmogorov et al. (1967) - Program Draft: Transformation Groups
+        # ---------------------------------------------------------------------
+        ep_c1_1 = DevelopmentalEpisode(
+            episode_id="DEV-C1-KOLM-DRAFT-01",
+            source_id="C1_KOLMOGOROV_PROGRAM_DRAFT_1967",
+            source_citation="Колмогоров А. Н., Маркушевич А. И., Яглом И. М. Проект программы средней школы // Математика в школе. — 1967. — № 1. — С. 5–24.",
+            corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
+            grade_stage=DevelopmentalStage.TEACHER_METHODOLOGY_DOCTRINE,
+            problem_presented="Reform Intent Doctrine: Replacement of traditional Euclidean congruence axioms with geometric transformation groups and vector spaces.",
+            representation_supplied="Traditional Kiselev Euclidean geometry based on congruent triangles, rigid figures, and construction problems.",
+            representation_invented="Group of plane transformations (Isometries: translations, rotations, reflections) and linear space of vectors R^2.",
+            allowed_operations=[
+                "Composition of geometric transformations",
+                "Vector addition, scalar multiplication, and inner product",
+                "Set-theoretic operations on point sets (subsets of R^2)",
+            ],
+            hint_scaffold="Reformers' thesis: 'Classical Euclidean geometry isolates school mathematics from physics and modern science. Modern geometry is the study of invariants under transformation groups (Klein's Erlangen Program).'",
+            key_mathematical_move="Axiomatic shift: defining geometric congruence not as a static primitive relation, but as an equivalence class under the group of distance-preserving bijections.",
+            what_need_not_be_computed="Dozens of synthetic triangle congruence theorems and auxiliary construction compass drills.",
+            expected_new_capability="Group-theoretic and vector-space spatial modeling; algebraic-geometric synthesis.",
+            pedagogical_intent="Kolmogorov's explicit goal: modernize school education to directly align with 20th-century university mathematics and physics.",
+            page_reference="pp. 5-24",
+            original_russian_text="Проект реформы: геометрия должна строиться на понятии геометрических преобразований (движений) и векторной алгебры, связывая математику с физикой.",
+        )
+        self.register_episode(ep_c1_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_c1_1.episode_id,
+                primitive_symbols=["Rs", "G", "Sc"],
+                mapping_breakdown={
+                    "Rs": "Representation Shift: static figures in the plane -> global mapping transformations f: R^2 -> R^2.",
+                    "G": "Global Reasoning: transformation groups acting globally across the entire space.",
+                    "Sc": "Self-Consistent Closure: axiomatic closure of the transformation group.",
+                },
+                structural_concordance=0.97,
+                epistemic_notes="Constitutive programmatic statement of the Soviet structural reform.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # C2: Kolmogorov (1967/68) - National Program: General Function Mapping
+        # ---------------------------------------------------------------------
+        ep_c2_1 = DevelopmentalEpisode(
+            episode_id="DEV-C2-KOLM-NEW_PROGRAMS_1967_1968",
+            source_id="C2_KOLMOGOROV_NEW_PROGRAMS_1967_1968",
+            source_citation="Колмогоров А. Н. Новые программы по математике // Математика в школе. — 1967. — № 2. — С. 4–13.",
+            corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
+            grade_stage=DevelopmentalStage.GRADE_6_7_ELEMENTARY_ALGEBRA,
+            problem_presented="Curriculum Policy Directive: Introducing the general definition of a function as an arbitrary set mapping f: X -> Y.",
+            representation_supplied="Traditional pre-reform definition of function as an analytical formula y = f(x) or physical quantitative variation.",
+            representation_invented="Set-theoretic mapping schema: arrow diagram from domain X to codomain Y; subset of Cartesian product X x Y satisfying single-valuedness.",
+            allowed_operations=[
+                "Explicit verification of domain of definition D(f)",
+                "Verification of single-valuedness condition: each x has exactly one y",
+                "Functional composition (f o g)(x)",
+            ],
+            hint_scaffold="Program doctrine: 'A function is not just an analytical formula. A function is a rule assigning to each element of set X a unique element of set Y.'",
+            key_mathematical_move="Detaching the function concept from algebraic formulas, establishing domain admissibility as a strict prerequisite.",
+            what_need_not_be_computed="Any numerical value or evaluation table prior to domain verification.",
+            expected_new_capability="Abstract set-theoretic functional thinking; formal domain admissibility control.",
+            pedagogical_intent="Standardizes the Bourbaki/Kolmogorov set-theoretic foundation across secondary school algebra.",
+            page_reference="pp. 4-13",
+            original_russian_text="Функция как отображение одного множества на другое. Область определения и область значений. Преодоление узко-формульного взгляда на функцию.",
+        )
+        self.register_episode(ep_c2_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_c2_1.episode_id,
+                primitive_symbols=["Ad", "Rs"],
+                mapping_breakdown={
+                    "Ad": "Admissibility: strict definition of domain D(f) and range E(f) before computation.",
+                    "Rs": "Representation Shift: formula/graph -> abstract set mapping f: X -> Y.",
+                },
+                structural_concordance=0.96,
+                epistemic_notes="Introduction of set-theoretic functional mappings into school algebra.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # C3: Kolmogorov et al. (1979) - Geometry: Congruence as Isometry
+        # ---------------------------------------------------------------------
+        ep_c3_1 = DevelopmentalEpisode(
+            episode_id="DEV-C3-KOLMOGOROV_GEOMETRY_1979",
+            source_id="C3_KOLMOGOROV_GEOMETRY_1979",
+            source_citation="Колмогоров А. Н., Семенович А. Ф., Черкасов Р. С. Геометрия: 6–8 классы. — М.: Просвещение, 1979. — С. 34–38.",
+            corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
+            grade_stage=DevelopmentalStage.GRADE_6_7_PLANAR_GEOMETRY,
+            problem_presented="Definition of Geometric Congruence (Equality of Figures): Two figures F1 and F2 are congruent if there exists an isometry f: R^2 -> R^2 such that f(F1) = F2.",
+            representation_supplied="Two arbitrary planar figures F1 and F2 (possibly non-polygonal).",
+            representation_invented="Global distance-preserving bijective mapping f mapping every point X in F1 to f(X) in F2 preserving metric distance |f(X)f(Y)| = |XY|.",
+            allowed_operations=[
+                "Composition of fundamental isometries (Translations, Rotations, Axial Reflections)",
+                "Proving the existence of an isometry mapping F1 onto F2",
+            ],
+            hint_scaffold="Kolmogorov textbook scaffold: 'Do not try to pick up figure F1 and lay it on F2 physically. Instead, specify the translation vector or reflection axis that maps F1 to F2.'",
+            key_mathematical_move="Transforming figure congruence from an empirical physical superposition or list of matching angles into the existence of an abstract distance-preserving group action.",
+            what_need_not_be_computed="Manual pairwise side and angle verifications across polygon vertices.",
+            expected_new_capability="Group-action geometric vision; global transformation synthesis.",
+            pedagogical_intent="Directly implements Klein's Erlangen Program in 6th-grade secondary school.",
+            page_reference="pp. 34-38",
+            original_russian_text="Движение — это отображение плоскости на себя, сохраняющее расстояния. Две фигуры называются равными, если существует движение, переводящее одну фигуру в другую.",
+        )
+        self.register_episode(ep_c3_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_c3_1.episode_id,
+                primitive_symbols=["Rs", "I", "G"],
+                mapping_breakdown={
+                    "Rs": "Representation Shift: static congruence relation -> global mapping bijection f.",
+                    "I": "Invariant Reasoning: metric distance invariance |f(X)f(Y)| = |XY|.",
+                    "G": "Global Reasoning: transformation acts on the entire ambient plane R^2 simultaneously.",
+                },
+                structural_concordance=0.98,
+                epistemic_notes="The defining hallmark of the Kolmogorov geometry curriculum.",
+            )
+        )
+
+        # ---------------------------------------------------------------------
+        # C4: Kolmogorov et al. (1983) - Analysis: Derivative as Linearization
+        # ---------------------------------------------------------------------
+        ep_c4_1 = DevelopmentalEpisode(
+            episode_id="DEV-C4-KOLMOGOROV_ALGEBRA_ANALYSIS_1983",
+            source_id="C4_KOLMOGOROV_ALGEBRA_ANALYSIS_1983",
+            source_citation="Колмогоров А. Н. и др. Алгебра и начала анализа: 9–10 классы. — М.: Просвещение, 1983. — С. 112–116.",
+            corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
+            grade_stage=DevelopmentalStage.GRADE_9_10_STEREOMETRY,
+            problem_presented="Definition of the Derivative: For function f(x), compute derivative f'(x0) and establish the tangent line equation.",
+            representation_supplied="Nonlinear curve y = f(x) and secant chord connecting (x0, f(x0)) to (x0 + Delta x, f(x0 + Delta x)).",
+            representation_invented="Local linear approximation schema: Delta f = f'(x0) * Delta x + alpha(Delta x) * Delta x, where alpha(Delta x) -> 0 as Delta x -> 0.",
+            allowed_operations=[
+                "Limit of difference quotient lim (Delta f / Delta x)",
+                "Local linear Taylor approximation (1st order)",
+                "Tangent line construction y - y0 = f'(x0)(x - x0)",
+            ],
+            hint_scaffold="Textbook prompt: 'In a small neighborhood of x0, the curve behaves almost like a straight line. What is the slope of this best approximating straight line?'",
+            key_mathematical_move="Local linear reduction: replacing an intractable nonlinear curve in an infinitesimal neighborhood with its optimal linear tangent operator.",
+            what_need_not_be_computed="Global nonlinear evaluations across distant points.",
+            expected_new_capability="Local infinitesimal linearization; calculus differential operator mastery.",
+            pedagogical_intent="Kolmogorov anchors secondary analysis in the modern concept of differential as the best linear approximation.",
+            page_reference="pp. 112-116",
+            original_russian_text="Производная функции: предел отношения приращения функции к приращению аргумента. Геометрический смысл: угловой коэффициент касательной. Линеаризация приращения.",
+        )
+        self.register_episode(ep_c4_1)
+        self.register_mapping(
+            PrimitiveMappingRecord(
+                episode_id=ep_c4_1.episode_id,
+                primitive_symbols=["L", "Sr", "Ax"],
+                mapping_breakdown={
+                    "L": "Local Reasoning: restricting analysis to an infinitesimal neighborhood Delta x -> 0.",
+                    "Sr": "State Reduction: reduces nonlinear variation to local linear multiplier f'(x0).",
+                    "Ax": "Auxiliary Construction: auxiliary tangent line and differential.",
+                },
+                structural_concordance=0.97,
+                epistemic_notes="Culmination of the secondary analysis curriculum.",
+            )
+        )
+
     def register_episode(self, episode: DevelopmentalEpisode) -> None:
         self.episodes[episode.episode_id] = episode
 
@@ -416,10 +865,45 @@ class DevelopmentalExtractionEngine:
     def list_episodes_by_batch(self, batch: CorpusBatch) -> List[DevelopmentalEpisode]:
         return [ep for ep in self.episodes.values() if ep.corpus_batch == batch]
 
+    def compute_batch_primitive_distribution(self, batch: CorpusBatch) -> Dict[str, int]:
+        """Counts how many times each of the 16 methodological primitives is instantiated in a batch."""
+        episodes = self.list_episodes_by_batch(batch)
+        counter: Counter[str] = Counter()
+        for ep in episodes:
+            mapping = self.primitive_mappings.get(ep.episode_id)
+            if mapping:
+                for p in mapping.primitive_symbols:
+                    counter[p] += 1
+        return dict(counter)
+
+    def compute_cross_batch_comparative_table(self) -> Dict[str, Any]:
+        """Computes comparative distribution of methodological primitives across Batches A, B, and C."""
+        dist_a = self.compute_batch_primitive_distribution(CorpusBatch.BATCH_A_ORDINARY_PROGRESSION)
+        dist_b = self.compute_batch_primitive_distribution(CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT)
+        dist_c = self.compute_batch_primitive_distribution(CorpusBatch.BATCH_C_KOLMOGOROV_REFORM)
+
+        all_primitives = sorted(set(list(dist_a.keys()) + list(dist_b.keys()) + list(dist_c.keys())))
+
+        return {
+            "batch_a_episodes": len(self.list_episodes_by_batch(CorpusBatch.BATCH_A_ORDINARY_PROGRESSION)),
+            "batch_b_episodes": len(self.list_episodes_by_batch(CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT)),
+            "batch_c_episodes": len(self.list_episodes_by_batch(CorpusBatch.BATCH_C_KOLMOGOROV_REFORM)),
+            "primitive_distribution": {
+                p: {
+                    "Batch_A_Ordinary": dist_a.get(p, 0),
+                    "Batch_B_Olympiad": dist_b.get(p, 0),
+                    "Batch_C_Reform": dist_c.get(p, 0),
+                    "Total": dist_a.get(p, 0) + dist_b.get(p, 0) + dist_c.get(p, 0),
+                }
+                for p in all_primitives
+            },
+        }
+
     def export_extraction_dataset(self) -> Dict[str, Any]:
         """Exports all extracted episodes and post-hoc primitive mappings."""
         return {
             "total_episodes": len(self.episodes),
             "episodes": [ep.to_dict() for ep in self.episodes.values()],
             "primitive_mappings": [m.to_dict() for m in self.primitive_mappings.values()],
+            "cross_batch_comparison": self.compute_cross_batch_comparative_table(),
         }

@@ -108,6 +108,117 @@ def test_kiselev_auxiliary_construction_extraction(extraction_engine: Developmen
 
 def test_export_dataset_structure(extraction_engine: DevelopmentalExtractionEngine):
     dataset = extraction_engine.export_extraction_dataset()
-    assert dataset["total_episodes"] >= 8
-    assert len(dataset["episodes"]) == dataset["total_episodes"]
-    assert len(dataset["primitive_mappings"]) == dataset["total_episodes"]
+    assert dataset["total_episodes"] == 20
+    assert len(dataset["episodes"]) == 20
+    assert len(dataset["primitive_mappings"]) == 20
+    assert "cross_batch_comparison" in dataset
+
+
+def test_batch_b_canonical_coverage(extraction_engine: DevelopmentalExtractionEngine):
+    episodes = extraction_engine.list_episodes_by_batch(CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT)
+    assert len(episodes) == 4
+    ep_ids = {ep.episode_id for ep in episodes}
+    assert "DEV-B1-BONCH-01" in ep_ids
+    assert "DEV-B2-SHK-ARITH-01" in ep_ids
+    assert "DEV-B3-SHK-GEOM-01" in ep_ids
+    assert "DEV-B4-MOSCOW_OLYMPIADS_1935_1957" in ep_ids
+
+    # Bonchkovsky Parity Invariant
+    ep_b1 = extraction_engine.get_episode("DEV-B1-BONCH-01")
+    assert ep_b1 is not None
+    assert "parity" in ep_b1.key_mathematical_move.lower()
+    mapping_b1 = extraction_engine.get_mapping("DEV-B1-BONCH-01")
+    assert "I" in mapping_b1.primitive_symbols
+    assert "N" in mapping_b1.primitive_symbols
+
+    # Shklyarsky Dirichlet Pigeonhole
+    ep_b2 = extraction_engine.get_episode("DEV-B2-SHK-ARITH-01")
+    assert ep_b2 is not None
+    assert "pigeonhole" in ep_b2.key_mathematical_move.lower() or "dirichlet" in ep_b2.pedagogical_intent.lower()
+    mapping_b2 = extraction_engine.get_mapping("DEV-B2-SHK-ARITH-01")
+    assert "Ii" in mapping_b2.primitive_symbols
+    assert "N" in mapping_b2.primitive_symbols
+
+    # Shklyarsky Heron Reflection
+    ep_b3 = extraction_engine.get_episode("DEV-B3-SHK-GEOM-01")
+    assert ep_b3 is not None
+    assert "reflection" in ep_b3.key_mathematical_move.lower()
+    mapping_b3 = extraction_engine.get_mapping("DEV-B3-SHK-GEOM-01")
+    assert "E" in mapping_b3.primitive_symbols
+    assert "Ax" in mapping_b3.primitive_symbols
+
+    # Moscow Olympiad Central Symmetry Strategy
+    ep_b4 = extraction_engine.get_episode("DEV-B4-MOSCOW_OLYMPIADS_1935_1957")
+    assert ep_b4 is not None
+    assert "symmetric" in ep_b4.key_mathematical_move.lower() or "symmetry" in ep_b4.hint_scaffold.lower()
+    mapping_b4 = extraction_engine.get_mapping("DEV-B4-MOSCOW_OLYMPIADS_1935_1957")
+    assert "C" in mapping_b4.primitive_symbols
+    assert "I" in mapping_b4.primitive_symbols
+
+
+def test_batch_c_canonical_coverage(extraction_engine: DevelopmentalExtractionEngine):
+    episodes = extraction_engine.list_episodes_by_batch(CorpusBatch.BATCH_C_KOLMOGOROV_REFORM)
+    assert len(episodes) == 4
+    ep_ids = {ep.episode_id for ep in episodes}
+    assert "DEV-C1-KOLM-DRAFT-01" in ep_ids
+    assert "DEV-C2-KOLM-NEW_PROGRAMS_1967_1968" in ep_ids
+    assert "DEV-C3-KOLMOGOROV_GEOMETRY_1979" in ep_ids
+    assert "DEV-C4-KOLMOGOROV_ALGEBRA_ANALYSIS_1983" in ep_ids
+
+    # Kolmogorov Draft Transformation Groups
+    ep_c1 = extraction_engine.get_episode("DEV-C1-KOLM-DRAFT-01")
+    assert ep_c1 is not None
+    assert "group" in ep_c1.key_mathematical_move.lower() or "transformation" in ep_c1.pedagogical_intent.lower()
+    mapping_c1 = extraction_engine.get_mapping("DEV-C1-KOLM-DRAFT-01")
+    assert "G" in mapping_c1.primitive_symbols
+    assert "Sc" in mapping_c1.primitive_symbols
+
+    # Kolmogorov New Programs Function Mapping
+    ep_c2 = extraction_engine.get_episode("DEV-C2-KOLM-NEW_PROGRAMS_1967_1968")
+    assert ep_c2 is not None
+    assert "domain" in ep_c2.key_mathematical_move.lower() or "mapping" in ep_c2.pedagogical_intent.lower()
+    mapping_c2 = extraction_engine.get_mapping("DEV-C2-KOLM-NEW_PROGRAMS_1967_1968")
+    assert "Rs" in mapping_c2.primitive_symbols
+    assert "Ad" in mapping_c2.primitive_symbols
+
+    # Kolmogorov Geometry Distance Preserving Isometry
+    ep_c3 = extraction_engine.get_episode("DEV-C3-KOLMOGOROV_GEOMETRY_1979")
+    assert ep_c3 is not None
+    assert "isometry" in ep_c3.key_mathematical_move.lower() or "distance-preserving" in ep_c3.key_mathematical_move.lower()
+    mapping_c3 = extraction_engine.get_mapping("DEV-C3-KOLMOGOROV_GEOMETRY_1979")
+    assert "Rs" in mapping_c3.primitive_symbols
+    assert "I" in mapping_c3.primitive_symbols
+    assert "G" in mapping_c3.primitive_symbols
+
+    # Kolmogorov Analysis Local Linearization
+    ep_c4 = extraction_engine.get_episode("DEV-C4-KOLMOGOROV_ALGEBRA_ANALYSIS_1983")
+    assert ep_c4 is not None
+    assert "linear" in ep_c4.key_mathematical_move.lower()
+    mapping_c4 = extraction_engine.get_mapping("DEV-C4-KOLMOGOROV_ALGEBRA_ANALYSIS_1983")
+    assert "L" in mapping_c4.primitive_symbols
+    assert "Sr" in mapping_c4.primitive_symbols
+
+
+def test_cross_batch_comparative_table(extraction_engine: DevelopmentalExtractionEngine):
+    table = extraction_engine.compute_cross_batch_comparative_table()
+    assert table["batch_a_episodes"] == 12
+    assert table["batch_b_episodes"] == 4
+    assert table["batch_c_episodes"] == 4
+
+    p_dist = table["primitive_distribution"]
+    # Verify signature shifts
+    # Batch A high in N, Ax, Rs, Sr
+    assert p_dist["N"]["Batch_A_Ordinary"] == 6
+    assert p_dist["Ax"]["Batch_A_Ordinary"] == 6
+    assert p_dist["Rs"]["Batch_A_Ordinary"] == 8
+
+    # Batch B introduces E and C
+    assert p_dist["E"]["Batch_B_Olympiad"] == 1
+    assert p_dist["C"]["Batch_B_Olympiad"] == 1
+    assert p_dist["E"]["Batch_A_Ordinary"] == 0
+
+    # Batch C introduces Sc and L, high in G
+    assert p_dist["Sc"]["Batch_C_Reform"] == 1
+    assert p_dist["L"]["Batch_C_Reform"] == 1
+    assert p_dist["G"]["Batch_C_Reform"] == 2
+
