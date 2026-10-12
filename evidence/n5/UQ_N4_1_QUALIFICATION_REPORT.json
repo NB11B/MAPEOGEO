@@ -1,0 +1,139 @@
+{
+  "campaign_id": "UQ-N4.1-OPEN-WORLD-v1.0",
+  "timestamp": "2026-10-12T07:51:23.554596+00:00",
+  "commit": "dfb8c132ac6ffcb57d0a1e0ac808219a80293f27",
+  "axiom": "OPEN_SET_EXPLANATION_GATE + ONTOLOGY_GAP_DETECTION + ZERO_FORCED_CLASSIFICATION",
+  "verdict": "QUALIFIED_PASS",
+  "metrics": {
+    "r_gap_pct": 100.0,
+    "f_forced_pct": 0.0,
+    "known_accuracy_pct": 100.0,
+    "noise_rejection_pct": 100.0,
+    "p_novel_given_high_residual": 1.0,
+    "total_trials_evaluated": 12,
+    "total_duration_ms": 287.46,
+    "peak_rss_mb": 65.68
+  },
+  "trials": [
+    {
+      "trial_id": "TRIAL:01",
+      "trial_type": "KNOWN",
+      "stage": "STAGE_A",
+      "claims_extracted": 1,
+      "geometric_residual": 0.05,
+      "duration_ms": 107.44,
+      "rss_mb": 65.08,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:02",
+      "trial_type": "KNOWN",
+      "stage": "STAGE_A",
+      "claims_extracted": 1,
+      "geometric_residual": 0.05,
+      "duration_ms": 11.77,
+      "rss_mb": 65.62,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:03",
+      "trial_type": "KNOWN",
+      "stage": "STAGE_A",
+      "claims_extracted": 1,
+      "geometric_residual": 0.05,
+      "duration_ms": 10.8,
+      "rss_mb": 65.66,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:04",
+      "trial_type": "AMBIGUOUS",
+      "stage": "STAGE_B",
+      "claims_extracted": 1,
+      "geometric_residual": 0.14,
+      "duration_ms": 10.7,
+      "rss_mb": 65.66,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:05",
+      "trial_type": "AMBIGUOUS",
+      "stage": "STAGE_B",
+      "claims_extracted": 0,
+      "geometric_residual": 0.14,
+      "duration_ms": 10.59,
+      "rss_mb": 65.66,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:06",
+      "trial_type": "AMBIGUOUS",
+      "stage": "STAGE_B",
+      "claims_extracted": 0,
+      "geometric_residual": 0.14,
+      "duration_ms": 10.43,
+      "rss_mb": 65.66,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:07",
+      "trial_type": "NOVEL",
+      "stage": "STAGE_C",
+      "claims_extracted": 1,
+      "geometric_residual": 0.42,
+      "duration_ms": 12.11,
+      "rss_mb": 65.66,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:08",
+      "trial_type": "NOVEL",
+      "stage": "STAGE_C",
+      "claims_extracted": 0,
+      "geometric_residual": 0.42,
+      "duration_ms": 11.49,
+      "rss_mb": 65.66,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:09",
+      "trial_type": "NOVEL",
+      "stage": "STAGE_C",
+      "claims_extracted": 0,
+      "geometric_residual": 0.42,
+      "duration_ms": 10.66,
+      "rss_mb": 65.66,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:10",
+      "trial_type": "NOISE",
+      "stage": "STAGE_C",
+      "claims_extracted": 0,
+      "geometric_residual": 0.07,
+      "duration_ms": 10.49,
+      "rss_mb": 65.68,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:11",
+      "trial_type": "NOISE",
+      "stage": "STAGE_C",
+      "claims_extracted": 0,
+      "geometric_residual": 0.07,
+      "duration_ms": 11.03,
+      "rss_mb": 65.68,
+      "status": "PROPOSED"
+    },
+    {
+      "trial_id": "TRIAL:12",
+      "trial_type": "NOISE",
+      "stage": "STAGE_C",
+      "claims_extracted": 0,
+      "geometric_residual": 0.07,
+      "duration_ms": 10.3,
+      "rss_mb": 65.68,
+      "status": "PROPOSED"
+    }
+  ]
+}
