@@ -496,6 +496,75 @@ class ResearchFrontierCoordinator:
                 metadata={"bridge_id": "XBRIDGE:T6_T2", "intersection_concept": "Stochastic Automata Adaptation vs Extremal Control"},
                 target_channel=InstitutionalChannelType.DOCUMENTED_CITATION_TRANSFER,
             ),
+            # --- 4 Core Cross-Graph (SOVCTX -> BCIG) Research Frontier Questions ---
+            ResearchQuestion(
+                question_id="RQ:BCIG_XGRAPH:0001",
+                thread_id="T10",
+                originating_evidence="Feldbaum (1960) Dual Control & Tsetlin (1961) Automata",
+                question_text="When does acting to reduce uncertainty first become an explicit mathematical principle, and how does it propagate through Soviet control and cybernetics?",
+                relation_under_test="REPRESENT -> PROBE (ACT_TO_KNOW) -> OBSERVE -> UPDATE -> CONTROL",
+                known_endpoints=["Feldbaum", "Tsetlin", "Pontryagin", "Stratonovich"],
+                unknown_endpoint=True,
+                temporal_window="1955-1970",
+                priority_components=PriorityComponents(
+                    novelty=1.0, bridge_potential=1.0, evidentiary_quality=0.95,
+                    corroboration_potential=0.9, historical_gap_value=1.0, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"cross_graph_target": "BCIG:Epistemic Action (ACT_TO_KNOW)", "research_theme": "Epistemic Action"},
+                target_channel=InstitutionalChannelType.STRUCTURAL_MATHEMATICAL_CONTINUITY,
+            ),
+            ResearchQuestion(
+                question_id="RQ:BCIG_XGRAPH:0002",
+                thread_id="T11",
+                originating_evidence="Bernstein (1966), Anokhin (1968), Feldbaum (1960), Tsetlin (1961)",
+                question_text="How do Bernstein's model of the future, Anokhin's action-result acceptor, Feldbaum's uncertainty reduction, and Tsetlin's adaptive automata relate historically and structurally?",
+                relation_under_test="FUTURE_MODEL -> ACTION_ACCEPTOR -> PROBE_STEP -> CONVERGENCE",
+                known_endpoints=["Bernstein", "Anokhin", "Feldbaum", "Tsetlin"],
+                unknown_endpoint=True,
+                temporal_window="1945-1970",
+                priority_components=PriorityComponents(
+                    novelty=0.95, bridge_potential=1.0, evidentiary_quality=0.9,
+                    corroboration_potential=0.9, historical_gap_value=0.95, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"cross_graph_target": "BCIG:Closed Adaptive Intelligence", "research_theme": "Internal Result Models"},
+                target_channel=InstitutionalChannelType.STRUCTURAL_MATHEMATICAL_CONTINUITY,
+            ),
+            ResearchQuestion(
+                question_id="RQ:BCIG_XGRAPH:0003",
+                thread_id="T11",
+                originating_evidence="Ashby (1952), Grey Walter (1950), Anokhin (1968)",
+                question_text="Which cybernetic and bionic systems actually possess internally generated viability constraints (endogenous self-maintenance) integrated into the intelligence loop rather than externally supplied objectives?",
+                relation_under_test="INTERNAL_DEFICIT -> ENDOGENOUS_GOAL -> ACTION -> VIABILITY_RESTORED",
+                known_endpoints=["Anokhin", "Ashby", "Walter", "Bernstein"],
+                unknown_endpoint=True,
+                temporal_window="1948-1972",
+                priority_components=PriorityComponents(
+                    novelty=1.0, bridge_potential=1.0, evidentiary_quality=0.85,
+                    corroboration_potential=0.85, historical_gap_value=1.0, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"cross_graph_target": "BCIG:Endogenous Self-Maintenance", "research_theme": "Endogenous Self-Maintenance"},
+                target_channel=InstitutionalChannelType.STRUCTURAL_MATHEMATICAL_CONTINUITY,
+            ),
+            ResearchQuestion(
+                question_id="RQ:BCIG_XGRAPH:0004",
+                thread_id="T12",
+                originating_evidence="Chebyshev (1854), Samarskii (1967), Lebedev (1968)",
+                question_text="How were bounded computation, approximation, uncertainty, limited memory, and real-time control treated as intrinsic mathematical parts of intelligent-system design?",
+                relation_under_test="BOUNDED_MEMORY -> MINIMAX_APPROXIMATION -> INVERSE_REGULARIZATION -> REAL_TIME_CONTROL",
+                known_endpoints=["Chebyshev", "Samarskii", "Lebedev", "Tikhonov"],
+                unknown_endpoint=True,
+                temporal_window="1955-1975",
+                priority_components=PriorityComponents(
+                    novelty=0.9, bridge_potential=0.95, evidentiary_quality=0.9,
+                    corroboration_potential=0.85, historical_gap_value=0.9, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"cross_graph_target": "BCIG:Resource-Bounded Intelligence", "research_theme": "Finite Intelligence"},
+                target_channel=InstitutionalChannelType.INSTITUTIONAL_CONTINUITY,
+            ),
         ]
 
         for q in seed_questions:
@@ -508,18 +577,18 @@ class ResearchFrontierCoordinator:
         bridges_quota = max(1, round(total_slots * 0.30))
         anomalies_quota = max(1, total_slots - spines_quota - bridges_quota)
 
-        # 1. Spines: T1 through T6 open questions that are NOT explicit cross-bridges
+        # 1. Spines: T1 through T6 open questions that are NOT explicit cross-bridges or cross-graph
         spines_candidates = [
             q for q in self.ledger.get_open_questions()
-            if q.thread_id in ("T1", "T2", "T3", "T4", "T5", "T6") and "XBRIDGE" not in q.question_id
+            if q.thread_id in ("T1", "T2", "T3", "T4", "T5", "T6") and "XBRIDGE" not in q.question_id and "BCIG_XGRAPH" not in q.question_id
         ]
         spines_candidates.sort(key=lambda x: x.priority, reverse=True)
         selected_spines = spines_candidates[:spines_quota]
 
-        # 2. Bridges: T7, T8, or explicit cross-bridge questions
+        # 2. Bridges: T7, T8, cross-bridge questions, or cross-graph questions
         bridges_candidates = [
             q for q in self.ledger.get_open_questions()
-            if q.thread_id in ("T7", "T8") or "XBRIDGE" in q.question_id or "XBRIDGE" in q.metadata.get("bridge_id", "")
+            if q.thread_id in ("T7", "T8") or "XBRIDGE" in q.question_id or "BCIG_XGRAPH" in q.question_id or "XBRIDGE" in q.metadata.get("bridge_id", "")
         ]
         bridges_candidates.sort(key=lambda x: x.priority, reverse=True)
         selected_bridges = bridges_candidates[:bridges_quota]
