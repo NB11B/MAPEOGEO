@@ -40,6 +40,13 @@ from sovctx.node.research_question import (
     ThreadSaturationDetector,
     ThreadSaturationState,
 )
+from sovctx.node.leibniz_bocker import (
+    DiagnosticRegime,
+    LeibnizBockerDiagnostics,
+    LeibnizBockerTracker,
+    SubspaceIdentifiability,
+)
+from sovctx.node.nano_research_worker import ResearchStateVectorBuilder
 from sovctx.tools.graph_io import load_records, split_records
 
 
@@ -503,6 +510,7 @@ class EpochCheckpoint:
     worker_rss_mb: float
     load_1m: float
     open_questions_remaining: int
+    geometric_observation: Optional[Dict[str, Any]] = None
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -528,6 +536,12 @@ class ResearchShakedownSupervisor:
         self.guard = ResourceGuard()
         self.index = CorpusGraphIndex()
         self.prober = ResearchProber(self.index)
+
+        # G1 Geometric Observer (Self-Observation in Shadow Mode)
+        self.tracker = LeibnizBockerTracker(k=2, alpha=0.5, dt=1.0)
+        self.state_history: List[np.ndarray] = []
+        self.shadow_mode: bool = True
+        self.latest_geom_obs: Optional[Dict[str, Any]] = None
 
         # Telemetry and state trackers
         self.campaign_start_time: float = 0.0
@@ -728,6 +742,70 @@ class ResearchShakedownSupervisor:
         epoch_end_iso = utc_now_iso()
         actual_duration = round(time.time() - epoch_start, 2)
 
+        # G1 Geometric Self-Observation Layer (Lightweight ~0.1ms computation)
+        t_counts = {t_id: stats["probes"] for t_id, stats in self.thread_probe_stats.items()}
+        v_counts = {
+            v: sum(1 for r in self.all_new_relations[-max(1, epoch_new_relations):] if v in r.get("relation", ""))
+            for v in ["STABILIZE", "CONTROL", "INVERT", "CONSTRAIN", "PROBE", "REPRESENT", "OBSERVE", "UPDATE", "ADAPT", "REGULARIZE"]
+        }
+        state_vec = ResearchStateVectorBuilder.build_vector(
+            thread_counts=t_counts,
+            verb_counts=v_counts,
+            bridge_count=len(epoch_spawned),
+            max_descendant_depth=max(1, epoch_index),
+            institution_counts={"Steklov": 2, "IAT": 3},
+            question_type_counts={
+                "spines": max(0, epoch_probed - len(epoch_spawned)),
+                "bridges": len(epoch_spawned),
+                "descendants": epoch_probed - epoch_resolved,
+            },
+        )
+        self.state_history.append(state_vec)
+
+        if len(self.state_history) == 1:
+            phi_t = state_vec.copy()
+        else:
+            phi_t = self.state_history[-1] - self.state_history[-2]
+
+        diag = self.tracker.step(phi_t, step_label=f"Epoch_{epoch_index:02d}", t=epoch_index)
+
+        # Caution signal for shrinking eigengap:
+        tau_speed_low = self.tracker.thresholds.get("speed_low", 0.25)
+        tau_speed_high = self.tracker.thresholds.get("speed_high", 0.70)
+        tau_res_high = self.tracker.thresholds.get("residual_high", 0.35)
+
+        if diag.speed_max_angle <= tau_speed_low and not diag.is_subspace_identifiable:
+            interp = "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION"
+            advice = "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION"
+        elif diag.speed_max_angle > tau_speed_high:
+            interp = "RAPID_STRUCTURAL_REORIENTATION"
+            advice = "ALLOCATE_EXPLORATORY_PROBES"
+        elif diag.residual_norm > tau_res_high:
+            interp = "HIGH_RESIDUAL_NOVELTY"
+            advice = "REQUEST_THREAD_PROMOTION_EVALUATION"
+        elif diag.regime == DiagnosticRegime.STABLE_REGIME:
+            interp = "CONFINED_NORMAL_MODE_STABLE"
+            advice = "MAINTAIN_CURRENT_DESCENT"
+        else:
+            interp = "STEADY_DRIFT_ADAPTATION"
+            advice = "CONTINUE_BALANCED_EXPLORATION"
+
+        geom_obs = {
+            "speed_max_angle": diag.speed_max_angle,
+            "speed_projector": diag.speed_projector,
+            "kappa_g": diag.kappa_g,
+            "residual_norm": diag.residual_norm,
+            "spectral_gap": diag.spectral_gap,
+            "relative_gap": diag.relative_gap,
+            "davis_kahan_ratio": diag.davis_kahan_ratio,
+            "identifiability": diag.identifiability.value,
+            "regime": diag.regime.value,
+            "interpretation": interp,
+            "recommended_action": advice,
+            "shadow_mode": self.shadow_mode,
+        }
+        self.latest_geom_obs = geom_obs
+
         checkpoint = EpochCheckpoint(
             epoch_index=epoch_index,
             started_at=epoch_start_iso,
@@ -744,6 +822,7 @@ class ResearchShakedownSupervisor:
             worker_rss_mb=round(rss_samples[-1], 2) if rss_samples else 0.0,
             load_1m=round(load_samples[-1], 2) if load_samples else 0.0,
             open_questions_remaining=len(self.coordinator.ledger.get_open_questions()),
+            geometric_observation=geom_obs,
         )
 
         self._save_checkpoint(checkpoint)
@@ -751,6 +830,7 @@ class ResearchShakedownSupervisor:
 
         print(f"<<< Epoch {epoch_index:02d} Completed: {checkpoint.questions_probed} probes | {checkpoint.questions_resolved} resolved | "
               f"RAM: {checkpoint.average_ram_mb} MB | Temp: {checkpoint.average_temp_c}°C | Open Qs: {checkpoint.open_questions_remaining}", flush=True)
+        print(f"    [G1 OBSERVER (SHADOW)] Speed={diag.speed_max_angle:.4f} | Gap={diag.spectral_gap:.4f} | Ident={diag.identifiability.value} | Advice={advice}", flush=True)
 
         return checkpoint
 
@@ -787,6 +867,7 @@ class ResearchShakedownSupervisor:
                 "thermal_max_c": temp_c,
                 "load_1m": load_1m,
             },
+            "geometric_observation": self.latest_geom_obs,
             "last_heartbeat": utc_now_iso(),
         }
         live_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")

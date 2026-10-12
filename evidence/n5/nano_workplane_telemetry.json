@@ -1,0 +1,46 @@
+{
+  "worker_id": "nano-jetson-01",
+  "uow_id": "UOW_BOUNDED_NANO_001",
+  "sequence_idx": 1,
+  "state": "REPORTING",
+  "candidate_bundle": {
+    "uow_id": "UOW_BOUNDED_NANO_001",
+    "parent_uow_id": null,
+    "sequence_idx": 1,
+    "sources": [],
+    "relations": [],
+    "questions": [],
+    "content_hash": "19646836eadfb320386ab8aec60b660cee8f908b93a1b97bf1a414e1bdcfb645"
+  },
+  "geometric_observation": {
+    "epoch_idx": 1,
+    "step_idx": 1,
+    "speed_max_angle": 0.0,
+    "speed_projector": 0.0,
+    "kappa_g": 0.0,
+    "residual_norm": 0.0,
+    "spectral_gap": 7.059873578330645e-15,
+    "relative_gap": 2.315481195315844e-16,
+    "davis_kahan_ratio": 0.0,
+    "identifiability": "NON_IDENTIFIABLE",
+    "regime": "IDENTIFIABILITY_DEGRADED",
+    "eigenvalues": [
+      30.489876543209885,
+      7.105427357601002e-15,
+      4.5553779270356596e-17,
+      1.3749128610084678e-17,
+      1.1449288575343892e-17,
+      8.241688709478613e-18,
+      6.590723346528277e-18,
+      2.499162690750434e-22
+    ],
+    "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
+    "recommended_action": "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION",
+    "shadow_mode": true
+  },
+  "ram_available_mb": 1274.34,
+  "worker_rss_mb": 64.1,
+  "thermal_max_c": 50.0,
+  "backpressure_flag": false,
+  "causal_sequence_id": 1
+}
