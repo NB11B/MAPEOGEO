@@ -208,6 +208,20 @@ class WesternBenchmarkSpecification:
             test_statistic="Kullback-Leibler divergence D_KL(P_sov || P_west) and verb-by-verb odds ratios",
             falsification_condition="D_KL < 0.15 bits or failure of STABILIZE/CONSTRAIN enrichment.",
         ),
+        FormalHypothesis(
+            hypothesis_id="H4_CROSS_DOMAIN_RECURRENCE",
+            formula="CrossDomainRecurrence(Soviet) > CrossDomainRecurrence(Western)",
+            title="Cross-Domain Grammatical Reuse Differential",
+            description=(
+                "Identical operational grammars (such as state representation -> perturbation -> stability -> control, "
+                "or observe -> invert -> constrain -> stabilize) reappear across formally distinct physical and "
+                "mathematical domains (optimal control, inverse scattering, kinetic plasma, approximation theory, "
+                "radar antenna synthesis, and supercomputing). This cross-domain structural reuse across disparate "
+                "physical applications is significantly higher in the Soviet corpus than in matched Western literature."
+            ),
+            test_statistic="Cross-domain recurrence index CDR(G) = |{distinct applied domains sharing grammar G}| and domain dispersion entropy",
+            falsification_condition="CDR(Soviet) <= CDR(Western) across target grammars S1, S2, S3.",
+        ),
     ]
 
     def export_specification(self, output_dir: Path) -> dict[str, Any]:
@@ -239,8 +253,8 @@ class WesternBenchmarkSpecification:
             "matched_field_pairs": [asdict(p) for p in self.MATCHED_PAIRS],
             "formal_hypotheses": [asdict(h) for h in self.FORMAL_HYPOTHESES],
             "verdict_criteria": {
-                "STRONG_CONFIRMATION": "All three hypotheses (H1, H2, H3) confirmed at p < 0.01.",
-                "MODERATE_CONFIRMATION": "H1 confirmed (entropy reduction) and H2 confirmed on at least 2/3 target grammars.",
+                "STRONG_CONFIRMATION": "All four hypotheses (H1, H2, H3, H4) confirmed at p < 0.01.",
+                "MODERATE_CONFIRMATION": "H1 confirmed (entropy reduction) and at least 2 of (H2, H3, H4) confirmed.",
                 "FALSIFICATION": "H1 fails (Delta_H >= 0), indicating relational transitions are universal to applied mathematics rather than culturally or epistemically distinct.",
             },
         }

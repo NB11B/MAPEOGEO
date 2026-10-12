@@ -138,7 +138,7 @@ def test_school_relational_fingerprints_and_clustering() -> None:
 def test_western_comparison_specification_structure() -> None:
     benchmark = WesternBenchmarkSpecification()
     assert len(benchmark.MATCHED_PAIRS) == 4
-    assert len(benchmark.FORMAL_HYPOTHESES) == 3
+    assert len(benchmark.FORMAL_HYPOTHESES) == 4
 
     fields = [p.domain_field for p in benchmark.MATCHED_PAIRS]
     assert "DYNAMICAL_SYSTEMS_AND_OPTIMAL_CONTROL" in fields
@@ -150,3 +150,4 @@ def test_western_comparison_specification_structure() -> None:
     assert "H1_TRANSITION_ENTROPY_DIFFERENTIAL" in h_ids
     assert "H2_TARGET_GRAMMAR_EPISODE_DENSITY" in h_ids
     assert "H3_RELATIONAL_OPERATOR_DIVERGENCE" in h_ids
+    assert "H4_CROSS_DOMAIN_RECURRENCE" in h_ids

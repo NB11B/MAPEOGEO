@@ -14,7 +14,7 @@
 This paper presents the formal topological, relational, information-theoretic, and falsification audit of the Soviet Context Knowledge Graph (`SOVCTX-KG`). Following the qualification of the autonomous ingest and synthesis pipeline (Gates N0 through N4.5) and the initial relational duality interrogation (SOVCTX-R1), this version (v0.2) subjects the emerging intellectual structure to rigorous multi-resolution accounting, randomized semantic controls (Control-E), Leave-One-School-Out (LOSO) and Leave-One-Era-Out (LOEO) perturbation audits, blinded school relational fingerprinting, and a matched Western comparison framework.
 
 ### The Central Thesis:
-> **A relational analysis of Russian and Soviet mathematics reveals a persistent problem-solving architecture organized around state representation, transformation, admissibility, stability, indirect observation, and reconstruction. These relations recur across otherwise distinct mathematical schools, survive temporal and structural controls, recover historical school identity even when names are hidden, and appear repeatedly in documented transitions from mathematical theory into engineering practice.**
+> **The Russian/Soviet mathematical corpus examined here exhibits persistent relation-centered problem-solving structures that recur across historically distinct schools. These structures are expressed through sequences involving representation, perturbation, stability, control, inversion, constraint, reduction, and reconstruction. Their recurrence cannot be explained solely by graph topology, edge-frequency distributions, temporal clustering, or the semantic labeling scheme used to construct the derived relation graph.**
 
 The empirical graph supports this recognizable, highly continuous problem-solving tradition much more strongly than it supports a naive, ideological binary of "Soviet mathematics versus Western mathematics." Across eight anchor schools spanning 250 years, the recurring intellectual unit is not an isolated equation, function, or standalone existence theorem, but an interconnected sequence of operational transformations:
 
@@ -34,11 +34,12 @@ flowchart LR
    - **Inverse Problem Grammar ($S_1$):** $\text{OBSERVE} \to \text{INVERT} \to \text{CONSTRAIN} \to \text{STABILIZE}$ accounts for 1,648 raw paths spanning **3 unique publications**, **2 equation families**, **7 unique equations**, and 2 distinct schools (Tikhonov and Gelfand-Levitan), with a structural compression ratio of 235.43 paths/equation.
    - **Dynamical Control Grammar ($S_2$):** $\text{REPRESENT} \to \text{PERTURB} \to \text{STABILIZE} \to \text{CONTROL}$ accounts for 378 raw paths spanning **2 unique publications**, **2 equation families**, **6 unique equations**, and 2 distinct schools (Lyapunov and Pontryagin), with a compression ratio of 63.0 paths/equation.
    - **Collective Kinetics Grammar ($S_3$):** $\text{REPRESENT} \to \text{REDUCE} \to \text{EVOLVE} \to \text{RECONSTRUCT}$ accounts for 260 raw paths spanning **3 unique publications**, **1 equation family**, **4 unique equations**, and the Vlasov kinetic school, with a compression ratio of 65.0 paths/equation.
-2. **Information-Theoretic Compression:** Transitioning from an entity-relational tuple description ($H(E) = 21.80\text{ bits/edge}$) to a relation-first dual graph transition representation ($H(R_{\text{next}} \mid R_{\text{curr}}) = 2.96\text{ bits/edge}$) yields an **86.41% structural description reduction**. Furthermore, conditioning on the current operational verb reduces uncertainty by **4.94%** relative to the zero-memory marginal verb entropy ($H(R) = 3.12\text{ bits/edge}$), confirming strong grammatical transition constraints.
-3. **Semantic Non-Randomness Under Control-E:** In addition to structural graph controls (Controls A–D), a semantic permutation model (**Control-E**) freezing the exact graph topology, degree distribution, source-family hubs, and temporal bins while randomizing only semantic verb assignments demonstrates that $S_1, S_2, S_3$ cannot be attributed to labeling artifacts ($p < 0.05$ across all target grammars).
+2. **Behavioral Transition Predictability vs. Graph Description:** The operational metric of mathematical behavior is the **4.94% conditional predictability improvement** from a zero-memory marginal verb entropy of $H(R) = 3.12\text{ bits/edge}$ down to a transition entropy of $H(R_{\text{next}} \mid R_{\text{curr}}) = 2.96\text{ bits/edge}$. (The complementary 86.41% reduction from $H(E) = 21.80$ to $2.96$ is an architectural graph encoding comparison between entity tuples and relation line graphs, and remains secondary).
+3. **Semantic Non-Randomness Under Control-E:** In addition to structural graph controls (Controls A–D), a semantic permutation model (**Control-E**) freezing the exact graph topology, degree distribution, source-family hubs, and temporal bins while randomizing only semantic verb assignments demonstrates that $S_1, S_2, S_3$ cannot be attributed to labeling artifacts ($p < 0.05$ across all target grammars, with dynamical control especially strong at $Z = 2.50$, $p = 0.0396$).
 4. **LOSO Multi-School Validation:** Leave-One-School-Out audits confirm that $S_1$ is not an idiosyncratic artifact of A. N. Tikhonov alone: excluding Tikhonov preserves **840 valid $S_1$ paths (50.97%)** through the independent Gelfand-Levitan spectral inversion lineage. Similarly, $S_2$ represents an authentic inter-school synthesis bridging Lyapunov's 1892 stability formulation and Pontryagin's 1960 maximum principle.
 5. **LOEO Layer Accumulation:** Leave-One-Era-Out audits confirm that the 1945–1970 High Cold War era functions as the **structural codification apex** uniting 19th-century foundations into modern engineering practice. Rather than replacing older operations, each historical era contributes an additive layer to an increasingly capable Soviet engineering-mathematics stack.
-6. **Blinded Relational School Fingerprints:** Profiling each school as a 17-verb normalized probability vector $v_s$ recovers historical school affinities without person names: Lyapunov and Pontryagin cluster with an ultra-low cosine distance of **0.0519**, while Tikhonov and Gelfand-Levitan cluster at **0.1255**, with intra-cluster distance significantly lower than inter-cluster distance.
+6. **Blinded Relational School Fingerprints & Crucial Clustering Qualification:** Profiling each school as a 17-verb normalized probability vector $v_s$ recovers historical school affinities without person names: Lyapunov and Pontryagin cluster with an ultra-low cosine distance of **0.0519**, Tikhonov and Gelfand-Levitan at **0.1255**, Gelfand-Levitan and Faddeev at **0.1358**, and Chebyshev and Markov at **0.1610**. However, the global mean intra-cluster distance ($0.2902$) is only marginally below the inter-cluster distance ($0.2998$), indicating that while specific recognized lineages have detectable relational affinity, the global clustering separation is weak and the overall tradition does not cleanly divide into mutually isolated silos.
+7. **Lineage Framing:** The observed relational persistence is consistent with a longer relational mathematical tradition whose historical antecedents may include Leibnizian and St. Petersburg mathematical lineages, but the present graph supports structural continuity more strongly than direct genealogical descent.
 
 ---
 
@@ -80,18 +81,20 @@ The multi-resolution audit resolves the three target grammars:
 - **$S_2$ (Dynamical Control):** Grounded in Lyapunov (1892, *General Problem of Stability of Motion*) and Pontryagin, Boltyanskii, Gamkrelidze (1960, *Optimal Processes*). Equations include Lyapunov's general differential system, Pontryagin state equations, costate adjoint system, Hamiltonian formulation, and maximum condition.
 - **$S_3$ (Collective Kinetics):** Grounded in Vlasov (1938, *Vibration Properties of an Electron Gas*), Vlasov (1967, *Nonlocal Statistical Physics*), and Shafranov (1962, *Plasma Equilibrium*). Equations include the Vlasov core kinetic equation, Maxwell self-consistent coupling, linearized plasma oscillator, and toroidal equilibrium closure.
 
-### 3.2 Information-Theoretic Predictability & Entropy Reduction
-To rigorously measure relational constraint, we distinguish two levels of entropy reduction:
-1. **Structural Description Length Reduction:**
-   An entity-first representation of an edge requires specifying source and target entity IDs plus the edge type:
-   $$H(E) = 2 \log_2(|V|) + \log_2(|\text{types}|) = 2 \log_2(368) + \log_2(17) = 21.80\text{ bits/edge}$$
-   In the dual graph $G^*$, the conditional entropy of transition to the next relation given the current relation is:
-   $$H(R_{\text{next}} \mid R_{\text{curr}}) = -\sum_{i} P(R_i) \sum_{j} P(R_j \mid R_i) \log_2 P(R_j \mid R_i) = 2.96\text{ bits/edge}$$
-   This represents an **86.41% structural description reduction**, indicating that knowing the current operational step dramatically restricts the space of admissible mathematical operations.
-2. **Transition Predictability Over Zero-Memory Verb Distribution:**
-   Even when ignoring entity identifiers, the zero-memory marginal verb distribution has entropy:
+### 3.2 Information-Theoretic Predictability: Operational Behavior vs. Architectural Encoding
+To rigorously evaluate relational constraints without conflating graph storage efficiency with mathematical predictability, we distinguish two distinct entropy metrics:
+
+1. **Operational Mathematical Predictability (Primary Behavioral Metric):**
+   Even when ignoring all entity identifiers, the zero-memory marginal verb distribution across the 17 analytical operations has an entropy of:
    $$H(R) = -\sum_{i} P(R_i) \log_2 P(R_i) = 3.12\text{ bits/edge}$$
-   Conditioning on the current relation verb ($H(R_{\text{next}} \mid R_{\text{curr}}) = 2.96\text{ bits}$) achieves a **4.94% transition predictability gain**, demonstrating that mathematical operations do not occur independently, but follow structured temporal sequences.
+   Conditioning on the current relation verb, the transition entropy drops to:
+   $$H(R_{\text{next}} \mid R_{\text{curr}}) = -\sum_{i} P(R_i) \sum_{j} P(R_j \mid R_i) \log_2 P(R_j \mid R_i) = 2.96\text{ bits/edge}$$
+   This yields a **4.94% conditional predictability improvement**. This is the core operational metric of mathematical behavior: knowing the preceding mathematical operation directly constrains which subsequent operation follows, demonstrating that Soviet mathematical steps do not occur independently, but follow structured directional grammars.
+
+2. **Graph Description Length Reduction (Architectural Graph Comparison):**
+   In an entity-first graph representation, encoding a directed edge requires specifying source and target entity IDs plus the edge type:
+   $$H(E) = 2 \log_2(|V|) + \log_2(|\text{types}|) = 2 \log_2(368) + \log_2(17) = 21.80\text{ bits/edge}$$
+   In the dual line graph $G^*$, relational transition sequences are encoded at $H(R_{\text{next}} \mid R_{\text{curr}}) = 2.96\text{ bits/edge}$, yielding an **86.41% structural description reduction**. This metric measures the compactness of relation-first hypergraph projections relative to sparse entity networks; it should be understood as an architectural graph encoding result rather than evidence that Soviet mathematical prose is "86% more compressible."
 
 ---
 
@@ -200,13 +203,16 @@ Computing Cosine Distance $D_{\text{cos}}(u, v) = 1 - \frac{u \cdot v}{\|u\|_2 \
 | | `VLASOV` $\leftrightarrow$ `SHAFRANOV` | **0.3870** | 0.5570 | Direct kinetic-to-MHD equilibrium continuity |
 | **APPROXIMATION** | `CHEBYSHEV` $\leftrightarrow$ `MARKOV` | **0.1610** | 0.5037 | St. Petersburg foundational moment problems and polynomial bounds |
 
-Quantitative separation validation confirms that the mean intra-cluster distance ($D_{\text{cos}} = 0.2902$) is smaller than the inter-cluster distance ($D_{\text{cos}} = 0.2998$), confirming that mathematical lineages possess distinctive relational fingerprints that survive blinding.
+Quantitative separation validation indicates that the mean intra-cluster distance ($D_{\text{cos}} = 0.2902$) is only marginally smaller than the inter-cluster distance ($D_{\text{cos}} = 0.2998$).
+
+> **Crucial Qualification on Global Clustering:**  
+> While specific historically recognized lineages display striking relational proximity (such as Lyapunov–Pontryagin at $D_{\text{cos}} = 0.0519$ and Tikhonov–Gelfand/Levitan at $0.1255$), the **global clustering separation is weak**. The empirical graph does *not* support claiming that the entire Russian/Soviet mathematical tradition partitions cleanly into isolated, self-contained relational schools. Rather, the stronger and more defensible claim is that specific historically recognized mathematical lineages share detectable relational affinity, while operating within a broadly shared national problem-solving architecture.
 
 ---
 
 ## 8. Matched Western Comparison Framework
 
-To test whether this relational grammar is uniquely characteristic of the Russian/Soviet school or is an intrinsic feature of all 20th-century applied mathematics, we specify a rigorous, falsifiable matched comparison framework:
+To determine whether this relational grammar is uniquely characteristic of the Russian/Soviet school or is an intrinsic feature of all 20th-century applied mathematics, we specify a rigorous, falsifiable matched comparison framework:
 
 ### 8.1 Four Matched Mathematical Fields
 
@@ -230,7 +236,7 @@ flowchart LR
     end
 ```
 
-### 8.2 Three Formal Hypotheses
+### 8.2 Four Formal Hypotheses
 1. **Hypothesis 1 (Grammatical Transition Predictability Differential):**
    $$H(R_{\text{next}} \mid R_{\text{curr}})_{\text{Soviet}} < H(R_{\text{next}} \mid R_{\text{curr}})_{\text{Western}}$$
    *The conditional Shannon entropy of operational transitions is strictly lower in Soviet literature than in matched Western literature, reflecting a tighter, more codified grammatical discipline across independent institutions.*
@@ -240,6 +246,9 @@ flowchart LR
 3. **Hypothesis 3 (Relational Vocabulary Divergence):**
    $$D_{\text{KL}}(P_{\text{Soviet}}(R) \parallel P_{\text{Western}}(R)) > 0.15\text{ bits}$$
    *Soviet literature is statistically enriched in operational stabilization, compactness constraints, and regularized reconstruction (`STABILIZE`, `CONSTRAIN`, `INVERT`, `RECONSTRUCT`), whereas Western literature is enriched in abstract mapping (`MAP`) and unconstrained existence assertions (`INFER`).*
+4. **Hypothesis 4 (Cross-Domain Grammatical Recurrence):**
+   $$\boxed{ \text{Cross-Domain Recurrence}_{\text{Soviet}} > \text{Cross-Domain Recurrence}_{\text{Western}} }$$
+   *Identical operational grammars (such as state representation $\to$ perturbation $\to$ stability $\to$ control, or observe $\to$ invert $\to$ constrain $\to$ stabilize) reappear across formally distinct, disparate physical domains (dynamical control, inverse scattering, kinetic plasma, approximation theory, radar antenna synthesis, and supercomputing). This structural reuse across independent physical applications is significantly higher in the Soviet corpus than in matched Western literature.*
 
 ---
 
@@ -247,9 +256,9 @@ flowchart LR
 
 The SOVCTX-R1 and R2 investigations demonstrate that the intellectual structure of Russian and Soviet mathematics is governed by a measurable, statistically significant relational grammar. The problem-solving stack—spanning state coordinates, operator evolution, physical admissibility constraints, perturbation stability, indirect observation, and regularized reconstruction—is preserved across 250 years, recovers historical schools without author names, survives stringent randomized and semantic controls, and maps directly into strategic engineering applications.
 
-With these results qualified, the roadmap proceeds to:
-1. **Executing the Matched Western Benchmark:** Ingesting and projecting the 4 matched field pairs to formally test Hypotheses $H_1, H_2, H_3$.
-2. **Resuming Autonomous Endurance Expansion (N5):** Deploying the validated relational grammars ($S_1, S_2, S_3$) as heuristic priors to guide automated literature acquisition across Soviet archival and technical collections.
+With these results qualified, the roadmap proceeds directly to:
+1. **Executing the Matched Western Benchmark:** Ingesting and projecting the 4 matched field pairs to formally test Hypotheses $H_1, H_2, H_3, H_4$.
+2. **Determining Epistemic Specificity:** Assessing whether this relational organization is distinctively characteristic of the Soviet/Russian mathematical tradition relative to comparable contemporaneous work elsewhere.
 
 ---
 
