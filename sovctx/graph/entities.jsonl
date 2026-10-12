@@ -51,3 +51,16 @@
 {"id":"INSTITUTION:KURCHATOV_IAE","type":"INSTITUTION","namespace":"SOV","label":"I. V. Kurchatov Institute of Atomic Energy (IAE)"}
 {"id":"CONCEPT:GRAD_SHAFRANOV_EQUILIBRIUM","type":"CONCEPT","namespace":"SOV","label":"Grad-Shafranov toroidal plasma equilibrium"}
 {"id":"CONCEPT:KRASOVSKII_OPTIMAL_STABILIZATION","type":"CONCEPT","namespace":"SOV","label":"Krasovskii optimal stabilization and game-theoretic control"}
+{"id": "PERSON:FELDBAUM_AA", "type": "PERSON", "namespace": "SOV", "label": "A. A. Feldbaum"}
+{"id": "PERSON:STRATONOVICH_RL", "type": "PERSON", "namespace": "SOV", "label": "R. L. Stratonovich"}
+{"id": "PERSON:ANOKHIN_PK", "type": "PERSON", "namespace": "SOV", "label": "P. K. Anokhin"}
+{"id": "PERSON:ASHBY_WR", "type": "PERSON", "namespace": "WEST", "label": "W. Ross Ashby"}
+{"id": "PERSON:WALTER_WG", "type": "PERSON", "namespace": "WEST", "label": "W. Grey Walter"}
+{"id": "PERSON:SAMARSKII_AA", "type": "PERSON", "namespace": "SOV", "label": "A. A. Samarskii"}
+{"id": "INSTITUTION:IAT_RAS", "type": "INSTITUTION", "namespace": "SOV", "label": "Institute of Automation and Remote Control (IAT / IPU RAN)"}
+{"id": "INSTITUTION:SECHENOV_INST", "type": "INSTITUTION", "namespace": "SOV", "label": "Sechenov Institute of Physiology, USSR AMS"}
+{"id": "CONCEPT:EPISTEMIC_ACTION", "type": "CONCEPT", "namespace": "SYN", "label": "Epistemic Action / Act-to-Know"}
+{"id": "CONCEPT:ACTION_ACCEPTOR", "type": "CONCEPT", "namespace": "SOV", "label": "Action-Result Acceptor (Akseptor Deystviya)"}
+{"id": "CONCEPT:MODEL_REQUIRED_FUTURE", "type": "CONCEPT", "namespace": "SOV", "label": "Model of the Required Future"}
+{"id": "CONCEPT:ENDOGENOUS_SELF_MAINTENANCE", "type": "CONCEPT", "namespace": "SYN", "label": "Endogenous Self-Maintenance"}
+{"id": "CONCEPT:FINITE_INTELLIGENCE", "type": "CONCEPT", "namespace": "SYN", "label": "Resource-Bounded Finite Intelligence"}

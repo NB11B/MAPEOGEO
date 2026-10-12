@@ -368,7 +368,7 @@ class ResearchProber:
                 corroborating_sources.extend([
                     "PUB:FELDBAUM_1960_DUAL_CONTROL",
                     "PUB:TSETLIN_1961_AUTOMATA",
-                    "SRC:STRATONOVICH_1960_CONDITIONAL_MARKOV",
+                    "PUB:STRATONOVICH_1960_CONDITIONAL_MARKOV",
                 ])
                 new_relations.append({
                     "relation": "REPRESENT -> PROBE (ACT_TO_KNOW) -> OBSERVE -> UPDATE -> CONTROL",
@@ -385,9 +385,10 @@ class ResearchProber:
                     "representation of expected sensory consequences compared continuously against return afference."
                 )
                 corroborating_sources.extend([
+                    "PUB:ANOKHIN_1955_AFFERENT_APPARATUS",
                     "PUB:ANOKHIN_1968_BIOLOGY_REFLEX",
                     "PUB:BERNSTEIN_1966_PHYSIOLOGY_ACTIVITY",
-                    "PUB:GELFAND_TSETLIN_1962_CONTROL",
+                    "PUB:GELFAND_TSETLIN_1962",
                 ])
                 new_relations.append({
                     "relation": "FUTURE_MODEL -> ACTION_ACCEPTOR -> PROBE_STEP -> CONVERGENCE",
@@ -404,9 +405,9 @@ class ResearchProber:
                     "All artificial digital control and modern AI architectures substitute externally supplied loss functions."
                 )
                 corroborating_sources.extend([
-                    "SRC:ANOKHIN_1968_FUNCTIONAL_SYSTEMS",
-                    "SRC:ASHBY_1952_DESIGN_FOR_A_BRAIN",
-                    "SRC:WALTER_1950_TORTOISE",
+                    "PUB:ANOKHIN_1968_BIOLOGY_REFLEX",
+                    "PUB:ASHBY_1952_DESIGN_FOR_BRAIN",
+                    "PUB:WALTER_1950_TORTOISE",
                 ])
                 new_relations.append({
                     "relation": "INTERNAL_DEFICIT -> ENDOGENOUS_GOAL -> ACTION -> VIABILITY_RESTORED",
@@ -424,8 +425,8 @@ class ResearchProber:
                 )
                 corroborating_sources.extend([
                     "PUB:SAMARSKII_1967_DIFFERENCE_SCHEMES",
-                    "PUB:TIKHONOV_SAMARSKII_1977_EQUATIONS",
-                    "SRC:BESM6_ALGORITHMS_1968",
+                    "PUB:TIKHONOV_1963_ILLPOSED",
+                    "PUB:CHEBYSHEV_1854_MECHANISMS",
                 ])
                 new_relations.append({
                     "relation": "BOUNDED_MEMORY -> MINIMAX_APPROXIMATION -> INVERSE_REGULARIZATION -> REAL_TIME_CONTROL",

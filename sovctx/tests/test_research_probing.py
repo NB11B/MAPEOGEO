@@ -110,3 +110,27 @@ def test_research_shakedown_supervisor_lifecycle() -> None:
 
         checkpoints = list((out_path / "checkpoints").glob("epoch_*.json"))
         assert len(checkpoints) >= 1
+
+
+def test_research_prober_bcig_xgraph_resolution() -> None:
+    index = CorpusGraphIndex()
+    prober = ResearchProber(index)
+    coord = ResearchFrontierCoordinator()
+
+    bcig_qs = [
+        q for q in coord.ledger.questions.values()
+        if "BCIG_XGRAPH" in q.question_id
+    ]
+    assert len(bcig_qs) == 4, f"Expected 4 BCIG_XGRAPH questions, found {len(bcig_qs)}"
+
+    for q in bcig_qs:
+        outcome = prober.probe(q)
+        assert outcome.status == QuestionStatus.RESOLVED, f"Question {q.question_id} did not resolve: {outcome.status}"
+        assert outcome.resolved_endpoint is not None
+        assert outcome.resolution_summary is not None
+        assert len(outcome.corroborating_sources) >= 3
+        assert len(outcome.new_relations_found) >= 1
+
+        # Strict check: all corroborating sources must exist in the canonical index!
+        for src_id in outcome.corroborating_sources:
+            assert src_id in index.node_by_id, f"Corroborating source {src_id} not in corpus graph index!"
