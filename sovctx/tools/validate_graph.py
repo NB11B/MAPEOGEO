@@ -19,6 +19,10 @@ JSONL_FILES = [
     ROOT / "graph" / "problems.jsonl",
     ROOT / "graph" / "perspective_projections.jsonl",
     ROOT / "graph" / "insights.jsonl",
+    ROOT / "graph" / "method_primitives.jsonl",
+    ROOT / "graph" / "primitive_compositions.jsonl",
+    ROOT / "graph" / "lens_normal_forms.jsonl",
+    ROOT / "graph" / "synthetic_lenses.jsonl",
     ROOT / "graph" / "assumptions.jsonl",
     ROOT / "graph" / "behavioral_tests.jsonl",
     ROOT / "graph" / "invariants.jsonl",
@@ -89,6 +93,15 @@ METHODOLOGICAL_PERSPECTIVE_EDGE_TYPES = {
     "AVOIDS_COMPUTING",
     "DERIVED_FROM_METHOD_EPISODE",
     "ENABLES_OMISSION_OF",
+    "COMPOSES_WITH",
+    "REQUIRES",
+    "PRESERVES",
+    "DISCARDS",
+    "INTRODUCES",
+    "NORMALIZES_TO",
+    "ORDER_SENSITIVE_WITH",
+    "RECONSTRUCTS_METHOD",
+    "SYNTHESIZED_FROM",
 }
 
 EXPERIMENTAL_APPLICATION_EDGE_TYPES = {
@@ -97,6 +110,7 @@ EXPERIMENTAL_APPLICATION_EDGE_TYPES = {
     "COMPLEMENTS",
     "CONFLICTS_WITH",
     "ENABLES",
+    "VALID_FOR_PROBLEM",
 }
 
 
@@ -429,6 +443,91 @@ def validate_insight(path: Path, record: dict[str, Any], nodes: dict[str, dict[s
         raise ValidationError(f"{path}: insight {record['id']} references invalid problem {record['target_problem_id']}")
 
 
+def validate_method_primitive(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "METHOD_PRIMITIVE":
+        return
+    for key in (
+        "symbol",
+        "input_state_type",
+        "output_state_type",
+        "preconditions",
+        "preserved_invariants",
+        "introduced_structures",
+        "omitted_information",
+        "complexity_weight",
+        "verification_status",
+    ):
+        if key not in record or record.get(key) in ("", None):
+            raise ValidationError(f"{path}: method primitive {record['id']} missing {key}")
+
+
+def validate_primitive_composition(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "PRIMITIVE_COMPOSITION":
+        return
+    for key in (
+        "first_primitive_id",
+        "second_primitive_id",
+        "composition_status",
+        "commutation_type",
+        "verification_status",
+    ):
+        if not record.get(key):
+            raise ValidationError(f"{path}: primitive composition {record['id']} missing {key}")
+    p1 = nodes.get(record["first_primitive_id"])
+    if not p1 or p1.get("type") != "METHOD_PRIMITIVE":
+        raise ValidationError(f"{path}: primitive composition {record['id']} references invalid first primitive {record['first_primitive_id']}")
+    p2 = nodes.get(record["second_primitive_id"])
+    if not p2 or p2.get("type") != "METHOD_PRIMITIVE":
+        raise ValidationError(f"{path}: primitive composition {record['id']} references invalid second primitive {record['second_primitive_id']}")
+    allowed_statuses = {"COMPOSE", "NORMALIZE", "ABSORB", "IDEMPOTENT", "ORDER_SENSITIVE", "CONFLICT", "UNDEFINED"}
+    if record["composition_status"] not in allowed_statuses:
+        raise ValidationError(f"{path}: primitive composition {record['id']} invalid status {record['composition_status']}")
+    allowed_comm = {"COMMUTES", "ORDER_SENSITIVE", "ONE_DIRECTION_ONLY", "INCOMPATIBLE"}
+    if record["commutation_type"] not in allowed_comm:
+        raise ValidationError(f"{path}: primitive composition {record['id']} invalid commutation {record['commutation_type']}")
+
+
+def validate_lens_normal_form(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "LENS_NORMAL_FORM_RULE":
+        return
+    for key in ("pattern", "replacement", "rationale", "verification_status"):
+        if not record.get(key):
+            raise ValidationError(f"{path}: lens normal form rule {record['id']} missing {key}")
+
+
+def validate_synthetic_lens(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "SYNTHETIC_LENS":
+        return
+    for key in (
+        "core_question",
+        "constructed_object",
+        "primitive_sequence",
+        "normalized_sequence",
+        "historical_origin",
+        "status",
+        "derivation_provenance",
+        "verification_status",
+    ):
+        if not record.get(key):
+            raise ValidationError(f"{path}: synthetic lens {record['id']} missing {key}")
+    if record["historical_origin"] != "NONE":
+        raise ValidationError(f"{path}: synthetic lens {record['id']} must have historical_origin: NONE (got {record['historical_origin']})")
+    allowed_statuses = {"PROPOSED_SYNTHETIC_LENS", "QUALIFIED_SYNTHETIC_LENS"}
+    if record["status"] not in allowed_statuses:
+        raise ValidationError(f"{path}: synthetic lens {record['id']} has invalid status {record['status']}")
+    for prim_id in record["primitive_sequence"]:
+        prim = nodes.get(prim_id)
+        if not prim or prim.get("type") != "METHOD_PRIMITIVE":
+            raise ValidationError(f"{path}: synthetic lens {record['id']} references invalid primitive {prim_id}")
+    banned_keywords = ("soviet", "russian", "leningrad", "moscow", "steklov", "ussr", "western")
+    serialized = json.dumps(record).lower()
+    for kw in banned_keywords:
+        if kw in serialized:
+            raise ValidationError(
+                f"{path}: synthetic lens {record['id']} contains cultural keyword '{kw}', violating neutrality"
+            )
+
+
 def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
     if record["type"] != "EDGE":
         return
@@ -629,6 +728,10 @@ def main() -> int:
         validate_problem(path, record, nodes)
         validate_perspective_projection(path, record, nodes)
         validate_insight(path, record, nodes)
+        validate_method_primitive(path, record, nodes)
+        validate_primitive_composition(path, record, nodes)
+        validate_lens_normal_form(path, record, nodes)
+        validate_synthetic_lens(path, record, nodes)
 
     support_pairs: set[tuple[str, str]] = set()
     encoded_equation_pairs: set[tuple[str, str]] = set()

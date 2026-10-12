@@ -1,0 +1,29 @@
+{"id":"OP:STATE","type":"OPERATOR","namespace":"OP","label":"State representation","definition":"Represent the system by task-relevant state rather than external appearance."}
+{"id":"OP:INVERSE","type":"OPERATOR","namespace":"OP","label":"Inverse reconstruction","definition":"Infer a hidden state or operator from observable consequences."}
+{"id":"OP:REGULARIZE","type":"OPERATOR","namespace":"OP","label":"Regularize","definition":"Constrain an ill-posed inverse problem using admissibility or prior structure."}
+{"id":"OP:OVERDETERMINE","type":"OPERATOR","namespace":"OP","label":"Overdetermine","definition":"Acquire additional independent observations to make a hidden state identifiable."}
+{"id":"OP:DESIGN_PROBE","type":"OPERATOR","namespace":"OP","label":"Design probe","definition":"Choose controlled excitation to maximize discriminating information about an inaccessible system."}
+{"id":"OP:BOUNDARY_ENCODE","type":"OPERATOR","namespace":"OP","label":"Boundary encode","definition":"Replace complex interior behavior with an effective boundary relation."}
+{"id":"OP:EDGE_TRANSFORM","type":"OPERATOR","namespace":"OP","label":"Edge transform","definition":"Treat edges or discontinuities as first-class contributors to a transformed field."}
+{"id":"OP:LAYER_TRANSFORM","type":"OPERATOR","namespace":"OP","label":"Layer transform","definition":"Transform a field through ordered material or boundary layers."}
+{"id":"OP:FIELD_SYNTHESIS","type":"OPERATOR","namespace":"OP","label":"Field synthesis","definition":"Infer a source or geometry that produces a specified field distribution."}
+{"id":"OP:SELF_OSCILLATE","type":"OPERATOR","namespace":"OP","label":"Self-oscillate","definition":"Establish sustained oscillation through system dynamics and energy supply."}
+{"id":"OP:PARAMETRIC_MODULATE","type":"OPERATOR","namespace":"OP","label":"Parametric modulation","definition":"Change system parameters to alter its dynamical or oscillatory regime."}
+{"id":"OP:STRUCTURAL_ROBUSTNESS","type":"OPERATOR","namespace":"OP","label":"Structural robustness","definition":"Preserve qualitative dynamics under perturbation of governing dynamics."}
+{"id":"OP:NONLOCAL_MOVE","type":"OPERATOR","namespace":"OP","label":"Nonlocal move","definition":"Use learned search-space structure to move between non-neighboring candidate states."}
+{"id":"OP:STRUCTURAL_ADAPT","type":"OPERATOR","namespace":"OP","label":"Structural adaptation","definition":"Change topology, connectivity, or participating elements of a system."}
+{"id":"OP:DESIGN_COUPLING","type":"OPERATOR","namespace":"OP","label":"Design coupling","definition":"Configure geometry or material so an ambient field or gradient creates a useful dynamical tendency."}
+{"id":"OP:SELF_CONSISTENT_FIELD","type":"OPERATOR","namespace":"OP","label":"Self-consistent field","definition":"A system state creates a field that in turn changes the state."}
+{"id":"OP:DEPHASE","type":"OPERATOR","namespace":"OP","label":"Dephase","definition":"Lose macroscopic coherence through phase dispersion without requiring state erasure."}
+{"id":"OP:REPHASE","type":"OPERATOR","namespace":"OP","label":"Rephase","definition":"Recover macroscopic coherence through a subsequent structured interaction."}
+{"id":"OP:ABSTRACT_BIOLOGICAL_OPERATOR","type":"OPERATOR","namespace":"OP","label":"Abstract biological operator","definition":"Separate a biological transformation from its specific biological implementation."}
+{"id":"OP:SPECTRAL_INVERSE","type":"OPERATOR","namespace":"OP","label":"Spectral inverse","definition":"Reconstruct a hidden differential operator or coefficient from admissible spectral data."}
+{"id":"OP:CLASS_ADMISSIBILITY","type":"OPERATOR","namespace":"OP","label":"Class admissibility","definition":"Determine whether observations can belong to the response family of a proposed operator class."}
+{"id":"OP:SCATTER_INVERSE","type":"OPERATOR","namespace":"OP","label":"Scattering inverse","definition":"Reconstruct a hidden interaction or potential from scattering data."}
+{"id":"OP:TASK_REPRESENT","type":"OPERATOR","namespace":"OP","label":"Task-relative representation","definition":"Choose a system description according to the problem being solved rather than requiring a complete isomorphic description."}
+{"id":"OP:DYNAMIC_PARTITION","type":"OPERATOR","namespace":"OP","label":"Dynamic partition","definition":"Reclassify variables into functional groups as their role in the problem changes over time."}
+{"id":"OP:INVERSE_DESIGN","type":"OPERATOR","namespace":"OP","label":"Inverse design","definition":"Construct a source, geometry, or system from a specified desired output behavior, subject to realizability constraints."}
+{"id":"OP:STABILITY","type":"OPERATOR","namespace":"OP","label":"State stability","definition":"Characterize whether state trajectories remain near or return toward a reference motion under perturbation."}
+{"id":"OP:CONTROL","type":"OPERATOR","namespace":"OP","label":"Admissible control","definition":"Select a time-varying admissible control that drives a state-space system through allowed trajectories."}
+{"id":"OP:OPTIMIZE","type":"OPERATOR","namespace":"OP","label":"Optimize objective","definition":"Select parameters, trajectories, controls, or structures to minimize or maximize a declared source-native objective."}
+{"id":"OP:MINIMAX_APPROXIMATE","type":"OPERATOR","namespace":"OP","label":"Minimax approximation","definition":"Choose an approximant to minimize the maximum deviation over a finite interval rather than only local error near one point."}
