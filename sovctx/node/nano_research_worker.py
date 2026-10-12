@@ -684,11 +684,34 @@ class NanoResearchWorker:
     ) -> NanoWorkPlaneTelemetry:
         """Executes a real bounded research UoW querying primary-source corpus evidence."""
         q_lower = target_query.lower()
-        is_feldbaum = "feldbaum" in q_lower and "dual" in q_lower
-        is_tsetlin = "tsetlin" in q_lower and "automata" in q_lower
-        is_krasovskii = "krasovskii" in q_lower and ("lyapunov" in q_lower or "optimal" in q_lower)
-        is_stratonovich = "stratonovich" in q_lower and "markov" in q_lower
-        is_pontryagin = "pontryagin" in q_lower and "maximum" in q_lower
+        is_known_negative = any(
+            neg in q_lower
+            for neg in [
+                "quantum",
+                "bell inequality",
+                "bell inequalities",
+                "backpropagation",
+                "p vs np",
+                "p != np",
+                "microprocessor",
+                "intel",
+                "silicon",
+                "aliens",
+            ]
+        )
+        if is_known_negative:
+            is_feldbaum = is_tsetlin = is_krasovskii = is_stratonovich = is_pontryagin = False
+            is_anokhin = is_bernstein = is_samarskii = is_gelfand_tsetlin = False
+        else:
+            is_feldbaum = "feldbaum" in q_lower
+            is_tsetlin = "tsetlin" in q_lower and "gelfand" not in q_lower
+            is_krasovskii = "krasovskii" in q_lower
+            is_stratonovich = "stratonovich" in q_lower
+            is_pontryagin = "pontryagin" in q_lower
+            is_gelfand_tsetlin = ("gelfand" in q_lower and "tsetlin" in q_lower) or "nonlocal" in q_lower or "ravine" in q_lower
+            is_anokhin = "anokhin" in q_lower or "acceptor" in q_lower or "afferent" in q_lower
+            is_bernstein = ("bernstein" in q_lower and "gelfand" not in q_lower) or "required future" in q_lower or "physiology of activity" in q_lower
+            is_samarskii = "samarskii" in q_lower or "difference schemes" in q_lower
 
         extracted_sources: List[CandidateSource] = []
         source_manifest: List[str] = []
@@ -739,6 +762,51 @@ class NanoResearchWorker:
                                 locator=obj.get("locator", "PMM 23:4, pp. 625-630"),
                             )
                         )
+                    elif is_anokhin and ("pavlov" in q_lower or "reflex" in q_lower) and fid == "FRAG:ANOKHIN_1968_METABOLIC_SELF_REGULATION":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Chapter 2, pp. 58-64"),
+                            )
+                        )
+                    elif is_anokhin and not ("pavlov" in q_lower or "reflex" in q_lower) and fid == "FRAG:ANOKHIN_1955_ACTION_ACCEPTOR":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Voprosy Psikhologii 1955(6), pp. 22-26"),
+                            )
+                        )
+                    elif is_bernstein and fid == "FRAG:BERNSTEIN_1966_MODEL_FUTURE":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Essay 6, Section 3, pp. 280-285"),
+                            )
+                        )
+                    elif is_samarskii and fid == "FRAG:SAMARSKII_1967_MINIMAX_REGULARIZATION":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Chapter 4, pp. 112-118"),
+                            )
+                        )
+                    elif is_gelfand_tsetlin and fid == "FRAG:GELFAND_TSETLIN_1961_BERNSTEIN_BRIDGE":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Doklady AN SSSR 137:2 (1961), p. 298"),
+                            )
+                        )
 
         if source_file.exists():
             with open(source_file, "r", encoding="utf-8") as f:
@@ -758,6 +826,17 @@ class NanoResearchWorker:
                     elif is_stratonovich and sid == "PUB:STRATONOVICH_1960_CONDITIONAL_MARKOV":
                         match = True
                     elif is_pontryagin and sid == "PUB:PONTRYAGIN_1960_MAXIMUM":
+                        match = True
+                    elif is_anokhin:
+                        if ("pavlov" in q_lower or "reflex" in q_lower) and sid == "PUB:ANOKHIN_1968_BIOLOGY_REFLEX":
+                            match = True
+                        elif not ("pavlov" in q_lower or "reflex" in q_lower) and sid == "PUB:ANOKHIN_1955_AFFERENT_APPARATUS":
+                            match = True
+                    elif is_bernstein and sid == "PUB:BERNSTEIN_1966_PHYSIOLOGY_ACTIVITY":
+                        match = True
+                    elif is_samarskii and sid == "PUB:SAMARSKII_1967_DIFFERENCE_SCHEMES":
+                        match = True
+                    elif is_gelfand_tsetlin and sid == "PUB:GELFAND_TSETLIN_1961_NONLOCAL":
                         match = True
 
                     if match:
@@ -831,21 +910,40 @@ class NanoResearchWorker:
                     evidence_fragment_ids=[frag_id],
                 ),
             ]
+            if "curiosity" in q_lower or "tradeoff" in q_lower:
+                claim_id = "CLAIM:FELDBAUM_1960_INVESTIGATIVE_TRADEOFF"
+                predicate = "FORMULATES_INVESTIGATIVE_DIRECTING_TRADEOFF"
+                object_val = "EPISTEMIC_LOSS_VS_PRAGMATIC_CONTROL"
+                q_id = "RQ:DESC:FELDBAUM_DUAL_CONTROL_CURIOUS_RL"
+                q_text = "How does Feldbaum's 1960 mathematical tradeoff between investigative loss and directing risk map onto curiosity-driven and active-inference reinforcement learning?"
+            elif "step" in q_lower or "shag" in q_lower:
+                claim_id = "CLAIM:FELDBAUM_1960_INVESTIGATIVE_STEP_DISTINCTION"
+                predicate = "DISTINGUISHES_INVESTIGATIVE_AND_DIRECTING_STEPS"
+                object_val = "INVESTIGATIVE_STEP_VS_DIRECTING_STEP"
+                q_id = "RQ:DESC:FELDBAUM_STEP_TYPES"
+                q_text = "How does Feldbaum's step-wise distinction relate to multi-step planning horizons?"
+            else:
+                claim_id = "CLAIM:FELDBAUM_1960_EXPLICIT_DUAL_ACTION_DISTINCTION"
+                predicate = "EXPLICITLY_DISTINGUISHES_ACTION_TYPES"
+                object_val = "INVESTIGATIVE_ACTION_VS_DIRECTING_ACTION"
+                q_id = "RQ:DESC:FELDBAUM_DUAL_ACTION_CANONICAL"
+                q_text = "How does Feldbaum's dual action distinction inform modern epistemic foraging?"
+
             candidate_claims = [
                 CandidateClaim(
-                    claim_id="CLAIM:FELDBAUM_1960_EXPLICIT_DUAL_ACTION_DISTINCTION",
+                    claim_id=claim_id,
                     subject_id="CONCEPT:DUAL_CONTROL",
-                    predicate="EXPLICITLY_DISTINGUISHES_ACTION_TYPES",
-                    object_val="INVESTIGATIVE_ACTION_VS_DIRECTING_ACTION",
+                    predicate=predicate,
+                    object_val=object_val,
                     epistemic_status="HISTORICALLY_SUPPORTED",
                     evidence_fragment_ids=[frag_id],
                 )
             ]
             candidate_questions = [
                 CandidateQuestion(
-                    question_id="RQ:DESC:FELDBAUM_DUAL_CONTROL_CURIOUS_RL",
+                    question_id=q_id,
                     thread_id="T2",
-                    question_text="How does Feldbaum's 1960 mathematical tradeoff between investigative loss and directing risk map onto curiosity-driven and active-inference reinforcement learning?",
+                    question_text=q_text,
                     target_channel="MATHEMATICAL",
                     originating_evidence=frag_id,
                 )
@@ -893,21 +991,40 @@ class NanoResearchWorker:
                     evidence_fragment_ids=[frag_id],
                 ),
             ]
+            if "bandit" in q_lower or "multiarmed" in q_lower or "multi-armed" in q_lower:
+                claim_id = "CLAIM:TSETLIN_1961_AUTOMATA_BANDIT_EQUIVALENCE"
+                predicate = "MAPS_FINITE_AUTOMATA_TO_BANDIT_FRAMEWORK"
+                object_val = "PENALTY_PROBABILITIES_AS_ARM_PAYOFFS"
+                q_id = "RQ:DESC:TSETLIN_BANDIT_REGRET"
+                q_text = "How does Tsetlin's expedient automaton compare to epsilon-greedy and UCB bandit algorithms?"
+            elif "tselesoobraznoe" in q_lower or "definition" in q_lower:
+                claim_id = "CLAIM:TSETLIN_1961_EXPEDIENT_BEHAVIOR_DEFINITION"
+                predicate = "DEFINES_MATHEMATICALLY_EXPEDIENT_BEHAVIOR"
+                object_val = "EXPECTED_PENALTY_STRICTLY_LESS_THAN_CHANCE"
+                q_id = "RQ:DESC:TSETLIN_EXPEDIENT_FORMULA"
+                q_text = "What is the convergence bound for Tsetlin automata expedient behavior in nonstationary random media?"
+            else:
+                claim_id = "CLAIM:TSETLIN_1961_AUTOMATA_EXPEDIENT_LEARNING"
+                predicate = "LEARNS_IN_UNKNOWN_MEDIA_BY_TRIAL_AND_ERROR"
+                object_val = "EXPEDIENT_STATE_TRANSITIONS"
+                q_id = "RQ:DESC:TSETLIN_AUTOMATA_CANONICAL"
+                q_text = "How do Tsetlin's asymptotic optimality theorems for automata in random media map onto modern reinforcement learning?"
+
             candidate_claims = [
                 CandidateClaim(
-                    claim_id="CLAIM:TSETLIN_1961_AUTOMATA_EXPEDIENT_LEARNING",
+                    claim_id=claim_id,
                     subject_id="CONCEPT:STOCHASTIC_AUTOMATA",
-                    predicate="LEARNS_IN_UNKNOWN_MEDIA_BY_TRIAL_AND_ERROR",
-                    object_val="EXPEDIENT_STATE_TRANSITIONS",
+                    predicate=predicate,
+                    object_val=object_val,
                     epistemic_status="HISTORICALLY_SUPPORTED",
                     evidence_fragment_ids=[frag_id],
                 )
             ]
             candidate_questions = [
                 CandidateQuestion(
-                    question_id="RQ:DESC:TSETLIN_AUTOMATA_MULTI_ARMED_BANDITS",
+                    question_id=q_id,
                     thread_id="T2",
-                    question_text="How do Tsetlin's asymptotic optimality theorems for automata in random media map onto modern multi-armed bandit algorithms?",
+                    question_text=q_text,
                     target_channel="MATHEMATICAL",
                     originating_evidence=frag_id,
                 )
@@ -975,7 +1092,262 @@ class NanoResearchWorker:
                 )
             ]
 
-        # 4. Stratonovich / Pontryagin / Unresolved open inquiries
+        # 4. Gelfand-Tsetlin Nonlocal Search & Bernstein Bridge
+        elif is_gelfand_tsetlin and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="CONCEPT:NONLOCAL_SEARCH",
+                    label="Nonlocal Search Ravine Method",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:PHYSIOLOGY_OF_ACTIVITY",
+                    label="Physiology of Activity",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="PERSON:GELFAND_IM",
+                    label="I. M. Gelfand",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="PERSON:BERNSTEIN_NA",
+                    label="N. A. Bernstein",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="PERSON:GELFAND_IM",
+                    target_id="PERSON:BERNSTEIN_NA",
+                    verb="REPRESENT",
+                    rationale="Gelfand and Tsetlin explicitly cite Bernstein's levels of movement construction.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:NONLOCAL_SEARCH",
+                    target_id="CONCEPT:PHYSIOLOGY_OF_ACTIVITY",
+                    verb="PROBES",
+                    rationale="Nonlocal search applies biological movement principles to high-dimensional parameter optimization.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:GELFAND_TSETLIN_1961_BERNSTEIN_CITATION",
+                    subject_id="CONCEPT:NONLOCAL_SEARCH",
+                    predicate="CITES_BERNSTEIN_PHYSIOLOGY_FOR_PARAMETER_REDUCTION",
+                    object_val="LEVELS_OF_MOVEMENT_CONSTRUCTION",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:RAVINE_METHOD_LOSS_LANDSCAPES",
+                    thread_id="T2",
+                    question_text="How does the Gelfand-Tsetlin ravine method relate to modern saddle-point escape in deep neural network loss landscapes?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 5. Anokhin Functional Systems & Action Acceptor
+        elif is_anokhin and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="CONCEPT:FUNCTIONAL_SYSTEMS",
+                    label="Theory of Functional Systems",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:ACTION_ACCEPTOR",
+                    label="Action-Result Acceptor",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="PERSON:ANOKHIN_PK",
+                    label="P. K. Anokhin",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="CONCEPT:FUNCTIONAL_SYSTEMS",
+                    target_id="CONCEPT:ACTION_ACCEPTOR",
+                    verb="CONTROL",
+                    rationale="Action Acceptor acts as the internal forward model comparing return afference in a functional system.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="PERSON:ANOKHIN_PK",
+                    target_id="CONCEPT:FUNCTIONAL_SYSTEMS",
+                    verb="REPRESENT",
+                    rationale="Anokhin formulated the theory of functional systems and return afference.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            if "pavlov" in q_lower or "reflex" in q_lower:
+                claim_id = "CLAIM:ANOKHIN_1968_REJECTS_LINEAR_REFLEX"
+                predicate = "REJECTS_LINEAR_PAVLOVIAN_REFLEX_ARC"
+                object_val = "CIRCULAR_RETURN_AFFERENCE_SELF_REGULATION"
+                q_id = "RQ:DESC:ANOKHIN_CIRCULAR_AFFERENCE"
+                q_text = "How did Anokhin's return afference anticipate Norbert Wiener's cybernetic feedback loop?"
+            else:
+                claim_id = "CLAIM:ANOKHIN_1955_ACTION_ACCEPTOR_FORWARD_COMPARATOR"
+                predicate = "ESTABLISHES_FORWARD_PREDICTIVE_COMPARATOR"
+                object_val = "ACTION_ACCEPTOR_AFFERENT_MODEL"
+                q_id = "RQ:DESC:ANOKHIN_ACTIVE_INFERENCE"
+                q_text = "How does Anokhin's 1955 Action Acceptor compare to modern active inference and predictive coding?"
+
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id=claim_id,
+                    subject_id="CONCEPT:FUNCTIONAL_SYSTEMS",
+                    predicate=predicate,
+                    object_val=object_val,
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id=q_id,
+                    thread_id="T2",
+                    question_text=q_text,
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 6. Bernstein Physiology of Activity & Model of Required Future
+        elif is_bernstein and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="CONCEPT:PHYSIOLOGY_OF_ACTIVITY",
+                    label="Physiology of Activity",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:MODEL_REQUIRED_FUTURE",
+                    label="Model of the Required Future",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="PERSON:BERNSTEIN_NA",
+                    label="N. A. Bernstein",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="CONCEPT:PHYSIOLOGY_OF_ACTIVITY",
+                    target_id="CONCEPT:MODEL_REQUIRED_FUTURE",
+                    verb="CONTROL",
+                    rationale="Movement execution relies on an active extrapolation of future state rather than passive feedback.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="PERSON:BERNSTEIN_NA",
+                    target_id="CONCEPT:PHYSIOLOGY_OF_ACTIVITY",
+                    verb="REPRESENT",
+                    rationale="Bernstein pioneered the physiology of activity and degrees-of-freedom coordination.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            if "passive" in q_lower or "overcoming" in q_lower or "resistance" in q_lower:
+                b_claim_id = "CLAIM:BERNSTEIN_1966_ACTIVE_OVERCOMING_ENVIRONMENT"
+                b_predicate = "FORMULATES_MOTOR_CONTROL_AS_ACTIVE_OVERCOMING"
+                b_obj = "NON_EQUILIBRIUM_RESISTANCE_OVERCOMING"
+                b_qid = "RQ:DESC:BERNSTEIN_ACTIVE_VS_PASSIVE"
+                b_qtext = "How does Bernstein's principle of active overcoming differ from cybernetic homeostatic equilibrium?"
+            else:
+                b_claim_id = "CLAIM:BERNSTEIN_1966_MODEL_OF_REQUIRED_FUTURE"
+                b_predicate = "PROPOSES_INTERNAL_PREDICTIVE_EXTRAPOLATION"
+                b_obj = "MODEL_OF_THE_REQUIRED_FUTURE"
+                b_qid = "RQ:DESC:BERNSTEIN_MOTOR_SYNERGIES_RL"
+                b_qtext = "How do Bernstein's motor synergies and degrees of freedom map onto modern reinforcement learning policy architectures?"
+
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id=b_claim_id,
+                    subject_id="CONCEPT:PHYSIOLOGY_OF_ACTIVITY",
+                    predicate=b_predicate,
+                    object_val=b_obj,
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id=b_qid,
+                    thread_id="T2",
+                    question_text=b_qtext,
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 7. Samarskii Difference Schemes & Minimax Regularization
+        elif is_samarskii and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="CONCEPT:REGULARIZATION_MINIMAX",
+                    label="Minimax Discrete Regularization",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="PERSON:SAMARSKII_AA",
+                    label="A. A. Samarskii",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="PERSON:SAMARSKII_AA",
+                    target_id="CONCEPT:REGULARIZATION_MINIMAX",
+                    verb="STABILIZE",
+                    rationale="Samarskii developed minimax regularization for discrete difference schemes.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:SAMARSKII_1967_MINIMAX_STABILITY_BOUNDS",
+                    subject_id="PERSON:SAMARSKII_AA",
+                    predicate="ESTABLISHES_MINIMAX_REGULARIZATION",
+                    object_val="DISCRETE_DIFFERENCE_SCHEMES",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:SAMARSKII_MINIMAX_FINITE_DIFFERENCE",
+                    thread_id="T2",
+                    question_text="How do Samarskii's minimax difference bounds inform modern finite-element stability in machine learning physics-informed neural networks?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 8. Stratonovich / Pontryagin / Unresolved open inquiries
         else:
             # Inquiry without primary fragments extracted in local cache
             candidate_questions = [

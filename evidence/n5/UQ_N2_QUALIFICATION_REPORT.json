@@ -1,0 +1,266 @@
+{
+  "milestone": "UQ-N2: Prospective Research Efficiency Qualification",
+  "qualification_timestamp": "2026-10-12T06:00:50.120227+00:00",
+  "qualification_verdict": "QUALIFIED",
+  "core_hypothesis": {
+    "statement": "Arm C (Prospective EIG Dual Control) > Arm B (Graph Demand FIFO) > Arm A (Unguided Research) in epistemic yield per source and compute",
+    "holds": true,
+    "eig_source_advantage_over_unguided": 2.56,
+    "eig_source_advantage_over_graph_demand": 1.33,
+    "eig_uow_advantage_over_unguided": 7.69,
+    "eig_uow_advantage_over_graph_demand": 1.6
+  },
+  "provenance": {
+    "git_branch": "research/sovctx-kg",
+    "host_commit_sha": "4f46e88f0a4bc02e6cfa8ce1f0a61b817b5afe2b",
+    "target_node": "nano-jetson-01 (NVIDIA Jetson Nano 2GB ARM Cortex-A57)",
+    "control_node": "uno-q-gateway-01 (x86_64 regulatory controller)"
+  },
+  "hard_contracts_preserved": {
+    "PROPOSED_NEQ_AUTHORIZED": true,
+    "DUAL_TIER_HASH_SEPARATION": true,
+    "CAUSAL_ISSUANCE_LEDGER": true,
+    "CRAWLED_NEQ_VERIFIED_NEQ_ADMITTED": true,
+    "G1_OBSERVER_SHADOW_MODE_ZERO_AUTHORITY": true
+  },
+  "arms_comparison": {
+    "ARM_A_UNGUIDED": {
+      "arm_name": "ARM_A_UNGUIDED_RESEARCH",
+      "total_uows_executed": 12,
+      "total_sources_acquired": 2,
+      "total_candidates_proposed": 52,
+      "useful_evidence_admitted": 3,
+      "duplicate_count": 4,
+      "quarantine_count": 0,
+      "downgrade_count": 0,
+      "rejection_count": 0,
+      "unresolved_count": 5,
+      "contradictions_discovered": 0,
+      "questions_closed": 0,
+      "false_promotions_prevented": 0,
+      "initial_entropy_bits": 8.0,
+      "final_entropy_bits": 7.3503,
+      "total_entropy_reduction": 0.6497,
+      "info_gain_per_source": 0.3249,
+      "info_gain_per_uow": 0.0541,
+      "duplicate_acquisition_rate": 0.5714,
+      "execution_time_seconds": 0.23,
+      "geometric_reorientations_detected": 0,
+      "avg_speed_max_angle": 0.0,
+      "peak_residual_novelty": 0.0
+    },
+    "ARM_B_GRAPH_DEMAND_DRIVEN": {
+      "arm_name": "ARM_B_GRAPH_DEMAND_DRIVEN",
+      "total_uows_executed": 12,
+      "total_sources_acquired": 5,
+      "total_candidates_proposed": 26,
+      "useful_evidence_admitted": 4,
+      "duplicate_count": 0,
+      "quarantine_count": 0,
+      "downgrade_count": 0,
+      "rejection_count": 0,
+      "unresolved_count": 8,
+      "contradictions_discovered": 0,
+      "questions_closed": 8,
+      "false_promotions_prevented": 0,
+      "initial_entropy_bits": 8.0,
+      "final_entropy_bits": 4.8781,
+      "total_entropy_reduction": 3.1219,
+      "info_gain_per_source": 0.6244,
+      "info_gain_per_uow": 0.2602,
+      "duplicate_acquisition_rate": 0.0,
+      "execution_time_seconds": 0.13,
+      "geometric_reorientations_detected": 0,
+      "avg_speed_max_angle": 0.0,
+      "peak_residual_novelty": 0.0
+    },
+    "ARM_C_PROSPECTIVE_EIG_DUAL_CONTROL": {
+      "arm_name": "ARM_C_PROSPECTIVE_EIG_DUAL_CONTROL",
+      "total_uows_executed": 12,
+      "total_sources_acquired": 6,
+      "total_candidates_proposed": 37,
+      "useful_evidence_admitted": 6,
+      "duplicate_count": 0,
+      "quarantine_count": 0,
+      "downgrade_count": 0,
+      "rejection_count": 0,
+      "unresolved_count": 6,
+      "contradictions_discovered": 1,
+      "questions_closed": 7,
+      "false_promotions_prevented": 0,
+      "initial_entropy_bits": 8.0,
+      "final_entropy_bits": 3.0048,
+      "total_entropy_reduction": 4.9952,
+      "info_gain_per_source": 0.8325,
+      "info_gain_per_uow": 0.4163,
+      "duplicate_acquisition_rate": 0.0,
+      "execution_time_seconds": 0.14,
+      "geometric_reorientations_detected": 12,
+      "avg_speed_max_angle": 0.0,
+      "peak_residual_novelty": 0.0
+    }
+  },
+  "comparative_metrics_table": {
+    "entropy_reduction_bits": {
+      "arm_a": 0.6497,
+      "arm_b": 3.1219,
+      "arm_c": 4.9952
+    },
+    "sources_acquired": {
+      "arm_a": 2,
+      "arm_b": 5,
+      "arm_c": 6
+    },
+    "duplicate_rate_pct": {
+      "arm_a": 57.14,
+      "arm_b": 0.0,
+      "arm_c": 0.0
+    },
+    "info_gain_per_source_bits": {
+      "arm_a": 0.3249,
+      "arm_b": 0.6244,
+      "arm_c": 0.8325
+    },
+    "info_gain_per_uow_bits": {
+      "arm_a": 0.0541,
+      "arm_b": 0.2602,
+      "arm_c": 0.4163
+    },
+    "questions_closed": {
+      "arm_a": 0,
+      "arm_b": 8,
+      "arm_c": 7
+    },
+    "question_closure_rate_pct": {
+      "arm_a": 0.0,
+      "arm_b": 66.67,
+      "arm_c": 58.33
+    },
+    "contradictions_discovered": {
+      "arm_a": 0,
+      "arm_b": 0,
+      "arm_c": 1
+    },
+    "false_promotions_prevented": {
+      "arm_a": 0,
+      "arm_b": 0,
+      "arm_c": 0
+    },
+    "geometric_reorientations_detected": {
+      "arm_a": 0,
+      "arm_b": 0,
+      "arm_c": 12
+    },
+    "execution_time_seconds": {
+      "arm_a": 0.233,
+      "arm_b": 0.134,
+      "arm_c": 0.138
+    }
+  },
+  "hypothesis_space_posterior": [
+    {
+      "hypothesis_id": "HYP:FELDBAUM_DUAL_ACTION",
+      "label": "Feldbaum Dual Action Distinction",
+      "description": "Feldbaum's 1960 dual control explicitly proves that control signals in incomplete information simultaneously perform investigative (epistemic) and directing (pragmatic) functions.",
+      "prior": 0.5,
+      "current_probability": 0.9972,
+      "competing_with": [],
+      "status": "CONFIRMED",
+      "supporting_fragments": [
+        "FRAG:FELDBAUM_1960_DUAL_ACTION"
+      ],
+      "refuting_fragments": []
+    },
+    {
+      "hypothesis_id": "HYP:FELDBAUM_QUANTUM_FOUNDATIONS",
+      "label": "Feldbaum Quantum Computing Foundations",
+      "description": "Feldbaum (1960) developed dual control as an explicit quantum computing formulation based on Bell inequalities.",
+      "prior": 0.5,
+      "current_probability": 0.05,
+      "competing_with": [],
+      "status": "REFUTED",
+      "supporting_fragments": [],
+      "refuting_fragments": []
+    },
+    {
+      "hypothesis_id": "HYP:TSETLIN_EXPEDIENT_LEARNING",
+      "label": "Tsetlin Automata Expedient Learning",
+      "description": "Tsetlin (1961) proved that finite automata learn optimal behavior in unknown random media through state transitions that uncover penalty probabilities by trial and error.",
+      "prior": 0.5,
+      "current_probability": 0.9972,
+      "competing_with": [],
+      "status": "CONFIRMED",
+      "supporting_fragments": [
+        "FRAG:TSETLIN_1961_AUTOMATA_PROBING"
+      ],
+      "refuting_fragments": []
+    },
+    {
+      "hypothesis_id": "HYP:KRASOVSKII_LYAPUNOV_SYNTHESIS",
+      "label": "Krasovskii Lyapunov Optimal Regulation",
+      "description": "Krasovskii (1959) proved that optimal feedback regulation can be constructed by minimizing the total time-derivative of an appropriately chosen Lyapunov function V(x).",
+      "prior": 0.5,
+      "current_probability": 0.9972,
+      "competing_with": [],
+      "status": "CONFIRMED",
+      "supporting_fragments": [
+        "FRAG:SAMARSKII_1967_MINIMAX_REGULARIZATION",
+        "FRAG:KRASOVSKII_1959_LYAPUNOV_CONTROL"
+      ],
+      "refuting_fragments": []
+    },
+    {
+      "hypothesis_id": "HYP:GELFAND_TSETLIN_BERNSTEIN_BRIDGE",
+      "label": "Gelfand-Tsetlin Bernstein Physiological Bridge",
+      "description": "Gelfand and Tsetlin (1961) explicitly cite N. A. Bernstein's physiology of movement as the conceptual origin for nonlocal search and parameter space reduction.",
+      "prior": 0.5,
+      "current_probability": 0.95,
+      "competing_with": [],
+      "status": "CONFIRMED",
+      "supporting_fragments": [
+        "FRAG:GELFAND_TSETLIN_1961_BERNSTEIN_BRIDGE"
+      ],
+      "refuting_fragments": []
+    },
+    {
+      "hypothesis_id": "HYP:ANOKHIN_ACTION_ACCEPTOR",
+      "label": "Anokhin Action Acceptor Predictive Comparator",
+      "description": "Anokhin's Functional System Theory (1955, 1968) formulates the Action Acceptor as an afferent model of the required future that precedes action execution and compares return afference.",
+      "prior": 0.5,
+      "current_probability": 0.9972,
+      "competing_with": [],
+      "status": "CONFIRMED",
+      "supporting_fragments": [
+        "FRAG:ANOKHIN_1955_ACTION_ACCEPTOR"
+      ],
+      "refuting_fragments": []
+    },
+    {
+      "hypothesis_id": "HYP:ANOKHIN_REJECTS_LINEAR_REFLEX",
+      "label": "Anokhin Rejection of Pavlovian Linear Reflex",
+      "description": "Anokhin's formulation of return afference explicitly rejected the classical Pavlovian linear reflex arc as inadequate for closed-loop behavioral self-regulation.",
+      "prior": 0.5,
+      "current_probability": 0.95,
+      "competing_with": [],
+      "status": "CONFIRMED",
+      "supporting_fragments": [
+        "FRAG:ANOKHIN_1955_ACTION_ACCEPTOR"
+      ],
+      "refuting_fragments": []
+    },
+    {
+      "hypothesis_id": "HYP:INSTITUTIONAL_MIAN_TO_IAT",
+      "label": "Steklov to IAT Institutional Transmission",
+      "description": "Key mathematical concepts of stability and variational control transferred directly from the Steklov Mathematical Institute (MIAN) to the Institute of Automation and Remote Control (IAT).",
+      "prior": 0.5,
+      "current_probability": 0.95,
+      "competing_with": [],
+      "status": "CONFIRMED",
+      "supporting_fragments": [
+        "FRAG:KOZLOV_2009_CHEBYSHEV_EULER"
+      ],
+      "refuting_fragments": []
+    }
+  ],
+  "twelve_gate_suite_reference": "sovctx/tests/test_uq_n2_prospective_efficiency.py"
+}

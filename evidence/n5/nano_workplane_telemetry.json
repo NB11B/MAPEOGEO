@@ -8,7 +8,7 @@
     "parent_uow_id": null,
     "worker_id": "nano-jetson-01",
     "causal_sequence_id": 1,
-    "software_commit": "d99a250af09fbca7bf1f27c7c34a77e812d4f70b",
+    "software_commit": "4f46e88f0a4bc02e6cfa8ce1f0a61b817b5afe2b",
     "source_manifest": [],
     "source_hashes": {},
     "source_fragments": [],
@@ -31,14 +31,14 @@
       "shadow_mode": true
     },
     "resource_state": {
-      "ram_available_mb": 12394.64,
-      "worker_rss_mb": 127.21,
+      "ram_available_mb": 11696.73,
+      "worker_rss_mb": 127.25,
       "thermal_max_c": 45.0,
       "backpressure_flag": false
     },
     "evidence_hash": "4d6b9f0d02d1bca3b0ef7511cce8aea7fc6a07bd0b866eda66e093e3590d9464",
-    "execution_hash": "bf0b77705cf9817a6a14771be76cc70df3b13262eaa70a8e1e73e31146684ae2",
-    "candidate_bundle_hash": "bf0b77705cf9817a6a14771be76cc70df3b13262eaa70a8e1e73e31146684ae2",
+    "execution_hash": "5d9f9cdf4c0899d096d9875d7cb3de5be02251ffa3fb77cb1e6697a7c8bca8aa",
+    "candidate_bundle_hash": "5d9f9cdf4c0899d096d9875d7cb3de5be02251ffa3fb77cb1e6697a7c8bca8aa",
     "sources": [],
     "sequence_idx": null,
     "relations": [],
@@ -70,8 +70,8 @@
     "recommended_action": "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION",
     "shadow_mode": true
   },
-  "ram_available_mb": 12394.64,
-  "worker_rss_mb": 127.21,
+  "ram_available_mb": 11696.73,
+  "worker_rss_mb": 127.25,
   "thermal_max_c": 45.0,
   "backpressure_flag": false,
   "causal_sequence_id": 1
