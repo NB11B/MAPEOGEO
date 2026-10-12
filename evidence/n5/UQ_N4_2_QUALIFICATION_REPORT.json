@@ -1,0 +1,141 @@
+{
+  "campaign_id": "UQ-N4.2-CONTROLLED-EXPANSION-v1.0",
+  "timestamp": "2026-10-12T07:58:27.477961+00:00",
+  "commit": "e416d70edf12734e397dff0688e414122b225372",
+  "axiom": "CONTROLLED_ONTOLOGY_EXPANSION + MDL_PENALTY + ZERO_BAD_PROLIFERATION",
+  "verdict": "QUALIFIED_PASS",
+  "metrics": {
+    "bad_ontology_proliferation_rate_pct": 0.0,
+    "multi_manifestation_compliance_pct": 100.0,
+    "promoted_relations_count": 2,
+    "merged_relations_count": 2,
+    "subtyped_relations_count": 2,
+    "provisional_quarantine_count": 2,
+    "rejected_concepts_count": 2,
+    "total_candidates_evaluated": 10,
+    "total_duration_ms": 135.77,
+    "peak_rss_mb": 68.43
+  },
+  "candidates": [
+    {
+      "candidate_id": "CAND:01",
+      "stage": "STAGE_D",
+      "predicate": "CONSTRAINT_FORMALISM_TRANSFER",
+      "sources_count": 4,
+      "geometric_residual": 0.42,
+      "claims_extracted": 1,
+      "duration_ms": 11.74,
+      "rss_mb": 66.06,
+      "expected_promotion": true,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:02",
+      "stage": "STAGE_D",
+      "predicate": "CONTINUOUS_DISCRETIZATION_DUALITY",
+      "sources_count": 3,
+      "geometric_residual": 0.42,
+      "claims_extracted": 0,
+      "duration_ms": 10.81,
+      "rss_mb": 66.06,
+      "expected_promotion": true,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:03",
+      "stage": "STAGE_D",
+      "predicate": "CONVERSE_LYAPUNOV_INVERSION",
+      "sources_count": 2,
+      "geometric_residual": 0.06,
+      "claims_extracted": 1,
+      "duration_ms": 12.04,
+      "rss_mb": 66.06,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:04",
+      "stage": "STAGE_D",
+      "predicate": "CONTEMPORANEOUS_OPTIMAL_CONTROL",
+      "sources_count": 2,
+      "geometric_residual": 0.06,
+      "claims_extracted": 0,
+      "duration_ms": 10.43,
+      "rss_mb": 66.06,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:05",
+      "stage": "STAGE_D",
+      "predicate": "RETROSPECTIVE_UNIFICATION",
+      "sources_count": 2,
+      "geometric_residual": 0.06,
+      "claims_extracted": 1,
+      "duration_ms": 14.83,
+      "rss_mb": 68.43,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:06",
+      "stage": "STAGE_D",
+      "predicate": "CROSS_CITATIONAL_INFLUENCE",
+      "sources_count": 2,
+      "geometric_residual": 0.06,
+      "claims_extracted": 1,
+      "duration_ms": 12.01,
+      "rss_mb": 68.43,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:07",
+      "stage": "STAGE_E",
+      "predicate": "TOPOLOGICAL_DEGREE_STABILITY",
+      "sources_count": 1,
+      "geometric_residual": 0.06,
+      "claims_extracted": 0,
+      "duration_ms": 9.99,
+      "rss_mb": 68.43,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:08",
+      "stage": "STAGE_E",
+      "predicate": "BILINEAR_HERMITIAN_DAMPING",
+      "sources_count": 1,
+      "geometric_residual": 0.06,
+      "claims_extracted": 0,
+      "duration_ms": 10.5,
+      "rss_mb": 68.43,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:09",
+      "stage": "STAGE_E",
+      "predicate": "VAKONOMIC_LAGRANGIAN_EXTENSION",
+      "sources_count": 1,
+      "geometric_residual": 0.06,
+      "claims_extracted": 0,
+      "duration_ms": 9.87,
+      "rss_mb": 68.43,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    },
+    {
+      "candidate_id": "CAND:10",
+      "stage": "STAGE_E",
+      "predicate": "ANACHRONISTIC_ROBOTIC_PRIORITY",
+      "sources_count": 1,
+      "geometric_residual": 0.06,
+      "claims_extracted": 0,
+      "duration_ms": 9.85,
+      "rss_mb": 68.43,
+      "expected_promotion": false,
+      "status": "PROPOSED_CONCEPT"
+    }
+  ]
+}

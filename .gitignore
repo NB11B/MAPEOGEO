@@ -38,4 +38,5 @@ evidence/*.sqlite3
 evidence/n5/spool/
 evidence/n5/uno_q_issuance_ledger.json
 evidence/n5/control_plane_admission_log.jsonl
+evidence/n5/5h_collection_stream.jsonl
 
