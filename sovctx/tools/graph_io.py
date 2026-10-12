@@ -53,6 +53,7 @@ CANONICAL_JSONL = (
     ROOT / "graph" / "behavioral_tests.jsonl",
     ROOT / "graph" / "assumptions.jsonl",
     ROOT / "graph" / "symbols.jsonl",
+    ROOT / "graph" / "method_episodes.jsonl",
     ROOT / "unresolved" / "open_questions.jsonl",
     ROOT / "graph" / "entities.jsonl",
     ROOT / "graph" / "claims.jsonl",

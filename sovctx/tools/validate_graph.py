@@ -13,6 +13,7 @@ JSONL_FILES = [
     ROOT / "graph" / "equations.jsonl",
     ROOT / "graph" / "equation_families.jsonl",
     ROOT / "graph" / "symbols.jsonl",
+    ROOT / "graph" / "method_episodes.jsonl",
     ROOT / "graph" / "assumptions.jsonl",
     ROOT / "graph" / "behavioral_tests.jsonl",
     ROOT / "graph" / "invariants.jsonl",
@@ -191,6 +192,95 @@ def validate_equation(path: Path, record: dict[str, Any], nodes: dict[str, dict[
                 )
 
 
+def validate_method_episode(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "METHOD_EPISODE":
+        return
+    for key in (
+        "s0_initial_problem",
+        "q_deficiency",
+        "a_admissibility",
+        "x_auxiliary_construction",
+        "c_constraints_invariants",
+        "t_transformation_decision",
+        "s1_resulting_conclusion",
+        "negative_information",
+    ):
+        if key not in record or not isinstance(record[key], dict):
+            raise ValidationError(f"{path}: method episode {record['id']} missing or non-dict component {key}")
+
+    # S0: initial problem
+    s0 = record["s0_initial_problem"]
+    if not s0.get("problem_statement") or not s0.get("state_space"):
+        raise ValidationError(f"{path}: method episode {record['id']} s0 missing problem_statement or state_space")
+    for eq_id in s0.get("visible_equations", []):
+        eq = nodes.get(eq_id)
+        if not eq or eq.get("type") != "EQUATION":
+            raise ValidationError(f"{path}: method episode {record['id']} s0 references invalid equation {eq_id}")
+
+    # Q: deficiency of direct approach
+    q = record["q_deficiency"]
+    if not q.get("why_direct_solution_fails"):
+        raise ValidationError(f"{path}: method episode {record['id']} q missing why_direct_solution_fails")
+
+    # A: admissibility class and assumptions
+    a = record["a_admissibility"]
+    if not a.get("permissible_domain") or not a.get("admissibility_class"):
+        raise ValidationError(f"{path}: method episode {record['id']} a missing permissible_domain or admissibility_class")
+    for assump_id in a.get("assumption_ids", []):
+        assump = nodes.get(assump_id)
+        if not assump or assump.get("type") != "ASSUMPTION":
+            raise ValidationError(f"{path}: method episode {record['id']} a references invalid assumption {assump_id}")
+
+    # X: auxiliary construction
+    x = record["x_auxiliary_construction"]
+    if not x.get("auxiliary_object_name") or not x.get("auxiliary_representation_space") or not x.get("space_change"):
+        raise ValidationError(f"{path}: method episode {record['id']} x missing auxiliary_object_name, auxiliary_representation_space, or space_change")
+
+    # C: constraints and invariants
+    c = record["c_constraints_invariants"]
+    if not c.get("invariants") or not c.get("admissibility_bounds"):
+        raise ValidationError(f"{path}: method episode {record['id']} c missing invariants or admissibility_bounds")
+    for inv_id in c.get("invariant_ids", []):
+        inv = nodes.get(inv_id)
+        if not inv or inv.get("type") != "INVARIANT":
+            raise ValidationError(f"{path}: method episode {record['id']} c references invalid invariant {inv_id}")
+
+    # T: transformation decision on auxiliary
+    t = record["t_transformation_decision"]
+    if not t.get("decision_description") or not t.get("computation_on_auxiliary"):
+        raise ValidationError(f"{path}: method episode {record['id']} t missing decision_description or computation_on_auxiliary")
+    for op_id in t.get("operator_ids", []):
+        op = nodes.get(op_id)
+        if not op or op.get("type") != "OPERATOR":
+            raise ValidationError(f"{path}: method episode {record['id']} t references invalid operator {op_id}")
+
+    # S1: resulting conclusion and certified properties
+    s1 = record["s1_resulting_conclusion"]
+    if not s1.get("conclusion_statement") or not s1.get("certified_properties"):
+        raise ValidationError(f"{path}: method episode {record['id']} s1 missing conclusion_statement or certified_properties")
+    for eq_id in s1.get("resulting_equation_ids", []):
+        eq = nodes.get(eq_id)
+        if not eq or eq.get("type") != "EQUATION":
+            raise ValidationError(f"{path}: method episode {record['id']} s1 references invalid equation {eq_id}")
+
+    # Negative information ledger
+    neg = record["negative_information"]
+    if not neg.get("what_need_not_be_computed") or not isinstance(neg["what_need_not_be_computed"], list):
+        raise ValidationError(f"{path}: method episode {record['id']} negative_information missing what_need_not_be_computed")
+    if not neg.get("excluded_alternatives") or not isinstance(neg["excluded_alternatives"], list):
+        raise ValidationError(f"{path}: method episode {record['id']} negative_information missing excluded_alternatives")
+
+    # Sources and fragments
+    for src_id in record.get("source_ids", []):
+        src = nodes.get(src_id)
+        if not src or src.get("type") not in {"PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+            raise ValidationError(f"{path}: method episode {record['id']} references invalid source {src_id}")
+    for frag_id in record.get("source_fragment_ids", []):
+        frag = nodes.get(frag_id)
+        if not frag or frag.get("type") != "SOURCE_FRAGMENT":
+            raise ValidationError(f"{path}: method episode {record['id']} references invalid fragment {frag_id}")
+
+
 def validate_behavioral_test(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
     if record["type"] != "BEHAVIORAL_TEST":
         return
@@ -354,6 +444,7 @@ def main() -> int:
         validate_claim(path, record, nodes)
         validate_equation(path, record, nodes)
         validate_behavioral_test(path, record, nodes)
+        validate_method_episode(path, record, nodes)
 
     support_pairs: set[tuple[str, str]] = set()
     encoded_equation_pairs: set[tuple[str, str]] = set()
