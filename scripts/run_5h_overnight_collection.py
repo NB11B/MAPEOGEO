@@ -70,9 +70,17 @@ RESEARCH_CYCLES_CATALOG = [
     ("CYCLE:C2", "STAGE_C", ["Sign-definiteness inversion and converse theorem derivation without analytical Lyapunov function"], "STABILITY", False),
     ("CYCLE:C3", "STAGE_C", ["Dual action information state in optimal control Feldbaum dual control theory"], "DUAL_CONTROL", False),
 
-    # Cycle 4: Stage D (Unlabeled Clusters)
+    # Cycle 4: Stage D (Unlabeled Clusters & Concept Proposals - All 5 Dispositions)
     ("CYCLE:D1", "STAGE_D", ["DOC:PRIGOGINE_1954", "DOC:GLANSDORFF_1964", "DOC:ONSAGER_1931"], "CONSTRAINT_FORMALISM_TRANSFER", True),
     ("CYCLE:D2", "STAGE_D", ["DOC:STRATONOVICH_1960", "DOC:ITO_1944", "DOC:MARCUS_1978"], "CONTINUOUS_DISCRETIZATION_DUALITY", True),
+    ("CYCLE:D3", "STAGE_D", ["DOC:CHETAEV_1934", "DOC:KRASOVSKII_1959"], "CONVERSE_LYAPUNOV_INVERSION", True),
+    ("CYCLE:D4", "STAGE_D", ["DOC:PONTRYAGIN_1956", "DOC:BELLMAN_1957"], "CONTEMPORANEOUS_OPTIMAL_CONTROL", True),
+    ("CYCLE:D5", "STAGE_D", ["DOC:CHAPLYGIN_1911", "DOC:APPELL_1899"], "RETROSPECTIVE_UNIFICATION", True),
+    ("CYCLE:D6", "STAGE_D", ["DOC:POINCARE_1892", "DOC:LYAPUNOV_1892"], "CROSS_CITATIONAL_INFLUENCE", True),
+    ("CYCLE:D7", "STAGE_D", ["DOC:LERAY_1934"], "TOPOLOGICAL_DEGREE_STABILITY", True),
+    ("CYCLE:D8", "STAGE_D", ["DOC:KREIN_1950"], "BILINEAR_HERMITIAN_DAMPING", True),
+    ("CYCLE:D9", "STAGE_D", ["DOC:VAKONOMICS_ANACHRONISM"], "VAKONOMIC_LAGRANGIAN_EXTENSION", True),
+    ("CYCLE:D10", "STAGE_D", ["DOC:ROBOTICS_ANACHRONISM"], "ANACHRONISTIC_ROBOTIC_PRIORITY", True),
 
     # Cycle 5: Stage E (Raw Batches)
     ("CYCLE:E1", "STAGE_E", ["BATCH:SOV_STABILITY_1930_1970"], "STABILITY_EXPLORATION", False),
