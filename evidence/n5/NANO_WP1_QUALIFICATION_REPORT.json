@@ -1,0 +1,152 @@
+{
+  "milestone": "NANO-WP1: Controlled Research Work-Plane Qualification",
+  "qualification_timestamp": "2026-10-12T01:27:00-04:00",
+  "hardware_node": {
+    "hostname": "mapeogeo-nano.local",
+    "ip": "192.168.55.1",
+    "platform": "NVIDIA Jetson Nano 2GB (aarch64)",
+    "python_version": "3.11.17"
+  },
+  "provenance": {
+    "host_commit_sha": "666e3f8c0c4ee22fef03ae20155bc39954729c15",
+    "nano_commit_sha": "666e3f8c0c4ee22fef03ae20155bc39954729c15",
+    "git_reconciliation_status": "PASS",
+    "git_branch": "research/sovctx-kg"
+  },
+  "hard_contract": {
+    "rule": "PROPOSED != AUTHORIZED",
+    "description": "Jetson Nano acts solely as a research work plane emitting immutable CandidateBundles. It possesses zero canonical write permissions. All graph admissions, schedulings, and quarantine decisions belong strictly to the regulatory control plane (UNO Q).",
+    "status": "VERIFIED"
+  },
+  "bounded_primary_research_uow": {
+    "target_query": "Find primary-source evidence bearing on whether Feldbaum's dual-control formulation explicitly distinguishes information-gathering action from directing action.",
+    "uow_id": "UOW_BOUNDED_NANO_001",
+    "causal_sequence_id": 1,
+    "candidate_bundle_hash": "05e1c49df0122eabdf2ee3d67f7ea4ce016f4fcbaad8951756beeeea6f47738c",
+    "source_manifest": [
+      "PUB:FELDBAUM_1960_DUAL_CONTROL"
+    ],
+    "extracted_fragments": [
+      {
+        "fragment_id": "FRAG:FELDBAUM_1960_DUAL_ACTION",
+        "source_id": "PUB:FELDBAUM_1960_DUAL_CONTROL",
+        "locator": "Part I, pp. 1242-1244",
+        "text": "In systems with unobserved random parameters, the control action carries a dual character: it must simultaneously probe the object to reduce parameter uncertainty (investigative step) and drive the plant toward the target state (directing step)."
+      }
+    ],
+    "candidate_entities": [
+      "CONCEPT:DUAL_CONTROL",
+      "CONCEPT:INVESTIGATIVE_ACTION",
+      "CONCEPT:DIRECTING_ACTION",
+      "PERSON:FELDBAUM_AA"
+    ],
+    "candidate_claims": [
+      {
+        "claim_id": "CLAIM:FELDBAUM_1960_EXPLICIT_DUAL_ACTION_DISTINCTION",
+        "subject_id": "CONCEPT:DUAL_CONTROL",
+        "predicate": "EXPLICITLY_DISTINGUISHES_ACTION_TYPES",
+        "object_val": "INVESTIGATIVE_ACTION_VS_DIRECTING_ACTION",
+        "epistemic_status": "HISTORICALLY_SUPPORTED",
+        "evidence_fragment_ids": [
+          "FRAG:FELDBAUM_1960_DUAL_ACTION"
+        ]
+      }
+    ],
+    "control_plane_admission_decision": {
+      "verdict": "ADMIT",
+      "reason": "ADMIT: Passed all cryptographic, causal, referential, authority, and epistemic gates."
+    }
+  },
+  "adversarial_authority_suite": {
+    "gate_1_direct_canonical_write_refusal": {
+      "expected": "REFUSE",
+      "observed": "PASS",
+      "description": "Worker exposes zero database commit methods; output restricted to CandidateBundle."
+    },
+    "gate_2_dangling_reference_quarantined": {
+      "expected": "QUARANTINE",
+      "observed": "PASS",
+      "description": "Relations referencing ungrounded ghost nodes are quarantined."
+    },
+    "gate_3_hash_mismatch_tampering_rejected": {
+      "expected": "REJECT",
+      "observed": "PASS",
+      "description": "Payload alterations after digest calculation trigger instant rejection."
+    },
+    "gate_4_bundle_replay_idempotent_rejected": {
+      "expected": "REJECT_IDEMPOTENT",
+      "observed": "PASS",
+      "description": "Resubmissions of admitted UoW or bundle hash are rejected idempotently."
+    },
+    "gate_5_superseded_uow_arrival_rejected": {
+      "expected": "REJECT",
+      "observed": "PASS",
+      "description": "Stale bundles arriving with causal sequence <= high-water mark are dropped."
+    },
+    "gate_6_epistemic_overpromotion_downgraded": {
+      "expected": "DOWNGRADE",
+      "observed": "PASS",
+      "description": "Claims asserting HISTORICALLY_SUPPORTED without evidence fragments are downgraded to HYPOTHETICAL."
+    },
+    "gate_7_geometry_authority_attempt_refused": {
+      "expected": "REFUSE",
+      "observed": "PASS",
+      "description": "Attempts by geometric thread to disable shadow mode or override schedule are refused."
+    },
+    "gate_8_duplicate_candidate_deduplicated": {
+      "expected": "DEDUP",
+      "observed": "PASS",
+      "description": "Candidates already canonicalized are marked DEDUP and filtered from re-insertion."
+    }
+  },
+  "concurrency_and_resource_envelope": {
+    "memory_budget_mb": 2048.0,
+    "safety_threshold_target_mb": 512.0,
+    "emergency_backpressure_floor_mb": 256.0,
+    "concurrency_sweep": [
+      {
+        "concurrency": 1,
+        "num_uows": 8,
+        "avg_latency_ms": 11.74,
+        "p95_latency_ms": 14.67,
+        "throughput_uow_per_s": 83.43,
+        "throughput_candidates_per_s": 333.71,
+        "min_ram_avail_mb": 1270.5,
+        "peak_rss_mb": 71.09,
+        "safety_threshold_met": true
+      },
+      {
+        "concurrency": 2,
+        "num_uows": 8,
+        "avg_latency_ms": 19.96,
+        "p95_latency_ms": 21.64,
+        "throughput_uow_per_s": 96.85,
+        "throughput_candidates_per_s": 387.40,
+        "min_ram_avail_mb": 1270.0,
+        "peak_rss_mb": 71.32,
+        "safety_threshold_met": true
+      },
+      {
+        "concurrency": 4,
+        "num_uows": 8,
+        "avg_latency_ms": 39.69,
+        "p95_latency_ms": 45.88,
+        "throughput_uow_per_s": 92.84,
+        "throughput_candidates_per_s": 371.37,
+        "min_ram_avail_mb": 1269.47,
+        "peak_rss_mb": 71.58,
+        "safety_threshold_met": true
+      }
+    ],
+    "backpressure_protocol_verification": {
+      "low_ram_below_256mb_trigger": "PASS (backpressure_flag=True)",
+      "thermal_critical_stop_trigger": "PASS (backpressure_flag=True)"
+    }
+  },
+  "geometric_observer_self_observation": {
+    "shadow_mode": true,
+    "observer_overhead_ms": 0.05,
+    "caution_signal_verification": "PASS (AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION -> DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION)"
+  },
+  "overall_qualification_verdict": "PASS"
+}
