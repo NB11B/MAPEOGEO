@@ -359,6 +359,143 @@ class ResearchFrontierCoordinator:
                 generation=0,
                 target_channel=InstitutionalChannelType.STRUCTURAL_MATHEMATICAL_CONTINUITY,
             ),
+            # --- Pre-Seeded Specific Cross-Thread Bridges ---
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T2_T3:0001",
+                thread_id="T2",
+                originating_evidence="SOVCTX Control & Inverse Spines",
+                question_text="Where did conditional stabilization of ill-posed inverse operators (Tikhonov regularization) first couple directly with closed-loop feedback regulation (Pontryagin/Krasovskii) to govern systems with unobservable or partially corrupted state coordinates?",
+                relation_under_test="OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE -> CONTROL",
+                known_endpoints=["Tikhonov", "Pontryagin", "Krasovskii"],
+                unknown_endpoint=True,
+                temporal_window="1955-1970",
+                priority_components=PriorityComponents(
+                    novelty=0.9, bridge_potential=1.0, evidentiary_quality=0.9,
+                    corroboration_potential=0.8, historical_gap_value=0.9, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T2_T3", "intersection_concept": "State Estimation under Unbounded Perturbation"},
+                target_channel=InstitutionalChannelType.STRUCTURAL_MATHEMATICAL_CONTINUITY,
+            ),
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T2_T3:0002",
+                thread_id="T3",
+                originating_evidence="Zelkin (1950s) & Tikhonov (1943)",
+                question_text="Did Zelkin's 1950s antenna synthesis phase-amplitude inverse problem utilize Lyapunov stability criteria to bound the sensitivity of beamforming patterns to physical component perturbations?",
+                relation_under_test="INVERT_PATTERN -> BOUND_SENSITIVITY -> STABILIZE_BEAM",
+                known_endpoints=["Zelkin", "Tikhonov"],
+                unknown_endpoint=True,
+                temporal_window="1950-1965",
+                priority_components=PriorityComponents(
+                    novelty=0.85, bridge_potential=0.95, evidentiary_quality=0.9,
+                    corroboration_potential=0.75, historical_gap_value=0.9, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T2_T3", "intersection_concept": "Inverse Antenna Synthesis & Lyapunov Sensitivity"},
+                target_channel=InstitutionalChannelType.DOCUMENTED_CITATION_TRANSFER,
+            ),
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T4_T6:0001",
+                thread_id="T4",
+                originating_evidence="Bogolyubov (1946) & Tsetlin (1961)",
+                question_text="Did Bogolyubov's BBGKY distribution hierarchy reduction share formal mathematical machinery with Tsetlin's macroscopic automata collectives playing zero-sum and non-zero-sum games?",
+                relation_under_test="DISTRIBUTE_STATE -> REDUCE_DEGREES -> EMERGENT_EQUILIBRIUM",
+                known_endpoints=["Bogolyubov", "Tsetlin", "Gelfand"],
+                unknown_endpoint=True,
+                temporal_window="1958-1966",
+                priority_components=PriorityComponents(
+                    novelty=0.9, bridge_potential=1.0, evidentiary_quality=0.8,
+                    corroboration_potential=0.8, historical_gap_value=0.9, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T4_T6", "intersection_concept": "Collective Adaptation & Macroscopic Self-Organization"},
+                target_channel=InstitutionalChannelType.PERSONNEL_TRANSFER,
+            ),
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T4_T6:0002",
+                thread_id="T6",
+                originating_evidence="Vlasov (1938) & Anokhin (1968)",
+                question_text="How did Anokhin's Functional System dynamic organ assembly relate to self-consistent fields in collective plasma mechanics (Vlasov)?",
+                relation_under_test="FIELD_CONFINEMENT -> DYNAMIC_ASSEMBLY -> HOMEOSTATIC_RESULT",
+                known_endpoints=["Vlasov", "Anokhin"],
+                unknown_endpoint=True,
+                temporal_window="1950-1970",
+                priority_components=PriorityComponents(
+                    novelty=0.95, bridge_potential=0.9, evidentiary_quality=0.7,
+                    corroboration_potential=0.6, historical_gap_value=1.0, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T4_T6", "intersection_concept": "Self-Consistent Dynamics & Functional Systems"},
+                target_channel=InstitutionalChannelType.STRUCTURAL_MATHEMATICAL_CONTINUITY,
+            ),
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T5_T3:0001",
+                thread_id="T5",
+                originating_evidence="Chebyshev (1854) & Tikhonov (1943, 1963)",
+                question_text="How did Chebyshev minimax polynomial approximation theory and Remez exchange algorithms get integrated into numerical regularization solvers on BESM computers for ill-posed Fredholm integral equations of the first kind?",
+                relation_under_test="INVERT -> DISCRETIZE -> MINIMAX_APPROXIMATE -> NUMERICAL_REGULARIZE",
+                known_endpoints=["Chebyshev", "Tikhonov", "Samarskii", "Lebedev"],
+                unknown_endpoint=True,
+                temporal_window="1955-1972",
+                priority_components=PriorityComponents(
+                    novelty=0.85, bridge_potential=0.95, evidentiary_quality=0.85,
+                    corroboration_potential=0.85, historical_gap_value=0.8, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T5_T3", "intersection_concept": "Finite Computational Inversion & Regularized Algorithms"},
+                target_channel=InstitutionalChannelType.INSTITUTIONAL_CONTINUITY,
+            ),
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T1_T8:0001",
+                thread_id="T1",
+                originating_evidence="Euler Academy Texts & Chebyshev Operator Formulations",
+                question_text="Did Euler's Russian-language texts at the St. Petersburg Academy establish the native operator terminology (оператор, отображение, преобразование) that later biased Chebyshev, Markov, and Lyapunov toward relationship-first rather than object-first mathematical formulation?",
+                relation_under_test="ACADEMY_TRANSLATION -> SEMANTIC_MINTING -> RELATIONAL_GRAMMAR",
+                known_endpoints=["Euler", "Chebyshev", "Lyapunov"],
+                unknown_endpoint=True,
+                temporal_window="1740-1895",
+                priority_components=PriorityComponents(
+                    novelty=0.9, bridge_potential=0.9, evidentiary_quality=0.8,
+                    corroboration_potential=0.7, historical_gap_value=0.9, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T1_T8", "intersection_concept": "Persistence of Relational Vocabulary across Eras"},
+                target_channel=InstitutionalChannelType.DOCUMENTED_CITATION_TRANSFER,
+            ),
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T7_T2:0001",
+                thread_id="T7",
+                originating_evidence="MIAN & Ural State Seminars on Control",
+                question_text="Through which specific seminars (e.g. MIAN Steklov, MSU Mechanics-Mathematics, or Ural State University) did Krasovskii and Pontryagin students transfer optimal feedback regulation into TsAGI, NII-88, and Korolev's OKB-1?",
+                relation_under_test="MIAN_SEMINAR -> STUDENT_DEFENSE -> LAB_TRANSFER -> OKB_DEPLOYMENT",
+                known_endpoints=["Pontryagin", "Krasovskii", "TsAGI", "OKB-1"],
+                unknown_endpoint=True,
+                temporal_window="1953-1966",
+                priority_components=PriorityComponents(
+                    novelty=0.85, bridge_potential=0.95, evidentiary_quality=0.85,
+                    corroboration_potential=0.9, historical_gap_value=0.9, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T7_T2", "intersection_concept": "Institutional Conduit of Stability Mathematics into Control"},
+                target_channel=InstitutionalChannelType.PERSONNEL_TRANSFER,
+            ),
+            ResearchQuestion(
+                question_id="RQ:XBRIDGE:T6_T2:0001",
+                thread_id="T6",
+                originating_evidence="Tsetlin (1961) & Feldbaum (1960)",
+                question_text="How did Tsetlin's stochastic automata interacting with unknown random media converge with Pontryagin's maximum principle in extremum-seeking and dual adaptive control systems (Feldbaum 1960)?",
+                relation_under_test="UNKNOWN_MEDIA -> PROBE_STEP -> ESTIMATE_EXTREMUM -> CONTROL",
+                known_endpoints=["Tsetlin", "Pontryagin", "Feldbaum"],
+                unknown_endpoint=True,
+                temporal_window="1959-1965",
+                priority_components=PriorityComponents(
+                    novelty=0.9, bridge_potential=1.0, evidentiary_quality=0.9,
+                    corroboration_potential=0.85, historical_gap_value=0.85, duplication_penalty=0.0
+                ),
+                generation=0,
+                metadata={"bridge_id": "XBRIDGE:T6_T2", "intersection_concept": "Stochastic Automata Adaptation vs Extremal Control"},
+                target_channel=InstitutionalChannelType.DOCUMENTED_CITATION_TRANSFER,
+            ),
         ]
 
         for q in seed_questions:
@@ -371,18 +508,18 @@ class ResearchFrontierCoordinator:
         bridges_quota = max(1, round(total_slots * 0.30))
         anomalies_quota = max(1, total_slots - spines_quota - bridges_quota)
 
-        # 1. Spines: T1 through T6 open questions
+        # 1. Spines: T1 through T6 open questions that are NOT explicit cross-bridges
         spines_candidates = [
             q for q in self.ledger.get_open_questions()
-            if q.thread_id in ("T1", "T2", "T3", "T4", "T5", "T6")
+            if q.thread_id in ("T1", "T2", "T3", "T4", "T5", "T6") and "XBRIDGE" not in q.question_id
         ]
         spines_candidates.sort(key=lambda x: x.priority, reverse=True)
         selected_spines = spines_candidates[:spines_quota]
 
-        # 2. Bridges: T7, T8, or cross-bridge questions
+        # 2. Bridges: T7, T8, or explicit cross-bridge questions
         bridges_candidates = [
             q for q in self.ledger.get_open_questions()
-            if q.thread_id in ("T7", "T8") or "XBRIDGE" in q.metadata.get("bridge_id", "")
+            if q.thread_id in ("T7", "T8") or "XBRIDGE" in q.question_id or "XBRIDGE" in q.metadata.get("bridge_id", "")
         ]
         bridges_candidates.sort(key=lambda x: x.priority, reverse=True)
         selected_bridges = bridges_candidates[:bridges_quota]
