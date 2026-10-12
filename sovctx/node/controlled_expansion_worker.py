@@ -20,13 +20,13 @@ from sovctx.node.nano_research_worker import (
     CandidateBundle,
     NanoWorkPlaneTelemetry,
 )
+from sovctx.node.open_world_worker import OpenWorldResearchWorker
 
-class ControlledExpansionWorker:
+class ControlledExpansionWorker(OpenWorldResearchWorker):
     """Executes Stage D/E de-scaffolded discovery and proposes candidate relation concepts."""
 
     def __init__(self, worker: Optional[NanoResearchWorker] = None, shadow_mode: bool = True):
-        self.worker = worker or NanoResearchWorker("nano-controlled-expansion-worker", shadow_mode=shadow_mode)
-        self.shadow_mode = shadow_mode
+        super().__init__(worker=worker, shadow_mode=shadow_mode)
 
     def execute_stage_d_cluster_probe(
         self,

@@ -1,14 +1,14 @@
 {
-  "worker_id": "nano-test-controlled-expansion",
-  "uow_id": "UOW:N4_2:STAGE_D:CLUSTER:01",
-  "sequence_idx": 6,
+  "worker_id": "nano-5h-collection-daemon",
+  "uow_id": "UOW:N4_2:STAGE_E:CYCLE:E2:1",
+  "sequence_idx": 13,
   "state": "REPORTING",
   "candidate_bundle": {
-    "uow_id": "UOW:N4_2:STAGE_D:CLUSTER:01",
+    "uow_id": "UOW:N4_2:STAGE_E:CYCLE:E2:1",
     "parent_uow_id": null,
-    "worker_id": "nano-test-controlled-expansion",
-    "causal_sequence_id": 6,
-    "software_commit": "7da73f3ca5b761b32459372df038afa1e8f7d478",
+    "worker_id": "nano-5h-collection-daemon",
+    "causal_sequence_id": 13,
+    "software_commit": "e416d70edf12734e397dff0688e414122b225372",
     "source_manifest": [],
     "source_hashes": {},
     "source_fragments": [],
@@ -17,9 +17,9 @@
     "candidate_claims": [],
     "candidate_questions": [
       {
-        "question_id": "RQ:OPEN:UOW:N4_2:STAGE_D:CLUSTER:01",
+        "question_id": "RQ:OPEN:UOW:N4_2:STAGE_E:CYCLE:E2:1",
         "thread_id": "T2",
-        "question_text": "Analyze structural synthesis across documents DOC:01 DOC:02",
+        "question_text": "Open exploration over CYBERNETICS_EXPLORATION batch CYCLE:E2:1 extracting novel formalisms",
         "target_channel": "MATHEMATICAL",
         "originating_evidence": "Open Corpus Query"
       }
@@ -29,9 +29,9 @@
       "speed_projector": 0.0,
       "kappa_g": 0.0,
       "residual_norm": 0.0,
-      "spectral_gap": 2.7739016807560623e-17,
-      "relative_gap": 3.9451046125747356e-16,
-      "davis_kahan_ratio": 70312500000.0,
+      "spectral_gap": 0.19922478817541903,
+      "relative_gap": 0.3584907593803281,
+      "davis_kahan_ratio": 2.7894721797760123,
       "identifiability": "NON_IDENTIFIABLE",
       "regime": "IDENTIFIABILITY_DEGRADED",
       "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
@@ -39,56 +39,56 @@
       "shadow_mode": true
     },
     "resource_state": {
-      "ram_available_mb": 12538.48,
-      "worker_rss_mb": 84.37,
+      "ram_available_mb": 12571.23,
+      "worker_rss_mb": 70.21,
       "thermal_max_c": 45.0,
       "backpressure_flag": false
     },
-    "evidence_hash": "b2f5ca7c859d1f4d2b06aec18f2e8103eebe3939995f2171b53ab6b9ea70fcc9",
-    "execution_hash": "9565ff8f4e76ebade5845500bf65c174af3072fb5951548c7b15d2ec2824fb91",
-    "candidate_bundle_hash": "9565ff8f4e76ebade5845500bf65c174af3072fb5951548c7b15d2ec2824fb91",
+    "evidence_hash": "3fd45dbeb4b3de8ddc1b3d5a04a8efa407590e58a00ad3569a8d3361e5fc1dcf",
+    "execution_hash": "111bd1b839ae9d3c81e1c7e8542f139c8a5c415d1ea064cbb5e81548db3555ae",
+    "candidate_bundle_hash": "111bd1b839ae9d3c81e1c7e8542f139c8a5c415d1ea064cbb5e81548db3555ae",
     "sources": [],
     "sequence_idx": null,
     "relations": [],
     "questions": [
       {
-        "question_id": "RQ:OPEN:UOW:N4_2:STAGE_D:CLUSTER:01",
+        "question_id": "RQ:OPEN:UOW:N4_2:STAGE_E:CYCLE:E2:1",
         "thread_id": "T2",
-        "question_text": "Analyze structural synthesis across documents DOC:01 DOC:02",
+        "question_text": "Open exploration over CYBERNETICS_EXPLORATION batch CYCLE:E2:1 extracting novel formalisms",
         "target_channel": "MATHEMATICAL",
         "originating_evidence": "Open Corpus Query"
       }
     ]
   },
   "geometric_observation": {
-    "epoch_idx": 6,
-    "step_idx": 6,
+    "epoch_idx": 13,
+    "step_idx": 13,
     "speed_max_angle": 1.4901161193847656e-08,
     "speed_projector": 0.0,
     "kappa_g": 0.0,
     "residual_norm": 0.0,
-    "spectral_gap": 2.7739016807560623e-17,
-    "relative_gap": 3.9451046125747356e-16,
-    "davis_kahan_ratio": 70312500000.0,
+    "spectral_gap": 0.19922478817541903,
+    "relative_gap": 0.3584907593803281,
+    "davis_kahan_ratio": 2.7894721797760123,
     "identifiability": "NON_IDENTIFIABLE",
     "regime": "IDENTIFIABILITY_DEGRADED",
     "eigenvalues": [
-      0.0703125,
-      2.7755575615628914e-17,
-      1.6558808068289444e-20,
-      9.906451095581124e-21,
-      1.5207647164758716e-36,
-      8.140572895973464e-37,
-      1.8328563992801757e-38,
-      2.7800180591478063e-39
+      0.5557320041370998,
+      0.20054825711065147,
+      0.001323468935232446,
+      0.0004938412423664314,
+      0.00013543573996263874,
+      7.982466901240033e-05,
+      5.664835175173491e-06,
+      2.846795886429442e-17
     ],
     "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
     "recommended_action": "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION",
     "shadow_mode": true
   },
-  "ram_available_mb": 12538.48,
-  "worker_rss_mb": 84.37,
+  "ram_available_mb": 12571.23,
+  "worker_rss_mb": 70.21,
   "thermal_max_c": 45.0,
   "backpressure_flag": false,
-  "causal_sequence_id": 6
+  "causal_sequence_id": 13
 }
