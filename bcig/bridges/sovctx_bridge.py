@@ -104,15 +104,15 @@ EXPANDED_SOVCTX_BCIG_BRIDGES: List[SOVCTXBridgeRecord] = list(CANONICAL_SOVCTX_B
     SOVCTXBridgeRecord(
         bridge_id="BRIDGE:SOVCTX_BCIG_05",
         sovctx_entity_id="PUB:FELDBAUM_1960_DUAL_CONTROL",
-        sovctx_concept_label="Feldbaum Dual Control Theory & Stochastic State Probing",
-        bcig_entity_id="BCIG:CONTROL_PRINCIPLE:DUAL_CONTROL_EXPLORATION_EXPLOITATION",
-        bcig_concept_label="Epistemic vs Pragmatic Action Decomposition (Active Inference & RL)",
-        bridge_relation=SOVCTXBridgeRelation.MATHEMATICAL_FOUNDATION_OF,
+        sovctx_concept_label="Feldbaum Dual Control Theory & Epistemic Action",
+        bcig_entity_id="BCIG:CONTROL_PRINCIPLE:EPISTEMIC_ACTION_PROBE",
+        bcig_concept_label="Epistemic Action / Act-to-Know (Active Information Gathering)",
+        bridge_relation=SOVCTXBridgeRelation.OPERATOR_INSTANTIATION,
         epistemic_justification=(
             "Feldbaum (1960) mathematically proved that in stochastic systems with unobserved parameters, the optimal control "
-            "action is intrinsically dual: simultaneously probing to acquire information (epistemic value) and steering toward "
-            "the objective (pragmatic value). This directly anticipates the active inference expected free energy decomposition "
-            "(Friston 2010) and exploration bonuses in modern reinforcement learning."
+            "action is intrinsically dual: the action itself is epistemic (acting to probe and reduce environmental uncertainty) "
+            "while steering toward the objective. This constitutes an architectural recurrence matching modern Active Inference "
+            "(epistemic value in expected free energy) and curiosity-driven RL."
         ),
         documented_sources=[
             "Feldbaum (1960) 'Dual Control Theory I & II'",
@@ -124,12 +124,12 @@ EXPANDED_SOVCTX_BCIG_BRIDGES: List[SOVCTXBridgeRecord] = list(CANONICAL_SOVCTX_B
         sovctx_entity_id="PUB:KRASOVSKII_1959_STABILITY",
         sovctx_concept_label="Krasovskii Extremal Targeting & Positional Differential Games",
         bcig_entity_id="BCIG:CONTROL_PRINCIPLE:ROBUST_SAFE_REGULATION",
-        bcig_concept_label="Control Barrier Functions & Adversarially Robust Invariance",
+        bcig_concept_label="Forward Set Invariance under Adversarial Disturbances",
         bridge_relation=SOVCTXBridgeRelation.OPERATOR_INSTANTIATION,
         epistemic_justification=(
             "Krasovskii unified Lyapunov stability functions with Pontryagin extremal regulation under discontinuous feedback "
-            "and worst-case adversary disturbances using quasi-solutions. This represents the mathematical ancestor to modern "
-            "Control Barrier Functions (CBFs) and robust safe reinforcement learning."
+            "and worst-case adversary disturbances using quasi-solutions. This exhibits strong mathematical resemblance and "
+            "structural analogy to modern Control Barrier Functions (CBFs) and robust safe RL for guaranteed forward set invariance."
         ),
         documented_sources=[
             "Krasovskii (1959) 'Stability of Motion'",
@@ -146,7 +146,7 @@ EXPANDED_SOVCTX_BCIG_BRIDGES: List[SOVCTXBridgeRecord] = list(CANONICAL_SOVCTX_B
         epistemic_justification=(
             "Vlasov's microscopic-to-macroscopic kinetic reduction grammar directly mirrors Anokhin's Functional Systems Theory: "
             "distributed neural and somatic elements coordinate via a macroscopic self-consistent field of return afference "
-            "rather than point-to-point central commands, matching modern Mean-Field Multi-Agent Games and dynamic MoE routing."
+            "rather than point-to-point central commands. Represents a structural analogue to modern Mean-Field Multi-Agent RL."
         ),
         documented_sources=[
             "Vlasov (1938) 'Vibration Properties of an Electron Gas'",
@@ -157,13 +157,13 @@ EXPANDED_SOVCTX_BCIG_BRIDGES: List[SOVCTXBridgeRecord] = list(CANONICAL_SOVCTX_B
         bridge_id="BRIDGE:SOVCTX_BCIG_08",
         sovctx_entity_id="PUB:SAMARSKII_1967_DIFFERENCE_SCHEMES",
         sovctx_concept_label="Chebyshev-Samarskii Regularization Solvers on BESM Mainframes",
-        bcig_entity_id="BCIG:COMPUTATIONAL_PRINCIPLE:FINITE_PRECISION_REGULARIZATION",
-        bcig_concept_label="Quantized Regularized Inversion on Ill-Conditioned Loss Manifolds",
+        bcig_entity_id="BCIG:COMPUTATIONAL_PRINCIPLE:RESOURCE_BOUNDED_REGULARIZATION",
+        bcig_concept_label="Resource-Bounded Numerical Inversion under Machine Word Constraints",
         bridge_relation=SOVCTXBridgeRelation.MATHEMATICAL_FOUNDATION_OF,
         epistemic_justification=(
             "Samarskii and Lebedev integrated Chebyshev minimax approximation into discrete regularization kernels on BESM-6 "
-            "computers to maintain inversion stability under finite floating-point word lengths, preceding contemporary quantized "
-            "deep learning and ill-conditioned optimization techniques."
+            "computers to maintain inversion stability under finite floating-point word lengths. This represents mathematical descent "
+            "within scientific computing and resource-bounded numerical realization, distinct from modern neural quantization."
         ),
         documented_sources=[
             "Samarskii (1967) 'Theory of Difference Schemes'",

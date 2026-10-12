@@ -1,60 +1,61 @@
 {
-  "campaign": "BCIG-8: Soviet Adaptive Control & Modern AI Synthesis",
-  "grounded_bridges_count": 8,
-  "new_bridges_integrated": [
+  "campaign": "BCIG-8: Soviet Adaptive Control & Modern AI Synthesis (Tightened Formulation)",
+  "epistemic_lineage_disciplines": [
+    "DIRECT_LINEAGE != MATHEMATICAL_DESCENT != ARCHITECTURAL_RECURRENCE != FUNCTIONAL_ANALOGUE"
+  ],
+  "cross_graph_hypotheses": [
     {
-      "bridge_id": "BRIDGE:SOVCTX_BCIG_05",
-      "sovctx_entity_id": "PUB:FELDBAUM_1960_DUAL_CONTROL",
-      "sovctx_concept_label": "Feldbaum Dual Control Theory & Stochastic State Probing",
-      "bcig_entity_id": "BCIG:CONTROL_PRINCIPLE:DUAL_CONTROL_EXPLORATION_EXPLOITATION",
-      "bcig_concept_label": "Epistemic vs Pragmatic Action Decomposition (Active Inference & RL)",
-      "bridge_relation": "MATHEMATICAL_FOUNDATION_OF",
-      "epistemic_justification": "Feldbaum (1960) mathematically proved that in stochastic systems with unobserved parameters, the optimal control action is intrinsically dual: simultaneously probing to acquire information (epistemic value) and steering toward the objective (pragmatic value). This directly anticipates the active inference expected free energy decomposition (Friston 2010) and exploration bonuses in modern reinforcement learning.",
-      "documented_sources": [
+      "hypothesis_id": "HYP:XGRAPH:01_EPISTEMIC_ACTION",
+      "sovctx_thread_id": "T10",
+      "sovctx_thread_name": "Dual Control & Adaptive State Estimation",
+      "bcig_target_concept": "BCIG:Epistemic Action (ACT_TO_KNOW)",
+      "bridge_type": "STRUCTURAL_BRIDGE",
+      "relational_grammar": "REPRESENT -> PROBE (ACT_TO_KNOW) -> OBSERVE -> UPDATE -> CONTROL",
+      "epistemic_claim": "In stochastic systems with unknown environmental dynamics, the action itself is epistemic: acting to probe and reduce uncertainty is inextricably unified with acting to achieve a goal. Modern curiosity-driven RL and Active Inference are structural recurrences of this principle.",
+      "counter_evidence_risks": [
+        "Conflating generic trial-and-error RL with explicit dual control where action variance is optimized for parameter identification."
+      ],
+      "falsification_criteria": "Falsified if modern active inference can be shown to directly cite Feldbaum, proving genetic lineage rather than structural recurrence, or if modern RL policies do not alter trajectories for information gain.",
+      "primary_sources": [
         "Feldbaum (1960) 'Dual Control Theory I & II'",
-        "Tsetlin (1961) 'On the Behavior of Finite Automata in Random Media'"
+        "Tsetlin (1961)"
       ]
     },
     {
-      "bridge_id": "BRIDGE:SOVCTX_BCIG_06",
-      "sovctx_entity_id": "PUB:KRASOVSKII_1959_STABILITY",
-      "sovctx_concept_label": "Krasovskii Extremal Targeting & Positional Differential Games",
-      "bcig_entity_id": "BCIG:CONTROL_PRINCIPLE:ROBUST_SAFE_REGULATION",
-      "bcig_concept_label": "Control Barrier Functions & Adversarially Robust Invariance",
-      "bridge_relation": "OPERATOR_INSTANTIATION",
-      "epistemic_justification": "Krasovskii unified Lyapunov stability functions with Pontryagin extremal regulation under discontinuous feedback and worst-case adversary disturbances using quasi-solutions. This represents the mathematical ancestor to modern Control Barrier Functions (CBFs) and robust safe reinforcement learning.",
-      "documented_sources": [
-        "Krasovskii (1959) 'Stability of Motion'",
-        "Krasovskii & Subbotin (1974) 'Positional Differential Games'"
-      ]
-    },
-    {
-      "bridge_id": "BRIDGE:SOVCTX_BCIG_07",
-      "sovctx_entity_id": "PUB:VLASOV_1938",
-      "sovctx_concept_label": "Vlasov-Bogolyubov Self-Consistent Field & Kinetic Hierarchy",
-      "bcig_entity_id": "BCIG:ARCHITECTURAL_PRINCIPLE:FUNCTIONAL_SYSTEM",
-      "bcig_concept_label": "Anokhin Macroscopic Functional System Coalition Assembly",
-      "bridge_relation": "OPERATOR_INSTANTIATION",
-      "epistemic_justification": "Vlasov's microscopic-to-macroscopic kinetic reduction grammar directly mirrors Anokhin's Functional Systems Theory: distributed neural and somatic elements coordinate via a macroscopic self-consistent field of return afference rather than point-to-point central commands, matching modern Mean-Field Multi-Agent Games and dynamic MoE routing.",
-      "documented_sources": [
-        "Vlasov (1938) 'Vibration Properties of an Electron Gas'",
+      "hypothesis_id": "HYP:XGRAPH:02_CLOSED_ADAPTIVE_SYSTEMS",
+      "sovctx_thread_id": "T11",
+      "sovctx_thread_name": "Physiological Cybernetics & Functional Systems",
+      "bcig_target_concept": "BCIG:Closed Adaptive Intelligence",
+      "bridge_type": "ARCHITECTURAL_BRIDGE",
+      "relational_grammar": "NEED -> ENDOGENOUS_GOAL -> ACTION_ACCEPTOR (PREDICT) -> ACT -> RETURN_AFFERENCE -> COMPARE -> CORRECT",
+      "epistemic_claim": "Anokhin's Functional System formalizes the boundary between externally evaluated systems (prompt-in / answer-out) and internally closed adaptive systems: success is determined endogenously by matching return sensory afference against the anticipatory action acceptor.",
+      "counter_evidence_risks": [
+        "Treating standard feedback loops (Wiener negative feedback) as equivalent to Anokhin's forward efference simulation."
+      ],
+      "falsification_criteria": "Falsified if prompt-response foundation models are demonstrated to possess endogenous goal formation independent of prompt context.",
+      "primary_sources": [
         "Anokhin (1968) 'Biology and Neurophysiology of the Conditioned Reflex'"
       ]
     },
     {
-      "bridge_id": "BRIDGE:SOVCTX_BCIG_08",
-      "sovctx_entity_id": "PUB:SAMARSKII_1967_DIFFERENCE_SCHEMES",
-      "sovctx_concept_label": "Chebyshev-Samarskii Regularization Solvers on BESM Mainframes",
-      "bcig_entity_id": "BCIG:COMPUTATIONAL_PRINCIPLE:FINITE_PRECISION_REGULARIZATION",
-      "bcig_concept_label": "Quantized Regularized Inversion on Ill-Conditioned Loss Manifolds",
-      "bridge_relation": "MATHEMATICAL_FOUNDATION_OF",
-      "epistemic_justification": "Samarskii and Lebedev integrated Chebyshev minimax approximation into discrete regularization kernels on BESM-6 computers to maintain inversion stability under finite floating-point word lengths, preceding contemporary quantized deep learning and ill-conditioned optimization techniques.",
-      "documented_sources": [
+      "hypothesis_id": "HYP:XGRAPH:03_RESOURCE_BOUNDED_INTELLIGENCE",
+      "sovctx_thread_id": "T12",
+      "sovctx_thread_name": "Finite Computational Regularization on Soviet Mainframes",
+      "bcig_target_concept": "BCIG:Resource-Bounded Intelligence",
+      "bridge_type": "COMPUTATIONAL_PRINCIPLE",
+      "relational_grammar": "ILL_POSED_TASK -> DISCRETIZE -> MINIMAX_BOUND -> REGULARIZE -> NUMERICAL_SOLVE",
+      "epistemic_claim": "Chebyshev-Samarskii regularization on BESM-6 demonstrates that real-world intelligence is bounded by finite word lengths, discrete grid approximations, and computational ceilings. Bounded computation is an intrinsic mathematical constraint on state recovery rather than an implementation detail.",
+      "counter_evidence_risks": [
+        "Equating numerical stability of Fredholm integral solvers directly with modern low-bit neural network quantization (overreach)."
+      ],
+      "falsification_criteria": "Falsified if ill-posed inverse operators can be stably recovered without compact parameter regularization in finite precision.",
+      "primary_sources": [
         "Samarskii (1967) 'Theory of Difference Schemes'",
-        "Tikhonov & Samarskii (1977) 'Equations of Mathematical Physics'"
+        "Tikhonov & Samarskii (1977)"
       ]
     }
   ],
+  "grounded_bridges_count": 8,
   "census_comparison": {
     "baseline_principles_evaluated": 8,
     "extended_principles_evaluated": 12,
@@ -66,11 +67,11 @@
       "MIGRATED": 1
     },
     "extended_counts": {
-      "DIRECT": 3,
-      "REDISCOVERED": 4,
-      "ANALOGOUS": 3,
+      "DIRECT": 2,
+      "REDISCOVERED": 2,
+      "ANALOGOUS": 5,
       "MISSING": 1,
-      "MIGRATED": 1
+      "MIGRATED": 2
     },
     "baseline_percentages": {
       "DIRECT": 25.0,
@@ -80,17 +81,52 @@
       "MIGRATED": 12.5
     },
     "extended_percentages": {
-      "DIRECT": 25.0,
-      "REDISCOVERED": 33.33,
-      "ANALOGOUS": 25.0,
+      "DIRECT": 16.67,
+      "REDISCOVERED": 16.67,
+      "ANALOGOUS": 41.67,
       "MISSING": 8.33,
-      "MIGRATED": 8.33
+      "MIGRATED": 16.67
     }
   },
-  "rediscovery_surge_analysis": {
-    "rediscovered_count_delta": 2,
-    "rediscovered_percentage_delta": 8.33,
-    "interpretation": "Integrating grounded Soviet control theory significantly strengthens the Rediscovery Hypothesis: REDISCOVERED jumps from 25.0% to 33.33% of evaluated principles. Modern Active Inference, curiosity-driven RL, and Control Barrier Functions directly re-invented Feldbaum's Dual Control and Krasovskii's Extremal Targeting without historical lineage."
+  "tightened_classification_verdict": {
+    "rediscovered_count": 2,
+    "structural_analogue_count": 5,
+    "migrated_count": 2,
+    "direct_count": 2,
+    "missing_count": 1,
+    "interpretation": "Rather than claiming a loose genetic rediscovery, the tightened audit reveals that STRUCTURAL_ANALOGUE (41.67%) is the primary mode: modern AI architectures repeatedly reconstruct earlier operational loop topologies (e.g. Epistemic Action, Extremal Set Invariance, Mean-Field Coordination) without genetic descent."
+  },
+  "relational_grammar_primitive": {
+    "primitive": "PROBE (ACT_TO_KNOW)",
+    "grammar": "REPRESENT -> PROBE (ACT_TO_KNOW) -> OBSERVE -> UPDATE -> CONTROL",
+    "significance": "Feldbaum proved action itself must be epistemic under uncertainty."
+  },
+  "architectural_taxonomy": {
+    "externally_evaluated_systems": {
+      "archetype": "Prompt-Response Foundation Models / Feedforward Deep Learning",
+      "loop": "external request -> computation -> output (evaluated externally)",
+      "adaptive_closure_range": "A = 0.0000 to 0.3333"
+    },
+    "internally_closed_adaptive_systems": {
+      "archetype": "Anokhin Functional System / Feldbaum Dual Controller / Active Inference",
+      "loop": "internal condition/need -> goal -> action acceptor (predict) -> act -> return afference -> compare -> correct",
+      "adaptive_closure_range": "A = 0.8333 to 1.0000"
+    }
+  },
+  "endogenous_self_maintenance_analysis": {
+    "concept": "ENDOGENOUS_SELF_MAINTENANCE",
+    "definition": "Computational self-maintenance integrated into the intelligence loop as an internally valued condition.",
+    "contrast": "Modern AI possess external watchdogs (thermal throttles, battery monitors, OS supervisors). What remains strictly missing (H=0.0) is endogenous self-maintenance driving cognitive behavior.",
+    "systems_with_endogenous_maintenance": [
+      "Anokhin Functional System (Biological, H=1.0)",
+      "Grey Walter Tortoise (Phototropic Recharging, H=1.0)",
+      "Ashby Homeostat (Essential Variable Preservation, H=1.0)"
+    ],
+    "systems_lacking_endogenous_maintenance": [
+      "Prompt-Response LLMs (GPT-4/Claude, H=0.0)",
+      "Model-Free RL (PPO/DQN, H=0.0)",
+      "Classical Expert Systems (MYCIN, H=0.0)"
+    ]
   },
   "adaptive_closure_ranking": [
     {
@@ -133,7 +169,7 @@
       },
       "adaptive_closure_index": 0.9667,
       "architectural_loop_type": "sense -> predict sensory afference -> minimize free energy (epistemic + pragmatic) -> act",
-      "notes": "Direct modern structural descendant of Anokhin's action acceptor and Feldbaum's dual control (A = 0.9667)."
+      "notes": "Modern structural analogue of Anokhin's action acceptor and Feldbaum's dual control; A = 0.9667."
     },
     {
       "system_id": "SYS:FELDBAUM_DUAL_CONTROLLER",
@@ -153,8 +189,8 @@
         "ADAPTIVE_UPDATE": 1.0
       },
       "adaptive_closure_index": 0.8333,
-      "architectural_loop_type": "probe -> learn unknown media -> steer extremal trajectory -> correct",
-      "notes": "Unified stochastic information acquisition with extremal regulation; high adaptive closure (A = 0.8333)."
+      "architectural_loop_type": "probe (act-to-know) -> update state estimate -> steer extremal trajectory -> correct",
+      "notes": "Unified epistemic action (active information gathering) with optimal regulation; A = 0.8333."
     },
     {
       "system_id": "SYS:WORLD_MODEL_AGENT",
@@ -196,7 +232,7 @@
       },
       "adaptive_closure_index": 0.8,
       "architectural_loop_type": "adversarial observation -> quasi-solution regularizing direction -> extremal feedback",
-      "notes": "Guarantees forward set invariance under discontinuous worst-case perturbations (A = 0.8000)."
+      "notes": "Guarantees forward set invariance under discontinuous worst-case perturbations; A = 0.8000."
     },
     {
       "system_id": "SYS:GREY_WALTER_TORTOISE",
@@ -367,9 +403,17 @@
       "notes": "Extremely low runtime adaptive closure (A=0.0); weights frozen after training, zero interaction with environment."
     }
   ],
-  "structural_closure_findings": {
-    "highest_artificial_adaptive_closure": "Active Inference Agent (A = 0.9667) & Feldbaum Dual Controller (A = 0.8333)",
-    "foundation_models_closure": "Deep Feedforward NN (A = 0.0000) & Prompt-Response LLM (A = 0.3333)",
-    "homeostasis_gap_persists": "Metabolic self-maintenance remains absent in all modern deep learning architectures."
+  "teleological_eight_pillar_gap_analysis": {
+    "question": "What components did earlier adaptive-system architectures consider necessary for intelligence that modern AI architectures omit?",
+    "pillars": {
+      "1_closed_loop_action": "Omitted in feedforward architectures; partially restored in agentic tool loops.",
+      "2_active_information_gathering": "Omitted in standard greedy policies; central to Feldbaum and Active Inference.",
+      "3_internal_state": "Omitted in stateless feedforward models; present in RNNs and world models.",
+      "4_prediction_of_consequences": "Omitted in reactive policies; central to Bernstein, Anokhin, and Dreamer.",
+      "5_endogenous_goal_conditions": "Omitted in all foundation models; goals are exclusively prompt-supplied.",
+      "6_adaptive_correction": "Omitted at inference runtime (weights frozen); active in Anokhin return afference.",
+      "7_embodiment": "Omitted in cloud LLMs; present in Grey Walter and physical robotics.",
+      "8_endogenous_self_maintenance": "Universally absent in modern AI; foundational to biological organisms."
+    }
   }
 }
