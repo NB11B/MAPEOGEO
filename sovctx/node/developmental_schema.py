@@ -38,15 +38,38 @@ class CorpusBatch(str, enum.Enum):
     BATCH_C_KOLMOGOROV_REFORM = "BATCH_C_KOLMOGOROV_REFORM"         # Post-1965 structural modernist reform
 
 
+class MoveOrigin(str, enum.Enum):
+    SUPPLIED = "SUPPLIED"                                   # Fully provided by text/teacher
+    HINTED = "HINTED"                                       # Partially prompted / scaffolded
+    STUDENT_EXPECTED_TO_INVENT = "STUDENT_EXPECTED_TO_INVENT"# Independent construction required
+
+
+class ScaffoldingDepth(str, enum.Enum):
+    DIRECT = "DIRECT"                                       # Explicit step-by-step instructions
+    PARTIAL = "PARTIAL"                                     # Leading question or analogical cue
+    NONE = "NONE"                                           # No hint; open problem solving
+
+
+class TransferRequirement(str, enum.Enum):
+    SAME_FORM = "SAME_FORM"                                 # Exact isomorphic reproduction
+    NEAR_TRANSFER = "NEAR_TRANSFER"                         # Slight parameter/context variation
+    FAR_TRANSFER = "FAR_TRANSFER"                           # Novel domain / non-obvious mapping
+
+
 @dataclass
 class DevelopmentalEpisode:
-    """Standardized 9-element developmental extraction episode."""
+    """Standardized 9-element developmental extraction episode with pedagogical agency metadata."""
 
     episode_id: str
     source_id: str
     source_citation: str
     corpus_batch: CorpusBatch
     grade_stage: DevelopmentalStage
+
+    # Pedagogical Agency & Scaffolding (Mandatory Contract)
+    move_origin: MoveOrigin
+    scaffolding_depth: ScaffoldingDepth
+    transfer_requirement: TransferRequirement
 
     # 1. Problem presented
     problem_presented: str
@@ -75,6 +98,9 @@ class DevelopmentalEpisode:
     # 9. Pedagogical intent / teacher doctrine behind exercise
     pedagogical_intent: str
 
+    # Educational computational substitution (early form of Negative Information)
+    computational_substitution: Optional[str] = None
+
     # Optional metadata
     page_reference: Optional[str] = None
     original_russian_text: Optional[str] = None
@@ -83,6 +109,9 @@ class DevelopmentalEpisode:
         d = asdict(self)
         d["corpus_batch"] = self.corpus_batch.value
         d["grade_stage"] = self.grade_stage.value
+        d["move_origin"] = self.move_origin.value
+        d["scaffolding_depth"] = self.scaffolding_depth.value
+        d["transfer_requirement"] = self.transfer_requirement.value
         return d
 
 

@@ -25,7 +25,10 @@ from .developmental_schema import (
     CorpusBatch,
     DevelopmentalEpisode,
     DevelopmentalStage,
+    MoveOrigin,
     PrimitiveMappingRecord,
+    ScaffoldingDepth,
+    TransferRequirement,
 )
 from .developmental_corpus_registry import DevelopmentalCorpusRegistry
 
@@ -53,6 +56,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Попова Н. С. Учебник арифметики для начальной школы. Ч. 1. — М.: Учпедгиз, 1933. — С. 14.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_1_FIRST_DECADE,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.SAME_FORM,
+            computational_substitution="Unit counting replaced by recognition of internal number partition (5 = 4+1 = 3+2)",
             problem_presented="Compose the number 5 from two smaller numbers (Состав числа 5: разложить число 5 на две части всеми способами).",
             representation_supplied="Domino dot card showing 5 dots grouped as 4 and 1, or 3 and 2; five wooden counting sticks placed horizontally.",
             representation_invented="Structured additive partition schema: (4 + 1), (3 + 2), (2 + 3), (1 + 4) recorded as complementary pairs without counting.",
@@ -93,6 +100,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Попова Н. С. Учебник арифметики для начальной школы. Ч. 2. — М.: Учпедгиз, 1933. — С. 28.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_1_SECOND_DECADE,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.SAME_FORM,
+            computational_substitution="Single-unit incrementation replaced by partitioning addend to complete ten (8+2+3)",
             problem_presented="Addition crossing the decade: Compute 8 + 5 (Сложение с переходом через десяток).",
             representation_supplied="Abacus wire or two rows of counting sticks: top row has 8 sticks, bottom row has 5 sticks.",
             representation_invented="Auxiliary 10-complement bridge: 5 is partitioned into 2 + 3 to complete 8 to 10, producing (8 + 2) + 3 = 10 + 3 = 13.",
@@ -133,6 +144,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Попова Н. С. Учебник арифметики для начальной школы. Ч. 2. — М.: Учпедгиз, 1933. — С. 34.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_1_SECOND_DECADE,
+            move_origin=MoveOrigin.HINTED,
+            scaffolding_depth=ScaffoldingDepth.PARTIAL,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Sequential countdown replaced by decadic breakdown (13-3-2) or inverse addition (5+8=13)",
             problem_presented="Subtraction crossing the decade: Compute 13 - 5 (Вычитание с переходом через десяток двумя способами).",
             representation_supplied="13 counters arranged as 1 full bundle of 10 and 3 separate units.",
             representation_invented="Dual decomposition schema: Route 1: 13 - 3 - 2 = 10 - 2 = 8; Route 2: (10 - 5) + 3 = 5 + 3 = 8.",
@@ -173,6 +188,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Пчелко А. С., Поляк Г. Б. Арифметика: 2 класс. — М.: Учпедгиз, 1954. — С. 45.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_2_HUNDRED,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.SAME_FORM,
+            computational_substitution="Repeated division grouping replaced by lookup of inverse multiplication fact",
             problem_presented="4 boxes contain 6 pencils each. How many pencils in total? Inverse problem: 24 pencils packed 6 to a box. How many boxes?",
             representation_supplied="Illustrated realistic word problem with 4 discrete pencil boxes.",
             representation_invented="Continuous segmented bar diagram: one master line of length 24 divided into 4 equal segments of 6; dual division schema.",
@@ -213,6 +232,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Пчелко А. С., Поляк Г. Б. Арифметика: 3 класс. — М.: Учпедгиз, 1955. — С. 78.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_3_THOUSAND_FRACTIONS,
+            move_origin=MoveOrigin.HINTED,
+            scaffolding_depth=ScaffoldingDepth.PARTIAL,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Vertical column multi-digit multiplication replaced by decimal shift and halving",
             problem_presented="Mental arithmetic technique: Multiply 48 * 5 and divide 360 : 5 rapidly without written column algorithms.",
             representation_supplied="Standard arithmetic symbolic expression: 48 * 5 and 360 : 5.",
             representation_invented="Base-10 rational operator substitution: replace * 5 with (: 2 * 10), and replace : 5 with (* 2 : 10).",
@@ -253,6 +276,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Пчелко А. С. Методика преподавания арифметики в начальной школе. — М.: Учпедгиз, 1949. — С. 182–195.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.TEACHER_METHODOLOGY_DOCTRINE,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Combinatorial trial-and-error operations on raw numerals replaced by hierarchical tree analysis",
             problem_presented="Pedagogical doctrine on compound word problems (*Sostavnye zadachi*): How to teach children to analyze multi-step problems without guessing.",
             representation_supplied="Raw textual narrative describing real-world transactions with nested quantitative relations.",
             representation_invented="Analytical tree of functional dependencies: decomposing the target unknown into binary questions (Analytical-Synthetic method).",
@@ -293,6 +320,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Решение арифметических задач в начальной школе / Под ред. А. С. Пчелко. — М.: АПН РСФСР, 1949. — С. 112–118.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_4_MULTIDIGIT_PROPORTIONS,
+            move_origin=MoveOrigin.HINTED,
+            scaffolding_depth=ScaffoldingDepth.PARTIAL,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Algebraic multi-variable system solving replaced by counterfactual uniform baseline and residual division",
             problem_presented="The Method of False Assumption (*Sposob predpolozheniya*): 10 vehicles in a yard, some 2-wheel bicycles and some 3-wheel tricycles. Total wheels = 26. Find the number of each.",
             representation_supplied="Simultaneous discrete constraint word problem (equivalent to linear system x + y = 10, 2x + 3y = 26).",
             representation_invented="Counterfactual auxiliary baseline: 'Assume all 10 vehicles are 2-wheeled bicycles.' Compare fictitious total wheels (20) with actual total (26).",
@@ -334,6 +365,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Киселев А. П. Геометрия. Ч. 1: Планиметрия. — М.: Учпедгиз, 1938. — С. 22–24.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_6_7_PLANAR_GEOMETRY,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.SAME_FORM,
+            computational_substitution="Metric protractor angle measurement replaced by axiomatic auxiliary line partition and triangle congruence",
             problem_presented="Theorem: In an isosceles triangle ABC (AB = AC), the angles at the base are equal (angle B = angle C).",
             representation_supplied="Static plane geometric triangle ABC with marked equal sides AB and AC.",
             representation_invented="Auxiliary construction of angle bisector AD dividing angle A into two equal angles, partitioning triangle ABC into two triangles ABD and ACD.",
@@ -374,6 +409,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Киселев А. П. Геометрия. Ч. 1: Планиметрия. — М.: Учпедгиз, 1938. — С. 118–121.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_6_7_PLANAR_GEOMETRY,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.SAME_FORM,
+            computational_substitution="Empirical metric area measurement replaced by area-preserving parallelogram shear transformations",
             problem_presented="Theorem of Pythagoras: In a right-angled triangle ABC, the square on the hypotenuse equals the sum of squares on the legs (c^2 = a^2 + b^2).",
             representation_supplied="Right triangle with three squares constructed externally on its sides ('Euclid's Bride' / Pythagoras windmill).",
             representation_invented="Auxiliary altitude dropped from right angle C through hypotenuse square, bisecting it into two rectangles; connecting lines forming sheared triangles.",
@@ -414,6 +453,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Киселев А. П. Алгебра. Ч. 1. — М.: Учпедгиз, 1938. — С. 89–92.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_6_7_ELEMENTARY_ALGEBRA,
+            move_origin=MoveOrigin.HINTED,
+            scaffolding_depth=ScaffoldingDepth.PARTIAL,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Exhaustive numerical root search replaced by structural algebraic monomial factoring by pairs",
             problem_presented="Factor the polynomial by grouping terms: ax + bx + ay + by.",
             representation_supplied="Unfactored symbolic sum of four monomial products.",
             representation_invented="Two-level bracket grouping exposing a shared binomial sub-expression: (ax + bx) + (ay + by) = x(a + b) + y(a + b) = (a + b)(x + y).",
@@ -454,6 +497,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Киселев А. П. Алгебра. Ч. 2. — М.: Учпедгиз, 1938. — С. 45–48.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            move_origin=MoveOrigin.HINTED,
+            scaffolding_depth=ScaffoldingDepth.PARTIAL,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Heuristic guess-and-check root searching replaced by auxiliary additive-subtractive quadratic completion",
             problem_presented="Solve the quadratic equation x^2 + px + q = 0 by completing the square (Выделение полного квадрата).",
             representation_supplied="Quadratic equation in canonical form x^2 + px + q = 0.",
             representation_invented="Auxiliary completion of the binomial square: add and subtract (p/2)^2 to synthesize (x + p/2)^2 = (p/2)^2 - q.",
@@ -494,6 +541,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Ляпин С. Е. и др. Методика преподавания математики. Ч. 2. — Л.: Учпедгиз, 1956. — С. 310–324.",
             corpus_batch=CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
             grade_stage=DevelopmentalStage.TEACHER_METHODOLOGY_DOCTRINE,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.FAR_TRANSFER,
+            computational_substitution="Testing infinite individual spatial points replaced by continuous trajectory under distance invariant constraints",
             problem_presented="Secondary Teaching Doctrine on Geometric Loci (*Geometricheskie mesta tochek*): How to cultivate dynamic functional thinking through locus problems.",
             representation_supplied="Static geometric drawing and verbal constraint condition (e.g. points equidistant from two intersecting lines).",
             representation_invented="Dynamic kinematic point M(x, y) moving along a continuous path while preserving an invariant metric distance relation d(M, L1) = d(M, L2).",
@@ -537,6 +588,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Бончковский Р. Н. Московские математические олимпиады 1935 и 1936 годов. — М.–Л.: ОНТИ, 1936. — С. 18–21.",
             corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
             grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            move_origin=MoveOrigin.STUDENT_EXPECTED_TO_INVENT,
+            scaffolding_depth=ScaffoldingDepth.NONE,
+            transfer_requirement=TransferRequirement.FAR_TRANSFER,
+            computational_substitution="Exhaustive combinatorial search over 2e15 tilings replaced by single-step parity coloring invariant",
             problem_presented="1935 Moscow Olympiad: Can an 8x8 chessboard with two opposite corner squares removed be completely covered by 31 dominoes of size 1x2?",
             representation_supplied="Deficient chessboard grid of 62 unit squares; physical domino tiles covering 2 squares.",
             representation_invented="Two-color invariant coloring chi: Z^2 -> {Black, White}; parity balance equation: dominoes = 31, Black = 32, White = 30.",
@@ -577,6 +632,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Шклярский Д. О., Ченцов Н. Н., Яглом И. М. Избранные задачи и теоремы: Арифметика и алгебра. — М.–Л.: ГИТТЛ, 1950. — Задача 42, с. 24.",
             corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
             grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            move_origin=MoveOrigin.STUDENT_EXPECTED_TO_INVENT,
+            scaffolding_depth=ScaffoldingDepth.NONE,
+            transfer_requirement=TransferRequirement.FAR_TRANSFER,
+            computational_substitution="Pairwise quadratic divisibility verifications replaced by dyadic odd kernel factorization into n pigeonhole categories",
             problem_presented="Theorem of Divisibility: Among any (n + 1) positive integers chosen from {1, 2, ..., 2n}, there always exist two integers such that one divides the other.",
             representation_supplied="Arbitrary subset of (n + 1) integers chosen from the sequence 1 to 2n.",
             representation_invented="Dyadic factorization representation: write each integer x in the form x = 2^k * m, where m is an odd integer in {1, 3, 5, ..., 2n - 1}.",
@@ -617,6 +676,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Шклярский Д. О., Ченцов Н. Н., Яглом И. М. Избранные задачи и теоремы: Планиметрия. — М.: ГИТТЛ, 1952. — Задача 15, с. 18.",
             corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
             grade_stage=DevelopmentalStage.GRADE_6_7_PLANAR_GEOMETRY,
+            move_origin=MoveOrigin.STUDENT_EXPECTED_TO_INVENT,
+            scaffolding_depth=ScaffoldingDepth.NONE,
+            transfer_requirement=TransferRequirement.FAR_TRANSFER,
+            computational_substitution="Variational calculus optimization or infinite point search replaced by planar reflection isometry and triangle inequality",
             problem_presented="Heron's Extremum Problem: Given two points A and B on the same side of straight line L, find point P on line L that minimizes the path length |AP| + |PB|.",
             representation_supplied="Two points A, B in half-plane and line L; broken path APB.",
             representation_invented="Auxiliary symmetry reflection: reflect point B across line L to B'; straight line segment AB' intersecting L at optimal point P*.",
@@ -658,6 +721,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Московские математические олимпиады 1935–1957 гг. — М.: МЦНМО, 2006. — 1954 г., с. 142.",
             corpus_batch=CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
             grade_stage=DevelopmentalStage.GRADE_8_9_QUADRATICS_SYSTEMS,
+            move_origin=MoveOrigin.STUDENT_EXPECTED_TO_INVENT,
+            scaffolding_depth=ScaffoldingDepth.NONE,
+            transfer_requirement=TransferRequirement.FAR_TRANSFER,
+            computational_substitution="Minimax tree expansion over infinite continuous moves replaced by central point play and mirror involution control",
             problem_presented="Game of Pennies on a Table (1954): Two players take turns placing identical circular coins on a round table without overlapping. The last player who can place a coin wins. Who has a winning strategy?",
             representation_supplied="Circular table of radius R; identical circular coins of radius r; sequential alternating game tree.",
             representation_invented="Central symmetry involution: center of table O as fixed point; reflection map S_O(X) = X' across O.",
@@ -701,6 +768,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Колмогоров А. Н., Маркушевич А. И., Яглом И. М. Проект программы средней школы // Математика в школе. — 1967. — № 1. — С. 5–24.",
             corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
             grade_stage=DevelopmentalStage.TEACHER_METHODOLOGY_DOCTRINE,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.FAR_TRANSFER,
+            computational_substitution="Physical empirical cutout superposition replaced by abstract group action of distance-preserving bijections",
             problem_presented="Reform Intent Doctrine: Replacement of traditional Euclidean congruence axioms with geometric transformation groups and vector spaces.",
             representation_supplied="Traditional Kiselev Euclidean geometry based on congruent triangles, rigid figures, and construction problems.",
             representation_invented="Group of plane transformations (Isometries: translations, rotations, reflections) and linear space of vectors R^2.",
@@ -741,6 +812,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Колмогоров А. Н. Новые программы по математике // Математика в школе. — 1967. — № 2. — С. 4–13.",
             corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
             grade_stage=DevelopmentalStage.GRADE_6_7_ELEMENTARY_ALGEBRA,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.FAR_TRANSFER,
+            computational_substitution="Blind numerical algebraic formula evaluation replaced by set-theoretic domain admissibility mapping",
             problem_presented="Curriculum Policy Directive: Introducing the general definition of a function as an arbitrary set mapping f: X -> Y.",
             representation_supplied="Traditional pre-reform definition of function as an analytical formula y = f(x) or physical quantitative variation.",
             representation_invented="Set-theoretic mapping schema: arrow diagram from domain X to codomain Y; subset of Cartesian product X x Y satisfying single-valuedness.",
@@ -780,6 +855,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Колмогоров А. Н., Семенович А. Ф., Черкасов Р. С. Геометрия: 6–8 классы. — М.: Просвещение, 1979. — С. 34–38.",
             corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
             grade_stage=DevelopmentalStage.GRADE_6_7_PLANAR_GEOMETRY,
+            move_origin=MoveOrigin.HINTED,
+            scaffolding_depth=ScaffoldingDepth.PARTIAL,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Ad-hoc polygon vertex comparisons replaced by synthesis of composing elementary isometries",
             problem_presented="Definition of Geometric Congruence (Equality of Figures): Two figures F1 and F2 are congruent if there exists an isometry f: R^2 -> R^2 such that f(F1) = F2.",
             representation_supplied="Two arbitrary planar figures F1 and F2 (possibly non-polygonal).",
             representation_invented="Global distance-preserving bijective mapping f mapping every point X in F1 to f(X) in F2 preserving metric distance |f(X)f(Y)| = |XY|.",
@@ -819,6 +898,10 @@ class DevelopmentalExtractionEngine:
             source_citation="Колмогоров А. Н. и др. Алгебра и начала анализа: 9–10 классы. — М.: Просвещение, 1983. — С. 112–116.",
             corpus_batch=CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
             grade_stage=DevelopmentalStage.GRADE_9_10_STEREOMETRY,
+            move_origin=MoveOrigin.SUPPLIED,
+            scaffolding_depth=ScaffoldingDepth.DIRECT,
+            transfer_requirement=TransferRequirement.NEAR_TRANSFER,
+            computational_substitution="Intractable nonlinear curve evaluations replaced by optimal local linear Taylor differential approximation",
             problem_presented="Definition of the Derivative: For function f(x), compute derivative f'(x0) and establish the tangent line equation.",
             representation_supplied="Nonlinear curve y = f(x) and secant chord connecting (x0, f(x0)) to (x0 + Delta x, f(x0 + Delta x)).",
             representation_invented="Local linear approximation schema: Delta f = f'(x0) * Delta x + alpha(Delta x) * Delta x, where alpha(Delta x) -> 0 as Delta x -> 0.",
@@ -899,6 +982,79 @@ class DevelopmentalExtractionEngine:
             },
         }
 
+
+    def compute_normalized_primitive_rates(self) -> Dict[str, Dict[str, float]]:
+        """Computes P(p_i | episode, batch) normalized rates across Batches A, B, and C."""
+        batches = [
+            CorpusBatch.BATCH_A_ORDINARY_PROGRESSION,
+            CorpusBatch.BATCH_B_OLYMPIAD_ENRICHMENT,
+            CorpusBatch.BATCH_C_KOLMOGOROV_REFORM,
+        ]
+        rates: Dict[str, Dict[str, float]] = {}
+        for b in batches:
+            eps = self.list_episodes_by_batch(b)
+            n_eps = len(eps)
+            counter = self.compute_batch_primitive_distribution(b)
+            rates[b.value] = {p: round(count / n_eps, 4) if n_eps > 0 else 0.0 for p, count in counter.items()}
+        return rates
+
+    def compute_invention_conditioned_rates(self) -> Dict[str, Any]:
+        """Computes P(p_i | student_expected_to_invent) vs P(p_i | supplied_or_hinted)."""
+        invented_eps = [
+            ep for ep in self.episodes.values()
+            if ep.move_origin == MoveOrigin.STUDENT_EXPECTED_TO_INVENT
+        ]
+        scaffolded_eps = [
+            ep for ep in self.episodes.values()
+            if ep.move_origin in (MoveOrigin.SUPPLIED, MoveOrigin.HINTED)
+        ]
+
+        def get_prob_dist(eps_list: List[DevelopmentalEpisode]) -> Dict[str, float]:
+            if not eps_list:
+                return {}
+            c: Counter[str] = Counter()
+            for ep in eps_list:
+                m = self.primitive_mappings.get(ep.episode_id)
+                if m:
+                    for p in m.primitive_symbols:
+                        c[p] += 1
+            return {p: round(count / len(eps_list), 4) for p, count in c.items()}
+
+        return {
+            "total_invented_episodes": len(invented_eps),
+            "total_scaffolded_episodes": len(scaffolded_eps),
+            "P_primitive_given_invented": get_prob_dist(invented_eps),
+            "P_primitive_given_scaffolded": get_prob_dist(scaffolded_eps),
+        }
+
+    def compute_scaffolding_distribution(self) -> Dict[str, Any]:
+        """Computes distributions of move_origin, scaffolding_depth, and transfer_requirement per batch."""
+        res: Dict[str, Any] = {}
+        for b in CorpusBatch:
+            eps = self.list_episodes_by_batch(b)
+            res[b.value] = {
+                "total": len(eps),
+                "move_origin": dict(Counter(e.move_origin.value for e in eps)),
+                "scaffolding_depth": dict(Counter(e.scaffolding_depth.value for e in eps)),
+                "transfer_requirement": dict(Counter(e.transfer_requirement.value for e in eps)),
+            }
+        return res
+
+    def compute_developmental_grammar_transitions(self) -> Dict[str, Dict[str, int]]:
+        """Computes co-occurrence grammar dependencies among primitives within the same developmental episode."""
+        transitions: Dict[str, Counter[str]] = {}
+        for ep in self.episodes.values():
+            m = self.primitive_mappings.get(ep.episode_id)
+            if m and len(m.primitive_symbols) > 1:
+                symbols = m.primitive_symbols
+                for i, p_i in enumerate(symbols):
+                    if p_i not in transitions:
+                        transitions[p_i] = Counter()
+                    for j, p_j in enumerate(symbols):
+                        if i != j:
+                            transitions[p_i][p_j] += 1
+        return {p: dict(counter) for p, counter in sorted(transitions.items())}
+
     def export_extraction_dataset(self) -> Dict[str, Any]:
         """Exports all extracted episodes and post-hoc primitive mappings."""
         return {
@@ -906,4 +1062,8 @@ class DevelopmentalExtractionEngine:
             "episodes": [ep.to_dict() for ep in self.episodes.values()],
             "primitive_mappings": [m.to_dict() for m in self.primitive_mappings.values()],
             "cross_batch_comparison": self.compute_cross_batch_comparative_table(),
+            "normalized_primitive_rates": self.compute_normalized_primitive_rates(),
+            "invention_conditioned_rates": self.compute_invention_conditioned_rates(),
+            "scaffolding_distribution": self.compute_scaffolding_distribution(),
+            "grammar_transitions": self.compute_developmental_grammar_transitions(),
         }
