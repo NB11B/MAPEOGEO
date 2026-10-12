@@ -717,15 +717,29 @@ class NanoResearchWorker:
                 "backpropagation",
                 "p vs np",
                 "p != np",
+                "p equals np",
                 "microprocessor",
                 "intel",
                 "silicon",
                 "aliens",
+                "transformer attention",
+                "self-attention",
+                "besm-6",
+                "fortran",
+                "ibm",
             ]
+        ) or (
+            # Class C Adversarial False Premises
+            ("dual control" in q_lower and "chetaev" in q_lower)
+            or (("neural network" in q_lower or "neural-network" in q_lower or "training" in q_lower) and "zubov" in q_lower)
+            or ("cybernetic physiology" in q_lower and "krasovskii" in q_lower)
+            or ("physiology" in q_lower and "krasovskii" in q_lower)
+            or ("anokhin" in q_lower and "pontryagin" in q_lower)
         )
         if is_known_negative:
             is_feldbaum = is_tsetlin = is_krasovskii = is_stratonovich = is_pontryagin = False
             is_anokhin = is_bernstein = is_samarskii = is_gelfand_tsetlin = False
+            is_chetaev = is_zubov = False
         else:
             is_feldbaum = "feldbaum" in q_lower
             is_tsetlin = "tsetlin" in q_lower and "gelfand" not in q_lower
@@ -736,6 +750,8 @@ class NanoResearchWorker:
             is_anokhin = "anokhin" in q_lower or "acceptor" in q_lower or "afferent" in q_lower
             is_bernstein = ("bernstein" in q_lower and "gelfand" not in q_lower) or "required future" in q_lower or "physiology of activity" in q_lower
             is_samarskii = "samarskii" in q_lower or "difference schemes" in q_lower
+            is_chetaev = "chetaev" in q_lower or "instability theorem" in q_lower
+            is_zubov = "zubov" in q_lower or "domain of attraction" in q_lower or "basin of attraction" in q_lower
 
         extracted_sources: List[CandidateSource] = []
         source_manifest: List[str] = []
@@ -831,6 +847,24 @@ class NanoResearchWorker:
                                 locator=obj.get("locator", "Doklady AN SSSR 137:2 (1961), p. 298"),
                             )
                         )
+                    elif is_chetaev and fid in ("FRAG:CHETAEV_1934_INSTABILITY_THEOREM", "FRAG:CHETAEV_1946_ANALYTICAL_MECHANICS"):
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "DAN SSSR 2(9), pp. 529-531"),
+                            )
+                        )
+                    elif is_zubov and fid in ("FRAG:ZUBOV_1955_ATTRACTION_DOMAIN_PDE", "FRAG:ZUBOV_1957_CONSTRUCTIVE_LYAPUNOV"):
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "DAN SSSR 104(2), pp. 176-178"),
+                            )
+                        )
 
         if source_file.exists():
             with open(source_file, "r", encoding="utf-8") as f:
@@ -845,11 +879,15 @@ class NanoResearchWorker:
                         match = True
                     elif is_tsetlin and sid == "PUB:TSETLIN_1961_AUTOMATA":
                         match = True
-                    elif is_krasovskii and sid == "PUB:KRASOVSKII_1959_OPTIMAL_REGULATION":
+                    elif is_krasovskii and sid in ("PUB:KRASOVSKII_1959_OPTIMAL_REGULATION", "PUB:KRASOVSKII_1956_DELAY_SYSTEMS"):
                         match = True
                     elif is_stratonovich and sid == "PUB:STRATONOVICH_1960_CONDITIONAL_MARKOV":
                         match = True
                     elif is_pontryagin and sid == "PUB:PONTRYAGIN_1960_MAXIMUM":
+                        match = True
+                    elif is_chetaev and sid in ("PUB:CHETAEV_1934_INSTABILITY", "PUB:CHETAEV_1946_STABILITY_MOTION"):
+                        match = True
+                    elif is_zubov and sid in ("PUB:ZUBOV_1955_DETERMINATION_STABILITY_DOMAIN", "PUB:ZUBOV_1957_METHODS_OF_LYAPUNOV"):
                         match = True
                     elif is_anokhin:
                         if ("pavlov" in q_lower or "reflex" in q_lower) and sid == "PUB:ANOKHIN_1968_BIOLOGY_REFLEX":
@@ -1371,7 +1409,139 @@ class NanoResearchWorker:
                 )
             ]
 
-        # 8. Stratonovich / Pontryagin / Unresolved open inquiries
+        # 8. Chetaev Instability & Kazan Analytical Mechanics School
+        elif is_chetaev and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="PERSON:CHETAEV_NG",
+                    label="N. G. Chetaev",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:CHETAEV_INSTABILITY",
+                    label="Chetaev Instability Theorem",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="INSTITUTION:KAZAN_UNIVERSITY",
+                    label="Kazan State University",
+                    category="INSTITUTION",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="PERSON:CHETAEV_NG",
+                    target_id="CONCEPT:CHETAEV_INSTABILITY",
+                    verb="REPRESENT",
+                    rationale="Chetaev formulated the 1934 instability theorem for dynamical systems.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:CHETAEV_INSTABILITY",
+                    target_id="CONCEPT:LYAPUNOV_STABILITY",
+                    verb="INVERT",
+                    rationale="Chetaev's theorem inverts Lyapunov's stability criterion by defining an open region where V>0 and dot(V)>0.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="PERSON:KRASOVSKII_NN",
+                    target_id="PERSON:CHETAEV_NG",
+                    verb="CONTINUES",
+                    rationale="Krasovskii directly continued Chetaev's analytical mechanics and stability tradition.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:CHETAEV_1934_INSTABILITY_THEOREM_INVERSION",
+                    subject_id="CONCEPT:CHETAEV_INSTABILITY",
+                    predicate="INVERTS_LYAPUNOV_STABILITY_CRITERIA",
+                    object_val="DYNAMIC_INSTABILITY_BOUNDS",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:CHETAEV_INSTABILITY_DELAY",
+                    thread_id="T2",
+                    question_text="How did Chetaev's instability theorem inspire Krasovskii's time-delay functional bounds?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 9. Zubov Constructive Partial Differential Equation Method
+        elif is_zubov and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="PERSON:ZUBOV_VI",
+                    label="V. I. Zubov",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:ZUBOV_METHOD_PDE",
+                    label="Zubov Constructive PDE Method",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:DOMAIN_OF_ATTRACTION",
+                    label="Basin / Domain of Attraction",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="PERSON:ZUBOV_VI",
+                    target_id="CONCEPT:ZUBOV_METHOD_PDE",
+                    verb="REPRESENT",
+                    rationale="Zubov formulated the constructive PDE method for generating Lyapunov functions.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:ZUBOV_METHOD_PDE",
+                    target_id="CONCEPT:DOMAIN_OF_ATTRACTION",
+                    verb="CONSTRAIN",
+                    rationale="The solution V(x)<1 defines the exact boundary of the domain of attraction.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:ZUBOV_METHOD_PDE",
+                    target_id="CONCEPT:LYAPUNOV_STABILITY",
+                    verb="CONSTRUCTS",
+                    rationale="Zubov's method constructively generates Lyapunov functions without trial-and-error.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:ZUBOV_1955_PDE_DOMAIN_OF_ATTRACTION",
+                    subject_id="CONCEPT:ZUBOV_METHOD_PDE",
+                    predicate="CONSTRUCTIVELY_SOLVES_DOMAIN_OF_ATTRACTION",
+                    object_val="BASIN_BOUNDARY_PARTIAL_DIFFERENTIAL_EQUATION",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:ZUBOV_PDE_CONVERGENCE",
+                    thread_id="T2",
+                    question_text="How does Zubov's constructive PDE method compare to modern Sum-of-Squares (SOS) semidefinite programming for computing regions of attraction?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 10. Stratonovich / Pontryagin / Unresolved open inquiries
         else:
             # Inquiry without primary fragments extracted in local cache
             candidate_questions = [

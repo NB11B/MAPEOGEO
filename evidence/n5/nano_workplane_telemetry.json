@@ -1,29 +1,37 @@
 {
   "worker_id": "nano-jetson-01",
-  "uow_id": "UOW_PHYSICAL_SEP_001",
-  "sequence_idx": 1,
+  "uow_id": "UOW_GEN_C_011_LYAPUNOV",
+  "sequence_idx": 36,
   "state": "REPORTING",
   "candidate_bundle": {
-    "uow_id": "UOW_PHYSICAL_SEP_001",
+    "uow_id": "UOW_GEN_C_011_LYAPUNOV",
     "parent_uow_id": null,
     "worker_id": "nano-jetson-01",
-    "causal_sequence_id": 1,
-    "software_commit": "aeac69fc3b5261c2d12aea477b9908d77de34e92",
+    "causal_sequence_id": 36,
+    "software_commit": "d99e0562cf412a53b6d7eaf2a4f644a7ab1bcc1a",
     "source_manifest": [],
     "source_hashes": {},
     "source_fragments": [],
     "candidate_entities": [],
     "candidate_relations": [],
     "candidate_claims": [],
-    "candidate_questions": [],
+    "candidate_questions": [
+      {
+        "question_id": "RQ:OPEN:UOW_GEN_C_011_LYAPUNOV",
+        "thread_id": "T2",
+        "question_text": "Was A. M. Lyapunov a direct student of P. L. Chebyshev at St. Petersburg University?",
+        "target_channel": "MATHEMATICAL",
+        "originating_evidence": "Open Corpus Query"
+      }
+    ],
     "observer_state": {
       "speed_max_angle": 0.0,
       "speed_projector": 0.0,
       "kappa_g": 0.0,
       "residual_norm": 0.0,
-      "spectral_gap": 0.0,
-      "relative_gap": 0.0,
-      "davis_kahan_ratio": 0.0,
+      "spectral_gap": 0.0026168974772785617,
+      "relative_gap": 0.3267817028106044,
+      "davis_kahan_ratio": 3.060146854227961,
       "identifiability": "NON_IDENTIFIABLE",
       "regime": "IDENTIFIABILITY_DEGRADED",
       "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
@@ -31,48 +39,56 @@
       "shadow_mode": true
     },
     "resource_state": {
-      "ram_available_mb": 11534.22,
-      "worker_rss_mb": 127.66,
+      "ram_available_mb": 11496.79,
+      "worker_rss_mb": 107.0,
       "thermal_max_c": 45.0,
       "backpressure_flag": false
     },
-    "evidence_hash": "4d6b9f0d02d1bca3b0ef7511cce8aea7fc6a07bd0b866eda66e093e3590d9464",
-    "execution_hash": "c412f9073dfce2318dea4ef0c0b4283a8ba25b6809ec8a599f39860aa414a20b",
-    "candidate_bundle_hash": "c412f9073dfce2318dea4ef0c0b4283a8ba25b6809ec8a599f39860aa414a20b",
+    "evidence_hash": "9935e0420bdb236d978a634959a3730f2a06d907562576a061b61833b6000b5f",
+    "execution_hash": "840952eac948d30609b420d20151402dd0c2064160ee523df680015605c6813b",
+    "candidate_bundle_hash": "840952eac948d30609b420d20151402dd0c2064160ee523df680015605c6813b",
     "sources": [],
     "sequence_idx": null,
     "relations": [],
-    "questions": []
+    "questions": [
+      {
+        "question_id": "RQ:OPEN:UOW_GEN_C_011_LYAPUNOV",
+        "thread_id": "T2",
+        "question_text": "Was A. M. Lyapunov a direct student of P. L. Chebyshev at St. Petersburg University?",
+        "target_channel": "MATHEMATICAL",
+        "originating_evidence": "Open Corpus Query"
+      }
+    ]
   },
   "geometric_observation": {
-    "epoch_idx": 1,
-    "step_idx": 1,
+    "epoch_idx": 36,
+    "step_idx": 36,
     "speed_max_angle": 0.0,
     "speed_projector": 0.0,
     "kappa_g": 0.0,
     "residual_norm": 0.0,
-    "spectral_gap": 0.0,
-    "relative_gap": 0.0,
-    "davis_kahan_ratio": 0.0,
+    "spectral_gap": 0.0026168974772785617,
+    "relative_gap": 0.3267817028106044,
+    "davis_kahan_ratio": 3.060146854227961,
     "identifiability": "NON_IDENTIFIABLE",
     "regime": "IDENTIFIABILITY_DEGRADED",
     "eigenvalues": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
+      0.008008090582931067,
+      0.0026438195850907787,
+      2.6922107812217145e-05,
+      6.184563804659169e-11,
+      4.515855364633714e-19,
+      2.317100488280732e-19,
+      1.1663044266830986e-19,
+      1.0168217741157936e-19
     ],
     "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
     "recommended_action": "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION",
     "shadow_mode": true
   },
-  "ram_available_mb": 11534.22,
-  "worker_rss_mb": 127.66,
+  "ram_available_mb": 11496.79,
+  "worker_rss_mb": 107.0,
   "thermal_max_c": 45.0,
   "backpressure_flag": false,
-  "causal_sequence_id": 1
+  "causal_sequence_id": 36
 }

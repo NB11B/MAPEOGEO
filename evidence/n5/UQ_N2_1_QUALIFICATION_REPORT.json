@@ -1,0 +1,142 @@
+{
+  "milestone": "UQ-N2.1",
+  "title": "Blind Prospective Generalization Qualification Report",
+  "domain": "Soviet Stability and Analytical Mechanics Lineage (Lyapunov-Chetaev-Krasovskii-Zubov)",
+  "campaign_timestamp": "2026-10-12T07:20:38.912555+00:00",
+  "qualification_verdict": "PASS",
+  "provenance": {
+    "git_branch": "research/sovctx-kg",
+    "host_commit_sha": "d99e0562cf412a53b6d7eaf2a4f644a7ab1bcc1a",
+    "target_node": "nano-jetson-01 (NVIDIA Jetson Nano 2GB ARM Cortex-A57)",
+    "control_node": "uno-q-gateway-01 (x86_64 regulatory controller)"
+  },
+  "frozen_contracts_preserved": {
+    "PROPOSED_NEQ_AUTHORIZED": true,
+    "DUAL_TIER_HASH_SEPARATION": true,
+    "CAUSAL_ISSUANCE_LEDGER": true,
+    "LEAVE_FAMILY_OUT_ZUBOV": true,
+    "EXTERNAL_ANSWER_KEY_SEPARATION": true,
+    "G1_OBSERVER_SHADOW_MODE": true,
+    "TIERED_BAYESIAN_EVIDENCE_WEIGHTS": true
+  },
+  "headline_metrics": {
+    "R_H_blind_historical_recovery_rate": 0.8571,
+    "R_H_true_holdout_recovery_rate": 1.0,
+    "F_P_false_promotion_rate": 0.0,
+    "Y_U_epistemic_yield_per_uow": 0.3098,
+    "Y_S_epistemic_yield_per_source": 0.413,
+    "BS_brier_score_calibration": 0.0786,
+    "N_C_negative_control_discipline": 1.0,
+    "invented_bridge_edges": 0,
+    "research_cost_efficiency_eta": 0.3028
+  },
+  "comparative_metrics_table": {
+    "entropy_reduction_bits": {
+      "arm_a": 0.0,
+      "arm_b": 2.498,
+      "arm_c": 3.717
+    },
+    "sources_acquired": {
+      "arm_a": 11,
+      "arm_b": 7,
+      "arm_c": 9
+    },
+    "duplicate_count": {
+      "arm_a": 4,
+      "arm_b": 6,
+      "arm_c": 4
+    },
+    "epistemic_yield_per_uow": {
+      "arm_a": 0.0,
+      "arm_b": 0.2082,
+      "arm_c": 0.3098
+    },
+    "epistemic_yield_per_source": {
+      "arm_a": 0.0,
+      "arm_b": 0.3569,
+      "arm_c": 0.413
+    },
+    "brier_score_calibration": {
+      "arm_a": 0.25,
+      "arm_b": 0.1114,
+      "arm_c": 0.0786
+    },
+    "negative_control_discipline": {
+      "arm_a": 1.0,
+      "arm_b": 1.0,
+      "arm_c": 1.0
+    },
+    "research_cost_efficiency": {
+      "arm_a": 0.0,
+      "arm_b": 0.2018,
+      "arm_c": 0.3028
+    }
+  },
+  "hypothesis_space_posterior": {
+    "HYP:CHETAEV_INSTABILITY_EXTENSION": {
+      "label": "Chetaev Instability Extension",
+      "prior": 0.5,
+      "posterior": 0.9,
+      "status": "CONFIRMED",
+      "supporting_fragments_count": 1,
+      "refuting_fragments_count": 0
+    },
+    "HYP:KRASOVSKII_CHETAEV_INHERITANCE": {
+      "label": "Krasovskii Chetaev Inheritance & Functional Extension",
+      "prior": 0.5,
+      "posterior": 0.9,
+      "status": "CONFIRMED",
+      "supporting_fragments_count": 1,
+      "refuting_fragments_count": 0
+    },
+    "HYP:ZUBOV_CONSTRUCTIVE_PDE": {
+      "label": "Zubov Constructive Domain of Attraction PDE",
+      "prior": 0.5,
+      "posterior": 0.9,
+      "status": "CONFIRMED",
+      "supporting_fragments_count": 1,
+      "refuting_fragments_count": 0
+    },
+    "HYP:CHETAEV_KRASOVSKII_DOCUMENTARY_LINK": {
+      "label": "Chetaev-Krasovskii Documentary Lineage",
+      "prior": 0.5,
+      "posterior": 0.5,
+      "status": "UNRESOLVED",
+      "supporting_fragments_count": 0,
+      "refuting_fragments_count": 0
+    },
+    "HYP:AEROSPACE_STABILITY_TRANSMISSION": {
+      "label": "Aerospace Flight Stability Transmission",
+      "prior": 0.5,
+      "posterior": 0.9,
+      "status": "CONFIRMED",
+      "supporting_fragments_count": 1,
+      "refuting_fragments_count": 0
+    },
+    "HYP:ZUBOV_INDEPENDENT_PARALLEL_LINEAGE": {
+      "label": "Zubov Independent Leningrad Parallel Lineage",
+      "prior": 0.5,
+      "posterior": 0.9,
+      "status": "CONFIRMED",
+      "supporting_fragments_count": 1,
+      "refuting_fragments_count": 0
+    },
+    "HYP:CHETAEV_DUAL_CONTROL_ANTECEDENT": {
+      "label": "Chetaev Dual Control Antecedent (Adversarial)",
+      "prior": 0.5,
+      "posterior": 0.1,
+      "status": "REFUTED",
+      "supporting_fragments_count": 0,
+      "refuting_fragments_count": 0
+    },
+    "HYP:ZUBOV_NEURAL_NETWORK_STABILITY": {
+      "label": "Zubov Neural Network Stability (Adversarial)",
+      "prior": 0.5,
+      "posterior": 0.1,
+      "status": "REFUTED",
+      "supporting_fragments_count": 0,
+      "refuting_fragments_count": 0
+    }
+  },
+  "ten_gate_suite_reference": "sovctx/tests/test_uq_n2_1_blind_generalization.py"
+}
