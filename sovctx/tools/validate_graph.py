@@ -27,6 +27,52 @@ COMPARISON_EDGES = {"PARALLEL_TO", "STRUCTURALLY_ANALOGOUS_TO", "DIFFERS_FROM", 
 FORBIDDEN_EDGE_TYPES = {"SAME_OPERATOR", "EQUIVALENT_TO"}
 SOURCE_NATIVE_NAMESPACES = {"SOV", "RUS"}
 
+TRANSFORMATION_EDGE_TYPES = {
+    "REDUCES_TO",
+    "SPECIAL_CASE_OF",
+    "LINEARIZES_TO",
+    "DUAL_TO",
+    "ADJOINT_OF",
+    "REGULARIZES",
+    "DISCRETIZES",
+    "VARIATIONAL_FORM_OF",
+    "STABILITY_CERTIFICATE_FOR",
+    "INVERSE_OF",
+    "APPROXIMATES",
+    "MOMENT_CLOSURE_OF",
+}
+
+HISTORICAL_EDGE_TYPES = {
+    "AFFILIATED_WITH",
+    "ASSERTS",
+    "AUTHORED",
+    "CITES",
+    "COAUTHORED",
+    "DOCUMENTED_ANCESTRY",
+    "DOCUMENTED_INFLUENCE",
+    "EDITION_OF",
+    "EXTRACTED_FROM",
+    "MEASURES",
+    "MENTIONS",
+    "PUBLISHED_BY",
+    "REPRODUCES",
+    "REQUIRES_SOURCE",
+    "SOURCE_TARGETS_EQUATION_FAMILY",
+    "SUPPORTS",
+    "USES_OPERATOR",
+}
+
+MATHEMATICAL_EDGE_TYPES = {
+    "ENCODES_EQUATION",
+    "HAS_ASSUMPTION",
+    "HAS_BEHAVIORAL_TEST",
+    "HAS_SYMBOL",
+    "IMPLEMENTS_OPERATOR",
+    "MEMBER_OF_EQUATION_FAMILY",
+    "PRESERVES_INVARIANT",
+    "STRUCTURALLY_ANALOGOUS_TO",
+} | TRANSFORMATION_EDGE_TYPES
+
 
 class ValidationError(RuntimeError):
     pass
@@ -168,6 +214,17 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
         raise ValidationError(f"{path}: edge {record['id']} missing edge_type")
     if edge_type in FORBIDDEN_EDGE_TYPES:
         raise ValidationError(f"{path}: forbidden strong semantic edge {edge_type}: {record['id']}")
+    
+    relation_realm = record.get("relation_realm")
+    if not relation_realm:
+        raise ValidationError(f"{path}: edge {record['id']} missing required relation_realm")
+    if relation_realm not in {"HISTORICAL", "MATHEMATICAL"}:
+        raise ValidationError(f"{path}: edge {record['id']} has invalid relation_realm '{relation_realm}'")
+    if edge_type in HISTORICAL_EDGE_TYPES and relation_realm != "HISTORICAL":
+        raise ValidationError(f"{path}: edge {record['id']} of type {edge_type} must have relation_realm HISTORICAL")
+    if edge_type in MATHEMATICAL_EDGE_TYPES and relation_realm != "MATHEMATICAL":
+        raise ValidationError(f"{path}: edge {record['id']} of type {edge_type} must have relation_realm MATHEMATICAL")
+
     source_id = record.get("source")
     target_id = record.get("target")
     if not source_id or not target_id:
@@ -176,6 +233,24 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
     t = nodes.get(target_id)
     if not s or not t:
         raise ValidationError(f"{path}: edge {record['id']} references unknown node(s)")
+
+    if edge_type in TRANSFORMATION_EDGE_TYPES:
+        if s.get("type") != "EQUATION" or t.get("type") != "EQUATION":
+            raise ValidationError(
+                f"{path}: transformation edge {edge_type} on {record['id']} must connect EQUATION -> EQUATION (got {s.get('type')} -> {t.get('type')})"
+            )
+
+    # Enforce strict non-implication boundary between GM and GH
+    if relation_realm == "MATHEMATICAL":
+        if s.get("type") in {"PERSON", "PUBLICATION", "ARCHIVAL_DOCUMENT", "CLAIM"}:
+            raise ValidationError(
+                f"{path}: MATHEMATICAL realm edge {record['id']} cannot originate from historical entity {s.get('type')}"
+            )
+        if t.get("type") in {"PERSON", "PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+            raise ValidationError(
+                f"{path}: MATHEMATICAL realm edge {record['id']} cannot target historical entity {t.get('type')}"
+            )
+
     namespaces = {s["namespace"], t["namespace"]}
     if "WEST" in namespaces and namespaces & SOURCE_NATIVE_NAMESPACES and edge_type not in COMPARISON_EDGES:
         raise ValidationError(f"{path}: WEST/SOV-RUS edge must be comparison-only: {record['id']}")

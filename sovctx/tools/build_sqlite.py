@@ -29,6 +29,7 @@ CREATE TABLE nodes (
 CREATE TABLE edges (
     id TEXT PRIMARY KEY,
     edge_type TEXT NOT NULL,
+    relation_realm TEXT NOT NULL DEFAULT 'HISTORICAL',
     source TEXT NOT NULL,
     target TEXT NOT NULL,
     namespace TEXT NOT NULL,
@@ -116,12 +117,13 @@ def build_database(output: Path) -> dict[str, int | str]:
             con.execute(
                 """
                 INSERT INTO edges(
-                    id, edge_type, source, target, namespace, label, payload_json
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)
+                    id, edge_type, relation_realm, source, target, namespace, label, payload_json
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     edge["id"],
                     edge["edge_type"],
+                    edge.get("relation_realm", "HISTORICAL"),
                     edge["source"],
                     edge["target"],
                     edge["namespace"],

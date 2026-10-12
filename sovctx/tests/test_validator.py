@@ -83,6 +83,7 @@ def test_support_edge_requires_fragment_to_claim() -> None:
         "namespace": "SOV",
         "label": "invalid support",
         "edge_type": "SUPPORTS",
+        "relation_realm": "HISTORICAL",
         "source": "PUB:X",
         "target": "CLAIM:X",
     }
@@ -108,6 +109,7 @@ def test_extracted_from_must_match_fragment_source() -> None:
         "namespace": "SOV",
         "label": "invalid extraction",
         "edge_type": "EXTRACTED_FROM",
+        "relation_realm": "HISTORICAL",
         "source": "FRAG:X",
         "target": "PUB:Y",
     }
@@ -116,3 +118,92 @@ def test_extracted_from_must_match_fragment_source() -> None:
     except module.ValidationError:
         return
     raise AssertionError("EXTRACTED_FROM target must match fragment source_id")
+
+
+def test_edge_requires_declared_relation_realm() -> None:
+    nodes = {
+        "EQ:A": {"id": "EQ:A", "type": "EQUATION", "namespace": "SOV", "label": "A"},
+        "EQ:B": {"id": "EQ:B", "type": "EQUATION", "namespace": "SOV", "label": "B"},
+    }
+    edge = {
+        "id": "EDGE:NO_REALM",
+        "type": "EDGE",
+        "namespace": "SOV",
+        "label": "missing realm",
+        "edge_type": "REDUCES_TO",
+        "source": "EQ:A",
+        "target": "EQ:B",
+    }
+    try:
+        module.validate_edge(Path("test"), edge, nodes)
+    except module.ValidationError as exc:
+        assert "missing required relation_realm" in str(exc)
+        return
+    raise AssertionError("Edge without relation_realm must fail validation")
+
+
+def test_edge_relation_realm_must_match_edge_type() -> None:
+    nodes = {
+        "EQ:A": {"id": "EQ:A", "type": "EQUATION", "namespace": "SOV", "label": "A"},
+        "EQ:B": {"id": "EQ:B", "type": "EQUATION", "namespace": "SOV", "label": "B"},
+        "PUB:P": {"id": "PUB:P", "type": "PUBLICATION", "namespace": "SOV", "label": "P"},
+        "PERSON:X": {"id": "PERSON:X", "type": "PERSON", "namespace": "SOV", "label": "X"},
+    }
+    # Mathematical edge falsely marked HISTORICAL
+    edge_bad_hist = {
+        "id": "EDGE:BAD_HIST",
+        "type": "EDGE",
+        "namespace": "SOV",
+        "label": "mismatched realm",
+        "edge_type": "REDUCES_TO",
+        "relation_realm": "HISTORICAL",
+        "source": "EQ:A",
+        "target": "EQ:B",
+    }
+    try:
+        module.validate_edge(Path("test"), edge_bad_hist, nodes)
+    except module.ValidationError as exc:
+        assert "must have relation_realm MATHEMATICAL" in str(exc)
+    else:
+        raise AssertionError("Mathematical edge with HISTORICAL realm must fail")
+
+    # Historical edge falsely marked MATHEMATICAL
+    edge_bad_math = {
+        "id": "EDGE:BAD_MATH",
+        "type": "EDGE",
+        "namespace": "SOV",
+        "label": "mismatched realm",
+        "edge_type": "AUTHORED",
+        "relation_realm": "MATHEMATICAL",
+        "source": "PERSON:X",
+        "target": "PUB:P",
+    }
+    try:
+        module.validate_edge(Path("test"), edge_bad_math, nodes)
+    except module.ValidationError as exc:
+        assert "must have relation_realm HISTORICAL" in str(exc)
+    else:
+        raise AssertionError("Historical edge with MATHEMATICAL realm must fail")
+
+
+def test_mathematical_edge_cannot_connect_historical_entities() -> None:
+    nodes = {
+        "PERSON:A": {"id": "PERSON:A", "type": "PERSON", "namespace": "SOV", "label": "A"},
+        "PERSON:B": {"id": "PERSON:B", "type": "PERSON", "namespace": "SOV", "label": "B"},
+    }
+    edge = {
+        "id": "EDGE:CONFLATION",
+        "type": "EDGE",
+        "namespace": "SOV",
+        "label": "conflated edge",
+        "edge_type": "REDUCES_TO",
+        "relation_realm": "MATHEMATICAL",
+        "source": "PERSON:A",
+        "target": "PERSON:B",
+    }
+    try:
+        module.validate_edge(Path("test"), edge, nodes)
+    except module.ValidationError as exc:
+        assert "transformation edge REDUCES_TO on EDGE:CONFLATION must connect EQUATION -> EQUATION" in str(exc)
+        return
+    raise AssertionError("Mathematical transformation connecting persons must fail")
