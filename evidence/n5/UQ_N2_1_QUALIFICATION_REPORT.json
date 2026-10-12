@@ -2,11 +2,11 @@
   "milestone": "UQ-N2.1",
   "title": "Blind Prospective Generalization Qualification Report",
   "domain": "Soviet Stability and Analytical Mechanics Lineage (Lyapunov-Chetaev-Krasovskii-Zubov)",
-  "campaign_timestamp": "2026-10-12T07:20:38.912555+00:00",
+  "campaign_timestamp": "2026-10-12T07:21:20.711641+00:00",
   "qualification_verdict": "PASS",
   "provenance": {
     "git_branch": "research/sovctx-kg",
-    "host_commit_sha": "d99e0562cf412a53b6d7eaf2a4f644a7ab1bcc1a",
+    "host_commit_sha": "cefaf462e250f02152cb7ccaf8664a5302e0fe2f",
     "target_node": "nano-jetson-01 (NVIDIA Jetson Nano 2GB ARM Cortex-A57)",
     "control_node": "uno-q-gateway-01 (x86_64 regulatory controller)"
   },
@@ -28,7 +28,7 @@
     "BS_brier_score_calibration": 0.0786,
     "N_C_negative_control_discipline": 1.0,
     "invented_bridge_edges": 0,
-    "research_cost_efficiency_eta": 0.3028
+    "research_cost_efficiency_eta": 0.3026
   },
   "comparative_metrics_table": {
     "entropy_reduction_bits": {
@@ -68,8 +68,8 @@
     },
     "research_cost_efficiency": {
       "arm_a": 0.0,
-      "arm_b": 0.2018,
-      "arm_c": 0.3028
+      "arm_b": 0.2017,
+      "arm_c": 0.3026
     }
   },
   "hypothesis_space_posterior": {
