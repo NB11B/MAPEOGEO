@@ -14,6 +14,11 @@ JSONL_FILES = [
     ROOT / "graph" / "equation_families.jsonl",
     ROOT / "graph" / "symbols.jsonl",
     ROOT / "graph" / "method_episodes.jsonl",
+    ROOT / "graph" / "negative_information.jsonl",
+    ROOT / "graph" / "method_lenses.jsonl",
+    ROOT / "graph" / "problems.jsonl",
+    ROOT / "graph" / "perspective_projections.jsonl",
+    ROOT / "graph" / "insights.jsonl",
     ROOT / "graph" / "assumptions.jsonl",
     ROOT / "graph" / "behavioral_tests.jsonl",
     ROOT / "graph" / "invariants.jsonl",
@@ -24,6 +29,12 @@ JSONL_FILES = [
 ]
 
 ALLOWED_NAMESPACES = {"ANC", "SOV", "RUS", "WEST", "SYN", "MOD", "CASE", "OPEN", "OP"}
+ALLOWED_REALMS = {
+    "HISTORICAL",
+    "MATHEMATICAL",
+    "METHODOLOGICAL_PERSPECTIVE",
+    "EXPERIMENTAL_APPLICATION",
+}
 COMPARISON_EDGES = {"PARALLEL_TO", "STRUCTURALLY_ANALOGOUS_TO", "DIFFERS_FROM", "ALTERNATE_INTERPRETATION_OF"}
 FORBIDDEN_EDGE_TYPES = {"SAME_OPERATOR", "EQUIVALENT_TO"}
 SOURCE_NATIVE_NAMESPACES = {"SOV", "RUS"}
@@ -73,6 +84,20 @@ MATHEMATICAL_EDGE_TYPES = {
     "PRESERVES_INVARIANT",
     "STRUCTURALLY_ANALOGOUS_TO",
 } | TRANSFORMATION_EDGE_TYPES
+
+METHODOLOGICAL_PERSPECTIVE_EDGE_TYPES = {
+    "AVOIDS_COMPUTING",
+    "DERIVED_FROM_METHOD_EPISODE",
+    "ENABLES_OMISSION_OF",
+}
+
+EXPERIMENTAL_APPLICATION_EDGE_TYPES = {
+    "APPLIES_TO_PROBLEM",
+    "REVEALS",
+    "COMPLEMENTS",
+    "CONFLICTS_WITH",
+    "ENABLES",
+}
 
 
 class ValidationError(RuntimeError):
@@ -296,6 +321,114 @@ def validate_behavioral_test(path: Path, record: dict[str, Any], nodes: dict[str
         )
 
 
+def validate_negative_information(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "NEGATIVE_INFORMATION":
+        return
+    for key in ("id", "type", "label", "negative_type", "description", "bypassed_by"):
+        if not record.get(key):
+            raise ValidationError(f"{path}: negative information {record['id']} missing {key}")
+
+
+def validate_method_lens(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "METHOD_LENS":
+        return
+    for key in (
+        "core_question",
+        "constructed_object",
+        "required_conditions",
+        "revealed_properties",
+        "avoided_operations",
+        "method_primitives",
+        "derived_from_episode_id",
+    ):
+        if not record.get(key):
+            raise ValidationError(f"{path}: method lens {record['id']} missing {key}")
+    ep = nodes.get(record["derived_from_episode_id"])
+    if not ep or ep.get("type") != "METHOD_EPISODE":
+        raise ValidationError(
+            f"{path}: method lens {record['id']} references invalid episode {record.get('derived_from_episode_id')}"
+        )
+    for neg_id in record.get("enables_omission_of_ids", []):
+        neg = nodes.get(neg_id)
+        if not neg or neg.get("type") != "NEGATIVE_INFORMATION":
+            raise ValidationError(
+                f"{path}: method lens {record['id']} references invalid negative information {neg_id}"
+            )
+
+
+def validate_problem(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "PROBLEM":
+        return
+    for key in (
+        "domain",
+        "state_representation",
+        "known_quantities",
+        "unknown_quantities",
+        "objective",
+        "computational_bottleneck",
+    ):
+        if not record.get(key):
+            raise ValidationError(f"{path}: problem {record['id']} missing {key}")
+    banned_keywords = ("soviet", "russian", "leningrad", "moscow", "steklov", "ussr", "western")
+    serialized = json.dumps(record).lower()
+    for kw in banned_keywords:
+        if kw in serialized:
+            raise ValidationError(
+                f"{path}: problem {record['id']} contains cultural/provenance keyword '{kw}', violating neutrality"
+            )
+
+
+def validate_perspective_projection(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "PERSPECTIVE_PROJECTION":
+        return
+    for key in (
+        "problem_id",
+        "method_lens_id",
+        "input_state",
+        "constructed_objects",
+        "discarded_state",
+        "new_invariants",
+        "new_constraints",
+        "predicted_computational_gain",
+        "resulting_insight_ids",
+    ):
+        if not record.get(key):
+            raise ValidationError(f"{path}: perspective projection {record['id']} missing {key}")
+    prob = nodes.get(record["problem_id"])
+    if not prob or prob.get("type") != "PROBLEM":
+        raise ValidationError(f"{path}: projection {record['id']} references invalid problem {record['problem_id']}")
+    lens = nodes.get(record["method_lens_id"])
+    if not lens or lens.get("type") != "METHOD_LENS":
+        raise ValidationError(f"{path}: projection {record['id']} references invalid method lens {record['method_lens_id']}")
+    for ins_id in record.get("resulting_insight_ids", []):
+        ins = nodes.get(ins_id)
+        if not ins or ins.get("type") != "INSIGHT":
+            raise ValidationError(f"{path}: projection {record['id']} references invalid insight {ins_id}")
+
+
+def validate_insight(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
+    if record["type"] != "INSIGHT":
+        return
+    for key in ("insight_type", "generated_by_projection_id", "target_problem_id", "description", "epistemic_impact"):
+        if not record.get(key):
+            raise ValidationError(f"{path}: insight {record['id']} missing {key}")
+    allowed_types = {
+        "NEW_INVARIANT",
+        "ELIMINATED_STATE",
+        "NEW_ADMISSIBILITY_BOUNDARY",
+        "LOWER_COST_ROUTE",
+        "NEW_AUXILIARY_VARIABLE",
+    }
+    if record["insight_type"] not in allowed_types:
+        raise ValidationError(f"{path}: insight {record['id']} has invalid insight_type {record['insight_type']}")
+    proj = nodes.get(record["generated_by_projection_id"])
+    if not proj or proj.get("type") != "PERSPECTIVE_PROJECTION":
+        raise ValidationError(f"{path}: insight {record['id']} references invalid projection {record['generated_by_projection_id']}")
+    prob = nodes.get(record["target_problem_id"])
+    if not prob or prob.get("type") != "PROBLEM":
+        raise ValidationError(f"{path}: insight {record['id']} references invalid problem {record['target_problem_id']}")
+
+
 def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str, Any]]) -> None:
     if record["type"] != "EDGE":
         return
@@ -308,12 +441,16 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
     relation_realm = record.get("relation_realm")
     if not relation_realm:
         raise ValidationError(f"{path}: edge {record['id']} missing required relation_realm")
-    if relation_realm not in {"HISTORICAL", "MATHEMATICAL"}:
+    if relation_realm not in ALLOWED_REALMS:
         raise ValidationError(f"{path}: edge {record['id']} has invalid relation_realm '{relation_realm}'")
     if edge_type in HISTORICAL_EDGE_TYPES and relation_realm != "HISTORICAL":
         raise ValidationError(f"{path}: edge {record['id']} of type {edge_type} must have relation_realm HISTORICAL")
     if edge_type in MATHEMATICAL_EDGE_TYPES and relation_realm != "MATHEMATICAL":
         raise ValidationError(f"{path}: edge {record['id']} of type {edge_type} must have relation_realm MATHEMATICAL")
+    if edge_type in METHODOLOGICAL_PERSPECTIVE_EDGE_TYPES and relation_realm != "METHODOLOGICAL_PERSPECTIVE":
+        raise ValidationError(f"{path}: edge {record['id']} of type {edge_type} must have relation_realm METHODOLOGICAL_PERSPECTIVE")
+    if edge_type in EXPERIMENTAL_APPLICATION_EDGE_TYPES and relation_realm != "EXPERIMENTAL_APPLICATION":
+        raise ValidationError(f"{path}: edge {record['id']} of type {edge_type} must have relation_realm EXPERIMENTAL_APPLICATION")
 
     source_id = record.get("source")
     target_id = record.get("target")
@@ -330,7 +467,7 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
                 f"{path}: transformation edge {edge_type} on {record['id']} must connect EQUATION -> EQUATION (got {s.get('type')} -> {t.get('type')})"
             )
 
-    # Enforce strict non-implication boundary between GM and GH
+    # Enforce strict non-implication boundary between realms
     if relation_realm == "MATHEMATICAL":
         if s.get("type") in {"PERSON", "PUBLICATION", "ARCHIVAL_DOCUMENT", "CLAIM"}:
             raise ValidationError(
@@ -340,10 +477,52 @@ def validate_edge(path: Path, record: dict[str, Any], nodes: dict[str, dict[str,
             raise ValidationError(
                 f"{path}: MATHEMATICAL realm edge {record['id']} cannot target historical entity {t.get('type')}"
             )
+    elif relation_realm == "METHODOLOGICAL_PERSPECTIVE":
+        if s.get("type") in {"PERSON", "PUBLICATION", "ARCHIVAL_DOCUMENT", "CLAIM"}:
+            raise ValidationError(
+                f"{path}: METHODOLOGICAL_PERSPECTIVE realm edge {record['id']} cannot originate from historical entity {s.get('type')}"
+            )
+        if t.get("type") in {"PERSON", "PUBLICATION", "ARCHIVAL_DOCUMENT"}:
+            raise ValidationError(
+                f"{path}: METHODOLOGICAL_PERSPECTIVE realm edge {record['id']} cannot target historical entity {t.get('type')}"
+            )
+    elif relation_realm == "EXPERIMENTAL_APPLICATION":
+        if s.get("type") in {"PERSON", "PUBLICATION", "ARCHIVAL_DOCUMENT", "CLAIM", "METHOD_EPISODE"}:
+            raise ValidationError(
+                f"{path}: EXPERIMENTAL_APPLICATION realm edge {record['id']} cannot originate from {s.get('type')}"
+            )
+        if t.get("type") in {"PERSON", "PUBLICATION", "ARCHIVAL_DOCUMENT", "CLAIM", "METHOD_EPISODE"}:
+            raise ValidationError(
+                f"{path}: EXPERIMENTAL_APPLICATION realm edge {record['id']} cannot target {t.get('type')}"
+            )
 
     namespaces = {s["namespace"], t["namespace"]}
     if "WEST" in namespaces and namespaces & SOURCE_NATIVE_NAMESPACES and edge_type not in COMPARISON_EDGES:
         raise ValidationError(f"{path}: WEST/SOV-RUS edge must be comparison-only: {record['id']}")
+
+    if edge_type == "AVOIDS_COMPUTING":
+        if s.get("type") != "METHOD_EPISODE" or t.get("type") != "NEGATIVE_INFORMATION":
+            raise ValidationError(f"{path}: AVOIDS_COMPUTING must connect METHOD_EPISODE -> NEGATIVE_INFORMATION: {record['id']}")
+
+    if edge_type == "DERIVED_FROM_METHOD_EPISODE":
+        if s.get("type") != "METHOD_LENS" or t.get("type") != "METHOD_EPISODE":
+            raise ValidationError(f"{path}: DERIVED_FROM_METHOD_EPISODE must connect METHOD_LENS -> METHOD_EPISODE: {record['id']}")
+
+    if edge_type == "ENABLES_OMISSION_OF":
+        if s.get("type") != "METHOD_LENS" or t.get("type") != "NEGATIVE_INFORMATION":
+            raise ValidationError(f"{path}: ENABLES_OMISSION_OF must connect METHOD_LENS -> NEGATIVE_INFORMATION: {record['id']}")
+
+    if edge_type == "APPLIES_TO_PROBLEM":
+        if s.get("type") != "PERSPECTIVE_PROJECTION" or t.get("type") != "PROBLEM":
+            raise ValidationError(f"{path}: APPLIES_TO_PROBLEM must connect PERSPECTIVE_PROJECTION -> PROBLEM: {record['id']}")
+
+    if edge_type == "REVEALS":
+        if s.get("type") != "PERSPECTIVE_PROJECTION" or t.get("type") != "INSIGHT":
+            raise ValidationError(f"{path}: REVEALS must connect PERSPECTIVE_PROJECTION -> INSIGHT: {record['id']}")
+
+    if edge_type == "COMPLEMENTS":
+        if s.get("type") != "INSIGHT" or t.get("type") != "INSIGHT":
+            raise ValidationError(f"{path}: COMPLEMENTS must connect INSIGHT -> INSIGHT: {record['id']}")
 
     if edge_type == "SUPPORTS":
         if s.get("type") != "SOURCE_FRAGMENT" or t.get("type") != "CLAIM":
@@ -445,6 +624,11 @@ def main() -> int:
         validate_equation(path, record, nodes)
         validate_behavioral_test(path, record, nodes)
         validate_method_episode(path, record, nodes)
+        validate_negative_information(path, record, nodes)
+        validate_method_lens(path, record, nodes)
+        validate_problem(path, record, nodes)
+        validate_perspective_projection(path, record, nodes)
+        validate_insight(path, record, nodes)
 
     support_pairs: set[tuple[str, str]] = set()
     encoded_equation_pairs: set[tuple[str, str]] = set()

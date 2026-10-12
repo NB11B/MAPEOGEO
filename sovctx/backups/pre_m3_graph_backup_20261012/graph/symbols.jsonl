@@ -1,0 +1,72 @@
+{"id":"SYMBOL:LEIBNIZ_X","type":"SYMBOL","namespace":"ANC","label":"x","symbol":"x","semantic_role":"quantity"}
+{"id":"SYMBOL:LEIBNIZ_Y","type":"SYMBOL","namespace":"ANC","label":"y","symbol":"y","semantic_role":"quantity"}
+{"id":"SYMBOL:LEIBNIZ_DX","type":"SYMBOL","namespace":"ANC","label":"dx","symbol":"dx","semantic_role":"differential of x"}
+{"id":"SYMBOL:LEIBNIZ_DY","type":"SYMBOL","namespace":"ANC","label":"dy","symbol":"dy","semantic_role":"differential of y"}
+{"id":"SYMBOL:LEIBNIZ_A","type":"SYMBOL","namespace":"ANC","label":"a","symbol":"a","semantic_role":"exponent / parameter"}
+{"id":"SYMBOL:GZ_ELL","type":"SYMBOL","namespace":"CASE","label":"l / ell","symbol":"l","semantic_role":"reported distance to EPS field maximum","verification_status":"secondary_transcription","dimension":"length"}
+{"id":"SYMBOL:GZ_L","type":"SYMBOL","namespace":"CASE","label":"L","symbol":"L","semantic_role":"circumference of nesting tube","verification_status":"secondary_transcription","dimension":"length"}
+{"id":"SYMBOL:GZ_N","type":"SYMBOL","namespace":"CASE","label":"n","symbol":"n","semantic_role":"harmonic number","verification_status":"secondary_transcription","dimension":"dimensionless"}
+{"id":"SYMBOL:GZ_K","type":"SYMBOL","namespace":"CASE","label":"k","symbol":"k","semantic_role":"natural-number index","verification_status":"secondary_transcription","dimension":"dimensionless"}
+{"id":"SYMBOL:LYAP_XK","type":"SYMBOL","namespace":"ANC","label":"x_k","symbol":"x_k","semantic_role":"state-coordinate deviation variable"}
+{"id":"SYMBOL:LYAP_T","type":"SYMBOL","namespace":"ANC","label":"t","symbol":"t","semantic_role":"time"}
+{"id":"SYMBOL:LYAP_XFIELD_K","type":"SYMBOL","namespace":"ANC","label":"X_k","symbol":"X_k","semantic_role":"right-hand-side function of time and state"}
+{"id":"SYMBOL:TIKH_Z","type":"SYMBOL","namespace":"SOV","label":"z(s)","symbol":"z(s)","semantic_role":"unknown function to reconstruct"}
+{"id":"SYMBOL:TIKH_U","type":"SYMBOL","namespace":"SOV","label":"u(x)","symbol":"u(x)","semantic_role":"given/observed function"}
+{"id":"SYMBOL:TIKH_UBAR","type":"SYMBOL","namespace":"SOV","label":"ū(x)","symbol":"\\bar u(x)","semantic_role":"given approximate/noisy function"}
+{"id":"SYMBOL:TIKH_KERNEL","type":"SYMBOL","namespace":"SOV","label":"K(x,s)","symbol":"K(x,s)","semantic_role":"Fredholm kernel"}
+{"id":"SYMBOL:TIKH_ALPHA","type":"SYMBOL","namespace":"SOV","label":"alpha","symbol":"\\alpha","semantic_role":"regularization parameter","dimension":"dimensionless_or_problem_scaled"}
+{"id":"SYMBOL:TIKH_N","type":"SYMBOL","namespace":"SOV","label":"N","symbol":"N","semantic_role":"quadratic data-misfit functional"}
+{"id":"SYMBOL:TIKH_OMEGA","type":"SYMBOL","namespace":"SOV","label":"Omega","symbol":"\\Omega","semantic_role":"regularizing/smoothing functional"}
+{"id":"SYMBOL:TIKH_KWEIGHT","type":"SYMBOL","namespace":"SOV","label":"k(s)","symbol":"k(s)","semantic_role":"positive derivative penalty weight"}
+{"id":"SYMBOL:TIKH_PWEIGHT","type":"SYMBOL","namespace":"SOV","label":"p(s)","symbol":"p(s)","semantic_role":"positive amplitude penalty weight"}
+{"id":"SYMBOL:VLASOV_RHO1","type":"SYMBOL","namespace":"SOV","label":"rho_1","symbol":"\\rho_1","semantic_role":"small electron mass-density perturbation"}
+{"id":"SYMBOL:VLASOV_RHO0","type":"SYMBOL","namespace":"SOV","label":"rho_0","symbol":"\\rho_0","semantic_role":"stationary electron mass density"}
+{"id":"SYMBOL:VLASOV_U1","type":"SYMBOL","namespace":"SOV","label":"u_1","symbol":"\\mathbf u_1","semantic_role":"small electron velocity perturbation"}
+{"id":"SYMBOL:VLASOV_E1","type":"SYMBOL","namespace":"SOV","label":"E_1","symbol":"\\mathbf E_1","semantic_role":"small electric-field perturbation"}
+{"id":"SYMBOL:VLASOV_OMEGA0","type":"SYMBOL","namespace":"SOV","label":"omega_0","symbol":"\\omega_0","semantic_role":"electron-plasma oscillation frequency"}
+{"id":"SYMBOL:VLASOV_N","type":"SYMBOL","namespace":"SOV","label":"N","symbol":"N","semantic_role":"electron number density"}
+{"id":"SYMBOL:VLASOV_ECHARGE","type":"SYMBOL","namespace":"SOV","label":"e","symbol":"e","semantic_role":"electron charge magnitude/sign as used in source relation"}
+{"id":"SYMBOL:VLASOV_M","type":"SYMBOL","namespace":"SOV","label":"m","symbol":"m","semantic_role":"electron mass"}
+{"id":"SYMBOL:VLASOV_FI","type":"SYMBOL","namespace":"SOV","label":"f_i","symbol":"f_i","semantic_role":"phase-space distribution function for species i"}
+{"id":"SYMBOL:VLASOV_E","type":"SYMBOL","namespace":"SOV","label":"E","symbol":"\\mathbf E","semantic_role":"self-consistent electric field"}
+{"id":"SYMBOL:VLASOV_H","type":"SYMBOL","namespace":"SOV","label":"H","symbol":"\\mathbf H","semantic_role":"self-consistent magnetic field"}
+{"id":"SYMBOL:VLASOV_RHO","type":"SYMBOL","namespace":"SOV","label":"rho","symbol":"\\rho","semantic_role":"charge-density source constructed from distributions"}
+{"id":"SYMBOL:VLASOV_J","type":"SYMBOL","namespace":"SOV","label":"j","symbol":"\\mathbf j","semantic_role":"current-density source constructed from distributions"}
+{"id":"SYMBOL:CHEB_F","type":"SYMBOL","namespace":"ANC","label":"f(x)","symbol":"f(x)","semantic_role":"function to be approximated"}
+{"id":"SYMBOL:CHEB_U","type":"SYMBOL","namespace":"ANC","label":"U(x)","symbol":"U(x)","semantic_role":"degree-n approximating polynomial"}
+{"id":"SYMBOL:CHEB_L","type":"SYMBOL","namespace":"ANC","label":"L","symbol":"L","semantic_role":"common absolute extremal deviation"}
+{"id":"SYMBOL:CHEB_X","type":"SYMBOL","namespace":"ANC","label":"x","symbol":"x","semantic_role":"independent variable"}
+{"id":"SYMBOL:CHEB_A","type":"SYMBOL","namespace":"ANC","label":"a","symbol":"a","semantic_role":"center of approximation interval"}
+{"id":"SYMBOL:CHEB_H","type":"SYMBOL","namespace":"ANC","label":"h","symbol":"h","semantic_role":"half-width of approximation interval"}
+{"id":"SYMBOL:CHEB_Z","type":"SYMBOL","namespace":"ANC","label":"z","symbol":"z","semantic_role":"normalized interval coordinate"}
+{"id":"SYMBOL:CHEB_N","type":"SYMBOL","namespace":"ANC","label":"n","symbol":"n","semantic_role":"degree of approximating polynomial"}
+{"id":"SYMBOL:PON_X","type":"SYMBOL","namespace":"SOV","label":"x","symbol":"x","semantic_role":"phase/state vector"}
+{"id":"SYMBOL:PON_U","type":"SYMBOL","namespace":"SOV","label":"u","symbol":"u","semantic_role":"control value/function"}
+{"id":"SYMBOL:PON_F","type":"SYMBOL","namespace":"SOV","label":"f(x,u)","symbol":"f(x,u)","semantic_role":"controlled state vector field"}
+{"id":"SYMBOL:PON_F0","type":"SYMBOL","namespace":"SOV","label":"f^0(x,u)","symbol":"f^0(x,u)","semantic_role":"running objective integrand"}
+{"id":"SYMBOL:PON_J","type":"SYMBOL","namespace":"SOV","label":"J","symbol":"J","semantic_role":"objective functional"}
+{"id":"SYMBOL:PON_PSI","type":"SYMBOL","namespace":"SOV","label":"psi","symbol":"\\psi","semantic_role":"adjoint/conjugate vector"}
+{"id":"SYMBOL:PON_H","type":"SYMBOL","namespace":"SOV","label":"H","symbol":"H(\\psi,x,u)","semantic_role":"Hamiltonian function"}
+{"id":"SYMBOL:PON_M","type":"SYMBOL","namespace":"SOV","label":"M","symbol":"M(\\psi,x)","semantic_role":"supremum of Hamiltonian over admissible control values"}
+{"id":"SYMBOL:PON_CONTROL_SET","type":"SYMBOL","namespace":"SOV","label":"U","symbol":"U","semantic_role":"control region / admissible instantaneous control set"}
+{"id":"SYMBOL:GL_F","type":"SYMBOL","namespace":"SOV","label":"f(x,y)","symbol":"f(x,y)","semantic_role":"kernel constructed from spectral-measure data"}
+{"id":"SYMBOL:GL_K","type":"SYMBOL","namespace":"SOV","label":"K(x,y)","symbol":"K(x,y)","semantic_role":"transformation-kernel solution of Gelfand-Levitan equation"}
+{"id":"SYMBOL:GL_Q","type":"SYMBOL","namespace":"SOV","label":"q(x)","symbol":"q(x)","semantic_role":"reconstructed Sturm-Liouville potential"}
+{"id":"SYMBOL:GL_PHI0","type":"SYMBOL","namespace":"SOV","label":"phi_0","symbol":"\\varphi_0","semantic_role":"reference solution used to construct spectral kernel"}
+{"id":"SYMBOL:GL_TAU","type":"SYMBOL","namespace":"SOV","label":"d tau","symbol":"d\\tau","semantic_role":"spectral-measure difference/input to reconstruction"}
+{"id": "SYMBOL:LB_X_T", "type": "SYMBOL", "namespace": "MOD", "label": "System multivariate state at step t", "symbol": "x(t)", "semantic_role": "state_vector"}
+{"id": "SYMBOL:LB_X_T_PLUS_1", "type": "SYMBOL", "namespace": "MOD", "label": "System state at step t+1", "symbol": "x(t+1)", "semantic_role": "state_vector"}
+{"id": "SYMBOL:LB_PHI_T", "type": "SYMBOL", "namespace": "MOD", "label": "Infinitesimal increment vector", "symbol": "\\phi(t)", "semantic_role": "increment_vector"}
+{"id": "SYMBOL:LB_C_T", "type": "SYMBOL", "namespace": "MOD", "label": "Local covariance operator of increments", "symbol": "C(t)", "semantic_role": "covariance_operator"}
+{"id": "SYMBOL:LB_E_K", "type": "SYMBOL", "namespace": "MOD", "label": "Dominant k-dimensional spectral frame on Gr(k, N)", "symbol": "E_k(t)", "semantic_role": "grassmannian_subspace"}
+{"id": "SYMBOL:LB_A_T", "type": "SYMBOL", "namespace": "MOD", "label": "Harmonic coordinates on spectral frame", "symbol": "a(t)", "semantic_role": "harmonic_coordinate"}
+{"id": "SYMBOL:LB_R_T", "type": "SYMBOL", "namespace": "MOD", "label": "Orthogonal residual novelty vector", "symbol": "r(t)", "semantic_role": "residual_novelty"}
+{"id": "SYMBOL:LB_RHO_K", "type": "SYMBOL", "namespace": "MOD", "label": "Rank-k spectral coherence ratio", "symbol": "\\rho_k(t)", "semantic_role": "coherence_metric"}
+{"id": "SYMBOL:LB_LAMBDA_I", "type": "SYMBOL", "namespace": "MOD", "label": "Eigenvalues of increment covariance", "symbol": "\\lambda_i(t)", "semantic_role": "eigenvalues"}
+{"id": "SYMBOL:LB_OMEGA_K", "type": "SYMBOL", "namespace": "MOD", "label": "Max-principal-angle Grassmannian curvature", "symbol": "\\Omega_k(t)", "semantic_role": "max_angle_curvature"}
+{"id": "SYMBOL:LB_THETA_I", "type": "SYMBOL", "namespace": "MOD", "label": "Principal angles between successive subspaces", "symbol": "\\theta_i", "semantic_role": "principal_angle"}
+{"id": "SYMBOL:LB_DELTA_T", "type": "SYMBOL", "namespace": "MOD", "label": "Temporal interval between successive observations", "symbol": "\\Delta t", "semantic_role": "time_increment"}
+{"id": "SYMBOL:LB_OMEGA_TILDE_K", "type": "SYMBOL", "namespace": "MOD", "label": "Projector-based Frobenius rotational curvature", "symbol": "\\tilde{\\Omega}_k(t)", "semantic_role": "projector_curvature"}
+{"id": "SYMBOL:LB_P_T", "type": "SYMBOL", "namespace": "MOD", "label": "Orthogonal projector onto dominant subspace", "symbol": "P_t", "semantic_role": "orthogonal_projector"}
+{"id": "SYMBOL:LB_W_T", "type": "SYMBOL", "namespace": "MOD", "label": "Online streaming subspace approximation frame", "symbol": "W_t", "semantic_role": "streaming_subspace_frame"}
+{"id": "SYMBOL:LB_ETA_T", "type": "SYMBOL", "namespace": "MOD", "label": "Learning rate for streaming subspace update", "symbol": "\\eta_t", "semantic_role": "learning_rate"}

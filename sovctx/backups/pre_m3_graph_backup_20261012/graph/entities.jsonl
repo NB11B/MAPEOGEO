@@ -1,0 +1,67 @@
+{"id":"PERSON:RODIMOV_BN","type":"PERSON","namespace":"SOV","label":"B. N. Rodimov"}
+{"id":"PERSON:ZOLOTAREV_VF","type":"PERSON","namespace":"SOV","label":"V. F. Zolotarev"}
+{"id":"PERSON:GREBENNIKOV_VS","type":"PERSON","namespace":"SOV","label":"V. S. Grebennikov"}
+{"id":"CONCEPT:EPS","type":"CONCEPT","namespace":"CASE","label":"Cavity structure effect / EPS source-native concept"}
+{"id":"OBS:GZ_TORSION_DISPLACEMENT","type":"OBSERVABLE","namespace":"CASE","label":"Reported torsion-balance angular displacement"}
+{"id":"PERSON:GELFAND_IM","type":"PERSON","namespace":"SOV","label":"I. M. Gelfand"}
+{"id":"PERSON:LEVITAN_BM","type":"PERSON","namespace":"SOV","label":"B. M. Levitan"}
+{"id":"PERSON:FADDEEV_LD","type":"PERSON","namespace":"SOV","label":"L. D. Faddeev"}
+{"id":"PERSON:TSETLIN_ML","type":"PERSON","namespace":"SOV","label":"M. L. Tsetlin"}
+{"id":"PERSON:GLUSHKOV_VM","type":"PERSON","namespace":"SOV","label":"V. M. Glushkov"}
+{"id":"INSTITUTION:TOMSK_STATE_UNIVERSITY","type":"INSTITUTION","namespace":"SOV","label":"Tomsk State University"}
+{"id":"PERSON:BERNSTEIN_NA","type":"PERSON","namespace":"SOV","label":"N. A. Bernstein"}
+{"id":"PERSON:GURFINKEL_VS","type":"PERSON","namespace":"SOV","label":"V. S. Gurfinkel"}
+{"id":"INSTITUTION:USSR_ACADEMY_SCIENCES","type":"INSTITUTION","namespace":"SOV","label":"USSR Academy of Sciences"}
+{"id":"PERSON:ZELKIN_EG","type":"PERSON","namespace":"SOV","label":"E. G. Zelkin"}
+{"id":"PERSON:ALEKSEEV_AS","type":"PERSON","namespace":"SOV","label":"A. S. Alekseev"}
+{"id":"CONCEPT:RODIMOV_SELF_OSCILLATORY_QM","type":"CONCEPT","namespace":"SOV","label":"Rodimov self-oscillatory quantum mechanics"}
+{"id":"PERSON:GREBENNIKOV_SV","type":"PERSON","namespace":"SOV","label":"S. V. Grebennikov"}
+{"id":"PERSON:KIRYUSHIN_VI","type":"PERSON","namespace":"SOV","label":"V. I. Kiryushin"}
+{"id":"INSTITUTION:SIBNIIZKH","type":"INSTITUTION","namespace":"SOV","label":"Siberian Research Institute of Agriculture and Agricultural Chemistry, Siberian Branch VASKhNIL"}
+{"id":"PERSON:LEIBNIZ_GW","type":"PERSON","namespace":"ANC","label":"Gottfried Wilhelm Leibniz","valid_from":"1646","valid_to":"1716"}
+{"id":"PERSON:EULER_L","type":"PERSON","namespace":"ANC","label":"Leonhard Euler","valid_from":"1707","valid_to":"1783"}
+{"id":"PERSON:BERNOULLI_JOHANN","type":"PERSON","namespace":"ANC","label":"Johann Bernoulli","valid_from":"1667","valid_to":"1748"}
+{"id":"PERSON:CHEBYSHEV_PL","type":"PERSON","namespace":"ANC","label":"P. L. Chebyshev","valid_from":"1821","valid_to":"1894"}
+{"id":"INSTITUTION:ST_PETERSBURG_ACADEMY","type":"INSTITUTION","namespace":"ANC","label":"Imperial St. Petersburg Academy of Sciences"}
+{"id":"CONCEPT:ANALYSIS_SITUS","type":"CONCEPT","namespace":"ANC","label":"Analysis situs / geometria situs"}
+{"id":"CONCEPT:LEIBNIZ_DIFFERENTIAL_CALCULUS","type":"CONCEPT","namespace":"ANC","label":"Leibniz differential calculus"}
+{"id":"PERSON:KOZLOV_VV","type":"PERSON","namespace":"RUS","label":"V. V. Kozlov"}
+{"id":"PERSON:MARKOV_AA","type":"PERSON","namespace":"ANC","label":"A. A. Markov","valid_from":"1856","valid_to":"1922"}
+{"id":"PERSON:LYAPUNOV_AM","type":"PERSON","namespace":"ANC","label":"A. M. Lyapunov","valid_from":"1857","valid_to":"1918"}
+{"id":"SCHOOL:PETERSBURG_MATHEMATICS","type":"SCHOOL","namespace":"ANC","label":"St. Petersburg mathematical school"}
+{"id":"PERSON:ANDRONOV_AA","type":"PERSON","namespace":"SOV","label":"A. A. Andronov","valid_from":"1901","valid_to":"1952"}
+{"id":"PERSON:PONTRYAGIN_LS","type":"PERSON","namespace":"SOV","label":"L. S. Pontryagin","valid_from":"1908","valid_to":"1988"}
+{"id":"PERSON:BOLTYANSKII_VG","type":"PERSON","namespace":"SOV","label":"V. G. Boltyanskii"}
+{"id":"PERSON:GAMKRELIDZE_RV","type":"PERSON","namespace":"SOV","label":"R. V. Gamkrelidze"}
+{"id":"PERSON:TIKHONOV_AN","type":"PERSON","namespace":"SOV","label":"A. N. Tikhonov","valid_from":"1906","valid_to":"1993"}
+{"id":"PERSON:VLASOV_AA","type":"PERSON","namespace":"SOV","label":"A. A. Vlasov","valid_from":"1908","valid_to":"1975"}
+{"id":"CONCEPT:LYAPUNOV_STABILITY","type":"CONCEPT","namespace":"ANC","label":"Lyapunov stability of motion"}
+{"id":"CONCEPT:TIKHONOV_REGULARIZATION","type":"CONCEPT","namespace":"SOV","label":"Tikhonov regularization"}
+{"id":"CONCEPT:ANDRONOV_ROUGH_SYSTEM","type":"CONCEPT","namespace":"SOV","label":"Rough / structurally stable dynamical system"}
+{"id":"CONCEPT:PONTRYAGIN_MAXIMUM_PRINCIPLE","type":"CONCEPT","namespace":"SOV","label":"Pontryagin maximum principle"}
+{"id":"CONCEPT:VLASOV_COLLECTIVE_FIELD","type":"CONCEPT","namespace":"SOV","label":"Vlasov collective electron-gas field dynamics"}
+{"id":"PERSON:GONCHAR_AA","type":"PERSON","namespace":"RUS","label":"A. A. Gonchar"}
+{"id":"PERSON:NOVIKOVA_NN","type":"PERSON","namespace":"RUS","label":"N. N. Novikova"}
+{"id":"PERSON:HENKIN_GM","type":"PERSON","namespace":"RUS","label":"G. M. Henkin"}
+{"id":"PERSON:KRASOVSKII_NN","type":"PERSON","namespace":"SOV","label":"N. N. Krasovskii","valid_from":"1924","valid_to":"2012"}
+{"id":"PERSON:SHAFRANOV_VD","type":"PERSON","namespace":"SOV","label":"V. D. Shafranov","valid_from":"1929","valid_to":"2014"}
+{"id":"INSTITUTION:ITMIVT","type":"INSTITUTION","namespace":"SOV","label":"Institute of Precision Mechanics and Computer Engineering (ITMiVT)"}
+{"id":"INSTITUTION:IPM_KELDYSH","type":"INSTITUTION","namespace":"SOV","label":"M. V. Keldysh Institute of Applied Mathematics (IPM)"}
+{"id":"INSTITUTION:STEKLOV_MIAN","type":"INSTITUTION","namespace":"SOV","label":"V. A. Steklov Mathematical Institute (MIAN)"}
+{"id":"INSTITUTION:KURCHATOV_IAE","type":"INSTITUTION","namespace":"SOV","label":"I. V. Kurchatov Institute of Atomic Energy (IAE)"}
+{"id":"CONCEPT:GRAD_SHAFRANOV_EQUILIBRIUM","type":"CONCEPT","namespace":"SOV","label":"Grad-Shafranov toroidal plasma equilibrium"}
+{"id":"CONCEPT:KRASOVSKII_OPTIMAL_STABILIZATION","type":"CONCEPT","namespace":"SOV","label":"Krasovskii optimal stabilization and game-theoretic control"}
+{"id": "PERSON:FELDBAUM_AA", "type": "PERSON", "namespace": "SOV", "label": "A. A. Feldbaum"}
+{"id": "PERSON:STRATONOVICH_RL", "type": "PERSON", "namespace": "SOV", "label": "R. L. Stratonovich"}
+{"id": "PERSON:ANOKHIN_PK", "type": "PERSON", "namespace": "SOV", "label": "P. K. Anokhin"}
+{"id": "PERSON:ASHBY_WR", "type": "PERSON", "namespace": "WEST", "label": "W. Ross Ashby"}
+{"id": "PERSON:WALTER_WG", "type": "PERSON", "namespace": "WEST", "label": "W. Grey Walter"}
+{"id": "PERSON:SAMARSKII_AA", "type": "PERSON", "namespace": "SOV", "label": "A. A. Samarskii"}
+{"id": "INSTITUTION:IAT_RAS", "type": "INSTITUTION", "namespace": "SOV", "label": "Institute of Automation and Remote Control (IAT / IPU RAN)"}
+{"id": "INSTITUTION:SECHENOV_INST", "type": "INSTITUTION", "namespace": "SOV", "label": "Sechenov Institute of Physiology, USSR AMS"}
+{"id": "CONCEPT:EPISTEMIC_ACTION", "type": "CONCEPT", "namespace": "SYN", "label": "Epistemic Action / Act-to-Know"}
+{"id": "CONCEPT:ACTION_ACCEPTOR", "type": "CONCEPT", "namespace": "SOV", "label": "Action-Result Acceptor (Akseptor Deystviya)"}
+{"id": "CONCEPT:MODEL_REQUIRED_FUTURE", "type": "CONCEPT", "namespace": "SOV", "label": "Model of the Required Future"}
+{"id": "CONCEPT:ENDOGENOUS_SELF_MAINTENANCE", "type": "CONCEPT", "namespace": "SYN", "label": "Endogenous Self-Maintenance"}
+{"id": "CONCEPT:FINITE_INTELLIGENCE", "type": "CONCEPT", "namespace": "SYN", "label": "Resource-Bounded Finite Intelligence"}
+{"id": "PERSON:BOCKER_NJ", "type": "PERSON", "namespace": "MOD", "label": "Nathanael Joseph Bocker"}

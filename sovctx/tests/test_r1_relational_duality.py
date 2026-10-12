@@ -15,7 +15,7 @@ from sovctx.node.temporal_relations import TemporalRelationsEngine
 
 def test_relational_duality_projection() -> None:
     engine = RelationalDualityEngine()
-    assert len(engine.relation_nodes) in {453, 537}
+    assert len(engine.relation_nodes) in {453, 537, 598}
     assert len(engine.g_star_adj) > 0
     # Over 10,000 transitions in G*
     total_dual_edges = sum(len(v) for v in engine.g_star_adj.values())

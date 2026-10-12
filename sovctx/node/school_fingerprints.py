@@ -60,7 +60,12 @@ class SchoolFingerprintEngine:
     """
 
     def __init__(self, records: Optional[list[dict[str, Any]]] = None) -> None:
-        self.records = records or load_records()
+        raw_records = records or load_records()
+        # Enforce realm boundary: historical schools operate strictly on historical and mathematical realms
+        self.records = [
+            r for r in raw_records
+            if r.get("type") != "EDGE" or r.get("relation_realm") in {"HISTORICAL", "MATHEMATICAL"}
+        ]
         self.nodes, self.edges = split_records(self.records)
         self.node_map = {n["id"]: n for n in self.nodes}
         self.duality_engine = RelationalDualityEngine(self.records)
@@ -68,6 +73,8 @@ class SchoolFingerprintEngine:
 
     def map_fine_school(self, nid: str) -> Optional[str]:
         """Maps an entity to its fine-grained research school or sub-tradition."""
+        if any(nid.startswith(p) for p in ("LENS:", "NEG:", "PROJ:", "PROBLEM:", "INSIGHT:")):
+            return None
         u = nid.upper()
         lbl = self.node_map.get(nid, {}).get("label", "").upper()
 
