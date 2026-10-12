@@ -56,6 +56,20 @@ class TransferRequirement(str, enum.Enum):
     FAR_TRANSFER = "FAR_TRANSFER"                           # Novel domain / non-obvious mapping
 
 
+class EpisodeType(str, enum.Enum):
+    WORKED_EXAMPLE = "WORKED_EXAMPLE"                       # Demonstration in text
+    EXERCISE = "EXERCISE"                                   # Student task
+    THEOREM = "THEOREM"                                     # Axiomatic proof
+    METHODOLOGICAL_INSTRUCTION = "METHODOLOGICAL_INSTRUCTION"# Teacher guide doctrine
+    RULE_DEFINITION = "RULE_DEFINITION"                     # Formal rule introduction
+
+
+class SubstitutionMode(str, enum.Enum):
+    EXPLICIT = "EXPLICIT"                                   # Text literally commands "without counting"
+    INFERRED = "INFERRED"                                   # Brute calculation combinatorially infeasible
+    NONE = "NONE"                                           # Procedural baseline
+
+
 @dataclass
 class DevelopmentalEpisode:
     """Standardized 9-element developmental extraction episode with pedagogical agency metadata."""
@@ -101,6 +115,16 @@ class DevelopmentalEpisode:
     # Educational computational substitution (early form of Negative Information)
     computational_substitution: Optional[str] = None
 
+    # DEV1 Dense Sampling Protocol Fields
+    episode_type: EpisodeType = EpisodeType.EXERCISE
+    substitution_mode: SubstitutionMode = SubstitutionMode.EXPLICIT
+    lesson_chapter: Optional[str] = None
+    problem_number: Optional[str] = None
+    student_text: Optional[str] = None
+    teacher_text: Optional[str] = None
+    source_edition: Optional[str] = None
+    is_teacher_doctrine: bool = False
+
     # Optional metadata
     page_reference: Optional[str] = None
     original_russian_text: Optional[str] = None
@@ -112,6 +136,8 @@ class DevelopmentalEpisode:
         d["move_origin"] = self.move_origin.value
         d["scaffolding_depth"] = self.scaffolding_depth.value
         d["transfer_requirement"] = self.transfer_requirement.value
+        d["episode_type"] = self.episode_type.value
+        d["substitution_mode"] = self.substitution_mode.value
         return d
 
 
