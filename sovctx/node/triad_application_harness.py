@@ -265,9 +265,9 @@ class TriadApplicationHarness:
     def _init_reference_specimens(self) -> None:
         """
         Initializes reference application specimens:
-        1. Fully Congruent Exemplar: Resilient Data Center Compute Service
-        2. Fully Congruent Exemplar: Autonomous Microgrid Frequency Regulation
-        3. Fully Congruent Exemplar: Coordinated Search-and-Rescue Drone Swarm
+        1. Reference / Simulated Application Specimen: Resilient Data Center Compute Service
+        2. Reference / Simulated Application Specimen: Autonomous Microgrid Frequency Regulation
+        3. Reference / Simulated Application Specimen: Coordinated Search-and-Rescue Drone Swarm
         4. Controlled Probe: L1 Failure (Over-Aggressive Dimension Loss)
         5. Controlled Probe: L2 Failure (Omitted Variance Diverges Control Gain)
         6. Controlled Probe: L3 Failure (Subsystem Interaction Destabilization)
