@@ -1,0 +1,2462 @@
+{
+  "cycle_timestamp": "2026-10-12T02:34:04.723662+00:00",
+  "new_relationships_discovered": [
+    {
+      "relation": "PREDICT -> OBSERVE -> COMPARE -> ADAPT",
+      "endpoints": "Bernstein <-> Anokhin <-> Tsetlin <-> Gelfand",
+      "source": "FRAG:GELFAND_TSETLIN_1961_BERNSTEIN_BRIDGE"
+    },
+    {
+      "relation": "STABILIZE -> CONTROL",
+      "endpoints": "Lyapunov <-> Pontryagin <-> Krasovskii",
+      "source": "CONCEPT:LYAPUNOV_STABILITY"
+    },
+    {
+      "relation": "RELATION_FIRST_MAPPING -> OPERATOR_INVARIANT",
+      "endpoints": "Leibniz <-> Euler <-> Chebyshev",
+      "source": "TEST:LEIBNIZ_PRODUCT_DX_ZERO"
+    },
+    {
+      "relation": "APPROXIMATE -> BOUND -> COMPUTE",
+      "endpoints": "Chebyshev <-> Markov <-> Lebedev",
+      "source": "FRAG:BESM6_CHEBYSHEV_APPROXIMATION"
+    },
+    {
+      "relation": "MEAN_FIELD -> AUTOMATA_GAME -> FUNCTIONAL_SYSTEM",
+      "endpoints": "Vlasov -> Tsetlin -> Anokhin",
+      "source": "Tsetlin (1961) & Anokhin (1968)"
+    },
+    {
+      "relation": "STABILIZE -> REGULARIZE -> CONTROL",
+      "endpoints": "Lyapunov -> Krasovskii -> Pontryagin",
+      "source": "Krasovskii (1959) & Pontryagin et al. (1961)"
+    },
+    {
+      "relation": "STABILIZE -> REGULARIZE -> CONTROL",
+      "endpoints": "Lyapunov -> Krasovskii -> Pontryagin",
+      "source": "Krasovskii (1959) & Pontryagin et al. (1961)"
+    },
+    {
+      "relation": "INVERT -> CONSTRAIN -> STABILIZE",
+      "endpoints": "Tikhonov <-> Zelkin",
+      "source": "FAMILY:TIKHONOV_REGULARIZATION"
+    },
+    {
+      "relation": "PREDICT -> OBSERVE -> COMPARE -> ADAPT",
+      "endpoints": "Bernstein <-> Anokhin <-> Tsetlin <-> Gelfand",
+      "source": "FRAG:GELFAND_TSETLIN_1961_BERNSTEIN_BRIDGE"
+    },
+    {
+      "relation": "STABILIZE -> CONTROL",
+      "endpoints": "Lyapunov <-> Pontryagin <-> Krasovskii",
+      "source": "CONCEPT:LYAPUNOV_STABILITY"
+    },
+    {
+      "relation": "RELATION_FIRST_MAPPING -> OPERATOR_INVARIANT",
+      "endpoints": "Leibniz <-> Euler <-> Chebyshev",
+      "source": "TEST:LEIBNIZ_PRODUCT_DX_ZERO"
+    },
+    {
+      "relation": "APPROXIMATE -> BOUND -> COMPUTE",
+      "endpoints": "Chebyshev <-> Markov <-> Lebedev",
+      "source": "FRAG:BESM6_CHEBYSHEV_APPROXIMATION"
+    },
+    {
+      "relation": "MEAN_FIELD -> AUTOMATA_GAME -> FUNCTIONAL_SYSTEM",
+      "endpoints": "Vlasov -> Tsetlin -> Anokhin",
+      "source": "Tsetlin (1961) & Anokhin (1968)"
+    },
+    {
+      "relation": "STABILIZE -> REGULARIZE -> CONTROL",
+      "endpoints": "Lyapunov -> Krasovskii -> Pontryagin",
+      "source": "Krasovskii (1959) & Pontryagin et al. (1961)"
+    },
+    {
+      "relation": "STABILIZE -> REGULARIZE -> CONTROL",
+      "endpoints": "Lyapunov -> Krasovskii -> Pontryagin",
+      "source": "Krasovskii (1959) & Pontryagin et al. (1961)"
+    }
+  ],
+  "new_threads_spawned": [
+    {
+      "thread_id": "T10_DUAL_CONTROL_&_ADAPTIVE_",
+      "name": "Dual Control & Adaptive State Estimation (Spawned via NEW_RECURRING_RELATION)",
+      "starting_region": "Feldbaum -> Stratonovich -> Kalman Analogues",
+      "follow_targets": [
+        "PROBE_STATE",
+        "LEARN_UNKNOWN_MEDIA",
+        "DUAL_OPTIMIZE",
+        "CLOSED_LOOP_REGULATE"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Dual Control & Adaptive State Estimation. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_RECURRING_RELATION",
+      "spawn_rationale": "Direct convergence of stochastic automata learning and optimal feedback control via Feldbaum Dual Control.",
+      "created_at": "2026-10-12T00:34:37.960435+00:00"
+    },
+    {
+      "thread_id": "T11_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:35:25.971472+00:00"
+    },
+    {
+      "thread_id": "T12_FINITE_COMPUTATIONAL_REG",
+      "name": "Finite Computational Regularization on Soviet Mainframes (Spawned via NEW_INSTITUTIONAL_BRIDGE)",
+      "starting_region": "Chebyshev -> Lebedev -> Samarskii -> BESM",
+      "follow_targets": [
+        "DISCRETIZE",
+        "MINIMAX_ERROR",
+        "REGULARIZED_KERNEL",
+        "FLOATING_STABILITY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Finite Computational Regularization on Soviet Mainframes. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_INSTITUTIONAL_BRIDGE",
+      "spawn_rationale": "Numerical implementation bridge connecting 19th c. Chebyshev approximation with Soviet mainframe scientific computing.",
+      "created_at": "2026-10-12T00:35:37.973751+00:00"
+    },
+    {
+      "thread_id": "T13_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:36:25.984877+00:00"
+    },
+    {
+      "thread_id": "T14_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:37:25.997863+00:00"
+    },
+    {
+      "thread_id": "T15_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:38:26.014882+00:00"
+    },
+    {
+      "thread_id": "T16_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:39:26.027876+00:00"
+    },
+    {
+      "thread_id": "T17_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:40:26.041318+00:00"
+    },
+    {
+      "thread_id": "T18_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:41:26.054253+00:00"
+    },
+    {
+      "thread_id": "T19_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:42:26.067540+00:00"
+    },
+    {
+      "thread_id": "T20_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:43:26.080776+00:00"
+    },
+    {
+      "thread_id": "T21_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:44:32.105197+00:00"
+    },
+    {
+      "thread_id": "T22_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:45:32.118432+00:00"
+    },
+    {
+      "thread_id": "T23_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:46:32.132462+00:00"
+    },
+    {
+      "thread_id": "T24_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:47:32.145936+00:00"
+    },
+    {
+      "thread_id": "T25_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:48:32.160000+00:00"
+    },
+    {
+      "thread_id": "T26_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:49:32.173730+00:00"
+    },
+    {
+      "thread_id": "T27_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:50:32.187318+00:00"
+    },
+    {
+      "thread_id": "T28_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:51:32.201610+00:00"
+    },
+    {
+      "thread_id": "T29_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:52:32.215698+00:00"
+    },
+    {
+      "thread_id": "T30_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:53:32.230207+00:00"
+    },
+    {
+      "thread_id": "T31_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:54:32.254423+00:00"
+    },
+    {
+      "thread_id": "T32_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:55:32.268775+00:00"
+    },
+    {
+      "thread_id": "T33_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:56:32.283158+00:00"
+    },
+    {
+      "thread_id": "T34_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:57:32.298089+00:00"
+    },
+    {
+      "thread_id": "T35_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:58:32.312540+00:00"
+    },
+    {
+      "thread_id": "T36_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T00:59:32.327449+00:00"
+    },
+    {
+      "thread_id": "T37_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:00:32.342171+00:00"
+    },
+    {
+      "thread_id": "T38_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:01:32.357722+00:00"
+    },
+    {
+      "thread_id": "T39_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:02:32.372470+00:00"
+    },
+    {
+      "thread_id": "T40_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:03:32.388162+00:00"
+    },
+    {
+      "thread_id": "T41_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:04:32.415372+00:00"
+    },
+    {
+      "thread_id": "T42_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:05:32.431117+00:00"
+    },
+    {
+      "thread_id": "T43_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:06:32.446654+00:00"
+    },
+    {
+      "thread_id": "T44_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:07:32.462494+00:00"
+    },
+    {
+      "thread_id": "T45_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:08:32.478132+00:00"
+    },
+    {
+      "thread_id": "T46_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:09:32.494048+00:00"
+    },
+    {
+      "thread_id": "T47_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:10:32.509625+00:00"
+    },
+    {
+      "thread_id": "T48_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:11:32.525530+00:00"
+    },
+    {
+      "thread_id": "T49_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:12:32.541854+00:00"
+    },
+    {
+      "thread_id": "T50_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:13:32.557789+00:00"
+    },
+    {
+      "thread_id": "T51_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:14:32.588875+00:00"
+    },
+    {
+      "thread_id": "T52_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:15:32.615851+00:00"
+    },
+    {
+      "thread_id": "T53_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:16:32.650611+00:00"
+    },
+    {
+      "thread_id": "T54_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:17:32.681341+00:00"
+    },
+    {
+      "thread_id": "T55_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:18:32.721637+00:00"
+    },
+    {
+      "thread_id": "T56_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:19:32.744012+00:00"
+    },
+    {
+      "thread_id": "T57_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:20:32.764958+00:00"
+    },
+    {
+      "thread_id": "T58_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:21:32.782441+00:00"
+    },
+    {
+      "thread_id": "T59_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:22:32.805264+00:00"
+    },
+    {
+      "thread_id": "T60_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:23:32.829768+00:00"
+    },
+    {
+      "thread_id": "T61_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:24:32.873035+00:00"
+    },
+    {
+      "thread_id": "T62_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:25:32.901750+00:00"
+    },
+    {
+      "thread_id": "T63_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:26:32.929807+00:00"
+    },
+    {
+      "thread_id": "T64_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:27:32.957589+00:00"
+    },
+    {
+      "thread_id": "T65_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:28:32.987634+00:00"
+    },
+    {
+      "thread_id": "T66_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:29:33.015872+00:00"
+    },
+    {
+      "thread_id": "T67_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:30:33.044956+00:00"
+    },
+    {
+      "thread_id": "T68_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:31:33.074788+00:00"
+    },
+    {
+      "thread_id": "T69_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:32:33.104290+00:00"
+    },
+    {
+      "thread_id": "T70_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:33:33.134369+00:00"
+    },
+    {
+      "thread_id": "T71_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:34:33.184614+00:00"
+    },
+    {
+      "thread_id": "T72_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:35:33.213274+00:00"
+    },
+    {
+      "thread_id": "T73_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:36:33.243800+00:00"
+    },
+    {
+      "thread_id": "T74_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:37:33.273833+00:00"
+    },
+    {
+      "thread_id": "T75_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:38:33.304536+00:00"
+    },
+    {
+      "thread_id": "T76_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:39:33.326999+00:00"
+    },
+    {
+      "thread_id": "T77_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:40:33.351388+00:00"
+    },
+    {
+      "thread_id": "T78_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:41:33.370198+00:00"
+    },
+    {
+      "thread_id": "T79_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:42:33.388659+00:00"
+    },
+    {
+      "thread_id": "T80_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:43:33.407733+00:00"
+    },
+    {
+      "thread_id": "T81_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:44:33.449061+00:00"
+    },
+    {
+      "thread_id": "T82_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:45:33.467676+00:00"
+    },
+    {
+      "thread_id": "T83_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:46:33.487097+00:00"
+    },
+    {
+      "thread_id": "T84_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:47:33.505914+00:00"
+    },
+    {
+      "thread_id": "T85_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:48:33.526163+00:00"
+    },
+    {
+      "thread_id": "T86_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:49:33.545191+00:00"
+    },
+    {
+      "thread_id": "T87_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:50:33.564326+00:00"
+    },
+    {
+      "thread_id": "T88_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:51:33.584057+00:00"
+    },
+    {
+      "thread_id": "T89_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:52:33.615745+00:00"
+    },
+    {
+      "thread_id": "T90_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:53:33.648427+00:00"
+    },
+    {
+      "thread_id": "T91_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:54:33.696741+00:00"
+    },
+    {
+      "thread_id": "T92_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:55:33.730500+00:00"
+    },
+    {
+      "thread_id": "T93_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:56:33.756201+00:00"
+    },
+    {
+      "thread_id": "T94_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:57:33.778384+00:00"
+    },
+    {
+      "thread_id": "T95_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:58:33.799197+00:00"
+    },
+    {
+      "thread_id": "T96_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T01:59:33.824998+00:00"
+    },
+    {
+      "thread_id": "T97_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:00:33.844801+00:00"
+    },
+    {
+      "thread_id": "T98_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:01:33.865329+00:00"
+    },
+    {
+      "thread_id": "T99_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:02:33.885553+00:00"
+    },
+    {
+      "thread_id": "T100_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:03:33.906312+00:00"
+    },
+    {
+      "thread_id": "T101_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:04:33.955340+00:00"
+    },
+    {
+      "thread_id": "T102_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:05:33.975883+00:00"
+    },
+    {
+      "thread_id": "T103_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:06:33.997143+00:00"
+    },
+    {
+      "thread_id": "T104_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:07:34.017743+00:00"
+    },
+    {
+      "thread_id": "T105_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:08:34.039120+00:00"
+    },
+    {
+      "thread_id": "T106_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:09:34.060349+00:00"
+    },
+    {
+      "thread_id": "T107_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:10:34.080939+00:00"
+    },
+    {
+      "thread_id": "T108_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:11:34.102549+00:00"
+    },
+    {
+      "thread_id": "T109_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:12:34.123534+00:00"
+    },
+    {
+      "thread_id": "T110_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:13:34.144961+00:00"
+    },
+    {
+      "thread_id": "T111_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:14:34.196847+00:00"
+    },
+    {
+      "thread_id": "T112_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:15:34.217946+00:00"
+    },
+    {
+      "thread_id": "T113_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:16:34.240573+00:00"
+    },
+    {
+      "thread_id": "T114_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:17:34.261945+00:00"
+    },
+    {
+      "thread_id": "T115_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:18:34.284408+00:00"
+    },
+    {
+      "thread_id": "T116_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:19:34.306052+00:00"
+    },
+    {
+      "thread_id": "T117_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:20:34.327956+00:00"
+    },
+    {
+      "thread_id": "T118_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:21:34.350494+00:00"
+    },
+    {
+      "thread_id": "T119_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:22:34.372305+00:00"
+    },
+    {
+      "thread_id": "T120_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:23:34.394489+00:00"
+    },
+    {
+      "thread_id": "T121_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:24:34.449685+00:00"
+    },
+    {
+      "thread_id": "T122_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:25:34.471995+00:00"
+    },
+    {
+      "thread_id": "T123_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:26:34.494786+00:00"
+    },
+    {
+      "thread_id": "T124_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:27:34.517094+00:00"
+    },
+    {
+      "thread_id": "T125_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:28:34.542519+00:00"
+    },
+    {
+      "thread_id": "T126_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:29:34.564952+00:00"
+    },
+    {
+      "thread_id": "T127_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:30:34.587868+00:00"
+    },
+    {
+      "thread_id": "T128_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:31:34.624336+00:00"
+    },
+    {
+      "thread_id": "T129_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:32:34.661143+00:00"
+    },
+    {
+      "thread_id": "T130_PHYSIOLOGICAL_CYBERNETIC",
+      "name": "Physiological Cybernetics & Functional Systems (Spawned via NEW_CROSS_DOMAIN_BRIDGE)",
+      "starting_region": "Bernshtein -> Anokhin -> Gelfand-Tsetlin",
+      "follow_targets": [
+        "DYNAMIC_ASSEMBLY",
+        "AFFERENT_SYNTHESIS",
+        "COLLECTIVE_SEARCH",
+        "MOTOR_SYNERGY"
+      ],
+      "negative_presumptions": [
+        "Do NOT presume pre-determined destination for Physiological Cybernetics & Functional Systems. Let the graph topology decide."
+      ],
+      "status": "ACTIVE",
+      "is_dynamically_spawned": true,
+      "spawn_trigger": "NEW_CROSS_DOMAIN_BRIDGE",
+      "spawn_rationale": "Strong cross-domain bridge between Vlasov collective kinetics and Anokhin dynamic functional organ assembly.",
+      "created_at": "2026-10-12T02:33:34.697169+00:00"
+    }
+  ],
+  "threads_saturated": [
+    {
+      "thread_id": "T9",
+      "recent_acquisitions": 15,
+      "duplicate_relations": 15,
+      "new_relations": 0,
+      "is_saturated": true,
+      "new_relation_ratio": 0.0,
+      "recommendation": "SATURATED: Only 0/15 (0.0%) new relations found. Reallocate acquisition budget toward cross-thread bridges or anomalous frontier."
+    },
+    {
+      "thread_id": "T10_DUAL_CONTROL_&_ADAPTIVE_",
+      "recent_acquisitions": 15,
+      "duplicate_relations": 15,
+      "new_relations": 0,
+      "is_saturated": true,
+      "new_relation_ratio": 0.0,
+      "recommendation": "SATURATED: Only 0/15 (0.0%) new relations found. Reallocate acquisition budget toward cross-thread bridges or anomalous frontier."
+    }
+  ],
+  "cross_thread_bridges": [
+    {
+      "bridge_id": "XBRIDGE:T2_T3",
+      "thread_a": "T2",
+      "thread_b": "T3",
+      "intersection_concept": "State Estimation under Unbounded Perturbation",
+      "target_relational_motif": "OBSERVE -> INVERT -> CONSTRAIN -> STABILIZE -> CONTROL",
+      "exploratory_hypothesis": "Inverse reconstruction of unobservable state provides the feedback coordinate necessary for Lyapunov/Pontryagin closed-loop control."
+    },
+    {
+      "bridge_id": "XBRIDGE:T4_T6",
+      "thread_a": "T4",
+      "thread_b": "T6",
+      "intersection_concept": "Collective Adaptation & Macroscopic Self-Organization",
+      "target_relational_motif": "DISTRIBUTE -> REDUCE -> FEEDBACK -> ADAPT",
+      "exploratory_hypothesis": "Bogolyubov-style hierarchy reduction and Tsetlin collective automata share identical structural mechanics of low-dimensional emergent order."
+    },
+    {
+      "bridge_id": "XBRIDGE:T5_T3",
+      "thread_a": "T5",
+      "thread_b": "T3",
+      "intersection_concept": "Finite Computational Inversion & Regularized Algorithms",
+      "target_relational_motif": "INVERT -> REGULARIZE -> APPROXIMATE -> COMPUTE",
+      "exploratory_hypothesis": "Chebyshev minimax approximation was adapted to bound regularization parameter choice in discrete ill-posed radar/gravimetry inversion."
+    },
+    {
+      "bridge_id": "XBRIDGE:T1_T8",
+      "thread_a": "T1",
+      "thread_b": "T8",
+      "intersection_concept": "Persistence of Relational Vocabulary across Eras",
+      "target_relational_motif": "ETYMOLOGY -> CO_OCCURRENCE -> OPERATOR_GRAMMAR",
+      "exploratory_hypothesis": "Euler-Chebyshev operator terminology in Russian directly grounded the 20th-century emphasis on stability and transformation over objects."
+    },
+    {
+      "bridge_id": "XBRIDGE:T7_T2",
+      "thread_a": "T7",
+      "thread_b": "T2",
+      "intersection_concept": "Institutional Conduit of Stability Mathematics into Control",
+      "target_relational_motif": "MIAN_SEMINAR -> PERSONNEL_TRANSFER -> DESIGN_BUREAU",
+      "exploratory_hypothesis": "Krasovskii and Pontryagin students transferred Lyapunov methods into TsAGI and OKB design bureaus through specialized inter-departmental seminars."
+    },
+    {
+      "bridge_id": "XBRIDGE:T6_T2",
+      "thread_a": "T6",
+      "thread_b": "T2",
+      "intersection_concept": "Stochastic Automata Adaptation vs Extremal Control",
+      "target_relational_motif": "EXPEDIENT_ACTION -> ADAPTIVE_STEP -> EXTREMAL_REGULATION",
+      "exploratory_hypothesis": "Tsetlin automata games in random media represent a model-free discrete analogue to Pontryagin continuous optimal control."
+    }
+  ],
+  "new_contradictions": [],
+  "new_institutions": [],
+  "new_native_concepts": [],
+  "unexplained_anomalies": [],
+  "hypotheses_strengthened": [
+    "Relational duality: Russian/Soviet mathematical continuity is structured by operator transformations rather than isolated objects.",
+    "Stability-to-control transfer: Krasovskii's feedback formulation directly connects Lyapunov stability with Pontryagin extremal regulation."
+  ],
+  "hypotheses_weakened": [
+    "Binary East-West split: The corpus indicates international cross-currents (Leibniz, Euler, Wiener) rather than absolute isolation."
+  ]
+}

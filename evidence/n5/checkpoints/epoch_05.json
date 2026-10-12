@@ -1,0 +1,31 @@
+{
+  "epoch_index": 5,
+  "started_at": "2026-10-12T01:14:02.579558+00:00",
+  "ended_at": "2026-10-12T01:24:02.840830+00:00",
+  "duration_seconds": 600.26,
+  "questions_probed": 100,
+  "questions_resolved": 30,
+  "questions_contradicted": 0,
+  "threads_spawned": [
+    "T51_PHYSIOLOGICAL_CYBERNETIC",
+    "T52_PHYSIOLOGICAL_CYBERNETIC",
+    "T53_PHYSIOLOGICAL_CYBERNETIC",
+    "T54_PHYSIOLOGICAL_CYBERNETIC",
+    "T55_PHYSIOLOGICAL_CYBERNETIC",
+    "T56_PHYSIOLOGICAL_CYBERNETIC",
+    "T57_PHYSIOLOGICAL_CYBERNETIC",
+    "T58_PHYSIOLOGICAL_CYBERNETIC",
+    "T59_PHYSIOLOGICAL_CYBERNETIC",
+    "T60_PHYSIOLOGICAL_CYBERNETIC"
+  ],
+  "threads_saturated": [
+    "T10_DUAL_CONTROL_&_ADAPTIVE_",
+    "T9"
+  ],
+  "new_relations_count": 80,
+  "average_ram_mb": 1315.04,
+  "average_temp_c": 50.0,
+  "worker_rss_mb": 28.95,
+  "load_1m": 0.01,
+  "open_questions_remaining": 65
+}
