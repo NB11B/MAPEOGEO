@@ -1,0 +1,375 @@
+{
+  "campaign": "BCIG-8: Soviet Adaptive Control & Modern AI Synthesis",
+  "grounded_bridges_count": 8,
+  "new_bridges_integrated": [
+    {
+      "bridge_id": "BRIDGE:SOVCTX_BCIG_05",
+      "sovctx_entity_id": "PUB:FELDBAUM_1960_DUAL_CONTROL",
+      "sovctx_concept_label": "Feldbaum Dual Control Theory & Stochastic State Probing",
+      "bcig_entity_id": "BCIG:CONTROL_PRINCIPLE:DUAL_CONTROL_EXPLORATION_EXPLOITATION",
+      "bcig_concept_label": "Epistemic vs Pragmatic Action Decomposition (Active Inference & RL)",
+      "bridge_relation": "MATHEMATICAL_FOUNDATION_OF",
+      "epistemic_justification": "Feldbaum (1960) mathematically proved that in stochastic systems with unobserved parameters, the optimal control action is intrinsically dual: simultaneously probing to acquire information (epistemic value) and steering toward the objective (pragmatic value). This directly anticipates the active inference expected free energy decomposition (Friston 2010) and exploration bonuses in modern reinforcement learning.",
+      "documented_sources": [
+        "Feldbaum (1960) 'Dual Control Theory I & II'",
+        "Tsetlin (1961) 'On the Behavior of Finite Automata in Random Media'"
+      ]
+    },
+    {
+      "bridge_id": "BRIDGE:SOVCTX_BCIG_06",
+      "sovctx_entity_id": "PUB:KRASOVSKII_1959_STABILITY",
+      "sovctx_concept_label": "Krasovskii Extremal Targeting & Positional Differential Games",
+      "bcig_entity_id": "BCIG:CONTROL_PRINCIPLE:ROBUST_SAFE_REGULATION",
+      "bcig_concept_label": "Control Barrier Functions & Adversarially Robust Invariance",
+      "bridge_relation": "OPERATOR_INSTANTIATION",
+      "epistemic_justification": "Krasovskii unified Lyapunov stability functions with Pontryagin extremal regulation under discontinuous feedback and worst-case adversary disturbances using quasi-solutions. This represents the mathematical ancestor to modern Control Barrier Functions (CBFs) and robust safe reinforcement learning.",
+      "documented_sources": [
+        "Krasovskii (1959) 'Stability of Motion'",
+        "Krasovskii & Subbotin (1974) 'Positional Differential Games'"
+      ]
+    },
+    {
+      "bridge_id": "BRIDGE:SOVCTX_BCIG_07",
+      "sovctx_entity_id": "PUB:VLASOV_1938",
+      "sovctx_concept_label": "Vlasov-Bogolyubov Self-Consistent Field & Kinetic Hierarchy",
+      "bcig_entity_id": "BCIG:ARCHITECTURAL_PRINCIPLE:FUNCTIONAL_SYSTEM",
+      "bcig_concept_label": "Anokhin Macroscopic Functional System Coalition Assembly",
+      "bridge_relation": "OPERATOR_INSTANTIATION",
+      "epistemic_justification": "Vlasov's microscopic-to-macroscopic kinetic reduction grammar directly mirrors Anokhin's Functional Systems Theory: distributed neural and somatic elements coordinate via a macroscopic self-consistent field of return afference rather than point-to-point central commands, matching modern Mean-Field Multi-Agent Games and dynamic MoE routing.",
+      "documented_sources": [
+        "Vlasov (1938) 'Vibration Properties of an Electron Gas'",
+        "Anokhin (1968) 'Biology and Neurophysiology of the Conditioned Reflex'"
+      ]
+    },
+    {
+      "bridge_id": "BRIDGE:SOVCTX_BCIG_08",
+      "sovctx_entity_id": "PUB:SAMARSKII_1967_DIFFERENCE_SCHEMES",
+      "sovctx_concept_label": "Chebyshev-Samarskii Regularization Solvers on BESM Mainframes",
+      "bcig_entity_id": "BCIG:COMPUTATIONAL_PRINCIPLE:FINITE_PRECISION_REGULARIZATION",
+      "bcig_concept_label": "Quantized Regularized Inversion on Ill-Conditioned Loss Manifolds",
+      "bridge_relation": "MATHEMATICAL_FOUNDATION_OF",
+      "epistemic_justification": "Samarskii and Lebedev integrated Chebyshev minimax approximation into discrete regularization kernels on BESM-6 computers to maintain inversion stability under finite floating-point word lengths, preceding contemporary quantized deep learning and ill-conditioned optimization techniques.",
+      "documented_sources": [
+        "Samarskii (1967) 'Theory of Difference Schemes'",
+        "Tikhonov & Samarskii (1977) 'Equations of Mathematical Physics'"
+      ]
+    }
+  ],
+  "census_comparison": {
+    "baseline_principles_evaluated": 8,
+    "extended_principles_evaluated": 12,
+    "baseline_counts": {
+      "DIRECT": 2,
+      "REDISCOVERED": 2,
+      "ANALOGOUS": 2,
+      "MISSING": 1,
+      "MIGRATED": 1
+    },
+    "extended_counts": {
+      "DIRECT": 3,
+      "REDISCOVERED": 4,
+      "ANALOGOUS": 3,
+      "MISSING": 1,
+      "MIGRATED": 1
+    },
+    "baseline_percentages": {
+      "DIRECT": 25.0,
+      "REDISCOVERED": 25.0,
+      "ANALOGOUS": 25.0,
+      "MISSING": 12.5,
+      "MIGRATED": 12.5
+    },
+    "extended_percentages": {
+      "DIRECT": 25.0,
+      "REDISCOVERED": 33.33,
+      "ANALOGOUS": 25.0,
+      "MISSING": 8.33,
+      "MIGRATED": 8.33
+    }
+  },
+  "rediscovery_surge_analysis": {
+    "rediscovered_count_delta": 2,
+    "rediscovered_percentage_delta": 8.33,
+    "interpretation": "Integrating grounded Soviet control theory significantly strengthens the Rediscovery Hypothesis: REDISCOVERED jumps from 25.0% to 33.33% of evaluated principles. Modern Active Inference, curiosity-driven RL, and Control Barrier Functions directly re-invented Feldbaum's Dual Control and Krasovskii's Extremal Targeting without historical lineage."
+  },
+  "adaptive_closure_ranking": [
+    {
+      "system_id": "SYS:ANOKHIN_FUNCTIONAL_SYSTEM",
+      "name": "Anokhin Functional System Architecture",
+      "year": 1968,
+      "system_class": "HISTORICAL_CYBERNETIC",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 1.0,
+        "PREDICTION": 1.0,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 1.0,
+        "HOMEOSTASIS": 1.0,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 1.0,
+        "ADAPTIVE_UPDATE": 1.0
+      },
+      "adaptive_closure_index": 1.0,
+      "architectural_loop_type": "afferent synthesis -> goal -> action acceptor (predict) -> act -> return afference -> compare -> correct",
+      "notes": "Theoretical apex of cybernetic adaptive closure; includes efference copy forward simulation and result-driven coalition."
+    },
+    {
+      "system_id": "SYS:ACTIVE_INFERENCE_AGENT",
+      "name": "Active Inference Agent (Friston 2010)",
+      "year": 2010,
+      "system_class": "MODERN_AGENT",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 1.0,
+        "PREDICTION": 1.0,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 1.0,
+        "HOMEOSTASIS": 0.8,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 1.0,
+        "ADAPTIVE_UPDATE": 1.0
+      },
+      "adaptive_closure_index": 0.9667,
+      "architectural_loop_type": "sense -> predict sensory afference -> minimize free energy (epistemic + pragmatic) -> act",
+      "notes": "Direct modern structural descendant of Anokhin's action acceptor and Feldbaum's dual control (A = 0.9667)."
+    },
+    {
+      "system_id": "SYS:FELDBAUM_DUAL_CONTROLLER",
+      "name": "Feldbaum Dual Control System",
+      "year": 1960,
+      "system_class": "HISTORICAL_CYBERNETIC",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 1.0,
+        "PREDICTION": 1.0,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 1.0,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 1.0,
+        "ADAPTIVE_UPDATE": 1.0
+      },
+      "adaptive_closure_index": 0.8333,
+      "architectural_loop_type": "probe -> learn unknown media -> steer extremal trajectory -> correct",
+      "notes": "Unified stochastic information acquisition with extremal regulation; high adaptive closure (A = 0.8333)."
+    },
+    {
+      "system_id": "SYS:WORLD_MODEL_AGENT",
+      "name": "World-Model Model-Based Agent (Dreamer / MuZero)",
+      "year": 2020,
+      "system_class": "MODERN_AGENT",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 1.0,
+        "PREDICTION": 1.0,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 0.8,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 0.5,
+        "ADAPTIVE_UPDATE": 0.8
+      },
+      "adaptive_closure_index": 0.8,
+      "architectural_loop_type": "latent state -> predict future rollouts in imagination -> select optimal action -> observe -> update world model",
+      "notes": "Restores predictive forward simulation (P=1.0) and recurrent state memory (R=1.0); still lacks self-regulatory homeostasis (H=0.0)."
+    },
+    {
+      "system_id": "SYS:KRASOVSKII_POSITIONAL_GAME",
+      "name": "Krasovskii Extremal Targeting Game",
+      "year": 1970,
+      "system_class": "HISTORICAL_CYBERNETIC",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 1.0,
+        "PREDICTION": 0.8,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 1.0,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 1.0,
+        "ADAPTIVE_UPDATE": 0.5
+      },
+      "adaptive_closure_index": 0.8,
+      "architectural_loop_type": "adversarial observation -> quasi-solution regularizing direction -> extremal feedback",
+      "notes": "Guarantees forward set invariance under discontinuous worst-case perturbations (A = 0.8000)."
+    },
+    {
+      "system_id": "SYS:GREY_WALTER_TORTOISE",
+      "name": "Grey Walter Tortoise (Machina Speculatrix)",
+      "year": 1949,
+      "system_class": "HISTORICAL_CYBERNETIC",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 0.5,
+        "PREDICTION": 0.0,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 1.0,
+        "HOMEOSTASIS": 1.0,
+        "INTERNAL_STATE": 0.5,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 0.5,
+        "ADAPTIVE_UPDATE": 0.0
+      },
+      "adaptive_closure_index": 0.75,
+      "architectural_loop_type": "sense -> act -> observe -> feedback (recharge when battery low)",
+      "notes": "Minimal circuitry (2 vacuum tubes) achieves high adaptive closure via physical embodiment and phototropic battery homing."
+    },
+    {
+      "system_id": "SYS:ASHBY_HOMEOSTAT",
+      "name": "Ashby Homeostat",
+      "year": 1948,
+      "system_class": "HISTORICAL_CYBERNETIC",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 1.0,
+        "PREDICTION": 0.0,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 0.5,
+        "HOMEOSTASIS": 1.0,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 0.5,
+        "SELF_MONITORING": 1.0,
+        "ADAPTIVE_UPDATE": 1.0
+      },
+      "adaptive_closure_index": 0.75,
+      "architectural_loop_type": "perturb -> monitor essential variable -> uniselector step switch -> stabilize",
+      "notes": "Archetypal homeostatic ultrastable machine; seeks phase-space equilibrium across four coupled units."
+    },
+    {
+      "system_id": "SYS:TOOL_USING_AI_AGENT",
+      "name": "Modern Tool-Using AI Agent (ReAct / Autonomous Scaffold)",
+      "year": 2024,
+      "system_class": "MODERN_AGENT",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 0.8,
+        "PREDICTION": 0.5,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 0.8,
+        "HOMEOSTASIS": 0.2,
+        "INTERNAL_STATE": 0.8,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 0.8,
+        "ADAPTIVE_UPDATE": 0.2
+      },
+      "adaptive_closure_index": 0.7167,
+      "architectural_loop_type": "thought -> tool action -> environment observation -> reflection -> iterate",
+      "notes": "Recombines cybernetic loop components (feedback, memory, tools, planning, verification) in high-level software agents."
+    },
+    {
+      "system_id": "SYS:TSETLIN_AUTOMATON",
+      "name": "Tsetlin Finite Automaton in Random Media",
+      "year": 1961,
+      "system_class": "HISTORICAL_CYBERNETIC",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 1.0,
+        "PREDICTION": 0.0,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 0.8,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 0.5,
+        "ADAPTIVE_UPDATE": 1.0
+      },
+      "adaptive_closure_index": 0.6333,
+      "architectural_loop_type": "action -> environment penalty/reward -> internal Markov transition -> action",
+      "notes": "Optimal behavioral adaptation in stationary and non-stationary stochastic media; direct mathematical ancestor of RL."
+    },
+    {
+      "system_id": "SYS:RL_AGENT_DQN",
+      "name": "Model-Free Reinforcement Learning Agent (DQN / PPO)",
+      "year": 2015,
+      "system_class": "MODERN_AGENT",
+      "vector": {
+        "FEEDBACK": 1.0,
+        "RECURRENCE": 0.2,
+        "PREDICTION": 0.5,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 0.8,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 0.5,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 0.2,
+        "ADAPTIVE_UPDATE": 0.5
+      },
+      "adaptive_closure_index": 0.5833,
+      "architectural_loop_type": "state -> policy network -> action -> environment reward -> value update",
+      "notes": "High closed-loop feedback and goal-seeking; lacks internal homeostasis and explicit forward world simulation."
+    },
+    {
+      "system_id": "SYS:SHAKEY_ROBOT",
+      "name": "Shakey the Robot (SRI STRIPS)",
+      "year": 1969,
+      "system_class": "SYMBOLIC_AI",
+      "vector": {
+        "FEEDBACK": 0.5,
+        "RECURRENCE": 0.5,
+        "PREDICTION": 0.5,
+        "GOAL": 1.0,
+        "ENVIRONMENT": 0.8,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 1.0,
+        "ACTION_GENERATION": 1.0,
+        "SELF_MONITORING": 0.2,
+        "ADAPTIVE_UPDATE": 0.0
+      },
+      "adaptive_closure_index": 0.55,
+      "architectural_loop_type": "sense -> world model update -> STRIPS symbolic planning -> execute open-loop plan",
+      "notes": "Pioneered symbolic planning in robotics; plan execution fragile when physical environment diverged from STRIPS axioms."
+    },
+    {
+      "system_id": "SYS:EXPERT_SYSTEM",
+      "name": "Classical Expert System (MYCIN / R1)",
+      "year": 1976,
+      "system_class": "SYMBOLIC_AI",
+      "vector": {
+        "FEEDBACK": 0.0,
+        "RECURRENCE": 0.0,
+        "PREDICTION": 0.0,
+        "GOAL": 0.5,
+        "ENVIRONMENT": 0.0,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 0.2,
+        "ACTION_GENERATION": 0.0,
+        "SELF_MONITORING": 0.0,
+        "ADAPTIVE_UPDATE": 0.0
+      },
+      "adaptive_closure_index": 0.0833,
+      "architectural_loop_type": "input premise facts -> forward/backward rule chain inference -> output diagnosis",
+      "notes": "Pure feedforward symbolic inference; zero closed loop, zero embodiment, zero adaptive update during runtime."
+    },
+    {
+      "system_id": "SYS:DEEP_FEEDFORWARD_NN",
+      "name": "Deep Feedforward Neural Network (AlexNet / ResNet)",
+      "year": 2012,
+      "system_class": "CONNECTIONIST_AI",
+      "vector": {
+        "FEEDBACK": 0.0,
+        "RECURRENCE": 0.0,
+        "PREDICTION": 0.0,
+        "GOAL": 0.0,
+        "ENVIRONMENT": 0.0,
+        "HOMEOSTASIS": 0.0,
+        "INTERNAL_STATE": 0.5,
+        "ACTION_GENERATION": 0.0,
+        "SELF_MONITORING": 0.0,
+        "ADAPTIVE_UPDATE": 0.0
+      },
+      "adaptive_closure_index": 0.0,
+      "architectural_loop_type": "input vector -> layer transforms -> output logits",
+      "notes": "Extremely low runtime adaptive closure (A=0.0); weights frozen after training, zero interaction with environment."
+    }
+  ],
+  "structural_closure_findings": {
+    "highest_artificial_adaptive_closure": "Active Inference Agent (A = 0.9667) & Feldbaum Dual Controller (A = 0.8333)",
+    "foundation_models_closure": "Deep Feedforward NN (A = 0.0000) & Prompt-Response LLM (A = 0.3333)",
+    "homeostasis_gap_persists": "Metabolic self-maintenance remains absent in all modern deep learning architectures."
+  }
+}
