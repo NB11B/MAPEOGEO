@@ -2,25 +2,22 @@
 
 Executes the specialized Research Work Plane on the 2 GB Jetson Nano:
 - Acquires sources, extracts evidence, queries open frontier questions
-- Proposes candidate bundles to the control plane (PROPOSED != AUTHORIZED)
-- Continuously runs lightweight G1 Geometric Observer (Oja streaming update)
-- Evaluates caution signals on shrinking eigengap (AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION)
+- Emits immutable CandidateBundles in PROPOSED status (PROPOSED != AUTHORIZED)
+- Spools candidate bundles locally for control plane (UNO Q) pickup
+- Continuously runs lightweight G1 Geometric Observer (Oja streaming update) in SHADOW_MODE
 - Emits structured telemetry to evidence/n5/nano_workplane_telemetry.json
+- Physical Separation: Contains ZERO admission authority or canonical write capabilities
 """
 
 import argparse
-import sys
-import time
 from pathlib import Path
+import sys
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from sovctx.node.nano_research_worker import (
-    CandidateBundleVerifier,
-    NanoResearchWorker,
-)
+from sovctx.node.nano_research_worker import NanoResearchWorker
 from sovctx.node.research_frontier import ResearchFrontierCoordinator
 
 
@@ -32,6 +29,7 @@ def main() -> int:
     parser.add_argument("--uow-id", type=str, default="UOW_BOUNDED_NANO_001", help="Unit of Work ID")
     parser.add_argument("--parent-uow-id", type=str, default=None, help="Parent Unit of Work ID")
     parser.add_argument("--telemetry-dir", type=Path, default=Path("evidence/n5"), help="Telemetry output directory")
+    parser.add_argument("--spool-dir", type=Path, default=Path("evidence/n5/spool"), help="Candidate bundle spool directory")
     parser.add_argument("--single-uow", action="store_true", help="Execute single bounded UoW and exit")
     parser.add_argument(
         "--target-query",
@@ -39,17 +37,13 @@ def main() -> int:
         default=None,
         help="Primary research query to investigate in the local corpus cache",
     )
-    parser.add_argument(
-        "--verify-admission",
-        action="store_true",
-        help="Run control-plane CandidateBundleVerifier gate to simulate regulatory review",
-    )
     args = parser.parse_args()
 
     print("=" * 80)
-    print("SOVCTX NANO RESEARCH WORK PLANE (SPECIALIZED 2GB JETSON NANO WORKER)")
+    print("SOVCTX NANO RESEARCH WORK PLANE (PHYSICAL RESEARCH WORKER NODE)")
     print(f"Worker ID: {args.worker_id} | Invariant: PROPOSED != AUTHORIZED")
     print(f"Self-Observation: G1 Geometric Observer (k={args.tracker_k}, alpha={args.tracker_alpha}) [SHADOW_MODE]")
+    print(f"Admission Authority: NONE (Delegated strictly to UNO Q Control Node)")
     print("=" * 80)
 
     worker = NanoResearchWorker(
@@ -58,6 +52,7 @@ def main() -> int:
         tracker_alpha=args.tracker_alpha,
         shadow_mode=True,
         output_telemetry_dir=args.telemetry_dir,
+        spool_dir=args.spool_dir,
     )
 
     if args.target_query:
@@ -84,7 +79,9 @@ def main() -> int:
     print("\n--- Work Plane Execution Complete ---")
     print(f"UoW ID:                 {packet.uow_id}")
     print(f"Causal Sequence:        {packet.causal_sequence_id}")
-    print(f"Candidate Hash:         {bundle.candidate_bundle_hash[:16]}... (PROPOSED != AUTHORIZED)")
+    print(f"Candidate Status:       PROPOSED (Awaiting Control Plane Admission)")
+    print(f"Evidence Hash (H_E):    {bundle.evidence_hash[:16]}...")
+    print(f"Execution Hash (H_X):   {bundle.execution_hash[:16]}...")
     print(f"Software Commit:        {bundle.software_commit[:10]}")
     print(f"Source Manifest:        {bundle.source_manifest}")
     print(f"Extracted Fragments:    {len(bundle.source_fragments)}")
@@ -92,6 +89,9 @@ def main() -> int:
     print(f"Proposed Relations:     {len(bundle.candidate_relations)}")
     print(f"Proposed Claims:        {len(bundle.candidate_claims)}")
     print(f"Proposed Questions:     {len(bundle.candidate_questions)}")
+    if args.spool_dir:
+        spool_path = args.spool_dir / f"candidate_bundle_{packet.uow_id}.json"
+        print(f"Candidate Spooled At:   {spool_path}")
 
     if bundle.candidate_claims:
         print("\n--- Extracted Candidate Claims ---")
@@ -117,23 +117,6 @@ def main() -> int:
     print(f"Worker RSS:             {packet.worker_rss_mb:.1f} MB")
     print(f"Thermal Max:            {packet.thermal_max_c:.1f} °C")
     print(f"Backpressure Flag:      {packet.backpressure_flag}")
-
-    if args.verify_admission:
-        print("\n" + "=" * 80)
-        print("REGULATORY CONTROL PLANE GATEWAY (SIMULATING UNO Q ADMISSION)")
-        print("=" * 80)
-        verifier = CandidateBundleVerifier(
-            allowed_software_commits={bundle.software_commit},
-        )
-        decision = verifier.verify_bundle(bundle)
-        print(f"Admission Verdict:      {decision.verdict.value}")
-        print(f"Gateway Decision:       {decision.reason}")
-        if decision.quarantined_items:
-            print(f"Quarantined Items:      {len(decision.quarantined_items)}")
-        if decision.downgraded_items:
-            print(f"Downgraded Items:       {len(decision.downgraded_items)}")
-        if decision.deduplicated_items:
-            print(f"Deduplicated Items:     {len(decision.deduplicated_items)}")
 
     return 0
 

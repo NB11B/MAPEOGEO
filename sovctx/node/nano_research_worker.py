@@ -9,6 +9,7 @@ Specialized for the 2 GB Jetson Nano:
 - Shadow Mode: GEOMETRIC_OBSERVER = ON, GEOMETRIC_AUTHORITY = OFF
 - No Shared Wall Clock: Pure causal sequence ordering (epoch, local sequence, UoW ID, artifact hash)
 - 2 GB Resource Protection: Monitors RSS and available RAM, emitting backpressure signals to control plane
+- Dual-Tier Hashing: H_E (evidence payload) and H_X (execution envelope)
 """
 
 from __future__ import annotations
@@ -18,12 +19,16 @@ import json
 import time
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
-from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 import numpy as np
 
+from sovctx.node.control_plane import (
+    AdmissionDecision,
+    AdmissionVerdict,
+    UnoQControlPlaneGateway as CandidateBundleVerifier,
+)
 from sovctx.node.guard import ResourceGuard
 from sovctx.node.leibniz_bocker import (
     DiagnosticRegime,
@@ -65,7 +70,7 @@ def get_current_git_commit(repo_root: Optional[Path] = None) -> str:
                     return ref
         except Exception:
             pass
-    return "c8a975e974e3a12af94f647944ac56d1fb8597fc"
+    return "d99a250352ef4193d567fe8512dd441b714c62b9"
 
 
 @dataclass
@@ -113,7 +118,7 @@ class CandidateRelation:
 
     source_id: str
     target_id: str
-    verb: str  # One of normalized verbs: STABILIZE, CONTROL, INVERT, PROBE, REPRESENT, etc.
+    verb: str  # Normalized verbs: STABILIZE, CONTROL, INVERT, PROBE, REPRESENT, etc.
     rationale: str
     evidence_fragment_ids: List[str] = field(default_factory=list)
 
@@ -146,8 +151,12 @@ class CandidateBundle:
     """Proposed graph modifications emitted by the research work plane.
 
     Hard Contract: PROPOSED != AUTHORIZED. The Nano proposes immutable candidate bundles;
-    only the regulatory control plane (e.g. UNO Q / CandidateBundleVerifier) can admit
+    only the regulatory control plane (e.g. UNO Q / UnoQControlPlaneGateway) can admit
     or commit to canonical records.
+
+    Dual-tier Hash Invariant:
+    - H_E (evidence_hash): seals the scientific payload (sources, fragments, entities, relations, claims, questions)
+    - H_X (execution_hash): seals the operational envelope (worker, commit, sequence, observer, resources, H_E)
     """
 
     uow_id: str
@@ -164,6 +173,8 @@ class CandidateBundle:
     candidate_questions: List[CandidateQuestion] = field(default_factory=list)
     observer_state: Dict[str, Any] = field(default_factory=dict)
     resource_state: Dict[str, Any] = field(default_factory=dict)
+    evidence_hash: str = ""
+    execution_hash: str = ""
     candidate_bundle_hash: str = ""
 
     # Backward compatibility aliases/fields
@@ -190,21 +201,18 @@ class CandidateBundle:
 
     @property
     def content_hash(self) -> str:
-        if not self.candidate_bundle_hash:
+        if not self.execution_hash and not self.candidate_bundle_hash:
             self.compute_hash()
-        return self.candidate_bundle_hash
+        return self.execution_hash or self.candidate_bundle_hash
 
     @content_hash.setter
     def content_hash(self, val: str) -> None:
         self.candidate_bundle_hash = val
+        self.execution_hash = val
 
-    def compute_hash(self, update: bool = True) -> str:
+    def compute_evidence_hash(self, update: bool = True) -> str:
+        """Computes H_E: deterministic SHA-256 digest over the scientific evidence payload."""
         payload = {
-            "uow_id": self.uow_id,
-            "parent_uow_id": self.parent_uow_id,
-            "worker_id": self.worker_id,
-            "causal_sequence_id": self.causal_sequence_id,
-            "software_commit": self.software_commit,
             "source_manifest": sorted(self.source_manifest),
             "source_hashes": {k: self.source_hashes[k] for k in sorted(self.source_hashes.keys())},
             "source_fragments": [
@@ -259,220 +267,68 @@ class CandidateBundle:
                 }
                 for q in sorted(self.candidate_questions, key=lambda x: x.question_id)
             ],
-            "observer_state": self.observer_state,
-            "resource_state": self.resource_state,
         }
         serialized = json.dumps(payload, sort_keys=True)
-        h = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+        h_e = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
         if update:
-            self.candidate_bundle_hash = h
-        return h
+            self.evidence_hash = h_e
+        return h_e
 
+    def compute_execution_hash(self, update: bool = True) -> str:
+        """Computes H_X: deterministic SHA-256 digest over the operational execution envelope."""
+        h_e = self.evidence_hash or self.compute_evidence_hash(update=update)
+        payload = {
+            "uow_id": self.uow_id,
+            "parent_uow_id": self.parent_uow_id,
+            "worker_id": self.worker_id,
+            "causal_sequence_id": self.causal_sequence_id,
+            "software_commit": self.software_commit,
+            "observer_state": self.observer_state,
+            "resource_state": self.resource_state,
+            "evidence_hash": h_e,
+        }
+        serialized = json.dumps(payload, sort_keys=True)
+        h_x = hashlib.sha256(serialized.encode("utf-8")).hexdigest()
+        if update:
+            self.execution_hash = h_x
+            self.candidate_bundle_hash = h_x
+        return h_x
 
-class AdmissionVerdict(str, Enum):
-    """Verdicts emitted by the regulatory control plane gate (e.g. UNO Q)."""
+    def compute_hash(self, update: bool = True) -> str:
+        """Computes both H_E and H_X, updating bundle hashes and returning H_X."""
+        self.compute_evidence_hash(update=update)
+        return self.compute_execution_hash(update=update)
 
-    ADMIT = "ADMIT"
-    REJECT = "REJECT"
-    REJECT_IDEMPOTENT = "REJECT_IDEMPOTENT"
-    QUARANTINE = "QUARANTINE"
-    REFUSE = "REFUSE"
-    DOWNGRADE = "DOWNGRADE"
-    DEDUP = "DEDUP"
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
 
-
-@dataclass
-class AdmissionDecision:
-    """Regulatory admission decision returned to the work plane."""
-
-    verdict: AdmissionVerdict
-    reason: str
-    admitted_bundle: Optional[CandidateBundle] = None
-    quarantined_items: List[Dict[str, Any]] = field(default_factory=list)
-    downgraded_items: List[Dict[str, Any]] = field(default_factory=list)
-    deduplicated_items: List[Dict[str, Any]] = field(default_factory=list)
-
-
-class CandidateBundleVerifier:
-    """Control plane authority gate (modeling UNO Q regulatory node).
-
-    Enforces the fundamental law: PROPOSED != AUTHORIZED.
-    Verifies that proposed candidates satisfy all authority invariants before canonical admission:
-    1. Cryptographic hash integrity (detects corruption or payload tampering).
-    2. Software commit qualification (verifies worker was running certified commit).
-    3. Replay prevention and causal sequence ordering (monotonic sequence, idempotent repeat).
-    4. Referential integrity (no dangling references to non-existent nodes).
-    5. Epistemic evidence gating (downgrades or quarantines ungrounded strong claims).
-    6. Authority boundary enforcement (blocks direct write attempts or scheduler overrides).
-    7. Deduplication against canonical records.
-    """
-
-    def __init__(
-        self,
-        allowed_software_commits: Optional[Set[str]] = None,
-        canonical_entities: Optional[Set[str]] = None,
-        canonical_relations: Optional[Set[Tuple[str, str, str]]] = None,
-        canonical_claims: Optional[Set[Tuple[str, str, str]]] = None,
-    ) -> None:
-        self.allowed_software_commits = allowed_software_commits
-        self.canonical_entities = set(canonical_entities) if canonical_entities else set()
-        self.canonical_relations = set(canonical_relations) if canonical_relations else set()
-        self.canonical_claims = set(canonical_claims) if canonical_claims else set()
-        self.admitted_uow_ids: Set[str] = set()
-        self.admitted_bundle_hashes: Set[str] = set()
-        self.highest_causal_sequence: int = 0
-
-    def verify_bundle(self, bundle: CandidateBundle) -> AdmissionDecision:
-        """Evaluates an incoming CandidateBundle against all control plane validation gates."""
-        # 1. Cryptographic Hash Integrity Check
-        if not bundle.candidate_bundle_hash:
-            return AdmissionDecision(AdmissionVerdict.REJECT, "REJECT: Missing candidate_bundle_hash in bundle.")
-
-        recorded_hash = bundle.candidate_bundle_hash
-        computed_hash = bundle.compute_hash(update=False)
-        if computed_hash != recorded_hash:
-            return AdmissionDecision(
-                AdmissionVerdict.REJECT,
-                f"REJECT: Hash mismatch / payload tampering detected. Computed {computed_hash} != Bundle {recorded_hash}",
-            )
-
-        # 2. Software Commit Qualification Check
-        if self.allowed_software_commits is not None:
-            if bundle.software_commit not in self.allowed_software_commits:
-                return AdmissionDecision(
-                    AdmissionVerdict.REJECT,
-                    f"REJECT: Software commit '{bundle.software_commit}' is not qualified. Allowed: {sorted(self.allowed_software_commits)}",
-                )
-
-        # 3. Replay Detection
-        if bundle.uow_id in self.admitted_uow_ids or bundle.candidate_bundle_hash in self.admitted_bundle_hashes:
-            return AdmissionDecision(
-                AdmissionVerdict.REJECT_IDEMPOTENT,
-                f"REJECT_IDEMPOTENT: UoW '{bundle.uow_id}' or bundle hash has already been admitted.",
-                admitted_bundle=bundle,
-            )
-
-        # 4. Causal Sequence Monotonicity Check
-        if bundle.causal_sequence_id <= self.highest_causal_sequence:
-            return AdmissionDecision(
-                AdmissionVerdict.REJECT,
-                f"REJECT: Superseded UoW arrival. Sequence {bundle.causal_sequence_id} <= high-water mark {self.highest_causal_sequence}.",
-            )
-
-        # 5. Authority Boundary & Shadow Mode Check
-        obs = bundle.observer_state
-        if obs.get("shadow_mode") is False:
-            return AdmissionDecision(
-                AdmissionVerdict.REFUSE,
-                "REFUSE: Authority violation. Jetson Nano work plane must execute in SHADOW_MODE=True.",
-            )
-        if obs.get("mutate_schedule_direct") is True or obs.get("request_canonical_write") is True:
-            return AdmissionDecision(
-                AdmissionVerdict.REFUSE,
-                "REFUSE: Authority violation. Work plane worker cannot issue canonical mutations or override control plane schedule.",
-            )
-
-        # 6. Referential Integrity Check
-        known_entities = self.canonical_entities | {e.entity_id for e in bundle.candidate_entities}
-        quarantined_items: List[Dict[str, Any]] = []
-
-        for rel in bundle.candidate_relations:
-            if rel.source_id not in known_entities or rel.target_id not in known_entities:
-                quarantined_items.append(
-                    {
-                        "type": "RELATION",
-                        "item": asdict(rel),
-                        "reason": f"DANGLING_REFERENCE: source '{rel.source_id}' or target '{rel.target_id}' not in canonical graph or candidate entities.",
-                    }
-                )
-
-        for claim in bundle.candidate_claims:
-            if claim.subject_id not in known_entities:
-                quarantined_items.append(
-                    {
-                        "type": "CLAIM",
-                        "item": asdict(claim),
-                        "reason": f"DANGLING_REFERENCE: subject '{claim.subject_id}' not in canonical graph or candidate entities.",
-                    }
-                )
-
-        if quarantined_items:
-            return AdmissionDecision(
-                AdmissionVerdict.QUARANTINE,
-                f"QUARANTINE: DANGLING_REFERENCE: {len(quarantined_items)} items contain dangling references to nonexistent canonical entities.",
-                quarantined_items=quarantined_items,
-            )
-
-        # 7. Epistemic Evidence Gating Check
-        fragment_map = {f.fragment_id: f for f in bundle.source_fragments}
-        downgraded_items: List[Dict[str, Any]] = []
-        strong_epistemic_statuses = {"HISTORICALLY_SUPPORTED", "DIRECT_GENEALOGY", "GROUND_TRUTH"}
-
-        for claim in bundle.candidate_claims:
-            if claim.epistemic_status in strong_epistemic_statuses:
-                valid_frags = [
-                    fid
-                    for fid in claim.evidence_fragment_ids
-                    if fid in fragment_map and fragment_map[fid].text.strip()
-                ]
-                if not valid_frags:
-                    orig_status = claim.epistemic_status
-                    claim.epistemic_status = "HYPOTHETICAL"
-                    downgraded_items.append(
-                        {
-                            "claim_id": claim.claim_id,
-                            "original_status": orig_status,
-                            "new_status": "HYPOTHETICAL",
-                            "reason": "EPISTEMIC_OVERPROMOTION: Strong historical assertion lacks primary-source evidence fragments.",
-                        }
-                    )
-
-        # 8. Deduplication Against Canonical Records
-        deduplicated_items: List[Dict[str, Any]] = []
-        valid_relations: List[CandidateRelation] = []
-        for rel in bundle.candidate_relations:
-            key = (rel.source_id, rel.target_id, rel.verb)
-            if key in self.canonical_relations:
-                deduplicated_items.append({"type": "RELATION", "key": key, "reason": "ALREADY_CANONICAL"})
-            else:
-                valid_relations.append(rel)
-
-        valid_claims: List[CandidateClaim] = []
-        for claim in bundle.candidate_claims:
-            key = (claim.subject_id, claim.predicate, claim.object_val)
-            if key in self.canonical_claims:
-                deduplicated_items.append({"type": "CLAIM", "key": key, "reason": "ALREADY_CANONICAL"})
-            else:
-                valid_claims.append(claim)
-
-        # Record admission in state
-        self.admitted_uow_ids.add(bundle.uow_id)
-        self.admitted_bundle_hashes.add(bundle.candidate_bundle_hash)
-        self.highest_causal_sequence = max(self.highest_causal_sequence, bundle.causal_sequence_id)
-
-        # Return decision
-        if downgraded_items:
-            return AdmissionDecision(
-                AdmissionVerdict.DOWNGRADE,
-                f"DOWNGRADE: Admitted with {len(downgraded_items)} claims downgraded due to ungrounded epistemic status.",
-                admitted_bundle=bundle,
-                downgraded_items=downgraded_items,
-                deduplicated_items=deduplicated_items,
-            )
-
-        if deduplicated_items and not valid_relations and not valid_claims and not bundle.candidate_entities:
-            return AdmissionDecision(
-                AdmissionVerdict.DEDUP,
-                f"DEDUP: All {len(deduplicated_items)} candidates were duplicates of existing canonical records.",
-                admitted_bundle=bundle,
-                deduplicated_items=deduplicated_items,
-            )
-
-        return AdmissionDecision(
-            AdmissionVerdict.ADMIT,
-            "ADMIT: Passed all cryptographic, causal, referential, authority, and epistemic gates.",
-            admitted_bundle=bundle,
-            deduplicated_items=deduplicated_items,
+    @classmethod
+    def from_dict(cls, data: Dict[str, Any]) -> CandidateBundle:
+        frags = [SourceFragment(**f) if isinstance(f, dict) else f for f in data.get("source_fragments", [])]
+        ents = [CandidateEntity(**e) if isinstance(e, dict) else e for e in data.get("candidate_entities", [])]
+        rels = [CandidateRelation(**r) if isinstance(r, dict) else r for r in data.get("candidate_relations", [])]
+        claims = [CandidateClaim(**c) if isinstance(c, dict) else c for c in data.get("candidate_claims", [])]
+        qs = [CandidateQuestion(**q) if isinstance(q, dict) else q for q in data.get("candidate_questions", [])]
+        sources = [CandidateSource(**s) if isinstance(s, dict) else s for s in data.get("sources", [])]
+        return cls(
+            uow_id=data["uow_id"],
+            parent_uow_id=data.get("parent_uow_id"),
+            worker_id=data.get("worker_id", "nano-jetson-01"),
+            causal_sequence_id=data.get("causal_sequence_id", 1),
+            software_commit=data.get("software_commit", ""),
+            source_manifest=data.get("source_manifest", []),
+            source_hashes=data.get("source_hashes", {}),
+            source_fragments=frags,
+            candidate_entities=ents,
+            candidate_relations=rels,
+            candidate_claims=claims,
+            candidate_questions=qs,
+            observer_state=data.get("observer_state", {}),
+            resource_state=data.get("resource_state", {}),
+            evidence_hash=data.get("evidence_hash", ""),
+            execution_hash=data.get("execution_hash", ""),
+            candidate_bundle_hash=data.get("candidate_bundle_hash", ""),
+            sources=sources,
         )
 
 
@@ -577,7 +433,7 @@ class NanoResearchWorker:
     """Specialized Research Work Plane Worker running on the 2 GB Jetson Nano.
 
     Loop:
-        ACQUIRE -> EXTRACT -> RELATE -> PROBE -> PROPOSE -> G1 OBSERVER -> REPORT
+        ACQUIRE -> EXTRACT -> RELATE -> PROBE -> PROPOSE -> G1 OBSERVER -> REPORT / SPOOL
     """
 
     def __init__(
@@ -589,6 +445,7 @@ class NanoResearchWorker:
         output_telemetry_dir: Path = Path("evidence/n5"),
         software_commit: Optional[str] = None,
         repo_root: Optional[Path] = None,
+        spool_dir: Optional[Path] = None,
     ) -> None:
         self.worker_id = worker_id
         self.shadow_mode = shadow_mode
@@ -596,6 +453,9 @@ class NanoResearchWorker:
         self.output_telemetry_dir.mkdir(parents=True, exist_ok=True)
         self.repo_root = repo_root or Path(__file__).resolve().parents[2]
         self.software_commit = software_commit or get_current_git_commit(self.repo_root)
+        self.spool_dir = spool_dir
+        if self.spool_dir:
+            self.spool_dir.mkdir(parents=True, exist_ok=True)
 
         self.guard = ResourceGuard()
         self.tracker = LeibnizBockerTracker(k=tracker_k, alpha=tracker_alpha, dt=1.0)
@@ -787,7 +647,7 @@ class NanoResearchWorker:
             resource_state=resource_state_dict,
             sources=sources_out,
         )
-        bundle.compute_hash()
+        bundle.compute_hash(update=True)
 
         self.current_state = "REPORTING"
         packet = NanoWorkPlaneTelemetry(
@@ -808,6 +668,11 @@ class NanoResearchWorker:
         telemetry_file = self.output_telemetry_dir / "nano_workplane_telemetry.json"
         telemetry_file.write_text(json.dumps(packet.to_dict(), indent=2), encoding="utf-8")
 
+        # Spool candidate bundle locally if spool directory is configured
+        if self.spool_dir:
+            spool_path = self.spool_dir / f"candidate_bundle_{uow_id}.json"
+            spool_path.write_text(json.dumps(bundle.to_dict(), indent=2), encoding="utf-8")
+
         self.current_state = "IDLE"
         return packet
 
@@ -818,7 +683,12 @@ class NanoResearchWorker:
         parent_uow_id: Optional[str] = None,
     ) -> NanoWorkPlaneTelemetry:
         """Executes a real bounded research UoW querying primary-source corpus evidence."""
-        is_feldbaum = "feldbaum" in target_query.lower() and "dual" in target_query.lower()
+        q_lower = target_query.lower()
+        is_feldbaum = "feldbaum" in q_lower and "dual" in q_lower
+        is_tsetlin = "tsetlin" in q_lower and "automata" in q_lower
+        is_krasovskii = "krasovskii" in q_lower and ("lyapunov" in q_lower or "optimal" in q_lower)
+        is_stratonovich = "stratonovich" in q_lower and "markov" in q_lower
+        is_pontryagin = "pontryagin" in q_lower and "maximum" in q_lower
 
         extracted_sources: List[CandidateSource] = []
         source_manifest: List[str] = []
@@ -841,14 +711,34 @@ class NanoResearchWorker:
                     if not line:
                         continue
                     obj = json.loads(line)
-                    if is_feldbaum and obj.get("id") == "FRAG:FELDBAUM_1960_DUAL_ACTION":
-                        frag = SourceFragment(
-                            fragment_id=obj["id"],
-                            source_id=obj["source_id"],
-                            text=obj.get("normalized_summary", ""),
-                            locator=obj.get("locator", "Part I, pp. 1242-1244"),
+                    fid = obj.get("id")
+                    if is_feldbaum and fid == "FRAG:FELDBAUM_1960_DUAL_ACTION":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Part I, pp. 1242-1244"),
+                            )
                         )
-                        extracted_fragments.append(frag)
+                    elif is_tsetlin and fid == "FRAG:TSETLIN_1961_AUTOMATA_PROBING":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "pp. 1345-1348"),
+                            )
+                        )
+                    elif is_krasovskii and fid == "FRAG:KRASOVSKII_1959_LYAPUNOV_CONTROL":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "PMM 23:4, pp. 625-630"),
+                            )
+                        )
 
         if source_file.exists():
             with open(source_file, "r", encoding="utf-8") as f:
@@ -857,44 +747,57 @@ class NanoResearchWorker:
                     if not line:
                         continue
                     obj = json.loads(line)
-                    if is_feldbaum and obj.get("id") == "PUB:FELDBAUM_1960_DUAL_CONTROL":
+                    sid = obj.get("id")
+                    match = False
+                    if is_feldbaum and sid == "PUB:FELDBAUM_1960_DUAL_CONTROL":
+                        match = True
+                    elif is_tsetlin and sid == "PUB:TSETLIN_1961_AUTOMATA":
+                        match = True
+                    elif is_krasovskii and sid == "PUB:KRASOVSKII_1959_OPTIMAL_REGULATION":
+                        match = True
+                    elif is_stratonovich and sid == "PUB:STRATONOVICH_1960_CONDITIONAL_MARKOV":
+                        match = True
+                    elif is_pontryagin and sid == "PUB:PONTRYAGIN_1960_MAXIMUM":
+                        match = True
+
+                    if match:
                         s_hash = hashlib.sha256(json.dumps(obj, sort_keys=True).encode("utf-8")).hexdigest()
-                        source_manifest.append(obj["id"])
-                        source_hashes[obj["id"]] = s_hash
+                        source_manifest.append(sid)
+                        source_hashes[sid] = s_hash
                         extracted_sources.append(
                             CandidateSource(
-                                source_id=obj["id"],
-                                label=obj.get("label", "Dual Control Theory"),
-                                authors=obj.get("authors", ["PERSON:FELDBAUM_AA"]),
+                                source_id=sid,
+                                label=obj.get("label", sid),
+                                authors=obj.get("authors", []),
                                 year=int(obj.get("publication_date", "1960")),
                                 provenance_path=str(source_file),
                                 content_hash=s_hash,
                             )
                         )
 
+        # 1. Feldbaum Dual Control
         if is_feldbaum and extracted_fragments:
             frag_id = extracted_fragments[0].fragment_id
-
             candidate_entities = [
                 CandidateEntity(
                     entity_id="CONCEPT:DUAL_CONTROL",
                     label="Dual Control Theory",
                     category="CONCEPT",
-                    aliases=["dual control", "dualnoe upravlenie", "epistemic-pragmatic control"],
+                    aliases=["dual control", "dualnoe upravlenie"],
                     provenance_fragment_ids=[frag_id],
                 ),
                 CandidateEntity(
                     entity_id="CONCEPT:INVESTIGATIVE_ACTION",
                     label="Investigative / Information-Gathering Action",
                     category="CONCEPT",
-                    aliases=["issledovatelskoe deistvie", "epistemic action", "probing action", "exploratory control"],
+                    aliases=["issledovatelskoe deistvie", "epistemic action", "probing action"],
                     provenance_fragment_ids=[frag_id],
                 ),
                 CandidateEntity(
                     entity_id="CONCEPT:DIRECTING_ACTION",
                     label="Directing Action",
                     category="CONCEPT",
-                    aliases=["napravlyayushchee deistvie", "pragmatic action", "control action", "exploitation"],
+                    aliases=["napravlyayushchee deistvie", "pragmatic action", "control action"],
                     provenance_fragment_ids=[frag_id],
                 ),
                 CandidateEntity(
@@ -905,20 +808,19 @@ class NanoResearchWorker:
                     provenance_fragment_ids=[frag_id],
                 ),
             ]
-
             candidate_relations = [
                 CandidateRelation(
                     source_id="CONCEPT:DUAL_CONTROL",
                     target_id="CONCEPT:INVESTIGATIVE_ACTION",
                     verb="PROBES",
-                    rationale="Investigative action probes the object to decrease parameter uncertainty in unobserved random media.",
+                    rationale="Investigative action probes the object to decrease parameter uncertainty.",
                     evidence_fragment_ids=[frag_id],
                 ),
                 CandidateRelation(
                     source_id="CONCEPT:DUAL_CONTROL",
                     target_id="CONCEPT:DIRECTING_ACTION",
                     verb="CONTROLS",
-                    rationale="Directing action steers the plant toward the target state along the trajectory.",
+                    rationale="Directing action steers the plant toward the target state.",
                     evidence_fragment_ids=[frag_id],
                 ),
                 CandidateRelation(
@@ -929,7 +831,6 @@ class NanoResearchWorker:
                     evidence_fragment_ids=[frag_id],
                 ),
             ]
-
             candidate_claims = [
                 CandidateClaim(
                     claim_id="CLAIM:FELDBAUM_1960_EXPLICIT_DUAL_ACTION_DISTINCTION",
@@ -940,7 +841,6 @@ class NanoResearchWorker:
                     evidence_fragment_ids=[frag_id],
                 )
             ]
-
             candidate_questions = [
                 CandidateQuestion(
                     question_id="RQ:DESC:FELDBAUM_DUAL_CONTROL_CURIOUS_RL",
@@ -951,13 +851,150 @@ class NanoResearchWorker:
                 )
             ]
 
+        # 2. Tsetlin Automata in Unknown Media
+        elif is_tsetlin and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="CONCEPT:STOCHASTIC_AUTOMATA",
+                    label="Finite Stochastic Automata",
+                    category="CONCEPT",
+                    aliases=["finite automata", "konechnye avtomaty"],
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:EXPEDIENT_BEHAVIOR",
+                    label="Expedient Behavior in Random Media",
+                    category="CONCEPT",
+                    aliases=["tselesoobraznoe povedenie"],
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="PERSON:TSETLIN_ML",
+                    label="M. L. Tsetlin",
+                    category="PERSON",
+                    aliases=["Tsetlin", "M. L. Cetlin"],
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="CONCEPT:STOCHASTIC_AUTOMATA",
+                    target_id="CONCEPT:EXPEDIENT_BEHAVIOR",
+                    verb="PROBES",
+                    rationale="Automata transition through internal states by trial and error in random media.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="PERSON:TSETLIN_ML",
+                    target_id="CONCEPT:STOCHASTIC_AUTOMATA",
+                    verb="REPRESENT",
+                    rationale="Tsetlin introduced finite automata learning in unknown environments.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:TSETLIN_1961_AUTOMATA_EXPEDIENT_LEARNING",
+                    subject_id="CONCEPT:STOCHASTIC_AUTOMATA",
+                    predicate="LEARNS_IN_UNKNOWN_MEDIA_BY_TRIAL_AND_ERROR",
+                    object_val="EXPEDIENT_STATE_TRANSITIONS",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:TSETLIN_AUTOMATA_MULTI_ARMED_BANDITS",
+                    thread_id="T2",
+                    question_text="How do Tsetlin's asymptotic optimality theorems for automata in random media map onto modern multi-armed bandit algorithms?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 3. Krasovskii Optimal Regulation & Lyapunov Functions
+        elif is_krasovskii and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="CONCEPT:OPTIMAL_REGULATION",
+                    label="Optimal Regulation Theory",
+                    category="CONCEPT",
+                    aliases=["optimal regulation", "optimalnoe regulirovanie"],
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:LYAPUNOV_SECOND_METHOD",
+                    label="Lyapunov Direct Method",
+                    category="CONCEPT",
+                    aliases=["Lyapunov function", "second method"],
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="PERSON:KRASOVSKII_NN",
+                    label="N. N. Krasovskii",
+                    category="PERSON",
+                    aliases=["Krasovskii", "N. N. Krasovskii"],
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="CONCEPT:OPTIMAL_REGULATION",
+                    target_id="CONCEPT:LYAPUNOV_SECOND_METHOD",
+                    verb="STABILIZE",
+                    rationale="Optimal feedback regulation minimizes the total derivative of the Lyapunov function V(x).",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="PERSON:KRASOVSKII_NN",
+                    target_id="CONCEPT:OPTIMAL_REGULATION",
+                    verb="REPRESENT",
+                    rationale="Krasovskii synthesized optimal control with Lyapunov stability in 1959.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:KRASOVSKII_1959_LYAPUNOV_OPTIMAL_CONTROL",
+                    subject_id="CONCEPT:OPTIMAL_REGULATION",
+                    predicate="MINIMIZES_TOTAL_DERIVATIVE_OF_LYAPUNOV_FUNCTION",
+                    object_val="OPTIMAL_FEEDBACK_STABILIZATION",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:KRASOVSKII_CONTROL_BARRIER_FUNCTIONS",
+                    thread_id="T2",
+                    question_text="How does Krasovskii's 1959 minimization of Lyapunov derivatives relate to modern Control Barrier Functions (CBFs)?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 4. Stratonovich / Pontryagin / Unresolved open inquiries
+        else:
+            # Inquiry without primary fragments extracted in local cache
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id=f"RQ:OPEN:{uow_id}",
+                    thread_id="T2",
+                    question_text=target_query,
+                    target_channel="MATHEMATICAL",
+                    originating_evidence="Open Corpus Query",
+                )
+            ]
+
         rq = ResearchQuestion(
-            question_id="RQ:PROBE:FELDBAUM_DUAL_CONTROL",
+            question_id=f"RQ:PROBE:{uow_id}",
             thread_id="T2",
-            originating_evidence="Feldbaum (1960)",
+            originating_evidence="Primary Source Probing",
             question_text=target_query,
             relation_under_test="PROBE -> REPRESENT -> CONTROL -> STABILIZE",
-            known_endpoints=["Feldbaum", "Dual Control"],
+            known_endpoints=["Corpus", "Theory"],
         )
 
         return self.process_work_unit(
@@ -981,10 +1018,6 @@ class NanoResearchWorker:
         tau_speed_high = self.tracker.thresholds.get("speed_high", 0.70)
         tau_res_high = self.tracker.thresholds.get("residual_high", 0.35)
 
-        # Caution signal for shrinking eigengap:
-        # If speed is low but subspace identifiability is degraded (non-identifiable),
-        # motion is low but confidence in subspace is also low.
-        # Trigger MORE OBSERVATION, not premature closure!
         if diag.speed_max_angle <= tau_speed_low and diag.identifiability == SubspaceIdentifiability.NON_IDENTIFIABLE:
             interpretation = "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION"
             recommended_action = "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION"

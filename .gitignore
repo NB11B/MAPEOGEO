@@ -34,3 +34,8 @@ evidence/.uow_authority_key
 evidence/*.sqlite3
 **/.data/
 
+# Runtime Spool and Control Logs
+evidence/n5/spool/
+evidence/n5/uno_q_issuance_ledger.json
+evidence/n5/control_plane_admission_log.jsonl
+
