@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+import scipy.linalg as la
 
 from sovctx.node.leibniz_bocker import (
     DiagnosticRegime,
@@ -64,30 +65,33 @@ def test_rotating_subspace_curvature_and_orthogonality() -> None:
 def test_projector_curvature_approximation_identity() -> None:
     """Tests Section 3 identity: ||P_{t+dt} - P_t||_F^2 \approx 2 sum_i theta_i^2 for small angles.
 
-    Also tests the exact relation ||P_{t+dt} - P_t||_F^2 = 2 sum_i sin^2(theta_i).
+    Also tests the exact Grassmannian relation ||P_{t+dt} - P_t||_F^2 = 2 sum_i sin^2(theta_i).
     """
     N = 8
     k = 2
     tracker = LeibnizBockerTracker(k=k, alpha=1.0)
 
-    v1 = np.random.randn(N)
-    v1 /= np.linalg.norm(v1)
-    # Small perturbation (small angle regime)
-    v2 = v1 + 0.05 * np.random.randn(N)
-    v2 /= np.linalg.norm(v2)
+    # Orthonormal rank-k frame
+    E1, _ = np.linalg.qr(np.random.randn(N, k))
+    # Small skew-symmetric rotation in ambient space
+    G = np.random.randn(N, N)
+    A = (G - G.T) * 0.03
+    R = la.expm(A)
+    E2 = R @ E1
 
-    diag1 = tracker.step(v1, t=0)
-    diag2 = tracker.step(v2, t=1)
+    angles, _ = tracker.compute_principal_angles(E1, E2)
+    P1 = E1 @ E1.T
+    P2 = E2 @ E2.T
+    frob_sq = float(np.linalg.norm(P2 - P1, "fro") ** 2)
 
-    theta_sum = float(np.sum(np.square(diag2.principal_angles)))
-    sin_sq_sum = float(np.sum(np.square(np.sin(diag2.principal_angles))))
-    frob_sq = float(diag2.curvature_projector**2)
+    theta_sum = float(np.sum(np.square(angles)))
+    sin_sq_sum = float(np.sum(np.square(np.sin(angles))))
 
     # 1. Exact Grassmannian projector identity
-    assert frob_sq == pytest.approx(2.0 * sin_sq_sum, rel=1e-3)
+    assert frob_sq == pytest.approx(2.0 * sin_sq_sum, rel=1e-5)
 
     # 2. Small-angle Taylor approximation from paper: frob_sq \approx 2 * theta_sum
-    assert frob_sq == pytest.approx(2.0 * theta_sum, rel=0.05)
+    assert frob_sq == pytest.approx(2.0 * theta_sum, rel=0.01)
 
 
 def test_online_oja_tracker_alignment() -> None:

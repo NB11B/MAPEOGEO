@@ -64,3 +64,4 @@
 {"id": "CONCEPT:MODEL_REQUIRED_FUTURE", "type": "CONCEPT", "namespace": "SOV", "label": "Model of the Required Future"}
 {"id": "CONCEPT:ENDOGENOUS_SELF_MAINTENANCE", "type": "CONCEPT", "namespace": "SYN", "label": "Endogenous Self-Maintenance"}
 {"id": "CONCEPT:FINITE_INTELLIGENCE", "type": "CONCEPT", "namespace": "SYN", "label": "Resource-Bounded Finite Intelligence"}
+{"id": "PERSON:BOCKER_NJ", "type": "PERSON", "namespace": "MOD", "label": "Nathanael Joseph Bocker"}

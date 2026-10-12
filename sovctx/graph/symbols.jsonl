@@ -54,3 +54,19 @@
 {"id":"SYMBOL:GL_Q","type":"SYMBOL","namespace":"SOV","label":"q(x)","symbol":"q(x)","semantic_role":"reconstructed Sturm-Liouville potential"}
 {"id":"SYMBOL:GL_PHI0","type":"SYMBOL","namespace":"SOV","label":"phi_0","symbol":"\\varphi_0","semantic_role":"reference solution used to construct spectral kernel"}
 {"id":"SYMBOL:GL_TAU","type":"SYMBOL","namespace":"SOV","label":"d tau","symbol":"d\\tau","semantic_role":"spectral-measure difference/input to reconstruction"}
+{"id": "SYMBOL:LB_X_T", "type": "SYMBOL", "namespace": "MOD", "label": "System multivariate state at step t", "symbol": "x(t)", "semantic_role": "state_vector"}
+{"id": "SYMBOL:LB_X_T_PLUS_1", "type": "SYMBOL", "namespace": "MOD", "label": "System state at step t+1", "symbol": "x(t+1)", "semantic_role": "state_vector"}
+{"id": "SYMBOL:LB_PHI_T", "type": "SYMBOL", "namespace": "MOD", "label": "Infinitesimal increment vector", "symbol": "\\phi(t)", "semantic_role": "increment_vector"}
+{"id": "SYMBOL:LB_C_T", "type": "SYMBOL", "namespace": "MOD", "label": "Local covariance operator of increments", "symbol": "C(t)", "semantic_role": "covariance_operator"}
+{"id": "SYMBOL:LB_E_K", "type": "SYMBOL", "namespace": "MOD", "label": "Dominant k-dimensional spectral frame on Gr(k, N)", "symbol": "E_k(t)", "semantic_role": "grassmannian_subspace"}
+{"id": "SYMBOL:LB_A_T", "type": "SYMBOL", "namespace": "MOD", "label": "Harmonic coordinates on spectral frame", "symbol": "a(t)", "semantic_role": "harmonic_coordinate"}
+{"id": "SYMBOL:LB_R_T", "type": "SYMBOL", "namespace": "MOD", "label": "Orthogonal residual novelty vector", "symbol": "r(t)", "semantic_role": "residual_novelty"}
+{"id": "SYMBOL:LB_RHO_K", "type": "SYMBOL", "namespace": "MOD", "label": "Rank-k spectral coherence ratio", "symbol": "\\rho_k(t)", "semantic_role": "coherence_metric"}
+{"id": "SYMBOL:LB_LAMBDA_I", "type": "SYMBOL", "namespace": "MOD", "label": "Eigenvalues of increment covariance", "symbol": "\\lambda_i(t)", "semantic_role": "eigenvalues"}
+{"id": "SYMBOL:LB_OMEGA_K", "type": "SYMBOL", "namespace": "MOD", "label": "Max-principal-angle Grassmannian curvature", "symbol": "\\Omega_k(t)", "semantic_role": "max_angle_curvature"}
+{"id": "SYMBOL:LB_THETA_I", "type": "SYMBOL", "namespace": "MOD", "label": "Principal angles between successive subspaces", "symbol": "\\theta_i", "semantic_role": "principal_angle"}
+{"id": "SYMBOL:LB_DELTA_T", "type": "SYMBOL", "namespace": "MOD", "label": "Temporal interval between successive observations", "symbol": "\\Delta t", "semantic_role": "time_increment"}
+{"id": "SYMBOL:LB_OMEGA_TILDE_K", "type": "SYMBOL", "namespace": "MOD", "label": "Projector-based Frobenius rotational curvature", "symbol": "\\tilde{\\Omega}_k(t)", "semantic_role": "projector_curvature"}
+{"id": "SYMBOL:LB_P_T", "type": "SYMBOL", "namespace": "MOD", "label": "Orthogonal projector onto dominant subspace", "symbol": "P_t", "semantic_role": "orthogonal_projector"}
+{"id": "SYMBOL:LB_W_T", "type": "SYMBOL", "namespace": "MOD", "label": "Online streaming subspace approximation frame", "symbol": "W_t", "semantic_role": "streaming_subspace_frame"}
+{"id": "SYMBOL:LB_ETA_T", "type": "SYMBOL", "namespace": "MOD", "label": "Learning rate for streaming subspace update", "symbol": "\\eta_t", "semantic_role": "learning_rate"}
