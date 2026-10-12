@@ -785,7 +785,7 @@ class NanoResearchWorker:
                 or "steady motion" in q_lower
             )
             is_zubov = "zubov" in q_lower or "domain of attraction" in q_lower or "basin of attraction" in q_lower
-            is_chaplygin = "chaplygin" in q_lower or "sleigh" in q_lower or "reducing multiplier" in q_lower
+            is_chaplygin = ("chaplygin" in q_lower or "sleigh" in q_lower or "reducing multiplier" in q_lower) and not ("chetaev" in q_lower)
             is_appell = ("appell" in q_lower or "acceleration energy" in q_lower or "energy of acceleration" in q_lower) and not ("chetaev" in q_lower)
             is_chetaev_nonholonomic = (("chetaev" in q_lower and ("condition" in q_lower or "gauss" in q_lower or "virtual" in q_lower or "appell" in q_lower or "nonholonomic" in q_lower or "non-holonomic" in q_lower)) or "appell-chetaev" in q_lower) and not ("rumyantsev" in q_lower)
             is_rumyantsev = "rumyantsev" in q_lower or ("nonholonomic" in q_lower and "steady motion" in q_lower)

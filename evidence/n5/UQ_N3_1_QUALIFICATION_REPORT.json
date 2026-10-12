@@ -1,0 +1,43 @@
+{
+  "campaign_id": "UQ-N3.1-FALSIFICATION-v1.0",
+  "timestamp": "2026-10-12T07:37:32.103958+00:00",
+  "commit": "7ec6fc3bc6f0d5106061a2e37bdd1fcd83a4086e",
+  "axiom": "DISCOVERED PATH != ACCEPTED LINEAGE",
+  "verdict": "QUALIFIED_PASS",
+  "metrics": {
+    "retrospective_synthesis_confirmed": true,
+    "adversarial_false_positive_rate": 0.0,
+    "negative_control_discipline": 1.0,
+    "g1_shadow_mode_maintained": true,
+    "total_duration_ms": 208.2,
+    "peak_rss_mb": 65.38
+  },
+  "probes": [
+    {
+      "probe": "CHETAEV_RETROSPECTIVE_SYNTHESIS",
+      "uow_id": "UOW:N3_1:PROBE:CHETAEV_SYNTHESIS",
+      "claims": [
+        "CLAIM:CHETAEV_1938_VIRTUAL_DISPLACEMENTS_ORTHOGONAL"
+      ],
+      "sources": [
+        "PUB:CHETAEV_1938_PRINCIPLE_OF_GAUSS"
+      ],
+      "duration_ms": 127.32,
+      "rss_mb": 64.86
+    },
+    {
+      "probe": "VAKONOMIC_PHYSICAL_INEQUIVALENCE",
+      "uow_id": "UOW:N3_1:PROBE:VAKONOMIC_EQUIVALENCE",
+      "refused": true,
+      "claims_count": 0,
+      "duration_ms": 11.46
+    },
+    {
+      "probe": "ROBOTICS_ANACHRONISM_PRIORITY",
+      "uow_id": "UOW:N3_1:PROBE:ROBOTICS_PRIORITY",
+      "refused": true,
+      "claims_count": 0,
+      "duration_ms": 11.0
+    }
+  ]
+}
