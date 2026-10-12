@@ -1,0 +1,599 @@
+{
+  "milestone": "SOVCTX-G1.1",
+  "verdict": "PASS",
+  "shadow_mode": true,
+  "gates": {
+    "G1.1-A_geometry": "PASS: Renamed to OMEGA_MAXANGLE and OMEGA_PROJECTOR; kappa_G evaluated.",
+    "G1.1-B_gauge": "PASS: Stored assumption updated to O(k) horizontal representative.",
+    "G1.1-C_timing": {
+      "status": "PASS",
+      "t_novelty": "Epoch 00",
+      "t_assimilated": "Epoch 03",
+      "tau_A_transitions": 2,
+      "elapsed_seconds": 1200.0,
+      "statement": "Rapid assimilation within approximately one to two epoch intervals."
+    },
+    "G1.1-D_identifiability": {
+      "status": "PASS",
+      "late_gamma_2": 0.020017796051558383,
+      "late_relative_gap": 5.559008885277914e-08,
+      "late_davis_kahan_ratio": 248.4064185281686,
+      "late_identifiability": "NON_IDENTIFIABLE",
+      "scientific_finding": "Subspace motion declines (Omega -> 0) while rank-2 spectral separation weakens (gamma_2 -> 0.02), signaling diffusion/de-specialization into broader representation space."
+    },
+    "G1.1-E_coherence": {
+      "status": "PASS",
+      "empirical_spectrum_tail": 0.0004878039900492215,
+      "synthetic_controls": {
+        "rank_1_coherence": 0.9999999999986435,
+        "rank_3_coherence": 0.9526759527251768,
+        "isotropic_coherence": 0.7519039049714842
+      },
+      "scientific_finding": "Empirical trajectory is strictly rank-2 confined (lambda_3:32 = 0 after step 2)."
+    },
+    "G1.1-F_exact_baseline": {
+      "status": "PASS",
+      "batch_max_event": "Ep 02 -> 03",
+      "tracker_max_event": "Ep 02 -> 03",
+      "case": "Case A / B Confirmed"
+    },
+    "G1.1-G_estimator_control": {
+      "status": "PASS",
+      "configurations_tested": [
+        "constant_eta_0.01",
+        "constant_eta_0.05",
+        "constant_eta_0.1",
+        "constant_eta_0.2"
+      ]
+    },
+    "G1.1-H_rank_robustness": {
+      "status": "PASS",
+      "k_tested": [
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "max_events": {
+        "k_1": "Ep 02 -> 03",
+        "k_2": "Ep 02 -> 03",
+        "k_3": "Ep 03 -> 04",
+        "k_4": "Ep 02 -> 03",
+        "k_6": "Ep 06 -> 07"
+      }
+    },
+    "G1.1-I_memory_robustness": {
+      "status": "PASS",
+      "alpha_tested": [
+        0.1,
+        0.2,
+        0.5,
+        0.8,
+        1.0
+      ],
+      "max_events": {
+        "alpha_0.1": "Ep 02 -> 03",
+        "alpha_0.2": "Ep 02 -> 03",
+        "alpha_0.5": "Ep 02 -> 03",
+        "alpha_0.8": "Ep 02 -> 03",
+        "alpha_1.0": "Ep 02 -> 03"
+      }
+    },
+    "G1.1-J_null_localization": {
+      "status": "PASS",
+      "all_configurations_agree": false,
+      "robustness_table": [
+        {
+          "configuration": "Exact Batch k=2",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5568229603392756
+        },
+        {
+          "configuration": "Oja Decaying eta (eta_0=0.1)",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5568229603392756
+        },
+        {
+          "configuration": "Oja Constant eta=0.1",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5568229603392756
+        },
+        {
+          "configuration": "Oja Constant eta=0.05",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5568229603392756
+        },
+        {
+          "configuration": "Recursive cov alpha=0.2",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5568229603392205
+        },
+        {
+          "configuration": "Recursive cov alpha=0.5",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5568229603392756
+        },
+        {
+          "configuration": "Recursive cov alpha=0.8",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.556822960339296
+        },
+        {
+          "configuration": "Recursive cov alpha=1.0",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5707963267948966
+        },
+        {
+          "configuration": "Subspace rank k=1",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 0.003903336246608177
+        },
+        {
+          "configuration": "Subspace rank k=2",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5568229603392756
+        },
+        {
+          "configuration": "Subspace rank k=3",
+          "max_event": "Ep 03 -> 04",
+          "max_speed": 1.5691796294806841
+        },
+        {
+          "configuration": "Subspace rank k=4",
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.5691071715587401
+        },
+        {
+          "configuration": "Subspace rank k=6",
+          "max_event": "Ep 06 -> 07",
+          "max_speed": 1.5707963267948966
+        }
+      ]
+    }
+  },
+  "diagnostics_trajectory": [
+    {
+      "t": 0,
+      "step_label": "Ep 01 -> 02",
+      "coherence": 1.0,
+      "speed_max_angle": 0.0,
+      "speed_projector": 0.0,
+      "residual_norm": 0.0,
+      "spectral_gap": 1.3155218628370048e-14,
+      "instability_ratio": 999986844.954429,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        356530.01555555593,
+        1.628894596348864e-14,
+        3.1337273351185913e-15,
+        2.4038353929104126e-16,
+        7.405947638216364e-19,
+        1.81912142413324e-21,
+        1.307985672596484e-30,
+        5.597966851790022e-32
+      ],
+      "principal_angles": [
+        0.0,
+        0.0
+      ],
+      "residual_fraction": 0.0,
+      "relative_gap": 3.6897927395737457e-20,
+      "davis_kahan_ratio": 0.0,
+      "identifiability": "IDENTIFIABLE",
+      "is_subspace_identifiable": true,
+      "kappa_g": 0.0,
+      "curvature_max_angle": 0.0,
+      "curvature_projector": 0.0,
+      "stability_ratio": 0.0
+    },
+    {
+      "t": 1,
+      "step_label": "Ep 02 -> 03",
+      "coherence": 0.9999999999999999,
+      "speed_max_angle": 1.5568229603392756,
+      "speed_projector": 1.4140754985061683,
+      "residual_norm": 0.0,
+      "spectral_gap": 5.405144811365086,
+      "instability_ratio": 0.18500891922679827,
+      "regime": "REGIME_REORIENTATION",
+      "eigenvalues": [
+        358309.8526329663,
+        5.405144811402107,
+        3.702126241542291e-11,
+        9.555380887018846e-18,
+        4.480962586755094e-18,
+        4.736835093197912e-19,
+        3.856638374010068e-20,
+        3.2509099403122256e-32
+      ],
+      "principal_angles": [
+        0.0,
+        1.5568229603392756
+      ],
+      "residual_fraction": 0.0,
+      "relative_gap": 1.5085113545291849e-05,
+      "davis_kahan_ratio": 471.0230480994974,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.0,
+      "curvature_max_angle": 1.5568229603392756,
+      "curvature_projector": 1.4140754985061683,
+      "stability_ratio": 471.0230480994974
+    },
+    {
+      "t": 2,
+      "step_label": "Ep 03 -> 04",
+      "coherence": 0.9999997686264186,
+      "speed_max_angle": 0.10007379243818904,
+      "speed_projector": 0.1412896083257229,
+      "residual_norm": 0.2366362156564231,
+      "spectral_gap": 3.8781701675506723,
+      "instability_ratio": 0.25785356406207266,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        359203.58449641,
+        3.9612813230790382,
+        0.08311115552836588,
+        8.762303961829858e-15,
+        5.15527537161305e-15,
+        4.08325596329835e-16,
+        7.459529266194696e-18,
+        3.6865361396218865e-18
+      ],
+      "principal_angles": [
+        0.0,
+        0.10007379243818904
+      ],
+      "residual_fraction": 0.0003943389272681457,
+      "relative_gap": 1.0796579808599968e-05,
+      "davis_kahan_ratio": 328.2405090921194,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 1.005093243487977,
+      "curvature_max_angle": 0.10007379243818904,
+      "curvature_projector": 0.1412896083257229,
+      "stability_ratio": 328.2405090921194
+    },
+    {
+      "t": 3,
+      "step_label": "Ep 04 -> 05",
+      "coherence": 0.9999998511205068,
+      "speed_max_angle": 0.029765901046871684,
+      "speed_projector": 0.04208912509124394,
+      "residual_norm": 0.10128786679526466,
+      "spectral_gap": 2.2493044348339457,
+      "instability_ratio": 0.44458188232276474,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        359651.45804985403,
+        2.302849512479347,
+        0.05354507764540156,
+        7.140282462975484e-15,
+        1.4764705379449684e-15,
+        3.6046995176632566e-16,
+        2.625080167017938e-18,
+        8.695121201723355e-35
+      ],
+      "principal_angles": [
+        0.0,
+        0.029765901046871684
+      ],
+      "residual_fraction": 0.00016878966994348716,
+      "relative_gap": 6.254122941779239e-06,
+      "davis_kahan_ratio": 282.9702663696298,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.07010114111371414,
+      "curvature_max_angle": 0.029765901046871684,
+      "curvature_projector": 0.04208912509124394,
+      "stability_ratio": 282.9702663696298
+    },
+    {
+      "t": 4,
+      "step_label": "Ep 05 -> 06",
+      "coherence": 0.9999999189624584,
+      "speed_max_angle": 0.011963774263226225,
+      "speed_projector": 0.016918928207123145,
+      "residual_norm": 0.04720861150470357,
+      "spectral_gap": 1.203262997487505,
+      "instability_ratio": 0.8310735070030362,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        359875.6456321448,
+        1.2324265372882948,
+        0.02916353980078969,
+        6.541995914596633e-15,
+        1.4774882643530557e-16,
+        5.4138015038510793e-17,
+        5.300719143311761e-18,
+        6.743987283198398e-21
+      ],
+      "principal_angles": [
+        0.0,
+        0.011963774263226225
+      ],
+      "residual_fraction": 7.867009353129902e-05,
+      "relative_gap": 3.343552174457085e-06,
+      "davis_kahan_ratio": 264.4834406112288,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.017795895091296032,
+      "curvature_max_angle": 0.011963774263226225,
+      "curvature_projector": 0.016918928207123145,
+      "stability_ratio": 264.4834406112288
+    },
+    {
+      "t": 5,
+      "step_label": "Ep 06 -> 07",
+      "coherence": 0.9999999579970191,
+      "speed_max_angle": 0.0054078970497489,
+      "speed_projector": 0.007647884073958811,
+      "residual_norm": 0.022826779969449363,
+      "spectral_gap": 0.6213824745934847,
+      "instability_ratio": 1.6093147767723837,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        359987.80198745994,
+        0.6365030627260293,
+        0.01512058813254461,
+        2.6942324449413767e-12,
+        2.703435104927964e-18,
+        9.177225453802635e-19,
+        1.3090981332877264e-20,
+        7.577765074147303e-32
+      ],
+      "principal_angles": [
+        0.0,
+        0.0054078970497489
+      ],
+      "residual_fraction": 3.803935040614451e-05,
+      "relative_gap": 1.7261209162168512e-06,
+      "davis_kahan_ratio": 256.07669233339243,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.006555444256420925,
+      "curvature_max_angle": 0.0054078970497489,
+      "curvature_projector": 0.007647884073958811,
+      "stability_ratio": 256.07669233339243
+    },
+    {
+      "t": 6,
+      "step_label": "Ep 07 -> 08",
+      "coherence": 0.9999999786458308,
+      "speed_max_angle": 0.00257571526013629,
+      "speed_projector": 0.0036426074259024665,
+      "residual_norm": 0.011228105047512402,
+      "spectral_gap": 0.3156396410550797,
+      "instability_ratio": 3.16816985816217,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        360043.89578902355,
+        0.3233280863817413,
+        0.007688445326661612,
+        4.560800956240452e-15,
+        3.840930250285276e-15,
+        1.1069329425825912e-18,
+        8.700014912317394e-19,
+        2.2454762989840445e-31
+      ],
+      "principal_angles": [
+        0.0,
+        0.00257571526013629
+      ],
+      "residual_fraction": 1.8710909855483533e-05,
+      "relative_gap": 8.766698859408976e-07,
+      "davis_kahan_ratio": 252.06207977544688,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.0028321404676724545,
+      "curvature_max_angle": 0.00257571526013629,
+      "curvature_projector": 0.0036426074259024665,
+      "stability_ratio": 252.06207977544688
+    },
+    {
+      "t": 7,
+      "step_label": "Ep 08 -> 09",
+      "coherence": 0.9999999892369162,
+      "speed_max_angle": 0.0012574997483955552,
+      "speed_projector": 0.0017783727297574874,
+      "residual_norm": 0.005568809994139997,
+      "spectral_gap": 0.15905816398548936,
+      "instability_ratio": 6.287008278331569,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        360071.9465936407,
+        0.16293365031420445,
+        0.0038754863287150817,
+        1.1198570773764033e-14,
+        1.1684932041981034e-15,
+        3.938723948977324e-20,
+        7.688989290397785e-21,
+        1.505388860015214e-30
+      ],
+      "principal_angles": [
+        0.0,
+        0.0012574997483955552
+      ],
+      "residual_fraction": 9.28006118234121e-06,
+      "relative_gap": 4.4173995083542146e-07,
+      "davis_kahan_ratio": 250.0996565985042,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.0013182109749241343,
+      "curvature_max_angle": 0.0012574997483955552,
+      "curvature_projector": 0.0017783727297574874,
+      "stability_ratio": 250.0996565985042
+    },
+    {
+      "t": 8,
+      "step_label": "Ep 09 -> 10",
+      "coherence": 0.9999999945972221,
+      "speed_max_angle": 0.0006213613713236058,
+      "speed_projector": 0.000878737622400917,
+      "residual_norm": 0.0027732298162095595,
+      "spectral_gap": 0.07983881787149961,
+      "instability_ratio": 12.525235394695626,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        360085.97297164076,
+        0.08178428283592129,
+        0.00194546496442168,
+        1.2835047254308904e-14,
+        9.953305996236158e-18,
+        1.19591797628649e-19,
+        3.2038006957511976e-34,
+        7.599547068643658e-35
+      ],
+      "principal_angles": [
+        0.0,
+        0.0006213613713236058
+      ],
+      "residual_fraction": 4.621407876045159e-06,
+      "relative_gap": 2.2172154392081101e-07,
+      "davis_kahan_ratio": 249.1293912692063,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.0006361378442607847,
+      "curvature_max_angle": 0.0006213613713236058,
+      "curvature_projector": 0.000878737622400917,
+      "stability_ratio": 249.1293912692063
+    },
+    {
+      "t": 9,
+      "step_label": "Ep 10 -> 11",
+      "coherence": 0.9999999972933347,
+      "speed_max_angle": 0.0003088579947779484,
+      "speed_projector": 0.00043679115993315023,
+      "residual_norm": 0.001383699602669121,
+      "spectral_gap": 0.039996861335409424,
+      "instability_ratio": 25.001961194208352,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        360092.98640452995,
+        0.04097151266413995,
+        0.0009746513287305322,
+        5.9553266598323025e-12,
+        5.935686990534526e-16,
+        1.9233363004573123e-19,
+        1.3662711052917998e-19,
+        3.7613357826867983e-20
+      ],
+      "principal_angles": [
+        0.0,
+        0.0003088579947779484
+      ],
+      "residual_fraction": 2.3058457703284775e-06,
+      "relative_gap": 1.110737027532016e-07,
+      "davis_kahan_ratio": 248.6469616851015,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.0003125033111468964,
+      "curvature_max_angle": 0.0003088579947779484,
+      "curvature_projector": 0.00043679115993315023,
+      "stability_ratio": 248.6469616851015
+    },
+    {
+      "t": 10,
+      "step_label": "Ep 11 -> 12",
+      "coherence": 0.999999998645352,
+      "speed_max_angle": 0.00015397633849926397,
+      "speed_projector": 0.00021775542518346345,
+      "residual_norm": 0.0006911237699977577,
+      "spectral_gap": 0.020017796051558383,
+      "instability_ratio": 49.95554692778495,
+      "regime": "IDENTIFIABILITY_DEGRADED",
+      "eigenvalues": [
+        360096.4931819429,
+        0.02050559998703765,
+        0.0004878039354792644,
+        5.45643856374622e-11,
+        5.567951381987233e-15,
+        3.490210947170264e-18,
+        2.77507998366737e-20,
+        2.4960108584833854e-20
+      ],
+      "principal_angles": [
+        0.0,
+        0.00015397633849926397
+      ],
+      "residual_fraction": 1.1517130009640385e-06,
+      "relative_gap": 5.559008885277914e-08,
+      "davis_kahan_ratio": 248.4064185281686,
+      "identifiability": "NON_IDENTIFIABLE",
+      "is_subspace_identifiable": false,
+      "kappa_g": 0.00015488164973380782,
+      "curvature_max_angle": 0.00015397633849926397,
+      "curvature_projector": 0.00021775542518346345,
+      "stability_ratio": 248.4064185281686
+    }
+  ],
+  "batch_comparison": [
+    {
+      "step": "Ep 01 -> 02",
+      "batch_speed": 0.0,
+      "tracker_speed": 0.0,
+      "d_gr": 0.0
+    },
+    {
+      "step": "Ep 02 -> 03",
+      "batch_speed": 1.5568229603392756,
+      "tracker_speed": 1.5568229603392756,
+      "d_gr": 1.5568225387976906
+    },
+    {
+      "step": "Ep 03 -> 04",
+      "batch_speed": 0.0743246608781751,
+      "tracker_speed": 0.10007379243818904,
+      "d_gr": 1.5567019818027088
+    },
+    {
+      "step": "Ep 04 -> 05",
+      "batch_speed": 0.025749131705499046,
+      "tracker_speed": 0.029765901046871684,
+      "d_gr": 1.5566782448303365
+    },
+    {
+      "step": "Ep 05 -> 06",
+      "batch_speed": 0.012989081107739392,
+      "tracker_speed": 0.011963774263226225,
+      "d_gr": 1.5566698313069738
+    },
+    {
+      "step": "Ep 06 -> 07",
+      "batch_speed": 0.007820371735402476,
+      "tracker_speed": 0.0054078970497489,
+      "d_gr": 1.5566659181723956
+    },
+    {
+      "step": "Ep 07 -> 08",
+      "batch_speed": 0.005222482438207192,
+      "tracker_speed": 0.00257571526013629,
+      "d_gr": 1.5566637874696863
+    },
+    {
+      "step": "Ep 08 -> 09",
+      "batch_speed": 0.003733965770949339,
+      "tracker_speed": 0.0012574997483955552,
+      "d_gr": 1.5566625009961446
+    },
+    {
+      "step": "Ep 09 -> 10",
+      "batch_speed": 0.0028021700055614446,
+      "tracker_speed": 0.0006213613713236058,
+      "d_gr": 1.5566616653276462
+    },
+    {
+      "step": "Ep 10 -> 11",
+      "batch_speed": 0.0021803449550335855,
+      "tracker_speed": 0.0003088579947779484,
+      "d_gr": 1.556661092077562
+    },
+    {
+      "step": "Ep 11 -> 12",
+      "batch_speed": 0.00174476885500522,
+      "tracker_speed": 0.00015397633849926397,
+      "d_gr": 1.5566606818754085
+    }
+  ]
+}

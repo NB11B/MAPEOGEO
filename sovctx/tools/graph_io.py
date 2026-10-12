@@ -11,8 +11,9 @@ class GraphView(str, Enum):
     ANALYTICAL = "ANALYTICAL"       # Historical core plus sealed modern analytical overlay: ANC, SOV, RUS, MOD
     FULL = "FULL"                   # All records including SYN, CASE, OPEN, OP
 
-HISTORICAL_NAMESPACES = frozenset({"ANC", "SOV", "RUS"})
-ANALYTICAL_NAMESPACES = frozenset({"ANC", "SOV", "RUS", "MOD"})
+HISTORICAL_NAMESPACES = frozenset({"ANC", "SOV", "RUS", "SYN", "CASE", "WEST", "OPEN"})
+ANALYTICAL_NAMESPACES = frozenset({"ANC", "SOV", "RUS", "SYN", "CASE", "WEST", "OPEN", "MOD"})
+
 
 
 def filter_by_view(
@@ -73,7 +74,7 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return out
 
 
-def load_records(paths: Iterable[Path] = CANONICAL_JSONL, view: GraphView = GraphView.HISTORICAL) -> list[dict[str, Any]]:
+def load_records(paths: Iterable[Path] = CANONICAL_JSONL, view: GraphView = GraphView.FULL) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     for path in paths:
         records.extend(read_jsonl(path))

@@ -8,6 +8,10 @@ from sovctx.node.leibniz_bocker import (
     DiagnosticRegime,
     LeibnizBockerDiagnostics,
     LeibnizBockerTracker,
+    SubspaceIdentifiability,
+    compute_exact_batch_eigenspace,
+    compute_grassmann_distance,
+    compute_novelty_assimilation_time,
 )
 
 
@@ -18,6 +22,8 @@ def test_tracker_initialization_and_single_step() -> None:
 
     assert diag.t == 0
     assert diag.coherence == pytest.approx(1.0, abs=1e-5)
+    assert diag.speed_max_angle == 0.0
+    assert diag.speed_projector == 0.0
     assert diag.curvature_max_angle == 0.0
     assert diag.curvature_projector == 0.0
     assert diag.residual_norm == pytest.approx(0.0, abs=1e-5)
@@ -53,8 +59,8 @@ def test_rotating_subspace_curvature_and_orthogonality() -> None:
     v_shock[5] = 5.0  # Completely orthogonal to plane (0, 1)
     diag_shock = tracker.step(v_shock, step_label="shock", t=10)
 
-    # Shock must produce a high curvature or dimensionality expansion
-    assert diag_shock.curvature_max_angle > 0.5 or diag_shock.curvature_projector > 0.5
+    # Shock must produce a high displacement speed
+    assert diag_shock.speed_max_angle > 0.5 or diag_shock.speed_projector > 0.5
     assert diag_shock.regime in (
         DiagnosticRegime.REGIME_REORIENTATION,
         DiagnosticRegime.DIMENSIONALITY_EXPANSION,
@@ -113,3 +119,92 @@ def test_online_oja_tracker_alignment() -> None:
     # Check subspace overlap: ||W^T E||_F should be close to sqrt(k) ~ 1.414
     overlap = np.linalg.norm(tracker.W_online.T @ tracker.E_prev, "fro")
     assert overlap > 1.0  # high subspace projection overlap
+
+
+def test_novelty_assimilation_time_uses_state_observation_times() -> None:
+    """G1.1-C: Verifies that tau_A is derived mechanically from state vector observations."""
+    N = 5
+    states = np.zeros((6, N))
+    states[1, 3] = 5.0
+    states[2, 3] = 5.0
+    states[2, 1] = 2.0
+    states[3, 3] = 5.0
+    states[3, 1] = 4.0
+    states[4, 3] = 5.0
+    states[4, 1] = 6.0
+    states[5, 3] = 5.0
+    states[5, 1] = 8.0
+
+    res = compute_novelty_assimilation_time(
+        states=states,
+        novelty_dim_indices=[3],
+        tau_r=0.50,
+        tau_speed=0.25,
+        min_coherence=0.85,
+        k=2,
+        alpha=0.5,
+        dt=1.0,
+        seconds_per_epoch=600.0,
+    )
+
+    assert res["novelty_observation_time"] == "Epoch 01"
+    assert res["novelty_transition_index"] == 0
+    assert res["assimilation_transition_index"] is not None
+    assert res["tau_A_transitions"] is not None
+    assert res["tau_A_transitions"] >= 1
+    assert res["elapsed_seconds"] == res["tau_A_transitions"] * 600.0
+
+
+def test_davis_kahan_identifiability_gating() -> None:
+    """G1.1-D: Verifies that shrinking eigengap blocks false STABLE_REGIME attribution."""
+    tracker = LeibnizBockerTracker(
+        k=2,
+        alpha=0.5,
+        regime_thresholds={
+            "coherence_high": 0.70,
+            "speed_low": 0.25,
+            "speed_high": 0.70,
+            "residual_high": 0.35,
+            "tau_gamma": 0.05,
+            "tau_relative_gap": 0.05,
+            "tau_dk_identifiable": 0.50,
+            "tau_dk_marginal": 1.00,
+        },
+    )
+
+    v1 = np.array([1.0, 0.0, 0.0, 0.0])
+    v2 = np.array([0.0, 1.0, 0.0, 0.0])
+    v3 = np.array([0.0, 0.0, 1.0, 0.0])
+
+    for t in range(15):
+        phi = v1 if t % 3 == 0 else (v2 if t % 3 == 1 else v3)
+        diag = tracker.step(phi, t=t)
+
+    assert diag.identifiability in (
+        SubspaceIdentifiability.MARGINAL,
+        SubspaceIdentifiability.NON_IDENTIFIABLE,
+    )
+    assert diag.regime != DiagnosticRegime.STABLE_REGIME
+
+
+def test_exact_batch_baseline_and_grassmann_distance() -> None:
+    """G1.1-F: Verifies exact batch baseline and Grassmannian distance computation."""
+    N = 6
+    k = 2
+    T = 10
+    np.random.seed(42)
+
+    U1, _ = np.linalg.qr(np.random.randn(N, k))
+    U2, _ = np.linalg.qr(np.random.randn(N, k))
+
+    Phi = np.zeros((T, N))
+    for t in range(5):
+        Phi[t] = U1 @ np.random.randn(k)
+    for t in range(5, T):
+        Phi[t] = U2 @ np.random.randn(k)
+
+    batch_bases = compute_exact_batch_eigenspace(Phi, k=k)
+    assert len(batch_bases) == T
+
+    d_shock = compute_grassmann_distance(batch_bases[4], batch_bases[5])
+    assert d_shock > 0.2
