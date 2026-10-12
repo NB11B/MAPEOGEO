@@ -33,6 +33,13 @@ from .research_frontier import (
     FrontierCycleAllocation,
     ResearchFrontierCoordinator,
 )
+from .research_probing import (
+    CorpusGraphIndex,
+    EpochCheckpoint,
+    ProbeOutcome,
+    ResearchProber,
+    ResearchShakedownSupervisor,
+)
 
 __all__ = [
     "NanoConfig",
@@ -67,4 +74,9 @@ __all__ = [
     "FrontierCycleAllocation",
     "DiscoveryReport",
     "ResearchFrontierCoordinator",
+    "CorpusGraphIndex",
+    "EpochCheckpoint",
+    "ProbeOutcome",
+    "ResearchProber",
+    "ResearchShakedownSupervisor",
 ]
