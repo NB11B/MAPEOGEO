@@ -200,6 +200,26 @@ class CandidateBundle:
                 self.source_hashes[s.source_id] = s.content_hash
 
     @property
+    def status(self) -> str:
+        return "PROPOSED"
+
+    @property
+    def entities(self) -> List[CandidateEntity]:
+        return self.candidate_entities
+
+    @property
+    def claims(self) -> List[CandidateClaim]:
+        return self.candidate_claims
+
+    @property
+    def canonical_commit_hash(self) -> str:
+        return ""
+
+    @property
+    def admitted_by(self) -> str:
+        return ""
+
+    @property
     def content_hash(self) -> str:
         if not self.execution_hash and not self.candidate_bundle_hash:
             self.compute_hash()
@@ -727,6 +747,7 @@ class NanoResearchWorker:
                 "besm-6",
                 "fortran",
                 "ibm",
+                "vakonomic",
             ]
         ) or (
             # Class C Adversarial False Premises
@@ -735,11 +756,15 @@ class NanoResearchWorker:
             or ("cybernetic physiology" in q_lower and "krasovskii" in q_lower)
             or ("physiology" in q_lower and "krasovskii" in q_lower)
             or ("anokhin" in q_lower and "pontryagin" in q_lower)
+            or ("vakonomic" in q_lower and ("chetaev" in q_lower or "nonholonomic" in q_lower or "non-holonomic" in q_lower))
+            or ("hamilton-jacobi" in q_lower and "nonholonomic" in q_lower and "multiplier" not in q_lower)
+            or ("1980" in q_lower and "appell" in q_lower)
         )
         if is_known_negative:
             is_feldbaum = is_tsetlin = is_krasovskii = is_stratonovich = is_pontryagin = False
             is_anokhin = is_bernstein = is_samarskii = is_gelfand_tsetlin = False
             is_chetaev = is_zubov = False
+            is_chaplygin = is_appell = is_chetaev_nonholonomic = is_rumyantsev = False
         else:
             is_feldbaum = "feldbaum" in q_lower
             is_tsetlin = "tsetlin" in q_lower and "gelfand" not in q_lower
@@ -750,8 +775,20 @@ class NanoResearchWorker:
             is_anokhin = "anokhin" in q_lower or "acceptor" in q_lower or "afferent" in q_lower
             is_bernstein = ("bernstein" in q_lower and "gelfand" not in q_lower) or "required future" in q_lower or "physiology of activity" in q_lower
             is_samarskii = "samarskii" in q_lower or "difference schemes" in q_lower
-            is_chetaev = "chetaev" in q_lower or "instability theorem" in q_lower
+            is_chetaev = ("chetaev" in q_lower or "instability theorem" in q_lower) and not (
+                "condition" in q_lower
+                or "gauss" in q_lower
+                or "virtual" in q_lower
+                or "appell" in q_lower
+                or "rumyantsev" in q_lower
+                or "manifold" in q_lower
+                or "steady motion" in q_lower
+            )
             is_zubov = "zubov" in q_lower or "domain of attraction" in q_lower or "basin of attraction" in q_lower
+            is_chaplygin = "chaplygin" in q_lower or "sleigh" in q_lower or "reducing multiplier" in q_lower
+            is_appell = ("appell" in q_lower or "acceleration energy" in q_lower or "energy of acceleration" in q_lower) and not ("chetaev" in q_lower)
+            is_chetaev_nonholonomic = (("chetaev" in q_lower and ("condition" in q_lower or "gauss" in q_lower or "virtual" in q_lower or "appell" in q_lower or "nonholonomic" in q_lower or "non-holonomic" in q_lower)) or "appell-chetaev" in q_lower) and not ("rumyantsev" in q_lower)
+            is_rumyantsev = "rumyantsev" in q_lower or ("nonholonomic" in q_lower and "steady motion" in q_lower)
 
         extracted_sources: List[CandidateSource] = []
         source_manifest: List[str] = []
@@ -865,6 +902,42 @@ class NanoResearchWorker:
                                 locator=obj.get("locator", "DAN SSSR 104(2), pp. 176-178"),
                             )
                         )
+                    elif is_chaplygin and fid == "FRAG:CHAPLYGIN_1911_NONHOLONOMIC_MULTIPLIER":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Mat. Sb. 28(2), pp. 305-309"),
+                            )
+                        )
+                    elif is_appell and fid == "FRAG:APPELL_1899_ACCELERATION_EQUATIONS":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "CRAS Paris 129, pp. 459-460"),
+                            )
+                        )
+                    elif is_chetaev_nonholonomic and fid == "FRAG:CHETAEV_1938_VIRTUAL_DISPLACEMENT_CONDITION":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "Izv. Fiz.-Mat. Obshch. Kazan 10(3), pp. 68-70"),
+                            )
+                        )
+                    elif is_rumyantsev and fid == "FRAG:RUMYANTSEV_1966_LYAPUNOV_NONHOLONOMIC":
+                        extracted_fragments.append(
+                            SourceFragment(
+                                fragment_id=fid,
+                                source_id=obj["source_id"],
+                                text=obj.get("normalized_summary", ""),
+                                locator=obj.get("locator", "PMM 30(5), pp. 924-928"),
+                            )
+                        )
 
         if source_file.exists():
             with open(source_file, "r", encoding="utf-8") as f:
@@ -888,6 +961,14 @@ class NanoResearchWorker:
                     elif is_chetaev and sid in ("PUB:CHETAEV_1934_INSTABILITY", "PUB:CHETAEV_1946_STABILITY_MOTION"):
                         match = True
                     elif is_zubov and sid in ("PUB:ZUBOV_1955_DETERMINATION_STABILITY_DOMAIN", "PUB:ZUBOV_1957_METHODS_OF_LYAPUNOV"):
+                        match = True
+                    elif is_chaplygin and sid == "PUB:CHAPLYGIN_1911_NONHOLONOMIC":
+                        match = True
+                    elif is_appell and sid == "PUB:APPELL_1899_ACCELERATION_ENERGY":
+                        match = True
+                    elif is_chetaev_nonholonomic and sid == "PUB:CHETAEV_1938_PRINCIPLE_OF_GAUSS":
+                        match = True
+                    elif is_rumyantsev and sid == "PUB:RUMYANTSEV_1966_NONHOLONOMIC_STABILITY":
                         match = True
                     elif is_anokhin:
                         if ("pavlov" in q_lower or "reflex" in q_lower) and sid == "PUB:ANOKHIN_1968_BIOLOGY_REFLEX":
@@ -1541,7 +1622,251 @@ class NanoResearchWorker:
                 )
             ]
 
-        # 10. Stratonovich / Pontryagin / Unresolved open inquiries
+        # 10. Chaplygin Non-Holonomic Constraints & Sleigh Dynamics
+        elif is_chaplygin and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="PERSON:CHAPLYGIN_SA",
+                    label="S. A. Chaplygin",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:NONHOLONOMIC_CONSTRAINTS",
+                    label="Non-Holonomic Velocity Constraints",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:CHAPLYGIN_SLEIGH",
+                    label="Chaplygin Sleigh Dynamical Model",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="PERSON:CHAPLYGIN_SA",
+                    target_id="CONCEPT:NONHOLONOMIC_CONSTRAINTS",
+                    verb="FORMULATES",
+                    rationale="Chaplygin formulated canonical equations of motion with non-integrable velocity constraints using integrating multipliers.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:CHAPLYGIN_SLEIGH",
+                    target_id="CONCEPT:NONHOLONOMIC_CONSTRAINTS",
+                    verb="EXEMPLIFIES",
+                    rationale="The Chaplygin sleigh demonstrates pure non-holonomic blade-rolling constraints.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:CHAPLYGIN_1911_NONHOLONOMIC_MULTIPLIER",
+                    subject_id="CONCEPT:NONHOLONOMIC_CONSTRAINTS",
+                    predicate="DERIVES_INTEGRATING_MULTIPLIERS_FOR_NONHOLONOMIC_SYSTEMS",
+                    object_val="CYCLIC_COORDINATES_EQUATIONS",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:CHAPLYGIN_SLEIGH_ASYMPTOTICS",
+                    thread_id="T2",
+                    question_text="How do Chaplygin's non-holonomic reducing multipliers govern the asymptotic limit-cycle velocities of planar wheeled vehicles?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 11. Appell Acceleration Energy & Dynamical Equations
+        elif is_appell and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="PERSON:APPELL_P",
+                    label="P. Appell",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:ACCELERATION_ENERGY",
+                    label="Appell Acceleration Energy (Appellian S)",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:APPELLIAN_DYNAMICS",
+                    label="Appellian Dynamical Equations",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="PERSON:APPELL_P",
+                    target_id="CONCEPT:ACCELERATION_ENERGY",
+                    verb="FORMULATES",
+                    rationale="Appell introduced the energy of acceleration S = 0.5 sum m_i r_ddot_i^2.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:APPELLIAN_DYNAMICS",
+                    target_id="CONCEPT:NONHOLONOMIC_CONSTRAINTS",
+                    verb="EXTENDS",
+                    rationale="Appellian dynamics provide universal equations dS/dq_ddot = Q for non-holonomic systems without undetermined multipliers.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:APPELL_1899_ACCELERATION_EQUATIONS",
+                    subject_id="CONCEPT:ACCELERATION_ENERGY",
+                    predicate="YIELDS_UNIVERSAL_DYNAMICS_VIA_ACCELERATION_DERIVATIVES",
+                    object_val="APPELLIAN_EQUATIONS_OF_MOTION",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:APPELL_VS_GIBBS",
+                    thread_id="T2",
+                    question_text="How does Appell's acceleration energy function compare mathematically to Gibbs's formulation of the same principle?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 12. Chetaev Conditions & Appell-Chetaev Equations
+        elif is_chetaev_nonholonomic and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="CONCEPT:CHETAEV_CONDITIONS",
+                    label="Chetaev Virtual Displacement Conditions",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:APPELL_CHETAEV_EQUATIONS",
+                    label="Appell-Chetaev Equations of Motion",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:GAUSS_PRINCIPLE",
+                    label="Gauss Principle of Least Constraint",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="CONCEPT:CHETAEV_CONDITIONS",
+                    target_id="CONCEPT:NONHOLONOMIC_CONSTRAINTS",
+                    verb="CONSTRAIN",
+                    rationale="Chetaev conditions define the admissible virtual displacements sum (df_alpha/dq_dot_i) delta q_i = 0 for non-linear constraints.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:APPELL_CHETAEV_EQUATIONS",
+                    target_id="CONCEPT:ACCELERATION_ENERGY",
+                    verb="SYNTHESIZES",
+                    rationale="Synthesizes Appell acceleration energy with Chetaev virtual displacement constraints.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:CHETAEV_CONDITIONS",
+                    target_id="CONCEPT:GAUSS_PRINCIPLE",
+                    verb="EXTENDS",
+                    rationale="Chetaev proved that Gauss's principle of least constraint rigorously holds under Chetaev conditions.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:CHETAEV_1938_VIRTUAL_DISPLACEMENTS_ORTHOGONAL",
+                    subject_id="CONCEPT:CHETAEV_CONDITIONS",
+                    predicate="ESTABLISHES_VIRTUAL_DISPLACEMENT_ORTHOGONALITY",
+                    object_val="NONLINEAR_NONHOLONOMIC_CONSTRAINTS",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:CHETAEV_VS_VAKONOMIC",
+                    thread_id="T2",
+                    question_text="Why does the Chetaev condition produce non-holonomic equations distinct from vakonomic variational mechanics?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 13. Rumyantsev Non-Holonomic Lyapunov Stability
+        elif is_rumyantsev and extracted_fragments:
+            frag_id = extracted_fragments[0].fragment_id
+            candidate_entities = [
+                CandidateEntity(
+                    entity_id="PERSON:RUMYANTSEV_VV",
+                    label="V. V. Rumyantsev",
+                    category="PERSON",
+                    provenance_fragment_ids=[frag_id],
+                ),
+                CandidateEntity(
+                    entity_id="CONCEPT:NONHOLONOMIC_LYAPUNOV_STABILITY",
+                    label="Non-Holonomic Lyapunov Stability of Steady Motions",
+                    category="CONCEPT",
+                    provenance_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_relations = [
+                CandidateRelation(
+                    source_id="PERSON:RUMYANTSEV_VV",
+                    target_id="CONCEPT:NONHOLONOMIC_LYAPUNOV_STABILITY",
+                    verb="FORMULATES",
+                    rationale="Rumyantsev proved asymptotic stability criteria for steady motion of non-holonomic systems.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:NONHOLONOMIC_LYAPUNOV_STABILITY",
+                    target_id="CONCEPT:CHETAEV_CONDITIONS",
+                    verb="CONSTRAIN",
+                    rationale="Evaluates Lyapunov total derivatives dV/dt restricted strictly to Chetaev constraint manifolds.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+                CandidateRelation(
+                    source_id="CONCEPT:NONHOLONOMIC_LYAPUNOV_STABILITY",
+                    target_id="CONCEPT:LYAPUNOV_STABILITY",
+                    verb="EXTENDS",
+                    rationale="Synthesizes classical Lyapunov second method with non-holonomic mechanics.",
+                    evidence_fragment_ids=[frag_id],
+                ),
+            ]
+            candidate_claims = [
+                CandidateClaim(
+                    claim_id="CLAIM:RUMYANTSEV_1966_STEADY_MOTION_LYAPUNOV",
+                    subject_id="CONCEPT:NONHOLONOMIC_LYAPUNOV_STABILITY",
+                    predicate="SYNTHESIZES_CHETAEV_CONDITIONS_WITH_LYAPUNOV_DIRECT_METHOD",
+                    object_val="STEADY_MOTION_STABILITY_ON_CONSTRAINT_MANIFOLDS",
+                    epistemic_status="HISTORICALLY_SUPPORTED",
+                    evidence_fragment_ids=[frag_id],
+                )
+            ]
+            candidate_questions = [
+                CandidateQuestion(
+                    question_id="RQ:DESC:RUMYANTSEV_AEROSPACE_GYRO",
+                    thread_id="T2",
+                    question_text="How were Rumyantsev's stability theorems applied to gyroscopic attitude stabilization in Soviet aerospace systems?",
+                    target_channel="MATHEMATICAL",
+                    originating_evidence=frag_id,
+                )
+            ]
+
+        # 14. Stratonovich / Pontryagin / Unresolved open inquiries
         else:
             # Inquiry without primary fragments extracted in local cache
             candidate_questions = [

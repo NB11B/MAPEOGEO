@@ -1,14 +1,14 @@
 {
-  "worker_id": "nano-jetson-01",
-  "uow_id": "UOW_GEN_C_011_LYAPUNOV",
-  "sequence_idx": 36,
+  "worker_id": "nano-research-worker-01",
+  "uow_id": "UOW:N3:ADV:HAMILTON_JACOBI_SEPARATION",
+  "sequence_idx": 7,
   "state": "REPORTING",
   "candidate_bundle": {
-    "uow_id": "UOW_GEN_C_011_LYAPUNOV",
+    "uow_id": "UOW:N3:ADV:HAMILTON_JACOBI_SEPARATION",
     "parent_uow_id": null,
-    "worker_id": "nano-jetson-01",
-    "causal_sequence_id": 36,
-    "software_commit": "d99e0562cf412a53b6d7eaf2a4f644a7ab1bcc1a",
+    "worker_id": "nano-research-worker-01",
+    "causal_sequence_id": 7,
+    "software_commit": "acd1d9edb5298d351c6b68af004e0a48cd2bf6c7",
     "source_manifest": [],
     "source_hashes": {},
     "source_fragments": [],
@@ -17,21 +17,21 @@
     "candidate_claims": [],
     "candidate_questions": [
       {
-        "question_id": "RQ:OPEN:UOW_GEN_C_011_LYAPUNOV",
+        "question_id": "RQ:OPEN:UOW:N3:ADV:HAMILTON_JACOBI_SEPARATION",
         "thread_id": "T2",
-        "question_text": "Was A. M. Lyapunov a direct student of P. L. Chebyshev at St. Petersburg University?",
+        "question_text": "Separation of variables in Hamilton-Jacobi equation for nonholonomic constraints without multipliers",
         "target_channel": "MATHEMATICAL",
         "originating_evidence": "Open Corpus Query"
       }
     ],
     "observer_state": {
-      "speed_max_angle": 0.0,
+      "speed_max_angle": 2.580956827951785e-08,
       "speed_projector": 0.0,
       "kappa_g": 0.0,
       "residual_norm": 0.0,
-      "spectral_gap": 0.0026168974772785617,
-      "relative_gap": 0.3267817028106044,
-      "davis_kahan_ratio": 3.060146854227961,
+      "spectral_gap": 0.007987372130887975,
+      "relative_gap": 0.2392255136106897,
+      "davis_kahan_ratio": 4.180156141695775,
       "identifiability": "NON_IDENTIFIABLE",
       "regime": "IDENTIFIABILITY_DEGRADED",
       "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
@@ -39,56 +39,56 @@
       "shadow_mode": true
     },
     "resource_state": {
-      "ram_available_mb": 11496.79,
-      "worker_rss_mb": 107.0,
+      "ram_available_mb": 11609.43,
+      "worker_rss_mb": 66.58,
       "thermal_max_c": 45.0,
       "backpressure_flag": false
     },
-    "evidence_hash": "9935e0420bdb236d978a634959a3730f2a06d907562576a061b61833b6000b5f",
-    "execution_hash": "840952eac948d30609b420d20151402dd0c2064160ee523df680015605c6813b",
-    "candidate_bundle_hash": "840952eac948d30609b420d20151402dd0c2064160ee523df680015605c6813b",
+    "evidence_hash": "b4da829d41b1ca735c2c2d850c9f07427ba5deb757da189c9ffe9fe4a6ffac5d",
+    "execution_hash": "7c605a96147b6e9dc04c9a5c3906982dbc998a7c0b53e87647b6aca049bea6d0",
+    "candidate_bundle_hash": "7c605a96147b6e9dc04c9a5c3906982dbc998a7c0b53e87647b6aca049bea6d0",
     "sources": [],
     "sequence_idx": null,
     "relations": [],
     "questions": [
       {
-        "question_id": "RQ:OPEN:UOW_GEN_C_011_LYAPUNOV",
+        "question_id": "RQ:OPEN:UOW:N3:ADV:HAMILTON_JACOBI_SEPARATION",
         "thread_id": "T2",
-        "question_text": "Was A. M. Lyapunov a direct student of P. L. Chebyshev at St. Petersburg University?",
+        "question_text": "Separation of variables in Hamilton-Jacobi equation for nonholonomic constraints without multipliers",
         "target_channel": "MATHEMATICAL",
         "originating_evidence": "Open Corpus Query"
       }
     ]
   },
   "geometric_observation": {
-    "epoch_idx": 36,
-    "step_idx": 36,
-    "speed_max_angle": 0.0,
+    "epoch_idx": 7,
+    "step_idx": 7,
+    "speed_max_angle": 2.580956827951785e-08,
     "speed_projector": 0.0,
     "kappa_g": 0.0,
     "residual_norm": 0.0,
-    "spectral_gap": 0.0026168974772785617,
-    "relative_gap": 0.3267817028106044,
-    "davis_kahan_ratio": 3.060146854227961,
+    "spectral_gap": 0.007987372130887975,
+    "relative_gap": 0.2392255136106897,
+    "davis_kahan_ratio": 4.180156141695775,
     "identifiability": "NON_IDENTIFIABLE",
     "regime": "IDENTIFIABILITY_DEGRADED",
     "eigenvalues": [
-      0.008008090582931067,
-      0.0026438195850907787,
-      2.6922107812217145e-05,
-      6.184563804659169e-11,
-      4.515855364633714e-19,
-      2.317100488280732e-19,
-      1.1663044266830986e-19,
-      1.0168217741157936e-19
+      0.033388462668941,
+      0.00811507264480566,
+      0.00012770051391768352,
+      1.9554553270613035e-18,
+      3.032464879559674e-20,
+      7.730266892489939e-37,
+      3.350969289769387e-37,
+      6.439515876595963e-51
     ],
     "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
     "recommended_action": "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION",
     "shadow_mode": true
   },
-  "ram_available_mb": 11496.79,
-  "worker_rss_mb": 107.0,
+  "ram_available_mb": 11609.43,
+  "worker_rss_mb": 66.58,
   "thermal_max_c": 45.0,
   "backpressure_flag": false,
-  "causal_sequence_id": 36
+  "causal_sequence_id": 7
 }
