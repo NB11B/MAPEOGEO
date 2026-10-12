@@ -1,0 +1,82 @@
+{
+  "campaign_id": "UQ-N3.2-BLIND-FALSIFICATION-v1.0",
+  "timestamp": "2026-10-12T07:41:14.093326+00:00",
+  "commit": "b00f2ff3eb2c3860ef0cead1acfccfbf01e62551",
+  "axiom": "HIGH_FALSIFICATION_PRECISION + HIGH_STRUCTURE_PRESERVATION",
+  "verdict": "QUALIFIED_PASS",
+  "metrics": {
+    "path_disposition_accuracy_pct": 100.0,
+    "false_lineage_promotion_rate_pct": 0.0,
+    "incorrect_refutation_rate_pct": 0.0,
+    "relation_retyping_accuracy_pct": 100.0,
+    "mean_discriminating_uows": 1.33,
+    "total_trials_evaluated": 9,
+    "total_duration_ms": 264.85,
+    "peak_rss_mb": 65.26
+  },
+  "trials": [
+    {
+      "trial_id": "TRIAL:01",
+      "claims_extracted": 1,
+      "duration_ms": 121.03,
+      "rss_mb": 64.79,
+      "expected_claims": true
+    },
+    {
+      "trial_id": "TRIAL:02",
+      "claims_extracted": 1,
+      "duration_ms": 11.22,
+      "rss_mb": 65.22,
+      "expected_claims": true
+    },
+    {
+      "trial_id": "TRIAL:03",
+      "claims_extracted": 1,
+      "duration_ms": 10.91,
+      "rss_mb": 65.25,
+      "expected_claims": true
+    },
+    {
+      "trial_id": "TRIAL:04",
+      "claims_extracted": 1,
+      "duration_ms": 10.34,
+      "rss_mb": 65.25,
+      "expected_claims": true
+    },
+    {
+      "trial_id": "TRIAL:05",
+      "claims_extracted": 1,
+      "duration_ms": 10.31,
+      "rss_mb": 65.25,
+      "expected_claims": false
+    },
+    {
+      "trial_id": "TRIAL:06",
+      "claims_extracted": 1,
+      "duration_ms": 10.2,
+      "rss_mb": 65.25,
+      "expected_claims": true
+    },
+    {
+      "trial_id": "TRIAL:07",
+      "claims_extracted": 1,
+      "duration_ms": 10.38,
+      "rss_mb": 65.25,
+      "expected_claims": true
+    },
+    {
+      "trial_id": "TRIAL:08",
+      "claims_extracted": 0,
+      "duration_ms": 10.13,
+      "rss_mb": 65.26,
+      "expected_claims": false
+    },
+    {
+      "trial_id": "TRIAL:09",
+      "claims_extracted": 0,
+      "duration_ms": 11.07,
+      "rss_mb": 65.26,
+      "expected_claims": false
+    }
+  ]
+}
