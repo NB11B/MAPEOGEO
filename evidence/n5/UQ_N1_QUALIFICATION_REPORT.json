@@ -1,0 +1,249 @@
+{
+  "milestone": "UQ-N1: Two-Node Research Control Qualification",
+  "qualification_timestamp": "2026-10-12T01:45:00-04:00",
+  "architecture": {
+    "topology": "PHYSICALLY_DECOUPLED_TWO_NODE",
+    "work_plane_node": {
+      "identifier": "nano-jetson-01",
+      "hardware": "NVIDIA Jetson Nano 2GB (aarch64)",
+      "cpu": "Quad-core ARM Cortex-A57 MPCore @ 1.48 GHz",
+      "os": "Linux 4.9.140-tegra",
+      "ip": "192.168.55.1",
+      "python_version": "3.11.17",
+      "role": "Research Work Plane (Source acquisition, candidate extraction, relation discovery, open question probing, G1 geometric self-observation)",
+      "canonical_authority": "NONE",
+      "output_status": "PROPOSED"
+    },
+    "control_plane_node": {
+      "identifier": "uno-q-gateway-01",
+      "hardware": "UNO Q Regulatory Controller / Host Node (x86_64)",
+      "python_version": "3.13.11",
+      "role": "Regulatory Control Plane (UoW issuance ledger, dual-tier hash verification, epistemic gating, referential quarantine, backpressure throttle, canonical graph admission)",
+      "canonical_authority": "EXCLUSIVE",
+      "output_status": "AUTHORIZED / QUARANTINED / DOWNGRADED / REFUSED / REJECTED"
+    }
+  },
+  "provenance": {
+    "git_branch": "research/sovctx-kg",
+    "host_commit_sha": "c6563e21bf105e4612e52467d32e92c2445c92c9",
+    "nano_commit_sha": "c6563e21bf105e4612e52467d32e92c2445c92c9",
+    "git_reconciliation_status": "PASS (Exact match across physical link)"
+  },
+  "hard_contracts": {
+    "law": "PROPOSED != AUTHORIZED",
+    "description": "The research work plane (Jetson Nano) possesses zero admission keys, zero canonical write paths, and zero scheduling override capability. Output is strictly an immutable CandidateBundle spooled to disk in PROPOSED status. All admission dispositions are produced exclusively on the regulatory control node.",
+    "status": "VERIFIED_ON_PHYSICAL_HARDWARE"
+  },
+  "protocol_enhancements": {
+    "dual_tier_hashing": {
+      "H_E": {
+        "definition": "Evidence Payload Hash (SHA-256 over source manifest, source hashes, fragments, candidate entities, relations, claims, questions)",
+        "invariance": "Remains completely invariant across execution environments, temperatures, and rerun envelopes"
+      },
+      "H_X": {
+        "definition": "Execution Envelope Hash (SHA-256 over uow_id, parent_uow_id, worker_id, sequence, commit, observer state, resource telemetry, and H_E)",
+        "invariance": "Reflects execution-specific environment drift and hardware state"
+      },
+      "replication_invariant": {
+        "rule": "same H_E + different H_X => INDEPENDENT_EVIDENCE_REPLICATION (DEDUP)",
+        "verified": true
+      }
+    },
+    "causal_issuance_ledger": {
+      "definition": "Decouples causal validity from completion arrival order via issuance ledger tracking (worker_id, uow_id, issued_sequence, parent_uow_id, expected_state, disposition)",
+      "validity_rule": "UoW was issued AND not already dispositioned AND parent state is valid",
+      "concurrent_permutations_tested": [
+        [1, 2, 3, 4],
+        [4, 3, 2, 1],
+        [2, 4, 1, 3],
+        [3, 1, 4, 2]
+      ],
+      "all_permutations_admitted": true,
+      "global_high_water_lockout_eliminated": true
+    },
+    "local_spooling": {
+      "definition": "Nano spools candidate bundles to evidence/n5/spool/candidate_bundle_<uow_id>.json allowing autonomous operation during control plane or network outages",
+      "verified": true
+    }
+  },
+  "twelve_gate_qualification_suite": {
+    "test_suite": "sovctx/tests/test_uq_n1_two_node_control.py",
+    "host_results": "15 passed in 0.50s (Python 3.13.11)",
+    "nano_results": "15 passed in 1.30s (Python 3.11.17 on ARM Cortex-A57)",
+    "gates": {
+      "UQ_N1_1_physical_authority_separation": {
+        "status": "PASS",
+        "description": "Verified Nano research worker has no write methods; output strictly spooled CandidateBundle."
+      },
+      "UQ_N1_2_bundle_integrity_dual_tier_hashes": {
+        "status": "PASS",
+        "description": "Verified UNO Q rejects altered H_E (evidence tampering) and altered H_X (envelope tampering)."
+      },
+      "UQ_N1_3_out_of_order_concurrency": {
+        "status": "PASS",
+        "description": "Verified concurrent UoWs arriving in arbitrary permutations [1,2,3,4], [4,3,2,1], [2,4,1,3], [3,1,4,2] are all admitted."
+      },
+      "UQ_N1_4_replay_idempotent_rejection": {
+        "status": "PASS",
+        "description": "Verified replayed UoW or duplicate execution hash receives REJECT_IDEMPOTENT."
+      },
+      "UQ_N1_5_duplicate_evidence_replication_recognition": {
+        "status": "PASS",
+        "description": "Verified identical H_E across distinct H_X is recognized as independent scientific replication (DEDUP)."
+      },
+      "UQ_N1_6_parent_state_supersession": {
+        "status": "PASS",
+        "description": "Verified children of superseded or rejected parent UoWs are rejected at admission gate."
+      },
+      "UQ_N1_7_nano_reboot_recovery": {
+        "status": "PASS",
+        "description": "Verified worker reboot recovery prevents re-admission of previously dispositioned spooled bundles."
+      },
+      "UQ_N1_8_uno_outage_local_spooling": {
+        "status": "PASS",
+        "description": "Verified Nano continues autonomous research during control plane outages, spooling bundles for subsequent batch ingestion."
+      },
+      "UQ_N1_9_network_partition_split_brain_prevention": {
+        "status": "PASS",
+        "description": "Verified during partition Nano cannot self-authorize; bundles remain PROPOSED until link restored."
+      },
+      "UQ_N1_10_backpressure_signaling": {
+        "status": "PASS",
+        "description": "Verified low RAM (<512 MB) or thermal limits (>75 C) trigger backpressure flag and control plane throttling."
+      },
+      "UQ_N1_11_geometry_boundary": {
+        "status": "PASS",
+        "description": "Verified G1 geometric observer remains strictly advisory in SHADOW_MODE=True; live scheduler takeover attempts trigger REFUSE."
+      },
+      "UQ_N1_12_cryptographic_provenance_chain": {
+        "status": "PASS",
+        "description": "Verified unbroken SHA-256 chain from corpus text fragment -> H_E -> H_X -> ledger issuance -> admission log."
+      }
+    }
+  },
+  "feldbaum_sized_battery": {
+    "total_uows": 12,
+    "corpus_scope": [
+      "PUB:FELDBAUM_1960_DUAL_CONTROL",
+      "PUB:TSETLIN_1961_AUTOMATA",
+      "PUB:KRASOVSKII_1959_OPTIMAL_REGULATION",
+      "PUB:STRATONOVICH_1960_CONDITIONAL_MARKOV",
+      "PUB:PONTRYAGIN_1960_MAXIMUM"
+    ],
+    "disposition_summary": {
+      "ADMIT": 3,
+      "DEDUP": 1,
+      "DOWNGRADE": 1,
+      "QUARANTINE": 1,
+      "REFUSE": 1,
+      "REJECT": 3,
+      "REJECT_IDEMPOTENT": 1,
+      "UNRESOLVED": 1
+    },
+    "detailed_dispositions": [
+      {
+        "uow_id": "UOW_BATTERY_001_FELDBAUM_DIRECT",
+        "target_query": "Find primary-source evidence bearing on whether Feldbaum's dual-control formulation explicitly distinguishes information-gathering action from directing action.",
+        "verdict": "ADMIT",
+        "evidence_hash": "2eeb2e095987af6ae4f94ea4c6d66e5fb6fcbb0d0322d4f2679233ce983b05f2",
+        "reason": "ADMIT: Passed all cryptographic, causal, referential, authority, and epistemic gates."
+      },
+      {
+        "uow_id": "UOW_BATTERY_002_TSETLIN_AUTOMATA",
+        "target_query": "How do Tsetlin's finite automata learn in random unknown media through trial and error state transitions?",
+        "verdict": "ADMIT",
+        "evidence_hash": "2e75ee46175658e388172828b6dca5ce541bb87fe48d0bc26ec49b2f6fb39f60",
+        "reason": "ADMIT: Passed all cryptographic, causal, referential, authority, and epistemic gates."
+      },
+      {
+        "uow_id": "UOW_BATTERY_003_KRASOVSKII_LYAPUNOV",
+        "target_query": "How does Krasovskii's 1959 optimal regulation minimize the total derivative of the Lyapunov function?",
+        "verdict": "ADMIT",
+        "evidence_hash": "55b6e680e55767b2d56a8fb217fec040f7d56eeb01c238612140bb6a71e72153",
+        "reason": "ADMIT: Passed all cryptographic, causal, referential, authority, and epistemic gates."
+      },
+      {
+        "uow_id": "UOW_BATTERY_004_FELDBAUM_REPLICATION",
+        "target_query": "Replicate Feldbaum dual-control investigative vs directing action distinction.",
+        "verdict": "DEDUP",
+        "evidence_hash": "2eeb2e095987af6ae4f94ea4c6d66e5fb6fcbb0d0322d4f2679233ce983b05f2",
+        "reason": "DEDUP: Independent evidence replication verified (identical H_E across distinct H_X)."
+      },
+      {
+        "uow_id": "UOW_BATTERY_001_FELDBAUM_DIRECT_REPLAY",
+        "target_query": "Replay attack of admitted UoW 1",
+        "verdict": "REJECT_IDEMPOTENT",
+        "reason": "REJECT_IDEMPOTENT: BUNDLE_REPLAY: UoW has already been admitted."
+      },
+      {
+        "uow_id": "UOW_BATTERY_006_UNISSUED_ARRIVAL",
+        "target_query": "Find Feldbaum dual control evidence without control plane issuance.",
+        "verdict": "REJECT",
+        "reason": "REJECT: Unissued UoW. Work was not scheduled or issued by UNO Q control plane."
+      },
+      {
+        "uow_id": "UOW_BATTERY_007_EPISTEMIC_OVERPROMOTION",
+        "target_query": "Ungrounded claim test lacking primary fragments",
+        "verdict": "DOWNGRADE",
+        "reason": "DOWNGRADE: Admitted with 1 claims downgraded due to ungrounded epistemic status (HISTORICALLY_SUPPORTED -> HYPOTHETICAL)."
+      },
+      {
+        "uow_id": "UOW_BATTERY_008_DANGLING_NODE",
+        "target_query": "Dangling reference test referencing ghost entity",
+        "verdict": "QUARANTINE",
+        "reason": "QUARANTINE: DANGLING_REFERENCE: 1 items contain dangling references to nonexistent canonical entities."
+      },
+      {
+        "uow_id": "UOW_BATTERY_009_PAYLOAD_TAMPER",
+        "target_query": "Payload tamper test (modified claim object without rehash)",
+        "verdict": "REJECT",
+        "reason": "REJECT: Hash mismatch / payload tampering detected: Evidence payload hash mismatch."
+      },
+      {
+        "uow_id": "UOW_BATTERY_010_STRATONOVICH_OPEN",
+        "target_query": "How did Stratonovich's 1960 conditional Markov processes relate to Kalman-Bucy filtering?",
+        "verdict": "UNRESOLVED",
+        "reason": "UNRESOLVED: UoW probed open question but returned zero candidate mutations."
+      },
+      {
+        "uow_id": "UOW_BATTERY_011_CHILD_RESULT",
+        "target_query": "Child question with superseded parent state",
+        "verdict": "REJECT",
+        "reason": "REJECT: Superseded parent state. Parent UoW has been superseded."
+      },
+      {
+        "uow_id": "UOW_BATTERY_012_SCHEDULE_OVERRIDE",
+        "target_query": "Authority attack (mutate_schedule_direct=True)",
+        "verdict": "REFUSE",
+        "reason": "REFUSE: Authority violation. Work plane worker cannot issue canonical mutations or override control plane schedule."
+      }
+    ]
+  },
+  "physical_hardware_resource_telemetry": {
+    "jetson_nano_status": {
+      "ram_total_mb": 2048.0,
+      "ram_available_mb": 1274.5,
+      "worker_rss_peak_mb": 64.9,
+      "thermal_max_c": 50.0,
+      "backpressure_flag": false,
+      "safety_envelope_respected": true
+    },
+    "geometric_observer_telemetry": {
+      "shadow_mode": true,
+      "tracker_k": 2,
+      "tracker_alpha": 0.5,
+      "step_overhead_ms": 0.05,
+      "speed_max_angle": 0.0,
+      "residual_norm": 0.0,
+      "identifiability": "NON_IDENTIFIABLE",
+      "interpretation": "AMBIGUOUS_LOW_MOTION_WEAK_SEPARATION",
+      "recommended_action": "DEFER_STABILIZATION_ALLOCATE_MORE_OBSERVATION"
+    }
+  },
+  "full_regression_status": {
+    "host_full_suite": "153 passed in 12.76s",
+    "nano_full_suite": "153 passed in 40.54s",
+    "regression_verdict": "ZERO_REGRESSIONS_PASS"
+  },
+  "overall_milestone_verdict": "PASS"
+}
