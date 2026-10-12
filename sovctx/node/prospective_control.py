@@ -76,6 +76,26 @@ class HypothesisStatus(str, Enum):
     AMBIGUOUS = "AMBIGUOUS"
 
 
+class EpistemicEvidenceTier(str, Enum):
+    """Categorical tiers of epistemic evidence quality and Bayesian weight."""
+    PRIMARY_EXPLICIT = "PRIMARY_EXPLICIT"          # Direct primary quote / formula (strength = 0.90)
+    PRIMARY_IMPLICIT = "PRIMARY_IMPLICIT"          # Primary source implicit context (strength = 0.70)
+    SECONDARY_CORROBORATED = "SECONDARY_CORROBORATED"  # Peer-reviewed secondary history (strength = 0.60)
+    STRUCTURAL_MATCH = "STRUCTURAL_MATCH"          # Structural/mathematical isomorphism without citation (strength = 0.35)
+    ORAL_PROVENANCE = "ORAL_PROVENANCE"            # Memoir / oral interview recollection (strength = 0.20)
+    CONTRADICTORY_PRIMARY = "CONTRADICTORY_PRIMARY" # Direct primary document disproving claim (refutation strength = 0.90)
+
+
+EVIDENCE_TIER_LIKELIHOODS: Dict[EpistemicEvidenceTier, float] = {
+    EpistemicEvidenceTier.PRIMARY_EXPLICIT: 0.90,
+    EpistemicEvidenceTier.PRIMARY_IMPLICIT: 0.70,
+    EpistemicEvidenceTier.SECONDARY_CORROBORATED: 0.60,
+    EpistemicEvidenceTier.STRUCTURAL_MATCH: 0.35,
+    EpistemicEvidenceTier.ORAL_PROVENANCE: 0.20,
+    EpistemicEvidenceTier.CONTRADICTORY_PRIMARY: 0.90,
+}
+
+
 @dataclass
 class ResearchHypothesis:
     """A historical or architectural claim under active scientific discrimination."""
@@ -115,6 +135,7 @@ class BenchmarkQuestion:
     ground_truth_fragments: List[str] = field(default_factory=list)
     expected_relations: List[Tuple[str, str, str]] = field(default_factory=list)
     discriminative_weight: float = 1.0  # Weight in EIG evaluation
+    evidence_tier: EpistemicEvidenceTier = EpistemicEvidenceTier.PRIMARY_EXPLICIT
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -126,6 +147,7 @@ class BenchmarkQuestion:
             "ground_truth_verdict": self.ground_truth_verdict,
             "ground_truth_fragments": self.ground_truth_fragments,
             "discriminative_weight": self.discriminative_weight,
+            "evidence_tier": self.evidence_tier.value,
         }
 
 
@@ -189,7 +211,8 @@ class HypothesisBeliefSpace:
         self,
         hypothesis_id: str,
         evidence_direction: str,  # "SUPPORT" | "REFUTE" | "AMBIGUOUS"
-        evidence_strength: float = 0.90,
+        evidence_strength: Optional[float] = None,
+        evidence_tier: Optional[EpistemicEvidenceTier] = None,
         fragment_id: str = "",
     ) -> float:
         """Bayesian update on hypothesis belief given verified evidence."""
@@ -197,18 +220,29 @@ class HypothesisBeliefSpace:
         if not hyp:
             return 0.0
 
+        if evidence_tier is not None:
+            if evidence_tier == EpistemicEvidenceTier.CONTRADICTORY_PRIMARY:
+                evidence_direction = "REFUTE"
+                strength = EVIDENCE_TIER_LIKELIHOODS[evidence_tier]
+            else:
+                strength = EVIDENCE_TIER_LIKELIHOODS.get(evidence_tier, 0.90)
+        elif evidence_strength is not None:
+            strength = evidence_strength
+        else:
+            strength = 0.90
+
         prior_p = hyp.current_probability
         if evidence_direction == "SUPPORT":
             # Likelihood p(E | H) = strength, p(E | ~H) = 1 - strength
-            num = prior_p * evidence_strength
-            denom = num + (1.0 - prior_p) * (1.0 - evidence_strength)
+            num = prior_p * strength
+            denom = num + (1.0 - prior_p) * (1.0 - strength)
             new_p = num / max(1e-6, denom)
             if fragment_id and fragment_id not in hyp.supporting_fragments:
                 hyp.supporting_fragments.append(fragment_id)
         elif evidence_direction == "REFUTE":
             # Likelihood p(~E | H) = 1 - strength, p(~E | ~H) = strength
-            num = prior_p * (1.0 - evidence_strength)
-            denom = num + (1.0 - prior_p) * evidence_strength
+            num = prior_p * (1.0 - strength)
+            denom = num + (1.0 - prior_p) * strength
             new_p = num / max(1e-6, denom)
             if fragment_id and fragment_id not in hyp.refuting_fragments:
                 hyp.refuting_fragments.append(fragment_id)

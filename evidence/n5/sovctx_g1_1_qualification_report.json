@@ -15,15 +15,15 @@
     },
     "G1.1-D_identifiability": {
       "status": "PASS",
-      "late_gamma_2": 0.020017796051558383,
-      "late_relative_gap": 5.559008885277914e-08,
-      "late_davis_kahan_ratio": 248.4064185281686,
+      "late_gamma_2": 0.020017796051551833,
+      "late_relative_gap": 5.559008885276094e-08,
+      "late_davis_kahan_ratio": 248.40641852824996,
       "late_identifiability": "NON_IDENTIFIABLE",
       "scientific_finding": "Subspace motion declines (Omega -> 0) while rank-2 spectral separation weakens (gamma_2 -> 0.02), signaling diffusion/de-specialization into broader representation space."
     },
     "G1.1-E_coherence": {
       "status": "PASS",
-      "empirical_spectrum_tail": 0.0004878039900492215,
+      "empirical_spectrum_tail": 0.000487803945318439,
       "synthetic_controls": {
         "rank_1_coherence": 0.9999999999986435,
         "rank_3_coherence": 0.9526759527251768,
@@ -58,9 +58,9 @@
       "max_events": {
         "k_1": "Ep 02 -> 03",
         "k_2": "Ep 02 -> 03",
-        "k_3": "Ep 03 -> 04",
+        "k_3": "Ep 02 -> 03",
         "k_4": "Ep 02 -> 03",
-        "k_6": "Ep 06 -> 07"
+        "k_6": "Ep 11 -> 12"
       }
     },
     "G1.1-I_memory_robustness": {
@@ -87,37 +87,37 @@
         {
           "configuration": "Exact Batch k=2",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5568229603392756
+          "max_speed": 1.5614224225485847
         },
         {
           "configuration": "Oja Decaying eta (eta_0=0.1)",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5568229603392756
+          "max_speed": 1.5614224225485847
         },
         {
           "configuration": "Oja Constant eta=0.1",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5568229603392756
+          "max_speed": 1.5614224225485847
         },
         {
           "configuration": "Oja Constant eta=0.05",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5568229603392756
+          "max_speed": 1.5614224225485847
         },
         {
           "configuration": "Recursive cov alpha=0.2",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5568229603392205
+          "max_speed": 1.5614224225487507
         },
         {
           "configuration": "Recursive cov alpha=0.5",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5568229603392756
+          "max_speed": 1.5614224225485847
         },
         {
           "configuration": "Recursive cov alpha=0.8",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.556822960339296
+          "max_speed": 1.5614224225486564
         },
         {
           "configuration": "Recursive cov alpha=1.0",
@@ -132,21 +132,21 @@
         {
           "configuration": "Subspace rank k=2",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5568229603392756
+          "max_speed": 1.5614224225485847
         },
         {
           "configuration": "Subspace rank k=3",
-          "max_event": "Ep 03 -> 04",
-          "max_speed": 1.5691796294806841
+          "max_event": "Ep 02 -> 03",
+          "max_speed": 1.569569987531988
         },
         {
           "configuration": "Subspace rank k=4",
           "max_event": "Ep 02 -> 03",
-          "max_speed": 1.5691071715587401
+          "max_speed": 1.5631186112942421
         },
         {
           "configuration": "Subspace rank k=6",
-          "max_event": "Ep 06 -> 07",
+          "max_event": "Ep 11 -> 12",
           "max_speed": 1.5707963267948966
         }
       ]
@@ -160,25 +160,25 @@
       "speed_max_angle": 0.0,
       "speed_projector": 0.0,
       "residual_norm": 0.0,
-      "spectral_gap": 1.3155218628370048e-14,
-      "instability_ratio": 999986844.954429,
+      "spectral_gap": 2.5577322149390483e-14,
+      "instability_ratio": 999974423.3320333,
       "regime": "STABLE_REGIME",
       "eigenvalues": [
-        356530.01555555593,
-        1.628894596348864e-14,
-        3.1337273351185913e-15,
-        2.4038353929104126e-16,
-        7.405947638216364e-19,
-        1.81912142413324e-21,
-        1.307985672596484e-30,
-        5.597966851790022e-32
+        356530.01555555605,
+        2.5747071185759932e-14,
+        1.6974903636945057e-16,
+        8.391362715395295e-18,
+        2.621469710936325e-19,
+        6.081074509451909e-20,
+        2.155052146528791e-20,
+        1.186891224195402e-32
       ],
       "principal_angles": [
         0.0,
         0.0
       ],
       "residual_fraction": 0.0,
-      "relative_gap": 3.6897927395737457e-20,
+      "relative_gap": 7.173960405419194e-20,
       "davis_kahan_ratio": 0.0,
       "identifiability": "IDENTIFIABLE",
       "is_subspace_identifiable": true,
@@ -190,342 +190,342 @@
     {
       "t": 1,
       "step_label": "Ep 02 -> 03",
-      "coherence": 0.9999999999999999,
-      "speed_max_angle": 1.5568229603392756,
-      "speed_projector": 1.4140754985061683,
+      "coherence": 1.0,
+      "speed_max_angle": 1.5614224225485847,
+      "speed_projector": 1.414151429298056,
       "residual_norm": 0.0,
-      "spectral_gap": 5.405144811365086,
-      "instability_ratio": 0.18500891922679827,
+      "spectral_gap": 5.405144811402097,
+      "instability_ratio": 0.18500891922553148,
       "regime": "REGIME_REORIENTATION",
       "eigenvalues": [
-        358309.8526329663,
-        5.405144811402107,
-        3.702126241542291e-11,
-        9.555380887018846e-18,
-        4.480962586755094e-18,
-        4.736835093197912e-19,
-        3.856638374010068e-20,
-        3.2509099403122256e-32
+        358309.85263296636,
+        5.405144811402098,
+        1.5946824061814987e-15,
+        1.0349938998702291e-16,
+        3.3811132696151245e-17,
+        2.837742070179798e-17,
+        3.861426881623572e-18,
+        3.804353157820755e-18
       ],
       "principal_angles": [
         0.0,
-        1.5568229603392756
+        1.5614224225485847
       ],
       "residual_fraction": 0.0,
-      "relative_gap": 1.5085113545291849e-05,
-      "davis_kahan_ratio": 471.0230480994974,
+      "relative_gap": 1.5085113545395138e-05,
+      "davis_kahan_ratio": 471.0230480962721,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
       "kappa_g": 0.0,
-      "curvature_max_angle": 1.5568229603392756,
-      "curvature_projector": 1.4140754985061683,
-      "stability_ratio": 471.0230480994974
+      "curvature_max_angle": 1.5614224225485847,
+      "curvature_projector": 1.414151429298056,
+      "stability_ratio": 471.0230480962721
     },
     {
       "t": 2,
       "step_label": "Ep 03 -> 04",
       "coherence": 0.9999997686264186,
-      "speed_max_angle": 0.10007379243818904,
+      "speed_max_angle": 0.10007379243819015,
       "speed_projector": 0.1412896083257229,
-      "residual_norm": 0.2366362156564231,
-      "spectral_gap": 3.8781701675506723,
-      "instability_ratio": 0.25785356406207266,
+      "residual_norm": 0.23663621627137188,
+      "spectral_gap": 3.878170167550679,
+      "instability_ratio": 0.2578535640620722,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
         359203.58449641,
-        3.9612813230790382,
-        0.08311115552836588,
-        8.762303961829858e-15,
-        5.15527537161305e-15,
-        4.08325596329835e-16,
-        7.459529266194696e-18,
-        3.6865361396218865e-18
+        3.961281323079045,
+        0.08311115552836587,
+        8.405025973535458e-15,
+        6.17357131420243e-15,
+        7.616350511914762e-16,
+        1.1121302648598324e-17,
+        2.005674374050353e-18
       ],
       "principal_angles": [
         0.0,
-        0.10007379243818904
+        0.10007379243819015
       ],
-      "residual_fraction": 0.0003943389272681457,
-      "relative_gap": 1.0796579808599968e-05,
-      "davis_kahan_ratio": 328.2405090921194,
+      "residual_fraction": 0.00039433892829291806,
+      "relative_gap": 1.0796579808599986e-05,
+      "davis_kahan_ratio": 328.24050909211894,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 1.005093243487977,
-      "curvature_max_angle": 0.10007379243818904,
+      "kappa_g": 1.0050768625493938,
+      "curvature_max_angle": 0.10007379243819015,
       "curvature_projector": 0.1412896083257229,
-      "stability_ratio": 328.2405090921194
+      "stability_ratio": 328.24050909211894
     },
     {
       "t": 3,
       "step_label": "Ep 04 -> 05",
       "coherence": 0.9999998511205068,
-      "speed_max_angle": 0.029765901046871684,
-      "speed_projector": 0.04208912509124394,
+      "speed_max_angle": 0.029765901046867955,
+      "speed_projector": 0.04208912509124376,
       "residual_norm": 0.10128786679526466,
-      "spectral_gap": 2.2493044348339457,
-      "instability_ratio": 0.44458188232276474,
+      "spectral_gap": 2.2493044348339413,
+      "instability_ratio": 0.44458188232276563,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        359651.45804985403,
-        2.302849512479347,
-        0.05354507764540156,
-        7.140282462975484e-15,
-        1.4764705379449684e-15,
-        3.6046995176632566e-16,
-        2.625080167017938e-18,
-        8.695121201723355e-35
+        359651.458049854,
+        2.3028495124793427,
+        0.053545077645401534,
+        6.2532992672777335e-15,
+        2.6038447376786774e-15,
+        2.6781725533355793e-16,
+        3.0061508253973108e-18,
+        5.640705439445292e-19
       ],
       "principal_angles": [
         0.0,
-        0.029765901046871684
+        0.029765901046867955
       ],
       "residual_fraction": 0.00016878966994348716,
-      "relative_gap": 6.254122941779239e-06,
-      "davis_kahan_ratio": 282.9702663696298,
+      "relative_gap": 6.254122941779228e-06,
+      "davis_kahan_ratio": 282.9702663696305,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.07010114111371414,
-      "curvature_max_angle": 0.029765901046871684,
-      "curvature_projector": 0.04208912509124394,
-      "stability_ratio": 282.9702663696298
+      "kappa_g": 0.0701011411137143,
+      "curvature_max_angle": 0.029765901046867955,
+      "curvature_projector": 0.04208912509124376,
+      "stability_ratio": 282.9702663696305
     },
     {
       "t": 4,
       "step_label": "Ep 05 -> 06",
       "coherence": 0.9999999189624584,
-      "speed_max_angle": 0.011963774263226225,
-      "speed_projector": 0.016918928207123145,
-      "residual_norm": 0.04720861150470357,
-      "spectral_gap": 1.203262997487505,
-      "instability_ratio": 0.8310735070030362,
+      "speed_max_angle": 0.011963774263207666,
+      "speed_projector": 0.016918928207123284,
+      "residual_norm": 0.04720860842223297,
+      "spectral_gap": 1.2032629974875104,
+      "instability_ratio": 0.8310735070030325,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        359875.6456321448,
-        1.2324265372882948,
-        0.02916353980078969,
-        6.541995914596633e-15,
-        1.4774882643530557e-16,
-        5.4138015038510793e-17,
-        5.300719143311761e-18,
-        6.743987283198398e-21
+        359875.64563214465,
+        1.2324265372883,
+        0.029163539800789676,
+        2.4691217675987956e-15,
+        4.057030712861152e-16,
+        1.6635978673723836e-18,
+        1.6154055335393939e-18,
+        9.816375667932169e-19
       ],
       "principal_angles": [
         0.0,
-        0.011963774263226225
+        0.011963774263207666
       ],
-      "residual_fraction": 7.867009353129902e-05,
-      "relative_gap": 3.343552174457085e-06,
-      "davis_kahan_ratio": 264.4834406112288,
+      "residual_fraction": 7.86700883945614e-05,
+      "relative_gap": 3.3435521744571013e-06,
+      "davis_kahan_ratio": 264.4834406112277,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.017795895091296032,
-      "curvature_max_angle": 0.011963774263226225,
-      "curvature_projector": 0.016918928207123145,
-      "stability_ratio": 264.4834406112288
+      "kappa_g": 0.01779589509129581,
+      "curvature_max_angle": 0.011963774263207666,
+      "curvature_projector": 0.016918928207123284,
+      "stability_ratio": 264.4834406112277
     },
     {
       "t": 5,
       "step_label": "Ep 06 -> 07",
       "coherence": 0.9999999579970191,
-      "speed_max_angle": 0.0054078970497489,
-      "speed_projector": 0.007647884073958811,
-      "residual_norm": 0.022826779969449363,
-      "spectral_gap": 0.6213824745934847,
-      "instability_ratio": 1.6093147767723837,
+      "speed_max_angle": 0.005407897049687312,
+      "speed_projector": 0.007647884073958608,
+      "residual_norm": 0.022826777419476734,
+      "spectral_gap": 0.6213824745934694,
+      "instability_ratio": 1.6093147767724234,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        359987.80198745994,
-        0.6365030627260293,
-        0.01512058813254461,
-        2.6942324449413767e-12,
-        2.703435104927964e-18,
-        9.177225453802635e-19,
-        1.3090981332877264e-20,
-        7.577765074147303e-32
+        359987.80198745977,
+        0.636503062726014,
+        0.0151205881325446,
+        5.293242743649358e-16,
+        3.1829671419930077e-16,
+        1.907304332190395e-16,
+        1.505162344848773e-16,
+        1.403522318409308e-19
       ],
       "principal_angles": [
         0.0,
-        0.0054078970497489
+        0.005407897049687312
       ],
-      "residual_fraction": 3.803935040614451e-05,
-      "relative_gap": 1.7261209162168512e-06,
-      "davis_kahan_ratio": 256.07669233339243,
+      "residual_fraction": 3.803934615678028e-05,
+      "relative_gap": 1.7261209162168095e-06,
+      "davis_kahan_ratio": 256.07669233339885,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.006555444256420925,
-      "curvature_max_angle": 0.0054078970497489,
-      "curvature_projector": 0.007647884073958811,
-      "stability_ratio": 256.07669233339243
+      "kappa_g": 0.006555444256421169,
+      "curvature_max_angle": 0.005407897049687312,
+      "curvature_projector": 0.007647884073958608,
+      "stability_ratio": 256.07669233339885
     },
     {
       "t": 6,
       "step_label": "Ep 07 -> 08",
       "coherence": 0.9999999786458308,
-      "speed_max_angle": 0.00257571526013629,
-      "speed_projector": 0.0036426074259024665,
-      "residual_norm": 0.011228105047512402,
-      "spectral_gap": 0.3156396410550797,
-      "instability_ratio": 3.16816985816217,
+      "speed_max_angle": 0.0025757152600500827,
+      "speed_projector": 0.0036426074259024955,
+      "residual_norm": 0.01122809727135416,
+      "spectral_gap": 0.3156396410550859,
+      "instability_ratio": 3.1681698581621074,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        360043.89578902355,
-        0.3233280863817413,
-        0.007688445326661612,
-        4.560800956240452e-15,
-        3.840930250285276e-15,
-        1.1069329425825912e-18,
-        8.700014912317394e-19,
-        2.2454762989840445e-31
+        360043.8957890234,
+        0.3233280863817475,
+        0.007688445326661603,
+        1.0807910792997657e-13,
+        3.4446776046961686e-14,
+        3.204213145189549e-16,
+        2.9735942704664348e-18,
+        2.8498166094808767e-19
       ],
       "principal_angles": [
         0.0,
-        0.00257571526013629
+        0.0025757152600500827
       ],
-      "residual_fraction": 1.8710909855483533e-05,
-      "relative_gap": 8.766698859408976e-07,
-      "davis_kahan_ratio": 252.06207977544688,
+      "residual_fraction": 1.8710896897019458e-05,
+      "relative_gap": 8.766698859409153e-07,
+      "davis_kahan_ratio": 252.06207977544202,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.0028321404676724545,
-      "curvature_max_angle": 0.00257571526013629,
-      "curvature_projector": 0.0036426074259024665,
-      "stability_ratio": 252.06207977544688
+      "kappa_g": 0.0028321404676722875,
+      "curvature_max_angle": 0.0025757152600500827,
+      "curvature_projector": 0.0036426074259024955,
+      "stability_ratio": 252.06207977544202
     },
     {
       "t": 7,
       "step_label": "Ep 08 -> 09",
       "coherence": 0.9999999892369162,
-      "speed_max_angle": 0.0012574997483955552,
-      "speed_projector": 0.0017783727297574874,
-      "residual_norm": 0.005568809994139997,
-      "spectral_gap": 0.15905816398548936,
-      "instability_ratio": 6.287008278331569,
+      "speed_max_angle": 0.001257499748307267,
+      "speed_projector": 0.0017783727297576422,
+      "residual_norm": 0.005568799541688647,
+      "spectral_gap": 0.1590581639854975,
+      "instability_ratio": 6.287008278331247,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        360071.9465936407,
-        0.16293365031420445,
-        0.0038754863287150817,
-        1.1198570773764033e-14,
-        1.1684932041981034e-15,
-        3.938723948977324e-20,
-        7.688989290397785e-21,
-        1.505388860015214e-30
+        360071.94659364084,
+        0.16293365031421256,
+        0.003875486328715079,
+        9.569613791452462e-15,
+        7.67628234790152e-16,
+        4.988349721665029e-16,
+        2.0178212662754563e-16,
+        2.7211322887051716e-18
       ],
       "principal_angles": [
         0.0,
-        0.0012574997483955552
+        0.001257499748307267
       ],
-      "residual_fraction": 9.28006118234121e-06,
-      "relative_gap": 4.4173995083542146e-07,
-      "davis_kahan_ratio": 250.0996565985042,
+      "residual_fraction": 9.280043764008006e-06,
+      "relative_gap": 4.417399508354439e-07,
+      "davis_kahan_ratio": 250.0996565984915,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.0013182109749241343,
-      "curvature_max_angle": 0.0012574997483955552,
-      "curvature_projector": 0.0017783727297574874,
-      "stability_ratio": 250.0996565985042
+      "kappa_g": 0.0013182109749240438,
+      "curvature_max_angle": 0.001257499748307267,
+      "curvature_projector": 0.0017783727297576422,
+      "stability_ratio": 250.0996565984915
     },
     {
       "t": 8,
       "step_label": "Ep 09 -> 10",
       "coherence": 0.9999999945972221,
-      "speed_max_angle": 0.0006213613713236058,
-      "speed_projector": 0.000878737622400917,
-      "residual_norm": 0.0027732298162095595,
-      "spectral_gap": 0.07983881787149961,
-      "instability_ratio": 12.525235394695626,
+      "speed_max_angle": 0.0006213613718596335,
+      "speed_projector": 0.0008787376224009128,
+      "residual_norm": 0.0027732508052528415,
+      "spectral_gap": 0.07983881787149184,
+      "instability_ratio": 12.525235394696844,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        360085.97297164076,
-        0.08178428283592129,
-        0.00194546496442168,
-        1.2835047254308904e-14,
-        9.953305996236158e-18,
-        1.19591797628649e-19,
-        3.2038006957511976e-34,
-        7.599547068643658e-35
+        360085.9729716407,
+        0.08178428283591352,
+        0.0019454649644216797,
+        1.1404429576418653e-14,
+        5.652334011971399e-15,
+        2.5516045699803667e-16,
+        4.830350823333789e-18,
+        3.485502707499515e-18
       ],
       "principal_angles": [
         0.0,
-        0.0006213613713236058
+        0.0006213613718596335
       ],
-      "residual_fraction": 4.621407876045159e-06,
-      "relative_gap": 2.2172154392081101e-07,
-      "davis_kahan_ratio": 249.1293912692063,
+      "residual_fraction": 4.6214428529264e-06,
+      "relative_gap": 2.2172154392078947e-07,
+      "davis_kahan_ratio": 249.12939126923064,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.0006361378442607847,
-      "curvature_max_angle": 0.0006213613713236058,
-      "curvature_projector": 0.000878737622400917,
-      "stability_ratio": 249.1293912692063
+      "kappa_g": 0.0006361378442608972,
+      "curvature_max_angle": 0.0006213613718596335,
+      "curvature_projector": 0.0008787376224009128,
+      "stability_ratio": 249.12939126923064
     },
     {
       "t": 9,
       "step_label": "Ep 10 -> 11",
       "coherence": 0.9999999972933347,
-      "speed_max_angle": 0.0003088579947779484,
-      "speed_projector": 0.00043679115993315023,
-      "residual_norm": 0.001383699602669121,
-      "spectral_gap": 0.039996861335409424,
-      "instability_ratio": 25.001961194208352,
+      "speed_max_angle": 0.0003088579958563304,
+      "speed_projector": 0.00043679115993294716,
+      "residual_norm": 0.0013837416687187353,
+      "spectral_gap": 0.03999686133540388,
+      "instability_ratio": 25.001961194211816,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        360092.98640452995,
-        0.04097151266413995,
-        0.0009746513287305322,
-        5.9553266598323025e-12,
-        5.935686990534526e-16,
-        1.9233363004573123e-19,
-        1.3662711052917998e-19,
-        3.7613357826867983e-20
+        360092.98640453006,
+        0.040971512664134416,
+        0.0009746513287305338,
+        4.662193189379079e-14,
+        9.657559836322225e-15,
+        4.711204536928163e-16,
+        4.881472330023671e-18,
+        2.2707013215275985e-20
       ],
       "principal_angles": [
         0.0,
-        0.0003088579947779484
+        0.0003088579958563304
       ],
-      "residual_fraction": 2.3058457703284775e-06,
-      "relative_gap": 1.110737027532016e-07,
-      "davis_kahan_ratio": 248.6469616851015,
+      "residual_fraction": 2.3059158706756845e-06,
+      "relative_gap": 1.1107370275318617e-07,
+      "davis_kahan_ratio": 248.64696168513603,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.0003125033111468964,
-      "curvature_max_angle": 0.0003088579947779484,
-      "curvature_projector": 0.00043679115993315023,
-      "stability_ratio": 248.6469616851015
+      "kappa_g": 0.00031250331114703554,
+      "curvature_max_angle": 0.0003088579958563304,
+      "curvature_projector": 0.00043679115993294716,
+      "stability_ratio": 248.64696168513603
     },
     {
       "t": 10,
       "step_label": "Ep 11 -> 12",
-      "coherence": 0.999999998645352,
+      "coherence": 0.9999999986453522,
       "speed_max_angle": 0.00015397633849926397,
-      "speed_projector": 0.00021775542518346345,
-      "residual_norm": 0.0006911237699977577,
-      "spectral_gap": 0.020017796051558383,
-      "instability_ratio": 49.95554692778495,
+      "speed_projector": 0.00021775542518353246,
+      "residual_norm": 0.0006910395431045076,
+      "spectral_gap": 0.020017796051551833,
+      "instability_ratio": 49.955546927801294,
       "regime": "IDENTIFIABILITY_DEGRADED",
       "eigenvalues": [
-        360096.4931819429,
-        0.02050559998703765,
-        0.0004878039354792644,
-        5.45643856374622e-11,
-        5.567951381987233e-15,
-        3.490210947170264e-18,
-        2.77507998366737e-20,
-        2.4960108584833854e-20
+        360096.49318194296,
+        0.0205055999870311,
+        0.0004878039354792641,
+        9.839168497567247e-12,
+        6.341097802795897e-18,
+        2.38023033467986e-20,
+        1.9466995665599684e-20,
+        9.275870597188668e-29
       ],
       "principal_angles": [
         0.0,
         0.00015397633849926397
       ],
-      "residual_fraction": 1.1517130009640385e-06,
-      "relative_gap": 5.559008885277914e-08,
-      "davis_kahan_ratio": 248.4064185281686,
+      "residual_fraction": 1.1515726423015268e-06,
+      "relative_gap": 5.559008885276094e-08,
+      "davis_kahan_ratio": 248.40641852824996,
       "identifiability": "NON_IDENTIFIABLE",
       "is_subspace_identifiable": false,
-      "kappa_g": 0.00015488164973380782,
+      "kappa_g": 0.0001548816497336164,
       "curvature_max_angle": 0.00015397633849926397,
-      "curvature_projector": 0.00021775542518346345,
-      "stability_ratio": 248.4064185281686
+      "curvature_projector": 0.00021775542518353246,
+      "stability_ratio": 248.40641852824996
     }
   ],
   "batch_comparison": [
@@ -537,63 +537,63 @@
     },
     {
       "step": "Ep 02 -> 03",
-      "batch_speed": 1.5568229603392756,
-      "tracker_speed": 1.5568229603392756,
-      "d_gr": 1.5568225387976906
+      "batch_speed": 1.5614224225485847,
+      "tracker_speed": 1.5614224225485847,
+      "d_gr": 1.561422139741046
     },
     {
       "step": "Ep 03 -> 04",
-      "batch_speed": 0.0743246608781751,
-      "tracker_speed": 0.10007379243818904,
-      "d_gr": 1.5567019818027088
+      "batch_speed": 0.07432466087816762,
+      "tracker_speed": 0.10007379243819015,
+      "d_gr": 1.5613413047012425
     },
     {
       "step": "Ep 04 -> 05",
-      "batch_speed": 0.025749131705499046,
-      "tracker_speed": 0.029765901046871684,
-      "d_gr": 1.5566782448303365
+      "batch_speed": 0.025749131705477487,
+      "tracker_speed": 0.029765901046867955,
+      "d_gr": 1.5613253612734816
     },
     {
       "step": "Ep 05 -> 06",
       "batch_speed": 0.012989081107739392,
-      "tracker_speed": 0.011963774263226225,
-      "d_gr": 1.5566698313069738
+      "tracker_speed": 0.011963774263207666,
+      "d_gr": 1.561319710215023
     },
     {
       "step": "Ep 06 -> 07",
-      "batch_speed": 0.007820371735402476,
-      "tracker_speed": 0.0054078970497489,
-      "d_gr": 1.5566659181723956
+      "batch_speed": 0.007820371735359887,
+      "tracker_speed": 0.005407897049687312,
+      "d_gr": 1.5613170819194435
     },
     {
       "step": "Ep 07 -> 08",
       "batch_speed": 0.005222482438207192,
-      "tracker_speed": 0.00257571526013629,
-      "d_gr": 1.5566637874696863
+      "tracker_speed": 0.0025757152600500827,
+      "d_gr": 1.5613156508167698
     },
     {
       "step": "Ep 08 -> 09",
-      "batch_speed": 0.003733965770949339,
-      "tracker_speed": 0.0012574997483955552,
-      "d_gr": 1.5566625009961446
+      "batch_speed": 0.003733965770889873,
+      "tracker_speed": 0.001257499748307267,
+      "d_gr": 1.5613147867495636
     },
     {
       "step": "Ep 09 -> 10",
-      "batch_speed": 0.0028021700055614446,
-      "tracker_speed": 0.0006213613713236058,
-      "d_gr": 1.5566616653276462
+      "batch_speed": 0.0028021700055218244,
+      "tracker_speed": 0.0006213613718596335,
+      "d_gr": 1.561314225468865
     },
     {
       "step": "Ep 10 -> 11",
-      "batch_speed": 0.0021803449550335855,
-      "tracker_speed": 0.0003088579947779484,
-      "d_gr": 1.556661092077562
+      "batch_speed": 0.0021803449549317464,
+      "tracker_speed": 0.0003088579958563304,
+      "d_gr": 1.5613138404435483
     },
     {
       "step": "Ep 11 -> 12",
-      "batch_speed": 0.00174476885500522,
+      "batch_speed": 0.0017447688547506937,
       "tracker_speed": 0.00015397633849926397,
-      "d_gr": 1.5566606818754085
+      "d_gr": 1.561313564930103
     }
   ]
 }

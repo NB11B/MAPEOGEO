@@ -553,6 +553,30 @@ class NanoResearchWorker:
                     )
                 )
 
+        # Accumulate candidate extractions into activity metrics for genuine geometric dynamics
+        for r in relations_out:
+            if r.verb:
+                verb_counts[r.verb] = verb_counts.get(r.verb, 0) + 1
+        for q in questions_out:
+            if q.thread_id in thread_counts:
+                thread_counts[q.thread_id] += 1
+            if "BRIDGE" in q.question_id:
+                bridge_count += 1
+
+        inst_counts = {"Steklov": 0, "TsAGI": 0, "IPM": 0, "Sechenov": 0, "IAT": 0}
+        for ent in entities_out:
+            ent_str = (ent.entity_id + " " + ent.label).lower()
+            if "steklov" in ent_str or "mian" in ent_str:
+                inst_counts["Steklov"] += 1
+            if "tsagi" in ent_str or "aerospace" in ent_str:
+                inst_counts["TsAGI"] += 1
+            if "ipm" in ent_str or "keldysh" in ent_str or "samarskii" in ent_str:
+                inst_counts["IPM"] += 1
+            if "sechenov" in ent_str or "anokhin" in ent_str or "bernstein" in ent_str or "physiology" in ent_str:
+                inst_counts["Sechenov"] += 1
+            if "iat" in ent_str or "control" in ent_str or "feldbaum" in ent_str:
+                inst_counts["IAT"] += 1
+
         # 2. G1 GEOMETRIC OBSERVER (Self-Observation)
         self.current_state = "OBSERVING"
         state_vec = ResearchStateVectorBuilder.build_vector(
@@ -560,7 +584,7 @@ class NanoResearchWorker:
             verb_counts=verb_counts,
             bridge_count=bridge_count,
             max_descendant_depth=max_depth,
-            institution_counts={"Steklov": 2, "IAT": 3},
+            institution_counts=inst_counts,
             question_type_counts={
                 "spines": max(0, len(probed_qs) - bridge_count),
                 "bridges": bridge_count,
