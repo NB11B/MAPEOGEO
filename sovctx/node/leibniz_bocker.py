@@ -211,13 +211,17 @@ class LeibnizBockerTracker:
         regime = self.classify_regime(coherence, omega_max, res_fraction)
 
         # Online Oja tracker update (Section 4, Bocker Extended 2025):
-        # Ut = phi phi^T W_t, W_{t+1}^* = W_t + eta Ut, W_{t+1} = qr(W_{t+1}^*)
+        # Associative evaluation: phi (phi^T W_t) in O(N k) without forming N x N outer product
         if self.W_online is None:
             self.W_online = E_k.copy()
         else:
-            Ut = np.dot(C_inc, self.W_online)
+            # 1. v = phi^T W_t in R^k: O(N k)
+            v = np.dot(phi_t, self.W_online)
+            # 2. Ut = phi v in R^{N x k}: O(N k)
+            Ut = np.outer(phi_t, v)
             eta = 0.1 / (1.0 + 0.05 * t)
             W_star = self.W_online + eta * Ut
+            # 3. Economic QR orthonormalization: O(N k^2)
             q, _ = la.qr(W_star, mode="economic")
             self.W_online = q[:, : self.k]
 

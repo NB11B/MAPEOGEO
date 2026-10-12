@@ -1,0 +1,317 @@
+{
+  "num_epochs": 12,
+  "feature_dim": 32,
+  "feature_names": [
+    "thread_T1",
+    "thread_T2",
+    "thread_T3",
+    "thread_T4",
+    "thread_T5",
+    "thread_T6",
+    "thread_T7",
+    "thread_T8",
+    "thread_T9",
+    "thread_T10",
+    "thread_T11",
+    "thread_T12",
+    "verb_STABILIZE",
+    "verb_CONTROL",
+    "verb_INVERT",
+    "verb_CONSTRAIN",
+    "verb_PROBE",
+    "verb_REPRESENT",
+    "verb_OBSERVE",
+    "verb_UPDATE",
+    "verb_ADAPT",
+    "verb_REGULARIZE",
+    "bridge_resolutions",
+    "descendant_depth",
+    "inst_Steklov",
+    "inst_TsAGI",
+    "inst_IPM",
+    "inst_Sechenov",
+    "inst_IAT",
+    "q_spines",
+    "q_bridges",
+    "q_descendants"
+  ],
+  "diagnostics": [
+    {
+      "t": 0,
+      "step_label": "Ep 01 -> 02",
+      "coherence": 1.0,
+      "curvature_max_angle": 0.0,
+      "curvature_projector": 0.0,
+      "residual_norm": 0.0,
+      "spectral_gap": 1.3155218628370048e-14,
+      "instability_ratio": 999986844.954429,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        356530.01555555593,
+        1.628894596348864e-14,
+        3.1337273351185913e-15,
+        2.4038353929104126e-16,
+        7.405947638216364e-19,
+        1.81912142413324e-21
+      ],
+      "principal_angles": [
+        0.0,
+        0.0
+      ],
+      "residual_fraction": 0.0
+    },
+    {
+      "t": 1,
+      "step_label": "Ep 02 -> 03",
+      "coherence": 0.9999999999999999,
+      "curvature_max_angle": 1.5568229603392756,
+      "curvature_projector": 1.4140754985061683,
+      "residual_norm": 0.0,
+      "spectral_gap": 5.405144811365086,
+      "instability_ratio": 0.18500891922679827,
+      "regime": "REGIME_REORIENTATION",
+      "eigenvalues": [
+        358309.8526329663,
+        5.405144811402107,
+        3.702126241542291e-11,
+        9.555380887018846e-18,
+        4.480962586755094e-18,
+        4.736835093197912e-19
+      ],
+      "principal_angles": [
+        0.0,
+        1.5568229603392756
+      ],
+      "residual_fraction": 0.0
+    },
+    {
+      "t": 2,
+      "step_label": "Ep 03 -> 04",
+      "coherence": 0.9999997686264186,
+      "curvature_max_angle": 0.10007379243818904,
+      "curvature_projector": 0.1412896083257229,
+      "residual_norm": 0.2366362156564231,
+      "spectral_gap": 3.8781701675506723,
+      "instability_ratio": 0.25785356406207266,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        359203.58449641,
+        3.9612813230790382,
+        0.08311115552836588,
+        8.762303961829858e-15,
+        5.15527537161305e-15,
+        4.08325596329835e-16
+      ],
+      "principal_angles": [
+        0.0,
+        0.10007379243818904
+      ],
+      "residual_fraction": 0.0003943389272681457
+    },
+    {
+      "t": 3,
+      "step_label": "Ep 04 -> 05",
+      "coherence": 0.9999998511205068,
+      "curvature_max_angle": 0.029765901046871684,
+      "curvature_projector": 0.04208912509124394,
+      "residual_norm": 0.10128786679526466,
+      "spectral_gap": 2.2493044348339457,
+      "instability_ratio": 0.44458188232276474,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        359651.45804985403,
+        2.302849512479347,
+        0.05354507764540156,
+        7.140282462975484e-15,
+        1.4764705379449684e-15,
+        3.6046995176632566e-16
+      ],
+      "principal_angles": [
+        0.0,
+        0.029765901046871684
+      ],
+      "residual_fraction": 0.00016878966994348716
+    },
+    {
+      "t": 4,
+      "step_label": "Ep 05 -> 06",
+      "coherence": 0.9999999189624584,
+      "curvature_max_angle": 0.011963774263226225,
+      "curvature_projector": 0.016918928207123145,
+      "residual_norm": 0.04720861150470357,
+      "spectral_gap": 1.203262997487505,
+      "instability_ratio": 0.8310735070030362,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        359875.6456321448,
+        1.2324265372882948,
+        0.02916353980078969,
+        6.541995914596633e-15,
+        1.4774882643530557e-16,
+        5.4138015038510793e-17
+      ],
+      "principal_angles": [
+        0.0,
+        0.011963774263226225
+      ],
+      "residual_fraction": 7.867009353129902e-05
+    },
+    {
+      "t": 5,
+      "step_label": "Ep 06 -> 07",
+      "coherence": 0.9999999579970191,
+      "curvature_max_angle": 0.0054078970497489,
+      "curvature_projector": 0.007647884073958811,
+      "residual_norm": 0.022826779969449363,
+      "spectral_gap": 0.6213824745934847,
+      "instability_ratio": 1.6093147767723837,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        359987.80198745994,
+        0.6365030627260293,
+        0.01512058813254461,
+        2.6942324449413767e-12,
+        2.703435104927964e-18,
+        9.177225453802635e-19
+      ],
+      "principal_angles": [
+        0.0,
+        0.0054078970497489
+      ],
+      "residual_fraction": 3.803935040614451e-05
+    },
+    {
+      "t": 6,
+      "step_label": "Ep 07 -> 08",
+      "coherence": 0.9999999786458308,
+      "curvature_max_angle": 0.00257571526013629,
+      "curvature_projector": 0.0036426074259024665,
+      "residual_norm": 0.011228105047512402,
+      "spectral_gap": 0.3156396410550797,
+      "instability_ratio": 3.16816985816217,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        360043.89578902355,
+        0.3233280863817413,
+        0.007688445326661612,
+        4.560800956240452e-15,
+        3.840930250285276e-15,
+        1.1069329425825912e-18
+      ],
+      "principal_angles": [
+        0.0,
+        0.00257571526013629
+      ],
+      "residual_fraction": 1.8710909855483533e-05
+    },
+    {
+      "t": 7,
+      "step_label": "Ep 08 -> 09",
+      "coherence": 0.9999999892369162,
+      "curvature_max_angle": 0.0012574997483955552,
+      "curvature_projector": 0.0017783727297574874,
+      "residual_norm": 0.005568809994139997,
+      "spectral_gap": 0.15905816398548936,
+      "instability_ratio": 6.287008278331569,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        360071.9465936407,
+        0.16293365031420445,
+        0.0038754863287150817,
+        1.1198570773764033e-14,
+        1.1684932041981034e-15,
+        3.938723948977324e-20
+      ],
+      "principal_angles": [
+        0.0,
+        0.0012574997483955552
+      ],
+      "residual_fraction": 9.28006118234121e-06
+    },
+    {
+      "t": 8,
+      "step_label": "Ep 09 -> 10",
+      "coherence": 0.9999999945972221,
+      "curvature_max_angle": 0.0006213613713236058,
+      "curvature_projector": 0.000878737622400917,
+      "residual_norm": 0.0027732298162095595,
+      "spectral_gap": 0.07983881787149961,
+      "instability_ratio": 12.525235394695626,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        360085.97297164076,
+        0.08178428283592129,
+        0.00194546496442168,
+        1.2835047254308904e-14,
+        9.953305996236158e-18,
+        1.19591797628649e-19
+      ],
+      "principal_angles": [
+        0.0,
+        0.0006213613713236058
+      ],
+      "residual_fraction": 4.621407876045159e-06
+    },
+    {
+      "t": 9,
+      "step_label": "Ep 10 -> 11",
+      "coherence": 0.9999999972933347,
+      "curvature_max_angle": 0.0003088579947779484,
+      "curvature_projector": 0.00043679115993315023,
+      "residual_norm": 0.001383699602669121,
+      "spectral_gap": 0.039996861335409424,
+      "instability_ratio": 25.001961194208352,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        360092.98640452995,
+        0.04097151266413995,
+        0.0009746513287305322,
+        5.9553266598323025e-12,
+        5.935686990534526e-16,
+        1.9233363004573123e-19
+      ],
+      "principal_angles": [
+        0.0,
+        0.0003088579947779484
+      ],
+      "residual_fraction": 2.3058457703284775e-06
+    },
+    {
+      "t": 10,
+      "step_label": "Ep 11 -> 12",
+      "coherence": 0.999999998645352,
+      "curvature_max_angle": 0.00015397633849926397,
+      "curvature_projector": 0.00021775542518346345,
+      "residual_norm": 0.0006911237699977577,
+      "spectral_gap": 0.020017796051558383,
+      "instability_ratio": 49.95554692778495,
+      "regime": "STABLE_REGIME",
+      "eigenvalues": [
+        360096.4931819429,
+        0.02050559998703765,
+        0.0004878039354792644,
+        5.45643856374622e-11,
+        5.567951381987233e-15,
+        3.490210947170264e-18
+      ],
+      "principal_angles": [
+        0.0,
+        0.00015397633849926397
+      ],
+      "residual_fraction": 1.1517130009640385e-06
+    }
+  ],
+  "novelty_assimilation": {
+    "t_appear": 1,
+    "t_absorb": 2,
+    "tau_A_epochs": 1,
+    "tau_A_minutes": 10
+  },
+  "geometric_triggers": [
+    [
+      "Ep 02 -> 03",
+      "SPECTRAL_REORIENTATION",
+      1.5568229603392756
+    ]
+  ]
+}
