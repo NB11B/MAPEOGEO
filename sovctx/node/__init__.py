@@ -1,7 +1,8 @@
 """SOVCTX Node Runtime for Jetson Nano.
 
 Provides isolated resource governance, mutable work database,
-content-addressed acquisition CAS, and candidate pipeline daemons.
+content-addressed acquisition CAS, candidate pipeline daemons,
+and autonomous research question frontier.
 """
 
 from .config import NanoConfig, load_config
@@ -11,6 +12,27 @@ from .work_db import WorkDatabase, QueueItem
 from .cas import BlobStore, PayloadTooLargeError
 from .acquire import AcquisitionDaemon, FetchResult
 from .smoke import SmokeQualification, SmokeReceipt
+from .research_question import (
+    AutonomousBranchingEngine,
+    BranchingTrigger,
+    CANONICAL_THREAD_FAMILIES,
+    InstitutionalChannelType,
+    OpenQuestionLedger,
+    PriorityComponents,
+    QuestionStatus,
+    ResearchQuestion,
+    ThreadFamily,
+    ThreadFamilyId,
+    ThreadSaturationDetector,
+    ThreadSaturationState,
+)
+from .research_frontier import (
+    CANONICAL_CROSS_THREAD_BRIDGES,
+    CrossThreadBridge,
+    DiscoveryReport,
+    FrontierCycleAllocation,
+    ResearchFrontierCoordinator,
+)
 
 __all__ = [
     "NanoConfig",
@@ -28,4 +50,21 @@ __all__ = [
     "FetchResult",
     "SmokeQualification",
     "SmokeReceipt",
+    "ThreadFamilyId",
+    "ThreadFamily",
+    "CANONICAL_THREAD_FAMILIES",
+    "InstitutionalChannelType",
+    "QuestionStatus",
+    "PriorityComponents",
+    "ResearchQuestion",
+    "OpenQuestionLedger",
+    "BranchingTrigger",
+    "AutonomousBranchingEngine",
+    "ThreadSaturationDetector",
+    "ThreadSaturationState",
+    "CrossThreadBridge",
+    "CANONICAL_CROSS_THREAD_BRIDGES",
+    "FrontierCycleAllocation",
+    "DiscoveryReport",
+    "ResearchFrontierCoordinator",
 ]
