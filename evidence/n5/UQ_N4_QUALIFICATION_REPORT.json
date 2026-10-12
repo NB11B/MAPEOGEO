@@ -1,0 +1,112 @@
+{
+  "campaign_id": "UQ-N4-OPEN-DISCOVERY-v1.0",
+  "timestamp": "2026-10-12T07:47:02.127579+00:00",
+  "commit": "ae4ec52211fb228db1efb378beb7d87a3e9d0a6d",
+  "axiom": "OPEN_DISCOVERY + ADVERSARIAL_FALSIFICATION + GRAPH_SELF_CORRECTION",
+  "verdict": "QUALIFIED_PASS",
+  "metrics": {
+    "false_lineage_promotion_rate_pct": 0.0,
+    "incorrect_refutation_rate_pct": 0.0,
+    "relation_retyping_accuracy_pct": 100.0,
+    "canonical_discoveries_admitted": 6,
+    "canonical_lineage_count": 2,
+    "canonical_relations_count": 3,
+    "canonical_retrospective_count": 1,
+    "purged_refutations_count": 4,
+    "total_inquiries_evaluated": 10,
+    "total_duration_ms": 142.67,
+    "peak_rss_mb": 66.86
+  },
+  "inquiries": [
+    {
+      "inquiry_id": "DOMAIN_A:01",
+      "domain": "SOVIET_OPTIMAL_DUAL_CONTROL",
+      "claims_extracted": 1,
+      "duration_ms": 13.23,
+      "rss_mb": 64.1,
+      "expected_claims": true,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_A:02",
+      "domain": "SOVIET_OPTIMAL_DUAL_CONTROL",
+      "claims_extracted": 0,
+      "duration_ms": 11.09,
+      "rss_mb": 64.1,
+      "expected_claims": true,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_A:03",
+      "domain": "SOVIET_OPTIMAL_DUAL_CONTROL",
+      "claims_extracted": 1,
+      "duration_ms": 12.12,
+      "rss_mb": 64.1,
+      "expected_claims": false,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_B:01",
+      "domain": "SOVIET_STABILITY_CONVERSE_DYNAMICS",
+      "claims_extracted": 1,
+      "duration_ms": 12.23,
+      "rss_mb": 66.86,
+      "expected_claims": true,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_B:02",
+      "domain": "SOVIET_STABILITY_CONVERSE_DYNAMICS",
+      "claims_extracted": 1,
+      "duration_ms": 11.02,
+      "rss_mb": 66.86,
+      "expected_claims": true,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_B:03",
+      "domain": "SOVIET_STABILITY_CONVERSE_DYNAMICS",
+      "claims_extracted": 1,
+      "duration_ms": 11.51,
+      "rss_mb": 66.86,
+      "expected_claims": false,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_C:01",
+      "domain": "NONHOLONOMIC_ANALYTICAL_MECHANICS",
+      "claims_extracted": 1,
+      "duration_ms": 12.13,
+      "rss_mb": 66.86,
+      "expected_claims": true,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_C:02",
+      "domain": "NONHOLONOMIC_ANALYTICAL_MECHANICS",
+      "claims_extracted": 1,
+      "duration_ms": 11.46,
+      "rss_mb": 66.86,
+      "expected_claims": true,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_C:03",
+      "domain": "NONHOLONOMIC_ANALYTICAL_MECHANICS",
+      "claims_extracted": 0,
+      "duration_ms": 9.95,
+      "rss_mb": 66.86,
+      "expected_claims": false,
+      "status": "PROPOSED"
+    },
+    {
+      "inquiry_id": "DOMAIN_C:04",
+      "domain": "NONHOLONOMIC_ANALYTICAL_MECHANICS",
+      "claims_extracted": 0,
+      "duration_ms": 10.92,
+      "rss_mb": 66.86,
+      "expected_claims": false,
+      "status": "PROPOSED"
+    }
+  ]
+}
