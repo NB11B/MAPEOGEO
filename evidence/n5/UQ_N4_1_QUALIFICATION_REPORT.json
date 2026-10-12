@@ -1,7 +1,7 @@
 {
   "campaign_id": "UQ-N4.1-OPEN-WORLD-v1.0",
-  "timestamp": "2026-10-12T07:51:23.554596+00:00",
-  "commit": "dfb8c132ac6ffcb57d0a1e0ac808219a80293f27",
+  "timestamp": "2026-10-12T07:51:46.257062+00:00",
+  "commit": "29ff327c47c58c40b8d25f036b412f31b955ac90",
   "axiom": "OPEN_SET_EXPLANATION_GATE + ONTOLOGY_GAP_DETECTION + ZERO_FORCED_CLASSIFICATION",
   "verdict": "QUALIFIED_PASS",
   "metrics": {
@@ -11,8 +11,8 @@
     "noise_rejection_pct": 100.0,
     "p_novel_given_high_residual": 1.0,
     "total_trials_evaluated": 12,
-    "total_duration_ms": 287.46,
-    "peak_rss_mb": 65.68
+    "total_duration_ms": 157.48,
+    "peak_rss_mb": 67.05
   },
   "trials": [
     {
@@ -21,8 +21,8 @@
       "stage": "STAGE_A",
       "claims_extracted": 1,
       "geometric_residual": 0.05,
-      "duration_ms": 107.44,
-      "rss_mb": 65.08,
+      "duration_ms": 11.86,
+      "rss_mb": 64.2,
       "status": "PROPOSED"
     },
     {
@@ -31,8 +31,8 @@
       "stage": "STAGE_A",
       "claims_extracted": 1,
       "geometric_residual": 0.05,
-      "duration_ms": 11.77,
-      "rss_mb": 65.62,
+      "duration_ms": 12.98,
+      "rss_mb": 64.2,
       "status": "PROPOSED"
     },
     {
@@ -41,8 +41,8 @@
       "stage": "STAGE_A",
       "claims_extracted": 1,
       "geometric_residual": 0.05,
-      "duration_ms": 10.8,
-      "rss_mb": 65.66,
+      "duration_ms": 11.22,
+      "rss_mb": 64.2,
       "status": "PROPOSED"
     },
     {
@@ -51,8 +51,8 @@
       "stage": "STAGE_B",
       "claims_extracted": 1,
       "geometric_residual": 0.14,
-      "duration_ms": 10.7,
-      "rss_mb": 65.66,
+      "duration_ms": 11.16,
+      "rss_mb": 66.8,
       "status": "PROPOSED"
     },
     {
@@ -61,8 +61,8 @@
       "stage": "STAGE_B",
       "claims_extracted": 0,
       "geometric_residual": 0.14,
-      "duration_ms": 10.59,
-      "rss_mb": 65.66,
+      "duration_ms": 9.96,
+      "rss_mb": 66.8,
       "status": "PROPOSED"
     },
     {
@@ -71,8 +71,8 @@
       "stage": "STAGE_B",
       "claims_extracted": 0,
       "geometric_residual": 0.14,
-      "duration_ms": 10.43,
-      "rss_mb": 65.66,
+      "duration_ms": 9.93,
+      "rss_mb": 66.8,
       "status": "PROPOSED"
     },
     {
@@ -81,8 +81,8 @@
       "stage": "STAGE_C",
       "claims_extracted": 1,
       "geometric_residual": 0.42,
-      "duration_ms": 12.11,
-      "rss_mb": 65.66,
+      "duration_ms": 11.75,
+      "rss_mb": 66.8,
       "status": "PROPOSED"
     },
     {
@@ -91,8 +91,8 @@
       "stage": "STAGE_C",
       "claims_extracted": 0,
       "geometric_residual": 0.42,
-      "duration_ms": 11.49,
-      "rss_mb": 65.66,
+      "duration_ms": 10.21,
+      "rss_mb": 66.8,
       "status": "PROPOSED"
     },
     {
@@ -101,8 +101,8 @@
       "stage": "STAGE_C",
       "claims_extracted": 0,
       "geometric_residual": 0.42,
-      "duration_ms": 10.66,
-      "rss_mb": 65.66,
+      "duration_ms": 9.93,
+      "rss_mb": 66.8,
       "status": "PROPOSED"
     },
     {
@@ -111,8 +111,8 @@
       "stage": "STAGE_C",
       "claims_extracted": 0,
       "geometric_residual": 0.07,
-      "duration_ms": 10.49,
-      "rss_mb": 65.68,
+      "duration_ms": 9.75,
+      "rss_mb": 66.8,
       "status": "PROPOSED"
     },
     {
@@ -121,8 +121,8 @@
       "stage": "STAGE_C",
       "claims_extracted": 0,
       "geometric_residual": 0.07,
-      "duration_ms": 11.03,
-      "rss_mb": 65.68,
+      "duration_ms": 10.23,
+      "rss_mb": 67.05,
       "status": "PROPOSED"
     },
     {
@@ -131,8 +131,8 @@
       "stage": "STAGE_C",
       "claims_extracted": 0,
       "geometric_residual": 0.07,
-      "duration_ms": 10.3,
-      "rss_mb": 65.68,
+      "duration_ms": 10.16,
+      "rss_mb": 67.05,
       "status": "PROPOSED"
     }
   ]
