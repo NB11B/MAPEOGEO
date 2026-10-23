@@ -1,0 +1,1 @@
+"""MAPEOGEO core package."""

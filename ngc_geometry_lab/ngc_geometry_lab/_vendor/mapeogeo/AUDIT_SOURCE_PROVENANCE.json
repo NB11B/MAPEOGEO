@@ -1,0 +1,46 @@
+{
+  "repository": "NB11B/MAPEOGEO",
+  "purpose": "Read-only diagnostic evidence, not executable qualification operators.",
+  "files": [
+    {
+      "destination": "audit_sources/kernel_v1_release/KERNEL_V1_RELEASE_MANIFEST.json",
+      "path": "artifacts/kernel_v1_release/KERNEL_V1_RELEASE_MANIFEST.json",
+      "ref": "3fd9095d8c124e878e2d8f860d221b1084e05f22",
+      "git_blob_sha1": "e3a658409e185d8900412ffd812cc60d425c717f",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/3fd9095d8c124e878e2d8f860d221b1084e05f22/artifacts/kernel_v1_release/KERNEL_V1_RELEASE_MANIFEST.json",
+      "sha256": "314ca245d4443f8bae3690e8bc93ecc7d231a6c5d7bf9b1cd7f6038ed25233d3",
+      "size_bytes": 4757,
+      "git_blob_verified": true
+    },
+    {
+      "destination": "audit_sources/transformation_algebra/primitive_characterization.json",
+      "path": "artifacts/transformation_algebra/primitive_characterization.json",
+      "ref": "dfe7102857bcb82a4308e158fff750537911af03",
+      "git_blob_sha1": "2de074a9fe34b238af7bb6a74fdb93258f69fb99",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/dfe7102857bcb82a4308e158fff750537911af03/artifacts/transformation_algebra/primitive_characterization.json",
+      "sha256": "b271da54f03348b7941d8aef22ba41ca93bf8d33e2cbc3461780904aaa4d273f",
+      "size_bytes": 23940,
+      "git_blob_verified": true
+    },
+    {
+      "destination": "audit_sources/transformation_algebra/characterize_primitives.py",
+      "path": "experiments/transformation_algebra/characterize_primitives.py",
+      "ref": "93b3408e320ea0773f196ebc9c3a9bc80199cb55",
+      "git_blob_sha1": "d41968b47ee34e0ea9a003577b00dcf766e83e3f",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/93b3408e320ea0773f196ebc9c3a9bc80199cb55/experiments/transformation_algebra/characterize_primitives.py",
+      "sha256": "1140aa309ca135c9217de9032dc69f33c8e104b091b16d13be29f19747e7e092",
+      "size_bytes": 3777,
+      "git_blob_verified": true
+    },
+    {
+      "destination": "audit_sources/transformation_algebra/campaign.py",
+      "path": "experiments/transformation_algebra/campaign.py",
+      "ref": "93b3408e320ea0773f196ebc9c3a9bc80199cb55",
+      "git_blob_sha1": "5213bd9ac92c29d51e4885d6a2f595bbf19dccc3",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/93b3408e320ea0773f196ebc9c3a9bc80199cb55/experiments/transformation_algebra/campaign.py",
+      "sha256": "a2a5e9b59eb6929ba1811b0cd89d01f711cf4ed74f3283470aba030ba1ca2fda",
+      "size_bytes": 2548,
+      "git_blob_verified": true
+    }
+  ]
+}

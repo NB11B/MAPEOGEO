@@ -1,0 +1,1457 @@
+{
+  "program_id": "GEO-X1",
+  "total_targets_evaluated": 17,
+  "gate_evaluations": {
+    "G0_Baseline": {
+      "passed": true,
+      "tests_count": 247
+    },
+    "G1_Structural_Identification": {
+      "passed": true,
+      "rate": 1.0
+    },
+    "G2_Fail_Closed": {
+      "passed": true,
+      "false_metric_claims": 0
+    },
+    "G3_Exact_Reconstruction": {
+      "passed": true,
+      "max_residual": 0.0
+    },
+    "G4_Predictive_Geometry": {
+      "passed": true,
+      "mean_accuracy": 1.0
+    },
+    "G5_Coordinate_Robustness": {
+      "passed": true
+    },
+    "G6_Ablation_Advantage": {
+      "passed": true,
+      "mean_compression": 1.2254901960784315
+    },
+    "G7_Cross_Domain_Transfer": {
+      "passed": true,
+      "tier_c_correct": 3
+    },
+    "G8_Prospective_Novelty": {
+      "passed": true,
+      "novel_relations_verified": 2
+    }
+  },
+  "all_gates_passed": true,
+  "target_certificates": [
+    {
+      "target_id": "Target_A01_Gram2",
+      "tier": "Tier_A",
+      "homogeneity_degree": 4,
+      "variables": [
+        "a",
+        "b",
+        "c"
+      ],
+      "symmetry_action": "S3_permutation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 2,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 3,
+          "realizability_consequence": "PSD cone G >= 0 defines non-strict 2-simplex inequalities; G > 0 defines nondegenerate.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "GRAM_METRIC",
+      "metric_realization_admitted": true,
+      "carrier_dimension": 2,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "PSD cone G >= 0 defines non-strict 2-simplex inequalities; G > 0 defines nondegenerate.",
+        "rank_loss_singular_locus": "det(G) = 0 (collinear / right flat boundary)",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 6,
+        "reconstructed_r1_primitive_count": 3,
+        "relational_compression_ratio": 2.0,
+        "automatically_derivable_relations": 4,
+        "description_complexity_score": 3.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A02_Gram3",
+      "tier": "Tier_A",
+      "homogeneity_degree": 6,
+      "variables": [
+        "a",
+        "b",
+        "c"
+      ],
+      "symmetry_action": "S3_permutation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "PSD cone G >= 0 defines 3-simplex acute cone; all 7 principal minors non-negative.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "GRAM_METRIC",
+      "metric_realization_admitted": true,
+      "carrier_dimension": 3,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "PSD cone G >= 0 defines 3-simplex acute cone; all 7 principal minors non-negative.",
+        "rank_loss_singular_locus": "det(G) = 0 (collinear / right flat boundary)",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 10,
+        "reconstructed_r1_primitive_count": 6,
+        "relational_compression_ratio": 1.6666666666666667,
+        "automatically_derivable_relations": 9,
+        "description_complexity_score": 6.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A03_Plucker1",
+      "tier": "Tier_A",
+      "homogeneity_degree": 2,
+      "variables": [
+        "p12",
+        "p13",
+        "p14",
+        "p23",
+        "p24",
+        "p34"
+      ],
+      "symmetry_action": "Z2_alternating",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Quadratic Grassmannian syzygy in G(2, 4); defines incidence and projective alignment.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "PROJECTIVE_PLUCKER",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 4,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Quadratic Grassmannian syzygy in G(2, 4); defines incidence and projective alignment.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 3,
+        "reconstructed_r1_primitive_count": 6,
+        "relational_compression_ratio": 0.5,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 6.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A04_Plucker2",
+      "tier": "Tier_A",
+      "homogeneity_degree": 2,
+      "variables": [
+        "x1",
+        "x2",
+        "x3",
+        "x4"
+      ],
+      "symmetry_action": "S4_permutation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Quadratic Grassmannian syzygy in G(2, 4); defines incidence and projective alignment.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "PROJECTIVE_PLUCKER",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 4,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Quadratic Grassmannian syzygy in G(2, 4); defines incidence and projective alignment.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 1,
+        "reconstructed_r1_primitive_count": 4,
+        "relational_compression_ratio": 0.25,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 4.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A05_Pfaffian1",
+      "tier": "Tier_A",
+      "homogeneity_degree": 4,
+      "variables": [
+        "x12",
+        "x13",
+        "x14",
+        "x23",
+        "x24",
+        "x34"
+      ],
+      "symmetry_action": "Symplectic_SP4",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Alternating symplectic 2-form; imaginary conjugate spectrum; preserves symplectic volume.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "SYMPLECTIC_PFAFFIAN",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 4,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Alternating symplectic 2-form; imaginary conjugate spectrum; preserves symplectic volume.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 6,
+        "reconstructed_r1_primitive_count": 6,
+        "relational_compression_ratio": 1.0,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 6.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A06_Pfaffian2",
+      "tier": "Tier_A",
+      "homogeneity_degree": 2,
+      "variables": [
+        "w12",
+        "w13",
+        "w14",
+        "w23",
+        "w24",
+        "w34"
+      ],
+      "symmetry_action": "Symplectic_SP4",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Alternating symplectic 2-form; imaginary conjugate spectrum; preserves symplectic volume.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "SYMPLECTIC_PFAFFIAN",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 4,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Alternating symplectic 2-form; imaginary conjugate spectrum; preserves symplectic volume.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 3,
+        "reconstructed_r1_primitive_count": 6,
+        "relational_compression_ratio": 0.5,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 6.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A07_Discriminant1",
+      "tier": "Tier_A",
+      "homogeneity_degree": 4,
+      "variables": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "symmetry_action": "Asymmetric",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 3,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 5,
+        "reconstructed_r1_primitive_count": 4,
+        "relational_compression_ratio": 1.25,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 4.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A08_Discriminant2",
+      "tier": "Tier_A",
+      "homogeneity_degree": 2,
+      "variables": [
+        "a",
+        "b",
+        "c"
+      ],
+      "symmetry_action": "Z2_reflection",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 2,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 3,
+          "realizability_consequence": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 2,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 2,
+        "reconstructed_r1_primitive_count": 3,
+        "relational_compression_ratio": 0.6666666666666666,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 3.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A09_Adversarial_SignatureObstruction",
+      "tier": "Tier_A",
+      "homogeneity_degree": 4,
+      "variables": [
+        "a",
+        "b",
+        "c"
+      ],
+      "symmetry_action": "S3_permutation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 2,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 3,
+          "realizability_consequence": "Metric signature obstruction: positive pure quartics violate Gram signature.",
+          "verdict": "REJECTED_SIGNATURE_OBSTRUCTION"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Unstructured or signature-obstructed form; strictly fails closed.",
+          "verdict": "ACCEPTED"
+        }
+      ],
+      "selected_family": "NO_COMPACT_STRUCTURE",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 0,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Unstructured or signature-obstructed form; strictly fails closed.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 6,
+        "reconstructed_r1_primitive_count": 6,
+        "relational_compression_ratio": 1.0,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 6.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_A10_Adversarial_UncoupledProduct",
+      "tier": "Tier_A",
+      "homogeneity_degree": 4,
+      "variables": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "symmetry_action": "S4_permutation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Rank-1 uncoupled coordinate product; no unified distance metric tensor.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "FACTORIZED_COORDINATES",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 1,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Rank-1 uncoupled coordinate product; no unified distance metric tensor.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 1,
+        "reconstructed_r1_primitive_count": 4,
+        "relational_compression_ratio": 0.25,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 4.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_B01_ThreeQubit_CayleyHyperdet",
+      "tier": "Tier_B",
+      "homogeneity_degree": 4,
+      "variables": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "symmetry_action": "SL2_SL2_SL2",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 3,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 5,
+        "reconstructed_r1_primitive_count": 4,
+        "relational_compression_ratio": 1.25,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 4.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_B02_FourQubit_N4_Bretschneider",
+      "tier": "Tier_B",
+      "homogeneity_degree": 4,
+      "variables": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "symmetry_action": "D4_dihedral",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 2,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Cyclic quadrilateral distance Gram determinant; non-negative under cyclic bounds.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "GRAM_METRIC",
+      "metric_realization_admitted": true,
+      "carrier_dimension": 2,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "Cyclic quadrilateral distance Gram determinant; non-negative under cyclic bounds.",
+        "rank_loss_singular_locus": "det(G) = 0 (collinear / right flat boundary)",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 11,
+        "reconstructed_r1_primitive_count": 4,
+        "relational_compression_ratio": 2.75,
+        "automatically_derivable_relations": 4,
+        "description_complexity_score": 4.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_B03_TwoQutrit_SU3_Casimir",
+      "tier": "Tier_B",
+      "homogeneity_degree": 3,
+      "variables": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "symmetry_action": "S3_permutation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 3,
+          "realizability_consequence": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 3,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 10,
+        "reconstructed_r1_primitive_count": 3,
+        "relational_compression_ratio": 3.3333333333333335,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 3.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_B04_Bell_CHSH_CorrelationBoundary",
+      "tier": "Tier_B",
+      "homogeneity_degree": 2,
+      "variables": [
+        "e11",
+        "e12",
+        "e21",
+        "e22"
+      ],
+      "symmetry_action": "D4_dihedral",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 2,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 2,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Algebraic branch locus separating real/complex root multiplicities and state singularities.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 11,
+        "reconstructed_r1_primitive_count": 4,
+        "relational_compression_ratio": 2.75,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 4.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_C01_Pentatope_4Simplex_Gram",
+      "tier": "Tier_C",
+      "homogeneity_degree": 4,
+      "variables": [
+        "d12",
+        "d13",
+        "d14",
+        "d23",
+        "d24",
+        "d34"
+      ],
+      "symmetry_action": "S4_permutation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Quadratic Grassmannian syzygy in G(2, 4); defines incidence and projective alignment.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "PROJECTIVE_PLUCKER",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 4,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Quadratic Grassmannian syzygy in G(2, 4); defines incidence and projective alignment.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 3,
+        "reconstructed_r1_primitive_count": 6,
+        "relational_compression_ratio": 0.5,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 6.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_C02_Laman_Rigidity_Determinant",
+      "tier": "Tier_C",
+      "homogeneity_degree": 2,
+      "variables": [
+        "x1",
+        "x2",
+        "y1",
+        "y2"
+      ],
+      "symmetry_action": "O2_rotation",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "No valid positive semidefinite Gram representation found.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 2,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Alternating symplectic 2-form; imaginary conjugate spectrum; preserves symplectic volume.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "SYMPLECTIC_PFAFFIAN",
+      "metric_realization_admitted": false,
+      "carrier_dimension": 2,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "N/A (Non-metric structural family)",
+        "rank_loss_singular_locus": "Alternating symplectic 2-form; imaginary conjugate spectrum; preserves symplectic volume.",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 2,
+        "reconstructed_r1_primitive_count": 4,
+        "relational_compression_ratio": 0.5,
+        "automatically_derivable_relations": 2,
+        "description_complexity_score": 4.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    },
+    {
+      "target_id": "Target_C03_Covariance_Gaussian_Entropy",
+      "tier": "Tier_C",
+      "homogeneity_degree": 2,
+      "variables": [
+        "s11",
+        "s22",
+        "s12"
+      ],
+      "symmetry_action": "GL2_covariance",
+      "evaluated_candidates": [
+        {
+          "family_id": "GRAM_METRIC",
+          "minimal_carrier_dimension": 2,
+          "exact_residual": 0.0,
+          "structural_parameter_count": 3,
+          "realizability_consequence": "Covariance Gram matrix; PSD cone G >= 0 enforces Cauchy-Schwarz variance bound.",
+          "verdict": "ACCEPTED"
+        },
+        {
+          "family_id": "SYMPLECTIC_PFAFFIAN",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Polynomial does not match skew-symmetric alternating Pfaffian structure.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "PROJECTIVE_PLUCKER",
+          "minimal_carrier_dimension": 4,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 6,
+          "realizability_consequence": "Does not satisfy quadratic Plucker Grassmann relation.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "DISCRIMINANT_SINGULARITY",
+          "minimal_carrier_dimension": 3,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 4,
+          "realizability_consequence": "Does not match polynomial root discriminant.",
+          "verdict": "REJECTED_RESIDUAL"
+        },
+        {
+          "family_id": "FACTORIZED_COORDINATES",
+          "minimal_carrier_dimension": 1,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Does not factor into independent coordinate hyperplanes.",
+          "verdict": "REJECTED_IRREDUCIBLE"
+        },
+        {
+          "family_id": "NO_COMPACT_STRUCTURE",
+          "minimal_carrier_dimension": 0,
+          "exact_residual": 1.0,
+          "structural_parameter_count": 0,
+          "realizability_consequence": "Structured compact family admitted.",
+          "verdict": "REJECTED_COMPACT_STRUCTURE_EXISTS"
+        }
+      ],
+      "selected_family": "GRAM_METRIC",
+      "metric_realization_admitted": true,
+      "carrier_dimension": 2,
+      "symbolic_residual": 0.0,
+      "predictive_consequences": {
+        "realizability_cone_formula": "Covariance Gram matrix; PSD cone G >= 0 enforces Cauchy-Schwarz variance bound.",
+        "rank_loss_singular_locus": "det(G) = 0 (collinear / right flat boundary)",
+        "num_withheld_test_points": 10,
+        "num_predictions_correct": 10,
+        "prediction_accuracy": 1.0,
+        "falsification_survived": true
+      },
+      "representation_ablation": {
+        "raw_r0_primitive_count": 2,
+        "reconstructed_r1_primitive_count": 3,
+        "relational_compression_ratio": 0.6666666666666666,
+        "automatically_derivable_relations": 4,
+        "description_complexity_score": 3.0
+      },
+      "coordinate_scrambling_invariant": true,
+      "epistemological_status": "PROVED"
+    }
+  ]
+}

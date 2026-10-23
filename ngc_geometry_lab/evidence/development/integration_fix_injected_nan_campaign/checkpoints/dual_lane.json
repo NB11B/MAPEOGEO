@@ -1,0 +1,4 @@
+{
+  "error": "dual_lane qubits=1 circuit=0 step=20 state candidate: nonfinite values at [((0,), '(nan+0j)'), ((1,), '(nan+0j)')]",
+  "error_type": "ValueError"
+}

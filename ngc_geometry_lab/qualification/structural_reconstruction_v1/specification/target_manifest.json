@@ -1,0 +1,132 @@
+{
+  "manifest_name": "GEO_X2_FROZEN_RECONSTRUCTION_TARGETS",
+  "target_count": 18,
+  "targets": [
+    {
+      "id": "T01",
+      "name": "Qubit_State_Geometry",
+      "conventional_name": "Bloch sphere / density operator on C^2",
+      "required_primitives": ["P1", "P3", "P11"],
+      "description": "3D unit ball of state vectors r with r^2 <= 1, extreme points pure states"
+    },
+    {
+      "id": "T02",
+      "name": "Unitary_Ordered_Evolution",
+      "conventional_name": "Schrodinger evolution U = exp(-iHt)",
+      "required_primitives": ["P2", "P10"],
+      "description": "Orthogonal rotation in state body driven by oriented bivector generator"
+    },
+    {
+      "id": "T03",
+      "name": "Born_Readout",
+      "conventional_name": "Born rule Tr(E rho)",
+      "required_primitives": ["P1", "P3", "P7"],
+      "description": "Affine projection on convex state body: p(+|r, n) = (1 + r.n)/2"
+    },
+    {
+      "id": "T04",
+      "name": "Tetrahedral_Observation_Representation",
+      "conventional_name": "d=2 Symmetric Informationally Complete (SIC) POVM",
+      "required_primitives": ["P1", "P7"],
+      "description": "Regular simplex frame of 4 rank-1 measurement directions in R^3"
+    },
+    {
+      "id": "T05",
+      "name": "General_CPTP_Channel_Admissibility",
+      "conventional_name": "Completely Positive Trace-Preserving (CPTP) maps / Choi theorem",
+      "required_primitives": ["P4", "P8", "P11"],
+      "description": "Positivity on relational ancilla extension: J(Phi) >= 0"
+    },
+    {
+      "id": "T06",
+      "name": "Qutrit_Positivity_Geometry",
+      "conventional_name": "8D generalized Gell-Mann Bloch ball for d=3",
+      "required_primitives": ["P1", "P5", "P11"],
+      "description": "Convex body bounded by quadratic Casimir r^2 <= 4/3 and cubic Casimir det(rho) >= 0"
+    },
+    {
+      "id": "T07",
+      "name": "Lie_Jordan_Observable_Structure",
+      "conventional_name": "Algebra of quantum observables (anticommutator + commutator)",
+      "required_primitives": ["P1", "P2"],
+      "description": "Jordan product decomposes as real metric inner product; Lie bracket as oriented bivector"
+    },
+    {
+      "id": "T08",
+      "name": "Robertson_Uncertainty_Geometry",
+      "conventional_name": "Robertson uncertainty relation Delta A Delta B >= 1/2 |<[A, B]>|",
+      "required_primitives": ["P1", "P2"],
+      "description": "Geometric area of parallelogram spanned by observable variance vectors"
+    },
+    {
+      "id": "T09",
+      "name": "Contextuality_Obstruction",
+      "conventional_name": "Kochen-Specker theorem / Peres-Mermin magic square",
+      "required_primitives": ["P9", "P12"],
+      "description": "F_2 parity contradiction on incidence hypergraph: y^T H = 0 (mod 2) while y^T b = 1 (mod 2)"
+    },
+    {
+      "id": "T10",
+      "name": "Lindblad_Open_System_Admissibility",
+      "conventional_name": "GKLS generator of quantum dynamical semigroup",
+      "required_primitives": ["P1", "P2", "P10", "P11"],
+      "description": "Decomposition into skew-symmetric Hamiltonian flow and positive dissipative Kossakowski tensor"
+    },
+    {
+      "id": "T11",
+      "name": "Two_Qubit_Correlation_Structure",
+      "conventional_name": "Entangled two-qubit state / Horodecki Peres PPT criterion",
+      "required_primitives": ["P1", "P4", "P8", "P11"],
+      "description": "3x3 multivector correlation tensor T; PPT corresponds to reflection r -> (x, -y, z)"
+    },
+    {
+      "id": "T12",
+      "name": "Three_Qubit_Invariant_Grammar",
+      "conventional_name": "Cayley hyperdeterminant 4-tangle and bipartite flattening ranks",
+      "required_primitives": ["P4", "P5", "P6"],
+      "description": "Tripartite entanglement grammar: degree-4 invariant Tau_ABC and Schmidt ranks (r_A, r_B, r_C)"
+    },
+    {
+      "id": "T13",
+      "name": "CKW_Relational_Conservation_Structure",
+      "conventional_name": "Coffman-Kundu-Wootters tangle monogamy inequality",
+      "required_primitives": ["P1", "P4", "P6"],
+      "description": "Relational conservation identity: Tau_{A:BC} = Tau_{A:B} + Tau_{A:C} + Tau_{ABC}"
+    },
+    {
+      "id": "T14",
+      "name": "Four_Qubit_Invariant_Ring",
+      "conventional_name": "Luque-Thibon SL(2,C)^4 polynomial invariant algebra",
+      "required_primitives": ["P4", "P5", "P6", "P12"],
+      "description": "Generators of degrees (2, 4, 4, 6) derived via collision resolution and syzygy L_4 + M_4 + N_4 = 0"
+    },
+    {
+      "id": "T15",
+      "name": "Four_Qubit_Metric_Reconstruction",
+      "conventional_name": "Cayley-Menger simplex Gram reduction from invariants M_4 and D_6",
+      "required_primitives": ["P1", "P6", "P11"],
+      "description": "Autonomous Gram determinants: M_4 = 1/4 det(G_tri) and D_6 = -1/16 det(G_disph)"
+    },
+    {
+      "id": "T16",
+      "name": "Three_Mode_CP2_Phase_Geometry",
+      "conventional_name": "Qutrit pure state space CP^2 and local S^2_+ x T^2 chart",
+      "required_primitives": ["P1", "P2", "P6", "P12"],
+      "description": "Fiber collapse on boundary octant S^2_+; orbit-closure dimension dim(O) in {0, 1, 2}"
+    },
+    {
+      "id": "T17",
+      "name": "Error_Correcting_Syndrome_Structure",
+      "conventional_name": "Quantum error correction / stabilizer code projector",
+      "required_primitives": ["P1", "P7", "P9", "P12"],
+      "description": "Stabilizer code subspace isolated as simultaneous +1 eigenspace; syndrome as nullspace projection"
+    },
+    {
+      "id": "T18",
+      "name": "Decoherence_Free_Invariant_Subspace",
+      "conventional_name": "Decoherence-Free Subspace (DFS) commutant",
+      "required_primitives": ["P5", "P6", "P10"],
+      "description": "Commutant of system-bath interaction algebra acting trivially on protected subsystem"
+    }
+  ]
+}

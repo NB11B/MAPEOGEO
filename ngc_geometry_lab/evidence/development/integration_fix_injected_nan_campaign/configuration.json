@@ -1,0 +1,38 @@
+{
+  "absolute_equivalence_tolerance": 1e-10,
+  "calibration_states": 24,
+  "counts_per_record": 65536,
+  "default_seed": 20261022,
+  "dual_circuits_per_size": 12,
+  "dual_gates_per_circuit": 20,
+  "dual_qubits": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "heldout_states": 128,
+  "joint_local_rotations_per_state": 8,
+  "joint_states": 128,
+  "local_deterministic_assignments": 16,
+  "mean_bloch_error_gate": 0.035,
+  "metric_tolerance": 1e-09,
+  "readout_exponents": [
+    1,
+    2,
+    4
+  ],
+  "rng_streams": {
+    "dual_lane": 3,
+    "joint": 6,
+    "readout": 5,
+    "single_qubit": 2,
+    "synthetic_observations": 4
+  },
+  "seed": 20261022,
+  "single_rotations_per_state": 12,
+  "single_states": 256,
+  "version": 1
+}

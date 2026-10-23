@@ -1,0 +1,60 @@
+test_gram_edges_and_volume (test_geometry.CenterAndGeometryTests.test_gram_edges_and_volume) ... ok
+test_inconsistent_centers (test_geometry.CenterAndGeometryTests.test_inconsistent_centers) ... ok
+test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) ... ok
+test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) ... ok
+test_nonunique_center_is_least_norm_representative (test_geometry.CenterAndGeometryTests.test_nonunique_center_is_least_norm_representative) ... ok
+test_unique_common_center (test_geometry.CenterAndGeometryTests.test_unique_common_center) ... ok
+test_chsh_singlet (test_geometry.JointTests.test_chsh_singlet) ... ok
+test_generic_probability_coordinates_do_not_claim_quantum_physicality (test_geometry.JointTests.test_generic_probability_coordinates_do_not_claim_quantum_physicality) ... ok
+test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) ... ok
+test_product_coordinates (test_geometry.JointTests.test_product_coordinates) ... ok
+test_singlet_joint_probabilities_and_inverse (test_geometry.JointTests.test_singlet_joint_probabilities_and_inverse) ... ok
+test_empty_family_and_other_dimension (test_geometry.MetricTests.test_empty_family_and_other_dimension) ... ok
+test_failed_high_nullity_witness_is_unresolved (test_geometry.MetricTests.test_failed_high_nullity_witness_is_unresolved) ... ok
+test_ill_conditioned_spd_metric_is_unresolved_at_default_tolerance (test_geometry.MetricTests.test_ill_conditioned_spd_metric_is_unresolved_at_default_tolerance) ... FAIL
+test_inconsistent_dilation_has_no_metric (test_geometry.MetricTests.test_inconsistent_dilation_has_no_metric) ... ok
+test_insufficient_family_returns_spd_witness_with_ambiguity (test_geometry.MetricTests.test_insufficient_family_returns_spd_witness_with_ambiguity) ... ok
+test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) ... ok
+test_non_euclidean_metric_recovered_from_conjugated_cubic_family (test_geometry.MetricTests.test_non_euclidean_metric_recovered_from_conjugated_cubic_family) ... ok
+test_unique_indefinite_metric_is_definitively_rejected (test_geometry.MetricTests.test_unique_indefinite_metric_is_definitively_rejected) ... ok
+test_unique_semidefinite_boundary_is_numerically_unresolved (test_geometry.MetricTests.test_unique_semidefinite_boundary_is_numerically_unresolved) ... FAIL
+test_duplicate_directions_and_sequence_rank (test_geometry.ObservabilityTests.test_duplicate_directions_and_sequence_rank) ... ok
+test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) ... ok
+test_single_observation_vector (test_geometry.ObservabilityTests.test_single_observation_vector) ... ok
+test_active_rodrigues (test_geometry.OperationTests.test_active_rodrigues) ... ok
+test_crossed_and_inserted_polarizers (test_geometry.OperationTests.test_crossed_and_inserted_polarizers) ... ok
+test_exponents_and_no_projection (test_geometry.OperationTests.test_exponents_and_no_projection) ... ok
+test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) ... ok
+test_rotation_order_matters (test_geometry.OperationTests.test_rotation_order_matters) ... ok
+test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) ... ok
+test_invalid_state (test_geometry.TetraTests.test_invalid_state) ... ok
+test_mixed_state_and_vertex_probabilities (test_geometry.TetraTests.test_mixed_state_and_vertex_probabilities) ... ok
+test_one_hot_distribution_is_not_physical (test_geometry.TetraTests.test_one_hot_distribution_is_not_physical) ... ok
+test_vertices_and_fresh_storage (test_geometry.TetraTests.test_vertices_and_fresh_storage) ... ok
+
+======================================================================
+FAIL: test_ill_conditioned_spd_metric_is_unresolved_at_default_tolerance (test_geometry.MetricTests.test_ill_conditioned_spd_metric_is_unresolved_at_default_tolerance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 125, in test_ill_conditioned_spd_metric_is_unresolved_at_default_tolerance
+    self.assertEqual(result['status'], 'unresolved_feasibility')
+AssertionError: 'no_positive_definite_metric' != 'unresolved_feasibility'
+- no_positive_definite_metric
++ unresolved_feasibility
+
+
+======================================================================
+FAIL: test_unique_semidefinite_boundary_is_numerically_unresolved (test_geometry.MetricTests.test_unique_semidefinite_boundary_is_numerically_unresolved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 135, in test_unique_semidefinite_boundary_is_numerically_unresolved
+    self.assertEqual(result['status'], 'unresolved_feasibility')
+AssertionError: 'no_positive_definite_metric' != 'unresolved_feasibility'
+- no_positive_definite_metric
++ unresolved_feasibility
+
+
+----------------------------------------------------------------------
+Ran 33 tests in 0.009s
+
+FAILED (failures=2)

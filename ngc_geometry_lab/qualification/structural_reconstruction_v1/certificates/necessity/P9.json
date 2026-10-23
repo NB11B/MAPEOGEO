@@ -1,0 +1,12 @@
+{
+  "primitive_id": "P9",
+  "primitive_name": "COMPATIBILITY_TOPOLOGY",
+  "targets_lost_count": 2,
+  "targets_lost_ids": [
+    "T09",
+    "T17"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T09",
+  "epistemic_justification": "Primitive P9 (COMPATIBILITY_TOPOLOGY) is strictly necessary: removing it causes 2 target failures (e.g. T09)."
+}

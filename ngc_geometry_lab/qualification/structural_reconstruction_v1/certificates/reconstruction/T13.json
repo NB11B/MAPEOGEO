@@ -1,0 +1,18 @@
+{
+  "target_id": "T13",
+  "target_name": "CKW_Relational_Conservation_Structure",
+  "primitives_used": [
+    "P1",
+    "P4",
+    "P6"
+  ],
+  "is_exact": true,
+  "symbolic_residual": 0.0,
+  "derivation_steps": [
+    "1. Activate primitive bases: ['P1', 'P4', 'P6']",
+    "2. Formulate geometric carrier and admissibility constraints",
+    "3. Derive target 'CKW_Relational_Conservation_Structure' with 0.0 symbolic residual"
+  ],
+  "epistemic_status": "ESTABLISHED_WITHIN_QUALIFIED_SCOPE",
+  "status": "RECONSTRUCTED_EXACT"
+}

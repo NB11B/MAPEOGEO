@@ -1,0 +1,90 @@
+{
+  "manifest_sha256_ref": "b96874e0d771337424ad4155bfe98ee0bf0e290f6dfeb78cfa82367d35368a57",
+  "expected_classifications": {
+    "Target_A01_Gram2": {
+      "expected_family": "GRAM_METRIC",
+      "metric_realization": true,
+      "expected_dimension": 2
+    },
+    "Target_A02_Gram3": {
+      "expected_family": "GRAM_METRIC",
+      "metric_realization": true,
+      "expected_dimension": 3
+    },
+    "Target_A03_Plucker1": {
+      "expected_family": "PROJECTIVE_PLUCKER",
+      "metric_realization": false,
+      "expected_dimension": 4
+    },
+    "Target_A04_Plucker2": {
+      "expected_family": "PROJECTIVE_PLUCKER",
+      "metric_realization": false,
+      "expected_dimension": 4
+    },
+    "Target_A05_Pfaffian1": {
+      "expected_family": "SYMPLECTIC_PFAFFIAN",
+      "metric_realization": false,
+      "expected_dimension": 4
+    },
+    "Target_A06_Pfaffian2": {
+      "expected_family": "SYMPLECTIC_PFAFFIAN",
+      "metric_realization": false,
+      "expected_dimension": 4
+    },
+    "Target_A07_Discriminant1": {
+      "expected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization": false,
+      "expected_dimension": 3
+    },
+    "Target_A08_Discriminant2": {
+      "expected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization": false,
+      "expected_dimension": 2
+    },
+    "Target_A09_Adversarial_SignatureObstruction": {
+      "expected_family": "NO_COMPACT_STRUCTURE",
+      "metric_realization": false,
+      "expected_dimension": 0
+    },
+    "Target_A10_Adversarial_UncoupledProduct": {
+      "expected_family": "FACTORIZED_COORDINATES",
+      "metric_realization": false,
+      "expected_dimension": 1
+    },
+    "Target_B01_ThreeQubit_CayleyHyperdet": {
+      "expected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization": false,
+      "expected_dimension": 2
+    },
+    "Target_B02_FourQubit_N4_Bretschneider": {
+      "expected_family": "GRAM_METRIC",
+      "metric_realization": true,
+      "expected_dimension": 2
+    },
+    "Target_B03_TwoQutrit_SU3_Casimir": {
+      "expected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization": false,
+      "expected_dimension": 3
+    },
+    "Target_B04_Bell_CHSH_CorrelationBoundary": {
+      "expected_family": "DISCRIMINANT_SINGULARITY",
+      "metric_realization": false,
+      "expected_dimension": 2
+    },
+    "Target_C01_Pentatope_4Simplex_Gram": {
+      "expected_family": "PROJECTIVE_PLUCKER",
+      "metric_realization": false,
+      "expected_dimension": 4
+    },
+    "Target_C02_Laman_Rigidity_Determinant": {
+      "expected_family": "SYMPLECTIC_PFAFFIAN",
+      "metric_realization": false,
+      "expected_dimension": 2
+    },
+    "Target_C03_Covariance_Gaussian_Entropy": {
+      "expected_family": "GRAM_METRIC",
+      "metric_realization": true,
+      "expected_dimension": 2
+    }
+  }
+}

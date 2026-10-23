@@ -1,0 +1,11 @@
+Running source_integrity
+Running connected_operators
+Running exact_closure
+Running metric_and_center
+Running single_qubit
+Running dual_lane
+Running finite_shot
+Running readout
+Running joint
+Running identifiability
+PASS: 12/12 computational gates; evidence: results/qualification_20261022

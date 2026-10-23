@@ -1,0 +1,14 @@
+test_cli_missing_library_nonzero_and_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_cli_missing_library_nonzero_and_invalid_arguments) ... ok
+test_cli_probe_output_and_no_overwrite (test_cuda_check.CudaBoundaryTests.test_cli_probe_output_and_no_overwrite) ... ok
+test_lsb_target_mapping_with_analytic_basis_states (test_cuda_check.CudaBoundaryTests.test_lsb_target_mapping_with_analytic_basis_states) ... ok
+test_missing_library_is_not_run (test_cuda_check.CudaBoundaryTests.test_missing_library_is_not_run) ... ok
+test_probe_is_diagnostic_not_a_native_test (test_cuda_check.CudaBoundaryTests.test_probe_is_diagnostic_not_a_native_test) ... ok
+test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) ... ok
+test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) ... ok
+test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) ... ok
+test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.008s
+
+OK

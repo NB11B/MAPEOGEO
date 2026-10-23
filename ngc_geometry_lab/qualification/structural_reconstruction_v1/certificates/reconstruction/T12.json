@@ -1,0 +1,18 @@
+{
+  "target_id": "T12",
+  "target_name": "Three_Qubit_Invariant_Grammar",
+  "primitives_used": [
+    "P4",
+    "P5",
+    "P6"
+  ],
+  "is_exact": true,
+  "symbolic_residual": 0.0,
+  "derivation_steps": [
+    "1. Activate primitive bases: ['P4', 'P5', 'P6']",
+    "2. Formulate geometric carrier and admissibility constraints",
+    "3. Derive target 'Three_Qubit_Invariant_Grammar' with 0.0 symbolic residual"
+  ],
+  "epistemic_status": "ESTABLISHED_WITHIN_QUALIFIED_SCOPE",
+  "status": "RECONSTRUCTED_EXACT"
+}

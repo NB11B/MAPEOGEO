@@ -1,0 +1,29 @@
+{
+  "program_id": "GEO-X1",
+  "program_title": "GEO-X1: Prospective Geometric Reconstruction Qualification",
+  "governing_question": "When the conventional algebraic labels are removed, can MAPEOGEO recover the latent relational geometry, know when no such geometry exists, and use the recovered structure to predict something it was not given?",
+  "baseline_commit": {
+    "gate_g0_baseline_tests_count": 247,
+    "baseline_source_sha256": "5a1fe7b62b0dbcfc4a5367dab63ba5c7db12494764cb719d45b40821618f3668",
+    "baseline_tests_sha256": "7625e6be1386e5c196dce78cab4214a383471a76335a246c8a4f745576329432",
+    "status": "SEALED_AND_PINNED"
+  },
+  "epistemological_principles": [
+    "Fail-Closed Principle: Refuse geometric interpretation (return NO_METRIC_REALIZATION) when no valid metric tensor exists.",
+    "Parsimony and Minimal Description Length: Prefer representations with fewer structural parameters and higher predictive power.",
+    "Predictive Falsification: Reconstructed structures must generate unseen boundary predictions (cones, rank losses, degeneracies) tested against independent samples.",
+    "Literature Isolation: Blind reconstruction must complete and freeze before external literature classification."
+  ],
+  "gates": {
+    "G0": "Frozen Baseline: 247/247 existing tests pass under -W error.",
+    "G1": "Structural Identification: >=90% correct structural family on Tier A known-hidden targets.",
+    "G2": "Fail-Closed: Exactly 0 false metric claims on adversarial controls.",
+    "G3": "Exact Reconstruction: Symbolic residual = 0 where an exact representation exists.",
+    "G4": "Predictive Geometry: >=95% accuracy on withheld boundary/realizability predictions.",
+    "G5": "Coordinate Robustness: Structural classifications invariant under coordinate permutation and scaling.",
+    "G6": "Ablation Advantage: Reconstructed geometry R1 exhibits measurable relational compression over raw invariant R0.",
+    "G7": "Cross-Domain Transfer: Identical grammar succeeds outside quantum domain (distance geometry, rigidity, covariance).",
+    "G8": "Prospective Novelty: Identifies and independently proves at least one previously untargeted boundary relation."
+  },
+  "registered_at": "2026-10-22T15:20:00-04:00"
+}

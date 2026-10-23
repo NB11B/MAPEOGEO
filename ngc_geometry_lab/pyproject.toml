@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ngc-geometry-lab"
+version = "0.1.0"
+description = "Source-backed NGC and MAPEOGEO geometric reconstruction qualification"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24", "scipy>=1.10"]
+
+[project.scripts]
+ngc-geometry-lab = "ngc_geometry_lab.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["ngc_geometry_lab*"]
+
+[tool.setuptools.package-data]
+ngc_geometry_lab = ["_vendor/**/*.json", "_vendor/**/*.md", "_vendor/**/*.py", "_vendor/**/*.cu", "_vendor/**/*.h"]

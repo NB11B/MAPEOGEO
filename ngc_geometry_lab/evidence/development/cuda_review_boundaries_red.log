@@ -1,0 +1,50 @@
+test_cli_missing_library_nonzero_and_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_cli_missing_library_nonzero_and_invalid_arguments) ... ok
+test_cli_probe_output_and_no_overwrite (test_cuda_check.CudaBoundaryTests.test_cli_probe_output_and_no_overwrite) ... ok
+test_cpu_fault_injection_preserves_failure_before_approximation_overflow (test_cuda_check.CudaBoundaryTests.test_cpu_fault_injection_preserves_failure_before_approximation_overflow)
+Mock protocol/error handling only; no CUDA library/device/kernel runs. ... 
+  test_cpu_fault_injection_preserves_failure_before_approximation_overflow (test_cuda_check.CudaBoundaryTests.test_cpu_fault_injection_preserves_failure_before_approximation_overflow) (value=1e+308)
+Mock protocol/error handling only; no CUDA library/device/kernel runs. ... ERROR
+  test_cpu_fault_injection_preserves_failure_before_approximation_overflow (test_cuda_check.CudaBoundaryTests.test_cpu_fault_injection_preserves_failure_before_approximation_overflow) (value=(1.7e+308+1.7e+308j))
+Mock protocol/error handling only; no CUDA library/device/kernel runs. ... FAIL
+test_lsb_target_mapping_with_analytic_basis_states (test_cuda_check.CudaBoundaryTests.test_lsb_target_mapping_with_analytic_basis_states) ... ok
+test_missing_library_is_not_run (test_cuda_check.CudaBoundaryTests.test_missing_library_is_not_run) ... ok
+test_probe_is_diagnostic_not_a_native_test (test_cuda_check.CudaBoundaryTests.test_probe_is_diagnostic_not_a_native_test) ... ok
+test_quantization_immediately_below_half_bin_does_not_round_up (test_cuda_check.CudaBoundaryTests.test_quantization_immediately_below_half_bin_does_not_round_up) ... FAIL
+test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) ... ok
+test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) ... ok
+test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) ... ok
+test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) ... ok
+
+======================================================================
+ERROR: test_cpu_fault_injection_preserves_failure_before_approximation_overflow (test_cuda_check.CudaBoundaryTests.test_cpu_fault_injection_preserves_failure_before_approximation_overflow) (value=1e+308)
+Mock protocol/error handling only; no CUDA library/device/kernel runs.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 47, in test_cpu_fault_injection_preserves_failure_before_approximation_overflow
+    cuda._run_native(api,report,20261022,48)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 183, in _run_native
+    fidelity=float(overlap**2)
+                   ~~~~~~~^^~
+RuntimeWarning: overflow encountered in scalar power
+
+======================================================================
+FAIL: test_cpu_fault_injection_preserves_failure_before_approximation_overflow (test_cuda_check.CudaBoundaryTests.test_cpu_fault_injection_preserves_failure_before_approximation_overflow) (value=(1.7e+308+1.7e+308j))
+Mock protocol/error handling only; no CUDA library/device/kernel runs.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 51, in test_cpu_fault_injection_preserves_failure_before_approximation_overflow
+    self.assertNotIn('continuous_target_fidelity',report['records'][0])
+AssertionError: 'continuous_target_fidelity' unexpectedly found in {'num_qubits': 1, 'step': -1, 'gate': None, 'quantized_state_max_abs_error': inf, 'quantized_probability_max_abs_error': 1e+308, 'continuous_target_fidelity': inf, 'continuous_target_phase_invariant_distance': 0.0, 'continuous_target_probability_max_abs_difference': 1e+308}
+
+======================================================================
+FAIL: test_quantization_immediately_below_half_bin_does_not_round_up (test_cuda_check.CudaBoundaryTests.test_quantization_immediately_below_half_bin_does_not_round_up)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 24, in test_quantization_immediately_below_half_bin_does_not_round_up
+    self.assertEqual(cuda.quantize_angle(angle,bins),0)
+AssertionError: 1.5707963267948966 != 0
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.016s
+
+FAILED (failures=2, errors=1)

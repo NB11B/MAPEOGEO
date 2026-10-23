@@ -1,0 +1,26 @@
+{
+  "status": "NOT_RUN",
+  "native_execution": "NOT_RUN",
+  "gate_count": 0,
+  "reason": "Diagnostic inventory only; no compiled library or kernels executed.",
+  "nvcc": {
+    "available": false,
+    "executable": null,
+    "returncode": null,
+    "output": ""
+  },
+  "nvidia_smi": {
+    "available": false,
+    "executable": null,
+    "returncode": null,
+    "output": ""
+  },
+  "source_snapshot": {
+    "commit": "e825ade2c033ffb9d83a4cd4f89252136443664b",
+    "sha256": {
+      "ngc_rcs_geometric.cu": "e9ef40c34398eaeeb4d0a11f567495042b56b9855e233a6812c16b1d9c5515c4",
+      "ngc_rcs_api.h": null
+    },
+    "matches_pinned": false
+  }
+}

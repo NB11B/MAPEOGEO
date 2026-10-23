@@ -1,0 +1,13 @@
+{
+  "primitive_id": "P10",
+  "primitive_name": "ORDERED_COMPOSITION",
+  "targets_lost_count": 3,
+  "targets_lost_ids": [
+    "T02",
+    "T10",
+    "T18"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T02",
+  "epistemic_justification": "Primitive P10 (ORDERED_COMPOSITION) is strictly necessary: removing it causes 3 target failures (e.g. T02)."
+}

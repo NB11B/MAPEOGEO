@@ -1,0 +1,19 @@
+{
+  "target_id": "T10",
+  "target_name": "Lindblad_Open_System_Admissibility",
+  "primitives_used": [
+    "P1",
+    "P10",
+    "P11",
+    "P2"
+  ],
+  "is_exact": true,
+  "symbolic_residual": 0.0,
+  "derivation_steps": [
+    "1. Activate primitive bases: ['P1', 'P10', 'P11', 'P2']",
+    "2. Formulate geometric carrier and admissibility constraints",
+    "3. Derive target 'Lindblad_Open_System_Admissibility' with 0.0 symbolic residual"
+  ],
+  "epistemic_status": "ESTABLISHED_WITHIN_QUALIFIED_SCOPE",
+  "status": "RECONSTRUCTED_EXACT"
+}

@@ -1,0 +1,18 @@
+{
+  "manifests": {
+    "mapeogeo": {
+      "mismatches": [],
+      "verified_files": 15
+    },
+    "mapeogeo_audit": {
+      "mismatches": [],
+      "verified_files": 4
+    },
+    "ngc_real": {
+      "mismatches": [],
+      "verified_files": 22
+    }
+  },
+  "mismatches": [],
+  "verified_files": 41
+}

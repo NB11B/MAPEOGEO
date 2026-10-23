@@ -1,0 +1,14 @@
+{
+  "primitive_id": "P5",
+  "primitive_name": "GROUP_ACTION",
+  "targets_lost_count": 4,
+  "targets_lost_ids": [
+    "T06",
+    "T12",
+    "T14",
+    "T18"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T06",
+  "epistemic_justification": "Primitive P5 (GROUP_ACTION) is strictly necessary: removing it causes 4 target failures (e.g. T06)."
+}

@@ -1,0 +1,16 @@
+{
+  "primitive_id": "P6",
+  "primitive_name": "QUOTIENT_EQUIVALENCE",
+  "targets_lost_count": 6,
+  "targets_lost_ids": [
+    "T12",
+    "T13",
+    "T14",
+    "T15",
+    "T16",
+    "T18"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T12",
+  "epistemic_justification": "Primitive P6 (QUOTIENT_EQUIVALENCE) is strictly necessary: removing it causes 6 target failures (e.g. T12)."
+}

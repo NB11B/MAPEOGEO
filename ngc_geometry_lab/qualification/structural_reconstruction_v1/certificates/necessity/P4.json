@@ -1,0 +1,15 @@
+{
+  "primitive_id": "P4",
+  "primitive_name": "TENSOR_COMPOSITION",
+  "targets_lost_count": 5,
+  "targets_lost_ids": [
+    "T05",
+    "T11",
+    "T12",
+    "T13",
+    "T14"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T05",
+  "epistemic_justification": "Primitive P4 (TENSOR_COMPOSITION) is strictly necessary: removing it causes 5 target failures (e.g. T05)."
+}

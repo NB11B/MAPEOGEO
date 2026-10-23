@@ -1,0 +1,18 @@
+test_blind_dataset_workflow (tests.test_observations.ObservationTests.test_blind_dataset_workflow) ... ok
+test_calibration_recovers_known_detector_from_counts (tests.test_observations.ObservationTests.test_calibration_recovers_known_detector_from_counts) ... ok
+test_counts_validation (tests.test_observations.ObservationTests.test_counts_validation) ... ok
+test_detector_validation_rejects_invalid_matrices (tests.test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) ... ok
+test_inversion_uses_counts_and_frozen_detector (tests.test_observations.ObservationTests.test_inversion_uses_counts_and_frozen_detector) ... ok
+test_large_counts_are_rejected_before_float_rounding (tests.test_observations.ObservationTests.test_large_counts_are_rejected_before_float_rounding) ... ok
+test_mixed_boolean_counts_are_rejected (tests.test_observations.ObservationTests.test_mixed_boolean_counts_are_rejected) ... ok
+test_rank_deficient_calibration_rejected (tests.test_observations.ObservationTests.test_rank_deficient_calibration_rejected) ... ok
+test_rotation_prediction_has_correct_sign_and_order (tests.test_observations.ObservationTests.test_rotation_prediction_has_correct_sign_and_order) ... ok
+test_schema_rejects_embedded_truth_and_duplicate_ids (tests.test_observations.ObservationTests.test_schema_rejects_embedded_truth_and_duplicate_ids) ... ok
+test_schema_requires_explicit_provenance (tests.test_observations.ObservationTests.test_schema_requires_explicit_provenance) ... ok
+test_uninformative_detector_rejected (tests.test_observations.ObservationTests.test_uninformative_detector_rejected) ... ok
+test_unphysical_sampling_estimate_preserves_raw_record (tests.test_observations.ObservationTests.test_unphysical_sampling_estimate_preserves_raw_record) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.006s
+
+OK

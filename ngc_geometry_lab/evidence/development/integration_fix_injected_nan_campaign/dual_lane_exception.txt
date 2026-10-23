@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/campaign.py", line 73, in stage
+    value = function()
+            ^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/campaign.py", line 131, in dual
+    result,tables['dual_lane.csv'] = exp.dual_lane(seed)
+                                     ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/experiments.py", line 227, in dual_lane
+    error = _max_abs_error(candidate,expected,f'{context} state')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/experiments.py", line 45, in _max_abs_error
+    candidate = _require_finite(candidate, f'{context} candidate')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/experiments.py", line 35, in _require_finite
+    raise ValueError(f'{context}: nonfinite values at {bad}')
+ValueError: dual_lane qubits=1 circuit=0 step=20 state candidate: nonfinite values at [((0,), '(nan+0j)'), ((1,), '(nan+0j)')]

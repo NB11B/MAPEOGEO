@@ -1,0 +1,16 @@
+{
+  "max_direction_sum_error": 0.0,
+  "max_frame_gram_error": 2.220446049250313e-16,
+  "max_prediction_error": 4.996003610813204e-16,
+  "max_probability_error": 1.6653345369377348e-16,
+  "max_state_error": 5.551115123125783e-16,
+  "mixed_states": 128,
+  "observation_rank": 3,
+  "one_hot_distribution_rejected_as_unphysical": true,
+  "pure_states": 128,
+  "rotation_predictions": 3072,
+  "states": 256,
+  "wrong_label_control_description": "Permute observation labels without transforming the subsequent operator frame.",
+  "wrong_label_control_max_error": 0.47786720038851205,
+  "wrong_label_control_mean_error": 0.18258260016283465
+}

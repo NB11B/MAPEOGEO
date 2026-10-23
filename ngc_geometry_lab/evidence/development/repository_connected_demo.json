@@ -1,0 +1,283 @@
+{
+  "qualified": true,
+  "checks": {
+    "fusion_order": true,
+    "information_rank_and_nullity": true,
+    "observable_equivalence": true,
+    "observability_matrix": true,
+    "initial_state_reconstruction": true,
+    "duplicate_direction_rank": true,
+    "source_identity_not_inferred": true
+  },
+  "provenance": "new qualification inputs executed by unchanged pinned MAPEOGEO modules",
+  "composition": {
+    "A": [
+      [
+        2,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "B": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "execution_order": [
+      "A",
+      "B"
+    ],
+    "fused": [
+      [
+        0,
+        -1
+      ],
+      [
+        2,
+        0
+      ]
+    ],
+    "numpy_product": [
+      [
+        0,
+        -1
+      ],
+      [
+        2,
+        0
+      ]
+    ],
+    "max_abs_error": 0.0
+  },
+  "information": {
+    "matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ],
+    "input_dim": 3,
+    "output_dim": 2,
+    "rank": 2,
+    "nullity": 1,
+    "injective": false,
+    "surjective": true,
+    "invertible": false,
+    "information_loss": true
+  },
+  "work_equivalence": {
+    "A": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "B": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "observation": [
+      [
+        0,
+        1
+      ]
+    ],
+    "AB": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "BA": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "PAB": [
+      [
+        0,
+        2
+      ]
+    ],
+    "PBA": [
+      [
+        0,
+        2
+      ]
+    ],
+    "upstream_result": {
+      "exact_difference": 1.0,
+      "observed_difference": 0.0,
+      "tolerance": 0.0,
+      "equivalent_for_work": true,
+      "exact_equal": false
+    },
+    "upstream_test_expected_equivalent": false,
+    "corrected_expected_equivalent": true,
+    "upstream_test_status": "incorrect expectation for its supplied matrices"
+  },
+  "observability": {
+    "transition": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "observation": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "numpy_matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "initial_state": [
+      1,
+      2,
+      3
+    ],
+    "samples": [
+      [
+        1
+      ],
+      [
+        2
+      ],
+      [
+        3
+      ]
+    ],
+    "recovered_state": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "null_basis": [],
+    "identifiable_rank": 3,
+    "residual": 0.0,
+    "source_identified": false
+  },
+  "duplicate_observations": {
+    "matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ]
+    ],
+    "samples": [
+      1,
+      1,
+      -1
+    ],
+    "numpy_rank": 1,
+    "recovered_state": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "null_basis": [
+      [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "identifiable_rank": 1,
+    "residual": 0.0,
+    "source_identified": false
+  },
+  "source_identified": false
+}

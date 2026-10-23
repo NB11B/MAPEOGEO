@@ -1,0 +1,9 @@
+Processing ./source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: ngc-geometry-lab
+  Building wheel for ngc-geometry-lab (pyproject.toml): started
+  Building wheel for ngc-geometry-lab (pyproject.toml): finished with status 'done'
+  Created wheel for ngc-geometry-lab: filename=ngc_geometry_lab-0.1.0-py3-none-any.whl size=113885 sha256=481b6580fa476ac6a0e530678863d24c97cfd1dc87768e804bb251f2f20f25fd
+  Stored in directory: /tmp/pip-ephem-wheel-cache-6z_1chz1/wheels/d0/1d/bc/6115649dad80dc945f6285139621fa1828d4e7524706996eb3
+Successfully built ngc-geometry-lab

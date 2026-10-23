@@ -1,0 +1,455 @@
+test_cli_missing_library_nonzero_and_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_cli_missing_library_nonzero_and_invalid_arguments) ... ERROR
+test_cli_probe_output_and_no_overwrite (test_cuda_check.CudaBoundaryTests.test_cli_probe_output_and_no_overwrite) ... ERROR
+test_lsb_target_mapping_with_analytic_basis_states (test_cuda_check.CudaBoundaryTests.test_lsb_target_mapping_with_analytic_basis_states) ... ERROR
+test_missing_library_is_not_run (test_cuda_check.CudaBoundaryTests.test_missing_library_is_not_run) ... ERROR
+test_probe_is_diagnostic_not_a_native_test (test_cuda_check.CudaBoundaryTests.test_probe_is_diagnostic_not_a_native_test) ... ERROR
+test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) ... 
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=0) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=0.7853981633974483) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=-0.7853981633974483) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=0.39269908169872414) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=-0.39269908169872414) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=1.1780972450961724) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=6.283185307179586) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=6.086835766330224) ... ERROR
+  test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=-6.283185307179586) ... ERROR
+test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) ... 
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=nan, bins=48) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=inf, bins=48) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=1j, bins=48) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=[0], bins=48) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=0) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=-1) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=1.5) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=True) ... ERROR
+  test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=2147483648) ... ERROR
+test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) ... 
+  test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'seed': -1}) ... ERROR
+  test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'seed': True}) ... ERROR
+  test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'seed': 18446744073709551616}) ... ERROR
+  test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'phase_bins': 0}) ... ERROR
+  test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'phase_bins': 1.5}) ... ERROR
+test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) ... 
+  test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=-1, n=3) ... ERROR
+  test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=3, n=3) ... ERROR
+  test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=0, n=0) ... ERROR
+  test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=1.5, n=3) ... ERROR
+  test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=True, n=3) ... ERROR
+  test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=0, n=True) ... ERROR
+  test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=0, n=2.5) ... ERROR
+
+======================================================================
+ERROR: test_cli_missing_library_nonzero_and_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_cli_missing_library_nonzero_and_invalid_arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 81, in test_cli_missing_library_nonzero_and_invalid_arguments
+    self.assertEqual(cuda.main(['--library',str(Path(tmp)/'absent.so'),'--out',str(out)]),2)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 6, in main
+    def main(argv=None): raise NotImplementedError
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_cli_probe_output_and_no_overwrite (test_cuda_check.CudaBoundaryTests.test_cli_probe_output_and_no_overwrite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 71, in test_cli_probe_output_and_no_overwrite
+    self.assertEqual(cuda.main(['--probe','--out',str(out)]),0)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 6, in main
+    def main(argv=None): raise NotImplementedError
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_lsb_target_mapping_with_analytic_basis_states (test_cuda_check.CudaBoundaryTests.test_lsb_target_mapping_with_analytic_basis_states)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 36, in test_lsb_target_mapping_with_analytic_basis_states
+    target=cuda.reference_target(q,n)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_missing_library_is_not_run (test_cuda_check.CudaBoundaryTests.test_missing_library_is_not_run)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 49, in test_missing_library_is_not_run
+    report=cuda.run_check(Path(tmp)/'absent.so')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 5, in run_check
+    def run_check(library, *, seed=20261022, phase_bins=48): raise NotImplementedError
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_probe_is_diagnostic_not_a_native_test (test_cuda_check.CudaBoundaryTests.test_probe_is_diagnostic_not_a_native_test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 60, in test_probe_is_diagnostic_not_a_native_test
+    report=cuda.probe_environment()
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 4, in probe_environment
+    def probe_environment(): raise NotImplementedError
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=0.7853981633974483)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=-0.7853981633974483)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=0.39269908169872414)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=-0.39269908169872414)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=1.1780972450961724)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=6.283185307179586)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=6.086835766330224)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_positive_negative_ties_and_wrap (test_cuda_check.CudaBoundaryTests.test_quantization_positive_negative_ties_and_wrap) (angle=-6.283185307179586)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 25, in test_quantization_positive_negative_ties_and_wrap
+    self.assertAlmostEqual(cuda.quantize_angle(angle,8),expected_bin*math.pi/4)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=nan, bins=48)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=inf, bins=48)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=1j, bins=48)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=[0], bins=48)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=-1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=1.5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_quantization_rejects_invalid_arguments (test_cuda_check.CudaBoundaryTests.test_quantization_rejects_invalid_arguments) (angle=0, bins=2147483648)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 31, in test_quantization_rejects_invalid_arguments
+    cuda.quantize_angle(angle,bins)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 2, in quantize_angle
+    def quantize_angle(angle, phase_bins=48): raise NotImplementedError
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'seed': -1})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 57, in test_run_configuration_validation
+    with self.subTest(kwargs=kwargs), self.assertRaises(ValueError): cuda.run_check('absent.so',**kwargs)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 5, in run_check
+    def run_check(library, *, seed=20261022, phase_bins=48): raise NotImplementedError
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'seed': True})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 57, in test_run_configuration_validation
+    with self.subTest(kwargs=kwargs), self.assertRaises(ValueError): cuda.run_check('absent.so',**kwargs)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 5, in run_check
+    def run_check(library, *, seed=20261022, phase_bins=48): raise NotImplementedError
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'seed': 18446744073709551616})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 57, in test_run_configuration_validation
+    with self.subTest(kwargs=kwargs), self.assertRaises(ValueError): cuda.run_check('absent.so',**kwargs)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 5, in run_check
+    def run_check(library, *, seed=20261022, phase_bins=48): raise NotImplementedError
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'phase_bins': 0})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 57, in test_run_configuration_validation
+    with self.subTest(kwargs=kwargs), self.assertRaises(ValueError): cuda.run_check('absent.so',**kwargs)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 5, in run_check
+    def run_check(library, *, seed=20261022, phase_bins=48): raise NotImplementedError
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_run_configuration_validation (test_cuda_check.CudaBoundaryTests.test_run_configuration_validation) (kwargs={'phase_bins': 1.5})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 57, in test_run_configuration_validation
+    with self.subTest(kwargs=kwargs), self.assertRaises(ValueError): cuda.run_check('absent.so',**kwargs)
+                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 5, in run_check
+    def run_check(library, *, seed=20261022, phase_bins=48): raise NotImplementedError
+                                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=-1, n=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 45, in test_target_mapping_rejects_out_of_range_and_noninteger
+    with self.subTest(q=q,n=n),self.assertRaises(ValueError): cuda.reference_target(q,n)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=3, n=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 45, in test_target_mapping_rejects_out_of_range_and_noninteger
+    with self.subTest(q=q,n=n),self.assertRaises(ValueError): cuda.reference_target(q,n)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=0, n=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 45, in test_target_mapping_rejects_out_of_range_and_noninteger
+    with self.subTest(q=q,n=n),self.assertRaises(ValueError): cuda.reference_target(q,n)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=1.5, n=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 45, in test_target_mapping_rejects_out_of_range_and_noninteger
+    with self.subTest(q=q,n=n),self.assertRaises(ValueError): cuda.reference_target(q,n)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=True, n=3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 45, in test_target_mapping_rejects_out_of_range_and_noninteger
+    with self.subTest(q=q,n=n),self.assertRaises(ValueError): cuda.reference_target(q,n)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=0, n=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 45, in test_target_mapping_rejects_out_of_range_and_noninteger
+    with self.subTest(q=q,n=n),self.assertRaises(ValueError): cuda.reference_target(q,n)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_target_mapping_rejects_out_of_range_and_noninteger (test_cuda_check.CudaBoundaryTests.test_target_mapping_rejects_out_of_range_and_noninteger) (q=0, n=2.5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cuda_check.py", line 45, in test_target_mapping_rejects_out_of_range_and_noninteger
+    with self.subTest(q=q,n=n),self.assertRaises(ValueError): cuda.reference_target(q,n)
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/cuda_check.py", line 3, in reference_target
+    def reference_target(qubit, num_qubits): raise NotImplementedError
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.005s
+
+FAILED (errors=35)

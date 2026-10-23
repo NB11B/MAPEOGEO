@@ -1,0 +1,21 @@
+{
+  "repository": "NB11B/NGC_CUDA_2",
+  "commit": "e825ade2c033ffb9d83a4cd4f89252136443664b",
+  "scope": "Source snapshot only in CPU qualification; original CUDA kernels require a separate native device run.",
+  "files": [
+    {
+      "path": "cuda/ngc_rcs_geometric.cu",
+      "sha256": "e9ef40c34398eaeeb4d0a11f567495042b56b9855e233a6812c16b1d9c5515c4",
+      "git_blob_sha1": "ebf7f9fcd8af9b870d795195627b5c4b7e223b86",
+      "source_url": "https://github.com/NB11B/NGC_CUDA_2/blob/e825ade2c033ffb9d83a4cd4f89252136443664b/cuda/ngc_rcs_geometric.cu",
+      "size_bytes": 21114
+    },
+    {
+      "path": "cuda/ngc_rcs_api.h",
+      "sha256": "bc62266586146096a14f70c5f0779fbf6e3928be0f8b4ba9a97b41db557267ce",
+      "git_blob_sha1": "660cf353359e0e2fef50fd5419f670fe15e7cc28",
+      "source_url": "https://github.com/NB11B/NGC_CUDA_2/blob/e825ade2c033ffb9d83a4cd4f89252136443664b/cuda/ngc_rcs_api.h",
+      "size_bytes": 4133
+    }
+  ]
+}

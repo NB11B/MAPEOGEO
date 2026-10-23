@@ -1,0 +1,22 @@
+{
+  "primitive_id": "P1",
+  "primitive_name": "REAL_METRIC",
+  "targets_lost_count": 12,
+  "targets_lost_ids": [
+    "T01",
+    "T03",
+    "T04",
+    "T06",
+    "T07",
+    "T08",
+    "T10",
+    "T11",
+    "T13",
+    "T15",
+    "T16",
+    "T17"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T01",
+  "epistemic_justification": "Primitive P1 (REAL_METRIC) is strictly necessary: removing it causes 12 target failures (e.g. T01)."
+}

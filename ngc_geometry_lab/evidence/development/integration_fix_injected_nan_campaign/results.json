@@ -1,0 +1,1282 @@
+{
+  "configuration": {
+    "absolute_equivalence_tolerance": 1e-10,
+    "calibration_states": 24,
+    "counts_per_record": 65536,
+    "default_seed": 20261022,
+    "dual_circuits_per_size": 12,
+    "dual_gates_per_circuit": 20,
+    "dual_qubits": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "heldout_states": 128,
+    "joint_local_rotations_per_state": 8,
+    "joint_states": 128,
+    "local_deterministic_assignments": 16,
+    "mean_bloch_error_gate": 0.035,
+    "metric_tolerance": 1e-09,
+    "readout_exponents": [
+      1,
+      2,
+      4
+    ],
+    "rng_streams": {
+      "dual_lane": 3,
+      "joint": 6,
+      "readout": 5,
+      "single_qubit": 2,
+      "synthetic_observations": 4
+    },
+    "single_rotations_per_state": 12,
+    "single_states": 256,
+    "version": 1
+  },
+  "experiments": {
+    "connected_operators": {
+      "checks": {
+        "duplicate_direction_rank": true,
+        "fusion_order": true,
+        "information_rank_and_nullity": true,
+        "initial_state_reconstruction": true,
+        "observability_matrix": true,
+        "observable_equivalence": true,
+        "source_identity_not_inferred": true
+      },
+      "composition": {
+        "A": [
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "B": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "execution_order": [
+          "A",
+          "B"
+        ],
+        "fused": [
+          [
+            0,
+            -1
+          ],
+          [
+            2,
+            0
+          ]
+        ],
+        "max_abs_error": 0.0,
+        "numpy_product": [
+          [
+            0,
+            -1
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      },
+      "duplicate_observations": {
+        "identifiable_rank": 1,
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            -1,
+            0,
+            0
+          ]
+        ],
+        "null_basis": [
+          [
+            -0.0,
+            1.0,
+            0.0
+          ],
+          [
+            -0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "numpy_rank": 1,
+        "recovered_state": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "residual": 0.0,
+        "samples": [
+          1,
+          1,
+          -1
+        ],
+        "source_identified": false
+      },
+      "information": {
+        "information_loss": true,
+        "injective": false,
+        "input_dim": 3,
+        "invertible": false,
+        "matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "nullity": 1,
+        "output_dim": 2,
+        "rank": 2,
+        "surjective": true
+      },
+      "observability": {
+        "identifiable_rank": 3,
+        "initial_state": [
+          1,
+          2,
+          3
+        ],
+        "matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "null_basis": [],
+        "numpy_matrix": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ],
+        "observation": [
+          [
+            1,
+            0,
+            0
+          ]
+        ],
+        "recovered_state": [
+          1.0,
+          2.0,
+          3.0
+        ],
+        "residual": 0.0,
+        "samples": [
+          [
+            1
+          ],
+          [
+            2
+          ],
+          [
+            3
+          ]
+        ],
+        "source_identified": false,
+        "transition": [
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            0
+          ]
+        ]
+      },
+      "provenance": "new qualification inputs executed by unchanged pinned MAPEOGEO modules",
+      "qualified": true,
+      "source_identified": false,
+      "upstream_baseline": {
+        "failed": 1,
+        "known_bad_test_expectations": 1,
+        "passed": 23,
+        "scope": "Only the selected unchanged zero-argument baseline tests bundled with the qualified source.",
+        "tests": [
+          {
+            "file": "test_latent_generator_observability_v2.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_control_observability_matrix_recovers_hidden_state_over_time"
+          },
+          {
+            "file": "test_latent_generator_observability_v2.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_repeated_same_projection_preserves_nullspace"
+          },
+          {
+            "file": "test_latent_generator_observability_v2.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_rotating_projection_collapses_instantaneous_nullspace"
+          },
+          {
+            "file": "test_latent_generator_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_calculus_radial_plus_angular_matches_direct_derivative_formula"
+          },
+          {
+            "file": "test_latent_generator_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_full_rank_inverse_is_identifiable_but_not_source_identity"
+          },
+          {
+            "file": "test_latent_generator_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_projection_returns_equivalence_class_not_invented_dimension"
+          },
+          {
+            "file": "test_latent_generator_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_scalar_sine_observation_is_underdetermined_in_planar_generator"
+          },
+          {
+            "file": "test_psmsl_operator_algebra_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_anisotropic_scale_does_not_commute_with_rotation"
+          },
+          {
+            "file": "test_psmsl_operator_algebra_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_fusion_preserves_declared_order"
+          },
+          {
+            "file": "test_psmsl_operator_algebra_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_projection_declares_information_loss"
+          },
+          {
+            "file": "test_psmsl_operator_algebra_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_rotation_is_information_preserving"
+          },
+          {
+            "file": "test_psmsl_operator_algebra_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_uniform_scale_commutes_with_rotation"
+          },
+          {
+            "file": "test_psmsl_operator_basis_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_independent_matrix_operators_remain"
+          },
+          {
+            "file": "test_psmsl_operator_basis_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_operator_basis_removes_linear_redundancy"
+          },
+          {
+            "exception": "AssertionError",
+            "failure_line": 13,
+            "file": "test_psmsl_work_equivalence_v1.py",
+            "known_bad_expectation": true,
+            "message": "",
+            "project": "mapeogeo",
+            "status": "FAIL",
+            "test": "test_noncommuting_operators_can_be_equivalent_after_work_projection"
+          },
+          {
+            "file": "test_psmsl_work_equivalence_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_projection_can_make_information_losing_transform_work_lossless"
+          },
+          {
+            "file": "test_psmsl_work_plan_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_commuting_scale_family_is_parallelizable"
+          },
+          {
+            "file": "test_psmsl_work_plan_v1.py",
+            "project": "mapeogeo",
+            "status": "PASS",
+            "test": "test_projection_is_marked_irreversible"
+          },
+          {
+            "file": "test_dual_lane_backend.py",
+            "project": "ngc_real",
+            "status": "PASS",
+            "test": "test_circuit_dual_lane_backend_matches_local_backend"
+          },
+          {
+            "file": "test_dual_lane_backend.py",
+            "project": "ngc_real",
+            "status": "PASS",
+            "test": "test_dual_lane_backend_matches_local_backend_for_random_states"
+          },
+          {
+            "file": "test_dual_lane_backend.py",
+            "project": "ngc_real",
+            "status": "PASS",
+            "test": "test_iter_local_blocks_big_endian_indexing"
+          },
+          {
+            "file": "test_realify.py",
+            "project": "ngc_real",
+            "status": "PASS",
+            "test": "test_operator_roundtrip_and_block_validation"
+          },
+          {
+            "file": "test_realify.py",
+            "project": "ngc_real",
+            "status": "PASS",
+            "test": "test_state_and_operator_wrappers_apply"
+          },
+          {
+            "file": "test_realify.py",
+            "project": "ngc_real",
+            "status": "PASS",
+            "test": "test_vector_roundtrip"
+          }
+        ],
+        "tests_executed": 24,
+        "unexpected_failures": 0
+      },
+      "work_equivalence": {
+        "A": [
+          [
+            1,
+            0
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "AB": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "B": [
+          [
+            1,
+            1
+          ],
+          [
+            0,
+            1
+          ]
+        ],
+        "BA": [
+          [
+            1,
+            2
+          ],
+          [
+            0,
+            2
+          ]
+        ],
+        "PAB": [
+          [
+            0,
+            2
+          ]
+        ],
+        "PBA": [
+          [
+            0,
+            2
+          ]
+        ],
+        "corrected_expected_equivalent": true,
+        "observation": [
+          [
+            0,
+            1
+          ]
+        ],
+        "upstream_result": {
+          "equivalent_for_work": true,
+          "exact_difference": 1.0,
+          "exact_equal": false,
+          "observed_difference": 0.0,
+          "tolerance": 0.0
+        },
+        "upstream_test_expected_equivalent": false,
+        "upstream_test_status": "incorrect expectation for its supplied matrices"
+      }
+    },
+    "dual_lane": {
+      "error": "dual_lane qubits=1 circuit=0 step=20 state candidate: nonfinite values at [((0,), '(nan+0j)'), ((1,), '(nan+0j)')]",
+      "error_type": "ValueError"
+    },
+    "exact_closure": {
+      "arithmetic": "exact Python integer products via unchanged MAPEOGEO algebra.matmul",
+      "center": [
+        0,
+        95
+      ],
+      "commuting_ordered_pairs": 2017,
+      "generator_order": [
+        "Rx90",
+        "Rz90",
+        "Pxy"
+      ],
+      "generators": {
+        "Pxy": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            1,
+            0
+          ],
+          [
+            0,
+            0,
+            0
+          ]
+        ],
+        "Rx90": [
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            -1
+          ],
+          [
+            0,
+            1,
+            0
+          ]
+        ],
+        "Rz90": [
+          [
+            0,
+            -1,
+            0
+          ],
+          [
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            1
+          ]
+        ]
+      },
+      "idempotents": [
+        0,
+        3,
+        25,
+        51,
+        95,
+        99,
+        100,
+        105
+      ],
+      "identity_index": 0,
+      "nilpotents": [
+        16,
+        19,
+        23,
+        24,
+        46,
+        48,
+        50,
+        52,
+        54,
+        55,
+        57,
+        58,
+        60,
+        62,
+        63,
+        65,
+        66,
+        68,
+        69,
+        70,
+        73,
+        74,
+        80,
+        87,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        101,
+        102,
+        103,
+        104,
+        108,
+        110,
+        111
+      ],
+      "provenance": "new qualification fixture; not recovered sealed artifact",
+      "rank_histogram": {
+        "0": 1,
+        "1": 18,
+        "2": 72,
+        "3": 24
+      },
+      "size": 115,
+      "units": [
+        0,
+        1,
+        2,
+        4,
+        5,
+        7,
+        8,
+        11,
+        12,
+        14,
+        15,
+        18,
+        20,
+        21,
+        26,
+        28,
+        29,
+        32,
+        34,
+        38,
+        42,
+        49,
+        56,
+        59
+      ],
+      "validation": {
+        "associativity_mismatches": 0,
+        "associativity_triples": 1520875,
+        "product_comparisons": 13225,
+        "product_mismatches": 0
+      },
+      "word_convention": "left-to-right matrix product; rightmost operator acts first on column vectors",
+      "zero_index": 95
+    },
+    "finite_shot": {
+      "calibration_preparations": 24,
+      "counts_per_record": 65536,
+      "detector_max_entry_error": 0.007688108847271749,
+      "fitted_detector": {
+        "calibration_records": 24,
+        "condition_number": 1.347611725997049,
+        "design_condition_number": 5.333417489152951,
+        "design_rank": 4,
+        "matrix": [
+          [
+            0.8546982725039336,
+            0.00731189115272825,
+            0.016001624591815877,
+            0.12114968386225948
+          ],
+          [
+            0.11364493618457977,
+            0.8588126672286076,
+            0.01323489366767825,
+            0.01500994607647666
+          ],
+          [
+            0.01585115934960999,
+            0.1189452223108563,
+            0.85421481138838,
+            0.009066238165437647
+          ],
+          [
+            0.01580563196187647,
+            0.014930219307807859,
+            0.1165486703521259,
+            0.8547741318958263
+          ]
+        ],
+        "method": "nonnegative row least squares, then column normalization",
+        "training_rmse": 0.00151148051400682,
+        "unconstrained_matrix": [
+          [
+            0.8546982725039335,
+            0.007311891152727901,
+            0.016001624591816355,
+            0.12114968386225976
+          ],
+          [
+            0.11364493618458121,
+            0.8588126672286063,
+            0.013234893667678646,
+            0.015009946076476365
+          ],
+          [
+            0.015851159349610157,
+            0.11894522231085602,
+            0.8542148113883801,
+            0.009066238165437815
+          ],
+          [
+            0.015805631961874934,
+            0.014930219307809356,
+            0.11654867035212577,
+            0.8547741318958266
+          ]
+        ]
+      },
+      "heldout_preparations": 128,
+      "max_state_error": 0.03368071339934166,
+      "mean_prediction_total_variation_vs_truth": 0.003266437391060766,
+      "mean_state_error": 0.01507128790392671,
+      "mean_uncorrected_state_error": 0.18656557454087497,
+      "mean_verification_total_variation": 0.004053342577901934,
+      "p95_state_error": 0.028633572608427763,
+      "projected_estimates": 32,
+      "sampling": "NumPy multinomial from a declared Born-rule model, not laboratory observations.",
+      "total_observed_counts": 18350080,
+      "truth_access": "Only this experiment evaluator receives the separate truth object; analyze_dataset accepts counts and calibration only."
+    },
+    "identifiability": {
+      "after_permitted_rotation_difference": 2.0,
+      "duplicate_and_mirror_rank": 1,
+      "dynamic_sequence_rank": 3,
+      "meaning": "Identical present output need not imply identical state; extra independent operations can reveal a previously hidden direction.",
+      "same_initial_observation_difference": 0.0
+    },
+    "joint": {
+      "interpretation": "The CHSH value is a computed prediction, not a local hidden-variable implementation or physical Bell test.",
+      "local_deterministic_max_chsh": 2,
+      "local_vertices": [
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": 2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": 2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": 2
+        }
+      ],
+      "local_vertices_enumerated": 16,
+      "max_density_error": 4.440892098500626e-16,
+      "max_prediction_error": 2.498001805406602e-16,
+      "max_probability_error": 8.326672684688674e-17,
+      "mixed_states": 64,
+      "positive_joint_distribution_nonquantum_min_probability": 0.04166666666666666,
+      "positive_joint_distribution_nonquantum_rejected_by_psd": true,
+      "pure_states": 64,
+      "rotation_predictions": 1024,
+      "same_local_marginals_max_error": 0.0,
+      "singlet_chsh": 2.82842712474619,
+      "singlet_vs_mixed_joint_total_variation": 0.2500000000000001,
+      "states": 128
+    },
+    "metric_and_center": {
+      "center_max_error": 2.220446049250313e-15,
+      "common_center": {
+        "center": [
+          1.2000000000000006,
+          -0.2999999999999985,
+          2.499999999999998
+        ],
+        "rank": 3,
+        "residual": 6.700083274686458e-15,
+        "status": "unique"
+      },
+      "contradictory_metric_status": "no_positive_definite_metric",
+      "expected_metric": [
+        [
+          0.8959044368600683,
+          -0.08959044368600683,
+          0.03839590443686007
+        ],
+        [
+          -0.08959044368600683,
+          0.23293515358361774,
+          -0.09982935153583616
+        ],
+        [
+          0.03839590443686007,
+          -0.09982935153583616,
+          1.871160409556314
+        ]
+      ],
+      "ill_conditioned_spd_status": "unresolved_feasibility",
+      "inconsistent_center_status": "inconsistent",
+      "insufficient_metric_status": "underdetermined",
+      "max_metric_error": 9.992007221626409e-16,
+      "meaning": "Metric up to scale and affine fixed point under declared operator interpretation; neither proves historical common origin.",
+      "metric": {
+        "metric": [
+          [
+            0.8959044368600673,
+            -0.0895904436860069,
+            0.038395904436860744
+          ],
+          [
+            -0.0895904436860069,
+            0.23293515358361766,
+            -0.09982935153583597
+          ],
+          [
+            0.038395904436860744,
+            -0.09982935153583597,
+            1.8711604095563148
+          ]
+        ],
+        "residual": 1.992344827553532e-15,
+        "space_dimension": 1,
+        "status": "unique_up_to_scale"
+      },
+      "nonunique_center_status": "underdetermined",
+      "tetrahedral_face_projections_common_center_status": "inconsistent",
+      "tetrahedron_from_origin_and_three_displacements": {
+        "edges": [
+          0.9465222854534737,
+          0.946522285453474,
+          0.9465222854534745,
+          1.3385846531766812,
+          1.338584653176681,
+          1.3385846531766812
+        ],
+        "gram": [
+          [
+            0.8959044368600672,
+            -3.1525525038938143e-16,
+            4.508175199768068e-16
+          ],
+          [
+            -3.1525525038938143e-16,
+            0.8959044368600678,
+            3.132723454744905e-16
+          ],
+          [
+            4.508175199768068e-16,
+            3.132723454744905e-16,
+            0.8959044368600687
+          ]
+        ],
+        "volume": 0.14133225252078319
+      }
+    },
+    "readout": {
+      "calibration_angles": 15,
+      "calibration_records": [
+        {
+          "angle": 0.08,
+          "count0": 65129,
+          "count1": 407
+        },
+        {
+          "angle": 0.18071428571428572,
+          "count0": 63464,
+          "count1": 2072
+        },
+        {
+          "angle": 0.2814285714285714,
+          "count0": 60389,
+          "count1": 5147
+        },
+        {
+          "angle": 0.3821428571428572,
+          "count0": 56488,
+          "count1": 9048
+        },
+        {
+          "angle": 0.4828571428571429,
+          "count0": 51185,
+          "count1": 14351
+        },
+        {
+          "angle": 0.5835714285714285,
+          "count0": 45670,
+          "count1": 19866
+        },
+        {
+          "angle": 0.6842857142857143,
+          "count0": 39539,
+          "count1": 25997
+        },
+        {
+          "angle": 0.7849999999999999,
+          "count0": 32775,
+          "count1": 32761
+        },
+        {
+          "angle": 0.8857142857142857,
+          "count0": 26215,
+          "count1": 39321
+        },
+        {
+          "angle": 0.9864285714285714,
+          "count0": 19758,
+          "count1": 45778
+        },
+        {
+          "angle": 1.0871428571428572,
+          "count0": 14250,
+          "count1": 51286
+        },
+        {
+          "angle": 1.187857142857143,
+          "count0": 9041,
+          "count1": 56495
+        },
+        {
+          "angle": 1.2885714285714287,
+          "count0": 5091,
+          "count1": 60445
+        },
+        {
+          "angle": 1.3892857142857145,
+          "count0": 2071,
+          "count1": 63465
+        },
+        {
+          "angle": 1.49,
+          "count0": 415,
+          "count1": 65121
+        }
+      ],
+      "candidate_rule": "p0=|cos(theta)|**alpha/(|cos(theta)|**alpha+|sin(theta)|**alpha)",
+      "candidate_scores": [
+        {
+          "calibration_cross_entropy": 0.4465771794855046,
+          "exponent": 1,
+          "heldout_cross_entropy": 0.4728079827702415,
+          "heldout_rmse_vs_declared_truth": 0.1129525653669114
+        },
+        {
+          "calibration_cross_entropy": 0.4013613720772616,
+          "exponent": 2,
+          "heldout_cross_entropy": 0.4278737998642594,
+          "heldout_rmse_vs_declared_truth": 3.837911267478775e-17
+        },
+        {
+          "calibration_cross_entropy": 0.4733899085404208,
+          "exponent": 4,
+          "heldout_cross_entropy": 0.5043941228197673,
+          "heldout_rmse_vs_declared_truth": 0.09932346776345123
+        }
+      ],
+      "declared_generator": "p0=cos(theta)**2 (Born/squared-norm rule)",
+      "direct_crossed_weight": 0.0,
+      "final_vector": [
+        0.0,
+        0.4999999999999999,
+        0.0
+      ],
+      "heldout_angles": 19,
+      "heldout_records": [
+        {
+          "angle": 0.115,
+          "count0": 64637,
+          "count1": 899
+        },
+        {
+          "angle": 0.18944444444444447,
+          "count0": 63286,
+          "count1": 2250
+        },
+        {
+          "angle": 0.2638888888888889,
+          "count0": 61043,
+          "count1": 4493
+        },
+        {
+          "angle": 0.3383333333333334,
+          "count0": 58338,
+          "count1": 7198
+        },
+        {
+          "angle": 0.4127777777777778,
+          "count0": 55035,
+          "count1": 10501
+        },
+        {
+          "angle": 0.4872222222222222,
+          "count0": 51068,
+          "count1": 14468
+        },
+        {
+          "angle": 0.5616666666666668,
+          "count0": 46855,
+          "count1": 18681
+        },
+        {
+          "angle": 0.6361111111111112,
+          "count0": 42372,
+          "count1": 23164
+        },
+        {
+          "angle": 0.7105555555555556,
+          "count0": 37620,
+          "count1": 27916
+        },
+        {
+          "angle": 0.785,
+          "count0": 32743,
+          "count1": 32793
+        },
+        {
+          "angle": 0.8594444444444445,
+          "count0": 27840,
+          "count1": 37696
+        },
+        {
+          "angle": 0.933888888888889,
+          "count0": 23279,
+          "count1": 42257
+        },
+        {
+          "angle": 1.0083333333333335,
+          "count0": 18650,
+          "count1": 46886
+        },
+        {
+          "angle": 1.0827777777777778,
+          "count0": 14561,
+          "count1": 50975
+        },
+        {
+          "angle": 1.1572222222222224,
+          "count0": 10621,
+          "count1": 54915
+        },
+        {
+          "angle": 1.2316666666666667,
+          "count0": 7210,
+          "count1": 58326
+        },
+        {
+          "angle": 1.3061111111111112,
+          "count0": 4532,
+          "count1": 61004
+        },
+        {
+          "angle": 1.3805555555555558,
+          "count0": 2260,
+          "count1": 63276
+        },
+        {
+          "angle": 1.455,
+          "count0": 872,
+          "count1": 64664
+        }
+      ],
+      "inserted_diagonal_weight": 0.2499999999999999,
+      "selected_exponent_on_calibration": 2,
+      "selection_frozen_before_heldout_scoring": true,
+      "shots_per_angle": 65536,
+      "squared_rule_not_independently_derived": true
+    },
+    "single_qubit": {
+      "max_direction_sum_error": 0.0,
+      "max_frame_gram_error": 2.220446049250313e-16,
+      "max_prediction_error": 4.996003610813204e-16,
+      "max_probability_error": 1.6653345369377348e-16,
+      "max_state_error": 5.551115123125783e-16,
+      "mixed_states": 128,
+      "observation_rank": 3,
+      "one_hot_distribution_rejected_as_unphysical": true,
+      "pure_states": 128,
+      "rotation_predictions": 3072,
+      "states": 256,
+      "wrong_label_control_description": "Permute observation labels without transforming the subsequent operator frame.",
+      "wrong_label_control_max_error": 0.47786720038851205,
+      "wrong_label_control_mean_error": 0.18258260016283465
+    },
+    "source_integrity": {
+      "manifests": {
+        "mapeogeo": {
+          "mismatches": [],
+          "verified_files": 15
+        },
+        "mapeogeo_audit": {
+          "mismatches": [],
+          "verified_files": 4
+        },
+        "ngc_real": {
+          "mismatches": [],
+          "verified_files": 22
+        }
+      },
+      "mismatches": [],
+      "verified_files": 41
+    }
+  },
+  "gates": [
+    {
+      "criterion": "All selected source bytes match SHA256 and Git blob SHA1 provenance.",
+      "experiment": "source_integrity",
+      "id": "source_integrity",
+      "passed": true
+    },
+    {
+      "criterion": "Actual connected operators agree with independent calculations; all unexpected upstream failures are absent; known bad expectation remains visible.",
+      "experiment": "connected_operators",
+      "id": "connected_operators",
+      "passed": true
+    },
+    {
+      "criterion": "New explicit integer generator fixture: 115 elements, all 13225 products and 1520875 associativity triples verified.",
+      "experiment": "exact_closure",
+      "id": "exact_closure",
+      "passed": true
+    },
+    {
+      "criterion": "Recover declared metric and center, classify insufficient/contradictory/numerically unresolved controls correctly.",
+      "experiment": "metric_and_center",
+      "id": "metric_and_center",
+      "passed": true
+    },
+    {
+      "criterion": "256 independent pure/mixed preparations reconstruct; tetrahedral frame identities and physical-state rejection hold within absolute 1e-10.",
+      "experiment": "single_qubit",
+      "id": "tetra_reconstruction",
+      "passed": true
+    },
+    {
+      "criterion": "3072 held-out rotation predictions agree within absolute 1e-10; a mismatched label/operator frame fails visibly.",
+      "experiment": "single_qubit",
+      "id": "heldout_rotations",
+      "passed": true
+    },
+    {
+      "criterion": "Actual real dual-lane backend agrees with independent complex tensor reference for >=1000 local gates, absolute tolerance 1e-10.",
+      "experiment": "dual_lane",
+      "id": "dual_lane_equivalence",
+      "passed": false
+    },
+    {
+      "criterion": "Frozen calibration; mean held-out Bloch error <0.035 and improves over uncorrected detector counts.",
+      "experiment": "finite_shot",
+      "id": "finite_shot_prediction",
+      "passed": true
+    },
+    {
+      "criterion": "Synthetic squared-rule data selects exponent2 from1,2,4; crossed projections give0 and inserted diagonal gives1/4.",
+      "experiment": "readout",
+      "id": "readout_selection",
+      "passed": true
+    },
+    {
+      "criterion": "128 two-system states and1024 local-rotation sequences agree with independent density matrices, absolute1e-10.",
+      "experiment": "joint",
+      "id": "joint_reconstruction",
+      "passed": true
+    },
+    {
+      "criterion": "Computed singlet CHSH=2sqrt(2), all16 local assignments bounded by2; equal marginals do not fix joints; invalid quantum state rejected.",
+      "experiment": "joint",
+      "id": "correlation_controls",
+      "passed": true
+    },
+    {
+      "criterion": "Duplicate/mirrored views add no missing rank; operation sequence restores rank and distinguishes initially equal outputs.",
+      "experiment": "identifiability",
+      "id": "identifiability",
+      "passed": true
+    }
+  ],
+  "qualified": false,
+  "schema": "ngc_geometry_lab.qualification.v1",
+  "scope": {
+    "computation": "CPU float64 plus exact integer closure",
+    "cuda_execution": "not_run_cpu_only_campaign",
+    "historical_115_artifact_recovered": false,
+    "observations": "synthetic",
+    "physical_theory_validated": false,
+    "speedup_claim": false
+  },
+  "seed": 20261022,
+  "stage_errors": {
+    "dual_lane": {
+      "error": "dual_lane qubits=1 circuit=0 step=20 state candidate: nonfinite values at [((0,), '(nan+0j)'), ((1,), '(nan+0j)')]",
+      "error_type": "ValueError"
+    }
+  }
+}

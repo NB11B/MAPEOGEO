@@ -1,0 +1,26 @@
+{
+  "injected_campaign": {
+    "adapter_calls": 20,
+    "output_dir": "evidence/development/integration_fix_injected_nan_campaign",
+    "passed_gates": 11,
+    "qualified": false,
+    "stage_errors": {
+      "dual_lane": {
+        "error": "dual_lane qubits=1 circuit=0 step=20 state candidate: nonfinite values at [((0,), '(nan+0j)'), ((1,), '(nan+0j)')]",
+        "error_type": "ValueError"
+      }
+    },
+    "total_gates": 12
+  },
+  "nominal_comparison": {
+    "all_equal": true,
+    "sections": {
+      "dual_lane": true,
+      "finite_shot": true,
+      "joint_systems": true,
+      "readout_selection": true,
+      "single_qubit": true,
+      "upstream_baselines": true
+    }
+  }
+}

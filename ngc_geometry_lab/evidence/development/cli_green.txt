@@ -1,0 +1,9 @@
+test_bad_data_reports_actionable_error (tests.test_cli.CommandLineTests.test_bad_data_reports_actionable_error) ... ok
+test_example_generation_analysis_and_no_overwrite (tests.test_cli.CommandLineTests.test_example_generation_analysis_and_no_overwrite) ... ok
+test_help (tests.test_cli.CommandLineTests.test_help) ... ok
+test_truth_and_observation_paths_must_differ (tests.test_cli.CommandLineTests.test_truth_and_observation_paths_must_differ) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 2.953s
+
+OK

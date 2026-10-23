@@ -1,0 +1,1803 @@
+diff --git a/ngc_geometry_lab/__main__.py b/ngc_geometry_lab/__main__.py
+new file mode 100644
+index 0000000..9aec0d2
+--- /dev/null
++++ b/ngc_geometry_lab/__main__.py
+@@ -0,0 +1,78 @@
++"""Command-line entry point for qualification and observed-count analysis."""
++
++import argparse
++import json
++from pathlib import Path
++import sys
++
++from .io import canonical_json
++
++
++def _new_path(value):
++    path = Path(value)
++    if path.exists():
++        raise ValueError(f'output already exists: {path}; choose a new path to preserve evidence')
++    return path
++
++
++def _write_new(path,value):
++    path.parent.mkdir(parents=True,exist_ok=True)
++    with path.open('x',encoding='utf-8') as stream:
++        stream.write(canonical_json(value))
++
++
++def _unique_object(pairs):
++    result={}
++    for key,value in pairs:
++        if key in result:
++            raise ValueError(f'duplicate JSON key: {key}')
++        result[key]=value
++    return result
++
++
++def main(argv=None):
++    parser=argparse.ArgumentParser(description='Source-backed NGC/MAPEOGEO computational qualification and tetrahedral count analysis.')
++    sub=parser.add_subparsers(dest='command',required=True)
++    run=sub.add_parser('run',help='Run the complete frozen computational campaign')
++    run.add_argument('--seed',type=int,default=20261022)
++    run.add_argument('--out',required=True,help='New or empty directory for complete evidence')
++    generate=sub.add_parser('generate',help='Generate explicitly synthetic counts and separate evaluator truth')
++    generate.add_argument('--seed',type=int,default=20261022)
++    generate.add_argument('--out',required=True,help='New observations JSON path')
++    generate.add_argument('--truth-out',required=True,help='Different new evaluator-only truth JSON path')
++    generate.add_argument('--cases',type=int,default=128)
++    generate.add_argument('--shots',type=int,default=65536)
++    analyze=sub.add_parser('analyze',help='Calibrate and predict from synthetic or experimental count JSON')
++    analyze.add_argument('--input',required=True)
++    analyze.add_argument('--out',required=True,help='New analysis JSON path')
++    args=parser.parse_args(argv)
++    try:
++        if args.command=='run':
++            from .campaign import run_campaign
++            result=run_campaign(args.seed,output_dir=args.out,progress=lambda stage:print(f'Running {stage}',flush=True))
++            print(f"{'PASS' if result['qualified'] else 'FAIL'}: {sum(g['passed'] for g in result['gates'])}/{len(result['gates'])} computational gates; evidence: {args.out}")
++            return 0 if result['qualified'] else 1
++        if args.command=='generate':
++            from .synthetic import generate_dataset
++            observations_path,truth_path=_new_path(args.out),_new_path(args.truth_out)
++            if observations_path.resolve()==truth_path.resolve():
++                raise ValueError('observations and truth paths must differ')
++            observations,truth=generate_dataset(args.seed,case_count=args.cases,shots=args.shots)
++            _write_new(observations_path,observations)
++            _write_new(truth_path,truth)
++            print(f'Synthetic observations: {observations_path}; separate evaluator truth: {truth_path}')
++            return 0
++        from .observations import analyze_dataset
++        output=_new_path(args.out)
++        payload=json.loads(Path(args.input).read_text(encoding='utf-8'),object_pairs_hook=_unique_object)
++        result=analyze_dataset(payload)
++        _write_new(output,result)
++        print(f"Analyzed {len(result['cases'])} {result['data_kind']} records; mean verification TV={result['mean_verification_total_variation']:.6f}; output: {output}")
++        return 0
++    except (ValueError,TypeError,OSError) as exc:
++        print(f'error: {exc}',file=sys.stderr)
++        return 2
++
++
++if __name__=='__main__':
++    raise SystemExit(main())
+diff --git a/ngc_geometry_lab/campaign.py b/ngc_geometry_lab/campaign.py
+new file mode 100644
+index 0000000..bef786a
+--- /dev/null
++++ b/ngc_geometry_lab/campaign.py
+@@ -0,0 +1,172 @@
++"""Frozen computational qualification campaign and complete evidence output."""
++
++from __future__ import annotations
++
++from datetime import datetime, timezone
++from numbers import Integral
++from pathlib import Path
++import platform
++import shutil
++import sys
++import traceback
++
++import numpy as np
++import scipy
++
++from . import experiments as exp
++from .io import plain, sha256, write_csv, write_json
++
++
++CONFIGURATION = {
++    'version': 1, 'default_seed': 20261022, 'absolute_equivalence_tolerance': 1e-10,
++    'metric_tolerance': 1e-9,
++    'single_states': 256, 'single_rotations_per_state': 12,
++    'dual_qubits': [1,2,3,4,5,6], 'dual_circuits_per_size': 12, 'dual_gates_per_circuit': 20,
++    'calibration_states': 24, 'heldout_states': 128, 'counts_per_record': 65536,
++    'mean_bloch_error_gate': .035,
++    'joint_states': 128, 'joint_local_rotations_per_state': 8,
++    'readout_exponents': [1,2,4], 'local_deterministic_assignments': 16,
++    'rng_streams': {'single_qubit':2,'dual_lane':3,'synthetic_observations':4,'readout':5,'joint':6},
++}
++
++
++def run_campaign(seed=20261022, *, output_dir=None, progress=None):
++    """Run every experiment, retain failures, and return deterministic results.
++
++    Runtime/environment metadata is stored separately from scientific results.
++    Existing nonempty output directories are refused to preserve earlier runs.
++    """
++    if isinstance(seed,(bool,np.bool_)) or not isinstance(seed,Integral) or seed < 0:
++        raise ValueError('seed must be a nonnegative integer')
++    seed = int(seed)
++    output = Path(output_dir) if output_dir is not None else None
++    if output is not None:
++        if output.exists() and (not output.is_dir() or any(output.iterdir())):
++            raise ValueError('output directory must be new or empty; previous evidence is preserved')
++        output.mkdir(parents=True,exist_ok=True)
++        write_json(output/'configuration.json',dict(CONFIGURATION,seed=seed))
++    experiments,errors,tables,extra = {},{}, {},{}
++
++    def stage(name,function):
++        if progress:
++            progress(name)
++        try:
++            value = function()
++            experiments[name] = value
++        except Exception as exc:
++            value = {'error_type':type(exc).__name__,'error':str(exc)}
++            experiments[name] = value
++            errors[name] = value
++            if output is not None:
++                (output/f'{name}_exception.txt').write_text(traceback.format_exc(),encoding='utf-8')
++        if output is not None:
++            write_json(output/'checkpoints'/f'{name}.json',value)
++        return value
++
++    def source_integrity():
++        from .repository import verify_sources
++        return verify_sources()
++
++    def connected():
++        from .repository import connected_operator_demo
++        result = connected_operator_demo()
++        result['upstream_baseline'] = exp.upstream_baselines()
++        return result
++
++    def closure():
++        from .repository import exact_closure
++        full = exact_closure()
++        extra['exact_closure.json'] = full
++        return {k:v for k,v in full.items() if k not in ('matrices','multiplication_table','shortest_words')}
++
++    def single():
++        result,tables['single_qubit.csv'] = exp.single_qubit(seed)
++        return result
++
++    def dual():
++        result,tables['dual_lane.csv'] = exp.dual_lane(seed)
++        return result
++
++    def finite():
++        result,tables['finite_shot.csv'],observations,truth,analysis = exp.finite_shot(seed)
++        extra.update({'synthetic_observations.json':observations,'synthetic_truth.json':truth,
++                      'blind_analysis.json':analysis})
++        return result
++
++    def readout():
++        result,tables['readout_candidates.csv'] = exp.readout_selection(seed)
++        return result
++
++    def joint():
++        result,tables['joint_systems.csv'] = exp.joint_systems(seed)
++        return result
++
++    stage('source_integrity',source_integrity)
++    stage('connected_operators',connected)
++    stage('exact_closure',closure)
++    stage('metric_and_center',exp.metric_and_center)
++    stage('single_qubit',single)
++    stage('dual_lane',dual)
++    stage('finite_shot',finite)
++    stage('readout',readout)
++    stage('joint',joint)
++    stage('identifiability',exp.identifiability)
++
++    gates=[]
++    def gate(identifier,stage_name,check,criterion):
++        try:
++            passed = stage_name not in errors and bool(check(experiments[stage_name]))
++        except (KeyError,TypeError,ValueError):
++            passed=False
++        gates.append({'id':identifier,'passed':passed,'criterion':criterion,'experiment':stage_name})
++
++    tol=CONFIGURATION['absolute_equivalence_tolerance']
++    gate('source_integrity','source_integrity',lambda x:x['verified_files']>0 and not x['mismatches'],
++         'All selected source bytes match SHA256 and Git blob SHA1 provenance.')
++    gate('connected_operators','connected_operators',lambda x:x['qualified'] and x['upstream_baseline']['unexpected_failures']==0,
++         'Actual connected operators agree with independent calculations; all unexpected upstream failures are absent; known bad expectation remains visible.')
++    gate('exact_closure','exact_closure',lambda x:x['size']==115 and x['validation']['product_mismatches']==0 and x['validation']['associativity_mismatches']==0 and x['validation']['product_comparisons']==115**2 and x['validation']['associativity_triples']==115**3,
++         'New explicit integer generator fixture: 115 elements, all 13225 products and 1520875 associativity triples verified.')
++    gate('metric_and_center','metric_and_center',lambda x:x['metric']['status']=='unique_up_to_scale' and x['max_metric_error']<1e-9 and x['center_max_error']<tol and x['insufficient_metric_status']=='underdetermined' and x['contradictory_metric_status']=='no_positive_definite_metric' and x['ill_conditioned_spd_status']=='unresolved_feasibility' and x['nonunique_center_status']=='underdetermined' and x['inconsistent_center_status']=='inconsistent' and x['tetrahedral_face_projections_common_center_status']=='inconsistent',
++         'Recover declared metric and center, classify insufficient/contradictory/numerically unresolved controls correctly.')
++    gate('tetra_reconstruction','single_qubit',lambda x:x['states']==256 and x['max_state_error']<tol and x['max_probability_error']<tol and x['observation_rank']==3 and x['max_frame_gram_error']<tol and x['max_direction_sum_error']<tol and x['one_hot_distribution_rejected_as_unphysical'],
++         '256 independent pure/mixed preparations reconstruct; tetrahedral frame identities and physical-state rejection hold within absolute 1e-10.')
++    gate('heldout_rotations','single_qubit',lambda x:x['rotation_predictions']==3072 and x['max_prediction_error']<tol and x['wrong_label_control_mean_error']>.01,
++         '3072 held-out rotation predictions agree within absolute 1e-10; a mismatched label/operator frame fails visibly.')
++    gate('dual_lane_equivalence','dual_lane',lambda x:x['gate_applications']>=1000 and max(x['max_state_error'],x['max_probability_error'],x['max_norm_error'])<tol,
++         'Actual real dual-lane backend agrees with independent complex tensor reference for >=1000 local gates, absolute tolerance 1e-10.')
++    gate('finite_shot_prediction','finite_shot',lambda x:x['mean_state_error']<.035 and x['mean_state_error']<x['mean_uncorrected_state_error'],
++         'Frozen calibration; mean held-out Bloch error <0.035 and improves over uncorrected detector counts.')
++    gate('readout_selection','readout',lambda x:x['selected_exponent_on_calibration']==2 and abs(x['direct_crossed_weight'])<tol and abs(x['inserted_diagonal_weight']-.25)<tol,
++         'Synthetic squared-rule data selects exponent2 from1,2,4; crossed projections give0 and inserted diagonal gives1/4.')
++    gate('joint_reconstruction','joint',lambda x:x['states']==128 and max(x['max_probability_error'],x['max_density_error'],x['max_prediction_error'])<tol,
++         '128 two-system states and1024 local-rotation sequences agree with independent density matrices, absolute1e-10.')
++    gate('correlation_controls','joint',lambda x:abs(x['singlet_chsh']-2*np.sqrt(2))<tol and x['local_vertices_enumerated']==16 and x['local_deterministic_max_chsh']==2 and x['same_local_marginals_max_error']<tol and x['singlet_vs_mixed_joint_total_variation']>.01 and x['positive_joint_distribution_nonquantum_rejected_by_psd'],
++         'Computed singlet CHSH=2sqrt(2), all16 local assignments bounded by2; equal marginals do not fix joints; invalid quantum state rejected.')
++    gate('identifiability','identifiability',lambda x:x['duplicate_and_mirror_rank']==1 and x['dynamic_sequence_rank']==3 and x['same_initial_observation_difference']<tol and abs(x['after_permitted_rotation_difference']-2)<tol,
++         'Duplicate/mirrored views add no missing rank; operation sequence restores rank and distinguishes initially equal outputs.')
++    result = plain({
++        'schema':'ngc_geometry_lab.qualification.v1','seed':seed,'configuration':CONFIGURATION,
++        'scope':{'observations':'synthetic','computation':'CPU float64 plus exact integer closure',
++                 'cuda_execution':'not_run_no_cuda_device_or_compiler','physical_theory_validated':False,
++                 'speedup_claim':False,'historical_115_artifact_recovered':False},
++        'qualified':all(g['passed'] for g in gates),'gates':gates,'stage_errors':errors,'experiments':experiments,
++    })
++    if output is not None:
++        for name,rows in tables.items():
++            write_csv(output/name,rows)
++        for name,value in extra.items():
++            write_json(output/name,value)
++        write_json(output/'results.json',result)
++        from .reporting import markdown_report
++        (output/'REPORT.md').write_text(markdown_report(result),encoding='utf-8')
++        manifest = {
++            'created_utc':datetime.now(timezone.utc).isoformat(),
++            'environment':{'python':sys.version,'platform':platform.platform(),'numpy':np.__version__,'scipy':scipy.__version__,
++                           'nvidia_device_present':Path('/dev/nvidia0').exists(),'nvidia_smi_available':shutil.which('nvidia-smi') is not None,
++                           'nvcc_available':shutil.which('nvcc') is not None},
++            'command':f'python -m ngc_geometry_lab run --seed {seed} --out <new-directory>',
++            'files':{str(path.relative_to(output)):sha256(path) for path in sorted(output.rglob('*')) if path.is_file()},
++        }
++        write_json(output/'manifest.json',manifest)
++    return result
+diff --git a/ngc_geometry_lab/experiments.py b/ngc_geometry_lab/experiments.py
+new file mode 100644
+index 0000000..8162ce6
+--- /dev/null
++++ b/ngc_geometry_lab/experiments.py
+@@ -0,0 +1,314 @@
++"""Independent experiments and controls used by the frozen campaign.
++
++All random streams have explicit numeric labels. Ground truth belongs to the
++experiment evaluator, never the reconstruction estimator's argument list.
++"""
++
++from __future__ import annotations
++
++import itertools
++import runpy
++import sys
++import traceback
++from pathlib import Path
++
++import numpy as np
++
++from . import geometry as geo
++from . import reference as ref
++from .observations import analyze_dataset, estimate_state
++from .synthetic import generate_dataset
++
++
++def rng_for(seed, label):
++    return np.random.default_rng(np.random.SeedSequence([seed, label]))
++
++
++def upstream_baselines():
++    """Execute original zero-argument tests and retain their actual outcomes.
++
++    These selected upstream test files have no fixtures or parametrization.
++    Execution is direct; this is not a claim to have run entire upstream suites.
++    """
++    roots = Path(__file__).parent / '_vendor'
++    old_path = sys.path[:]
++    sys.path[:0] = [str(roots / 'mapeogeo'), str(roots / 'ngc_real')]
++    records = []
++    known_name = 'test_noncommuting_operators_can_be_equivalent_after_work_projection'
++    try:
++        for project in ('mapeogeo', 'ngc_real'):
++            for path in sorted((roots / project / 'tests').glob('test_*.py')):
++                module = runpy.run_path(str(path))
++                for name, function in sorted(module.items()):
++                    if not (name.startswith('test_') and callable(function)):
++                        continue
++                    record = {'project': project, 'file': path.name, 'test': name, 'status': 'PASS'}
++                    try:
++                        function()
++                    except Exception as exc:
++                        record.update(status='FAIL', exception=type(exc).__name__, message=str(exc))
++                        record['known_bad_expectation'] = project == 'mapeogeo' and name == known_name and isinstance(exc, AssertionError)
++                        # Relative source location, not an execution-path-dependent traceback.
++                        frame = traceback.extract_tb(exc.__traceback__)[-1]
++                        record['failure_line'] = frame.lineno
++                    records.append(record)
++    finally:
++        sys.path[:] = old_path
++    failures = [r for r in records if r['status'] == 'FAIL']
++    known = sum(bool(r.get('known_bad_expectation')) for r in failures)
++    return {'tests_executed': len(records), 'passed': len(records)-len(failures),
++            'failed': len(failures), 'known_bad_test_expectations': known,
++            'unexpected_failures': len(failures)-known, 'tests': records,
++            'scope': 'Only the selected unchanged zero-argument baseline tests bundled with the qualified source.'}
++
++
++def metric_and_center():
++    rx = np.array([[1,0,0],[0,0,-1],[0,1,0]], dtype=float)
++    rz = np.array([[0,-1,0],[1,0,0],[0,0,1]], dtype=float)
++    basis = np.array([[1,.2,0],[0,2,.3],[0,0,.7]])
++    inverse = np.linalg.inv(basis)
++    rotations = [basis @ op @ inverse for op in (rx, rz)]
++    projectors = [basis @ np.diag([1,1,0]) @ inverse]
++    expected = inverse.T @ inverse
++    expected *= 3 / np.trace(expected)
++    recovered = geo.infer_metric(rotations, projectors)
++    error = (float(np.max(np.abs(recovered['metric'] - expected)))
++             if recovered['metric'] is not None else 1e100)
++    insufficient = geo.infer_metric([], [np.diag([1.,0,0])])
++    contradiction = geo.infer_metric([2*np.eye(3)])
++    s = 2.**20
++    ill_conditioned = geo.infer_metric([], [np.diag([1.,0]), np.array([[.5,s/2],[1/(2*s),.5]])], dimension=2)
++    center = np.array([1.2,-.3,2.5])
++    affine = [(op, center-op@center) for op in rotations]
++    found = geo.infer_center(affine)
++    center_error = float(np.max(np.abs(found['center']-center)))
++    nonunique = geo.infer_center([(np.diag([-1.,1,1]), np.array([2.,0,0]))])
++    inconsistent = geo.infer_center([(np.eye(3), np.array([1.,0,0]))])
++    n = geo.tetra_directions()
++    faces = [(np.eye(3)-np.outer(normal,normal), -normal/3) for normal in n]
++    face_center = geo.infer_center(faces)
++    tetra = geo.tetra_geometry(center, basis.T, recovered['metric'])
++    return {
++        'metric': recovered, 'expected_metric': expected, 'max_metric_error': error,
++        'insufficient_metric_status': insufficient['status'],
++        'contradictory_metric_status': contradiction['status'],
++        'ill_conditioned_spd_status': ill_conditioned['status'],
++        'common_center': found, 'center_max_error': center_error,
++        'nonunique_center_status': nonunique['status'], 'inconsistent_center_status': inconsistent['status'],
++        'tetrahedral_face_projections_common_center_status': face_center['status'],
++        'tetrahedron_from_origin_and_three_displacements': tetra,
++        'meaning': 'Metric up to scale and affine fixed point under declared operator interpretation; neither proves historical common origin.',
++    }
++
++
++def single_qubit(seed):
++    rng = rng_for(seed, 2)
++    state_error = probability_error = prediction_error = 0.
++    rows, wrong_labels = [], []
++    for case in range(256):
++        rho = ref.random_density(2, rng, pure=case % 2 == 0)
++        true_state = ref.bloch_from_density(rho)
++        observations = ref.tetra_probabilities(rho)
++        reconstructed = geo.tetra_reconstruct(observations)
++        state_error = max(state_error, float(np.max(np.abs(reconstructed-true_state))))
++        probability_error = max(probability_error, float(np.max(np.abs(geo.tetra_probabilities(true_state)-observations))))
++        wrong = geo.tetra_reconstruct(observations[[1,0,2,3]])
++        for step in range(12):
++            axis, angle = rng.normal(size=3), float(rng.uniform(-np.pi,np.pi))
++            rotation = geo.rotation(axis,angle)
++            reconstructed = rotation @ reconstructed
++            wrong = rotation @ wrong
++            rho = ref.evolve_density(rho, ref.rotation_unitary(axis,angle))
++            reference_p = ref.tetra_probabilities(rho)
++            error = float(np.max(np.abs(geo.tetra_probabilities(reconstructed)-reference_p)))
++            wrong_error = float(np.max(np.abs(geo.tetra_probabilities(wrong)-reference_p)))
++            prediction_error = max(prediction_error,error)
++            wrong_labels.append(wrong_error)
++            rows.append({'case':case,'pure':case%2==0,'step':step+1,
++                         'max_probability_error':error,'wrong_label_max_error':wrong_error})
++    directions = geo.tetra_directions()
++    one_hot_rejected = False
++    try:
++        geo.tetra_reconstruct([1,0,0,0])
++    except ValueError:
++        one_hot_rejected = True
++    return {
++        'states':256,'pure_states':128,'mixed_states':128,'rotation_predictions':3072,
++        'max_state_error':state_error,'max_probability_error':probability_error,
++        'max_prediction_error':prediction_error,
++        'observation_rank':int(np.linalg.matrix_rank(directions)),
++        'max_direction_sum_error':float(np.max(np.abs(directions.sum(axis=0)))),
++        'max_frame_gram_error':float(np.max(np.abs(directions@directions.T-(4*np.eye(4)-np.ones((4,4)))/3))),
++        'one_hot_distribution_rejected_as_unphysical':one_hot_rejected,
++        'wrong_label_control_mean_error':float(np.mean(wrong_labels)),
++        'wrong_label_control_max_error':float(np.max(wrong_labels)),
++        'wrong_label_control_description':'Permute observation labels without transforming the subsequent operator frame.',
++    }, rows
++
++
++def dual_lane(seed):
++    from .repository import dual_lane_apply
++    rng = rng_for(seed,3)
++    state_error = probability_error = norm_error = 0.
++    rows = []
++    for num_qubits in range(1,7):
++        dimension = 2**num_qubits
++        for circuit in range(12):
++            original = rng.normal(size=dimension)+1j*rng.normal(size=dimension)
++            original /= np.linalg.norm(original)
++            candidate, expected = original.copy(),original.copy()
++            for step in range(20):
++                width = 1 if num_qubits==1 or step%2==0 else 2
++                targets = tuple(int(x) for x in rng.choice(num_qubits,width,replace=False))
++                size = 2**width
++                matrix = rng.normal(size=(size,size))+1j*rng.normal(size=(size,size))
++                gate = np.linalg.qr(matrix)[0]
++                candidate = dual_lane_apply(candidate,gate,targets,num_qubits)
++                expected = ref.local_gate(expected,gate,targets,num_qubits)
++                error = float(np.max(np.abs(candidate-expected)))
++                p_error = float(np.max(np.abs(np.abs(candidate)**2-np.abs(expected)**2)))
++                n_error = float(abs(np.vdot(candidate,candidate).real-1))
++                state_error,probability_error,norm_error = max(state_error,error),max(probability_error,p_error),max(norm_error,n_error)
++                rows.append({'qubits':num_qubits,'circuit':circuit,'step':step+1,
++                             'targets':','.join(map(str,targets)),'max_state_error':error,
++                             'max_probability_error':p_error,'norm_error':n_error})
++    return {
++        'gate_applications':len(rows),'qubit_range':[1,6],'circuits':72,'gates_per_circuit':20,
++        'max_state_error':state_error,'max_probability_error':probability_error,'max_norm_error':norm_error,
++        'executed_backend':'Unmodified NGC_Real apply_local_gate_dual_lane through validated adapter',
++        'comparison_backend':'Independent complex tensor-axis reference',
++        'hardware':'CPU; no claim of dual physical cores or GPU execution',
++        'state_storage':[{'qubits':n,'real_entries':2*2**n,'dual_lane_bytes':16*2**n,
++                          'complex_reference_bytes':16*2**n} for n in range(1,7)],
++    }, rows
++
++
++def finite_shot(seed):
++    observations, truth = generate_dataset(seed)
++    analyzed = analyze_dataset(observations)
++    rows = []
++    for record,expected,raw in zip(analyzed['cases'],truth['cases'],observations['cases']):
++        state = np.asarray(expected['initial_state'])
++        calibrated = float(np.linalg.norm(record['estimate']['state']-state))
++        uncorrected = estimate_state(raw['counts'],{'matrix':np.eye(4)})
++        uncorrected_error = float(np.linalg.norm(uncorrected['state']-state))
++        p_error = float(.5*np.sum(np.abs(record['prediction']['observed_probabilities']-np.array(expected['final_observed_probabilities']))))
++        rows.append({'id':record['id'],'calibrated_state_error':calibrated,
++                     'uncorrected_state_error':uncorrected_error,'prediction_total_variation_vs_truth':p_error,
++                     'verification_total_variation':record['verification_total_variation'],
++                     'raw_norm':record['estimate']['raw_norm'],'projected':record['estimate']['projected']})
++    errors = np.array([r['calibrated_state_error'] for r in rows])
++    return {
++        'calibration_preparations':24,'heldout_preparations':128,'counts_per_record':65536,
++        'total_observed_counts':(24+2*128)*65536,
++        'mean_state_error':float(errors.mean()),'max_state_error':float(errors.max()),
++        'p95_state_error':float(np.quantile(errors,.95)),
++        'mean_uncorrected_state_error':float(np.mean([r['uncorrected_state_error'] for r in rows])),
++        'mean_prediction_total_variation_vs_truth':float(np.mean([r['prediction_total_variation_vs_truth'] for r in rows])),
++        'mean_verification_total_variation':analyzed['mean_verification_total_variation'],
++        'projected_estimates':analyzed['projected_estimates'],
++        'detector_max_entry_error':float(np.max(np.abs(analyzed['calibration']['matrix']-np.array(truth['detector_matrix'])))),
++        'fitted_detector':analyzed['calibration'],
++        'truth_access':'Only this experiment evaluator receives the separate truth object; analyze_dataset accepts counts and calibration only.',
++        'sampling':'NumPy multinomial from a declared Born-rule model, not laboratory observations.',
++    }, rows, observations, truth, analyzed
++
++
++def readout_selection(seed):
++    rng = rng_for(seed,5)
++    calibration_angles = np.linspace(.08,1.49,15)
++    heldout_angles = np.linspace(.115,1.455,19)
++    shots = 65536
++    counts = rng.binomial(shots,np.cos(calibration_angles)**2)
++    frequency = counts/shots
++    heldout_counts = rng.binomial(shots,np.cos(heldout_angles)**2)
++    heldout_frequency = heldout_counts/shots
++    rows, scores = [], {}
++    for exponent in (1,2,4):
++        def probability(angles):
++            c,s = np.abs(np.cos(angles))**exponent,np.abs(np.sin(angles))**exponent
++            return c/(c+s)
++        predicted = probability(calibration_angles)
++        score = float(-np.mean(frequency*np.log(predicted)+(1-frequency)*np.log1p(-predicted)))
++        scores[exponent] = score
++        predicted_heldout = probability(heldout_angles)
++        heldout_score = float(-np.mean(heldout_frequency*np.log(predicted_heldout)+(1-heldout_frequency)*np.log1p(-predicted_heldout)))
++        rows.append({'exponent':exponent,'calibration_cross_entropy':score,
++                     'heldout_cross_entropy':heldout_score,
++                     'heldout_rmse_vs_declared_truth':float(np.sqrt(np.mean((predicted_heldout-np.cos(heldout_angles)**2)**2)))})
++    winner = min(scores,key=scores.get)
++    direct,_ = geo.projection_transmission([1,0,0],[[0,1,0]])
++    inserted,final = geo.projection_transmission([1,0,0],[[1,1,0],[0,1,0]])
++    return {'selected_exponent_on_calibration':winner,'selection_frozen_before_heldout_scoring':True,
++            'calibration_angles':15,'heldout_angles':19,'shots_per_angle':shots,
++            'candidate_rule':'p0=|cos(theta)|**alpha/(|cos(theta)|**alpha+|sin(theta)|**alpha)',
++            'declared_generator':'p0=cos(theta)**2 (Born/squared-norm rule)',
++            'squared_rule_not_independently_derived':True,
++            'direct_crossed_weight':direct,'inserted_diagonal_weight':inserted,'final_vector':final,
++            'candidate_scores':rows,
++            'calibration_records':[{'angle':float(a),'count0':int(c),'count1':shots-int(c)} for a,c in zip(calibration_angles,counts)],
++            'heldout_records':[{'angle':float(a),'count0':int(c),'count1':shots-int(c)} for a,c in zip(heldout_angles,heldout_counts)]},rows
++
++
++def joint_systems(seed):
++    rng = rng_for(seed,6)
++    p_error = density_error = prediction_error = 0.
++    rows = []
++    for case in range(128):
++        rho = ref.random_density(4,rng,pure=case%2==0)
++        measured = ref.joint_tetra_probabilities(rho)
++        a,b,c = geo.joint_reconstruct(measured)
++        reconstructed = ref.density_from_joint(a,b,c)
++        density_error = max(density_error,float(np.max(np.abs(reconstructed-rho))))
++        p_error = max(p_error,float(np.max(np.abs(geo.joint_probabilities(a,b,c)-measured))))
++        for step in range(8):
++            axis_a,axis_b = rng.normal(size=(2,3))
++            angle_a,angle_b = rng.uniform(-np.pi,np.pi,2)
++            ra,rb = geo.rotation(axis_a,angle_a),geo.rotation(axis_b,angle_b)
++            a,b,c = ra@a,rb@b,ra@c@rb.T
++            unitary = np.kron(ref.rotation_unitary(axis_a,angle_a),ref.rotation_unitary(axis_b,angle_b))
++            rho = ref.evolve_density(rho,unitary)
++            expected = ref.joint_tetra_probabilities(rho)
++            error = float(np.max(np.abs(geo.joint_probabilities(a,b,c)-expected)))
++            prediction_error = max(prediction_error,error)
++            rows.append({'case':case,'pure':case%2==0,'step':step+1,'max_probability_error':error})
++    singlet_p = geo.joint_probabilities(np.zeros(3),np.zeros(3),-np.eye(3))
++    mixed_p = geo.joint_probabilities(np.zeros(3),np.zeros(3),np.zeros((3,3)))
++    z,x = np.array([0.,0,1]),np.array([1.,0,0])
++    chsh = abs(geo.chsh_value(-np.eye(3),z,x,(z+x)/np.sqrt(2),(z-x)/np.sqrt(2)))
++    vertices = []
++    for a0,a1,b0,b1 in itertools.product((-1,1),repeat=4):
++        vertices.append({'a0':a0,'a1':a1,'b0':b0,'b1':b1,'chsh':a0*b0+a0*b1+a1*b0-a1*b1})
++    positive_probability_nonquantum = geo.joint_probabilities(np.zeros(3),np.zeros(3),np.eye(3))
++    nonphysical_rejected = False
++    try:
++        ref.density_from_joint(np.zeros(3),np.zeros(3),np.eye(3))
++    except ValueError:
++        nonphysical_rejected = True
++    return {
++        'states':128,'pure_states':64,'mixed_states':64,'rotation_predictions':1024,
++        'max_probability_error':p_error,'max_density_error':density_error,'max_prediction_error':prediction_error,
++        'singlet_chsh':chsh,'local_deterministic_max_chsh':max(abs(v['chsh']) for v in vertices),
++        'local_vertices_enumerated':len(vertices),'local_vertices':vertices,
++        'same_local_marginals_max_error':float(max(np.max(np.abs(singlet_p.sum(axis=0)-mixed_p.sum(axis=0))),np.max(np.abs(singlet_p.sum(axis=1)-mixed_p.sum(axis=1))))),
++        'singlet_vs_mixed_joint_total_variation':float(.5*np.sum(np.abs(singlet_p-mixed_p))),
++        'positive_joint_distribution_nonquantum_min_probability':float(positive_probability_nonquantum.min()),
++        'positive_joint_distribution_nonquantum_rejected_by_psd':nonphysical_rejected,
++        'interpretation':'The CHSH value is a computed prediction, not a local hidden-variable implementation or physical Bell test.',
++    },rows
++
++
++def identifiability():
++    c = np.array([[1.,0,0]])
++    transition = np.array([[0.,1,0],[0,0,1],[1,0,0]])
++    duplicated = np.vstack([c,-c,c,-c])
++    dynamic = geo.observability_matrix(c,transition,3)
++    plus,minus = np.array([1.,0,0]),np.array([-1.,0,0])
++    observe_z = np.array([[0.,0,1]])
++    r = geo.rotation([0,1,0],np.pi/2)
++    before = float(np.max(np.abs(observe_z@plus-observe_z@minus)))
++    after = float(np.max(np.abs(observe_z@r@plus-observe_z@r@minus)))
++    return {'duplicate_and_mirror_rank':int(np.linalg.matrix_rank(duplicated)),
++            'dynamic_sequence_rank':int(np.linalg.matrix_rank(dynamic)),
++            'same_initial_observation_difference':before,'after_permitted_rotation_difference':after,
++            'meaning':'Identical present output need not imply identical state; extra independent operations can reveal a previously hidden direction.'}
+diff --git a/ngc_geometry_lab/io.py b/ngc_geometry_lab/io.py
+new file mode 100644
+index 0000000..1223de3
+--- /dev/null
++++ b/ngc_geometry_lab/io.py
+@@ -0,0 +1,50 @@
++"""Small deterministic serialization helpers for reviewable evidence."""
++
++from __future__ import annotations
++
++import csv
++import hashlib
++import json
++import math
++from pathlib import Path
++
++import numpy as np
++
++
++def plain(value):
++    if isinstance(value, np.ndarray):
++        return plain(value.tolist())
++    if isinstance(value, np.generic):
++        return plain(value.item())
++    if isinstance(value, dict):
++        return {str(k): plain(v) for k, v in value.items()}
++    if isinstance(value, (list, tuple)):
++        return [plain(v) for v in value]
++    if isinstance(value, float) and not math.isfinite(value):
++        raise ValueError('nonfinite result cannot be published as valid JSON')
++    return value
++
++
++def canonical_json(value):
++    return json.dumps(plain(value), sort_keys=True, indent=2, allow_nan=False) + '\n'
++
++
++def write_json(path, value):
++    path = Path(path)
++    path.parent.mkdir(parents=True, exist_ok=True)
++    path.write_text(canonical_json(value), encoding='utf-8')
++
++
++def write_csv(path, rows):
++    path = Path(path)
++    path.parent.mkdir(parents=True, exist_ok=True)
++    if not rows:
++        raise ValueError('CSV evidence requires at least one row')
++    with path.open('w', newline='', encoding='utf-8') as stream:
++        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
++        writer.writeheader()
++        writer.writerows(plain(rows))
++
++
++def sha256(path):
++    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+diff --git a/ngc_geometry_lab/observations.py b/ngc_geometry_lab/observations.py
+index d37ab53..4b847d1 100644
+--- a/ngc_geometry_lab/observations.py
++++ b/ngc_geometry_lab/observations.py
+@@ -8,6 +8,8 @@ This model does not by itself calibrate unknown measurement axes or source drift
+ 
+ from __future__ import annotations
+ 
++from numbers import Integral, Real
++
+ import numpy as np
+ from scipy.optimize import nnls
+ 
+@@ -31,16 +33,25 @@ def _real(value, name):
+ 
+ def validate_counts(counts):
+     """Validate one four-channel record without normalizing or rounding it."""
+-    raw = np.asarray(counts)
+-    values = _real(counts, 'counts')
+-    if raw.dtype == bool or values.shape != (4,):
++    # Preserve arbitrary-size Python integers and mixed booleans until checked.
++    # A float conversion first would silently turn 2**53+1 into 2**53.
++    raw = np.asarray(counts, dtype=object)
++    if raw.shape != (4,):
+         raise ValueError('counts must be four nonnegative integers')
+-    if np.any(values < 0) or np.any(values != np.floor(values)):
+-        raise ValueError('counts must be nonnegative integers')
+-    total = float(values.sum())
++    values = []
++    for value in raw:
++        if isinstance(value, (bool, np.bool_)) or not isinstance(value, Real):
++            raise ValueError('counts must be real integers, not booleans')
++        if not isinstance(value, Integral) and (not np.isfinite(value) or value != np.floor(value)):
++            raise ValueError('counts must be finite integers')
++        number = int(value)
++        if number < 0 or number > 2**53:
++            raise ValueError('counts must be nonnegative and at most 2**53')
++        values.append(number)
++    total = sum(values)
+     if not 0 < total <= 2**53:
+         raise ValueError('counts total must be positive and at most 2**53')
+-    return values.astype(np.int64)
++    return np.array(values, dtype=np.int64)
+ 
+ 
+ def _detector(calibration):
+diff --git a/ngc_geometry_lab/reporting.py b/ngc_geometry_lab/reporting.py
+new file mode 100644
+index 0000000..fdf03d3
+--- /dev/null
++++ b/ngc_geometry_lab/reporting.py
+@@ -0,0 +1,192 @@
++"""Human-readable report generated from the measured campaign results."""
++
++
++def markdown_report(result):
++    gates = result['gates']
++    lines = ['# NGC / MAPEOGEO geometric reconstruction qualification', '',
++             f"**Result: {'PASS' if result['qualified'] else 'FAIL'} — {sum(g['passed'] for g in gates)}/{len(gates)} computational gates passed.**",
++             f"Master seed: `{result['seed']}`. All observations in this campaign are synthetic. Computation uses CPU arithmetic.", '',
++             '| Gate | Result | Criterion |', '|---|---|---|']
++    lines += [f"| {g['id']} | {'PASS' if g['passed'] else 'FAIL'} | {g['criterion']} |" for g in gates]
++    if not result['qualified']:
++        lines += ['', '## Failures are retained', '',
++                  'Read `results.json`, stage checkpoints, and any exception files. A failed campaign is not replaced with a success summary.',
++                  '', 'The complete source and input records remain available for investigation.']
++        return '\n'.join(lines)+'\n'
++    e = result['experiments']
++    c,m,q,d,f,r,j,i = [e[k] for k in ('exact_closure','metric_and_center','single_qubit','dual_lane','finite_shot','readout','joint','identifiability')]
++    b = e['connected_operators']['upstream_baseline']
++    lines.append(f'''
++## What this establishes
++
++The connected operator implementation can support a concrete reconstruction-and-prediction chain. The experiment executes actual pinned MAPEOGEO operators and the actual NGC real dual-lane backend. A separate real geometric model and a separately implemented complex density-matrix reference agree within the fixed absolute tolerance. Counts can be used to calibrate a declared detector model, recover an unknown state, and predict measurements after new operation sequences.
++
++This is a computational result about the stated representations and assumptions. It does not identify a unique physical cause, derive the measurement probability law, demonstrate a physical Bell violation, or establish a quantum computational speedup.
++
++## 1. Connected MAPEOGEO operators and a fresh exact closure
++
++The imported `fuse(A,B)` executes A followed by B and returns B times A. The qualification independently checks this order, projection rank and nullity, equality after an observation, and initial-state recovery through an operation sequence. MAPEOGEO's inverse API retains `source_identified=False` even when coordinates are uniquely recovered. The distinction is part of the executable source behavior.
++
++The new exact closure uses three explicitly supplied integer matrices: a 90-degree rotation about x, a 90-degree rotation about z, and projection onto the xy plane. Composition executes MAPEOGEO's actual matrix multiplication. Breadth-first enumeration begins with identity. Independent integer NumPy products check every multiplication-table entry, and a separate enumeration of signed partial permutations checks the resulting family.
++
++| Measured property | Result |
++|---|---:|
++| Elements | {c['size']} |
++| Rank 0 / 1 / 2 / 3 | {c['rank_histogram']['0']} / {c['rank_histogram']['1']} / {c['rank_histogram']['2']} / {c['rank_histogram']['3']} |
++| Invertible elements | {len(c['units'])} |
++| Idempotents | {len(c['idempotents'])} |
++| Nilpotents, including zero | {len(c['nilpotents'])} |
++| Elements in center | {len(c['center'])} |
++| Commuting ordered pairs, including self-pairs | {c['commuting_ordered_pairs']} |
++| Distinct commuting pairs without order | {(c['commuting_ordered_pairs']-c['size'])//2} |
++| Independent product comparisons | {c['validation']['product_comparisons']:,} |
++| Associativity triples | {c['validation']['associativity_triples']:,} |
++| Product / associativity mismatches | {c['validation']['product_mismatches']} / {c['validation']['associativity_mismatches']} |
++
++This is newly computed evidence for these generators. It is not represented as recovery of the historical sealed 115-element artifact. Matrix indices and shortest words depend on generator choice and enumeration order. `exact_closure.json` contains every matrix, generator word, table entry, and classification needed to inspect or reproduce this result.
++
++## 2. Recovering a metric and a common center
++
++Metric reconstruction solves the declared isometry equations R-transpose G R = G and projection self-adjointness equations P-transpose G = G P. It does not demand that a projection preserve every length.
++
++A deliberately distorted coordinate basis provides a known nonidentity metric. The operator constraints recover it uniquely up to scale. Trace normalization fixes the reporting convention; it does not recover an absolute physical length scale.
++
++- Maximum metric-entry error: **{m['max_metric_error']:.3e}**.
++- Maximum reconstructed common-center error: **{m['center_max_error']:.3e}**.
++- Insufficient constraints: **{m['insufficient_metric_status']}**.
++- Contradictory isometry constraints: **{m['contradictory_metric_status']}**.
++- Numerically unresolved, highly distorted SPD example: **{m['ill_conditioned_spd_status']}**.
++- Four affine tetrahedron face projections: **{m['tetrahedral_face_projections_common_center_status']}** as a common-fixed-point system.
++
++That last control matters: a point used as a common input to four projections need not be fixed by all four. A reconstructed geometric center also does not identify a common historical cause. The code keeps those claims separate.
++
++The metric procedure is deliberately incomplete for positive-definite feasibility when the symmetric solution space has multiple dimensions. It attempts a particular SPD witness and reports unresolved feasibility if that search fails. Near-zero eigenvalues also remain unresolved at the chosen tolerance. Failure to find a numerically stable witness is not used as proof that no metric exists.
++
++## 3. Tetrahedral reconstruction and held-out transformations
++
++The four directions are (+++), (+--), (-+-), (--+), divided by sqrt(3). The candidate uses p_i=(1+n_i dot r)/4 and reconstructs r=3 sum_i p_i n_i. This is an explicit correspondence to a standard tetrahedral qubit measurement. The user's broader projected-tetrahedron hypothesis is not presumed identical to this correspondence.
++
++The independent reference computes probabilities from density-matrix traces against four POVM effects. Its rotations use complex 2-by-2 unitaries; the geometric model uses real Rodrigues rotations.
++
++| Test | Measured result |
++|---|---:|
++| Pure / mixed states | {q['pure_states']} / {q['mixed_states']} |
++| Maximum reconstructed coordinate error | {q['max_state_error']:.3e} |
++| Maximum direct probability disagreement | {q['max_probability_error']:.3e} |
++| Held-out rotation predictions | {q['rotation_predictions']:,} |
++| Maximum held-out probability disagreement | {q['max_prediction_error']:.3e} |
++| Mean error after mismatching outcome labels and operator frame | {q['wrong_label_control_mean_error']:.6f} |
++
++The one-hot distribution (1,0,0,0) reconstructs to a Bloch vector of norm3 and is rejected as a qubit state. The state-space restriction is a substantive model assumption. Four nonnegative numbers summing to one are not automatically a physical qubit tetrahedral distribution.
++
++## 4. Observation and detector calibration
++
++The detector is modeled as a fixed column-stochastic 4-by-4 response matrix acting on ideal tetrahedral probabilities. The fit uses only {f['calibration_preparations']} calibration preparations with known coordinates. The response is frozen before processing {f['heldout_preparations']} unknown preparations. Every preparation and verification record contains {f['counts_per_record']:,} counts, for {f['total_observed_counts']:,} synthetic records in total.
++
++Verification represents a fresh identically prepared ensemble after the specified operations. It is not a second measurement of the same system after a destructive initial measurement. The generator uses only the independent complex reference. Ground truth is written to a separate evaluator file and is forbidden by the analyzer's input schema.
++
++| Held-out measure | Result |
++|---|---:|
++| Mean calibrated Bloch-vector error | {f['mean_state_error']:.6f} |
++| Mean error without detector correction | {f['mean_uncorrected_state_error']:.6f} |
++| Maximum calibrated state error | {f['max_state_error']:.6f} |
++| 95th percentile calibrated state error | {f['p95_state_error']:.6f} |
++| Mean prediction TV distance from known synthetic truth | {f['mean_prediction_total_variation_vs_truth']:.6f} |
++| Mean prediction TV distance from verification counts | {f['mean_verification_total_variation']:.6f} |
++| Maximum fitted detector-entry error | {f['detector_max_entry_error']:.6f} |
++| Estimates explicitly projected to the physical unit ball | {f['projected_estimates']} |
++
++TV distance is half the sum of absolute differences between the four outcome probabilities. Bloch error is Euclidean distance in dimensionless state coordinates. The error gate was fixed at mean Bloch error below0.035 before this campaign ran; it is an engineering qualification threshold for synthetic data, not a universal confidence guarantee.
++
++Linear inversion can produce a vector slightly outside the physical ball because of count noise. The analyzer preserves the raw vector, its norm, the linear probability estimate, and the correction distance. Its reported physical estimate uses explicit radial projection. This estimator can be biased near the boundary; the correction is not hidden.
++
++Calibration assumes known preparation coordinates, known tetrahedral axes, a stationary linear detector, and complete counts. Unknown axes, setting-dependent loss, detector nonlinearity, drift, and preparation errors require an extended instrument model or separately calibrated controls.
++
++## 5. What the actual NGC dual lanes reproduce
++
++The imported NGC backend updates two real components using q'=Aq-Bp and p'=Bq+Ap for a complex operator A+iB. It is an exact real representation of the same finite complex state space, up to floating-point arithmetic.
++
++- **{d['gate_applications']:,} gate applications** across {d['circuits']} random circuits and one through six qubits.
++- Nonadjacent and reversed target ordering included.
++- Maximum state-amplitude disagreement: **{d['max_state_error']:.3e}**.
++- Maximum measurement-probability disagreement: **{d['max_probability_error']:.3e}**.
++- Maximum normalization error: **{d['max_norm_error']:.3e}**.
++
++The backend is actual repository code; the comparison uses a separate tensor-axis implementation. The campaign makes no timing comparison. It runs on CPU and does not launch the CUDA kernel or demonstrate execution on two physical cores.
++
++The full real state retains 2 times 2-to-the-n float64 entries. At six qubits that is128 real entries, or1024 bytes: the same state-storage size as64 complex128 amplitudes. This result validates representation and operation, while leaving general state-space scaling intact.
++
++## 6. Readout hypotheses
++
++Sequential projections give zero direct transmission between crossed axes. Inserting a diagonal projection gives final amplitude norm1/2 and squared weight **{r['inserted_diagonal_weight']:.12f}**. The squared-norm identification is explicitly adopted.
++
++The separate readout experiment compares normalized power rules with exponents1,2,4. Fifteen calibration angles select a rule; nineteen distinct held-out angles score the frozen selection. The selected exponent is **{r['selected_exponent_on_calibration']}**. Raw angle counts and all candidate scores are retained.
++
++The generator deliberately uses the squared rule. Recovering exponent2 demonstrates that the procedure distinguishes these alternatives on this data. It does not independently derive the Born rule from geometry, and classical polarization intensities can exhibit the same projection law.
++
++## 7. Joint systems and correlations
++
++Two-system reconstruction uses local vectors a,b and a3-by-3 correlation matrix C. Sixteen product-tetrahedron probabilities recover all15 independent real coordinates. Retaining only the two local three-vectors would discard the nine correlation coordinates.
++
++The geometric probability formula is compared with direct traces of a complex4-by-4 density matrix. The campaign includes {j['states']} pure/mixed joint states and {j['rotation_predictions']:,} local-rotation predictions.
++
++| Joint-system test | Result |
++|---|---:|
++| Maximum density reconstruction error | {j['max_density_error']:.3e} |
++| Maximum direct probability disagreement | {j['max_probability_error']:.3e} |
++| Maximum transformed probability disagreement | {j['max_prediction_error']:.3e} |
++| Computed singlet CHSH magnitude | {j['singlet_chsh']:.12f} |
++| Maximum over all16 local deterministic assignments | {j['local_deterministic_max_chsh']} |
++| Singlet versus maximally mixed joint TV distance | {j['singlet_vs_mixed_joint_total_variation']:.6f} |
++
++The singlet and maximally mixed state have identical local marginals but different joint distributions. The CHSH comparison is a calculation of those models. A centralized program computing joint probabilities is not a physical local hidden-variable realization. No spacelike-separated physical measurements were performed.
++
++Another control produces valid product-tetrahedron probabilities from C=I, a=b=0, yet the corresponding density matrix is not positive semidefinite. This prevents a valid-looking four-by-four probability table from being accepted as sufficient proof of a quantum state.
++
++## 8. Identifiability and common output
++
++Repeating or mirroring one observation direction gives rank **{i['duplicate_and_mirror_rank']}**. A declared operation sequence gives rank **{i['dynamic_sequence_rank']}**. A pair of states has exactly the same initial selected output, then a permitted rotation creates an output separation of **{i['after_permitted_rotation_difference']:.6f}**.
++
++Thus a common observation can define an equivalence class of candidate states. Changing operations can make that class smaller. Identical output alone does not identify one unique source or cause, even though the operator model can recover useful relationships.
++
++## Source and test integrity
++
++Verified **{e['source_integrity']['verified_files']} pinned source/evidence files** using SHA-256 and Git blob SHA-1. NGC_Real is pinned to commit3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab. MAPEOGEO operator algebra is pinned to ac63dde9da6dca2c000aa53ee6ffb9365e2388a1; its selected observability modules are pinned to2e12009413488f34c8d7e411f3239d240ce19ade. Full URLs and per-file hashes are in the bundled source manifests.
++
++The selected unchanged upstream baseline tests produced **{b['passed']} passes and{b['failed']} failure**. The failure is retained. Its expected answer is incorrect for the supplied observation: AB differs from BA, but the selected second rows PAB and PBA are both(0,2). Independent integer multiplication confirms that the operator's equivalence result is correct. There were **{b['unexpected_failures']} unexpected baseline failures**. These counts refer to selected bundled tests, not every test in each upstream repository.
++
++The inspected historical release branch contains placeholder/mock transformation artifacts; those were not used as closure evidence. The original sealed115-element artifact was not located. A separate suspected file-integrity mismatch was resolved exactly as LF-versus-CRLF line endings. The raw source, original test failure, correction calculation, and scoped source audit remain available. None of those historical files was silently repaired.
++
++Independent review also caught and corrected a metric-classification error at the positive-definite numerical boundary and a large-integer count-conversion error. Regression tests and pre-fix failure logs are preserved. These corrections tighten the qualification rather than changing its pass thresholds.
++
++## Reproduce and use external measurements
++
++From the extracted project directory:
++
++```bash
++python -m pip install -r requirements.txt
++python -W error -m unittest discover -s tests -v
++python -m ngc_geometry_lab run --seed {result['seed']} --out results/replay
++python -m ngc_geometry_lab generate --out observations.json --truth-out truth.json
++python -m ngc_geometry_lab analyze --input observations.json --out analysis.json
++```
++
++The generator labels its observations synthetic. For experimental records, follow `docs/EXPERIMENT_PROTOCOL.md`, preserve preparation and instrument metadata, and mark the provenance kind experimental. The same analyzer accepts the measured counts. Its output remains conditional on the declared instrument and state model.
++
++The program refuses nonempty campaign output directories and existing output files. Use a new destination to preserve earlier evidence. `results.json` is deterministic for the seed/configuration and numerical environment; environment/time metadata lives separately in `manifest.json`. Floating-point last bits may differ across numerical-library/platform versions, so cross-platform comparisons should use the fixed tolerances as well as the recorded versions.
++
++## Evidence files
++
++- `results.json`: all gates, controls, measured summaries, upstream outcomes, and declared scope.
++- `exact_closure.json`: the full fresh integer monoid, words, and multiplication table.
++- `single_qubit.csv`, `dual_lane.csv`, `joint_systems.csv`: every transformation comparison.
++- `finite_shot.csv`: every held-out reconstruction error and projection flag.
++- `synthetic_observations.json`: analyzer input, containing no held-out truth.
++- `synthetic_truth.json`: separate evaluator ground truth.
++- `blind_analysis.json`: frozen calibration, raw estimates, corrections, and predictions.
++- `readout_candidates.csv`: all candidate-rule scores; raw counts are also in `results.json`.
++- `configuration.json`, stage checkpoints, and `manifest.json`: fixed settings and file integrity.
++
++The result supports a precise constructive claim: these connected geometric representations can reconstruct and predict the tested finite systems. Further physical claims require independent measurements or distinctive predictions that separate competing physical models.
++''')
++    return '\n'.join(lines)+'\n'
+diff --git a/ngc_geometry_lab/repository.py b/ngc_geometry_lab/repository.py
+new file mode 100644
+index 0000000..c2b4538
+--- /dev/null
++++ b/ngc_geometry_lab/repository.py
+@@ -0,0 +1,367 @@
++"""Adapters to unchanged upstream code, with independent qualification evidence.
++
++The finite closure below is a new fixture, not a recovered historical artifact.
++Its multiplication uses MAPEOGEO; NumPy checks the products independently.
++"""
++from collections import Counter, deque
++from dataclasses import asdict
++from fractions import Fraction
++import hashlib
++import json
++from numbers import Integral
++from pathlib import Path
++from types import ModuleType
++from typing import Any
++
++import numpy as np
++
++from ._vendor.mapeogeo.mapeogeo import (
++    latent_generator_observability_v2 as _observability,
++    latent_generator_v1 as _inverse,
++    psmsl_operator_algebra_v1 as _algebra,
++    psmsl_work_equivalence_v1 as _work,
++)
++from ._vendor.ngc_real.ngc_rq import real_phase as _real_phase
++from ._vendor.ngc_real.ngc_rq.backends import dual_lane as _dual_lane
++
++
++_VENDOR_ROOT = Path(__file__).resolve().parent / "_vendor"
++_SOURCE_MANIFESTS = {
++    "mapeogeo": Path("mapeogeo/SOURCE_PROVENANCE.json"),
++    "mapeogeo_audit": Path("mapeogeo/AUDIT_SOURCE_PROVENANCE.json"),
++    "ngc_real": Path("ngc_real/SOURCE_PROVENANCE.json"),
++}
++_IDENTITY = ((1, 0, 0), (0, 1, 0), (0, 0, 1))
++_ZERO = ((0, 0, 0), (0, 0, 0), (0, 0, 0))
++_GENERATORS = {
++    "Rx90": ((1, 0, 0), (0, 0, -1), (0, 1, 0)),
++    "Rz90": ((0, -1, 0), (1, 0, 0), (0, 0, 1)),
++    "Pxy": ((1, 0, 0), (0, 1, 0), (0, 0, 0)),
++}
++
++
++def mapeogeo_modules() -> dict[str, ModuleType]:
++    """Return real, package-relative upstream modules without changing sys.path."""
++    return {"algebra": _algebra, "inverse": _inverse,
++            "observability": _observability, "work": _work}
++
++
++def dual_lane_apply(state, gate, targets, num_qubits) -> np.ndarray:
++    """Validate a normalized state/unitary gate and execute the actual NGC backend.
++
++    Qubit zero is the most significant tensor factor. Supplied target order is
++    preserved. Validation never calls the independent complex reference.
++    """
++    if isinstance(num_qubits, (bool, np.bool_)) or not isinstance(num_qubits, Integral):
++        raise ValueError("num_qubits must be a positive integer")
++    if num_qubits <= 0:
++        raise ValueError("num_qubits must be a positive integer")
++    num_qubits = int(num_qubits)
++    try:
++        target_tuple = tuple(targets)
++    except TypeError as exc:
++        raise ValueError("targets must be a nonempty sequence of integers") from exc
++    if not target_tuple or any(isinstance(t, (bool, np.bool_)) or not isinstance(t, Integral)
++                               for t in target_tuple):
++        raise ValueError("targets must be a nonempty sequence of integers")
++    target_tuple = tuple(int(t) for t in target_tuple)
++    if len(set(target_tuple)) != len(target_tuple):
++        raise ValueError("targets must be unique")
++    if any(t < 0 or t >= num_qubits for t in target_tuple):
++        raise ValueError("targets must be within the qubit register")
++    try:
++        state_array = np.asarray(state, dtype=complex)
++        gate_array = np.asarray(gate, dtype=complex)
++    except (TypeError, ValueError, OverflowError) as exc:
++        raise ValueError("state and gate must be numeric arrays") from exc
++    if state_array.ndim != 1 or state_array.size == 0:
++        raise ValueError("state must be a nonempty one-dimensional vector")
++    dimension = int(state_array.size)
++    # Validate against the supplied vector before computing a potentially huge 2**n.
++    if dimension & (dimension - 1) or dimension.bit_length() - 1 != num_qubits:
++        raise ValueError("state length does not match num_qubits")
++    if not np.all(np.isfinite(state_array)):
++        raise ValueError("state must contain only finite values")
++    with np.errstate(over="ignore", invalid="ignore"):
++        state_norm = np.linalg.norm(state_array)
++    if not np.isfinite(state_norm) or not np.isclose(state_norm, 1.0, atol=1e-10, rtol=0):
++        raise ValueError("state must already be normalized")
++    local_dimension = 1 << len(target_tuple)
++    if gate_array.shape != (local_dimension, local_dimension):
++        raise ValueError("gate shape does not match the number of targets")
++    if not np.all(np.isfinite(gate_array)):
++        raise ValueError("gate must contain only finite values")
++    with np.errstate(over="ignore", invalid="ignore"):
++        gram = gate_array.conj().T @ gate_array
++    if not np.allclose(gram, np.eye(local_dimension), atol=1e-10, rtol=0):
++        raise ValueError("gate must be unitary")
++    state_real = _real_phase.realify_vector(state_array)
++    gate_real = _real_phase.realify_operator(gate_array)
++    result = _dual_lane.apply_local_gate_dual_lane(
++        state_real, gate_real, target_tuple, num_qubits)
++    return _real_phase.complexify_vector(result)
++
++
++def verify_sources() -> dict[str, Any]:
++    """Hash exactly the source files listed in the three provenance manifests.
++
++    New namespace initializer files are not upstream files and are not included.
++    Missing or changed files produce explicit mismatch records.
++    """
++    manifests = {}
++    all_mismatches = []
++    verified_total = 0
++    for name, relative_manifest in _SOURCE_MANIFESTS.items():
++        manifest_path = _VENDOR_ROOT / relative_manifest
++        base = manifest_path.parent
++        result = {"verified_files": 0, "mismatches": []}
++        manifests[name] = result
++        try:
++            content = json.loads(manifest_path.read_text(encoding="utf-8"))
++            entries = content["files"]
++            if not isinstance(entries, list) or not entries:
++                raise ValueError("manifest files must be a nonempty list")
++        except (OSError, ValueError, KeyError, TypeError) as exc:
++            mismatch = {"manifest": name, "path": str(relative_manifest),
++                        "reason": "unreadable_manifest", "detail": str(exc)}
++            result["mismatches"].append(mismatch)
++            all_mismatches.append(mismatch)
++            continue
++        for entry in entries:
++            try:
++                relative = entry.get("destination", entry["path"])
++                expected_sha256 = entry["sha256"]
++                expected_blob = entry["git_blob_sha1"]
++                if not isinstance(relative, str):
++                    raise ValueError("source path must be a string")
++                candidate = base / relative
++                if not candidate.resolve().is_relative_to(base.resolve()):
++                    raise ValueError("source path leaves its declared source directory")
++            except (KeyError, TypeError, ValueError, AttributeError) as exc:
++                mismatch = {"manifest": name, "path": str(entry),
++                            "reason": "invalid_manifest_entry", "detail": str(exc)}
++                result["mismatches"].append(mismatch)
++                all_mismatches.append(mismatch)
++                continue
++            try:
++                raw = candidate.read_bytes()
++            except OSError as exc:
++                mismatch = {"manifest": name, "path": relative,
++                            "reason": "missing_source", "detail": str(exc)}
++                result["mismatches"].append(mismatch)
++                all_mismatches.append(mismatch)
++                continue
++            actual_sha256 = hashlib.sha256(raw).hexdigest()
++            actual_blob = hashlib.sha1(b"blob " + str(len(raw)).encode() + b"\0" + raw).hexdigest()
++            if actual_sha256 == expected_sha256 and actual_blob == expected_blob:
++                result["verified_files"] += 1
++                verified_total += 1
++            else:
++                mismatch = {"manifest": name, "path": relative, "reason": "content_hash_mismatch",
++                            "expected_sha256": expected_sha256, "actual_sha256": actual_sha256,
++                            "expected_git_blob_sha1": expected_blob, "actual_git_blob_sha1": actual_blob}
++                result["mismatches"].append(mismatch)
++                all_mismatches.append(mismatch)
++    return {"verified_files": verified_total, "mismatches": all_mismatches,
++            "manifests": manifests}
++
++
++def _matrix_lists(matrix):
++    return [list(row) for row in matrix]
++
++
++def _inverse_record(result):
++    return {"recovered_state": list(result.generator),
++            "null_basis": [list(vector) for vector in result.null_basis],
++            "identifiable_rank": result.identifiable_rank,
++            "residual": result.residual, "source_identified": result.source_identified}
++
++
++def connected_operator_demo() -> dict[str, Any]:
++    """Measure actual connected source operations against independent NumPy math."""
++    a = ((2, 0), (0, 1))
++    b = ((0, -1), (1, 0))
++    fused = _algebra.fuse(a, b)
++    expected_fused = np.asarray(b, dtype=np.int64) @ np.asarray(a, dtype=np.int64)
++    projection = ((1, 0, 0), (0, 1, 0))
++    information = _algebra.information_semantics(projection)
++    information_rank = int(np.linalg.matrix_rank(np.asarray(projection)))
++
++    # These are the original upstream test's matrices, with its incorrect
++    # expected result retained separately from the measured mathematical result.
++    work_a = ((1, 0), (0, 2))
++    work_b = ((1, 1), (0, 1))
++    work_p = ((0, 1),)
++    work_result = _work.work_relative_commutation(work_a, work_b, work_p, 0.0)
++    wa, wb, wp = (np.asarray(matrix, dtype=np.int64) for matrix in (work_a, work_b, work_p))
++    ab, ba = wa @ wb, wb @ wa
++    pab, pba = wp @ ab, wp @ ba
++    observed_equal = bool(np.array_equal(pab, pba))
++
++    transition = ((0, 1, 0), (0, 0, 1), (1, 0, 0))
++    observation = ((1, 0, 0),)
++    initial_state = np.array([1, 2, 3], dtype=np.int64)
++    expected_observability = np.vstack([
++        np.asarray(observation, dtype=np.int64) @ np.linalg.matrix_power(
++            np.asarray(transition, dtype=np.int64), step)
++        for step in range(3)
++    ])
++    samples = tuple((int(value),) for value in expected_observability @ initial_state)
++    observed_matrix = _observability.observability_matrix(transition, observation, 3)
++    reconstructed = _observability.dynamic_initial_state_inverse(transition, observation, samples)
++    duplicate_matrix = ((1, 0, 0), (1, 0, 0), (-1, 0, 0))
++    duplicate_samples = tuple(int(value) for value in np.asarray(duplicate_matrix) @ initial_state)
++    duplicate = _inverse.linear_inverse(duplicate_matrix, duplicate_samples)
++    duplicate_rank = int(np.linalg.matrix_rank(duplicate_matrix))
++
++    checks = {
++        "fusion_order": bool(np.array_equal(fused, expected_fused)),
++        "information_rank_and_nullity": bool(information.rank == information_rank
++                                              and information.nullity == 3 - information_rank),
++        "observable_equivalence": bool(work_result.equivalent_for_work == observed_equal
++                                       and work_result.exact_equal == np.array_equal(ab, ba)
++                                       and work_result.observed_difference == np.linalg.norm(pab - pba)),
++        "observability_matrix": bool(np.array_equal(observed_matrix, expected_observability)),
++        "initial_state_reconstruction": bool(np.allclose(reconstructed.generator, initial_state,
++                                                         atol=1e-12, rtol=0)
++                                             and reconstructed.identifiable_rank == 3
++                                             and not reconstructed.null_basis
++                                             and reconstructed.residual <= 1e-12),
++        "duplicate_direction_rank": bool(duplicate.identifiable_rank == duplicate_rank == 1
++                                         and len(duplicate.null_basis) == 2
++                                         and np.array_equal(np.asarray(duplicate_matrix) @ duplicate.generator,
++                                                            duplicate_samples)),
++        "source_identity_not_inferred": bool(not reconstructed.source_identified
++                                             and not duplicate.source_identified),
++    }
++    return {
++        "qualified": all(checks.values()), "checks": checks,
++        "provenance": "new qualification inputs executed by unchanged pinned MAPEOGEO modules",
++        "composition": {"A": _matrix_lists(a), "B": _matrix_lists(b),
++                        "execution_order": ["A", "B"], "fused": _matrix_lists(fused),
++                        "numpy_product": expected_fused.tolist(),
++                        "max_abs_error": float(np.max(np.abs(np.asarray(fused) - expected_fused)))},
++        "information": {"matrix": _matrix_lists(projection), **asdict(information)},
++        "work_equivalence": {"A": _matrix_lists(work_a), "B": _matrix_lists(work_b),
++                             "observation": _matrix_lists(work_p),
++                             "AB": ab.tolist(), "BA": ba.tolist(),
++                             "PAB": pab.tolist(), "PBA": pba.tolist(),
++                             "upstream_result": asdict(work_result),
++                             "upstream_test_expected_equivalent": False,
++                             "corrected_expected_equivalent": observed_equal,
++                             "upstream_test_status": "incorrect expectation for its supplied matrices"},
++        "observability": {"transition": _matrix_lists(transition),
++                          "observation": _matrix_lists(observation),
++                          "matrix": _matrix_lists(observed_matrix),
++                          "numpy_matrix": expected_observability.tolist(),
++                          "initial_state": initial_state.tolist(),
++                          "samples": _matrix_lists(samples), **_inverse_record(reconstructed)},
++        "duplicate_observations": {"matrix": _matrix_lists(duplicate_matrix),
++                                   "samples": list(duplicate_samples), "numpy_rank": duplicate_rank,
++                                   **_inverse_record(duplicate)},
++        "source_identified": False,
++    }
++
++
++def _enumerate_matrices(generators, max_elements=10000):
++    """Deterministic BFS with explicit refusal to truncate a growing closure."""
++    matrices = [_IDENTITY]
++    words = [()]
++    indices = {_IDENTITY: 0}
++    queue = deque([0])
++    while queue:
++        current = queue.popleft()
++        for name, generator in generators.items():
++            candidate = _algebra.matmul(matrices[current], generator)
++            if any(type(value) is not int for row in candidate for value in row):
++                raise RuntimeError("exact closure multiplication produced a non-integer")
++            if candidate not in indices:
++                if len(matrices) >= max_elements:
++                    raise RuntimeError(f"closure enumeration guard of {max_elements} elements exceeded")
++                indices[candidate] = len(matrices)
++                matrices.append(candidate)
++                words.append(words[current] + (name,))
++                queue.append(len(matrices) - 1)
++    return matrices, words, indices
++
++
++def _rational_rank(matrix):
++    """Compute exact rank without tolerance or conversion to floating point."""
++    rows = [[Fraction(value) for value in row] for row in matrix]
++    rank = 0
++    for column in range(len(rows[0])):
++        pivot = next((index for index in range(rank, len(rows)) if rows[index][column]), None)
++        if pivot is None:
++            continue
++        rows[rank], rows[pivot] = rows[pivot], rows[rank]
++        denominator = rows[rank][column]
++        rows[rank] = [value / denominator for value in rows[rank]]
++        for index in range(rank + 1, len(rows)):
++            factor = rows[index][column]
++            rows[index] = [value - factor * pivot_value
++                           for value, pivot_value in zip(rows[index], rows[rank])]
++        rank += 1
++        if rank == len(rows):
++            break
++    return rank
++
++
++def exact_closure() -> dict[str, Any]:
++    """Enumerate and verify the new Rx90/Rz90/Pxy fixture without assuming size.
++
++    Words name matrices multiplied left-to-right from the identity. Acting on a
++    column vector applies the rightmost named matrix first. Nilpotence is checked
++    by A**3 == 0, which is sufficient and necessary for nilpotent 3x3 matrices.
++    """
++    matrices, words, indices = _enumerate_matrices(_GENERATORS, max_elements=10000)
++    size = len(matrices)
++    identity_index = indices[_IDENTITY]
++    zero_index = indices.get(_ZERO)
++    numpy_matrices = np.asarray(matrices, dtype=np.int64)
++    multiplication_table = []
++    product_mismatches = 0
++    for left, matrix in enumerate(matrices):
++        row = []
++        for right, other in enumerate(matrices):
++            computed = _algebra.matmul(matrix, other)
++            if computed not in indices:
++                raise RuntimeError("enumerated set is not closed under an upstream matrix product")
++            row.append(indices[computed])
++            independent = numpy_matrices[left] @ numpy_matrices[right]
++            product_mismatches += int(not np.array_equal(computed, independent))
++        multiplication_table.append(row)
++    table = np.asarray(multiplication_table, dtype=np.int64)
++    associativity_mismatches = 0
++    for left in range(size):
++        left_grouping = table[table[left, :], :]
++        right_grouping = table[left, table]
++        associativity_mismatches += int(np.count_nonzero(left_grouping != right_grouping))
++
++    rank_histogram = Counter(str(_rational_rank(matrix)) for matrix in matrices)
++    units = [index for index in range(size)
++             if any(multiplication_table[index][other] == identity_index
++                    and multiplication_table[other][index] == identity_index
++                    for other in range(size))]
++    idempotents = [index for index in range(size) if multiplication_table[index][index] == index]
++    nilpotents = [index for index in range(size)
++                  if multiplication_table[multiplication_table[index][index]][index] == zero_index]
++    commuting = table == table.T
++    return {
++        "provenance": "new qualification fixture; not recovered sealed artifact",
++        "arithmetic": "exact Python integer products via unchanged MAPEOGEO algebra.matmul",
++        "generator_order": list(_GENERATORS),
++        "generators": {name: _matrix_lists(matrix) for name, matrix in _GENERATORS.items()},
++        "word_convention": "left-to-right matrix product; rightmost operator acts first on column vectors",
++        "size": size, "matrices": [_matrix_lists(matrix) for matrix in matrices],
++        "shortest_words": [list(word) for word in words],
++        "multiplication_table": multiplication_table,
++        "identity_index": identity_index, "zero_index": zero_index,
++        "rank_histogram": dict(sorted(rank_histogram.items())),
++        "units": units, "idempotents": idempotents, "nilpotents": nilpotents,
++        "center": np.flatnonzero(commuting.all(axis=1)).tolist(),
++        "commuting_ordered_pairs": int(commuting.sum()),
++        "validation": {"product_comparisons": size**2,
++                       "product_mismatches": product_mismatches,
++                       "associativity_triples": size**3,
++                       "associativity_mismatches": associativity_mismatches},
++    }
+diff --git a/ngc_geometry_lab/synthetic.py b/ngc_geometry_lab/synthetic.py
+new file mode 100644
+index 0000000..1d2e6ca
+--- /dev/null
++++ b/ngc_geometry_lab/synthetic.py
+@@ -0,0 +1,72 @@
++"""Explicitly synthetic observations from the independent complex reference.
++
++The generated observation file contains no held-out truth. The second return
++value is a separate evaluator-only record. The source uses the Born rule, so
++successful recovery validates the computation, not an independent physical law.
++"""
++
++from numbers import Integral
++
++import numpy as np
++
++from . import reference
++
++
++def _integer(value, name, minimum=1):
++    if isinstance(value, (bool, np.bool_)) or not isinstance(value, Integral) or value < minimum:
++        raise ValueError(f'{name} must be an integer >= {minimum}')
++    return int(value)
++
++
++def generate_dataset(seed=20261022, *, calibration_count=24, case_count=128, shots=65536):
++    seed = _integer(seed, 'seed', 0)
++    calibration_count = _integer(calibration_count, 'calibration_count', 4)
++    case_count = _integer(case_count, 'case_count')
++    shots = _integer(shots, 'shots')
++    if shots > 2**53:
++        raise ValueError('shots must not exceed 2**53')
++    children = np.random.SeedSequence([seed, 4]).spawn(3)
++    calibration_rng, preparation_rng, sampling_rng = [np.random.default_rng(s) for s in children]
++    detector = .84 * np.eye(4) + .10 * np.roll(np.eye(4), 1, axis=0) + .06 * np.ones((4, 4)) / 4
++    directions = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]]) / np.sqrt(3)
++    states, counts = [], []
++    for index in range(calibration_count):
++        rho = (reference.density_from_bloch(.8 * directions[index]) if index < 4
++               else reference.random_density(2, calibration_rng))
++        state = reference.bloch_from_density(rho)
++        p = detector @ reference.tetra_probabilities(rho)
++        states.append(state.tolist())
++        counts.append(calibration_rng.multinomial(shots, p).tolist())
++    cases, truth_cases = [], []
++    for index in range(case_count):
++        rho = reference.random_density(2, preparation_rng, pure=index % 2 == 0)
++        initial = reference.bloch_from_density(rho)
++        initial_p = detector @ reference.tetra_probabilities(rho)
++        record = sampling_rng.multinomial(shots, initial_p)
++        operations = []
++        for _ in range(1 + index % 5):
++            axis = preparation_rng.normal(size=3)
++            angle = float(preparation_rng.uniform(-np.pi, np.pi))
++            operations.append({'axis': axis.tolist(), 'angle': angle})
++            rho = reference.evolve_density(rho, reference.rotation_unitary(axis, angle))
++        verification_p = detector @ reference.tetra_probabilities(rho)
++        verification = sampling_rng.multinomial(shots, verification_p)
++        identifier = f'heldout-{index:04d}'
++        cases.append({'id': identifier, 'counts': record.tolist(), 'operations': operations,
++                      'verification_counts': verification.tolist()})
++        truth_cases.append({'id': identifier, 'initial_state': initial.tolist(),
++                            'final_state': reference.bloch_from_density(rho).tolist(),
++                            'initial_observed_probabilities': initial_p.tolist(),
++                            'final_observed_probabilities': verification_p.tolist()})
++    observations = {
++        'schema': 'ngc_geometry_lab.observations.v1',
++        'provenance': {'kind': 'synthetic',
++                       'description': 'Independent complex density-matrix Born model with multinomial counts and fixed detector cross-talk.',
++                       'metadata': {'seed': seed, 'counts_per_record': shots,
++                                    'fresh_ensemble_for_verification': True}},
++        'calibration': {'states': states, 'counts': counts}, 'cases': cases,
++    }
++    truth = {'schema': 'ngc_geometry_lab.synthetic_truth.v1', 'seed': seed,
++             'detector_matrix': detector.tolist(), 'cases': truth_cases,
++             'warning': 'Evaluator-only synthetic ground truth. Never an input to analyze_dataset.'}
++    return observations, truth
+diff --git a/tests/test_campaign.py b/tests/test_campaign.py
+new file mode 100644
+index 0000000..b92f48f
+--- /dev/null
++++ b/tests/test_campaign.py
+@@ -0,0 +1,32 @@
++import unittest
++
++from ngc_geometry_lab.campaign import run_campaign
++
++
++class CampaignTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.result = run_campaign()
++
++    def test_all_frozen_gates_pass_and_controls_present(self):
++        self.assertTrue(self.result['qualified'], self.result.get('gates'))
++        required = {'source_integrity', 'connected_operators', 'exact_closure', 'metric_and_center', 'tetra_reconstruction', 'heldout_rotations', 'dual_lane_equivalence', 'finite_shot_prediction', 'readout_selection', 'joint_reconstruction', 'correlation_controls', 'identifiability'}
++        self.assertEqual(required, {g['id'] for g in self.result['gates']})
++        self.assertTrue(all(g['passed'] for g in self.result['gates']))
++
++    def test_evidence_scope_is_explicit(self):
++        self.assertEqual(self.result['scope']['observations'], 'synthetic')
++        self.assertEqual(self.result['scope']['cuda_execution'], 'not_run_no_cuda_device_or_compiler')
++        self.assertFalse(self.result['scope']['physical_theory_validated'])
++        self.assertGreaterEqual(self.result['experiments']['dual_lane']['gate_applications'], 1000)
++        self.assertEqual(self.result['experiments']['single_qubit']['states'], 256)
++        self.assertEqual(self.result['experiments']['single_qubit']['rotation_predictions'], 3072)
++
++    def test_no_unexpected_upstream_failures_are_hidden(self):
++        baseline = self.result['experiments']['connected_operators']['upstream_baseline']
++        self.assertEqual(baseline['known_bad_test_expectations'], 1)
++        self.assertEqual(baseline['unexpected_failures'], 0)
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/tests/test_cli.py b/tests/test_cli.py
+new file mode 100644
+index 0000000..4fedcf3
+--- /dev/null
++++ b/tests/test_cli.py
+@@ -0,0 +1,53 @@
++import json
++import subprocess
++import sys
++import tempfile
++import unittest
++from pathlib import Path
++
++
++class CommandLineTests(unittest.TestCase):
++    def invoke(self, *arguments):
++        return subprocess.run([sys.executable, '-m', 'ngc_geometry_lab', *map(str,arguments)], capture_output=True, text=True)
++
++    def test_help(self):
++        result = self.invoke('--help')
++        self.assertEqual(result.returncode, 0, result.stderr)
++        self.assertIn('analyze', result.stdout)
++
++    def test_example_generation_analysis_and_no_overwrite(self):
++        with tempfile.TemporaryDirectory() as directory:
++            observation = Path(directory)/'observations.json'
++            truth = Path(directory)/'truth.json'
++            analysis = Path(directory)/'analysis.json'
++            result = self.invoke('generate','--out',observation,'--truth-out',truth,'--cases','6','--shots','8192')
++            self.assertEqual(result.returncode, 0, result.stderr)
++            result = self.invoke('analyze','--input',observation,'--out',analysis)
++            self.assertEqual(result.returncode, 0, result.stderr)
++            payload = json.loads(analysis.read_text())
++            self.assertEqual(payload['data_kind'], 'synthetic')
++            self.assertEqual(len(payload['cases']), 6)
++            original = analysis.read_bytes()
++            rejected = self.invoke('analyze','--input',observation,'--out',analysis)
++            self.assertNotEqual(rejected.returncode, 0)
++            self.assertEqual(analysis.read_bytes(), original)
++
++    def test_bad_data_reports_actionable_error(self):
++        with tempfile.TemporaryDirectory() as directory:
++            path = Path(directory)/'bad.json'
++            path.write_text('{"schema":"wrong"}')
++            result = self.invoke('analyze','--input',path,'--out',Path(directory)/'answer.json')
++            self.assertEqual(result.returncode, 2)
++            self.assertIn('error', result.stderr.lower())
++            self.assertNotIn('Traceback', result.stderr)
++
++    def test_truth_and_observation_paths_must_differ(self):
++        with tempfile.TemporaryDirectory() as directory:
++            path = Path(directory)/'same.json'
++            result = self.invoke('generate','--out',path,'--truth-out',path,'--cases','2')
++            self.assertEqual(result.returncode, 2)
++            self.assertFalse(path.exists())
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/tests/test_repository.py b/tests/test_repository.py
+new file mode 100644
+index 0000000..c180eb7
+--- /dev/null
++++ b/tests/test_repository.py
+@@ -0,0 +1,318 @@
++"""Independent checks of source adapters and the newly generated exact fixture."""
++from collections import Counter, deque
++import importlib
++from itertools import combinations, permutations, product
++import json
++from pathlib import Path
++import shutil
++import sys
++import tempfile
++import unittest
++from unittest.mock import patch
++
++import numpy as np
++from numpy.testing import assert_allclose, assert_array_equal
++
++
++def matrix_key(matrix):
++    return tuple(tuple(int(value) for value in row) for row in matrix)
++
++
++def signed_partial_permutation_family():
++    """Enumerate coordinate maps directly, independently of generator products."""
++    family = set()
++    for rank in range(4):
++        for rows in combinations(range(3), rank):
++            for columns in combinations(range(3), rank):
++                for image_columns in permutations(columns):
++                    for signs in product((-1, 1), repeat=rank):
++                        matrix = np.zeros((3, 3), dtype=np.int64)
++                        for row, column, sign in zip(rows, image_columns, signs):
++                            matrix[row, column] = sign
++                        a, b, c = matrix
++                        determinant = int(a[0]*(b[1]*c[2]-b[2]*c[1])
++                                          - a[1]*(b[0]*c[2]-b[2]*c[0])
++                                          + a[2]*(b[0]*c[1]-b[1]*c[0]))
++                        if rank < 3 or determinant == 1:
++                            family.add(matrix_key(matrix))
++    return family
++
++
++class RepositoryTestCase(unittest.TestCase):
++    def setUp(self):
++        spec = importlib.util.find_spec("ngc_geometry_lab.repository")
++        self.assertIsNotNone(spec, "repository adapter has not been implemented")
++        self.repo = importlib.import_module("ngc_geometry_lab.repository")
++
++
++class SourceTests(RepositoryTestCase):
++    def test_imports_bind_real_modules_without_global_path_changes(self):
++        before = list(sys.path)
++        modules = self.repo.mapeogeo_modules()
++        self.assertEqual(set(modules), {"algebra", "inverse", "observability", "work"})
++        expected = {
++            "algebra": "psmsl_operator_algebra_v1",
++            "inverse": "latent_generator_v1",
++            "observability": "latent_generator_observability_v2",
++            "work": "psmsl_work_equivalence_v1",
++        }
++        for key, module in expected.items():
++            self.assertIs(modules[key], importlib.import_module(
++                "ngc_geometry_lab._vendor.mapeogeo.mapeogeo." + module))
++        self.assertEqual(sys.path, before)
++
++    def test_all_recorded_upstream_bytes_match_both_hash_algorithms(self):
++        result = self.repo.verify_sources()
++        self.assertEqual(result["mismatches"], [])
++        self.assertEqual(set(result["manifests"]), {"mapeogeo", "mapeogeo_audit", "ngc_real"})
++        expected_total = 0
++        root = Path(self.repo.__file__).parent / "_vendor"
++        for key, relative in (
++            ("mapeogeo", "mapeogeo/SOURCE_PROVENANCE.json"),
++            ("mapeogeo_audit", "mapeogeo/AUDIT_SOURCE_PROVENANCE.json"),
++            ("ngc_real", "ngc_real/SOURCE_PROVENANCE.json"),
++        ):
++            count = len(json.loads((root / relative).read_text())["files"])
++            self.assertEqual(result["manifests"][key]["verified_files"], count)
++            self.assertEqual(result["manifests"][key]["mismatches"], [])
++            expected_total += count
++        self.assertEqual(result["verified_files"], expected_total)
++
++    def test_changed_bytes_are_reported_without_mutating_real_source(self):
++        root = Path(self.repo.__file__).parent / "_vendor"
++        with tempfile.TemporaryDirectory() as temp:
++            copied = Path(temp) / "sources"
++            shutil.copytree(root, copied)
++            changed = copied / "mapeogeo/mapeogeo/psmsl_operator_algebra_v1.py"
++            changed.write_bytes(changed.read_bytes() + b"\n# test-only tampering\n")
++            with patch.object(self.repo, "_VENDOR_ROOT", copied):
++                result = self.repo.verify_sources()
++        self.assertEqual(len(result["mismatches"]), 1)
++        mismatch = result["mismatches"][0]
++        self.assertEqual(mismatch["manifest"], "mapeogeo")
++        self.assertEqual(mismatch["path"], "mapeogeo/psmsl_operator_algebra_v1.py")
++        self.assertNotEqual(mismatch["expected_sha256"], mismatch["actual_sha256"])
++        self.assertNotEqual(mismatch["expected_git_blob_sha1"], mismatch["actual_git_blob_sha1"])
++
++    def test_missing_file_and_manifest_are_explicit_failures(self):
++        root = Path(self.repo.__file__).parent / "_vendor"
++        with tempfile.TemporaryDirectory() as temp:
++            copied = Path(temp) / "sources"
++            shutil.copytree(root, copied)
++            (copied / "mapeogeo/mapeogeo/latent_generator_v1.py").unlink()
++            (copied / "ngc_real/SOURCE_PROVENANCE.json").unlink()
++            with patch.object(self.repo, "_VENDOR_ROOT", copied):
++                result = self.repo.verify_sources()
++        self.assertEqual(len(result["mismatches"]), 2)
++        self.assertEqual({item["reason"] for item in result["mismatches"]},
++                         {"missing_source", "unreadable_manifest"})
++
++
++class DualLaneTests(RepositoryTestCase):
++    def test_hadamard_and_phase_have_analytic_big_endian_results(self):
++        h = np.array([[1, 1], [1, -1]]) / np.sqrt(2)
++        zero = np.array([1, 0, 0, 0], dtype=complex)
++        assert_allclose(self.repo.dual_lane_apply(zero, h, [0], 2),
++                        np.array([1, 0, 1, 0]) / np.sqrt(2), atol=1e-14)
++        assert_allclose(self.repo.dual_lane_apply(zero, h, [1], 2),
++                        np.array([1, 1, 0, 0]) / np.sqrt(2), atol=1e-14)
++        theta = 0.7
++        rz = np.diag([np.exp(-0.5j*theta), np.exp(0.5j*theta)])
++        ket = np.array([1, 1j, -1, -1j]) / 2
++        expected = ket * np.array([rz[0, 0], rz[0, 0], rz[1, 1], rz[1, 1]])
++        assert_allclose(self.repo.dual_lane_apply(ket, rz, [0], 2), expected, atol=1e-14)
++
++    def test_cnot_all_basis_vectors_and_reversed_target_order(self):
++        cnot = np.array([[1, 0, 0, 0], [0, 1, 0, 0],
++                         [0, 0, 0, 1], [0, 0, 1, 0]])
++        basis = np.eye(4, dtype=complex)
++        for targets, expected_indices in (([0, 1], [0, 1, 3, 2]),
++                                           ([1, 0], [0, 3, 2, 1])):
++            for index, target_index in enumerate(expected_indices):
++                with self.subTest(targets=targets, index=index):
++                    assert_array_equal(self.repo.dual_lane_apply(basis[:, index], cnot, targets, 2),
++                                       basis[:, target_index])
++
++    def test_complex_unitary_matches_dense_kron_without_running_oracle(self):
++        rng = np.random.default_rng(2703)
++        gate, _ = np.linalg.qr(rng.normal(size=(2, 2)) + 1j*rng.normal(size=(2, 2)))
++        state = rng.normal(size=4) + 1j*rng.normal(size=4)
++        state /= np.linalg.norm(state)
++        with patch("ngc_geometry_lab.reference.local_gate",
++                   side_effect=AssertionError("repository adapter must not run the oracle")):
++            actual = self.repo.dual_lane_apply(state, gate, [1], 2)
++        assert_allclose(actual, np.kron(np.eye(2), gate) @ state, atol=1e-13)
++
++    def test_adapter_does_not_mutate_or_renormalize_inputs(self):
++        state = np.array([1, 1j, 1, 1j]) / 2
++        gate = np.array([[0, -1j], [-1j, 0]])
++        saved_state, saved_gate = state.copy(), gate.copy()
++        self.repo.dual_lane_apply(state, gate, [np.int64(0)], np.int64(2))
++        assert_array_equal(state, saved_state)
++        assert_array_equal(gate, saved_gate)
++        with self.assertRaises(ValueError):
++            self.repo.dual_lane_apply(2*state, gate, [0], 2)
++
++    def test_invalid_arguments_are_rejected_before_permissive_upstream_casts(self):
++        state, gate = [1, 0, 0, 0], np.eye(2)
++        cases = [
++            (state, gate, [0], 2.0), (state, gate, [0], True),
++            (state, gate, [0], 0), (state, gate, [0], -2),
++            (state, gate, [0], 10**9),
++            (state, gate, [0.0], 2), (state, gate, [True], 2),
++            (state, gate, [np.bool_(False)], 2), (state, gate, ["0"], 2),
++            (state, gate, [], 2), (state, gate, [0, 0], 2),
++            (state, gate, [2], 2), (state, gate, [-1], 2),
++            (state, gate, None, 2), (state, gate, [[0]], 2),
++            ([1, 0], gate, [0], 2), ([0, 0, 0, 0], gate, [0], 2),
++            ([[1, 0], [0, 0]], gate, [0], 2),
++            ([np.nan, 0, 0, 0], gate, [0], 2),
++            ([np.inf, 0, 0, 0], gate, [0], 2),
++            (state, np.eye(4), [0], 2), (state, 2*gate, [0], 2),
++            (state, [[1, np.inf], [0, 1]], [0], 2),
++            (state, [[1, np.nan], [0, 1]], [0], 2),
++            (state, [1, 0], [0], 2), (state, [[1], [0, 1]], [0], 2),
++        ]
++        for arguments in cases:
++            with self.subTest(arguments=arguments), self.assertRaises(ValueError):
++                self.repo.dual_lane_apply(*arguments)
++
++
++class ConnectedDemoTests(RepositoryTestCase):
++    def test_fusion_information_and_work_counterexample_match_independent_matrices(self):
++        result = self.repo.connected_operator_demo()
++        json.dumps(result, allow_nan=False)
++        self.assertTrue(result["qualified"])
++        self.assertTrue(all(result["checks"].values()))
++        composition = result["composition"]
++        a, b = np.array(composition["A"]), np.array(composition["B"])
++        assert_array_equal(composition["fused"], b @ a)
++        assert_array_equal(composition["numpy_product"], b @ a)
++        self.assertEqual(composition["max_abs_error"], 0)
++        info = result["information"]
++        self.assertEqual(info["rank"], np.linalg.matrix_rank(info["matrix"]))
++        self.assertEqual(info["nullity"], 1)
++        self.assertTrue(info["information_loss"])
++        work = result["work_equivalence"]
++        a, b, p = (np.array(work[key], dtype=np.int64) for key in ("A", "B", "observation"))
++        self.assertFalse(np.array_equal(a @ b, b @ a))
++        assert_array_equal(p @ a @ b, p @ b @ a)
++        self.assertTrue(work["upstream_result"]["equivalent_for_work"])
++        self.assertFalse(work["upstream_test_expected_equivalent"])
++        self.assertTrue(work["corrected_expected_equivalent"])
++
++    def test_temporal_observations_recover_three_coordinates_but_duplicates_do_not(self):
++        result = self.repo.connected_operator_demo()
++        dynamic = result["observability"]
++        a, c = np.array(dynamic["transition"]), np.array(dynamic["observation"])
++        expected = np.vstack([c @ np.linalg.matrix_power(a, k) for k in range(3)])
++        assert_array_equal(dynamic["matrix"], expected)
++        assert_array_equal(dynamic["recovered_state"], [1, 2, 3])
++        self.assertEqual(dynamic["identifiable_rank"], 3)
++        self.assertEqual(dynamic["null_basis"], [])
++        self.assertFalse(dynamic["source_identified"])
++        duplicate = result["duplicate_observations"]
++        self.assertEqual(np.linalg.matrix_rank(duplicate["matrix"]), 1)
++        self.assertEqual(duplicate["identifiable_rank"], 1)
++        self.assertEqual(len(duplicate["null_basis"]), 2)
++        self.assertFalse(duplicate["source_identified"])
++
++
++class ExactClosureTests(RepositoryTestCase):
++    _result = None
++
++    def closure(self):
++        if type(self)._result is None:
++            type(self)._result = self.repo.exact_closure()
++        return type(self)._result
++
++    def test_full_matrix_set_matches_independent_coordinate_map_enumeration(self):
++        result = self.closure()
++        expected = signed_partial_permutation_family()
++        actual = {matrix_key(matrix) for matrix in result["matrices"]}
++        self.assertEqual(actual, expected)
++        self.assertEqual(result["size"], len(expected))
++        self.assertEqual(len(result["matrices"]), len(actual))
++        self.assertEqual(result["provenance"], "new qualification fixture; not recovered sealed artifact")
++        for matrix in result["matrices"]:
++            self.assertTrue(all(type(value) is int for row in matrix for value in row))
++        json.dumps(result, allow_nan=False)
++
++    def test_every_table_product_matches_independent_numpy_integer_multiplication(self):
++        result = self.closure()
++        matrices = np.asarray(result["matrices"], dtype=np.int64)
++        lookup = {matrix_key(matrix): index for index, matrix in enumerate(matrices)}
++        table = result["multiplication_table"]
++        for left, matrix in enumerate(matrices):
++            products = matrix @ matrices
++            expected = [lookup[matrix_key(value)] for value in products]
++            self.assertEqual(table[left], expected)
++        validation = result["validation"]
++        self.assertEqual(validation["product_comparisons"], len(matrices)**2)
++        self.assertEqual(validation["product_mismatches"], 0)
++
++    def test_all_associativity_triples_and_identity_zero_laws(self):
++        result = self.closure()
++        table = np.asarray(result["multiplication_table"], dtype=np.int64)
++        size = len(table)
++        for left in range(size):
++            assert_array_equal(table[table[left, :], :], table[left, table])
++        identity, zero = result["identity_index"], result["zero_index"]
++        assert_array_equal(table[identity], np.arange(size))
++        assert_array_equal(table[:, identity], np.arange(size))
++        assert_array_equal(table[zero], np.full(size, zero))
++        assert_array_equal(table[:, zero], np.full(size, zero))
++        self.assertEqual(result["validation"]["associativity_triples"], size**3)
++        self.assertEqual(result["validation"]["associativity_mismatches"], 0)
++
++    def test_shortest_words_reconstruct_matrices_and_have_bfs_minimum_length(self):
++        result = self.closure()
++        generators = result["generators"]
++        matrix_indices = {matrix_key(matrix): i for i, matrix in enumerate(result["matrices"])}
++        generator_indices = [matrix_indices[matrix_key(generators[name])] for name in result["generator_order"]]
++        table = result["multiplication_table"]
++        distances = {result["identity_index"]: 0}
++        queue = deque(distances)
++        while queue:
++            current = queue.popleft()
++            for generator in generator_indices:
++                target = table[current][generator]
++                if target not in distances:
++                    distances[target] = distances[current] + 1
++                    queue.append(target)
++        for index, word in enumerate(result["shortest_words"]):
++            product_matrix = np.eye(3, dtype=np.int64)
++            for name in word:
++                product_matrix = product_matrix @ np.asarray(generators[name], dtype=np.int64)
++            assert_array_equal(product_matrix, result["matrices"][index])
++            self.assertEqual(len(word), distances[index])
++
++    def test_rank_units_idempotents_nilpotents_center_and_commuting_pairs(self):
++        result = self.closure()
++        matrices = np.asarray(result["matrices"], dtype=np.int64)
++        rank_histogram = Counter(str(np.linalg.matrix_rank(matrix)) for matrix in matrices)
++        self.assertEqual(result["rank_histogram"], dict(rank_histogram))
++        self.assertEqual(result["units"], [i for i, matrix in enumerate(matrices)
++                                          if np.linalg.matrix_rank(matrix) == 3])
++        self.assertEqual(result["idempotents"], [i for i, matrix in enumerate(matrices)
++                                                if np.array_equal(matrix @ matrix, matrix)])
++        self.assertEqual(result["nilpotents"], [i for i, matrix in enumerate(matrices)
++                                               if not np.any(matrix @ matrix @ matrix)])
++        self.assertIn(result["zero_index"], result["nilpotents"])
++        commuting = np.empty((len(matrices), len(matrices)), dtype=bool)
++        for i, left in enumerate(matrices):
++            commuting[i] = np.all(left @ matrices == matrices @ left, axis=(1, 2))
++        self.assertEqual(result["center"], np.flatnonzero(commuting.all(axis=1)).tolist())
++        self.assertEqual(result["commuting_ordered_pairs"], int(commuting.sum()))
++
++    def test_stable_indices_and_words_are_reproducible(self):
++        self.assertEqual(self.closure(), self.repo.exact_closure())
++
++    def test_unbounded_generator_hits_explicit_enumeration_guard(self):
++        dilation = ((2, 0, 0), (0, 1, 0), (0, 0, 1))
++        with self.assertRaisesRegex(RuntimeError, "guard.*5"):
++            self.repo._enumerate_matrices({"dilation": dilation}, max_elements=5)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/tests/test_workflow.py b/tests/test_workflow.py
+new file mode 100644
+index 0000000..5ba8c19
+--- /dev/null
++++ b/tests/test_workflow.py
+@@ -0,0 +1,43 @@
++import json
++import tempfile
++import unittest
++from pathlib import Path
++
++import numpy as np
++
++from ngc_geometry_lab.observations import analyze_dataset
++from ngc_geometry_lab.synthetic import generate_dataset
++
++
++class SyntheticWorkflowTests(unittest.TestCase):
++    def test_seed_reproducibility_and_truth_separation(self):
++        observations, truth = generate_dataset(417, case_count=8, shots=10000)
++        again, same_truth = generate_dataset(417, case_count=8, shots=10000)
++        self.assertEqual(observations, again)
++        self.assertEqual(truth, same_truth)
++        self.assertNotIn('truth', observations)
++        self.assertNotIn('true_state', observations['cases'][0])
++        self.assertEqual(observations['provenance']['kind'], 'synthetic')
++        self.assertEqual(len(truth['cases']), 8)
++        other, _ = generate_dataset(418, case_count=8, shots=10000)
++        self.assertNotEqual(observations, other)
++
++    def test_counts_and_independent_prediction_workflow(self):
++        observations, truth = generate_dataset(729, case_count=12)
++        result = analyze_dataset(observations)
++        errors = []
++        for actual, expected in zip(result['cases'], truth['cases']):
++            self.assertEqual(actual['id'], expected['id'])
++            self.assertEqual(actual['estimate']['shots'], 65536)
++            errors.append(np.linalg.norm(actual['estimate']['state'] - expected['initial_state']))
++        self.assertLess(np.mean(errors), .035)
++        self.assertLess(result['mean_verification_total_variation'], .02)
++
++    def test_configuration_validation(self):
++        for kwargs in ({'calibration_count': 3}, {'case_count': 0}, {'shots': 0}, {'shots': 2.5}, {'case_count': True}):
++            with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
++                generate_dataset(**kwargs)
++
++
++if __name__ == '__main__':
++    unittest.main()

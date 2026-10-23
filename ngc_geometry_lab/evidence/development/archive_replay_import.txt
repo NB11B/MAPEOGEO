@@ -1,0 +1,6 @@
+$ python -c import ngc_geometry_lab,numpy,scipy; print(ngc_geometry_lab.__file__); print(numpy.__version__,scipy.__version__)
+cwd=/tmp/ngc_geometry_release_replay_bqf4d3s7/ngc_geometry_lab
+/tmp/ngc_geometry_release_replay_bqf4d3s7/ngc_geometry_lab/ngc_geometry_lab/__init__.py
+2.3.5 1.17.0
+
+exit_code=0

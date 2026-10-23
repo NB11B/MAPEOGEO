@@ -1,0 +1,1390 @@
+test_gram_edges_and_volume (test_geometry.CenterAndGeometryTests.test_gram_edges_and_volume) ... ERROR
+test_inconsistent_centers (test_geometry.CenterAndGeometryTests.test_inconsistent_centers) ... ERROR
+test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) ... 
+  test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[]) ... ERROR
+  test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[(array([[1., 0.],
+       [0., 1.]]), [0, 0, 0])]) ... ERROR
+  test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[(array([[0.+1.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 0.+1.j, 0.+0.j],
+       [0.+0.j, 0.+0.j, 0.+1.j]]), [0, 0, 0])]) ... ERROR
+  test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[(array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), [inf, 0, 0])]) ... ERROR
+test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) ... 
+  test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0], displacement=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), metric=None) ... ERROR
+  test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]]), metric=None) ... ERROR
+  test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), metric=array([[ 1,  0,  0],
+       [ 0,  1,  0],
+       [ 0,  0, -1]])) ... ERROR
+  test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), metric=array([[1, 1, 0],
+       [0, 1, 0],
+       [0, 0, 1]])) ... ERROR
+  test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[0.+1.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 0.+1.j, 0.+0.j],
+       [0.+0.j, 0.+0.j, 0.+1.j]]), metric=None) ... ERROR
+test_nonunique_center_is_least_norm_representative (test_geometry.CenterAndGeometryTests.test_nonunique_center_is_least_norm_representative) ... ERROR
+test_unique_common_center (test_geometry.CenterAndGeometryTests.test_unique_common_center) ... ERROR
+test_chsh_singlet (test_geometry.JointTests.test_chsh_singlet) ... ERROR
+test_generic_probability_coordinates_do_not_claim_quantum_physicality (test_geometry.JointTests.test_generic_probability_coordinates_do_not_claim_quantum_physicality) ... ERROR
+test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) ... /workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py:217: RuntimeWarning: invalid value encountered in multiply
+  for a,b,c in (([0,0],[0,0,0],np.eye(3)),([0,0,0],[0,0,0],np.eye(2)),([1j,0,0],[0,0,0],np.eye(3)),([0,0,0],[0,0,0],np.eye(3)*np.inf),([0,0,0],[0,0,0],10*np.eye(3))):
+
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0], b=[0, 0, 0], c=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0, 0], b=[0, 0, 0], c=array([[1., 0.],
+       [0., 1.]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[1j, 0, 0], b=[0, 0, 0], c=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0, 0], b=[0, 0, 0], c=array([[inf, nan, nan],
+       [nan, inf, nan],
+       [nan, nan, inf]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0, 0], b=[0, 0, 0], c=array([[10.,  0.,  0.],
+       [ 0., 10.,  0.],
+       [ 0.,  0., 10.]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[-0.0625, -0.0625, -0.0625, -0.0625],
+       [-0.0625, -0.0625, -0.0625, -0.0625],
+       [-0.0625, -0.0625, -0.0625, -0.0625],
+       [-0.0625, -0.0625, -0.0625, -0.0625]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[0.11111111, 0.11111111, 0.11111111],
+       [0.11111111, 0.11111111, 0.11111111],
+       [0.11111111, 0.11111111, 0.11111111]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j],
+       [0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j],
+       [0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j],
+       [0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j]])) ... ERROR
+  test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan]])) ... ERROR
+test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) ... ERROR
+test_product_coordinates (test_geometry.JointTests.test_product_coordinates) ... ERROR
+test_singlet_joint_probabilities_and_inverse (test_geometry.JointTests.test_singlet_joint_probabilities_and_inverse) ... ERROR
+test_empty_family_and_other_dimension (test_geometry.MetricTests.test_empty_family_and_other_dimension) ... ERROR
+test_failed_high_nullity_witness_is_unresolved (test_geometry.MetricTests.test_failed_high_nullity_witness_is_unresolved) ... ERROR
+test_inconsistent_dilation_has_no_metric (test_geometry.MetricTests.test_inconsistent_dilation_has_no_metric) ... ERROR
+test_insufficient_family_returns_spd_witness_with_ambiguity (test_geometry.MetricTests.test_insufficient_family_returns_spd_witness_with_ambiguity) ... ERROR
+test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) ... 
+  test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[array([[1., 0.],
+       [0., 1.]])], projectors=()) ... ERROR
+  test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[array([[nan, nan, nan],
+       [nan, nan, nan],
+       [nan, nan, nan]])], projectors=()) ... ERROR
+  test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[array([[0.+1.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 0.+1.j, 0.+0.j],
+       [0.+0.j, 0.+0.j, 0.+1.j]])], projectors=()) ... ERROR
+  test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[], projectors=[array([[0.5, 0. , 0. ],
+       [0. , 0.5, 0. ],
+       [0. , 0. , 0.5]])]) ... ERROR
+  test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[], projectors=[array([[1., 0.],
+       [0., 1.]])]) ... ERROR
+test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) ... ERROR
+test_non_euclidean_metric_recovered_from_conjugated_cubic_family (test_geometry.MetricTests.test_non_euclidean_metric_recovered_from_conjugated_cubic_family) ... ERROR
+test_unique_indefinite_metric_is_definitively_rejected (test_geometry.MetricTests.test_unique_indefinite_metric_is_definitively_rejected) ... ERROR
+test_duplicate_directions_and_sequence_rank (test_geometry.ObservabilityTests.test_duplicate_directions_and_sequence_rank) ... ERROR
+test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) ... 
+  test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[[1, 0]], a=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), steps=2) ... ERROR
+  test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=0) ... ERROR
+  test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=2.5) ... ERROR
+  test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1j, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=2) ... ERROR
+  test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=True) ... ERROR
+  test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=[[1, inf], [0, 1]], steps=2) ... ERROR
+test_single_observation_vector (test_geometry.ObservabilityTests.test_single_observation_vector) ... ERROR
+test_active_rodrigues (test_geometry.OperationTests.test_active_rodrigues) ... ERROR
+test_crossed_and_inserted_polarizers (test_geometry.OperationTests.test_crossed_and_inserted_polarizers) ... ERROR
+test_exponents_and_no_projection (test_geometry.OperationTests.test_exponents_and_no_projection) ... ERROR
+test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) ... 
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[0, 0, 0], angle=0) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[0, 0], angle=0) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[1j, 0, 0], angle=0) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[1, 0, 0], angle=inf) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[1, 0, 0], angle=1j) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[2, 0, 0], axes=[], exponent=2) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1j, 0, 0], axes=[], exponent=2) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[[0, 0, 0]], exponent=2) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[[inf, 0, 0]], exponent=2) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[], exponent=0) ... ERROR
+  test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[], exponent=nan) ... ERROR
+test_rotation_order_matters (test_geometry.OperationTests.test_rotation_order_matters) ... ERROR
+test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) ... 
+  test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[0.2, 0.2, 0.2, 0.2]) ... ERROR
+  test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[-0.1, 0.3, 0.4, 0.4]) ... ERROR
+  test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[1, 0, 0]) ... ERROR
+  test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[nan, 0, 0, 1]) ... ERROR
+  test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[(0.25+0.1j), 0.25, 0.25, 0.25]) ... ERROR
+test_invalid_state (test_geometry.TetraTests.test_invalid_state) ... 
+  test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[1.1, 0, 0]) ... ERROR
+  test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[0, 0]) ... ERROR
+  test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[inf, 0, 0]) ... ERROR
+  test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[1j, 0, 0]) ... ERROR
+test_mixed_state_and_vertex_probabilities (test_geometry.TetraTests.test_mixed_state_and_vertex_probabilities) ... ERROR
+test_one_hot_distribution_is_not_physical (test_geometry.TetraTests.test_one_hot_distribution_is_not_physical) ... ERROR
+test_vertices_and_fresh_storage (test_geometry.TetraTests.test_vertices_and_fresh_storage) ... ERROR
+test_blind_dataset_workflow (test_observations.ObservationTests.test_blind_dataset_workflow) ... ERROR
+test_calibration_recovers_known_detector_from_counts (test_observations.ObservationTests.test_calibration_recovers_known_detector_from_counts) ... ERROR
+test_counts_validation (test_observations.ObservationTests.test_counts_validation) ... 
+  test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[0, 0, 0, 0]) ... ERROR
+  test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1, -1, 2, 2]) ... ERROR
+  test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1.5, 2, 3, 4]) ... ERROR
+  test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1, 2, 3]) ... ERROR
+  test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1, 2, 3, nan]) ... ERROR
+  test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[True, False, False, False]) ... ERROR
+  test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[(1+1j), 2, 3, 4]) ... ERROR
+test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) ... 
+  test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.]])) ... ERROR
+  test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.]])) ... ERROR
+  test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]])) ... ERROR
+  test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan]])) ... ERROR
+  test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[1.+1.j, 0.+1.j, 0.+1.j, 0.+1.j],
+       [0.+1.j, 1.+1.j, 0.+1.j, 0.+1.j],
+       [0.+1.j, 0.+1.j, 1.+1.j, 0.+1.j],
+       [0.+1.j, 0.+1.j, 0.+1.j, 1.+1.j]])) ... ERROR
+test_inversion_uses_counts_and_frozen_detector (test_observations.ObservationTests.test_inversion_uses_counts_and_frozen_detector) ... ERROR
+test_rank_deficient_calibration_rejected (test_observations.ObservationTests.test_rank_deficient_calibration_rejected) ... ERROR
+test_rotation_prediction_has_correct_sign_and_order (test_observations.ObservationTests.test_rotation_prediction_has_correct_sign_and_order) ... ERROR
+test_schema_rejects_embedded_truth_and_duplicate_ids (test_observations.ObservationTests.test_schema_rejects_embedded_truth_and_duplicate_ids) ... ERROR
+test_schema_requires_explicit_provenance (test_observations.ObservationTests.test_schema_requires_explicit_provenance) ... ERROR
+test_uninformative_detector_rejected (test_observations.ObservationTests.test_uninformative_detector_rejected) ... ERROR
+test_unphysical_sampling_estimate_preserves_raw_record (test_observations.ObservationTests.test_unphysical_sampling_estimate_preserves_raw_record) ... ERROR
+test_bloch_rejects_invalid_and_non_qubit (test_reference.ReferenceTests.test_bloch_rejects_invalid_and_non_qubit) ... ok
+test_density_validation_absolute_tolerance (test_reference.ReferenceTests.test_density_validation_absolute_tolerance) ... ok
+test_density_validation_general_dimension_and_copy (test_reference.ReferenceTests.test_density_validation_general_dimension_and_copy) ... ok
+test_density_validation_rejects_invalid (test_reference.ReferenceTests.test_density_validation_rejects_invalid) ... ok
+test_evolution_rejects_nonunitary_and_mismatch (test_reference.ReferenceTests.test_evolution_rejects_nonunitary_and_mismatch) ... ok
+test_joint_maximally_mixed_and_random_roundtrip (test_reference.ReferenceTests.test_joint_maximally_mixed_and_random_roundtrip) ... ok
+test_joint_non_psd_even_when_tetra_probabilities_positive (test_reference.ReferenceTests.test_joint_non_psd_even_when_tetra_probabilities_positive) ... ok
+test_joint_product_01 (test_reference.ReferenceTests.test_joint_product_01) ... ok
+test_joint_rejects_invalid_dimensions_nonfinite_and_complex (test_reference.ReferenceTests.test_joint_rejects_invalid_dimensions_nonfinite_and_complex) ... ok
+test_joint_singlet_and_chsh (test_reference.ReferenceTests.test_joint_singlet_and_chsh) ... ok
+test_local_gate_arbitrary_unitary_vs_dense_kron (test_reference.ReferenceTests.test_local_gate_arbitrary_unitary_vs_dense_kron) ... ok
+test_local_gate_big_endian_nonadjacent_and_reversed (test_reference.ReferenceTests.test_local_gate_big_endian_nonadjacent_and_reversed) ... ok
+test_local_gate_invalid_state_targets_and_gate (test_reference.ReferenceTests.test_local_gate_invalid_state_targets_and_gate) ... ok
+test_paulis_order_and_complex_dtype (test_reference.ReferenceTests.test_paulis_order_and_complex_dtype) ... ok
+test_random_density_invalid_arguments (test_reference.ReferenceTests.test_random_density_invalid_arguments) ... ok
+test_random_density_wishart_pure_and_full (test_reference.ReferenceTests.test_random_density_wishart_pure_and_full) ... ok
+test_rotations_reject_invalid_axis_and_angle (test_reference.ReferenceTests.test_rotations_reject_invalid_axis_and_angle) ... ok
+test_rx_pi_and_rz_phase (test_reference.ReferenceTests.test_rx_pi_and_rz_phase) ... ok
+test_standard_single_qubit_states (test_reference.ReferenceTests.test_standard_single_qubit_states) ... ok
+test_tetra_effects_order_positivity_and_completeness (test_reference.ReferenceTests.test_tetra_effects_order_positivity_and_completeness) ... ok
+test_tetra_probabilities_analytic (test_reference.ReferenceTests.test_tetra_probabilities_analytic) ... ok
+test_tetra_probabilities_rejects_wrong_dimension (test_reference.ReferenceTests.test_tetra_probabilities_rejects_wrong_dimension) ... ok
+
+======================================================================
+ERROR: test_gram_edges_and_volume (test_geometry.CenterAndGeometryTests.test_gram_edges_and_volume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 156, in test_gram_edges_and_volume
+    result = g.tetra_geometry([5,6,7], np.eye(3))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 10, in tetra_geometry
+    def tetra_geometry(origin, displacements, metric=None): raise NotImplementedError
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_inconsistent_centers (test_geometry.CenterAndGeometryTests.test_inconsistent_centers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 146, in test_inconsistent_centers
+    result = g.infer_center([(np.eye(3), [1,0,0])])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 9, in infer_center
+    def infer_center(affine_operators, *, tol=1e-10): raise NotImplementedError
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 153, in test_invalid_centers
+    with self.subTest(operators=operators), self.assertRaises(ValueError): g.infer_center(operators)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 9, in infer_center
+    def infer_center(affine_operators, *, tol=1e-10): raise NotImplementedError
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[(array([[1., 0.],
+       [0., 1.]]), [0, 0, 0])])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 153, in test_invalid_centers
+    with self.subTest(operators=operators), self.assertRaises(ValueError): g.infer_center(operators)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 9, in infer_center
+    def infer_center(affine_operators, *, tol=1e-10): raise NotImplementedError
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[(array([[0.+1.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 0.+1.j, 0.+0.j],
+       [0.+0.j, 0.+0.j, 0.+1.j]]), [0, 0, 0])])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 153, in test_invalid_centers
+    with self.subTest(operators=operators), self.assertRaises(ValueError): g.infer_center(operators)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 9, in infer_center
+    def infer_center(affine_operators, *, tol=1e-10): raise NotImplementedError
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_centers (test_geometry.CenterAndGeometryTests.test_invalid_centers) (operators=[(array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), [inf, 0, 0])])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 153, in test_invalid_centers
+    with self.subTest(operators=operators), self.assertRaises(ValueError): g.infer_center(operators)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 9, in infer_center
+    def infer_center(affine_operators, *, tol=1e-10): raise NotImplementedError
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0], displacement=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), metric=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 166, in test_invalid_tetrahedron
+    with self.subTest(origin=origin, displacement=displacement, metric=metric), self.assertRaises(ValueError): g.tetra_geometry(origin,displacement,metric)
+                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 10, in tetra_geometry
+    def tetra_geometry(origin, displacements, metric=None): raise NotImplementedError
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[0., 0., 0.],
+       [0., 0., 0.],
+       [0., 0., 0.]]), metric=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 166, in test_invalid_tetrahedron
+    with self.subTest(origin=origin, displacement=displacement, metric=metric), self.assertRaises(ValueError): g.tetra_geometry(origin,displacement,metric)
+                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 10, in tetra_geometry
+    def tetra_geometry(origin, displacements, metric=None): raise NotImplementedError
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), metric=array([[ 1,  0,  0],
+       [ 0,  1,  0],
+       [ 0,  0, -1]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 166, in test_invalid_tetrahedron
+    with self.subTest(origin=origin, displacement=displacement, metric=metric), self.assertRaises(ValueError): g.tetra_geometry(origin,displacement,metric)
+                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 10, in tetra_geometry
+    def tetra_geometry(origin, displacements, metric=None): raise NotImplementedError
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), metric=array([[1, 1, 0],
+       [0, 1, 0],
+       [0, 0, 1]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 166, in test_invalid_tetrahedron
+    with self.subTest(origin=origin, displacement=displacement, metric=metric), self.assertRaises(ValueError): g.tetra_geometry(origin,displacement,metric)
+                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 10, in tetra_geometry
+    def tetra_geometry(origin, displacements, metric=None): raise NotImplementedError
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_tetrahedron (test_geometry.CenterAndGeometryTests.test_invalid_tetrahedron) (origin=[0, 0, 0], displacement=array([[0.+1.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 0.+1.j, 0.+0.j],
+       [0.+0.j, 0.+0.j, 0.+1.j]]), metric=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 166, in test_invalid_tetrahedron
+    with self.subTest(origin=origin, displacement=displacement, metric=metric), self.assertRaises(ValueError): g.tetra_geometry(origin,displacement,metric)
+                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 10, in tetra_geometry
+    def tetra_geometry(origin, displacements, metric=None): raise NotImplementedError
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_nonunique_center_is_least_norm_representative (test_geometry.CenterAndGeometryTests.test_nonunique_center_is_least_norm_representative)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 140, in test_nonunique_center_is_least_norm_representative
+    result = g.infer_center([(np.diag([-1.,1,1]), [4,0,0])])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 9, in infer_center
+    def infer_center(affine_operators, *, tol=1e-10): raise NotImplementedError
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_unique_common_center (test_geometry.CenterAndGeometryTests.test_unique_common_center)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 133, in test_unique_common_center
+    result = g.infer_center(operators)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 9, in infer_center
+    def infer_center(affine_operators, *, tol=1e-10): raise NotImplementedError
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_chsh_singlet (test_geometry.JointTests.test_chsh_singlet)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 213, in test_chsh_singlet
+    value = g.chsh_value(-np.eye(3), [1,0,0],[0,0,1],[-1,0,-1],[-1,0,1])
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 14, in chsh_value
+    def chsh_value(correlations, a0, a1, b0, b1): raise NotImplementedError
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_generic_probability_coordinates_do_not_claim_quantum_physicality (test_geometry.JointTests.test_generic_probability_coordinates_do_not_claim_quantum_physicality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 208, in test_generic_probability_coordinates_do_not_claim_quantum_physicality
+    a,b,c = g.joint_reconstruct(p)
+            ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 13, in joint_reconstruct
+    def joint_reconstruct(probabilities): raise NotImplementedError
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0], b=[0, 0, 0], c=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 218, in test_joint_invalid_inputs
+    with self.subTest(a=a,b=b,c=c), self.assertRaises(ValueError): g.joint_probabilities(a,b,c)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 12, in joint_probabilities
+    def joint_probabilities(a, b, correlations): raise NotImplementedError
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0, 0], b=[0, 0, 0], c=array([[1., 0.],
+       [0., 1.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 218, in test_joint_invalid_inputs
+    with self.subTest(a=a,b=b,c=c), self.assertRaises(ValueError): g.joint_probabilities(a,b,c)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 12, in joint_probabilities
+    def joint_probabilities(a, b, correlations): raise NotImplementedError
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[1j, 0, 0], b=[0, 0, 0], c=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 218, in test_joint_invalid_inputs
+    with self.subTest(a=a,b=b,c=c), self.assertRaises(ValueError): g.joint_probabilities(a,b,c)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 12, in joint_probabilities
+    def joint_probabilities(a, b, correlations): raise NotImplementedError
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0, 0], b=[0, 0, 0], c=array([[inf, nan, nan],
+       [nan, inf, nan],
+       [nan, nan, inf]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 218, in test_joint_invalid_inputs
+    with self.subTest(a=a,b=b,c=c), self.assertRaises(ValueError): g.joint_probabilities(a,b,c)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 12, in joint_probabilities
+    def joint_probabilities(a, b, correlations): raise NotImplementedError
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (a=[0, 0, 0], b=[0, 0, 0], c=array([[10.,  0.,  0.],
+       [ 0., 10.,  0.],
+       [ 0.,  0., 10.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 218, in test_joint_invalid_inputs
+    with self.subTest(a=a,b=b,c=c), self.assertRaises(ValueError): g.joint_probabilities(a,b,c)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 12, in joint_probabilities
+    def joint_probabilities(a, b, correlations): raise NotImplementedError
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 220, in test_joint_invalid_inputs
+    with self.subTest(p=p), self.assertRaises(ValueError): g.joint_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 13, in joint_reconstruct
+    def joint_reconstruct(probabilities): raise NotImplementedError
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[-0.0625, -0.0625, -0.0625, -0.0625],
+       [-0.0625, -0.0625, -0.0625, -0.0625],
+       [-0.0625, -0.0625, -0.0625, -0.0625],
+       [-0.0625, -0.0625, -0.0625, -0.0625]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 220, in test_joint_invalid_inputs
+    with self.subTest(p=p), self.assertRaises(ValueError): g.joint_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 13, in joint_reconstruct
+    def joint_reconstruct(probabilities): raise NotImplementedError
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[0.11111111, 0.11111111, 0.11111111],
+       [0.11111111, 0.11111111, 0.11111111],
+       [0.11111111, 0.11111111, 0.11111111]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 220, in test_joint_invalid_inputs
+    with self.subTest(p=p), self.assertRaises(ValueError): g.joint_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 13, in joint_reconstruct
+    def joint_reconstruct(probabilities): raise NotImplementedError
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j],
+       [0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j],
+       [0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j],
+       [0.+0.0625j, 0.+0.0625j, 0.+0.0625j, 0.+0.0625j]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 220, in test_joint_invalid_inputs
+    with self.subTest(p=p), self.assertRaises(ValueError): g.joint_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 13, in joint_reconstruct
+    def joint_reconstruct(probabilities): raise NotImplementedError
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs) (p=array([[nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 220, in test_joint_invalid_inputs
+    with self.subTest(p=p), self.assertRaises(ValueError): g.joint_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 13, in joint_reconstruct
+    def joint_reconstruct(probabilities): raise NotImplementedError
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_joint_invalid_inputs (test_geometry.JointTests.test_joint_invalid_inputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 221, in test_joint_invalid_inputs
+    with self.assertRaises(ValueError): g.chsh_value(np.eye(3), [0,0,0],[1,0,0],[1,0,0],[1,0,0])
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 14, in chsh_value
+    def chsh_value(correlations, a0, a1, b0, b1): raise NotImplementedError
+                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_product_coordinates (test_geometry.JointTests.test_product_coordinates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 201, in test_product_coordinates
+    result = g.joint_probabilities(a,b,np.outer(a,b))
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 12, in joint_probabilities
+    def joint_probabilities(a, b, correlations): raise NotImplementedError
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_singlet_joint_probabilities_and_inverse (test_geometry.JointTests.test_singlet_joint_probabilities_and_inverse)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 191, in test_singlet_joint_probabilities_and_inverse
+    probabilities = g.joint_probabilities(np.zeros(3),np.zeros(3),-np.eye(3))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 12, in joint_probabilities
+    def joint_probabilities(a, b, correlations): raise NotImplementedError
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_empty_family_and_other_dimension (test_geometry.MetricTests.test_empty_family_and_other_dimension)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 95, in test_empty_family_and_other_dimension
+    result = g.infer_metric([], dimension=2)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_failed_high_nullity_witness_is_unresolved (test_geometry.MetricTests.test_failed_high_nullity_witness_is_unresolved)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 116, in test_failed_high_nullity_witness_is_unresolved
+    result = g.infer_metric([np.array([[1.,1,0],[0,1,0],[0,0,1]])])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_inconsistent_dilation_has_no_metric (test_geometry.MetricTests.test_inconsistent_dilation_has_no_metric)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 101, in test_inconsistent_dilation_has_no_metric
+    result = g.infer_metric([2*np.eye(3)])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_insufficient_family_returns_spd_witness_with_ambiguity (test_geometry.MetricTests.test_insufficient_family_returns_spd_witness_with_ambiguity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 89, in test_insufficient_family_returns_spd_witness_with_ambiguity
+    result = g.infer_metric([np.eye(3)])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[array([[1., 0.],
+       [0., 1.]])], projectors=())
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 123, in test_metric_invalid_inputs
+    with self.subTest(matrices=matrices, projectors=projectors), self.assertRaises(ValueError): g.infer_metric(matrices, projectors)
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[array([[nan, nan, nan],
+       [nan, nan, nan],
+       [nan, nan, nan]])], projectors=())
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 123, in test_metric_invalid_inputs
+    with self.subTest(matrices=matrices, projectors=projectors), self.assertRaises(ValueError): g.infer_metric(matrices, projectors)
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[array([[0.+1.j, 0.+0.j, 0.+0.j],
+       [0.+0.j, 0.+1.j, 0.+0.j],
+       [0.+0.j, 0.+0.j, 0.+1.j]])], projectors=())
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 123, in test_metric_invalid_inputs
+    with self.subTest(matrices=matrices, projectors=projectors), self.assertRaises(ValueError): g.infer_metric(matrices, projectors)
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[], projectors=[array([[0.5, 0. , 0. ],
+       [0. , 0.5, 0. ],
+       [0. , 0. , 0.5]])])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 123, in test_metric_invalid_inputs
+    with self.subTest(matrices=matrices, projectors=projectors), self.assertRaises(ValueError): g.infer_metric(matrices, projectors)
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs) (matrices=[], projectors=[array([[1., 0.],
+       [0., 1.]])])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 123, in test_metric_invalid_inputs
+    with self.subTest(matrices=matrices, projectors=projectors), self.assertRaises(ValueError): g.infer_metric(matrices, projectors)
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_metric_invalid_inputs (test_geometry.MetricTests.test_metric_invalid_inputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 125, in test_metric_invalid_inputs
+    with self.assertRaises(ValueError): g.infer_metric([], dimension=dimension)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_non_euclidean_metric_recovered_from_conjugated_cubic_family (test_geometry.MetricTests.test_non_euclidean_metric_recovered_from_conjugated_cubic_family)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 78, in test_non_euclidean_metric_recovered_from_conjugated_cubic_family
+    rotations = [s @ g.rotation(axis,np.pi/2) @ inv for axis in np.eye(3)]
+                     ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_unique_indefinite_metric_is_definitively_rejected (test_geometry.MetricTests.test_unique_indefinite_metric_is_definitively_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 109, in test_unique_indefinite_metric_is_definitively_rejected
+    result = g.infer_metric([boost,np.diag([1.,-1.])], dimension=2)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 8, in infer_metric
+    def infer_metric(isometries, projectors=(), *, dimension=3, tol=1e-10): raise NotImplementedError
+                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_duplicate_directions_and_sequence_rank (test_geometry.ObservabilityTests.test_duplicate_directions_and_sequence_rank)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 174, in test_duplicate_directions_and_sequence_rank
+    result = g.observability_matrix(c,transition,3)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[[1, 0]], a=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]), steps=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 184, in test_invalid_observability
+    with self.subTest(c=c,a=a,steps=steps), self.assertRaises(ValueError): g.observability_matrix(c,a,steps)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 184, in test_invalid_observability
+    with self.subTest(c=c,a=a,steps=steps), self.assertRaises(ValueError): g.observability_matrix(c,a,steps)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=2.5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 184, in test_invalid_observability
+    with self.subTest(c=c,a=a,steps=steps), self.assertRaises(ValueError): g.observability_matrix(c,a,steps)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1j, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 184, in test_invalid_observability
+    with self.subTest(c=c,a=a,steps=steps), self.assertRaises(ValueError): g.observability_matrix(c,a,steps)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=array([[1., 0.],
+       [0., 1.]]), steps=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 184, in test_invalid_observability
+    with self.subTest(c=c,a=a,steps=steps), self.assertRaises(ValueError): g.observability_matrix(c,a,steps)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_observability (test_geometry.ObservabilityTests.test_invalid_observability) (c=[1, 0], a=[[1, inf], [0, 1]], steps=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 184, in test_invalid_observability
+    with self.subTest(c=c,a=a,steps=steps), self.assertRaises(ValueError): g.observability_matrix(c,a,steps)
+                                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_single_observation_vector (test_geometry.ObservabilityTests.test_single_observation_vector)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 179, in test_single_observation_vector
+    result = g.observability_matrix([1,0], [[0,1],[1,0]], 2)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 11, in observability_matrix
+    def observability_matrix(observation, transition, steps): raise NotImplementedError
+                                                              ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_active_rodrigues (test_geometry.OperationTests.test_active_rodrigues)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 41, in test_active_rodrigues
+    r = g.rotation([0,0,4], np.pi/2)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_crossed_and_inserted_polarizers (test_geometry.OperationTests.test_crossed_and_inserted_polarizers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 53, in test_crossed_and_inserted_polarizers
+    weight, final = g.projection_transmission([1,0,0], [[0,1,0]])
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_exponents_and_no_projection (test_geometry.OperationTests.test_exponents_and_no_projection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 62, in test_exponents_and_no_projection
+    self.assertAlmostEqual(g.projection_transmission([1,0,0], [[1,1,0],[0,1,0]], exponent=exponent)[0], expected)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[0, 0, 0], angle=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 69, in test_invalid_operations
+    with self.subTest(axis=axis, angle=angle), self.assertRaises(ValueError): g.rotation(axis, angle)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[0, 0], angle=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 69, in test_invalid_operations
+    with self.subTest(axis=axis, angle=angle), self.assertRaises(ValueError): g.rotation(axis, angle)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[1j, 0, 0], angle=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 69, in test_invalid_operations
+    with self.subTest(axis=axis, angle=angle), self.assertRaises(ValueError): g.rotation(axis, angle)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[1, 0, 0], angle=inf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 69, in test_invalid_operations
+    with self.subTest(axis=axis, angle=angle), self.assertRaises(ValueError): g.rotation(axis, angle)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (axis=[1, 0, 0], angle=1j)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 69, in test_invalid_operations
+    with self.subTest(axis=axis, angle=angle), self.assertRaises(ValueError): g.rotation(axis, angle)
+                                                                              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[2, 0, 0], axes=[], exponent=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 71, in test_invalid_operations
+    with self.subTest(state=state, axes=axes, exponent=exponent), self.assertRaises(ValueError): g.projection_transmission(state, axes, exponent=exponent)
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1j, 0, 0], axes=[], exponent=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 71, in test_invalid_operations
+    with self.subTest(state=state, axes=axes, exponent=exponent), self.assertRaises(ValueError): g.projection_transmission(state, axes, exponent=exponent)
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[[0, 0, 0]], exponent=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 71, in test_invalid_operations
+    with self.subTest(state=state, axes=axes, exponent=exponent), self.assertRaises(ValueError): g.projection_transmission(state, axes, exponent=exponent)
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[[inf, 0, 0]], exponent=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 71, in test_invalid_operations
+    with self.subTest(state=state, axes=axes, exponent=exponent), self.assertRaises(ValueError): g.projection_transmission(state, axes, exponent=exponent)
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[], exponent=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 71, in test_invalid_operations
+    with self.subTest(state=state, axes=axes, exponent=exponent), self.assertRaises(ValueError): g.projection_transmission(state, axes, exponent=exponent)
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_operations (test_geometry.OperationTests.test_invalid_operations) (state=[1, 0, 0], axes=[], exponent=nan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 71, in test_invalid_operations
+    with self.subTest(state=state, axes=axes, exponent=exponent), self.assertRaises(ValueError): g.projection_transmission(state, axes, exponent=exponent)
+                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 7, in projection_transmission
+    def projection_transmission(state, axes, *, exponent=2.0): raise NotImplementedError
+                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_rotation_order_matters (test_geometry.OperationTests.test_rotation_order_matters)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 47, in test_rotation_order_matters
+    x = g.rotation([1,0,0], np.pi/2)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 6, in rotation
+    def rotation(axis, angle): raise NotImplementedError
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[0.2, 0.2, 0.2, 0.2])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 32, in test_invalid_probabilities_are_not_normalized
+    with self.subTest(p=p), self.assertRaises(ValueError): g.tetra_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 5, in tetra_reconstruct
+    def tetra_reconstruct(probabilities, *, enforce_physical=True): raise NotImplementedError
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[-0.1, 0.3, 0.4, 0.4])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 32, in test_invalid_probabilities_are_not_normalized
+    with self.subTest(p=p), self.assertRaises(ValueError): g.tetra_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 5, in tetra_reconstruct
+    def tetra_reconstruct(probabilities, *, enforce_physical=True): raise NotImplementedError
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[1, 0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 32, in test_invalid_probabilities_are_not_normalized
+    with self.subTest(p=p), self.assertRaises(ValueError): g.tetra_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 5, in tetra_reconstruct
+    def tetra_reconstruct(probabilities, *, enforce_physical=True): raise NotImplementedError
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[nan, 0, 0, 1])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 32, in test_invalid_probabilities_are_not_normalized
+    with self.subTest(p=p), self.assertRaises(ValueError): g.tetra_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 5, in tetra_reconstruct
+    def tetra_reconstruct(probabilities, *, enforce_physical=True): raise NotImplementedError
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_probabilities_are_not_normalized (test_geometry.TetraTests.test_invalid_probabilities_are_not_normalized) (p=[(0.25+0.1j), 0.25, 0.25, 0.25])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 32, in test_invalid_probabilities_are_not_normalized
+    with self.subTest(p=p), self.assertRaises(ValueError): g.tetra_reconstruct(p)
+                                                           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 5, in tetra_reconstruct
+    def tetra_reconstruct(probabilities, *, enforce_physical=True): raise NotImplementedError
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[1.1, 0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 36, in test_invalid_state
+    with self.subTest(state=state), self.assertRaises(ValueError): g.tetra_probabilities(state)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 4, in tetra_probabilities
+    def tetra_probabilities(state): raise NotImplementedError
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 36, in test_invalid_state
+    with self.subTest(state=state), self.assertRaises(ValueError): g.tetra_probabilities(state)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 4, in tetra_probabilities
+    def tetra_probabilities(state): raise NotImplementedError
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[inf, 0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 36, in test_invalid_state
+    with self.subTest(state=state), self.assertRaises(ValueError): g.tetra_probabilities(state)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 4, in tetra_probabilities
+    def tetra_probabilities(state): raise NotImplementedError
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_invalid_state (test_geometry.TetraTests.test_invalid_state) (state=[1j, 0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 36, in test_invalid_state
+    with self.subTest(state=state), self.assertRaises(ValueError): g.tetra_probabilities(state)
+                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 4, in tetra_probabilities
+    def tetra_probabilities(state): raise NotImplementedError
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_mixed_state_and_vertex_probabilities (test_geometry.TetraTests.test_mixed_state_and_vertex_probabilities)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 21, in test_mixed_state_and_vertex_probabilities
+    assert_allclose(g.tetra_probabilities([0,0,0]), np.full(4, .25))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 4, in tetra_probabilities
+    def tetra_probabilities(state): raise NotImplementedError
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_one_hot_distribution_is_not_physical (test_geometry.TetraTests.test_one_hot_distribution_is_not_physical)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 27, in test_one_hot_distribution_is_not_physical
+    with self.assertRaises(ValueError): g.tetra_reconstruct([1,0,0,0])
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 5, in tetra_reconstruct
+    def tetra_reconstruct(probabilities, *, enforce_physical=True): raise NotImplementedError
+                                                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_vertices_and_fresh_storage (test_geometry.TetraTests.test_vertices_and_fresh_storage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_geometry.py", line 13, in test_vertices_and_fresh_storage
+    n = g.tetra_directions()
+        ^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/geometry.py", line 3, in tetra_directions
+    def tetra_directions(): raise NotImplementedError
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+NotImplementedError
+
+======================================================================
+ERROR: test_blind_dataset_workflow (test_observations.ObservationTests.test_blind_dataset_workflow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 86, in test_blind_dataset_workflow
+    result = analyze_dataset(data)
+             ^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 16, in analyze_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_calibration_recovers_known_detector_from_counts (test_observations.ObservationTests.test_calibration_recovers_known_detector_from_counts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 28, in test_calibration_recovers_known_detector_from_counts
+    fit = calibrate_detector(states, counts)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 7, in calibrate_detector
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[0, 0, 0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 67, in test_counts_validation
+    validate_counts(invalid)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 4, in validate_counts
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1, -1, 2, 2])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 67, in test_counts_validation
+    validate_counts(invalid)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 4, in validate_counts
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1.5, 2, 3, 4])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 67, in test_counts_validation
+    validate_counts(invalid)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 4, in validate_counts
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1, 2, 3])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 67, in test_counts_validation
+    validate_counts(invalid)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 4, in validate_counts
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[1, 2, 3, nan])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 67, in test_counts_validation
+    validate_counts(invalid)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 4, in validate_counts
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[True, False, False, False])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 67, in test_counts_validation
+    validate_counts(invalid)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 4, in validate_counts
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_validation (test_observations.ObservationTests.test_counts_validation) (invalid=[(1+1j), 2, 3, 4])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 67, in test_counts_validation
+    validate_counts(invalid)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 4, in validate_counts
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.],
+       [0., 0., 0., 0.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 72, in test_detector_validation_rejects_invalid_matrices
+    estimate_state([25]*4, {'matrix': matrix})
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 10, in estimate_state
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.],
+       [1., 1., 1., 1.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 72, in test_detector_validation_rejects_invalid_matrices
+    estimate_state([25]*4, {'matrix': matrix})
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 10, in estimate_state
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[1., 0., 0.],
+       [0., 1., 0.],
+       [0., 0., 1.]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 72, in test_detector_validation_rejects_invalid_matrices
+    estimate_state([25]*4, {'matrix': matrix})
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 10, in estimate_state
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan],
+       [nan, nan, nan, nan]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 72, in test_detector_validation_rejects_invalid_matrices
+    estimate_state([25]*4, {'matrix': matrix})
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 10, in estimate_state
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_detector_validation_rejects_invalid_matrices (test_observations.ObservationTests.test_detector_validation_rejects_invalid_matrices) (matrix=array([[1.+1.j, 0.+1.j, 0.+1.j, 0.+1.j],
+       [0.+1.j, 1.+1.j, 0.+1.j, 0.+1.j],
+       [0.+1.j, 0.+1.j, 1.+1.j, 0.+1.j],
+       [0.+1.j, 0.+1.j, 0.+1.j, 1.+1.j]]))
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 72, in test_detector_validation_rejects_invalid_matrices
+    estimate_state([25]*4, {'matrix': matrix})
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 10, in estimate_state
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_inversion_uses_counts_and_frozen_detector (test_observations.ObservationTests.test_inversion_uses_counts_and_frozen_detector)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 35, in test_inversion_uses_counts_and_frozen_detector
+    fit = calibrate_detector(states, counts)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 7, in calibrate_detector
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_rank_deficient_calibration_rejected (test_observations.ObservationTests.test_rank_deficient_calibration_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 57, in test_rank_deficient_calibration_rejected
+    calibrate_detector(np.zeros((8, 3)), np.full((8, 4), 25))
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 7, in calibrate_detector
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_rotation_prediction_has_correct_sign_and_order (test_observations.ObservationTests.test_rotation_prediction_has_correct_sign_and_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 51, in test_rotation_prediction_has_correct_sign_and_order
+    out = predict_after_operations([0, 0, 1], [{'axis': [1, 0, 0], 'angle': np.pi / 2}], {'matrix': np.eye(4)})
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 13, in predict_after_operations
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_schema_rejects_embedded_truth_and_duplicate_ids (test_observations.ObservationTests.test_schema_rejects_embedded_truth_and_duplicate_ids)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 96, in test_schema_rejects_embedded_truth_and_duplicate_ids
+    analyze_dataset(data)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 16, in analyze_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_schema_requires_explicit_provenance (test_observations.ObservationTests.test_schema_requires_explicit_provenance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 106, in test_schema_requires_explicit_provenance
+    analyze_dataset(data)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 16, in analyze_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_uninformative_detector_rejected (test_observations.ObservationTests.test_uninformative_detector_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 62, in test_uninformative_detector_rejected
+    calibrate_detector(states, np.full((8, 4), 25))
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 7, in calibrate_detector
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_unphysical_sampling_estimate_preserves_raw_record (test_observations.ObservationTests.test_unphysical_sampling_estimate_preserves_raw_record)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 42, in test_unphysical_sampling_estimate_preserves_raw_record
+    estimate = estimate_state([100, 0, 0, 0], fit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/observations.py", line 10, in estimate_state
+    raise NotImplementedError
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 64 tests in 0.044s
+
+FAILED (errors=96)

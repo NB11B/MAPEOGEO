@@ -1,0 +1,179 @@
+{
+  "schema": "ngc_geometry_lab.upstream_source_manifest.v1",
+  "repository": "NB11B/MAPEOGEO",
+  "repository_url": "https://github.com/NB11B/MAPEOGEO",
+  "source_refs": [
+    {
+      "branch": "psmsl-operator-algebra-v1",
+      "commit": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "tree": "094d3b1a5b3d371debcdb1c45b7b6d8277963f98"
+    },
+    {
+      "branch": "latent-generator-observability-v2",
+      "commit": "2e12009413488f34c8d7e411f3239d240ce19ade",
+      "tree": "b4b778f1c8208a82c66b7ad548abc03b29b30283"
+    }
+  ],
+  "selection": "Unmodified selected Python modules and original baseline tests; this is not a full checkout and combines two pinned research branch commits.",
+  "license": {
+    "path": "LICENSE.md",
+    "name": "All rights reserved (NB11B, 2026)",
+    "scope": "Owner-authorized private qualification deliverable; no new rights granted."
+  },
+  "files": [
+    {
+      "path": "mapeogeo/__init__.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "28d01b9a7f2d45dae47f750d62c50d83a0bef31a",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/mapeogeo/__init__.py",
+      "encoding": "utf-8",
+      "sha256": "72589c329136869828bba475f8315f539e6ccf06bb96cfebf6f9fdfae357f2b5",
+      "size_bytes": 29,
+      "git_blob_verified": true
+    },
+    {
+      "path": "mapeogeo/psmsl_operator_algebra_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "c6f2b0b7f8df35b1cd2c758106bc8633e7757e74",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/mapeogeo/psmsl_operator_algebra_v1.py",
+      "encoding": "utf-8",
+      "sha256": "3049a2827be0e7e965240f35f20bab3089589eb174485acc5d7ae7471b8279a1",
+      "size_bytes": 1743,
+      "git_blob_verified": true
+    },
+    {
+      "path": "mapeogeo/psmsl_operator_basis_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "0ba56b74766898712a910d0d736d6aa63ad09c3f",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/mapeogeo/psmsl_operator_basis_v1.py",
+      "encoding": "utf-8",
+      "sha256": "3818ef645ef9d11f6e653d5e8f506aec4db1fbee1ea4b7a43efc9e0c3b8e5a16",
+      "size_bytes": 909,
+      "git_blob_verified": true
+    },
+    {
+      "path": "mapeogeo/psmsl_work_equivalence_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "a92a7d65bec74ecc3c8e795a84157d267a0d2b5e",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/mapeogeo/psmsl_work_equivalence_v1.py",
+      "encoding": "utf-8",
+      "sha256": "69dec9b57f8b5d9e5323516489a5197c12603d0f22a31fb3d5fcb7a234549d80",
+      "size_bytes": 1305,
+      "git_blob_verified": true
+    },
+    {
+      "path": "mapeogeo/psmsl_work_plan_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "86881f2b9e7b75c5ac53576e65ec95c24d1b7d2e",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/mapeogeo/psmsl_work_plan_v1.py",
+      "encoding": "utf-8",
+      "sha256": "7859678527080fb45765e477889275c90b6ddd2c6b685a1a2adb7793153d7e70",
+      "size_bytes": 869,
+      "git_blob_verified": true
+    },
+    {
+      "path": "mapeogeo/latent_generator_v1.py",
+      "ref": "2e12009413488f34c8d7e411f3239d240ce19ade",
+      "git_blob_sha1": "48ca4e3390484d8fc182c8b14b99ab340e1a0b43",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/2e12009413488f34c8d7e411f3239d240ce19ade/mapeogeo/latent_generator_v1.py",
+      "encoding": "utf-8",
+      "sha256": "8fc6fe1579fede3565ac6d652036edc4f3c567ec06a64ec0f4eb50059ebbfb2a",
+      "size_bytes": 2329,
+      "git_blob_verified": true
+    },
+    {
+      "path": "mapeogeo/latent_generator_observability_v2.py",
+      "ref": "2e12009413488f34c8d7e411f3239d240ce19ade",
+      "git_blob_sha1": "91f13ff762be791400ad77d345dc7302a4705692",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/2e12009413488f34c8d7e411f3239d240ce19ade/mapeogeo/latent_generator_observability_v2.py",
+      "encoding": "utf-8",
+      "sha256": "92c888bdae696479637d17acf1ba1baa1cb31362c4f74bf21c4180b478c96f6e",
+      "size_bytes": 1068,
+      "git_blob_verified": true
+    },
+    {
+      "path": "tests/test_psmsl_operator_algebra_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "9929e4edb54a81e61ef6bc471fe3f033f603861a",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/tests/test_psmsl_operator_algebra_v1.py",
+      "encoding": "utf-8",
+      "sha256": "64d0b594878f19db67e0d972149fe90dc31e955f7f91534fbd624f1879bd38db",
+      "size_bytes": 1040,
+      "git_blob_verified": true
+    },
+    {
+      "path": "tests/test_psmsl_operator_basis_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "88f1bf41557887683072576c522e8f8116437fb8",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/tests/test_psmsl_operator_basis_v1.py",
+      "encoding": "utf-8",
+      "sha256": "b94616a20c43ac10fe064c6b436d009cc7a819ff1e165e2009e2e184fcd0047b",
+      "size_bytes": 523,
+      "git_blob_verified": true
+    },
+    {
+      "path": "tests/test_psmsl_work_equivalence_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "554823b60426fe79ba2d502e828b8fc321097eeb",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/tests/test_psmsl_work_equivalence_v1.py",
+      "encoding": "utf-8",
+      "sha256": "d6eca4324d88e344ea007bb4a80eab0088cadb9c1a482e5702311ecd11d0686c",
+      "size_bytes": 936,
+      "git_blob_verified": true
+    },
+    {
+      "path": "tests/test_psmsl_work_plan_v1.py",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "6b55982d61f287cd2a5f8bce169f7753cff694c0",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/tests/test_psmsl_work_plan_v1.py",
+      "encoding": "utf-8",
+      "sha256": "43accc9d5902bd8017ce3b9eca67e9c55e11d2f0a802557c9ce6fbe8758a380a",
+      "size_bytes": 368,
+      "git_blob_verified": true
+    },
+    {
+      "path": "tests/test_latent_generator_v1.py",
+      "ref": "2e12009413488f34c8d7e411f3239d240ce19ade",
+      "git_blob_sha1": "30cacd8354413e48ec4e976a498fec87fa05383d",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/2e12009413488f34c8d7e411f3239d240ce19ade/tests/test_latent_generator_v1.py",
+      "encoding": "utf-8",
+      "sha256": "3d22af8a543963a438f1842398ec16dbea0a53b9eb0b88dc62a952d7727879c6",
+      "size_bytes": 1321,
+      "git_blob_verified": true
+    },
+    {
+      "path": "tests/test_latent_generator_observability_v2.py",
+      "ref": "2e12009413488f34c8d7e411f3239d240ce19ade",
+      "git_blob_sha1": "4d25947fe9c401cb0634c8852e1c56ccb1ddec73",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/2e12009413488f34c8d7e411f3239d240ce19ade/tests/test_latent_generator_observability_v2.py",
+      "encoding": "utf-8",
+      "sha256": "78b145727f6564a6286d85d006b6df35dc180ad9572cf378229d8fef9c50e9e8",
+      "size_bytes": 982,
+      "git_blob_verified": true
+    },
+    {
+      "path": "LICENSE.md",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "db138024dc65916abb8b28e24c420a3c47e9986e",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/LICENSE.md",
+      "encoding": "utf-8",
+      "sha256": "fde2e87833025bbd927f900f49403e11c18f77f4819c6951cb78812327e013fc",
+      "size_bytes": 746,
+      "git_blob_verified": true
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "ref": "ac63dde9da6dca2c000aa53ee6ffb9365e2388a1",
+      "git_blob_sha1": "db69da73ab8168de69b7cfa08b206d5cfc1a2ab4",
+      "source_url": "https://github.com/NB11B/MAPEOGEO/blob/ac63dde9da6dca2c000aa53ee6ffb9365e2388a1/THIRD_PARTY_NOTICES.md",
+      "encoding": "utf-8",
+      "sha256": "9b68a25c5e18314fe6b978604f105589183c3b1a93904c9629127dc0ba288d23",
+      "size_bytes": 2539,
+      "git_blob_verified": true
+    }
+  ],
+  "integrity_verification": {
+    "verified_files": 15,
+    "mismatches": []
+  }
+}

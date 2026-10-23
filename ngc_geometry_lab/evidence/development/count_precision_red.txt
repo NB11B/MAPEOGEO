@@ -1,0 +1,36 @@
+test_large_counts_are_rejected_before_float_rounding (tests.test_observations.ObservationTests.test_large_counts_are_rejected_before_float_rounding) ... 
+  test_large_counts_are_rejected_before_float_rounding (tests.test_observations.ObservationTests.test_large_counts_are_rejected_before_float_rounding) (invalid=[9007199254740993, 0, 0, 0]) ... FAIL
+  test_large_counts_are_rejected_before_float_rounding (tests.test_observations.ObservationTests.test_large_counts_are_rejected_before_float_rounding) (invalid=[9007199254740992, 1, 0, 0]) ... FAIL
+test_mixed_boolean_counts_are_rejected (tests.test_observations.ObservationTests.test_mixed_boolean_counts_are_rejected) ... FAIL
+
+======================================================================
+FAIL: test_large_counts_are_rejected_before_float_rounding (tests.test_observations.ObservationTests.test_large_counts_are_rejected_before_float_rounding) (invalid=[9007199254740993, 0, 0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 71, in test_large_counts_are_rejected_before_float_rounding
+    with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_large_counts_are_rejected_before_float_rounding (tests.test_observations.ObservationTests.test_large_counts_are_rejected_before_float_rounding) (invalid=[9007199254740992, 1, 0, 0])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 71, in test_large_counts_are_rejected_before_float_rounding
+    with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_mixed_boolean_counts_are_rejected (tests.test_observations.ObservationTests.test_mixed_boolean_counts_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_observations.py", line 76, in test_mixed_boolean_counts_are_rejected
+    with self.assertRaises(ValueError):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=3)

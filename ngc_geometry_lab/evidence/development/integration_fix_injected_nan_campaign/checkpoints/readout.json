@@ -1,0 +1,211 @@
+{
+  "calibration_angles": 15,
+  "calibration_records": [
+    {
+      "angle": 0.08,
+      "count0": 65129,
+      "count1": 407
+    },
+    {
+      "angle": 0.18071428571428572,
+      "count0": 63464,
+      "count1": 2072
+    },
+    {
+      "angle": 0.2814285714285714,
+      "count0": 60389,
+      "count1": 5147
+    },
+    {
+      "angle": 0.3821428571428572,
+      "count0": 56488,
+      "count1": 9048
+    },
+    {
+      "angle": 0.4828571428571429,
+      "count0": 51185,
+      "count1": 14351
+    },
+    {
+      "angle": 0.5835714285714285,
+      "count0": 45670,
+      "count1": 19866
+    },
+    {
+      "angle": 0.6842857142857143,
+      "count0": 39539,
+      "count1": 25997
+    },
+    {
+      "angle": 0.7849999999999999,
+      "count0": 32775,
+      "count1": 32761
+    },
+    {
+      "angle": 0.8857142857142857,
+      "count0": 26215,
+      "count1": 39321
+    },
+    {
+      "angle": 0.9864285714285714,
+      "count0": 19758,
+      "count1": 45778
+    },
+    {
+      "angle": 1.0871428571428572,
+      "count0": 14250,
+      "count1": 51286
+    },
+    {
+      "angle": 1.187857142857143,
+      "count0": 9041,
+      "count1": 56495
+    },
+    {
+      "angle": 1.2885714285714287,
+      "count0": 5091,
+      "count1": 60445
+    },
+    {
+      "angle": 1.3892857142857145,
+      "count0": 2071,
+      "count1": 63465
+    },
+    {
+      "angle": 1.49,
+      "count0": 415,
+      "count1": 65121
+    }
+  ],
+  "candidate_rule": "p0=|cos(theta)|**alpha/(|cos(theta)|**alpha+|sin(theta)|**alpha)",
+  "candidate_scores": [
+    {
+      "calibration_cross_entropy": 0.4465771794855046,
+      "exponent": 1,
+      "heldout_cross_entropy": 0.4728079827702415,
+      "heldout_rmse_vs_declared_truth": 0.1129525653669114
+    },
+    {
+      "calibration_cross_entropy": 0.4013613720772616,
+      "exponent": 2,
+      "heldout_cross_entropy": 0.4278737998642594,
+      "heldout_rmse_vs_declared_truth": 3.837911267478775e-17
+    },
+    {
+      "calibration_cross_entropy": 0.4733899085404208,
+      "exponent": 4,
+      "heldout_cross_entropy": 0.5043941228197673,
+      "heldout_rmse_vs_declared_truth": 0.09932346776345123
+    }
+  ],
+  "declared_generator": "p0=cos(theta)**2 (Born/squared-norm rule)",
+  "direct_crossed_weight": 0.0,
+  "final_vector": [
+    0.0,
+    0.4999999999999999,
+    0.0
+  ],
+  "heldout_angles": 19,
+  "heldout_records": [
+    {
+      "angle": 0.115,
+      "count0": 64637,
+      "count1": 899
+    },
+    {
+      "angle": 0.18944444444444447,
+      "count0": 63286,
+      "count1": 2250
+    },
+    {
+      "angle": 0.2638888888888889,
+      "count0": 61043,
+      "count1": 4493
+    },
+    {
+      "angle": 0.3383333333333334,
+      "count0": 58338,
+      "count1": 7198
+    },
+    {
+      "angle": 0.4127777777777778,
+      "count0": 55035,
+      "count1": 10501
+    },
+    {
+      "angle": 0.4872222222222222,
+      "count0": 51068,
+      "count1": 14468
+    },
+    {
+      "angle": 0.5616666666666668,
+      "count0": 46855,
+      "count1": 18681
+    },
+    {
+      "angle": 0.6361111111111112,
+      "count0": 42372,
+      "count1": 23164
+    },
+    {
+      "angle": 0.7105555555555556,
+      "count0": 37620,
+      "count1": 27916
+    },
+    {
+      "angle": 0.785,
+      "count0": 32743,
+      "count1": 32793
+    },
+    {
+      "angle": 0.8594444444444445,
+      "count0": 27840,
+      "count1": 37696
+    },
+    {
+      "angle": 0.933888888888889,
+      "count0": 23279,
+      "count1": 42257
+    },
+    {
+      "angle": 1.0083333333333335,
+      "count0": 18650,
+      "count1": 46886
+    },
+    {
+      "angle": 1.0827777777777778,
+      "count0": 14561,
+      "count1": 50975
+    },
+    {
+      "angle": 1.1572222222222224,
+      "count0": 10621,
+      "count1": 54915
+    },
+    {
+      "angle": 1.2316666666666667,
+      "count0": 7210,
+      "count1": 58326
+    },
+    {
+      "angle": 1.3061111111111112,
+      "count0": 4532,
+      "count1": 61004
+    },
+    {
+      "angle": 1.3805555555555558,
+      "count0": 2260,
+      "count1": 63276
+    },
+    {
+      "angle": 1.455,
+      "count0": 872,
+      "count1": 64664
+    }
+  ],
+  "inserted_diagonal_weight": 0.2499999999999999,
+  "selected_exponent_on_calibration": 2,
+  "selection_frozen_before_heldout_scoring": true,
+  "shots_per_angle": 65536,
+  "squared_rule_not_independently_derived": true
+}

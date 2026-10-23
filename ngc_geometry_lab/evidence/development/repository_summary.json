@@ -1,0 +1,56 @@
+{
+  "sources": {
+    "verified_files": 41,
+    "mismatches": [],
+    "manifests": {
+      "mapeogeo": {
+        "verified_files": 15,
+        "mismatches": []
+      },
+      "mapeogeo_audit": {
+        "verified_files": 4,
+        "mismatches": []
+      },
+      "ngc_real": {
+        "verified_files": 22,
+        "mismatches": []
+      }
+    }
+  },
+  "connected_qualified": true,
+  "connected_checks": {
+    "fusion_order": true,
+    "information_rank_and_nullity": true,
+    "observable_equivalence": true,
+    "observability_matrix": true,
+    "initial_state_reconstruction": true,
+    "duplicate_direction_rank": true,
+    "source_identity_not_inferred": true
+  },
+  "closure": {
+    "provenance": "new qualification fixture; not recovered sealed artifact",
+    "size": 115,
+    "identity_index": 0,
+    "zero_index": 95,
+    "rank_histogram": {
+      "0": 1,
+      "1": 18,
+      "2": 72,
+      "3": 24
+    },
+    "commuting_ordered_pairs": 2017,
+    "validation": {
+      "product_comparisons": 13225,
+      "product_mismatches": 0,
+      "associativity_triples": 1520875,
+      "associativity_mismatches": 0
+    }
+  },
+  "structure_counts": {
+    "units": 24,
+    "idempotents": 8,
+    "nilpotents": 37,
+    "center": 2
+  },
+  "max_shortest_word_length": 9
+}

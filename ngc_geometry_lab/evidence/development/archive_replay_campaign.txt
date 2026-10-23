@@ -1,0 +1,15 @@
+$ python -W error -m ngc_geometry_lab run --seed 20261022 --out results/clean_archive_replay
+cwd=/tmp/ngc_geometry_release_replay_bqf4d3s7/ngc_geometry_lab
+Running source_integrity
+Running connected_operators
+Running exact_closure
+Running metric_and_center
+Running single_qubit
+Running dual_lane
+Running finite_shot
+Running readout
+Running joint
+Running identifiability
+PASS: 12/12 computational gates; evidence: results/clean_archive_replay
+
+exit_code=0

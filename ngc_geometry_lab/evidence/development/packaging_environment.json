@@ -1,0 +1,31 @@
+{
+  "workspace": "/tmp/ngc-packaging-pa_p32zn",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "executable": "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python",
+  "tools": {
+    "pip": {
+      "available": true,
+      "version": "26.2.1"
+    },
+    "setuptools": {
+      "available": true,
+      "version": "84.0.0"
+    },
+    "wheel": {
+      "available": true,
+      "version": "0.48.0"
+    },
+    "build": {
+      "available": false,
+      "version": null
+    },
+    "numpy": {
+      "available": true,
+      "version": "2.3.5"
+    },
+    "scipy": {
+      "available": true,
+      "version": "1.17.0"
+    }
+  }
+}

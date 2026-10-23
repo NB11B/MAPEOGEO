@@ -1,0 +1,16 @@
+{
+  "primitive_id": "P11",
+  "primitive_name": "POSITIVITY_ADMISSIBILITY",
+  "targets_lost_count": 6,
+  "targets_lost_ids": [
+    "T01",
+    "T05",
+    "T06",
+    "T10",
+    "T11",
+    "T15"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T01",
+  "epistemic_justification": "Primitive P11 (POSITIVITY_ADMISSIBILITY) is strictly necessary: removing it causes 6 target failures (e.g. T01)."
+}

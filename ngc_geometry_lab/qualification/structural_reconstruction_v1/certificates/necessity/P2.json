@@ -1,0 +1,15 @@
+{
+  "primitive_id": "P2",
+  "primitive_name": "ORIENTATION_SYMPLECTIC",
+  "targets_lost_count": 5,
+  "targets_lost_ids": [
+    "T02",
+    "T07",
+    "T08",
+    "T10",
+    "T16"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T02",
+  "epistemic_justification": "Primitive P2 (ORIENTATION_SYMPLECTIC) is strictly necessary: removing it causes 5 target failures (e.g. T02)."
+}

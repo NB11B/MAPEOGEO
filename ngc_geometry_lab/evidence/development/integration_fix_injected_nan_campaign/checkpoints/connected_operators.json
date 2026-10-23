@@ -1,0 +1,441 @@
+{
+  "checks": {
+    "duplicate_direction_rank": true,
+    "fusion_order": true,
+    "information_rank_and_nullity": true,
+    "initial_state_reconstruction": true,
+    "observability_matrix": true,
+    "observable_equivalence": true,
+    "source_identity_not_inferred": true
+  },
+  "composition": {
+    "A": [
+      [
+        2,
+        0
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "B": [
+      [
+        0,
+        -1
+      ],
+      [
+        1,
+        0
+      ]
+    ],
+    "execution_order": [
+      "A",
+      "B"
+    ],
+    "fused": [
+      [
+        0,
+        -1
+      ],
+      [
+        2,
+        0
+      ]
+    ],
+    "max_abs_error": 0.0,
+    "numpy_product": [
+      [
+        0,
+        -1
+      ],
+      [
+        2,
+        0
+      ]
+    ]
+  },
+  "duplicate_observations": {
+    "identifiable_rank": 1,
+    "matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        -1,
+        0,
+        0
+      ]
+    ],
+    "null_basis": [
+      [
+        -0.0,
+        1.0,
+        0.0
+      ],
+      [
+        -0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "numpy_rank": 1,
+    "recovered_state": [
+      1.0,
+      0.0,
+      0.0
+    ],
+    "residual": 0.0,
+    "samples": [
+      1,
+      1,
+      -1
+    ],
+    "source_identified": false
+  },
+  "information": {
+    "information_loss": true,
+    "injective": false,
+    "input_dim": 3,
+    "invertible": false,
+    "matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ],
+    "nullity": 1,
+    "output_dim": 2,
+    "rank": 2,
+    "surjective": true
+  },
+  "observability": {
+    "identifiable_rank": 3,
+    "initial_state": [
+      1,
+      2,
+      3
+    ],
+    "matrix": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "null_basis": [],
+    "numpy_matrix": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ]
+    ],
+    "observation": [
+      [
+        1,
+        0,
+        0
+      ]
+    ],
+    "recovered_state": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "residual": 0.0,
+    "samples": [
+      [
+        1
+      ],
+      [
+        2
+      ],
+      [
+        3
+      ]
+    ],
+    "source_identified": false,
+    "transition": [
+      [
+        0,
+        1,
+        0
+      ],
+      [
+        0,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0
+      ]
+    ]
+  },
+  "provenance": "new qualification inputs executed by unchanged pinned MAPEOGEO modules",
+  "qualified": true,
+  "source_identified": false,
+  "upstream_baseline": {
+    "failed": 1,
+    "known_bad_test_expectations": 1,
+    "passed": 23,
+    "scope": "Only the selected unchanged zero-argument baseline tests bundled with the qualified source.",
+    "tests": [
+      {
+        "file": "test_latent_generator_observability_v2.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_control_observability_matrix_recovers_hidden_state_over_time"
+      },
+      {
+        "file": "test_latent_generator_observability_v2.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_repeated_same_projection_preserves_nullspace"
+      },
+      {
+        "file": "test_latent_generator_observability_v2.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_rotating_projection_collapses_instantaneous_nullspace"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_calculus_radial_plus_angular_matches_direct_derivative_formula"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_full_rank_inverse_is_identifiable_but_not_source_identity"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_returns_equivalence_class_not_invented_dimension"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_scalar_sine_observation_is_underdetermined_in_planar_generator"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_anisotropic_scale_does_not_commute_with_rotation"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_fusion_preserves_declared_order"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_declares_information_loss"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_rotation_is_information_preserving"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_uniform_scale_commutes_with_rotation"
+      },
+      {
+        "file": "test_psmsl_operator_basis_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_independent_matrix_operators_remain"
+      },
+      {
+        "file": "test_psmsl_operator_basis_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_operator_basis_removes_linear_redundancy"
+      },
+      {
+        "exception": "AssertionError",
+        "failure_line": 13,
+        "file": "test_psmsl_work_equivalence_v1.py",
+        "known_bad_expectation": true,
+        "message": "",
+        "project": "mapeogeo",
+        "status": "FAIL",
+        "test": "test_noncommuting_operators_can_be_equivalent_after_work_projection"
+      },
+      {
+        "file": "test_psmsl_work_equivalence_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_can_make_information_losing_transform_work_lossless"
+      },
+      {
+        "file": "test_psmsl_work_plan_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_commuting_scale_family_is_parallelizable"
+      },
+      {
+        "file": "test_psmsl_work_plan_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_is_marked_irreversible"
+      },
+      {
+        "file": "test_dual_lane_backend.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_circuit_dual_lane_backend_matches_local_backend"
+      },
+      {
+        "file": "test_dual_lane_backend.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_dual_lane_backend_matches_local_backend_for_random_states"
+      },
+      {
+        "file": "test_dual_lane_backend.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_iter_local_blocks_big_endian_indexing"
+      },
+      {
+        "file": "test_realify.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_operator_roundtrip_and_block_validation"
+      },
+      {
+        "file": "test_realify.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_state_and_operator_wrappers_apply"
+      },
+      {
+        "file": "test_realify.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_vector_roundtrip"
+      }
+    ],
+    "tests_executed": 24,
+    "unexpected_failures": 0
+  },
+  "work_equivalence": {
+    "A": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "AB": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "B": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "BA": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "PAB": [
+      [
+        0,
+        2
+      ]
+    ],
+    "PBA": [
+      [
+        0,
+        2
+      ]
+    ],
+    "corrected_expected_equivalent": true,
+    "observation": [
+      [
+        0,
+        1
+      ]
+    ],
+    "upstream_result": {
+      "equivalent_for_work": true,
+      "exact_difference": 1.0,
+      "exact_equal": false,
+      "observed_difference": 0.0,
+      "tolerance": 0.0
+    },
+    "upstream_test_expected_equivalent": false,
+    "upstream_test_status": "incorrect expectation for its supplied matrices"
+  }
+}

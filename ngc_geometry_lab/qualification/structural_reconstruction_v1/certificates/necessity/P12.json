@@ -1,0 +1,14 @@
+{
+  "primitive_id": "P12",
+  "primitive_name": "INFORMATION_LOSS_NULLSPACE",
+  "targets_lost_count": 4,
+  "targets_lost_ids": [
+    "T09",
+    "T14",
+    "T16",
+    "T17"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T09",
+  "epistemic_justification": "Primitive P12 (INFORMATION_LOSS_NULLSPACE) is strictly necessary: removing it causes 4 target failures (e.g. T09)."
+}

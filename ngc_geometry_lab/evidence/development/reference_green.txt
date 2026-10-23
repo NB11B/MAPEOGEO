@@ -1,0 +1,27 @@
+test_bloch_rejects_invalid_and_non_qubit (tests.test_reference.ReferenceTests.test_bloch_rejects_invalid_and_non_qubit) ... ok
+test_density_validation_absolute_tolerance (tests.test_reference.ReferenceTests.test_density_validation_absolute_tolerance) ... ok
+test_density_validation_general_dimension_and_copy (tests.test_reference.ReferenceTests.test_density_validation_general_dimension_and_copy) ... ok
+test_density_validation_rejects_invalid (tests.test_reference.ReferenceTests.test_density_validation_rejects_invalid) ... ok
+test_evolution_rejects_nonunitary_and_mismatch (tests.test_reference.ReferenceTests.test_evolution_rejects_nonunitary_and_mismatch) ... ok
+test_joint_maximally_mixed_and_random_roundtrip (tests.test_reference.ReferenceTests.test_joint_maximally_mixed_and_random_roundtrip) ... ok
+test_joint_non_psd_even_when_tetra_probabilities_positive (tests.test_reference.ReferenceTests.test_joint_non_psd_even_when_tetra_probabilities_positive) ... ok
+test_joint_product_01 (tests.test_reference.ReferenceTests.test_joint_product_01) ... ok
+test_joint_rejects_invalid_dimensions_nonfinite_and_complex (tests.test_reference.ReferenceTests.test_joint_rejects_invalid_dimensions_nonfinite_and_complex) ... ok
+test_joint_singlet_and_chsh (tests.test_reference.ReferenceTests.test_joint_singlet_and_chsh) ... ok
+test_local_gate_arbitrary_unitary_vs_dense_kron (tests.test_reference.ReferenceTests.test_local_gate_arbitrary_unitary_vs_dense_kron) ... ok
+test_local_gate_big_endian_nonadjacent_and_reversed (tests.test_reference.ReferenceTests.test_local_gate_big_endian_nonadjacent_and_reversed) ... ok
+test_local_gate_invalid_state_targets_and_gate (tests.test_reference.ReferenceTests.test_local_gate_invalid_state_targets_and_gate) ... ok
+test_paulis_order_and_complex_dtype (tests.test_reference.ReferenceTests.test_paulis_order_and_complex_dtype) ... ok
+test_random_density_invalid_arguments (tests.test_reference.ReferenceTests.test_random_density_invalid_arguments) ... ok
+test_random_density_wishart_pure_and_full (tests.test_reference.ReferenceTests.test_random_density_wishart_pure_and_full) ... ok
+test_rotations_reject_invalid_axis_and_angle (tests.test_reference.ReferenceTests.test_rotations_reject_invalid_axis_and_angle) ... ok
+test_rx_pi_and_rz_phase (tests.test_reference.ReferenceTests.test_rx_pi_and_rz_phase) ... ok
+test_standard_single_qubit_states (tests.test_reference.ReferenceTests.test_standard_single_qubit_states) ... ok
+test_tetra_effects_order_positivity_and_completeness (tests.test_reference.ReferenceTests.test_tetra_effects_order_positivity_and_completeness) ... ok
+test_tetra_probabilities_analytic (tests.test_reference.ReferenceTests.test_tetra_probabilities_analytic) ... ok
+test_tetra_probabilities_rejects_wrong_dimension (tests.test_reference.ReferenceTests.test_tetra_probabilities_rejects_wrong_dimension) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.073s
+
+OK

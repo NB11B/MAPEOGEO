@@ -1,0 +1,1 @@
+Analyzed 8 synthetic records; mean verification TV=0.004623; output: /tmp/ngc-packaging-pa_p32zn/analysis_fixed.json

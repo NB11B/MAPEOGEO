@@ -1,0 +1,12 @@
+{
+  "primitive_id": "P8",
+  "primitive_name": "RELATIONAL_EXTENSION",
+  "targets_lost_count": 2,
+  "targets_lost_ids": [
+    "T05",
+    "T11"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T05",
+  "epistemic_justification": "Primitive P8 (RELATIONAL_EXTENSION) is strictly necessary: removing it causes 2 target failures (e.g. T05)."
+}

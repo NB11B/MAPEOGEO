@@ -1,0 +1,90 @@
+{
+  "registry_name": "GEO_X2_CANDIDATE_PRIMITIVES",
+  "candidate_count": 12,
+  "primitives": [
+    {
+      "id": "P1",
+      "name": "REAL_METRIC",
+      "carrier": "Symmetric bilinear inner product / Riemannian metric tensor g(u, v)",
+      "operational_meaning": "Distance, angle, scalar projection, Gram matrix G >= 0",
+      "algebraic_type": "SYMMETRIC_TENSOR"
+    },
+    {
+      "id": "P2",
+      "name": "ORIENTATION_SYMPLECTIC",
+      "carrier": "Alternating differential 2-form w(u, v) / oriented bivector / J^2 = -I",
+      "operational_meaning": "Phase rotation, canonical commutation, Lie bracket orientation, symplectic area",
+      "algebraic_type": "SKEW_SYMMETRIC_TENSOR"
+    },
+    {
+      "id": "P3",
+      "name": "CONVEX_COMPOSITION",
+      "carrier": "Convex combination sum p_i x_i (p_i >= 0, sum p_i = 1)",
+      "operational_meaning": "Statistical mixing, convex state body, extreme points (pure states)",
+      "algebraic_type": "CONVEX_HULL"
+    },
+    {
+      "id": "P4",
+      "name": "TENSOR_COMPOSITION",
+      "carrier": "Multilinear tensor product V_1 (x) V_2",
+      "operational_meaning": "Composite systems, correlation tensors, Schmidt bipartitions",
+      "algebraic_type": "MULTILINEAR_TENSOR_PRODUCT"
+    },
+    {
+      "id": "P5",
+      "name": "GROUP_ACTION",
+      "carrier": "Transformation group action G x M -> M (e.g. SL(2,C)^n, SU(d))",
+      "operational_meaning": "Symmetries, local operational equivalence, invariant polynomials",
+      "algebraic_type": "LIE_GROUP_ACTION"
+    },
+    {
+      "id": "P6",
+      "name": "QUOTIENT_EQUIVALENCE",
+      "carrier": "Relational equivalence class M // G",
+      "operational_meaning": "Orbit space, quotient manifold coordinates, resolving representational collisions",
+      "algebraic_type": "QUOTIENT_MANIFOLD"
+    },
+    {
+      "id": "P7",
+      "name": "AFFINE_OBSERVATION",
+      "carrier": "Affine functional <E_i, x> -> [0, 1]",
+      "operational_meaning": "Frame measurement, probability readout, informational completeness",
+      "algebraic_type": "AFFINE_FUNCTIONAL"
+    },
+    {
+      "id": "P8",
+      "name": "RELATIONAL_EXTENSION",
+      "carrier": "Coupling to reference / ancilla space id (x) Phi",
+      "operational_meaning": "Choi state isomorphism, composite test for positivity",
+      "algebraic_type": "REFERENCE_EXTENSION"
+    },
+    {
+      "id": "P9",
+      "name": "COMPATIBILITY_TOPOLOGY",
+      "carrier": "Context hypergraph H = (V, E) / sheaf cohomology",
+      "operational_meaning": "Commutativity cliques, contextuality obstructions (F_2 parity contradiction)",
+      "algebraic_type": "INCIDENCE_HYPERGRAPH"
+    },
+    {
+      "id": "P10",
+      "name": "ORDERED_COMPOSITION",
+      "carrier": "Non-commutative semigroup / monoid Phi_2 o Phi_1",
+      "operational_meaning": "Temporal sequence, dynamical flow, operational history",
+      "algebraic_type": "ORDERED_MONOID"
+    },
+    {
+      "id": "P11",
+      "name": "POSITIVITY_ADMISSIBILITY",
+      "carrier": "Convex cone C (x in C iff spectrum(x) >= 0)",
+      "operational_meaning": "Physical admissibility, semidefinite constraints",
+      "algebraic_type": "CONVEX_CONE"
+    },
+    {
+      "id": "P12",
+      "name": "INFORMATION_LOSS_NULLSPACE",
+      "carrier": "Kernel ker(E) / orthogonal complement nullspace",
+      "operational_meaning": "Observational collision, projection loss, grammar escalation trigger",
+      "algebraic_type": "LINEAR_KERNEL"
+    }
+  ]
+}

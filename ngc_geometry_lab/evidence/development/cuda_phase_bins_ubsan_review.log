@@ -1,0 +1,17 @@
+CUDA phase-bin range review: HOST-ONLY C++ formula probe; NO CUDA/GPU execution.
+
+Pinned source: ngc_geometry_lab/_vendor/ngc_cuda_2/cuda/ngc_rcs_geometric.cu, project_discrete_phase.
+The fragment preserves original arithmetic with phase_bins=2147483647 and theta=pi.
+
+Compile: g++ -fsanitize=undefined -fno-sanitize-recover=undefined probe.cpp -o probe
+
+#include <cmath>
+#include <cstdio>
+int main(){int n_bins=2147483647;double theta=3.14159265358979323846;double norm=std::fmod(theta,6.28318530717958647692);if(norm<0)norm+=6.28318530717958647692;int k=(int)std::round((double)n_bins*(norm/6.28318530717958647692));k=((k%n_bins)+n_bins)%n_bins;std::printf("%d\n",k);}
+
+Execution exit status: 1
+stdout:
+stderr:
+/tmp/ngc-quantizer-review-omym3zc7/probe.cpp:3:242: runtime error: signed integer overflow: 2147483647 + 1073741824 cannot be represented in type 'int'
+
+Safe adapter upper bound:2**30, since2*bins-1<=INT_MAX. Pinned source is unchanged.

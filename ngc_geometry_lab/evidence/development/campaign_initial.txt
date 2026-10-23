@@ -1,0 +1,8 @@
+test_all_frozen_gates_pass_and_controls_present (tests.test_campaign.CampaignTests.test_all_frozen_gates_pass_and_controls_present) ... ok
+test_evidence_scope_is_explicit (tests.test_campaign.CampaignTests.test_evidence_scope_is_explicit) ... ok
+test_no_unexpected_upstream_failures_are_hidden (tests.test_campaign.CampaignTests.test_no_unexpected_upstream_failures_are_hidden) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 3.232s
+
+OK

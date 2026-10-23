@@ -1,0 +1,23 @@
+test_fusion_information_and_work_counterexample_match_independent_matrices (tests.test_repository.ConnectedDemoTests.test_fusion_information_and_work_counterexample_match_independent_matrices) ... ok
+test_temporal_observations_recover_three_coordinates_but_duplicates_do_not (tests.test_repository.ConnectedDemoTests.test_temporal_observations_recover_three_coordinates_but_duplicates_do_not) ... ok
+test_adapter_does_not_mutate_or_renormalize_inputs (tests.test_repository.DualLaneTests.test_adapter_does_not_mutate_or_renormalize_inputs) ... ok
+test_cnot_all_basis_vectors_and_reversed_target_order (tests.test_repository.DualLaneTests.test_cnot_all_basis_vectors_and_reversed_target_order) ... ok
+test_complex_unitary_matches_dense_kron_without_running_oracle (tests.test_repository.DualLaneTests.test_complex_unitary_matches_dense_kron_without_running_oracle) ... ok
+test_hadamard_and_phase_have_analytic_big_endian_results (tests.test_repository.DualLaneTests.test_hadamard_and_phase_have_analytic_big_endian_results) ... ok
+test_invalid_arguments_are_rejected_before_permissive_upstream_casts (tests.test_repository.DualLaneTests.test_invalid_arguments_are_rejected_before_permissive_upstream_casts) ... ok
+test_all_associativity_triples_and_identity_zero_laws (tests.test_repository.ExactClosureTests.test_all_associativity_triples_and_identity_zero_laws) ... ok
+test_every_table_product_matches_independent_numpy_integer_multiplication (tests.test_repository.ExactClosureTests.test_every_table_product_matches_independent_numpy_integer_multiplication) ... ok
+test_full_matrix_set_matches_independent_coordinate_map_enumeration (tests.test_repository.ExactClosureTests.test_full_matrix_set_matches_independent_coordinate_map_enumeration) ... ok
+test_rank_units_idempotents_nilpotents_center_and_commuting_pairs (tests.test_repository.ExactClosureTests.test_rank_units_idempotents_nilpotents_center_and_commuting_pairs) ... ok
+test_shortest_words_reconstruct_matrices_and_have_bfs_minimum_length (tests.test_repository.ExactClosureTests.test_shortest_words_reconstruct_matrices_and_have_bfs_minimum_length) ... ok
+test_stable_indices_and_words_are_reproducible (tests.test_repository.ExactClosureTests.test_stable_indices_and_words_are_reproducible) ... ok
+test_unbounded_generator_hits_explicit_enumeration_guard (tests.test_repository.ExactClosureTests.test_unbounded_generator_hits_explicit_enumeration_guard) ... ok
+test_all_recorded_upstream_bytes_match_both_hash_algorithms (tests.test_repository.SourceTests.test_all_recorded_upstream_bytes_match_both_hash_algorithms) ... ok
+test_changed_bytes_are_reported_without_mutating_real_source (tests.test_repository.SourceTests.test_changed_bytes_are_reported_without_mutating_real_source) ... ok
+test_imports_bind_real_modules_without_global_path_changes (tests.test_repository.SourceTests.test_imports_bind_real_modules_without_global_path_changes) ... ok
+test_missing_file_and_manifest_are_explicit_failures (tests.test_repository.SourceTests.test_missing_file_and_manifest_are_explicit_failures) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.484s
+
+OK

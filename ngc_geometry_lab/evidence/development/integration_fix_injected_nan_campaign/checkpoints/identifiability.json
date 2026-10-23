@@ -1,0 +1,7 @@
+{
+  "after_permitted_rotation_difference": 2.0,
+  "duplicate_and_mirror_rank": 1,
+  "dynamic_sequence_rank": 3,
+  "meaning": "Identical present output need not imply identical state; extra independent operations can reveal a previously hidden direction.",
+  "same_initial_observation_difference": 0.0
+}

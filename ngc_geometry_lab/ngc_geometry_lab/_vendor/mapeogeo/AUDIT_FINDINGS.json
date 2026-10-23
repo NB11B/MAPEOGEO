@@ -1,0 +1,45 @@
+{
+  "manifest_line_endings": {
+    "sealed_manifest_commit": "dfe7102857bcb82a4308e158fff750537911af03",
+    "manifest_claim": {
+      "path": "artifacts/transformation_algebra/primitive_characterization.json",
+      "sha256": "daef8d9b650ed20c81b69d0b312bc99a0c6153a50fd911e9957ad6676aca9c95",
+      "size_bytes": 24725
+    },
+    "git_blob_sha1": "2de074a9fe34b238af7bb6a74fdb93258f69fb99",
+    "raw_size_bytes": 23940,
+    "raw_sha256": "b271da54f03348b7941d8aef22ba41ca93bf8d33e2cbc3461780904aaa4d273f",
+    "raw_lf_count": 785,
+    "crlf_size_bytes": 24725,
+    "crlf_sha256": "daef8d9b650ed20c81b69d0b312bc99a0c6153a50fd911e9957ad6676aca9c95",
+    "matches_after_crlf_conversion": true
+  },
+  "monoid_115_status": "NOT_LOCATED_IN_INSPECTED_SNAPSHOTS_OR_REFERENCED_ARTIFACTS",
+  "scope": "This finding is confined to the inspected research/release snapshots. It does not disprove a 115-element monoid in other sources.",
+  "sealed_commit_verification": {
+    "commit": "dfe7102857bcb82a4308e158fff750537911af03",
+    "git_tree_sha1": "81775db7dade6ae032d66364c3aab9323b26bf38",
+    "files": [
+      {
+        "path": "artifacts/transformation_algebra/primitive_characterization.json",
+        "git_blob_sha1": "2de074a9fe34b238af7bb6a74fdb93258f69fb99",
+        "size_bytes": 23940
+      },
+      {
+        "path": "experiments/transformation_algebra/campaign.py",
+        "git_blob_sha1": "5213bd9ac92c29d51e4885d6a2f595bbf19dccc3",
+        "size_bytes": 2548
+      },
+      {
+        "path": "experiments/transformation_algebra/characterize_primitives.py",
+        "git_blob_sha1": "d41968b47ee34e0ea9a003577b00dcf766e83e3f",
+        "size_bytes": 3777
+      },
+      {
+        "path": "experiments/transformation_algebra/closure.py",
+        "git_blob_sha1": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+        "size_bytes": 0
+      }
+    ]
+  }
+}

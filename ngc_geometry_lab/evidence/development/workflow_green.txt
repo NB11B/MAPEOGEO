@@ -1,0 +1,8 @@
+test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) ... ok
+test_counts_and_independent_prediction_workflow (tests.test_workflow.SyntheticWorkflowTests.test_counts_and_independent_prediction_workflow) ... ok
+test_seed_reproducibility_and_truth_separation (tests.test_workflow.SyntheticWorkflowTests.test_seed_reproducibility_and_truth_separation) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.060s
+
+OK

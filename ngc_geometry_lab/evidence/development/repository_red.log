@@ -1,0 +1,167 @@
+test_fusion_information_and_work_counterexample_match_independent_matrices (tests.test_repository.ConnectedDemoTests.test_fusion_information_and_work_counterexample_match_independent_matrices) ... FAIL
+test_temporal_observations_recover_three_coordinates_but_duplicates_do_not (tests.test_repository.ConnectedDemoTests.test_temporal_observations_recover_three_coordinates_but_duplicates_do_not) ... FAIL
+test_adapter_does_not_mutate_or_renormalize_inputs (tests.test_repository.DualLaneTests.test_adapter_does_not_mutate_or_renormalize_inputs) ... FAIL
+test_cnot_all_basis_vectors_and_reversed_target_order (tests.test_repository.DualLaneTests.test_cnot_all_basis_vectors_and_reversed_target_order) ... FAIL
+test_complex_unitary_matches_dense_kron_without_running_oracle (tests.test_repository.DualLaneTests.test_complex_unitary_matches_dense_kron_without_running_oracle) ... FAIL
+test_hadamard_and_phase_have_analytic_big_endian_results (tests.test_repository.DualLaneTests.test_hadamard_and_phase_have_analytic_big_endian_results) ... FAIL
+test_invalid_arguments_are_rejected_before_permissive_upstream_casts (tests.test_repository.DualLaneTests.test_invalid_arguments_are_rejected_before_permissive_upstream_casts) ... FAIL
+test_all_associativity_triples_and_identity_zero_laws (tests.test_repository.ExactClosureTests.test_all_associativity_triples_and_identity_zero_laws) ... FAIL
+test_every_table_product_matches_independent_numpy_integer_multiplication (tests.test_repository.ExactClosureTests.test_every_table_product_matches_independent_numpy_integer_multiplication) ... FAIL
+test_full_matrix_set_matches_independent_coordinate_map_enumeration (tests.test_repository.ExactClosureTests.test_full_matrix_set_matches_independent_coordinate_map_enumeration) ... FAIL
+test_rank_units_idempotents_nilpotents_center_and_commuting_pairs (tests.test_repository.ExactClosureTests.test_rank_units_idempotents_nilpotents_center_and_commuting_pairs) ... FAIL
+test_shortest_words_reconstruct_matrices_and_have_bfs_minimum_length (tests.test_repository.ExactClosureTests.test_shortest_words_reconstruct_matrices_and_have_bfs_minimum_length) ... FAIL
+test_stable_indices_and_words_are_reproducible (tests.test_repository.ExactClosureTests.test_stable_indices_and_words_are_reproducible) ... FAIL
+test_unbounded_generator_hits_explicit_enumeration_guard (tests.test_repository.ExactClosureTests.test_unbounded_generator_hits_explicit_enumeration_guard) ... FAIL
+test_all_recorded_upstream_bytes_match_both_hash_algorithms (tests.test_repository.SourceTests.test_all_recorded_upstream_bytes_match_both_hash_algorithms) ... FAIL
+test_changed_bytes_are_reported_without_mutating_real_source (tests.test_repository.SourceTests.test_changed_bytes_are_reported_without_mutating_real_source) ... FAIL
+test_imports_bind_real_modules_without_global_path_changes (tests.test_repository.SourceTests.test_imports_bind_real_modules_without_global_path_changes) ... FAIL
+test_missing_file_and_manifest_are_explicit_failures (tests.test_repository.SourceTests.test_missing_file_and_manifest_are_explicit_failures) ... FAIL
+
+======================================================================
+FAIL: test_fusion_information_and_work_counterexample_match_independent_matrices (tests.test_repository.ConnectedDemoTests.test_fusion_information_and_work_counterexample_match_independent_matrices)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_temporal_observations_recover_three_coordinates_but_duplicates_do_not (tests.test_repository.ConnectedDemoTests.test_temporal_observations_recover_three_coordinates_but_duplicates_do_not)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_adapter_does_not_mutate_or_renormalize_inputs (tests.test_repository.DualLaneTests.test_adapter_does_not_mutate_or_renormalize_inputs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_cnot_all_basis_vectors_and_reversed_target_order (tests.test_repository.DualLaneTests.test_cnot_all_basis_vectors_and_reversed_target_order)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_complex_unitary_matches_dense_kron_without_running_oracle (tests.test_repository.DualLaneTests.test_complex_unitary_matches_dense_kron_without_running_oracle)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_hadamard_and_phase_have_analytic_big_endian_results (tests.test_repository.DualLaneTests.test_hadamard_and_phase_have_analytic_big_endian_results)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_invalid_arguments_are_rejected_before_permissive_upstream_casts (tests.test_repository.DualLaneTests.test_invalid_arguments_are_rejected_before_permissive_upstream_casts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_all_associativity_triples_and_identity_zero_laws (tests.test_repository.ExactClosureTests.test_all_associativity_triples_and_identity_zero_laws)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_every_table_product_matches_independent_numpy_integer_multiplication (tests.test_repository.ExactClosureTests.test_every_table_product_matches_independent_numpy_integer_multiplication)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_full_matrix_set_matches_independent_coordinate_map_enumeration (tests.test_repository.ExactClosureTests.test_full_matrix_set_matches_independent_coordinate_map_enumeration)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_rank_units_idempotents_nilpotents_center_and_commuting_pairs (tests.test_repository.ExactClosureTests.test_rank_units_idempotents_nilpotents_center_and_commuting_pairs)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_shortest_words_reconstruct_matrices_and_have_bfs_minimum_length (tests.test_repository.ExactClosureTests.test_shortest_words_reconstruct_matrices_and_have_bfs_minimum_length)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_stable_indices_and_words_are_reproducible (tests.test_repository.ExactClosureTests.test_stable_indices_and_words_are_reproducible)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_unbounded_generator_hits_explicit_enumeration_guard (tests.test_repository.ExactClosureTests.test_unbounded_generator_hits_explicit_enumeration_guard)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_all_recorded_upstream_bytes_match_both_hash_algorithms (tests.test_repository.SourceTests.test_all_recorded_upstream_bytes_match_both_hash_algorithms)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_changed_bytes_are_reported_without_mutating_real_source (tests.test_repository.SourceTests.test_changed_bytes_are_reported_without_mutating_real_source)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_imports_bind_real_modules_without_global_path_changes (tests.test_repository.SourceTests.test_imports_bind_real_modules_without_global_path_changes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+======================================================================
+FAIL: test_missing_file_and_manifest_are_explicit_failures (tests.test_repository.SourceTests.test_missing_file_and_manifest_are_explicit_failures)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_repository.py", line 44, in setUp
+    self.assertIsNotNone(spec, "repository adapter has not been implemented")
+AssertionError: unexpectedly None : repository adapter has not been implemented
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.003s
+
+FAILED (failures=18)

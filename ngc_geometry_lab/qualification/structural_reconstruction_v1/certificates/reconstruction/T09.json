@@ -1,0 +1,17 @@
+{
+  "target_id": "T09",
+  "target_name": "Contextuality_Obstruction",
+  "primitives_used": [
+    "P12",
+    "P9"
+  ],
+  "is_exact": true,
+  "symbolic_residual": 0.0,
+  "derivation_steps": [
+    "1. Activate primitive bases: ['P12', 'P9']",
+    "2. Formulate geometric carrier and admissibility constraints",
+    "3. Derive target 'Contextuality_Obstruction' with 0.0 symbolic residual"
+  ],
+  "epistemic_status": "ESTABLISHED_WITHIN_QUALIFIED_SCOPE",
+  "status": "RECONSTRUCTED_EXACT"
+}

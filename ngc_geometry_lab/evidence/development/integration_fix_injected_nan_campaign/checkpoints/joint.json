@@ -1,0 +1,131 @@
+{
+  "interpretation": "The CHSH value is a computed prediction, not a local hidden-variable implementation or physical Bell test.",
+  "local_deterministic_max_chsh": 2,
+  "local_vertices": [
+    {
+      "a0": -1,
+      "a1": -1,
+      "b0": -1,
+      "b1": -1,
+      "chsh": 2
+    },
+    {
+      "a0": -1,
+      "a1": -1,
+      "b0": -1,
+      "b1": 1,
+      "chsh": 2
+    },
+    {
+      "a0": -1,
+      "a1": -1,
+      "b0": 1,
+      "b1": -1,
+      "chsh": -2
+    },
+    {
+      "a0": -1,
+      "a1": -1,
+      "b0": 1,
+      "b1": 1,
+      "chsh": -2
+    },
+    {
+      "a0": -1,
+      "a1": 1,
+      "b0": -1,
+      "b1": -1,
+      "chsh": 2
+    },
+    {
+      "a0": -1,
+      "a1": 1,
+      "b0": -1,
+      "b1": 1,
+      "chsh": -2
+    },
+    {
+      "a0": -1,
+      "a1": 1,
+      "b0": 1,
+      "b1": -1,
+      "chsh": 2
+    },
+    {
+      "a0": -1,
+      "a1": 1,
+      "b0": 1,
+      "b1": 1,
+      "chsh": -2
+    },
+    {
+      "a0": 1,
+      "a1": -1,
+      "b0": -1,
+      "b1": -1,
+      "chsh": -2
+    },
+    {
+      "a0": 1,
+      "a1": -1,
+      "b0": -1,
+      "b1": 1,
+      "chsh": 2
+    },
+    {
+      "a0": 1,
+      "a1": -1,
+      "b0": 1,
+      "b1": -1,
+      "chsh": -2
+    },
+    {
+      "a0": 1,
+      "a1": -1,
+      "b0": 1,
+      "b1": 1,
+      "chsh": 2
+    },
+    {
+      "a0": 1,
+      "a1": 1,
+      "b0": -1,
+      "b1": -1,
+      "chsh": -2
+    },
+    {
+      "a0": 1,
+      "a1": 1,
+      "b0": -1,
+      "b1": 1,
+      "chsh": -2
+    },
+    {
+      "a0": 1,
+      "a1": 1,
+      "b0": 1,
+      "b1": -1,
+      "chsh": 2
+    },
+    {
+      "a0": 1,
+      "a1": 1,
+      "b0": 1,
+      "b1": 1,
+      "chsh": 2
+    }
+  ],
+  "local_vertices_enumerated": 16,
+  "max_density_error": 4.440892098500626e-16,
+  "max_prediction_error": 2.498001805406602e-16,
+  "max_probability_error": 8.326672684688674e-17,
+  "mixed_states": 64,
+  "positive_joint_distribution_nonquantum_min_probability": 0.04166666666666666,
+  "positive_joint_distribution_nonquantum_rejected_by_psd": true,
+  "pure_states": 64,
+  "rotation_predictions": 1024,
+  "same_local_marginals_max_error": 0.0,
+  "singlet_chsh": 2.82842712474619,
+  "singlet_vs_mixed_joint_total_variation": 0.2500000000000001,
+  "states": 128
+}

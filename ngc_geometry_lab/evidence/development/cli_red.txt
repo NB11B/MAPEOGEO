@@ -1,0 +1,43 @@
+test_bad_data_reports_actionable_error (tests.test_cli.CommandLineTests.test_bad_data_reports_actionable_error) ... FAIL
+test_example_generation_analysis_and_no_overwrite (tests.test_cli.CommandLineTests.test_example_generation_analysis_and_no_overwrite) ... FAIL
+test_help (tests.test_cli.CommandLineTests.test_help) ... FAIL
+test_truth_and_observation_paths_must_differ (tests.test_cli.CommandLineTests.test_truth_and_observation_paths_must_differ) ... FAIL
+
+======================================================================
+FAIL: test_bad_data_reports_actionable_error (tests.test_cli.CommandLineTests.test_bad_data_reports_actionable_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cli.py", line 40, in test_bad_data_reports_actionable_error
+    self.assertEqual(result.returncode, 2)
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_example_generation_analysis_and_no_overwrite (tests.test_cli.CommandLineTests.test_example_generation_analysis_and_no_overwrite)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cli.py", line 24, in test_example_generation_analysis_and_no_overwrite
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python: No module named ngc_geometry_lab.__main__; 'ngc_geometry_lab' is a package and cannot be directly executed
+
+
+======================================================================
+FAIL: test_help (tests.test_cli.CommandLineTests.test_help)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cli.py", line 15, in test_help
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python: No module named ngc_geometry_lab.__main__; 'ngc_geometry_lab' is a package and cannot be directly executed
+
+
+======================================================================
+FAIL: test_truth_and_observation_paths_must_differ (tests.test_cli.CommandLineTests.test_truth_and_observation_paths_must_differ)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_cli.py", line 48, in test_truth_and_observation_paths_must_differ
+    self.assertEqual(result.returncode, 2)
+AssertionError: 1 != 2
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.063s
+
+FAILED (failures=4)

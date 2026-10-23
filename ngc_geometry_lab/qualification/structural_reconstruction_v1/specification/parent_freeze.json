@@ -1,0 +1,8 @@
+{
+  "parent_campaign": "GEO-X1",
+  "parent_source_hash": "5a1fe7b62b0dbcfc4a5367dab63ba5c7db12494764cb719d45b40821618f3668",
+  "parent_test_hash": "7625e6be1386e5c196dce78cab4214a383471a76335a246c8a4f745576329432",
+  "parent_test_count": 254,
+  "parent_status": "QUALIFIED",
+  "sealed_at": "2026-10-22T15:26:00-04:00"
+}

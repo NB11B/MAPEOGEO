@@ -1,0 +1,202 @@
+{
+  "runner": "Direct execution of unchanged zero-argument upstream test functions (no pytest fixtures or decorators are present). pytest is not installed in primary Python runtime.",
+  "passed": 17,
+  "failed": 1,
+  "tests": [
+    {
+      "file": "tests/test_latent_generator_observability_v2.py",
+      "test": "test_control_observability_matrix_recovers_hidden_state_over_time",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_latent_generator_observability_v2.py",
+      "test": "test_repeated_same_projection_preserves_nullspace",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_latent_generator_observability_v2.py",
+      "test": "test_rotating_projection_collapses_instantaneous_nullspace",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_latent_generator_v1.py",
+      "test": "test_calculus_radial_plus_angular_matches_direct_derivative_formula",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_latent_generator_v1.py",
+      "test": "test_full_rank_inverse_is_identifiable_but_not_source_identity",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_latent_generator_v1.py",
+      "test": "test_projection_returns_equivalence_class_not_invented_dimension",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_latent_generator_v1.py",
+      "test": "test_scalar_sine_observation_is_underdetermined_in_planar_generator",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_operator_algebra_v1.py",
+      "test": "test_anisotropic_scale_does_not_commute_with_rotation",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_operator_algebra_v1.py",
+      "test": "test_fusion_preserves_declared_order",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_operator_algebra_v1.py",
+      "test": "test_projection_declares_information_loss",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_operator_algebra_v1.py",
+      "test": "test_rotation_is_information_preserving",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_operator_algebra_v1.py",
+      "test": "test_uniform_scale_commutes_with_rotation",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_operator_basis_v1.py",
+      "test": "test_independent_matrix_operators_remain",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_operator_basis_v1.py",
+      "test": "test_operator_basis_removes_linear_redundancy",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_work_equivalence_v1.py",
+      "test": "test_noncommuting_operators_can_be_equivalent_after_work_projection",
+      "status": "FAIL",
+      "exception": "AssertionError",
+      "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 21, in <module>\n  File \"/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/vendor/mapeogeo/tests/test_psmsl_work_equivalence_v1.py\", line 13, in test_noncommuting_operators_can_be_equivalent_after_work_projection\n    assert not w.equivalent_for_work\n           ^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+    },
+    {
+      "file": "tests/test_psmsl_work_equivalence_v1.py",
+      "test": "test_projection_can_make_information_losing_transform_work_lossless",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_work_plan_v1.py",
+      "test": "test_commuting_scale_family_is_parallelizable",
+      "status": "PASS"
+    },
+    {
+      "file": "tests/test_psmsl_work_plan_v1.py",
+      "test": "test_projection_is_marked_irreversible",
+      "status": "PASS"
+    }
+  ],
+  "failing_assertion_double_check": {
+    "A": [
+      [
+        1,
+        0
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "B": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        1
+      ]
+    ],
+    "observation": [
+      [
+        0,
+        1
+      ]
+    ],
+    "AB": [
+      [
+        1,
+        1
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "BA": [
+      [
+        1,
+        2
+      ],
+      [
+        0,
+        2
+      ]
+    ],
+    "PAB": [
+      [
+        0,
+        2
+      ]
+    ],
+    "PBA": [
+      [
+        0,
+        2
+      ]
+    ],
+    "actual_result": {
+      "exact_difference": 1.0,
+      "observed_difference": 0.0,
+      "tolerance": 0.0,
+      "equivalent_for_work": true,
+      "exact_equal": false
+    },
+    "interpretation": "The upstream test assertion expects non-equivalence, but the observed second rows are both (0,2). The actual operator result is consistent with the exact matrix products; the upstream test expectation is incorrect for these matrices.",
+    "independent_numpy_int64": {
+      "AB": [
+        [
+          1,
+          1
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "BA": [
+        [
+          1,
+          2
+        ],
+        [
+          0,
+          2
+        ]
+      ],
+      "PAB": [
+        [
+          0,
+          2
+        ]
+      ],
+      "PBA": [
+        [
+          0,
+          2
+        ]
+      ],
+      "exact_observed_equality": true
+    }
+  }
+}

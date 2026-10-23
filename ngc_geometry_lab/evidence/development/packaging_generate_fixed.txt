@@ -1,0 +1,1 @@
+Synthetic observations: /tmp/ngc-packaging-pa_p32zn/observations_fixed.json; separate evaluator truth: /tmp/ngc-packaging-pa_p32zn/truth_fixed.json

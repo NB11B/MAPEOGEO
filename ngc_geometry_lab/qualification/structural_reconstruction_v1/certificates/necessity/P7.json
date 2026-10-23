@@ -1,0 +1,13 @@
+{
+  "primitive_id": "P7",
+  "primitive_name": "AFFINE_OBSERVATION",
+  "targets_lost_count": 3,
+  "targets_lost_ids": [
+    "T03",
+    "T04",
+    "T17"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T03",
+  "epistemic_justification": "Primitive P7 (AFFINE_OBSERVATION) is strictly necessary: removing it causes 3 target failures (e.g. T03)."
+}

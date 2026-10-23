@@ -1,0 +1,61 @@
+{
+  "program_id": "GEO-X2",
+  "governing_question": "What is the smallest set of independent relational primitives needed to reconstruct the qualified quantum structures?",
+  "supported_outcome": "S2",
+  "gate_evaluations": {
+    "X0_Parent_Integrity": {
+      "passed": true,
+      "parent": "GEO-X1",
+      "tests": 254
+    },
+    "X1_Dependency_Coverage": {
+      "passed": true,
+      "coverage": 1.0,
+      "targets_count": 18
+    },
+    "X2_Reconstruction": {
+      "passed": true,
+      "exact_residuals": 0.0
+    },
+    "X3_Single_Ablation_Necessity": {
+      "passed": true,
+      "all_primitives_necessary": true
+    },
+    "X4_Global_Minimization": {
+      "passed": true,
+      "minimal_cardinality": 12
+    },
+    "X5_Redundancy_Elimination": {
+      "passed": true,
+      "redundancies_removed": 8
+    },
+    "X6_Countermodel_Comparison": {
+      "passed": true,
+      "m1_superior_to_m0_and_m2": true
+    },
+    "X7_Theory_Compression": {
+      "passed": true,
+      "cp_ratio": 2.1666666666666665
+    },
+    "X8_Epistemic_Audit": {
+      "passed": true,
+      "unsupported_claims": 0
+    },
+    "X9_Final_Falsification": {
+      "passed": true,
+      "hidden_dependency_errors": 0
+    }
+  },
+  "all_gates_passed": true,
+  "compression_summary": {
+    "conventional_postulate_count": 26,
+    "minimal_primitive_count": 12,
+    "derived_targets_count": 18,
+    "structural_bridges_count": 8,
+    "primitive_compression_ratio_cp": 2.1666666666666665,
+    "dependency_reuse_ratio_cr": 1.5,
+    "bridge_reuse_ratio": 2.25,
+    "max_proof_reuse_on_single_bridge": 5,
+    "epistemic_summary": "Theory-level compression verified: C_P = 2.17x primitive reduction (26 conventional postulates compressed into 12 relational primitives). Dependency reuse C_R = 1.50x (18 targets supported by 12 primitives). Average structural bridge supports 2.25 derived targets (max = 5)."
+  }
+}

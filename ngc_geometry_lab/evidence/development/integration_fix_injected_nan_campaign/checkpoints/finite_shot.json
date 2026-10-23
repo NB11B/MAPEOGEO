@@ -1,0 +1,76 @@
+{
+  "calibration_preparations": 24,
+  "counts_per_record": 65536,
+  "detector_max_entry_error": 0.007688108847271749,
+  "fitted_detector": {
+    "calibration_records": 24,
+    "condition_number": 1.347611725997049,
+    "design_condition_number": 5.333417489152951,
+    "design_rank": 4,
+    "matrix": [
+      [
+        0.8546982725039336,
+        0.00731189115272825,
+        0.016001624591815877,
+        0.12114968386225948
+      ],
+      [
+        0.11364493618457977,
+        0.8588126672286076,
+        0.01323489366767825,
+        0.01500994607647666
+      ],
+      [
+        0.01585115934960999,
+        0.1189452223108563,
+        0.85421481138838,
+        0.009066238165437647
+      ],
+      [
+        0.01580563196187647,
+        0.014930219307807859,
+        0.1165486703521259,
+        0.8547741318958263
+      ]
+    ],
+    "method": "nonnegative row least squares, then column normalization",
+    "training_rmse": 0.00151148051400682,
+    "unconstrained_matrix": [
+      [
+        0.8546982725039335,
+        0.007311891152727901,
+        0.016001624591816355,
+        0.12114968386225976
+      ],
+      [
+        0.11364493618458121,
+        0.8588126672286063,
+        0.013234893667678646,
+        0.015009946076476365
+      ],
+      [
+        0.015851159349610157,
+        0.11894522231085602,
+        0.8542148113883801,
+        0.009066238165437815
+      ],
+      [
+        0.015805631961874934,
+        0.014930219307809356,
+        0.11654867035212577,
+        0.8547741318958266
+      ]
+    ]
+  },
+  "heldout_preparations": 128,
+  "max_state_error": 0.03368071339934166,
+  "mean_prediction_total_variation_vs_truth": 0.003266437391060766,
+  "mean_state_error": 0.01507128790392671,
+  "mean_uncorrected_state_error": 0.18656557454087497,
+  "mean_verification_total_variation": 0.004053342577901934,
+  "p95_state_error": 0.028633572608427763,
+  "projected_estimates": 32,
+  "sampling": "NumPy multinomial from a declared Born-rule model, not laboratory observations.",
+  "total_observed_counts": 18350080,
+  "truth_access": "Only this experiment evaluator receives the separate truth object; analyze_dataset accepts counts and calibration only."
+}

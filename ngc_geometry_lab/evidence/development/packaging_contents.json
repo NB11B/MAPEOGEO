@@ -1,0 +1,18 @@
+{
+  "wheel": "/tmp/ngc-packaging-pa_p32zn/wheels/ngc_geometry_lab-0.1.0-py3-none-any.whl",
+  "wheel_size": 113885,
+  "total_archive_members": 68,
+  "vendor_source_files": 52,
+  "missing_vendor_files": [
+    "ngc_geometry_lab/_vendor/ngc_cuda_2/cuda/ngc_rcs_api.h"
+  ],
+  "provenance_manifests": [
+    "ngc_geometry_lab/_vendor/mapeogeo/AUDIT_SOURCE_PROVENANCE.json",
+    "ngc_geometry_lab/_vendor/mapeogeo/SOURCE_PROVENANCE.json",
+    "ngc_geometry_lab/_vendor/ngc_cuda_2/SOURCE_PROVENANCE.json",
+    "ngc_geometry_lab/_vendor/ngc_real/SOURCE_PROVENANCE.json"
+  ],
+  "native_files": [
+    "ngc_geometry_lab/_vendor/ngc_cuda_2/cuda/ngc_rcs_geometric.cu"
+  ]
+}

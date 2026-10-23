@@ -1,0 +1,83 @@
+{
+  "grammar_name": "GENERIC_STRUCTURAL_GEOMETRY_GRAMMAR_V1",
+  "version": "1.0.0",
+  "domain_independence": true,
+  "admitted_structural_families": [
+    {
+      "family_id": "GRAM_METRIC",
+      "carrier": "Symmetric tensor G = G^T with quadratic entries",
+      "signature_requirement": "Positive semidefinite cone G >= 0",
+      "boundary_behavior": "det(G) = 0 defines rank-deficient boundary / flat degeneracies",
+      "admissibility_criterion": "Minimal parameter count, residual = 0, non-empty interior PSD cone"
+    },
+    {
+      "family_id": "SYMPLECTIC_PFAFFIAN",
+      "carrier": "Skew-symmetric tensor A = -A^T",
+      "signature_requirement": "Purely imaginary conjugate eigenvalue spectrum (+/- i lambda_k)",
+      "boundary_behavior": "det(A) = Pf(A)^2, preserves alternating differential 2-form",
+      "admissibility_criterion": "Even dimension, residual = 0, symplectic area preservation"
+    },
+    {
+      "family_id": "PROJECTIVE_PLUCKER",
+      "carrier": "Antisymmetric exterior product p_{ij} = v_i ^ v_j in Grassmannian G(k, n)",
+      "signature_requirement": "Plucker quadratic syzygy p_{ij} p_{kl} - p_{ik} p_{jl} + p_{il} p_{jk} = 0",
+      "boundary_behavior": "Incidence and collinearity in projective space",
+      "admissibility_criterion": "Satisfies quadratic Grassmann relations on projective coordinate slices"
+    },
+    {
+      "family_id": "DISCRIMINANT_SINGULARITY",
+      "carrier": "Polynomial discriminant disc_t(P)",
+      "signature_requirement": "Algebraic branch locus separating real and complex root multiplicities",
+      "boundary_behavior": "disc(P) = 0 defines multiple roots / cusp / fold singularities",
+      "admissibility_criterion": "Matches eliminant of P and dP/dt without metric tensor cone"
+    },
+    {
+      "family_id": "RESULTANT_ELIMINATION",
+      "carrier": "Sylvester resultant Res_t(P, Q)",
+      "signature_requirement": "Vanishing denotes common root of polynomials P and Q",
+      "boundary_behavior": "Algebraic elimination hypersurface",
+      "admissibility_criterion": "Determinant of Sylvester or Bezout matrix"
+    },
+    {
+      "family_id": "FACTORIZED_COORDINATES",
+      "carrier": "Rank-1 product of linear or monomial coordinate projections",
+      "signature_requirement": "Uncoupled independent coordinate axes",
+      "boundary_behavior": "Coordinate hyperplane union prod_k L_k = 0",
+      "admissibility_criterion": "Complete linear factorization over Q without metric minor hierarchy"
+    },
+    {
+      "family_id": "NO_COMPACT_STRUCTURE",
+      "carrier": "Unstructured or signature-obstructed polynomial",
+      "signature_requirement": "None / violates geometric signatures",
+      "boundary_behavior": "Irregular zero-locus",
+      "admissibility_criterion": "Fails all structured hypothesis classes with residual > 0 or signature obstruction"
+    }
+  ],
+  "admitted_generic_operations": [
+    "rank",
+    "determinant",
+    "principal_minors",
+    "signature",
+    "eigenvalues",
+    "nullspace",
+    "polynomial_factorization",
+    "tensor_contraction",
+    "permutation_symmetry_orbit",
+    "singular_locus_jacobian",
+    "positive_semidefinite_cone_check",
+    "dimension_counting",
+    "algebraic_independence_jacobian"
+  ],
+  "forbidden_domain_primitives": [
+    "triangle",
+    "tetrahedron",
+    "disphenoid",
+    "entanglement",
+    "qubit",
+    "qutrit",
+    "quantum_state",
+    "heron",
+    "bretschneider",
+    "cayley_menger_hardcoded"
+  ]
+}

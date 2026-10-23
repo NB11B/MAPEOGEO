@@ -1,0 +1,163 @@
+{
+  "schema": "ngc_geometry_lab.upstream_source_manifest.v1",
+  "repository": "NB11B/NGC_Real",
+  "commit": "3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab",
+  "selection": "Unmodified full Python package plus selected baseline tests and documentation.",
+  "license": "No license file found in pinned tree; owner-authorized private qualification deliverable, no redistribution license added.",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 4586,
+      "sha256": "de1e48a1593904e9483aa09363158b447b23dac7cc73f6d67f3020d080a8b532",
+      "git_blob_sha1": "9a6688fdb946e5dc8cd221bc5fbc584a503107b7",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/README.md"
+    },
+    {
+      "path": "docs/execution_math.md",
+      "size_bytes": 5061,
+      "sha256": "77e1d98b15e7b15f02021b9e8c9d4af1f1cd9c90b0964247e5c6d7776beb1bd1",
+      "git_blob_sha1": "625fbb45e97f4e5e6a77d9f815855d392155df45",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/docs/execution_math.md"
+    },
+    {
+      "path": "ngc_rq/__init__.py",
+      "size_bytes": 935,
+      "sha256": "7416531ae8c90c9559ace0862a932967c9b430223fd29cd23b18318d21b7da8b",
+      "git_blob_sha1": "5e38c88cd4a3b289fa1d07f674c215ff64083518",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/__init__.py"
+    },
+    {
+      "path": "ngc_rq/backends/__init__.py",
+      "size_bytes": 347,
+      "sha256": "930991d0ca9795cc7afa64cee1e7481e1936d7c4a099e4481e7fac92641a3ea7",
+      "git_blob_sha1": "6d64bc92f08e948eb9194aa5d1b8977f9956b213",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/backends/__init__.py"
+    },
+    {
+      "path": "ngc_rq/backends/dual_lane.py",
+      "size_bytes": 2828,
+      "sha256": "34d5f2c6dbc053afd80e681cb6c74ad5e01b96a8fa91831088cec85bb8782079",
+      "git_blob_sha1": "51bb4e4f31412739b723e0669209428c32c38123",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/backends/dual_lane.py"
+    },
+    {
+      "path": "ngc_rq/backends/local_gate.py",
+      "size_bytes": 3264,
+      "sha256": "1fbd3e1af180a6e6ed782bf62b68750add47e60f40f94618a99e70746dcf25ef",
+      "git_blob_sha1": "a7437cc3b9400740b8b63ea159801f264aa11096",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/backends/local_gate.py"
+    },
+    {
+      "path": "ngc_rq/backends/threaded_dual_lane.py",
+      "size_bytes": 2970,
+      "sha256": "f40ffd63fa012a42d535cf0cfe5f4b8e5d816eaeacc15e03c02443f9eaa4eaee",
+      "git_blob_sha1": "b6671cc6d365bb627e9287fddcce77befffc80a8",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/backends/threaded_dual_lane.py"
+    },
+    {
+      "path": "ngc_rq/backends/vectorized_local.py",
+      "size_bytes": 2706,
+      "sha256": "7bde9ea5c05f3adb1c7a9f299647f6a12864f1960f26ae470b4c228df90d2943",
+      "git_blob_sha1": "9073e9f525abeb8afbe020c459c57c39d5ce3ff1",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/backends/vectorized_local.py"
+    },
+    {
+      "path": "ngc_rq/circuit.py",
+      "size_bytes": 10445,
+      "sha256": "1d04a469a1df0c8f05ebfd78b65e8552808f459d9c18b0d07fd717546b396be7",
+      "git_blob_sha1": "572f9ab6bccae36c31997ba843ef76ee0a7bfc21",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/circuit.py"
+    },
+    {
+      "path": "ngc_rq/gates.py",
+      "size_bytes": 6182,
+      "sha256": "eb8da4b815812332a900c7ded35a4d947a6f4a3ac3938eb464616d0777213399",
+      "git_blob_sha1": "bb13592f97e35e669c2ed638d9e458337d9291f3",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/gates.py"
+    },
+    {
+      "path": "ngc_rq/local_observable.py",
+      "size_bytes": 5626,
+      "sha256": "77e309f34b498255d83b1fb636d3defce70e9241655a61ce196a4286c80bb1d2",
+      "git_blob_sha1": "efd94644a7f52d638acb180f1d8de5977647eff5",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/local_observable.py"
+    },
+    {
+      "path": "ngc_rq/measurement.py",
+      "size_bytes": 5264,
+      "sha256": "a523efb13b54399e1144eb51fbde0df94dc41169857bb2831192cbaa51165a9a",
+      "git_blob_sha1": "9932add9bf3132433253fe90ed4c5a4b1d4ff45a",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/measurement.py"
+    },
+    {
+      "path": "ngc_rq/objects.py",
+      "size_bytes": 5686,
+      "sha256": "2936c772367ab2fd0353c3405410a76e949077c996c17d953eb66f0e0a06277c",
+      "git_blob_sha1": "924d0c321c0667fbb07da68f53824690c2c1e82c",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/objects.py"
+    },
+    {
+      "path": "ngc_rq/observables.py",
+      "size_bytes": 7878,
+      "sha256": "6c3468e13196773a147c5848341b3ad6e67bd79ff4410e7b0c9f97bcc3695b42",
+      "git_blob_sha1": "80db61a8de8778956a7d101ea88df73f50f5114b",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/observables.py"
+    },
+    {
+      "path": "ngc_rq/real_phase.py",
+      "size_bytes": 11045,
+      "sha256": "3ff265b3dafa00f259e53d96dcb8255d3c7c9ffe0967de2084b027caa1b5473a",
+      "git_blob_sha1": "2fa8d54edd3f6edaa7a9eefe2047f330b467e180",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/real_phase.py"
+    },
+    {
+      "path": "ngc_rq/sampling.py",
+      "size_bytes": 3736,
+      "sha256": "0c84448dd213da19a9878028bf54459a040bdedefb08fa9ab0ab6c2704f15c3b",
+      "git_blob_sha1": "7102c2c07081499f6f601a4921fcdacb27e173e3",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/sampling.py"
+    },
+    {
+      "path": "ngc_rq/serialization.py",
+      "size_bytes": 5781,
+      "sha256": "fc4ad368569ab521d930edbc81f14cdbe70e593ddbad55e08e71124a10c07008",
+      "git_blob_sha1": "6da72785faf559c11be401664960065c585c4125",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/serialization.py"
+    },
+    {
+      "path": "ngc_rq/sparse_observable.py",
+      "size_bytes": 4274,
+      "sha256": "9e52c374035dcd6d771009a2d489434a6642ffaf4d42722517fe1a5df43e8a29",
+      "git_blob_sha1": "8c65d2cbc46f7a54c58c8304988e7ac260e81bb3",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/sparse_observable.py"
+    },
+    {
+      "path": "ngc_rq/tensor_networks/__init__.py",
+      "size_bytes": 114,
+      "sha256": "f486287845528529ac28aaf5ea064445fd855adadd153df8bc0293d93c9c82ca",
+      "git_blob_sha1": "58d89733ab17aef2687e48c62aec654b1dff0c90",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/tensor_networks/__init__.py"
+    },
+    {
+      "path": "ngc_rq/tensor_networks/mps.py",
+      "size_bytes": 6336,
+      "sha256": "dd3663351704f9c417586533f099e94d863d83ed2e7edb767d9b6413cdadb0e0",
+      "git_blob_sha1": "91f2d8e9e12172a989db5b0a45a09b99a8de4be0",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/ngc_rq/tensor_networks/mps.py"
+    },
+    {
+      "path": "tests/test_dual_lane_backend.py",
+      "size_bytes": 1779,
+      "sha256": "02aef6d69223ecc0e0802261aeedd7870c24ed34ee435a30da4a864bd799d7d0",
+      "git_blob_sha1": "07c674f9f49846ea649f6e364e1d36c8167560a3",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/tests/test_dual_lane_backend.py"
+    },
+    {
+      "path": "tests/test_realify.py",
+      "size_bytes": 1262,
+      "sha256": "fc0bfdc160067dfc7e412b50960da7d6e30d052825a9fdbe200c568b7033d40d",
+      "git_blob_sha1": "9058aefe7b9d4adf2940de54626207e5075bc36b",
+      "source_url": "https://github.com/NB11B/NGC_Real/blob/3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab/tests/test_realify.py"
+    }
+  ]
+}

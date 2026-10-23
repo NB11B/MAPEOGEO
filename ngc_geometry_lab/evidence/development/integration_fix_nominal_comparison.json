@@ -1,0 +1,11 @@
+{
+  "all_equal": true,
+  "sections": {
+    "dual_lane": true,
+    "finite_shot": true,
+    "joint_systems": true,
+    "readout_selection": true,
+    "single_qubit": true,
+    "upstream_baselines": true
+  }
+}

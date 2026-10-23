@@ -1,0 +1,97 @@
+test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) ... 
+  test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'calibration_count': 3}) ... ERROR
+  test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'case_count': 0}) ... ERROR
+  test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'shots': 0}) ... ERROR
+  test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'shots': 2.5}) ... ERROR
+  test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'case_count': True}) ... ERROR
+test_counts_and_independent_prediction_workflow (tests.test_workflow.SyntheticWorkflowTests.test_counts_and_independent_prediction_workflow) ... ERROR
+test_seed_reproducibility_and_truth_separation (tests.test_workflow.SyntheticWorkflowTests.test_seed_reproducibility_and_truth_separation) ... ERROR
+setUpClass (tests.test_campaign.CampaignTests) ... ERROR
+
+======================================================================
+ERROR: test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'calibration_count': 3})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_workflow.py", line 39, in test_configuration_validation
+    generate_dataset(**kwargs)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/synthetic.py", line 4, in generate_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'case_count': 0})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_workflow.py", line 39, in test_configuration_validation
+    generate_dataset(**kwargs)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/synthetic.py", line 4, in generate_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'shots': 0})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_workflow.py", line 39, in test_configuration_validation
+    generate_dataset(**kwargs)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/synthetic.py", line 4, in generate_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'shots': 2.5})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_workflow.py", line 39, in test_configuration_validation
+    generate_dataset(**kwargs)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/synthetic.py", line 4, in generate_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_configuration_validation (tests.test_workflow.SyntheticWorkflowTests.test_configuration_validation) (kwargs={'case_count': True})
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_workflow.py", line 39, in test_configuration_validation
+    generate_dataset(**kwargs)
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/synthetic.py", line 4, in generate_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_counts_and_independent_prediction_workflow (tests.test_workflow.SyntheticWorkflowTests.test_counts_and_independent_prediction_workflow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_workflow.py", line 26, in test_counts_and_independent_prediction_workflow
+    observations, truth = generate_dataset(729, case_count=12)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/synthetic.py", line 4, in generate_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: test_seed_reproducibility_and_truth_separation (tests.test_workflow.SyntheticWorkflowTests.test_seed_reproducibility_and_truth_separation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_workflow.py", line 14, in test_seed_reproducibility_and_truth_separation
+    observations, truth = generate_dataset(417, case_count=8, shots=10000)
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/synthetic.py", line 4, in generate_dataset
+    raise NotImplementedError
+NotImplementedError
+
+======================================================================
+ERROR: setUpClass (tests.test_campaign.CampaignTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/tests/test_campaign.py", line 9, in setUpClass
+    cls.result = run_campaign()
+                 ^^^^^^^^^^^^^^
+  File "/workspace/scratch/f4c8fe3fa7f4/ngc_geometry_lab/ngc_geometry_lab/campaign.py", line 4, in run_campaign
+    raise NotImplementedError
+NotImplementedError
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.001s
+
+FAILED (errors=8)

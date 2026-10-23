@@ -1,0 +1,164 @@
+{
+  "manifest_name": "GEO_X1_TARGET_MANIFEST",
+  "total_targets": 17,
+  "tiers": {
+    "tier_a_count": 10,
+    "tier_b_count": 4,
+    "tier_c_count": 3
+  },
+  "targets": [
+    {
+      "target_id": "Target_A01_Gram2",
+      "tier": "Tier_A",
+      "variables": ["a", "b", "c"],
+      "homogeneity_degree": 4,
+      "symmetry": "S3_permutation",
+      "raw_formula": "-(a-b-c)*(a-b+c)*(a+b-c)*(a+b+c)/16",
+      "description": "Calibration Target 1: Opaque homogeneous quartic in 3 variables"
+    },
+    {
+      "target_id": "Target_A02_Gram3",
+      "tier": "Tier_A",
+      "variables": ["a", "b", "c"],
+      "homogeneity_degree": 6,
+      "symmetry": "S3_permutation",
+      "raw_formula": "(a**2-b**2-c**2)*(a**2-b**2+c**2)*(a**2+b**2-c**2)/32",
+      "description": "Calibration Target 2: Opaque homogeneous sextic in 3 variables"
+    },
+    {
+      "target_id": "Target_A03_Plucker1",
+      "tier": "Tier_A",
+      "variables": ["p12", "p13", "p14", "p23", "p24", "p34"],
+      "homogeneity_degree": 2,
+      "symmetry": "Z2_alternating",
+      "raw_formula": "p12*p34 - p13*p24 + p14*p23",
+      "description": "Calibration Target 3: Opaque quadratic form in 6 exterior variables"
+    },
+    {
+      "target_id": "Target_A04_Plucker2",
+      "tier": "Tier_A",
+      "variables": ["x1", "x2", "x3", "x4"],
+      "homogeneity_degree": 2,
+      "symmetry": "S4_permutation",
+      "raw_formula": "(x1-x2)*(x3-x4) - (x1-x3)*(x2-x4) + (x1-x4)*(x2-x3)",
+      "description": "Calibration Target 4: Opaque cross-ratio projective syzygy"
+    },
+    {
+      "target_id": "Target_A05_Pfaffian1",
+      "tier": "Tier_A",
+      "variables": ["x12", "x13", "x14", "x23", "x24", "x34"],
+      "homogeneity_degree": 4,
+      "symmetry": "Symplectic_SP4",
+      "raw_formula": "(x12*x34 - x13*x24 + x14*x23)**2",
+      "description": "Calibration Target 5: Opaque quartic form from 4x4 skew matrix"
+    },
+    {
+      "target_id": "Target_A06_Pfaffian2",
+      "tier": "Tier_A",
+      "variables": ["w12", "w13", "w14", "w23", "w24", "w34"],
+      "homogeneity_degree": 2,
+      "symmetry": "Symplectic_SP4",
+      "raw_formula": "w12*w34 - w13*w24 + w14*w23",
+      "description": "Calibration Target 6: Opaque 2-form quadratic Pfaffian"
+    },
+    {
+      "target_id": "Target_A07_Discriminant1",
+      "tier": "Tier_A",
+      "variables": ["a", "b", "c", "d"],
+      "homogeneity_degree": 4,
+      "symmetry": "Asymmetric",
+      "raw_formula": "18*a*b*c*d - 4*b**3*d + b**2*c**2 - 4*a*c**3 - 27*a**2*d**2",
+      "description": "Calibration Target 7: Opaque cubic polynomial discriminant"
+    },
+    {
+      "target_id": "Target_A08_Discriminant2",
+      "tier": "Tier_A",
+      "variables": ["a", "b", "c"],
+      "homogeneity_degree": 2,
+      "symmetry": "Z2_reflection",
+      "raw_formula": "b**2 - 4*a*c",
+      "description": "Calibration Target 8: Opaque quadratic polynomial discriminant"
+    },
+    {
+      "target_id": "Target_A09_Adversarial_SignatureObstruction",
+      "tier": "Tier_A",
+      "variables": ["a", "b", "c"],
+      "homogeneity_degree": 4,
+      "symmetry": "S3_permutation",
+      "raw_formula": "a**4 + b**4 + c**4 + a**2*b**2 + b**2*c**2 + c**2*a**2",
+      "description": "Calibration Target 9 (Adversary): Homogeneous positive quartic with inverted signature"
+    },
+    {
+      "target_id": "Target_A10_Adversarial_UncoupledProduct",
+      "tier": "Tier_A",
+      "variables": ["a", "b", "c", "d"],
+      "homogeneity_degree": 4,
+      "symmetry": "S4_permutation",
+      "raw_formula": "a*b*c*d",
+      "description": "Calibration Target 10 (Adversary): Completely uncoupled monomial product"
+    },
+    {
+      "target_id": "Target_B01_ThreeQubit_CayleyHyperdet",
+      "tier": "Tier_B",
+      "variables": ["a", "b", "c", "d"],
+      "homogeneity_degree": 4,
+      "symmetry": "SL2_SL2_SL2",
+      "raw_formula": "(a*d - b*c)**2 - 4*(a*c - b**2)*(b*d - c**2)",
+      "description": "Quantum Boundary Target 1: 3-qubit Cayley hyperdeterminant on symmetric orbit"
+    },
+    {
+      "target_id": "Target_B02_FourQubit_N4_Bretschneider",
+      "tier": "Tier_B",
+      "variables": ["a", "b", "c", "d"],
+      "homogeneity_degree": 4,
+      "symmetry": "D4_dihedral",
+      "raw_formula": "-(a-b-c-d)*(a-b+c+d)*(a+b-c+d)*(a+b+c-d)/16",
+      "description": "Quantum Boundary Target 2: Cyclic 4-qubit polynomial invariant N_4"
+    },
+    {
+      "target_id": "Target_B03_TwoQutrit_SU3_Casimir",
+      "tier": "Tier_B",
+      "variables": ["p1", "p2", "p3"],
+      "homogeneity_degree": 3,
+      "symmetry": "S3_permutation",
+      "raw_formula": "p1*p2*p3 - (p1+p2+p3)*(p1*p2 + p2*p3 + p3*p1)/3 + 2*(p1+p2+p3)**3/27",
+      "description": "Quantum Boundary Target 3: Qutrit cubic Casimir determinant on simplex"
+    },
+    {
+      "target_id": "Target_B04_Bell_CHSH_CorrelationBoundary",
+      "tier": "Tier_B",
+      "variables": ["e11", "e12", "e21", "e22"],
+      "homogeneity_degree": 2,
+      "symmetry": "D4_dihedral",
+      "raw_formula": "8 - (e11 + e12 + e21 - e22)**2",
+      "description": "Quantum Boundary Target 4: Tsirelson quantum correlation boundary defect"
+    },
+    {
+      "target_id": "Target_C01_Pentatope_4Simplex_Gram",
+      "tier": "Tier_C",
+      "variables": ["d12", "d13", "d14", "d23", "d24", "d34"],
+      "homogeneity_degree": 4,
+      "symmetry": "S4_permutation",
+      "raw_formula": "d12*d34 + d13*d24 - d14*d23",
+      "description": "Prospective Cross-Domain 1: 4-simplex Cayley-Menger / Grassmann volume relation"
+    },
+    {
+      "target_id": "Target_C02_Laman_Rigidity_Determinant",
+      "tier": "Tier_C",
+      "variables": ["x1", "x2", "y1", "y2"],
+      "homogeneity_degree": 2,
+      "symmetry": "O2_rotation",
+      "raw_formula": "x1*y2 - x2*y1",
+      "description": "Prospective Cross-Domain 2: 2D framework rigidity constraint determinant"
+    },
+    {
+      "target_id": "Target_C03_Covariance_Gaussian_Entropy",
+      "tier": "Tier_C",
+      "variables": ["s11", "s22", "s12"],
+      "homogeneity_degree": 2,
+      "symmetry": "GL2_covariance",
+      "raw_formula": "s11*s22 - s12**2",
+      "description": "Prospective Cross-Domain 3: Covariance matrix information-volume determinant"
+    }
+  ]
+}

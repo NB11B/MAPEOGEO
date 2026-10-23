@@ -1,0 +1,675 @@
+{
+  "dual_lane": {
+    "evidence_sha256": [
+      "efade5bda1d028777721be34e7ce4a9021fd11b6c4f9b9bc422d2c6189c2d661"
+    ],
+    "summary": {
+      "circuits": 72,
+      "comparison_backend": "Independent complex tensor-axis reference",
+      "executed_backend": "Unmodified NGC_Real apply_local_gate_dual_lane through validated adapter",
+      "gate_applications": 1440,
+      "gates_per_circuit": 20,
+      "hardware": "CPU; no claim of dual physical cores or GPU execution",
+      "max_norm_error": 2.6645352591003757e-15,
+      "max_probability_error": 8.881784197001252e-16,
+      "max_state_error": 6.684427777288334e-16,
+      "qubit_range": [
+        1,
+        6
+      ],
+      "state_storage": [
+        {
+          "complex_reference_bytes": 32,
+          "dual_lane_bytes": 32,
+          "qubits": 1,
+          "real_entries": 4
+        },
+        {
+          "complex_reference_bytes": 64,
+          "dual_lane_bytes": 64,
+          "qubits": 2,
+          "real_entries": 8
+        },
+        {
+          "complex_reference_bytes": 128,
+          "dual_lane_bytes": 128,
+          "qubits": 3,
+          "real_entries": 16
+        },
+        {
+          "complex_reference_bytes": 256,
+          "dual_lane_bytes": 256,
+          "qubits": 4,
+          "real_entries": 32
+        },
+        {
+          "complex_reference_bytes": 512,
+          "dual_lane_bytes": 512,
+          "qubits": 5,
+          "real_entries": 64
+        },
+        {
+          "complex_reference_bytes": 1024,
+          "dual_lane_bytes": 1024,
+          "qubits": 6,
+          "real_entries": 128
+        }
+      ]
+    }
+  },
+  "finite_shot": {
+    "evidence_sha256": [
+      "18df70bd0ccf166978e60f4b207f12f50ec3055d8939788a4f9525e75562f207",
+      "a28c67d856617517e1021786ea26433dd4df85e4864c84c48d4abf06746ccd61",
+      "fc5f1a410ce550c94a1ff61ca1869be1da5a53f60cda237c9a96e784418e4218",
+      "112c432c468a8d93bf2576a9e315c7562d489534e6c8d9f3910d3f296bfc43b0"
+    ],
+    "summary": {
+      "calibration_preparations": 24,
+      "counts_per_record": 65536,
+      "detector_max_entry_error": 0.007688108847271749,
+      "fitted_detector": {
+        "calibration_records": 24,
+        "condition_number": 1.347611725997049,
+        "design_condition_number": 5.333417489152951,
+        "design_rank": 4,
+        "matrix": [
+          [
+            0.8546982725039336,
+            0.00731189115272825,
+            0.016001624591815877,
+            0.12114968386225948
+          ],
+          [
+            0.11364493618457977,
+            0.8588126672286076,
+            0.01323489366767825,
+            0.01500994607647666
+          ],
+          [
+            0.01585115934960999,
+            0.1189452223108563,
+            0.85421481138838,
+            0.009066238165437647
+          ],
+          [
+            0.01580563196187647,
+            0.014930219307807859,
+            0.1165486703521259,
+            0.8547741318958263
+          ]
+        ],
+        "method": "nonnegative row least squares, then column normalization",
+        "training_rmse": 0.00151148051400682,
+        "unconstrained_matrix": [
+          [
+            0.8546982725039335,
+            0.007311891152727901,
+            0.016001624591816355,
+            0.12114968386225976
+          ],
+          [
+            0.11364493618458121,
+            0.8588126672286063,
+            0.013234893667678646,
+            0.015009946076476365
+          ],
+          [
+            0.015851159349610157,
+            0.11894522231085602,
+            0.8542148113883801,
+            0.009066238165437815
+          ],
+          [
+            0.015805631961874934,
+            0.014930219307809356,
+            0.11654867035212577,
+            0.8547741318958266
+          ]
+        ]
+      },
+      "heldout_preparations": 128,
+      "max_state_error": 0.03368071339934166,
+      "mean_prediction_total_variation_vs_truth": 0.003266437391060766,
+      "mean_state_error": 0.01507128790392671,
+      "mean_uncorrected_state_error": 0.18656557454087497,
+      "mean_verification_total_variation": 0.004053342577901934,
+      "p95_state_error": 0.028633572608427763,
+      "projected_estimates": 32,
+      "sampling": "NumPy multinomial from a declared Born-rule model, not laboratory observations.",
+      "total_observed_counts": 18350080,
+      "truth_access": "Only this experiment evaluator receives the separate truth object; analyze_dataset accepts counts and calibration only."
+    }
+  },
+  "joint_systems": {
+    "evidence_sha256": [
+      "9b4ed73ca44c1ac41474ba4229bfa67b3bf6263c5bbf117eff357ff09c8f8ec1"
+    ],
+    "summary": {
+      "interpretation": "The CHSH value is a computed prediction, not a local hidden-variable implementation or physical Bell test.",
+      "local_deterministic_max_chsh": 2,
+      "local_vertices": [
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": -1,
+          "a1": -1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": -1,
+          "a1": 1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": 2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": -1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": 2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": -1,
+          "b1": -1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": -1,
+          "b1": 1,
+          "chsh": -2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": 1,
+          "b1": -1,
+          "chsh": 2
+        },
+        {
+          "a0": 1,
+          "a1": 1,
+          "b0": 1,
+          "b1": 1,
+          "chsh": 2
+        }
+      ],
+      "local_vertices_enumerated": 16,
+      "max_density_error": 4.440892098500626e-16,
+      "max_prediction_error": 2.498001805406602e-16,
+      "max_probability_error": 8.326672684688674e-17,
+      "mixed_states": 64,
+      "positive_joint_distribution_nonquantum_min_probability": 0.04166666666666666,
+      "positive_joint_distribution_nonquantum_rejected_by_psd": true,
+      "pure_states": 64,
+      "rotation_predictions": 1024,
+      "same_local_marginals_max_error": 0.0,
+      "singlet_chsh": 2.82842712474619,
+      "singlet_vs_mixed_joint_total_variation": 0.2500000000000001,
+      "states": 128
+    }
+  },
+  "readout_selection": {
+    "evidence_sha256": [
+      "ca923c63b2ec9c6ad70e593619fd4838efb20de0365188da6d32ae06873cd7a1"
+    ],
+    "summary": {
+      "calibration_angles": 15,
+      "calibration_records": [
+        {
+          "angle": 0.08,
+          "count0": 65129,
+          "count1": 407
+        },
+        {
+          "angle": 0.18071428571428572,
+          "count0": 63464,
+          "count1": 2072
+        },
+        {
+          "angle": 0.2814285714285714,
+          "count0": 60389,
+          "count1": 5147
+        },
+        {
+          "angle": 0.3821428571428572,
+          "count0": 56488,
+          "count1": 9048
+        },
+        {
+          "angle": 0.4828571428571429,
+          "count0": 51185,
+          "count1": 14351
+        },
+        {
+          "angle": 0.5835714285714285,
+          "count0": 45670,
+          "count1": 19866
+        },
+        {
+          "angle": 0.6842857142857143,
+          "count0": 39539,
+          "count1": 25997
+        },
+        {
+          "angle": 0.7849999999999999,
+          "count0": 32775,
+          "count1": 32761
+        },
+        {
+          "angle": 0.8857142857142857,
+          "count0": 26215,
+          "count1": 39321
+        },
+        {
+          "angle": 0.9864285714285714,
+          "count0": 19758,
+          "count1": 45778
+        },
+        {
+          "angle": 1.0871428571428572,
+          "count0": 14250,
+          "count1": 51286
+        },
+        {
+          "angle": 1.187857142857143,
+          "count0": 9041,
+          "count1": 56495
+        },
+        {
+          "angle": 1.2885714285714287,
+          "count0": 5091,
+          "count1": 60445
+        },
+        {
+          "angle": 1.3892857142857145,
+          "count0": 2071,
+          "count1": 63465
+        },
+        {
+          "angle": 1.49,
+          "count0": 415,
+          "count1": 65121
+        }
+      ],
+      "candidate_rule": "p0=|cos(theta)|**alpha/(|cos(theta)|**alpha+|sin(theta)|**alpha)",
+      "candidate_scores": [
+        {
+          "calibration_cross_entropy": 0.4465771794855046,
+          "exponent": 1,
+          "heldout_cross_entropy": 0.4728079827702415,
+          "heldout_rmse_vs_declared_truth": 0.1129525653669114
+        },
+        {
+          "calibration_cross_entropy": 0.4013613720772616,
+          "exponent": 2,
+          "heldout_cross_entropy": 0.4278737998642594,
+          "heldout_rmse_vs_declared_truth": 3.837911267478775e-17
+        },
+        {
+          "calibration_cross_entropy": 0.4733899085404208,
+          "exponent": 4,
+          "heldout_cross_entropy": 0.5043941228197673,
+          "heldout_rmse_vs_declared_truth": 0.09932346776345123
+        }
+      ],
+      "declared_generator": "p0=cos(theta)**2 (Born/squared-norm rule)",
+      "direct_crossed_weight": 0.0,
+      "final_vector": [
+        0.0,
+        0.4999999999999999,
+        0.0
+      ],
+      "heldout_angles": 19,
+      "heldout_records": [
+        {
+          "angle": 0.115,
+          "count0": 64637,
+          "count1": 899
+        },
+        {
+          "angle": 0.18944444444444447,
+          "count0": 63286,
+          "count1": 2250
+        },
+        {
+          "angle": 0.2638888888888889,
+          "count0": 61043,
+          "count1": 4493
+        },
+        {
+          "angle": 0.3383333333333334,
+          "count0": 58338,
+          "count1": 7198
+        },
+        {
+          "angle": 0.4127777777777778,
+          "count0": 55035,
+          "count1": 10501
+        },
+        {
+          "angle": 0.4872222222222222,
+          "count0": 51068,
+          "count1": 14468
+        },
+        {
+          "angle": 0.5616666666666668,
+          "count0": 46855,
+          "count1": 18681
+        },
+        {
+          "angle": 0.6361111111111112,
+          "count0": 42372,
+          "count1": 23164
+        },
+        {
+          "angle": 0.7105555555555556,
+          "count0": 37620,
+          "count1": 27916
+        },
+        {
+          "angle": 0.785,
+          "count0": 32743,
+          "count1": 32793
+        },
+        {
+          "angle": 0.8594444444444445,
+          "count0": 27840,
+          "count1": 37696
+        },
+        {
+          "angle": 0.933888888888889,
+          "count0": 23279,
+          "count1": 42257
+        },
+        {
+          "angle": 1.0083333333333335,
+          "count0": 18650,
+          "count1": 46886
+        },
+        {
+          "angle": 1.0827777777777778,
+          "count0": 14561,
+          "count1": 50975
+        },
+        {
+          "angle": 1.1572222222222224,
+          "count0": 10621,
+          "count1": 54915
+        },
+        {
+          "angle": 1.2316666666666667,
+          "count0": 7210,
+          "count1": 58326
+        },
+        {
+          "angle": 1.3061111111111112,
+          "count0": 4532,
+          "count1": 61004
+        },
+        {
+          "angle": 1.3805555555555558,
+          "count0": 2260,
+          "count1": 63276
+        },
+        {
+          "angle": 1.455,
+          "count0": 872,
+          "count1": 64664
+        }
+      ],
+      "inserted_diagonal_weight": 0.2499999999999999,
+      "selected_exponent_on_calibration": 2,
+      "selection_frozen_before_heldout_scoring": true,
+      "shots_per_angle": 65536,
+      "squared_rule_not_independently_derived": true
+    }
+  },
+  "single_qubit": {
+    "evidence_sha256": [
+      "cf4c6f2d1ebeb739e1edde38f893ff28c2b8c92760a8d1d676854602cfc99b80"
+    ],
+    "summary": {
+      "max_direction_sum_error": 0.0,
+      "max_frame_gram_error": 2.220446049250313e-16,
+      "max_prediction_error": 4.996003610813204e-16,
+      "max_probability_error": 1.6653345369377348e-16,
+      "max_state_error": 5.551115123125783e-16,
+      "mixed_states": 128,
+      "observation_rank": 3,
+      "one_hot_distribution_rejected_as_unphysical": true,
+      "pure_states": 128,
+      "rotation_predictions": 3072,
+      "states": 256,
+      "wrong_label_control_description": "Permute observation labels without transforming the subsequent operator frame.",
+      "wrong_label_control_max_error": 0.47786720038851205,
+      "wrong_label_control_mean_error": 0.18258260016283465
+    }
+  },
+  "upstream_baselines": {
+    "failed": 1,
+    "known_bad_test_expectations": 1,
+    "passed": 23,
+    "scope": "Only the selected unchanged zero-argument baseline tests bundled with the qualified source.",
+    "tests": [
+      {
+        "file": "test_latent_generator_observability_v2.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_control_observability_matrix_recovers_hidden_state_over_time"
+      },
+      {
+        "file": "test_latent_generator_observability_v2.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_repeated_same_projection_preserves_nullspace"
+      },
+      {
+        "file": "test_latent_generator_observability_v2.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_rotating_projection_collapses_instantaneous_nullspace"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_calculus_radial_plus_angular_matches_direct_derivative_formula"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_full_rank_inverse_is_identifiable_but_not_source_identity"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_returns_equivalence_class_not_invented_dimension"
+      },
+      {
+        "file": "test_latent_generator_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_scalar_sine_observation_is_underdetermined_in_planar_generator"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_anisotropic_scale_does_not_commute_with_rotation"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_fusion_preserves_declared_order"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_declares_information_loss"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_rotation_is_information_preserving"
+      },
+      {
+        "file": "test_psmsl_operator_algebra_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_uniform_scale_commutes_with_rotation"
+      },
+      {
+        "file": "test_psmsl_operator_basis_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_independent_matrix_operators_remain"
+      },
+      {
+        "file": "test_psmsl_operator_basis_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_operator_basis_removes_linear_redundancy"
+      },
+      {
+        "exception": "AssertionError",
+        "failure_line": 13,
+        "file": "test_psmsl_work_equivalence_v1.py",
+        "known_bad_expectation": true,
+        "message": "",
+        "project": "mapeogeo",
+        "status": "FAIL",
+        "test": "test_noncommuting_operators_can_be_equivalent_after_work_projection"
+      },
+      {
+        "file": "test_psmsl_work_equivalence_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_can_make_information_losing_transform_work_lossless"
+      },
+      {
+        "file": "test_psmsl_work_plan_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_commuting_scale_family_is_parallelizable"
+      },
+      {
+        "file": "test_psmsl_work_plan_v1.py",
+        "project": "mapeogeo",
+        "status": "PASS",
+        "test": "test_projection_is_marked_irreversible"
+      },
+      {
+        "file": "test_dual_lane_backend.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_circuit_dual_lane_backend_matches_local_backend"
+      },
+      {
+        "file": "test_dual_lane_backend.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_dual_lane_backend_matches_local_backend_for_random_states"
+      },
+      {
+        "file": "test_dual_lane_backend.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_iter_local_blocks_big_endian_indexing"
+      },
+      {
+        "file": "test_realify.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_operator_roundtrip_and_block_validation"
+      },
+      {
+        "file": "test_realify.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_state_and_operator_wrappers_apply"
+      },
+      {
+        "file": "test_realify.py",
+        "project": "ngc_real",
+        "status": "PASS",
+        "test": "test_vector_roundtrip"
+      }
+    ],
+    "tests_executed": 24,
+    "unexpected_failures": 0
+  }
+}

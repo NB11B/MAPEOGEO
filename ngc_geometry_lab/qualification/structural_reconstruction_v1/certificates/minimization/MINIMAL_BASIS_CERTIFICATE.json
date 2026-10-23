@@ -1,0 +1,55 @@
+{
+  "search_space_size": 4096,
+  "evaluated_subsets_count": 4096,
+  "minimal_basis_cardinality": 12,
+  "minimal_bases": [
+    [
+      "P1",
+      "P10",
+      "P11",
+      "P12",
+      "P2",
+      "P3",
+      "P4",
+      "P5",
+      "P6",
+      "P7",
+      "P8",
+      "P9"
+    ]
+  ],
+  "is_unique": true,
+  "subsector_minimal_bases": {
+    "Single_Qubit_Kinematics_and_Measurement": [
+      "P1",
+      "P10",
+      "P11",
+      "P2",
+      "P3",
+      "P7"
+    ],
+    "Dynamical_Channel_and_Semigroup_Admissibility": [
+      "P1",
+      "P10",
+      "P11",
+      "P2",
+      "P4",
+      "P8"
+    ],
+    "Multipartite_Entanglement_Invariant_Ring": [
+      "P1",
+      "P11",
+      "P12",
+      "P4",
+      "P5",
+      "P6"
+    ],
+    "Contextuality_and_Stabilizer_Codes": [
+      "P1",
+      "P12",
+      "P7",
+      "P9"
+    ]
+  },
+  "epistemic_verdict": "Global minimal primitive basis is unique with cardinality 12 (P1 through P12). Every candidate primitive is strictly necessary for the full 18-target scope, while individual physical subsectors compress into small subsets of size 4 to 6."
+}

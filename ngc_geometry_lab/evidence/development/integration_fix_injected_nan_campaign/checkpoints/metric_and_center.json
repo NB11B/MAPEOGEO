@@ -1,0 +1,88 @@
+{
+  "center_max_error": 2.220446049250313e-15,
+  "common_center": {
+    "center": [
+      1.2000000000000006,
+      -0.2999999999999985,
+      2.499999999999998
+    ],
+    "rank": 3,
+    "residual": 6.700083274686458e-15,
+    "status": "unique"
+  },
+  "contradictory_metric_status": "no_positive_definite_metric",
+  "expected_metric": [
+    [
+      0.8959044368600683,
+      -0.08959044368600683,
+      0.03839590443686007
+    ],
+    [
+      -0.08959044368600683,
+      0.23293515358361774,
+      -0.09982935153583616
+    ],
+    [
+      0.03839590443686007,
+      -0.09982935153583616,
+      1.871160409556314
+    ]
+  ],
+  "ill_conditioned_spd_status": "unresolved_feasibility",
+  "inconsistent_center_status": "inconsistent",
+  "insufficient_metric_status": "underdetermined",
+  "max_metric_error": 9.992007221626409e-16,
+  "meaning": "Metric up to scale and affine fixed point under declared operator interpretation; neither proves historical common origin.",
+  "metric": {
+    "metric": [
+      [
+        0.8959044368600673,
+        -0.0895904436860069,
+        0.038395904436860744
+      ],
+      [
+        -0.0895904436860069,
+        0.23293515358361766,
+        -0.09982935153583597
+      ],
+      [
+        0.038395904436860744,
+        -0.09982935153583597,
+        1.8711604095563148
+      ]
+    ],
+    "residual": 1.992344827553532e-15,
+    "space_dimension": 1,
+    "status": "unique_up_to_scale"
+  },
+  "nonunique_center_status": "underdetermined",
+  "tetrahedral_face_projections_common_center_status": "inconsistent",
+  "tetrahedron_from_origin_and_three_displacements": {
+    "edges": [
+      0.9465222854534737,
+      0.946522285453474,
+      0.9465222854534745,
+      1.3385846531766812,
+      1.338584653176681,
+      1.3385846531766812
+    ],
+    "gram": [
+      [
+        0.8959044368600672,
+        -3.1525525038938143e-16,
+        4.508175199768068e-16
+      ],
+      [
+        -3.1525525038938143e-16,
+        0.8959044368600678,
+        3.132723454744905e-16
+      ],
+      [
+        4.508175199768068e-16,
+        3.132723454744905e-16,
+        0.8959044368600687
+      ]
+    ],
+    "volume": 0.14133225252078319
+  }
+}

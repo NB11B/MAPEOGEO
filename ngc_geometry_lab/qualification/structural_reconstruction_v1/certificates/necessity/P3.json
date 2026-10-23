@@ -1,0 +1,12 @@
+{
+  "primitive_id": "P3",
+  "primitive_name": "CONVEX_COMPOSITION",
+  "targets_lost_count": 2,
+  "targets_lost_ids": [
+    "T01",
+    "T03"
+  ],
+  "is_strictly_necessary": true,
+  "necessity_witness_target": "T01",
+  "epistemic_justification": "Primitive P3 (CONVEX_COMPOSITION) is strictly necessary: removing it causes 2 target failures (e.g. T01)."
+}

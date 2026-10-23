@@ -1,0 +1,19 @@
+{
+  "status": "NOT_RUN",
+  "native_execution": "NOT_RUN",
+  "gate_count": 0,
+  "seed": 20261022,
+  "phase_bins": 48,
+  "source_snapshot": {
+    "commit": "e825ade2c033ffb9d83a4cd4f89252136443664b",
+    "sha256": {
+      "ngc_rcs_geometric.cu": "e9ef40c34398eaeeb4d0a11f567495042b56b9855e233a6812c16b1d9c5515c4",
+      "ngc_rcs_api.h": "bc62266586146096a14f70c5f0779fbf6e3928be0f8b4ba9a97b41db557267ce"
+    },
+    "matches_pinned": true
+  },
+  "binary_provenance": "Caller-supplied build; binary hash is not cryptographic proof of source origin.",
+  "tensor_mapping": "CUDA LSB qubit q maps to reference big-endian target n-1-q.",
+  "library": "/tmp/nonexistent-ngc-qualification.so",
+  "reason": "Compiled library does not exist: /tmp/nonexistent-ngc-qualification.so"
+}

@@ -1,0 +1,194 @@
+# NGC / MAPEOGEO geometric reconstruction qualification
+
+**Result: PASS — 12/12 computational gates passed.**
+Master seed: `20261022`. All observations in this campaign are synthetic. Computation uses CPU arithmetic.
+
+| Gate | Result | Criterion |
+|---|---|---|
+| source_integrity | PASS | All selected source bytes match SHA256 and Git blob SHA1 provenance. |
+| connected_operators | PASS | Actual connected operators agree with independent calculations; all unexpected upstream failures are absent; known bad expectation remains visible. |
+| exact_closure | PASS | New explicit integer generator fixture: 115 elements, all 13225 products and 1520875 associativity triples verified. |
+| metric_and_center | PASS | Recover declared metric and center, classify insufficient/contradictory/numerically unresolved controls correctly. |
+| tetra_reconstruction | PASS | 256 independent pure/mixed preparations reconstruct; tetrahedral frame identities and physical-state rejection hold within absolute 1e-10. |
+| heldout_rotations | PASS | 3072 held-out rotation predictions agree within absolute 1e-10; a mismatched label/operator frame fails visibly. |
+| dual_lane_equivalence | PASS | Actual real dual-lane backend agrees with independent complex tensor reference for >=1000 local gates, absolute tolerance 1e-10. |
+| finite_shot_prediction | PASS | Frozen calibration; mean held-out Bloch error <0.035 and improves over uncorrected detector counts. |
+| readout_selection | PASS | Synthetic squared-rule data selects exponent2 from1,2,4; crossed projections give0 and inserted diagonal gives1/4. |
+| joint_reconstruction | PASS | 128 two-system states and1024 local-rotation sequences agree with independent density matrices, absolute1e-10. |
+| correlation_controls | PASS | Computed singlet CHSH=2sqrt(2), all16 local assignments bounded by2; equal marginals do not fix joints; invalid quantum state rejected. |
+| identifiability | PASS | Duplicate/mirrored views add no missing rank; operation sequence restores rank and distinguishes initially equal outputs. |
+
+## What this establishes
+
+The connected operator implementation can support a concrete reconstruction-and-prediction chain. The experiment executes actual pinned MAPEOGEO operators and the actual NGC real dual-lane backend. A separate real geometric model and a separately implemented complex density-matrix reference agree within the fixed absolute tolerance. Counts can be used to calibrate a declared detector model, recover an unknown state, and predict measurements after new operation sequences.
+
+This is a computational result about the stated representations and assumptions. It does not identify a unique physical cause, derive the measurement probability law, demonstrate a physical Bell violation, or establish a quantum computational speedup.
+
+## 1. Connected MAPEOGEO operators and a fresh exact closure
+
+The imported `fuse(A,B)` executes A followed by B and returns B times A. The qualification independently checks this order, projection rank and nullity, equality after an observation, and initial-state recovery through an operation sequence. MAPEOGEO's inverse API retains `source_identified=False` even when coordinates are uniquely recovered. The distinction is part of the executable source behavior.
+
+The new exact closure uses three explicitly supplied integer matrices: a 90-degree rotation about x, a 90-degree rotation about z, and projection onto the xy plane. Composition executes MAPEOGEO's actual matrix multiplication. Breadth-first enumeration begins with identity. Independent integer NumPy products check every multiplication-table entry, and a separate enumeration of signed partial permutations checks the resulting family.
+
+| Measured property | Result |
+|---|---:|
+| Elements | 115 |
+| Rank 0 / 1 / 2 / 3 | 1 / 18 / 72 / 24 |
+| Invertible elements | 24 |
+| Idempotents | 8 |
+| Nilpotents, including zero | 37 |
+| Elements in center | 2 |
+| Commuting ordered pairs, including self-pairs | 2017 |
+| Distinct commuting pairs without order | 951 |
+| Independent product comparisons | 13,225 |
+| Associativity triples | 1,520,875 |
+| Product / associativity mismatches | 0 / 0 |
+
+This is newly computed evidence for these generators. It is not represented as recovery of the historical sealed 115-element artifact. Matrix indices and shortest words depend on generator choice and enumeration order. `exact_closure.json` contains every matrix, generator word, table entry, and classification needed to inspect or reproduce this result.
+
+## 2. Recovering a metric and a common center
+
+Metric reconstruction solves the declared isometry equations R-transpose G R = G and projection self-adjointness equations P-transpose G = G P. It does not demand that a projection preserve every length.
+
+A deliberately distorted coordinate basis provides a known nonidentity metric. The operator constraints recover it uniquely up to scale. Trace normalization fixes the reporting convention; it does not recover an absolute physical length scale.
+
+- Maximum metric-entry error: **9.992e-16**.
+- Maximum reconstructed common-center error: **2.220e-15**.
+- Insufficient constraints: **underdetermined**.
+- Contradictory isometry constraints: **no_positive_definite_metric**.
+- Numerically unresolved, highly distorted SPD example: **unresolved_feasibility**.
+- Four affine tetrahedron face projections: **inconsistent** as a common-fixed-point system.
+
+That last control matters: a point used as a common input to four projections need not be fixed by all four. A reconstructed geometric center also does not identify a common historical cause. The code keeps those claims separate.
+
+The metric procedure is deliberately incomplete for positive-definite feasibility when the symmetric solution space has multiple dimensions. It attempts a particular SPD witness and reports unresolved feasibility if that search fails. Near-zero eigenvalues also remain unresolved at the chosen tolerance. Failure to find a numerically stable witness is not used as proof that no metric exists.
+
+## 3. Tetrahedral reconstruction and held-out transformations
+
+The four directions are (+++), (+--), (-+-), (--+), divided by sqrt(3). The candidate uses p_i=(1+n_i dot r)/4 and reconstructs r=3 sum_i p_i n_i. This is an explicit correspondence to a standard tetrahedral qubit measurement. The user's broader projected-tetrahedron hypothesis is not presumed identical to this correspondence.
+
+The independent reference computes probabilities from density-matrix traces against four POVM effects. Its rotations use complex 2-by-2 unitaries; the geometric model uses real Rodrigues rotations.
+
+| Test | Measured result |
+|---|---:|
+| Pure / mixed states | 128 / 128 |
+| Maximum reconstructed coordinate error | 5.551e-16 |
+| Maximum direct probability disagreement | 1.665e-16 |
+| Held-out rotation predictions | 3,072 |
+| Maximum held-out probability disagreement | 4.996e-16 |
+| Mean error after mismatching outcome labels and operator frame | 0.182583 |
+
+The one-hot distribution (1,0,0,0) reconstructs to a Bloch vector of norm 3 and is rejected as a qubit state. The state-space restriction is a substantive model assumption. Four nonnegative numbers summing to one are not automatically a physical qubit tetrahedral distribution.
+
+## 4. Observation and detector calibration
+
+The detector is modeled as a fixed column-stochastic 4-by-4 response matrix acting on ideal tetrahedral probabilities. The fit uses only 24 calibration preparations with known coordinates. The response is frozen before processing 128 unknown preparations. Every preparation and verification record contains 65,536 counts, for 18,350,080 sampled synthetic outcomes across 280 records in total.
+
+Verification represents a fresh identically prepared ensemble after the specified operations. It is not a second measurement of the same system after a destructive initial measurement. The generator uses only the independent complex reference. Ground truth is written to a separate evaluator file and is forbidden by the analyzer's input schema.
+
+| Held-out measure | Result |
+|---|---:|
+| Mean calibrated Bloch-vector error | 0.015071 |
+| Mean error without detector correction | 0.186566 |
+| Maximum calibrated state error | 0.033681 |
+| 95th percentile calibrated state error | 0.028634 |
+| Mean prediction TV distance from known synthetic truth | 0.003266 |
+| Mean prediction TV distance from verification counts | 0.004053 |
+| Maximum fitted detector-entry error | 0.007688 |
+| Estimates explicitly projected to the physical unit ball | 32 |
+
+TV distance is half the sum of absolute differences between the four outcome probabilities. Bloch error is Euclidean distance in dimensionless state coordinates. The error gate was fixed at mean Bloch error below 0.035 before this campaign ran; it is an engineering qualification threshold for synthetic data, not a universal confidence guarantee.
+
+Linear inversion can produce a vector slightly outside the physical ball because of count noise. The analyzer preserves the raw vector, its norm, the linear probability estimate, and the correction distance. Its reported physical estimate uses explicit radial projection. This estimator can be biased near the boundary; the correction is not hidden.
+
+Calibration assumes known preparation coordinates, known tetrahedral axes, a stationary linear detector, and complete counts. Unknown axes, setting-dependent loss, detector nonlinearity, drift, and preparation errors require an extended instrument model or separately calibrated controls.
+
+## 5. What the actual NGC dual lanes reproduce
+
+The imported NGC backend updates two real components using q'=Aq-Bp and p'=Bq+Ap for a complex operator A+iB. It is an exact real representation of the same finite complex state space, up to floating-point arithmetic.
+
+- **1,440 gate applications** across 72 random circuits and one through six qubits.
+- Nonadjacent and reversed target ordering included.
+- Maximum state-amplitude disagreement: **6.684e-16**.
+- Maximum measurement-probability disagreement: **8.882e-16**.
+- Maximum normalization error: **2.665e-15**.
+
+The backend is actual repository code; the comparison uses a separate tensor-axis implementation. The campaign makes no timing comparison. It runs on CPU and does not launch the CUDA kernel or demonstrate execution on two physical cores.
+
+The full real state retains 2 times 2-to-the-n float64 entries. At six qubits that is 128 real entries, or 1024 bytes: the same state-storage size as 64 complex128 amplitudes. This result validates representation and operation, while leaving general state-space scaling intact.
+
+## 6. Readout hypotheses
+
+Sequential projections give zero direct transmission between crossed axes. Inserting a diagonal projection gives final amplitude norm 1/2 and squared weight **0.250000000000**. The squared-norm identification is explicitly adopted.
+
+The separate readout experiment compares normalized power rules with exponents 1, 2, and 4. Fifteen calibration angles select a rule; nineteen distinct held-out angles score the frozen selection. The selected exponent is **2**. Raw angle counts and all candidate scores are retained.
+
+The generator deliberately uses the squared rule. Recovering exponent 2 demonstrates that the procedure distinguishes these alternatives on this data. It does not independently derive the Born rule from geometry, and classical polarization intensities can exhibit the same projection law.
+
+## 7. Joint systems and correlations
+
+Two-system reconstruction uses local vectors a,b and a 3-by-3 correlation matrix C. Sixteen product-tetrahedron probabilities recover all 15 independent real coordinates. Retaining only the two local three-vectors would discard the nine correlation coordinates.
+
+The geometric probability formula is compared with direct traces of a complex 4-by-4 density matrix. The campaign includes 128 pure/mixed joint states and 1,024 local-rotation predictions.
+
+| Joint-system test | Result |
+|---|---:|
+| Maximum density reconstruction error | 4.441e-16 |
+| Maximum direct probability disagreement | 8.327e-17 |
+| Maximum transformed probability disagreement | 2.498e-16 |
+| Computed singlet CHSH magnitude | 2.828427124746 |
+| Maximum over all 16 local deterministic assignments | 2 |
+| Singlet versus maximally mixed joint TV distance | 0.250000 |
+
+The singlet and maximally mixed state have identical local marginals but different joint distributions. The CHSH comparison is a calculation of those models. A centralized program computing joint probabilities is not a physical local hidden-variable realization. No spacelike-separated physical measurements were performed.
+
+Another control produces valid product-tetrahedron probabilities from C=I, a=b=0, yet the corresponding density matrix is not positive semidefinite. This prevents a valid-looking four-by-four probability table from being accepted as sufficient proof of a quantum state.
+
+## 8. Identifiability and common output
+
+Repeating or mirroring one observation direction gives rank **1**. A declared operation sequence gives rank **3**. A pair of states has exactly the same initial selected output, then a permitted rotation creates an output separation of **2.000000**.
+
+Thus a common observation can define an equivalence class of candidate states. Changing operations can make that class smaller. Identical output alone does not identify one unique source or cause, even though the operator model can recover useful relationships.
+
+## Source and test integrity
+
+Verified **41 pinned source/evidence files** using SHA-256 and Git blob SHA-1. NGC_Real is pinned to commit 3d9e8ffed3811c9a9f043a6eed30a7a23e18bcab. MAPEOGEO operator algebra is pinned to ac63dde9da6dca2c000aa53ee6ffb9365e2388a1; its selected observability modules are pinned to 2e12009413488f34c8d7e411f3239d240ce19ade. Full URLs and per-file hashes are in the bundled source manifests.
+
+The selected unchanged upstream baseline tests produced **23 passes and 1 failure**. The failure is retained. Its expected answer is incorrect for the supplied observation: AB differs from BA, but the selected second rows PAB and PBA are both (0,2). Independent integer multiplication confirms that the operator's equivalence result is correct. There were **0 unexpected baseline failures**. These counts refer to selected bundled tests, not every test in each upstream repository.
+
+The inspected historical release branch contains placeholder/mock transformation artifacts; those were not used as closure evidence. The original sealed 115-element artifact was not located. A separate suspected file-integrity mismatch was resolved exactly as LF-versus-CRLF line endings. The raw source, original test failure, correction calculation, and scoped source audit remain available. None of those historical files was silently repaired.
+
+Independent review caught a metric-classification error at the positive-definite numerical boundary, a large-integer count-conversion error, and a nonfinite-output failure that could be hidden by a maximum-error reduction. It also found an omitted CUDA header in an early wheel. These defects were corrected with preserved regression evidence. The known upstream failure is recognized only at its exact pinned assertion site; other failures are unexpected. No pass threshold was relaxed.
+
+The optional CUDA check has separate CPU boundary tests for phase-bin rounding, library failures, and corrupt output evidence. These tests do not execute a GPU. Native CUDA execution and physical measurements remain NOT_RUN in this campaign. `docs/CUDA_CHECK.md` supplies the build and execution instructions for the pinned source and header on a suitable host.
+
+## Reproduce and use external measurements
+
+From the extracted project directory:
+
+```bash
+python -m pip install -r requirements.txt
+python -W error -m unittest discover -s tests -v
+python -m ngc_geometry_lab run --seed 20261022 --out results/replay
+python -m ngc_geometry_lab generate --out observations.json --truth-out truth.json
+python -m ngc_geometry_lab analyze --input observations.json --out analysis.json
+```
+
+The generator labels its observations synthetic. For experimental records, follow `docs/EXPERIMENT_PROTOCOL.md`, preserve preparation and instrument metadata, and mark the provenance kind experimental. The same analyzer accepts the measured counts. Its output remains conditional on the declared instrument and state model.
+
+The program refuses nonempty campaign output directories and existing output files. Use a new destination to preserve earlier evidence. `results.json` is deterministic for the seed/configuration and numerical environment; environment/time metadata lives separately in `manifest.json`. Floating-point last bits may differ across numerical-library/platform versions, so cross-platform comparisons should use the fixed tolerances as well as the recorded versions.
+
+## Evidence files
+
+- `results.json`: all gates, controls, measured summaries, upstream outcomes, and declared scope.
+- `exact_closure.json`: the full fresh integer monoid, words, and multiplication table.
+- `single_qubit.csv`, `dual_lane.csv`, `joint_systems.csv`: every transformation comparison.
+- `finite_shot.csv`: every held-out reconstruction error and projection flag.
+- `synthetic_observations.json`: analyzer input, containing no held-out truth.
+- `synthetic_truth.json`: separate evaluator ground truth.
+- `blind_analysis.json`: frozen calibration, raw estimates, corrections, and predictions.
+- `readout_candidates.csv`: all candidate-rule scores; raw counts are also in `results.json`.
+- `configuration.json`, stage checkpoints, and `manifest.json`: fixed settings and file integrity.
+
+The result supports a precise constructive claim: these connected geometric representations can reconstruct and predict the tested finite systems. Further physical claims require independent measurements or distinctive predictions that separate competing physical models.
+

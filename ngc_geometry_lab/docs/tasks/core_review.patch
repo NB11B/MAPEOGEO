@@ -1,0 +1,1325 @@
+diff --git a/ngc_geometry_lab/geometry.py b/ngc_geometry_lab/geometry.py
+new file mode 100644
+index 0000000..20bfb9f
+--- /dev/null
++++ b/ngc_geometry_lab/geometry.py
+@@ -0,0 +1,289 @@
++"""Real geometric coordinates, operator constraints, and observation maps.
++
++This module has no dependency on quantum backends or the independent complex
++reference. Joint correlation coordinates describe tetrahedral probabilities;
++their validity alone does not establish density-matrix positivity.
++"""
++from itertools import combinations
++
++import numpy as np
++
++_TOL = 1e-10
++
++
++def _real(value, name, shape=None):
++    """Validate before conversion so imaginary components are never discarded."""
++    try:
++        array = np.asarray(value)
++        if np.iscomplexobj(array):
++            if np.any(array.imag != 0):
++                raise ValueError(f'{name} must be real')
++            array = array.real
++        array = np.asarray(array, dtype=float)
++    except (TypeError, OverflowError, ValueError) as exc:
++        raise ValueError(f'{name} must contain finite real numbers') from exc
++    if not np.all(np.isfinite(array)):
++        raise ValueError(f'{name} must contain finite real numbers')
++    if shape is not None and array.shape != shape:
++        raise ValueError(f'{name} must have shape {shape}, got {array.shape}')
++    return array
++
++
++def _positive_scalar(value, name):
++    scalar = _real(value, name, ())
++    if scalar <= 0:
++        raise ValueError(f'{name} must be positive')
++    return float(scalar)
++
++
++def _positive_integer(value, name):
++    if isinstance(value, (bool, np.bool_)) or not isinstance(value, (int, np.integer)) or value <= 0:
++        raise ValueError(f'{name} must be a positive integer')
++    return int(value)
++
++
++def _unit(value, name):
++    array = _real(value, name, (3,))
++    # Scaling first avoids overflow when a finite axis has very large entries.
++    scale = np.max(np.abs(array))
++    if scale == 0:
++        raise ValueError(f'{name} must be nonzero')
++    scaled = array / scale
++    return scaled / np.linalg.norm(scaled)
++
++
++def _probabilities(value, shape):
++    array = _real(value, 'probabilities', shape)
++    if np.any(array < -_TOL) or not np.isclose(array.sum(), 1, rtol=0, atol=_TOL):
++        raise ValueError('probabilities must be nonnegative and sum to one')
++    return array
++
++
++def tetra_directions():
++    """Return fresh tetrahedral unit vectors in the declared vertex order."""
++    return np.array([[1.,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]]) / np.sqrt(3)
++
++
++def tetra_probabilities(state):
++    """Evaluate a physical Bloch vector in tetrahedral observation coordinates."""
++    state = _real(state, 'state', (3,))
++    if np.linalg.norm(state) > 1 + _TOL:
++        raise ValueError('state must be inside the unit ball')
++    return (1 + tetra_directions() @ state) / 4
++
++
++def tetra_reconstruct(probabilities, *, enforce_physical=True):
++    """Invert tetrahedral observations without normalization or projection."""
++    probabilities = _probabilities(probabilities, (4,))
++    state = 3 * probabilities @ tetra_directions()
++    if enforce_physical and np.linalg.norm(state) > 1 + _TOL:
++        raise ValueError('probabilities reconstruct outside the unit ball')
++    return state
++
++
++def rotation(axis, angle):
++    """Active right-handed Rodrigues rotation, normalizing a nonzero axis."""
++    x,y,z = _unit(axis, 'axis')
++    angle = float(_real(angle, 'angle', ()))
++    cross = np.array([[0.,-z,y],[z,0.,-x],[-y,x,0.]])
++    return np.eye(3) + np.sin(angle)*cross + (1-np.cos(angle))*(cross @ cross)
++
++
++def projection_transmission(state, axes, *, exponent=2.0):
++    """Apply rank-one projectors without renormalizing intermediate vectors.
++
++    The initial state must be unit length. Axes may have arbitrary nonzero
++    length and are normalized before constructing their projectors. Exponent
++    selection is an explicit readout hypothesis, not a derived probability law.
++    """
++    vector = _real(state, 'state', (3,)).copy()
++    if not np.isclose(np.linalg.norm(vector), 1, rtol=0, atol=_TOL):
++        raise ValueError('initial state must have unit norm')
++    exponent = _positive_scalar(exponent, 'exponent')
++    try:
++        axes = list(axes)
++    except TypeError as exc:
++        raise ValueError('axes must be an iterable of three-vectors') from exc
++    for axis in axes:
++        unit = _unit(axis, 'axis')
++        vector = unit * np.dot(unit, vector)
++    return float(np.linalg.norm(vector)**exponent), vector
++
++
++def infer_metric(isometries, projectors=(), *, dimension=3, tol=_TOL):
++    """Infer symmetric metrics satisfying isometry/self-adjointness constraints.
++
++    Symmetric coordinates use a Frobenius-orthonormal basis. The homogeneous
++    nullspace is computed first; trace normalization is applied afterwards.
++    In a multidimensional nullspace only the projected-identity SPD witness is
++    attempted. Its failure is explicitly unresolved, never an infeasibility proof.
++    """
++    dimension = _positive_integer(dimension, 'dimension')
++    tol = _positive_scalar(tol, 'tol')
++    shape = (dimension, dimension)
++    try:
++        rotations = [_real(r, 'isometry', shape) for r in isometries]
++        projections = [_real(p, 'projector', shape) for p in projectors]
++    except TypeError as exc:
++        raise ValueError('operators must be iterables of square matrices') from exc
++    for p in projections:
++        if np.linalg.norm(p @ p-p) > tol*max(1.,np.linalg.norm(p)):
++            raise ValueError('projector must be idempotent')
++    basis = []
++    for i in range(dimension):
++        for j in range(i,dimension):
++            b = np.zeros(shape)
++            b[i,j] = b[j,i] = 1 if i == j else 1/np.sqrt(2)
++            basis.append(b)
++    blocks = []
++    for r in rotations:
++        blocks.append(np.stack([(r.T @ b @ r-b).ravel() for b in basis], axis=1))
++    for p in projections:
++        blocks.append(np.stack([(p.T @ b-b @ p).ravel() for b in basis], axis=1))
++    count = len(basis)
++    if blocks:
++        constraints = np.concatenate(blocks, axis=0)
++        if not np.all(np.isfinite(constraints)):
++            raise ValueError('operators overflow metric constraints')
++        _,singular,vh = np.linalg.svd(constraints, full_matrices=True)
++        cutoff = tol * max(1., singular[0] if singular.size else 0.)
++        rank = int(np.count_nonzero(singular > cutoff))
++        nullspace = vh[rank:].T
++    else:
++        constraints = np.zeros((0,count))
++        nullspace = np.eye(count)
++    nullity = nullspace.shape[1]
++    result = {'status':'no_positive_definite_metric', 'space_dimension':nullity,
++              'metric':None, 'residual':0.}
++    if nullity == 0:
++        # Residual of the trace-normalized identity is a useful contradiction diagnostic.
++        identity_coeff = np.array([np.trace(b) for b in basis])
++        result['residual'] = float(np.linalg.norm(constraints @ identity_coeff))
++        return result
++    identity_coeff = np.array([np.trace(b) for b in basis])
++    if nullity == 1:
++        coeff = nullspace[:,0]
++    else:
++        coeff = nullspace @ (nullspace.T @ identity_coeff)
++    candidate = np.einsum('i,ijk->jk', coeff, np.asarray(basis))
++    trace = np.trace(candidate)
++    if abs(trace) <= tol:
++        if nullity > 1:
++            result['status'] = 'unresolved_feasibility'
++        return result
++    candidate *= dimension / trace
++    coeff *= dimension / trace
++    result['residual'] = float(np.linalg.norm(constraints @ coeff))
++    if np.linalg.eigvalsh(candidate)[0] <= tol:
++        if nullity > 1:
++            result['status'] = 'unresolved_feasibility'
++        return result
++    result['status'] = 'unique_up_to_scale' if nullity == 1 else 'underdetermined'
++    result['metric'] = candidate
++    return result
++
++
++def infer_center(affine_operators, *, tol=_TOL):
++    """Solve (I-A)o=b; underdetermined centers use a least-norm representative."""
++    tol = _positive_scalar(tol, 'tol')
++    try:
++        operators = list(affine_operators)
++    except TypeError as exc:
++        raise ValueError('affine_operators must be iterable') from exc
++    if not operators:
++        raise ValueError('at least one affine operator is required')
++    matrices, offsets = [], []
++    dimension = None
++    for operator in operators:
++        try:
++            a,b = operator
++        except (TypeError,ValueError) as exc:
++            raise ValueError('each affine operator must be (matrix, offset)') from exc
++        a = _real(a, 'affine matrix')
++        if a.ndim != 2 or a.shape[0] != a.shape[1] or a.shape[0] == 0:
++            raise ValueError('affine matrix must be nonempty and square')
++        if dimension is None:
++            dimension = a.shape[0]
++        if a.shape != (dimension,dimension):
++            raise ValueError('affine operator dimensions must agree')
++        b = _real(b, 'affine offset', (dimension,))
++        matrices.append(np.eye(dimension)-a)
++        offsets.append(b)
++    matrix = np.concatenate(matrices,axis=0)
++    rhs = np.concatenate(offsets)
++    center,_,rank,_ = np.linalg.lstsq(matrix,rhs,rcond=tol)
++    residual = float(np.linalg.norm(matrix @ center-rhs))
++    inconsistent = residual > tol * max(1.,np.linalg.norm(rhs))
++    status = 'inconsistent' if inconsistent else ('unique' if rank == dimension else 'underdetermined')
++    return {'status':status,'center':None if inconsistent else center,
++            'rank':int(rank),'residual':residual}
++
++
++def tetra_geometry(origin, displacements, metric=None):
++    """Compute edge lengths and Gram volume from three row displacements."""
++    _real(origin, 'origin', (3,))
++    displacements = _real(displacements, 'displacements', (3,3))
++    metric = np.eye(3) if metric is None else _real(metric, 'metric', (3,3))
++    if not np.allclose(metric,metric.T,rtol=0,atol=_TOL):
++        raise ValueError('metric must be symmetric positive definite')
++    try:
++        factor = np.linalg.cholesky(metric)
++    except np.linalg.LinAlgError as exc:
++        raise ValueError('metric must be symmetric positive definite') from exc
++    transformed = displacements @ factor
++    if np.linalg.matrix_rank(transformed) < 3:
++        raise ValueError('tetrahedron must be nondegenerate')
++    gram = transformed @ transformed.T
++    vertices = np.vstack([np.zeros(3),transformed])
++    edges = np.array([np.linalg.norm(vertices[j]-vertices[i]) for i,j in combinations(range(4),2)])
++    volume = abs(float(np.linalg.det(transformed))) / 6
++    return {'edges':edges,'volume':volume,'gram':gram}
++
++
++def observability_matrix(observation, transition, steps):
++    """Stack C, CA, ..., CA**(steps-1), including multirow observations."""
++    steps = _positive_integer(steps, 'steps')
++    transition = _real(transition, 'transition')
++    if transition.ndim != 2 or transition.shape[0] != transition.shape[1] or transition.shape[0] == 0:
++        raise ValueError('transition must be a nonempty square matrix')
++    observation = _real(observation, 'observation')
++    if observation.ndim == 1:
++        observation = observation[None,:]
++    if observation.ndim != 2 or observation.shape[0] == 0 or observation.shape[1] != transition.shape[0]:
++        raise ValueError('observation columns must match transition dimension')
++    blocks = [observation.copy()]
++    for _ in range(1,steps):
++        blocks.append(blocks[-1] @ transition)
++    result = np.concatenate(blocks,axis=0)
++    if not np.all(np.isfinite(result)):
++        raise ValueError('observability sequence overflowed')
++    return result
++
++
++def joint_probabilities(a,b,correlations):
++    """Evaluate correlation coordinates; this is not a quantum positivity test.
++
++    General valid 16-outcome distributions can reconstruct coordinates outside
++    the quantum-state set. Only shape, finiteness, and output probabilities are
++    required here; local vectors are not independently constrained to unit balls.
++    """
++    a = _real(a, 'a', (3,))
++    b = _real(b, 'b', (3,))
++    correlations = _real(correlations, 'correlations', (3,3))
++    n = tetra_directions()
++    p = (1+(n @ a)[:,None]+(n @ b)[None,:]+n @ correlations @ n.T)/16
++    return _probabilities(p, (4,4))
++
++
++def joint_reconstruct(probabilities):
++    """Invert a 16-outcome distribution, without assuming quantum physicality."""
++    p = _probabilities(probabilities, (4,4))
++    n = tetra_directions()
++    return 3*p.sum(axis=1) @ n, 3*p.sum(axis=0) @ n, 9*n.T @ p @ n
++
++
++def chsh_value(correlations,a0,a1,b0,b1):
++    """Compute E00+E01+E10-E11 with explicitly normalized measurement axes."""
++    c = _real(correlations, 'correlations', (3,3))
++    a0,a1,b0,b1 = [_unit(axis,'measurement axis') for axis in (a0,a1,b0,b1)]
++    return float(a0 @ c @ b0+a0 @ c @ b1+a1 @ c @ b0-a1 @ c @ b1)
+diff --git a/ngc_geometry_lab/observations.py b/ngc_geometry_lab/observations.py
+new file mode 100644
+index 0000000..d37ab53
+--- /dev/null
++++ b/ngc_geometry_lab/observations.py
+@@ -0,0 +1,195 @@
++"""Detector calibration and blind reconstruction from observed counts.
++
++The assumed instrument is a fixed, memoryless, four-output classical response
++matrix after an ideal tetrahedral measurement. The column-stochastic response
++is fitted only on known calibration preparations. It is frozen for prediction.
++This model does not by itself calibrate unknown measurement axes or source drift.
++"""
++
++from __future__ import annotations
++
++import numpy as np
++from scipy.optimize import nnls
++
++from .geometry import rotation, tetra_directions, tetra_probabilities
++
++
++SCHEMA = 'ngc_geometry_lab.observations.v1'
++TOL = 1e-10
++MAX_CONDITION = 1e6
++
++
++def _real(value, name):
++    raw = np.asarray(value)
++    if np.iscomplexobj(raw) or not np.issubdtype(raw.dtype, np.number):
++        raise ValueError(f'{name} must contain real numbers')
++    result = raw.astype(float)
++    if not np.all(np.isfinite(result)):
++        raise ValueError(f'{name} must be finite')
++    return result
++
++
++def validate_counts(counts):
++    """Validate one four-channel record without normalizing or rounding it."""
++    raw = np.asarray(counts)
++    values = _real(counts, 'counts')
++    if raw.dtype == bool or values.shape != (4,):
++        raise ValueError('counts must be four nonnegative integers')
++    if np.any(values < 0) or np.any(values != np.floor(values)):
++        raise ValueError('counts must be nonnegative integers')
++    total = float(values.sum())
++    if not 0 < total <= 2**53:
++        raise ValueError('counts total must be positive and at most 2**53')
++    return values.astype(np.int64)
++
++
++def _detector(calibration):
++    if not isinstance(calibration, dict) or 'matrix' not in calibration:
++        raise ValueError('calibration requires a detector matrix')
++    matrix = _real(calibration['matrix'], 'detector matrix')
++    if matrix.shape != (4, 4) or np.any(matrix < -TOL):
++        raise ValueError('detector matrix must be nonnegative and 4 by 4')
++    if not np.allclose(matrix.sum(axis=0), 1, atol=TOL, rtol=0):
++        raise ValueError('detector matrix columns must sum to one')
++    condition = float(np.linalg.cond(matrix))
++    if not np.isfinite(condition) or condition > MAX_CONDITION:
++        raise ValueError('detector is singular or too ill-conditioned to invert')
++    return matrix
++
++
++def calibrate_detector(states, counts):
++    """Fit four nonnegative response rows, then normalize each output column.
++
++    Counts are converted to empirical frequencies. Every calibration setting has
++    equal fitting weight; shot counts need not be equal. This is a transparent
++    constrained least-squares estimator, not a maximum-likelihood instrument fit.
++    """
++    states = _real(states, 'calibration states')
++    if states.ndim != 2 or states.shape[1] != 3 or len(states) < 4:
++        raise ValueError('calibration requires at least four Bloch states')
++    ideal = np.vstack([tetra_probabilities(state) for state in states])
++    if len(counts) != len(states):
++        raise ValueError('calibration states/counts lengths differ')
++    records = np.vstack([validate_counts(record) for record in counts])
++    frequencies = records / records.sum(axis=1, keepdims=True)
++    rank = int(np.linalg.matrix_rank(ideal, tol=TOL))
++    if rank < 4 or np.linalg.cond(ideal) > MAX_CONDITION:
++        raise ValueError('calibration design lacks full rank or is ill-conditioned')
++    unconstrained = np.linalg.lstsq(ideal, frequencies, rcond=None)[0].T
++    fitted = np.vstack([nnls(ideal, frequencies[:, row])[0] for row in range(4)])
++    sums = fitted.sum(axis=0)
++    if np.any(sums <= TOL):
++        raise ValueError('calibration produced an empty detector column')
++    fitted /= sums[None, :]
++    _detector({'matrix': fitted})
++    return {
++        'matrix': fitted,
++        'unconstrained_matrix': unconstrained,
++        'design_rank': rank,
++        'design_condition_number': float(np.linalg.cond(ideal)),
++        'condition_number': float(np.linalg.cond(fitted)),
++        'training_rmse': float(np.sqrt(np.mean((ideal @ fitted.T - frequencies)**2))),
++        'method': 'nonnegative row least squares, then column normalization',
++        'calibration_records': len(states),
++    }
++
++
++def estimate_state(counts, calibration, *, project_physical=True):
++    """Reconstruct from one count vector and the frozen detector, without truth.
++
++    Inversion can yield signed estimated ideal probabilities because of shot
++    noise. Preserve them and the raw Bloch vector. Radial projection to the
++    unit ball, when requested, is an explicit biased physical-state estimator.
++    """
++    records = validate_counts(counts)
++    matrix = _detector(calibration)
++    frequency = records / records.sum()
++    linear_estimate = np.linalg.solve(matrix, frequency)
++    raw = 3 * linear_estimate @ tetra_directions()
++    norm = float(np.linalg.norm(raw))
++    projected = bool(project_physical and norm > 1)
++    state = raw / norm if projected else raw.copy()
++    return {
++        'state': state, 'raw_state': raw, 'raw_norm': norm,
++        'linear_probability_estimate': linear_estimate,
++        'projected': projected,
++        'projection_distance': float(np.linalg.norm(state - raw)),
++        'shots': int(records.sum()),
++    }
++
++
++def _keys(value, required, optional=()):
++    if not isinstance(value, dict):
++        raise ValueError('expected a JSON object')
++    unknown = set(value) - set(required) - set(optional)
++    missing = set(required) - set(value)
++    if unknown or missing:
++        raise ValueError(f'unexpected keys {sorted(unknown)}; missing keys {sorted(missing)}')
++
++
++def predict_after_operations(state, operations, calibration):
++    """Apply active rotations, then predict ideal and instrument probabilities."""
++    state = _real(state, 'state').copy()
++    tetra_probabilities(state)  # Validate physical input before any operation.
++    matrix = _detector(calibration)
++    if not isinstance(operations, list):
++        raise ValueError('operations must be a list')
++    for operation in operations:
++        _keys(operation, ('axis', 'angle'))
++        state = rotation(operation['axis'], operation['angle']) @ state
++    ideal = tetra_probabilities(state)
++    observed = matrix @ ideal
++    return {'state': state, 'ideal_probabilities': ideal, 'observed_probabilities': observed}
++
++
++def analyze_dataset(payload):
++    """Validate and analyze external counts; held-out truth is forbidden.
++
++    A verification record measures a *fresh identically prepared ensemble*
++    after the specified operations. It is not the same system after the initial
++    destructive tetrahedral measurement. All outcomes must be included.
++    """
++    _keys(payload, ('schema', 'provenance', 'calibration', 'cases'))
++    if payload['schema'] != SCHEMA:
++        raise ValueError('unsupported observations schema')
++    provenance = payload['provenance']
++    _keys(provenance, ('kind', 'description'), ('metadata',))
++    if provenance['kind'] not in ('synthetic', 'experimental'):
++        raise ValueError('data kind must be synthetic or experimental')
++    if not isinstance(provenance['description'], str) or not provenance['description'].strip():
++        raise ValueError('provenance requires a nonempty description')
++    _keys(payload['calibration'], ('states', 'counts'))
++    fit = calibrate_detector(**payload['calibration'])
++    if not isinstance(payload['cases'], list) or not payload['cases']:
++        raise ValueError('cases must be a nonempty list')
++    results, identifiers = [], set()
++    for case in payload['cases']:
++        _keys(case, ('id', 'counts', 'operations', 'verification_counts'))
++        identifier = case['id']
++        if not isinstance(identifier, str) or not identifier:
++            raise ValueError('case id must be a nonempty string')
++        if identifier in identifiers:
++            raise ValueError(f'duplicate case id: {identifier}')
++        identifiers.add(identifier)
++        estimate = estimate_state(case['counts'], fit)
++        prediction = predict_after_operations(estimate['state'], case['operations'], fit)
++        verification = validate_counts(case['verification_counts'])
++        frequency = verification / verification.sum()
++        results.append({
++            'id': identifier, 'estimate': estimate, 'prediction': prediction,
++            'verification_shots': int(verification.sum()),
++            'verification_total_variation': float(0.5 * np.sum(np.abs(frequency - prediction['observed_probabilities']))),
++        })
++    return {
++        'schema': 'ngc_geometry_lab.analysis.v1',
++        'data_kind': provenance['kind'], 'provenance': dict(provenance),
++        'calibration': fit, 'cases': results,
++        'mean_verification_total_variation': float(np.mean([r['verification_total_variation'] for r in results])),
++        'projected_estimates': sum(r['estimate']['projected'] for r in results),
++        'assumptions': [
++            'Known tetrahedral measurement axes and calibrated preparation coordinates.',
++            'Fixed memoryless four-channel detector response; all counts included.',
++            'Verification uses a fresh identical preparation followed by the operations.',
++            'An explicit Born-rule forward model; no claim that readout was derived from geometry.',
++        ],
++    }
+diff --git a/ngc_geometry_lab/reference.py b/ngc_geometry_lab/reference.py
+new file mode 100644
+index 0000000..51cd570
+--- /dev/null
++++ b/ngc_geometry_lab/reference.py
+@@ -0,0 +1,234 @@
++"""Independent complex Hilbert-space reference calculations.
++
++This module depends only on NumPy and the standard library. Qubit zero is
++the first (most significant) tensor factor. In ``local_gate``, the order
++of ``targets`` specifies the gate's local tensor-factor order.
++
++Numerical acceptance uses absolute tolerances only. No invalid matrix is
++projected, clipped, or renormalized by the validators.
++"""
++from numbers import Integral
++
++import numpy as np
++
++
++_ATOL = 1e-10
++
++
++def _complex_array(value, name):
++    try:
++        result = np.array(value, dtype=complex, copy=True)
++    except (TypeError, ValueError, OverflowError) as exc:
++        raise ValueError(f"{name} must be a numeric array") from exc
++    if not np.all(np.isfinite(result)):
++        raise ValueError(f"{name} must contain only finite values")
++    return result
++
++
++def _real_array(value, shape, name):
++    try:
++        raw = np.asarray(value)
++        if np.iscomplexobj(raw):
++            raise ValueError(f"{name} must be real")
++        result = np.array(value, dtype=float, copy=True)
++    except (TypeError, ValueError, OverflowError) as exc:
++        raise ValueError(f"{name} must be a real array of shape {shape}") from exc
++    if result.shape != shape or not np.all(np.isfinite(result)):
++        raise ValueError(f"{name} must be finite with shape {shape}")
++    return result
++
++
++def _positive_integer(value, name):
++    if isinstance(value, (bool, np.bool_)) or not isinstance(value, Integral) or value < 1:
++        raise ValueError(f"{name} must be a positive integer")
++    return int(value)
++
++
++def _unitary(value, dimension):
++    result = _complex_array(value, "unitary")
++    if result.shape != (dimension, dimension):
++        raise ValueError(f"unitary must have shape {(dimension, dimension)}")
++    if not np.allclose(result.conj().T @ result, np.eye(dimension), rtol=0, atol=_ATOL):
++        raise ValueError("matrix must be unitary")
++    return result
++
++
++def paulis():
++    """Return complex Pauli matrices in I, X, Y, Z order."""
++    return np.array([[[1, 0], [0, 1]], [[0, 1], [1, 0]],
++                     [[0, -1j], [1j, 0]], [[1, 0], [0, -1]]], dtype=complex)
++
++
++def validate_density(rho, *, atol=_ATOL):
++    """Return a copied density matrix after absolute-tolerance validation.
++
++    General finite-dimensional square matrices are supported, including
++    dimensions that are not powers of two. Eigenvalues may be no smaller
++    than ``-atol``; Hermiticity and unit trace use the same absolute bound.
++    """
++    tolerance = _real_array(atol, (), "atol").item()
++    if tolerance < 0:
++        raise ValueError("atol must be nonnegative")
++    result = _complex_array(rho, "density matrix")
++    if result.ndim != 2 or result.shape[0] == 0 or result.shape[0] != result.shape[1]:
++        raise ValueError("density matrix must be a nonempty square matrix")
++    if not np.allclose(result, result.conj().T, rtol=0, atol=tolerance):
++        raise ValueError("density matrix must be Hermitian")
++    if not np.isclose(np.trace(result), 1, rtol=0, atol=tolerance):
++        raise ValueError("density matrix must have unit trace")
++    # Use the Hermitian part to avoid privileging either triangle when an
++    # otherwise valid input has an accepted, tiny Hermiticity residual.
++    hermitian = result / 2 + result.conj().T / 2
++    if np.linalg.eigvalsh(hermitian).min() < -tolerance:
++        raise ValueError("density matrix must be positive semidefinite")
++    return result
++
++
++def _qubit_density(rho):
++    result = validate_density(rho)
++    if result.shape != (2, 2):
++        raise ValueError("a single-qubit density matrix must have shape (2, 2)")
++    return result
++
++
++def _joint_density(rho):
++    result = validate_density(rho)
++    if result.shape != (4, 4):
++        raise ValueError("a two-qubit density matrix must have shape (4, 4)")
++    return result
++
++
++def density_from_bloch(state):
++    """Construct (I + r.sigma)/2 for a finite real Bloch vector."""
++    vector = _real_array(state, (3,), "Bloch vector")
++    if np.linalg.norm(vector) > 1 + _ATOL:
++        raise ValueError("Bloch vector norm must not exceed one")
++    matrices = paulis()
++    return validate_density((matrices[0] + np.tensordot(vector, matrices[1:], axes=1))/2)
++
++
++def bloch_from_density(rho):
++    """Extract x, y, z via tr(rho sigma_j)."""
++    matrix = _qubit_density(rho)
++    return np.array([np.trace(matrix @ sigma).real for sigma in paulis()[1:]])
++
++
++def tetra_effects():
++    """Return tetrahedral effects ordered (+++), (+--), (-+-), (--+)."""
++    directions = np.array([[1, 1, 1], [1, -1, -1],
++                           [-1, 1, -1], [-1, -1, 1]])/np.sqrt(3)
++    matrices = paulis()
++    return (matrices[0][None, :, :] + np.einsum("ki,ijl->kjl", directions, matrices[1:]))/4
++
++
++def tetra_probabilities(rho):
++    """Evaluate the four Born traces directly, without geometric shortcuts."""
++    matrix = _qubit_density(rho)
++    return np.array([np.trace(matrix @ effect).real for effect in tetra_effects()])
++
++
++def rotation_unitary(axis, angle):
++    """Construct exp(-i angle axis.sigma/2), normalizing a nonzero axis."""
++    vector = _real_array(axis, (3,), "axis")
++    theta = _real_array(angle, (), "angle").item()
++    scale = np.max(np.abs(vector))
++    if scale == 0:
++        raise ValueError("axis must be nonzero")
++    vector = vector/scale
++    vector = vector/np.linalg.norm(vector)
++    matrices = paulis()
++    return (np.cos(theta/2)*matrices[0]
++            - 1j*np.sin(theta/2)*np.tensordot(vector, matrices[1:], axes=1))
++
++
++def evolve_density(rho, unitary):
++    """Apply U rho U-dagger with density and unitary validation."""
++    matrix = validate_density(rho)
++    operator = _unitary(unitary, matrix.shape[0])
++    return validate_density(operator @ matrix @ operator.conj().T)
++
++
++def random_density(dimension, rng, *, pure=False):
++    """Sample a normalized complex Gaussian Wishart density matrix.
++
++    A single Gaussian column gives a rank-one pure state; a square Gaussian
++    matrix gives full rank with probability one. ``rng`` must be an explicit
++    NumPy Generator or RandomState so sampling is reproducible by the caller.
++    """
++    size = _positive_integer(dimension, "dimension")
++    if not isinstance(rng, (np.random.Generator, np.random.RandomState)):
++        raise ValueError("rng must be a NumPy Generator or RandomState")
++    if not isinstance(pure, (bool, np.bool_)):
++        raise ValueError("pure must be boolean")
++    shape = (size, 1 if pure else size)
++    gaussian = rng.normal(size=shape) + 1j*rng.normal(size=shape)
++    wishart = gaussian @ gaussian.conj().T
++    return validate_density(wishart / np.trace(wishart).real)
++
++
++def local_gate(state, gate, targets, num_qubits):
++    """Apply a local unitary using tensor-axis permutation and multiplication.
++
++    Target axes are moved to the front in exactly the supplied order. The
++    gate multiplies those axes as a matrix; the inverse permutation restores
++    the original big-endian tensor-factor order.
++    """
++    count = _positive_integer(num_qubits, "num_qubits")
++    ket = _complex_array(state, "state")
++    if ket.shape != (2**count,):
++        raise ValueError("state dimension must equal 2**num_qubits")
++    if not np.isclose(np.vdot(ket, ket), 1, rtol=0, atol=_ATOL):
++        raise ValueError("state must be normalized")
++    try:
++        selected = list(targets)
++    except TypeError as exc:
++        raise ValueError("targets must be an iterable of qubit indices") from exc
++    if not selected:
++        raise ValueError("targets must contain at least one qubit")
++    if any(isinstance(index, (bool, np.bool_)) or not isinstance(index, Integral)
++           or index < 0 or index >= count for index in selected):
++        raise ValueError("targets must be integer indices in range")
++    selected = [int(index) for index in selected]
++    if len(set(selected)) != len(selected):
++        raise ValueError("targets must be unique")
++    operator = _unitary(gate, 2**len(selected))
++    axes = selected + [index for index in range(count) if index not in selected]
++    tensor = ket.reshape((2,)*count).transpose(axes)
++    evolved = operator @ tensor.reshape(2**len(selected), -1)
++    return evolved.reshape((2,)*count).transpose(np.argsort(axes)).reshape(-1)
++
++
++def joint_tetra_probabilities(rho):
++    """Evaluate all sixteen traces tr(rho (E_i tensor E_j))."""
++    matrix = _joint_density(rho)
++    effects = tetra_effects()
++    return np.array([[np.trace(matrix @ np.kron(left, right)).real
++                      for right in effects] for left in effects])
++
++
++def joint_parameters(rho):
++    """Return local Bloch vectors a,b and Pauli correlations C."""
++    matrix = _joint_density(rho)
++    matrices = paulis()
++    identity, components = matrices[0], matrices[1:]
++    a = np.array([np.trace(matrix @ np.kron(sigma, identity)).real for sigma in components])
++    b = np.array([np.trace(matrix @ np.kron(identity, sigma)).real for sigma in components])
++    correlations = np.array([[np.trace(matrix @ np.kron(left, right)).real
++                              for right in components] for left in components])
++    return a, b, correlations
++
++
++def density_from_joint(a, b, correlations):
++    """Reconstruct a two-qubit matrix by Pauli expansion and require PSD."""
++    left = _real_array(a, (3,), "a")
++    right = _real_array(b, (3,), "b")
++    corr = _real_array(correlations, (3, 3), "correlations")
++    matrices = paulis()
++    identity, components = matrices[0], matrices[1:]
++    result = np.kron(identity, identity)
++    for i in range(3):
++        result += left[i]*np.kron(components[i], identity)
++        result += right[i]*np.kron(identity, components[i])
++        for j in range(3):
++            result += corr[i, j]*np.kron(components[i], components[j])
++    return validate_density(result/4)
+diff --git a/tests/test_geometry.py b/tests/test_geometry.py
+new file mode 100644
+index 0000000..c5cdc59
+--- /dev/null
++++ b/tests/test_geometry.py
+@@ -0,0 +1,224 @@
++"""Analytic and invalid-input tests independent of the complex oracle."""
++import unittest
++
++import numpy as np
++from numpy.testing import assert_allclose
++
++from ngc_geometry_lab import geometry as g
++
++
++class TetraTests(unittest.TestCase):
++    def test_vertices_and_fresh_storage(self):
++        expected = np.array([[1,1,1],[1,-1,-1],[-1,1,-1],[-1,-1,1]]) / np.sqrt(3)
++        n = g.tetra_directions()
++        assert_allclose(n, expected, atol=1e-15)
++        assert_allclose(n.sum(axis=0), 0, atol=1e-15)
++        assert_allclose(n @ n.T, (4*np.eye(4)-1)/3, atol=1e-15)
++        n[:] = 0
++        assert_allclose(g.tetra_directions(), expected)
++
++    def test_mixed_state_and_vertex_probabilities(self):
++        assert_allclose(g.tetra_probabilities([0,0,0]), np.full(4, .25))
++        n = g.tetra_directions()
++        assert_allclose(g.tetra_probabilities(n[0]), [.5,1/6,1/6,1/6])
++        assert_allclose(g.tetra_reconstruct([.5,1/6,1/6,1/6]), n[0])
++
++    def test_one_hot_distribution_is_not_physical(self):
++        with self.assertRaises(ValueError): g.tetra_reconstruct([1,0,0,0])
++        assert_allclose(g.tetra_reconstruct([1,0,0,0], enforce_physical=False), [np.sqrt(3)]*3)
++
++    def test_invalid_probabilities_are_not_normalized(self):
++        for p in ([.2]*4, [-.1,.3,.4,.4], [1,0,0], [np.nan,0,0,1], [.25+.1j,.25,.25,.25]):
++            with self.subTest(p=p), self.assertRaises(ValueError): g.tetra_reconstruct(p)
++
++    def test_invalid_state(self):
++        for state in ([1.1,0,0], [0,0], [np.inf,0,0], [1j,0,0]):
++            with self.subTest(state=state), self.assertRaises(ValueError): g.tetra_probabilities(state)
++
++
++class OperationTests(unittest.TestCase):
++    def test_active_rodrigues(self):
++        r = g.rotation([0,0,4], np.pi/2)
++        assert_allclose(r @ [1,0,0], [0,1,0], atol=1e-15)
++        assert_allclose(r.T @ r, np.eye(3), atol=1e-15)
++        self.assertAlmostEqual(np.linalg.det(r), 1)
++
++    def test_rotation_order_matters(self):
++        x = g.rotation([1,0,0], np.pi/2)
++        z = g.rotation([0,0,1], np.pi/2)
++        assert_allclose(x @ z @ [1,0,0], [0,0,1], atol=1e-15)
++        assert_allclose(z @ x @ [1,0,0], [0,1,0], atol=1e-15)
++
++    def test_crossed_and_inserted_polarizers(self):
++        weight, final = g.projection_transmission([1,0,0], [[0,1,0]])
++        self.assertEqual(weight, 0)
++        assert_allclose(final, [0,0,0])
++        weight, final = g.projection_transmission([1,0,0], [[1,1,0],[0,1,0]])
++        self.assertAlmostEqual(weight, .25)
++        assert_allclose(final, [0,.5,0], atol=1e-15)
++
++    def test_exponents_and_no_projection(self):
++        for exponent, expected in ((1,.5),(2,.25),(4,.0625)):
++            self.assertAlmostEqual(g.projection_transmission([1,0,0], [[1,1,0],[0,1,0]], exponent=exponent)[0], expected)
++        weight, final = g.projection_transmission([0,0,1], [])
++        self.assertEqual(weight, 1)
++        assert_allclose(final, [0,0,1])
++
++    def test_invalid_operations(self):
++        for axis, angle in (([0,0,0],0),([0,0],0),([1j,0,0],0),([1,0,0],np.inf),([1,0,0],1j)):
++            with self.subTest(axis=axis, angle=angle), self.assertRaises(ValueError): g.rotation(axis, angle)
++        for state, axes, exponent in (([2,0,0],[],2),([1j,0,0],[],2),([1,0,0],[[0,0,0]],2),([1,0,0],[[np.inf,0,0]],2),([1,0,0],[],0),([1,0,0],[],np.nan)):
++            with self.subTest(state=state, axes=axes, exponent=exponent), self.assertRaises(ValueError): g.projection_transmission(state, axes, exponent=exponent)
++
++
++class MetricTests(unittest.TestCase):
++    def test_non_euclidean_metric_recovered_from_conjugated_cubic_family(self):
++        s = np.array([[2.,.3,0],[0,1.,.2],[0,0,.5]])
++        inv = np.linalg.inv(s)
++        rotations = [s @ g.rotation(axis,np.pi/2) @ inv for axis in np.eye(3)]
++        projectors = [s @ np.diag([1.,0,0]) @ inv]
++        result = g.infer_metric(rotations, projectors)
++        expected = inv.T @ inv
++        expected *= 3/np.trace(expected)
++        self.assertEqual(result['status'], 'unique_up_to_scale')
++        self.assertEqual(result['space_dimension'], 1)
++        assert_allclose(result['metric'], expected, atol=1e-10)
++        self.assertLess(result['residual'], 1e-10)
++
++    def test_insufficient_family_returns_spd_witness_with_ambiguity(self):
++        result = g.infer_metric([np.eye(3)])
++        self.assertEqual(result['status'], 'underdetermined')
++        self.assertEqual(result['space_dimension'], 6)
++        assert_allclose(result['metric'], np.eye(3))
++
++    def test_empty_family_and_other_dimension(self):
++        result = g.infer_metric([], dimension=2)
++        self.assertEqual(result['space_dimension'], 3)
++        self.assertEqual(result['status'], 'underdetermined')
++        assert_allclose(result['metric'], np.eye(2))
++
++    def test_inconsistent_dilation_has_no_metric(self):
++        result = g.infer_metric([2*np.eye(3)])
++        self.assertEqual(result['status'], 'no_positive_definite_metric')
++        self.assertEqual(result['space_dimension'], 0)
++        self.assertIsNone(result['metric'])
++
++    def test_unique_indefinite_metric_is_definitively_rejected(self):
++        # A planar Lorentz boost and spatial reflections fix only diag(1,-1).
++        boost = np.array([[np.cosh(1),np.sinh(1)],[np.sinh(1),np.cosh(1)]])
++        result = g.infer_metric([boost,np.diag([1.,-1.])], dimension=2)
++        self.assertEqual(result['space_dimension'], 1)
++        self.assertEqual(result['status'], 'no_positive_definite_metric')
++        self.assertIsNone(result['metric'])
++
++    def test_failed_high_nullity_witness_is_unresolved(self):
++        # A nontrivial shear fixes degenerate forms only; simple witness cannot certify infeasibility.
++        result = g.infer_metric([np.array([[1.,1,0],[0,1,0],[0,0,1]])])
++        self.assertGreater(result['space_dimension'], 1)
++        self.assertEqual(result['status'], 'unresolved_feasibility')
++        self.assertIsNone(result['metric'])
++
++    def test_metric_invalid_inputs(self):
++        for matrices, projectors in (([np.eye(2)],()),([np.full((3,3),np.nan)],()),([np.eye(3)*1j],()),([],[.5*np.eye(3)]),([],[np.eye(2)])):
++            with self.subTest(matrices=matrices, projectors=projectors), self.assertRaises(ValueError): g.infer_metric(matrices, projectors)
++        for dimension in (0,2.5,True):
++            with self.assertRaises(ValueError): g.infer_metric([], dimension=dimension)
++        with self.assertRaises(ValueError): g.infer_metric([], tol=-1)
++
++
++class CenterAndGeometryTests(unittest.TestCase):
++    def test_unique_common_center(self):
++        center = np.array([2.,-3,4])
++        operators = [(np.diag([-1.,-1,1]), np.array([4.,-6,0])), (np.diag([1.,-1,-1]), np.array([0.,-6,8]))]
++        result = g.infer_center(operators)
++        self.assertEqual(result['status'], 'unique')
++        self.assertEqual(result['rank'], 3)
++        assert_allclose(result['center'], center)
++        self.assertLess(result['residual'], 1e-10)
++
++    def test_nonunique_center_is_least_norm_representative(self):
++        result = g.infer_center([(np.diag([-1.,1,1]), [4,0,0])])
++        self.assertEqual(result['status'], 'underdetermined')
++        self.assertEqual(result['rank'], 1)
++        assert_allclose(result['center'], [2,0,0])
++
++    def test_inconsistent_centers(self):
++        result = g.infer_center([(np.eye(3), [1,0,0])])
++        self.assertEqual(result['status'], 'inconsistent')
++        self.assertIsNone(result['center'])
++        self.assertGreater(result['residual'], .9)
++
++    def test_invalid_centers(self):
++        for operators in ([], [(np.eye(2),[0,0,0])], [(np.eye(3)*1j,[0,0,0])], [(np.eye(3),[np.inf,0,0])]):
++            with self.subTest(operators=operators), self.assertRaises(ValueError): g.infer_center(operators)
++
++    def test_gram_edges_and_volume(self):
++        result = g.tetra_geometry([5,6,7], np.eye(3))
++        assert_allclose(result['edges'], [1,1,1,np.sqrt(2),np.sqrt(2),np.sqrt(2)])
++        assert_allclose(result['gram'], np.eye(3))
++        self.assertAlmostEqual(result['volume'], 1/6)
++        result = g.tetra_geometry([0,0,0], np.eye(3), np.diag([4.,9,16]))
++        assert_allclose(result['edges'], [2,3,4,np.sqrt(13),np.sqrt(20),5])
++        self.assertAlmostEqual(result['volume'], 4)
++
++    def test_invalid_tetrahedron(self):
++        for origin, displacement, metric in (([0,0],np.eye(3),None),([0,0,0],np.zeros((3,3)),None),([0,0,0],np.eye(3),np.diag([1,1,-1])),([0,0,0],np.eye(3),np.array([[1,1,0],[0,1,0],[0,0,1]])),([0,0,0],np.eye(3)*1j,None)):
++            with self.subTest(origin=origin, displacement=displacement, metric=metric), self.assertRaises(ValueError): g.tetra_geometry(origin,displacement,metric)
++
++
++class ObservabilityTests(unittest.TestCase):
++    def test_duplicate_directions_and_sequence_rank(self):
++        c = np.array([[1.,0,0],[1,0,0]])
++        transition = np.array([[0.,1,0],[0,0,1],[1,0,0]])
++        self.assertEqual(np.linalg.matrix_rank(c), 1)
++        result = g.observability_matrix(c,transition,3)
++        assert_allclose(result, np.repeat(np.eye(3),2,axis=0))
++        self.assertEqual(np.linalg.matrix_rank(result), 3)
++
++    def test_single_observation_vector(self):
++        result = g.observability_matrix([1,0], [[0,1],[1,0]], 2)
++        assert_allclose(result, np.eye(2))
++
++    def test_invalid_observability(self):
++        for c,a,steps in (([[1,0]],np.eye(3),2),([1,0],np.eye(2),0),([1,0],np.eye(2),2.5),([1j,0],np.eye(2),2),([1,0],np.eye(2),True),([1,0],[[1,np.inf],[0,1]],2)):
++            with self.subTest(c=c,a=a,steps=steps), self.assertRaises(ValueError): g.observability_matrix(c,a,steps)
++
++
++class JointTests(unittest.TestCase):
++    def test_singlet_joint_probabilities_and_inverse(self):
++        expected = np.full((4,4), 1/12)
++        np.fill_diagonal(expected, 0)
++        probabilities = g.joint_probabilities(np.zeros(3),np.zeros(3),-np.eye(3))
++        assert_allclose(probabilities, expected, atol=1e-15)
++        a,b,c = g.joint_reconstruct(expected)
++        assert_allclose(a, 0, atol=1e-15)
++        assert_allclose(b, 0, atol=1e-15)
++        assert_allclose(c, -np.eye(3), atol=1e-15)
++
++    def test_product_coordinates(self):
++        a = np.array([0.,0,1])
++        b = np.array([1.,0,0])
++        result = g.joint_probabilities(a,b,np.outer(a,b))
++        assert_allclose(result, np.outer(g.tetra_probabilities(a),g.tetra_probabilities(b)))
++        actual = g.joint_reconstruct(result)
++        for lhs,rhs in zip(actual,(a,b,np.outer(a,b))): assert_allclose(lhs,rhs,atol=1e-15)
++
++    def test_generic_probability_coordinates_do_not_claim_quantum_physicality(self):
++        p = np.zeros((4,4)); p[0,0] = 1
++        a,b,c = g.joint_reconstruct(p)
++        self.assertGreater(np.linalg.norm(a), 1)
++        assert_allclose(g.joint_probabilities(a,b,c), p, atol=1e-15)
++
++    def test_chsh_singlet(self):
++        value = g.chsh_value(-np.eye(3), [1,0,0],[0,0,1],[-1,0,-1],[-1,0,1])
++        self.assertAlmostEqual(value,2*np.sqrt(2))
++
++    def test_joint_invalid_inputs(self):
++        for a,b,c in (([0,0],[0,0,0],np.eye(3)),([0,0,0],[0,0,0],np.eye(2)),([1j,0,0],[0,0,0],np.eye(3)),([0,0,0],[0,0,0],np.full((3,3),np.inf)),([0,0,0],[0,0,0],10*np.eye(3))):
++            with self.subTest(a=a,b=b,c=c), self.assertRaises(ValueError): g.joint_probabilities(a,b,c)
++        for p in (np.ones((4,4)), np.full((4,4),-1/16), np.ones((3,3))/9, np.ones((4,4))*1j/16, np.full((4,4),np.nan)):
++            with self.subTest(p=p), self.assertRaises(ValueError): g.joint_reconstruct(p)
++        with self.assertRaises(ValueError): g.chsh_value(np.eye(3), [0,0,0],[1,0,0],[1,0,0],[1,0,0])
++
++
++if __name__ == '__main__': unittest.main()
+diff --git a/tests/test_observations.py b/tests/test_observations.py
+new file mode 100644
+index 0000000..a4c8646
+--- /dev/null
++++ b/tests/test_observations.py
+@@ -0,0 +1,110 @@
++import copy
++import unittest
++
++import numpy as np
++
++from ngc_geometry_lab.observations import (
++    analyze_dataset, calibrate_detector, estimate_state,
++    predict_after_operations, validate_counts,
++)
++
++
++N = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]]) / np.sqrt(3)
++
++
++def calibration_fixture():
++    # The six axes span the affine observation space. Rational tetrahedron
++    # coordinates make integer counts exact, avoiding a test rounding oracle.
++    states = np.vstack([N, -N]) * 0.6
++    response = 0.8 * np.eye(4) + 0.2 * np.ones((4, 4)) / 4
++    ideal = (1 + states @ N.T) / 4
++    counts = np.rint((ideal @ response.T) * 100000).astype(int)
++    return states, counts, response
++
++
++class ObservationTests(unittest.TestCase):
++    def test_calibration_recovers_known_detector_from_counts(self):
++        states, counts, expected = calibration_fixture()
++        fit = calibrate_detector(states, counts)
++        np.testing.assert_allclose(fit['matrix'], expected, atol=1e-12, rtol=0)
++        self.assertEqual(fit['design_rank'], 4)
++        self.assertLess(fit['training_rmse'], 1e-12)
++
++    def test_inversion_uses_counts_and_frozen_detector(self):
++        states, counts, _ = calibration_fixture()
++        fit = calibrate_detector(states, counts)
++        estimate = estimate_state(counts[0], fit)
++        np.testing.assert_allclose(estimate['state'], states[0], atol=1e-12, rtol=0)
++        self.assertFalse(estimate['projected'])
++
++    def test_unphysical_sampling_estimate_preserves_raw_record(self):
++        fit = {'matrix': np.eye(4)}
++        estimate = estimate_state([100, 0, 0, 0], fit)
++        self.assertAlmostEqual(estimate['raw_norm'], 3)
++        self.assertTrue(estimate['projected'])
++        np.testing.assert_allclose(estimate['raw_state'], 3 * N[0], atol=1e-12, rtol=0)
++        np.testing.assert_allclose(estimate['state'], N[0], atol=1e-12, rtol=0)
++        unprojected = estimate_state([100, 0, 0, 0], fit, project_physical=False)
++        np.testing.assert_allclose(unprojected['state'], 3 * N[0], atol=1e-12, rtol=0)
++
++    def test_rotation_prediction_has_correct_sign_and_order(self):
++        out = predict_after_operations([0, 0, 1], [{'axis': [1, 0, 0], 'angle': np.pi / 2}], {'matrix': np.eye(4)})
++        np.testing.assert_allclose(out['state'], [0, -1, 0], atol=1e-12, rtol=0)
++        np.testing.assert_allclose(out['observed_probabilities'], (1-N[:, 1])/4, atol=1e-12, rtol=0)
++
++    def test_rank_deficient_calibration_rejected(self):
++        with self.assertRaisesRegex(ValueError, 'rank'):
++            calibrate_detector(np.zeros((8, 3)), np.full((8, 4), 25))
++
++    def test_uninformative_detector_rejected(self):
++        states, _, _ = calibration_fixture()
++        with self.assertRaisesRegex(ValueError, 'singular|condition'):
++            calibrate_detector(states, np.full((8, 4), 25))
++
++    def test_counts_validation(self):
++        for invalid in ([0, 0, 0, 0], [1, -1, 2, 2], [1.5, 2, 3, 4], [1, 2, 3], [1, 2, 3, np.nan], [True, False, False, False], [1+1j, 2, 3, 4]):
++            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
++                validate_counts(invalid)
++
++    def test_detector_validation_rejects_invalid_matrices(self):
++        for matrix in (np.zeros((4, 4)), np.ones((4, 4)), np.eye(3), np.eye(4)*np.nan, np.eye(4).astype(complex)+1j):
++            with self.subTest(matrix=matrix), self.assertRaises(ValueError):
++                estimate_state([25]*4, {'matrix': matrix})
++
++    def payload(self):
++        states, counts, _ = calibration_fixture()
++        return {
++            'schema': 'ngc_geometry_lab.observations.v1',
++            'provenance': {'kind': 'synthetic', 'description': 'Analytic unit test'},
++            'calibration': {'states': states.tolist(), 'counts': counts.tolist()},
++            'cases': [{'id': 'heldout', 'counts': counts[0].tolist(), 'operations': [], 'verification_counts': counts[0].tolist()}],
++        }
++
++    def test_blind_dataset_workflow(self):
++        data = self.payload()
++        original = copy.deepcopy(data)
++        result = analyze_dataset(data)
++        self.assertEqual(result['data_kind'], 'synthetic')
++        self.assertEqual(len(result['cases']), 1)
++        self.assertLess(result['cases'][0]['verification_total_variation'], 1e-12)
++        self.assertEqual(data, original)
++
++    def test_schema_rejects_embedded_truth_and_duplicate_ids(self):
++        data = self.payload()
++        data['cases'][0]['true_state'] = [0, 0, 1]
++        with self.assertRaisesRegex(ValueError, 'unexpected|unknown'):
++            analyze_dataset(data)
++        data = self.payload()
++        data['cases'].append(copy.deepcopy(data['cases'][0]))
++        with self.assertRaisesRegex(ValueError, 'duplicate'):
++            analyze_dataset(data)
++
++    def test_schema_requires_explicit_provenance(self):
++        data = self.payload()
++        del data['provenance']
++        with self.assertRaises(ValueError):
++            analyze_dataset(data)
++
++
++if __name__ == '__main__':
++    unittest.main()
+diff --git a/tests/test_reference.py b/tests/test_reference.py
+new file mode 100644
+index 0000000..4eb00a1
+--- /dev/null
++++ b/tests/test_reference.py
+@@ -0,0 +1,237 @@
++"""Independent analytic checks for the complex quantum reference.
++
++All expected states and probabilities below come from elementary complex
++linear algebra or explicit computational-basis mappings, never the model.
++"""
++import importlib
++import unittest
++
++import numpy as np
++
++
++ATOL = 2e-12
++
++
++class ReferenceTests(unittest.TestCase):
++    def setUp(self):
++        try:
++            self.ref = importlib.import_module("ngc_geometry_lab.reference")
++        except ModuleNotFoundError as exc:
++            self.fail(f"Independent reference module is required: {exc}")
++
++    def close(self, actual, expected, atol=ATOL):
++        np.testing.assert_allclose(actual, expected, rtol=0, atol=atol)
++
++    def test_paulis_order_and_complex_dtype(self):
++        expected = np.array([[[1, 0], [0, 1]], [[0, 1], [1, 0]],
++                             [[0, -1j], [1j, 0]], [[1, 0], [0, -1]]])
++        matrices = self.ref.paulis()
++        self.assertEqual(matrices.shape, (4, 2, 2))
++        self.assertTrue(np.iscomplexobj(matrices))
++        self.close(matrices, expected)
++
++    def test_density_validation_general_dimension_and_copy(self):
++        rho = np.eye(3) / 3
++        result = self.ref.validate_density(rho)
++        self.assertTrue(np.iscomplexobj(result))
++        self.close(result, rho)
++        result[0, 0] = 0
++        self.close(rho, np.eye(3) / 3)
++
++    def test_density_validation_rejects_invalid(self):
++        bad = [[], [1, 0], np.ones((2, 3)), np.zeros((0, 0)),
++               np.eye(2), [[1, 1], [0, 0]], np.diag([1.1, -.1]),
++               [[np.nan, 0], [0, 1]], [[np.inf, 0], [0, 0]]]
++        for rho in bad:
++            with self.subTest(rho=rho), self.assertRaises(ValueError):
++                self.ref.validate_density(rho)
++        for tol in [-1, np.inf, np.nan, 1j]:
++            with self.subTest(atol=tol), self.assertRaises(ValueError):
++                self.ref.validate_density(np.eye(2)/2, atol=tol)
++
++    def test_density_validation_absolute_tolerance(self):
++        self.ref.validate_density(np.diag([1 + 5e-12, -5e-12]), atol=1e-11)
++        with self.assertRaises(ValueError):
++            self.ref.validate_density(np.diag([1 + 5e-12, -5e-12]), atol=1e-13)
++        with self.assertRaises(ValueError):
++            self.ref.validate_density(np.eye(2)/2 + np.eye(2)*1e-7, atol=1e-10)
++
++    def test_standard_single_qubit_states(self):
++        cases = [([0, 0, 1], [1, 0]), ([0, 0, -1], [0, 1]),
++                 ([1, 0, 0], np.array([1, 1])/np.sqrt(2)),
++                 ([0, 1, 0], np.array([1, 1j])/np.sqrt(2))]
++        for bloch, ket in cases:
++            with self.subTest(bloch=bloch):
++                expected = np.outer(ket, np.conjugate(ket))
++                self.close(self.ref.density_from_bloch(bloch), expected)
++                self.close(self.ref.bloch_from_density(expected), bloch)
++                self.close(np.trace(self.ref.density_from_bloch(bloch)), 1)
++        self.close(self.ref.density_from_bloch([0, 0, 0]), np.eye(2)/2)
++        self.close(self.ref.bloch_from_density(np.eye(2)/2), [0, 0, 0])
++
++    def test_bloch_rejects_invalid_and_non_qubit(self):
++        for state in [[1, 1, 0], [0, 0], [[0, 0, 0]], [0, 0, 1j],
++                      [np.nan, 0, 0], [np.inf, 0, 0]]:
++            with self.subTest(state=state), self.assertRaises(ValueError):
++                self.ref.density_from_bloch(state)
++        with self.assertRaises(ValueError):
++            self.ref.bloch_from_density(np.eye(3)/3)
++
++    def test_tetra_effects_order_positivity_and_completeness(self):
++        effects = self.ref.tetra_effects()
++        directions = np.array([[1,1,1], [1,-1,-1], [-1,1,-1], [-1,-1,1]])/np.sqrt(3)
++        self.close(effects.sum(axis=0), np.eye(2))
++        for effect, (x, y, z) in zip(effects, directions):
++            expected = np.array([[1+z, x-1j*y], [x+1j*y, 1-z]])/4
++            self.close(effect, expected)
++            self.close(np.linalg.eigvalsh(effect), [0, .5])
++
++    def test_tetra_probabilities_analytic(self):
++        s = 1/np.sqrt(3)
++        cases = [(np.diag([1, 0]), np.array([1+s, 1-s, 1-s, 1+s])/4),
++                 (np.diag([0, 1]), np.array([1-s, 1+s, 1+s, 1-s])/4),
++                 (np.ones((2,2))/2, np.array([1+s, 1+s, 1-s, 1-s])/4),
++                 (np.array([[1,-1j],[1j,1]])/2, np.array([1+s,1-s,1+s,1-s])/4),
++                 (np.eye(2)/2, np.ones(4)/4)]
++        for rho, expected in cases:
++            self.close(self.ref.tetra_probabilities(rho), expected)
++
++    def test_tetra_probabilities_rejects_wrong_dimension(self):
++        with self.assertRaises(ValueError):
++            self.ref.tetra_probabilities(np.eye(4)/4)
++
++    def test_rx_pi_and_rz_phase(self):
++        rx = self.ref.rotation_unitary([2, 0, 0], np.pi)
++        self.close(rx, [[0, -1j], [-1j, 0]])
++        down = self.ref.evolve_density(np.diag([1,0]), rx)
++        self.close(down, np.diag([0,1]))
++        s = 1/np.sqrt(3)
++        self.close(self.ref.tetra_probabilities(down), np.array([1-s,1+s,1+s,1-s])/4)
++        rz = self.ref.rotation_unitary([0,0,1], np.pi/2)
++        self.close(rz, np.diag([np.exp(-1j*np.pi/4), np.exp(1j*np.pi/4)]))
++        self.close(self.ref.evolve_density(np.ones((2,2))/2, rz), [[.5,-.5j],[.5j,.5]])
++
++    def test_rotations_reject_invalid_axis_and_angle(self):
++        for axis in [[0,0,0], [1,0], [[1,0,0]], [1j,0,0], [np.nan,0,1], [np.inf,0,0]]:
++            with self.subTest(axis=axis), self.assertRaises(ValueError):
++                self.ref.rotation_unitary(axis, 0.2)
++        for angle in [np.inf, np.nan, 1j, [0.2]]:
++            with self.subTest(angle=angle), self.assertRaises(ValueError):
++                self.ref.rotation_unitary([1,0,0], angle)
++
++    def test_evolution_rejects_nonunitary_and_mismatch(self):
++        for u in [np.eye(2)*2, np.ones((2,3)), np.eye(3), np.array([[1,np.nan],[0,1]])]:
++            with self.subTest(unitary=u), self.assertRaises(ValueError):
++                self.ref.evolve_density(np.eye(2)/2, u)
++
++    def test_random_density_wishart_pure_and_full(self):
++        for dimension in [1, 2, 3, 4, 8]:
++            for pure in [False, True]:
++                with self.subTest(dimension=dimension, pure=pure):
++                    rho = self.ref.random_density(dimension, np.random.default_rng(73), pure=pure)
++                    self.assertEqual(rho.shape, (dimension, dimension))
++                    self.ref.validate_density(rho)
++                    self.close(np.trace(rho), 1)
++                    if pure:
++                        self.close(rho@rho, rho)
++                    else:
++                        self.assertTrue(np.all(np.linalg.eigvalsh(rho)>0))
++        self.close(self.ref.random_density(4, np.random.default_rng(3)),
++                   self.ref.random_density(4, np.random.default_rng(3)))
++
++    def test_random_density_invalid_arguments(self):
++        for dim in [0, -1, 2.5, True]:
++            with self.subTest(dimension=dim), self.assertRaises(ValueError):
++                self.ref.random_density(dim, np.random.default_rng(3))
++        with self.assertRaises(ValueError):
++            self.ref.random_density(2, None)
++
++    def test_local_gate_big_endian_nonadjacent_and_reversed(self):
++        x = np.array([[0,1],[1,0]])
++        cnot = np.array([[1,0,0,0], [0,1,0,0], [0,0,0,1], [0,0,1,0]])
++        basis = np.eye(8, dtype=complex)
++        self.close(self.ref.local_gate(basis[:,0], x, [0], 3), basis[:,4])
++        self.close(self.ref.local_gate(basis[:,4], cnot, [0,2], 3), basis[:,5])
++        self.close(self.ref.local_gate(basis[:,1], cnot, [2,0], 3), basis[:,5])
++        self.close(self.ref.local_gate(basis[:,4], cnot, [2,0], 3), basis[:,4])
++        self.close(self.ref.local_gate(basis[:,7], cnot, [2,0], 3), basis[:,3])
++
++    def test_local_gate_arbitrary_unitary_vs_dense_kron(self):
++        rng = np.random.default_rng(481)
++        raw = rng.normal(size=(4,4)) + 1j*rng.normal(size=(4,4))
++        unitary, _ = np.linalg.qr(raw)
++        ket = rng.normal(size=8)+1j*rng.normal(size=8)
++        ket /= np.linalg.norm(ket)
++        self.close(self.ref.local_gate(ket, unitary, [0,1], 3), np.kron(unitary,np.eye(2))@ket)
++        self.close(self.ref.local_gate(ket, unitary, [1,2], 3), np.kron(np.eye(2),unitary)@ket)
++        self.close(np.linalg.norm(self.ref.local_gate(ket, unitary, [2,0], 3)), 1)
++
++    def test_local_gate_invalid_state_targets_and_gate(self):
++        ket = [1,0,0,0]
++        identity = np.eye(2)
++        cases = [([1,0],identity,[0],2), ([2,0,0,0],identity,[0],2),
++                 ([np.nan,0,0,0],identity,[0],2), (np.array(ket).reshape(2,2),identity,[0],2),
++                 (ket,identity,[0,0],2), (ket,identity,[2],2), (ket,identity,[-1],2),
++                 (ket,identity,[.5],2), (ket,identity,[True],2), (ket,identity,[],2),
++                 (ket,identity,[0],2.0), (ket,identity,[0],True),
++                 (ket,np.eye(4),[0],2), (ket,identity*2,[0],2),
++                 (ket,[[1,np.inf],[0,1]],[0],2)]
++        for args in cases:
++            with self.subTest(args=args), self.assertRaises(ValueError):
++                self.ref.local_gate(*args)
++
++    def test_joint_product_01(self):
++        rho = np.diag([0,1,0,0])
++        a,b,c = self.ref.joint_parameters(rho)
++        self.close(a, [0,0,1])
++        self.close(b, [0,0,-1])
++        self.close(c, np.diag([0,0,-1]))
++        self.close(self.ref.density_from_joint(a,b,c), rho)
++        s = 1/np.sqrt(3)
++        p0 = np.array([1+s,1-s,1-s,1+s])/4
++        p1 = np.array([1-s,1+s,1+s,1-s])/4
++        self.close(self.ref.joint_tetra_probabilities(rho), np.outer(p0,p1))
++
++    def test_joint_singlet_and_chsh(self):
++        ket = np.array([0,1,-1,0])/np.sqrt(2)
++        rho = np.outer(ket,ket)
++        a,b,c = self.ref.joint_parameters(rho)
++        self.close(a, [0,0,0])
++        self.close(b, [0,0,0])
++        self.close(c, -np.eye(3))
++        self.close(self.ref.density_from_joint(a,b,c),rho)
++        self.close(self.ref.joint_tetra_probabilities(rho), (np.ones((4,4))-np.eye(4))/12)
++        # z and x at Alice, (z+x)/sqrt2 and (z-x)/sqrt2 at Bob.
++        z,x = np.array([0,0,1]), np.array([1,0,0])
++        bp,bm = (z+x)/np.sqrt(2), (z-x)/np.sqrt(2)
++        self.close(z@c@bp + z@c@bm + x@c@bp - x@c@bm, -2*np.sqrt(2))
++
++    def test_joint_maximally_mixed_and_random_roundtrip(self):
++        self.close(self.ref.joint_tetra_probabilities(np.eye(4)/4), np.ones((4,4))/16)
++        rho = self.ref.random_density(4, np.random.default_rng(81))
++        params = self.ref.joint_parameters(rho)
++        self.close(self.ref.density_from_joint(*params), rho)
++        self.close(self.ref.joint_tetra_probabilities(rho).sum(), 1)
++
++    def test_joint_non_psd_even_when_tetra_probabilities_positive(self):
++        # C=I, a=b=0 gives three eigenvalues +1/2 and one -1/2.
++        # Its formal tetra probabilities are (1+n_i.n_j)/16: all >0.
++        with self.assertRaises(ValueError):
++            self.ref.density_from_joint([0,0,0],[0,0,0],np.eye(3))
++
++    def test_joint_rejects_invalid_dimensions_nonfinite_and_complex(self):
++        for function in [self.ref.joint_parameters, self.ref.joint_tetra_probabilities]:
++            with self.assertRaises(ValueError):
++                function(np.eye(2)/2)
++        for a,b,c in [([0,0],[0,0,0],np.zeros((3,3))),
++                      ([0,0,0],[0,0,0],np.zeros((2,3))),
++                      ([1j,0,0],[0,0,0],np.zeros((3,3))),
++                      ([np.nan,0,0],[0,0,0],np.zeros((3,3))),
++                      ([0,0,0],[0,0,0],np.full((3,3),np.inf)),
++                      ([2,0,0],[0,0,0],np.zeros((3,3)))]:
++            with self.subTest(a=a,b=b,c=c), self.assertRaises(ValueError):
++                self.ref.density_from_joint(a,b,c)
++
++
++if __name__ == "__main__":
++    unittest.main()

@@ -1,0 +1,18 @@
+{
+  "target_id": "T01",
+  "target_name": "Qubit_State_Geometry",
+  "primitives_used": [
+    "P1",
+    "P11",
+    "P3"
+  ],
+  "is_exact": true,
+  "symbolic_residual": 0.0,
+  "derivation_steps": [
+    "1. Activate primitive bases: ['P1', 'P11', 'P3']",
+    "2. Formulate geometric carrier and admissibility constraints",
+    "3. Derive target 'Qubit_State_Geometry' with 0.0 symbolic residual"
+  ],
+  "epistemic_status": "ESTABLISHED_WITHIN_QUALIFIED_SCOPE",
+  "status": "RECONSTRUCTED_EXACT"
+}

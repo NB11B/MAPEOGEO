@@ -1,0 +1,37 @@
+{
+  "command": "python -m ngc_geometry_lab run --seed 20261022 --out <new-directory>",
+  "created_utc": "2026-10-22T05:04:30.186907+00:00",
+  "environment": {
+    "numpy": "2.3.5",
+    "nvcc_available": false,
+    "nvidia_device_present": false,
+    "nvidia_smi_available": false,
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "scipy": "1.17.0"
+  },
+  "files": {
+    "REPORT.md": "1ec434836b980792d98bac8a313ae96007497beed24c5023242f9fdc89c0092a",
+    "blind_analysis.json": "112c432c468a8d93bf2576a9e315c7562d489534e6c8d9f3910d3f296bfc43b0",
+    "checkpoints/connected_operators.json": "3f5ca948d2bc7c3f848abdee169e93445f89a8f5ee7ad822aa176d6e948b9ee7",
+    "checkpoints/dual_lane.json": "bed069d4e2ee5208a5a6fb72bcf3939563445e539964288e6a87a91d4fedf9a7",
+    "checkpoints/exact_closure.json": "c248fd6ecf14d04df24c279e1853330b60b8ce9d072b5a2f94a03a1a87c19349",
+    "checkpoints/finite_shot.json": "04d896c74cec3729551428c9e8ceca8865c92280a7adf0cf02baf187495be87a",
+    "checkpoints/identifiability.json": "04992cf36ac58b3b9e86e733c1b6fd9e64c8852c25e377b4fd57039db09cc3eb",
+    "checkpoints/joint.json": "8f864d8f655df07337155eac74e54e384bd123a2001cf290368d1915b3ea8b27",
+    "checkpoints/metric_and_center.json": "e0f70bdcdb61a1dd7d9be6e913c5227a947312eb14c9a5cca4ea8436a37a391b",
+    "checkpoints/readout.json": "eb5c0ace46035ba5aacb6ee6721565331dfd893ce21185598daf301b6c293254",
+    "checkpoints/single_qubit.json": "05db89d6ea01ca142e823ed212af8c2f8774acca52f3e9118f8f96d0e4d5b7be",
+    "checkpoints/source_integrity.json": "01e239230a18dabf9a33241f7de23f41745c23daa32566adb7560c1d84b81768",
+    "configuration.json": "a623010288940c876e1e38390531d5197bcf41df81f486eb66cfda23b5146d77",
+    "dual_lane_exception.txt": "5212daeeab862d04bac0e34c639de49bf69f464cea0dd4a76f4f2edbe0bc5283",
+    "exact_closure.json": "60f3062c10ad33a73531a503ac07e336df6e445d59ac46bb76cb6b574690b435",
+    "finite_shot.csv": "2928d79e440132261b54af5a769b0cd4c531381cb610fe3dc9632a0596c91994",
+    "joint_systems.csv": "305d866c3a92b396bb35db78340e383409433a9344a9c9113dc043fad51425e0",
+    "readout_candidates.csv": "371411b8b45a057903199ecfe137baaf0831b132885fb00706796cbf85190474",
+    "results.json": "945973097b01caeb8614157aefea69a74ae588dab53c13fa9bddf65008d10662",
+    "single_qubit.csv": "3f1731d2ccd0e894e0b8523950a7b79631218e4da5f649d54073a88bd3d080db",
+    "synthetic_observations.json": "a28c67d856617517e1021786ea26433dd4df85e4864c84c48d4abf06746ccd61",
+    "synthetic_truth.json": "fc5f1a410ce550c94a1ff61ca1869be1da5a53f60cda237c9a96e784418e4218"
+  }
+}
