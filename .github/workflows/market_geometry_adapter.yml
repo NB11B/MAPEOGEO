@@ -1,0 +1,45 @@
+name: Market geometry adapter qualification
+on:
+  push:
+    branches: [research/ngc-market-dynamics-adapter-v0]
+  workflow_dispatch:
+jobs:
+  contract-and-real-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Synthetic deterministic contract
+        run: python -m unittest tests/test_market_dynamics_loader.py -v
+      - name: Retrieve explicit-UTC AAPL sample
+        run: |
+          mkdir -p /tmp/market_geometry
+          curl --fail --location --retry 3 --silent --show-error \
+            https://raw.githubusercontent.com/getdata-finance/aapl-15m-ohlcv-stocks-historical-data/main/AAPL_15m.csv \
+            -o /tmp/market_geometry/AAPL_15m.csv
+      - name: Deterministic real-data smoke run
+        run: |
+          python - <<'PY'
+          import json
+          p={'path':'/tmp/market_geometry/AAPL_15m.csv',
+             'cadence_seconds':900,'lags':[1,2,4],
+             'split_utc':'2026-08-01T00:00:00Z','ridge':1e-8}
+          with open('/tmp/market_geometry/manifest.json','w') as f: json.dump(p,f)
+          PY
+          python experiments/market_dynamics/market_loader.py \
+            --manifest /tmp/market_geometry/manifest.json \
+            --out /tmp/market_geometry/result.json
+          python - <<'PY'
+          import json
+          r=json.load(open('/tmp/market_geometry/result.json'))
+          assert r['train_transitions']>50
+          assert r['test_transitions']>50
+          assert r['kind']=='deterministic_measurement_only'
+          print(json.dumps(r, indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: market-geometry-deterministic
+          path: /tmp/market_geometry/result.json
