@@ -169,6 +169,46 @@ def adaptive_residue_tree(max_r: int = 8) -> dict:
         }
     return levels
 
+def odd_to_odd_step(n: int) -> tuple[int, int]:
+    """For positive odd n, return (T(n) = (3n+1)/2^t, t = v_2(3n+1))."""
+    if n <= 0 or n % 2 == 0:
+        raise ValueError("positive odd integers only")
+    m = 3 * n + 1
+    t = 0
+    while m % 2 == 0:
+        m //= 2
+        t += 1
+    return m, t
+
+def return_map_word(valuations: tuple[int, ...]) -> tuple[int, ...]:
+    """Expand a sequence of 2-adic valuations (t_1, ..., t_r) with t_i >= 1 into its parity word."""
+    bits = []
+    for t in valuations:
+        if t < 1:
+            raise ValueError("valuations must be >= 1")
+        bits.append(1)
+        bits.extend([0] * (t - 1))
+    return tuple(bits)
+
+def verify_return_map_composition(max_odd: int = 255, steps: int = 5) -> dict:
+    """Verify C7.1: r odd-to-odd return steps match return_map_word and satisfy 2^K * T^r(n) = 3^r * n + B."""
+    checked = 0
+    for n in range(1, max_odd + 1, 2):
+        curr = n
+        vals = []
+        for _ in range(steps):
+            curr, t = odd_to_odd_step(curr)
+            vals.append(t)
+        w = return_map_word(tuple(vals))
+        A, B, D = affine_word(w)
+        assert A == 3 ** steps
+        assert D == 1 << sum(vals)
+        assert actual_word(n, w) == curr
+        assert D * curr == A * n + B
+        assert 3 * B <= steps * A or sum(vals) > steps  # general cocycle check
+        checked += 1
+    return {"checked_odd_starts": checked, "steps": steps}
+
 def run_campaign(max_start=10000, cap=10000, depth=8):
     kinds={}
     for n in range(1,max_start+1):

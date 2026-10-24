@@ -2050,4 +2050,314 @@ theorem every_nat_exits_allTrue_branch (n : Nat) :
   have hgt := wordD_allTrueWord_gt_self (n + 1)
   omega
 
+/-! ### COLLATZ-C7: Odd-to-Odd Return-Map Qualification & Cross-Branch Dynamics
+    - **C7.1 (Exact Return-Map Composition)**: General parity-word concatenation laws
+      (`wordA_append`, `wordD_append`, `wordB_append`, `validParityWord_append`,
+      `applyParityWord_append`) and exact odd-to-odd return-map operator `returnMapWord ks`
+      for arbitrary valuation sequences `ks : List Nat`.
+    - **C7.2 (Arithmetic Constraints on Valuation Sequences)**: Exact modulo-`2^{K_r}` residue
+      bijection for valuation sequences, odd-input preservation, and finite-prefix vs.
+      infinite-path separation (`returnMapWord_replicate_zero_eq_allTrueWord`).
+    - **C7.3 (Cross-Branch Compensation & Descent)**: Exact necessary and sufficient condition
+      (`cross_branch_descent_iff`) for an expanding segment `w₁` followed by a contracting
+      segment `w₂` to achieve net descent `F_{w₁ ++ w₂}(n) < n`.
+    - **C7.4 & Section 5 (Minimal-Crossing Structure & Infinite-Path Obstruction)**:
+      Proof that every minimal-crossing word ends with an even step (`minimal_crossing_last_bit_false`)
+      and exact equivalence `CollatzConjecture ↔ ∀ n > 1, EventuallyHitsContractingCylinder n`
+      (`eventuallyHitsContractingCylinder_iff_collatz`).
+-/
+
+/-! #### C7.1: General Operator Composition & Odd-to-Odd Return Map -/
+
+/-- Exact validity composition across concatenated parity words `w₁ ++ w₂`. -/
+theorem validParityWord_append (w₁ w₂ : List Bool) :
+    ∀ m : Nat, validParityWord m (w₁ ++ w₂) ↔
+      validParityWord m w₁ ∧ validParityWord (applyParityWord m w₁) w₂ := by
+  induction w₁ with
+  | nil =>
+    intro m
+    simp [validParityWord, applyParityWord]
+  | cons b bs ih =>
+    intro m
+    dsimp [validParityWord, applyParityWord]
+    rw [ih (acceleratedCollatz m), and_assoc]
+
+/-- Exact operator composition across concatenated parity words `w₁ ++ w₂`. -/
+theorem applyParityWord_append (w₁ w₂ : List Bool) :
+    ∀ m : Nat, applyParityWord m (w₁ ++ w₂) =
+      applyParityWord (applyParityWord m w₁) w₂ := by
+  induction w₁ with
+  | nil =>
+    intro m
+    rfl
+  | cons b bs ih =>
+    intro m
+    dsimp [applyParityWord]
+    exact ih (acceleratedCollatz m)
+
+/-- Multiplicative numerator law for `w₁ ++ w₂`: `wordA (w₁ ++ w₂) = wordA w₁ * wordA w₂`. -/
+theorem wordA_append (w₁ w₂ : List Bool) :
+    wordA (w₁ ++ w₂) = wordA w₁ * wordA w₂ := by
+  induction w₁ with
+  | nil =>
+    dsimp [wordA]
+    omega
+  | cons b bs ih =>
+    cases b with
+    | false =>
+      dsimp [wordA]
+      exact ih
+    | true =>
+      dsimp [wordA]
+      rw [ih, Nat.mul_assoc]
+
+/-- Multiplicative denominator law for `w₁ ++ w₂`: `wordD (w₁ ++ w₂) = wordD w₁ * wordD w₂`. -/
+theorem wordD_append (w₁ w₂ : List Bool) :
+    wordD (w₁ ++ w₂) = wordD w₁ * wordD w₂ := by
+  induction w₁ with
+  | nil =>
+    dsimp [wordD]
+    omega
+  | cons b bs ih =>
+    dsimp [wordD]
+    rw [ih, Nat.mul_assoc]
+
+/-- Exact affine cocycle law for `wordB (w₁ ++ w₂)`:
+    `wordB (w₁ ++ w₂) = wordA w₂ * wordB w₁ + wordD w₁ * wordB w₂`. -/
+theorem wordB_append (w₁ w₂ : List Bool) :
+    wordB (w₁ ++ w₂) = wordA w₂ * wordB w₁ + wordD w₁ * wordB w₂ := by
+  induction w₁ with
+  | nil =>
+    dsimp [wordB, wordD]
+    omega
+  | cons b bs ih =>
+    cases b with
+    | false =>
+      dsimp [wordB, wordD]
+      rw [ih]
+      have h1 : 2 * (wordA w₂ * wordB bs + wordD bs * wordB w₂) =
+          wordA w₂ * (2 * wordB bs) + (2 * wordD bs) * wordB w₂ := by
+        rw [Nat.mul_add, ← Nat.mul_assoc 2 (wordA w₂) (wordB bs),
+          Nat.mul_comm 2 (wordA w₂), Nat.mul_assoc (wordA w₂) 2 (wordB bs),
+          ← Nat.mul_assoc 2 (wordD bs) (wordB w₂)]
+      exact h1
+    | true =>
+      dsimp [wordB, wordD]
+      rw [ih, wordA_append]
+      have h1 : wordA bs * wordA w₂ + 2 * (wordA w₂ * wordB bs + wordD bs * wordB w₂) =
+          wordA w₂ * (wordA bs + 2 * wordB bs) + (2 * wordD bs) * wordB w₂ := by
+        rw [Nat.mul_add 2, Nat.mul_add (wordA w₂), Nat.mul_comm (wordA bs) (wordA w₂),
+          ← Nat.mul_assoc 2 (wordA w₂) (wordB bs), Nat.mul_comm 2 (wordA w₂),
+          Nat.mul_assoc (wordA w₂) 2 (wordB bs), ← Nat.mul_assoc 2 (wordD bs) (wordB w₂),
+          Nat.add_assoc]
+      exact h1
+
+/-- Odd-to-odd return-map parity word for a sequence of extra-halving counts
+    `ks = [k₁, ..., kᵣ]` (where the `i`-th odd-to-odd step divides `3n + 1` by `2^{kᵢ + 1}`). -/
+def returnMapWord : List Nat → List Bool
+  | [] => []
+  | k :: ks => singleOddWord k ++ returnMapWord ks
+
+/-- Total 2-adic exponent `K_r = ∑_{i=1}^r (kᵢ + 1)` of a valuation sequence `ks`. -/
+def totalValuation (ks : List Nat) : Nat :=
+  (returnMapWord ks).length
+
+/-- C7.1: `wordA` of an `r`-step odd-to-odd return sequence `ks` is `3^r`. -/
+theorem wordA_returnMapWord (ks : List Nat) :
+    wordA (returnMapWord ks) = 3 ^ ks.length := by
+  induction ks with
+  | nil => rfl
+  | cons k ks ih =>
+    dsimp [returnMapWord]
+    rw [wordA_append, wordA_singleOddWord, ih, Nat.pow_succ, Nat.mul_comm]
+
+/-- C7.1: `wordD` of an `r`-step odd-to-odd return sequence `ks` is `2^(totalValuation ks)`. -/
+theorem wordD_returnMapWord (ks : List Nat) :
+    wordD (returnMapWord ks) = 2 ^ totalValuation ks :=
+  wordD_eq_pow_two_length (returnMapWord ks)
+
+/-- C7.1 (Exact Return-Map Composition Formula):
+    For every valuation sequence `ks : List Nat` and every admissible integer `n`,
+    `2^(totalValuation ks) * applyParityWord n (returnMapWord ks) = 3^(ks.length) * n + wordB (returnMapWord ks)`. -/
+theorem returnMap_exact_affine (ks : List Nat) (n : Nat)
+    (hv : validParityWord n (returnMapWord ks)) :
+    2 ^ totalValuation ks * applyParityWord n (returnMapWord ks) =
+      3 ^ ks.length * n + wordB (returnMapWord ks) := by
+  rw [← wordD_returnMapWord ks, ← wordA_returnMapWord ks]
+  exact parityWord_affine_identity (returnMapWord ks) n hv
+
+/-! #### C7.2: Arithmetic Constraints on Valuation Sequences -/
+
+/-- C7.2: Every finite valuation sequence `ks` is admissible and corresponds to the unique
+    residue class `wordResidue (returnMapWord ks)` modulo `2^(totalValuation ks)`. -/
+theorem returnMapWord_admissible_iff (ks : List Nat) (n : Nat) :
+    validParityWord n (returnMapWord ks) ↔
+      n % (2 ^ totalValuation ks) = wordResidue (returnMapWord ks) := by
+  rw [← wordD_returnMapWord ks]
+  exact validParityWord_iff_mod_eq_wordResidue (returnMapWord ks) n
+
+/-- C7.2: Any integer `n` realizing a non-empty odd-to-odd return sequence `k :: ks` is odd. -/
+theorem returnMapWord_input_odd (k : Nat) (ks : List Nat) (n : Nat)
+    (hv : validParityWord n (returnMapWord (k :: ks))) :
+    n % 2 = 1 := by
+  dsimp [returnMapWord, singleOddWord, validParityWord, stepParityMatches] at hv
+  exact hv.1
+
+/-- C7.2: Exact algebraic identity for `allTrueWord r`:
+    `wordB (allTrueWord r) + wordD (allTrueWord r) = wordA (allTrueWord r)` (`B_r = 3^r - 2^r`). -/
+theorem wordB_allTrueWord_add_wordD (r : Nat) :
+    wordB (allTrueWord r) + wordD (allTrueWord r) = wordA (allTrueWord r) := by
+  induction r with
+  | zero =>
+    dsimp [allTrueWord, List.replicate, wordB, wordD, wordA]
+  | succ r ih =>
+    dsimp [allTrueWord, List.replicate, wordB, wordD, wordA] at ih ⊢
+    omega
+
+/-- C7.2: Exact closed-form trajectory of `allTrueWord r` on its base representative `2^r - 1`:
+    `applyParityWord (wordD (allTrueWord r) - 1) (allTrueWord r) = wordA (allTrueWord r) - 1`. -/
+theorem applyParityWord_allTrueWord_base (r : Nat)
+    (hv : validParityWord (wordD (allTrueWord r) - 1) (allTrueWord r)) :
+    applyParityWord (wordD (allTrueWord r) - 1) (allTrueWord r) =
+      wordA (allTrueWord r) - 1 := by
+  have hid := parityWord_affine_identity (allTrueWord r) (wordD (allTrueWord r) - 1) hv
+  have hBD := wordB_allTrueWord_add_wordD r
+  have hD : wordD (allTrueWord r) ≥ 1 := wordD_pos (allTrueWord r)
+  have hA : wordA (allTrueWord r) ≥ 1 := wordA_pos (allTrueWord r)
+  have hsub1 : wordA (allTrueWord r) * (wordD (allTrueWord r) - 1) + wordA (allTrueWord r) =
+      wordA (allTrueWord r) * wordD (allTrueWord r) := by
+    rw [← Nat.mul_succ]
+    congr 1
+    omega
+  have hsub2 : wordD (allTrueWord r) * (wordA (allTrueWord r) - 1) + wordD (allTrueWord r) =
+      wordD (allTrueWord r) * wordA (allTrueWord r) := by
+    rw [← Nat.mul_succ]
+    congr 1
+    omega
+  have hcomm : wordA (allTrueWord r) * wordD (allTrueWord r) =
+      wordD (allTrueWord r) * wordA (allTrueWord r) := Nat.mul_comm _ _
+  have hcomb : wordD (allTrueWord r) *
+      applyParityWord (wordD (allTrueWord r) - 1) (allTrueWord r) =
+      wordD (allTrueWord r) * (wordA (allTrueWord r) - 1) := by omega
+  exact Nat.eq_of_mul_eq_mul_left hD hcomb
+
+/-- C7.2: Exact closed-form trajectory of `allTrueWord r` on `(2^r - 1) + q * 2^r`:
+    `applyParityWord ((wordD (allTrueWord r) - 1) + q * wordD (allTrueWord r)) (allTrueWord r) = (wordA (allTrueWord r) - 1) + q * wordA (allTrueWord r)`. -/
+theorem applyParityWord_allTrueWord_exact (r q : Nat)
+    (hv : validParityWord (wordD (allTrueWord r) - 1) (allTrueWord r)) :
+    applyParityWord ((wordD (allTrueWord r) - 1) + q * wordD (allTrueWord r)) (allTrueWord r) =
+      (wordA (allTrueWord r) - 1) + q * wordA (allTrueWord r) := by
+  rw [(parityWord_residue_shift (allTrueWord r) (wordD (allTrueWord r) - 1) q hv).2,
+    applyParityWord_allTrueWord_base r hv]
+
+/-- C7.2: A valuation sequence of `r` minimal valuations (`kᵢ = 0`, i.e. `tᵢ = 1`)
+    is identical to `allTrueWord r`. -/
+theorem returnMapWord_replicate_zero (r : Nat) :
+    returnMapWord (List.replicate r 0) = allTrueWord r := by
+  induction r with
+  | zero => rfl
+  | succ r ih =>
+    dsimp [List.replicate, returnMapWord, singleOddWord, allTrueWord]
+    rw [ih]
+    rfl
+
+/-- C7.2 (Finite Prefix vs. Infinite Trajectory Separation for Valuation Sequences):
+    While `List.replicate r 0` is admissible for every finite `r`, NO natural number `n`
+    can realize the valuation sequence `List.replicate (n + 1) 0`. -/
+theorem no_nat_realizes_replicate_zero_self (n : Nat) :
+    ¬ validParityWord n (returnMapWord (List.replicate (n + 1) 0)) := by
+  rw [returnMapWord_replicate_zero]
+  exact every_nat_exits_allTrue_branch n
+
+/-! #### C7.3: Cross-Branch Compensation & Descent -/
+
+/-- C7.3 (Exact Cross-Branch Compensation Theorem):
+    Suppose a trajectory executes segment `w₁` (e.g. an expanding segment) followed by
+    segment `w₂` (a compensating contracting segment) such that the combined spectral
+    condition `wordD w₁ * wordD w₂ > wordA w₁ * wordA w₂` holds.
+    Then `applyParityWord (applyParityWord n w₁) w₂ < n` holds if and only if
+    `(wordD w₁ * wordD w₂ - wordA w₁ * wordA w₂) * n > wordA w₂ * wordB w₁ + wordD w₁ * wordB w₂`. -/
+theorem cross_branch_descent_iff (w₁ w₂ : List Bool) (n : Nat)
+    (hv₁ : validParityWord n w₁)
+    (hv₂ : validParityWord (applyParityWord n w₁) w₂)
+    (hgt : wordD w₁ * wordD w₂ > wordA w₁ * wordA w₂) :
+    applyParityWord (applyParityWord n w₁) w₂ < n ↔
+      (wordD w₁ * wordD w₂ - wordA w₁ * wordA w₂) * n >
+        wordA w₂ * wordB w₁ + wordD w₁ * wordB w₂ := by
+  have hv : validParityWord n (w₁ ++ w₂) :=
+    (validParityWord_append w₁ w₂ n).mpr ⟨hv₁, hv₂⟩
+  have hgt' : wordD (w₁ ++ w₂) > wordA (w₁ ++ w₂) := by
+    rw [wordD_append, wordA_append]
+    exact hgt
+  rw [← applyParityWord_append w₁ w₂ n,
+    contracting_word_descent_iff (w₁ ++ w₂) n hv hgt',
+    wordD_append, wordA_append, wordB_append]
+
+/-! #### C7.4 & Section 5: Minimal-Crossing Structure & Infinite-Path Obstruction -/
+
+/-- Section 5 (Minimal-Crossing Terminal Step Theorem):
+    If `w₁` is spectrally expanding (`wordA w₁ > wordD w₁`) and `w₁ ++ [b]` is spectrally
+    contracting (`wordD (w₁ ++ [b]) > wordA (w₁ ++ [b])`), then the crossing step `b`
+    MUST be `false` (even) and `2 * wordD w₁ > wordA w₁`. -/
+theorem minimal_crossing_terminal_step_even (w₁ : List Bool) (b : Bool)
+    (hexp : wordA w₁ > wordD w₁)
+    (hcon : wordD (w₁ ++ [b]) > wordA (w₁ ++ [b])) :
+    b = false ∧ 2 * wordD w₁ > wordA w₁ := by
+  rw [wordD_append, wordA_append] at hcon
+  cases b with
+  | false =>
+    dsimp [wordD, wordA] at hcon
+    exact ⟨rfl, by omega⟩
+  | true =>
+    dsimp [wordD, wordA] at hcon
+    omega
+
+/-- Predicate that `n` eventually reaches a parity cylinder `w = parityWordOf r n` (`r > 0`)
+    satisfying spectral contraction `wordD w > wordA w` and the affine descent inequality
+    `(wordD w - wordA w) * n > wordB w`. -/
+def EventuallyHitsContractingCylinder (n : Nat) : Prop :=
+  ∃ r : Nat, r > 0 ∧
+    let w := parityWordOf r n
+    wordD w > wordA w ∧ (wordD w - wordA w) * n > wordB w
+
+/-- C7.4 (Exact Infinite-Path Obstruction Equivalence):
+    `CollatzConjecture` holds if and only if every integer `n > 1` eventually reaches
+    a contracting parity cylinder above its affine threshold (`EventuallyHitsContractingCylinder n`). -/
+theorem eventuallyHitsContractingCylinder_iff_collatz :
+    (∀ n : Nat, n > 1 → EventuallyHitsContractingCylinder n) ↔ CollatzConjecture := by
+  rw [← universalAcceleratedDescent_iff_collatz]
+  constructor
+  · intro h n hn1
+    rcases h n hn1 with ⟨r, hr, hgt, hgap⟩
+    have hv : validParityWord n (parityWordOf r n) := parityWordOf_valid r n
+    have hlt : applyParityWord n (parityWordOf r n) < n :=
+      (contracting_word_descent_iff (parityWordOf r n) n hv hgt).mpr hgap
+    rw [applyParityWord_parityWordOf r n] at hlt
+    exact ⟨r, hr, hlt⟩
+  · intro h n hn1
+    rcases h n hn1 with ⟨r, hr, hlt⟩
+    let w := parityWordOf r n
+    have hv : validParityWord n w := parityWordOf_valid r n
+    have hlt_w : applyParityWord n w < n := by
+      rw [applyParityWord_parityWordOf r n]
+      exact hlt
+    have hgt : wordD w > wordA w := by
+      by_cases hge : wordA w ≥ wordD w
+      · by_cases hB : wordB w = 0
+        · have hA1 : wordA w = 1 := (wordB_eq_zero_iff_wordA_eq_one w).mp hB
+          have hlen : w.length = r := parityWordOf_length r n
+          have hne : w ≠ [] := by
+            intro hnil
+            rw [hnil] at hlen
+            dsimp at hlen
+            omega
+          have hD2 : wordD w ≥ 2 := wordD_ge_two_of_ne_nil w hne
+          omega
+        · have hgrow := expanding_word_strict_growth w n hv hge (by omega)
+          omega
+      · omega
+    have hgap : (wordD w - wordA w) * n > wordB w :=
+      (contracting_word_descent_iff w n hv hgt).mp hlt_w
+    exact ⟨r, hr, hgt, hgap⟩
+
 end BBB17
