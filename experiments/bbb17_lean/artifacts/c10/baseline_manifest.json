@@ -1,0 +1,19 @@
+{
+  "campaign": "COLLATZ-C10",
+  "active_branch": "research/collatz-c10-proof-closure",
+  "preserved_branches": {
+    "research/bbb17-lean-proof": "fbf5d2b",
+    "research/collatz-three-tracks": "dbf40bb",
+    "research/collatz-c6-adaptive-descent": "48e6502"
+  },
+  "lean_toolchain": "leanprover/lean4:v4.29.0-rc8",
+  "frozen_base_module": "ThreeTracks.lean",
+  "c10_modules": [
+    "CollatzProofClosure/Definitions.lean",
+    "CollatzProofClosure/DeficitLifting.lean",
+    "CollatzProofClosure/SpectralCrossing.lean",
+    "CollatzProofClosure/GlobalDescent.lean",
+    "CollatzProofClosure/CycleObstructions.lean",
+    "CollatzProofClosure/MainTheorem.lean"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "campaign": "COLLATZ-C10",
+  "workstreams": {
+    "WS1_deficit_lifting": {
+      "lifting_depth_exhaustive": 14,
+      "first_crossing_depth_exhaustive": 18,
+      "lean_kernel_depth_certified": 64,
+      "trajectory_sweep_limit_n": 100000
+    },
+    "WS2_spectral_crossing": {
+      "max_odd_steps_convergents": 2000,
+      "eliahou_n0_bound": 1024,
+      "lean_kernel_empty_window_max_r": 64
+    },
+    "WS3_global_descent_potentials": {
+      "peak_drawdown_limit_n": 10000,
+      "power_threshold_limit_n": 2000
+    },
+    "WS4_cycle_obstructions": {
+      "steiner_one_circuit_max_a": 500,
+      "constructed_valuation_max_odd_steps": 128,
+      "lean_kernel_cycle_exclusion_max_r": 64
+    }
+  }
+}

@@ -1,12 +1,14 @@
 name: Collatz three-track falsification
 on:
   push:
-    branches: [research/collatz-three-tracks, research/collatz-c6-adaptive-descent]
+    branches: [research/collatz-three-tracks, research/collatz-c6-adaptive-descent, research/collatz-c10-proof-closure]
   pull_request:
     paths:
       - 'experiments/bbb17_lean/three_tracks.py'
       - 'experiments/bbb17_lean/test_three_tracks.py'
       - 'experiments/bbb17_lean/ThreeTracks.lean'
+      - 'experiments/bbb17_lean/CollatzProofClosure/**'
+      - 'experiments/bbb17_lean/qualification/c10/**'
       - '.github/workflows/collatz-three-tracks.yml'
 jobs:
   bounded-tests:
@@ -16,15 +18,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Three track regression
+      - name: Three track and C10 regression
         run: |
           cd experiments/bbb17_lean
           python -m unittest -v test_three_tracks.py
+          python -m unittest -v qualification/c10/test_c10_all.py
           python three_tracks.py --starts 10000 --cap 10000 --depth 8
-      - uses: leanprover/lean-action@v1
-        with:
-          lean-version: 'v4.21.0'
-      - name: Check Lean three-track theorems
+      - name: Install elan and Lean 4 toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain leanprover/lean4:v4.29.0-rc8
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+      - name: Check Lean three-track and C10 proof-closure theorems
         run: |
           cd experiments/bbb17_lean
           lean -o BBB17.olean BBB17.lean
@@ -35,4 +39,10 @@ jobs:
           LEAN_PATH=. lean -o PhaseArithmetic.olean PhaseArithmetic.lean
           LEAN_PATH=. lean -o ArithmeticOrbitBridge.olean ArithmeticOrbitBridge.lean
           LEAN_PATH=. lean -o CollatzReduction.olean CollatzReduction.lean
-          LEAN_PATH=. lean ThreeTracks.lean
+          LEAN_PATH=. lean -o ThreeTracks.olean ThreeTracks.lean
+          LEAN_PATH=. lean -o CollatzProofClosure/Definitions.olean CollatzProofClosure/Definitions.lean
+          LEAN_PATH=. lean -o CollatzProofClosure/DeficitLifting.olean CollatzProofClosure/DeficitLifting.lean
+          LEAN_PATH=. lean -o CollatzProofClosure/SpectralCrossing.olean CollatzProofClosure/SpectralCrossing.lean
+          LEAN_PATH=. lean -o CollatzProofClosure/GlobalDescent.olean CollatzProofClosure/GlobalDescent.lean
+          LEAN_PATH=. lean -o CollatzProofClosure/CycleObstructions.olean CollatzProofClosure/CycleObstructions.lean
+          LEAN_PATH=. lean -o CollatzProofClosure/MainTheorem.olean CollatzProofClosure/MainTheorem.lean

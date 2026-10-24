@@ -1,0 +1,68 @@
+'BBB17.CollatzProofClosure.even_step_lift_endpoint_eq' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.even_step_lift_deficit_recurrence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.odd_step_lift_endpoint_eq' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.odd_step_lift_deficit_recurrence' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.odd_step_lift_expansion_recurrence' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.wordResidue_append_eq_add_liftBit' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.minWordRep_eq_wordResidue_of_ge_two' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.minWordRep_eq_add_wordD_of_le_one' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.firstCrossing_descent_iff_preCrossing_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.parityWordOf_add' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.parityWordOf_succ_eq_append' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.noncrossing_prefix_stays_expanding' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.noncrossing_prefix_strict_growth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.descent_forces_prior_firstCrossing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.collatz_implies_everyNatCrossesSpectrally' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.neverCrossesSpectrally_iff_all_prefixes_expanding' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.returnMap_expanding_strict_inequality' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.mod4_eq_one_crosses_at_depth2' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.nondescent_prefix_power_bound' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.nondescent_diophantine_sandwich' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.power_threshold_forces_descent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.eventual_power_threshold_implies_collatz' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.monotone_nondecreasing_forces_allTrueWord' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.every_nat_experiences_peak_drawdown' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.composite_operator_exact_affine' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.two_segment_recovery_after_jump_iff' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.universalCompositeDeficitPositive_iff_collatz' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.v2_succ_potential_even_step_jump_witness' does not depend on any axioms
+'BBB17.CollatzProofClosure.positive_linear_uv_potential_strict_increase' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.no_two_odd_block_cycle' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.no_three_odd_block_cycle' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.oneCircuitWord_coefficients' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.oneCircuitWord_steiner_obstruction' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.cycle_element_mod_three_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.universal_cycle_minimum_element_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.checkEliahouWindow1024_64' does not depend on any axioms
+'BBB17.CollatzProofClosure.all_lt_1024_descend_within_85' does not depend on any axioms
+'BBB17.CollatzProofClosure.descent_of_lt_1024' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.no_nontrivial_cycle_length_le_64' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.nondescent_lower_bound_power_ratio' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.infinite_nondescent_diophantine_obstruction_system' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.c10_unified_convergence_criteria' depends on axioms: [propext, Classical.choice, Quot.sound]

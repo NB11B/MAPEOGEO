@@ -1,0 +1,165 @@
+{
+  "ws1_lifting_recurrences": {
+    "max_depth": 14,
+    "total_words_checked": 32766,
+    "even_lifts_checked": 16382,
+    "odd_lifts_checked": 16382,
+    "failures": 0
+  },
+  "ws1_first_crossing_tree": {
+    "max_depth": 18,
+    "first_crossing_words_count": 1752,
+    "true_deficit_exceptions_count": 0,
+    "true_deficit_exceptions": [],
+    "coarse_pincer_exceptions_tree_count": 0,
+    "coarse_pincer_exceptions_count": 3,
+    "coarse_pincer_exceptions": [
+      {
+        "r": 59,
+        "a": 37,
+        "m_min": 27,
+        "y_min": 23,
+        "3_m_Delta": 10220324559406516125,
+        "a_A": 16660504517966902431,
+        "true_deficit": 4
+      },
+      {
+        "r": 54,
+        "a": 34,
+        "m_min": 47,
+        "y_min": 46,
+        "3_m_Delta": 188547570183973515,
+        "a_A": 567024177788663346,
+        "true_deficit": 1
+      },
+      {
+        "r": 54,
+        "a": 34,
+        "m_min": 63,
+        "y_min": 61,
+        "3_m_Delta": 252733977055113435,
+        "a_A": 567024177788663346,
+        "true_deficit": 2
+      }
+    ],
+    "pre_crossing_mismatches": 0
+  },
+  "ws1_trajectory_sweep": {
+    "limit_n": 100000,
+    "max_first_crossing_depth": 135,
+    "max_first_crossing_n": 35655,
+    "first_crossing_nondescent_count": 0,
+    "frontier_trajectories_sandwich_checked": 1562,
+    "sandwich_violations": 0
+  },
+  "ws2_spectral_near_collisions": {
+    "max_a": 2000,
+    "n0_bound": 1024,
+    "spectral_band_violations": 0,
+    "window_hits_r_le_64": 0,
+    "first_window_hit_for_n0_1024": {
+      "r": 65,
+      "a": 41,
+      "relative_gap": 0.011528851808608504
+    },
+    "record_convergents": [
+      {
+        "a": 1,
+        "r": 2,
+        "relative_gap": 0.3333333333333333
+      },
+      {
+        "a": 3,
+        "r": 5,
+        "relative_gap": 0.18518518518518517
+      },
+      {
+        "a": 5,
+        "r": 8,
+        "relative_gap": 0.053497942386831275
+      },
+      {
+        "a": 17,
+        "r": 27,
+        "relative_gap": 0.03931824834385566
+      },
+      {
+        "a": 29,
+        "r": 46,
+        "relative_gap": 0.02532940775684111
+      },
+      {
+        "a": 41,
+        "r": 65,
+        "relative_gap": 0.011528851808608504
+      },
+      {
+        "a": 94,
+        "r": 149,
+        "relative_gap": 0.009418849414340659
+      },
+      {
+        "a": 147,
+        "r": 233,
+        "relative_gap": 0.007313248387464219
+      },
+      {
+        "a": 200,
+        "r": 317,
+        "relative_gap": 0.005212039546930401
+      },
+      {
+        "a": 253,
+        "r": 401,
+        "relative_gap": 0.0031152137308416658
+      },
+      {
+        "a": 306,
+        "r": 485,
+        "relative_gap": 0.0010227617964117671
+      },
+      {
+        "a": 971,
+        "r": 1539,
+        "relative_gap": 0.0009790639918678843
+      },
+      {
+        "a": 1636,
+        "r": 2593,
+        "relative_gap": 0.0009353680948711569
+      }
+    ]
+  },
+  "ws3_potentials_and_drawdown": {
+    "v2_succ_even_step_jump_verified": true,
+    "v2_62_plus_1": 0,
+    "v2_31_plus_1": 5,
+    "drawdown_limit_n": 10000,
+    "drawdown_failures": 0,
+    "max_monotonic_run_steps": 13,
+    "power_threshold_checked": 1999,
+    "power_threshold_descent_failures": 0
+  },
+  "ws4_steiner_one_circuit": {
+    "max_a": 500,
+    "formula_mismatches": 0,
+    "steiner_survivors": [
+      {
+        "a": 1,
+        "k": 1,
+        "r": 2,
+        "delta": 1,
+        "wordB": 1,
+        "min_m": 1,
+        "is_integral": true,
+        "m_candidate": 1
+      }
+    ],
+    "integral_nontrivial_cycles_count": 0
+  },
+  "ws4_constructed_valuation_sequences": {
+    "max_odd_steps": 128,
+    "tested_words": 383,
+    "nontrivial_cycles_found": 0
+  }
+}
