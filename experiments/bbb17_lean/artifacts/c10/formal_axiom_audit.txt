@@ -100,3 +100,17 @@
 'BBB17.CollatzProofClosure.infinite_nondescent_reservoir_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+
+'BBB17.CollatzProofClosure.contracting_nondescent_iff_le_fixedPoint' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.fixedPoint_residue_lift_coupling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.fixedPoint_even_extension_law' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.fixedPoint_odd_extension_law' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.pow_succ_sub_pow_le_mul_pow_pred' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.universal_nondescent_offset_and_fixedPoint_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.projective_fixedPoint_and_congruence_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

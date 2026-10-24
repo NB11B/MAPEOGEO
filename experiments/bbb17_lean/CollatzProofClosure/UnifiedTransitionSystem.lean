@@ -1253,5 +1253,312 @@ theorem periodic_orbit_strict_interior_excursion_bound (n r : Nat)
   rw [hcycle] at hbound
   exact ⟨ha1, hcont, hbound⟩
 
+/-! ## Section 6: Projective Fixed-Point Dynamics, 2-Adic Lifting Coupling, and Universal Non-Descent Offset Bound
+
+    In Section 5 we proved the exact Reservoir-Offset Duality Identity:
+    `deficitReservoir n r + n^{a_r} * wordB w_r + n * (3 * n)^{a_r} = n * (3 * n + 1)^{a_r}`.
+    Alone, the pure exponential bounds `(3n / (3n+1))^{a_r} < 1 - Q_r ≤ U^{a_r - 1}` with
+    `U = n(3n+7)/((n+2)(3n+1))` are algebraically compatible because `U / L = (3n+7)/(3n+6) > 1`.
+    Therefore, extracting a contradiction requires coupling the reservoir-offset duality identity with:
+    1. **2-adic canonical residue lifting (`minWordRep w + q * wordD w`)** and the projective
+       fixed point `x_w = wordB w / wordDelta w` of contracting operators (`wordD w > wordA w`),
+    2. **Exact step evolution of the projective fixed-point coordinates `(wordB w, wordDelta w)`**
+       under even and odd extensions, and
+    3. **Universal Non-Descent Offset and Fixed-Point Bound**:
+       Using `(Y + 1)^a ≤ Y^a + a * (Y + 1)^{a - 1}` with `Y = 3 * n`, the Reservoir-Offset
+       Duality Identity implies that along **every** non-descending prefix of **any** length `r ≥ 1`
+       (even after arbitrarily many spectral crossings, where `IsPrefixExpanding` no longer holds!):
+       `deficitReservoir n r + n^{a_r} * wordB w_r ≤ n * a_r * (3 * n + 1)^{a_r - 1}`,
+       so `n^{a_r - 1} * wordB w_r ≤ a_r * (3 * n + 1)^{a_r - 1}`, and at every contracting
+       depth (`wordDelta w_r ≥ 1`):
+       `wordDelta w_r * n^{a_r} ≤ n^{a_r - 1} * wordB w_r ≤ a_r * (3 * n + 1)^{a_r - 1}`
+       and `wordDelta w_r * n ≤ a_r * 4^{a_r - 1}`.
+-/
+
+/-- Projective Fixed-Point Dichotomy (`contracting_nondescent_iff_le_fixedPoint`):
+    For any contracting parity word `w` (`wordD w > wordA w`, so `wordDelta w > 0`) and
+    any admissible integer `m` (`validParityWord m w`), non-descent `applyParityWord m w ≥ m`
+    holds if and only if `m` lies at or below the projective fixed point `x_w = wordB w / wordDelta w`
+    (`wordDelta w * m ≤ wordB w`), and strict descent `applyParityWord m w < m` holds if and only if
+    `m` lies strictly above `x_w` (`wordDelta w * m > wordB w`, quantized as `wordDelta w * m ≥ wordB w + wordD w`). -/
+theorem contracting_nondescent_iff_le_fixedPoint (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hgt : wordD w > wordA w) :
+    (applyParityWord m w ≥ m ↔ wordDelta w * m ≤ wordB w) ∧
+    (applyParityWord m w < m ↔ wordDelta w * m > wordB w) ∧
+    (applyParityWord m w < m ↔ wordDelta w * m ≥ wordB w + wordD w) := by
+  have hdesc_iff := contracting_word_descent_iff w m hv hgt
+  have hquant := discrete_deficit_quantization_iff w m hv hgt
+  unfold wordDelta at *
+  refine ⟨?_, hdesc_iff, hquant.2.1.symm⟩
+  constructor <;> intro h <;> omega
+
+/-- Coupling of the Projective Fixed Point `x_w = B_w / Δ_w` with 2-Adic Residue Lifts
+    (`fixedPoint_residue_lift_coupling`):
+    For any contracting parity word `w` (`wordD w ≥ wordA w`) and any lift quotient `q : Nat`,
+    let `m = minWordRep w + q * wordD w` and `y = applyParityWord m w`. Then:
+    1. `validParityWord m w` and `y = minRepOutput w + q * wordA w`,
+    2. Whenever the canonical representative descends or stays equal (`minRepOutput w ≤ minWordRep w`),
+       every lift `q ≥ 0` satisfies `y ≤ m` and lies above the projective fixed point:
+       `wordDelta w * m = wordB w + wordD w * ((minWordRep w - minRepOutput w) + q * wordDelta w)`,
+    3. Conversely, if `m` avoids descent (`y ≥ m`), then `q * wordDelta w ≤ minRepOutput w - minWordRep w`
+       and `wordB w = wordDelta w * m + wordD w * ((minRepOutput w - minWordRep w) - q * wordDelta w)`
+       (so at most finitely many 2-adic lifts `q` can remain below the projective fixed point `x_w`). -/
+theorem fixedPoint_residue_lift_coupling (w : List Bool) (q : Nat)
+    (hge : wordD w ≥ wordA w) :
+    let m := minWordRep w + q * wordD w
+    let y := applyParityWord m w
+    validParityWord m w ∧
+    y = minRepOutput w + q * wordA w ∧
+    (minRepOutput w ≤ minWordRep w →
+      y ≤ m ∧
+      wordDelta w * m =
+        wordB w + wordD w * ((minWordRep w - minRepOutput w) + q * wordDelta w)) ∧
+    (y ≥ m →
+      minRepOutput w ≥ minWordRep w + q * wordDelta w ∧
+      wordB w =
+        wordDelta w * m + wordD w * ((minRepOutput w - minWordRep w) - q * wordDelta w)) := by
+  dsimp
+  have hv_min := minWordRep_valid w
+  rcases parityWord_residue_shift w (minWordRep w) q hv_min with ⟨hv_m, hy_eq⟩
+  have hy_min : applyParityWord (minWordRep w) w = minRepOutput w := rfl
+  rw [hy_min] at hy_eq
+  have hbal := discrete_deficit_balance w (minWordRep w + q * wordD w) hv_m hge
+  have hq_delta : q * wordDelta w + q * wordA w = q * wordD w := by
+    unfold wordDelta
+    rw [← Nat.mul_add, Nat.sub_add_cancel hge]
+  refine ⟨hv_m, hy_eq, ?_, ?_⟩
+  · intro hmin_le
+    have hy_le_m : applyParityWord (minWordRep w + q * wordD w) w ≤
+        minWordRep w + q * wordD w := by omega
+    have hdiff : minWordRep w + q * wordD w -
+        applyParityWord (minWordRep w + q * wordD w) w =
+        (minWordRep w - minRepOutput w) + q * wordDelta w := by omega
+    have hdesc := (discrete_deficit_descent_identity w (minWordRep w + q * wordD w) hv_m hge hy_le_m).1
+    rw [hdiff] at hdesc
+    exact ⟨hy_le_m, hdesc⟩
+  · intro hy_ge_m
+    have hmin_ge : minRepOutput w ≥ minWordRep w + q * wordDelta w := by omega
+    have hdiff : applyParityWord (minWordRep w + q * wordD w) w -
+        (minWordRep w + q * wordD w) =
+        (minRepOutput w - minWordRep w) - q * wordDelta w := by omega
+    have hnondesc := (discrete_deficit_nondescent_identity w (minWordRep w + q * wordD w) hv_m hge hy_ge_m).1
+    rw [hdiff] at hnondesc
+    exact ⟨hmin_ge, hnondesc⟩
+
+/-- Projective Fixed-Point Even-Step Evolution Law (`fixedPoint_even_extension_law`):
+    Under an even step `w ↦ w ++ [false]` in the contracting regime (`wordD w ≥ wordA w`):
+    1. `wordB (w ++ [false]) = wordB w` (numerator is unchanged),
+    2. `wordDelta (w ++ [false]) = wordDelta w + wordD w` (denominator increases by `D_w = 2^|w|`),
+    3. Cross-ratio identity:
+       `wordB w * wordDelta (w ++ [false]) = wordB (w ++ [false]) * wordDelta w + wordB w * wordD w`
+       (so the projective fixed point strictly contracts toward `0`), and
+    4. For every integer `m`, `wordDelta (w ++ [false]) * m = wordDelta w * m + wordD w * m`. -/
+theorem fixedPoint_even_extension_law (w : List Bool) (m : Nat)
+    (hge : wordD w ≥ wordA w) :
+    wordB (w ++ [false]) = wordB w ∧
+    wordDelta (w ++ [false]) = wordDelta w + wordD w ∧
+    wordB w * wordDelta (w ++ [false]) =
+      wordB (w ++ [false]) * wordDelta w + wordB w * wordD w ∧
+    wordDelta (w ++ [false]) * m = wordDelta w * m + wordD w * m := by
+  have hB : wordB (w ++ [false]) = wordB w := by
+    rw [wordB_append]; dsimp [wordB, wordA]; omega
+  have hD : wordD (w ++ [false]) = 2 * wordD w := by
+    rw [wordD_append]; dsimp [wordD]; omega
+  have hA : wordA (w ++ [false]) = wordA w := by
+    rw [wordA_append]; dsimp [wordA]; omega
+  have hDelta : wordDelta (w ++ [false]) = wordDelta w + wordD w := by
+    unfold wordDelta
+    omega
+  refine ⟨hB, hDelta, ?_, ?_⟩
+  · rw [hB, hDelta, Nat.mul_add]
+  · rw [hDelta, Nat.add_mul]
+
+/-- Projective Fixed-Point Odd-Step Evolution Law (`fixedPoint_odd_extension_law`):
+    Under an odd step `w ↦ w ++ [true]`:
+    1. `wordB (w ++ [true]) = 3 * wordB w + wordD w`,
+    2. `wordD (w ++ [true]) = 2 * wordD w` and `wordA (w ++ [true]) = 3 * wordA w`, and
+    3. Whenever `w ++ [true]` remains contracting (`2 * wordD w ≥ 3 * wordA w`),
+       `wordDelta (w ++ [true]) + wordA w = 2 * wordDelta w` and
+       `wordB (w ++ [true]) * wordDelta w =
+          wordB w * wordDelta (w ++ [true]) + wordB w * (wordDelta w + wordA w) + wordD w * wordDelta w`. -/
+theorem fixedPoint_odd_extension_law (w : List Bool) :
+    wordB (w ++ [true]) = 3 * wordB w + wordD w ∧
+    wordD (w ++ [true]) = 2 * wordD w ∧
+    wordA (w ++ [true]) = 3 * wordA w ∧
+    (2 * wordD w ≥ 3 * wordA w →
+      wordDelta (w ++ [true]) + wordA w = 2 * wordDelta w ∧
+      wordB (w ++ [true]) * wordDelta w =
+        wordB w * wordDelta (w ++ [true]) +
+          wordB w * (wordDelta w + wordA w) + wordD w * wordDelta w) := by
+  have hB : wordB (w ++ [true]) = 3 * wordB w + wordD w := by
+    rw [wordB_append]; dsimp [wordB, wordA]; omega
+  have hD : wordD (w ++ [true]) = 2 * wordD w := by
+    rw [wordD_append]; dsimp [wordD]; omega
+  have hA : wordA (w ++ [true]) = 3 * wordA w := by
+    rw [wordA_append]; dsimp [wordA]; omega
+  refine ⟨hB, hD, hA, ?_⟩
+  intro hge
+  have hDelta : wordDelta (w ++ [true]) + wordA w = 2 * wordDelta w := by
+    unfold wordDelta
+    omega
+  refine ⟨hDelta, ?_⟩
+  have h1 : wordB w * wordDelta (w ++ [true]) + wordB w * (wordDelta w + wordA w) =
+      wordB w * (wordDelta (w ++ [true]) + wordA w + wordDelta w) := by
+    rw [← Nat.mul_add]
+    congr 1
+    omega
+  have h2 : wordDelta (w ++ [true]) + wordA w + wordDelta w = 3 * wordDelta w := by omega
+  rw [hB, Nat.add_mul, h1, h2, Nat.mul_comm 3 (wordB w), Nat.mul_assoc]
+
+/-- Elementary Power-Gap Upper Bound (`pow_succ_sub_pow_le_mul_pow_pred`):
+    For all `Y a : Nat`, `(Y + 1)^a ≤ Y^a + a * (Y + 1)^{a - 1}`.
+    (Follows by telescoping `(Y + 1)^a - Y^a = ∑_{k=0}^{a-1} Y^k (Y + 1)^{a - 1 - k} ≤ a * (Y + 1)^{a - 1}`.) -/
+theorem pow_succ_sub_pow_le_mul_pow_pred (Y a : Nat) :
+    (Y + 1) ^ a ≤ Y ^ a + a * (Y + 1) ^ (a - 1) := by
+  induction a with
+  | zero =>
+    simp
+  | succ a ih =>
+    cases a with
+    | zero =>
+      simp
+    | succ b =>
+      have hsub1 : b + 1 - 1 = b := by omega
+      have hsub2 : b + 1 + 1 - 1 = b + 1 := by omega
+      rw [hsub1] at ih
+      rw [hsub2]
+      calc (Y + 1) ^ (b + 1 + 1)
+        _ = (Y + 1) ^ (b + 1) * Y + (Y + 1) ^ (b + 1) := by
+          rw [Nat.pow_succ (Y + 1) (b + 1), Nat.mul_add, Nat.mul_one]
+        _ ≤ (Y ^ (b + 1) + (b + 1) * (Y + 1) ^ b) * Y + (Y + 1) ^ (b + 1) := by
+          have hmul := Nat.mul_le_mul_right Y ih
+          omega
+        _ = Y ^ (b + 1 + 1) + (b + 1) * ((Y + 1) ^ b * Y) + (Y + 1) ^ (b + 1) := by
+          rw [Nat.add_mul, ← Nat.pow_succ Y (b + 1), Nat.mul_assoc]
+        _ ≤ Y ^ (b + 1 + 1) + (b + 1) * ((Y + 1) ^ b * (Y + 1)) + (Y + 1) ^ (b + 1) := by
+          have hY : (Y + 1) ^ b * Y ≤ (Y + 1) ^ b * (Y + 1) :=
+            Nat.mul_le_mul_left ((Y + 1) ^ b) (by omega)
+          have hmul := Nat.mul_le_mul_left (b + 1) hY
+          omega
+        _ = Y ^ (b + 1 + 1) + (b + 1 + 1) * (Y + 1) ^ (b + 1) := by
+          have hpow : (Y + 1) ^ b * (Y + 1) = (Y + 1) ^ (b + 1) :=
+            (Nat.pow_succ (Y + 1) b).symm
+          rw [hpow, Nat.add_mul (b + 1) 1, Nat.one_mul, Nat.add_assoc]
+
+/-- Universal Non-Descent Offset and Projective Fixed-Point Bound
+    (`universal_nondescent_offset_and_fixedPoint_bound`):
+    For ANY `n > 1` and ANY depth `r ≥ 1` along a non-descending trajectory prefix
+    (`∀ i ≤ r, iterateAccelerated n i ≥ n`), let `w = parityWordOf r n` and `a = wordOnes w`.
+    Even after arbitrarily many spectral crossings (where `IsPrefixExpanding w` no longer holds!),
+    combining the Reservoir-Offset Duality Identity with `pow_succ_sub_pow_le_mul_pow_pred` forces:
+    1. `a ≥ 1`,
+    2. `deficitReservoir n r + n^a * wordB w ≤ n * (a * (3 * n + 1)^{a - 1})`,
+    3. `n^{a - 1} * wordB w ≤ a * (3 * n + 1)^{a - 1}`,
+    4. `wordDelta w * n^a ≤ n^{a - 1} * wordB w ≤ a * (3 * n + 1)^{a - 1}`, and
+    5. `wordDelta w * n ≤ a * 4^{a - 1}`. -/
+theorem universal_nondescent_offset_and_fixedPoint_bound (n r : Nat)
+    (hn1 : n > 1) (hr1 : r ≥ 1)
+    (hge : ∀ i : Nat, i ≤ r → iterateAccelerated n i ≥ n) :
+    let w := parityWordOf r n
+    let a := wordOnes w
+    a ≥ 1 ∧
+    deficitReservoir n r + n ^ a * wordB w ≤
+      n * (a * (3 * n + 1) ^ (a - 1)) ∧
+    n ^ (a - 1) * wordB w ≤ a * (3 * n + 1) ^ (a - 1) ∧
+    wordDelta w * n ^ a ≤ n ^ (a - 1) * wordB w ∧
+    wordDelta w * n ^ a ≤ a * (3 * n + 1) ^ (a - 1) ∧
+    wordDelta w * n ≤ a * 4 ^ (a - 1) := by
+  dsimp
+  have ha1 : wordOnes (parityWordOf r n) ≥ 1 := by
+    have h1 := hge 1 hr1
+    dsimp [iterateAccelerated] at h1
+    have hodd0 : n % 2 = 1 := by
+      by_cases hev : n % 2 = 0
+      · unfold acceleratedCollatz at h1
+        rw [if_pos hev] at h1
+        omega
+      · omega
+    have hb0 : (n % 2 == 1) = true := by rw [beq_iff_eq]; exact hodd0
+    have hones1 : wordOnes (parityWordOf 1 n) = 1 := by
+      dsimp [parityWordOf]; rw [hb0]; dsimp [wordOnes]
+    have hmono := wordOnes_parityWordOf_mono n 1 (r - 1)
+    have hr_eq : 1 + (r - 1) = r := by omega
+    rw [hr_eq, hones1] at hmono
+    exact hmono
+  have hge_lt : ∀ i : Nat, i < r → iterateAccelerated n i ≥ n :=
+    fun i hi => hge i (by omega)
+  have hdual := (reservoir_offset_duality_identity n r hge_lt).2
+  have hpow_gap := pow_succ_sub_pow_le_mul_pow_pred (3 * n) (wordOnes (parityWordOf r n))
+  have hmul_gap : n * (3 * n + 1) ^ wordOnes (parityWordOf r n) ≤
+      n * (3 * n) ^ wordOnes (parityWordOf r n) +
+        n * (wordOnes (parityWordOf r n) * (3 * n + 1) ^ (wordOnes (parityWordOf r n) - 1)) := by
+    rw [← Nat.mul_add]
+    exact Nat.mul_le_mul_left n hpow_gap
+  have hres_B_le : deficitReservoir n r +
+      n ^ wordOnes (parityWordOf r n) * wordB (parityWordOf r n) ≤
+      n * (wordOnes (parityWordOf r n) * (3 * n + 1) ^ (wordOnes (parityWordOf r n) - 1)) := by
+    omega
+  have ha_split : wordOnes (parityWordOf r n) =
+      (wordOnes (parityWordOf r n) - 1) + 1 := by omega
+  have hna_eq : n ^ wordOnes (parityWordOf r n) * wordB (parityWordOf r n) =
+      n * (n ^ (wordOnes (parityWordOf r n) - 1) * wordB (parityWordOf r n)) := by
+    conv => lhs; rw [ha_split, Nat.pow_succ]
+    rw [Nat.mul_comm (n ^ _) n, Nat.mul_assoc]
+  have hmul_B_le : n * (n ^ (wordOnes (parityWordOf r n) - 1) * wordB (parityWordOf r n)) ≤
+      n * (wordOnes (parityWordOf r n) * (3 * n + 1) ^ (wordOnes (parityWordOf r n) - 1)) := by
+    omega
+  have hB_le : n ^ (wordOnes (parityWordOf r n) - 1) * wordB (parityWordOf r n) ≤
+      wordOnes (parityWordOf r n) * (3 * n + 1) ^ (wordOnes (parityWordOf r n) - 1) :=
+    Nat.le_of_mul_le_mul_left hmul_B_le (by omega)
+  have hdelta_n_le_B : wordDelta (parityWordOf r n) * n ≤ wordB (parityWordOf r n) := by
+    by_cases hDA : wordD (parityWordOf r n) ≥ wordA (parityWordOf r n)
+    · have hv := parityWordOf_valid r n
+      have hge_r : applyParityWord n (parityWordOf r n) ≥ n := by
+        rw [applyParityWord_parityWordOf]
+        exact hge r (by omega)
+      have hnd := (discrete_deficit_nondescent_identity (parityWordOf r n) n hv hDA hge_r).1
+      omega
+    · unfold wordDelta
+      have h0 : wordD (parityWordOf r n) - wordA (parityWordOf r n) = 0 := by omega
+      rw [h0, Nat.zero_mul]
+      omega
+  have h1 : wordDelta (parityWordOf r n) * n ^ wordOnes (parityWordOf r n) =
+      n ^ (wordOnes (parityWordOf r n) - 1) * (wordDelta (parityWordOf r n) * n) := by
+    conv => lhs; rw [ha_split, Nat.pow_succ]
+    rw [← Nat.mul_assoc, Nat.mul_comm (wordDelta _) (n ^ _), Nat.mul_assoc]
+  have hdelta_na_le : wordDelta (parityWordOf r n) * n ^ wordOnes (parityWordOf r n) ≤
+      n ^ (wordOnes (parityWordOf r n) - 1) * wordB (parityWordOf r n) := by
+    rw [h1]
+    exact Nat.mul_le_mul_left _ hdelta_n_le_B
+  have hdelta_na_le_rhs : wordDelta (parityWordOf r n) * n ^ wordOnes (parityWordOf r n) ≤
+      wordOnes (parityWordOf r n) * (3 * n + 1) ^ (wordOnes (parityWordOf r n) - 1) :=
+    Nat.le_trans hdelta_na_le hB_le
+  have h3n1_le_4n : 3 * n + 1 ≤ 4 * n := by omega
+  have hpow_le : (3 * n + 1) ^ (wordOnes (parityWordOf r n) - 1) ≤
+      (4 * n) ^ (wordOnes (parityWordOf r n) - 1) :=
+    pow_le_pow_of_le (3 * n + 1) (4 * n) (wordOnes (parityWordOf r n) - 1) h3n1_le_4n
+  have h4n_pow : (4 * n) ^ (wordOnes (parityWordOf r n) - 1) =
+      4 ^ (wordOnes (parityWordOf r n) - 1) * n ^ (wordOnes (parityWordOf r n) - 1) :=
+    mul_pow_eq 4 n (wordOnes (parityWordOf r n) - 1)
+  have hdelta_coarse_mul :
+      n ^ (wordOnes (parityWordOf r n) - 1) * (wordDelta (parityWordOf r n) * n) ≤
+      n ^ (wordOnes (parityWordOf r n) - 1) *
+        (wordOnes (parityWordOf r n) * 4 ^ (wordOnes (parityWordOf r n) - 1)) := by
+    have hrhs_le : wordOnes (parityWordOf r n) * (3 * n + 1) ^ (wordOnes (parityWordOf r n) - 1) ≤
+        n ^ (wordOnes (parityWordOf r n) - 1) *
+          (wordOnes (parityWordOf r n) * 4 ^ (wordOnes (parityWordOf r n) - 1)) := by
+      have hm := Nat.mul_le_mul_left (wordOnes (parityWordOf r n)) hpow_le
+      rw [h4n_pow, ← Nat.mul_assoc,
+          Nat.mul_comm (wordOnes (parityWordOf r n) * 4 ^ _) (n ^ _)] at hm
+      exact hm
+    rw [← h1]
+    exact Nat.le_trans hdelta_na_le_rhs hrhs_le
+  have hpos_na1 : n ^ (wordOnes (parityWordOf r n) - 1) > 0 :=
+    pow_pos_of_pos n (wordOnes (parityWordOf r n) - 1) (by omega)
+  have hdelta_4 : wordDelta (parityWordOf r n) * n ≤
+      wordOnes (parityWordOf r n) * 4 ^ (wordOnes (parityWordOf r n) - 1) :=
+    Nat.le_of_mul_le_mul_left hdelta_coarse_mul hpos_na1
+  exact ⟨ha1, hres_B_le, hB_le, hdelta_na_le, hdelta_na_le_rhs, hdelta_4⟩
+
 end CollatzProofClosure
 end BBB17

@@ -39,6 +39,7 @@ from qualification.c10.valuation_sequence_search import (
 )
 from qualification.c10.unified_transition_discovery import (
     verify_normalized_reservoir_and_exponential_decay,
+    verify_projective_fixed_point_laws,
     verify_psmsl_matrix_algebra,
     verify_unified_transition_conservation,
 )
@@ -109,6 +110,13 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(norm_res["telescoping_mismatches"], 0)
         self.assertEqual(norm_res["threshold_descent_mismatches"], 0)
         self.assertEqual(norm_res["exponential_decay_failures"], 0)
+
+    def test_ws6_projective_fixed_point_laws(self) -> None:
+        fp_res = verify_projective_fixed_point_laws(max_n=2000)
+        self.assertEqual(fp_res["step_extension_mismatches"], 0)
+        self.assertEqual(fp_res["fixed_point_dichotomy_mismatches"], 0)
+        self.assertEqual(fp_res["universal_offset_bound_failures"], 0)
+        self.assertEqual(fp_res["post_crossing_nondescent_prefixes"], 0)
 
 
 def generate_c10_artifacts() -> None:

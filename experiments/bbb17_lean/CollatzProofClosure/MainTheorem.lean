@@ -258,5 +258,40 @@ theorem infinite_nondescent_reservoir_master (n : Nat)
     exact infinite_nondescent_reservoir_obstruction n r hn1 hr1 hn_odd
       (fun i hi1 _ => hstrict i hi1)
 
+/-- Projective Fixed-Point and Universal Non-Descent Offset Master Synthesis
+    (`projective_fixedPoint_and_congruence_master`):
+    For any hypothetical never-descending integer `n > 1` (`∀ i, iterateAccelerated n i ≥ n`),
+    at every depth `r ≥ 1`, letting `w = parityWordOf r n` and `a = wordOnes w`:
+    1. Exact Reservoir-Offset Duality:
+       `deficitReservoir n r + n^a * wordB w + n * (3 * n)^a = n * (3 * n + 1)^a`,
+    2. Universal Non-Descent Offset Bound (valid across all depths `r ≥ 1`, even after
+       arbitrarily many spectral crossings):
+       `deficitReservoir n r + n^a * wordB w ≤ n * (a * (3 * n + 1)^{a - 1})` and
+       `n^{a - 1} * wordB w ≤ a * (3 * n + 1)^{a - 1}`,
+    3. Universal Projective Fixed-Point Bound at Contracting Depths:
+       `wordDelta w * n^a ≤ n^{a - 1} * wordB w ≤ a * (3 * n + 1)^{a - 1}` and
+       `wordDelta w * n ≤ a * 4^{a - 1}`. -/
+theorem projective_fixedPoint_and_congruence_master (n : Nat)
+    (hn1 : n > 1)
+    (hnever_desc : ∀ i : Nat, iterateAccelerated n i ≥ n) :
+    ∀ r : Nat, r ≥ 1 →
+      let w := parityWordOf r n
+      let a := wordOnes w
+      a ≥ 1 ∧
+      deficitReservoir n r + n ^ a * wordB w + n * (3 * n) ^ a =
+        n * (3 * n + 1) ^ a ∧
+      deficitReservoir n r + n ^ a * wordB w ≤
+        n * (a * (3 * n + 1) ^ (a - 1)) ∧
+      n ^ (a - 1) * wordB w ≤ a * (3 * n + 1) ^ (a - 1) ∧
+      wordDelta w * n ^ a ≤ n ^ (a - 1) * wordB w ∧
+      wordDelta w * n ^ a ≤ a * (3 * n + 1) ^ (a - 1) ∧
+      wordDelta w * n ≤ a * 4 ^ (a - 1) := by
+  intro r hr1
+  dsimp
+  have hdual := (reservoir_offset_duality_identity n r (fun i _ => hnever_desc i)).2
+  rcases universal_nondescent_offset_and_fixedPoint_bound n r hn1 hr1 (fun i _ => hnever_desc i) with
+    ⟨ha1, hres_B_le, hB_le, hdelta_na_le, hdelta_na_rhs, hdelta_4⟩
+  exact ⟨ha1, hdual, hres_B_le, hB_le, hdelta_na_le, hdelta_na_rhs, hdelta_4⟩
+
 end CollatzProofClosure
 end BBB17

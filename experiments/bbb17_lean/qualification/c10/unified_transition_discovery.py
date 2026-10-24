@@ -206,12 +206,22 @@ def verify_normalized_reservoir_and_exponential_decay(limit_n: int = 2000) -> Di
                     exponential_decay_failures += 1
                 # Verify Reservoir-Offset Duality Identity and 2-adic divisibility of qDen - qNum
                 w_r = parity_word_of(r, n)
-                _, b_r, _ = affine_triple_exact(w_r)
+                a_coeff, b_r, d_r = affine_triple_exact(w_r)
                 if (q_den - reservoir) != n * ((3 * n) ** a) + (n ** a) * b_r:
                     exponential_decay_failures += 1
                 if (q_den - reservoir) % ((1 << r) * (n ** a)) != 0:
                     exponential_decay_failures += 1
                 if (nr & 1) == 1 and (1 << r) * ((n + 2) ** a) >= (3 * n + 7) ** a:
+                    exponential_decay_failures += 1
+                # Verify Universal Non-Descent Offset & Fixed-Point Bound (Section 6)
+                if reservoir + (n ** a) * b_r > n * a * ((3 * n + 1) ** (a - 1)):
+                    exponential_decay_failures += 1
+                if (n ** (a - 1)) * b_r > a * ((3 * n + 1) ** (a - 1)):
+                    exponential_decay_failures += 1
+                delta_r = max(0, d_r - a_coeff)
+                if delta_r * (n ** a) > (n ** (a - 1)) * b_r:
+                    exponential_decay_failures += 1
+                if delta_r * n > a * (4 ** (a - 1)):
                     exponential_decay_failures += 1
 
             omega = (1 << r) * (nr - n)
@@ -247,4 +257,107 @@ def verify_normalized_reservoir_and_exponential_decay(limit_n: int = 2000) -> Di
         "threshold_descent_mismatches": threshold_descent_mismatches,
         "exponential_decay_failures": exponential_decay_failures,
     }
+
+
+def verify_projective_fixed_point_laws(max_n: int = 2000) -> Dict[str, object]:
+    """
+    Verify Section 6 Projective Fixed-Point Dynamics, 2-Adic Lifting Coupling,
+    and Universal Non-Descent Offset Bound across all trajectories of n <= max_n:
+      1. Even/odd extension recurrences for (B_w, Delta_w) and cross-ratio identities,
+      2. Contracting non-descent iff m <= x_w = B_w / Delta_w,
+      3. Universal non-descent offset bound:
+         P_r(n) + n^{a_r} B_r <= n * a_r * (3n + 1)^{a_r - 1},
+         n^{a_r - 1} B_r <= a_r * (3n + 1)^{a_r - 1},
+         Delta_r * n^{a_r} <= n^{a_r - 1} B_r <= a_r * (3n + 1)^{a_r - 1},
+         Delta_r * n <= a_r * 4^{a_r - 1},
+         even on prefixes that cross the spectral boundary multiple times before descending!
+    """
+    trajectories_checked = 0
+    step_extension_mismatches = 0
+    fixed_point_dichotomy_mismatches = 0
+    universal_offset_bound_failures = 0
+    post_crossing_nondescent_prefixes = 0
+
+    for n in range(3, max_n + 1, 2):
+        if n % 4 != 3:
+            continue
+        trajectories_checked += 1
+        nr = n
+        r = 0
+        a = 0
+        reservoir = 0
+        w: List[bool] = []
+        seen_contracting = False
+
+        while True:
+            a_coeff, b_w, d_w = affine_triple_exact(w)
+            delta_w = max(0, d_w - a_coeff)
+
+            # Check contracting fixed-point dichotomy
+            if d_w > a_coeff:
+                if (nr >= n) != (delta_w * n <= b_w):
+                    fixed_point_dichotomy_mismatches += 1
+                if (nr < n) != (delta_w * n >= b_w + d_w):
+                    fixed_point_dichotomy_mismatches += 1
+
+            if nr < n:
+                break
+
+            if d_w > a_coeff:
+                seen_contracting = True
+            if seen_contracting and r >= 1:
+                post_crossing_nondescent_prefixes += 1
+
+            # Check universal non-descent offset & fixed-point bounds at depth r >= 1
+            if r >= 1:
+                rhs_full = n * a * ((3 * n + 1) ** (a - 1))
+                if reservoir + (n ** a) * b_w > rhs_full:
+                    universal_offset_bound_failures += 1
+                if (n ** (a - 1)) * b_w > a * ((3 * n + 1) ** (a - 1)):
+                    universal_offset_bound_failures += 1
+                if delta_w * (n ** a) > (n ** (a - 1)) * b_w:
+                    universal_offset_bound_failures += 1
+                if delta_w * n > a * (4 ** (a - 1)):
+                    universal_offset_bound_failures += 1
+
+            bit = (nr & 1) == 1
+            w_ext = w + [bit]
+            a_ext, b_ext, d_ext = affine_triple_exact(w_ext)
+            delta_ext = max(0, d_ext - a_ext)
+
+            if not bit:
+                if b_ext != b_w:
+                    step_extension_mismatches += 1
+                if d_w >= a_coeff:
+                    if delta_ext != delta_w + d_w:
+                        step_extension_mismatches += 1
+                    if b_w * delta_ext != b_ext * delta_w + b_w * d_w:
+                        step_extension_mismatches += 1
+            else:
+                if b_ext != 3 * b_w + d_w or d_ext != 2 * d_w or a_ext != 3 * a_coeff:
+                    step_extension_mismatches += 1
+                if 2 * d_w >= 3 * a_coeff:
+                    if delta_ext + a_coeff != 2 * delta_w:
+                        step_extension_mismatches += 1
+                    if b_ext * delta_w != (
+                        b_w * delta_ext + b_w * (delta_w + a_coeff) + d_w * delta_w
+                    ):
+                        step_extension_mismatches += 1
+
+            omega = (1 << r) * (nr - n)
+            if bit:
+                reservoir = (3 * n + 1) * reservoir + (n ** a) * omega
+                a += 1
+            nr = accelerated_collatz(nr)
+            w = w_ext
+            r += 1
+
+    return {
+        "trajectories_checked": trajectories_checked,
+        "step_extension_mismatches": step_extension_mismatches,
+        "fixed_point_dichotomy_mismatches": fixed_point_dichotomy_mismatches,
+        "universal_offset_bound_failures": universal_offset_bound_failures,
+        "post_crossing_nondescent_prefixes": post_crossing_nondescent_prefixes,
+    }
+
 
