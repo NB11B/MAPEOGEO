@@ -1039,6 +1039,225 @@ theorem absorption_or_flux_violation_dichotomy_excludes_periodic_center
     · exact v4 f4
     · exact v5 f5
 
+/-! ### `R30-UNAVOIDABLE-REDUCTION` — Goodstein–Four-Color Unavoidable Configuration & Reduction Architecture -/
+
+/-- Unavoidable spatiotemporal orbit configuration `C_DoubleBlack_11` at phase `t`:
+    `11` center run screens two right observations and locks left cells down to depth `-2`. -/
+def OrbitConfigDoubleBlack11 (t : Nat) : Prop :=
+  Rule30Prize.center t = true ∧
+  Rule30Prize.center (t + 1) = true ∧
+  cell t (-1) = false ∧
+  cell (t + 1) (-1) = !Rule30Prize.center (t + 2) ∧
+  cell t (-2) = Rule30Prize.center (t + 2)
+
+/-- Unavoidable spatiotemporal orbit configuration `C_DoubleWhite_00` at phase `t`:
+    `100` center pattern forces `cell t (-1) = true` and Law L4 right-screening at `t + 1`. -/
+def OrbitConfigDoubleWhite00 (t : Nat) : Prop :=
+  Rule30Prize.center t = true ∧
+  Rule30Prize.center (t + 1) = false ∧
+  Rule30Prize.center (t + 2) = false ∧
+  cell t (-1) = true ∧
+  cell (t + 1) (-1) = cell (t + 1) 1 ∧
+  (cell (t + 1) 1 = true → cell (t + 2) 1 = true) ∧
+  ((cell (t + 1) (-1) && xor (cell (t + 2) (-1)) (!Rule30Prize.center (t + 3))) = false) ∧
+  ((cell (t + 1) (-1) && xor (cell (t + 1) (-2)) (Rule30Prize.center (t + 3))) = false)
+
+/-- Unavoidable spatiotemporal orbit configuration `C_Alternating_1010` at phase `t`:
+    `1010` center pattern cancels right-boundary variables in `xor (cell t (-2)) (cell t (-3)) = true`
+    and collapses depth `-4` via `cell t (-3) = !cell t (-2)` and `cell t (-4) = !cell (t + 1) (-3)`. -/
+def OrbitConfigAlternating1010 (t : Nat) : Prop :=
+  Rule30Prize.center t = true ∧
+  Rule30Prize.center (t + 1) = false ∧
+  Rule30Prize.center (t + 2) = true ∧
+  Rule30Prize.center (t + 3) = false ∧
+  cell t (-1) = true ∧
+  xor (cell t (-2)) (cell t (-3)) = true ∧
+  cell t (-3) = !cell t (-2) ∧
+  (cell t (-3) || cell t (-2)) = true ∧
+  cell t (-4) = !cell (t + 1) (-3)
+
+/-- Unavoidable spatiotemporal configuration disjunction `U_orbit` at transition phase `τ`. -/
+def UnavoidableOrbitConfigAt (τ : Nat) : Prop :=
+  OrbitConfigDoubleBlack11 (τ + 2) ∨
+  OrbitConfigDoubleWhite00 τ ∨
+  OrbitConfigAlternating1010 τ
+
+theorem exists_black_to_white_step :
+    ∀ (n a : Nat),
+      cell a 0 = true →
+      cell (a + n) 0 = false →
+      ∃ i : Nat, i < n ∧ cell (a + i) 0 = true ∧ cell (a + i + 1) 0 = false
+  | 0, a, hb, hw => by
+    rw [Nat.add_zero] at hw
+    rw [hb] at hw
+    contradiction
+  | n + 1, a, hb, hw => by
+    cases h1 : cell (a + 1) 0
+    · exact ⟨0, by omega, by simpa using hb, by simpa using h1⟩
+    · have hw' : cell (a + 1 + n) 0 = false := by
+        rwa [show a + 1 + n = a + (n + 1) by omega]
+      obtain ⟨j, hj, hbj, hwj⟩ := exists_black_to_white_step n (a + 1) h1 hw'
+      refine ⟨j + 1, by omega, ?_, ?_⟩
+      · rwa [show a + (j + 1) = a + 1 + j by omega]
+      · rwa [show a + (j + 1) + 1 = a + 1 + j + 1 by omega]
+
+/-- **`R30-UNAVOIDABLE-REDUCTION` Acceptance Test 1 (`EXACT`) — Unavoidable Spatiotemporal Orbit
+    Configuration Theorem (`unavoidable_spatiotemporal_orbit_configuration`)**:
+    Proves unconditionally that every hypothetical periodic center trajectory `PeriodicCenter T P`
+    has period `P ≥ 2` and in every window `[t₀, t₀ + 2 * P)` (`t₀ ≥ T`) encounters a phase `τ`
+    satisfying `UnavoidableOrbitConfigAt τ` (`C_DoubleBlack_11`, `C_DoubleWhite_00`, or `C_Alternating_1010`). -/
+theorem unavoidable_spatiotemporal_orbit_configuration
+    (T P t₀ : Nat) (hper : PeriodicCenter T P) (ht₀ : T ≤ t₀) :
+    2 ≤ P ∧
+    ∃ τ : Nat, t₀ ≤ τ ∧ τ < t₀ + 2 * P ∧ UnavoidableOrbitConfigAt τ := by
+  rcases hper with ⟨hP, hper_fn⟩
+  have hP2 : 2 ≤ P := by
+    rcases (by omega : P = 1 ∨ 2 ≤ P) with hp1 | hge2
+    · subst hp1
+      exact False.elim (no_period_one_center_all_transients T (by simpa using hper_fn))
+    · exact hge2
+  obtain ⟨⟨sb, hsbP, hsb⟩, ⟨sw, hswP, hsw⟩⟩ :=
+    periodic_center_has_black_and_white_in_every_period T P t₀ hP hper_fn ht₀
+  have hsw_next : cell (t₀ + sw + P) 0 = false := by
+    have h := hper_fn (t₀ + sw) (by omega)
+    unfold Rule30Prize.center at h hsw
+    rwa [h]
+  let a := t₀ + sb
+  let n := P + sw - sb
+  have han : a + n = t₀ + sw + P := by omega
+  have hb_a : cell a 0 = true := hsb
+  have hw_an : cell (a + n) 0 = false := by rw [han]; exact hsw_next
+  obtain ⟨i, hi, hc0_cell, hc1_cell⟩ := exists_black_to_white_step n a hb_a hw_an
+  let τ := a + i
+  have hτ_ge : t₀ ≤ τ := by omega
+  have hτ_lt : τ < t₀ + 2 * P := by omega
+  have hc0 : Rule30Prize.center τ = true := hc0_cell
+  have hc1 : Rule30Prize.center (τ + 1) = false := hc1_cell
+  refine ⟨hP2, τ, hτ_ge, hτ_lt, ?_⟩
+  cases hc2 : Rule30Prize.center (τ + 2)
+  · right; left
+    have hm1 : cell τ (-1) = true := by
+      have h := (left_black_step_screened_forcing τ hc0).1
+      rw [hc1] at h; exact h
+    have hc2' : Rule30Prize.center (τ + 1 + 1) = false := by
+      rwa [show τ + 1 + 1 = τ + 2 by omega]
+    rcases double_white_step_depth2_forcing (τ + 1) hc1 hc2' with ⟨hd1, hd2, _, hd4, hd5⟩
+    rw [show τ + 1 + 1 = τ + 2 by omega] at hd2
+    rw [show τ + 1 + 1 = τ + 2 by omega, show τ + 1 + 2 = τ + 3 by omega] at hd4
+    rw [show τ + 1 + 2 = τ + 3 by omega] at hd5
+    exact ⟨hc0, hc1, hc2, hm1, hd1, hd2, hd4, hd5⟩
+  · cases hc3 : Rule30Prize.center (τ + 3)
+    · right; right
+      rcases local_101_pattern_conserved_left_xor τ hc0 hc1 hc2 with ⟨hm1, _, _, hxor⟩
+      rw [hc3] at hxor
+      rcases local_1010_complement_cancellation_depth4 τ hc0 hc1 hc2 hc3 with ⟨hcomp, hor, hm4⟩
+      exact ⟨hc0, hc1, hc2, hc3, hm1, hxor, hcomp, hor, hm4⟩
+    · left
+      have hc3' : Rule30Prize.center (τ + 2 + 1) = true := by
+        rwa [show τ + 2 + 1 = τ + 3 by omega]
+      rcases double_black_step_depth2_forcing (τ + 2) hc2 hc3' with ⟨hb1, hb2, hb3⟩
+      exact ⟨hc2, hc3', hb1, hb2, hb3⟩
+
+/-- Abstract normalized counterexample state `S = (T, P, a(S), b(S), c(S))` with Goodstein rank
+    `ρ(S) = ω² · quotientClasses + ω · onsetDepth + phaseResidual`. -/
+structure CounterexampleState where
+  T : Nat
+  P : Nat
+  quotientClasses : Nat
+  onsetDepth : Nat
+  phaseResidual : Nat
+
+/-- Strict lexicographic ordering `ρ(s') < ρ(s)` on `ω² a + ω b + c`. -/
+def GoodsteinRankLt (s' s : CounterexampleState) : Prop :=
+  s'.quotientClasses < s.quotientClasses ∨
+  (s'.quotientClasses = s.quotientClasses ∧ s'.onsetDepth < s.onsetDepth) ∨
+  (s'.quotientClasses = s.quotientClasses ∧ s'.onsetDepth = s.onsetDepth ∧
+    s'.phaseResidual < s.phaseResidual)
+
+/-- Union of all directly forbidden configuration classes (`U_forbidden`) proved incompatible
+    with `PeriodicCenter T P` for all transients `T`. -/
+def InForbiddenUnavoidableFamily (T P : Nat) : Prop :=
+  (∀ t, T ≤ t → Rule30Prize.center t = false) ∨
+  (∀ t, T ≤ t → Rule30Prize.center t = true) ∨
+  P = 1 ∨
+  (∃ r t₀ : Nat, 14 ≤ r ∧ P = r + 1 ∧ T ≤ t₀ ∧
+    (∀ i, i < r → Rule30Prize.center (t₀ + i) = false) ∧
+    Rule30Prize.center (t₀ + r) = true) ∨
+  (∃ r t₀ : Nat, 14 ≤ r ∧ P = r + 3 ∧ T ≤ t₀ ∧
+    (∀ i, i < r → Rule30Prize.center (t₀ + i) = false) ∧
+    Rule30Prize.center (t₀ + r) = true ∧
+    Rule30Prize.center (t₀ + r + 1) = false ∧
+    Rule30Prize.center (t₀ + r + 2) = true) ∨
+  ObservationalAbsorptionAt T P ∨
+  LinearHorizonCollisionAt T P ∨
+  CharacteristicFluxOnsetViolationAt T P
+
+/-- **`R30-UNAVOIDABLE-REDUCTION` (`EXACT`) — Forbidden Unavoidable Family Exclusion Theorem
+    (`forbidden_unavoidable_family_excludes_periodic_center`)**:
+    Proves unconditionally that every `(T, P)` satisfying `PeriodicCenter T P` and belonging to
+    `InForbiddenUnavoidableFamily T P` yields `False`. -/
+theorem forbidden_unavoidable_family_excludes_periodic_center
+    (T P : Nat) (hper : PeriodicCenter T P)
+    (hforb : InForbiddenUnavoidableFamily T P) : False := by
+  rcases hper with ⟨hP, hper_fn⟩
+  rcases hforb with hw | hb | hp1 | ⟨r, t₀, hr, hPr, ht₀, hwr, hbr⟩ |
+    ⟨r, t₀, hr, hPr, ht₀, hwr, hb1, hw1, hb2⟩ | habs | hlin | hflux
+  · exact no_eventually_all_white_center T hw
+  · exact no_eventually_all_black_center T hb
+  · subst hp1
+    exact no_period_one_center_all_transients T (by simpa using hper_fn)
+  · subst hPr
+    exact no_white_run_single_black_all_transients T r t₀ hr hper_fn ht₀ hwr hbr
+  · subst hPr
+    exact no_white_run_101_all_transients T r t₀ hr hper_fn ht₀ hwr hb1 hw1 hb2
+  · exact absorption_or_flux_violation_dichotomy_excludes_periodic_center T P ⟨hP, hper_fn⟩ (Or.inl habs)
+  · exact absorption_or_flux_violation_dichotomy_excludes_periodic_center T P ⟨hP, hper_fn⟩ (Or.inr (Or.inl hlin))
+  · exact absorption_or_flux_violation_dichotomy_excludes_periodic_center T P ⟨hP, hper_fn⟩ (Or.inr (Or.inr hflux))
+
+/-- **`R30-UNAVOIDABLE-REDUCTION` (`EXACT`) — Well-Founded Goodstein–Four-Color Contradiction Theorem
+    (`goodstein_four_color_well_founded_no_counterexample`)**:
+    Proves by triple well-founded induction on `ρ(s) = ω² a(s) + ω b(s) + c(s)` (`GoodsteinRankLt`)
+    that if every admissible counterexample state `A s` represents a `PeriodicCenter s.T s.P` witness
+    and either belongs to `InForbiddenUnavoidableFamily s.T s.P` or possesses a witness-preserving
+    reduction `∃ s', A s' ∧ GoodsteinRankLt s' s`, then `A` is identically empty (`∀ s, ¬ A s`). -/
+theorem goodstein_four_color_well_founded_no_counterexample
+    (A : CounterexampleState → Prop)
+    (hPer : ∀ s, A s → PeriodicCenter s.T s.P)
+    (hStep : ∀ s, A s →
+      InForbiddenUnavoidableFamily s.T s.P ∨
+      ∃ s', A s' ∧ GoodsteinRankLt s' s) :
+    ∀ s, ¬ A s := by
+  have hmain : ∀ a : Nat, ∀ s : CounterexampleState, s.quotientClasses = a → ¬ A s := by
+    intro a
+    induction a using Nat.strongRecOn with
+    | ind a ih_a =>
+      have hb_ind : ∀ b : Nat, ∀ s : CounterexampleState,
+          s.quotientClasses = a → s.onsetDepth = b → ¬ A s := by
+        intro b
+        induction b using Nat.strongRecOn with
+        | ind b ih_b =>
+          have hc_ind : ∀ c : Nat, ∀ s : CounterexampleState,
+              s.quotientClasses = a → s.onsetDepth = b → s.phaseResidual = c → ¬ A s := by
+            intro c
+            induction c using Nat.strongRecOn with
+            | ind c ih_c =>
+              intro s ha hb hc hAs
+              rcases hStep s hAs with hforb | ⟨s', hAs', hlt⟩
+              · exact forbidden_unavoidable_family_excludes_periodic_center s.T s.P (hPer s hAs) hforb
+              · rcases hlt with hlt_a | ⟨heq_a, hlt_b⟩ | ⟨heq_a, heq_b, hlt_c⟩
+                · rw [ha] at hlt_a
+                  exact ih_a s'.quotientClasses hlt_a s' rfl hAs'
+                · rw [ha] at heq_a; rw [hb] at hlt_b
+                  exact ih_b s'.onsetDepth hlt_b s' heq_a rfl hAs'
+                · rw [ha] at heq_a; rw [hb] at heq_b; rw [hc] at hlt_c
+                  exact ih_c s'.phaseResidual hlt_c s' heq_a heq_b rfl hAs'
+          intro s ha hb
+          exact hc_ind s.phaseResidual s ha hb rfl
+      intro s ha
+      exact hb_ind s.onsetDepth s ha rfl
+  intro s
+  exact hmain s.quotientClasses s rfl
+
 /-! ### Top-Level Re-Exports for Single-Module `Check.lean Rule30PrizeClosure` Verification -/
 
 theorem closure_left_diag_D4_eq_true (t : Nat) :
@@ -1455,5 +1674,25 @@ theorem closure_cone_fiber_bijection_and_quotient_pullback
       fiberLeftSlice w c_after σ₁ = fiberLeftSlice w c_after σ₂) ∧
     LeftBlackStepAdmissible w (obsLeftWord w c_after (fiberLeftSlice w c_after σ)) :=
   cone_fiber_bijection_and_quotient_pullback w c_after σ σ₁ σ₂ lam hlam
+
+theorem closure_unavoidable_spatiotemporal_orbit_configuration
+    (T P t₀ : Nat) (hper : PeriodicCenter T P) (ht₀ : T ≤ t₀) :
+    2 ≤ P ∧
+    ∃ τ : Nat, t₀ ≤ τ ∧ τ < t₀ + 2 * P ∧ UnavoidableOrbitConfigAt τ :=
+  unavoidable_spatiotemporal_orbit_configuration T P t₀ hper ht₀
+
+theorem closure_forbidden_unavoidable_family_excludes_periodic_center
+    (T P : Nat) (hper : PeriodicCenter T P)
+    (hforb : InForbiddenUnavoidableFamily T P) : False :=
+  forbidden_unavoidable_family_excludes_periodic_center T P hper hforb
+
+theorem closure_goodstein_four_color_well_founded_no_counterexample
+    (A : CounterexampleState → Prop)
+    (hPer : ∀ s, A s → PeriodicCenter s.T s.P)
+    (hStep : ∀ s, A s →
+      InForbiddenUnavoidableFamily s.T s.P ∨
+      ∃ s', A s' ∧ GoodsteinRankLt s' s) :
+    ∀ s, ¬ A s :=
+  goodstein_four_color_well_founded_no_counterexample A hPer hStep
 
 end Rule30ProofClosure
