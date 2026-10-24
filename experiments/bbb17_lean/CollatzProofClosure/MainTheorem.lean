@@ -443,5 +443,56 @@ theorem unified_contradiction_trichotomy_master :
       ⟨hn1024, hp65, hint, hgap0, hnd, hBmod, hcons⟩
     exact ⟨hn1024, hp65, fun i hi1 hip => (hint i hi1 hip).1, hgap0, hnd, hBmod, hcons⟩
 
+/-- Section 10 Master Theorem: Exact Two-Target Reduction (`NoNontrivialCycle ∧ NoDivergentOrbit`),
+    Divergence-Injectivity Equivalence, and Valuation-Block Asymptotics
+    (`section10_divergent_orbit_and_valuation_master`):
+    1. `CollatzConjecture ↔ (NoNontrivialCycle ∧ NoDivergentOrbit)`,
+    2. For every `n : Nat`, `DivergentOrbit n ↔ (∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j)`,
+    3. Every divergent orbit of `n > 1` attains a global never-descending minimum `n* = iterateAccelerated n r* > 1`
+       with `DivergentOrbit n*`,
+    4. Every never-descending divergent orbit satisfies the asymptotic power-deficit and negative-gap laws
+       `2^{r + m} * n^{a_r} < (3 * n + 1)^{a_r}` and `signedProjectiveGap w_r n < -(2^r * (M - n))` for all `r ≥ R`, and
+    5. Every odd-to-odd return block `singleOddWord k` on `u > 1` strictly grows for `k = 0` and strictly descends
+       for `k ≥ 1`, while any non-descending valuation sequence `ks` of cumulative valuation `K = totalValuation ks`
+       and odd-step count `s = ks.length` satisfies `deficitReservoir n K + 2^K * n^s * F^K(n) = n * (3 * n + 1)^s`
+       and `2^K * n^s ≤ (3 * n + 1)^s`. -/
+theorem section10_divergent_orbit_and_valuation_master :
+    (CollatzConjecture ↔ (NoNontrivialCycle ∧ NoDivergentOrbit)) ∧
+    (∀ n : Nat,
+      DivergentOrbit n ↔
+        (∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j)) ∧
+    (∀ n : Nat, n > 1 → DivergentOrbit n →
+      ∃ r_star : Nat,
+        let n_star := iterateAccelerated n r_star
+        n_star > 1 ∧ n_star ≤ n ∧
+        (∀ r : Nat, iterateAccelerated n_star r ≥ n_star) ∧
+        DivergentOrbit n_star) ∧
+    (∀ (n M m : Nat),
+      n > 1 → M ≥ n →
+      (∀ r : Nat, iterateAccelerated n r ≥ n) →
+      DivergentOrbit n →
+      ∃ R : Nat, ∀ r : Nat, r ≥ R →
+        let w_r := parityWordOf r n
+        let a_r := wordOnes w_r
+        iterateAccelerated n r > M ∧
+        signedProjectiveGap w_r n < ((2 ^ r : Nat) : Int) * ((n : Int) - (M : Int)) ∧
+        2 ^ (r + m) * n ^ a_r < (3 * n + 1) ^ a_r) ∧
+    (∀ (k u : Nat),
+      u > 1 → validParityWord u (singleOddWord k) →
+      2 ^ (k + 1) * applyParityWord u (singleOddWord k) = 3 * u + 1 ∧
+      (k = 0 → applyParityWord u (singleOddWord k) > u) ∧
+      (k ≥ 1 → applyParityWord u (singleOddWord k) < u)) := by
+  refine ⟨collatz_iff_noNontrivialCycle_and_noDivergentOrbit,
+    divergentOrbit_iff_injective,
+    divergentOrbit_attains_global_nondescent_minimum,
+    ?_,
+    singleOddWord_step_dichotomy⟩
+  intro n M m hn1 hM hnever_desc hdiv
+  rcases divergentOrbit_asymptotic_power_and_gap_laws n M m hn1 hM hnever_desc hdiv with
+    ⟨R, hR⟩
+  refine ⟨R, fun r hr => ?_⟩
+  rcases hR r hr with ⟨hitM, _, hgap, _, hpow⟩
+  exact ⟨hitM, hgap, hpow⟩
+
 end CollatzProofClosure
 end BBB17

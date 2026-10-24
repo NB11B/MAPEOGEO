@@ -159,3 +159,21 @@
 'BBB17.CollatzProofClosure.unified_contradiction_trichotomy_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.divergentOrbit_implies_injective' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.bounded_visit_sequence_of_frequently_le' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.divergentOrbit_iff_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.divergentOrbit_attains_global_nondescent_minimum' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.collatz_iff_noNontrivialCycle_and_noDivergentOrbit' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.divergentOrbit_asymptotic_power_and_gap_laws' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.wordOnes_replicate_false' does not depend on any axioms
+'BBB17.CollatzProofClosure.wordOnes_singleOddWord' does not depend on any axioms
+'BBB17.CollatzProofClosure.wordOnes_returnMapWord' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.singleOddWord_step_dichotomy' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.returnMap_nondescent_valuation_and_gap_laws' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.section10_divergent_orbit_and_valuation_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

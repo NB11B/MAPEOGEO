@@ -2853,5 +2853,415 @@ theorem collatz_iff_no_pure_cycle_and_no_divergent_nondescent :
         exact hno_cycle ⟨m_star, j - i, hm1, hp_pos, hm_per, hm_min⟩
       exact hno_div ⟨n, hn1, hnever_desc, hinj⟩
 
+/-! ## Section 10: Exact Divergence Characterization (`DivergentOrbit`), Two-Target Reduction (`NoNontrivialCycle ∧ NoDivergentOrbit`), and Valuation-Block Asymptotics
+
+    Strengthens the Section 9 decomposition into the exact two-branch proof target:
+    1. **Divergence to Infinity (`DivergentOrbit n`)**:
+       `∀ M : Nat, ∃ R : Nat, ∀ r : Nat, r ≥ R → iterateAccelerated n r > M` (`lim_{r → ∞} T^r(n) = +∞`).
+       We prove unconditionally (`divergentOrbit_iff_injective`) that for every `n : Nat`,
+       `DivergentOrbit n ↔ (∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j)`.
+       Furthermore (`divergentOrbit_attains_global_nondescent_minimum`), every divergent orbit of `n > 1`
+       attains a global minimum `n* = iterateAccelerated n r* > 1` (`n* ≤ n`) that is simultaneously
+       never-descending (`∀ r, iterateAccelerated n* r ≥ n*`) and divergent (`DivergentOrbit n*`).
+    2. **Exact Two-Target Structural Equivalence (`collatz_iff_noNontrivialCycle_and_noDivergentOrbit`)**:
+       `CollatzConjecture ↔ (NoNontrivialCycle ∧ NoDivergentOrbit)`.
+    3. **Divergent-Orbit Asymptotic Power & Projective-Gap Laws (`divergentOrbit_asymptotic_power_and_gap_laws`)**:
+       For any never-descending `DivergentOrbit n` (`n > 1`), for every threshold `M ≥ n` and every `m : Nat`,
+       there exists `R : Nat` such that for all `r ≥ R`:
+       - `iterateAccelerated n r > M`,
+       - `signedProjectiveGap (parityWordOf r n) n < -(Int.ofNat (2^r * (M - n)))`,
+       - `2^r * n^{a_r} * (M + 1) ≤ n * (3 * n + 1)^{a_r}`, and
+       - `2^{r + m} * n^{a_r} < (3 * n + 1)^{a_r}`.
+    4. **Odd-to-Odd Return-Map Valuation Block Laws (`singleOddWord_step_dichotomy`,
+       `returnMap_nondescent_valuation_and_gap_laws`)**:
+       Every single odd-to-odd block `singleOddWord k` on `u > 1` strictly increases `u` when `k = 0`
+       (`v_2(3u + 1) = 1`) and strictly decreases `u` whenever `k ≥ 1` (`v_2(3u + 1) ≥ 2`); and across any
+       `s`-step valuation sequence `ks` of cumulative length `K = totalValuation ks`, non-descent locks `n`
+       to `n % 2^K = wordResidue (returnMapWord ks)` and enforces
+       `deficitReservoir n K + 2^K * n^s * F^K(n) = n * (3 * n + 1)^s` with `2^K * n^s ≤ (3 * n + 1)^s`.
+-/
+
+/-- An accelerated Collatz orbit of `n` diverges to infinity (`lim_{r → ∞} T^r(n) = +∞`)
+    if for every bound `M : Nat`, there exists a threshold depth `R : Nat` such that
+    `iterateAccelerated n r > M` for all `r ≥ R`. -/
+def DivergentOrbit (n : Nat) : Prop :=
+  ∀ M : Nat, ∃ R : Nat, ∀ r : Nat, r ≥ R → iterateAccelerated n r > M
+
+/-- Track 1 Target (`NoNontrivialCycle`):
+    No integer `m > 1` is the minimum element of a periodic orbit of period `p ≥ 1`. -/
+def NoNontrivialCycle : Prop :=
+  ¬(∃ m p : Nat, m > 1 ∧ p ≥ 1 ∧
+      iterateAccelerated m p = m ∧ ∀ r : Nat, iterateAccelerated m r ≥ m)
+
+/-- Track 2 Target (`NoDivergentOrbit`):
+    No integer `n > 1` has an accelerated Collatz trajectory tending to `+∞`. -/
+def NoDivergentOrbit : Prop :=
+  ¬(∃ n : Nat, n > 1 ∧ DivergentOrbit n)
+
+/-- Every divergent orbit is strictly injective (`∀ i < j, iterateAccelerated n i ≠ iterateAccelerated n j`). -/
+theorem divergentOrbit_implies_injective (n : Nat) (hdiv : DivergentOrbit n) :
+    ∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j := by
+  intro i j hij heq
+  let p := j - i
+  have hp_pos : p ≥ 1 := by omega
+  have hj_eq : j = i + p := by omega
+  have hper : iterateAccelerated (iterateAccelerated n i) p = iterateAccelerated n i := by
+    rw [← iterateAccelerated_add n i p, ← hj_eq, heq]
+  rcases hdiv (iterateAccelerated n i) with ⟨R, hR⟩
+  have hpR_ge : i + p * R ≥ R := by
+    have hmul : 1 * R ≤ p * R := Nat.mul_le_mul_right R hp_pos
+    omega
+  have hgt := hR (i + p * R) hpR_ge
+  have hrep : iterateAccelerated n (i + p * R) = iterateAccelerated n i := by
+    rw [iterateAccelerated_add n i (p * R)]
+    have h0 : p * R = 0 + p * R := by omega
+    rw [h0, iterateAccelerated_add_mul_period (iterateAccelerated n i) p hper 0 R]
+    rfl
+  omega
+
+/-- Constructive finite depth-sequence extraction: if an orbit visits `[0, M]` at arbitrarily
+    large depths (`∀ R, ∃ r ≥ R, iterateAccelerated n r ≤ M`), then for every `K : Nat` there is
+    a strictly increasing depth sequence `depthSeq` visiting `[0, M]` on `0 ≤ t ≤ K`. -/
+theorem bounded_visit_sequence_of_frequently_le (n M : Nat)
+    (hfreq : ∀ R : Nat, ∃ r : Nat, r ≥ R ∧ iterateAccelerated n r ≤ M) :
+    ∀ K : Nat,
+      ∃ depthSeq : Nat → Nat,
+        (∀ t₁ t₂ : Nat, t₁ < t₂ → depthSeq t₁ < depthSeq t₂) ∧
+        (∀ t : Nat, t ≤ K → iterateAccelerated n (depthSeq t) ≤ M)
+  | 0 => by
+    rcases hfreq 0 with ⟨r₀, _, hr₀_le⟩
+    refine ⟨fun t => r₀ + t, fun t₁ t₂ hlt => by dsimp; omega, fun t ht => ?_⟩
+    dsimp
+    have heq : t = 0 := by omega
+    rw [heq, Nat.add_zero]
+    exact hr₀_le
+  | K + 1 => by
+    rcases bounded_visit_sequence_of_frequently_le n M hfreq K with ⟨seqK, hmonoK, hboundK⟩
+    rcases hfreq (seqK K + 1) with ⟨r_next, hr_ge, hr_le⟩
+    let seqNext : Nat → Nat := fun t =>
+      if t ≤ K then seqK t else r_next + (t - (K + 1))
+    refine ⟨seqNext, ?_, ?_⟩
+    · intro t₁ t₂ hlt
+      dsimp [seqNext]
+      by_cases h1 : t₁ ≤ K <;> by_cases h2 : t₂ ≤ K
+      · rw [if_pos h1, if_pos h2]
+        exact hmonoK t₁ t₂ hlt
+      · rw [if_pos h1, if_neg h2]
+        have hleK : seqK t₁ ≤ seqK K := by
+          by_cases heq : t₁ = K
+          · rw [heq]
+            omega
+          · have hltK : t₁ < K := by omega
+            have hlt_seq := hmonoK t₁ K hltK
+            omega
+        omega
+      · omega
+      · rw [if_neg h1, if_neg h2]
+        omega
+    · intro t ht
+      dsimp [seqNext]
+      by_cases hle : t ≤ K
+      · rw [if_pos hle]
+        exact hboundK t hle
+      · rw [if_neg hle]
+        have heq : t = K + 1 := by omega
+        rw [heq, Nat.sub_self, Nat.add_zero]
+        exact hr_le
+
+/-- Exact Equivalence Between Orbit Divergence (`lim_{r → ∞} T^r(n) = +∞`) and Orbit Injectivity
+    (`divergentOrbit_iff_injective`):
+    For EVERY natural number `n : Nat`, `DivergentOrbit n` holds if and only if all iterates
+    `iterateAccelerated n r` (`r ≥ 0`) are pairwise distinct. -/
+theorem divergentOrbit_iff_injective (n : Nat) :
+    DivergentOrbit n ↔
+      (∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j) := by
+  constructor
+  · exact divergentOrbit_implies_injective n
+  · intro hinj M
+    by_cases hex : ∃ R : Nat, ∀ r : Nat, r ≥ R → iterateAccelerated n r > M
+    · exact hex
+    · exfalso
+      have hfreq : ∀ R : Nat, ∃ r : Nat, r ≥ R ∧ iterateAccelerated n r ≤ M := by
+        intro R
+        exact Classical.byContradiction fun hnot =>
+          hex ⟨R, fun r hr => by
+            by_cases hle : iterateAccelerated n r ≤ M
+            · exact False.elim (hnot ⟨r, hr, hle⟩)
+            · omega⟩
+      rcases bounded_visit_sequence_of_frequently_le n M hfreq (M + 1) with
+        ⟨depthSeq, hmono, hbound⟩
+      rcases nat_pigeonhole_le M (fun t => iterateAccelerated n (depthSeq t)) hbound with
+        ⟨t₁, t₂, hlt12, _, heq⟩
+      exact hinj (depthSeq t₁) (depthSeq t₂) (hmono t₁ t₂ hlt12) heq
+
+/-- Every divergent orbit of `n > 1` attains a global minimum `n* = iterateAccelerated n r* > 1`
+    (`n* ≤ n`) whose tail is both never-descending (`∀ r, iterateAccelerated n* r ≥ n*`) and
+    divergent (`DivergentOrbit n*`). -/
+theorem divergentOrbit_attains_global_nondescent_minimum (n : Nat)
+    (hn1 : n > 1) (hdiv : DivergentOrbit n) :
+    ∃ r_star : Nat,
+      let n_star := iterateAccelerated n r_star
+      n_star > 1 ∧
+      n_star ≤ n ∧
+      (∀ r : Nat, iterateAccelerated n_star r ≥ n_star) ∧
+      DivergentOrbit n_star := by
+  have hinj := (divergentOrbit_iff_injective n).mp hdiv
+  rcases hdiv n with ⟨R, hR⟩
+  rcases exists_min_on_prefix (fun t => iterateAccelerated n t) (R + 1) (by omega) with
+    ⟨r_star, _, hr_min⟩
+  refine ⟨r_star, ?_⟩
+  dsimp
+  let n_star := iterateAccelerated n r_star
+  have hn_star_le_n : n_star ≤ n := hr_min 0 (by omega)
+  have hn_star_pos : n_star > 0 := iterateAccelerated_pos n r_star (by omega)
+  have hn_star_ne1 : n_star ≠ 1 := by
+    intro heq1
+    have hstep2 : iterateAccelerated n (r_star + 2) = iterateAccelerated n_star 2 :=
+      iterateAccelerated_add n r_star 2
+    have h1_2 : iterateAccelerated 1 2 = 1 := by decide
+    rw [heq1, h1_2] at hstep2
+    exact hinj r_star (r_star + 2) (by omega) (by omega)
+  have hn_star_gt1 : n_star > 1 := by omega
+  have hn_star_min : ∀ r : Nat, iterateAccelerated n_star r ≥ n_star := by
+    intro r
+    have hadd : iterateAccelerated n (r_star + r) = iterateAccelerated n_star r :=
+      iterateAccelerated_add n r_star r
+    rw [← hadd]
+    by_cases hlt : r_star + r < R + 1
+    · exact hr_min (r_star + r) hlt
+    · have hgt := hR (r_star + r) (by omega)
+      omega
+  have hn_star_div : DivergentOrbit n_star := by
+    rw [divergentOrbit_iff_injective]
+    intro i j hij heq_ij
+    have hi : iterateAccelerated n (r_star + i) = iterateAccelerated n_star i :=
+      iterateAccelerated_add n r_star i
+    have hj : iterateAccelerated n (r_star + j) = iterateAccelerated n_star j :=
+      iterateAccelerated_add n r_star j
+    exact hinj (r_star + i) (r_star + j) (by omega) (by rw [hi, hj, heq_ij])
+  exact ⟨hn_star_gt1, hn_star_le_n, hn_star_min, hn_star_div⟩
+
+/-- Exact Two-Target Structural Equivalence (`collatz_iff_noNontrivialCycle_and_noDivergentOrbit`):
+    `CollatzConjecture` holds if and only if both:
+    1. `NoNontrivialCycle` (no minimum `m > 1` satisfies `T^p(m) = m` for `p ≥ 1`), and
+    2. `NoDivergentOrbit` (no starting integer `n > 1` satisfies `lim_{r → ∞} T^r(n) = +∞`). -/
+theorem collatz_iff_noNontrivialCycle_and_noDivergentOrbit :
+    CollatzConjecture ↔ (NoNontrivialCycle ∧ NoDivergentOrbit) := by
+  rw [collatz_iff_no_pure_cycle_and_no_divergent_nondescent]
+  unfold NoNontrivialCycle NoDivergentOrbit
+  constructor
+  · rintro ⟨hno_cyc, hno_inj⟩
+    refine ⟨hno_cyc, ?_⟩
+    rintro ⟨n, hn1, hdiv⟩
+    rcases divergentOrbit_attains_global_nondescent_minimum n hn1 hdiv with
+      ⟨r_star, hn_star1, _, hn_star_min, hn_star_div⟩
+    exact hno_inj ⟨iterateAccelerated n r_star, hn_star1, hn_star_min,
+      (divergentOrbit_iff_injective _).mp hn_star_div⟩
+  · rintro ⟨hno_cyc, hno_div⟩
+    refine ⟨hno_cyc, ?_⟩
+    rintro ⟨n, hn1, _, hinj⟩
+    exact hno_div ⟨n, hn1, (divergentOrbit_iff_injective n).mpr hinj⟩
+
+/-- Asymptotic Power-Deficit and Signed-Gap Laws for a Never-Descending Divergent Orbit
+    (`divergentOrbit_asymptotic_power_and_gap_laws`):
+    If `n > 1` is never-descending (`∀ r, iterateAccelerated n r ≥ n`) and satisfies `DivergentOrbit n`,
+    then for every threshold `M ≥ n` and every exponent shift `m : Nat`, there exists `R : Nat`
+    such that for all `r ≥ R` (with `w_r = parityWordOf r n` and `a_r = wordOnes w_r`):
+    1. `iterateAccelerated n r > M` and `iterateAccelerated n r > 2 ^ m * n`,
+    2. `signedProjectiveGap w_r n < ((2 ^ r : Nat) : Int) * ((n : Int) - (M : Int))`,
+    3. `2 ^ r * n ^ a_r * (M + 1) ≤ n * (3 * n + 1) ^ a_r`, and
+    4. `2 ^ (r + m) * n ^ a_r < (3 * n + 1) ^ a_r`. -/
+theorem divergentOrbit_asymptotic_power_and_gap_laws (n M m : Nat)
+    (hn1 : n > 1) (_hM : M ≥ n)
+    (hnever_desc : ∀ r : Nat, iterateAccelerated n r ≥ n)
+    (hdiv : DivergentOrbit n) :
+    ∃ R : Nat, ∀ r : Nat, r ≥ R →
+      let w_r := parityWordOf r n
+      let a_r := wordOnes w_r
+      iterateAccelerated n r > M ∧
+      iterateAccelerated n r > 2 ^ m * n ∧
+      signedProjectiveGap w_r n < ((2 ^ r : Nat) : Int) * ((n : Int) - (M : Int)) ∧
+      2 ^ r * n ^ a_r * (M + 1) ≤ n * (3 * n + 1) ^ a_r ∧
+      2 ^ (r + m) * n ^ a_r < (3 * n + 1) ^ a_r := by
+  rcases hdiv (max M (2 ^ m * n)) with ⟨R, hR⟩
+  refine ⟨R, ?_⟩
+  intro r hr
+  dsimp
+  let w_r := parityWordOf r n
+  let a_r := wordOnes w_r
+  have hgt_max := hR r hr
+  have hmax1 : M ≤ max M (2 ^ m * n) := Nat.le_max_left M (2 ^ m * n)
+  have hmax2 : 2 ^ m * n ≤ max M (2 ^ m * n) := Nat.le_max_right M (2 ^ m * n)
+  have hit_M : iterateAccelerated n r > M := by omega
+  have hit_2m : iterateAccelerated n r > 2 ^ m * n := by omega
+  have hv_r := parityWordOf_valid r n
+  have hgap_eq := signedProjectiveGap_eq_wordD_mul_sub w_r n hv_r
+  have hD_eq : (wordD w_r : Int) = ((2 ^ r : Nat) : Int) := by
+    rw [wordD_eq_pow_two_length, parityWordOf_length]
+  rw [hD_eq, applyParityWord_parityWordOf] at hgap_eq
+  have hpow_pos : 2 ^ r ≥ 1 := Nat.one_le_pow r 2 (by decide)
+  have hgap_lt : signedProjectiveGap w_r n < ((2 ^ r : Nat) : Int) * ((n : Int) - (M : Int)) := by
+    rw [hgap_eq]
+    have hsub_le : (n : Int) - (iterateAccelerated n r : Int) ≤
+        (n : Int) - (M : Int) - 1 := by omega
+    have hmul_le : ((2 ^ r : Nat) : Int) * ((n : Int) - (iterateAccelerated n r : Int)) ≤
+        ((2 ^ r : Nat) : Int) * ((n : Int) - (M : Int) - 1) :=
+      Int.mul_le_mul_of_nonneg_left hsub_le (by omega)
+    have hrhs : ((2 ^ r : Nat) : Int) * ((n : Int) - (M : Int) - 1) =
+        ((2 ^ r : Nat) : Int) * ((n : Int) - (M : Int)) - ((2 ^ r : Nat) : Int) := by
+      rw [Int.mul_sub, Int.mul_one]
+    omega
+  have hpb := nondescent_prefix_power_bound n r (fun i _ => hnever_desc i)
+  have hM1_le : 2 ^ r * n ^ a_r * (M + 1) ≤ n * (3 * n + 1) ^ a_r := by
+    have hle_it : M + 1 ≤ iterateAccelerated n r := by omega
+    have hmul := Nat.mul_le_mul_left (2 ^ r * n ^ a_r) hle_it
+    exact Nat.le_trans hmul hpb
+  have hna_pos : n ^ a_r ≥ 1 := pow_pos_of_pos n a_r (by omega)
+  have h2r_na_pos : 2 ^ r * n ^ a_r ≥ 1 := by
+    have h := Nat.mul_le_mul hpow_pos hna_pos
+    omega
+  have hstrict_mul : (2 ^ r * n ^ a_r) * (2 ^ m * n) < (2 ^ r * n ^ a_r) * iterateAccelerated n r := by
+    have hle_it : 2 ^ m * n + 1 ≤ iterateAccelerated n r := by omega
+    have hmul := Nat.mul_le_mul_left (2 ^ r * n ^ a_r) hle_it
+    rw [Nat.mul_add, Nat.mul_one] at hmul
+    omega
+  have hstrict_rhs : (2 ^ r * n ^ a_r) * (2 ^ m * n) < n * (3 * n + 1) ^ a_r :=
+    Nat.lt_of_lt_of_le hstrict_mul hpb
+  have hlhs_rearrange : (2 ^ r * n ^ a_r) * (2 ^ m * n) = n * (2 ^ (r + m) * n ^ a_r) := by
+    rw [Nat.pow_add 2 r m]
+    have h1 : 2 ^ r * n ^ a_r * (2 ^ m * n) = 2 ^ r * (n ^ a_r * (2 ^ m * n)) :=
+      Nat.mul_assoc _ _ _
+    have h2 : n ^ a_r * (2 ^ m * n) = 2 ^ m * (n ^ a_r * n) := by
+      rw [← Nat.mul_assoc (n ^ a_r) (2 ^ m) n, Nat.mul_comm (n ^ a_r) (2 ^ m), Nat.mul_assoc]
+    have h3 : 2 ^ r * (2 ^ m * (n ^ a_r * n)) = (2 ^ r * 2 ^ m) * (n * n ^ a_r) := by
+      rw [← Nat.mul_assoc (2 ^ r) (2 ^ m) _, Nat.mul_comm (n ^ a_r) n]
+    have h4 : (2 ^ r * 2 ^ m) * (n * n ^ a_r) = n * (2 ^ r * 2 ^ m * n ^ a_r) := by
+      rw [← Nat.mul_assoc (2 ^ r * 2 ^ m) n (n ^ a_r),
+          Nat.mul_comm (2 ^ r * 2 ^ m) n,
+          Nat.mul_assoc n (2 ^ r * 2 ^ m) (n ^ a_r)]
+    rw [h1, h2, h3, h4]
+  rw [hlhs_rearrange] at hstrict_rhs
+  have hshift_lt : 2 ^ (r + m) * n ^ a_r < (3 * n + 1) ^ a_r := by
+    by_cases hlt : 2 ^ (r + m) * n ^ a_r < (3 * n + 1) ^ a_r
+    · exact hlt
+    · have hge : (3 * n + 1) ^ a_r ≤ 2 ^ (r + m) * n ^ a_r := by omega
+      have hmul := Nat.mul_le_mul_left n hge
+      omega
+  exact ⟨hit_M, hit_2m, hgap_lt, hM1_le, hshift_lt⟩
+
+/-- Helper lemma: `wordOnes (List.replicate k false) = 0`. -/
+theorem wordOnes_replicate_false (k : Nat) :
+    wordOnes (List.replicate k false) = 0 := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    dsimp [List.replicate, wordOnes]
+    exact ih
+
+/-- Every single odd-to-odd return block `singleOddWord k = true :: replicate k false`
+    contains exactly `1` odd step (`wordOnes (singleOddWord k) = 1`). -/
+theorem wordOnes_singleOddWord (k : Nat) :
+    wordOnes (singleOddWord k) = 1 := by
+  dsimp [singleOddWord, wordOnes]
+  rw [wordOnes_replicate_false]
+
+/-- For every valuation sequence `ks : List Nat`, the number of odd steps in `returnMapWord ks`
+    equals `ks.length` (`wordOnes (returnMapWord ks) = ks.length`). -/
+theorem wordOnes_returnMapWord (ks : List Nat) :
+    wordOnes (returnMapWord ks) = ks.length := by
+  induction ks with
+  | nil => rfl
+  | cons k ks ih =>
+    dsimp [returnMapWord]
+    rw [wordOnes_append, wordOnes_singleOddWord, ih]
+    omega
+
+/-- Single Odd-to-Odd Return-Map Block Dichotomy (`singleOddWord_step_dichotomy`):
+    For any odd integer `u > 1` and extra-halving count `k : Nat` (`v_2(3u + 1) = k + 1`)
+    with `validParityWord u (singleOddWord k)`:
+    1. `2 ^ (k + 1) * applyParityWord u (singleOddWord k) = 3 * u + 1`,
+    2. `k = 0 → applyParityWord u (singleOddWord k) > u` (strict growth when `v_2(3u + 1) = 1`), and
+    3. `k ≥ 1 → applyParityWord u (singleOddWord k) < u` (strict single-block descent whenever `v_2(3u + 1) ≥ 2`). -/
+theorem singleOddWord_step_dichotomy (k u : Nat)
+    (hu1 : u > 1) (hv : validParityWord u (singleOddWord k)) :
+    2 ^ (k + 1) * applyParityWord u (singleOddWord k) = 3 * u + 1 ∧
+    (k = 0 → applyParityWord u (singleOddWord k) > u) ∧
+    (k ≥ 1 → applyParityWord u (singleOddWord k) < u) := by
+  have hid := parityWord_affine_identity (singleOddWord k) u hv
+  have hA : wordA (singleOddWord k) = 3 := wordA_singleOddWord k
+  have hB : wordB (singleOddWord k) = 1 := by
+    dsimp [singleOddWord, wordB]
+    rw [wordA_replicate_false, wordB_replicate_false]
+  have hD : wordD (singleOddWord k) = 2 ^ (k + 1) := by
+    rw [wordD_eq_pow_two_length]
+    dsimp [singleOddWord]
+    rw [List.length_replicate]
+  rw [hA, hB, hD] at hid
+  refine ⟨hid, ?_, ?_⟩
+  · intro hk0
+    rw [hk0] at hid ⊢
+    change 2 * applyParityWord u (singleOddWord 0) = 3 * u + 1 at hid
+    omega
+  · intro hk1
+    obtain ⟨k', rfl⟩ : ∃ k', k = k' + 1 := ⟨k - 1, by omega⟩
+    have hpow_ge4 : 2 ^ (k' + 1 + 1) ≥ 4 := by
+      rw [Nat.pow_succ, Nat.pow_succ]
+      have hp : 2 ^ k' ≥ 1 := Nat.one_le_pow k' 2 (by decide)
+      omega
+    have hmul_ge : 2 ^ (k' + 1 + 1) * u ≥ 4 * u :=
+      Nat.mul_le_mul_right u hpow_ge4
+    have hgt_lhs : 2 ^ (k' + 1 + 1) * applyParityWord u (singleOddWord (k' + 1)) <
+        2 ^ (k' + 1 + 1) * u := by omega
+    by_cases hlt : applyParityWord u (singleOddWord (k' + 1)) < u
+    · exact hlt
+    · have hge : u ≤ applyParityWord u (singleOddWord (k' + 1)) := by omega
+      have hmul_le := Nat.mul_le_mul_left (2 ^ (k' + 1 + 1)) hge
+      omega
+
+/-- Multi-Block Return-Map Valuation & Reservoir Conservation Laws
+    (`returnMap_nondescent_valuation_and_gap_laws`):
+    For any starting integer `n > 1` realizing a valuation sequence `ks : List Nat`
+    (`validParityWord n (returnMapWord ks)`) along a non-descending prefix of length
+    `K = totalValuation ks` (`∀ i ≤ K, iterateAccelerated n i ≥ n`), let `s = ks.length`:
+    1. `parityWordOf K n = returnMapWord ks` and `wordOnes (parityWordOf K n) = s`,
+    2. `n % (2 ^ K) = wordResidue (returnMapWord ks)` (exact 2-adic residue cylinder lock),
+    3. `deficitReservoir n K + 2 ^ K * n ^ s * applyParityWord n (returnMapWord ks) = n * (3 * n + 1) ^ s`,
+    4. `2 ^ K * n ^ s ≤ (3 * n + 1) ^ s`, and
+    5. `n ^ s * wordB (returnMapWord ks) ≤ n * ((3 * n + 1) ^ s - (3 * n) ^ s)`. -/
+theorem returnMap_nondescent_valuation_and_gap_laws (ks : List Nat) (n : Nat)
+    (hn1 : n > 1)
+    (hv : validParityWord n (returnMapWord ks))
+    (hge : ∀ i : Nat, i ≤ totalValuation ks → iterateAccelerated n i ≥ n) :
+    let K := totalValuation ks
+    let s := ks.length
+    parityWordOf K n = returnMapWord ks ∧
+    wordOnes (parityWordOf K n) = s ∧
+    n % (2 ^ K) = wordResidue (returnMapWord ks) ∧
+    deficitReservoir n K + 2 ^ K * n ^ s * applyParityWord n (returnMapWord ks) =
+      n * (3 * n + 1) ^ s ∧
+    2 ^ K * n ^ s ≤ (3 * n + 1) ^ s ∧
+    n ^ s * wordB (returnMapWord ks) ≤ n * ((3 * n + 1) ^ s - (3 * n) ^ s) := by
+  dsimp
+  let K := totalValuation ks
+  let s := ks.length
+  have hw_eq : parityWordOf K n = returnMapWord ks := by
+    unfold K totalValuation
+    exact (validParityWord_iff_eq_parityWordOf (returnMapWord ks) n).mp hv
+  have hones_eq : wordOnes (parityWordOf K n) = s := by
+    rw [hw_eq, wordOnes_returnMapWord]
+  have hmod_eq : n % (2 ^ K) = wordResidue (returnMapWord ks) :=
+    (returnMapWord_admissible_iff ks n).mp hv
+  have hcons := reservoir_surplus_conservation_law n K (fun i hi => hge i (by omega))
+  dsimp at hcons
+  rw [hones_eq, ← applyParityWord_parityWordOf K n, hw_eq] at hcons
+  have hratio := (nondescent_diophantine_sandwich n K (by omega) hge).2.2
+  rw [hones_eq] at hratio
+  have hduality := (reservoir_offset_duality_identity n K (fun i hi => hge i (by omega))).2
+  rw [hones_eq, hw_eq] at hduality
+  have hB_le : n ^ s * wordB (returnMapWord ks) ≤ n * ((3 * n + 1) ^ s - (3 * n) ^ s) := by
+    rw [Nat.mul_sub]
+    omega
+  exact ⟨hw_eq, hones_eq, hmod_eq, hcons, hratio, hB_le⟩
+
 end CollatzProofClosure
 end BBB17

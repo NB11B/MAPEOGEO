@@ -591,6 +591,76 @@ def verify_section9_trichotomy_and_two_point_shift(
     }
 
 
+def verify_section10_divergent_orbit_and_valuation_laws(
+    max_n: int = 1000,
+) -> Dict[str, object]:
+    """
+    Verify Section 10 Single-Block Dichotomy, Return-Map Valuation Conservation,
+    and Divergent-Excursion Power-Deficit Laws:
+      1. Every single odd-to-odd block u -> (3u + 1) / 2^{k+1} on odd u > 1
+         strictly grows when k == 0 and strictly descends when k >= 1.
+      2. At every odd return step along a non-descending prefix of n > 1,
+         the return-map valuation sequence ks = [k_0, ..., k_{s-1}] of cumulative
+         length K = sum(k_j + 1) satisfies:
+           P_K(n) + 2^K * n^s * u_s == n * (3n + 1)^s,
+         and whenever u_s > 2^m * n, 2^{K + m} * n^s < (3n + 1)^s.
+    """
+    odd_blocks_checked = 0
+    single_block_dichotomy_failures = 0
+    return_map_conservation_mismatches = 0
+    excursion_power_shift_failures = 0
+
+    for n in range(3, max_n + 1, 2):
+        # Test single odd-to-odd block dichotomy on u = n
+        val = 3 * n + 1
+        k_block = 0
+        while (val % 2) == 0:
+            val //= 2
+            k_block += 1
+        # Total halvings is k_block >= 1, so extra halvings k = k_block - 1
+        k_extra = k_block - 1
+        odd_blocks_checked += 1
+        if k_extra == 0 and not (val > n):
+            single_block_dichotomy_failures += 1
+        if k_extra >= 1 and not (val < n):
+            single_block_dichotomy_failures += 1
+
+        if n % 4 != 3:
+            continue
+
+        # Track non-descending prefix and check at every odd return boundary K
+        curr = n
+        r = 0
+        s = 0
+        reservoir = 0
+        while curr >= n:
+            if (curr & 1) == 1:
+                # At an odd iterate u_s = curr (at depth K = r with s odd steps completed so far)
+                lhs = reservoir + (1 << r) * (n ** s) * curr
+                rhs = n * ((3 * n + 1) ** s)
+                if lhs != rhs:
+                    return_map_conservation_mismatches += 1
+                # Check excursion power-deficit law for any m >= 0 with curr > (2^m) * n
+                m = 0
+                while curr > (1 << m) * n:
+                    if not ((1 << (r + m)) * (n ** s) < ((3 * n + 1) ** s)):
+                        excursion_power_shift_failures += 1
+                    m += 1
+                omega = (1 << r) * (curr - n)
+                reservoir = (3 * n + 1) * reservoir + (n ** s) * omega
+                s += 1
+            curr = accelerated_collatz(curr)
+            r += 1
+
+    return {
+        "odd_blocks_checked": odd_blocks_checked,
+        "single_block_dichotomy_failures": single_block_dichotomy_failures,
+        "return_map_conservation_mismatches": return_map_conservation_mismatches,
+        "excursion_power_shift_failures": excursion_power_shift_failures,
+    }
+
+
+
 
 
 

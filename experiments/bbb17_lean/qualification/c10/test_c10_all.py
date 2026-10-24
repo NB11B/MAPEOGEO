@@ -43,6 +43,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_projective_fixed_point_laws,
     verify_psmsl_matrix_algebra,
     verify_section9_trichotomy_and_two_point_shift,
+    verify_section10_divergent_orbit_and_valuation_laws,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -142,6 +143,13 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(sec9["two_point_shift_mismatches"], 0)
         self.assertEqual(sec9["two_point_parity_flip_mismatches"], 0)
         self.assertEqual(sec9["interior_gap_ge4_failures"], 0)
+
+    def test_ws6_section10_divergent_orbit_and_valuation_laws(self) -> None:
+        sec10 = verify_section10_divergent_orbit_and_valuation_laws(max_n=1000)
+        self.assertGreater(sec10["odd_blocks_checked"], 0)
+        self.assertEqual(sec10["single_block_dichotomy_failures"], 0)
+        self.assertEqual(sec10["return_map_conservation_mismatches"], 0)
+        self.assertEqual(sec10["excursion_power_shift_failures"], 0)
 
 
 def generate_c10_artifacts() -> None:
