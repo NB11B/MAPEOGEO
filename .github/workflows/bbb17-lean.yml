@@ -1,0 +1,20 @@
+name: BBB17 Lean qualification
+on:
+  push:
+    branches: [research/bbb17-lean-proof]
+  pull_request:
+    paths:
+      - 'experiments/bbb17_lean/**'
+      - '.github/workflows/bbb17-lean.yml'
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          lean-version: 'v4.21.0'
+      - run: |
+          cd experiments/bbb17_lean
+          lean BBB17.lean
+          LEAN_PATH=. lean CollatzBridge.lean
