@@ -18,6 +18,7 @@ where:
 from __future__ import annotations
 
 from dataclasses import dataclass
+from fractions import Fraction
 from typing import Any, Dict, List
 from .exact_oracle import (
     accelerated_collatz,
@@ -147,3 +148,94 @@ def verify_unified_transition_conservation(limit_n: int = 2000) -> Dict[str, Any
         "conservation_failures": conservation_failures,
         "sharpened_bound_failures": sharpened_bound_failures,
     }
+
+
+def verify_normalized_reservoir_and_exponential_decay(limit_n: int = 2000) -> Dict[str, Any]:
+    """Verify in exact rational arithmetic (`fractions.Fraction`) and cleared-denominator
+    integers:
+    1. `normalized_reservoir_exact_increment`: `Q_{r+1} - Q_r == (n^{a_r - 1} * Omega_r) / (3n + 1)^{a_r + 1}`
+       on odd steps and `0` on even steps.
+    2. `normalized_reservoir_monotone_bounded`: `0 <= Q_r < 1` and `Q_r <= Q_{r+1}` across all
+       non-descending steps.
+    3. `normalized_reservoir_telescoping`: `Q_r` equals the exact sum of its odd-step increments.
+    4. `reservoir_threshold_iff_descent`: at the exact first descent step `r_desc`,
+       `Q_{r_desc} + (2^{r_desc} * n^{a_{r_desc}}) / (3n + 1)^{a_{r_desc}} > 1`.
+    5. `infinite_nondescent_reservoir_obstruction`: for all `r >= 1` on a non-descending prefix of odd `n > 1`,
+       `2^r * (n + 2)^{a_r - 1} * n_r <= (3n + 1) * (3n + 7)^{a_r - 1}` and
+       `1 - Q_r <= (1 - 2 / ((n + 2)*(3n + 1)))^{a_r - 1}`.
+    """
+    trajectories_checked = 0
+    increment_mismatches = 0
+    monotonicity_failures = 0
+    telescoping_mismatches = 0
+    threshold_descent_mismatches = 0
+    exponential_decay_failures = 0
+
+    for n in range(3, limit_n + 1, 2):
+        trajectories_checked += 1
+        nr = n
+        r = 0
+        a = 0
+        reservoir = 0
+        q_telescoped = Fraction(0, 1)
+
+        while True:
+            q_den = n * ((3 * n + 1) ** a)
+            q_curr = Fraction(reservoir, q_den)
+
+            if q_curr != q_telescoped:
+                telescoping_mismatches += 1
+
+            # Check threshold descent criterion at step r
+            power_ratio = Fraction((1 << r) * (n ** a), (3 * n + 1) ** a)
+            if (nr < n) != (q_curr + power_ratio > 1):
+                threshold_descent_mismatches += 1
+
+            if nr < n:
+                break
+
+            # Non-descending step: 0 <= Q_r < 1
+            if not (0 <= q_curr < 1):
+                monotonicity_failures += 1
+
+            if r >= 1:
+                if (1 << r) * ((n + 2) ** (a - 1)) * nr > (3 * n + 1) * ((3 * n + 7) ** (a - 1)):
+                    exponential_decay_failures += 1
+                decay_factor = Fraction(n * (3 * n + 7), (n + 2) * (3 * n + 1))
+                if (1 - q_curr) > (decay_factor ** (a - 1)):
+                    exponential_decay_failures += 1
+
+            omega = (1 << r) * (nr - n)
+            bit = (nr & 1) == 1
+            nxt = accelerated_collatz(nr)
+
+            if not bit:
+                inc = Fraction(0, 1)
+                next_reservoir = reservoir
+                next_a = a
+            else:
+                inc = Fraction((n ** a) * omega, n * ((3 * n + 1) ** (a + 1)))
+                next_reservoir = (3 * n + 1) * reservoir + (n ** a) * omega
+                next_a = a + 1
+
+            q_next = Fraction(next_reservoir, n * ((3 * n + 1) ** next_a))
+            if q_next - q_curr != inc:
+                increment_mismatches += 1
+            if q_next < q_curr:
+                monotonicity_failures += 1
+
+            q_telescoped += inc
+            r += 1
+            nr = nxt
+            a = next_a
+            reservoir = next_reservoir
+
+    return {
+        "trajectories_checked": trajectories_checked,
+        "increment_mismatches": increment_mismatches,
+        "monotonicity_failures": monotonicity_failures,
+        "telescoping_mismatches": telescoping_mismatches,
+        "threshold_descent_mismatches": threshold_descent_mismatches,
+        "exponential_decay_failures": exponential_decay_failures,
+    }
+

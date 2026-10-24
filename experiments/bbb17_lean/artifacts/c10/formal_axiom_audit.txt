@@ -72,9 +72,16 @@
 'BBB17.CollatzProofClosure.nondescent_depth2_forces_mod4_eq_3_and_reservoir' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.deficitReservoir_lower_bound_ge_two' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.sharpened_nondescent_power_bound' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.normalized_reservoir_exact_increment' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.normalized_reservoir_monotone_bounded' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.normalized_reservoir_telescoping' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.reservoir_threshold_iff_descent' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.strict_odd_excursion_step_bound' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.infinite_nondescent_reservoir_obstruction' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.nondescent_lower_bound_power_ratio' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.infinite_nondescent_diophantine_obstruction_system' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
 'BBB17.CollatzProofClosure.c10_unified_convergence_criteria' depends on axioms: [propext, Classical.choice, Quot.sound]
 'BBB17.CollatzProofClosure.unified_transition_nondescent_laws' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.infinite_nondescent_reservoir_master' depends on axioms: [propext, Quot.sound]

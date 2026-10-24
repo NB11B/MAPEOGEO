@@ -38,6 +38,7 @@ from qualification.c10.valuation_sequence_search import (
     verify_steiner_one_circuit_obstruction,
 )
 from qualification.c10.unified_transition_discovery import (
+    verify_normalized_reservoir_and_exponential_decay,
     verify_psmsl_matrix_algebra,
     verify_unified_transition_conservation,
 )
@@ -100,6 +101,14 @@ class TestCollatzC10All(unittest.TestCase):
         trans = verify_unified_transition_conservation(limit_n=2000)
         self.assertEqual(trans["conservation_failures"], 0)
         self.assertEqual(trans["sharpened_bound_failures"], 0)
+
+    def test_ws6_normalized_reservoir_and_exponential_decay(self) -> None:
+        norm_res = verify_normalized_reservoir_and_exponential_decay(limit_n=1000)
+        self.assertEqual(norm_res["increment_mismatches"], 0)
+        self.assertEqual(norm_res["monotonicity_failures"], 0)
+        self.assertEqual(norm_res["telescoping_mismatches"], 0)
+        self.assertEqual(norm_res["threshold_descent_mismatches"], 0)
+        self.assertEqual(norm_res["exponential_decay_failures"], 0)
 
 
 def generate_c10_artifacts() -> None:

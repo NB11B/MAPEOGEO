@@ -205,5 +205,50 @@ theorem unified_transition_nondescent_laws (n : Nat)
       ⟨_, _, hsharp⟩
     exact ⟨ha2, hres_ge, hsharp⟩
 
+/-- Normalized Cumulative Reservoir Obstruction Synthesis (`infinite_nondescent_reservoir_master`):
+    For any hypothetical non-returning never-descending integer `n > 1`
+    (`∀ i ≥ 1, iterateAccelerated n i > n`):
+    1. For every `r ≥ 0`, `qNum n r < qDen n r` (`0 ≤ Q_r < 1`) and `qNum n r * qDen n (r + 1) ≤ qNum n (r + 1) * qDen n r` (`Q_r ≤ Q_{r+1}`),
+    2. For every `r ≥ 0`, `qNum n (r + 1) * qDen n r = qNum n r * qDen n (r + 1) + crossStepIncrement n r` (exact telescoping increments),
+    3. For every `r ≥ 1`, let `a = wordOnes (parityWordOf r n)`. Then `a ≥ 1`,
+       `2^r * (n + 2)^{a - 1} * iterateAccelerated n r ≤ (3 * n + 1) * (3 * n + 7)^{a - 1}`, and
+       `(n + 2)^{a - 1} * (qDen n r - qNum n r) ≤ n^a * ((3 * n + 1) * (3 * n + 7)^{a - 1})`
+       (exponential decay of `1 - Q_r ≤ (1 - 2 / ((n + 2)(3n + 1)))^{a - 1}`). -/
+theorem infinite_nondescent_reservoir_master (n : Nat)
+    (hn1 : n > 1)
+    (hstrict : ∀ i : Nat, i ≥ 1 → iterateAccelerated n i > n) :
+    (∀ r : Nat,
+      qNum n r < qDen n r ∧
+      qNum n r * qDen n (r + 1) ≤ qNum n (r + 1) * qDen n r ∧
+      qNum n (r + 1) * qDen n r =
+        qNum n r * qDen n (r + 1) + crossStepIncrement n r) ∧
+    (∀ r : Nat, r ≥ 1 →
+      let a := wordOnes (parityWordOf r n)
+      a ≥ 1 ∧
+      2 ^ r * (n + 2) ^ (a - 1) * iterateAccelerated n r ≤
+        (3 * n + 1) * (3 * n + 7) ^ (a - 1) ∧
+      (n + 2) ^ (a - 1) * (qDen n r - qNum n r) ≤
+        n ^ a * ((3 * n + 1) * (3 * n + 7) ^ (a - 1))) := by
+  have hge_all : ∀ i : Nat, iterateAccelerated n i ≥ n := by
+    intro i
+    cases i with
+    | zero => dsimp [iterateAccelerated]; omega
+    | succ i' =>
+      have hgt := hstrict (i' + 1) (by omega)
+      omega
+  have hn_odd : n % 2 = 1 := by
+    rcases nondescent_depth2_forces_mod4_eq_3_and_reservoir n hn1 (hge_all 1) (hge_all 2) with
+      ⟨hm4, _, _⟩
+    omega
+  constructor
+  · intro r
+    rcases normalized_reservoir_monotone_bounded n r (by omega) (fun i _ => hge_all i) with
+      ⟨hlt, _, hmono⟩
+    rcases normalized_reservoir_telescoping n r with ⟨_, htel⟩
+    exact ⟨hlt, hmono, htel⟩
+  · intro r hr1
+    exact infinite_nondescent_reservoir_obstruction n r hn1 hr1 hn_odd
+      (fun i hi1 _ => hstrict i hi1)
+
 end CollatzProofClosure
 end BBB17

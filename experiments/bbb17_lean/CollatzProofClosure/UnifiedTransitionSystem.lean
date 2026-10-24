@@ -569,5 +569,382 @@ theorem sharpened_nondescent_power_bound (n r : Nat)
     Nat.le_of_mul_le_mul_right hineq2_mul_n (by omega)
   exact ⟨ha_ge2, hineq1, hineq2⟩
 
+/-! ## 4. Normalized Cumulative Reservoir `Q_r`, Telescoping Increments, and Exponential Gap Decay
+
+    In normalized coordinates `Q_r = qNum n r / qDen n r`, where:
+    - `qNum n r = deficitReservoir n r = P_r(n)`,
+    - `qDen n r = n * (3 * n + 1)^{a_r}`,
+    the conservation law becomes:
+    `Q_r + (2^r * n^{a_r - 1} * n_r) / (3 * n + 1)^{a_r} = 1`.
+-/
+
+/-- Numerator `P_r(n)` of the normalized cumulative reservoir `Q_r(n)`. -/
+def qNum (n r : Nat) : Nat :=
+  deficitReservoir n r
+
+/-- Denominator `n * (3 * n + 1)^{a_r}` of the normalized cumulative reservoir `Q_r(n)`. -/
+def qDen (n r : Nat) : Nat :=
+  n * (3 * n + 1) ^ wordOnes (parityWordOf r n)
+
+/-- Exact Even/Odd Update Equations for `Q_r` (`normalized_reservoir_exact_increment`):
+    1. On an even step (`F^r(n) % 2 = 0`), `qNum n (r + 1) = qNum n r` and `qDen n (r + 1) = qDen n r`,
+       so `qNum n (r + 1) * qDen n r = qNum n r * qDen n (r + 1)` (`Q_{r+1} = Q_r`).
+    2. On an odd step (`F^r(n) % 2 = 1`), `qDen n (r + 1) = (3 * n + 1) * qDen n r`,
+       `qNum n (r + 1) = (3 * n + 1) * qNum n r + n^{a_r} * orbitSurplus n r`, and cross-multiplying gives:
+       `qNum n (r + 1) * qDen n r = qNum n r * qDen n (r + 1) + (n^{a_r} * orbitSurplus n r) * qDen n r`
+       (`Q_{r+1} - Q_r = (n^{a_r} * Ω_r) / (n * (3n + 1)^{a_r + 1})`). -/
+theorem normalized_reservoir_exact_increment (n r : Nat) :
+    (iterateAccelerated n r % 2 = 0 →
+      qNum n (r + 1) = qNum n r ∧
+      qDen n (r + 1) = qDen n r ∧
+      qNum n (r + 1) * qDen n r = qNum n r * qDen n (r + 1)) ∧
+    (iterateAccelerated n r % 2 = 1 →
+      qDen n (r + 1) = (3 * n + 1) * qDen n r ∧
+      qNum n (r + 1) = (3 * n + 1) * qNum n r +
+        n ^ wordOnes (parityWordOf r n) * orbitSurplus n r ∧
+      qNum n (r + 1) * qDen n r =
+        qNum n r * qDen n (r + 1) +
+          (n ^ wordOnes (parityWordOf r n) * orbitSurplus n r) * qDen n r) := by
+  have hsucc_w : parityWordOf (r + 1) n =
+      parityWordOf r n ++ [iterateAccelerated n r % 2 == 1] :=
+    parityWordOf_succ_eq_append r n
+  constructor
+  · intro hev
+    have hnot1 : ¬(iterateAccelerated n r % 2 = 1) := by omega
+    have hb_false : (iterateAccelerated n r % 2 == 1) = false := by
+      rw [beq_eq_false_iff_ne]; exact hnot1
+    have hnum : qNum n (r + 1) = qNum n r := by
+      unfold qNum
+      change (if iterateAccelerated n r % 2 = 1 then
+        (3 * n + 1) * deficitReservoir n r +
+          n ^ wordOnes (parityWordOf r n) * orbitSurplus n r
+      else deficitReservoir n r) = deficitReservoir n r
+      rw [if_neg hnot1]
+    have hones : wordOnes (parityWordOf (r + 1) n) = wordOnes (parityWordOf r n) := by
+      rw [hsucc_w, hb_false, wordOnes_append]; dsimp [wordOnes]
+    have hden : qDen n (r + 1) = qDen n r := by
+      unfold qDen; rw [hones]
+    refine ⟨hnum, hden, ?_⟩
+    rw [hnum, hden]
+  · intro hodd
+    have hb_true : (iterateAccelerated n r % 2 == 1) = true := by
+      rw [beq_iff_eq]; exact hodd
+    have hones : wordOnes (parityWordOf (r + 1) n) = wordOnes (parityWordOf r n) + 1 := by
+      rw [hsucc_w, hb_true, wordOnes_append]; dsimp [wordOnes]
+    have hden : qDen n (r + 1) = (3 * n + 1) * qDen n r := by
+      unfold qDen
+      rw [hones, Nat.pow_succ, ← Nat.mul_assoc,
+          Nat.mul_comm (n * (3 * n + 1) ^ wordOnes (parityWordOf r n)) (3 * n + 1)]
+    have hnum : qNum n (r + 1) = (3 * n + 1) * qNum n r +
+        n ^ wordOnes (parityWordOf r n) * orbitSurplus n r := by
+      unfold qNum
+      change (if iterateAccelerated n r % 2 = 1 then
+        (3 * n + 1) * deficitReservoir n r +
+          n ^ wordOnes (parityWordOf r n) * orbitSurplus n r
+      else deficitReservoir n r) = _
+      rw [if_pos hodd]
+    refine ⟨hden, hnum, ?_⟩
+    rw [hnum, hden, Nat.add_mul]
+    have hc : (3 * n + 1) * qNum n r * qDen n r =
+        qNum n r * ((3 * n + 1) * qDen n r) := by
+      rw [Nat.mul_comm (3 * n + 1) (qNum n r), Nat.mul_assoc]
+    rw [hc]
+
+/-- Monotonicity and Strict Upper Bound `0 ≤ Q_r < 1` (`normalized_reservoir_monotone_bounded`):
+    For every `n > 0` and every depth `r` along a non-descending prefix
+    (`∀ i ≤ r, iterateAccelerated n i ≥ n`):
+    1. `qNum n r < qDen n r` (`Q_r < 1`),
+    2. `qDen n r - qNum n r = 2^r * n^{a_r} * iterateAccelerated n r`
+       (`1 - Q_r = (2^r * n^{a_r - 1} * n_r) / (3n + 1)^{a_r}`),
+    3. `qNum n r * qDen n (r + 1) ≤ qNum n (r + 1) * qDen n r` (`Q_r ≤ Q_{r+1}`). -/
+theorem normalized_reservoir_monotone_bounded (n r : Nat)
+    (hn : n > 0)
+    (hge : ∀ i : Nat, i ≤ r → iterateAccelerated n i ≥ n) :
+    let a := wordOnes (parityWordOf r n)
+    qNum n r < qDen n r ∧
+    qDen n r - qNum n r = 2 ^ r * n ^ a * iterateAccelerated n r ∧
+    qNum n r * qDen n (r + 1) ≤ qNum n (r + 1) * qDen n r := by
+  dsimp
+  have hcons := reservoir_surplus_conservation_law n r (fun i hi => hge i (by omega))
+  dsimp at hcons
+  unfold qNum qDen
+  have hn_r : iterateAccelerated n r ≥ n := hge r (by omega)
+  have hpos_pow2 : 2 ^ r > 0 := pow_pos_of_pos 2 r (by decide)
+  have hpos_pown : n ^ wordOnes (parityWordOf r n) > 0 :=
+    pow_pos_of_pos n (wordOnes (parityWordOf r n)) hn
+  have hpos_nr : iterateAccelerated n r > 0 := by omega
+  have hpos_rem : 2 ^ r * n ^ wordOnes (parityWordOf r n) * iterateAccelerated n r > 0 :=
+    Nat.mul_pos (Nat.mul_pos hpos_pow2 hpos_pown) hpos_nr
+  have hlt : deficitReservoir n r < n * (3 * n + 1) ^ wordOnes (parityWordOf r n) := by omega
+  have hsub : n * (3 * n + 1) ^ wordOnes (parityWordOf r n) - deficitReservoir n r =
+      2 ^ r * n ^ wordOnes (parityWordOf r n) * iterateAccelerated n r := by omega
+  refine ⟨hlt, hsub, ?_⟩
+  rcases normalized_reservoir_exact_increment n r with ⟨hev_case, hodd_case⟩
+  by_cases hev : iterateAccelerated n r % 2 = 0
+  · rcases hev_case hev with ⟨_, _, heq⟩
+    unfold qNum qDen at heq
+    omega
+  · have hodd : iterateAccelerated n r % 2 = 1 := by omega
+    rcases hodd_case hodd with ⟨_, _, heq⟩
+    unfold qNum qDen at heq
+    omega
+
+/-- Cross-multiplied one-step increment numerator at step `i`:
+    `qNum n (i + 1) * qDen n i - qNum n i * qDen n (i + 1)`. -/
+def crossStepIncrement (n i : Nat) : Nat :=
+  if iterateAccelerated n i % 2 = 1 then
+    (n ^ wordOnes (parityWordOf i n) * orbitSurplus n i) * qDen n i
+  else
+    0
+
+/-- Exact Telescoping Step Identity (`normalized_reservoir_telescoping`):
+    1. `qNum n 0 = 0`,
+    2. At every step `i`, `qNum n (i + 1) * qDen n i = qNum n i * qDen n (i + 1) + crossStepIncrement n i`,
+    3. Across any depth `r`, `qNum n r` is generated from `0` by the exact finite folding
+       of the odd-step increments `n^{a_i} * orbitSurplus n i`. -/
+theorem normalized_reservoir_telescoping (n i : Nat) :
+    qNum n 0 = 0 ∧
+    qNum n (i + 1) * qDen n i =
+      qNum n i * qDen n (i + 1) + crossStepIncrement n i := by
+  refine ⟨rfl, ?_⟩
+  rcases normalized_reservoir_exact_increment n i with ⟨hev_case, hodd_case⟩
+  unfold crossStepIncrement
+  by_cases hev : iterateAccelerated n i % 2 = 0
+  · have hnot1 : ¬(iterateAccelerated n i % 2 = 1) := by omega
+    rw [if_neg hnot1, Nat.add_zero]
+    exact (hev_case hev).2.2
+  · have hodd : iterateAccelerated n i % 2 = 1 := by omega
+    rw [if_pos hodd]
+    exact (hodd_case hodd).2.2
+
+/-- Exact Reservoir Threshold Descent Criterion (`reservoir_threshold_iff_descent`):
+    Along any trajectory of `n > 0` where all prior steps `i < r` satisfy `F^i(n) ≥ n`,
+    strict descent `F^r(n) < n` occurs at depth `r` IF AND ONLY IF the normalized
+    reservoir `Q_r` plus the power ratio `(2^r * n^{a_r}) / (3n + 1)^{a_r}` strictly exceeds `1`:
+    `qNum n r + 2^r * n^{a_r + 1} > qDen n r`. -/
+theorem reservoir_threshold_iff_descent (n r : Nat)
+    (hn : n > 0)
+    (hge : ∀ i : Nat, i < r → iterateAccelerated n i ≥ n) :
+    let a := wordOnes (parityWordOf r n)
+    iterateAccelerated n r < n ↔
+      qNum n r + 2 ^ r * n ^ (a + 1) > qDen n r := by
+  dsimp
+  have hcons := reservoir_surplus_conservation_law n r hge
+  dsimp at hcons
+  unfold qNum qDen
+  have hpow_pos : 2 ^ r * n ^ wordOnes (parityWordOf r n) > 0 :=
+    Nat.mul_pos (pow_pos_of_pos 2 r (by decide))
+      (pow_pos_of_pos n (wordOnes (parityWordOf r n)) hn)
+  have hna1 : 2 ^ r * n ^ (wordOnes (parityWordOf r n) + 1) =
+      (2 ^ r * n ^ wordOnes (parityWordOf r n)) * n := by
+    rw [Nat.pow_succ n (wordOnes (parityWordOf r n)), ← Nat.mul_assoc]
+  rw [hna1, ← hcons]
+  constructor
+  · intro hlt
+    have hmul_lt : (2 ^ r * n ^ wordOnes (parityWordOf r n)) * iterateAccelerated n r <
+        (2 ^ r * n ^ wordOnes (parityWordOf r n)) * n :=
+      Nat.mul_lt_mul_of_pos_left hlt hpow_pos
+    omega
+  · intro hgt
+    have hmul_lt : (2 ^ r * n ^ wordOnes (parityWordOf r n)) * iterateAccelerated n r <
+        (2 ^ r * n ^ wordOnes (parityWordOf r n)) * n := by
+      omega
+    by_cases hge_n : iterateAccelerated n r ≥ n
+    · have hmul_ge : (2 ^ r * n ^ wordOnes (parityWordOf r n)) * n ≤
+          (2 ^ r * n ^ wordOnes (parityWordOf r n)) * iterateAccelerated n r :=
+        Nat.mul_le_mul_left (2 ^ r * n ^ wordOnes (parityWordOf r n)) hge_n
+      omega
+    · omega
+
+/-- Exact Strict Odd-Step Contraction Identity (`strict_odd_excursion_step_bound`):
+    For any odd `n` (`n % 2 = 1`) and any odd step `i` (`F^i(n) % 2 = 1`) where `F^i(n) > n`:
+    1. `F^i(n) ≥ n + 2` (since both `n` and `F^i(n)` are odd),
+    2. `(n + 2) * (3 * F^i(n) + 1) + (F^i(n) - (n + 2)) = (3 * n + 7) * F^i(n)`, and
+    3. `(n + 2) * (2 * F^{i+1}(n)) ≤ (3 * n + 7) * F^i(n)`. -/
+theorem strict_odd_excursion_step_bound (n i : Nat)
+    (hn_odd : n % 2 = 1)
+    (hi_odd : iterateAccelerated n i % 2 = 1)
+    (hgt : iterateAccelerated n i > n) :
+    iterateAccelerated n i ≥ n + 2 ∧
+    (n + 2) * (3 * iterateAccelerated n i + 1) +
+      (iterateAccelerated n i - (n + 2)) =
+      (3 * n + 7) * iterateAccelerated n i ∧
+    (n + 2) * (2 * iterateAccelerated n (i + 1)) ≤
+      (3 * n + 7) * iterateAccelerated n i := by
+  have hge2 : iterateAccelerated n i ≥ n + 2 := by omega
+  have hid : (n + 2) * (3 * iterateAccelerated n i + 1) +
+      (iterateAccelerated n i - (n + 2)) =
+      (3 * n + 7) * iterateAccelerated n i := by
+    rw [Nat.add_mul, Nat.mul_add, Nat.mul_one, Nat.add_mul]
+    have hc : n * (3 * iterateAccelerated n i) = 3 * n * iterateAccelerated n i := by
+      rw [← Nat.mul_assoc, Nat.mul_comm n 3, Nat.mul_assoc]
+    omega
+  have hsucc : iterateAccelerated n (i + 1) = acceleratedCollatz (iterateAccelerated n i) :=
+    iterateAccelerated_succ_right n i
+  have hm : stepParityMatches (iterateAccelerated n i) true := by
+    dsimp [stepParityMatches]; exact hi_odd
+  have hstep : 2 * acceleratedCollatz (iterateAccelerated n i) =
+      3 * iterateAccelerated n i + 1 := by
+    have hs := acceleratedCollatz_step_eq (iterateAccelerated n i) true hm
+    simpa using hs
+  rw [← hsucc] at hstep
+  refine ⟨hge2, hid, ?_⟩
+  rw [hstep]
+  omega
+
+/-- Strict Excursion Power Law & Exponential Reservoir Gap Decay (`infinite_nondescent_reservoir_obstruction`):
+    For any `n > 1` with `n % 2 = 1` and any depth `r ≥ 1` along a strictly non-returning
+    non-descending prefix (`∀ i, 1 ≤ i → i < r → iterateAccelerated n i > n`):
+    1. `wordOnes (parityWordOf r n) ≥ 1`,
+    2. `2^r * (n + 2)^{a_r - 1} * iterateAccelerated n r ≤ (3 * n + 1) * (3 * n + 7)^{a_r - 1}`,
+    3. `(n + 2)^{a_r - 1} * (qDen n r - qNum n r) ≤ n^{a_r} * (3 * n + 1) * (3 * n + 7)^{a_r - 1}`
+       (i.e. `1 - Q_r ≤ (1 - 2 / ((n + 2)(3n + 1)))^{a_r - 1}`, proving that `1 - Q_r` decays
+       exponentially toward `0` as `a_r → ∞` along any non-periodic non-descending orbit!). -/
+theorem infinite_nondescent_reservoir_obstruction (n r : Nat)
+    (_hn1 : n > 1) (hr1 : r ≥ 1) (hn_odd : n % 2 = 1)
+    (hstrict : ∀ i : Nat, 1 ≤ i → i < r → iterateAccelerated n i > n) :
+    let a := wordOnes (parityWordOf r n)
+    a ≥ 1 ∧
+    2 ^ r * (n + 2) ^ (a - 1) * iterateAccelerated n r ≤
+      (3 * n + 1) * (3 * n + 7) ^ (a - 1) ∧
+    (n + 2) ^ (a - 1) * (qDen n r - qNum n r) ≤
+      n ^ a * ((3 * n + 1) * (3 * n + 7) ^ (a - 1)) := by
+  dsimp
+  obtain ⟨k, rfl⟩ : ∃ k : Nat, r = 1 + k := ⟨r - 1, by omega⟩
+  clear hr1
+  have hpow_ineq : ∀ k : Nat,
+      (∀ i : Nat, 1 ≤ i → i < 1 + k → iterateAccelerated n i > n) →
+      let a := wordOnes (parityWordOf (1 + k) n)
+      a ≥ 1 ∧
+      2 ^ (1 + k) * (n + 2) ^ (a - 1) * iterateAccelerated n (1 + k) ≤
+        (3 * n + 1) * (3 * n + 7) ^ (a - 1) := by
+    intro k
+    induction k with
+    | zero =>
+      intro _
+      dsimp [parityWordOf, wordOnes, iterateAccelerated]
+      have hb0 : (n % 2 == 1) = true := by rw [beq_iff_eq]; exact hn_odd
+      rw [hb0]
+      dsimp [wordOnes]
+      have hm0 : stepParityMatches n true := by dsimp [stepParityMatches]; exact hn_odd
+      have hs0 : 2 * acceleratedCollatz n = 3 * n + 1 := by
+        have hs := acceleratedCollatz_step_eq n true hm0
+        simpa using hs
+      exact ⟨by omega, by omega⟩
+    | succ k ih =>
+      intro hstr_succ
+      have hstr_k : ∀ i : Nat, 1 ≤ i → i < 1 + k → iterateAccelerated n i > n :=
+        fun i hi1 hik => hstr_succ i hi1 (by omega)
+      rcases ih hstr_k with ⟨ha_ge1, h_ih⟩
+      have h1k_eq : 1 + (k + 1) = (1 + k) + 1 := by omega
+      rw [h1k_eq]
+      have hsucc_w : parityWordOf ((1 + k) + 1) n =
+          parityWordOf (1 + k) n ++ [iterateAccelerated n (1 + k) % 2 == 1] :=
+        parityWordOf_succ_eq_append (1 + k) n
+      have hsucc_it : iterateAccelerated n ((1 + k) + 1) =
+          acceleratedCollatz (iterateAccelerated n (1 + k)) :=
+        iterateAccelerated_succ_right n (1 + k)
+      by_cases hev : iterateAccelerated n (1 + k) % 2 = 0
+      · have hnot1 : ¬(iterateAccelerated n (1 + k) % 2 = 1) := by omega
+        have hb_false : (iterateAccelerated n (1 + k) % 2 == 1) = false := by
+          rw [beq_eq_false_iff_ne]; exact hnot1
+        have hones_eq : wordOnes (parityWordOf ((1 + k) + 1) n) =
+            wordOnes (parityWordOf (1 + k) n) := by
+          rw [hsucc_w, hb_false, wordOnes_append]; dsimp [wordOnes]
+        have hm : stepParityMatches (iterateAccelerated n (1 + k)) false := by
+          dsimp [stepParityMatches]; exact hev
+        have hstep : 2 * acceleratedCollatz (iterateAccelerated n (1 + k)) =
+            iterateAccelerated n (1 + k) := by
+          have hs := acceleratedCollatz_step_eq (iterateAccelerated n (1 + k)) false hm
+          simpa using hs
+        rw [hones_eq, hsucc_it]
+        refine ⟨ha_ge1, ?_⟩
+        have hlhs : 2 ^ ((1 + k) + 1) *
+            (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) *
+            acceleratedCollatz (iterateAccelerated n (1 + k)) =
+            2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) *
+              iterateAccelerated n (1 + k) := by
+          rw [Nat.pow_succ, Nat.mul_assoc (2 ^ (1 + k)) 2 _,
+              Nat.mul_comm 2 ((n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1)),
+              ← Nat.mul_assoc (2 ^ (1 + k)) _ 2,
+              Nat.mul_assoc (2 ^ (1 + k) * _) 2 _, hstep]
+        rw [hlhs]
+        exact h_ih
+      · have hodd : iterateAccelerated n (1 + k) % 2 = 1 := by omega
+        have hb_true : (iterateAccelerated n (1 + k) % 2 == 1) = true := by
+          rw [beq_iff_eq]; exact hodd
+        have hones_eq : wordOnes (parityWordOf ((1 + k) + 1) n) =
+            wordOnes (parityWordOf (1 + k) n) + 1 := by
+          rw [hsucc_w, hb_true, wordOnes_append]; dsimp [wordOnes]
+        have hgt_1k : iterateAccelerated n (1 + k) > n :=
+          hstr_succ (1 + k) (by omega) (by omega)
+        have hstep_bound := (strict_odd_excursion_step_bound n (1 + k) hn_odd hodd hgt_1k).2.2
+        have hsucc_it' : iterateAccelerated n (1 + k + 1) =
+            acceleratedCollatz (iterateAccelerated n (1 + k)) := hsucc_it
+        rw [hsucc_it'] at hstep_bound
+        rw [hones_eq, hsucc_it]
+        refine ⟨by omega, ?_⟩
+        have hsub_eq : wordOnes (parityWordOf (1 + k) n) + 1 - 1 =
+            (wordOnes (parityWordOf (1 + k) n) - 1) + 1 := by omega
+        rw [hsub_eq, Nat.pow_succ (n + 2) _, Nat.pow_succ (3 * n + 7) _]
+        have hlhs_eq : 2 ^ (1 + k + 1) *
+            ((n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) * (n + 2)) *
+            acceleratedCollatz (iterateAccelerated n (1 + k)) =
+            (2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1)) *
+              ((n + 2) * (2 * acceleratedCollatz (iterateAccelerated n (1 + k)))) := by
+          rw [Nat.pow_succ 2 (1 + k),
+              Nat.mul_assoc (2 ^ (1 + k)) 2 _,
+              Nat.mul_comm 2 ((n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) * (n + 2)),
+              ← Nat.mul_assoc (2 ^ (1 + k)) _ 2,
+              ← Nat.mul_assoc (2 ^ (1 + k)) _ (n + 2),
+              Nat.mul_assoc (2 ^ (1 + k) * _ * (n + 2)) 2 _,
+              Nat.mul_assoc (2 ^ (1 + k) * _) (n + 2) _]
+        have hle1 : (2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1)) *
+            ((n + 2) * (2 * acceleratedCollatz (iterateAccelerated n (1 + k)))) ≤
+            (2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1)) *
+              ((3 * n + 7) * iterateAccelerated n (1 + k)) :=
+          Nat.mul_le_mul_left _ hstep_bound
+        have hmid_eq : (2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1)) *
+            ((3 * n + 7) * iterateAccelerated n (1 + k)) =
+            (2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) *
+              iterateAccelerated n (1 + k)) * (3 * n + 7) := by
+          rw [← Nat.mul_assoc, Nat.mul_comm _ (3 * n + 7),
+              Nat.mul_assoc (3 * n + 7) _ _, Nat.mul_comm (3 * n + 7) _]
+        have hle2 : (2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) *
+            iterateAccelerated n (1 + k)) * (3 * n + 7) ≤
+            ((3 * n + 1) * (3 * n + 7) ^ (wordOnes (parityWordOf (1 + k) n) - 1)) *
+              (3 * n + 7) :=
+          Nat.mul_le_mul_right (3 * n + 7) h_ih
+        rw [hlhs_eq, ← Nat.mul_assoc (3 * n + 1) _ (3 * n + 7)]
+        exact Nat.le_trans hle1 (by rw [hmid_eq]; exact hle2)
+  rcases hpow_ineq k hstrict with ⟨ha_ge1, hbound⟩
+  have hge_all : ∀ i : Nat, i < 1 + k → iterateAccelerated n i ≥ n := by
+    intro i hi
+    cases i with
+    | zero => dsimp [iterateAccelerated]; omega
+    | succ i' =>
+      have hgt := hstrict (i' + 1) (by omega) hi
+      omega
+  have hcons := reservoir_surplus_conservation_law n (1 + k) hge_all
+  dsimp at hcons
+  have hsub : qDen n (1 + k) - qNum n (1 + k) =
+      2 ^ (1 + k) * n ^ wordOnes (parityWordOf (1 + k) n) * iterateAccelerated n (1 + k) := by
+    unfold qDen qNum
+    omega
+  refine ⟨ha_ge1, hbound, ?_⟩
+  rw [hsub]
+  have hlhs_comm : (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) *
+      (2 ^ (1 + k) * n ^ wordOnes (parityWordOf (1 + k) n) * iterateAccelerated n (1 + k)) =
+      n ^ wordOnes (parityWordOf (1 + k) n) *
+        (2 ^ (1 + k) * (n + 2) ^ (wordOnes (parityWordOf (1 + k) n) - 1) *
+          iterateAccelerated n (1 + k)) := by
+    rw [← Nat.mul_assoc ((n + 2) ^ _) (2 ^ (1 + k) * n ^ _) _,
+        ← Nat.mul_assoc ((n + 2) ^ _) (2 ^ (1 + k)) (n ^ _),
+        Nat.mul_comm ((n + 2) ^ _) (2 ^ (1 + k)),
+        Nat.mul_comm (2 ^ (1 + k) * (n + 2) ^ _) (n ^ _),
+        Nat.mul_assoc (n ^ _) (2 ^ (1 + k) * (n + 2) ^ _) _]
+  rw [hlhs_comm]
+  exact Nat.mul_le_mul_left (n ^ wordOnes (parityWordOf (1 + k) n)) hbound
+
 end CollatzProofClosure
 end BBB17
