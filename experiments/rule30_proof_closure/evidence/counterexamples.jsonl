@@ -1,0 +1,2 @@
+{"transient_t": 1, "word": "01", "horizon_h": 6, "left_witness": [1], "right_witness": [1], "obs_left": [0, 1, 1, 1, 0, 1], "obs_right": [1, 1, 0, 1, 0, 1], "left_only_unsat_horizon": 8, "bilateral_unsat_horizon": 1}
+{"transient_t": 2, "word": "10", "horizon_h": 6, "left_witness": [1, 1], "right_witness": [0, 1], "obs_left": [1, 1, 1, 0, 1, 1], "obs_right": [1, 0, 1, 0, 1, 1], "left_only_unsat_horizon": 7, "bilateral_unsat_horizon": 2}

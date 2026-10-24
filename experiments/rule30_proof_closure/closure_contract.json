@@ -1,0 +1,78 @@
+{
+  "program_id": "R30-CLOSE-001",
+  "baseline_branch": "experiment/rule30-prize-qualification-g11",
+  "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
+  "closure_branch": "research/rule30-proof-closure",
+  "primary_objective": "Rule30Prize.Problem1",
+  "secondary_objectives": [
+    "Rule30Prize.Problem2",
+    "Rule30Prize.Problem3"
+  ],
+  "allowed_declaration_classes": [
+    "EXACT",
+    "CONDITIONAL",
+    "BOUNDED",
+    "EXPERIMENTAL",
+    "REFUTED",
+    "UNRESOLVED"
+  ],
+  "closure_rejection_policy": {
+    "reject_if_depends_on_classes": [
+      "CONDITIONAL",
+      "BOUNDED",
+      "EXPERIMENTAL",
+      "REFUTED",
+      "UNRESOLVED"
+    ],
+    "require_official_complete_claim_for_outcome_a": true
+  },
+  "checkpoints": [
+    {
+      "id": "01",
+      "name": "Reconstruction completeness",
+      "description": "Every configuration compatible with a hypothesized periodic center is represented by the symbolic machinery, with no discarded solutions."
+    },
+    {
+      "id": "02",
+      "name": "Bilateral soundness",
+      "description": "Compatibility certificates describe full Rule 30 trajectories, not independently consistent halves that cannot be joined."
+    },
+    {
+      "id": "03",
+      "name": "Universal contradiction",
+      "description": "Derive a parameterized mathematical obstruction for all positive periods and all transients without finite cutoffs."
+    },
+    {
+      "id": "04",
+      "name": "Official complete-claim verification",
+      "description": "Unconditional declaration of Rule30Prize.Problem1 with zero additional hypotheses, sorry, or new axioms."
+    }
+  ],
+  "obligations": [
+    {
+      "id": "M1",
+      "title": "General periodic-center-to-initial-state reconstruction",
+      "purpose": "Converts a hypothetical time-periodic column into constraints on the original single-seed configuration."
+    },
+    {
+      "id": "M2",
+      "title": "Complete bilateral compatibility criterion",
+      "purpose": "Determines whether independently valid left and right extensions can coexist."
+    },
+    {
+      "id": "M3",
+      "title": "Infinite-horizon obstruction",
+      "purpose": "Rules out a consistent extension for every period and transient."
+    },
+    {
+      "id": "M4",
+      "title": "Universal lifting theorem",
+      "purpose": "Converts finite or parameterized certificates into a statement for all P, T."
+    },
+    {
+      "id": "M5",
+      "title": "Formal end-to-end proof composition",
+      "purpose": "Connects the unconditional result to the official Rule30Prize.Problem1."
+    }
+  ]
+}

@@ -1,0 +1,586 @@
+{
+  "program_id": "R30-CLOSE-001",
+  "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
+  "outcome_classification": "OUTCOME_B_AND_C_EXACT_REDUCTION_AND_M4_OBSTRUCTION",
+  "outcome_summary": "Checkpoints 01 (Reconstruction Completeness) and 02 (Bilateral Soundness) are unconditionally verified (20/20 Lean 4.35.0 headlines in Rule30PrizeClosure). All-white, all-black, and P=1 center periods are unconditionally excluded for all transients T, and window_jen + PSMSL FutureWorkEquiv establishes an explicit constructive linear re-entry bound forcing M pairwise distinct FutureWorkEquiv classes across any M return periods. Checkpoint 03/04 universal lifting (M4) is isolated to two exact open obligations: (Track A/C) F_2 non-vanishing of the overdetermined degree-2 cone polynomial system in 2T-2 variables, or (Track B) a sub-linear upper bound on realizable single-seed FutureWorkEquiv classes.",
+  "checkpoint_01_reconstruction_completeness": true,
+  "checkpoint_02_bilateral_soundness": true,
+  "checkpoint_03_universal_contradiction_status": "BOUNDED_AND_LINEAR_REENTRY_EXACT__M4_LIFTING_UNRESOLVED",
+  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_20_OF_20__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+  "conditional_closure_claims_automatically_rejected": true,
+  "hypotheses_tested": 56,
+  "hypotheses_unsat_count": 56,
+  "surviving_models_count": 0,
+  "max_bilateral_unsat_horizon": 8,
+  "max_left_only_unsat_horizon": 16,
+  "left_reconstruction": {
+    "steps_checked": 28,
+    "cells_reconstructed": 406,
+    "reconstruction_mismatches": 0,
+    "inverse_orcol_mismatches": 0,
+    "unit_triangular_sensitivity_checks": 9,
+    "unit_triangular_sensitivity_mismatches": 0,
+    "checkpoint_01_passed": true
+  },
+  "left_phase_macros": {
+    "black_step_checks": 35,
+    "black_step_mismatches": 0,
+    "effective_boundary_checks": 64,
+    "effective_boundary_mismatches": 0,
+    "autonomous_no11_max_survival_by_transient": {
+      "1": 3,
+      "2": 3,
+      "3": 2,
+      "4": 3,
+      "5": 4,
+      "6": 5
+    }
+  },
+  "right_conservation": {
+    "steps_checked": 64,
+    "conservation_mismatches": 0,
+    "window_equivalence_checks": 153,
+    "window_equivalence_mismatches": 0,
+    "passed": true
+  },
+  "linear_reentry_samples": [
+    {
+      "period_p": 2,
+      "t0": 1,
+      "m0": 0,
+      "q": 1,
+      "actual_reentry_horizon_tau": 0,
+      "theoretical_linear_upper_bound_k": 1,
+      "distinct_classes_at_linear_horizon": 6,
+      "sample_count_m": 6,
+      "bound_satisfied": true
+    },
+    {
+      "period_p": 3,
+      "t0": 1,
+      "m0": 0,
+      "q": 1,
+      "actual_reentry_horizon_tau": 0,
+      "theoretical_linear_upper_bound_k": 1,
+      "distinct_classes_at_linear_horizon": 6,
+      "sample_count_m": 6,
+      "bound_satisfied": true
+    },
+    {
+      "period_p": 4,
+      "t0": 1,
+      "m0": 0,
+      "q": 1,
+      "actual_reentry_horizon_tau": 0,
+      "theoretical_linear_upper_bound_k": 1,
+      "distinct_classes_at_linear_horizon": 6,
+      "sample_count_m": 6,
+      "bound_satisfied": true
+    }
+  ],
+  "ether_incompatibility": {
+    "blocks_tested": 4,
+    "right_screening_horizons_verified": {
+      "1": 1,
+      "2": 3,
+      "3": 5,
+      "4": 7
+    },
+    "left_cone_rejection_horizons_by_transient": {
+      "1": 8,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5
+    },
+    "bilaterally_compatible_states_found": 0
+  },
+  "prize2_and_3": {
+    "steps_evaluated": 128,
+    "max_abs_discrepancy": 10,
+    "final_discrepancy": -1,
+    "empirical_sublinear_ratio_at_end": 0.0078125,
+    "anf_max_degree_by_t": {
+      "1": 0,
+      "2": 1,
+      "3": 2,
+      "4": 3,
+      "5": 4
+    },
+    "anf_monomial_count_by_t": {
+      "1": 4,
+      "2": 9,
+      "3": 27,
+      "4": 40,
+      "5": 62
+    },
+    "causal_diamond_gate_ops_by_t": {
+      "1": 81,
+      "2": 100,
+      "3": 121,
+      "4": 144,
+      "5": 169
+    },
+    "shortcut_found": false
+  },
+  "obligations": [
+    {
+      "id": "M1",
+      "title": "General periodic-center-to-initial-state reconstruction",
+      "status": "EXACT",
+      "supporting_declarations": [
+        "Rule30ProofClosure.stepLeftRow_rowAtLeft",
+        "Rule30ProofClosure.runLeftWord_rowAtLeft",
+        "Rule30ProofClosure.left_black_step_screened_forcing",
+        "Rule30ProofClosure.left_effective_boundary_autonomous_step",
+        "Rule30ProofClosure.left_light_cone_support_bound"
+      ],
+      "unresolved_gap": "None: exact forward left-half word operator and unit-triangular backward reconstruction are verified for all T and L."
+    },
+    {
+      "id": "M2",
+      "title": "Complete bilateral compatibility criterion",
+      "status": "EXACT",
+      "supporting_declarations": [
+        "Rule30ProofClosure.bilateral_center_conservation",
+        "Rule30ProofClosure.obsLeftWord_rowAtLeft_eq_orColWord_rowAt",
+        "Rule30ProofClosure.bilateral_observation_mismatch_excludes_periodic_word",
+        "Rule30ProofClosure.decoupled_halves_consistent_but_bilaterally_incompatible"
+      ],
+      "unresolved_gap": "None: exact bilateral conservation cell t (-1) xor orCol 0 t = cell (t+1) 0 and obsLeftWord = orColWord are kernel-verified."
+    },
+    {
+      "id": "M3",
+      "title": "Infinite-horizon obstruction",
+      "status": "BOUNDED",
+      "supporting_declarations": [
+        "Rule30ProofClosure.no_eventually_all_white_center",
+        "Rule30ProofClosure.no_eventually_all_black_center",
+        "Rule30ProofClosure.no_period_one_center_all_transients",
+        "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
+        "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
+        "Rule30ProofClosure.periodic_center_distinct_futureWork_classes_at_linear_horizon"
+      ],
+      "unresolved_gap": "All-white, all-black, P=1, long-black-run (b>=9), and linear-horizon FutureWorkEquiv collisions are unconditionally obstructed for all T; general mixed short-run periods P>=2 are obstructed at bounded (T, P) but lack a uniform all-(T, P) invariant."
+    },
+    {
+      "id": "M4",
+      "title": "Universal lifting theorem",
+      "status": "UNRESOLVED",
+      "supporting_declarations": [
+        "UNRESOLVED.M4_universal_f2_cone_polynomial_unsat",
+        "UNRESOLVED.M4_sublinear_futureWork_class_bound"
+      ],
+      "unresolved_gap": "Requires either (A/C) an F_2 Nullstellensatz / non-vanishing theorem on the overdetermined degree-2 cone polynomials in 2T-2 variables, or (B) a sub-linear upper bound on realizable FutureWorkEquiv classes to contradict the Omega(M) window_jen lower bound."
+    },
+    {
+      "id": "M5",
+      "title": "Formal end-to-end proof composition",
+      "status": "CONDITIONAL",
+      "supporting_declarations": [
+        "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1",
+        "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1"
+      ],
+      "unresolved_gap": "End-to-end implications to Rule30Prize.Problem1 are kernel-verified, awaiting an unconditional proof of either M4 obligation."
+    }
+  ],
+  "declarations": [
+    {
+      "name": "Rule30ProofClosure.stepLeftRow_rowAtLeft",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30Jen.cell"
+      ],
+      "summary": "1-step soundness of forward left-half evolution stepLeftRow on rowAtLeft."
+    },
+    {
+      "name": "Rule30ProofClosure.runLeftWord_rowAtLeft",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30ProofClosure.stepLeftRow_rowAtLeft"
+      ],
+      "summary": "L-step soundness of runLeftWord on rowAtLeft driven by col0Word t L."
+    },
+    {
+      "name": "Rule30ProofClosure.left_black_step_screened_forcing",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30MaskedJen.left_of_black"
+      ],
+      "summary": "At black center steps c(t)=true, right screening forces cell t (-1) = !c(t+1)."
+    },
+    {
+      "name": "Rule30ProofClosure.left_effective_boundary_autonomous_step",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30MaskedJen.effective_step"
+      ],
+      "summary": "When center(t) && center(t+1) = false, column -1 evolves with white right boundary."
+    },
+    {
+      "name": "Rule30ProofClosure.no_eventually_all_white_center",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30Prize.center_not_eventually_constant"
+      ],
+      "summary": "Unconditional exclusion of eventually all-white center tails for all transients T."
+    },
+    {
+      "name": "Rule30ProofClosure.no_eventually_all_black_center",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30Prize.center_not_eventually_constant"
+      ],
+      "summary": "Unconditional exclusion of eventually all-black center tails for all transients T."
+    },
+    {
+      "name": "Rule30ProofClosure.no_period_one_center_all_transients",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30Prize.center_not_eventually_period_one"
+      ],
+      "summary": "Unconditional exclusion of period P=1 center tails for all transients T."
+    },
+    {
+      "name": "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30ProofClosure.no_eventually_all_white_center",
+        "Rule30ProofClosure.no_eventually_all_black_center"
+      ],
+      "summary": "Every period window [t1, t1+P) of a periodic center contains both black and white cells."
+    },
+    {
+      "name": "Rule30ProofClosure.left_light_cone_support_bound",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30Jen.cell_left_edge",
+        "Rule30Jen.cell_eq_false_of_lt"
+      ],
+      "summary": "At time T, cell T (-T) = true and cell T p = false for all p < -T."
+    },
+    {
+      "name": "Rule30ProofClosure.bilateral_center_conservation",
+      "module": "Rule30RightInformation",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track B",
+      "dependencies": [
+        "Rule30MaskedJen.cell_left'"
+      ],
+      "summary": "Exact affine bijection cell t (-1) = xor (cell (t+1) 0) (orCol 0 t)."
+    },
+    {
+      "name": "Rule30ProofClosure.futureWorkEquiv_implies_orCol_and_left_col_agree",
+      "module": "Rule30RightInformation",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track B",
+      "dependencies": [
+        "Rule30ProofClosure.bilateral_center_conservation",
+        "Rule30ProofClosure.iterPeriodReturn_rowAt",
+        "Rule30ProofClosure.orColWord_rowAt"
+      ],
+      "summary": "FutureWorkEquiv at return steps m0 and m0+q forces both orCol 0 and cell \u00b7 (-1) agreement."
+    },
+    {
+      "name": "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
+      "module": "Rule30RightInformation",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track B",
+      "dependencies": [
+        "Rule30ProofClosure.futureWorkEquiv_implies_orCol_and_left_col_agree",
+        "Rule30MaskedJen.window_jen"
+      ],
+      "summary": "Constructive linear re-entry bound: return states m0 and m0+q cannot collide at (k+1)P >= t0 + (m0+q)P."
+    },
+    {
+      "name": "Rule30ProofClosure.periodic_center_distinct_futureWork_classes_at_linear_horizon",
+      "module": "Rule30RightInformation",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track B",
+      "dependencies": [
+        "Rule30ProofClosure.universal_linear_reentry_horizon_bound"
+      ],
+      "summary": "Any M return steps occupy M pairwise distinct FutureWorkEquiv classes at linear horizon."
+    },
+    {
+      "name": "Rule30ProofClosure.obsLeftWord_rowAtLeft",
+      "module": "Rule30BilateralCompatibility",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track C",
+      "dependencies": [
+        "Rule30ProofClosure.stepLeftRow_rowAtLeft",
+        "Rule30ProofClosure.bilateral_center_conservation"
+      ],
+      "summary": "Left observation operator obsLeftWord on rowAtLeft evaluates to col0OrTrace t L."
+    },
+    {
+      "name": "Rule30ProofClosure.obsLeftWord_rowAtLeft_eq_orColWord_rowAt",
+      "module": "Rule30BilateralCompatibility",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track C",
+      "dependencies": [
+        "Rule30ProofClosure.obsLeftWord_rowAtLeft",
+        "Rule30ProofClosure.orColWord_rowAt"
+      ],
+      "summary": "Bilateral observation soundness: obsLeftWord on rowAtLeft equals orColWord on rowAt."
+    },
+    {
+      "name": "Rule30ProofClosure.bilateral_observation_mismatch_excludes_periodic_word",
+      "module": "Rule30BilateralCompatibility",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track C",
+      "dependencies": [
+        "Rule30ProofClosure.obsLeftWord_rowAtLeft_eq_orColWord_rowAt"
+      ],
+      "summary": "Any bilateral mismatch obsLeftWord != orColWord excludes the candidate center word."
+    },
+    {
+      "name": "Rule30ProofClosure.decoupled_halves_consistent_but_bilaterally_incompatible",
+      "module": "Rule30BilateralCompatibility",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track C",
+      "dependencies": [
+        "Rule30ProofClosure.bilateral_observation_mismatch_excludes_periodic_word"
+      ],
+      "summary": "Section 5 decoupling refutation: L_1 and R_1 at T=1, w=[0,1] are separately valid for 6 steps but fail bilaterally at step 1."
+    },
+    {
+      "name": "Rule30ProofClosure.bounded_T0_periods_one_to_four_excluded",
+      "module": "Rule30PrizeClosure",
+      "classification": "BOUNDED",
+      "obligation_id": "M3",
+      "track": "Track C",
+      "dependencies": [
+        "Rule30ProofClosure.no_period_one_center_all_transients"
+      ],
+      "summary": "Bounded exclusion of periods P in {1, 2, 3, 4} at transient T=0."
+    },
+    {
+      "name": "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1",
+      "module": "Rule30PrizeClosure",
+      "classification": "CONDITIONAL",
+      "obligation_id": "M5",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
+        "Rule30ProofClosure.obsLeftWord_rowAtLeft_eq_orColWord_rowAt",
+        "UNRESOLVED.M4_universal_f2_cone_polynomial_unsat"
+      ],
+      "summary": "Reduces Problem1 to finite-horizon bilateral observation mismatch on mixed periodic words."
+    },
+    {
+      "name": "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
+      "module": "Rule30PrizeClosure",
+      "classification": "CONDITIONAL",
+      "obligation_id": "M5",
+      "track": "Track B",
+      "dependencies": [
+        "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
+        "UNRESOLVED.M4_sublinear_futureWork_class_bound"
+      ],
+      "summary": "Reduces Problem1 to a single FutureWorkEquiv collision at linear horizon k = t1 + (m0+q)P."
+    },
+    {
+      "name": "REFUTED.decoupled_one_sided_right_quotient_closes_problem1",
+      "module": "Rule30BilateralCompatibility",
+      "classification": "REFUTED",
+      "obligation_id": "M2",
+      "track": "Track B",
+      "dependencies": [
+        "Rule30Submission.g11_p1_ether_periodic_chain_all_horizon_work_equiv"
+      ],
+      "summary": "Refuted assumption that one-sided right-half quotient analysis alone can eliminate all periodic centers."
+    },
+    {
+      "name": "UNRESOLVED.M4_universal_f2_cone_polynomial_unsat",
+      "module": "Rule30PrizeClosure",
+      "classification": "UNRESOLVED",
+      "obligation_id": "M4",
+      "track": "Track A/C",
+      "dependencies": [],
+      "summary": "Prove that for all T and mixed words w, the overdetermined degree-2 F_2 polynomial system on the 2T-2 cone variables has no common root."
+    },
+    {
+      "name": "UNRESOLVED.M4_sublinear_futureWork_class_bound",
+      "module": "Rule30PrizeClosure",
+      "classification": "UNRESOLVED",
+      "obligation_id": "M4",
+      "track": "Track B",
+      "dependencies": [],
+      "summary": "Prove that a periodically driven single-seed return orbit cannot realize M pairwise distinct FutureWorkEquiv classes at linear horizon k = t1 + MP."
+    }
+  ],
+  "decoupling_counterexamples": [
+    {
+      "transient_t": 1,
+      "word": "01",
+      "horizon_h": 6,
+      "left_witness": [
+        1
+      ],
+      "right_witness": [
+        1
+      ],
+      "obs_left": [
+        0,
+        1,
+        1,
+        1,
+        0,
+        1
+      ],
+      "obs_right": [
+        1,
+        1,
+        0,
+        1,
+        0,
+        1
+      ],
+      "left_only_unsat_horizon": 8,
+      "bilateral_unsat_horizon": 1
+    },
+    {
+      "transient_t": 2,
+      "word": "10",
+      "horizon_h": 6,
+      "left_witness": [
+        1,
+        1
+      ],
+      "right_witness": [
+        0,
+        1
+      ],
+      "obs_left": [
+        1,
+        1,
+        1,
+        0,
+        1,
+        1
+      ],
+      "obs_right": [
+        1,
+        0,
+        1,
+        0,
+        1,
+        1
+      ],
+      "left_only_unsat_horizon": 7,
+      "bilateral_unsat_horizon": 2
+    }
+  ],
+  "failed_claims": [
+    {
+      "claim_id": "FAIL-01-SCALAR-DEPTH-CLOSURE",
+      "category": "INSUFFICIENT_STATE_REPRESENTATION",
+      "proposed_statement": "Scalar right-boundary depth ell alone deterministically closes white-black event cycles.",
+      "minimal_witness_or_obstruction": "Single-seed white onsets w1=38 vs w2=115 share ell=0 and cycle (r,b)=(1,1) but transition to ell'=2 vs ell'=1.",
+      "formal_refutation_or_reduction": "Rule30Submission.g7_p1_depth_alone_not_closed_under_cycle_01",
+      "diagnosis": "Resolved in G8 by introducing variable-length symbolic tail tau (RealizesSymbolicState t ell tau)."
+    },
+    {
+      "claim_id": "FAIL-02-ONE-PERIOD-MASKED-EQUIV-STABILITY",
+      "category": "FALSE_PROPOSED_INVARIANT",
+      "proposed_statement": "1-period MaskedPeriodEquiv (orColWord w sigma1 = orColWord w sigma2) is invariant under F_w = runWord w.",
+      "minimal_witness_or_obstruction": "Under w=[1,0], sigma1=[1,0,0,0,0] and sigma2=[1,1,1,1,0] share MaskedPeriodEquiv in period 1 but diverge in period 2.",
+      "formal_refutation_or_reduction": "Rule30Submission.g9_p1_masked_equiv_diverges_after_one_period",
+      "diagnosis": "Resolved in G10 by introducing multi-horizon FutureWorkEquiv and PersistentWorkEquiv."
+    },
+    {
+      "claim_id": "FAIL-03-SINGLE-BLOCK-ETHER-INFINITE-SCREENING",
+      "category": "FALSE_PROPOSED_INVARIANT",
+      "proposed_statement": "A single finitely supported 7-cell Ether block E_0 = {6} screens arbitrary right-tail perturbations forever under w=[0,1].",
+      "minimal_witness_or_obstruction": "Flipping column p=9 ({6,9} vs {6}) stays invisible for 7 periods (14 steps) and re-enters observation at exact horizon tau_w = 7.",
+      "formal_refutation_or_reduction": "Rule30Submission.g11_p1_single_block_ether_reentry_at_horizon_seven",
+      "diagnosis": "Resolved in G11.1: each 7-cell block E_0 peels in 2 periods (4 steps), so m+1 blocks screen for 2m+2 periods."
+    },
+    {
+      "claim_id": "FAIL-04-DECOUPLED-ONE-SIDED-CONES",
+      "category": "INCOMPLETE_CONSTRAINT_MODEL",
+      "proposed_statement": "Left and right half-histories L_{T,w} and R_{T,w} can be analyzed independently without bilateral observation coupling.",
+      "minimal_witness_or_obstruction": "At T=1, w=[0,1], L_1=[1] survives 7 steps in L_{1,[0,1]} and R_1=[1] survives all steps in R_{1,[0,1]}, but C_{1,[0,1]} fails at step H=1.",
+      "formal_refutation_or_reduction": "Rule30ProofClosure.decoupled_halves_consistent_but_bilaterally_incompatible",
+      "diagnosis": "Resolved in R30-CLOSE-001 by coupling obsLeftWord and orColWord via bilateral_center_conservation."
+    },
+    {
+      "claim_id": "FAIL-05-ANF-POLYNOMIAL-DEGREE-EXPLOSION",
+      "category": "COMPUTATIONAL_EXPLOSION",
+      "proposed_statement": "Symbolic ANF elimination over the 2T-2 cone variables provides a sub-quadratic shortcut for center evaluation.",
+      "minimal_witness_or_obstruction": "Interior cone variables enter through iterated degree-2 disjunctions l xor (c or r), driving ANF degree to 2T-2 and monomial count exponentially.",
+      "formal_refutation_or_reduction": "experiments.rule30_proof_closure.core.symbolic_constraints.build_bilateral_cone_anf_system",
+      "diagnosis": "Confirms that exact polynomial elimination over cone variables experiences exponential monomial growth vs O(t^2) causal-diamond evaluation."
+    },
+    {
+      "claim_id": "FAIL-06-UNIVERSAL-LIFTING-M4-GAP",
+      "category": "GENUINE_UNRESOLVED_GLOBAL_STATEMENT",
+      "proposed_statement": "Lift bounded-horizon bilateral cone unsatisfiability C_{T,w}(H) = empty and linear re-entry bounds to all (T, P) simultaneously.",
+      "minimal_witness_or_obstruction": "window_jen forces Omega(M) distinct FutureWorkEquiv classes over M periods, whereas the uncoupled right-half observation capacity is 2^{(k+1)*#{w_i=0}}.",
+      "formal_refutation_or_reduction": "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1 & Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
+      "diagnosis": "Exact surviving global mathematical obligation M4: requires either an F_2 non-vanishing proof on the overdetermined degree-2 cone polynomials in 2T-2 variables, or a sub-linear upper bound on realizable FutureWorkEquiv classes."
+    }
+  ],
+  "closure_claim_audits": {
+    "track_ac_reduction": {
+      "target": "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1",
+      "accepted_as_unconditional_closure": false,
+      "non_exact_dependencies": [
+        "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1 (CONDITIONAL)",
+        "UNRESOLVED.M4_universal_f2_cone_polynomial_unsat (UNRESOLVED)"
+      ],
+      "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
+    },
+    "track_b_reduction": {
+      "target": "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
+      "accepted_as_unconditional_closure": false,
+      "non_exact_dependencies": [
+        "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1 (CONDITIONAL)",
+        "UNRESOLVED.M4_sublinear_futureWork_class_bound (UNRESOLVED)"
+      ],
+      "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
+    },
+    "exact_linear_reentry_bound": {
+      "target": "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    }
+  }
+}
