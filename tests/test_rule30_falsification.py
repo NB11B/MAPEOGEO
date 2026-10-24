@@ -30,6 +30,7 @@ from experiments.rule30_falsification.benchmark import (
     run_g7_collatz_return_map_transfer,
     run_g8_symbolic_return_machine_qualification,
     run_g9_period_return_dynamics_qualification,
+    run_g10_psmsl_future_work_qualification,
     sideways_left_iterated,
     sideways_left_step,
     simulate_spacetime_cone,
@@ -292,7 +293,7 @@ def test_g0_g2_prize_qualification_and_official_check_lean() -> None:
     assert res.check_lean_verdict_pass is True
     assert res.check_lean_replay_ok is True
     assert res.check_lean_new_axioms_empty is True
-    assert len(res.check_lean_verified_headlines) == 82
+    assert len(res.check_lean_verified_headlines) == 93
 
     by_name = {p.rule_name: p for p in res.control_profiles}
     assert list(by_name["g90"].point_quotient_sizes) == [2, 2, 2, 2, 2]
@@ -482,4 +483,35 @@ def test_g9_period_return_dynamics_qualification() -> None:
         for p in g9.symbolic_return_machine_vs_pyramid_profiles
     )
     assert len(g9.g9_headlines_verified) == 11
+
+
+def test_g10_psmsl_future_work_qualification() -> None:
+    """Verify Gate R30-PRIZE-G10 (G10.1-G10.6) PSMSL future-work qualification."""
+    g10 = run_g10_psmsl_future_work_qualification(steps=450)
+    assert g10.gate_passed is True
+    assert g10.vendor_row2_projection_is_work_equivalent is True
+    assert g10.vendor_row1_projection_is_not_work_equivalent is True
+    assert g10.vendor_information_loss_projection_lossless is True
+    assert g10.boolean_right_screen_work_lossless is True
+    assert g10.boolean_truth_table_audit_checks >= 512
+    assert g10.boolean_truth_table_audit_mismatches == 0
+    assert g10.all_tested_words_exhibit_strict_horizon_refinement is True
+    assert [w.reentry_horizon_k for w in g10.minimal_reentry_witnesses] == [1, 2, 3]
+    assert g10.g9_metastable_trap_reentry_horizon_k == 138
+    assert g10.g9_metastable_trap_first_differing_column_at_t14_vs_t28 == 14
+    assert g10.quotient_shift_congruence_checks >= 700
+    assert g10.quotient_shift_congruence_mismatches == 0
+    assert g10.ether_c7_quotient_period_q == 2
+    assert g10.finitely_supported_right_half_r6_persistent_equiv_to_ether_c7 is True
+    assert g10.two_sided_truncated_ether_c7cut_reentry_steps_by_n == {
+        "1": 15,
+        "2": 22,
+        "3": 29,
+    }
+    assert g10.single_seed_active_support_grows_linearly is True
+    assert g10.quotient_discrepancy_invariance_checks >= 12
+    assert g10.quotient_discrepancy_invariance_mismatches == 0
+    assert g10.quotient_work_compression_savings_ratio_m3 > 0.9
+    assert len(g10.g10_headlines_verified) == 11
+
 

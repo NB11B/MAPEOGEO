@@ -17,6 +17,7 @@ from .benchmark import (
     G7CollatzReturnMapTransferResult,
     G8SymbolicReturnMachineResult,
     G9PeriodReturnDynamicsResult,
+    G10PSMSLFutureWorkResult,
     Rule30FalsificationCampaign,
     apply_wavefront_quotient_operator,
     run_e1_exact_reconstruction,
@@ -33,6 +34,7 @@ from .benchmark import (
     run_g7_collatz_return_map_transfer,
     run_g8_symbolic_return_machine_qualification,
     run_g9_period_return_dynamics_qualification,
+    run_g10_psmsl_future_work_qualification,
 )
 
 __all__ = [
@@ -52,6 +54,7 @@ __all__ = [
     "G7CollatzReturnMapTransferResult",
     "G8SymbolicReturnMachineResult",
     "G9PeriodReturnDynamicsResult",
+    "G10PSMSLFutureWorkResult",
     "Rule30FalsificationCampaign",
     "apply_wavefront_quotient_operator",
     "run_e1_exact_reconstruction",
@@ -68,4 +71,5 @@ __all__ = [
     "run_g7_collatz_return_map_transfer",
     "run_g8_symbolic_return_machine_qualification",
     "run_g9_period_return_dynamics_qualification",
+    "run_g10_psmsl_future_work_qualification",
 ]

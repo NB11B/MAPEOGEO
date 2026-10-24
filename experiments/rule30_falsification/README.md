@@ -42,9 +42,9 @@ Both [`Rule30Core.lean`](Rule30Core.lean) (14 theorems) and [`MAPEOGEOFormal/Rul
 
 The initial regression in `test_suite.py` asserted `69` ANF monomials at $k=4$; exact Boolean Möbius computation gave `122`. The original failing run is preserved in [`test_results.txt`](test_results.txt), and the corrected passing run is preserved in [`test_results_corrected.txt`](test_results_corrected.txt).
 
-## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G9`)
+## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G10`)
 
-[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 593, "ok": true}`, `"newAxioms": []`, **82/82** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
+[`Rule30Submission.lean`](Rule30Submission.lean) (and standalone `G10` module [`Rule30PSMSLFutureWork.lean`](Rule30PSMSLFutureWork.lean)) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 625, "ok": true}`, `"newAxioms": []`, **93/93** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
 
 ```bash
 # External reproduction against official Wolfram Rule30PrizeKit
@@ -136,7 +136,18 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   --headline Rule30Submission.g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period \
   --headline Rule30Submission.g9_p1_period_return_masked_synchronization_implies_problem1 \
   --headline Rule30Submission.g9_p2_col0Word_discrepancy_identity \
-  --headline Rule30Submission.g9_p2_p3_periodic_word_discrepancy_and_width_consumption
+  --headline Rule30Submission.g9_p2_p3_periodic_word_discrepancy_and_width_consumption \
+  --headline Rule30Submission.g10_p1_boolean_right_screen_work_lossless \
+  --headline Rule30Submission.g10_p1_futureWorkEquiv_zero_iff_maskedPeriodEquiv \
+  --headline Rule30Submission.g10_p1_futureWorkEquiv_antitone_refinement \
+  --headline Rule30Submission.g10_p1_delayed_information_reentry_witnesses \
+  --headline Rule30Submission.g10_p1_futureWorkEquiv_shift_step \
+  --headline Rule30Submission.g10_p1_persistentWorkEquiv_equivalence_and_congruence \
+  --headline Rule30Submission.g10_p1_ether_c7_quotient_period_two \
+  --headline Rule30Submission.g10_p1_single_seed_right_support_exact_frontier \
+  --headline Rule30Submission.g10_p1_eventually_periodic_quotient_repetition_excludes_arbitrary_period \
+  --headline Rule30Submission.g10_p1_psmsl_quotient_eventual_repetition_implies_problem1 \
+  --headline Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work
 ```
 
 - **Gates G0–G2 (`run_g0_g2_prize_qualification`):** Audits 65 official catalog modules + 25 public submissions ([`g0_novelty_audit.json`](g0_novelty_audit.json)) and proves on `evolG` (`Rule30Realization.evol`) that Rule 30 uniquely reaches 3 depth-2 response classes (`xm2`, `!xm2`, `xor xm2 xm1`) and Mode A/B wavefront shielding, whereas all three `Rule30Realization` counterexample controls (`g90`, `g150`, and nonlinear `g210`) collapse to rank-1 (`g2_rule30_separates_controls_90_150_210`, `g210_origin_cancellation_evolG`, `e5_wavefront_separates_controls`).
@@ -171,4 +182,12 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   - **G9.2 (Smallest 1-Period Observational Equivalence & Meta-Stable Quasi-Periods):** Defines `MaskedPeriodEquiv w σ₁ σ₂` (`orColWord w σ₁ = orColWord w σ₂`), proves it strictly coarsens spatial prefix equality (`g9_p1_prefix_eq_implies_masked_equiv_strict`), falsifies un-shielded 1-period equivalence by exhibiting explicit depth-0 states that are `MaskedPeriodEquiv` in period 1 but diverge in period 2 (`g9_p1_masked_equiv_diverges_after_one_period`), and documents the **145-period ($290$-step) meta-stable period-7 trap** for $w = [1, 0]$ from `init = {1, 2}` (which reaches a spatial prefix agreement width of $W = 17$ before breaking at step $305$).
   - **G9.3 (Orbit Trichotomy, Sub-Harmonic $q = 2$ Ether `c7`, and ZBL Post-Support Forcing):** Proves that the infinite $7 \times 4$ Ether `c7` realizes an exact period-2 center column that breaks 1-period ($P = 2$) right-boundary synchronization (`evol c7 0 1 = false ≠ true = evol c7 2 1`) and synchronizes only at the sub-harmonic $q = 2$ ($2P = 4$) (`g9_p1_ether_c7_period_two_center_breaks_one_period_sync_but_syncs_at_two_periods`), proves that finite-support truncations `c7cut N` survive with an alternating center column for arbitrarily many steps $t \le 7N$ (`g9_p1_truncated_ether_c7cut_survives_arbitrarily_many_periods`), and proves via the Zero-Boundary Left-Half (ZBL) triangular map `zblTheta` that beyond any finite support width $W$, free bits have zero branching (`f j = g j`, `g9_p1_deterministic_theta_forcing_beyond_support`).
   - **G9.4 & G9.5 (Sub-Harmonic Period-Return Exclusion, `Problem1` Reduction, and Prizes 2 & 3):** Proves that for any period $P > 0$ and any sub-harmonic period multiple $q > 0$, discrete period-return masked synchronization contradicts `orCol_not_eventuallyPeriodic 0` (`g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period`), connects this directly to `Rule30Prize.Problem1` (`g9_p1_period_return_masked_synchronization_implies_problem1`), and proves exact multi-period word discrepancy telescoping and boundary width consumption (`g9_p2_col0Word_discrepancy_identity`, `g9_p2_p3_periodic_word_discrepancy_and_width_consumption`).
+- **Gate G10 (`run_g10_psmsl_future_work_qualification` — `G10.1` through `G10.6`):**
+  - **G10.1 (Exact Boolean Work-Equivalence & Independent Truth-Table / Vendor Audit):** Implements exact Boolean work-equivalence (`evaluate_boolean_work_equivalence`, `evaluate_boolean_work_information_loss`) in [`psmsl_future_work.py`](psmsl_future_work.py), audits the historical vendor test expectation in `test_psmsl_work_equivalence_v1.py`, and proves `g10_p1_boolean_right_screen_work_lossless`.
+  - **G10.2 (Successive Return Horizon Hierarchy $\equiv_{w, m}$):** Defines `FutureWorkEquiv w m σ₁ σ₂` ($\forall k \le m,\; \Psi_w(F_w^k(\sigma_1)) = \Psi_w(F_w^k(\sigma_2))$), proves `g10_p1_futureWorkEquiv_zero_iff_maskedPeriodEquiv` and `g10_p1_futureWorkEquiv_antitone_refinement` (both monotone and strict horizon refinement), and verifies strict equivalence-class growth across $m = 0, 1, 2, 3$ ($2 \to 3 \to 5 \to 8$ for $w \in \{10, 01\}$, $3 \to 7 \to 13 \to 23$ for $w = 001$, $4 \to 11 \to 22 \to 25$ for $w = 0001$).
+  - **G10.3 (Delayed Information Re-Entry $\tau_w(S_1, S_2)$):** Defines `ReEntryAtHorizon w k σ₁ σ₂`, certifies minimal counterexample witnesses at $\tau_w = 1, 2, 3$ (`g10_p1_delayed_information_reentry_witnesses`), and resolves the G9 145-period meta-stable trap on `drv [1, 0] {1, 2}`: states $S(t=14)$ and $S(t=28)$ first differ at column $p = 14$ and have exact information re-entry horizon $\tau_{10}(S_{14}, S_{28}) = 138$ periods after $k=7$ ($7 + 138 = 145$ total periods, breaking at step $305$).
+  - **G10.4 (Composition-Stable Quotient $\equiv_{w, \infty}$):** Defines `PersistentWorkEquiv w σ₁ σ₂` ($\bigcap_{m \ge 0} \equiv_{w, m}$) and proves `g10_p1_futureWorkEquiv_shift_step` and `g10_p1_persistentWorkEquiv_equivalence_and_congruence` ($F_w^k$-transition congruence and exact quotient step factorization).
+  - **G10.5 (Single-Seed vs. Ether Return Orbits):** Proves `g10_p1_ether_c7_quotient_period_two` (showing that the finitely supported right-half state $R = \{6\}$ with zero exterior is persistently work-equivalent to the infinite Ether `c7` on the one-sided right half with quotient period $q = 2$, whereas on the two-sided line `c7cut N` the omitted left-half bit at $-(7N + 8)$ propagates at speed $+1$ via left-permutivity and breaks center periodicity at exact step $t = 7N + 8 \in \{15, 22, 29\}$) and `g10_p1_single_seed_right_support_exact_frontier`.
+  - **G10.6 (Official `Problem1` Implication & Prize 2/3 Quotient Properties):** Proves `g10_p1_eventually_periodic_quotient_repetition_excludes_arbitrary_period`, `g10_p1_psmsl_quotient_eventual_repetition_implies_problem1`, and `g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work`.
+
 

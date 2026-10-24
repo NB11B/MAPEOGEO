@@ -777,7 +777,18 @@
       "Rule30Submission.g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period",
       "Rule30Submission.g9_p1_period_return_masked_synchronization_implies_problem1",
       "Rule30Submission.g9_p2_col0Word_discrepancy_identity",
-      "Rule30Submission.g9_p2_p3_periodic_word_discrepancy_and_width_consumption"
+      "Rule30Submission.g9_p2_p3_periodic_word_discrepancy_and_width_consumption",
+      "Rule30Submission.g10_p1_boolean_right_screen_work_lossless",
+      "Rule30Submission.g10_p1_futureWorkEquiv_zero_iff_maskedPeriodEquiv",
+      "Rule30Submission.g10_p1_futureWorkEquiv_antitone_refinement",
+      "Rule30Submission.g10_p1_delayed_information_reentry_witnesses",
+      "Rule30Submission.g10_p1_futureWorkEquiv_shift_step",
+      "Rule30Submission.g10_p1_persistentWorkEquiv_equivalence_and_congruence",
+      "Rule30Submission.g10_p1_ether_c7_quotient_period_two",
+      "Rule30Submission.g10_p1_single_seed_right_support_exact_frontier",
+      "Rule30Submission.g10_p1_eventually_periodic_quotient_repetition_excludes_arbitrary_period",
+      "Rule30Submission.g10_p1_psmsl_quotient_eventual_repetition_implies_problem1",
+      "Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work"
     ],
     "gate_passed": true
   },
@@ -1165,6 +1176,230 @@
       "Rule30Submission.g9_p1_period_return_masked_synchronization_implies_problem1",
       "Rule30Submission.g9_p2_col0Word_discrepancy_identity",
       "Rule30Submission.g9_p2_p3_periodic_word_discrepancy_and_width_consumption"
+    ],
+    "gate_passed": true
+  },
+  "g10_psmsl_future_work": {
+    "steps": 450,
+    "vendor_row2_projection_is_work_equivalent": true,
+    "vendor_row1_projection_is_not_work_equivalent": true,
+    "vendor_information_loss_projection_lossless": true,
+    "boolean_right_screen_work_lossless": true,
+    "boolean_truth_table_audit_checks": 512,
+    "boolean_truth_table_audit_mismatches": 0,
+    "horizon_refinement_profiles": [
+      {
+        "word": "10",
+        "period_len": 2,
+        "base_prefix_width": 9,
+        "class_counts_by_horizon": [
+          2,
+          3,
+          5,
+          8
+        ],
+        "strictly_refines_across_horizons": true,
+        "quotient_compression_ratio_at_m3": 0.015625
+      },
+      {
+        "word": "01",
+        "period_len": 2,
+        "base_prefix_width": 9,
+        "class_counts_by_horizon": [
+          2,
+          3,
+          5,
+          8
+        ],
+        "strictly_refines_across_horizons": true,
+        "quotient_compression_ratio_at_m3": 0.015625
+      },
+      {
+        "word": "001",
+        "period_len": 3,
+        "base_prefix_width": 13,
+        "class_counts_by_horizon": [
+          3,
+          7,
+          13,
+          23
+        ],
+        "strictly_refines_across_horizons": true,
+        "quotient_compression_ratio_at_m3": 0.0028076171875
+      },
+      {
+        "word": "0001",
+        "period_len": 4,
+        "base_prefix_width": 13,
+        "class_counts_by_horizon": [
+          4,
+          11,
+          22,
+          25
+        ],
+        "strictly_refines_across_horizons": true,
+        "quotient_compression_ratio_at_m3": 0.0030517578125
+      }
+    ],
+    "all_tested_words_exhibit_strict_horizon_refinement": true,
+    "minimal_reentry_witnesses": [
+      {
+        "word": "10",
+        "reentry_horizon_k": 1,
+        "sigma1": [
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sigma2": [
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "first_differing_input_column": 2,
+        "observations_before_reentry": [
+          [
+            1,
+            0
+          ]
+        ],
+        "diverging_observations_at_k": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            1
+          ]
+        ]
+      },
+      {
+        "word": "10",
+        "reentry_horizon_k": 2,
+        "sigma1": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sigma2": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "first_differing_input_column": 2,
+        "observations_before_reentry": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "diverging_observations_at_k": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      },
+      {
+        "word": "10",
+        "reentry_horizon_k": 3,
+        "sigma1": [
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "sigma2": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "first_differing_input_column": 2,
+        "observations_before_reentry": [
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "diverging_observations_at_k": [
+          [
+            1,
+            1
+          ],
+          [
+            1,
+            0
+          ]
+        ]
+      }
+    ],
+    "g9_metastable_trap_reentry_horizon_k": 138,
+    "g9_metastable_trap_first_differing_column_at_t14_vs_t28": 14,
+    "quotient_shift_congruence_checks": 768,
+    "quotient_shift_congruence_mismatches": 0,
+    "ether_c7_quotient_period_q": 2,
+    "finitely_supported_right_half_r6_persistent_equiv_to_ether_c7": true,
+    "two_sided_truncated_ether_c7cut_reentry_steps_by_n": {
+      "1": 15,
+      "2": 22,
+      "3": 29
+    },
+    "single_seed_active_support_grows_linearly": true,
+    "quotient_discrepancy_invariance_checks": 12,
+    "quotient_discrepancy_invariance_mismatches": 0,
+    "quotient_work_compression_savings_ratio_m3": 0.99072265625,
+    "g10_headlines_verified": [
+      "Rule30Submission.g10_p1_boolean_right_screen_work_lossless",
+      "Rule30Submission.g10_p1_futureWorkEquiv_zero_iff_maskedPeriodEquiv",
+      "Rule30Submission.g10_p1_futureWorkEquiv_antitone_refinement",
+      "Rule30Submission.g10_p1_delayed_information_reentry_witnesses",
+      "Rule30Submission.g10_p1_futureWorkEquiv_shift_step",
+      "Rule30Submission.g10_p1_persistentWorkEquiv_equivalence_and_congruence",
+      "Rule30Submission.g10_p1_ether_c7_quotient_period_two",
+      "Rule30Submission.g10_p1_single_seed_right_support_exact_frontier",
+      "Rule30Submission.g10_p1_eventually_periodic_quotient_repetition_excludes_arbitrary_period",
+      "Rule30Submission.g10_p1_psmsl_quotient_eventual_repetition_implies_problem1",
+      "Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work"
     ],
     "gate_passed": true
   },

@@ -3820,6 +3820,11 @@ def run_g9_period_return_dynamics_qualification(
 # Full Campaign Runner
 # ---------------------------------------------------------------------------
 
+from .psmsl_future_work import (
+    G10PSMSLFutureWorkResult,
+    run_g10_psmsl_future_work_qualification,
+)
+
 
 @dataclass(frozen=True)
 class Rule30FalsificationCampaign:
@@ -3836,6 +3841,7 @@ class Rule30FalsificationCampaign:
     g7_collatz_return_map_transfer: G7CollatzReturnMapTransferResult
     g8_symbolic_return_machine: G8SymbolicReturnMachineResult
     g9_period_return_dynamics: G9PeriodReturnDynamicsResult
+    g10_psmsl_future_work: G10PSMSLFutureWorkResult
     all_gates_passed: bool
 
     def to_dict(self) -> Dict[str, Any]:
@@ -3853,6 +3859,7 @@ class Rule30FalsificationCampaign:
             "g7_collatz_return_map_transfer": self.g7_collatz_return_map_transfer.to_dict(),
             "g8_symbolic_return_machine": self.g8_symbolic_return_machine.to_dict(),
             "g9_period_return_dynamics": self.g9_period_return_dynamics.to_dict(),
+            "g10_psmsl_future_work": self.g10_psmsl_future_work.to_dict(),
             "all_gates_passed": self.all_gates_passed,
         }
 
@@ -3872,6 +3879,7 @@ def run_full_campaign(
     g7_steps: int = 450,
     g8_steps: int = 450,
     g9_steps: int = 450,
+    g10_steps: int = 450,
     output_json: Optional[Path] = None,
 ) -> Rule30FalsificationCampaign:
     """Execute all Rule 30 falsification & prize qualification gates and optionally write JSON evidence."""
@@ -3890,6 +3898,7 @@ def run_full_campaign(
     g7 = run_g7_collatz_return_map_transfer(steps=g7_steps)
     g8 = run_g8_symbolic_return_machine_qualification(steps=g8_steps)
     g9 = run_g9_period_return_dynamics_qualification(steps=g9_steps)
+    g10 = run_g10_psmsl_future_work_qualification(steps=g10_steps)
 
     campaign = Rule30FalsificationCampaign(
         e1_reconstruction=e1,
@@ -3905,6 +3914,7 @@ def run_full_campaign(
         g7_collatz_return_map_transfer=g7,
         g8_symbolic_return_machine=g8,
         g9_period_return_dynamics=g9,
+        g10_psmsl_future_work=g10,
         all_gates_passed=(
             e1.gate_passed
             and e2.gate_passed
@@ -3919,6 +3929,7 @@ def run_full_campaign(
             and g7.gate_passed
             and g8.gate_passed
             and g9.gate_passed
+            and g10.gate_passed
         ),
     )
 
