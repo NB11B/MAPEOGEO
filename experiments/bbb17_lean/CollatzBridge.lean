@@ -4,8 +4,12 @@ namespace BBB17
 def collatz (n : Nat) : Nat :=
   if n % 2 = 0 then n / 2 else 3 * n + 1
 
+def iterateCollatz (n : Nat) : Nat → Nat
+  | 0 => n
+  | k + 1 => collatz (iterateCollatz n k)
+
 def ReachesOne (n : Nat) : Prop :=
-  ∃ k : Nat, (Function.iterate collatz k) n = 1
+  ∃ k : Nat, iterateCollatz n k = 1
 
 def CollatzConjecture : Prop := ∀ n : Nat, n > 0 → ReachesOne n
 
