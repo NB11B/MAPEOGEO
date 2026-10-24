@@ -1,0 +1,19 @@
+name: Collatz three-track falsification
+on:
+  push:
+    branches: [research/collatz-three-tracks]
+  pull_request:
+    paths: ['experiments/bbb17_lean/three_tracks.py', 'experiments/bbb17_lean/test_three_tracks.py']
+jobs:
+  bounded-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Three track regression
+        run: |
+          cd experiments/bbb17_lean
+          python -m unittest -v test_three_tracks.py
+          python three_tracks.py --starts 10000 --cap 10000 --depth 8
