@@ -1,12 +1,12 @@
 {
-  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001",
+  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001",
   "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-  "outcome_classification": "OUTCOME_B_AND_C_SPATIAL_TRANSPORT_AND_DIAGONAL_ABLATION_CHARACTERIZED",
-  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, and R30-TRANSPORT-001 are unconditionally verified (31/31 Lean 4.35.0 headlines in Rule30PrizeClosure, 39 replayed constants, 0 new axioms). Deliverable 1 (Diagonal Ablation) proves that fixing exterior zeros and outer edge D_0(T)=1 alone self-regenerates D_1, D_2, D_4 during forward evolution (universal_column_onset_signature), collapsing 90/154 mixed-word hypotheses to degree-0 MUS=1 with D_0 alone and 151/154 with D_0..D_5 via the unbridged spatial gap law G(T, d_diag, d_cancel) = max(0, T - d_diag - d_cancel). Deliverable 2 (Spatial Relation Transport) proves the 6-case transport step law (spatial_transport_step_dichotomy) and shows that the finite single-step grammar R_d = {Const, AdjXor} is closed through d <= 3..4 (1010) or d <= 2..3 (110) before time-shifted white-step variables (y_{t_1} != y_{t_2}) spawn quadratic cross-terms y_{t_1}*y_{t_2}. Deliverable 3 replaces the tautological bridge premise with transport_adjacent_xor_to_onset_implies_problem1 and proves the zero-decide structural exclusion transport_onset_excludes_1010_at_t3.",
+  "outcome_classification": "OUTCOME_B_AND_C_SPATIOTEMPORAL_RELATION_ALGEBRA_AND_CHARACTERISTIC_FLUX_ESTABLISHED",
+  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, and R30-SPATIOTEMPORAL-001 are unconditionally verified (35/35 Lean 4.35.0 headlines in Rule30PrizeClosure, 43 replayed constants, 0 new axioms). 1. Onset Signature Correction & Characteristic Flux: universal_column_onset_signature proves cell (k+5) (-k) = cell (k+3) (-k) (since D5(k+5) = !D3(k+4) = D3(k+3)), and cell_neg_eq_center_xor_characteristicFlux + periodic_center_forces_characteristic_flux_depth_periodicity establish an independent all-depth spatiotemporal transport invariant without assuming a contradiction premise. 2. Spatiotemporal Quadratic Cancellation at Depth -5: spatiotemporal_101010_quadratic_cancellation_depth5 proves that while single-time transport breaks at depth -4 via cell (t+1) (-4) = (!cell (t+1) (-1)) && (!cell (t+3) (-1)), retaining temporal offsets cancels that quadratic cross-term identically against cell t (-4) || cell t (-3) at depth -5, restoring degree-1 linearity cell t (-5) = cell (t+1) (-1) = cell t (-3) (and degree 1 at depth -6).",
   "checkpoint_01_reconstruction_completeness": true,
   "checkpoint_02_bilateral_soundness": true,
-  "checkpoint_03_universal_contradiction_status": "EXACT_FOR_ONSET_SIGNATURE_AND_DEPTH_LE_4_TRANSPORT__MULTI_STEP_CORRELATION_OPEN",
-  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_31_OF_31__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+  "checkpoint_03_universal_contradiction_status": "EXACT_FOR_CHARACTERISTIC_FLUX_AND_DEPTH_5_QUADRATIC_CANCELLATION__ARBITRARY_DEPTH_NONLINEAR_FLUX_OPEN",
+  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_35_OF_35__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
   "conditional_closure_claims_automatically_rejected": true,
   "hypotheses_tested": 180,
   "hypotheses_unsat_count": 180,
@@ -35,8 +35,8 @@
   },
   "r30_cert_001_campaign": {
     "campaign_id": "R30-CERT-001",
-    "headline_theorems_verified_in_check_lean": 31,
-    "replayed_constants_in_check_lean": 39,
+    "headline_theorems_verified_in_check_lean": 35,
+    "replayed_constants_in_check_lean": 43,
     "parallel_operator_inventory": [
       {
         "capability_id": "MAPEOGEO_CERTIFIABLE_GF2_IDEAL_KERNEL",
@@ -255,9 +255,9 @@
     ]
   },
   "r30_transport_001_campaign": {
-    "campaign_id": "R30-TRANSPORT-001",
-    "headline_theorems_verified_in_check_lean": 31,
-    "replayed_constants_in_check_lean": 39,
+    "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001",
+    "headline_theorems_verified_in_check_lean": 35,
+    "replayed_constants_in_check_lean": 43,
     "deliverable_1_diagonal_ablation": {
       "experiment_id": "R30-TRANSPORT-001-DIAGONAL-ABLATION",
       "mixed_words_per_transient": 22,
@@ -975,10 +975,1145 @@
     },
     "deliverable_3_direct_closure_attempt": {
       "universal_column_onset_theorem": "Rule30ProofClosure.universal_column_onset_signature",
+      "verified_onset_fifth_step_identity": "cell (k + 5) (-k) = cell (k + 3) (-k)",
       "universal_adjacent_xor_onset_theorem": "Rule30ProofClosure.universal_adjacent_xor_onset_law",
       "zero_decide_1010_exclusion_theorem": "Rule30ProofClosure.transport_onset_excludes_1010_at_t3",
       "non_tautological_closure_reduction": "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1",
       "exact_surviving_goal": "\u2200 T P \u2265 1, (\u2200 m, cell (T + sb + m * P) (-1) = !center (T + sb + 1)) \u2192 \u2203 k \u2265 1, (xor (cell (k + 1) (-k)) (cell (k + 1) (-(k + 1))) = true) \u2228 (xor (cell (k + 2) (-k)) (cell (k + 2) (-(k + 1))) = false)"
+    },
+    "deliverable_4_spatiotemporal_relation_algebra": {
+      "characteristic_flux_transport_theorem": "Rule30ProofClosure.cell_neg_eq_center_xor_characteristicFlux",
+      "characteristic_flux_onset_theorem": "Rule30ProofClosure.universal_characteristic_flux_onset_laws",
+      "independent_depth_periodicity_theorem": "Rule30ProofClosure.periodic_center_forces_characteristic_flux_depth_periodicity",
+      "depth5_quadratic_cancellation_theorem": "Rule30ProofClosure.spatiotemporal_101010_quadratic_cancellation_depth5",
+      "algebra_reports": [
+        {
+          "period_word": [
+            1,
+            0
+          ],
+          "max_depth_evaluated": 6,
+          "temporal_support_step_law_verified": true,
+          "leading_offset_purely_linear_all_depths": true,
+          "unscreened_causal_offset_sum": 42,
+          "active_spatiotemporal_offset_sum": 18,
+          "psmsl_and_operator_pruning_ratio": 0.5714,
+          "onset_signature_unsat_at_transient_t": {
+            "T=1": 1,
+            "T=2": 2,
+            "T=3": 3,
+            "T=4": 5
+          },
+          "phase_relations": [
+            {
+              "depth_d": 1,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_2",
+              "active_temporal_offsets": [
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_3",
+              "active_temporal_offsets": [
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_0*u_2",
+              "active_temporal_offsets": [
+                0,
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_2 ^ u_4 ^ u_0*u_2",
+              "active_temporal_offsets": [
+                0,
+                2,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_1 ^ u_3 ^ u_5",
+              "active_temporal_offsets": [
+                1,
+                3,
+                5
+              ],
+              "leading_offset": 5,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_4 ^ u_0*u_2 ^ u_0*u_2*u_4",
+              "active_temporal_offsets": [
+                0,
+                2,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 3,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  0,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "period_word": [
+            1,
+            1,
+            0
+          ],
+          "max_depth_evaluated": 6,
+          "temporal_support_step_law_verified": true,
+          "leading_offset_purely_linear_all_depths": true,
+          "unscreened_causal_offset_sum": 63,
+          "active_spatiotemporal_offset_sum": 18,
+          "psmsl_and_operator_pruning_ratio": 0.7143,
+          "onset_signature_unsat_at_transient_t": {
+            "T=1": 1,
+            "T=2": 2,
+            "T=3": 3,
+            "T=4": 4
+          },
+          "phase_relations": [
+            {
+              "depth_d": 1,
+              "phase_phi": 0,
+              "canonical_offset_anf": "0",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 0,
+              "canonical_offset_anf": "0",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_2",
+              "active_temporal_offsets": [
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 0,
+              "canonical_offset_anf": "0",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_0 ^ u_3",
+              "active_temporal_offsets": [
+                0,
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_2",
+              "active_temporal_offsets": [
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_1 ^ u_4",
+              "active_temporal_offsets": [
+                1,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_0 ^ u_0*u_3",
+              "active_temporal_offsets": [
+                0,
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  3
+                ]
+              ]
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_5",
+              "active_temporal_offsets": [
+                5
+              ],
+              "leading_offset": 5,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_1 ^ u_1*u_4",
+              "active_temporal_offsets": [
+                1,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  1,
+                  4
+                ]
+              ]
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 2,
+              "canonical_offset_anf": "u_0 ^ u_3 ^ u_0*u_3",
+              "active_temporal_offsets": [
+                0,
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  3
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "period_word": [
+            0,
+            0,
+            1
+          ],
+          "max_depth_evaluated": 6,
+          "temporal_support_step_law_verified": true,
+          "leading_offset_purely_linear_all_depths": true,
+          "unscreened_causal_offset_sum": 63,
+          "active_spatiotemporal_offset_sum": 37,
+          "psmsl_and_operator_pruning_ratio": 0.4127,
+          "onset_signature_unsat_at_transient_t": {
+            "T=1": 1,
+            "T=2": 3,
+            "T=3": 4,
+            "T=4": null
+          },
+          "phase_relations": [
+            {
+              "depth_d": 1,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_0 ^ u_1",
+              "active_temporal_offsets": [
+                0,
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_0*u_1",
+              "active_temporal_offsets": [
+                0,
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  1
+                ]
+              ]
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_2",
+              "active_temporal_offsets": [
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 2,
+              "canonical_offset_anf": "u_1 ^ u_2",
+              "active_temporal_offsets": [
+                1,
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_3",
+              "active_temporal_offsets": [
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_0 ^ u_3 ^ u_0*u_2",
+              "active_temporal_offsets": [
+                0,
+                2,
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 2,
+              "canonical_offset_anf": "0",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_1 ^ u_4 ^ u_1*u_3 ^ u_0*u_1*u_3",
+              "active_temporal_offsets": [
+                0,
+                1,
+                3,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 3,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  3
+                ]
+              ]
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_0 ^ u_2 ^ u_3 ^ u_0*u_2 ^ u_2*u_3",
+              "active_temporal_offsets": [
+                0,
+                2,
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ]
+              ]
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_1 ^ u_2 ^ u_4",
+              "active_temporal_offsets": [
+                1,
+                2,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_1 ^ u_3 ^ u_4 ^ u_1*u_3 ^ u_0*u_1*u_3",
+              "active_temporal_offsets": [
+                0,
+                1,
+                3,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 3,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  1
+                ],
+                [
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  3
+                ]
+              ]
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_0 ^ u_5 ^ u_0*u_2 ^ u_2*u_3",
+              "active_temporal_offsets": [
+                0,
+                2,
+                3,
+                5
+              ],
+              "leading_offset": 5,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  3
+                ]
+              ]
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 2,
+              "canonical_offset_anf": "u_1 ^ u_4 ^ u_5 ^ u_2*u_4 ^ u_1*u_2*u_4",
+              "active_temporal_offsets": [
+                1,
+                2,
+                4,
+                5
+              ],
+              "leading_offset": 5,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 3,
+              "quadratic_offset_pairs": [
+                [
+                  1,
+                  2
+                ],
+                [
+                  1,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ]
+              ]
+            }
+          ]
+        },
+        {
+          "period_word": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "max_depth_evaluated": 6,
+          "temporal_support_step_law_verified": true,
+          "leading_offset_purely_linear_all_depths": true,
+          "unscreened_causal_offset_sum": 84,
+          "active_spatiotemporal_offset_sum": 36,
+          "psmsl_and_operator_pruning_ratio": 0.5714,
+          "onset_signature_unsat_at_transient_t": {
+            "T=1": 1,
+            "T=2": 2,
+            "T=3": 3,
+            "T=4": 5
+          },
+          "phase_relations": [
+            {
+              "depth_d": 1,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1",
+              "active_temporal_offsets": [],
+              "leading_offset": null,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 0,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 1,
+              "phase_phi": 3,
+              "canonical_offset_anf": "1 ^ u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 2,
+              "canonical_offset_anf": "u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 2,
+              "phase_phi": 3,
+              "canonical_offset_anf": "u_0",
+              "active_temporal_offsets": [
+                0
+              ],
+              "leading_offset": 0,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_2",
+              "active_temporal_offsets": [
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 3,
+              "phase_phi": 3,
+              "canonical_offset_anf": "1 ^ u_2",
+              "active_temporal_offsets": [
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_3",
+              "active_temporal_offsets": [
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_0*u_2",
+              "active_temporal_offsets": [
+                0,
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 2,
+              "canonical_offset_anf": "u_3",
+              "active_temporal_offsets": [
+                3
+              ],
+              "leading_offset": 3,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 4,
+              "phase_phi": 3,
+              "canonical_offset_anf": "u_0*u_2",
+              "active_temporal_offsets": [
+                0,
+                2
+              ],
+              "leading_offset": 2,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 0,
+              "canonical_offset_anf": "1 ^ u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 1,
+              "canonical_offset_anf": "1 ^ u_2 ^ u_4 ^ u_0*u_2",
+              "active_temporal_offsets": [
+                0,
+                2,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 2,
+              "canonical_offset_anf": "1 ^ u_1",
+              "active_temporal_offsets": [
+                1
+              ],
+              "leading_offset": 1,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 5,
+              "phase_phi": 3,
+              "canonical_offset_anf": "1 ^ u_2 ^ u_4 ^ u_0*u_2",
+              "active_temporal_offsets": [
+                0,
+                2,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 2,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ]
+              ]
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 0,
+              "canonical_offset_anf": "u_1 ^ u_3 ^ u_5",
+              "active_temporal_offsets": [
+                1,
+                3,
+                5
+              ],
+              "leading_offset": 5,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 1,
+              "canonical_offset_anf": "u_4 ^ u_0*u_2 ^ u_0*u_2*u_4",
+              "active_temporal_offsets": [
+                0,
+                2,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 3,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  0,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ]
+              ]
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 2,
+              "canonical_offset_anf": "u_1 ^ u_3 ^ u_5",
+              "active_temporal_offsets": [
+                1,
+                3,
+                5
+              ],
+              "leading_offset": 5,
+              "leading_offset_is_purely_linear": true,
+              "polynomial_degree": 1,
+              "quadratic_offset_pairs": []
+            },
+            {
+              "depth_d": 6,
+              "phase_phi": 3,
+              "canonical_offset_anf": "u_4 ^ u_0*u_2 ^ u_0*u_2*u_4",
+              "active_temporal_offsets": [
+                0,
+                2,
+                4
+              ],
+              "leading_offset": 4,
+              "leading_offset_is_purely_linear": false,
+              "polynomial_degree": 3,
+              "quadratic_offset_pairs": [
+                [
+                  0,
+                  2
+                ],
+                [
+                  0,
+                  4
+                ],
+                [
+                  2,
+                  4
+                ]
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "left_reconstruction": {
@@ -1350,8 +2485,58 @@
         "Rule30ProofClosure.left_diag_D4_eq_true",
         "Rule30ProofClosure.left_diag_D5_eq_not_D3"
       ],
-      "summary": "New in R30-TRANSPORT-001: every left column p = -k starts with the exact 6-step vertical onset signature (true, true, false, s, true, !s) at times t = k .. k + 5.",
+      "summary": "New in R30-TRANSPORT-001: every left column p = -k starts with the exact 6-step vertical onset signature (true, true, false, s, true, s) at times t = k .. k + 5, proving cell (k+5) (-k) = cell (k+3) (-k).",
       "source_attribution": "R30_TRANSPORT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.cell_neg_eq_center_xor_characteristicFlux",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30MaskedJen.cell_left'"
+      ],
+      "summary": "New in R30-SPATIOTEMPORAL-001: universal arbitrary-depth spatiotemporal transport identity cell t (-d) = xor (center (t + d)) (leftCharacteristicFlux t d) and dual leftCharacteristicFlux t d = xor (center (t + d)) (cell t (-d)).",
+      "source_attribution": "R30_SPATIOTEMPORAL_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.universal_characteristic_flux_onset_laws",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30ProofClosure.cell_neg_eq_center_xor_characteristicFlux",
+        "Rule30ProofClosure.universal_column_onset_signature"
+      ],
+      "summary": "New in R30-SPATIOTEMPORAL-001: fixes leftCharacteristicFlux (k + m) k at the single-seed column onset (m in {0,1,2,4} and xor of m=3,5) in terms of center (2k + m) for every depth k.",
+      "source_attribution": "R30_SPATIOTEMPORAL_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.periodic_center_forces_characteristic_flux_depth_periodicity",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.universal_characteristic_flux_onset_laws"
+      ],
+      "summary": "New in R30-SPATIOTEMPORAL-001: independent spatiotemporal transport theorem proving that any P-periodic center tail (t >= T) forces leftCharacteristicFlux (k + m) k to be strictly periodic in spatial depth k with period P for all k >= T.",
+      "source_attribution": "R30_SPATIOTEMPORAL_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.spatiotemporal_101010_quadratic_cancellation_depth5",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track A/B",
+      "dependencies": [
+        "Rule30ProofClosure.local_101_pattern_conserved_left_xor",
+        "Rule30ProofClosure.local_1010_complement_cancellation_depth4"
+      ],
+      "summary": "New in R30-SPATIOTEMPORAL-001: proves that the degree-2 cross-term cell (t+1) (-4) = (!cell (t+1) (-1)) && (!cell (t+3) (-1)) cancels identically against cell t (-4) || cell t (-3) at depth -5, restoring degree-1 linearity cell t (-5) = cell (t+1) (-1) = cell t (-3).",
+      "source_attribution": "R30_SPATIOTEMPORAL_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.spatial_transport_step_dichotomy",
@@ -1766,6 +2951,18 @@
     },
     "exact_universal_column_onset": {
       "target": "Rule30ProofClosure.universal_column_onset_signature",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    },
+    "exact_characteristic_flux_periodicity": {
+      "target": "Rule30ProofClosure.periodic_center_forces_characteristic_flux_depth_periodicity",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    },
+    "exact_depth5_quadratic_cancellation": {
+      "target": "Rule30ProofClosure.spatiotemporal_101010_quadratic_cancellation_depth5",
       "accepted_as_unconditional_closure": true,
       "non_exact_dependencies": [],
       "reason": "All transitive dependencies are EXACT."

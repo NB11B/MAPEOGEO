@@ -18,6 +18,9 @@ from .initial_seed_constraints import (
 from .spatial_transport import (
     SpatialDepthRelationStep,
     SpatialTransportTrajectoryReport,
+    SpatiotemporalAlgebraReport,
+    SpatiotemporalPhaseRelation,
+    analyze_spatiotemporal_relation_algebra,
     trace_spatial_relation_transport,
 )
 
@@ -33,5 +36,8 @@ __all__ = [
     "evaluate_left_cone_elimination",
     "SpatialDepthRelationStep",
     "SpatialTransportTrajectoryReport",
+    "SpatiotemporalAlgebraReport",
+    "SpatiotemporalPhaseRelation",
+    "analyze_spatiotemporal_relation_algebra",
     "trace_spatial_relation_transport",
 ]

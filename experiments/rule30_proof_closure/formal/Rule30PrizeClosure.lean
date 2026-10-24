@@ -275,6 +275,46 @@ theorem closure_transport_adjacent_xor_to_onset_implies_problem1
     Rule30Prize.Problem1 :=
   transport_adjacent_xor_to_onset_implies_problem1 hTransportParity
 
+theorem closure_cell_neg_eq_center_xor_characteristicFlux (d t : Nat) :
+    cell t (-(d : Int)) = xor (Rule30Prize.center (t + d)) (leftCharacteristicFlux t d) ∧
+    leftCharacteristicFlux t d = xor (Rule30Prize.center (t + d)) (cell t (-(d : Int))) :=
+  cell_neg_eq_center_xor_characteristicFlux d t
+
+theorem closure_universal_characteristic_flux_onset_laws (k : Nat) :
+    leftCharacteristicFlux k k = !Rule30Prize.center (k + k) ∧
+    leftCharacteristicFlux (k + 1) k = !Rule30Prize.center (k + 1 + k) ∧
+    leftCharacteristicFlux (k + 2) k = Rule30Prize.center (k + 2 + k) ∧
+    leftCharacteristicFlux (k + 4) k = !Rule30Prize.center (k + 4 + k) ∧
+    xor (leftCharacteristicFlux (k + 5) k) (leftCharacteristicFlux (k + 3) k) =
+      xor (Rule30Prize.center (k + 5 + k)) (Rule30Prize.center (k + 3 + k)) :=
+  universal_characteristic_flux_onset_laws k
+
+theorem closure_periodic_center_forces_characteristic_flux_depth_periodicity
+    (T P k : Nat)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (hk : T ≤ k) :
+    leftCharacteristicFlux (k + P) (k + P) = leftCharacteristicFlux k k ∧
+    leftCharacteristicFlux (k + P + 1) (k + P) = leftCharacteristicFlux (k + 1) k ∧
+    leftCharacteristicFlux (k + P + 2) (k + P) = leftCharacteristicFlux (k + 2) k ∧
+    leftCharacteristicFlux (k + P + 4) (k + P) = leftCharacteristicFlux (k + 4) k ∧
+    xor (leftCharacteristicFlux (k + P + 5) (k + P)) (leftCharacteristicFlux (k + P + 3) (k + P)) =
+      xor (leftCharacteristicFlux (k + 5) k) (leftCharacteristicFlux (k + 3) k) :=
+  periodic_center_forces_characteristic_flux_depth_periodicity T P k hper hk
+
+theorem closure_spatiotemporal_101010_quadratic_cancellation_depth5 (t : Nat)
+    (hc0 : Rule30Prize.center t = true)
+    (hc1 : Rule30Prize.center (t + 1) = false)
+    (hc2 : Rule30Prize.center (t + 2) = true)
+    (hc3 : Rule30Prize.center (t + 3) = false)
+    (hc4 : Rule30Prize.center (t + 4) = true)
+    (hc5 : Rule30Prize.center (t + 5) = false) :
+    cell t (-3) = cell (t + 1) (-1) ∧
+    cell t (-4) = !cell (t + 3) (-1) ∧
+    cell (t + 1) (-4) = ((!cell (t + 1) (-1)) && (!cell (t + 3) (-1))) ∧
+    cell t (-5) = cell (t + 1) (-1) ∧
+    cell t (-5) = cell t (-3) :=
+  spatiotemporal_101010_quadratic_cancellation_depth5 t hc0 hc1 hc2 hc3 hc4 hc5
+
 theorem closure_stepLeftRow_rowAtLeft (t n : Nat) (p : Int) :
     stepLeftRow (cell t (p + 1)) (rowAtLeft t p (n + 1)) = rowAtLeft (t + 1) p n :=
   stepLeftRow_rowAtLeft t n p

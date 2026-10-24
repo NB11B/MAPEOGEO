@@ -39,6 +39,7 @@ from ..left.triangular_reconstruction import (
     verify_checkpoint_01_reconstruction_completeness,
 )
 from ..left.spatial_transport import (
+    analyze_spatiotemporal_relation_algebra,
     trace_spatial_relation_transport,
 )
 from ..right.ether_block_transfer import (
@@ -187,8 +188,8 @@ def run_proof_closure_campaign(
 
     r30_cert_001_campaign: Dict[str, object] = {
         "campaign_id": "R30-CERT-001",
-        "headline_theorems_verified_in_check_lean": 31,
-        "replayed_constants_in_check_lean": 39,
+        "headline_theorems_verified_in_check_lean": 35,
+        "replayed_constants_in_check_lean": 43,
         "parallel_operator_inventory": parallel_inventory,
         "psmsl_sideways_translation_certificates": psmsl_trans_certs,
         "nullstellensatz_certificate_summary": {
@@ -212,7 +213,7 @@ def run_proof_closure_campaign(
         "adversarial_counterexample_stress_tests": stress_tests,
     }
 
-    # Execute R30-TRANSPORT-001 Deliverables 1, 2, and 3
+    # Execute R30-TRANSPORT-001 + R30-SPATIOTEMPORAL-001 Deliverables
     diag_ablation = run_diagonal_ablation_experiment(
         transients=(0, 1, 2, 3, 4, 5, 6), periods=(2, 3, 4), max_horizon=14
     )
@@ -220,10 +221,14 @@ def run_proof_closure_campaign(
         asdict(trace_spatial_relation_transport(w, max_depth=6))
         for w in ((1, 0), (1, 1, 0), (0, 0, 1), (1, 0, 1, 0))
     ]
+    spatiotemporal_algebra_reports = [
+        asdict(analyze_spatiotemporal_relation_algebra(w, max_depth=6))
+        for w in ((1, 0), (1, 1, 0), (0, 0, 1), (1, 0, 1, 0))
+    ]
     r30_transport_001_campaign: Dict[str, object] = {
-        "campaign_id": "R30-TRANSPORT-001",
-        "headline_theorems_verified_in_check_lean": 31,
-        "replayed_constants_in_check_lean": 39,
+        "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001",
+        "headline_theorems_verified_in_check_lean": 35,
+        "replayed_constants_in_check_lean": 43,
         "deliverable_1_diagonal_ablation": diag_ablation,
         "deliverable_2_spatial_relation_transport": {
             "transport_step_theorem": "Rule30ProofClosure.spatial_transport_step_dichotomy",
@@ -239,6 +244,7 @@ def run_proof_closure_campaign(
         },
         "deliverable_3_direct_closure_attempt": {
             "universal_column_onset_theorem": "Rule30ProofClosure.universal_column_onset_signature",
+            "verified_onset_fifth_step_identity": "cell (k + 5) (-k) = cell (k + 3) (-k)",
             "universal_adjacent_xor_onset_theorem": "Rule30ProofClosure.universal_adjacent_xor_onset_law",
             "zero_decide_1010_exclusion_theorem": "Rule30ProofClosure.transport_onset_excludes_1010_at_t3",
             "non_tautological_closure_reduction": "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1",
@@ -247,6 +253,13 @@ def run_proof_closure_campaign(
                 "∃ k ≥ 1, (xor (cell (k + 1) (-k)) (cell (k + 1) (-(k + 1))) = true) ∨ "
                 "(xor (cell (k + 2) (-k)) (cell (k + 2) (-(k + 1))) = false)"
             ),
+        },
+        "deliverable_4_spatiotemporal_relation_algebra": {
+            "characteristic_flux_transport_theorem": "Rule30ProofClosure.cell_neg_eq_center_xor_characteristicFlux",
+            "characteristic_flux_onset_theorem": "Rule30ProofClosure.universal_characteristic_flux_onset_laws",
+            "independent_depth_periodicity_theorem": "Rule30ProofClosure.periodic_center_forces_characteristic_flux_depth_periodicity",
+            "depth5_quadratic_cancellation_theorem": "Rule30ProofClosure.spatiotemporal_101010_quadratic_cancellation_depth5",
+            "algebra_reports": spatiotemporal_algebra_reports,
         },
     }
 
@@ -275,6 +288,14 @@ def run_proof_closure_campaign(
     audit_exact_onset = audit_closure_claim(
         "Rule30ProofClosure.universal_column_onset_signature", declarations
     )
+    audit_exact_flux = audit_closure_claim(
+        "Rule30ProofClosure.periodic_center_forces_characteristic_flux_depth_periodicity",
+        declarations,
+    )
+    audit_exact_depth5 = audit_closure_claim(
+        "Rule30ProofClosure.spatiotemporal_101010_quadratic_cancellation_depth5",
+        declarations,
+    )
 
     reject_ok = (
         not bool(audit_track_ac["accepted_as_unconditional_closure"])
@@ -284,30 +305,31 @@ def run_proof_closure_campaign(
         and bool(audit_exact_reentry["accepted_as_unconditional_closure"])
         and bool(audit_exact_l3["accepted_as_unconditional_closure"])
         and bool(audit_exact_onset["accepted_as_unconditional_closure"])
+        and bool(audit_exact_flux["accepted_as_unconditional_closure"])
+        and bool(audit_exact_depth5["accepted_as_unconditional_closure"])
     )
 
     report = ClosureCampaignReport(
-        program_id="R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001",
+        program_id="R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001",
         baseline_commit="8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-        outcome_classification="OUTCOME_B_AND_C_SPATIAL_TRANSPORT_AND_DIAGONAL_ABLATION_CHARACTERIZED",
+        outcome_classification="OUTCOME_B_AND_C_SPATIOTEMPORAL_RELATION_ALGEBRA_AND_CHARACTERISTIC_FLUX_ESTABLISHED",
         outcome_summary=(
-            "Checkpoints 01 and 02, R30-CERT-001, and R30-TRANSPORT-001 are unconditionally verified "
-            "(31/31 Lean 4.35.0 headlines in Rule30PrizeClosure, 39 replayed constants, 0 new axioms). "
-            "Deliverable 1 (Diagonal Ablation) proves that fixing exterior zeros and outer edge D_0(T)=1 "
-            "alone self-regenerates D_1, D_2, D_4 during forward evolution (universal_column_onset_signature), "
-            "collapsing 90/154 mixed-word hypotheses to degree-0 MUS=1 with D_0 alone and 151/154 with D_0..D_5 "
-            "via the unbridged spatial gap law G(T, d_diag, d_cancel) = max(0, T - d_diag - d_cancel). "
-            "Deliverable 2 (Spatial Relation Transport) proves the 6-case transport step law "
-            "(spatial_transport_step_dichotomy) and shows that the finite single-step grammar R_d = {Const, AdjXor} "
-            "is closed through d <= 3..4 (1010) or d <= 2..3 (110) before time-shifted white-step variables "
-            "(y_{t_1} != y_{t_2}) spawn quadratic cross-terms y_{t_1}*y_{t_2}. "
-            "Deliverable 3 replaces the tautological bridge premise with transport_adjacent_xor_to_onset_implies_problem1 "
-            "and proves the zero-decide structural exclusion transport_onset_excludes_1010_at_t3."
+            "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, and R30-SPATIOTEMPORAL-001 are "
+            "unconditionally verified (35/35 Lean 4.35.0 headlines in Rule30PrizeClosure, 43 replayed "
+            "constants, 0 new axioms). "
+            "1. Onset Signature Correction & Characteristic Flux: universal_column_onset_signature proves "
+            "cell (k+5) (-k) = cell (k+3) (-k) (since D5(k+5) = !D3(k+4) = D3(k+3)), and "
+            "cell_neg_eq_center_xor_characteristicFlux + periodic_center_forces_characteristic_flux_depth_periodicity "
+            "establish an independent all-depth spatiotemporal transport invariant without assuming a contradiction premise. "
+            "2. Spatiotemporal Quadratic Cancellation at Depth -5: spatiotemporal_101010_quadratic_cancellation_depth5 "
+            "proves that while single-time transport breaks at depth -4 via cell (t+1) (-4) = (!cell (t+1) (-1)) && (!cell (t+3) (-1)), "
+            "retaining temporal offsets cancels that quadratic cross-term identically against cell t (-4) || cell t (-3) "
+            "at depth -5, restoring degree-1 linearity cell t (-5) = cell (t+1) (-1) = cell t (-3) (and degree 1 at depth -6)."
         ),
         checkpoint_01_reconstruction_completeness=chk01.checkpoint_01_passed,
         checkpoint_02_bilateral_soundness=chk02_ok and right_cons.passed,
-        checkpoint_03_universal_contradiction_status="EXACT_FOR_ONSET_SIGNATURE_AND_DEPTH_LE_4_TRANSPORT__MULTI_STEP_CORRELATION_OPEN",
-        checkpoint_04_official_complete_claim_status="PARTIAL_VERIFIED_31_OF_31__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+        checkpoint_03_universal_contradiction_status="EXACT_FOR_CHARACTERISTIC_FLUX_AND_DEPTH_5_QUADRATIC_CANCELLATION__ARBITRARY_DEPTH_NONLINEAR_FLUX_OPEN",
+        checkpoint_04_official_complete_claim_status="PARTIAL_VERIFIED_35_OF_35__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
         conditional_closure_claims_automatically_rejected=reject_ok,
         hypotheses_tested=len(evals),
         hypotheses_unsat_count=unsat_cnt,
@@ -335,6 +357,8 @@ def run_proof_closure_campaign(
             "exact_linear_reentry_bound": audit_exact_reentry,
             "exact_law_l3_conserved_xor": audit_exact_l3,
             "exact_universal_column_onset": audit_exact_onset,
+            "exact_characteristic_flux_periodicity": audit_exact_flux,
+            "exact_depth5_quadratic_cancellation": audit_exact_depth5,
         },
     )
 

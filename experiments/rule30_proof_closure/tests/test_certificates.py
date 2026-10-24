@@ -14,7 +14,10 @@ from experiments.rule30_proof_closure.certificates import (
     run_proof_closure_campaign,
     verify_closure_certificates_and_lean_modules,
 )
-from experiments.rule30_proof_closure.left import trace_spatial_relation_transport
+from experiments.rule30_proof_closure.left import (
+    analyze_spatiotemporal_relation_algebra,
+    trace_spatial_relation_transport,
+)
 
 
 def test_proof_closure_campaign_and_obligation_auditor():
@@ -88,12 +91,27 @@ def test_r30_transport_001_diagonal_ablation_and_spatial_transport():
     assert tr_10.first_non_closed_depth == 4
     assert "time-shifted white-step variables" in tr_10.obstruction_mechanism
 
+    # Deliverable 4: Spatiotemporal relation algebra (R30-SPATIOTEMPORAL-001)
+    st_10 = analyze_spatiotemporal_relation_algebra((1, 0), max_depth=6)
+    assert st_10.temporal_support_step_law_verified is True
+    assert st_10.leading_offset_purely_linear_all_depths is True
+    assert st_10.psmsl_and_operator_pruning_ratio > 0.5
+    # Verify inter-step quadratic cancellation at depth d=5, phi=0:
+    # Even though d=4, phi=1 is quadratic ("u_0*u_2"), d=5, phi=0 collapses back to "1 ^ u_1" (deg 1)!
+    by_d_phi = {(r.depth_d, r.phase_phi): r for r in st_10.phase_relations}
+    assert by_d_phi[(4, 1)].canonical_offset_anf == "u_0*u_2"
+    assert by_d_phi[(4, 1)].polynomial_degree == 2
+    assert by_d_phi[(5, 0)].canonical_offset_anf == "1 ^ u_1"
+    assert by_d_phi[(5, 0)].polynomial_degree == 1
+    assert by_d_phi[(6, 0)].canonical_offset_anf == "u_1 ^ u_3 ^ u_5"
+    assert by_d_phi[(6, 0)].polynomial_degree == 1
+
 
 def test_formal_lean_modules_and_official_check_lean():
     ver = verify_closure_certificates_and_lean_modules(run_live_lean=True)
     assert ver.formal_files_clean_no_sorry_or_axiom is True
     assert ver.lean_compilation_succeeded is True
     assert ver.check_lean_verdict == "pass"
-    assert ver.headlines_verified == 31
-    assert ver.replayed_constants == 39
+    assert ver.headlines_verified == 35
+    assert ver.replayed_constants == 43
     assert ver.new_axioms == []

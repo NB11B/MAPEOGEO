@@ -399,4 +399,190 @@ theorem transport_onset_excludes_1010_at_t3 :
   rw [hm2, hm3] at hxor
   contradiction
 
+/-- **Track A (`EXACT`, New in `R30-SPATIOTEMPORAL-001`) — Cumulative Spatiotemporal Characteristic OR-Flux
+    (`leftCharacteristicFlux`)**:
+    Accumulates the sideways disjunctions `cell (t + j) (-d + 1 + j) || cell (t + j) (-d + 2 + j)`
+    along the characteristic ray from the center column `(t + d, 0)` outward to `(t, -d)`. -/
+def leftCharacteristicFlux : Nat → Nat → Bool
+  | _, 0 => false
+  | t, d + 1 =>
+      xor (leftCharacteristicFlux (t + 1) d)
+          (cell t (-(d : Int)) || cell t (-(d : Int) + 1))
+
+/-- **Track A (`EXACT`, New in `R30-SPATIOTEMPORAL-001`) — Universal Arbitrary-Depth Spatiotemporal
+    Transport Law (`cell_neg_eq_center_xor_characteristicFlux`)**:
+    Proves by induction on spatial depth `d : Nat` that for every time `t : Nat` and depth `d : Nat`,
+    `cell t (-d) = xor (center (t + d)) (leftCharacteristicFlux t d)` and dual
+    `leftCharacteristicFlux t d = xor (center (t + d)) (cell t (-d))`. -/
+theorem cell_neg_eq_center_xor_characteristicFlux :
+    ∀ (d t : Nat),
+      cell t (-(d : Int)) = xor (Rule30Prize.center (t + d)) (leftCharacteristicFlux t d) ∧
+      leftCharacteristicFlux t d = xor (Rule30Prize.center (t + d)) (cell t (-(d : Int)))
+  | 0, t => by
+      have h0 : cell t (-(↑(0 : Nat) : Int)) = Rule30Prize.center t := rfl
+      rw [h0, Nat.add_zero]
+      unfold leftCharacteristicFlux
+      cases Rule30Prize.center t <;> decide
+  | d + 1, t => by
+      have ih := (cell_neg_eq_center_xor_characteristicFlux d (t + 1)).1
+      have hcongr : cell t (-(↑(d + 1) : Int)) = cell t (-(d : Int) - 1) :=
+        cell_congr (by omega)
+      have hleft := cell_left' t (-(d : Int))
+      unfold orCol at hleft
+      have hcenter : Rule30Prize.center (t + 1 + d) = Rule30Prize.center (t + (d + 1)) := by
+        rw [show t + 1 + d = t + (d + 1) by omega]
+      have hflux : leftCharacteristicFlux t (d + 1) =
+          xor (leftCharacteristicFlux (t + 1) d) (cell t (-(d : Int)) || cell t (-(d : Int) + 1)) := rfl
+      rw [hcongr, hleft, ih, hcenter, hflux]
+      cases Rule30Prize.center (t + (d + 1)) <;>
+        cases leftCharacteristicFlux (t + 1) d <;>
+        cases (cell t (-(d : Int)) || cell t (-(d : Int) + 1)) <;> decide
+
+/-- **Track A (`EXACT`, New in `R30-SPATIOTEMPORAL-001`) — Universal Spatiotemporal Characteristic-Flux
+    Boundary Signature (`universal_characteristic_flux_onset_laws`)**:
+    Combining `cell_neg_eq_center_xor_characteristicFlux` with `universal_column_onset_signature`
+    fixes the cumulative `k`-step characteristic OR-flux at the single-seed column onset `t = k .. k + 5`
+    in terms of the shifted center bits `center (2k + m)` for every spatial depth `k : Nat`:
+    1. `leftCharacteristicFlux k k = !center (k + k)`,
+    2. `leftCharacteristicFlux (k + 1) k = !center (k + 1 + k)`,
+    3. `leftCharacteristicFlux (k + 2) k = center (k + 2 + k)`,
+    4. `leftCharacteristicFlux (k + 4) k = !center (k + 4 + k)`, and
+    5. `xor (leftCharacteristicFlux (k + 5) k) (leftCharacteristicFlux (k + 3) k) =
+        xor (center (k + 5 + k)) (center (k + 3 + k))`. -/
+theorem universal_characteristic_flux_onset_laws (k : Nat) :
+    leftCharacteristicFlux k k = !Rule30Prize.center (k + k) ∧
+    leftCharacteristicFlux (k + 1) k = !Rule30Prize.center (k + 1 + k) ∧
+    leftCharacteristicFlux (k + 2) k = Rule30Prize.center (k + 2 + k) ∧
+    leftCharacteristicFlux (k + 4) k = !Rule30Prize.center (k + 4 + k) ∧
+    xor (leftCharacteristicFlux (k + 5) k) (leftCharacteristicFlux (k + 3) k) =
+      xor (Rule30Prize.center (k + 5 + k)) (Rule30Prize.center (k + 3 + k)) := by
+  rcases universal_column_onset_signature k with ⟨h0, h1, h2, h4, h53⟩
+  have f0 := (cell_neg_eq_center_xor_characteristicFlux k k).2
+  have f1 := (cell_neg_eq_center_xor_characteristicFlux k (k + 1)).2
+  have f2 := (cell_neg_eq_center_xor_characteristicFlux k (k + 2)).2
+  have f3 := (cell_neg_eq_center_xor_characteristicFlux k (k + 3)).2
+  have f4 := (cell_neg_eq_center_xor_characteristicFlux k (k + 4)).2
+  have f5 := (cell_neg_eq_center_xor_characteristicFlux k (k + 5)).2
+  rw [h0] at f0
+  rw [h1] at f1
+  rw [h2] at f2
+  rw [h4] at f4
+  rw [h53] at f5
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · rw [f0]; cases Rule30Prize.center (k + k) <;> rfl
+  · rw [f1]; cases Rule30Prize.center (k + 1 + k) <;> rfl
+  · rw [f2]; cases Rule30Prize.center (k + 2 + k) <;> rfl
+  · rw [f4]; cases Rule30Prize.center (k + 4 + k) <;> rfl
+  · rw [f5, f3]
+    cases Rule30Prize.center (k + 5 + k) <;>
+      cases Rule30Prize.center (k + 3 + k) <;>
+      cases cell (k + 3) (-(k : Int)) <;> rfl
+
+/-- **Track A/C (`EXACT`, New in `R30-SPATIOTEMPORAL-001`) — Periodic Center Forces Spatial Depth-Periodicity
+    of Cumulative Characteristic OR-Flux at Column Onset
+    (`periodic_center_forces_characteristic_flux_depth_periodicity`)**:
+    Formalizes the spatiotemporal transport invariant independently of any contradiction premise:
+    if `center` is periodic with period `P` for `t ≥ T`, then for every spatial depth `k ≥ T`,
+    advancing the spatial depth from `k` to `k + P` shifts the characteristic apex time by `2P`
+    and forces the cumulative `k`-column nonlinear OR-flux `leftCharacteristicFlux (k + m) k` to be
+    strictly invariant under `k ↦ k + P` across all onset offsets `m ∈ {0, 1, 2, 4}` and the `(3, 5)` pair. -/
+theorem periodic_center_forces_characteristic_flux_depth_periodicity
+    (T P k : Nat)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (hk : T ≤ k) :
+    leftCharacteristicFlux (k + P) (k + P) = leftCharacteristicFlux k k ∧
+    leftCharacteristicFlux (k + P + 1) (k + P) = leftCharacteristicFlux (k + 1) k ∧
+    leftCharacteristicFlux (k + P + 2) (k + P) = leftCharacteristicFlux (k + 2) k ∧
+    leftCharacteristicFlux (k + P + 4) (k + P) = leftCharacteristicFlux (k + 4) k ∧
+    xor (leftCharacteristicFlux (k + P + 5) (k + P)) (leftCharacteristicFlux (k + P + 3) (k + P)) =
+      xor (leftCharacteristicFlux (k + 5) k) (leftCharacteristicFlux (k + 3) k) := by
+  have shift2P : ∀ m : Nat, Rule30Prize.center (k + P + m + (k + P)) = Rule30Prize.center (k + m + k) := by
+    intro m
+    have heq1 : k + P + m + (k + P) = (k + m + k + P) + P := by omega
+    have heq2 : k + m + k + P = (k + m + k) + P := by omega
+    rw [heq1, hper (k + m + k + P) (by omega), heq2, hper (k + m + k) (by omega)]
+  rcases universal_characteristic_flux_onset_laws (k + P) with ⟨u0, u1, u2, u4, u53⟩
+  rcases universal_characteristic_flux_onset_laws k with ⟨v0, v1, v2, v4, v53⟩
+  have s0 : Rule30Prize.center (k + P + (k + P)) = Rule30Prize.center (k + k) := by
+    have h := shift2P 0
+    rw [show k + P + 0 + (k + P) = k + P + (k + P) by omega,
+        show k + 0 + k = k + k by omega] at h
+    exact h
+  rw [u0, v0, s0, u1, v1, shift2P 1, u2, v2, shift2P 2, u4, v4, shift2P 4, u53, v53, shift2P 5, shift2P 3]
+  exact ⟨rfl, rfl, rfl, rfl, rfl⟩
+
+/-- **Track A/B (`EXACT`, New in `R30-SPATIOTEMPORAL-001`) — Spatiotemporal Quadratic Cross-Term
+    Cancellation at Depth `-5` (`spatiotemporal_101010_quadratic_cancellation_depth5`)**:
+    Proves that while a single-time relation grammar breaks at depth `-4` on odd steps because
+    `cell (t + 1) (-4) = (!cell (t + 1) (-1)) && (!cell (t + 3) (-1))` is a degree-2 quadratic product
+    of two distinct temporal offsets `t + 1` and `t + 3`, in the spatiotemporal relation algebra
+    that quadratic cross-term cancels identically against `cell t (-4) || cell t (-3)` at depth `-5`,
+    restoring pure degree-1 linearity: `cell t (-5) = cell (t + 1) (-1) = cell t (-3)`. -/
+theorem spatiotemporal_101010_quadratic_cancellation_depth5 (t : Nat)
+    (hc0 : Rule30Prize.center t = true)
+    (hc1 : Rule30Prize.center (t + 1) = false)
+    (hc2 : Rule30Prize.center (t + 2) = true)
+    (hc3 : Rule30Prize.center (t + 3) = false)
+    (hc4 : Rule30Prize.center (t + 4) = true)
+    (hc5 : Rule30Prize.center (t + 5) = false) :
+    cell t (-3) = cell (t + 1) (-1) ∧
+    cell t (-4) = !cell (t + 3) (-1) ∧
+    cell (t + 1) (-4) = ((!cell (t + 1) (-1)) && (!cell (t + 3) (-1))) ∧
+    cell t (-5) = cell (t + 1) (-1) ∧
+    cell t (-5) = cell t (-3) := by
+  rcases local_101_pattern_conserved_left_xor t hc0 hc1 hc2 with ⟨_, hm2_t, hm3_t, _⟩
+  rw [hc3] at hm3_t
+  have hm3_t' : cell t (-3) = cell (t + 1) (-1) := by
+    rw [hm3_t]; cases cell (t + 1) (-1) <;> rfl
+  have hc2_shift : Rule30Prize.center (t + 2) = true := hc2
+  have hc3_shift : Rule30Prize.center (t + 2 + 1) = false := by
+    rw [show t + 2 + 1 = t + 3 by omega]; exact hc3
+  have hc4_shift : Rule30Prize.center (t + 2 + 2) = true := by
+    rw [show t + 2 + 2 = t + 4 by omega]; exact hc4
+  rcases local_101_pattern_conserved_left_xor (t + 2) hc2_shift hc3_shift hc4_shift with
+    ⟨_, hm2_t2, hm3_t2, _⟩
+  have hc5_shift : Rule30Prize.center (t + 2 + 3) = false := by
+    rw [show t + 2 + 3 = t + 5 by omega]; exact hc5
+  rw [hc5_shift] at hm3_t2
+  have hm1_t2 : cell (t + 2) (-1) = true := by
+    have h := (left_black_step_screened_forcing (t + 2) hc2).1
+    rw [show t + 2 + 1 = t + 3 by omega, hc3] at h
+    exact h
+  have hstep_m1_t1 : cell (t + 2) (-1) =
+      rule (cell (t + 1) (-2)) (cell (t + 1) (-1)) (cell (t + 1) 0) := rfl
+  have hc1' : cell (t + 1) 0 = false := hc1
+  rw [hm1_t2, hc1'] at hstep_m1_t1
+  unfold rule at hstep_m1_t1
+  have hm2_t1 : cell (t + 1) (-2) = !cell (t + 1) (-1) := by
+    revert hstep_m1_t1
+    cases cell (t + 1) (-2) <;> cases cell (t + 1) (-1) <;> decide
+  have hstep_m2_t1 : cell (t + 2) (-2) =
+      rule (cell (t + 1) (-3)) (cell (t + 1) (-2)) (cell (t + 1) (-1)) := rfl
+  rw [hm2_t2, hm2_t1] at hstep_m2_t1
+  unfold rule at hstep_m2_t1
+  have hm3_t1 : cell (t + 1) (-3) = cell (t + 2 + 1) (-1) := by
+    revert hstep_m2_t1
+    cases cell (t + 1) (-3) <;> cases cell (t + 1) (-1) <;> cases cell (t + 2 + 1) (-1) <;> decide
+  have hm3_t1' : cell (t + 1) (-3) = cell (t + 3) (-1) := by
+    rw [show t + 2 + 1 = t + 3 by omega] at hm3_t1; exact hm3_t1
+  have hm4_t : cell t (-4) = !cell (t + 3) (-1) := by
+    have h4 := (local_1010_complement_cancellation_depth4 t hc0 hc1 hc2 hc3).2.2
+    rw [hm3_t1'] at h4; exact h4
+  have hstep_m3_t1 : cell (t + 2) (-3) =
+      rule (cell (t + 1) (-4)) (cell (t + 1) (-3)) (cell (t + 1) (-2)) := rfl
+  rw [show t + 2 + 1 = t + 3 by omega] at hm3_t2
+  rw [hm3_t2, hm3_t1', hm2_t1] at hstep_m3_t1
+  unfold rule at hstep_m3_t1
+  have hm4_t1 : cell (t + 1) (-4) = ((!cell (t + 1) (-1)) && (!cell (t + 3) (-1))) := by
+    revert hstep_m3_t1
+    cases cell (t + 1) (-4) <;> cases cell (t + 1) (-1) <;> cases cell (t + 3) (-1) <;> decide
+  have hstep_m4_t : cell (t + 1) (-4) =
+      rule (cell t (-5)) (cell t (-4)) (cell t (-3)) := rfl
+  rw [hm4_t1, hm4_t, hm3_t'] at hstep_m4_t
+  unfold rule at hstep_m4_t
+  have hm5_t : cell t (-5) = cell (t + 1) (-1) := by
+    revert hstep_m4_t
+    cases cell t (-5) <;> cases cell (t + 1) (-1) <;> cases cell (t + 3) (-1) <;> decide
+  exact ⟨hm3_t', hm4_t, hm4_t1, hm5_t, hm5_t.trans hm3_t'.symm⟩
+
 end Rule30ProofClosure
