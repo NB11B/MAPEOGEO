@@ -737,4 +737,136 @@ theorem spatiotemporal_black_white_apex_dichotomy (k : Nat) :
       cases Rule30Prize.center (k + 2 + k + 1) <;>
       cases interiorCharacteristicFlux (k + 2) k <;> decide
 
+theorem left_diag_D3_parity :
+    ∀ k : Nat,
+      D 3 (k + 2) = decide (k % 2 = 1) ∧
+      D 3 (k + 3) = decide (k % 2 = 0)
+  | 0 => ⟨rfl, rfl⟩
+  | k + 1 => by
+      rcases left_diag_D3_parity k with ⟨_, hk3⟩
+      have h1 : D 3 (k + 1 + 2) = D 3 (k + 3) := by
+        rw [show k + 1 + 2 = k + 3 by omega]
+      have h2 : D 3 (k + 1 + 3) = !D 3 (k + 1 + 2) := by
+        rw [show k + 1 + 3 = (k + 1) + 3 by omega, show k + 1 + 2 = (k + 1) + 2 by omega]
+        exact left_diag_D3_succ (k + 1)
+      have hp1 : decide ((k + 1) % 2 = 1) = decide (k % 2 = 0) := by
+        rcases Nat.mod_two_eq_zero_or_one k with h | h
+        · have h' : (k + 1) % 2 = 1 := by omega
+          simp [h, h']
+        · have h' : (k + 1) % 2 = 0 := by omega
+          simp [h, h']
+      have hp0 : decide ((k + 1) % 2 = 0) = !decide (k % 2 = 0) := by
+        rcases Nat.mod_two_eq_zero_or_one k with h | h
+        · have h' : (k + 1) % 2 = 1 := by omega
+          simp [h, h']
+        · have h' : (k + 1) % 2 = 0 := by omega
+          simp [h, h']
+      rw [h1, hk3, hp1, h2, h1, hk3, hp0]
+      exact ⟨rfl, rfl⟩
+
+/-- **Track A (`EXACT`, New in `R30-UNIVERSAL-001`) — Exact Closed-Form 6-Step Column-Onset Signature
+    (`universal_column_onset_exact_6step`)**:
+    Upgrades `universal_column_onset_signature` by proving the exact closed-form parity values
+    `cell (k + 3) (-k) = decide (k % 2 = 0)` (`D 3 (k + 3)`) and
+    `cell (k + 5) (-k) = decide (k % 2 = 0)` (`D 5 (k + 5)`) for every spatial depth `k : Nat`. -/
+theorem universal_column_onset_exact_6step (k : Nat) :
+    cell k (-(k : Int)) = true ∧
+    cell (k + 1) (-(k : Int)) = true ∧
+    cell (k + 2) (-(k : Int)) = false ∧
+    cell (k + 3) (-(k : Int)) = decide (k % 2 = 0) ∧
+    cell (k + 4) (-(k : Int)) = true ∧
+    cell (k + 5) (-(k : Int)) = decide (k % 2 = 0) := by
+  rcases universal_column_onset_signature k with ⟨h0, h1, h2, h4, h53⟩
+  have h3_eq : cell (k + 3) (-(k : Int)) = D 3 (k + 3) := by
+    unfold D; exact cell_congr (by omega)
+  have hd3 : D 3 (k + 3) = decide (k % 2 = 0) := (left_diag_D3_parity k).2
+  have h3 : cell (k + 3) (-(k : Int)) = decide (k % 2 = 0) := h3_eq.trans hd3
+  have h5 : cell (k + 5) (-(k : Int)) = decide (k % 2 = 0) := h53.trans h3
+  exact ⟨h0, h1, h2, h3, h4, h5⟩
+
+/-- **Track A/C (`EXACT`, New in `R30-UNIVERSAL-001`) — Odd Period Forces Spatial Depth Anti-Periodicity
+    of Characteristic OR-Flux at Onset Offsets `3` and `5`
+    (`odd_period_forces_characteristic_flux_anti_periodicity`)**:
+    For every transient `T : Nat`, every odd period `P : Nat` (`P % 2 = 1`), and every depth `k ≥ T`,
+    advancing the spatial depth `k ↦ k + P` shifts the center apex time by `2P` (preserving `center`)
+    while flipping the onset diagonal parity `(k + P) % 2 ≠ k % 2`, forcing `leftCharacteristicFlux`
+    at onset offsets `m = 3` and `m = 5` to negate under `k ↦ k + P`. -/
+theorem odd_period_forces_characteristic_flux_anti_periodicity
+    (T P k : Nat)
+    (hodd : P % 2 = 1)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (hk : T ≤ k) :
+    leftCharacteristicFlux (k + P + 3) (k + P) = !leftCharacteristicFlux (k + 3) k ∧
+    leftCharacteristicFlux (k + P + 5) (k + P) = !leftCharacteristicFlux (k + 5) k := by
+  have shift2P : ∀ m : Nat, Rule30Prize.center (k + P + m + (k + P)) = Rule30Prize.center (k + m + k) := by
+    intro m
+    have heq1 : k + P + m + (k + P) = (k + m + k + P) + P := by omega
+    have heq2 : k + m + k + P = (k + m + k) + P := by omega
+    rw [heq1, hper (k + m + k + P) (by omega), heq2, hper (k + m + k) (by omega)]
+  have hpar_flip : decide ((k + P) % 2 = 0) = !decide (k % 2 = 0) := by
+    rcases Nat.mod_two_eq_zero_or_one k with hk0 | hk1
+    · have hkp : (k + P) % 2 = 1 := by omega
+      simp [hk0, hkp]
+    · have hkp : (k + P) % 2 = 0 := by omega
+      simp [hk1, hkp]
+  have f3_kp := (cell_neg_eq_center_xor_characteristicFlux (k + P) (k + P + 3)).2
+  have f3_k := (cell_neg_eq_center_xor_characteristicFlux k (k + 3)).2
+  have f5_kp := (cell_neg_eq_center_xor_characteristicFlux (k + P) (k + P + 5)).2
+  have f5_k := (cell_neg_eq_center_xor_characteristicFlux k (k + 5)).2
+  have c3_kp := (universal_column_onset_exact_6step (k + P)).2.2.2.1
+  have c3_k := (universal_column_onset_exact_6step k).2.2.2.1
+  have c5_kp := (universal_column_onset_exact_6step (k + P)).2.2.2.2.2
+  have c5_k := (universal_column_onset_exact_6step k).2.2.2.2.2
+  rw [c3_kp, hpar_flip, shift2P 3] at f3_kp
+  rw [c3_k] at f3_k
+  rw [c5_kp, hpar_flip, shift2P 5] at f5_kp
+  rw [c5_k] at f5_k
+  rw [f3_kp, f3_k, f5_kp, f5_k]
+  refine ⟨?_, ?_⟩
+  · cases Rule30Prize.center (k + 3 + k) <;> cases decide (k % 2 = 0) <;> rfl
+  · cases Rule30Prize.center (k + 5 + k) <;> cases decide (k % 2 = 0) <;> rfl
+
+/-- **Track A/B (`EXACT`, New in `R30-UNIVERSAL-001`) — Law L4: Double-White Center Screening via
+    Column-`1` Persistence (`double_white_step_depth2_forcing`)**:
+    Whenever `center t = false` and `center (t + 1) = false` (a local `00` center pattern):
+    1. `cell t (-1) = cell t 1`,
+    2. PSMSL screening at column `1` (`true || cell t 2 = true`) forces `cell t 1 = true → cell (t + 1) 1 = true`,
+    3. Consequently, `cell t (-1) = true` forces `cell (t + 1) (-1) = !center (t + 2)` and
+       `cell t (-2) = center (t + 2)`, and
+    4. Unconditionally over `𝔽₂`, `(cell t (-1) && xor (cell (t + 1) (-1)) (!center (t + 2))) = false`
+       and `(cell t (-1) && xor (cell t (-2)) (center (t + 2))) = false`. -/
+theorem double_white_step_depth2_forcing (t : Nat)
+    (hw0 : Rule30Prize.center t = false)
+    (hw1 : Rule30Prize.center (t + 1) = false) :
+    cell t (-1) = cell t 1 ∧
+    (cell t 1 = true → cell (t + 1) 1 = true) ∧
+    (cell t (-1) = true →
+      cell (t + 1) (-1) = !Rule30Prize.center (t + 2) ∧
+      cell t (-2) = Rule30Prize.center (t + 2)) ∧
+    ((cell t (-1) && xor (cell (t + 1) (-1)) (!Rule30Prize.center (t + 2))) = false) ∧
+    ((cell t (-1) && xor (cell t (-2)) (Rule30Prize.center (t + 2))) = false) := by
+  have hm1_t : cell t (-1) = xor (cell (t + 1) 0) (cell t 0 || cell t 1) := by
+    have h := cell_left t 0
+    rwa [show (0 : Int) - 1 = -1 by rfl, show (0 : Int) + 1 = 1 by rfl] at h
+  have hm1_t1 : cell (t + 1) (-1) = xor (cell (t + 2) 0) (cell (t + 1) 0 || cell (t + 1) 1) := by
+    have h := cell_left (t + 1) 0
+    rwa [show (0 : Int) - 1 = -1 by rfl, show (0 : Int) + 1 = 1 by rfl] at h
+  have hr1_t1 : cell (t + 1) 1 = rule (cell t 0) (cell t 1) (cell t 2) := rfl
+  have hstep_m1 : cell (t + 1) (-1) = rule (cell t (-2)) (cell t (-1)) (cell t 0) := rfl
+  unfold Rule30Prize.center at hw0 hw1
+  unfold Rule30Prize.center
+  rw [hw0, hw1] at hm1_t
+  rw [hw1] at hm1_t1
+  rw [hw0] at hr1_t1
+  rw [hw0] at hstep_m1
+  unfold rule at hr1_t1 hstep_m1
+  revert hm1_t hm1_t1 hr1_t1 hstep_m1
+  cases cell t (-1) <;>
+    cases cell (t + 1) (-1) <;>
+    cases cell t (-2) <;>
+    cases cell t 1 <;>
+    cases cell (t + 1) 1 <;>
+    cases cell t 2 <;>
+    cases cell (t + 2) 0 <;> decide
+
 end Rule30ProofClosure

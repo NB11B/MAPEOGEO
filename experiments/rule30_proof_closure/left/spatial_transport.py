@@ -418,6 +418,7 @@ class RightCoupledFluxVerificationReport:
     periods_tested: Tuple[int, ...]
     total_hypotheses_tested: int
     pure_left_onset_unsat_count: int
+    law_l4_and_exact_d3_zero_cone_unsat_count: int
     right_coupled_flux_unsat_count: int
     white_run_cases_closed_by_right_correlation: Tuple[str, ...]
     max_free_right_variables_at_t6: int
@@ -431,7 +432,9 @@ def analyze_right_coupled_characteristic_flux(
     """Evaluate all mixed-word hypotheses across `transients` and `periods` at depths `k >= T`
     (where sideways characteristic rays reach the left wavefront `D_0..D_5` without touching row `T`
     on the left), both before and after substituting the right-half transition polynomials
-    `y_s = Y_s(r_1, ..., r_{max(0, T-2)})` generated from the finite-support right boundary.
+    `y_s = Y_s(r_1, ..., r_{max(0, T-2)})` generated from the finite-support right boundary, as well
+    as under the zero-cone local Law L4 + exact D_3 parity (`universal_column_onset_exact_6step` +
+    `double_white_step_depth2_forcing`).
     """
     import itertools
 
@@ -444,6 +447,7 @@ def analyze_right_coupled_characteristic_flux(
 
     total_tested = 0
     pure_left_unsat = 0
+    law_l4_zero_cone_unsat = 0
     right_coupled_unsat = 0
     closed_by_right: List[str] = []
 
@@ -457,8 +461,78 @@ def analyze_right_coupled_characteristic_flux(
             left_only_k = st_rep.onset_signature_unsat_at_transient_t.get(f"T={t_val}")
             if left_only_k is not None:
                 pure_left_unsat += 1
+                law_l4_zero_cone_unsat += 1
                 right_coupled_unsat += 1
                 continue
+
+            # Test zero-cone local Law L4 (c_s=0 & c_{s+1}=0 => y_s*(1 ^ y_{s+1}) = 0) + exact D_3(k+3) parity
+            # using ONLY boundary variables y_s (zero left-cone variables l_i and zero right-cone variables r_j)
+            horizon = 2 * max_depth + 4
+            c_seq = [w[s % p] for s in range(horizon + 4)]
+            y_vars = [ANFPolynomial.var(f"y_{s}") for s in range(horizon + 2)]
+            cols_y: Dict[int, List[ANFPolynomial]] = {
+                0: [ANFPolynomial.const(c_seq[s]) for s in range(horizon + 2)]
+            }
+            cols_y[1] = [
+                ANFPolynomial.const(c_seq[s + 1])
+                ^ (ANFPolynomial.const(1) if c_seq[s] == 1 else y_vars[s])
+                for s in range(horizon + 1)
+            ]
+            for d in range(1, max_depth):
+                limit = len(cols_y[d]) - 1
+                cols_y[d + 1] = [
+                    cols_y[d][s + 1] ^ (cols_y[d][s] | cols_y[d - 1][s]) for s in range(limit)
+                ]
+            l4_constraints: List[ANFPolynomial] = []
+            l4_y_set: set[str] = set()
+            for s in range(horizon):
+                if c_seq[s] == 0 and c_seq[s + 1] == 0:
+                    # Law L4: y_s == 1 => y_{s+1} == 1, i.e., y_s & (1 ^ y_{s+1}) == 0
+                    cp_l4 = y_vars[s] & (ANFPolynomial.one() ^ y_vars[s + 1])
+                    l4_constraints.append(cp_l4)
+            for k_depth in range(t_val, max_depth + 1):
+                base_s = k_depth - t_val
+                if base_s + 5 >= len(cols_y[k_depth]):
+                    break
+                d3_target = ANFPolynomial.const(1 if (k_depth % 2 == 0) else 0)
+                c_list_exact = [
+                    cols_y[k_depth][base_s + 0] ^ ANFPolynomial.one(),
+                    cols_y[k_depth][base_s + 1] ^ ANFPolynomial.one(),
+                    cols_y[k_depth][base_s + 2],
+                    cols_y[k_depth][base_s + 3] ^ d3_target,
+                    cols_y[k_depth][base_s + 4] ^ ANFPolynomial.one(),
+                    cols_y[k_depth][base_s + 5] ^ d3_target,
+                ]
+                for cp in c_list_exact:
+                    l4_constraints.append(cp)
+                    l4_y_set.update(cp.variables)
+                active_l4 = [
+                    cp for cp in l4_constraints if cp.variables.issubset(l4_y_set) and len(cp.variables) > 0
+                ]
+                if any(cp == ANFPolynomial.one() for cp in l4_constraints):
+                    law_l4_zero_cone_unsat += 1
+                    break
+                y_sorted = sorted(l4_y_set)
+                n_y = len(y_sorted)
+                if n_y <= 14:
+                    num_m_y = 1 << n_y
+                    all_ones_y = (1 << num_m_y) - 1
+                    v_mask_y = {
+                        vn: sum(1 << mask for mask in range(num_m_y) if (mask >> bp) & 1)
+                        for bp, vn in enumerate(y_sorted)
+                    }
+                    cov_y = 0
+                    for cp in active_l4:
+                        cm = 0
+                        for m in cp.monomials:
+                            mm = all_ones_y
+                            for v in m:
+                                mm &= v_mask_y[v]
+                            cm ^= mm
+                        cov_y |= cm
+                    if cov_y == all_ones_y:
+                        law_l4_zero_cone_unsat += 1
+                        break
 
             # For any case where pure left-onset (unconstrained y_s) had a surviving assignment,
             # evolve the right-half polynomial system from the finite-support initial condition at row T
@@ -545,6 +619,7 @@ def analyze_right_coupled_characteristic_flux(
         periods_tested=tuple(periods),
         total_hypotheses_tested=total_tested,
         pure_left_onset_unsat_count=pure_left_unsat,
+        law_l4_and_exact_d3_zero_cone_unsat_count=law_l4_zero_cone_unsat,
         right_coupled_flux_unsat_count=right_coupled_unsat,
         white_run_cases_closed_by_right_correlation=tuple(closed_by_right),
         max_free_right_variables_at_t6=max(0, max(transients) - 2),

@@ -226,6 +226,301 @@ theorem bounded_T0_periods_one_to_four_excluded :
     have h := h4 3 (Nat.zero_le 3)
     revert h; decide
 
+/-! ### Section 5 Universal Arbitrary-Period Contradiction for the Infinite `11`-Free Family `0^r 1` -/
+
+theorem rowAt_add (t : Nat) :
+    ∀ (m n : Nat) (p : Int), rowAt t p (m + n) = rowAt t p m ++ rowAt t (p + (m : Int)) n
+  | 0, n, p => by simp [rowAt]
+  | m + 1, n, p => by
+      have ih := rowAt_add t m n (p + 1)
+      rw [show p + 1 + (m : Int) = p + ((m + 1 : Nat) : Int) by omega] at ih
+      rw [show m + 1 + n = (m + n) + 1 by omega]
+      show cell t p :: rowAt t (p + 1) (m + n) =
+        cell t p :: (rowAt t (p + 1) m ++ rowAt t (p + ((m + 1 : Nat) : Int)) n)
+      rw [ih]
+
+theorem col0Word_replicate_false :
+    ∀ (k t : Nat), (∀ i, i < k → cell (t + i) 0 = false) → col0Word t k = List.replicate k false
+  | 0, _, _ => rfl
+  | k + 1, t, hw => by
+      have h0 : cell t 0 = false := by simpa using hw 0 (by omega)
+      have ih := col0Word_replicate_false k (t + 1) (fun i hi => by
+        have := hw (1 + i) (by omega)
+        rwa [show t + (1 + i) = t + 1 + i by omega] at this)
+      show cell t 0 :: col0Word (t + 1) k = false :: List.replicate k false
+      rw [h0, ih]
+
+theorem col0Word_white_then_black :
+    ∀ (d t : Nat),
+      (∀ i, i < d → cell (t + i) 0 = false) →
+      cell (t + d) 0 = true →
+      col0Word t (d + 1) = List.replicate d false ++ [true]
+  | 0, t, _, hb => by
+      have hb0 : cell t 0 = true := by simpa using hb
+      show [cell t 0] = [true]
+      rw [hb0]
+  | d + 1, t, hw, hb => by
+      have h0 : cell t 0 = false := by simpa using hw 0 (by omega)
+      have ih := col0Word_white_then_black d (t + 1)
+        (fun i hi => by
+          have := hw (1 + i) (by omega)
+          rwa [show t + (1 + i) = t + 1 + i by omega] at this)
+        (by rwa [show t + 1 + d = t + (d + 1) by omega])
+      show cell t 0 :: col0Word (t + 1) (d + 1) = false :: (List.replicate d false ++ [true])
+      rw [h0, ih]
+
+def validFrontPrefixes8 : List (List Bool) :=
+  [ [true, true, false, false, true, false, false, false],
+    [true, true, false, false, true, false, false, true],
+    [true, true, false, true, true, true, true, false],
+    [true, true, false, true, true, true, true, true] ]
+
+theorem front_six_white_core :
+    ∀ L ∈ allLists 7,
+      runWord (List.replicate 6 false)
+        ([false, false, false, false, false, false, true] ++ L) ∈ validFrontPrefixes8 := by
+  decide +kernel
+
+theorem late_single_black_core :
+    ∀ d ∈ List.range 8, ∀ P ∈ validFrontPrefixes8, ∀ L ∈ allLists d,
+      true ∈ runWord (List.replicate d false ++ [true]) (P ++ L) := by
+  decide +kernel
+
+theorem period_lock_single_black (a r : Nat)
+    (hwr : ∀ i, i < r → cell (a + i) 0 = false)
+    (hb1 : cell (a + r) 0 = true)
+    (hr : 8 ≤ r) (ℓ : Nat) (hℓ : ℓ ≤ r - 8)
+    (hw : ∀ p : Nat, 1 ≤ p → p ≤ ℓ → cell a p = false)
+    (hb : cell a ((ℓ + 1 : Nat) : Int) = true) :
+    (∀ i, i < ℓ → cell (a + i) 1 = false) ∧
+    (∀ i, ℓ ≤ i → i ≤ r → cell (a + i) 1 = true) ∧
+    cell (a + r + 1) 1 = false ∧
+    cell (a + r + 1) 2 = false ∧
+    cell (a + r + 1) 3 = true := by
+  have hfront := (front_moves a ℓ r hwr hw hb ℓ (by omega) (Nat.le_refl ℓ)).2
+  rw [show ℓ - ℓ + 1 = 1 by omega] at hfront
+  have hw_col1 : ∀ i, i < ℓ → cell (a + i) 1 = false := by
+    intro i hi
+    have := (front_moves a ℓ r hwr hw hb i (by omega) (by omega)).1 1 (Nat.le_refl 1) (by omega)
+    simpa using this
+  have hblk : ∀ i, ℓ ≤ i → i ≤ r → cell (a + i) 1 = true := by
+    intro i h1 h2
+    have := black_stays (a + ℓ) (r - ℓ) (fun j hj => by
+      have := hwr (ℓ + j) (by omega); rwa [show a + (ℓ + j) = a + ℓ + j by omega] at this)
+      (by simpa using hfront) (i - ℓ) (by omega)
+    rwa [show a + ℓ + (i - ℓ) = a + i by omega] at this
+  have hA := nine_black (a + (r - 8)) 1 (fun s hs => by
+    have := hblk (r - 8 + s) (by omega) (by omega)
+    rwa [show a + (r - 8 + s) = a + (r - 8) + s by omega] at this)
+  rw [show a + (r - 8) + 9 = a + r + 1 by omega,
+      show (1 : Int) + 1 = 2 by rfl,
+      show (1 : Int) + 2 = 3 by rfl] at hA
+  have c1 : cell (a + r + 1) 1 = false := by
+    show rule (cell (a + r) (1 - 1)) (cell (a + r) 1) (cell (a + r) (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, hb1, hblk r (by omega) (Nat.le_refl r)]
+    rfl
+  exact ⟨hw_col1, hblk, c1, hA.1, hA.2⟩
+
+theorem period_late_single_black (a r : Nat)
+    (hwr : ∀ i, i < r → cell (a + i) 0 = false)
+    (hb1 : cell (a + r) 0 = true)
+    (hr : 14 ≤ r) (ℓ : Nat) (hℓ1 : r - 7 ≤ ℓ) (hℓ2 : ℓ ≤ r)
+    (hw : ∀ p : Nat, 1 ≤ p → p ≤ ℓ → cell a p = false)
+    (hb : cell a ((ℓ + 1 : Nat) : Int) = true) :
+    ∃ ℓ', ℓ' ≤ r - 8 ∧
+      (∀ p : Nat, 1 ≤ p → p ≤ ℓ' → cell (a + r + 1) p = false) ∧
+      cell (a + r + 1) ((ℓ' + 1 : Nat) : Int) = true := by
+  let u := a + (ℓ - 6)
+  let d := r - ℓ
+  obtain ⟨hw_u, hb_u⟩ := front_moves a ℓ r hwr hw hb (ℓ - 6) (by omega) (by omega)
+  have hrow_u : rowAt u 1 7 = [false, false, false, false, false, false, true] := by
+    have c1 : cell u 1 = false := by simpa using hw_u 1 (by omega) (by omega)
+    have c2 : cell u 2 = false := by simpa using hw_u 2 (by omega) (by omega)
+    have c3 : cell u 3 = false := by simpa using hw_u 3 (by omega) (by omega)
+    have c4 : cell u 4 = false := by simpa using hw_u 4 (by omega) (by omega)
+    have c5 : cell u 5 = false := by simpa using hw_u 5 (by omega) (by omega)
+    have c6 : cell u 6 = false := by simpa using hw_u 6 (by omega) (by omega)
+    have c7 : cell u 7 = true := by
+      rw [show ℓ - (ℓ - 6) + 1 = 7 by omega] at hb_u
+      exact hb_u
+    show [cell u 1, cell u 2, cell u 3, cell u 4, cell u 5, cell u 6, cell u 7] = _
+    rw [c1, c2, c3, c4, c5, c6, c7]
+  have hcol_u : col0Word u 6 = List.replicate 6 false := by
+    apply col0Word_replicate_false 6 u
+    intro i hi
+    have := hwr (ℓ - 6 + i) (by omega)
+    rwa [show a + (ℓ - 6 + i) = u + i by omega] at this
+  have hrun6 := runWord_rowAt 6 8 u
+  rw [show 8 + 6 = 7 + 7 by rfl, rowAt_add u 7 7 1,
+      show (1 : Int) + (7 : Nat) = 8 by rfl,
+      show u + 6 = a + ℓ by omega, hcol_u, hrow_u] at hrun6
+  have hmem7 : rowAt u 8 7 ∈ allLists 7 := by
+    have := mem_allLists (rowAt u 8 7)
+    rwa [length_rowAt] at this
+  have hpref8 : rowAt (a + ℓ) 1 8 ∈ validFrontPrefixes8 := by
+    rw [← hrun6]
+    exact front_six_white_core (rowAt u 8 7) hmem7
+  have hcol_d : col0Word (a + ℓ) (d + 1) = List.replicate d false ++ [true] := by
+    apply col0Word_white_then_black d (a + ℓ)
+    · intro i hi
+      have := hwr (ℓ + i) (by omega)
+      rwa [show a + (ℓ + i) = a + ℓ + i by omega] at this
+    · have : a + ℓ + d = a + r := by omega
+      rwa [this]
+  have hrun_d := runWord_rowAt (d + 1) 7 (a + ℓ)
+  rw [show 7 + (d + 1) = 8 + d by omega, rowAt_add (a + ℓ) 8 d 1,
+      show (1 : Int) + (8 : Nat) = 9 by rfl,
+      show a + ℓ + (d + 1) = a + r + 1 by omega, hcol_d] at hrun_d
+  have hmem_d : rowAt (a + ℓ) 9 d ∈ allLists d := by
+    have := mem_allLists (rowAt (a + ℓ) 9 d)
+    rwa [length_rowAt] at this
+  have hd_range : d ∈ List.range 8 := List.mem_range.2 (by omega)
+  have htrue_in : true ∈ rowAt (a + r + 1) 1 7 := by
+    rw [← hrun_d]
+    exact late_single_black_core d hd_range (rowAt (a + ℓ) 1 8) hpref8 (rowAt (a + ℓ) 9 d) hmem_d
+  rcases first_black_aux (a + r + 1) 7 with hw7 | ⟨ℓ', hℓ'7, hw', hb'⟩
+  · have hrow_false : rowAt (a + r + 1) 1 7 = [false, false, false, false, false, false, false] := by
+      have f1 : cell (a + r + 1) 1 = false := by simpa using hw7 1 (by omega) (by omega)
+      have f2 : cell (a + r + 1) 2 = false := by simpa using hw7 2 (by omega) (by omega)
+      have f3 : cell (a + r + 1) 3 = false := by simpa using hw7 3 (by omega) (by omega)
+      have f4 : cell (a + r + 1) 4 = false := by simpa using hw7 4 (by omega) (by omega)
+      have f5 : cell (a + r + 1) 5 = false := by simpa using hw7 5 (by omega) (by omega)
+      have f6 : cell (a + r + 1) 6 = false := by simpa using hw7 6 (by omega) (by omega)
+      have f7 : cell (a + r + 1) 7 = false := by simpa using hw7 7 (by omega) (by omega)
+      show [cell (a + r + 1) 1, cell (a + r + 1) 2, cell (a + r + 1) 3, cell (a + r + 1) 4,
+            cell (a + r + 1) 5, cell (a + r + 1) 6, cell (a + r + 1) 7] = _
+      rw [f1, f2, f3, f4, f5, f6, f7]
+    rw [hrow_false] at htrue_in
+    exact False.elim (by revert htrue_in; decide)
+  · exact ⟨ℓ', by omega, hw', hb'⟩
+
+/-- **Section 5 Universal Arbitrary-Period Contradiction (`EXACT`, New in `R30-UNIVERSAL-001`) —
+    The Infinite `11`-Free White-Run Family `0^r 1` (`r ≥ 14`) Is Impossible for Every Transient `T`
+    (`no_white_run_single_black_all_transients`)**:
+    Proves unconditionally (for symbolic, arbitrarily large period `P = r + 1 ≥ 15`, arbitrary
+    transient `T : Nat`, and arbitrary phase `t₀ ≥ T`) that the single-seed center column cannot
+    repeat the `11`-free word `0^r 1`. Across all four right-frontier regimes (`ℓ ≤ r - 8`,
+    `r - 7 ≤ ℓ ≤ r`, `ℓ = r + 1`, and `ℓ ≥ r + 2`), the right-half boundary front enters the
+    `ℓ ≤ r - 8` basin within at most one period and locks permanently at `ℓ = 2` from period `2` on,
+    forcing column `1` to be `P`-periodic (`decide (2 ≤ i)`) against Jen's theorem (`not_adjacent 0`). -/
+theorem no_white_run_single_black_all_transients
+    (T r t0 : Nat) (hr : 14 ≤ r)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + (r + 1)) = Rule30Prize.center t)
+    (ht0 : T ≤ t0)
+    (hw : ∀ i, i < r → Rule30Prize.center (t0 + i) = false)
+    (hb1 : Rule30Prize.center (t0 + r) = true) : False := by
+  generalize hQdef : r + 1 = Q at hper
+  have hQ : 0 < Q := by omega
+  have hperk : ∀ k t, T ≤ t → Rule30Prize.center (t + k * Q) = Rule30Prize.center t :=
+    periodic_mul hper
+  generalize hAdef : t0 + Q = A
+  have hMul : ∀ k, (k + 1) * Q = k * Q + Q := fun k => Nat.succ_mul k Q
+  have drvw : ∀ k i, i < r → cell (A + k * Q + i) 0 = false := by
+    intro k i hi
+    have := hperk (k + 1) (t0 + i) (by omega)
+    show Rule30Prize.center (A + k * Q + i) = false
+    rw [hMul k, show t0 + i + (k * Q + Q) = A + k * Q + i by omega] at this
+    rw [this]; exact hw i hi
+  have drvb1 : ∀ k, cell (A + k * Q + r) 0 = true := by
+    intro k
+    have := hperk (k + 1) (t0 + r) (by omega)
+    show Rule30Prize.center (A + k * Q + r) = true
+    rw [hMul k, show t0 + r + (k * Q + Q) = A + k * Q + r by omega] at this
+    rw [this]; exact hb1
+  have hnext : ∀ k, A + k * Q + r + 1 = A + (k + 1) * Q := by
+    intro k; rw [hMul k]; omega
+  -- Period 1 always starts with some ℓ₁ ≤ r - 8
+  have hperiod1_basin :
+      ∃ ℓ₁, ℓ₁ ≤ r - 8 ∧
+        (∀ p : Nat, 1 ≤ p → p ≤ ℓ₁ → cell (A + 1 * Q) p = false) ∧
+        cell (A + 1 * Q) ((ℓ₁ + 1 : Nat) : Int) = true := by
+    obtain ⟨ℓ₀, hw₀, hb₀⟩ := first_black (A + 0 * Q) (by omega)
+    by_cases c1 : ℓ₀ ≤ r - 8
+    · obtain ⟨_, _, hc1, hc2, hc3⟩ :=
+        period_lock_single_black (A + 0 * Q) r (drvw 0) (drvb1 0) (by omega) ℓ₀ c1 hw₀ hb₀
+      rw [hnext 0] at hc1 hc2 hc3
+      refine ⟨2, by omega, fun p hp1 hp2 => ?_, by simpa using hc3⟩
+      by_cases hp : p = 1
+      · subst hp; simpa using hc1
+      · have : p = 2 := by omega
+        subst this; simpa using hc2
+    by_cases c2 : ℓ₀ ≤ r
+    · obtain ⟨ℓ₁, hℓ₁, hw₁, hb₁⟩ :=
+        period_late_single_black (A + 0 * Q) r (drvw 0) (drvb1 0) hr ℓ₀ (by omega) c2 hw₀ hb₀
+      rw [hnext 0] at hw₁ hb₁
+      exact ⟨ℓ₁, hℓ₁, hw₁, hb₁⟩
+    by_cases c3 : ℓ₀ = r + 1
+    · subst c3
+      obtain ⟨fw, fb⟩ := period_far (A + 0 * Q) r (drvw 0) 1 (Nat.le_refl 1) hw₀ hb₀
+      have w1 : cell (A + 0 * Q + r) 1 = false := by simpa using fw 1 (by omega) (by omega)
+      have b2 : cell (A + 0 * Q + r) 2 = true := by simpa using fb
+      have n1 : cell (A + 0 * Q + r + 1) 1 = false := by
+        show rule (cell (A + 0 * Q + r) (1 - 1)) (cell (A + 0 * Q + r) 1) (cell (A + 0 * Q + r) (1 + 1)) = false
+        rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, drvb1 0, w1, b2]; rfl
+      have n2 : cell (A + 0 * Q + r + 1) 2 = true := by
+        show rule (cell (A + 0 * Q + r) (2 - 1)) (cell (A + 0 * Q + r) 2) (cell (A + 0 * Q + r) (2 + 1)) = true
+        rw [show (2 : Int) - 1 = 1 by rfl, w1, b2]; rfl
+      rw [hnext 0] at n1 n2
+      refine ⟨1, by omega, fun p hp1 hp2 => ?_, by simpa using n2⟩
+      have : p = 1 := by omega
+      subst this; simpa using n1
+    · have hz2 : 2 ≤ ℓ₀ - r := by omega
+      obtain ⟨fw, _⟩ := period_far (A + 0 * Q) r (drvw 0) (ℓ₀ - r) (by omega)
+        (fun p hp1 hp2 => hw₀ p hp1 (by omega))
+        (by rw [show r + (ℓ₀ - r) + 1 = ℓ₀ + 1 by omega]; exact hb₀)
+      have w1 : cell (A + 0 * Q + r) 1 = false := by simpa using fw 1 (by omega) (by omega)
+      have w2 : cell (A + 0 * Q + r) 2 = false := by simpa using fw 2 (by omega) (by omega)
+      have n1 : cell (A + 0 * Q + r + 1) 1 = true := by
+        show rule (cell (A + 0 * Q + r) (1 - 1)) (cell (A + 0 * Q + r) 1) (cell (A + 0 * Q + r) (1 + 1)) = true
+        rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, drvb1 0, w1, w2]; rfl
+      rw [hnext 0] at n1
+      exact ⟨0, by omega, fun p hp1 hp2 => by omega, by simpa using n1⟩
+  -- From period 2 onward, every period starts at ℓ = 2
+  have hlock2 : ∀ j : Nat,
+      (∀ p : Nat, 1 ≤ p → p ≤ 2 → cell (A + (2 + j) * Q) p = false) ∧
+      cell (A + (2 + j) * Q) ((2 + 1 : Nat) : Int) = true := by
+    intro j
+    induction j with
+    | zero =>
+      obtain ⟨ℓ₁, hℓ₁, hw₁, hb₁⟩ := hperiod1_basin
+      obtain ⟨_, _, hc1, hc2, hc3⟩ :=
+        period_lock_single_black (A + 1 * Q) r (drvw 1) (drvb1 1) (by omega) ℓ₁ hℓ₁ hw₁ hb₁
+      rw [hnext 1, show 1 + 1 = 2 + 0 by rfl] at hc1 hc2 hc3
+      refine ⟨fun p hp1 hp2 => ?_, by simpa using hc3⟩
+      by_cases hp : p = 1
+      · subst hp; simpa using hc1
+      · have : p = 2 := by omega
+        subst this; simpa using hc2
+    | succ j ih =>
+      obtain ⟨hw_j, hb_j⟩ := ih
+      obtain ⟨_, _, hc1, hc2, hc3⟩ :=
+        period_lock_single_black (A + (2 + j) * Q) r (drvw (2 + j)) (drvb1 (2 + j))
+          (by omega) 2 (by omega) hw_j hb_j
+      rw [hnext (2 + j), show 2 + j + 1 = 2 + (j + 1) by omega] at hc1 hc2 hc3
+      refine ⟨fun p hp1 hp2 => ?_, by simpa using hc3⟩
+      by_cases hp : p = 1
+      · subst hp; simpa using hc1
+      · have : p = 2 := by omega
+        subst this; simpa using hc2
+  -- Therefore column 1 repeats decide (2 ≤ i) on every period j ≥ 0 from A + 2 * Q on
+  have hcol1_pattern : ∀ j i, i < Q →
+      cell (A + 2 * Q + j * Q + i) 1 = decide (2 ≤ i) := by
+    intro j i hi
+    obtain ⟨hw_j, hb_j⟩ := hlock2 j
+    obtain ⟨hw_col1, hblk, _, _, _⟩ :=
+      period_lock_single_black (A + (2 + j) * Q) r (drvw (2 + j)) (drvb1 (2 + j))
+        (by omega) 2 (by omega) hw_j hb_j
+    have hadd : A + (2 + j) * Q + i = A + 2 * Q + j * Q + i := by
+      rw [Nat.add_mul 2 j Q]; omega
+    rw [← hadd]
+    by_cases hi2 : 2 ≤ i
+    · rw [hblk i hi2 (by omega)]; simp [hi2]
+    · rw [hw_col1 i (by omega)]; simp [hi2]
+  have h1 : EventuallyPeriodic (fun t => cell t (0 + 1)) :=
+    periodic_blocks (A + 2 * Q) Q hQ (fun i => decide (2 ≤ i)) hcol1_pattern
+  have h0 : EventuallyPeriodic (fun t => cell t 0) := ⟨T, Q, hQ, hper⟩
+  exact not_adjacent 0 h0 h1
+
 /-! ### Top-Level Re-Exports for Single-Module `Check.lean Rule30PrizeClosure` Verification -/
 
 theorem closure_left_diag_D4_eq_true (t : Nat) :
@@ -512,5 +807,56 @@ theorem closure_decoupled_halves_consistent_but_bilaterally_incompatible :
       orColWord [false] (rowAt 1 1 2) ∧
     ¬ (cell 1 0 = false ∧ cell 2 0 = true) :=
   decoupled_halves_consistent_but_bilaterally_incompatible
+
+theorem closure_universal_column_onset_exact_6step (k : Nat) :
+    cell k (-(k : Int)) = true ∧
+    cell (k + 1) (-(k : Int)) = true ∧
+    cell (k + 2) (-(k : Int)) = false ∧
+    cell (k + 3) (-(k : Int)) = decide (k % 2 = 0) ∧
+    cell (k + 4) (-(k : Int)) = true ∧
+    cell (k + 5) (-(k : Int)) = decide (k % 2 = 0) :=
+  universal_column_onset_exact_6step k
+
+theorem closure_odd_period_forces_characteristic_flux_anti_periodicity
+    (T P k : Nat)
+    (hodd : P % 2 = 1)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (hk : T ≤ k) :
+    leftCharacteristicFlux (k + P + 3) (k + P) = !leftCharacteristicFlux (k + 3) k ∧
+    leftCharacteristicFlux (k + P + 5) (k + P) = !leftCharacteristicFlux (k + 5) k :=
+  odd_period_forces_characteristic_flux_anti_periodicity T P k hodd hper hk
+
+theorem closure_double_white_step_depth2_forcing (t : Nat)
+    (hw0 : Rule30Prize.center t = false)
+    (hw1 : Rule30Prize.center (t + 1) = false) :
+    cell t (-1) = cell t 1 ∧
+    (cell t 1 = true → cell (t + 1) 1 = true) ∧
+    (cell t (-1) = true →
+      cell (t + 1) (-1) = !Rule30Prize.center (t + 2) ∧
+      cell t (-2) = Rule30Prize.center (t + 2)) ∧
+    ((cell t (-1) && xor (cell (t + 1) (-1)) (!Rule30Prize.center (t + 2))) = false) ∧
+    ((cell t (-1) && xor (cell t (-2)) (Rule30Prize.center (t + 2))) = false) :=
+  double_white_step_depth2_forcing t hw0 hw1
+
+theorem closure_right_rowAt_single_seed_frontier_realization (T H : Nat) :
+    cell T (T : Int) = true ∧
+    cell T ((T : Int) - 1) = decide (T % 2 = 1) ∧
+    (∀ p : Int, (T : Int) < p → cell T p = false) ∧
+    rowAt T ((T : Int) + 1) H = List.replicate H false :=
+  right_rowAt_single_seed_frontier_realization T H
+
+theorem closure_symbolic_right_evolution_realizes_cell_and_orCol
+    (T H s : Nat) (hs : s < H) :
+    (runWord (col0Word T s) (rowAt T 1 (H + 1))).headD false = cell (T + s) 1 ∧
+    (orColWord (col0Word T H) (rowAt T 1 (H + 1))).getD s false = orCol 0 (T + s) :=
+  symbolic_right_evolution_realizes_cell_and_orCol T H s hs
+
+theorem closure_no_white_run_single_black_all_transients
+    (T r t0 : Nat) (hr : 14 ≤ r)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + (r + 1)) = Rule30Prize.center t)
+    (ht0 : T ≤ t0)
+    (hw : ∀ i, i < r → Rule30Prize.center (t0 + i) = false)
+    (hb1 : Rule30Prize.center (t0 + r) = true) : False :=
+  no_white_run_single_black_all_transients T r t0 hr hper ht0 hw hb1
 
 end Rule30ProofClosure

@@ -125,4 +125,71 @@ theorem decoupled_halves_consistent_but_bilaterally_incompatible :
     apply bilateral_observation_mismatch_excludes_periodic_word 1 0 1 [false] true hmis
     exact ⟨by simp [col0Word, h1], h2⟩
 
+theorem right_diag_R1_parity :
+    ∀ T : Nat, R 1 T = decide (T % 2 = 1)
+  | 0 => rfl
+  | T + 1 => by
+      have ih := right_diag_R1_parity T
+      have hsucc := R_one_succ T
+      have hpar : decide ((T + 1) % 2 = 1) = !decide (T % 2 = 1) := by
+        rcases Nat.mod_two_eq_zero_or_one T with h0 | h1
+        · have h' : (T + 1) % 2 = 1 := by omega
+          simp [h0, h']
+        · have h' : (T + 1) % 2 = 0 := by omega
+          simp [h1, h']
+      rw [hsucc, ih, hpar]
+
+theorem rowAt_eq_replicate_false_of_gt :
+    ∀ (H T : Nat) (p : Int), (T : Int) < p → rowAt T p H = List.replicate H false
+  | 0, _, _, _ => rfl
+  | H + 1, T, p, hp => by
+      have h0 : cell T p = false := cell_eq_false_of_gt T p hp
+      have ih := rowAt_eq_replicate_false_of_gt H T (p + 1) (by omega)
+      show cell T p :: rowAt T (p + 1) H = false :: List.replicate H false
+      rw [h0, ih]
+
+/-- **Section 3 & 4 Modeling Audit (`EXACT`, New in `R30-UNIVERSAL-001`) — Exact Row-`T` Single-Seed
+    Right-Frontier Realization (`right_rowAt_single_seed_frontier_realization`)**:
+    Certifies that at every transient row `T : Nat` and horizon width `H : Nat`, the single-seed
+    right-half configuration has exact frontier `cell T T = true` (`R_0(T) = 1`), sub-leading
+    diagonal `cell T (T - 1) = decide (T % 2 = 1)` (`R_1(T) = T mod 2`), and identically zero
+    exterior `rowAt T (T + 1) H = List.replicate H false`, proving that every single-seed right-half
+    row is realized by the symbolic row-`T` polynomial state space. -/
+theorem right_rowAt_single_seed_frontier_realization (T H : Nat) :
+    cell T (T : Int) = true ∧
+    cell T ((T : Int) - 1) = decide (T % 2 = 1) ∧
+    (∀ p : Int, (T : Int) < p → cell T p = false) ∧
+    rowAt T ((T : Int) + 1) H = List.replicate H false := by
+  have hr0 : cell T (T : Int) = true := by
+    have h := R_zero T
+    unfold R at h
+    rwa [show (T : Int) - (0 : Nat) = (T : Int) by omega] at h
+  have hr1 : cell T ((T : Int) - 1) = decide (T % 2 = 1) := by
+    have h := right_diag_R1_parity T
+    unfold R at h
+    rwa [show (T : Int) - (1 : Nat) = (T : Int) - 1 by omega] at h
+  exact ⟨hr0, hr1, fun p hp => cell_eq_false_of_gt T p hp,
+    rowAt_eq_replicate_false_of_gt H T ((T : Int) + 1) (by omega)⟩
+
+/-- **Section 3 & 4 Modeling Audit (`EXACT`, New in `R30-UNIVERSAL-001`) — Symbolic-to-Cellular
+    Right-Half Evolution Equivalence (`symbolic_right_evolution_realizes_cell_and_orCol`)**:
+    Certifies that for every transient `T : Nat`, horizon `H : Nat`, and step offset `s < H`,
+    evolving the finite row-`T` right prefix `rowAt T 1 (H + 1)` under the symbolic operators
+    `runWord` and `orColWord` produces the exact cellular right-boundary bit `cell (T + s) 1`
+    and the exact PSMSL boundary observation `orCol 0 (T + s)`. -/
+theorem symbolic_right_evolution_realizes_cell_and_orCol
+    (T H s : Nat) (hs : s < H) :
+    (runWord (col0Word T s) (rowAt T 1 (H + 1))).headD false = cell (T + s) 1 ∧
+    (orColWord (col0Word T H) (rowAt T 1 (H + 1))).getD s false = orCol 0 (T + s) := by
+  have hlen : H - s + 1 + s = H + 1 := by omega
+  have hrun := runWord_rowAt s (H - s + 1) T
+  rw [hlen] at hrun
+  have hhead : (rowAt (T + s) 1 (H - s + 1)).headD false = cell (T + s) 1 := rfl
+  have hor := orColWord_rowAt H 0 T
+  rw [show 0 + H + 1 = H + 1 by omega] at hor
+  have hget := col0OrTrace_getD H T s hs
+  refine ⟨?_, ?_⟩
+  · rw [hrun, hhead]
+  · rw [hor, hget]
+
 end Rule30ProofClosure

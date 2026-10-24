@@ -107,12 +107,13 @@ def test_r30_transport_001_diagonal_ablation_and_spatial_transport():
     assert by_d_phi[(6, 0)].canonical_offset_anf == "u_1 ^ u_3 ^ u_5"
     assert by_d_phi[(6, 0)].polynomial_degree == 1
 
-    # Deliverable 5: Right-coupled characteristic-flux verification (R30-FLUX-CORR-001)
+    # Deliverable 5: Right-coupled characteristic-flux verification (R30-FLUX-CORR-001 + R30-UNIVERSAL-001)
     rc_flux = analyze_right_coupled_characteristic_flux(
         transients=(1, 2, 3), periods=(2, 3), max_depth=6
     )
     assert rc_flux.total_hypotheses_tested == 24
     assert rc_flux.pure_left_onset_unsat_count == 23
+    assert rc_flux.law_l4_and_exact_d3_zero_cone_unsat_count == 24
     assert rc_flux.right_coupled_flux_unsat_count == 24
     assert rc_flux.white_run_cases_closed_by_right_correlation == (
         "T=3, w=[1, 0, 0] -> refuted at k=3 by right-half correlation (n_right_vars=1)",
@@ -124,6 +125,6 @@ def test_formal_lean_modules_and_official_check_lean():
     assert ver.formal_files_clean_no_sorry_or_axiom is True
     assert ver.lean_compilation_succeeded is True
     assert ver.check_lean_verdict == "pass"
-    assert ver.headlines_verified == 39
-    assert ver.replayed_constants == 49
+    assert ver.headlines_verified == 45
+    assert ver.replayed_constants == 157
     assert ver.new_axioms == []
