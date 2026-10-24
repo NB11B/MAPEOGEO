@@ -356,5 +356,43 @@ theorem signedProjectiveGap_and_survivingLiftSet_master (n : Nat)
   exact ⟨hgap_surp, hgap_le0, hev_step, hodd_step, hlock.1,
     fun hgt => hband hgt hgap_succ_le0, hres_gap, hsurv⟩
 
+/-- Mechanism A Master Synthesis: Delayed-Descent Surplus Elimination and Finite Quotient Collapse
+    (`mechanismA_delayed_descent_and_quotient_collapse_master`):
+    For any hypothetical never-descending integer `n > 1` (`∀ i, iterateAccelerated n i ≥ n`),
+    at every depth `i ≥ 1` and subsequent depth `r ≥ i + 2`:
+    1. Delayed-Descent Valuation Lock on `s_i = iterateAccelerated n i - n`:
+       - `s_i < n → s_i % 2 = 0`,
+       - `3 * s_i + 1 < n → s_i % 4 = 0`,
+       - `s_i > 0 → 3 * s_i + 1 < n → s_i ≥ 4`, and
+       - `IsFirstCrossing (parityWordOf i n) → s_i > 0 → wordOnes (parityWordOf i n) < n → wordOnes (parityWordOf i n) ≥ 13`.
+    2. Finite Quotient Collapse and Lift-Bit Lock on `𝓢_r(n)`:
+       - Every `m ∈ 𝓢_r(n)` (`m > 1`) satisfies
+         `wordDelta (parityWordOf i n) * wordResidue (parityWordOf r n) + (m / 2^r) * (wordDelta (parityWordOf i n) * 2^r) ≤ wordB (parityWordOf i n)`,
+       - Whenever `wordDelta (parityWordOf i n) * 2^r > wordB (parityWordOf i n)`, every `m ∈ 𝓢_r(n)` (`m > 1`)
+         has `m / 2^r = 0` and `m = wordResidue (parityWordOf r n) = n` (eliminating all proper lifts `q ≥ 1`). -/
+theorem mechanismA_delayed_descent_and_quotient_collapse_master (n i r : Nat)
+    (hn1 : n > 1) (hi1 : i ≥ 1) (hir2 : i + 2 ≤ r)
+    (hnever_desc : ∀ j : Nat, iterateAccelerated n j ≥ n) :
+    let w_i := parityWordOf i n
+    let w_r := parityWordOf r n
+    let s_i := iterateAccelerated n i - n
+    (s_i < n → s_i % 2 = 0) ∧
+    (3 * s_i + 1 < n → s_i % 4 = 0) ∧
+    (s_i > 0 → 3 * s_i + 1 < n → s_i ≥ 4) ∧
+    (IsFirstCrossing w_i → s_i > 0 → wordOnes w_i < n → wordOnes w_i ≥ 13) ∧
+    (∀ m : Nat, m > 1 → InSurvivingLiftSet n r m →
+      wordDelta w_i * wordResidue w_r + (m / 2 ^ r) * (wordDelta w_i * 2 ^ r) ≤ wordB w_i) ∧
+    (wordDelta w_i * 2 ^ r > wordB w_i →
+      ∀ m : Nat, m > 1 → InSurvivingLiftSet n r m →
+        m / 2 ^ r = 0 ∧ m = wordResidue w_r) := by
+  dsimp
+  have hsurv_r : InSurvivingLiftSet n r n := ⟨rfl, fun j _ => hnever_desc j⟩
+  rcases small_surplus_delayed_descent_elimination n r i hn1 (by omega) (by omega) hsurv_r with
+    ⟨hev_elim, hmod4_elim, hs4, hfc13⟩
+  rcases survivingLiftSet_quotient_collapse_and_liftBit_lock n i r hi1 (by omega) with
+    ⟨hq_bound, hq_zero, _⟩
+  exact ⟨hev_elim (by omega), hmod4_elim hir2, hs4 hir2,
+    fun hfc => hfc13 hfc hir2, hq_bound, hq_zero⟩
+
 end CollatzProofClosure
 end BBB17

@@ -38,6 +38,7 @@ from qualification.c10.valuation_sequence_search import (
     verify_steiner_one_circuit_obstruction,
 )
 from qualification.c10.unified_transition_discovery import (
+    verify_mechanism_a_delayed_descent_and_quotient_collapse,
     verify_normalized_reservoir_and_exponential_decay,
     verify_projective_fixed_point_laws,
     verify_psmsl_matrix_algebra,
@@ -127,6 +128,12 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(gap_res["descent_band_mismatches"], 0)
         self.assertEqual(gap_res["reservoir_gap_identity_mismatches"], 0)
         self.assertEqual(gap_res["surviving_lift_cap_failures"], 0)
+
+    def test_ws6_mechanism_a_delayed_descent_and_quotient_collapse(self) -> None:
+        mech_a = verify_mechanism_a_delayed_descent_and_quotient_collapse(max_n=1000)
+        self.assertEqual(mech_a["orbit_shift_mismatches"], 0)
+        self.assertEqual(mech_a["parity_flip_mismatches"], 0)
+        self.assertEqual(mech_a["delayed_descent_lock_failures"], 0)
 
 
 def generate_c10_artifacts() -> None:

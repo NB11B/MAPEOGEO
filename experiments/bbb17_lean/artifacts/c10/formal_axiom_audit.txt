@@ -132,3 +132,14 @@
  Classical.choice,
  Quot.sound]
 'BBB17.CollatzProofClosure.signedProjectiveGap_and_survivingLiftSet_master' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.pow_three_mod_two_eq_one' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.surplus_div_pow_two_orbit_shift' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.small_surplus_delayed_descent_elimination' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.survivingLiftSet_quotient_collapse_and_liftBit_lock' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.mechanismA_delayed_descent_and_quotient_collapse_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

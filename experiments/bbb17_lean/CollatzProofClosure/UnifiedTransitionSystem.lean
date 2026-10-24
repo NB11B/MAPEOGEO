@@ -1,4 +1,5 @@
 import CollatzProofClosure.Definitions
+import CollatzProofClosure.DeficitLifting
 import CollatzProofClosure.SpectralCrossing
 import CollatzProofClosure.GlobalDescent
 import CollatzProofClosure.CycleObstructions
@@ -2121,6 +2122,281 @@ theorem collatz_iff_signedProjectiveGap_eventually_pos :
             rw [(signedProjectiveGap_sign_trichotomy (parityWordOf (i' + 1) n) n hv).1,
                 applyParityWord_parityWordOf]
             omega
+
+/-! ## Section 8: Mechanism A — Self-Similar Orbit Shift, Delayed-Descent Surplus Elimination, and Finite Quotient Collapse of `𝓢_r(n)`
+
+    Having established the surviving prefix-non-descending lift sets `𝓢_r(n)`, we now prove three
+    structural elimination mechanisms that govern how subsequent refinements `r > i` eliminate
+    surviving candidates after an intermediate depth `i`:
+    1. **Exact Self-Similar Orbit Shift Identity (`surplus_div_pow_two_orbit_shift`)**:
+       Whenever the surplus `s_i = F^i(n) - n` at depth `i` is divisible by `2^k` (`F^i(n) = n + q * 2^k`),
+       the next `k` steps of `F^i(n)` follow the exact same parity word `w_k(n)` as `n` itself, with
+       `F^{i+k}(n) = F^k(n) + q * 3^{a_k}`. Moreover, if `q` is odd (`2^k ∥ s_i`), then `F^{i+k}(n)` and
+       `F^k(n)` have opposite parity (`F^{i+k}(n) % 2 ≠ F^k(n) % 2`), forcing a branch divergence at step `k + 1`.
+    2. **1-Step and 2-Step Delayed Elimination of Small Surpluses (`small_surplus_delayed_descent_elimination`)**:
+       For any `n > 1` surviving in `𝓢_r(n)` (`r ≥ 2`), let `s_i = F^i(n) - n`:
+       - If `i + 1 ≤ r` and `s_i < n`, then `s_i` must be even (`s_i % 2 = 0`); any odd `s_i < n` forces
+         immediate strict descent `F^{i+1}(n) = (n + s_i) / 2 < n` at depth `i + 1`.
+       - If `i + 2 ≤ r` and `3 * s_i + 1 < n`, then `s_i` must be divisible by `4` (`s_i % 4 = 0`);
+         any `s_i ≡ 2 (mod 4)` with `3 * s_i + 1 < n` forces strict descent
+         `F^{i+2}(n) = (3n + 3 s_i + 1) / 4 < n` at depth `i + 2`.
+       - Consequently, for any non-returning depth `i` (`s_i > 0`) with `i + 2 ≤ r` and `3 * s_i + 1 < n`,
+         survival in `𝓢_r(n)` forces `s_i ≥ 4` (and at any first crossing `w_i ∈ 𝓜` with `a_i ≤ n`,
+         `3 * s_i < a_i` forces `a_i ≥ 13`).
+    3. **Finite Quotient Collapse and Lift-Bit Elimination (`survivingLiftSet_quotient_collapse_and_liftBit_lock`)**:
+       Once a trajectory encounters a contracting prefix at depth `i ≥ 1` (`Δ_i = 2^i - 3^{a_i} ≥ 1`),
+       every `m ∈ 𝓢_r(n)` (`r ≥ i`, `m > 1`) satisfies
+       `Δ_i * wordResidue (w_r(n)) + (m / 2^r) * (Δ_i * 2^r) ≤ B_{w_i(n)}`.
+       For all `r ≥ i` with `Δ_i * 2^r > B_{w_i(n)}`, every proper lift (`m / 2^r ≥ 1`) is unconditionally
+       eliminated (`m = wordResidue (w_r(n))`), collapsing `𝓢_r(n) ∩ {m > 1}` to at most `{n}`; and any
+       subsequent step with `liftBit = 1` violates the cap `B_{w_i(n)}` and empties `𝓢_{r+1}(n) ∩ {m > 1}`.
+-/
+
+/-- Helper lemma: `3^a` is odd for all `a : Nat`. -/
+theorem pow_three_mod_two_eq_one (a : Nat) : (3 ^ a) % 2 = 1 := by
+  induction a with
+  | zero => rfl
+  | succ a ih =>
+    rw [Nat.pow_succ]
+    omega
+
+/-- Self-Similar Orbit Shift Identity (`surplus_div_pow_two_orbit_shift`):
+    For any `n i k q : Nat`, if `iterateAccelerated n i = n + q * 2^k`
+    (i.e. the depth-`i` surplus `s_i = F^i(n) - n` is `q * 2^k`), then:
+    1. `parityWordOf k (iterateAccelerated n i) = parityWordOf k n`,
+    2. `iterateAccelerated n (i + k) = iterateAccelerated n k + q * 3 ^ (wordOnes (parityWordOf k n))`, and
+    3. Whenever `q` is odd (`q % 2 = 1`, so `2^k ∥ s_i`), `iterateAccelerated n (i + k)` and
+       `iterateAccelerated n k` have opposite parity:
+       `(iterateAccelerated n (i + k)) % 2 ≠ (iterateAccelerated n k) % 2`. -/
+theorem surplus_div_pow_two_orbit_shift (n i k q : Nat)
+    (hsurp : iterateAccelerated n i = n + q * 2 ^ k) :
+    let w_k := parityWordOf k n
+    let a_k := wordOnes w_k
+    parityWordOf k (iterateAccelerated n i) = w_k ∧
+    iterateAccelerated n (i + k) = iterateAccelerated n k + q * 3 ^ a_k ∧
+    (q % 2 = 1 →
+      (iterateAccelerated n (i + k)) % 2 ≠ (iterateAccelerated n k) % 2) := by
+  dsimp
+  have hv_n := parityWordOf_valid k n
+  have hD_k : wordD (parityWordOf k n) = 2 ^ k := by
+    rw [wordD_eq_pow_two_length, parityWordOf_length]
+  have hA_k : wordA (parityWordOf k n) = 3 ^ wordOnes (parityWordOf k n) :=
+    wordA_eq_pow_three_wordOnes (parityWordOf k n)
+  have hsurp_D : iterateAccelerated n i = n + q * wordD (parityWordOf k n) := by
+    rw [hD_k]; exact hsurp
+  rcases parityWord_residue_shift (parityWordOf k n) n q hv_n with ⟨hv_shift, hy_shift⟩
+  rw [← hsurp_D] at hv_shift hy_shift
+  have hw_eq : parityWordOf k (iterateAccelerated n i) = parityWordOf k n := by
+    have h := (validParityWord_iff_eq_parityWordOf (parityWordOf k n) (iterateAccelerated n i)).mp hv_shift
+    rw [parityWordOf_length] at h
+    exact h
+  have hit_add := iterateAccelerated_add n i k
+  have hy_lhs : applyParityWord (iterateAccelerated n i) (parityWordOf k n) =
+      iterateAccelerated n (i + k) := by
+    rw [← hw_eq, applyParityWord_parityWordOf, hit_add]
+  rw [hy_lhs, applyParityWord_parityWordOf, hA_k] at hy_shift
+  refine ⟨hw_eq, hy_shift, ?_⟩
+  intro hq_odd
+  have h3_odd := pow_three_mod_two_eq_one (wordOnes (parityWordOf k n))
+  have hprod_odd : (q * 3 ^ wordOnes (parityWordOf k n)) % 2 = 1 := by
+    rw [Nat.mul_mod, hq_odd, h3_odd]
+  rw [hy_shift]
+  omega
+
+/-- 1-Step and 2-Step Delayed-Descent Elimination of Small Surpluses
+    (`small_surplus_delayed_descent_elimination`):
+    Let `n > 1` survive in `𝓢_r(n)` (`r ≥ 2`), and for any intermediate depth `i ≤ r`,
+    let `s = iterateAccelerated n i - n`:
+    1. If `i + 1 ≤ r` and `s < n`, then `s % 2 = 0` (`s` cannot be odd),
+    2. If `i + 2 ≤ r` and `3 * s + 1 < n`, then `s % 4 = 0` (`s ≡ 2 (mod 4)` is also eliminated),
+    3. If `i + 2 ≤ r`, `s > 0` (non-returning at depth `i`), and `3 * s + 1 < n`, then `s ≥ 4`, and
+    4. If `w_i = parityWordOf i n` is a first-crossing word (`IsFirstCrossing w_i`) with `i + 2 ≤ r`,
+       `s > 0`, and `wordOnes w_i ≤ n`, then `wordOnes w_i ≥ 13`. -/
+theorem small_surplus_delayed_descent_elimination (n r i : Nat)
+    (hn1 : n > 1) (hr2 : r ≥ 2) (hi : i ≤ r)
+    (hsurv : InSurvivingLiftSet n r n) :
+    let s := iterateAccelerated n i - n
+    (i + 1 ≤ r → s < n → s % 2 = 0) ∧
+    (i + 2 ≤ r → 3 * s + 1 < n → s % 4 = 0) ∧
+    (i + 2 ≤ r → s > 0 → 3 * s + 1 < n → s ≥ 4) ∧
+    (IsFirstCrossing (parityWordOf i n) →
+      i + 2 ≤ r → s > 0 → wordOnes (parityWordOf i n) < n →
+      wordOnes (parityWordOf i n) ≥ 13) := by
+  dsimp
+  rcases hsurv with ⟨_, hge⟩
+  have h1 : iterateAccelerated n 1 ≥ n := hge 1 (by omega)
+  have h2 : iterateAccelerated n 2 ≥ n := hge 2 (by omega)
+  rcases nondescent_depth2_forces_mod4_eq_3_and_reservoir n hn1 h1 h2 with ⟨hm4, _, _⟩
+  have hn_odd : n % 2 = 1 := by omega
+  have hge_i : iterateAccelerated n i ≥ n := hge i hi
+  have hit_i : iterateAccelerated n i = n + (iterateAccelerated n i - n) := by omega
+  have hev_elim : i + 1 ≤ r → iterateAccelerated n i - n < n →
+      (iterateAccelerated n i - n) % 2 = 0 := by
+    intro hi1 hs_lt
+    by_cases hs_ev : (iterateAccelerated n i - n) % 2 = 0
+    · exact hs_ev
+    · exfalso
+      have hy_ev : iterateAccelerated n i % 2 = 0 := by omega
+      have hsucc := iterateAccelerated_succ_right n i
+      unfold acceleratedCollatz at hsucc
+      rw [if_pos hy_ev] at hsucc
+      have hge_i1 := hge (i + 1) hi1
+      omega
+  have hmod4_elim : i + 2 ≤ r → 3 * (iterateAccelerated n i - n) + 1 < n →
+      (iterateAccelerated n i - n) % 4 = 0 := by
+    intro hi2 hs3_lt
+    have hs_ev : (iterateAccelerated n i - n) % 2 = 0 :=
+      hev_elim (by omega) (by omega)
+    let q := (iterateAccelerated n i - n) / 2
+    have hsurp_q : iterateAccelerated n i = n + q * 2 ^ 1 := by omega
+    rcases surplus_div_pow_two_orbit_shift n i 1 q hsurp_q with ⟨_, hit_i1, hpar_flip⟩
+    have hb0 : (n % 2 == 1) = true := by rw [beq_iff_eq]; exact hn_odd
+    have hones1 : wordOnes (parityWordOf 1 n) = 1 := by
+      dsimp [parityWordOf]; rw [hb0]; dsimp [wordOnes]
+    have hit1_eq : iterateAccelerated n 1 = (3 * n + 1) / 2 := by
+      dsimp [iterateAccelerated]
+      unfold acceleratedCollatz
+      have hnot0 : ¬(n % 2 = 0) := by omega
+      rw [if_neg hnot0]
+    have hit1_odd : iterateAccelerated n 1 % 2 = 1 := by omega
+    by_cases hmod4 : (iterateAccelerated n i - n) % 4 = 0
+    · exact hmod4
+    · exfalso
+      have hq_odd : q % 2 = 1 := by omega
+      have hne_par := hpar_flip hq_odd
+      have hit_i1_ev : iterateAccelerated n (i + 1) % 2 = 0 := by omega
+      have hsucc2 := iterateAccelerated_succ_right n (i + 1)
+      unfold acceleratedCollatz at hsucc2
+      rw [if_pos hit_i1_ev] at hsucc2
+      rw [hones1, Nat.pow_one] at hit_i1
+      have hge_i2 := hge (i + 2) hi2
+      have h2_eq : i + 1 + 1 = i + 2 := by omega
+      rw [h2_eq] at hsucc2
+      omega
+  refine ⟨hev_elim, hmod4_elim, ?_, ?_⟩
+  · intro hi2 hs_pos hs3_lt
+    have hm4_0 := hmod4_elim hi2 hs3_lt
+    omega
+  · intro hfc hi2 hs_pos ha_le_n
+    have hv_i := parityWordOf_valid i n
+    have hge_i_ap : applyParityWord n (parityWordOf i n) ≥ n := by
+      rw [applyParityWord_parityWordOf]
+      exact hge_i
+    have hpe : IsPrefixExpanding (parityWordOf i n) :=
+      isFirstCrossing_implies_isPrefixExpanding (parityWordOf i n) hfc
+    have hB : 3 * wordB (parityWordOf i n) ≤
+        wordOnes (parityWordOf i n) * wordA (parityWordOf i n) :=
+      three_mul_wordB_le_wordOnes_mul_wordA (parityWordOf i n) hpe
+    have hband := firstCrossing_spectral_band (parityWordOf i n) hfc
+    have hnd := (discrete_deficit_nondescent_identity (parityWordOf i n) n hv_i (by omega) hge_i_ap).1
+    rw [applyParityWord_parityWordOf,
+        Nat.mul_comm (wordD (parityWordOf i n)) (iterateAccelerated n i - n)] at hnd
+    have hdelta_pos : wordDelta (parityWordOf i n) * n > 0 :=
+      Nat.mul_pos hband.2.2.1 (by omega)
+    have hA_le_D : wordOnes (parityWordOf i n) * wordA (parityWordOf i n) ≤
+        wordOnes (parityWordOf i n) * wordD (parityWordOf i n) :=
+      Nat.mul_le_mul_left (wordOnes (parityWordOf i n)) (by omega)
+    have h3s_D : (3 * (iterateAccelerated n i - n)) * wordD (parityWordOf i n) <
+        wordOnes (parityWordOf i n) * wordD (parityWordOf i n) := by
+      rw [Nat.mul_assoc 3 _ (wordD (parityWordOf i n))]
+      omega
+    have hjump : 3 * (iterateAccelerated n i - n) < wordOnes (parityWordOf i n) :=
+      Nat.lt_of_mul_lt_mul_right h3s_D
+    have hs3_lt : 3 * (iterateAccelerated n i - n) + 1 < n := by omega
+    have hm4_0 := hmod4_elim hi2 hs3_lt
+    omega
+
+/-- Finite Quotient Collapse and Lift-Bit Elimination Theorem
+    (`survivingLiftSet_quotient_collapse_and_liftBit_lock`):
+    Suppose `1 ≤ i ≤ r`, and let `w_i = parityWordOf i n` and `w_r = parityWordOf r n`:
+    1. Every `m ∈ 𝓢_r(n)` with `m > 1` satisfies the quotient bound:
+       `wordDelta w_i * wordResidue w_r + (m / 2^r) * (wordDelta w_i * 2^r) ≤ wordB w_i`,
+    2. Whenever `wordDelta w_i * 2^r > wordB w_i`, every `m ∈ 𝓢_r(n)` with `m > 1` has `m / 2^r = 0`
+       and `m = wordResidue w_r` (collapsing `𝓢_r(n) ∩ {m > 1}` to at most one element), and
+    3. At step `r ↦ r + 1`, let `b = (iterateAccelerated n r % 2 == 1)`. Whenever
+       `wordDelta w_i * (wordResidue w_r + 2^r) > wordB w_i` and `liftBit w_r b = 1`,
+       `𝓢_{r+1}(n)` contains no integers `m > 1` (`∀ m > 1, ¬InSurvivingLiftSet n (r + 1) m`). -/
+theorem survivingLiftSet_quotient_collapse_and_liftBit_lock (n i r : Nat)
+    (hi1 : i ≥ 1) (hir : i ≤ r) :
+    let w_i := parityWordOf i n
+    let w_r := parityWordOf r n
+    (∀ m : Nat, m > 1 → InSurvivingLiftSet n r m →
+      wordDelta w_i * wordResidue w_r + (m / 2 ^ r) * (wordDelta w_i * 2 ^ r) ≤ wordB w_i) ∧
+    (wordDelta w_i * 2 ^ r > wordB w_i →
+      ∀ m : Nat, m > 1 → InSurvivingLiftSet n r m →
+        m / 2 ^ r = 0 ∧ m = wordResidue w_r) ∧
+    (let b := iterateAccelerated n r % 2 == 1
+     wordDelta w_i * (wordResidue w_r + 2 ^ r) > wordB w_i →
+     liftBit w_r b = 1 →
+     ∀ m : Nat, m > 1 → ¬InSurvivingLiftSet n (r + 1) m) := by
+  dsimp
+  have hD_r : wordD (parityWordOf r n) = 2 ^ r := by
+    rw [wordD_eq_pow_two_length, parityWordOf_length]
+  have hn_res_r : n % (2 ^ r) = wordResidue (parityWordOf r n) := by
+    have h := (validParityWord_iff_mod_eq_wordResidue (parityWordOf r n) n).mp (parityWordOf_valid r n)
+    rw [hD_r] at h
+    exact h
+  have hq_bound : ∀ m : Nat, m > 1 → InSurvivingLiftSet n r m →
+      wordDelta (parityWordOf i n) * wordResidue (parityWordOf r n) +
+        (m / 2 ^ r) * (wordDelta (parityWordOf i n) * 2 ^ r) ≤
+        wordB (parityWordOf i n) := by
+    intro m hm1 hm_surv
+    have hcap := (survivingLiftSet_intermediate_contracting_cap n r m hm1 hm_surv i hir).2.2.2 hi1
+    have hm_mod : m % (2 ^ r) = wordResidue (parityWordOf r n) := by
+      rw [hm_surv.1, hn_res_r]
+    have hm_div : m = wordResidue (parityWordOf r n) + (m / 2 ^ r) * 2 ^ r := by
+      have h := Nat.mod_add_div m (2 ^ r)
+      have hcomm : 2 ^ r * (m / 2 ^ r) = (m / 2 ^ r) * 2 ^ r := Nat.mul_comm _ _
+      omega
+    have hmul_eq : wordDelta (parityWordOf i n) * m =
+        wordDelta (parityWordOf i n) * wordResidue (parityWordOf r n) +
+          (m / 2 ^ r) * (wordDelta (parityWordOf i n) * 2 ^ r) := by
+      conv => lhs; rw [hm_div]
+      rw [Nat.mul_add, ← Nat.mul_assoc,
+          Nat.mul_comm (wordDelta (parityWordOf i n)) (m / 2 ^ r),
+          Nat.mul_assoc]
+    omega
+  refine ⟨hq_bound, ?_, ?_⟩
+  · intro hgt_B m hm1 hm_surv
+    have hb := hq_bound m hm1 hm_surv
+    have hq0 : m / 2 ^ r = 0 := by
+      cases hq : m / 2 ^ r with
+      | zero => rfl
+      | succ q' =>
+        rw [hq] at hb
+        have hge1 : (q' + 1) * (wordDelta (parityWordOf i n) * 2 ^ r) ≥
+            1 * (wordDelta (parityWordOf i n) * 2 ^ r) :=
+          Nat.mul_le_mul_right _ (by omega)
+        omega
+    have hm_mod : m % (2 ^ r) = wordResidue (parityWordOf r n) := by
+      rw [hm_surv.1, hn_res_r]
+    have hm_div := Nat.mod_add_div m (2 ^ r)
+    rw [hm_mod, hq0, Nat.mul_zero, Nat.add_zero] at hm_div
+    exact ⟨hq0, hm_div.symm⟩
+  · intro hgt_lift hbit1 m hm1 hm_surv_succ
+    have hcap := (survivingLiftSet_intermediate_contracting_cap n (r + 1) m hm1
+      hm_surv_succ i (by omega)).2.2.2 hi1
+    have hsucc_w := parityWordOf_succ_eq_append r n
+    have hres_succ := (wordResidue_append_eq_add_liftBit (parityWordOf r n)
+      (iterateAccelerated n r % 2 == 1)).2
+    rw [← hsucc_w, hbit1, Nat.one_mul, hD_r] at hres_succ
+    have hD_succ : wordD (parityWordOf (r + 1) n) = 2 ^ (r + 1) := by
+      rw [wordD_eq_pow_two_length, parityWordOf_length]
+    have hn_res_succ : n % (2 ^ (r + 1)) = wordResidue (parityWordOf (r + 1) n) := by
+      have h := (validParityWord_iff_mod_eq_wordResidue (parityWordOf (r + 1) n) n).mp
+        (parityWordOf_valid (r + 1) n)
+      rw [hD_succ] at h
+      exact h
+    have hm_ge_res : m ≥ wordResidue (parityWordOf (r + 1) n) := by
+      have hm_mod : m % (2 ^ (r + 1)) = wordResidue (parityWordOf (r + 1) n) := by
+        rw [hm_surv_succ.1, hn_res_succ]
+      have hle := Nat.mod_le m (2 ^ (r + 1))
+      omega
+    have hmul_ge : wordDelta (parityWordOf i n) * wordResidue (parityWordOf (r + 1) n) ≤
+        wordDelta (parityWordOf i n) * m :=
+      Nat.mul_le_mul_left _ hm_ge_res
+    rw [hres_succ] at hmul_ge
+    omega
 
 end CollatzProofClosure
 end BBB17

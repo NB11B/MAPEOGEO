@@ -459,4 +459,70 @@ def verify_signed_projective_gap_and_surviving_lifts(max_n: int = 1000) -> Dict[
     }
 
 
+def verify_mechanism_a_delayed_descent_and_quotient_collapse(
+    max_n: int = 1000,
+) -> Dict[str, object]:
+    """
+    Verify Section 8 Mechanism A theorems:
+      1. Self-similar orbit shift: when s_i = F^i(n) - n = q * 2^k,
+         parityWordOf k (F^i(n)) == parityWordOf k n and F^{i+k}(n) == F^k(n) + q * 3^{a_k},
+         with opposite parity when q is odd.
+      2. Delayed-descent surplus valuation lock:
+         - if i + 1 <= r and s_i < n along a non-descending prefix of length r, then s_i % 2 == 0;
+         - if i + 2 <= r and 3 * s_i + 1 < n along a non-descending prefix of length r, then s_i % 4 == 0
+           and (for s_i > 0) s_i >= 4.
+    """
+    trajectories_checked = 0
+    orbit_shift_mismatches = 0
+    parity_flip_mismatches = 0
+    delayed_descent_lock_failures = 0
+
+    for n in range(3, max_n + 1, 2):
+        if n % 4 != 3:
+            continue
+        trajectories_checked += 1
+        # Collect non-descending prefix iterates F^0(n), F^1(n), ..., F^r(n) where F^r(n) < n is the first descent
+        orbit = [n]
+        curr = n
+        while curr >= n:
+            curr = accelerated_collatz(curr)
+            orbit.append(curr)
+        # Last index before descent is r_max = len(orbit) - 2
+        r_max = len(orbit) - 2
+
+        for i in range(1, r_max + 1):
+            s_i = orbit[i] - n
+            if i + 1 <= r_max and s_i < n:
+                if s_i % 2 != 0:
+                    delayed_descent_lock_failures += 1
+            if i + 2 <= r_max and 3 * s_i + 1 < n:
+                if s_i % 4 != 0 or (s_i > 0 and s_i < 4):
+                    delayed_descent_lock_failures += 1
+
+            # Check self-similar orbit shift for all k >= 0 dividing s_i by 2^k
+            if s_i > 0:
+                k = 0
+                while (s_i % (1 << k)) == 0 and (i + k) < len(orbit) and k <= r_max:
+                    q = s_i >> k
+                    w_k = parity_word_of(k, n)
+                    w_ik = parity_word_of(k, orbit[i])
+                    a_k = sum(1 for b in w_k if b)
+                    if w_ik != w_k:
+                        orbit_shift_mismatches += 1
+                    if orbit[i + k] != orbit[k] + q * (3 ** a_k):
+                        orbit_shift_mismatches += 1
+                    if (q & 1) == 1:
+                        if (orbit[i + k] & 1) == (orbit[k] & 1):
+                            parity_flip_mismatches += 1
+                    k += 1
+
+    return {
+        "trajectories_checked": trajectories_checked,
+        "orbit_shift_mismatches": orbit_shift_mismatches,
+        "parity_flip_mismatches": parity_flip_mismatches,
+        "delayed_descent_lock_failures": delayed_descent_lock_failures,
+    }
+
+
+
 
