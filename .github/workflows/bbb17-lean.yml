@@ -1,4 +1,4 @@
-name: BBB17 Lean qualification
+name: BBB17 discovery and Lean qualification
 on:
   push:
     branches: [research/bbb17-lean-proof]
@@ -7,14 +7,23 @@ on:
       - 'experiments/bbb17_lean/**'
       - '.github/workflows/bbb17-lean.yml'
 jobs:
-  compile:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Test discovery and recorded falsification
+        run: |
+          cd experiments/bbb17_lean
+          python -m unittest -v test_discover.py
+          python discover.py --steps 1000000 --out discovery.json
       - uses: leanprover/lean-action@v1
         with:
           lean-version: 'v4.21.0'
-      - run: |
+      - name: Check Lean formal definitions
+        run: |
           cd experiments/bbb17_lean
           lean BBB17.lean
           LEAN_PATH=. lean CollatzBridge.lean
