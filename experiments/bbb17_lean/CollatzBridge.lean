@@ -1,5 +1,5 @@
-/-! Logical reduction obligations for BBB17, distinct from machine correctness. -/
 import BBB17
+/-! Logical reduction obligations for BBB17, distinct from machine correctness. -/
 namespace BBB17
 def collatz (n : Nat) : Nat :=
   if n % 2 = 0 then n / 2 else 3 * n + 1
