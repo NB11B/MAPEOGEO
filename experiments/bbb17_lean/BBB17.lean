@@ -71,7 +71,7 @@ def step (c : Config) : Config :=
     head := if a.right then c.head + 1 else c.head - 1
     tape := fun i => if i = c.head then a.write else c.tape i }
 
-def run (n : Nat) : Config := (step^[n]) initial
+def run (n : Nat) : Config := (Function.iterate step n) initial
 
 def beepsAt (n : Nat) : Prop := exitBeep (run n)
 def Quasihalts : Prop := ∃ cutoff : Nat, ∀ n ≥ cutoff, ¬ beepsAt n
