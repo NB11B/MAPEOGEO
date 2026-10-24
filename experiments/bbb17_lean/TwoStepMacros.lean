@@ -28,7 +28,8 @@ theorem J_one_step_state (p : Int) (t : Int → Bool) :
 -- Exact tape effects of J followed by F at arbitrary tape/head.
 theorem JF_tape_at_start (p : Int) (t : Int → Bool) :
     (step (step ⟨(9 : State), p, t⟩)).tape p = true := by
-  simp [step, action_J, action_F]
+  have hne : p ≠ p + 1 := by omega
+  simp [step, action_J, action_F, hne]
 
 theorem JF_tape_at_next (p : Int) (t : Int → Bool) :
     (step (step ⟨(9 : State), p, t⟩)).tape (p + 1) = false := by
