@@ -654,4 +654,1047 @@ theorem wellFounded_potential_forces_reset (V : Nat → Nat)
     exact (regReachesZero_iff_reachesOne u).mp (hall u)
   exact ⟨hall, hcollatz, fun hqh => quasihalts_implies_not_collatz hqh hcollatz⟩
 
+/-! ### BBB17-R7-001 Gate 2: Corrected Reset Execution Cost Polynomial (`2j^2 + 8j + 6`) -/
+
+/-- Exact step count of the `a`-pass reset loop starting from state `M` at head `s`:
+    `2 * a * (a + s) + 8 * a + s + 4`. -/
+def resetLoopSteps (a s : Nat) : Nat :=
+  2 * a * (a + s) + 8 * a + s + 4
+
+/-- Exact step count of the complete reset phase (`u = 0`) from `canonConfig j 0 v`:
+    `T_reset(j) = 2 * j^2 + 8 * j + 6`. -/
+def resetPhaseSteps (j : Nat) : Nat :=
+  2 * j * j + 8 * j + 6
+
+/-- Previous handoff reset polynomial `j^2 + 8j + 6` (falsified for all `j > 0`). -/
+def handoffResetPoly (j : Nat) : Nat :=
+  j * j + 8 * j + 6
+
+theorem resetLoopSteps_zero (s : Nat) :
+    resetLoopSteps 0 s = s + 4 := by
+  dsimp [resetLoopSteps]
+  omega
+
+theorem resetLoopSteps_succ (a s : Nat) :
+    (2 * a + 2 * s + 9) + resetLoopSteps a (s + 1) = resetLoopSteps (a + 1) s := by
+  dsimp [resetLoopSteps]
+  have h1 : 2 * a * (a + (s + 1)) = 2 * a * (a + s) + 2 * a := by
+    have hs : a + (s + 1) = (a + s) + 1 := by omega
+    rw [hs, Nat.mul_add, Nat.mul_one]
+  have h2 : 2 * (a + 1) * (a + 1 + s) = 2 * a * (a + s) + 2 * (a + s) + 2 * (a + 1) := by
+    have hs : a + 1 + s = (a + s) + 1 := by omega
+    have ha : 2 * (a + 1) = 2 * a + 2 := by omega
+    rw [hs, Nat.mul_add, Nat.mul_one, ha, Nat.add_mul]
+  omega
+
+theorem two_add_resetLoopSteps_zero (j : Nat) :
+    2 + resetLoopSteps j 0 = resetPhaseSteps j := by
+  dsimp [resetLoopSteps, resetPhaseSteps]
+  omega
+
+/-- Exact cost and beep theorem for the `a`-pass reset loop:
+    In `resetLoopSteps a s = 2*a*(a+s) + 8*a + s + 4` steps, the machine visits
+    beep state `O` (14) `a + 1` times, emits its terminal beep at `resetLoopSteps a s - 1`,
+    and reaches state `A` at head `0` on `updateTape (resetTape 0 (a + s) v) (-2) true`. -/
+theorem reset_loop_run_exact_cost_and_beeps (a s v : Nat) :
+    beepsInSteps (resetLoopSteps a s) ⟨(12 : State), (s : Int), resetTape a s v⟩ = a + 1 ∧
+    exitBeep (iterateStep (resetLoopSteps a s - 1) ⟨(12 : State), (s : Int), resetTape a s v⟩) ∧
+    iterateStep (resetLoopSteps a s) ⟨(12 : State), (s : Int), resetTape a s v⟩ =
+      ⟨(0 : State), 0, updateTape (resetTape 0 (a + s) v) (-2 : Int) true⟩ := by
+  induction a generalizing s with
+  | zero =>
+    rw [resetLoopSteps_zero]
+    refine ⟨reset_loop_base_beeps_one s v, ?_, ?_⟩
+    · have hsub : (s + 4) - 1 = s + 3 := by omega
+      rw [hsub, reset_loop_base_to_beep s v]
+      rfl
+    · have hsplit : s + 4 = (s + 3) + 1 := by omega
+      rw [hsplit, iterateStep_add (s + 3) 1, reset_loop_base_to_beep s v, iterateStep_one]
+      simpa using reset_loop_beep_to_A s v
+  | succ a ih =>
+    rcases ih (s + 1) with ⟨hbeeps, hbeep, hrun⟩
+    rw [← resetLoopSteps_succ a s]
+    have hpos : resetLoopSteps a (s + 1) ≥ 4 := by
+      dsimp [resetLoopSteps]; omega
+    refine ⟨?_, ?_, ?_⟩
+    · rw [beepsInSteps_add (2 * a + 2 * s + 9) (resetLoopSteps a (s + 1)),
+        reset_loop_pass_beeps_one a s v, reset_loop_pass a s v, hbeeps]
+      omega
+    · have hsub : (2 * a + 2 * s + 9) + resetLoopSteps a (s + 1) - 1 =
+        (2 * a + 2 * s + 9) + (resetLoopSteps a (s + 1) - 1) := by omega
+      rw [hsub, iterateStep_add (2 * a + 2 * s + 9) (resetLoopSteps a (s + 1) - 1),
+        reset_loop_pass a s v]
+      exact hbeep
+    · rw [iterateStep_add (2 * a + 2 * s + 9) (resetLoopSteps a (s + 1)),
+        reset_loop_pass a s v, hrun]
+      have has : a + (s + 1) = a + 1 + s := by omega
+      rw [has]
+
+/-- Certified Reset Execution Cost and Beep Theorem (`T_reset(j) = 2j^2 + 8j + 6`):
+    From `canonConfig j 0 v`, the BBB17 machine takes **exactly `2 * j * j + 8 * j + 6` steps**,
+    emits **exactly `j + 1` beeps** (with the terminal beep at step `2 * j * j + 8 * j + 5`),
+    and arrives at `canonConfig (j + 1) (j + 1) (v - (j + 1))`. -/
+theorem resetPhase_exact_cost_and_beeps (j v : Nat) :
+    beepsInSteps (resetPhaseSteps j) (canonConfig j 0 v) = j + 1 ∧
+    exitBeep (iterateStep (resetPhaseSteps j - 1) (canonConfig j 0 v)) ∧
+    iterateStep (resetPhaseSteps j) (canonConfig j 0 v) =
+      canonConfig (resetPhase j v).1 (resetPhase j v).2.1 (resetPhase j v).2.2 := by
+  rcases reset_loop_run_exact_cost_and_beeps j 0 v with ⟨hbeeps, hbeep, hrun⟩
+  rw [← two_add_resetLoopSteps_zero j]
+  have hpos : resetLoopSteps j 0 ≥ 4 := by
+    dsimp [resetLoopSteps]; omega
+  refine ⟨?_, ?_, ?_⟩
+  · rw [beepsInSteps_add 2 (resetLoopSteps j 0), reset_init_beeps_zero j v,
+      resetPhase_init_two_steps j v, hbeeps, Nat.zero_add]
+  · have hsub : 2 + resetLoopSteps j 0 - 1 = 2 + (resetLoopSteps j 0 - 1) := by omega
+    rw [hsub, iterateStep_add 2 (resetLoopSteps j 0 - 1), resetPhase_init_two_steps j v]
+    exact hbeep
+  · rw [iterateStep_add 2 (resetLoopSteps j 0), resetPhase_init_two_steps j v, hrun]
+    have hj0 : j + 0 = j := by omega
+    rw [hj0]
+    simp only [canonConfig, resetPhase]
+    congr 1
+    funext i; rw [Bool_eq_iff]
+    simp only [updateTape_true_iff, resetTape_true_iff, canonTape_true_iff]
+    omega
+
+/-- Exact discrepancy between the true reset cost `2j^2 + 8j + 6` and the falsified
+    handoff polynomial `j^2 + 8j + 6`: the difference is `j^2`. -/
+theorem resetPhaseSteps_sub_handoffResetPoly (j : Nat) :
+    resetPhaseSteps j - handoffResetPoly j = j * j := by
+  dsimp [resetPhaseSteps, handoffResetPoly]
+  have h2 : 2 * j * j = j * j + j * j := by
+    rw [Nat.succ_mul 1 j, Nat.one_mul, Nat.add_mul]
+  omega
+
+/-- Formal falsification of `handoffResetPoly`: for every `j > 0`,
+    `resetPhaseSteps j ≠ j^2 + 8j + 6`. -/
+theorem resetPhaseSteps_ne_handoffResetPoly (j : Nat) (hj : j > 0) :
+    resetPhaseSteps j ≠ handoffResetPoly j := by
+  have hpos : j * j > 0 := Nat.mul_pos hj hj
+  have hsub := resetPhaseSteps_sub_handoffResetPoly j
+  omega
+
+/-! ### BBB17-R7-001 Gate 3: Parity-Word Residue Bijection Modulo `2^r` -/
+
+/-- Deterministic extraction of the length-`r` accelerated Collatz parity word of `m`. -/
+def parityWordOf : Nat → Nat → List Bool
+  | 0, _ => []
+  | r + 1, m => (m % 2 == 1) :: parityWordOf r (acceleratedCollatz m)
+
+theorem parityWordOf_length (r m : Nat) : (parityWordOf r m).length = r := by
+  induction r generalizing m with
+  | zero => rfl
+  | succ r ih =>
+    dsimp [parityWordOf]
+    rw [ih]
+
+theorem stepParityMatches_of_beq (m : Nat) :
+    stepParityMatches m (m % 2 == 1) := by
+  by_cases h : m % 2 = 1
+  · have hb : (m % 2 == 1) = true := beq_iff_eq.mpr h
+    rw [hb]
+    dsimp [stepParityMatches]
+    exact h
+  · have hb : (m % 2 == 1) = false := beq_false_of_ne h
+    rw [hb]
+    dsimp [stepParityMatches]
+    omega
+
+theorem parityWordOf_valid (r m : Nat) :
+    validParityWord m (parityWordOf r m) := by
+  induction r generalizing m with
+  | zero => trivial
+  | succ r ih =>
+    dsimp [parityWordOf, validParityWord]
+    exact ⟨stepParityMatches_of_beq m, ih (acceleratedCollatz m)⟩
+
+theorem stepParityMatches_unique (m : Nat) (b₁ b₂ : Bool)
+    (h₁ : stepParityMatches m b₁) (h₂ : stepParityMatches m b₂) :
+    b₁ = b₂ := by
+  cases b₁ <;> cases b₂
+  · rfl
+  · dsimp [stepParityMatches] at h₁ h₂; omega
+  · dsimp [stepParityMatches] at h₁ h₂; omega
+  · rfl
+
+theorem validParityWord_unique (w₁ w₂ : List Bool) (m : Nat)
+    (hlen : w₁.length = w₂.length)
+    (hv₁ : validParityWord m w₁) (hv₂ : validParityWord m w₂) :
+    w₁ = w₂ := by
+  induction w₁ generalizing w₂ m with
+  | nil =>
+    cases w₂ with
+    | nil => rfl
+    | cons _ _ => contradiction
+  | cons b₁ bs₁ ih =>
+    cases w₂ with
+    | nil => contradiction
+    | cons b₂ bs₂ =>
+      dsimp at hlen
+      rcases hv₁ with ⟨hp₁, ht₁⟩
+      rcases hv₂ with ⟨hp₂, ht₂⟩
+      have hb : b₁ = b₂ := stepParityMatches_unique m b₁ b₂ hp₁ hp₂
+      have hbs : bs₁ = bs₂ := ih bs₂ (acceleratedCollatz m) (by omega) ht₁ ht₂
+      rw [hb, hbs]
+
+theorem validParityWord_iff_eq_parityWordOf (w : List Bool) (m : Nat) :
+    validParityWord m w ↔ parityWordOf w.length m = w := by
+  constructor
+  · intro hv
+    exact validParityWord_unique (parityWordOf w.length m) w m
+      (parityWordOf_length w.length m) (parityWordOf_valid w.length m) hv
+  · intro heq
+    rw [← heq]
+    exact parityWordOf_valid w.length m
+
+/-- Constructive odd-branch modular lift: given `D = 2^s` (`D % 3 ≠ 0`) and `R < D`,
+    selects `q ∈ {0, 1, 2}` such that `R + q * D ≡ 2 (mod 3)` and returns
+    `m = 2 * ((R + q * D - 2) / 3) + 1 < 2 * D`, satisfying `acceleratedCollatz m = R + q * D`. -/
+def oddStepLift (D R : Nat) : Nat :=
+  let q := if R % 3 = 2 then 0 else if (R + D) % 3 = 2 then 1 else 2
+  2 * ((R + q * D - 2) / 3) + 1
+
+/-- Canonical minimal non-negative residue representative `wordResidue w < wordD w`
+    for any parity word `w : List Bool`. -/
+def wordResidue : List Bool → Nat
+  | [] => 0
+  | false :: bs => 2 * wordResidue bs
+  | true :: bs => oddStepLift (wordD bs) (wordResidue bs)
+
+theorem wordD_mod_three (w : List Bool) : wordD w % 3 = 1 ∨ wordD w % 3 = 2 := by
+  induction w with
+  | nil =>
+    dsimp [wordD]
+    omega
+  | cons b bs ih =>
+    dsimp [wordD]
+    omega
+
+theorem oddStepLift_spec (D R : Nat) (hD : D % 3 = 1 ∨ D % 3 = 2) (hR : R < D) :
+    oddStepLift D R < 2 * D ∧
+    stepParityMatches (oddStepLift D R) true ∧
+    ∃ q : Nat, acceleratedCollatz (oddStepLift D R) = R + q * D := by
+  dsimp [oddStepLift]
+  by_cases h0 : R % 3 = 2
+  · rw [if_pos h0]
+    refine ⟨by omega, ?_, 0, ?_⟩
+    · dsimp [stepParityMatches]; omega
+    · unfold acceleratedCollatz
+      have hodd : ¬((2 * ((R + 0 * D - 2) / 3) + 1) % 2 = 0) := by omega
+      rw [if_neg hodd]
+      omega
+  · rw [if_neg h0]
+    by_cases h1 : (R + D) % 3 = 2
+    · rw [if_pos h1]
+      refine ⟨by omega, ?_, 1, ?_⟩
+      · dsimp [stepParityMatches]; omega
+      · unfold acceleratedCollatz
+        have hodd : ¬((2 * ((R + 1 * D - 2) / 3) + 1) % 2 = 0) := by omega
+        rw [if_neg hodd]
+        omega
+    · rw [if_neg h1]
+      refine ⟨by omega, ?_, 2, ?_⟩
+      · dsimp [stepParityMatches]; omega
+      · unfold acceleratedCollatz
+        have hodd : ¬((2 * ((R + 2 * D - 2) / 3) + 1) % 2 = 0) := by omega
+        rw [if_neg hodd]
+        omega
+
+/-- Every parity word `w` has a canonical representative `wordResidue w < wordD w = 2^|w|`
+    satisfying `validParityWord (wordResidue w) w`. -/
+theorem wordResidue_spec (w : List Bool) :
+    wordResidue w < wordD w ∧ validParityWord (wordResidue w) w := by
+  induction w with
+  | nil =>
+    dsimp [wordResidue, wordD, validParityWord]
+    exact ⟨by omega, trivial⟩
+  | cons b bs ih =>
+    rcases ih with ⟨hlt, hvalid⟩
+    cases b with
+    | false =>
+      dsimp [wordResidue, wordD, validParityWord]
+      refine ⟨by omega, ?_, ?_⟩
+      · dsimp [stepParityMatches]; omega
+      · have hc : acceleratedCollatz (2 * wordResidue bs) = wordResidue bs := by
+          unfold acceleratedCollatz
+          have hev : (2 * wordResidue bs) % 2 = 0 := by omega
+          rw [if_pos hev]
+          omega
+        rw [hc]
+        exact hvalid
+    | true =>
+      dsimp [wordResidue, wordD, validParityWord]
+      rcases oddStepLift_spec (wordD bs) (wordResidue bs) (wordD_mod_three bs) hlt
+        with ⟨hlt', hp', q, hq⟩
+      refine ⟨hlt', hp', ?_⟩
+      rw [hq]
+      exact (parityWord_residue_shift bs (wordResidue bs) q hvalid).1
+
+theorem wordResidue_lt_wordD (w : List Bool) : wordResidue w < wordD w :=
+  (wordResidue_spec w).1
+
+theorem wordResidue_valid (w : List Bool) : validParityWord (wordResidue w) w :=
+  (wordResidue_spec w).2
+
+/-- Coprimality of `3` and `2^|w|`: if `2^|w|` divides `3 * d`, then `2^|w|` divides `d`. -/
+theorem three_mul_mod_wordD_eq_zero (w : List Bool) (d : Nat)
+    (h : (3 * d) % wordD w = 0) : d % wordD w = 0 := by
+  induction w generalizing d with
+  | nil =>
+    dsimp [wordD]
+    omega
+  | cons b bs ih =>
+    dsimp [wordD] at h ⊢
+    have hmod2 : (2 * wordD bs) % 2 = 0 := by omega
+    have h3even : (3 * d) % 2 = 0 := by
+      have hdvd : wordD bs * 2 ∣ 3 * d := by
+        rw [Nat.mul_comm]
+        exact Nat.dvd_of_mod_eq_zero h
+      have h2dvd : 2 ∣ 3 * d := Nat.dvd_trans (Nat.dvd_mul_left 2 (wordD bs)) hdvd
+      exact Nat.mod_eq_zero_of_dvd h2dvd
+    have hd_eq : d = 2 * (d / 2) := by omega
+    have h3 : (3 * (d / 2)) % wordD bs = 0 := by
+      have hmul : 3 * d = 2 * (3 * (d / 2)) := by omega
+      rw [hmul, Nat.mul_mod_mul_left] at h
+      omega
+    have ih_d := ih (d / 2) h3
+    rw [hd_eq, Nat.mul_mod_mul_left, ih_d]
+
+/-- Any two natural numbers `m₁ ≤ m₂` sharing a valid parity word `w` are congruent mod `wordD w`. -/
+theorem validParityWord_sub_mod_wordD_eq_zero (w : List Bool) :
+    ∀ m₁ m₂ : Nat, validParityWord m₁ w → validParityWord m₂ w → m₁ ≤ m₂ →
+      (m₂ - m₁) % wordD w = 0 := by
+  induction w with
+  | nil =>
+    intro m₁ m₂ _ _ _
+    dsimp [wordD]
+    omega
+  | cons b bs ih =>
+    intro m₁ m₂ hv₁ hv₂ hle
+    rcases hv₁ with ⟨hp₁, ht₁⟩
+    rcases hv₂ with ⟨hp₂, ht₂⟩
+    dsimp [wordD]
+    cases b with
+    | false =>
+      dsimp [stepParityMatches] at hp₁ hp₂
+      have hc₁ : acceleratedCollatz m₁ = m₁ / 2 := by
+        unfold acceleratedCollatz; rw [if_pos hp₁]
+      have hc₂ : acceleratedCollatz m₂ = m₂ / 2 := by
+        unfold acceleratedCollatz; rw [if_pos hp₂]
+      rw [hc₁] at ht₁
+      rw [hc₂] at ht₂
+      have hih := ih (m₁ / 2) (m₂ / 2) ht₁ ht₂ (by omega)
+      have hsub : m₂ - m₁ = 2 * (m₂ / 2 - m₁ / 2) := by omega
+      rw [hsub, Nat.mul_mod_mul_left, hih]
+    | true =>
+      dsimp [stepParityMatches] at hp₁ hp₂
+      have hne₁ : ¬(m₁ % 2 = 0) := by omega
+      have hne₂ : ¬(m₂ % 2 = 0) := by omega
+      have hc₁ : acceleratedCollatz m₁ = 3 * (m₁ / 2) + 2 := by
+        unfold acceleratedCollatz; rw [if_neg hne₁]; omega
+      have hc₂ : acceleratedCollatz m₂ = 3 * (m₂ / 2) + 2 := by
+        unfold acceleratedCollatz; rw [if_neg hne₂]; omega
+      rw [hc₁] at ht₁
+      rw [hc₂] at ht₂
+      have hih := ih (3 * (m₁ / 2) + 2) (3 * (m₂ / 2) + 2) ht₁ ht₂ (by omega)
+      have h3 : (3 * (m₂ / 2 - m₁ / 2)) % wordD bs = 0 := by
+        have heq : (3 * (m₂ / 2) + 2) - (3 * (m₁ / 2) + 2) = 3 * (m₂ / 2 - m₁ / 2) := by omega
+        rw [← heq]
+        exact hih
+      have hd := three_mul_mod_wordD_eq_zero bs (m₂ / 2 - m₁ / 2) h3
+      have hsub : m₂ - m₁ = 2 * (m₂ / 2 - m₁ / 2) := by omega
+      rw [hsub, Nat.mul_mod_mul_left, hd]
+
+/-- Uniqueness of the residue representative `< wordD w` for any parity word `w`. -/
+theorem validParityWord_eq_of_lt_wordD (w : List Bool) (r₁ r₂ : Nat)
+    (hr₁ : r₁ < wordD w) (hr₂ : r₂ < wordD w)
+    (hv₁ : validParityWord r₁ w) (hv₂ : validParityWord r₂ w) :
+    r₁ = r₂ := by
+  by_cases hle : r₁ ≤ r₂
+  · have hmod := validParityWord_sub_mod_wordD_eq_zero w r₁ r₂ hv₁ hv₂ hle
+    have hlt : r₂ - r₁ < wordD w := by omega
+    have hzero : r₂ - r₁ = 0 := by
+      rw [← Nat.mod_eq_of_lt hlt]
+      exact hmod
+    omega
+  · have hle' : r₂ ≤ r₁ := by omega
+    have hmod := validParityWord_sub_mod_wordD_eq_zero w r₂ r₁ hv₂ hv₁ hle'
+    have hlt : r₁ - r₂ < wordD w := by omega
+    have hzero : r₁ - r₂ = 0 := by
+      rw [← Nat.mod_eq_of_lt hlt]
+      exact hmod
+    omega
+
+theorem wordD_eq_pow_two_length (w : List Bool) :
+    wordD w = 2 ^ w.length := by
+  induction w with
+  | nil => rfl
+  | cons _ bs ih =>
+    dsimp [wordD]
+    rw [ih, Nat.pow_succ, Nat.mul_comm]
+
+theorem wordD_eq_of_length_eq (w₁ w₂ : List Bool) (h : w₁.length = w₂.length) :
+    wordD w₁ = wordD w₂ := by
+  rw [wordD_eq_pow_two_length w₁, wordD_eq_pow_two_length w₂, h]
+
+/-- Exact Parity-Word Residue Bijection Theorem (`validParityWord m w ↔ m % 2^|w| = wordResidue w`):
+    For every parity word `w : List Bool` and every natural number `m : Nat`,
+    `m` has parity word `w` if and only if `m` belongs to the unique residue class
+    `wordResidue w` modulo `wordD w = 2^|w|`. -/
+theorem validParityWord_iff_mod_eq_wordResidue (w : List Bool) (m : Nat) :
+    validParityWord m w ↔ m % wordD w = wordResidue w := by
+  constructor
+  · intro hv
+    let r := m % wordD w
+    let q := m / wordD w
+    let w' := parityWordOf w.length r
+    have hlen' : w'.length = w.length := parityWordOf_length w.length r
+    have hD' : wordD w' = wordD w := wordD_eq_of_length_eq w' w hlen'
+    have hvr : validParityWord r w' := parityWordOf_valid w.length r
+    have hvm' : validParityWord (r + q * wordD w') w' :=
+      (parityWord_residue_shift w' r q hvr).1
+    have hdecomp : r + q * wordD w' = m := by
+      rw [hD', Nat.mul_comm q (wordD w)]
+      exact (Nat.mod_add_div m (wordD w))
+    rw [hdecomp] at hvm'
+    have hw_eq : w' = w := validParityWord_unique w' w m hlen' hvm' hv
+    rw [hw_eq] at hvr
+    have hr_lt : r < wordD w := Nat.mod_lt m (wordD_pos w)
+    exact validParityWord_eq_of_lt_wordD w r (wordResidue w) hr_lt
+      (wordResidue_lt_wordD w) hvr (wordResidue_valid w)
+  · intro hmod
+    have hdecomp : wordResidue w + (m / wordD w) * wordD w = m := by
+      rw [← hmod, Nat.mul_comm (m / wordD w) (wordD w)]
+      exact Nat.mod_add_div m (wordD w)
+    rw [← hdecomp]
+    exact (parityWord_residue_shift w (wordResidue w) (m / wordD w) (wordResidue_valid w)).1
+
+/-- Left inverse of the bijection between length-`r` parity words and residues `< 2^r`. -/
+theorem parityWordOf_wordResidue (w : List Bool) :
+    parityWordOf w.length (wordResidue w) = w :=
+  (validParityWord_iff_eq_parityWordOf w (wordResidue w)).mp (wordResidue_valid w)
+
+/-- Right inverse of the bijection between residues `m < 2^r` and length-`r` parity words. -/
+theorem wordResidue_parityWordOf (r m : Nat) (hm : m < 2 ^ r) :
+    wordResidue (parityWordOf r m) = m := by
+  let w := parityWordOf r m
+  have hD : wordD w = 2 ^ r := by
+    rw [wordD_eq_pow_two_length w, parityWordOf_length r m]
+  have hm_lt : m < wordD w := by omega
+  exact validParityWord_eq_of_lt_wordD w (wordResidue w) m
+    (wordResidue_lt_wordD w) hm_lt (wordResidue_valid w) (parityWordOf_valid r m)
+
+/-! ### BBB17-R7-001 Gate 4: Mechanized Length-7 Operator Catalog Check -/
+
+/-- Decidable boolean version of `stepParityMatches`. -/
+def stepParityMatchesBool (m : Nat) (b : Bool) : Bool :=
+  if b then m % 2 == 1 else m % 2 == 0
+
+/-- Decidable boolean version of `validParityWord`. -/
+def validParityWordBool : Nat → List Bool → Bool
+  | _, [] => true
+  | m, b :: bs => stepParityMatchesBool m b && validParityWordBool (acceleratedCollatz m) bs
+
+theorem stepParityMatchesBool_eq_true_iff (m : Nat) (b : Bool) :
+    stepParityMatchesBool m b = true ↔ stepParityMatches m b := by
+  cases b <;> dsimp [stepParityMatchesBool, stepParityMatches] <;> exact beq_iff_eq
+
+theorem validParityWordBool_eq_true_iff (w : List Bool) :
+    ∀ m : Nat, validParityWordBool m w = true ↔ validParityWord m w := by
+  induction w with
+  | nil =>
+    intro m
+    simp [validParityWordBool, validParityWord]
+  | cons b bs ih =>
+    intro m
+    dsimp [validParityWordBool, validParityWord]
+    rw [Bool.and_eq_true, stepParityMatchesBool_eq_true_iff, ih (acceleratedCollatz m)]
+
+/-- Complete enumeration of all `2^r` parity words of length `r`. -/
+def allParityWords : Nat → List (List Bool)
+  | 0 => [[]]
+  | r + 1 => (allParityWords r).map (false :: ·) ++ (allParityWords r).map (true :: ·)
+
+/-- Decidable positive fixed-point rejection certificate for a parity word `w`:
+    returns `true` if either `w` is expanding (`wordA w ≥ wordD w` with `wordB w > 0`)
+    or `w` is contracting (`wordD w > wordA w`) and the unique rational candidate
+    `q = wordB w / (wordD w - wordA w)` fails divisibility, positivity, or parity validity. -/
+def wordRejectsPosCycle (w : List Bool) : Bool :=
+  if wordA w ≥ wordD w then
+    decide (wordB w > 0)
+  else
+    let gap := wordD w - wordA w
+    let q := wordB w / gap
+    decide (wordB w % gap ≠ 0) || decide (q = 0) || !validParityWordBool q w
+
+/-- Soundness of `wordRejectsPosCycle`: if `wordRejectsPosCycle w = true`, then
+    no positive integer `m > 0` can be a valid fixed point of `w`. -/
+theorem wordRejectsPosCycle_sound (w : List Bool)
+    (hcert : wordRejectsPosCycle w = true) (m : Nat) (hm : m > 0)
+    (hvalid : validParityWord m w) :
+    applyParityWord m w ≠ m := by
+  unfold wordRejectsPosCycle at hcert
+  by_cases hge : wordA w ≥ wordD w
+  · rw [if_pos hge] at hcert
+    have hB : wordB w > 0 := of_decide_eq_true hcert
+    exact no_cycle_when_wordA_ge_wordD w m hvalid hge hB
+  · rw [if_neg hge] at hcert
+    have hgt : wordD w > wordA w := by omega
+    intro hcycle
+    have hq_eq : m = wordB w / (wordD w - wordA w) :=
+      contracting_cycle_eq_quotient w m hvalid hgt hcycle
+    by_cases hdvd : wordB w % (wordD w - wordA w) = 0
+    · have hvb : validParityWordBool (wordB w / (wordD w - wordA w)) w = true := by
+        rw [validParityWordBool_eq_true_iff, ← hq_eq]
+        exact hvalid
+      have hq_ne0 : wordB w / (wordD w - wordA w) ≠ 0 := by omega
+      have h1 : decide (wordB w % (wordD w - wordA w) ≠ 0) = false :=
+        decide_eq_false (by omega)
+      have h2 : decide (wordB w / (wordD w - wordA w) = 0) = false :=
+        decide_eq_false hq_ne0
+      dsimp at hcert
+      rw [h1, h2, hvb] at hcert
+      contradiction
+    · exact no_cycle_when_gap_not_dvd_B w m hvalid hgt hdvd hcycle
+
+set_option maxRecDepth 20000
+
+/-- Exact catalog size check: there are `128` parity words of length `7`. -/
+theorem length7_catalog_size : (allParityWords 7).length = 128 := by decide
+
+/-- Kernel-checked finite verification across all 128 parity words of length 7:
+    every word in `allParityWords 7` satisfies `wordRejectsPosCycle`. -/
+theorem length7_all_reject_pos_cycle :
+    ((allParityWords 7).all wordRejectsPosCycle) = true := by decide
+
+/-- Universal Length-7 Fixed-Point Falsification Theorem (Track R7-C):
+    For every length-7 parity word `w ∈ allParityWords 7` and every positive integer `m > 0`,
+    if `validParityWord m w` holds, then `applyParityWord m w ≠ m`. -/
+theorem length7_no_positive_fixed_point (w : List Bool)
+    (hw : w ∈ allParityWords 7) (m : Nat) (hm : m > 0)
+    (hvalid : validParityWord m w) :
+    applyParityWord m w ≠ m := by
+  have hcert : wordRejectsPosCycle w = true :=
+    (List.all_eq_true.mp length7_all_reject_pos_cycle) w hw
+  exact wordRejectsPosCycle_sound w hcert m hm hvalid
+
+/-! ### BBB17-R7-001 Gate 5: Control-Cycle Falsification (R7-A) & Odd-Modulus Generalization (R7-B) -/
+
+/-- Membership in the 7-state reset subsystem `{A=0, L=11, M=12, N=13, O=14, P=15, Q=16}`. -/
+def isResetSubstate (q : State) : Bool :=
+  q == (0 : State) || decide (q.val ≥ 11)
+
+/-- Directed control-graph edge inside the 7-state reset subsystem `{A, L, M, N, O, P, Q}`. -/
+def resetSubEdge (q₁ q₂ : State) : Bool :=
+  isResetSubstate q₁ && isResetSubstate q₂ &&
+    ((action q₁ false).next == q₂ || (action q₁ true).next == q₂)
+
+/-- The 7 states of the reset subsystem. -/
+def resetSubStates : List State :=
+  [(0 : State), (11 : State), (12 : State), (13 : State), (14 : State), (15 : State), (16 : State)]
+
+/-- Exact 6-state repeating control cycle `L(11) → M(12) → N(13) → O(14) → P(15) → Q(16) → L(11)`
+    inside the reset subsystem (Track R7-A). -/
+theorem reset_six_state_cycle_certified :
+    resetSubEdge (11 : State) (12 : State) = true ∧
+    resetSubEdge (12 : State) (13 : State) = true ∧
+    resetSubEdge (13 : State) (14 : State) = true ∧
+    resetSubEdge (14 : State) (15 : State) = true ∧
+    resetSubEdge (15 : State) (16 : State) = true ∧
+    resetSubEdge (16 : State) (11 : State) = true := by decide
+
+/-- Exact 5-state entry/exit control cycle `A(0) → L(11) → M(12) → N(13) → O(14) → A(0)`
+    inside the reset subsystem (Track R7-A). -/
+theorem reset_five_state_cycle_certified :
+    resetSubEdge (0 : State) (11 : State) = true ∧
+    resetSubEdge (11 : State) (12 : State) = true ∧
+    resetSubEdge (12 : State) (13 : State) = true ∧
+    resetSubEdge (13 : State) (14 : State) = true ∧
+    resetSubEdge (14 : State) (0 : State) = true := by decide
+
+/-- Recursive search for any simple cycle of length `len` starting at `start`
+    inside the 7-state reset subsystem `{A, L, M, N, O, P, Q}`. -/
+def hasSimpleResetWalkToStart (start curr : State) (visited : List State) : Nat → Bool
+  | 0 => false
+  | 1 => resetSubEdge curr start
+  | k + 2 =>
+    resetSubStates.any (fun nxt =>
+      resetSubEdge curr nxt && !(visited.elem nxt) &&
+        hasSimpleResetWalkToStart start nxt (nxt :: visited) (k + 1))
+
+/-- Check whether ANY state in `resetSubStates` initiates a simple cycle of length `len`
+    in the reset subsystem `{A, L, M, N, O, P, Q}`. -/
+def hasSimpleResetCycleOfLength (len : Nat) : Bool :=
+  resetSubStates.any (fun s => hasSimpleResetWalkToStart s s [s] len)
+
+/-- Track R7-A Formal Qualification:
+    The 7-state reset subsystem `{A, L, M, N, O, P, Q}` has primitive cycles of lengths
+    `1`, `5`, and `6`, and **no simple 7-state cycle** (`hasSimpleResetCycleOfLength 7 = false`). -/
+theorem reset_subsystem_cycle_spectrum :
+    hasSimpleResetCycleOfLength 1 = true ∧
+    hasSimpleResetCycleOfLength 5 = true ∧
+    hasSimpleResetCycleOfLength 6 = true ∧
+    hasSimpleResetCycleOfLength 7 = false := by decide
+
+/-- Track R7-B General Odd-Modulus Singleton Theorem:
+    For EVERY odd modulus `q = 2 * k + 1` and residue `r < 2 * k + 1`, the doubled
+    even-branch value `r` (`2 * C(m) = m ≡ r`) and doubled odd-branch value `3 * r + 1`
+    (`2 * C(m) = 3m + 1 ≡ 3r + 1`) coincide modulo `2 * k + 1` if and only if
+    `r = k = (q - 1) / 2` (equivalently `2 * r + 1 ≡ 0 (mod 2 * k + 1)`).
+    In particular, `q = 7` (`k = 3`, singleton `r = 3`) is an instance of `r = k`
+    alongside `q = 3` (`r = 1`), `q = 5` (`r = 2`), `q = 21` (`r = 10`), and `q = 49` (`r = 24`). -/
+theorem oddModulus_singleton_iff (k r : Nat) (hr : r < 2 * k + 1) :
+    (3 * r + 1) % (2 * k + 1) = r % (2 * k + 1) ↔ r = k := by
+  have hr_mod : r % (2 * k + 1) = r := Nat.mod_eq_of_lt hr
+  by_cases h1 : 3 * r + 1 < 2 * k + 1
+  · have hm1 : (3 * r + 1) % (2 * k + 1) = 3 * r + 1 := Nat.mod_eq_of_lt h1
+    rw [hm1, hr_mod]
+    omega
+  · by_cases h2 : 3 * r + 1 < 2 * (2 * k + 1)
+    · have hsub_lt : (3 * r + 1) - (2 * k + 1) < 2 * k + 1 := by omega
+      have hdecomp : ((3 * r + 1) - (2 * k + 1)) + (2 * k + 1) = 3 * r + 1 := by omega
+      have hm2 : (((3 * r + 1) - (2 * k + 1)) + (2 * k + 1)) % (2 * k + 1) =
+          (3 * r + 1) - (2 * k + 1) := by
+        rw [Nat.add_mod_right, Nat.mod_eq_of_lt hsub_lt]
+      rw [hdecomp] at hm2
+      rw [hm2, hr_mod]
+      omega
+    · have hsub_lt : (3 * r + 1) - 2 * (2 * k + 1) < 2 * k + 1 := by omega
+      have hdecomp : (((3 * r + 1) - 2 * (2 * k + 1)) + (2 * k + 1)) + (2 * k + 1) =
+          3 * r + 1 := by omega
+      have hm3 : ((((3 * r + 1) - 2 * (2 * k + 1)) + (2 * k + 1)) + (2 * k + 1)) % (2 * k + 1) =
+          (3 * r + 1) - 2 * (2 * k + 1) := by
+        rw [Nat.add_mod_right, Nat.add_mod_right, Nat.mod_eq_of_lt hsub_lt]
+      rw [hdecomp] at hm3
+      rw [hm3, hr_mod]
+      omega
+
+/-! ### Collatz Convergence Program: Gates C1–C5
+    - **Gate C1**: Symbolic parity words, exact trajectory-to-word correspondence, and residue-class affine operators.
+    - **Gate C2**: Unconditional spectral contraction (`2^r > 3^a`) for all positive cycles and arbitrary-period 1-circuit cycle exclusion.
+    - **Gate C3**: Exact parity-cylinder descent threshold `(2^r - 3^a) * m > B(w)` and universal asymptotic descent on every contracting cylinder.
+    - **Gate C4 & C5**: Equivalence `UniversalCollatzDescent ↔ UniversalAcceleratedDescent ↔ CollatzConjecture`, unconditional descent on infinite residue classes (`0 mod 2`, `1 mod 4`, `3 mod 16`, `11 mod 32`, `23 mod 32`), and exact reduction of `CollatzConjecture` to the surviving residue frontier (`{7, 15, 19, 27, 31} mod 32`).
+-/
+
+/-- `r`-step iteration of `acceleratedCollatz`. -/
+def iterateAccelerated : Nat → Nat → Nat
+  | m, 0 => m
+  | m, r + 1 => iterateAccelerated (acceleratedCollatz m) r
+
+/-- Gate C1: Applying `parityWordOf r m` to `m` computes `iterateAccelerated m r`. -/
+theorem applyParityWord_parityWordOf (r m : Nat) :
+    applyParityWord m (parityWordOf r m) = iterateAccelerated m r := by
+  induction r generalizing m with
+  | zero => rfl
+  | succ r ih =>
+    dsimp [parityWordOf, applyParityWord, iterateAccelerated]
+    exact ih (acceleratedCollatz m)
+
+/-- Gate C1: Universal exact affine trajectory identity for `iterateAccelerated m r`. -/
+theorem iterateAccelerated_exact_affine (r m : Nat) :
+    wordD (parityWordOf r m) * iterateAccelerated m r =
+      wordA (parityWordOf r m) * m + wordB (parityWordOf r m) := by
+  rw [← applyParityWord_parityWordOf r m]
+  exact parityWord_affine_identity (parityWordOf r m) m (parityWordOf_valid r m)
+
+/-- Gate C1: Exact linear representation on the residue class `wordResidue w + q * 2^|w|`. -/
+theorem applyParityWord_on_residue_class (w : List Bool) (q : Nat) :
+    applyParityWord (wordResidue w + q * wordD w) w =
+      applyParityWord (wordResidue w) w + q * wordA w :=
+  (parityWord_residue_shift w (wordResidue w) q (wordResidue_valid w)).2
+
+/-! #### Gate C2: Arbitrary-Period Cycle Obstructions -/
+
+/-- A parity word `w` has `wordB w = 0` if and only if `wordA w = 1` (all steps even). -/
+theorem wordB_eq_zero_iff_wordA_eq_one (w : List Bool) :
+    wordB w = 0 ↔ wordA w = 1 := by
+  induction w with
+  | nil =>
+    dsimp [wordB, wordA]
+    omega
+  | cons b bs ih =>
+    cases b with
+    | false =>
+      dsimp [wordB, wordA]
+      omega
+    | true =>
+      dsimp [wordB, wordA]
+      have hA := wordA_pos bs
+      omega
+
+/-- Every non-empty parity word `w ≠ []` has `wordD w ≥ 2`. -/
+theorem wordD_ge_two_of_ne_nil (w : List Bool) (hw : w ≠ []) :
+    wordD w ≥ 2 := by
+  cases w with
+  | nil => contradiction
+  | cons b bs =>
+    dsimp [wordD]
+    have hD := wordD_pos bs
+    omega
+
+/-- Gate C2: Any positive integer `m > 0` forming a cycle along a non-empty valid parity word `w`
+    must have `wordB w > 0` (at least one odd step). -/
+theorem cycle_pos_forces_wordB_pos (w : List Bool) (m : Nat)
+    (hw : w ≠ []) (hm : m > 0) (hv : validParityWord m w) (hc : applyParityWord m w = m) :
+    wordB w > 0 := by
+  have heq := parityWord_cycle_equation w m hv hc
+  have hD2 := wordD_ge_two_of_ne_nil w hw
+  by_cases hB : wordB w = 0
+  · have hA1 : wordA w = 1 := (wordB_eq_zero_iff_wordA_eq_one w).mp hB
+    rw [hB, hA1] at heq
+    have hge : wordD w * m ≥ 2 * m := Nat.mul_le_mul_right m hD2
+    omega
+  · omega
+
+/-- Gate C2 (Unconditional Spectral Contraction for Cycles):
+    Every cycle of a positive integer `m > 0` along ANY non-empty parity word `w`
+    strictly contracts: `wordD w > wordA w` (`2^|w| > 3^(ones w)`). -/
+theorem cycle_pos_forces_contracting (w : List Bool) (m : Nat)
+    (hw : w ≠ []) (hm : m > 0) (hv : validParityWord m w) (hc : applyParityWord m w = m) :
+    wordD w > wordA w := by
+  have hB : wordB w > 0 := cycle_pos_forces_wordB_pos w m hw hm hv hc
+  by_cases hge : wordA w ≥ wordD w
+  · exfalso
+    exact no_cycle_when_wordA_ge_wordD w m hv hge hB hc
+  · omega
+
+/-- All-even parity word `replicate k false` has `wordA = 1` and `wordB = 0`. -/
+theorem wordA_replicate_false (k : Nat) :
+    wordA (List.replicate k false) = 1 := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    dsimp [List.replicate, wordA]
+    exact ih
+
+theorem wordB_replicate_false (k : Nat) :
+    wordB (List.replicate k false) = 0 := by
+  induction k with
+  | zero => rfl
+  | succ k ih =>
+    dsimp [List.replicate, wordB]
+    omega
+
+/-- 1-circuit parity word of arbitrary period `k + 1`: one odd step followed by `k` even steps. -/
+def singleOddWord (k : Nat) : List Bool :=
+  true :: List.replicate k false
+
+theorem wordA_singleOddWord (k : Nat) :
+    wordA (singleOddWord k) = 3 := by
+  dsimp [singleOddWord, wordA]
+  rw [wordA_replicate_false]
+
+theorem wordB_singleOddWord (k : Nat) :
+    wordB (singleOddWord k) = 1 := by
+  dsimp [singleOddWord, wordB]
+  rw [wordA_replicate_false, wordB_replicate_false]
+
+/-- Gate C2 (Arbitrary-Period 1-Circuit Cycle Exclusion):
+    For EVERY `k : Nat` (period `r = k + 1`) and EVERY `m > 1`,
+    no integer `m > 1` can form a cycle along `singleOddWord k = true :: replicate k false`. -/
+theorem no_single_odd_cycle_above_one (k m : Nat)
+    (hm : m > 1) (hv : validParityWord m (singleOddWord k)) :
+    applyParityWord m (singleOddWord k) ≠ m := by
+  intro hc
+  have heq := parityWord_cycle_equation (singleOddWord k) m hv hc
+  rw [wordA_singleOddWord, wordB_singleOddWord] at heq
+  by_cases hle : wordD (singleOddWord k) ≤ 3
+  · have hmul : wordD (singleOddWord k) * m ≤ 3 * m := Nat.mul_le_mul_right m hle
+    omega
+  · have hge : wordD (singleOddWord k) ≥ 4 := by omega
+    have hmul : wordD (singleOddWord k) * m ≥ 4 * m := Nat.mul_le_mul_right m hge
+    omega
+
+/-! #### Gate C3: Parity-Cylinder Descent Threshold & Asymptotic Contraction -/
+
+/-- Gate C3: For any contracting parity word `w` (`wordD w > wordA w`) and any valid input `m`,
+    `applyParityWord m w < m` holds if and only if `(wordD w - wordA w) * m > wordB w`. -/
+theorem contracting_word_descent_iff (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hgt : wordD w > wordA w) :
+    applyParityWord m w < m ↔ (wordD w - wordA w) * m > wordB w := by
+  have hid := parityWord_affine_identity w m hv
+  have hD : wordD w > 0 := wordD_pos w
+  have hsub : (wordD w - wordA w) * m + wordA w * m = wordD w * m := by
+    rw [← Nat.add_mul, Nat.sub_add_cancel (by omega)]
+  constructor
+  · intro hlt
+    have hmul : wordD w * applyParityWord m w + wordD w ≤ wordD w * m := by
+      have h1 : applyParityWord m w + 1 ≤ m := by omega
+      have h2 := Nat.mul_le_mul_left (wordD w) h1
+      rw [Nat.mul_add, Nat.mul_one] at h2
+      exact h2
+    omega
+  · intro hgap
+    by_cases hge : m ≤ applyParityWord m w
+    · have hmul : wordD w * m ≤ wordD w * applyParityWord m w :=
+        Nat.mul_le_mul_left (wordD w) hge
+      omega
+    · omega
+
+/-- Gate C3 (Universal Asymptotic Descent on Contracting Cylinders):
+    For every contracting parity word `w` (`2^|w| > 3^(ones w)`), every integer
+    `m = wordResidue w + q * 2^|w|` with `q > wordB w` strictly descends under `w`. -/
+theorem contracting_word_asymptotic_descent (w : List Bool)
+    (hgt : wordD w > wordA w) (q : Nat) (hq : q > wordB w) :
+    applyParityWord (wordResidue w + q * wordD w) w < wordResidue w + q * wordD w := by
+  let m := wordResidue w + q * wordD w
+  have hv : validParityWord m w :=
+    (parityWord_residue_shift w (wordResidue w) q (wordResidue_valid w)).1
+  rw [contracting_word_descent_iff w m hv hgt]
+  have hD : wordD w ≥ 1 := wordD_pos w
+  have hgap : wordD w - wordA w ≥ 1 := by omega
+  have hqm : m ≥ q := by
+    have hqD : q * wordD w ≥ q * 1 := Nat.mul_le_mul_left q hD
+    omega
+  have hmul : (wordD w - wordA w) * m ≥ 1 * m := Nat.mul_le_mul_right m hgap
+  omega
+
+/-! #### Gates C4 & C5: Universal Descent Reduction & Certified Residue Classes -/
+
+/-- `collatz` preserves positivity (`n > 0 → collatz n > 0`). -/
+theorem collatz_pos (n : Nat) (hn : n > 0) : collatz n > 0 := by
+  unfold collatz
+  by_cases h : n % 2 = 0
+  · rw [if_pos h]; omega
+  · rw [if_neg h]; omega
+
+/-- `iterateCollatz` preserves positivity (`n > 0 → iterateCollatz n k > 0`). -/
+theorem iterateCollatz_pos (n k : Nat) (hn : n > 0) : iterateCollatz n k > 0 := by
+  induction k generalizing n with
+  | zero => exact hn
+  | succ k ih =>
+    rw [iterateCollatz_succ_left]
+    exact ih (collatz n) (collatz_pos n hn)
+
+/-- Composition law for `iterateCollatz`: `iterateCollatz n (a + b) = iterateCollatz (iterateCollatz n a) b`. -/
+theorem iterateCollatz_add (n a b : Nat) :
+    iterateCollatz n (a + b) = iterateCollatz (iterateCollatz n a) b := by
+  induction a generalizing n with
+  | zero =>
+    simp [iterateCollatz]
+  | succ a ih =>
+    rw [Nat.succ_add, iterateCollatz_succ_left, ih (collatz n), ← iterateCollatz_succ_left]
+
+/-- Primary theorem target (Gate C4): every integer `n > 1` eventually reaches
+    a strictly smaller positive integer under `collatz`. -/
+def UniversalCollatzDescent : Prop :=
+  ∀ n : Nat, n > 1 → ∃ k : Nat, k > 0 ∧ iterateCollatz n k < n
+
+/-- Bounded strong induction: if every `1 < m ≤ B` reaches a strictly smaller value
+    under `iterateCollatz`, then every `0 < n ≤ B` reaches `1`. -/
+theorem reachesOne_of_descent_bounded (B : Nat)
+    (hdesc : ∀ m : Nat, 1 < m → m ≤ B → ∃ k : Nat, k > 0 ∧ iterateCollatz m k < m) :
+    ∀ n : Nat, 0 < n → n ≤ B → ReachesOne n := by
+  induction B with
+  | zero =>
+    intro n hn hle
+    omega
+  | succ B ih =>
+    intro n hn hle
+    by_cases hn1 : n = 1
+    · subst hn1
+      exact ⟨0, rfl⟩
+    · rcases hdesc n (by omega) hle with ⟨k, _, hlt⟩
+      have hpos' : 0 < iterateCollatz n k := iterateCollatz_pos n k hn
+      rcases ih (fun m hm1 hmB => hdesc m hm1 (by omega)) (iterateCollatz n k) hpos' (by omega)
+        with ⟨m, hm⟩
+      refine ⟨k + m, ?_⟩
+      rw [iterateCollatz_add n k m, hm]
+
+/-- Gate C4 → Gate C5: `UniversalCollatzDescent` implies `CollatzConjecture`. -/
+theorem universalCollatzDescent_implies_collatz (h : UniversalCollatzDescent) :
+    CollatzConjecture := by
+  intro n hn
+  exact reachesOne_of_descent_bounded n (fun m hm1 _ => h m hm1) n hn (Nat.le_refl n)
+
+/-- Gate C5 → Gate C4: `CollatzConjecture` implies `UniversalCollatzDescent`. -/
+theorem collatz_implies_universalCollatzDescent (h : CollatzConjecture) :
+    UniversalCollatzDescent := by
+  intro n hn1
+  rcases h n (by omega) with ⟨k, hk⟩
+  cases k with
+  | zero =>
+    unfold iterateCollatz at hk
+    omega
+  | succ k =>
+    refine ⟨k + 1, by omega, ?_⟩
+    omega
+
+/-- Exact logical equivalence between Gate C4 (`UniversalCollatzDescent`) and Gate C5 (`CollatzConjecture`). -/
+theorem universalCollatzDescent_iff_collatz :
+    UniversalCollatzDescent ↔ CollatzConjecture :=
+  ⟨universalCollatzDescent_implies_collatz, collatz_implies_universalCollatzDescent⟩
+
+/-- Every step of `acceleratedCollatz` equals 1 or 2 steps of `collatz`. -/
+theorem acceleratedCollatz_eq_collatz_steps (n : Nat) :
+    ∃ s : Nat, s ≥ 1 ∧ iterateCollatz n s = acceleratedCollatz n := by
+  by_cases hev : n % 2 = 0
+  · refine ⟨1, by omega, ?_⟩
+    change collatz n = acceleratedCollatz n
+    unfold collatz acceleratedCollatz
+    rw [if_pos hev, if_pos hev]
+  · refine ⟨2, by omega, ?_⟩
+    change collatz (collatz n) = acceleratedCollatz n
+    have hev2 : (3 * n + 1) % 2 = 0 := by omega
+    unfold collatz acceleratedCollatz
+    rw [if_neg hev, if_pos hev2, if_neg hev]
+
+/-- Every `r` steps of `iterateAccelerated` correspond to `k ≥ r` steps of `iterateCollatz`. -/
+theorem iterateAccelerated_to_iterateCollatz (n r : Nat) :
+    ∃ k : Nat, k ≥ r ∧ iterateCollatz n k = iterateAccelerated n r := by
+  induction r generalizing n with
+  | zero =>
+    exact ⟨0, Nat.le_refl 0, rfl⟩
+  | succ r ih =>
+    rcases acceleratedCollatz_eq_collatz_steps n with ⟨s, hs, hstep⟩
+    rcases ih (acceleratedCollatz n) with ⟨k, hk, hrest⟩
+    refine ⟨s + k, by omega, ?_⟩
+    rw [iterateCollatz_add n s k, hstep, hrest]
+    rfl
+
+/-- Accelerated Universal Descent (Gate C4 in accelerated form). -/
+def UniversalAcceleratedDescent : Prop :=
+  ∀ n : Nat, n > 1 → ∃ r : Nat, r > 0 ∧ iterateAccelerated n r < n
+
+/-- `UniversalAcceleratedDescent` is also logically equivalent to `CollatzConjecture`. -/
+theorem universalAcceleratedDescent_iff_collatz :
+    UniversalAcceleratedDescent ↔ CollatzConjecture := by
+  rw [← universalCollatzDescent_iff_collatz]
+  constructor
+  · intro hacc n hn1
+    rcases hacc n hn1 with ⟨r, hr, hlt⟩
+    rcases iterateAccelerated_to_iterateCollatz n r with ⟨k, hk, heq⟩
+    refine ⟨k, by omega, ?_⟩
+    omega
+  · intro hcol
+    have hconj : CollatzConjecture := universalCollatzDescent_implies_collatz hcol
+    intro n hn1
+    obtain ⟨u, rfl⟩ : ∃ u : Nat, n = u + 1 := ⟨n - 1, by omega⟩
+    rcases (regReachesZero_iff_reachesOne u).mpr (hconj (u + 1) (by omega)) with ⟨r, hr0⟩
+    have hr_pos : r > 0 := by
+      cases r with
+      | zero =>
+        unfold iterateRegStep at hr0
+        omega
+      | succ r' => omega
+    have hrel : ∀ t u : Nat, iterateAccelerated (u + 1) t = iterateRegStep u t + 1 := by
+      intro t
+      induction t with
+      | zero => intro u; rfl
+      | succ t ih =>
+        intro u
+        dsimp [iterateAccelerated, iterateRegStep]
+        have hstep : acceleratedCollatz (u + 1) = collatzRegStep u + 1 := by
+          by_cases hodd : u % 2 = 1
+          · have hev : (u + 1) % 2 = 0 := by omega
+            unfold acceleratedCollatz collatzRegStep
+            rw [if_pos hev, if_pos hodd]
+            omega
+          · have hnev : ¬((u + 1) % 2 = 0) := by omega
+            unfold acceleratedCollatz collatzRegStep
+            rw [if_neg hnev, if_neg hodd]
+            omega
+        rw [hstep, ih (collatzRegStep u)]
+    refine ⟨r, hr_pos, ?_⟩
+    rw [hrel r u, hr0]
+    omega
+
+/-! #### Unconditional Descent Theorems on Infinite Residue Families & Exact Frontier Reduction -/
+
+/-- Unconditional 1-step descent for all even integers `n > 1` (`n ≡ 0 (mod 2)`). -/
+theorem collatz_descent_even (n : Nat) (hn : n > 1) (heven : n % 2 = 0) :
+    iterateCollatz n 1 < n := by
+  change collatz n < n
+  unfold collatz
+  rw [if_pos heven]
+  omega
+
+/-- Unconditional 3-step descent for all integers `n > 1` with `n ≡ 1 (mod 4)`:
+    `4k + 1 → 12k + 4 → 6k + 2 → 3k + 1 < 4k + 1`. -/
+theorem collatz_descent_mod4_eq1 (n : Nat) (hn : n > 1) (hmod : n % 4 = 1) :
+    iterateCollatz n 3 < n := by
+  change collatz (collatz (collatz n)) < n
+  have h1 : ¬(n % 2 = 0) := by omega
+  have h2 : (3 * n + 1) % 2 = 0 := by omega
+  have h3 : ((3 * n + 1) / 2) % 2 = 0 := by omega
+  unfold collatz
+  rw [if_neg h1, if_pos h2, if_pos h3]
+  omega
+
+/-- Unconditional 6-step descent for all integers `n` with `n ≡ 3 (mod 16)`:
+    `16k + 3 → 48k + 10 → 24k + 5 → 72k + 16 → 36k + 8 → 18k + 4 → 9k + 2 < 16k + 3`. -/
+theorem collatz_descent_mod16_eq3 (n : Nat) (hmod : n % 16 = 3) :
+    iterateCollatz n 6 < n := by
+  change collatz (collatz (collatz (collatz (collatz (collatz n))))) < n
+  have h1 : ¬(n % 2 = 0) := by omega
+  have h2 : (3 * n + 1) % 2 = 0 := by omega
+  have h3 : ¬(((3 * n + 1) / 2) % 2 = 0) := by omega
+  have h4 : (3 * ((3 * n + 1) / 2) + 1) % 2 = 0 := by omega
+  have h5 : ((3 * ((3 * n + 1) / 2) + 1) / 2) % 2 = 0 := by omega
+  have h6 : (((3 * ((3 * n + 1) / 2) + 1) / 2) / 2) % 2 = 0 := by omega
+  unfold collatz
+  rw [if_neg h1, if_pos h2, if_neg h3, if_pos h4, if_pos h5, if_pos h6]
+  omega
+
+/-- Unconditional 8-step descent for all integers `n` with `n ≡ 11 (mod 32)`. -/
+theorem collatz_descent_mod32_eq11 (n : Nat) (hmod : n % 32 = 11) :
+    iterateCollatz n 8 < n := by
+  change collatz (collatz (collatz (collatz (collatz (collatz (collatz (collatz n))))))) < n
+  have h1 : ¬(n % 2 = 0) := by omega
+  have h2 : (3 * n + 1) % 2 = 0 := by omega
+  have h3 : ¬(((3 * n + 1) / 2) % 2 = 0) := by omega
+  have h4 : (3 * ((3 * n + 1) / 2) + 1) % 2 = 0 := by omega
+  have h5 : (((3 * ((3 * n + 1) / 2) + 1) / 2)) % 2 = 0 := by omega
+  have h6 : ¬((((3 * ((3 * n + 1) / 2) + 1) / 2) / 2) % 2 = 0) := by omega
+  have h7 : (3 * (((3 * ((3 * n + 1) / 2) + 1) / 2) / 2) + 1) % 2 = 0 := by omega
+  have h8 : ((3 * (((3 * ((3 * n + 1) / 2) + 1) / 2) / 2) + 1) / 2) % 2 = 0 := by omega
+  unfold collatz
+  rw [if_neg h1, if_pos h2, if_neg h3, if_pos h4, if_pos h5, if_neg h6, if_pos h7, if_pos h8]
+  omega
+
+/-- Unconditional 8-step descent for all integers `n` with `n ≡ 23 (mod 32)`. -/
+theorem collatz_descent_mod32_eq23 (n : Nat) (hmod : n % 32 = 23) :
+    iterateCollatz n 8 < n := by
+  change collatz (collatz (collatz (collatz (collatz (collatz (collatz (collatz n))))))) < n
+  have h1 : ¬(n % 2 = 0) := by omega
+  have h2 : (3 * n + 1) % 2 = 0 := by omega
+  have h3 : ¬(((3 * n + 1) / 2) % 2 = 0) := by omega
+  have h4 : (3 * ((3 * n + 1) / 2) + 1) % 2 = 0 := by omega
+  have h5 : ¬(((3 * ((3 * n + 1) / 2) + 1) / 2) % 2 = 0) := by omega
+  have h6 : (3 * ((3 * ((3 * n + 1) / 2) + 1) / 2) + 1) % 2 = 0 := by omega
+  have h7 : (((3 * ((3 * ((3 * n + 1) / 2) + 1) / 2) + 1) / 2)) % 2 = 0 := by omega
+  have h8 : ((((3 * ((3 * ((3 * n + 1) / 2) + 1) / 2) + 1) / 2) / 2)) % 2 = 0 := by omega
+  unfold collatz
+  rw [if_neg h1, if_pos h2, if_neg h3, if_pos h4, if_neg h5, if_pos h6, if_pos h7, if_pos h8]
+  omega
+
+/-- Exact Modulo-32 Frontier Reduction Theorem:
+    `CollatzConjecture` holds if and only if every `n > 1` in the five unresolved
+    residue classes `n % 32 ∈ {7, 15, 19, 27, 31}` eventually reaches a smaller integer.
+    (All 27 other residue classes modulo 32 are unconditionally proved to descend in `≤ 8` steps.) -/
+theorem collatz_iff_mod32_frontier_descent :
+    CollatzConjecture ↔
+      (∀ n : Nat, n > 1 →
+        (n % 32 = 7 ∨ n % 32 = 15 ∨ n % 32 = 19 ∨ n % 32 = 27 ∨ n % 32 = 31) →
+        ∃ k : Nat, k > 0 ∧ iterateCollatz n k < n) := by
+  rw [← universalCollatzDescent_iff_collatz]
+  constructor
+  · intro h n hn1 _
+    exact h n hn1
+  · intro hfront n hn1
+    by_cases hev : n % 2 = 0
+    · exact ⟨1, by omega, collatz_descent_even n hn1 hev⟩
+    · by_cases hm4 : n % 4 = 1
+      · exact ⟨3, by omega, collatz_descent_mod4_eq1 n hn1 hm4⟩
+      · by_cases hm16 : n % 16 = 3
+        · exact ⟨6, by omega, collatz_descent_mod16_eq3 n hm16⟩
+        · by_cases hm11 : n % 32 = 11
+          · exact ⟨8, by omega, collatz_descent_mod32_eq11 n hm11⟩
+          · by_cases hm23 : n % 32 = 23
+            · exact ⟨8, by omega, collatz_descent_mod32_eq23 n hm23⟩
+            · have hrem : n % 32 = 7 ∨ n % 32 = 15 ∨ n % 32 = 19 ∨ n % 32 = 27 ∨ n % 32 = 31 := by
+                omega
+              exact hfront n hn1 hrem
+
 end BBB17

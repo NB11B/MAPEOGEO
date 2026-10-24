@@ -12,23 +12,30 @@ Next Lean gate: prove `S` conservation/nondecrease and parity affine composition
 
 ## Lean 4 Certification (`ThreeTracks.lean`)
 
-`ThreeTracks.lean` formally proves all three next-gate obligations over all natural numbers without `sorry` or non-standard axioms:
+`ThreeTracks.lean` formally proves all three next-gate obligations and all five `BBB17-R7-001` formal qualification gates over all natural numbers without `sorry` or non-standard axioms:
 
-- **Track B (Canonical High-Water Resource Geometry)**:
-  - `evenPhase_highWater_eq`: $S' = S$ on every even-Collatz phase ($u = 2k+1$).
-  - `oddPhase_highWater_eq_max`: $S' = \max(S, 3k+1)$ on every odd-Collatz phase ($u = 2k$).
-  - `oddPhase_highWater_strict_growth_iff`: $S' > S \iff v < k + 1$ (explaining all $\sum_{k=1}^{63}(k+1) = 2079$ strict-growth cases in `1 ≤ u < 128, 0 ≤ v < 128` and formally falsifying $S$ as a descending Lyapunov potential).
-  - `posReg_highWater_nondecreasing`: $S' \ge S$ across all positive-register phases ($u > 0$).
-  - `posReg_highWater_eq_max_next_u` & `posReg_reservoir_eq_drawdown`: Unified envelope law $S' = \max(S, \operatorname{collatzRegStep}(u))$ and exact reservoir drawdown law $v' = \max(u+v, \operatorname{collatzRegStep}(u)) - \operatorname{collatzRegStep}(u)$ across all positive-register phases ($u > 0$).
-  - `posReg_highWater_strict_growth_iff_record` & `posReg_highWater_conserved_when_bounded`: Reservoir exhaustion ($S' > S$) occurs iff the active register reaches a new record above $S$, and $S$ is strictly conserved once it reaches the peak of any bounded trajectory or cycle.
-  - `resetPhase_highWater_eq_max`: $S' = \max(v, j+1)$ on reset phases ($u = 0$).
-- **Track C (Affine Parity-Word Operator Composition, Residue Periodicity & Base-7 Baseline)**:
-  - `parityWord_affine_identity`: $2^{|w|} \cdot \operatorname{applyParityWord}(m, w) = 3^{\operatorname{ones}(w)} \cdot m + B(w)$ for every `validParityWord m w`.
-  - `parityWord_divisibility`: $(A(w)\cdot m + B(w)) \bmod 2^{|w|} = 0$.
-  - `parityWord_residue_shift`: Shifting $m \mapsto m + q \cdot 2^{|w|}$ preserves `validParityWord` and shifts the output by $q \cdot 3^{\operatorname{ones}(w)}$.
-  - `base7_odd_shift_breaks_parityWord`, `base7_unit_shift_breaks_parityWord`, & `base7_binary_compatible_shift`: Rigorous comparison baseline showing that any odd Base-7 shift $m \mapsto m + 7(2k+1)$ (including $+7$ and $+7^n$) strictly breaks `validParityWord` at the first step of every non-empty word, whereas shifts by multiples of $\operatorname{lcm}(7, 2^{|w|}) = 7 \cdot 2^{|w|}$ preserve `validParityWord`.
-- **Track A (Cycle Algebra, Contracting-Regime Exclusion & Conditional Potential Gate)**:
-  - `parityWord_cycle_equation` & `no_cycle_when_wordA_ge_wordD`: Any cycle of a valid parity word satisfies $D(w) \cdot m = A(w) \cdot m + B(w)$, ruling out cycles in the expanding regime ($3^a \ge 2^r, B(w) > 0$).
-  - `contracting_cycle_gap_eq`, `contracting_cycle_unique`, & `contracting_cycle_eq_quotient`: In the contracting regime ($2^r > 3^a$), any cycle satisfies $(2^r - 3^a) \cdot m = B(w)$, uniquely forcing $m = B(w) / (2^r - 3^a)$.
-  - `no_cycle_when_gap_not_dvd_B`, `no_cycle_when_quotient_invalid`, & `no_nontrivial_cycle_when_quotient_le_one`: Complete cycle exclusion when $(2^r - 3^a) \nmid B(w)$, when $m_0 = B(w)/(2^r - 3^a)$ fails parity-cylinder validity, or when $m_0 \le 1$ (for $m > 1$).
-  - `wellFounded_potential_forces_reset`: Conditional framework theorem showing that *if* a potential $V : \mathbb{N} \to \mathbb{N}$ strictly decreases after finitely many positive-register steps, it forces `RegReachesZero u` for all $u$, `CollatzConjecture`, and `¬ Quasihalts`.
+- **Track B & R7-D / R7-F (Universal Max-Plus High-Water Law, `(j, u, S)` Conjugacy, Semilattice Fold & Linear No-Go)**:
+  - `evenPhase_highWater_eq`, `oddPhase_highWater_eq_max`, `resetPhase_highWater_eq_max`: Exact phase laws for $S = u + v$.
+  - `nextCanonicalTriple_highWater_eq_max` & `nextCanonicalTriple_highWater_nondecreasing`: Universal 3-branch identity $S' = \max(S, u')$ and global monotonicity $S' \ge S$ across all canonical phases ($u = 0$, $u = 2k+1$, $u = 2k > 0$).
+  - `toHighWaterTriple_nextCanonicalTriple`, `fromHighWaterTriple_toHighWaterTriple`, `toHighWaterTriple_fromHighWaterTriple`: Exact coordinate bijection $(j, u, v) \leftrightarrow (j, u, S)$ ($S \ge u$) and exact operator conjugacy with `nextHighWaterTriple`.
+  - `highWaterOp_comp`, `highWaterOp_comm`, `highWaterOp_idem`, & `iterateCanonicalTriple_highWater_eq_fold`: Join-semilattice laws $H_b(H_a(S)) = H_{\max(a,b)}(S)$ and multi-step compositional fold $S_r = \max(S_0, u_1, \ldots, u_r)$.
+  - `oddPhase_highWater_strict_growth_iff`, `posReg_highWater_strict_growth_iff_record`, & `posReg_highWater_conserved_when_bounded`: Exact characterization of reservoir exhaustion ($S' > S \iff v < k + 1 \iff u' > S$).
+  - `no_nontrivial_linear_invariant`: Universal 3-witness no-go theorem proving that any linear form $a j + b u + c v$ preserved by $(0,1,0)\to(0,0,1)$, $(0,2,0)\to(0,4,0)$, and $(0,0,0)\to(1,1,0)$ satisfies $a = b = c = 0$.
+- **Track R7-E (Corrected Reset Execution Cost $T_{\mathrm{reset}}(j) = 2j^2 + 8j + 6$ & Handoff Refutation)**:
+  - `reset_loop_run_exact_cost_and_beeps` & `resetPhase_exact_cost_and_beeps`: Kernel-checked proof that from `canonConfig j 0 v`, the literal BBB17 machine executes in **exactly $2j^2 + 8j + 6$ steps**, emits **exactly $j + 1$ beeps** (terminal beep at step $2j^2 + 8j + 5$), and arrives at `canonConfig (j+1) (j+1) (v - (j+1))`.
+  - `resetPhaseSteps_sub_handoffResetPoly` & `resetPhaseSteps_ne_handoffResetPoly`: Formal proof that $T_{\mathrm{reset}}(j) - (j^2 + 8j + 6) = j^2$, refuting the earlier $j^2 + 8j + 6$ handoff polynomial for all $j > 0$.
+- **Track C & R7-C (Affine Parity-Word Operator Composition, Modulo-$2^r$ Bijection & Length-7 Catalog)**:
+  - `parityWord_affine_identity`, `parityWord_divisibility`, & `parityWord_residue_shift`: Exact affine identity $2^{|w|} \cdot \operatorname{applyParityWord}(m, w) = 3^{\operatorname{ones}(w)} \cdot m + B(w)$ and shift periodicity modulo $2^{|w|}$.
+  - `wordResidue_spec`, `validParityWord_iff_mod_eq_wordResidue`, `parityWordOf_wordResidue`, & `wordResidue_parityWordOf`: Constructive canonical residue representative $\operatorname{wordResidue}(w) < 2^{|w|}$ and **exact bijection** between length-$r$ parity words and residue classes modulo $2^r$.
+  - `length7_catalog_size`, `length7_all_reject_pos_cycle`, & `length7_no_positive_fixed_point`: Mechanized kernel check across all $2^7 = 128$ parity words of length 7 certifying that no positive integer $m > 0$ is a valid fixed point of any length-7 parity word.
+  - `base7_odd_shift_breaks_parityWord`, `base7_unit_shift_breaks_parityWord`, & `base7_binary_compatible_shift`: Any odd Base-7 shift $m + 7(2k+1)$ breaks `validParityWord` at step 1, whereas multiples of $7 \cdot 2^{|w|}$ preserve it.
+- **Tracks R7-A & R7-B (Reset Control-Cycle Spectrum & Odd-Modulus Singleton Generalization)**:
+  - `reset_six_state_cycle_certified`, `reset_five_state_cycle_certified`, & `reset_subsystem_cycle_spectrum`: Formal proof that the 7-state reset subsystem $\{A,L,M,N,O,P,Q\}$ has primitive simple cycles of lengths $1, 5, 6$ and **no simple 7-state cycle**.
+  - `oddModulus_singleton_iff`: Universal theorem for all odd moduli $q = 2k+1$ proving $(3r+1) \bmod (2k+1) = r \bmod (2k+1) \iff r = k = (q-1)/2$ for all $r < 2k+1$, showing that the mod-7 singleton $r = 3$ is an instance of the general odd-modulus law.
+- **Track A (Cycle Algebra & Conditional Well-Founded Potential Gate)**:
+  - `parityWord_cycle_equation`, `no_cycle_when_wordA_ge_wordD`, `contracting_cycle_gap_eq`, `contracting_cycle_unique`, `contracting_cycle_eq_quotient`, `no_cycle_when_gap_not_dvd_B`, `no_cycle_when_quotient_invalid`, `no_nontrivial_cycle_when_quotient_le_one`, and `wellFounded_potential_forces_reset`.
+- **Collatz Convergence Program: Gates C1–C5**:
+  - **Gate C1 (Symbolic Parity-Word Classification)**: `applyParityWord_parityWordOf`, `iterateAccelerated_exact_affine`, and `applyParityWord_on_residue_class` (coupled with `validParityWord_iff_mod_eq_wordResidue`, `parityWordOf_wordResidue`, and `wordResidue_parityWordOf`).
+  - **Gate C2 (Arbitrary-Period Cycle Obstructions)**: `wordB_eq_zero_iff_wordA_eq_one`, `cycle_pos_forces_wordB_pos`, `cycle_pos_forces_contracting` (every cycle of a positive integer along any non-empty parity word satisfies $2^{|w|} > 3^{\operatorname{ones}(w)}$), and `no_single_odd_cycle_above_one` (arbitrary-period exclusion of 1-circuit cycles `true :: replicate k false` for all $k \in \mathbb{N}$ and all $m > 1$).
+  - **Gate C3 (Cylinder Descent Thresholds & Asymptotic Contraction)**: `contracting_word_descent_iff` ($F_w(m) < m \iff (2^r - 3^a) m > B(w)$) and `contracting_word_asymptotic_descent` (every contracting parity cylinder strictly decreases all $m = \operatorname{wordResidue}(w) + q \cdot 2^r$ with $q > B(w)$).
+  - **Gates C4 & C5 (Universal Descent Equivalences & Residue Frontier Reduction)**: `universalCollatzDescent_iff_collatz`, `universalAcceleratedDescent_iff_collatz`, unconditional descent theorems (`collatz_descent_even`, `collatz_descent_mod4_eq1`, `collatz_descent_mod16_eq3`, `collatz_descent_mod32_eq11`, `collatz_descent_mod32_eq23`), and `collatz_iff_mod32_frontier_descent` (reducing `CollatzConjecture` to descent on the 5 unresolved residue classes $n \bmod 32 \in \{7, 15, 19, 27, 31\}$).
