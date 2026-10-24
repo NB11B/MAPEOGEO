@@ -55,6 +55,7 @@ from ..right.information_frontier import (
     LinearReEntryBoundSample,
     verify_linear_reentry_horizon_bound,
 )
+from ..right.quotient_geometry import analyze_cone_quotient_geometry
 from .ideal_normalizer import (
     GRAMMAR_CLUSTERS,
     NullstellensatzContradictionCertificate,
@@ -189,8 +190,8 @@ def run_proof_closure_campaign(
 
     r30_cert_001_campaign: Dict[str, object] = {
         "campaign_id": "R30-CERT-001",
-        "headline_theorems_verified_in_check_lean": 50,
-        "replayed_constants_in_check_lean": 270,
+        "headline_theorems_verified_in_check_lean": 51,
+        "replayed_constants_in_check_lean": 271,
         "parallel_operator_inventory": parallel_inventory,
         "psmsl_sideways_translation_certificates": psmsl_trans_certs,
         "nullstellensatz_certificate_summary": {
@@ -231,10 +232,13 @@ def run_proof_closure_campaign(
             transients=(1, 2, 3, 4, 5, 6), periods=(2, 3, 4), max_depth=9
         )
     )
+    cone_quotient_geom_report = asdict(
+        analyze_cone_quotient_geometry(exhaustive_depth_k=3, profile_depth_k=6)
+    )
     r30_transport_001_campaign: Dict[str, object] = {
-        "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001",
-        "headline_theorems_verified_in_check_lean": 50,
-        "replayed_constants_in_check_lean": 270,
+        "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001",
+        "headline_theorems_verified_in_check_lean": 51,
+        "replayed_constants_in_check_lean": 271,
         "deliverable_1_diagonal_ablation": diag_ablation,
         "deliverable_2_spatial_relation_transport": {
             "transport_step_theorem": "Rule30ProofClosure.spatial_transport_step_dichotomy",
@@ -312,6 +316,12 @@ def run_proof_closure_campaign(
                 "0^r 1 = scheduleWord [(r, 1)] for all r >= 14 (all P = r + 1 >= 15, all T >= 0)",
                 "0^r 1 0 1 = scheduleWord [(r, 1), (1, 1)] for all r >= 14 (all P = r + 3 >= 17, all T >= 0)",
             ],
+        },
+        "deliverable_8_cone_quotient_geometry": {
+            "fiber_bijection_and_pullback_theorem": (
+                "Rule30ProofClosure.cone_fiber_bijection_and_quotient_pullback"
+            ),
+            "verification_report": cone_quotient_geom_report,
         },
     }
 
@@ -400,6 +410,10 @@ def run_proof_closure_campaign(
         "Rule30ProofClosure.absorption_or_flux_violation_dichotomy_excludes_periodic_center",
         declarations,
     )
+    audit_exact_cone_fiber_bijection = audit_closure_claim(
+        "Rule30ProofClosure.cone_fiber_bijection_and_quotient_pullback",
+        declarations,
+    )
 
     reject_ok = (
         not bool(audit_track_ac["accepted_as_unconditional_closure"])
@@ -424,16 +438,17 @@ def run_proof_closure_campaign(
         and bool(audit_exact_state_completeness["accepted_as_unconditional_closure"])
         and bool(audit_exact_no_white_run_101["accepted_as_unconditional_closure"])
         and bool(audit_exact_absorption_or_flux_dichotomy["accepted_as_unconditional_closure"])
+        and bool(audit_exact_cone_fiber_bijection["accepted_as_unconditional_closure"])
     )
 
     report = ClosureCampaignReport(
-        program_id="R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001",
+        program_id="R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001",
         baseline_commit="8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-        outcome_classification="OUTCOME_B_AND_C_UNIVERSAL_RUN_COMPOSITION_AND_ABSORPTION_FLUX_DICHOTOMY_VERIFIED",
+        outcome_classification="OUTCOME_B_AND_C_UNIVERSAL_RUN_COMPOSITION_AND_QUOTIENT_GEOMETRY_VERIFIED",
         outcome_summary=(
             "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, R30-SPATIOTEMPORAL-001, R30-FLUX-CORR-001, "
-            "R30-UNIVERSAL-001, and R30-EXHAUST-001 are unconditionally verified (50/50 Lean 4.35.0 headlines in "
-            "Rule30PrizeClosure, 270 replayed constants, 0 new axioms). "
+            "R30-UNIVERSAL-001, R30-EXHAUST-001, and R30-QUOTIENT-GEOM-001 are unconditionally verified "
+            "(51/51 Lean 4.35.0 headlines in Rule30PrizeClosure, 271 replayed constants, 0 new axioms). "
             "1. Obligation 1 — State Completeness (EXACT in Lean): single_seed_spatiotemporal_state_completeness proves "
             "that every hypothetical PeriodicCenter T P trajectory is represented by an exact bilateral spatiotemporal "
             "state bundling mixed center runs, the right-half frontier/exterior state, bilateral observation coupling, "
@@ -448,12 +463,17 @@ def run_proof_closure_campaign(
             "for all transients T and all phases t0 >= T via PSMSL right-screening regeneration and two-class observational "
             "absorption; and absorption_or_flux_violation_dichotomy_excludes_periodic_center proves unconditionally that "
             "ObservationalAbsorptionAt T P, LinearHorizonCollisionAt T P, or CharacteristicFluxOnsetViolationAt T P "
-            "excludes PeriodicCenter T P."
+            "excludes PeriodicCenter T P. "
+            "4. Cone Observation Quotient Geometry (R30-QUOTIENT-GEOM-001, EXACT in Lean): "
+            "cone_fiber_bijection_and_quotient_pullback proves that reconstructLeftWord and obsLeftWord are strict mutual "
+            "bijections on {0,1}^k, that every central trace fiber of depth k has exact cardinality 2^k parameterized by "
+            "the right slice sigma, and that two right slices belong to the same MaskedPeriodEquiv quotient class iff "
+            "they pull back to the same left slice fiberLeftSlice w c_after sigma, predicting unseen left-cone constraints."
         ),
         checkpoint_01_reconstruction_completeness=chk01.checkpoint_01_passed,
         checkpoint_02_bilateral_soundness=chk02_ok and right_cons.passed,
         checkpoint_03_universal_contradiction_status="EXACT_FOR_ALL_TRANSIENTS_ON_MULTI_RUN_COMPOSITE_FAMILIES_0_POW_R_1_AND_0_POW_R_101__GENERAL_ARBITRARY_WORD_OPEN",
-        checkpoint_04_official_complete_claim_status="PARTIAL_VERIFIED_50_OF_50__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+        checkpoint_04_official_complete_claim_status="PARTIAL_VERIFIED_51_OF_51__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
         conditional_closure_claims_automatically_rejected=reject_ok,
         hypotheses_tested=len(evals),
         hypotheses_unsat_count=unsat_cnt,
@@ -496,6 +516,7 @@ def run_proof_closure_campaign(
             "exact_single_seed_spatiotemporal_state_completeness": audit_exact_state_completeness,
             "exact_no_white_run_101_all_transients": audit_exact_no_white_run_101,
             "exact_absorption_or_flux_violation_dichotomy": audit_exact_absorption_or_flux_dichotomy,
+            "exact_cone_fiber_bijection_and_quotient_pullback": audit_exact_cone_fiber_bijection,
         },
     )
 

@@ -19,6 +19,7 @@ from experiments.rule30_proof_closure.left import (
     analyze_spatiotemporal_relation_algebra,
     trace_spatial_relation_transport,
 )
+from experiments.rule30_proof_closure.right import analyze_cone_quotient_geometry
 
 
 def test_proof_closure_campaign_and_obligation_auditor():
@@ -119,12 +120,26 @@ def test_r30_transport_001_diagonal_ablation_and_spatial_transport():
         "T=3, w=[1, 0, 0] -> refuted at k=3 by right-half correlation (n_right_vars=1)",
     )
 
+    # Deliverable 8: Relational quotient geometry (R30-QUOTIENT-GEOM-001)
+    q_geom = analyze_cone_quotient_geometry(exhaustive_depth_k=3, profile_depth_k=6)
+    assert q_geom.exhaustive_initial_configs == 128
+    assert q_geom.exhaustive_central_traces == 16
+    assert q_geom.all_traces_have_exact_2_pow_k_preimages is True
+    assert q_geom.left_coder_bijection_mismatches == 0
+    assert q_geom.quotient_pullback_equivalence_mismatches == 0
+    for prof in q_geom.periodic_word_profiles:
+        assert prof.quotient_class_count == prof.admissible_left_slices_count
+        assert prof.admissible_left_slices_count + prof.forbidden_left_slices_count == 64
+        assert prof.unseen_left_constraint_fraction >= 0.875
+        assert prof.single_seed_T3_in_admissible_left_variety is False
+        assert prof.single_seed_T3_bilateral_compatible is False
+
 
 def test_formal_lean_modules_and_official_check_lean():
     ver = verify_closure_certificates_and_lean_modules(run_live_lean=True)
     assert ver.formal_files_clean_no_sorry_or_axiom is True
     assert ver.lean_compilation_succeeded is True
     assert ver.check_lean_verdict == "pass"
-    assert ver.headlines_verified == 50
-    assert ver.replayed_constants == 270
+    assert ver.headlines_verified == 51
+    assert ver.replayed_constants == 271
     assert ver.new_axioms == []

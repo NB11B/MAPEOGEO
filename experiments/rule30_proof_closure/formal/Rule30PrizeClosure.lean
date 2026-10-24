@@ -1445,4 +1445,15 @@ theorem closure_absorption_or_flux_violation_dichotomy_excludes_periodic_center
       CharacteristicFluxOnsetViolationAt T P) : False :=
   absorption_or_flux_violation_dichotomy_excludes_periodic_center T P hper hDichotomy
 
+theorem closure_cone_fiber_bijection_and_quotient_pullback
+    (w : List Bool) (c_after : Bool) (σ σ₁ σ₂ lam : List Bool)
+    (hlam : lam.length = w.length) :
+    (fiberLeftSlice w c_after σ).length = w.length ∧
+    obsLeftWord w c_after (fiberLeftSlice w c_after σ) = orColWord w σ ∧
+    (obsLeftWord w c_after lam = orColWord w σ ↔ lam = fiberLeftSlice w c_after σ) ∧
+    (MaskedPeriodEquiv w σ₁ σ₂ ↔
+      fiberLeftSlice w c_after σ₁ = fiberLeftSlice w c_after σ₂) ∧
+    LeftBlackStepAdmissible w (obsLeftWord w c_after (fiberLeftSlice w c_after σ)) :=
+  cone_fiber_bijection_and_quotient_pullback w c_after σ σ₁ σ₂ lam hlam
+
 end Rule30ProofClosure

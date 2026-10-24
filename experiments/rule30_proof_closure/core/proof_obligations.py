@@ -465,6 +465,20 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             source_attribution="R30_EXHAUST_001_NEW",
         ),
         FormalDeclarationRecord(
+            name="Rule30ProofClosure.cone_fiber_bijection_and_quotient_pullback",
+            module="Rule30BilateralCompatibility",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M1",
+            track="Track A/B/C",
+            dependencies=(
+                "Rule30ProofClosure.reconstructLeftWord_obsLeftWord",
+                "Rule30ProofClosure.obsLeftWord_reconstructLeftWord",
+                "Rule30ProofClosure.orColWord_leftBlackStepAdmissible",
+            ),
+            summary="New in R30-QUOTIENT-GEOM-001: proves that for every central trace (w, c_after) of depth k, reconstructLeftWord and obsLeftWord are strict mutual bijections, every right slice sigma uniquely determines fiberLeftSlice w c_after sigma in the 2^k fiber, and MaskedPeriodEquiv w sigma1 sigma2 holds iff fiberLeftSlice w c_after sigma1 = fiberLeftSlice w c_after sigma2.",
+            source_attribution="R30_QUOTIENT_GEOM_001_NEW",
+        ),
+        FormalDeclarationRecord(
             name="Rule30ProofClosure.spatial_transport_step_dichotomy",
             module="Rule30LeftReconstruction",
             classification=DeclarationClass.EXACT,

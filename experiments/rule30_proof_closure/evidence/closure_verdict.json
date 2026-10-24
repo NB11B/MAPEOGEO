@@ -1,12 +1,12 @@
 {
-  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001",
+  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001",
   "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-  "outcome_classification": "OUTCOME_B_AND_C_UNIVERSAL_RUN_COMPOSITION_AND_ABSORPTION_FLUX_DICHOTOMY_VERIFIED",
-  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, R30-SPATIOTEMPORAL-001, R30-FLUX-CORR-001, R30-UNIVERSAL-001, and R30-EXHAUST-001 are unconditionally verified (50/50 Lean 4.35.0 headlines in Rule30PrizeClosure, 270 replayed constants, 0 new axioms). 1. Obligation 1 \u2014 State Completeness (EXACT in Lean): single_seed_spatiotemporal_state_completeness proves that every hypothetical PeriodicCenter T P trajectory is represented by an exact bilateral spatiotemporal state bundling mixed center runs, the right-half frontier/exterior state, bilateral observation coupling, and the 6-step characteristic-flux onset laws. 2. Obligation 2 \u2014 Run-Schedule Composition Algebra (EXACT in Lean): runSchedule_compositional_semantics proves that arbitrary compositions of white/black run blocks (runBlock r b = runBlack b \u2218 runWhite r) compose homomorphically via runSchedule and preserve exact cellular and PSMSL observational semantics. 3. Obligation 3 \u2014 Global Exclusion via Absorption vs Characteristic-Flux Dichotomy (EXACT in Lean): spatiotemporal_001001_and_011011_depth4_constant_collapse proves degree-0 constant collapse at depth -4 for the period-3 blocks 0010010 and 0110110; no_white_run_101_all_transients unconditionally refutes the infinite 4-run composite 11-free family 0^r 1 0 1 = scheduleWord [(r, 1), (1, 1)] (r >= 14, P = r + 3 >= 17) for all transients T and all phases t0 >= T via PSMSL right-screening regeneration and two-class observational absorption; and absorption_or_flux_violation_dichotomy_excludes_periodic_center proves unconditionally that ObservationalAbsorptionAt T P, LinearHorizonCollisionAt T P, or CharacteristicFluxOnsetViolationAt T P excludes PeriodicCenter T P.",
+  "outcome_classification": "OUTCOME_B_AND_C_UNIVERSAL_RUN_COMPOSITION_AND_QUOTIENT_GEOMETRY_VERIFIED",
+  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, R30-SPATIOTEMPORAL-001, R30-FLUX-CORR-001, R30-UNIVERSAL-001, R30-EXHAUST-001, and R30-QUOTIENT-GEOM-001 are unconditionally verified (51/51 Lean 4.35.0 headlines in Rule30PrizeClosure, 271 replayed constants, 0 new axioms). 1. Obligation 1 \u2014 State Completeness (EXACT in Lean): single_seed_spatiotemporal_state_completeness proves that every hypothetical PeriodicCenter T P trajectory is represented by an exact bilateral spatiotemporal state bundling mixed center runs, the right-half frontier/exterior state, bilateral observation coupling, and the 6-step characteristic-flux onset laws. 2. Obligation 2 \u2014 Run-Schedule Composition Algebra (EXACT in Lean): runSchedule_compositional_semantics proves that arbitrary compositions of white/black run blocks (runBlock r b = runBlack b \u2218 runWhite r) compose homomorphically via runSchedule and preserve exact cellular and PSMSL observational semantics. 3. Obligation 3 \u2014 Global Exclusion via Absorption vs Characteristic-Flux Dichotomy (EXACT in Lean): spatiotemporal_001001_and_011011_depth4_constant_collapse proves degree-0 constant collapse at depth -4 for the period-3 blocks 0010010 and 0110110; no_white_run_101_all_transients unconditionally refutes the infinite 4-run composite 11-free family 0^r 1 0 1 = scheduleWord [(r, 1), (1, 1)] (r >= 14, P = r + 3 >= 17) for all transients T and all phases t0 >= T via PSMSL right-screening regeneration and two-class observational absorption; and absorption_or_flux_violation_dichotomy_excludes_periodic_center proves unconditionally that ObservationalAbsorptionAt T P, LinearHorizonCollisionAt T P, or CharacteristicFluxOnsetViolationAt T P excludes PeriodicCenter T P. 4. Cone Observation Quotient Geometry (R30-QUOTIENT-GEOM-001, EXACT in Lean): cone_fiber_bijection_and_quotient_pullback proves that reconstructLeftWord and obsLeftWord are strict mutual bijections on {0,1}^k, that every central trace fiber of depth k has exact cardinality 2^k parameterized by the right slice sigma, and that two right slices belong to the same MaskedPeriodEquiv quotient class iff they pull back to the same left slice fiberLeftSlice w c_after sigma, predicting unseen left-cone constraints.",
   "checkpoint_01_reconstruction_completeness": true,
   "checkpoint_02_bilateral_soundness": true,
   "checkpoint_03_universal_contradiction_status": "EXACT_FOR_ALL_TRANSIENTS_ON_MULTI_RUN_COMPOSITE_FAMILIES_0_POW_R_1_AND_0_POW_R_101__GENERAL_ARBITRARY_WORD_OPEN",
-  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_50_OF_50__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_51_OF_51__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
   "conditional_closure_claims_automatically_rejected": true,
   "hypotheses_tested": 180,
   "hypotheses_unsat_count": 180,
@@ -35,8 +35,8 @@
   },
   "r30_cert_001_campaign": {
     "campaign_id": "R30-CERT-001",
-    "headline_theorems_verified_in_check_lean": 50,
-    "replayed_constants_in_check_lean": 270,
+    "headline_theorems_verified_in_check_lean": 51,
+    "replayed_constants_in_check_lean": 271,
     "parallel_operator_inventory": [
       {
         "capability_id": "MAPEOGEO_CERTIFIABLE_GF2_IDEAL_KERNEL",
@@ -255,9 +255,9 @@
     ]
   },
   "r30_transport_001_campaign": {
-    "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001",
-    "headline_theorems_verified_in_check_lean": 50,
-    "replayed_constants_in_check_lean": 270,
+    "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001",
+    "headline_theorems_verified_in_check_lean": 51,
+    "replayed_constants_in_check_lean": 271,
     "deliverable_1_diagonal_ablation": {
       "experiment_id": "R30-TRANSPORT-001-DIAGONAL-ABLATION",
       "mixed_words_per_transient": 22,
@@ -2174,6 +2174,164 @@
         "0^r 1 = scheduleWord [(r, 1)] for all r >= 14 (all P = r + 1 >= 15, all T >= 0)",
         "0^r 1 0 1 = scheduleWord [(r, 1), (1, 1)] for all r >= 14 (all P = r + 3 >= 17, all T >= 0)"
       ]
+    },
+    "deliverable_8_cone_quotient_geometry": {
+      "fiber_bijection_and_pullback_theorem": "Rule30ProofClosure.cone_fiber_bijection_and_quotient_pullback",
+      "verification_report": {
+        "exhaustive_cone_depth_k": 3,
+        "exhaustive_initial_configs": 128,
+        "exhaustive_central_traces": 16,
+        "all_traces_have_exact_2_pow_k_preimages": true,
+        "left_coder_bijection_mismatches": 0,
+        "quotient_pullback_equivalence_mismatches": 0,
+        "extrinsic_base7_control_dimension": 0.3562,
+        "periodic_word_profiles": [
+          {
+            "word_label": "01",
+            "depth_k": 6,
+            "total_right_slices": 64,
+            "fiber_preimage_count": 64,
+            "quotient_class_count": 5,
+            "admissible_left_slices_count": 5,
+            "forbidden_left_slices_count": 59,
+            "unseen_left_constraint_fraction": 0.9219,
+            "intrinsic_entropy_density_bits_per_step": 0.387,
+            "extrinsic_base7_cantor_control_dim": 0.3562,
+            "min_quotient_fiber_size": 6,
+            "max_quotient_fiber_size": 26,
+            "ultrametric_prefix_class_counts": [
+              2,
+              2,
+              3,
+              3,
+              5,
+              5
+            ],
+            "single_seed_T3_in_admissible_left_variety": false,
+            "single_seed_T3_bilateral_compatible": false
+          },
+          {
+            "word_label": "10",
+            "depth_k": 6,
+            "total_right_slices": 64,
+            "fiber_preimage_count": 64,
+            "quotient_class_count": 5,
+            "admissible_left_slices_count": 5,
+            "forbidden_left_slices_count": 59,
+            "unseen_left_constraint_fraction": 0.9219,
+            "intrinsic_entropy_density_bits_per_step": 0.387,
+            "extrinsic_base7_cantor_control_dim": 0.3562,
+            "min_quotient_fiber_size": 3,
+            "max_quotient_fiber_size": 19,
+            "ultrametric_prefix_class_counts": [
+              1,
+              2,
+              2,
+              3,
+              3,
+              5
+            ],
+            "single_seed_T3_in_admissible_left_variety": false,
+            "single_seed_T3_bilateral_compatible": false
+          },
+          {
+            "word_label": "110",
+            "depth_k": 6,
+            "total_right_slices": 64,
+            "fiber_preimage_count": 64,
+            "quotient_class_count": 4,
+            "admissible_left_slices_count": 4,
+            "forbidden_left_slices_count": 60,
+            "unseen_left_constraint_fraction": 0.9375,
+            "intrinsic_entropy_density_bits_per_step": 0.3333,
+            "extrinsic_base7_cantor_control_dim": 0.3562,
+            "min_quotient_fiber_size": 12,
+            "max_quotient_fiber_size": 28,
+            "ultrametric_prefix_class_counts": [
+              1,
+              1,
+              2,
+              2,
+              2,
+              4
+            ],
+            "single_seed_T3_in_admissible_left_variety": false,
+            "single_seed_T3_bilateral_compatible": false
+          },
+          {
+            "word_label": "001",
+            "depth_k": 6,
+            "total_right_slices": 64,
+            "fiber_preimage_count": 64,
+            "quotient_class_count": 7,
+            "admissible_left_slices_count": 7,
+            "forbidden_left_slices_count": 57,
+            "unseen_left_constraint_fraction": 0.8906,
+            "intrinsic_entropy_density_bits_per_step": 0.4679,
+            "extrinsic_base7_cantor_control_dim": 0.3562,
+            "min_quotient_fiber_size": 4,
+            "max_quotient_fiber_size": 26,
+            "ultrametric_prefix_class_counts": [
+              2,
+              3,
+              3,
+              4,
+              7,
+              7
+            ],
+            "single_seed_T3_in_admissible_left_variety": false,
+            "single_seed_T3_bilateral_compatible": false
+          },
+          {
+            "word_label": "1010",
+            "depth_k": 6,
+            "total_right_slices": 64,
+            "fiber_preimage_count": 64,
+            "quotient_class_count": 5,
+            "admissible_left_slices_count": 5,
+            "forbidden_left_slices_count": 59,
+            "unseen_left_constraint_fraction": 0.9219,
+            "intrinsic_entropy_density_bits_per_step": 0.387,
+            "extrinsic_base7_cantor_control_dim": 0.3562,
+            "min_quotient_fiber_size": 3,
+            "max_quotient_fiber_size": 19,
+            "ultrametric_prefix_class_counts": [
+              1,
+              2,
+              2,
+              3,
+              3,
+              5
+            ],
+            "single_seed_T3_in_admissible_left_variety": false,
+            "single_seed_T3_bilateral_compatible": false
+          },
+          {
+            "word_label": "0001",
+            "depth_k": 6,
+            "total_right_slices": 64,
+            "fiber_preimage_count": 64,
+            "quotient_class_count": 8,
+            "admissible_left_slices_count": 8,
+            "forbidden_left_slices_count": 56,
+            "unseen_left_constraint_fraction": 0.875,
+            "intrinsic_entropy_density_bits_per_step": 0.5,
+            "extrinsic_base7_cantor_control_dim": 0.3562,
+            "min_quotient_fiber_size": 2,
+            "max_quotient_fiber_size": 23,
+            "ultrametric_prefix_class_counts": [
+              2,
+              3,
+              4,
+              4,
+              5,
+              8
+            ],
+            "single_seed_T3_in_admissible_left_variety": false,
+            "single_seed_T3_bilateral_compatible": false
+          }
+        ]
+      }
     }
   },
   "left_reconstruction": {
@@ -2804,6 +2962,20 @@
       "source_attribution": "R30_EXHAUST_001_NEW"
     },
     {
+      "name": "Rule30ProofClosure.cone_fiber_bijection_and_quotient_pullback",
+      "module": "Rule30BilateralCompatibility",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A/B/C",
+      "dependencies": [
+        "Rule30ProofClosure.reconstructLeftWord_obsLeftWord",
+        "Rule30ProofClosure.obsLeftWord_reconstructLeftWord",
+        "Rule30ProofClosure.orColWord_leftBlackStepAdmissible"
+      ],
+      "summary": "New in R30-QUOTIENT-GEOM-001: proves that for every central trace (w, c_after) of depth k, reconstructLeftWord and obsLeftWord are strict mutual bijections, every right slice sigma uniquely determines fiberLeftSlice w c_after sigma in the 2^k fiber, and MaskedPeriodEquiv w sigma1 sigma2 holds iff fiberLeftSlice w c_after sigma1 = fiberLeftSlice w c_after sigma2.",
+      "source_attribution": "R30_QUOTIENT_GEOM_001_NEW"
+    },
+    {
       "name": "Rule30ProofClosure.spatial_transport_step_dichotomy",
       "module": "Rule30LeftReconstruction",
       "classification": "EXACT",
@@ -3309,6 +3481,12 @@
     },
     "exact_absorption_or_flux_violation_dichotomy": {
       "target": "Rule30ProofClosure.absorption_or_flux_violation_dichotomy_excludes_periodic_center",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    },
+    "exact_cone_fiber_bijection_and_quotient_pullback": {
+      "target": "Rule30ProofClosure.cone_fiber_bijection_and_quotient_pullback",
       "accepted_as_unconditional_closure": true,
       "non_exact_dependencies": [],
       "reason": "All transitive dependencies are EXACT."

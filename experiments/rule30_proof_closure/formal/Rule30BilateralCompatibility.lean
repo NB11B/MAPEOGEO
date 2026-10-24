@@ -192,4 +192,173 @@ theorem symbolic_right_evolution_realizes_cell_and_orCol
   · rw [hrun, hhead]
   · rw [hor, hget]
 
+/-! ### `R30-QUOTIENT-GEOM-001` — Cone Observation Fiber Bijection & Quotient Pullback Geometry -/
+
+theorem rule_involutive_left (b a c : Bool) : rule (rule b a c) a c = b := by
+  cases b <;> cases a <;> cases c <;> rfl
+
+theorem xor_involutive_left (b a : Bool) : xor b (xor b a) = a := by
+  cases b <;> cases a <;> rfl
+
+/-- Single-step sideways left-permutive inverse of `stepLeftRow`: given right neighbor `c`,
+    boundary bit `a = cell t (-1)`, and next-step left row `zs = [cell (t+1) (-1), ..., cell (t+1) (-k)]`,
+    uniquely reconstructs `[cell t (-1), cell t (-2), ..., cell t (-(k+1))]`. -/
+def unstepLeftRow (c a : Bool) : List Bool → List Bool
+  | [] => [a]
+  | z :: zs => a :: unstepLeftRow a (rule z a c) zs
+
+theorem unstepLeftRow_head (c a : Bool) (zs : List Bool) :
+    (unstepLeftRow c a zs).headD false = a := by
+  cases zs <;> rfl
+
+theorem unstepLeftRow_eq_cons (c a : Bool) (zs : List Bool) :
+    ∃ rs : List Bool, unstepLeftRow c a zs = a :: rs := by
+  cases zs <;> exact ⟨_, rfl⟩
+
+theorem length_unstepLeftRow :
+    ∀ (zs : List Bool) (c a : Bool), (unstepLeftRow c a zs).length = zs.length + 1
+  | [], _, _ => rfl
+  | z :: zs, c, a => by
+    simp [unstepLeftRow, length_unstepLeftRow zs a (rule z a c)]
+
+theorem length_stepLeftRow :
+    ∀ (rest : List Bool) (c a : Bool), (stepLeftRow c (a :: rest)).length = rest.length
+  | [], _, _ => rfl
+  | b :: rs, c, a => by
+    show (rule b a c :: stepLeftRow a (b :: rs)).length = (b :: rs).length
+    simp [length_stepLeftRow rs a b]
+
+theorem unstepLeftRow_stepLeftRow :
+    ∀ (rest : List Bool) (c a : Bool),
+      unstepLeftRow c a (stepLeftRow c (a :: rest)) = a :: rest
+  | [], _, _ => rfl
+  | b :: rs, c, a => by
+    show a :: unstepLeftRow a (rule (rule b a c) a c) (stepLeftRow a (b :: rs)) = a :: b :: rs
+    rw [rule_involutive_left, unstepLeftRow_stepLeftRow rs a b]
+
+theorem stepLeftRow_unstepLeftRow :
+    ∀ (zs : List Bool) (c a : Bool),
+      stepLeftRow c (unstepLeftRow c a zs) = zs
+  | [], _, _ => rfl
+  | z :: zs, c, a => by
+    obtain ⟨rs, hrs⟩ := unstepLeftRow_eq_cons a (rule z a c) zs
+    have ih := stepLeftRow_unstepLeftRow zs a (rule z a c)
+    show stepLeftRow c (a :: unstepLeftRow a (rule z a c) zs) = z :: zs
+    rw [hrs]
+    show rule (rule z a c) a c :: stepLeftRow a (rule z a c :: rs) = z :: zs
+    rw [rule_involutive_left, ← hrs, ih]
+
+/-- Exact K7-like inverse left coder `Θ_w⁻¹`: given center word `w` of length `k`, terminal center
+    bit `c_after`, and boundary observation trace `y` of length `k`, reconstructs the unique
+    length-`k` initial left-cone slice `lam = [x_{-1}(t), ..., x_{-k}(t)]`. -/
+def reconstructLeftWord : List Bool → Bool → List Bool → List Bool
+  | [], _, _ => []
+  | c :: cs, c_after, y =>
+    let c_next := cs.headD c_after
+    let a := xor c_next (y.headD false)
+    unstepLeftRow c a (reconstructLeftWord cs c_after y.tail)
+
+theorem length_reconstructLeftWord :
+    ∀ (w : List Bool) (c_after : Bool) (y : List Bool),
+      (reconstructLeftWord w c_after y).length = w.length
+  | [], _, _ => rfl
+  | c :: cs, c_after, y => by
+    simp [reconstructLeftWord, length_unstepLeftRow, length_reconstructLeftWord cs c_after y.tail]
+
+theorem length_orColWord :
+    ∀ (w σ : List Bool), (orColWord w σ).length = w.length
+  | [], _ => rfl
+  | c :: cs, σ => by simp [orColWord, length_orColWord cs (stepRow c σ)]
+
+theorem length_obsLeftWord :
+    ∀ (w : List Bool) (c_after : Bool) (lam : List Bool),
+      (obsLeftWord w c_after lam).length = w.length
+  | [], _, _ => rfl
+  | c :: cs, c_after, lam => by
+    simp [obsLeftWord, length_obsLeftWord cs c_after (stepLeftRow c lam)]
+
+theorem reconstructLeftWord_obsLeftWord :
+    ∀ (w : List Bool) (c_after : Bool) (lam : List Bool),
+      lam.length = w.length →
+      reconstructLeftWord w c_after (obsLeftWord w c_after lam) = lam
+  | [], _, [], _ => rfl
+  | c :: cs, c_after, a :: rest, hlen => by
+    have hlen' : rest.length = cs.length := by simp at hlen; exact hlen
+    have hlen_step : (stepLeftRow c (a :: rest)).length = cs.length := by
+      rw [length_stepLeftRow, hlen']
+    have ih := reconstructLeftWord_obsLeftWord cs c_after (stepLeftRow c (a :: rest)) hlen_step
+    show unstepLeftRow c (xor (cs.headD c_after) (xor (cs.headD c_after) a))
+      (reconstructLeftWord cs c_after (obsLeftWord cs c_after (stepLeftRow c (a :: rest)))) = a :: rest
+    rw [xor_involutive_left, ih, unstepLeftRow_stepLeftRow]
+
+theorem obsLeftWord_reconstructLeftWord :
+    ∀ (w : List Bool) (c_after : Bool) (y : List Bool),
+      y.length = w.length →
+      obsLeftWord w c_after (reconstructLeftWord w c_after y) = y
+  | [], _, [], _ => rfl
+  | c :: cs, c_after, y0 :: ys, hlen => by
+    have hlen' : ys.length = cs.length := by simp at hlen; exact hlen
+    have ih := obsLeftWord_reconstructLeftWord cs c_after ys hlen'
+    let a := xor (cs.headD c_after) y0
+    have hhead : (unstepLeftRow c a (reconstructLeftWord cs c_after ys)).headD false = a :=
+      unstepLeftRow_head c a (reconstructLeftWord cs c_after ys)
+    have hstep : stepLeftRow c (unstepLeftRow c a (reconstructLeftWord cs c_after ys)) =
+        reconstructLeftWord cs c_after ys :=
+      stepLeftRow_unstepLeftRow (reconstructLeftWord cs c_after ys) c a
+    show xor (cs.headD c_after) ((unstepLeftRow c a (reconstructLeftWord cs c_after ys)).headD false) ::
+      obsLeftWord cs c_after (stepLeftRow c (unstepLeftRow c a (reconstructLeftWord cs c_after ys))) =
+      y0 :: ys
+    rw [hhead, xor_involutive_left, hstep, ih]
+
+theorem orColWord_leftBlackStepAdmissible :
+    ∀ (w σ : List Bool), LeftBlackStepAdmissible w (orColWord w σ)
+  | [], _ => trivial
+  | c :: cs, σ => by
+    refine ⟨fun hc => by simp [hc], orColWord_leftBlackStepAdmissible cs (stepRow c σ)⟩
+
+/-- Maps any right-cone slice `σ` to the unique compatible left-cone slice `λ = Θ_w⁻¹(Ψ_w(σ))`
+    in the depth-`k` fiber `π_k⁻¹(w, c_after)`. -/
+def fiberLeftSlice (w : List Bool) (c_after : Bool) (σ : List Bool) : List Bool :=
+  reconstructLeftWord w c_after (orColWord w σ)
+
+/-- **`R30-QUOTIENT-GEOM-001` (`EXACT`) — Cone Observation Fiber Bijection & Quotient Pullback Law
+    (`cone_fiber_bijection_and_quotient_pullback`)**:
+    Proves that for every central trace `(w, c_after)` of depth `k = w.length`:
+    1. Every right slice `σ` uniquely determines a length-`k` left slice `fiberLeftSlice w c_after σ`
+       such that `obsLeftWord w c_after lam = orColWord w σ ↔ lam = fiberLeftSlice w c_after σ`
+       (explaining why every central trace fiber has cardinality `2^k`, parameterized by `σ ∈ {0,1}^k`).
+    2. Two right slices `σ₁, σ₂` belong to the same observation quotient class (`MaskedPeriodEquiv w σ₁ σ₂`)
+       if and only if they pull back to the exact same left slice `fiberLeftSlice w c_after σ₁ = fiberLeftSlice w c_after σ₂`.
+    3. Every left slice in the pullback image satisfies the unseen constraint `LeftBlackStepAdmissible`. -/
+theorem cone_fiber_bijection_and_quotient_pullback
+    (w : List Bool) (c_after : Bool) (σ σ₁ σ₂ lam : List Bool)
+    (hlam : lam.length = w.length) :
+    (fiberLeftSlice w c_after σ).length = w.length ∧
+    obsLeftWord w c_after (fiberLeftSlice w c_after σ) = orColWord w σ ∧
+    (obsLeftWord w c_after lam = orColWord w σ ↔ lam = fiberLeftSlice w c_after σ) ∧
+    (MaskedPeriodEquiv w σ₁ σ₂ ↔
+      fiberLeftSlice w c_after σ₁ = fiberLeftSlice w c_after σ₂) ∧
+    LeftBlackStepAdmissible w (obsLeftWord w c_after (fiberLeftSlice w c_after σ)) := by
+  have hobs_fib : obsLeftWord w c_after (fiberLeftSlice w c_after σ) = orColWord w σ :=
+    obsLeftWord_reconstructLeftWord w c_after (orColWord w σ) (length_orColWord w σ)
+  refine ⟨length_reconstructLeftWord w c_after (orColWord w σ), hobs_fib, ?_, ?_, ?_⟩
+  · constructor
+    · intro h
+      unfold fiberLeftSlice
+      rw [← h, reconstructLeftWord_obsLeftWord w c_after lam hlam]
+    · intro h
+      rw [h, hobs_fib]
+  · constructor
+    · intro h
+      unfold fiberLeftSlice MaskedPeriodEquiv at *
+      rw [h]
+    · intro h
+      unfold MaskedPeriodEquiv
+      have h1 := obsLeftWord_reconstructLeftWord w c_after (orColWord w σ₁) (length_orColWord w σ₁)
+      have h2 := obsLeftWord_reconstructLeftWord w c_after (orColWord w σ₂) (length_orColWord w σ₂)
+      unfold fiberLeftSlice at h
+      rw [← h1, ← h2, h]
+  · rw [hobs_fib]
+    exact orColWord_leftBlackStepAdmissible w σ
+
 end Rule30ProofClosure

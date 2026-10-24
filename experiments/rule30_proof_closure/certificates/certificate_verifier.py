@@ -67,6 +67,7 @@ CLOSURE_HEADLINES = (
     "Rule30ProofClosure.closure_single_seed_spatiotemporal_state_completeness",
     "Rule30ProofClosure.closure_no_white_run_101_all_transients",
     "Rule30ProofClosure.closure_absorption_or_flux_violation_dichotomy_excludes_periodic_center",
+    "Rule30ProofClosure.closure_cone_fiber_bijection_and_quotient_pullback",
     "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1",
     "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
     "Rule30ProofClosure.bounded_T0_periods_one_to_four_excluded",
