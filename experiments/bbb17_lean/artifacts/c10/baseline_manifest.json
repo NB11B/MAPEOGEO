@@ -14,6 +14,7 @@
     "CollatzProofClosure/SpectralCrossing.lean",
     "CollatzProofClosure/GlobalDescent.lean",
     "CollatzProofClosure/CycleObstructions.lean",
+    "CollatzProofClosure/UnifiedTransitionSystem.lean",
     "CollatzProofClosure/MainTheorem.lean"
   ]
 }

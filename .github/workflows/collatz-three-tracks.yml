@@ -45,4 +45,5 @@ jobs:
           LEAN_PATH=. lean -o CollatzProofClosure/SpectralCrossing.olean CollatzProofClosure/SpectralCrossing.lean
           LEAN_PATH=. lean -o CollatzProofClosure/GlobalDescent.olean CollatzProofClosure/GlobalDescent.lean
           LEAN_PATH=. lean -o CollatzProofClosure/CycleObstructions.olean CollatzProofClosure/CycleObstructions.lean
+          LEAN_PATH=. lean -o CollatzProofClosure/UnifiedTransitionSystem.olean CollatzProofClosure/UnifiedTransitionSystem.lean
           LEAN_PATH=. lean -o CollatzProofClosure/MainTheorem.olean CollatzProofClosure/MainTheorem.lean

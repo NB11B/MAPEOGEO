@@ -61,8 +61,20 @@
 'BBB17.CollatzProofClosure.all_lt_1024_descend_within_85' does not depend on any axioms
 'BBB17.CollatzProofClosure.descent_of_lt_1024' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.no_nontrivial_cycle_length_le_64' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.wordMatrix_append' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.mulOpMatrix_assoc' depends on axioms: [propext]
+'BBB17.CollatzProofClosure.wordMatrix_projective_eigenvector' depends on axioms: [propext]
+'BBB17.CollatzProofClosure.orbitSurplus_affine_identity' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.orbitSurplus_even_step' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.orbitSurplus_odd_step' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.reservoir_surplus_conservation_law' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.reservoir_plus_surplus_eq_power_gap' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.nondescent_depth2_forces_mod4_eq_3_and_reservoir' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.deficitReservoir_lower_bound_ge_two' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.sharpened_nondescent_power_bound' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.nondescent_lower_bound_power_ratio' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.infinite_nondescent_diophantine_obstruction_system' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
 'BBB17.CollatzProofClosure.c10_unified_convergence_criteria' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.unified_transition_nondescent_laws' depends on axioms: [propext, Quot.sound]

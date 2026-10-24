@@ -3,6 +3,7 @@ import CollatzProofClosure.DeficitLifting
 import CollatzProofClosure.SpectralCrossing
 import CollatzProofClosure.GlobalDescent
 import CollatzProofClosure.CycleObstructions
+import CollatzProofClosure.UnifiedTransitionSystem
 
 namespace BBB17
 namespace CollatzProofClosure
@@ -170,6 +171,39 @@ theorem c10_unified_convergence_criteria :
    collatz_implies_everyNatCrossesSpectrally,
    universalCompositeDeficitPositive_iff_collatz,
    eventual_power_threshold_implies_collatz⟩
+
+/-- Unified PSMSL + MAPEOGEO + Symbolic-Dynamics Non-Descent Synthesis (`unified_transition_nondescent_laws`):
+    For any hypothetical never-descending integer `n > 1` (`∀ i, iterateAccelerated n i ≥ n`):
+    1. `n % 4 = 3` and `deficitReservoir n 2 = n * (n + 1)` (`nondescent_depth2_forces_mod4_eq_3_and_reservoir`),
+    2. For every depth `r ≥ 0`, the exact Reservoir-Surplus Conservation Law holds:
+       `deficitReservoir n r + n^{a_r} * orbitSurplus n r + 2^r * n^{a_r + 1} = n * (3 * n + 1)^{a_r}`,
+    3. For every depth `r ≥ 2`, `a_r ≥ 2`,
+       `deficitReservoir n r ≥ n * (n + 1) * (3 * n + 1)^{a_r - 2}`, and
+       `2^r * n^{a_r - 1} ≤ (9 * n + 5) * (3 * n + 1)^{a_r - 2}`. -/
+theorem unified_transition_nondescent_laws (n : Nat)
+    (hn1 : n > 1)
+    (hnever_desc : ∀ i : Nat, iterateAccelerated n i ≥ n) :
+    (n % 4 = 3 ∧ deficitReservoir n 2 = n * (n + 1)) ∧
+    (∀ r : Nat,
+      let a := wordOnes (parityWordOf r n)
+      deficitReservoir n r + n ^ a * orbitSurplus n r + 2 ^ r * n ^ (a + 1) =
+        n * (3 * n + 1) ^ a) ∧
+    (∀ r : Nat, r ≥ 2 →
+      let a := wordOnes (parityWordOf r n)
+      a ≥ 2 ∧
+      deficitReservoir n r ≥ n * (n + 1) * (3 * n + 1) ^ (a - 2) ∧
+      2 ^ r * n ^ (a - 1) ≤ (9 * n + 5) * (3 * n + 1) ^ (a - 2)) := by
+  rcases nondescent_depth2_forces_mod4_eq_3_and_reservoir n hn1 (hnever_desc 1) (hnever_desc 2) with
+    ⟨hm4, _, hres2⟩
+  refine ⟨⟨hm4, hres2⟩, ?_, ?_⟩
+  · intro r
+    exact reservoir_plus_surplus_eq_power_gap n r (fun i _ => hnever_desc i)
+  · intro r hr2
+    rcases deficitReservoir_lower_bound_ge_two n r hn1 hr2 (fun i _ => hnever_desc i) with
+      ⟨ha2, hres_ge⟩
+    rcases sharpened_nondescent_power_bound n r hn1 hr2 (fun i _ => hnever_desc i) with
+      ⟨_, _, hsharp⟩
+    exact ⟨ha2, hres_ge, hsharp⟩
 
 end CollatzProofClosure
 end BBB17

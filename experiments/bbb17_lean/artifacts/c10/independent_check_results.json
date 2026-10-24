@@ -161,5 +161,16 @@
     "max_odd_steps": 128,
     "tested_words": 383,
     "nontrivial_cycles_found": 0
+  },
+  "ws6_psmsl_matrix_algebra": {
+    "composition_checks": 4096,
+    "eigenvector_checks": 64,
+    "failures": 0
+  },
+  "ws6_unified_transition_conservation": {
+    "trajectories_checked": 1999,
+    "total_steps_checked": 7060,
+    "conservation_failures": 0,
+    "sharpened_bound_failures": 0
   }
 }

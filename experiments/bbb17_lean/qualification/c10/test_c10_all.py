@@ -37,6 +37,10 @@ from qualification.c10.valuation_sequence_search import (
     verify_constructed_valuation_sequences,
     verify_steiner_one_circuit_obstruction,
 )
+from qualification.c10.unified_transition_discovery import (
+    verify_psmsl_matrix_algebra,
+    verify_unified_transition_conservation,
+)
 
 
 class TestCollatzC10All(unittest.TestCase):
@@ -90,6 +94,13 @@ class TestCollatzC10All(unittest.TestCase):
             self.assertTrue(chk["upper_bound_holds"])
             self.assertTrue(chk["power_ratio_holds"])
 
+    def test_ws6_unified_psmsl_mapeogeo_transition_system(self) -> None:
+        psmsl = verify_psmsl_matrix_algebra(max_depth=8)
+        self.assertEqual(psmsl["failures"], 0)
+        trans = verify_unified_transition_conservation(limit_n=2000)
+        self.assertEqual(trans["conservation_failures"], 0)
+        self.assertEqual(trans["sharpened_bound_failures"], 0)
+
 
 def generate_c10_artifacts() -> None:
     """Run full C10 verification suite and write deterministic JSON/JSONL artifacts."""
@@ -103,6 +114,8 @@ def generate_c10_artifacts() -> None:
     ws3_pot = verify_potential_falsifications_and_drawdown(limit_n=10000)
     ws4_steiner = verify_steiner_one_circuit_obstruction(max_a=500)
     ws4_val = verify_constructed_valuation_sequences(max_odd_steps=128)
+    ws6_psmsl = verify_psmsl_matrix_algebra(max_depth=8)
+    ws6_trans = verify_unified_transition_conservation(limit_n=2000)
 
     baseline_manifest = {
         "campaign": "COLLATZ-C10",
@@ -120,6 +133,7 @@ def generate_c10_artifacts() -> None:
             "CollatzProofClosure/SpectralCrossing.lean",
             "CollatzProofClosure/GlobalDescent.lean",
             "CollatzProofClosure/CycleObstructions.lean",
+            "CollatzProofClosure/UnifiedTransitionSystem.lean",
             "CollatzProofClosure/MainTheorem.lean",
         ],
     }
@@ -244,6 +258,8 @@ def generate_c10_artifacts() -> None:
         "ws3_potentials_and_drawdown": ws3_pot,
         "ws4_steiner_one_circuit": ws4_steiner,
         "ws4_constructed_valuation_sequences": ws4_val,
+        "ws6_psmsl_matrix_algebra": ws6_psmsl,
+        "ws6_unified_transition_conservation": ws6_trans,
     }
     (artifacts_dir / "independent_check_results.json").write_text(
         json.dumps(independent_results, indent=2) + "\n", encoding="utf-8"
