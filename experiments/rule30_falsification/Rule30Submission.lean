@@ -2419,4 +2419,461 @@ theorem g8_p2_wordDiscrepancyWeight_append :
     rw [ih]
     omega
 
+/-!
+## 16. Gate `G9`: Period-Return Dynamics (`G9.1` through `G9.5`)
+
+Gate `G9` analyzes the orbit structure of the period-return operator `F_w = runWord w` and its
+masked observational quotient `orColWord w` across arbitrary periodic center words `w`:
+1. **`G9.1` (`iterPeriodReturn`, `orColWord`, `g9_p1_iterPeriodReturn_rowAt`, `g9_p1_orColWord_rowAt`)**:
+   Constructs the `m`-period return operator `iterPeriodReturn w m` (`F_w^m`) and the masked
+   period-observation operator `orColWord w`, proving exact agreement with cellular evolution
+   `rowAt (t₁ + m * P) 1 n` and `col0OrTrace t L`.
+2. **`G9.2` (`MaskedPeriodEquiv`, `g9_p1_prefix_eq_implies_masked_equiv_strict`,
+   `g9_p1_masked_equiv_diverges_after_one_period`)**:
+   Defines the smallest 1-period observational equivalence `MaskedPeriodEquiv w σ₁ σ₂`
+   (`orColWord w σ₁ = orColWord w σ₂`), proves it is strictly coarser than spatial prefix equality,
+   and falsifies un-shielded 1-period equivalence by exhibiting explicit depth-`0` states `σ₁, σ₂`
+   under `w = [true, false]` that are `MaskedPeriodEquiv` in period 1 but diverge in period 2.
+3. **`G9.3` (`c7`, `c7cut`, `g9_p1_ether_c7_period_two_center_breaks_one_period_sync_but_syncs_at_two_periods`,
+   `g9_p1_truncated_ether_c7cut_survives_arbitrarily_many_periods`,
+   `g9_p1_deterministic_theta_forcing_beyond_support`)**:
+   Proves that the spatially 7-periodic Ether `c7` realizes an exact period-2 center column whose
+   right boundary breaks 1-period (`P = 2`) synchronization (`evol c7 0 1 = false ≠ true = evol c7 2 1`)
+   and only synchronizes at the sub-harmonic `q = 2` (`2P = 4`); proves that its finite-support
+   truncations `c7cut N` survive with an alternating center column for arbitrarily many periods
+   (`t ≤ 7N`); and proves via the Zero-Boundary Left-Half (ZBL) triangular map `zblTheta` that
+   beyond any finite support width `W`, the free bits have zero branching (`f j = g j`).
+4. **`G9.4` & `G9.5` (`g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period`,
+   `g9_p1_period_return_masked_synchronization_implies_problem1`,
+   `g9_p2_col0Word_discrepancy_identity`, `g9_p2_p3_periodic_word_discrepancy_and_width_consumption`)**:
+   Formalizes the general sub-harmonic period-return exclusion theorem (`q * P` for any `q > 0`),
+   connects it directly to `Rule30Prize.Problem1`, and proves exact multi-period word-discrepancy
+   telescoping and boundary-width consumption.
+-/
+
+/-- **G9.1 Iterated Period-Return Operator (`iterPeriodReturn`)**:
+    Applies the period-return operator `F_w = runWord w` for `m` consecutive periods. -/
+def iterPeriodReturn (w : List Bool) : Nat → List Bool → List Bool
+  | 0, σ => σ
+  | m + 1, σ => iterPeriodReturn w m (runWord w σ)
+
+/-- Helper: under a `P`-periodic center column from `T` on, `col0Word (t + P) L = col0Word t L`
+    for all `t ≥ T` and `L : Nat`. -/
+theorem col0Word_shift_period (T P : Nat)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) :
+    ∀ (L t : Nat), T ≤ t → col0Word (t + P) L = col0Word t L
+  | 0, _, _ => rfl
+  | L + 1, t, ht => by
+    have h0 : cell (t + P) 0 = cell t 0 := hper t ht
+    have ih := col0Word_shift_period T P hper L (t + 1) (by omega)
+    rw [show t + 1 + P = t + P + 1 by omega] at ih
+    show cell (t + P) 0 :: col0Word (t + P + 1) L = cell t 0 :: col0Word (t + 1) L
+    rw [h0, ih]
+
+theorem col0Word_shift_period_mul (T P : Nat)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) :
+    ∀ (m L t : Nat), T ≤ t → col0Word (t + m * P) L = col0Word t L
+  | 0, L, t, _ => by simp
+  | m + 1, L, t, ht => by
+    have ih := col0Word_shift_period_mul T P hper m L t ht
+    have h1 := col0Word_shift_period T P hper L (t + m * P) (by omega)
+    rw [show t + (m + 1) * P = t + m * P + P by rw [Nat.succ_mul]; omega, h1, ih]
+
+/-- **G9.1 Soundness of Iterated Period-Return Operator `iterPeriodReturn` (`g9_p1_iterPeriodReturn_rowAt`)**:
+    If `Rule30Prize.center` is `P`-periodic from time `T` on, then for every `t₁ ≥ T`, every period
+    count `m : Nat`, and every output width `n : Nat`, `m` applications of `F_w` (`w = col0Word t₁ P`)
+    to the width-`(n + m * P)` right-hand prefix `rowAt t₁ 1 (n + m * P)` compute the exact
+    width-`n` right-hand prefix `rowAt (t₁ + m * P) 1 n` after `m` periods. -/
+theorem g9_p1_iterPeriodReturn_rowAt (T P : Nat)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) :
+    ∀ (m n t₁ : Nat), T ≤ t₁ →
+      iterPeriodReturn (col0Word t₁ P) m (rowAt t₁ 1 (n + m * P)) =
+        rowAt (t₁ + m * P) 1 n
+  | 0, n, t₁, _ => by simp [iterPeriodReturn]
+  | m + 1, n, t₁, ht₁ => by
+    have hstep := g8_p1_runWord_rowAt P (n + m * P) t₁
+    have hcol : col0Word (t₁ + P) P = col0Word t₁ P :=
+      col0Word_shift_period T P hper P t₁ ht₁
+    have ih := g9_p1_iterPeriodReturn_rowAt T P hper m n (t₁ + P) (by omega)
+    rw [hcol, show t₁ + P + m * P = t₁ + (m + 1) * P by rw [Nat.succ_mul]; omega] at ih
+    show iterPeriodReturn (col0Word t₁ P) m
+      (runWord (col0Word t₁ P) (rowAt t₁ 1 (n + (m + 1) * P))) =
+      rowAt (t₁ + (m + 1) * P) 1 n
+    rw [show n + (m + 1) * P = n + m * P + P by rw [Nat.succ_mul]; omega, hstep, ih]
+
+/-- **G9.1 Masked Period-Observation Operator (`orColWord` and `col0OrTrace`)**:
+    Given a center driving word `w : List Bool` and a right-hand prefix `σ : List Bool`,
+    `orColWord w σ` records at each step `s < w.length` the masked adjacent-column value
+    `w[s] || cell (t + s) 1` (`orCol 0 (t + s)`). -/
+def orColWord : List Bool → List Bool → List Bool
+  | [], _ => []
+  | c :: cs, σ => (c || σ.headD false) :: orColWord cs (stepRow c σ)
+
+def col0OrTrace (t : Nat) : Nat → List Bool
+  | 0 => []
+  | L + 1 => orCol 0 t :: col0OrTrace (t + 1) L
+
+/-- **G9.1 Exact Soundness of `orColWord` Against `orCol 0` (`g9_p1_orColWord_rowAt`)**:
+    For every starting time `t : Nat`, extra width `n : Nat`, and word length `L : Nat`,
+    `orColWord (col0Word t L) (rowAt t 1 (n + L + 1))` equals the exact `orCol 0` trace
+    `col0OrTrace t L` over `[t, t + L)`. -/
+theorem g9_p1_orColWord_rowAt :
+    ∀ (L n t : Nat),
+      orColWord (col0Word t L) (rowAt t 1 (n + L + 1)) = col0OrTrace t L
+  | 0, _, _ => rfl
+  | L + 1, n, t => by
+    have hstep := stepRow_rowAt t (n + L + 1) 1
+    rw [show (1 : Int) - 1 = 0 by rfl] at hstep
+    have ih := g9_p1_orColWord_rowAt L n (t + 1)
+    rw [show n + (L + 1) + 1 = n + L + 1 + 1 by omega]
+    show (cell t 0 || (cell t 1 :: rowAt t (1 + 1) (n + L + 1)).headD false) ::
+      orColWord (col0Word (t + 1) L) (stepRow (cell t 0) (rowAt t 1 (n + L + 1 + 1))) =
+      orCol 0 t :: col0OrTrace (t + 1) L
+    rw [hstep, ih]
+    rfl
+
+/-- **G9.2 Smallest 1-Period Observational Equivalence (`MaskedPeriodEquiv`)**:
+    Two right-hand boundary prefixes `σ₁, σ₂` are observationally equivalent over one period of
+    the center driving word `w` iff they produce the same masked trace `orColWord w`. -/
+@[reducible] def MaskedPeriodEquiv (w σ₁ σ₂ : List Bool) : Prop :=
+  orColWord w σ₁ = orColWord w σ₂
+
+/-- **G9.2 Masked Observational Equivalence Strictly Coarsens Prefix Equality
+    (`g9_p1_prefix_eq_implies_masked_equiv_strict`)**:
+    Any two identical prefixes satisfy `MaskedPeriodEquiv`, whereas distinct right-hand prefixes
+    (`[false, false]` vs `[false, true]` under `w = [false, true]`) can be `MaskedPeriodEquiv`
+    because the black phase masks column `1`. -/
+theorem g9_p1_prefix_eq_implies_masked_equiv_strict :
+    (∀ (w σ₁ σ₂ : List Bool), σ₁ = σ₂ → MaskedPeriodEquiv w σ₁ σ₂) ∧
+    ([false, false] ≠ [false, true] ∧
+      MaskedPeriodEquiv [false, true] [false, false] [false, true]) := by
+  refine ⟨fun _ _ _ h => by rw [h], ⟨by decide, rfl⟩⟩
+
+/-- **G9.2 Falsification of Un-Shielded 1-Period Observational Equivalence
+    (`g9_p1_masked_equiv_diverges_after_one_period`)**:
+    Exhibits two explicit length-5 right-hand prefixes `σ₁ = [true, false, false, false, false]`
+    and `σ₂ = [true, true, true, true, false]` under `w = [true, false]` (`P = 2`) that:
+    1. share the same initial boundary depth `ℓ = 0` (`headD = true`), and
+    2. are observationally equivalent over period 1 (`MaskedPeriodEquiv [true, false] σ₁ σ₂`,
+       both producing `[true, false]`),
+    yet after one application of the period-return operator `F_{10} = runWord [true, false]`
+    diverge in period 2 (`[true, false]` vs `[true, true]`). -/
+theorem g9_p1_masked_equiv_diverges_after_one_period :
+    let w := [true, false]
+    let σ₁ := [true, false, false, false, false]
+    let σ₂ := [true, true, true, true, false]
+    σ₁.headD false = true ∧
+    σ₂.headD false = true ∧
+    MaskedPeriodEquiv w σ₁ σ₂ ∧
+    ¬ MaskedPeriodEquiv w (runWord w σ₁) (runWord w σ₂) := by
+  exact ⟨rfl, rfl, rfl, by decide⟩
+
+/-! ### `G9.3`: The 7×4 Ether `c7`, Truncated Finite-Support Survival `c7cut`, and ZBL Post-Support Forcing -/
+
+/-- The spatially 7-periodic Ether configuration `c7`, black at `p ≡ 6 (mod 7)`. -/
+def c7 (p : Int) : Bool := decide ((p + 1) % 7 = 0)
+
+theorem c7_shift (p k : Int) : c7 (p + 7 * k) = c7 p := by
+  unfold c7
+  have : (p + 7 * k + 1) % 7 = (p + 1) % 7 := by omega
+  rw [this]
+
+theorem evol_c7_shift : ∀ (t : Nat) (p k : Int), evol c7 t (p + 7 * k) = evol c7 t p
+  | 0, p, k => c7_shift p k
+  | t + 1, p, k => by
+    show rule (evol c7 t (p + 7 * k - 1)) (evol c7 t (p + 7 * k)) (evol c7 t (p + 7 * k + 1)) =
+      rule (evol c7 t (p - 1)) (evol c7 t p) (evol c7 t (p + 1))
+    rw [show p + 7 * k - 1 = (p - 1) + 7 * k by omega,
+      show p + 7 * k + 1 = (p + 1) + 7 * k by omega,
+      evol_c7_shift t (p - 1) k, evol_c7_shift t p k, evol_c7_shift t (p + 1) k]
+
+theorem evol_c7_four (p : Int) : evol c7 4 p = c7 p := by
+  have hp : p = p % 7 + 7 * (p / 7) := by omega
+  rw [hp, evol_c7_shift, c7_shift]
+  have hr : p % 7 = 0 ∨ p % 7 = 1 ∨ p % 7 = 2 ∨ p % 7 = 3 ∨ p % 7 = 4 ∨ p % 7 = 5 ∨ p % 7 = 6 := by
+    omega
+  rcases hr with h | h | h | h | h | h | h <;> rw [h] <;> decide
+
+theorem evol_c7_period (t : Nat) (p : Int) : evol c7 (t + 4) p = evol c7 t p := by
+  have h4 : (fun q => evol c7 4 q) = c7 := funext evol_c7_four
+  rw [show t + 4 = 4 + t by omega, g4_p3_evol_add c7 4 t p, h4]
+
+theorem evol_c7_period_mul : ∀ (k t : Nat) (p : Int), evol c7 (t + 4 * k) p = evol c7 t p
+  | 0, t, p => by simp
+  | k + 1, t, p => by
+    rw [show t + 4 * (k + 1) = (t + 4 * k) + 4 by omega, evol_c7_period, evol_c7_period_mul k t p]
+
+/-- **G9.3 Infinite Ether `c7` Realizes a Period-2 Center Column That Breaks 1-Period Right
+    Synchronization (`g9_p1_ether_c7_period_two_center_breaks_one_period_sync_but_syncs_at_two_periods`)**:
+    On the two-sided infinite line (without the single-seed finite-support boundary), `c7` has:
+    1. an exact alternating center column of period `P = 2` (`evol c7 (t + 1) 0 = !evol c7 t 0`
+       and `evol c7 (t + 2) 0 = evol c7 t 0`),
+    2. broken 1-period (`P = 2`) right-boundary synchronization at the white phase
+       (`evol c7 0 0 = false`, `evol c7 2 0 = false`, yet `evol c7 0 1 = false ≠ true = evol c7 2 1`), and
+    3. exact sub-harmonic synchronization at `q = 2` periods (`2P = 4` steps: `evol c7 (t + 4) p = evol c7 t p`). -/
+theorem g9_p1_ether_c7_period_two_center_breaks_one_period_sync_but_syncs_at_two_periods :
+    (∀ t : Nat, evol c7 (t + 1) 0 = !evol c7 t 0 ∧ evol c7 (t + 2) 0 = evol c7 t 0) ∧
+    (evol c7 0 0 = false ∧ evol c7 2 0 = false ∧ evol c7 0 1 = false ∧ evol c7 2 1 = true) ∧
+    (∀ (t : Nat) (p : Int), evol c7 (t + 4) p = evol c7 t p) := by
+  refine ⟨fun t => ?_, ⟨by decide, by decide, by decide, by decide⟩, evol_c7_period⟩
+  have ht : t = t % 4 + 4 * (t / 4) := by omega
+  have h1 : evol c7 (t + 1) 0 = !evol c7 t 0 := by
+    rw [ht, show t % 4 + 4 * (t / 4) + 1 = (t % 4 + 1) + 4 * (t / 4) by omega,
+      evol_c7_period_mul, evol_c7_period_mul]
+    have hr : t % 4 = 0 ∨ t % 4 = 1 ∨ t % 4 = 2 ∨ t % 4 = 3 := by omega
+    rcases hr with h | h | h | h <;> rw [h] <;> decide
+  have h2 : evol c7 (t + 2) 0 = evol c7 t 0 := by
+    rw [ht, show t % 4 + 4 * (t / 4) + 2 = (t % 4 + 2) + 4 * (t / 4) by omega,
+      evol_c7_period_mul, evol_c7_period_mul]
+    have hr : t % 4 = 0 ∨ t % 4 = 1 ∨ t % 4 = 2 ∨ t % 4 = 3 := by omega
+    rcases hr with h | h | h | h <;> rw [h] <;> decide
+  exact ⟨h1, h2⟩
+
+/-- Finitely supported truncation of `c7` to `[-(7N + 1), 7N + 6]`. -/
+def c7cut (N : Nat) (p : Int) : Bool :=
+  if -(7 * (N : Int) + 1) ≤ p ∧ p ≤ 7 * (N : Int) + 6 then c7 p else false
+
+/-- **G9.3 Truncated Finite-Support Ether `c7cut N` Survives for Arbitrarily Many Periods
+    (`g9_p1_truncated_ether_c7cut_survives_arbitrarily_many_periods`)**:
+    For every truncation parameter `N : Nat`, `c7cut N` is finitely supported outside
+    `[-(7N + 1), 7N + 6]`, yet for all `t ≤ 7N` its center column `p = 0` and right neighbor
+    `p = 1` evolve identically to the infinite Ether `c7` (alternating on `p = 0` while
+    oscillating with period 4 on `p = 1`). -/
+theorem g9_p1_truncated_ether_c7cut_survives_arbitrarily_many_periods (N : Nat) :
+    (∀ p : Int, p < -(7 * (N : Int) + 1) ∨ 7 * (N : Int) + 6 < p → c7cut N p = false) ∧
+    (∀ t : Nat, t ≤ 7 * N →
+      evol (c7cut N) t 0 = evol c7 t 0 ∧ evol (c7cut N) t 1 = evol c7 t 1) := by
+  refine ⟨fun p hp => ?_, fun t ht => ⟨?_, ?_⟩⟩
+  · unfold c7cut
+    rcases hp with hp | hp
+    · exact ite_eq_right_iff.mpr (by omega)
+    · exact ite_eq_right_iff.mpr (by omega)
+  · apply g4_p3_evol_causal_cone t 0
+    intro q hq1 hq2
+    unfold c7cut
+    exact ite_eq_left_iff.mpr (fun h => absurd ⟨by omega, by omega⟩ h)
+  · apply g4_p3_evol_causal_cone t 1
+    intro q hq1 hq2
+    unfold c7cut
+    exact ite_eq_left_iff.mpr (fun h => absurd ⟨by omega, by omega⟩ h)
+
+/-- Zero-Boundary Left-Half (ZBL) sideways reconstruction `zblRecon` and constrained start `zblTheta`. -/
+def zblRecon (a : Nat → Bool) : Nat → Nat → Bool
+  | 0, _ => false
+  | 1, t => a t
+  | k + 2, t => xor (zblRecon a (k + 1) (t + 1)) (zblRecon a (k + 1) t || zblRecon a k t)
+
+theorem zblRecon_local {a b : Nat → Bool} :
+    ∀ k t, (∀ j, j < k → a (t + j) = b (t + j)) → zblRecon a k t = zblRecon b k t := by
+  have key : ∀ k,
+      (∀ t, (∀ j, j < k → a (t + j) = b (t + j)) → zblRecon a k t = zblRecon b k t) ∧
+      (∀ t, (∀ j, j < k + 1 → a (t + j) = b (t + j)) → zblRecon a (k + 1) t = zblRecon b (k + 1) t) := by
+    intro k
+    induction k with
+    | zero =>
+      refine ⟨fun _ _ => rfl, fun t h => ?_⟩
+      simpa [zblRecon] using h 0 (by omega)
+    | succ k ih =>
+      refine ⟨ih.2, fun t h => ?_⟩
+      show xor (zblRecon a (k + 1) (t + 1)) (zblRecon a (k + 1) t || zblRecon a k t) =
+        xor (zblRecon b (k + 1) (t + 1)) (zblRecon b (k + 1) t || zblRecon b k t)
+      rw [ih.2 (t + 1) (fun j hj => by
+          have := h (j + 1) (by omega); rwa [show t + (j + 1) = t + 1 + j by omega] at this),
+        ih.2 t (fun j hj => h j (by omega)),
+        ih.1 t (fun j hj => h j (by omega))]
+  exact fun k t h => (key k).1 t h
+
+theorem zblRecon_aff :
+    ∀ (k : Nat) (a b : Nat → Bool) (t : Nat),
+      (∀ j, j < k → a (t + j) = b (t + j)) →
+      xor (zblRecon a (k + 1) t) (zblRecon b (k + 1) t) = xor (a (t + k)) (b (t + k))
+  | 0, a, b, t, _ => rfl
+  | k + 1, a, b, t, h => by
+    show xor (xor (zblRecon a (k + 1) (t + 1)) (zblRecon a (k + 1) t || zblRecon a k t))
+        (xor (zblRecon b (k + 1) (t + 1)) (zblRecon b (k + 1) t || zblRecon b k t)) =
+      xor (a (t + (k + 1))) (b (t + (k + 1)))
+    rw [zblRecon_local (k + 1) t (fun j hj => h j (by omega)),
+      zblRecon_local k t (fun j hj => h j (by omega))]
+    have ih := zblRecon_aff k a b (t + 1) (fun j hj => by
+      have := h (j + 1) (by omega); rwa [show t + (j + 1) = t + 1 + j by omega] at this)
+    rw [show t + (k + 1) = t + 1 + k by omega, ← ih]
+    generalize zblRecon a (k + 1) (t + 1) = x
+    generalize zblRecon b (k + 1) (t + 1) = y
+    generalize (zblRecon b (k + 1) t || zblRecon b k t) = z
+    cases x <;> cases y <;> cases z <;> rfl
+
+def zblAlt (f : Nat → Bool) (t : Nat) : Bool :=
+  if t % 2 = 0 then true else f (t / 2)
+
+def zblTheta (f : Nat → Bool) (k : Nat) : Bool :=
+  zblRecon (zblAlt f) k 0
+
+/-- **G9.3 Deterministic Post-Support Forcing of Free Bits Under Period 2
+    (`g9_p1_deterministic_theta_forcing_beyond_support`)**:
+    In the Zero-Boundary Left Half (ZBL), for any finite support bound `W : Nat` and any free-bit
+    index `j : Nat` with `W < 2 * j + 2`, if two free-bit sequences `f, g : Nat → Bool` agree on
+    `s < j` and both satisfy the finite-support exterior condition (`∀ k > W, zblTheta · k = false`),
+    then `f j = g j`. That is, beyond the support boundary `W`, the period-2 survival tree has
+    out-degree `≤ 1` (zero branching). -/
+theorem g9_p1_deterministic_theta_forcing_beyond_support
+    (W j : Nat) (f g : Nat → Bool)
+    (hW : W < 2 * j + 2)
+    (hpre : ∀ s, s < j → f s = g s)
+    (hf : ∀ k, W < k → zblTheta f k = false)
+    (hg : ∀ k, W < k → zblTheta g k = false) :
+    f j = g j := by
+  have haff := zblRecon_aff (2 * j + 1) (zblAlt f) (zblAlt g) 0 (fun i hi => by
+    unfold zblAlt
+    rw [Nat.zero_add]
+    by_cases hi2 : i % 2 = 0
+    · simp only [hi2, ↓reduceIte]
+    · simp only [hi2, ↓reduceIte]
+      exact hpre (i / 2) (by omega))
+  have h1 : zblRecon (zblAlt f) (2 * j + 1 + 1) 0 = false := hf (2 * j + 2) hW
+  have h2 : zblRecon (zblAlt g) (2 * j + 1 + 1) 0 = false := hg (2 * j + 2) hW
+  rw [h1, h2] at haff
+  unfold zblAlt at haff
+  have hodd : ¬ (0 + (2 * j + 1)) % 2 = 0 := by omega
+  simp only [hodd, ↓reduceIte, show (0 + (2 * j + 1)) / 2 = j by omega] at haff
+  revert haff
+  cases f j <;> cases g j <;> decide
+
+/-! ### `G9.4` & `G9.5`: General Sub-Harmonic Period-Return Exclusion & Direct Reduction of `Problem1` -/
+
+theorem col0OrTrace_getD :
+    ∀ (L t s : Nat), s < L → (col0OrTrace t L).getD s false = orCol 0 (t + s)
+  | 0, _, _, hs => absurd hs (Nat.not_lt_zero _)
+  | L + 1, t, 0, _ => by simp [col0OrTrace]
+  | L + 1, t, s + 1, hs => by
+    have ih := col0OrTrace_getD L (t + 1) s (by omega)
+    rw [show t + 1 + s = t + (s + 1) by omega] at ih
+    exact ih
+
+/-- **G9.4 Sub-Harmonic Masked Period-Return Synchronization Excludes Arbitrary Period
+    (`g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period`)**:
+    Strengthens `g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period` in two ways:
+    1. Only requires **masked period equivalence** `MaskedPeriodEquiv` (`orColWord` equality)
+       at the discrete period-return steps `t₁ + m * P` rather than full spatial prefix equality.
+    2. Allows synchronization at **any sub-harmonic period multiple `q * P`** (`q > 0`),
+       accommodating multi-period boundary oscillations such as the `q = 2` Ether mode. -/
+theorem g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period
+    (T P t₁ q : Nat)
+    (hP : 0 < P)
+    (hq : 0 < q)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (ht₁ : T ≤ t₁)
+    (hsync : ∀ m : Nat,
+      MaskedPeriodEquiv (col0Word t₁ P)
+        (rowAt (t₁ + (m + q) * P) 1 (P + 1))
+        (rowAt (t₁ + m * P) 1 (P + 1))) :
+    False := by
+  have hor_step : ∀ m s : Nat, s < P →
+      orCol 0 (t₁ + (m + q) * P + s) = orCol 0 (t₁ + m * P + s) := by
+    intro m s hs
+    have hm := hsync m
+    unfold MaskedPeriodEquiv at hm
+    have hcol1 := col0Word_shift_period_mul T P hper (m + q) P t₁ ht₁
+    have hcol2 := col0Word_shift_period_mul T P hper m P t₁ ht₁
+    have htr1 := g9_p1_orColWord_rowAt P 0 (t₁ + (m + q) * P)
+    have htr2 := g9_p1_orColWord_rowAt P 0 (t₁ + m * P)
+    rw [Nat.zero_add, hcol1] at htr1
+    rw [Nat.zero_add, hcol2] at htr2
+    rw [htr1, htr2] at hm
+    have hget := congrArg (fun l => l.getD s false) hm
+    rw [col0OrTrace_getD P (t₁ + (m + q) * P) s hs,
+      col0OrTrace_getD P (t₁ + m * P) s hs] at hget
+    exact hget
+  have hQ : 0 < q * P := Nat.mul_pos hq hP
+  have hper_or : EventuallyPeriodic (fun t => orCol 0 t) := by
+    refine ⟨t₁, q * P, hQ, fun t ht => ?_⟩
+    show orCol 0 (t + q * P) = orCol 0 t
+    have hdm := Nat.div_add_mod (t - t₁) P
+    generalize (t - t₁) / P = m at hdm
+    have hmod := Nat.mod_lt (t - t₁) hP
+    generalize (t - t₁) % P = s at hdm hmod
+    have hcomm : P * m = m * P := Nat.mul_comm P m
+    have hadd : (m + q) * P = m * P + q * P := Nat.add_mul m q P
+    have heq := hor_step m s hmod
+    rw [hadd] at heq
+    rw [show t + q * P = t₁ + (m * P + q * P) + s by omega, heq,
+      show t₁ + m * P + s = t by omega]
+  have hper0 : EventuallyPeriodic (fun t => cell t 0) := ⟨T, P, hP, hper⟩
+  exact orCol_not_eventuallyPeriodic 0 hper0 hper_or
+
+/-- **G9.5 Direct Reduction of `Rule30Prize.Problem1` to Sub-Harmonic Masked Period-Return
+    Synchronization (`g9_p1_period_return_masked_synchronization_implies_problem1`)**:
+    Connects the period-return operator directly to official `Rule30Prize.Problem1`: if every
+    hypothetical period `P > 0` of `Rule30Prize.center` from `T₀` on eventually reaches a
+    sub-harmonic masked period-return synchronization (`q > 0`) at some `t₁ ≥ T₀`, then
+    `Rule30Prize.Problem1` holds unconditionally. -/
+theorem g9_p1_period_return_masked_synchronization_implies_problem1
+    (hReturnSync : ∀ (T₀ P : Nat), 0 < P →
+      (∀ t, T₀ ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+      ∃ t₁ q : Nat, T₀ ≤ t₁ ∧ 0 < q ∧ ∀ m : Nat,
+        MaskedPeriodEquiv (col0Word t₁ P)
+          (rowAt (t₁ + (m + q) * P) 1 (P + 1))
+          (rowAt (t₁ + m * P) 1 (P + 1))) :
+    Rule30Prize.Problem1 := by
+  rintro ⟨T₀, P, hP, hper⟩
+  obtain ⟨t₁, q, ht₁, hq, hsync⟩ := hReturnSync T₀ P hP hper
+  exact g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period
+    T₀ P t₁ q hP hq hper ht₁ hsync
+
+/-! ### `G9` Prizes 2 & 3: Word-Level Discrepancy Telescoping & Width Consumption -/
+
+/-- **G9-P2 Exact Trajectory Discrepancy Identity for `col0Word` (`g9_p2_col0Word_discrepancy_identity`)**:
+    For every starting step `t : Nat` and horizon length `L : Nat`, the change in signed center
+    discrepancy `2 * blackCount - n` from `t` to `t + L` equals `wordDiscrepancyWeight (col0Word t L)`. -/
+theorem g9_p2_col0Word_discrepancy_identity :
+    ∀ (L t : Nat),
+      (2 * (Rule30Prize.blackCount (t + L) : Int) - ((t + L : Nat) : Int)) =
+        (2 * (Rule30Prize.blackCount t : Int) - (t : Int)) +
+          wordDiscrepancyWeight (col0Word t L)
+  | 0, t => by simp [col0Word, wordDiscrepancyWeight]
+  | L + 1, t => by
+    have ih := g9_p2_col0Word_discrepancy_identity L (t + 1)
+    have hstep := g4_p2_discrepancy_succ t
+    rw [show t + 1 + L = t + (L + 1) by omega] at ih
+    show (2 * (Rule30Prize.blackCount (t + (L + 1)) : Int) - ((t + (L + 1) : Nat) : Int)) =
+      (2 * (Rule30Prize.blackCount t : Int) - (t : Int)) +
+        ((if cell t 0 then 1 else -1) + wordDiscrepancyWeight (col0Word (t + 1) L))
+    rw [ih, hstep]
+    show ((2 * (Rule30Prize.blackCount t : Int) - (t : Int)) +
+        (if Rule30Prize.center t then 1 else -1)) + wordDiscrepancyWeight (col0Word (t + 1) L) =
+      (2 * (Rule30Prize.blackCount t : Int) - (t : Int)) +
+        ((if cell t 0 then 1 else -1) + wordDiscrepancyWeight (col0Word (t + 1) L))
+    have hc : Rule30Prize.center t = cell t 0 := rfl
+    rw [hc]
+    omega
+
+/-- **G9-P2 & P3 Multi-Period Word Discrepancy Telescoping and Boundary Width Consumption
+    (`g9_p2_p3_periodic_word_discrepancy_and_width_consumption`)**:
+    Under a `P`-periodic center column from `T` on (`t₁ ≥ T`), after `m` periods of `F_w`
+    (`w = col0Word t₁ P`):
+    1. **Prize 2**: The cumulative center-column discrepancy shifts by `m * wordDiscrepancyWeight w`.
+    2. **Prize 3**: Evaluating `iterPeriodReturn w m` to recover `n` right-boundary cells consumes
+       `m * P` boundary cells from the initial width-`(n + m * P)` prefix, leaving exact length `n`. -/
+theorem g9_p2_p3_periodic_word_discrepancy_and_width_consumption
+    (T P t₁ : Nat)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (ht₁ : T ≤ t₁) :
+    ∀ (m n : Nat),
+      (2 * (Rule30Prize.blackCount (t₁ + m * P) : Int) - ((t₁ + m * P : Nat) : Int)) =
+        (2 * (Rule30Prize.blackCount t₁ : Int) - (t₁ : Int)) +
+          (m : Int) * wordDiscrepancyWeight (col0Word t₁ P) ∧
+      (iterPeriodReturn (col0Word t₁ P) m (rowAt t₁ 1 (n + m * P))).length = n
+  | 0, n => by
+    refine ⟨by simp, ?_⟩
+    simp [iterPeriodReturn, length_rowAt]
+  | m + 1, n => by
+    have ih := (g9_p2_p3_periodic_word_discrepancy_and_width_consumption T P t₁ hper ht₁ m n).1
+    have hstep := g9_p2_col0Word_discrepancy_identity P (t₁ + m * P)
+    have hcol := col0Word_shift_period_mul T P hper m P t₁ ht₁
+    rw [hcol, show t₁ + m * P + P = t₁ + (m + 1) * P by rw [Nat.succ_mul]; omega] at hstep
+    have hcast : ((m + 1 : Nat) : Int) = (m : Int) + 1 := by omega
+    refine ⟨?_, ?_⟩
+    · rw [hstep, ih, hcast, Int.add_mul, Int.one_mul]
+      omega
+    · rw [g9_p1_iterPeriodReturn_rowAt T P hper (m + 1) n t₁ ht₁, length_rowAt]
+
 end Rule30Submission

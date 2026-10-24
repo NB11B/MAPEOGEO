@@ -29,6 +29,7 @@ from experiments.rule30_falsification.benchmark import (
     run_g6_prize_mechanism_qualification,
     run_g7_collatz_return_map_transfer,
     run_g8_symbolic_return_machine_qualification,
+    run_g9_period_return_dynamics_qualification,
     sideways_left_iterated,
     sideways_left_step,
     simulate_spacetime_cone,
@@ -291,7 +292,7 @@ def test_g0_g2_prize_qualification_and_official_check_lean() -> None:
     assert res.check_lean_verdict_pass is True
     assert res.check_lean_replay_ok is True
     assert res.check_lean_new_axioms_empty is True
-    assert len(res.check_lean_verified_headlines) == 71
+    assert len(res.check_lean_verified_headlines) == 82
 
     by_name = {p.rule_name: p for p in res.control_profiles}
     assert list(by_name["g90"].point_quotient_sizes) == [2, 2, 2, 2, 2]
@@ -447,11 +448,38 @@ def test_g8_symbolic_return_machine_qualification() -> None:
     assert len(g8.g8_headlines_verified) == 10
 
 
-
-
-
-
-
-
-
+def test_g9_period_return_dynamics_qualification() -> None:
+    """Verify Gate R30-PRIZE-G9 (G9.1-G9.5) period-return dynamics qualification."""
+    g9 = run_g9_period_return_dynamics_qualification(steps=450)
+    assert g9.gate_passed is True
+    assert g9.iter_period_return_checks >= 32
+    assert g9.iter_period_return_mismatches == 0
+    assert g9.or_col_word_checks >= 200
+    assert g9.or_col_word_mismatches == 0
+    assert g9.masked_equiv_strictly_coarser_than_prefix_eq is True
+    assert g9.depth_zero_one_period_masked_equiv_diverges_in_period_two is True
+    assert g9.period2_meta_stable_trap_periods == 145
+    assert g9.period2_meta_stable_max_spatial_prefix_width == 17
+    assert g9.period2_meta_stable_break_step == 305
+    assert g9.word_0_1_7_syncs_or_col_without_depth_stabilization is True
+    assert g9.ether_c7_breaks_one_period_sync_but_syncs_at_subharmonic_q2 is True
+    assert g9.truncated_ether_c7cut_survival_checks >= 40
+    assert g9.truncated_ether_c7cut_survival_mismatches == 0
+    assert g9.zbl_post_support_zero_branching_verified is True
+    assert g9.zbl_max_odd_survival_depth_by_support == {
+        "4": 7,
+        "6": 11,
+        "8": 13,
+        "10": 19,
+    }
+    assert g9.col0_word_discrepancy_checks >= 150
+    assert g9.col0_word_discrepancy_mismatches == 0
+    assert g9.periodic_width_consumption_exact is True
+    assert len(g9.symbolic_return_machine_vs_pyramid_profiles) == 4
+    assert all(
+        p["symbolic_return_machine_cell_updates"]
+        < p["shared_causal_pyramid_cell_updates"]
+        for p in g9.symbolic_return_machine_vs_pyramid_profiles
+    )
+    assert len(g9.g9_headlines_verified) == 11
 

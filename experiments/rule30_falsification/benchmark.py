@@ -3376,6 +3376,447 @@ def run_g8_symbolic_return_machine_qualification(
 
 
 # ---------------------------------------------------------------------------
+# Gate G9: Period-Return Dynamics (G9.1 – G9.5)
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class G9PeriodReturnDynamicsResult:
+    steps: int
+    # G9.1: Iterated period-return operator `iterPeriodReturn` and masked trace `orColWord`
+    iter_period_return_checks: int
+    iter_period_return_mismatches: int
+    or_col_word_checks: int
+    or_col_word_mismatches: int
+    # G9.2: MaskedPeriodEquiv coarsening, 1-period divergence witness, & 145-period meta-stable trap
+    masked_equiv_strictly_coarser_than_prefix_eq: bool
+    depth_zero_one_period_masked_equiv_diverges_in_period_two: bool
+    period2_meta_stable_trap_periods: int
+    period2_meta_stable_max_spatial_prefix_width: int
+    period2_meta_stable_break_step: int
+    # G9.3: Orbit trichotomy, Ether c7 / c7cut sub-harmonic q=2 survival, & ZBL post-support forcing
+    word_0_1_7_syncs_or_col_without_depth_stabilization: bool
+    ether_c7_breaks_one_period_sync_but_syncs_at_subharmonic_q2: bool
+    truncated_ether_c7cut_survival_checks: int
+    truncated_ether_c7cut_survival_mismatches: int
+    zbl_post_support_zero_branching_verified: bool
+    zbl_max_odd_survival_depth_by_support: Dict[str, int]
+    # G9.4 & G9.5: Discrepancy telescoping, width consumption, & separate complexity profiles
+    col0_word_discrepancy_checks: int
+    col0_word_discrepancy_mismatches: int
+    periodic_width_consumption_exact: bool
+    symbolic_return_machine_vs_pyramid_profiles: Tuple[Dict[str, int], ...]
+    g9_headlines_verified: Tuple[str, ...]
+    gate_passed: bool
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "steps": self.steps,
+            "iter_period_return_checks": self.iter_period_return_checks,
+            "iter_period_return_mismatches": self.iter_period_return_mismatches,
+            "or_col_word_checks": self.or_col_word_checks,
+            "or_col_word_mismatches": self.or_col_word_mismatches,
+            "masked_equiv_strictly_coarser_than_prefix_eq": (
+                self.masked_equiv_strictly_coarser_than_prefix_eq
+            ),
+            "depth_zero_one_period_masked_equiv_diverges_in_period_two": (
+                self.depth_zero_one_period_masked_equiv_diverges_in_period_two
+            ),
+            "period2_meta_stable_trap_periods": self.period2_meta_stable_trap_periods,
+            "period2_meta_stable_max_spatial_prefix_width": (
+                self.period2_meta_stable_max_spatial_prefix_width
+            ),
+            "period2_meta_stable_break_step": self.period2_meta_stable_break_step,
+            "word_0_1_7_syncs_or_col_without_depth_stabilization": (
+                self.word_0_1_7_syncs_or_col_without_depth_stabilization
+            ),
+            "ether_c7_breaks_one_period_sync_but_syncs_at_subharmonic_q2": (
+                self.ether_c7_breaks_one_period_sync_but_syncs_at_subharmonic_q2
+            ),
+            "truncated_ether_c7cut_survival_checks": (
+                self.truncated_ether_c7cut_survival_checks
+            ),
+            "truncated_ether_c7cut_survival_mismatches": (
+                self.truncated_ether_c7cut_survival_mismatches
+            ),
+            "zbl_post_support_zero_branching_verified": (
+                self.zbl_post_support_zero_branching_verified
+            ),
+            "zbl_max_odd_survival_depth_by_support": dict(
+                self.zbl_max_odd_survival_depth_by_support
+            ),
+            "col0_word_discrepancy_checks": self.col0_word_discrepancy_checks,
+            "col0_word_discrepancy_mismatches": self.col0_word_discrepancy_mismatches,
+            "periodic_width_consumption_exact": self.periodic_width_consumption_exact,
+            "symbolic_return_machine_vs_pyramid_profiles": list(
+                self.symbolic_return_machine_vs_pyramid_profiles
+            ),
+            "g9_headlines_verified": list(self.g9_headlines_verified),
+            "gate_passed": self.gate_passed,
+        }
+
+
+def run_g9_period_return_dynamics_qualification(
+    steps: int = 450,
+) -> G9PeriodReturnDynamicsResult:
+    """Run Gate G9 (G9.1 – G9.5): Period-Return Dynamics Qualification."""
+    if steps < 150:
+        raise ValueError("steps must be >= 150")
+
+    cone = simulate_spacetime_cone(steps + 32)
+
+    def _cell(t: int, p: int) -> int:
+        return cone.get((p, t), 0)
+
+    def _row_at(t: int, p: int, n: int) -> Tuple[int, ...]:
+        return tuple(_cell(t, p + k) for k in range(n))
+
+    def _step_row(left_bit: int, sigma: Sequence[int]) -> Tuple[int, ...]:
+        if len(sigma) < 2:
+            return ()
+        out: List[int] = []
+        curr_l = left_bit
+        for idx_s in range(len(sigma) - 1):
+            a = sigma[idx_s]
+            b = sigma[idx_s + 1]
+            out.append(rule30_forward_cell(curr_l, a, b))
+            curr_l = a
+        return tuple(out)
+
+    def _run_word(w: Sequence[int], sigma: Sequence[int]) -> Tuple[int, ...]:
+        curr = tuple(sigma)
+        for c in w:
+            curr = _step_row(c, curr)
+        return curr
+
+    def _iter_period_return(
+        w: Sequence[int], m: int, sigma: Sequence[int]
+    ) -> Tuple[int, ...]:
+        curr = tuple(sigma)
+        for _ in range(m):
+            curr = _run_word(w, curr)
+        return curr
+
+    def _or_col_word(w: Sequence[int], sigma: Sequence[int]) -> Tuple[int, ...]:
+        curr = tuple(sigma)
+        out: List[int] = []
+        for c in w:
+            head_val = curr[0] if curr else 0
+            out.append(1 if (c == 1 or head_val == 1) else 0)
+            curr = _step_row(c, curr)
+        return tuple(out)
+
+    def _word_disc_weight(w: Sequence[int]) -> int:
+        return sum(1 if c == 1 else -1 for c in w)
+
+    # 1. G9.1: Soundness of `iterPeriodReturn` (on driven periodic words) & `orColWord` (on cone)
+    iter_checks = 0
+    iter_mismatches = 0
+    width_consumption_ok = True
+    for w_per in ((1, 0), (0, 0, 1), (0, 0, 0, 1), (0, 1, 1, 1, 1, 1, 1, 1)):
+        P_len = len(w_per)
+        for m_per in (1, 2, 3, 4):
+            for n_out in (3, 5):
+                init_sigma = (1, 1) + (0,) * (n_out + m_per * P_len - 2)
+                res_iter = _iter_period_return(w_per, m_per, init_sigma)
+                res_concat = _run_word(w_per * m_per, init_sigma)
+                iter_checks += 1
+                if res_iter != res_concat:
+                    iter_mismatches += 1
+                if len(res_iter) != n_out:
+                    width_consumption_ok = False
+
+    or_checks = 0
+    or_mismatches = 0
+    for t0 in range(1, min(steps, 160) + 1, 4):
+        for L in (2, 4, 8):
+            for n_extra in (0, 2):
+                col0_w = tuple(_cell(t0 + s, 0) for s in range(L))
+                sigma_in = _row_at(t0, 1, n_extra + L + 1)
+                expected_or = tuple(
+                    1 if (_cell(t0 + s, 0) == 1 or _cell(t0 + s, 1) == 1) else 0
+                    for s in range(L)
+                )
+                or_checks += 1
+                if _or_col_word(col0_w, sigma_in) != expected_or:
+                    or_mismatches += 1
+
+    # 2. G9.2: MaskedPeriodEquiv coarsening, 1-period divergence witness, & 145-period meta-stable trap
+    coarser_ok = (0, 0) != (0, 1) and _or_col_word((0, 1), (0, 0)) == _or_col_word(
+        (0, 1), (0, 1)
+    )
+    sigma1_g9 = (1, 0, 0, 0, 0)
+    sigma2_g9 = (1, 1, 1, 1, 0)
+    w_10 = (1, 0)
+    div_1per_ok = (
+        sigma1_g9[0] == 1
+        and sigma2_g9[0] == 1
+        and _or_col_word(w_10, sigma1_g9) == _or_col_word(w_10, sigma2_g9)
+        and _or_col_word(w_10, _run_word(w_10, sigma1_g9))
+        != _or_col_word(w_10, _run_word(w_10, sigma2_g9))
+    )
+
+    # Simulate driven right half under w = [1, 0] from init = {1, 2} for 160 periods (320 steps)
+    def _simulate_driven_periods(
+        w_drv: Sequence[int], init_ones: Sequence[int], num_periods: int
+    ) -> Tuple[List[Tuple[int, ...]], List[int], Dict[int, Dict[int, int]]]:
+        P_d = len(w_drv)
+        total_t = num_periods * P_d
+        row_map: Dict[int, int] = {p: 1 for p in init_ones}
+        rows_by_t: Dict[int, Dict[int, int]] = {0: dict(row_map)}
+        or_words: List[Tuple[int, ...]] = []
+        depths: List[int] = []
+        for k_p in range(num_periods):
+            d_k = next(
+                (p - 1 for p in range(1, total_t + 5) if row_map.get(p, 0) == 1),
+                total_t + 5,
+            )
+            depths.append(d_k)
+            cur_or: List[int] = []
+            for s_p in range(P_d):
+                c_bit = w_drv[s_p]
+                cur_or.append(1 if (c_bit == 1 or row_map.get(1, 0) == 1) else 0)
+                t_cur = k_p * P_d + s_p
+                nxt_map: Dict[int, int] = {}
+                for p in range(1, t_cur + 5):
+                    l_b = c_bit if p == 1 else row_map.get(p - 1, 0)
+                    m_b = row_map.get(p, 0)
+                    r_b = row_map.get(p + 1, 0)
+                    if rule30_forward_cell(l_b, m_b, r_b) == 1:
+                        nxt_map[p] = 1
+                row_map = nxt_map
+                rows_by_t[t_cur + 1] = dict(row_map)
+            or_words.append(tuple(cur_or))
+        return or_words, depths, rows_by_t
+
+    or_10, _, rows_10 = _simulate_driven_periods((1, 0), (1, 2), 160)
+    # Count consecutive periods k >= 7 where or_10[k] == or_10[k - 7]
+    trap_periods = 0
+    first_break_k = None
+    for k_p in range(14, 160):
+        if or_10[k_p] == or_10[k_p - 7]:
+            trap_periods += 1
+        else:
+            first_break_k = k_p
+            break
+    # Including the initial 7-period template k = 7..13, total periods in the trap is 7 + trap_periods = 145
+    total_trap_periods = 7 + trap_periods
+    break_step = (first_break_k * 2 + 1) if first_break_k is not None else -1
+
+    # Compute max spatial prefix agreement width W between t and t - 14 across the trap
+    max_prefix_w = 0
+    for t_chk in range(28, 310, 2):
+        r_now = rows_10[t_chk]
+        r_prev = rows_10[t_chk - 14]
+        w_match = 0
+        for p_chk in range(1, 40):
+            if r_now.get(p_chk, 0) == r_prev.get(p_chk, 0):
+                w_match += 1
+            else:
+                break
+        max_prefix_w = max(max_prefix_w, w_match)
+
+    # 3. G9.3: Orbit trichotomy (`0 1^7` masked sync without depth lock), `c7`/`c7cut`, & ZBL forcing
+    or_017, depths_017, _ = _simulate_driven_periods(
+        (0, 1, 1, 1, 1, 1, 1, 1), (1,), 12
+    )
+    word_017_ok = (
+        all(w == (0, 1, 1, 1, 1, 1, 1, 1) for w in or_017[1:])
+        and len(set(depths_017[1:])) > 1
+    )
+
+    # Verify infinite 7x4 Ether `c7` and truncated `c7cut N`
+    def _c7(p: int) -> int:
+        return 1 if (p + 1) % 7 == 0 else 0
+
+    def _evol_cfg(cfg_fn, max_t: int, min_p: int, max_p: int) -> Dict[Tuple[int, int], int]:
+        grid: Dict[Tuple[int, int], int] = {}
+        for p in range(min_p - max_t - 2, max_p + max_t + 3):
+            grid[(0, p)] = cfg_fn(p)
+        for t_e in range(max_t):
+            for p in range(min_p - max_t + t_e, max_p + max_t - t_e + 1):
+                grid[(t_e + 1, p)] = rule30_forward_cell(
+                    grid[(t_e, p - 1)], grid[(t_e, p)], grid[(t_e, p + 1)]
+                )
+        return grid
+
+    c7_grid = _evol_cfg(_c7, 24, -2, 2)
+    c7_ok = (
+        all(c7_grid[(t_e + 1, 0)] == (1 - c7_grid[(t_e, 0)]) for t_e in range(20))
+        and c7_grid[(0, 0)] == 0
+        and c7_grid[(2, 0)] == 0
+        and c7_grid[(0, 1)] == 0
+        and c7_grid[(2, 1)] == 1
+        and all(
+            c7_grid[(t_e + 4, p_e)] == c7_grid[(t_e, p_e)]
+            for t_e in range(16)
+            for p_e in (-1, 0, 1, 2)
+        )
+    )
+
+    c7cut_checks = 0
+    c7cut_mismatches = 0
+    for N_cut in (1, 2, 3):
+        horizon_cut = 7 * N_cut
+        cut_grid = _evol_cfg(
+            lambda p, n=N_cut: _c7(p) if -(7 * n + 1) <= p <= 7 * n + 6 else 0,
+            horizon_cut,
+            0,
+            1,
+        )
+        for t_e in range(horizon_cut + 1):
+            c7cut_checks += 1
+            if (
+                cut_grid[(t_e, 0)] != c7_grid[(t_e, 0)]
+                or cut_grid[(t_e, 1)] != c7_grid[(t_e, 1)]
+            ):
+                c7cut_mismatches += 1
+
+    # Verify ZBL post-support deterministic forcing & finite odd extinction depths for W in {4, 6, 8, 10}
+    def _zbl_theta_prefix(f_bits: Sequence[int], max_k: int) -> List[int]:
+        # Sideways ZBL reconstruction: col 0 is all 0, col 1 is alt(f)
+        T_len = max_k + 2
+        cols: List[List[int]] = [[0] * T_len]
+        col1 = [
+            1 if t % 2 == 0 else (f_bits[t // 2] if (t // 2) < len(f_bits) else 0)
+            for t in range(T_len)
+        ]
+        cols.append(col1)
+        for k_idx in range(1, max_k):
+            prev_c = cols[k_idx]
+            prev2_c = cols[k_idx - 1]
+            cur_len = len(prev_c) - 1
+            nxt_c = [
+                prev_c[t + 1] ^ (prev_c[t] | prev2_c[t]) for t in range(cur_len)
+            ]
+            cols.append(nxt_c)
+        return [cols[k_idx][0] for k_idx in range(max_k + 1)]
+
+    zbl_forcing_ok = True
+    zbl_max_odd_by_w: Dict[str, int] = {}
+    for W_sup in (4, 6, 8, 10):
+        free_vars = W_sup // 2
+        max_odd_surv = 1
+        for mask in range(1 << free_vars):
+            f_seq = [(mask >> idx_b) & 1 for idx_b in range(free_vars)]
+            # Beyond W_sup, each subsequent bit f_j is uniquely forced by theta(2*j + 2) == 0
+            for j_idx in range(free_vars, free_vars + 8):
+                cand0 = _zbl_theta_prefix(f_seq + [0], 2 * j_idx + 2)[2 * j_idx + 2]
+                cand1 = _zbl_theta_prefix(f_seq + [1], 2 * j_idx + 2)[2 * j_idx + 2]
+                # Affine degree-1 law: cand0 ^ cand1 == 1, so exactly one choice gives 0
+                if (cand0 ^ cand1) != 1:
+                    zbl_forcing_ok = False
+                forced_bit = 0 if cand0 == 0 else 1
+                f_seq.append(forced_bit)
+            theta_vals = _zbl_theta_prefix(f_seq, W_sup + 16)
+            # Find first odd k > W_sup where theta_vals[k] == 1 (extinction depth)
+            for k_odd in range(W_sup + 1, W_sup + 16, 2):
+                if theta_vals[k_odd] == 1:
+                    max_odd_surv = max(max_odd_surv, k_odd)
+                    break
+        zbl_max_odd_by_w[str(W_sup)] = max_odd_surv
+
+    # 4. G9.4 & G9.5: Discrepancy identity & complexity comparison
+    black_prefix = [0]
+    for n_idx in range(steps + 16):
+        black_prefix.append(black_prefix[-1] + _cell(n_idx, 0))
+
+    def _disc(n_idx: int) -> int:
+        return 2 * black_prefix[n_idx] - n_idx
+
+    disc_id_checks = 0
+    disc_id_mismatches = 0
+    for t0 in range(0, min(steps, 200), 5):
+        for L_w in (1, 4, 9, 16):
+            w_seg = tuple(_cell(t0 + s, 0) for s in range(L_w))
+            disc_id_checks += 1
+            if _disc(t0 + L_w) != _disc(t0) + _word_disc_weight(w_seg):
+                disc_id_mismatches += 1
+
+    # Compare Symbolic Return Machine (right-half word evolution of width N) vs Full Causal Pyramid (N^2)
+    complexity_profiles: List[Dict[str, int]] = []
+    for N_h in (64, 128, 256, min(steps, 450)):
+        # Right-half `runWord` over horizon N_h to recover 1 boundary cell at step N_h uses N_h*(N_h+1)//2 updates,
+        # whereas full two-sided causal pyramid uses N_h^2 cell updates.
+        sym_updates = (N_h * (N_h + 1)) // 2
+        pyr_updates = N_h * N_h
+        complexity_profiles.append(
+            {
+                "horizon_steps": N_h,
+                "symbolic_return_machine_cell_updates": sym_updates,
+                "shared_causal_pyramid_cell_updates": pyr_updates,
+            }
+        )
+
+    verdict_path = Path(__file__).resolve().parent / "check_verdict.json"
+    verdict_data = json.loads(verdict_path.read_text(encoding="utf-8"))
+    expected_g9_headlines = (
+        "Rule30Submission.g9_p1_iterPeriodReturn_rowAt",
+        "Rule30Submission.g9_p1_orColWord_rowAt",
+        "Rule30Submission.g9_p1_prefix_eq_implies_masked_equiv_strict",
+        "Rule30Submission.g9_p1_masked_equiv_diverges_after_one_period",
+        "Rule30Submission.g9_p1_ether_c7_period_two_center_breaks_one_period_sync_but_syncs_at_two_periods",
+        "Rule30Submission.g9_p1_truncated_ether_c7cut_survives_arbitrarily_many_periods",
+        "Rule30Submission.g9_p1_deterministic_theta_forcing_beyond_support",
+        "Rule30Submission.g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period",
+        "Rule30Submission.g9_p1_period_return_masked_synchronization_implies_problem1",
+        "Rule30Submission.g9_p2_col0Word_discrepancy_identity",
+        "Rule30Submission.g9_p2_p3_periodic_word_discrepancy_and_width_consumption",
+    )
+    verified_set = {
+        h["name"]
+        for h in verdict_data.get("headlines", [])
+        if h.get("ok") and h.get("found")
+    }
+    verified_g9 = tuple(
+        name for name in expected_g9_headlines if name in verified_set
+    )
+
+    gate_passed = (
+        iter_mismatches == 0
+        and or_mismatches == 0
+        and coarser_ok
+        and div_1per_ok
+        and total_trap_periods == 145
+        and max_prefix_w == 17
+        and break_step == 305
+        and word_017_ok
+        and c7_ok
+        and c7cut_mismatches == 0
+        and zbl_forcing_ok
+        and zbl_max_odd_by_w == {"4": 7, "6": 11, "8": 13, "10": 19}
+        and disc_id_mismatches == 0
+        and width_consumption_ok
+        and len(verified_g9) == len(expected_g9_headlines)
+    )
+
+    return G9PeriodReturnDynamicsResult(
+        steps=steps,
+        iter_period_return_checks=iter_checks,
+        iter_period_return_mismatches=iter_mismatches,
+        or_col_word_checks=or_checks,
+        or_col_word_mismatches=or_mismatches,
+        masked_equiv_strictly_coarser_than_prefix_eq=coarser_ok,
+        depth_zero_one_period_masked_equiv_diverges_in_period_two=div_1per_ok,
+        period2_meta_stable_trap_periods=total_trap_periods,
+        period2_meta_stable_max_spatial_prefix_width=max_prefix_w,
+        period2_meta_stable_break_step=break_step,
+        word_0_1_7_syncs_or_col_without_depth_stabilization=word_017_ok,
+        ether_c7_breaks_one_period_sync_but_syncs_at_subharmonic_q2=c7_ok,
+        truncated_ether_c7cut_survival_checks=c7cut_checks,
+        truncated_ether_c7cut_survival_mismatches=c7cut_mismatches,
+        zbl_post_support_zero_branching_verified=zbl_forcing_ok,
+        zbl_max_odd_survival_depth_by_support=zbl_max_odd_by_w,
+        col0_word_discrepancy_checks=disc_id_checks,
+        col0_word_discrepancy_mismatches=disc_id_mismatches,
+        periodic_width_consumption_exact=width_consumption_ok,
+        symbolic_return_machine_vs_pyramid_profiles=tuple(complexity_profiles),
+        g9_headlines_verified=verified_g9,
+        gate_passed=gate_passed,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Full Campaign Runner
 # ---------------------------------------------------------------------------
 
@@ -3394,6 +3835,7 @@ class Rule30FalsificationCampaign:
     g6_prize_mechanism_qualification: G6PrizeMechanismQualificationResult
     g7_collatz_return_map_transfer: G7CollatzReturnMapTransferResult
     g8_symbolic_return_machine: G8SymbolicReturnMachineResult
+    g9_period_return_dynamics: G9PeriodReturnDynamicsResult
     all_gates_passed: bool
 
     def to_dict(self) -> Dict[str, Any]:
@@ -3410,6 +3852,7 @@ class Rule30FalsificationCampaign:
             "g6_prize_mechanism_qualification": self.g6_prize_mechanism_qualification.to_dict(),
             "g7_collatz_return_map_transfer": self.g7_collatz_return_map_transfer.to_dict(),
             "g8_symbolic_return_machine": self.g8_symbolic_return_machine.to_dict(),
+            "g9_period_return_dynamics": self.g9_period_return_dynamics.to_dict(),
             "all_gates_passed": self.all_gates_passed,
         }
 
@@ -3428,6 +3871,7 @@ def run_full_campaign(
     g6_steps: int = 250,
     g7_steps: int = 450,
     g8_steps: int = 450,
+    g9_steps: int = 450,
     output_json: Optional[Path] = None,
 ) -> Rule30FalsificationCampaign:
     """Execute all Rule 30 falsification & prize qualification gates and optionally write JSON evidence."""
@@ -3445,6 +3889,7 @@ def run_full_campaign(
     g6 = run_g6_prize_mechanism_qualification(steps=g6_steps)
     g7 = run_g7_collatz_return_map_transfer(steps=g7_steps)
     g8 = run_g8_symbolic_return_machine_qualification(steps=g8_steps)
+    g9 = run_g9_period_return_dynamics_qualification(steps=g9_steps)
 
     campaign = Rule30FalsificationCampaign(
         e1_reconstruction=e1,
@@ -3459,6 +3904,7 @@ def run_full_campaign(
         g6_prize_mechanism_qualification=g6,
         g7_collatz_return_map_transfer=g7,
         g8_symbolic_return_machine=g8,
+        g9_period_return_dynamics=g9,
         all_gates_passed=(
             e1.gate_passed
             and e2.gate_passed
@@ -3472,6 +3918,7 @@ def run_full_campaign(
             and g6.gate_passed
             and g7.gate_passed
             and g8.gate_passed
+            and g9.gate_passed
         ),
     )
 

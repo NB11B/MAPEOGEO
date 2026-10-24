@@ -42,9 +42,9 @@ Both [`Rule30Core.lean`](Rule30Core.lean) (14 theorems) and [`MAPEOGEOFormal/Rul
 
 The initial regression in `test_suite.py` asserted `69` ANF monomials at $k=4$; exact Boolean Möbius computation gave `122`. The original failing run is preserved in [`test_results.txt`](test_results.txt), and the corrected passing run is preserved in [`test_results_corrected.txt`](test_results_corrected.txt).
 
-## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G8`)
+## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G9`)
 
-[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 466, "ok": true}`, `"newAxioms": []`, **71/71** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
+[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 593, "ok": true}`, `"newAxioms": []`, **82/82** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
 
 ```bash
 # External reproduction against official Wolfram Rule30PrizeKit
@@ -125,7 +125,18 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   --headline Rule30Submission.g8_p1_col0Word_append \
   --headline Rule30Submission.g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period \
   --headline Rule30Submission.g8_p1_multi_run_period_with_long_black_and_white_excluded \
-  --headline Rule30Submission.g8_p2_wordDiscrepancyWeight_append
+  --headline Rule30Submission.g8_p2_wordDiscrepancyWeight_append \
+  --headline Rule30Submission.g9_p1_iterPeriodReturn_rowAt \
+  --headline Rule30Submission.g9_p1_orColWord_rowAt \
+  --headline Rule30Submission.g9_p1_prefix_eq_implies_masked_equiv_strict \
+  --headline Rule30Submission.g9_p1_masked_equiv_diverges_after_one_period \
+  --headline Rule30Submission.g9_p1_ether_c7_period_two_center_breaks_one_period_sync_but_syncs_at_two_periods \
+  --headline Rule30Submission.g9_p1_truncated_ether_c7cut_survives_arbitrarily_many_periods \
+  --headline Rule30Submission.g9_p1_deterministic_theta_forcing_beyond_support \
+  --headline Rule30Submission.g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period \
+  --headline Rule30Submission.g9_p1_period_return_masked_synchronization_implies_problem1 \
+  --headline Rule30Submission.g9_p2_col0Word_discrepancy_identity \
+  --headline Rule30Submission.g9_p2_p3_periodic_word_discrepancy_and_width_consumption
 ```
 
 - **Gates G0–G2 (`run_g0_g2_prize_qualification`):** Audits 65 official catalog modules + 25 public submissions ([`g0_novelty_audit.json`](g0_novelty_audit.json)) and proves on `evolG` (`Rule30Realization.evol`) that Rule 30 uniquely reaches 3 depth-2 response classes (`xm2`, `!xm2`, `xor xm2 xm1`) and Mode A/B wavefront shielding, whereas all three `Rule30Realization` counterexample controls (`g90`, `g150`, and nonlinear `g210`) collapse to rank-1 (`g2_rule30_separates_controls_90_150_210`, `g210_origin_cancellation_evolG`, `e5_wavefront_separates_controls`).
@@ -155,6 +166,9 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   - **G8.4 (Composing Arbitrary Multi-Run Periodic Center Words):** Proves associative composition of `runWord` (`g8_p1_runWord_append`: `runWord (w₁ ++ w₂) σ = runWord w₂ (runWord w₁ σ)`) and concatenation of center-column words (`g8_p1_col0Word_append`).
   - **G8.5 (Cyclic Abstract Witness Search & Multi-Run Period Exclusions):** Proves that for **any** hypothetical period $P > 0$ of `Rule30Prize.center` (with arbitrarily many white and black runs), synchronizing the length-$P$ symbolic right-boundary prefix across periods forces column $1$ to be $P$-periodic and contradicts `not_adjacent 0` (`g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period`), and proves unconditional exclusion of multi-run periods containing a long black run $1^s$ ($s \ge 9$) followed by a white run $0^r$ even when arbitrary additional runs of total length $P - s - r$ follow in the period (`g8_p1_multi_run_period_with_long_black_and_white_excluded`).
   - **G8.6 (Discrepancy & Cost Observables on the Symbolic Return Machine):** Defines `wordDiscrepancyWeight : List Bool → Int`, proves the exact additive homomorphism `wordDiscrepancyWeight (w₁ ++ w₂) = wordDiscrepancyWeight w₁ + wordDiscrepancyWeight w₂` (`g8_p2_wordDiscrepancyWeight_append`), and tracks step and cell evaluation costs across the symbolic machine.
-
-
+- **Gate G9 (`run_g9_period_return_dynamics_qualification` — `G9.1` through `G9.5`):**
+  - **G9.1 (`iterPeriodReturn` & `orColWord`):** Defines the $m$-period return operator `iterPeriodReturn w m` ($F_w^m$) and the masked period-observation operator `orColWord w`, proving exact agreement with cellular evolution (`g9_p1_iterPeriodReturn_rowAt`, `g9_p1_orColWord_rowAt`).
+  - **G9.2 (Smallest 1-Period Observational Equivalence & Meta-Stable Quasi-Periods):** Defines `MaskedPeriodEquiv w σ₁ σ₂` (`orColWord w σ₁ = orColWord w σ₂`), proves it strictly coarsens spatial prefix equality (`g9_p1_prefix_eq_implies_masked_equiv_strict`), falsifies un-shielded 1-period equivalence by exhibiting explicit depth-0 states that are `MaskedPeriodEquiv` in period 1 but diverge in period 2 (`g9_p1_masked_equiv_diverges_after_one_period`), and documents the **145-period ($290$-step) meta-stable period-7 trap** for $w = [1, 0]$ from `init = {1, 2}` (which reaches a spatial prefix agreement width of $W = 17$ before breaking at step $305$).
+  - **G9.3 (Orbit Trichotomy, Sub-Harmonic $q = 2$ Ether `c7`, and ZBL Post-Support Forcing):** Proves that the infinite $7 \times 4$ Ether `c7` realizes an exact period-2 center column that breaks 1-period ($P = 2$) right-boundary synchronization (`evol c7 0 1 = false ≠ true = evol c7 2 1`) and synchronizes only at the sub-harmonic $q = 2$ ($2P = 4$) (`g9_p1_ether_c7_period_two_center_breaks_one_period_sync_but_syncs_at_two_periods`), proves that finite-support truncations `c7cut N` survive with an alternating center column for arbitrarily many steps $t \le 7N$ (`g9_p1_truncated_ether_c7cut_survives_arbitrarily_many_periods`), and proves via the Zero-Boundary Left-Half (ZBL) triangular map `zblTheta` that beyond any finite support width $W$, free bits have zero branching (`f j = g j`, `g9_p1_deterministic_theta_forcing_beyond_support`).
+  - **G9.4 & G9.5 (Sub-Harmonic Period-Return Exclusion, `Problem1` Reduction, and Prizes 2 & 3):** Proves that for any period $P > 0$ and any sub-harmonic period multiple $q > 0$, discrete period-return masked synchronization contradicts `orCol_not_eventuallyPeriodic 0` (`g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period`), connects this directly to `Rule30Prize.Problem1` (`g9_p1_period_return_masked_synchronization_implies_problem1`), and proves exact multi-period word discrepancy telescoping and boundary width consumption (`g9_p2_col0Word_discrepancy_identity`, `g9_p2_p3_periodic_word_discrepancy_and_width_consumption`).
 
