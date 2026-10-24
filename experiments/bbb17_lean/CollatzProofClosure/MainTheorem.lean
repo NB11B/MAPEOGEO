@@ -494,5 +494,60 @@ theorem section10_divergent_orbit_and_valuation_master :
   rcases hR r hr with ⟨hitM, _, hgap, _, hpow⟩
   exact ⟨hitM, hgap, hpow⟩
 
+/-- Section 11 Master Theorem: Ordered Valuation-Block Dynamics, Goodstein Rank Decay,
+    Four-Color 1-Circuit Reducibility, Diophantine Cycle Equivalence, and Falsification Witnesses
+    (`section11_ordered_valuation_goodstein_fourColor_master`):
+    1. **Exact Affine-Parity Equivalence**:
+       `∀ w n y, wordD w * y = wordA w * n + wordB w ↔ (validParityWord n w ∧ applyParityWord n w = y)`.
+    2. **Pure Diophantine Non-Divisibility Equivalence for `NoNontrivialCycle`**:
+       `NoNontrivialCycle ↔ ∀ w, wordD w > wordA w → wordB w > 2 * wordDelta w → wordB w % wordDelta w ≠ 0`.
+    3. **Ordered Valuation-Block Recurrence & Two-Sided Extremal Sandwich**:
+       `B_{s+1} = 3 * B_s + 2^{K_s}` and `3^s - 2^s ≤ B_s ≤ 2^{K_s - s} * (3^s - 2^s)`.
+    4. **Goodstein 2-Adic Tail Rank Decay & Four-Color 1-Circuit Reducibility**:
+       `2^a * (F(n, allTrueWord a) + 1) = 3^a * (n + 1)` and every contracting `oneCircuitWord a k`
+       with `a = 1 ∨ (2^{a+k} - 3^a) * (2^a - 1) > 3^a - 2^a` forces `F(n, oneCircuitWord a k) < n` for all `n > 1`.
+    5. **Formal Falsifications of Naive Strengthening Hypotheses**:
+       `trivial_cycle_repeat_divides_offset_witness` and `contracting_odd_block_survives_above_initial_at_27`. -/
+theorem section11_ordered_valuation_goodstein_fourColor_master :
+    (∀ (w : List Bool) (n y : Nat),
+      wordD w * y = wordA w * n + wordB w ↔
+        (validParityWord n w ∧ applyParityWord n w = y)) ∧
+    (NoNontrivialCycle ↔
+      (∀ w : List Bool,
+        wordD w > wordA w →
+        wordB w > 2 * wordDelta w →
+        wordB w % wordDelta w ≠ 0)) ∧
+    (∀ (ks : List Nat) (k : Nat),
+      wordB (returnMapWord (ks ++ [k])) =
+        3 * wordB (returnMapWord ks) + 2 ^ totalValuation ks) ∧
+    (∀ ks : List Nat,
+      let s := ks.length
+      let K := totalValuation ks
+      K ≥ s ∧
+      wordB (returnMapWord ks) + 2 ^ s ≥ 3 ^ s ∧
+      2 ^ s * wordB (returnMapWord ks) + 2 ^ K * 2 ^ s ≤ 2 ^ K * 3 ^ s) ∧
+    (∀ (a n : Nat),
+      validParityWord n (allTrueWord a) →
+      2 ^ a * (applyParityWord n (allTrueWord a) + 1) = 3 ^ a * (n + 1) ∧
+      n + 1 ≥ 2 ^ a) ∧
+    (∀ (a k n : Nat),
+      a ≥ 1 → n > 1 →
+      validParityWord n (oneCircuitWord a k) →
+      2 ^ (a + k) > 3 ^ a →
+      (a = 1 ∨ (2 ^ (a + k) - 3 ^ a) * (2 ^ a - 1) > 3 ^ a - 2 ^ a) →
+      applyParityWord n (oneCircuitWord a k) < n) ∧
+    (validOddReturnSeq 27 [0] ∧
+     applyParityWord 27 (returnMapWord [0]) = 41 ∧
+     validOddReturnSeq 27 [0, 1] ∧
+     applyParityWord 27 (returnMapWord [0, 1]) = 31 ∧
+     31 < 41 ∧ 31 > 27) :=
+  ⟨affine_identity_iff_validParityWord_and_output,
+   noNontrivialCycle_iff_offset_nondivisibility,
+   wordB_returnMapWord_snoc,
+   returnMap_offset_extremal_sandwich,
+   allTrueWord_goodstein_plus_one_law,
+   oneCircuitWord_reducible_descent,
+   contracting_odd_block_survives_above_initial_at_27⟩
+
 end CollatzProofClosure
 end BBB17

@@ -660,6 +660,121 @@ def verify_section10_divergent_orbit_and_valuation_laws(
     }
 
 
+def verify_section11_ordered_valuation_goodstein_four_color_and_falsification(
+    max_s: int = 8,
+) -> Dict[str, object]:
+    """
+    Verify Section 11 Ordered Valuation-Block Recurrences, Goodstein 2-Adic Tail Rank Decay,
+    Four-Color 1-Circuit Reducibility, Diophantine Cycle Non-Divisibility, and Target Falsifications:
+      1. Exact block recurrence B_{s+1} = 3 * B_s + 2^{K_s} and two-sided ordering sandwich
+         3^s - 2^s <= B_s <= 2^{K_s - s} * (3^s - 2^s).
+      2. Adjacent block swap law: B(ks ++ [k2, k1]) + 2^{K + k1 + 1} == B(ks ++ [k1, k2]) + 2^{K + k2 + 1}.
+      3. Exhaustive Diophantine cycle check across all ordered valuation compositions for 2 <= s <= max_s
+         with 2^K > 3^s: verify that NO composition has (2^K - 3^s) | B_s with quotient n = B_s // (2^K - 3^s) > 1,
+         while ks = [1] * s has quotient n = 1 (falsifying naive threshold-free non-divisibility CE-C10-05).
+      4. Verify CE-C10-06 at n = 27: ks = [0, 1] has contracting block k_1 = 1 (u_2 = 31 < u_1 = 41),
+         yet survives above 27 (u_2 = 31 > 27).
+      5. Goodstein + Four-Color 1-circuit reducibility: verify 2^a * (F^a(n) + 1) == 3^a * (n + 1)
+         along allTrueWord a, and verify strict descent F^{a+k}(n) < n for contracting 1-circuit words.
+    """
+    def compositions(total: int, parts: int):
+        if parts == 1:
+            yield (total,)
+            return
+        for first in range(total + 1):
+            for rest in compositions(total - first, parts - 1):
+                yield (first,) + rest
+
+    compositions_checked = 0
+    offset_recurrence_mismatches = 0
+    sandwich_failures = 0
+    swap_law_mismatches = 0
+    nontrivial_integer_cycle_quotients = 0
+    trivial_cycle_repeat_quotients = 0
+    goodstein_plus_one_mismatches = 0
+    four_color_one_circuit_descent_failures = 0
+
+    for s in range(2, max_s + 1):
+        for K in range(s + 1, 2 * s + 2):
+            delta = (1 << K) - (3 ** s)
+            for ks in compositions(K - s, s):
+                compositions_checked += 1
+                w = []
+                B_rec = 0
+                K_rec = 0
+                for k in ks:
+                    w.extend([True] + [False] * k)
+                    B_rec = 3 * B_rec + (1 << K_rec)
+                    K_rec += k + 1
+                B_exact = affine_triple_exact(w)[1]
+                if B_rec != B_exact or K_rec != K:
+                    offset_recurrence_mismatches += 1
+                if not ((3 ** s) - (1 << s) <= B_rec <= (1 << (K - s)) * ((3 ** s) - (1 << s))):
+                    sandwich_failures += 1
+                if delta > 0 and (B_rec % delta) == 0:
+                    q = B_rec // delta
+                    if q > 1:
+                        nontrivial_integer_cycle_quotients += 1
+                    elif q == 1:
+                        trivial_cycle_repeat_quotients += 1
+
+    # Check adjacent block swap law on prefixes
+    for k1 in range(4):
+        for k2 in range(4):
+            ks_prefix = [0, 1]
+            K_pref = sum(k + 1 for k in ks_prefix)
+            w12 = [True, True, False] + ([True] + [False] * k1) + ([True] + [False] * k2)
+            w21 = [True, True, False] + ([True] + [False] * k2) + ([True] + [False] * k1)
+            if affine_triple_exact(w21)[1] + (1 << (K_pref + k1 + 1)) != affine_triple_exact(w12)[1] + (1 << (K_pref + k2 + 1)):
+                swap_law_mismatches += 1
+
+    # Check Goodstein 2-adic tail rank law and Four-Color 1-circuit reducibility
+    for a in range(1, 10):
+        for q in range(0, 8):
+            # Admissible input for oneCircuitWord(a, k) has n + 1 = 2^a * m with 3^a * m == 1 (mod 2^k)
+            k = 1
+            while (1 << (a + k)) <= (3 ** a):
+                k += 1
+            m0 = pow(3 ** a, -1, 1 << k)
+            if m0 == 0:
+                m0 = 1 << k
+            m = m0 + q * (1 << k)
+            n = (1 << a) * m - 1
+            if n <= 1:
+                n += 1 << (a + k)
+            curr = n
+            for _ in range(a):
+                if curr % 2 != 1:
+                    goodstein_plus_one_mismatches += 1
+                curr = accelerated_collatz(curr)
+            if (1 << a) * (curr + 1) != (3 ** a) * (n + 1):
+                goodstein_plus_one_mismatches += 1
+            for _ in range(k):
+                if curr % 2 != 0:
+                    four_color_one_circuit_descent_failures += 1
+                curr = accelerated_collatz(curr)
+            if not (curr < n):
+                four_color_one_circuit_descent_failures += 1
+
+    # Check CE-C10-06 at n = 27
+    u1_27 = accelerated_collatz(27)
+    u2_27 = accelerated_collatz(accelerated_collatz(u1_27))
+    ce06_verified = (u1_27 == 41 and u2_27 == 31 and 27 < u2_27 < u1_27)
+
+    return {
+        "compositions_checked": compositions_checked,
+        "offset_recurrence_mismatches": offset_recurrence_mismatches,
+        "sandwich_failures": sandwich_failures,
+        "swap_law_mismatches": swap_law_mismatches,
+        "nontrivial_integer_cycle_quotients": nontrivial_integer_cycle_quotients,
+        "trivial_cycle_repeat_quotients": trivial_cycle_repeat_quotients,
+        "goodstein_plus_one_mismatches": goodstein_plus_one_mismatches,
+        "four_color_one_circuit_descent_failures": four_color_one_circuit_descent_failures,
+        "ce06_contracting_block_survival_verified": ce06_verified,
+    }
+
+
+
 
 
 

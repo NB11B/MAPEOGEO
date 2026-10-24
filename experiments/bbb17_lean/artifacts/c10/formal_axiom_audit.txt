@@ -177,3 +177,29 @@
 'BBB17.CollatzProofClosure.section10_divergent_orbit_and_valuation_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.affine_identity_iff_validParityWord_and_output' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.iterateAccelerated_one_eq_one_or_two' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.noNontrivialCycle_iff_offset_nondivisibility' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.validOddReturnSeq_iff_affine_and_odd_output' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.returnMapWord_append' depends on axioms: [propext]
+'BBB17.CollatzProofClosure.returnMapWord_snoc' depends on axioms: [propext]
+'BBB17.CollatzProofClosure.totalValuation_snoc' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.wordB_returnMapWord_snoc' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_returnMapWord_snoc' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.deficitReservoir_even_run' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.returnMap_two_block_swap_offset_law' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.wordB_returnMapWord_cons' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.totalValuation_cons' depends on axioms: [propext]
+'BBB17.CollatzProofClosure.two_pow_le_two_pow' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.returnMap_offset_extremal_sandwich' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.allTrueWord_goodstein_plus_one_law' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.oneCircuitWord_reducible_descent' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.trivial_cycle_repeat_divides_offset_witness' does not depend on any axioms
+'BBB17.CollatzProofClosure.contracting_odd_block_survives_above_initial_at_27' does not depend on any axioms
+'BBB17.CollatzProofClosure.section11_ordered_valuation_goodstein_fourColor_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

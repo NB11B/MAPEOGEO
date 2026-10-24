@@ -3263,5 +3263,613 @@ theorem returnMap_nondescent_valuation_and_gap_laws (ks : List Nat) (n : Nat)
     omega
   exact ⟨hw_eq, hones_eq, hmod_eq, hcons, hratio, hB_le⟩
 
+/-! ## Section 11: Ordered Valuation-Block Operator Dynamics `Y_s = (u_s, K_s, B_s, ρ_s, P_s, G_s)`, Exact Affine-Parity Equivalence, and Target Falsification Analysis
+
+    Advances the two-track proof attack on `NoNontrivialCycle` and `NoDivergentOrbit` by establishing:
+    1. **Exact Affine-Parity Equivalence (`affine_identity_iff_validParityWord_and_output`)**:
+       For EVERY parity word `w` and EVERY `n, y : Nat`,
+       `wordD w * y = wordA w * n + wordB w ↔ (validParityWord n w ∧ applyParityWord n w = y)`.
+       Because `wordA bs = 3^{a(bs)}` is odd for every suffix `bs`, the single natural-number equation
+       `2^|w| * y = 3^{a(w)} * n + B_w` automatically forces 2-adic parity admissibility at every step!
+    2. **Pure Diophantine Non-Divisibility Equivalence for `NoNontrivialCycle`
+       (`noNontrivialCycle_iff_offset_nondivisibility`, `noNontrivialCycle_implies_returnMap_offset_nondivisibility`)**:
+       Eliminates the starting-integer quantifier and 2-adic residue constraint from `NoNontrivialCycle`:
+       `NoNontrivialCycle ↔ ∀ w : List Bool, wordD w > wordA w → wordB w > 2 * wordDelta w → wordB w % wordDelta w ≠ 0`.
+       And for any ordered valuation sequence `ks : List Nat` with `w = returnMapWord ks`:
+       `NoNontrivialCycle → wordD w > wordA w → wordB w > wordDelta w → wordB w % wordDelta w ≠ 0`.
+    3. **Genuine Consecutive Odd-to-Odd Return Sequences (`validOddReturnSeq`,
+       `validOddReturnSeq_iff_affine_and_odd_output`)**:
+       Addresses the qualification requirement that each block `singleOddWord k` must end at an odd integer
+       so that `v_2(3 u_j + 1) = k_j + 1` holds exactly:
+       `validOddReturnSeq n ks ↔ ∃ u_s : Nat, 2^(totalValuation ks) * u_s = 3^(ks.length) * n + wordB (returnMapWord ks) ∧ u_s % 2 = 1`.
+    4. **Ordered Valuation-Block Operator State `Y_s = (u_s, K_s, B_s, ρ_s, P_s, G_s)` and Block Recurrences
+       (`wordB_returnMapWord_snoc`, `signedProjectiveGap_returnMapWord_snoc`,
+        `deficitReservoir_returnMap_block_step`, `returnMap_two_block_swap_offset_law`,
+        `returnMap_offset_extremal_sandwich`)**:
+       - Exact offset update: `B_{s+1} = 3 * B_s + 2^{K_s}` (with `K_{s+1} = K_s + k_s + 1`),
+       - Exact ordering sensitivity: swapping adjacent blocks `[k₁, k₂] → [k₂, k₁]` preserves `s` and `K`
+         while shifting `B` by `2^{K_s + 1} * (2^{k₂} - 2^{k₁})`,
+       - Universal two-sided ordering sandwich: `3^s - 2^s ≤ B_s ≤ 2^{K_s - s} * (3^s - 2^s)`,
+       - Exact reservoir block recurrence: `P_{K_{s+1}}(n) = (3n + 1) * P_{K_s}(n) + n^s * Ω_{K_s}(n)`.
+    5. **Formal Falsifications of Naive Strengthening Hypotheses
+       (`trivial_cycle_repeat_divides_offset_witness`, `contracting_odd_block_survives_above_initial_at_27`)**:
+       - Certifies that omitting the threshold `wordB w > wordDelta w` in `returnMapWord` non-divisibility is
+         falsified by `ks = [1, 1]` (`s = 2, K = 4, Δ = 7, B = 7, n = 1`), and omitting `wordB w > 2 * wordDelta w`
+         for general parity words is falsified by `w = [false, true]` (`r = 2, a = 1, Δ = 1, B = 2, n = 2`).
+       - Certifies that a contracting odd-to-odd return block (`k_j ≥ 1`, so `u_{j+1} < u_j`) does NOT force
+         immediate descent below `n`: at `n = 27`, `ks = [0, 1]` is a genuine odd-to-odd return sequence with
+         `u_1 = 41 > 27`, `k_1 = 1 ≥ 1`, and `u_2 = 31 < 41`, yet `u_2 = 31 > 27`.
+-/
+
+/-- Exact Affine-Parity Equivalence Theorem (`affine_identity_iff_validParityWord_and_output`):
+    For EVERY parity word `w : List Bool` and EVERY `n, y : Nat`, the natural-number affine
+    equation `wordD w * y = wordA w * n + wordB w` holds if and only if `n` is 2-adically
+    admissible for `w` (`validParityWord n w`) and `applyParityWord n w = y`. -/
+theorem affine_identity_iff_validParityWord_and_output (w : List Bool) :
+    ∀ (n y : Nat),
+      wordD w * y = wordA w * n + wordB w ↔
+        (validParityWord n w ∧ applyParityWord n w = y) := by
+  induction w with
+  | nil =>
+    intro n y
+    dsimp [wordD, wordA, wordB, validParityWord, applyParityWord]
+    constructor
+    · intro heq
+      exact ⟨trivial, by omega⟩
+    · rintro ⟨_, hy⟩
+      omega
+  | cons b bs ih =>
+    intro n y
+    constructor
+    · intro heq
+      have hA_odd : wordA bs % 2 = 1 := wordA_odd bs
+      cases b with
+      | false =>
+        dsimp [wordD, wordA, wordB] at heq
+        have hn_even : n % 2 = 0 := by
+          have hmod : (2 * wordD bs * y) % 2 = (wordA bs * n + 2 * wordB bs) % 2 := by
+            rw [heq]
+          rw [Nat.mul_assoc 2 (wordD bs) y, Nat.mul_mod_right,
+              Nat.add_mod, Nat.mul_mod_right, Nat.add_zero, Nat.mod_mod,
+              Nat.mul_mod, hA_odd, Nat.one_mul, Nat.mod_mod] at hmod
+          omega
+        have hstep_n : acceleratedCollatz n = n / 2 := by
+          unfold acceleratedCollatz
+          rw [if_pos hn_even]
+        let n' := acceleratedCollatz n
+        have hn_eq : n = 2 * n' := by
+          change n = 2 * acceleratedCollatz n
+          omega
+        have heq_bs : wordD bs * y = wordA bs * n' + wordB bs := by
+          have h1 : wordA bs * n = 2 * (wordA bs * n') := by
+            rw [hn_eq, ← Nat.mul_assoc, Nat.mul_comm (wordA bs) 2, Nat.mul_assoc]
+          have h2 : 2 * (wordD bs * y) = 2 * (wordA bs * n' + wordB bs) := by
+            rw [← Nat.mul_assoc 2 (wordD bs) y, heq, h1, Nat.mul_add]
+          exact Nat.eq_of_mul_eq_mul_left (by decide : 2 > 0) h2
+        rcases (ih n' y).mp heq_bs with ⟨hv_bs, hy_bs⟩
+        exact ⟨⟨hn_even, hv_bs⟩, hy_bs⟩
+      | true =>
+        dsimp [wordD, wordA, wordB] at heq
+        have hcomb : 3 * wordA bs * n + (wordA bs + 2 * wordB bs) =
+            wordA bs * (3 * n + 1) + 2 * wordB bs := by
+          rw [Nat.mul_add, Nat.mul_one, ← Nat.mul_assoc (wordA bs) 3 n,
+              Nat.mul_comm (wordA bs) 3, ← Nat.add_assoc]
+        have hn_odd : n % 2 = 1 := by
+          have hmod : (2 * wordD bs * y) % 2 =
+              (3 * wordA bs * n + (wordA bs + 2 * wordB bs)) % 2 := by
+            rw [heq]
+          rw [hcomb, Nat.mul_assoc 2 (wordD bs) y, Nat.mul_mod_right,
+              Nat.add_mod, Nat.mul_mod_right, Nat.add_zero, Nat.mod_mod,
+              Nat.mul_mod, hA_odd, Nat.one_mul, Nat.mod_mod] at hmod
+          omega
+        have hnot_ev : ¬(n % 2 = 0) := by omega
+        have hstep_n : acceleratedCollatz n = (3 * n + 1) / 2 := by
+          unfold acceleratedCollatz
+          rw [if_neg hnot_ev]
+        let n' := acceleratedCollatz n
+        have hn_eq : 3 * n + 1 = 2 * n' := by
+          change 3 * n + 1 = 2 * acceleratedCollatz n
+          omega
+        have heq_bs : wordD bs * y = wordA bs * n' + wordB bs := by
+          have h1 : wordA bs * (3 * n + 1) = 2 * (wordA bs * n') := by
+            rw [hn_eq, ← Nat.mul_assoc, Nat.mul_comm (wordA bs) 2, Nat.mul_assoc]
+          have h2 : 2 * (wordD bs * y) = 2 * (wordA bs * n' + wordB bs) := by
+            rw [← Nat.mul_assoc 2 (wordD bs) y, heq, hcomb, h1, Nat.mul_add]
+          exact Nat.eq_of_mul_eq_mul_left (by decide : 2 > 0) h2
+        rcases (ih n' y).mp heq_bs with ⟨hv_bs, hy_bs⟩
+        exact ⟨⟨hn_odd, hv_bs⟩, hy_bs⟩
+    · rintro ⟨hv, rfl⟩
+      exact parityWord_affine_identity (b :: bs) n hv
+
+/-- Helper lemma: the accelerated orbit of `1` stays within `{1, 2}` (`iterateAccelerated 1 r ≤ 2`). -/
+theorem iterateAccelerated_one_eq_one_or_two (r : Nat) :
+    iterateAccelerated 1 r = 1 ∨ iterateAccelerated 1 r = 2 := by
+  induction r with
+  | zero => exact Or.inl rfl
+  | succ r ih =>
+    rw [iterateAccelerated_succ_right]
+    rcases ih with h1 | h2
+    · rw [h1]; exact Or.inr rfl
+    · rw [h2]; exact Or.inl rfl
+
+/-- Pure Diophantine Non-Divisibility Equivalence for `NoNontrivialCycle`
+    (`noNontrivialCycle_iff_offset_nondivisibility`):
+    `NoNontrivialCycle` holds if and only if for every contracting parity word `w`
+    (`wordD w > wordA w`) with `wordB w > 2 * wordDelta w`, `wordDelta w` does not divide `wordB w`. -/
+theorem noNontrivialCycle_iff_offset_nondivisibility :
+    NoNontrivialCycle ↔
+      (∀ w : List Bool,
+        wordD w > wordA w →
+        wordB w > 2 * wordDelta w →
+        wordB w % wordDelta w ≠ 0) := by
+  unfold NoNontrivialCycle
+  constructor
+  · intro hno_cyc w hcont hB_gt2 hdiv_mod
+    have hdelta_pos : wordDelta w > 0 := by
+      unfold wordDelta; omega
+    let n := wordB w / wordDelta w
+    have hmul_eq : wordDelta w * n = wordB w :=
+      Nat.mul_div_cancel' (Nat.dvd_of_mod_eq_zero hdiv_mod)
+    have hn_gt2 : n > 2 := by
+      by_cases hle2 : n ≤ 2
+      · have hle_mul := Nat.mul_le_mul_left (wordDelta w) hle2
+        omega
+      · omega
+    have haff : wordD w * n = wordA w * n + wordB w := by
+      unfold wordDelta at hmul_eq
+      have hsub : (wordD w - wordA w) * n + wordA w * n = wordD w * n := by
+        rw [← Nat.add_mul, Nat.sub_add_cancel (by omega)]
+      omega
+    rcases (affine_identity_iff_validParityWord_and_output w n n).mp haff with ⟨hv_n, hout_n⟩
+    have hp_pos : w.length ≥ 1 := by
+      cases w with
+      | nil => dsimp [wordD, wordA] at hcont; omega
+      | cons _ _ => simp
+    have hlen_eq : parityWordOf w.length n = w :=
+      (validParityWord_iff_eq_parityWordOf w n).mp hv_n
+    have hit_n : iterateAccelerated n w.length = n := by
+      rw [← applyParityWord_parityWordOf, hlen_eq, hout_n]
+    rcases exists_min_on_prefix (fun t => iterateAccelerated n t) w.length hp_pos with
+      ⟨t_star, _, ht_min⟩
+    let m_star := iterateAccelerated n t_star
+    have hm_pos : m_star > 0 := iterateAccelerated_pos n t_star (by omega)
+    have hm_ne1 : m_star ≠ 1 := by
+      intro hm1
+      have hadd := iterateAccelerated_add n t_star (w.length - t_star)
+      have hlen_sub : t_star + (w.length - t_star) = w.length := by omega
+      rw [hlen_sub, hit_n] at hadd
+      change n = iterateAccelerated m_star (w.length - t_star) at hadd
+      rw [hm1] at hadd
+      rcases iterateAccelerated_one_eq_one_or_two (w.length - t_star) with h1 | h2 <;> omega
+    have hm_per : iterateAccelerated m_star w.length = m_star := by
+      unfold m_star
+      rw [← iterateAccelerated_add n t_star w.length]
+      have h1 : t_star + w.length = t_star + w.length * 1 := by omega
+      rw [h1]
+      exact iterateAccelerated_add_mul_period n w.length hit_n t_star 1
+    have hm_min_all : ∀ r : Nat, iterateAccelerated m_star r ≥ m_star := by
+      intro r
+      unfold m_star
+      rw [← iterateAccelerated_add n t_star r]
+      have hdiv := (Nat.mod_add_div (t_star + r) w.length).symm
+      have hper := iterateAccelerated_add_mul_period n w.length hit_n
+        ((t_star + r) % w.length) ((t_star + r) / w.length)
+      rw [← hdiv] at hper
+      rw [hper]
+      exact ht_min ((t_star + r) % w.length) (Nat.mod_lt _ hp_pos)
+    exact hno_cyc ⟨m_star, w.length, by omega, hp_pos, hm_per, hm_min_all⟩
+  · rintro hall ⟨m, p, hm1, hp1, hper, hmin⟩
+    have hm_ge1024 : m ≥ 1024 := by
+      by_cases hlt : m < 1024
+      · rcases descent_of_lt_1024 m hm1 hlt with ⟨k, _, _, hk_lt⟩
+        have hge := hmin k
+        omega
+      · omega
+    let w := parityWordOf p m
+    rcases universal_cycle_minimum_element_bound m p m hm1 hp1 (by omega) (by omega)
+      (fun i _ => hmin i) hper with ⟨_, hcont_pow, _, _⟩
+    have hcont : wordD w > wordA w := by
+      rw [wordD_eq_pow_two_length, parityWordOf_length, wordA_eq_pow_three_wordOnes]
+      exact hcont_pow
+    have hv := parityWordOf_valid p m
+    have hge_ap : applyParityWord m w ≥ m := by
+      rw [applyParityWord_parityWordOf, hper]
+      omega
+    have hnd := (discrete_deficit_nondescent_identity w m hv (by omega) hge_ap).1
+    rw [applyParityWord_parityWordOf, hper, Nat.sub_self, Nat.mul_zero, Nat.add_zero] at hnd
+    have hdelta_pos : wordDelta w > 0 := by
+      unfold wordDelta; omega
+    have hB_gt2 : wordB w > 2 * wordDelta w := by
+      have hmul3 : wordDelta w * 3 ≤ wordDelta w * m :=
+        Nat.mul_le_mul_left (wordDelta w) (by omega)
+      omega
+    have hB_mod : wordB w % wordDelta w = 0 := by
+      rw [hnd, Nat.mul_mod_right]
+    exact hall w hcont hB_gt2 hB_mod
+
+/-- Genuine Consecutive Odd-to-Odd Return Valuation Sequence (`validOddReturnSeq`):
+    An integer `n` realizes `ks : List Nat` as a genuine sequence of consecutive odd-to-odd
+    returns (`v_2(3 u_j + 1) = k_j + 1` with odd endpoint `u_s`) iff `n` is odd, `returnMapWord ks`
+    is admissible for `n`, and the terminal output `applyParityWord n (returnMapWord ks)` is odd. -/
+def validOddReturnSeq (n : Nat) (ks : List Nat) : Prop :=
+  n % 2 = 1 ∧
+  validParityWord n (returnMapWord ks) ∧
+  applyParityWord n (returnMapWord ks) % 2 = 1
+
+/-- Exact Affine-Endpoint Characterization of `validOddReturnSeq`
+    (`validOddReturnSeq_iff_affine_and_odd_output`):
+    `validOddReturnSeq n ks` holds if and only if `n` is odd and there exists an odd integer `u_s`
+    such that `2 ^ totalValuation ks * u_s = 3 ^ ks.length * n + wordB (returnMapWord ks)`. -/
+theorem validOddReturnSeq_iff_affine_and_odd_output (n : Nat) (ks : List Nat) :
+    validOddReturnSeq n ks ↔
+      (n % 2 = 1 ∧
+       ∃ u_s : Nat,
+         2 ^ totalValuation ks * u_s =
+           3 ^ ks.length * n + wordB (returnMapWord ks) ∧
+         u_s % 2 = 1) := by
+  unfold validOddReturnSeq
+  constructor
+  · rintro ⟨hn_odd, hv, hout_odd⟩
+    refine ⟨hn_odd, applyParityWord n (returnMapWord ks), ?_, hout_odd⟩
+    exact returnMap_exact_affine ks n hv
+  · rintro ⟨hn_odd, u_s, haff, hu_odd⟩
+    rw [← wordD_returnMapWord ks, ← wordA_returnMapWord ks] at haff
+    rcases (affine_identity_iff_validParityWord_and_output (returnMapWord ks) n u_s).mp haff with
+      ⟨hv, rfl⟩
+    exact ⟨hn_odd, hv, hu_odd⟩
+
+/-- Concatenation law for `returnMapWord`:
+    `returnMapWord (ks₁ ++ ks₂) = returnMapWord ks₁ ++ returnMapWord ks₂`. -/
+theorem returnMapWord_append (ks₁ ks₂ : List Nat) :
+    returnMapWord (ks₁ ++ ks₂) = returnMapWord ks₁ ++ returnMapWord ks₂ := by
+  induction ks₁ with
+  | nil => rfl
+  | cons k ks₁ ih =>
+    dsimp [returnMapWord]
+    rw [ih, List.append_assoc]
+
+/-- Right-append law for `returnMapWord`:
+    `returnMapWord (ks ++ [k]) = returnMapWord ks ++ singleOddWord k`. -/
+theorem returnMapWord_snoc (ks : List Nat) (k : Nat) :
+    returnMapWord (ks ++ [k]) = returnMapWord ks ++ singleOddWord k := by
+  rw [returnMapWord_append]
+  dsimp [returnMapWord]
+  rw [List.append_nil]
+
+/-- Cumulative valuation step recurrence (`totalValuation_snoc`):
+    `totalValuation (ks ++ [k]) = totalValuation ks + k + 1`. -/
+theorem totalValuation_snoc (ks : List Nat) (k : Nat) :
+    totalValuation (ks ++ [k]) = totalValuation ks + k + 1 := by
+  unfold totalValuation
+  rw [returnMapWord_snoc, List.length_append]
+  dsimp [singleOddWord]
+  rw [List.length_replicate]
+  omega
+
+/-- Exact Ordered Valuation-Block Offset Recurrence (`wordB_returnMapWord_snoc`):
+    Appending block `k` updates the affine offset according to
+    `B_{s+1} = 3 * B_s + 2^{K_s}`. -/
+theorem wordB_returnMapWord_snoc (ks : List Nat) (k : Nat) :
+    wordB (returnMapWord (ks ++ [k])) =
+      3 * wordB (returnMapWord ks) + 2 ^ totalValuation ks := by
+  rw [returnMapWord_snoc, wordB_append, wordA_singleOddWord, wordD_returnMapWord]
+  have hB1 : wordB (singleOddWord k) = 1 := by
+    dsimp [singleOddWord, wordB]
+    rw [wordA_replicate_false, wordB_replicate_false]
+  rw [hB1, Nat.mul_one]
+
+/-- Exact Signed Projective Gap Block Recurrence (`signedProjectiveGap_returnMapWord_snoc`):
+    Across appending block `k` to `ks` (`K_s = totalValuation ks`),
+    `G_{s+1}(n) = 3 * G_s(n) + 2^{K_s} * ((2^{k+1} - 3) * n - 1)`. -/
+theorem signedProjectiveGap_returnMapWord_snoc (ks : List Nat) (k n : Nat) :
+    signedProjectiveGap (returnMapWord (ks ++ [k])) n =
+      3 * signedProjectiveGap (returnMapWord ks) n +
+        ((2 ^ totalValuation ks : Nat) : Int) *
+          ((((2 ^ (k + 1) : Nat) : Int) - 3) * (n : Int) - 1) := by
+  have hD_snoc : wordD (returnMapWord (ks ++ [k])) =
+      2 ^ totalValuation ks * 2 ^ (k + 1) := by
+    rw [returnMapWord_snoc, wordD_append, wordD_returnMapWord, wordD_eq_pow_two_length]
+    dsimp [singleOddWord]
+    rw [List.length_replicate]
+  have hA_snoc : wordA (returnMapWord (ks ++ [k])) =
+      3 * wordA (returnMapWord ks) := by
+    rw [returnMapWord_snoc, wordA_append, wordA_singleOddWord, Nat.mul_comm]
+  have hB_snoc := wordB_returnMapWord_snoc ks k
+  have hD_ks := wordD_returnMapWord ks
+  unfold signedProjectiveGap
+  rw [hD_snoc, hA_snoc, hB_snoc, hD_ks]
+  have hcast : ((2 ^ totalValuation ks * 2 ^ (k + 1) : Nat) : Int) =
+      ((2 ^ totalValuation ks : Nat) : Int) * ((2 ^ (k + 1) : Nat) : Int) := by
+    push_cast; rfl
+  have hcastA : ((3 * wordA (returnMapWord ks) : Nat) : Int) =
+      3 * (wordA (returnMapWord ks) : Int) := by
+    push_cast; rfl
+  have hcastB : ((3 * wordB (returnMapWord ks) + 2 ^ totalValuation ks : Nat) : Int) =
+      3 * (wordB (returnMapWord ks) : Int) + ((2 ^ totalValuation ks : Nat) : Int) := by
+    push_cast; rfl
+  rw [hcast, hcastA, hcastB]
+  let D_s := ((2 ^ totalValuation ks : Nat) : Int)
+  let D_k := ((2 ^ (k + 1) : Nat) : Int)
+  let A_s := (wordA (returnMapWord ks) : Int)
+  let B_s := (wordB (returnMapWord ks) : Int)
+  change D_s * D_k * (n : Int) - 3 * A_s * (n : Int) - (3 * B_s + D_s) =
+    3 * (D_s * (n : Int) - A_s * (n : Int) - B_s) + D_s * ((D_k - 3) * (n : Int) - 1)
+  have hrhs1 : 3 * (D_s * (n : Int) - A_s * (n : Int) - B_s) =
+      3 * (D_s * (n : Int)) - 3 * (A_s * (n : Int)) - 3 * B_s := by
+    rw [Int.mul_sub, Int.mul_sub]
+  have hrhs2 : D_s * ((D_k - 3) * (n : Int) - 1) =
+      D_s * D_k * (n : Int) - 3 * (D_s * (n : Int)) - D_s := by
+    rw [Int.sub_mul, Int.mul_sub, Int.mul_sub, Int.mul_one,
+        ← Int.mul_assoc D_s D_k (n : Int),
+        ← Int.mul_assoc D_s 3 (n : Int),
+        Int.mul_comm D_s 3,
+        Int.mul_assoc 3 D_s (n : Int)]
+  have hassocA : 3 * A_s * (n : Int) = 3 * (A_s * (n : Int)) :=
+    Int.mul_assoc 3 A_s (n : Int)
+  omega
+
+/-- Reservoir invariance across `k` consecutive even steps (`deficitReservoir_even_run`):
+    If steps `r, r + 1, ..., r + k - 1` are even, `deficitReservoir n (r + k) = deficitReservoir n r`. -/
+theorem deficitReservoir_even_run (n r : Nat) :
+    ∀ k : Nat,
+      (∀ j : Nat, j < k → iterateAccelerated n (r + j) % 2 = 0) →
+      deficitReservoir n (r + k) = deficitReservoir n r
+  | 0, _ => by rw [Nat.add_zero]
+  | k + 1, hev => by
+    have ih := deficitReservoir_even_run n r k (fun j hj => hev j (by omega))
+    have hev_k : iterateAccelerated n (r + k) % 2 = 0 := hev k (by omega)
+    have hnot1 : ¬(iterateAccelerated n (r + k) % 2 = 1) := by omega
+    have hstep : deficitReservoir n (r + k + 1) = deficitReservoir n (r + k) := by
+      change (if iterateAccelerated n (r + k) % 2 = 1 then
+        (3 * n + 1) * deficitReservoir n (r + k) +
+          n ^ wordOnes (parityWordOf (r + k) n) * orbitSurplus n (r + k)
+      else deficitReservoir n (r + k)) = deficitReservoir n (r + k)
+      rw [if_neg hnot1]
+    have hassoc : r + (k + 1) = r + k + 1 := by omega
+    rw [hassoc, hstep, ih]
+
+/-- Ordering Sensitivity of Valuation Blocks (`returnMap_two_block_swap_offset_law`):
+    Swapping two adjacent valuation blocks `[k₁, k₂] ↔ [k₂, k₁]` after any prefix `ks`
+    preserves `s` and `totalValuation`, while shifting `wordB` by
+    `wordB(ks ++ [k₂, k₁]) + 2^{K + k₁ + 1} = wordB(ks ++ [k₁, k₂]) + 2^{K + k₂ + 1}`. -/
+theorem returnMap_two_block_swap_offset_law (ks : List Nat) (k₁ k₂ : Nat) :
+    let K := totalValuation ks
+    wordB (returnMapWord (ks ++ [k₂, k₁])) + 2 ^ (K + k₁ + 1) =
+      wordB (returnMapWord (ks ++ [k₁, k₂])) + 2 ^ (K + k₂ + 1) := by
+  dsimp
+  have h12 : ks ++ [k₁, k₂] = (ks ++ [k₁]) ++ [k₂] := by simp
+  have h21 : ks ++ [k₂, k₁] = (ks ++ [k₂]) ++ [k₁] := by simp
+  rw [h12, h21,
+      wordB_returnMapWord_snoc (ks ++ [k₁]) k₂,
+      wordB_returnMapWord_snoc (ks ++ [k₂]) k₁,
+      wordB_returnMapWord_snoc ks k₁,
+      wordB_returnMapWord_snoc ks k₂,
+      totalValuation_snoc ks k₁,
+      totalValuation_snoc ks k₂]
+  omega
+
+/-- Left-cons offset recurrence for `returnMapWord` (`wordB_returnMapWord_cons`):
+    Prepending block `k` to `ks` satisfies
+    `wordB (returnMapWord (k :: ks)) = 3 ^ ks.length + 2 ^ (k + 1) * wordB (returnMapWord ks)`. -/
+theorem wordB_returnMapWord_cons (k : Nat) (ks : List Nat) :
+    wordB (returnMapWord (k :: ks)) =
+      3 ^ ks.length + 2 ^ (k + 1) * wordB (returnMapWord ks) := by
+  dsimp [returnMapWord]
+  rw [wordB_append, wordA_returnMapWord]
+  have hB1 : wordB (singleOddWord k) = 1 := by
+    dsimp [singleOddWord, wordB]
+    rw [wordA_replicate_false, wordB_replicate_false]
+  have hD1 : wordD (singleOddWord k) = 2 ^ (k + 1) := by
+    rw [wordD_eq_pow_two_length]
+    dsimp [singleOddWord]
+    rw [List.length_replicate]
+  rw [hB1, hD1, Nat.mul_one]
+
+/-- Left-cons cumulative valuation recurrence (`totalValuation_cons`):
+    `totalValuation (k :: ks) = k + 1 + totalValuation ks`. -/
+theorem totalValuation_cons (k : Nat) (ks : List Nat) :
+    totalValuation (k :: ks) = k + 1 + totalValuation ks := by
+  unfold totalValuation
+  dsimp [returnMapWord]
+  rw [List.length_append]
+  dsimp [singleOddWord]
+  rw [List.length_replicate]
+
+/-- Helper lemma: `a ≤ b → 2 ^ a ≤ 2 ^ b`. -/
+theorem two_pow_le_two_pow (a b : Nat) (h : a ≤ b) : 2 ^ a ≤ 2 ^ b := by
+  obtain ⟨d, rfl⟩ : ∃ d, b = a + d := ⟨b - a, by omega⟩
+  rw [Nat.pow_add]
+  have hd : 2 ^ d ≥ 1 := Nat.one_le_pow d 2 (by decide)
+  have hmul := Nat.mul_le_mul_left (2 ^ a) hd
+  omega
+
+/-- Universal Two-Sided Ordering Sandwich for Return-Map Offsets (`returnMap_offset_extremal_sandwich`):
+    For EVERY valuation sequence `ks : List Nat` (with `s = ks.length` and `K = totalValuation ks`):
+    1. `K ≥ s`,
+    2. `wordB (returnMapWord ks) + 2 ^ s ≥ 3 ^ s` (`B_s ≥ 3^s - 2^s`), and
+    3. `2 ^ s * wordB (returnMapWord ks) + 2 ^ K * 2 ^ s ≤ 2 ^ K * 3 ^ s` (`B_s ≤ 2^{K - s} * (3^s - 2^s)`). -/
+theorem returnMap_offset_extremal_sandwich (ks : List Nat) :
+    let s := ks.length
+    let K := totalValuation ks
+    K ≥ s ∧
+    wordB (returnMapWord ks) + 2 ^ s ≥ 3 ^ s ∧
+    2 ^ s * wordB (returnMapWord ks) + 2 ^ K * 2 ^ s ≤ 2 ^ K * 3 ^ s := by
+  let P := fun (l : List Nat) =>
+    totalValuation l ≥ l.length ∧
+    wordB (returnMapWord l) + 2 ^ l.length ≥ 3 ^ l.length ∧
+    2 ^ l.length * wordB (returnMapWord l) + 2 ^ totalValuation l * 2 ^ l.length ≤
+      2 ^ totalValuation l * 3 ^ l.length
+  have hnil : P [] := by
+    dsimp [P, totalValuation, returnMapWord, wordB]
+    omega
+  have hsnoc : ∀ (l : List Nat) (k : Nat), P l → P (l ++ [k]) := by
+    intro l k ih
+    dsimp [P] at ih ⊢
+    rcases ih with ⟨hK_ge_s, hlow, hhigh⟩
+    have hlen : (l ++ [k]).length = l.length + 1 := by
+      rw [List.length_append]; rfl
+    have hK_snoc : totalValuation (l ++ [k]) = totalValuation l + k + 1 :=
+      totalValuation_snoc l k
+    have hB_snoc : wordB (returnMapWord (l ++ [k])) =
+        3 * wordB (returnMapWord l) + 2 ^ totalValuation l :=
+      wordB_returnMapWord_snoc l k
+    rw [hlen, hK_snoc, hB_snoc]
+    have hpow_s_le_K : 2 ^ l.length ≤ 2 ^ totalValuation l :=
+      two_pow_le_two_pow l.length (totalValuation l) hK_ge_s
+    have hlow_step : 3 * wordB (returnMapWord l) + 2 ^ totalValuation l +
+        2 ^ (l.length + 1) ≥ 3 ^ (l.length + 1) := by
+      rw [Nat.pow_succ 2 l.length, Nat.pow_succ 3 l.length]
+      omega
+    have hhigh_step : 2 ^ (l.length + 1) *
+        (3 * wordB (returnMapWord l) + 2 ^ totalValuation l) +
+        2 ^ (totalValuation l + k + 1) * 2 ^ (l.length + 1) ≤
+        2 ^ (totalValuation l + k + 1) * 3 ^ (l.length + 1) := by
+      have hmul6 := Nat.mul_le_mul_left 6 hhigh
+      have hSB : (2 ^ l.length * 2) * (3 * wordB (returnMapWord l)) =
+          6 * (2 ^ l.length * wordB (returnMapWord l)) := by
+        rw [Nat.mul_assoc (2 ^ l.length) 2 (3 * wordB (returnMapWord l)),
+            ← Nat.mul_assoc 2 3 (wordB (returnMapWord l)),
+            ← Nat.mul_assoc (2 ^ l.length) (2 * 3) (wordB (returnMapWord l)),
+            Nat.mul_comm (2 ^ l.length) (2 * 3),
+            Nat.mul_assoc (2 * 3) (2 ^ l.length) (wordB (returnMapWord l))]
+      have hTS1 : (2 ^ l.length * 2) * 2 ^ totalValuation l =
+          2 * (2 ^ totalValuation l * 2 ^ l.length) := by
+        rw [Nat.mul_comm (2 ^ l.length) 2,
+            Nat.mul_assoc 2 (2 ^ l.length) (2 ^ totalValuation l),
+            Nat.mul_comm (2 ^ l.length) (2 ^ totalValuation l)]
+      have hTS2 : (2 ^ totalValuation l * 2) * (2 ^ l.length * 2) =
+          4 * (2 ^ totalValuation l * 2 ^ l.length) := by
+        rw [Nat.mul_comm (2 ^ totalValuation l) 2,
+            Nat.mul_assoc 2 (2 ^ totalValuation l) (2 ^ l.length * 2),
+            ← Nat.mul_assoc (2 ^ totalValuation l) (2 ^ l.length) 2,
+            Nat.mul_comm (2 ^ totalValuation l * 2 ^ l.length) 2,
+            ← Nat.mul_assoc 2 2 (2 ^ totalValuation l * 2 ^ l.length)]
+      have hlhs6 : 6 * (2 ^ l.length * wordB (returnMapWord l) +
+          2 ^ totalValuation l * 2 ^ l.length) =
+          2 ^ (l.length + 1) * (3 * wordB (returnMapWord l) + 2 ^ totalValuation l) +
+            2 ^ (totalValuation l + 1) * 2 ^ (l.length + 1) := by
+        rw [Nat.pow_succ 2 l.length, Nat.pow_succ 2 (totalValuation l),
+            Nat.mul_add 6, Nat.mul_add (2 ^ l.length * 2),
+            hSB, hTS1, hTS2]
+        omega
+      have hrhs6 : 6 * (2 ^ totalValuation l * 3 ^ l.length) =
+          2 ^ (totalValuation l + 1) * 3 ^ (l.length + 1) := by
+        rw [Nat.pow_succ 2 (totalValuation l), Nat.pow_succ 3 l.length,
+            Nat.mul_comm (2 ^ totalValuation l) 2,
+            Nat.mul_assoc 2 (2 ^ totalValuation l) (3 ^ l.length * 3),
+            ← Nat.mul_assoc (2 ^ totalValuation l) (3 ^ l.length) 3,
+            Nat.mul_comm (2 ^ totalValuation l * 3 ^ l.length) 3,
+            ← Nat.mul_assoc 2 3 (2 ^ totalValuation l * 3 ^ l.length)]
+      rw [hlhs6, hrhs6] at hmul6
+      have h2_le_3 : 2 ^ (l.length + 1) ≤ 3 ^ (l.length + 1) :=
+        pow_le_pow_of_le 2 3 (l.length + 1) (by decide)
+      have hpow_K1_le : 2 ^ (totalValuation l + 1) ≤ 2 ^ (totalValuation l + k + 1) :=
+        two_pow_le_two_pow (totalValuation l + 1) (totalValuation l + k + 1) (by omega)
+      have hdiff_le := Nat.mul_le_mul_right (3 ^ (l.length + 1) - 2 ^ (l.length + 1)) hpow_K1_le
+      rw [Nat.mul_sub, Nat.mul_sub] at hdiff_le
+      have hsub1 : 2 ^ (totalValuation l + 1) * 2 ^ (l.length + 1) ≤
+          2 ^ (totalValuation l + 1) * 3 ^ (l.length + 1) :=
+        Nat.mul_le_mul_left _ h2_le_3
+      have hsub2 : 2 ^ (totalValuation l + k + 1) * 2 ^ (l.length + 1) ≤
+          2 ^ (totalValuation l + k + 1) * 3 ^ (l.length + 1) :=
+        Nat.mul_le_mul_left _ h2_le_3
+      omega
+    exact ⟨by omega, hlow_step, hhigh_step⟩
+  have hacc : ∀ (rem pfx : List Nat), P pfx → P (pfx ++ rem) := by
+    intro rem
+    induction rem with
+    | nil =>
+      intro pfx hp
+      rw [List.append_nil]
+      exact hp
+    | cons k tl ih =>
+      intro pfx hp
+      have hcons : pfx ++ (k :: tl) = (pfx ++ [k]) ++ tl := by simp
+      rw [hcons]
+      exact ih (pfx ++ [k]) (hsnoc pfx k hp)
+  exact hacc ks [] hnil
+
+/-- Goodstein 2-Adic Tail Rank Decay Law Across Expanding Runs (`allTrueWord_goodstein_plus_one_law`):
+    Along an expanding run `allTrueWord a` of `a` consecutive odd steps (where the visible integer
+    `n` strictly increases), the shifted value `n + 1` satisfies
+    `2 ^ a * (applyParityWord n (allTrueWord a) + 1) = 3 ^ a * (n + 1)` and `n + 1 ≥ 2 ^ a`,
+    consuming `a` factors of `2` from `n + 1` and forcing an exit to an even step within `≤ n` steps. -/
+theorem allTrueWord_goodstein_plus_one_law (a n : Nat)
+    (hv : validParityWord n (allTrueWord a)) :
+    2 ^ a * (applyParityWord n (allTrueWord a) + 1) = 3 ^ a * (n + 1) ∧
+    n + 1 ≥ 2 ^ a := by
+  have hid := parityWord_affine_identity (allTrueWord a) n hv
+  have hD := wordD_allTrueWord_eq a
+  have hA := wordA_allTrueWord_eq a
+  have hB := wordB_allTrueWord_add_wordD a
+  rw [hD, hA] at hid hB
+  have hge := validParityWord_allTrueWord_ge a n hv
+  rw [hD] at hge
+  refine ⟨?_, hge⟩
+  rw [Nat.mul_add, Nat.mul_one, Nat.mul_add, Nat.mul_one]
+  omega
+
+/-- Four-Color Reducible 1-Circuit Configuration Theorem (`oneCircuitWord_reducible_descent`):
+    Every contracting 1-circuit configuration `oneCircuitWord a k = allTrueWord a ++ replicate k false`
+    (`a ≥ 1`, `2^{a+k} > 3^a`) satisfying `a = 1 ∨ (2^{a+k} - 3^a) * (2^a - 1) > 3^a - 2^a`
+    is unconditionally reducible: EVERY integer `n > 1` realizing `oneCircuitWord a k` strictly
+    descends below `n` (`applyParityWord n (oneCircuitWord a k) < n`). -/
+theorem oneCircuitWord_reducible_descent (a k n : Nat)
+    (ha : a ≥ 1) (hn1 : n > 1)
+    (hv : validParityWord n (oneCircuitWord a k))
+    (hcont : 2 ^ (a + k) > 3 ^ a)
+    (hred : a = 1 ∨ (2 ^ (a + k) - 3 ^ a) * (2 ^ a - 1) > 3 ^ a - 2 ^ a) :
+    applyParityWord n (oneCircuitWord a k) < n := by
+  rcases oneCircuitWord_coefficients a k with ⟨hA, hD, hB⟩
+  have hcont_w : wordD (oneCircuitWord a k) > wordA (oneCircuitWord a k) := by
+    rw [hD, hA]; exact hcont
+  rw [contracting_word_descent_iff (oneCircuitWord a k) n hv hcont_w, hD, hA]
+  have hB_eq : wordB (oneCircuitWord a k) = 3 ^ a - 2 ^ a := by omega
+  rw [hB_eq]
+  rcases hred with rfl | hgt_red
+  · have hdelta_pos : 2 ^ (1 + k) - 3 ^ 1 ≥ 1 := by omega
+    have hmul : (2 ^ (1 + k) - 3 ^ 1) * 2 ≤ (2 ^ (1 + k) - 3 ^ 1) * n :=
+      Nat.mul_le_mul_left (2 ^ (1 + k) - 3 ^ 1) (by omega)
+    omega
+  · have hv_allTrue : validParityWord n (allTrueWord a) :=
+      ((validParityWord_append (allTrueWord a) (List.replicate k false) n).mp hv).1
+    have hn_ge : n + 1 ≥ 2 ^ a :=
+      (allTrueWord_goodstein_plus_one_law a n hv_allTrue).2
+    have hn_ge' : n ≥ 2 ^ a - 1 := by omega
+    have hmul : (2 ^ (a + k) - 3 ^ a) * (2 ^ a - 1) ≤ (2 ^ (a + k) - 3 ^ a) * n :=
+      Nat.mul_le_mul_left (2 ^ (a + k) - 3 ^ a) hn_ge'
+    omega
+
+/-- Formal Falsification Witness CE-C10-05 (`trivial_cycle_repeat_divides_offset_witness`):
+    Proves that the threshold `wordB w > wordDelta w` (for `returnMapWord ks`, where `n = 1`
+    realizes `ks = [1, 1]` with `Δ = 7, B = 7`) and `wordB w > 2 * wordDelta w` (for general parity
+    words, where `n = 2` realizes `w = [false, true]` with `Δ = 1, B = 2`) cannot be omitted
+    from `noNontrivialCycle_iff_offset_nondivisibility`. -/
+theorem trivial_cycle_repeat_divides_offset_witness :
+    let w1 := returnMapWord [1, 1]
+    let w2 := [false, true]
+    (wordD w1 > wordA w1 ∧
+     wordB w1 = wordDelta w1 ∧
+     wordB w1 % wordDelta w1 = 0) ∧
+    (wordD w2 > wordA w2 ∧
+     wordB w2 = 2 * wordDelta w2 ∧
+     wordB w2 % wordDelta w2 = 0) := by
+  decide
+
+/-- Formal Falsification Witness CE-C10-06 (`contracting_odd_block_survives_above_initial_at_27`):
+    Proves that encountering a contracting odd-to-odd return block (`k_j ≥ 1`, where `u_{j+1} < u_j`)
+    does NOT by itself force immediate descent below the starting integer `n`:
+    for `n = 27`, `ks = [0, 1]` is a genuine odd-to-odd return sequence with `u_1 = 41 > 27`,
+    `k_1 = 1 ≥ 1`, and `u_2 = 31 < 41`, yet `u_2 = 31 > 27`. -/
+theorem contracting_odd_block_survives_above_initial_at_27 :
+    validOddReturnSeq 27 [0] ∧
+    applyParityWord 27 (returnMapWord [0]) = 41 ∧
+    validOddReturnSeq 27 [0, 1] ∧
+    applyParityWord 27 (returnMapWord [0, 1]) = 31 ∧
+    31 < 41 ∧ 31 > 27 := by
+  dsimp [validOddReturnSeq, returnMapWord, singleOddWord, validParityWord,
+         stepParityMatches, acceleratedCollatz, applyParityWord]
+  decide
+
 end CollatzProofClosure
 end BBB17

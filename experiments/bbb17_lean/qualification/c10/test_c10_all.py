@@ -44,6 +44,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_psmsl_matrix_algebra,
     verify_section9_trichotomy_and_two_point_shift,
     verify_section10_divergent_orbit_and_valuation_laws,
+    verify_section11_ordered_valuation_goodstein_four_color_and_falsification,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -151,6 +152,18 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(sec10["return_map_conservation_mismatches"], 0)
         self.assertEqual(sec10["excursion_power_shift_failures"], 0)
 
+    def test_ws6_section11_ordered_valuation_goodstein_four_color_and_falsification(self) -> None:
+        sec11 = verify_section11_ordered_valuation_goodstein_four_color_and_falsification(max_s=7)
+        self.assertGreater(sec11["compositions_checked"], 0)
+        self.assertEqual(sec11["offset_recurrence_mismatches"], 0)
+        self.assertEqual(sec11["sandwich_failures"], 0)
+        self.assertEqual(sec11["swap_law_mismatches"], 0)
+        self.assertEqual(sec11["nontrivial_integer_cycle_quotients"], 0)
+        self.assertGreater(sec11["trivial_cycle_repeat_quotients"], 0)
+        self.assertEqual(sec11["goodstein_plus_one_mismatches"], 0)
+        self.assertEqual(sec11["four_color_one_circuit_descent_failures"], 0)
+        self.assertTrue(sec11["ce06_contracting_block_survival_verified"])
+
 
 def generate_c10_artifacts() -> None:
     """Run full C10 verification suite and write deterministic JSON/JSONL artifacts."""
@@ -256,6 +269,27 @@ def generate_c10_artifacts() -> None:
             "witnesses": [{"a": 2, "k": 2, "r": 4, "delta": 7, "wordB": 5, "min_m": 3, "equation": "7 * m = 5"}],
             "lean_theorem": "BBB17.CollatzProofClosure.no_two_odd_block_cycle",
             "resolution": "Discharged a = 2 for all k >= 0 via exact Diophantine non-divisibility in no_two_odd_block_cycle.",
+        },
+        {
+            "id": "CE-C10-05",
+            "workstream": "WS6_Track1_Cycles",
+            "hypothesis_tested": "Threshold-free offset non-divisibility (2^K - 3^s) does not divide B(returnMapWord ks) for all s >= 2 with 2^K > 3^s",
+            "status": "FALSIFIED",
+            "witnesses": [
+                {"ks": [1, 1], "s": 2, "K": 4, "delta": 7, "wordB": 7, "quotient_n": 1},
+                {"word": [False, True], "r": 2, "a": 1, "delta": 1, "wordB": 2, "quotient_n": 2},
+            ],
+            "lean_theorem": "BBB17.CollatzProofClosure.trivial_cycle_repeat_divides_offset_witness",
+            "resolution": "Added exact threshold B(w) > 2 * Delta(w) (and B(w) > Delta(w) for odd-starting returnMapWord ks) in noNontrivialCycle_iff_offset_nondivisibility.",
+        },
+        {
+            "id": "CE-C10-06",
+            "workstream": "WS6_Track2_DivergentOrbits",
+            "hypothesis_tested": "Encountering a contracting odd-to-odd return block (k_j >= 1, so u_{j+1} < u_j) immediately forces descent below the initial integer n",
+            "status": "FALSIFIED",
+            "witnesses": [{"n": 27, "ks": [0, 1], "u_0": 27, "u_1": 41, "u_2": 31}],
+            "lean_theorem": "BBB17.CollatzProofClosure.contracting_odd_block_survives_above_initial_at_27",
+            "resolution": "Replaced single-block contraction descent with Goodstein 2-adic tail rank decay allTrueWord_goodstein_plus_one_law and Four-Color 1-circuit reducibility oneCircuitWord_reducible_descent.",
         },
     ]
     with (artifacts_dir / "counterexamples.jsonl").open("w", encoding="utf-8") as f:
