@@ -27,6 +27,7 @@ from experiments.rule30_falsification.benchmark import (
     run_g4_multi_prize_qualification,
     run_g5_three_prize_continuation,
     run_g6_prize_mechanism_qualification,
+    run_g7_collatz_return_map_transfer,
     sideways_left_iterated,
     sideways_left_step,
     simulate_spacetime_cone,
@@ -289,7 +290,7 @@ def test_g0_g2_prize_qualification_and_official_check_lean() -> None:
     assert res.check_lean_verdict_pass is True
     assert res.check_lean_replay_ok is True
     assert res.check_lean_new_axioms_empty is True
-    assert len(res.check_lean_verified_headlines) == 51
+    assert len(res.check_lean_verified_headlines) == 61
 
     by_name = {p.rule_name: p for p in res.control_profiles}
     assert list(by_name["g90"].point_quotient_sizes) == [2, 2, 2, 2, 2]
@@ -389,6 +390,35 @@ def test_g6_prize_mechanism_qualification() -> None:
     assert g6.robdd_grows_exponentially_with_right_half_depth is True
     assert g6.left_edge_xor_total_mismatches == 0
     assert len(g6.g6_headlines_verified) == 12
+
+
+def test_g7_collatz_return_map_transfer() -> None:
+    """Verify Gate G7 (rule30_collatz_transfer — G7.1 through G7.5)."""
+    g7 = run_g7_collatz_return_map_transfer(steps=450)
+    assert g7.gate_passed is True
+    assert g7.scalar_ell_alone_is_closed is False
+    assert g7.scalar_ell_collision_buckets_count >= 5
+    assert g7.minimal_collision_witness_ell0_01.w1 == 38
+    assert g7.minimal_collision_witness_ell0_01.w2 == 115
+    assert (
+        g7.minimal_collision_witness_ell0_01.ell_next_1,
+        g7.minimal_collision_witness_ell0_01.ell_next_2,
+    ) == (2, 1)
+    assert g7.minimal_collision_witness_ell1_23.w1 == 20
+    assert g7.minimal_collision_witness_ell1_23.w2 == 31
+    assert g7.minimal_collision_witness_ell1_23.shared_right_prefix_len == 6
+    assert g7.minimal_collision_witness_ell1_23.first_differing_right_column == 7
+    assert g7.z0_branch_to_depth1_iff_mismatches == 0
+    assert g7.z0_branch_to_depth2_iff_mismatches == 0
+    assert g7.critical_boundary_ell_eq_r_ge2_mismatches == 0
+    assert g7.long_black_run_reset_to_depth1_mismatches == 0
+    assert g7.residue_parity_alone_is_closed is False
+    assert g7.refined_window_closure_mismatches == 0
+    assert g7.periodic_0r_1b_ge9_all_reset_to_depth1_in_one_period is True
+    assert g7.weighted_operator_composition_mismatches == 0
+    assert g7.honest_cost_prevents_unjustified_p3_shortcut is True
+    assert len(g7.g7_headlines_verified) == 10
+
 
 
 

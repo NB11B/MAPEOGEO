@@ -42,9 +42,9 @@ Both [`Rule30Core.lean`](Rule30Core.lean) (14 theorems) and [`MAPEOGEOFormal/Rul
 
 The initial regression in `test_suite.py` asserted `69` ANF monomials at $k=4$; exact Boolean Möbius computation gave `122`. The original failing run is preserved in [`test_results.txt`](test_results.txt), and the corrected passing run is preserved in [`test_results_corrected.txt`](test_results_corrected.txt).
 
-## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G6`)
+## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G7`)
 
-[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 350, "ok": true}`, `"newAxioms": []`, **51/51** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
+[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 399, "ok": true}`, `"newAxioms": []`, **61/61** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
 
 ```bash
 # External reproduction against official Wolfram Rule30PrizeKit
@@ -105,7 +105,17 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   --headline Rule30Submission.g6_p2_periodic_cycle_linear_discrepancy_drift \
   --headline Rule30Submission.g6_p2_locked_white_run_neighbor_black_window \
   --headline Rule30Submission.g6_p3_evol_left_edge_xor_decomposition \
-  --headline Rule30Submission.g6_p3_evolPow2_left_linear_decomposition
+  --headline Rule30Submission.g6_p3_evolPow2_left_linear_decomposition \
+  --headline Rule30Submission.g7_p1_depth_alone_not_closed_under_cycle_01 \
+  --headline Rule30Submission.g7_p1_depth_one_not_closed_under_cycle_01 \
+  --headline Rule30Submission.g7_p1_black_step_from_z0_to_depth1_iff \
+  --headline Rule30Submission.g7_p1_black_step_from_z0_to_depth2_iff \
+  --headline Rule30Submission.g7_p1_cycle_0r1_at_boundary_ell_eq_r_forces_next_ge_two \
+  --headline Rule30Submission.g7_p1_long_black_run_resets_to_modeADepth_one \
+  --headline Rule30Submission.g7_p1_right_cone_agree_bounded \
+  --headline Rule30Submission.g7_p1_refined_window_state_closes_cycle_transition \
+  --headline Rule30Submission.g7_p1_no_periodic_0r_1b_for_b_ge_9 \
+  --headline Rule30Submission.g7_p2_weighted_event_operator_composition
 ```
 
 - **Gates G0–G2 (`run_g0_g2_prize_qualification`):** Audits 65 official catalog modules + 25 public submissions ([`g0_novelty_audit.json`](g0_novelty_audit.json)) and proves on `evolG` (`Rule30Realization.evol`) that Rule 30 uniquely reaches 3 depth-2 response classes (`xm2`, `!xm2`, `xor xm2 xm1`) and Mode A/B wavefront shielding, whereas all three `Rule30Realization` counterexample controls (`g90`, `g150`, and nonlinear `g210`) collapse to rank-1 (`g2_rule30_separates_controls_90_150_210`, `g210_origin_cancellation_evolG`, `e5_wavefront_separates_controls`).
@@ -121,5 +131,12 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
 - **Gate G6 (`run_g6_prize_mechanism_qualification`):**
   - **Prize 1 (`G6-P1`):** Establishes the complete white/black cycle return map on `ModeADepth` across 1-step black runs (`g6_p1_one_black_step_from_overshoot_ge2`, `g6_p1_one_black_step_from_z1`, `g6_p1_cycle_return_map_0r1_early_lock`, `g6_p1_cycle_return_map_0r1_overshoot`), proves that $\ell = 2$ (`ModeADepth · 2`) is an absorbing fixed point for every `0^r 1` cycle with $r \ge 10$ (`g6_p1_modeADepth_two_is_fixed_point_of_0r1`), proves that any `0^r 1^b` periodic trajectory with eventually constant onset depth is impossible (`g6_p1_constant_onset_depth_excludes_white_black_period`), and proves that no `0^r 1` trajectory ($r \ge 10$) can ever visit `[0, r - 8] ∪ [r + 1, ∞)` (`g6_p1_no_periodic_0r1_from_outside_window`).
   - **Prize 2 (`G6-P2`):** Proves two-cycle and multi-cycle periodic discrepancy telescoping $\Delta(A + M(r+b)) = \Delta(A) + M(b - r)$ (`g6_p2_two_cycle_discrepancy_telescoping`, `g6_p2_periodic_cycle_linear_discrepancy_drift`) and proves that every locked white run forces simultaneous bilateral neighbor black runs of length $r - \ell - 1$ on columns $+1$ and $-1$ (`g6_p2_locked_white_run_neighbor_black_window`).
-  - **Prize 3 (`G6-P3`):** Proves the exact left-edge XOR linear decomposition `evol x t 0 = xor (x (-t)) (evol (setInputFalse x (-t)) t 0)` for all $t$ and all doubling scales `evolPow2 d` (`g6_p3_evol_left_edge_xor_decomposition`, `g6_p3_evolPow2_left_linear_decomposition`), and benchmarks shared pyramid DAG evaluation ($b^2$ `rule` gates vs. $(3^b-1)/2$ unmemoized tree gates) and canonical ROBDD decision-node growth ($5 \to 11 \to 53$ left-to-right; $4 \to 7 \to 28$ right-to-left).
+  - **Prize 3 (`G6-P3`):** Proves the exact left-edge XOR linear decomposition `evol x t 0 = xor (x (-t)) (evol (setInputFalse x (-t)) t 0)` for all $t$ and all doubling scales `evolPow2 d` (`g6_p3_evol_left_edge_xor_decomposition`, `g6_p3_evolPow2_left_linear_decomposition`), and benchmarks shared pyramid DAG evaluation ($b^2$ `rule` gate calls vs. $(3^b-1)/2$ unmemoized tree calls) and canonical ROBDD decision-node growth ($5 \to 11 \to 53$ left-to-right; $4 \to 7 \to 28$ right-to-left).
+- **Gate G7 (`run_g7_collatz_return_map_transfer` — `rule30_collatz_transfer`):**
+  - **G7.1 (Macro-State Sufficiency Falsification):** Proves that scalar boundary depth $\ell$ alone is **not** a closed deterministic event state across short white-black cycles (`g7_p1_depth_alone_not_closed_under_cycle_01` at $\ell_0=0$ and `g7_p1_depth_one_not_closed_under_cycle_01` at $\ell_0=1$), and preserves the minimal single-seed collision pairs ($w_1=38 \text{ vs } w_2=115$ at $\ell=0, (r,b)=(1,1) \to \ell_{\text{next}} \in \{2, 1\}$; and $w_1=20 \text{ vs } w_2=31$ at $\ell=1, (r,b)=(2,3) \to \ell_{\text{next}} \in \{3, 4\}$ with 6 shared right-hand cells `1..6`, differing first at column $7$).
+  - **G7.2 (Phase-Normalized Operator Library):** Proves exact `iff` branching laws on the local boundary tail $\sigma = (\mathrm{cell}\,a\,2, \mathrm{cell}\,a\,3, \mathrm{cell}\,a\,4)$ when a black step opens a locked wall `ModeADepth a 0` (`g7_p1_black_step_from_z0_to_depth1_iff`, `g7_p1_black_step_from_z0_to_depth2_iff`), proves that the critical boundary $\ell = r \ge 1$ under `0^r 1` forces $\ell_{\text{next}} \ge 2$ (`g7_p1_cycle_0r1_at_boundary_ell_eq_r_forces_next_ge_two`), and proves that any black run of length $b \ge 9$ on column $0$ is a universal constant-$1$ reset macro (`g7_p1_long_black_run_resets_to_modeADepth_one`).
+  - **G7.3 (Closure of the Refined Window State):** Proves bounded right-cone agreement (`g7_p1_right_cone_agree_bounded`) and proves that refining the event state to $S = (\ell, \sigma_N)$ of width $N = \ell_{\text{next}} + 1 + L$ closes the $L$-step cycle transition deterministically (`g7_p1_refined_window_state_closes_cycle_transition`).
+  - **G7.4 (Periodic-Word Exclusion):** Composes `g7_p1_long_black_run_resets_to_modeADepth_one` with `g6_p1_constant_onset_depth_excludes_white_black_period` to exclude every periodic word $0^r 1^b$ ($r \ge 1, b \ge 9$) after any transient $A$ (`g7_p1_no_periodic_0r_1b_for_b_ge_9`).
+  - **G7.5 (Weighted & Costed Event Operators):** Proves additive composition of the discrepancy-weighted event operator `applyCycleWeight` (`g7_p2_weighted_event_operator_composition`) and accounts for the 4-part cost $C_{\text{total}} = C_{\text{construct}} + C_{\text{evaluate}} + C_{\text{recover}} + C_{\text{storage}}$, showing that maintaining the refined tail $\sigma_N$ requires $C_{\text{recover}} = \Theta(N^2)$ bit operations.
+
 

@@ -14,6 +14,7 @@ from .benchmark import (
     G4MultiPrizeQualificationResult,
     G5ThreePrizeContinuationResult,
     G6PrizeMechanismQualificationResult,
+    G7CollatzReturnMapTransferResult,
     Rule30FalsificationCampaign,
     apply_wavefront_quotient_operator,
     run_e1_exact_reconstruction,
@@ -27,6 +28,7 @@ from .benchmark import (
     run_g4_multi_prize_qualification,
     run_g5_three_prize_continuation,
     run_g6_prize_mechanism_qualification,
+    run_g7_collatz_return_map_transfer,
 )
 
 __all__ = [
@@ -43,6 +45,7 @@ __all__ = [
     "G4MultiPrizeQualificationResult",
     "G5ThreePrizeContinuationResult",
     "G6PrizeMechanismQualificationResult",
+    "G7CollatzReturnMapTransferResult",
     "Rule30FalsificationCampaign",
     "apply_wavefront_quotient_operator",
     "run_e1_exact_reconstruction",
@@ -56,4 +59,5 @@ __all__ = [
     "run_g4_multi_prize_qualification",
     "run_g5_three_prize_continuation",
     "run_g6_prize_mechanism_qualification",
+    "run_g7_collatz_return_map_transfer",
 ]

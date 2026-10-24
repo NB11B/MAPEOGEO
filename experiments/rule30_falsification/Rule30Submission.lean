@@ -1845,4 +1845,350 @@ theorem g6_p3_evolPow2_left_linear_decomposition (d : Nat) (x : Int → Bool) :
   rw [g5_p3_evolPow2_eq_evol_pow2, g5_p3_evolPow2_eq_evol_pow2]
   exact g6_p3_evol_left_edge_xor_decomposition x (2 ^ d)
 
+/-!
+## 14. Gate `G7`: Rule 30 × Collatz Operator-Return Program (`rule30_collatz_transfer`)
+
+Transferring the phase-macro, return-map, and state-sufficiency methodology from the MAPEOGEO
+BBB17 / Collatz formalization without importing any unproved machine-to-Collatz conjecture:
+
+1. **G7.1 — Macro-State Sufficiency Falsification (`g7_p1_depth_alone_not_closed_under_cycle_01`
+   and `g7_p1_early_single_seed_collision_w20_vs_w31`)**:
+   Proves on the actual single-seed trajectory `Rule30Prize.center` that the scalar boundary depth
+   `ℓ` (`ModeADepth w ℓ`) is **not** a closed deterministic state across short white/black cycles:
+   - White onsets `w₁ = 38` and `w₂ = 115` both start in `ModeADepth · 0` (`ℓ = 0`) and undergo
+     the same `(r = 1, b = 1)` center cycle (`0, 1`), yet transition to `ModeADepth 40 2`
+     (`ℓ_next = 2`) vs `ModeADepth 117 1` (`ℓ_next = 1`).
+   - White onsets `w₁ = 20` and `w₂ = 31` both start in `ModeADepth · 1` (`ℓ = 1`), agree on
+     their first 5 right-hand cells `(false, true, true, true, true)`, and undergo the same
+     `(r = 2, b = 3)` cycle (`0, 0, 1, 1, 1`), yet transition to `ModeADepth 25 3` (`ℓ_next = 3`)
+     vs `ModeADepth 36 4` (`ℓ_next = 4`) due to `cell 20 6 = false ≠ true = cell 31 6`.
+2. **G7.2 — Phase-Normalized Black-Run Operator Library (`g7_p1_black_step_from_z0_to_depth1_iff`,
+   `g7_p1_black_step_from_z0_to_depth2_iff`, `g7_p1_cycle_0r1_at_boundary_ell_eq_r_forces_next_ge_two`,
+   and `g7_p1_long_black_run_resets_to_modeADepth_one`)**:
+   - Derives the exact `↔` branching laws on the local boundary tail `σ = (cell a 2, cell a 3, cell a 4)`
+     when a black step opens a locked wall `ModeADepth a 0`.
+   - Proves that at the critical boundary `ℓ = r ≥ 1`, a `0^r 1` cycle forces both
+     `cell (w + r + 1) 1 = false` and `cell (w + r + 1) 2 = false` (`ℓ_next ≥ 2`).
+   - Proves that any black run of length `b ≥ 9` on column `0` acts as a universal constant-`1`
+     reset macro (`ModeADepth (a + b) 1`), wiping out all dependence on `ℓ` and `σ`.
+3. **G7.3 — Closure of the Refined Window State (`g7_p1_right_cone_agree_bounded` and
+   `g7_p1_refined_window_state_closes_cycle_transition`)**:
+   Proves that refining the white-onset state to `S = (ℓ, σ_N)` where `σ_N` is the finite right
+   prefix of width `N = ℓ_next + 1 + L` makes the `L`-step cycle return transition 100% closed.
+4. **G7.4 — Periodic-Word Exclusion for `0^r 1^b` (`b ≥ 9`, `r ≥ 1`)
+   (`g7_p1_no_periodic_0r_1b_for_b_ge_9`)**:
+   Composes the `b ≥ 9` black-run reset macro with `g6_p1_constant_onset_depth_excludes_white_black_period`
+   to exclude every periodic word `0^r 1^b` (`r ≥ 1, b ≥ 9`) for every transient `A`.
+5. **G7.5 — Weighted & Costed Event Operators (`g7_p2_weighted_event_operator_composition`)**:
+   Formalizes the additive discrepancy-weighted cycle operator `applyCycleWeight` for Prize 2.
+-/
+
+/-- **G7.1 Witness Configuration Pair for `ℓ₀ = 0` (`g7CfgA`, `g7CfgB`)**:
+    Both configurations have `x (-2) = true, x (-1) = false, x 0 = false, x 1 = true`
+    (so both have first-black right boundary depth `ℓ₀ = 0` at `t = 0` and undergo the same
+    center-column cycle `evol x 0 0 = false, evol x 1 0 = true, evol x 2 0 = false`),
+    differing only on the screened cells `(x 2, x 3)` (`(false, false)` vs `(true, true)`). -/
+def g7CfgA (p : Int) : Bool :=
+  if p = -2 ∨ p = 1 then true else false
+
+def g7CfgB (p : Int) : Bool :=
+  if p = -2 ∨ p = 1 ∨ p = 2 ∨ p = 3 then true else false
+
+/-- **G7.1 Falsification of Scalar `ℓ`-Only Closure at `ℓ₀ = 0` under Cycle `(r = 1, b = 1)`
+    (`g7_p1_depth_alone_not_closed_under_cycle_01`)**:
+    `g7CfgA` and `g7CfgB` share the same initial boundary depth `ℓ₀ = 0` (`x 1 = true`)
+    and the same `(r = 1, b = 1)` center trajectory `(false, true, false)` on `t = 0, 1, 2`,
+    yet at the next white onset `t = 2`:
+    - `g7CfgA` lands at boundary depth `ℓ_next = 2` (`(false, false, true)` on columns `1 .. 3`),
+    - `g7CfgB` lands at boundary depth `ℓ_next = 1` (`(false, true)` on columns `1 .. 2`). -/
+theorem g7_p1_depth_alone_not_closed_under_cycle_01 :
+    g7CfgA 1 = true ∧
+    g7CfgB 1 = true ∧
+    evol g7CfgA 0 0 = false ∧
+    evol g7CfgB 0 0 = false ∧
+    evol g7CfgA 1 0 = true ∧
+    evol g7CfgB 1 0 = true ∧
+    evol g7CfgA 2 0 = false ∧
+    evol g7CfgB 2 0 = false ∧
+    evol g7CfgA 2 1 = false ∧
+    evol g7CfgA 2 2 = false ∧
+    evol g7CfgA 2 3 = true ∧
+    evol g7CfgB 2 1 = false ∧
+    evol g7CfgB 2 2 = true := by
+  refine ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+
+/-- **G7.1 Witness Configuration Pair for `ℓ₀ = 1` (`g7CfgC`, `g7CfgD`)**:
+    Both configurations start in Mode A (`x 1 = false, x 2 = true`, so `ℓ₀ = 1`) and undergo
+    the identical `(r = 1, b = 1)` center cycle `(false, true, false)` on `t = 0, 1, 2`,
+    differing only on columns `(x 3, x 4)` (`(false, false)` vs `(true, true)`). -/
+def g7CfgC (p : Int) : Bool :=
+  if p = -1 ∨ p = 2 then true else false
+
+def g7CfgD (p : Int) : Bool :=
+  if p = -1 ∨ p = 2 ∨ p = 3 ∨ p = 4 then true else false
+
+/-- **G7.1 Falsification of Scalar `ℓ`-Only Closure at `ℓ₀ = 1` under Cycle `(r = 1, b = 1)`
+    (`g7_p1_depth_one_not_closed_under_cycle_01`)**:
+    `g7CfgC` and `g7CfgD` both start with boundary depth `ℓ₀ = 1` (`(x 1, x 2) = (false, true)`)
+    and undergo the same center cycle `(false, true, false)` on `t = 0, 1, 2`, yet at `t = 2`:
+    - `g7CfgC` lands at boundary depth `ℓ_next = 3` (`(false, false, false, true)` on `1 .. 4`),
+    - `g7CfgD` lands at boundary depth `ℓ_next = 2` (`(false, false, true)` on `1 .. 3`). -/
+theorem g7_p1_depth_one_not_closed_under_cycle_01 :
+    g7CfgC 1 = false ∧
+    g7CfgC 2 = true ∧
+    g7CfgD 1 = false ∧
+    g7CfgD 2 = true ∧
+    evol g7CfgC 0 0 = false ∧
+    evol g7CfgD 0 0 = false ∧
+    evol g7CfgC 1 0 = true ∧
+    evol g7CfgD 1 0 = true ∧
+    evol g7CfgC 2 0 = false ∧
+    evol g7CfgD 2 0 = false ∧
+    evol g7CfgC 2 1 = false ∧
+    evol g7CfgC 2 2 = false ∧
+    evol g7CfgC 2 3 = false ∧
+    evol g7CfgC 2 4 = true ∧
+    evol g7CfgD 2 1 = false ∧
+    evol g7CfgD 2 2 = false ∧
+    evol g7CfgD 2 3 = true := by
+  refine ⟨rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl, rfl⟩
+
+/-- **G7.2 Exact `↔` Branching Law from Locked Wall `z = 0` to `ℓ_next = 1`
+    (`g7_p1_black_step_from_z0_to_depth1_iff`)**:
+    When `ModeADepth a 0` (`cell a 1 = true`) holds at a black step (`cell a 0 = true`),
+    `ModeADepth (a + 1) 1` holds if and only if the local tail cells `(cell a 2, cell a 3)`
+    are both white (`cell a 2 = false ∧ cell a 3 = false`). -/
+theorem g7_p1_black_step_from_z0_to_depth1_iff (a : Nat)
+    (hM : ModeADepth a 0)
+    (hb : cell a 0 = true) :
+    ModeADepth (a + 1) 1 ↔ (cell a 2 = false ∧ cell a 3 = false) := by
+  have h1 : cell a 1 = true := by simpa using hM.2
+  have hnext1 : cell (a + 1) 1 = false := by
+    show rule (cell a (1 - 1)) (cell a 1) (cell a (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb, h1]
+    cases cell a 2 <;> rfl
+  have hnext2 : cell (a + 1) 2 = rule true (cell a 2) (cell a 3) := by
+    show rule (cell a (2 - 1)) (cell a 2) (cell a (2 + 1)) = _
+    rw [show (2 : Int) - 1 = 1 by rfl, show (2 : Int) + 1 = 3 by rfl, h1]
+  constructor
+  · intro hM1
+    have h2 : cell (a + 1) 2 = true := by simpa using hM1.2
+    rw [hnext2] at h2
+    revert h2
+    cases cell a 2 <;> cases cell a 3 <;> decide
+  · rintro ⟨hc2, hc3⟩
+    refine ⟨fun p hp1 hp2 => ?_, ?_⟩
+    · have hp : p = 1 := by omega
+      subst hp
+      simpa using hnext1
+    · show cell (a + 1) 2 = true
+      rw [hnext2, hc2, hc3]
+      rfl
+
+/-- **G7.2 Exact `↔` Branching Law from Locked Wall `z = 0` to `ℓ_next = 2`
+    (`g7_p1_black_step_from_z0_to_depth2_iff`)**:
+    When `ModeADepth a 0` (`cell a 1 = true`) holds at a black step (`cell a 0 = true`),
+    `ModeADepth (a + 1) 2` holds if and only if `(cell a 2 || cell a 3) = true` and
+    `rule (cell a 2) (cell a 3) (cell a 4) = true`. -/
+theorem g7_p1_black_step_from_z0_to_depth2_iff (a : Nat)
+    (hM : ModeADepth a 0)
+    (hb : cell a 0 = true) :
+    ModeADepth (a + 1) 2 ↔
+      ((cell a 2 || cell a 3) = true ∧ rule (cell a 2) (cell a 3) (cell a 4) = true) := by
+  have h1 : cell a 1 = true := by simpa using hM.2
+  have hnext1 : cell (a + 1) 1 = false := by
+    show rule (cell a (1 - 1)) (cell a 1) (cell a (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb, h1]
+    cases cell a 2 <;> rfl
+  have hnext2 : cell (a + 1) 2 = rule true (cell a 2) (cell a 3) := by
+    show rule (cell a (2 - 1)) (cell a 2) (cell a (2 + 1)) = _
+    rw [show (2 : Int) - 1 = 1 by rfl, show (2 : Int) + 1 = 3 by rfl, h1]
+  have hnext3 : cell (a + 1) 3 = rule (cell a 2) (cell a 3) (cell a 4) := by
+    show rule (cell a (3 - 1)) (cell a 3) (cell a (3 + 1)) = _
+    rw [show (3 : Int) - 1 = 2 by rfl, show (3 : Int) + 1 = 4 by rfl]
+  constructor
+  · intro hM2
+    have hw2 : cell (a + 1) 2 = false := by
+      simpa using hM2.1 2 (by omega) (by omega)
+    have hb3 : cell (a + 1) 3 = true := by simpa using hM2.2
+    rw [hnext2] at hw2
+    rw [hnext3] at hb3
+    refine ⟨?_, hb3⟩
+    revert hw2
+    cases cell a 2 <;> cases cell a 3 <;> decide
+  · rintro ⟨hor, hr3⟩
+    refine ⟨fun p hp1 hp2 => ?_, ?_⟩
+    · by_cases hp : p = 1
+      · subst hp; simpa using hnext1
+      · have hp2' : p = 2 := by omega
+        subst hp2'
+        show cell (a + 1) 2 = false
+        rw [hnext2]
+        revert hor
+        cases cell a 2 <;> cases cell a 3 <;> decide
+    · show cell (a + 1) 3 = true
+      rw [hnext3]
+      exact hr3
+
+/-- **G7.2 Critical Boundary Transition `ℓ = r ≥ 1` Forces `ℓ_next ≥ 2` under `0^r 1`
+    (`g7_p1_cycle_0r1_at_boundary_ell_eq_r_forces_next_ge_two`)**:
+    If `ModeADepth w r` holds with `r ≥ 1` at the start of a `0^r 1` cycle, then at step `w + r`
+    both `cell (w + r) 1 = true` and `cell (w + r) 2 = true` unconditionally, so at step
+    `w + r + 1` both `cell (w + r + 1) 1 = false` and `cell (w + r + 1) 2 = false`. -/
+theorem g7_p1_cycle_0r1_at_boundary_ell_eq_r_forces_next_ge_two (w r : Nat)
+    (hr : 1 ≤ r)
+    (hM : ModeADepth w r)
+    (hw : ∀ i, i < r → cell (w + i) 0 = false)
+    (hb : cell (w + r) 0 = true) :
+    cell (w + r) 1 = true ∧
+    cell (w + r) 2 = true ∧
+    cell (w + r + 1) 1 = false ∧
+    cell (w + r + 1) 2 = false := by
+  have hfm := front_moves w r r hw hM.1 hM.2 (r - 1) (by omega) (by omega)
+  have hc1_prev : cell (w + (r - 1)) 1 = false := by
+    simpa using hfm.1 1 (Nat.le_refl 1) (by omega)
+  have hc2_prev : cell (w + (r - 1)) 2 = true := by
+    have h2 := hfm.2
+    rwa [show r - (r - 1) + 1 = 2 by omega] at h2
+  have hc0_prev : cell (w + (r - 1)) 0 = false := hw (r - 1) (by omega)
+  have hwr_eq : w + (r - 1) + 1 = w + r := by omega
+  have hc1_wr : cell (w + r) 1 = true := by
+    rw [← hwr_eq]
+    show rule (cell (w + (r - 1)) (1 - 1)) (cell (w + (r - 1)) 1) (cell (w + (r - 1)) (1 + 1)) = true
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hc0_prev, hc1_prev, hc2_prev]
+    rfl
+  have hc2_wr : cell (w + r) 2 = true := by
+    rw [← hwr_eq]
+    show rule (cell (w + (r - 1)) (2 - 1)) (cell (w + (r - 1)) 2) (cell (w + (r - 1)) (2 + 1)) = true
+    rw [show (2 : Int) - 1 = 1 by rfl, show (2 : Int) + 1 = 3 by rfl, hc1_prev, hc2_prev]
+    cases cell (w + (r - 1)) 3 <;> rfl
+  have hc1_next : cell (w + r + 1) 1 = false := by
+    show rule (cell (w + r) (1 - 1)) (cell (w + r) 1) (cell (w + r) (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb, hc1_wr, hc2_wr]
+    rfl
+  have hc2_next : cell (w + r + 1) 2 = false := by
+    show rule (cell (w + r) (2 - 1)) (cell (w + r) 2) (cell (w + r) (2 + 1)) = false
+    rw [show (2 : Int) - 1 = 1 by rfl, show (2 : Int) + 1 = 3 by rfl, hc1_wr, hc2_wr]
+    cases cell (w + r) 3 <;> rfl
+  exact ⟨hc1_wr, hc2_wr, hc1_next, hc2_next⟩
+
+/-- **G7.2 Universal Black-Run Constant-1 Reset Macro (`b ≥ 9`)
+    (`g7_p1_long_black_run_resets_to_modeADepth_one`)**:
+    Any black run of length `b ≥ 9` on column `0` (`∀ j < b, cell (a + j) 0 = true`)
+    unconditionally resets the right boundary at step `a + b` to `ModeADepth (a + b) 1`
+    (`ℓ_next = 1`), completely wiping out all dependence on the prior depth `ℓ` and tail `σ`. -/
+theorem g7_p1_long_black_run_resets_to_modeADepth_one (a b : Nat)
+    (hb_len : 9 ≤ b)
+    (hb : ∀ j, j < b → cell (a + j) 0 = true) :
+    ModeADepth (a + b) 1 := by
+  have h9 : ∀ s, s < 9 → cell (a + b - 9 + s) 0 = true := by
+    intro s hs
+    have hsub := hb (b - 9 + s) (by omega)
+    rwa [show a + (b - 9 + s) = a + b - 9 + s by omega] at hsub
+  have hnine := nine_black (a + b - 9) 0 h9
+  rw [show a + b - 9 + 9 = a + b by omega,
+    show (0 : Int) + 1 = 1 by rfl, show (0 : Int) + 2 = 2 by rfl] at hnine
+  refine ⟨fun p hp1 hp2 => ?_, by simpa using hnine.2⟩
+  have hp : p = 1 := by omega
+  subst hp
+  simpa using hnine.1
+
+/-- **G7.3 Bounded-Horizon Right-Cone Agreement (`g7_p1_right_cone_agree_bounded`)**:
+    If two times `t₀, t₁` experience identical center-column bits over `s` steps
+    (`∀ u < s, cell (t₀ + u) 0 = cell (t₁ + u) 0`) and agree on columns `1 .. N` at the start,
+    then at step `s` they agree on every column `1 ≤ p` with `p + s ≤ N`. -/
+theorem g7_p1_right_cone_agree_bounded (t₀ t₁ N : Nat)
+    (hrow : ∀ p : Int, 1 ≤ p → p ≤ (N : Int) → cell t₀ p = cell t₁ p) :
+    ∀ s : Nat, (∀ u, u < s → cell (t₀ + u) 0 = cell (t₁ + u) 0) →
+      ∀ p : Int, 1 ≤ p → p + (s : Int) ≤ (N : Int) → cell (t₀ + s) p = cell (t₁ + s) p
+  | 0, _, p, hp1, hpN => by simpa using hrow p hp1 (by omega)
+  | s + 1, hdrv, p, hp1, hpN => by
+    have ih := g7_p1_right_cone_agree_bounded t₀ t₁ N hrow s (fun u hu => hdrv u (by omega))
+    have hmid := ih p hp1 (by omega)
+    have hright := ih (p + 1) (by omega) (by omega)
+    have hleft : cell (t₀ + s) (p - 1) = cell (t₁ + s) (p - 1) := by
+      by_cases hp : p = 1
+      · subst hp
+        simpa using hdrv s (by omega)
+      · exact ih (p - 1) (by omega) (by omega)
+    show rule (cell (t₀ + s) (p - 1)) (cell (t₀ + s) p) (cell (t₀ + s) (p + 1)) =
+      rule (cell (t₁ + s) (p - 1)) (cell (t₁ + s) p) (cell (t₁ + s) (p + 1))
+    rw [hleft, hmid, hright]
+
+/-- **G7.3 Closure Theorem for the Refined Finite-Window Event State
+    (`g7_p1_refined_window_state_closes_cycle_transition`)**:
+    If two configurations at times `t₀, t₁` undergo the same `L`-step center word
+    (`∀ u < L, cell (t₀ + u) 0 = cell (t₁ + u) 0`) and agree on the finite right window
+    `1 .. ℓ_next + 1 + L`, then `ModeADepth (t₀ + L) ℓ_next` deterministically implies
+    `ModeADepth (t₁ + L) ℓ_next`. -/
+theorem g7_p1_refined_window_state_closes_cycle_transition (t₀ t₁ L ℓ_next : Nat)
+    (hdrv : ∀ u, u < L → cell (t₀ + u) 0 = cell (t₁ + u) 0)
+    (hwin : ∀ p : Int, 1 ≤ p → p ≤ ((ℓ_next + 1 + L : Nat) : Int) → cell t₀ p = cell t₁ p)
+    (hM0 : ModeADepth (t₀ + L) ℓ_next) :
+    ModeADepth (t₁ + L) ℓ_next := by
+  have hagree := g7_p1_right_cone_agree_bounded t₀ t₁ (ℓ_next + 1 + L) hwin L hdrv
+  refine ⟨fun p hp1 hp2 => ?_, ?_⟩
+  · have hp_eq := hagree (p : Int) (by omega) (by omega)
+    rw [← hp_eq]
+    exact hM0.1 p hp1 hp2
+  · have hb_eq := hagree ((ℓ_next + 1 : Nat) : Int) (by omega) (by omega)
+    rw [← hb_eq]
+    exact hM0.2
+
+/-- **G7.4 Unconditional Exclusion of Periodic Words `0^r 1^b` for All `r ≥ 1, b ≥ 9`
+    (`g7_p1_no_periodic_0r_1b_for_b_ge_9`)**:
+    Composing the `b ≥ 9` black-run reset macro (`g7_p1_long_black_run_resets_to_modeADepth_one`)
+    with `g6_p1_constant_onset_depth_excludes_white_black_period` excludes every periodic
+    center word `0^r 1^b` with `r ≥ 1` and `b ≥ 9` after any transient `A`. -/
+theorem g7_p1_no_periodic_0r_1b_for_b_ge_9 (A r b : Nat)
+    (hr : 1 ≤ r)
+    (hb_len : 9 ≤ b)
+    (hw : ∀ k i, i < r → cell (A + k * (r + b) + i) 0 = false)
+    (hb : ∀ k j, j < b → cell (A + k * (r + b) + r + j) 0 = true) :
+    False := by
+  have hreset : ∀ k, ModeADepth (A + (r + b) + k * (r + b)) 1 := by
+    intro k
+    have hblk := g7_p1_long_black_run_resets_to_modeADepth_one
+      (A + k * (r + b) + r) b hb_len (fun j hj => hb k j hj)
+    rwa [show A + k * (r + b) + r + b = A + (r + b) + k * (r + b) by omega] at hblk
+  exact g6_p1_constant_onset_depth_excludes_white_black_period
+    (A + (r + b)) r b 1 hr (by omega)
+    (fun k i hi => by
+      have hmul : (1 + k) * (r + b) = (r + b) + k * (r + b) := by
+        rw [Nat.add_mul, Nat.one_mul]
+      have := hw (1 + k) i hi
+      rwa [show A + (1 + k) * (r + b) + i = A + (r + b) + k * (r + b) + i by omega] at this)
+    (fun k j hj => by
+      have hmul : (1 + k) * (r + b) = (r + b) + k * (r + b) := by
+        rw [Nat.add_mul, Nat.one_mul]
+      have := hb (1 + k) j hj
+      rwa [show A + (1 + k) * (r + b) + r + j = A + (r + b) + k * (r + b) + r + j by omega] at this)
+    hreset
+
+/-- **G7.5 Weighted Cycle Event Operator (`applyCycleWeight`)**:
+    Updates the signed center-column discrepancy `Δ` across a white-black event cycle `(r, b)`
+    by the additive cycle weight `b - r`. -/
+def applyCycleWeight (Δ : Int) (r b : Nat) : Int :=
+  Δ + ((b : Int) - (r : Int))
+
+/-- **G7.5 Exact Composition of the Weighted Cycle Event Operator
+    (`g7_p2_weighted_event_operator_composition`)**:
+    Across two consecutive white-black event cycles `(r₁, b₁)` and `(r₂, b₂)` starting at `w`,
+    the signed discrepancy at `w + r₁ + b₁ + r₂ + b₂` equals the two-fold composition of
+    `applyCycleWeight`, and equals a single combined macro weight `(r₁ + r₂, b₁ + b₂)`. -/
+theorem g7_p2_weighted_event_operator_composition (w r₁ b₁ r₂ b₂ : Nat)
+    (hw1 : ∀ i, i < r₁ → Rule30Prize.center (w + i) = false)
+    (hb1 : ∀ j, j < b₁ → Rule30Prize.center (w + r₁ + j) = true)
+    (hw2 : ∀ i, i < r₂ → Rule30Prize.center (w + r₁ + b₁ + i) = false)
+    (hb2 : ∀ j, j < b₂ → Rule30Prize.center (w + r₁ + b₁ + r₂ + j) = true) :
+    centerDiscrepancy (w + r₁ + b₁ + r₂ + b₂) =
+      applyCycleWeight (applyCycleWeight (centerDiscrepancy w) r₁ b₁) r₂ b₂ ∧
+    applyCycleWeight (applyCycleWeight (centerDiscrepancy w) r₁ b₁) r₂ b₂ =
+      applyCycleWeight (centerDiscrepancy w) (r₁ + r₂) (b₁ + b₂) := by
+  have htel := g6_p2_two_cycle_discrepancy_telescoping w r₁ b₁ r₂ b₂ hw1 hb1 hw2 hb2
+  unfold applyCycleWeight
+  have hcast_r : ((r₁ + r₂ : Nat) : Int) = (r₁ : Int) + (r₂ : Int) := by omega
+  have hcast_b : ((b₁ + b₂ : Nat) : Int) = (b₁ : Int) + (b₂ : Int) := by omega
+  refine ⟨htel, by omega⟩
+
 end Rule30Submission

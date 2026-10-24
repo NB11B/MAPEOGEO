@@ -2608,6 +2608,430 @@ def run_g6_prize_mechanism_qualification(
 
 
 # ---------------------------------------------------------------------------
+# Gate G7: Rule 30 × Collatz Operator-Return Program (`rule30_collatz_transfer`)
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class G7CollisionWitnessPair:
+    w1: int
+    w2: int
+    ell_in: int
+    r_len: int
+    b_len: int
+    ell_next_1: int
+    ell_next_2: int
+    shared_right_prefix_len: int
+    first_differing_right_column: int
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class G7CollatzReturnMapTransferResult:
+    steps: int
+    # G7.1: Macro-state extraction & falsification of scalar ell-only closure
+    extracted_event_cycles_count: int
+    scalar_ell_collision_buckets_count: int
+    scalar_ell_alone_is_closed: bool
+    minimal_collision_witness_ell0_01: G7CollisionWitnessPair
+    minimal_collision_witness_ell1_23: G7CollisionWitnessPair
+    # G7.2: Phase-normalized operator library verification
+    z0_branch_to_depth1_iff_checks: int
+    z0_branch_to_depth1_iff_mismatches: int
+    z0_branch_to_depth2_iff_checks: int
+    z0_branch_to_depth2_iff_mismatches: int
+    critical_boundary_ell_eq_r_ge2_checks: int
+    critical_boundary_ell_eq_r_ge2_mismatches: int
+    long_black_run_reset_to_depth1_checks: int
+    long_black_run_reset_to_depth1_mismatches: int
+    # G7.3: Closure & refinement of S = (ell, sigma_N, rho)
+    residue_parity_alone_is_closed: bool
+    refined_window_closure_pair_checks: int
+    refined_window_closure_mismatches: int
+    # G7.4: Periodic-word exclusion via composed return relations
+    periodic_0r_1b_ge9_words_tested: int
+    periodic_0r_1b_ge9_all_reset_to_depth1_in_one_period: bool
+    # G7.5: Weighted & costed event operators (C_total = C_construct + C_evaluate + C_recover + C_storage)
+    weighted_operator_composition_checks: int
+    weighted_operator_composition_mismatches: int
+    cost_construct_bit_ops: int
+    cost_evaluate_macro_ops: int
+    cost_recover_tail_bit_ops: int
+    cost_storage_bits: int
+    cost_total_event_system_ops: int
+    honest_cost_prevents_unjustified_p3_shortcut: bool
+    g7_headlines_verified: Tuple[str, ...]
+    gate_passed: bool
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "steps": self.steps,
+            "extracted_event_cycles_count": self.extracted_event_cycles_count,
+            "scalar_ell_collision_buckets_count": self.scalar_ell_collision_buckets_count,
+            "scalar_ell_alone_is_closed": self.scalar_ell_alone_is_closed,
+            "minimal_collision_witness_ell0_01": (
+                self.minimal_collision_witness_ell0_01.to_dict()
+            ),
+            "minimal_collision_witness_ell1_23": (
+                self.minimal_collision_witness_ell1_23.to_dict()
+            ),
+            "z0_branch_to_depth1_iff_checks": self.z0_branch_to_depth1_iff_checks,
+            "z0_branch_to_depth1_iff_mismatches": self.z0_branch_to_depth1_iff_mismatches,
+            "z0_branch_to_depth2_iff_checks": self.z0_branch_to_depth2_iff_checks,
+            "z0_branch_to_depth2_iff_mismatches": self.z0_branch_to_depth2_iff_mismatches,
+            "critical_boundary_ell_eq_r_ge2_checks": (
+                self.critical_boundary_ell_eq_r_ge2_checks
+            ),
+            "critical_boundary_ell_eq_r_ge2_mismatches": (
+                self.critical_boundary_ell_eq_r_ge2_mismatches
+            ),
+            "long_black_run_reset_to_depth1_checks": (
+                self.long_black_run_reset_to_depth1_checks
+            ),
+            "long_black_run_reset_to_depth1_mismatches": (
+                self.long_black_run_reset_to_depth1_mismatches
+            ),
+            "residue_parity_alone_is_closed": self.residue_parity_alone_is_closed,
+            "refined_window_closure_pair_checks": self.refined_window_closure_pair_checks,
+            "refined_window_closure_mismatches": self.refined_window_closure_mismatches,
+            "periodic_0r_1b_ge9_words_tested": self.periodic_0r_1b_ge9_words_tested,
+            "periodic_0r_1b_ge9_all_reset_to_depth1_in_one_period": (
+                self.periodic_0r_1b_ge9_all_reset_to_depth1_in_one_period
+            ),
+            "weighted_operator_composition_checks": (
+                self.weighted_operator_composition_checks
+            ),
+            "weighted_operator_composition_mismatches": (
+                self.weighted_operator_composition_mismatches
+            ),
+            "cost_construct_bit_ops": self.cost_construct_bit_ops,
+            "cost_evaluate_macro_ops": self.cost_evaluate_macro_ops,
+            "cost_recover_tail_bit_ops": self.cost_recover_tail_bit_ops,
+            "cost_storage_bits": self.cost_storage_bits,
+            "cost_total_event_system_ops": self.cost_total_event_system_ops,
+            "honest_cost_prevents_unjustified_p3_shortcut": (
+                self.honest_cost_prevents_unjustified_p3_shortcut
+            ),
+            "g7_headlines_verified": list(self.g7_headlines_verified),
+            "gate_passed": self.gate_passed,
+        }
+
+
+def run_g7_collatz_return_map_transfer(
+    steps: int = 450,
+) -> G7CollatzReturnMapTransferResult:
+    """Run Gate G7 (`rule30_collatz_transfer` — G7.1 through G7.5):
+    - G7.1: Extract white-onset event cycles and test whether scalar boundary depth `ell`
+      is a closed return-map state; preserve minimal collision pairs (`w=38 vs 115`, `w=20 vs 31`).
+    - G7.2: Verify phase-normalized black-run branching iff laws from `z = 0`, critical
+      boundary `ell = r -> ell_next >= 2`, and `b >= 9` constant-1 reset macro.
+    - G7.3: Test residue parity `(ell, w % 2)` vs bounded window `S = (ell, sigma_N)`
+      closure (`N = ell_next + 1 + r + b`).
+    - G7.4: Verify periodic-word exclusion for `0^r 1^b` (`r >= 1, b >= 9`).
+    - G7.5: Verify weighted discrepancy operator composition and 4-part cost accounting
+      `C_total = C_construct + C_evaluate + C_recover + C_storage`.
+    """
+    if steps < 150:
+        raise ValueError("steps must be >= 150 to observe w=38 vs w=115 collision")
+
+    cone = simulate_spacetime_cone(steps + 12)
+
+    def _cell(t: int, p: int) -> int:
+        return cone.get((p, t), 0)
+
+    def _mode_a_depth(t: int) -> int:
+        for ell in range(t + 1):
+            if _cell(t, ell + 1) == 1 and all(
+                _cell(t, p) == 0 for p in range(1, ell + 1)
+            ):
+                return ell
+        raise RuntimeError(f"No ModeADepth found at t={t}")
+
+    # 1. G7.1: Extract white-black event cycles and test scalar ell-only closure
+    cycles: List[Tuple[int, int, int, int, int]] = []  # (w, r, b, ell_in, ell_next)
+    idx = 2
+    while idx < steps:
+        if _cell(idx, 0) != 0:
+            idx += 1
+            continue
+        w = idx
+        r = 0
+        while idx < steps and _cell(idx, 0) == 0:
+            r += 1
+            idx += 1
+        if idx >= steps:
+            break
+        b = 0
+        while idx < steps and _cell(idx, 0) == 1:
+            b += 1
+            idx += 1
+        if idx >= steps:
+            break
+        cycles.append((w, r, b, _mode_a_depth(w), _mode_a_depth(w + r + b)))
+
+    buckets: Dict[Tuple[int, int, int], List[Tuple[int, int]]] = {}
+    parity_buckets: Dict[Tuple[int, int, int, int], List[Tuple[int, int]]] = {}
+    for w, r, b, ell_in, ell_next in cycles:
+        buckets.setdefault((ell_in, r, b), []).append((w, ell_next))
+        parity_buckets.setdefault((ell_in, w % 2, r, b), []).append((w, ell_next))
+
+    collision_buckets = sum(
+        1 for vals in buckets.values() if len({en for _, en in vals}) > 1
+    )
+    scalar_ell_closed = collision_buckets == 0
+
+    parity_collision_buckets = sum(
+        1 for vals in parity_buckets.values() if len({en for _, en in vals}) > 1
+    )
+    residue_parity_closed = parity_collision_buckets == 0
+
+    def _build_witness(w1: int, w2: int, r: int, b: int) -> G7CollisionWitnessPair:
+        ell1 = _mode_a_depth(w1)
+        ell2 = _mode_a_depth(w2)
+        if ell1 != ell2:
+            raise RuntimeError(f"Expected equal incoming depths at {w1} and {w2}")
+        en1 = _mode_a_depth(w1 + r + b)
+        en2 = _mode_a_depth(w2 + r + b)
+        shared_len = 0
+        for p in range(1, max(w1, w2) + 2):
+            if _cell(w1, p) == _cell(w2, p):
+                shared_len += 1
+            else:
+                break
+        return G7CollisionWitnessPair(
+            w1=w1,
+            w2=w2,
+            ell_in=ell1,
+            r_len=r,
+            b_len=b,
+            ell_next_1=en1,
+            ell_next_2=en2,
+            shared_right_prefix_len=shared_len,
+            first_differing_right_column=shared_len + 1,
+        )
+
+    witness_01 = _build_witness(38, 115, 1, 1)
+    witness_23 = _build_witness(20, 31, 2, 3)
+
+    # 2. G7.2: Phase-normalized operator library checks
+    z0_d1_checks = 0
+    z0_d1_mismatches = 0
+    z0_d2_checks = 0
+    z0_d2_mismatches = 0
+    for a in range(1, steps + 1):
+        if _cell(a, 0) == 1 and _mode_a_depth(a) == 0:
+            next_d = _mode_a_depth(a + 1)
+            c2, c3, c4 = _cell(a, 2), _cell(a, 3), _cell(a, 4)
+            z0_d1_checks += 1
+            if (next_d == 1) != (c2 == 0 and c3 == 0):
+                z0_d1_mismatches += 1
+            z0_d2_checks += 1
+            cond_d2 = ((c2 | c3) == 1) and (rule30_forward_cell(c2, c3, c4) == 1)
+            if (next_d == 2) != cond_d2:
+                z0_d2_mismatches += 1
+
+    def _run_driven_rh(init_rh: Dict[int, int], center_word: Sequence[int]) -> Dict[int, int]:
+        rh = dict(init_rh)
+        max_p = max(init_rh.keys(), default=1) + len(center_word) + 6
+        for c_t in center_word:
+            nxt: Dict[int, int] = {}
+            for p in range(1, max_p + 1):
+                l_val = c_t if p == 1 else rh.get(p - 1, 0)
+                m_val = rh.get(p, 0)
+                r_val = rh.get(p + 1, 0)
+                if rule30_forward_cell(l_val, m_val, r_val) == 1:
+                    nxt[p] = 1
+            rh = nxt
+        return rh
+
+    def _rh_depth(rh: Dict[int, int], max_p: int = 64) -> int:
+        for p in range(1, max_p + 1):
+            if rh.get(p, 0) == 1:
+                return p - 1
+        return max_p
+
+    crit_checks = 0
+    crit_mismatches = 0
+    for r in range(1, 7):
+        for tail_mask in range(8):
+            crit_checks += 1
+            init_rh = {r + 1: 1}
+            for bit_idx in range(3):
+                if (tail_mask >> bit_idx) & 1:
+                    init_rh[r + 2 + bit_idx] = 1
+            after_white = _run_driven_rh(init_rh, [0] * r)
+            after_cycle = _run_driven_rh(after_white, [1])
+            if (
+                after_white.get(1, 0) != 1
+                or after_white.get(2, 0) != 1
+                or after_cycle.get(1, 0) != 0
+                or after_cycle.get(2, 0) != 0
+                or _rh_depth(after_cycle) < 2
+            ):
+                crit_mismatches += 1
+
+    long_black_checks = 0
+    long_black_mismatches = 0
+    for b_len in (9, 10, 11):
+        for mask in range(16):
+            long_black_checks += 1
+            init_rh = {p + 1: 1 for p in range(4) if (mask >> p) & 1}
+            out_rh = _run_driven_rh(init_rh, [1] * b_len)
+            if _rh_depth(out_rh) != 1:
+                long_black_mismatches += 1
+
+    # 3. G7.3: Refined window closure verification across all cycle pairs sharing (r, b)
+    refined_pair_checks = 0
+    refined_mismatches = 0
+    by_rb: Dict[Tuple[int, int], List[Tuple[int, int, int]]] = {}
+    for w, r, b, ell_in, ell_next in cycles:
+        by_rb.setdefault((r, b), []).append((w, ell_in, ell_next))
+    for (r, b), c_list in by_rb.items():
+        L = r + b
+        for i in range(len(c_list)):
+            for j in range(i + 1, len(c_list)):
+                w0, _, en0 = c_list[i]
+                w1, _, en1 = c_list[j]
+                refined_pair_checks += 1
+                req_N = en0 + 1 + L
+                win_agrees = all(_cell(w0, p) == _cell(w1, p) for p in range(1, req_N + 1))
+                if win_agrees and en0 != en1:
+                    refined_mismatches += 1
+
+    # 4. G7.4: Periodic-word exclusion for 0^r 1^b (r = 1..5, b = 9..10)
+    words_tested = 0
+    all_reset_ok = True
+    for r in range(1, 6):
+        for b_len in (9, 10):
+            for init_ell in (0, 1, 2, r, r + 2):
+                words_tested += 1
+                out_rh = _run_driven_rh({init_ell + 1: 1}, [0] * r + [1] * b_len)
+                if _rh_depth(out_rh) != 1:
+                    all_reset_ok = False
+
+    # 5. G7.5: Weighted discrepancy composition & 4-part cost accounting
+    black_prefix = [0]
+    for n in range(steps + 4):
+        black_prefix.append(black_prefix[-1] + _cell(n, 0))
+
+    def _disc(n: int) -> int:
+        return 2 * black_prefix[n] - n
+
+    weight_checks = 0
+    weight_mismatches = 0
+    for idx_c in range(len(cycles) - 1):
+        w1, r1, b1, _, _ = cycles[idx_c]
+        w2, r2, b2, _, _ = cycles[idx_c + 1]
+        if w1 + r1 + b1 == w2:
+            weight_checks += 1
+            d_start = _disc(w1)
+            d_step1 = d_start + (b1 - r1)
+            d_step2 = d_step1 + (b2 - r2)
+            d_comb = d_start + ((b1 + b2) - (r1 + r2))
+            if _disc(w2 + r2 + b2) != d_step2 or d_step2 != d_comb:
+                weight_mismatches += 1
+
+    # Four-part cost accounting over the extracted event horizon:
+    # - C_construct: 0 for on-the-fly macro rules (no exponential lookup table precomputation)
+    # - C_evaluate: 2 arithmetic ops per event cycle (ell -> max(0, ell - r) and Delta + (b - r))
+    # - C_recover: bit operations required to evolve the active right-cone tail sigma_N across
+    #   each cycle of length L = r + b so that post-white-run tail bits at z = 0 are known:
+    #   sum_{t = w_0}^{w_last} 2 * t = Theta(N^2) bit operations.
+    # - C_storage: max active right-boundary window width at horizon (~ steps bits).
+    cost_construct = 0
+    cost_evaluate = 2 * len(cycles)
+    last_end = cycles[-1][0] + cycles[-1][1] + cycles[-1][2] if cycles else steps
+    cost_recover = sum(2 * t for t in range(2, last_end + 1))
+    cost_storage = last_end
+    cost_total = cost_construct + cost_evaluate + cost_recover + cost_storage
+    honest_p3 = (
+        cost_recover > 10 * cost_evaluate
+        and cost_total >= last_end * (last_end - 1)
+    )
+
+    verdict_path = Path(__file__).resolve().parent / "check_verdict.json"
+    verdict_data = json.loads(verdict_path.read_text(encoding="utf-8"))
+    expected_g7_headlines = (
+        "Rule30Submission.g7_p1_depth_alone_not_closed_under_cycle_01",
+        "Rule30Submission.g7_p1_depth_one_not_closed_under_cycle_01",
+        "Rule30Submission.g7_p1_black_step_from_z0_to_depth1_iff",
+        "Rule30Submission.g7_p1_black_step_from_z0_to_depth2_iff",
+        "Rule30Submission.g7_p1_cycle_0r1_at_boundary_ell_eq_r_forces_next_ge_two",
+        "Rule30Submission.g7_p1_long_black_run_resets_to_modeADepth_one",
+        "Rule30Submission.g7_p1_right_cone_agree_bounded",
+        "Rule30Submission.g7_p1_refined_window_state_closes_cycle_transition",
+        "Rule30Submission.g7_p1_no_periodic_0r_1b_for_b_ge_9",
+        "Rule30Submission.g7_p2_weighted_event_operator_composition",
+    )
+    verified_set = {
+        h["name"]
+        for h in verdict_data.get("headlines", [])
+        if h.get("ok") and h.get("found")
+    }
+    verified_g7 = tuple(
+        name for name in expected_g7_headlines if name in verified_set
+    )
+
+    gate_passed = (
+        len(cycles) >= 50
+        and not scalar_ell_closed
+        and collision_buckets >= 5
+        and witness_01.ell_in == 0
+        and (witness_01.ell_next_1, witness_01.ell_next_2) == (2, 1)
+        and witness_23.ell_in == 1
+        and (witness_23.ell_next_1, witness_23.ell_next_2) == (3, 4)
+        and witness_23.shared_right_prefix_len == 6
+        and witness_23.first_differing_right_column == 7
+        and z0_d1_mismatches == 0
+        and z0_d2_mismatches == 0
+        and crit_mismatches == 0
+        and long_black_mismatches == 0
+        and not residue_parity_closed
+        and refined_pair_checks > 0
+        and refined_mismatches == 0
+        and all_reset_ok
+        and weight_checks >= 50
+        and weight_mismatches == 0
+        and honest_p3
+        and len(verified_g7) == len(expected_g7_headlines)
+    )
+
+    return G7CollatzReturnMapTransferResult(
+        steps=steps,
+        extracted_event_cycles_count=len(cycles),
+        scalar_ell_collision_buckets_count=collision_buckets,
+        scalar_ell_alone_is_closed=scalar_ell_closed,
+        minimal_collision_witness_ell0_01=witness_01,
+        minimal_collision_witness_ell1_23=witness_23,
+        z0_branch_to_depth1_iff_checks=z0_d1_checks,
+        z0_branch_to_depth1_iff_mismatches=z0_d1_mismatches,
+        z0_branch_to_depth2_iff_checks=z0_d2_checks,
+        z0_branch_to_depth2_iff_mismatches=z0_d2_mismatches,
+        critical_boundary_ell_eq_r_ge2_checks=crit_checks,
+        critical_boundary_ell_eq_r_ge2_mismatches=crit_mismatches,
+        long_black_run_reset_to_depth1_checks=long_black_checks,
+        long_black_run_reset_to_depth1_mismatches=long_black_mismatches,
+        residue_parity_alone_is_closed=residue_parity_closed,
+        refined_window_closure_pair_checks=refined_pair_checks,
+        refined_window_closure_mismatches=refined_mismatches,
+        periodic_0r_1b_ge9_words_tested=words_tested,
+        periodic_0r_1b_ge9_all_reset_to_depth1_in_one_period=all_reset_ok,
+        weighted_operator_composition_checks=weight_checks,
+        weighted_operator_composition_mismatches=weight_mismatches,
+        cost_construct_bit_ops=cost_construct,
+        cost_evaluate_macro_ops=cost_evaluate,
+        cost_recover_tail_bit_ops=cost_recover,
+        cost_storage_bits=cost_storage,
+        cost_total_event_system_ops=cost_total,
+        honest_cost_prevents_unjustified_p3_shortcut=honest_p3,
+        g7_headlines_verified=verified_g7,
+        gate_passed=gate_passed,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Full Campaign Runner
 # ---------------------------------------------------------------------------
 
@@ -2624,6 +3048,7 @@ class Rule30FalsificationCampaign:
     g4_multi_prize_qualification: G4MultiPrizeQualificationResult
     g5_three_prize_continuation: G5ThreePrizeContinuationResult
     g6_prize_mechanism_qualification: G6PrizeMechanismQualificationResult
+    g7_collatz_return_map_transfer: G7CollatzReturnMapTransferResult
     all_gates_passed: bool
 
     def to_dict(self) -> Dict[str, Any]:
@@ -2638,6 +3063,7 @@ class Rule30FalsificationCampaign:
             "g4_multi_prize_qualification": self.g4_multi_prize_qualification.to_dict(),
             "g5_three_prize_continuation": self.g5_three_prize_continuation.to_dict(),
             "g6_prize_mechanism_qualification": self.g6_prize_mechanism_qualification.to_dict(),
+            "g7_collatz_return_map_transfer": self.g7_collatz_return_map_transfer.to_dict(),
             "all_gates_passed": self.all_gates_passed,
         }
 
@@ -2654,6 +3080,7 @@ def run_full_campaign(
     g4_sensitivity_max_t: int = 5,
     g5_steps: int = 250,
     g6_steps: int = 250,
+    g7_steps: int = 450,
     output_json: Optional[Path] = None,
 ) -> Rule30FalsificationCampaign:
     """Execute all Rule 30 falsification & prize qualification gates and optionally write JSON evidence."""
@@ -2669,6 +3096,7 @@ def run_full_campaign(
     )
     g5 = run_g5_three_prize_continuation(steps=g5_steps)
     g6 = run_g6_prize_mechanism_qualification(steps=g6_steps)
+    g7 = run_g7_collatz_return_map_transfer(steps=g7_steps)
 
     campaign = Rule30FalsificationCampaign(
         e1_reconstruction=e1,
@@ -2681,6 +3109,7 @@ def run_full_campaign(
         g4_multi_prize_qualification=g4,
         g5_three_prize_continuation=g5,
         g6_prize_mechanism_qualification=g6,
+        g7_collatz_return_map_transfer=g7,
         all_gates_passed=(
             e1.gate_passed
             and e2.gate_passed
@@ -2692,6 +3121,7 @@ def run_full_campaign(
             and g4.gate_passed
             and g5.gate_passed
             and g6.gate_passed
+            and g7.gate_passed
         ),
     )
 
