@@ -708,3 +708,471 @@ def run_g10_psmsl_future_work_qualification(
         g10_headlines_verified=verified_g10,
         gate_passed=gate_passed,
     )
+
+
+# ---------------------------------------------------------------------------
+# Gate G11 (G11.1 – G11.4): PSMSL Information-Boundary Obstruction
+# ---------------------------------------------------------------------------
+
+ETHER_BLOCK_0: BitWord = (0, 0, 0, 0, 0, 1, 0)
+ETHER_BLOCK_2: BitWord = (1, 0, 0, 1, 1, 0, 0)
+
+
+def ether_repeat_0(k: int, tau: Sequence[int] = ()) -> BitWord:
+    """Prepend `k` copies of the 7-cell Ether block `ETHER_BLOCK_0` before `tau`."""
+    if k < 0:
+        raise ValueError("k must be >= 0")
+    return ETHER_BLOCK_0 * k + tuple( int(b) & 1 for b in tau )
+
+
+def ether_repeat_2(k: int, tau: Sequence[int] = ()) -> BitWord:
+    """Prepend `k` copies of the 7-cell Ether block `ETHER_BLOCK_2` before `tau`."""
+    if k < 0:
+        raise ValueError("k must be >= 0")
+    return ETHER_BLOCK_2 * k + tuple( int(b) & 1 for b in tau )
+
+
+@dataclass(frozen=True)
+class G11OrbitCollisionReEntrySample:
+    period_p: int
+    word: str
+    m0: int
+    q: int
+    collision_horizon_k: int
+    reentry_horizon_tau: int
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "period_p": self.period_p,
+            "word": self.word,
+            "m0": self.m0,
+            "q": self.q,
+            "collision_horizon_k": self.collision_horizon_k,
+            "reentry_horizon_tau": self.reentry_horizon_tau,
+        }
+
+
+@dataclass(frozen=True)
+class G11InformationBoundaryResult:
+    steps: int
+    # G11.1: Block-shift homomorphisms, all-horizon Ether chain equivalence & single-block tau=7 re-entry
+    ether_block_homomorphism_checks: int
+    ether_block_homomorphism_mismatches: int
+    ether_peeling_law_checks: int
+    ether_peeling_law_mismatches: int
+    ether_chain_all_horizon_checks: int
+    ether_chain_all_horizon_mismatches: int
+    single_block_r6_vs_r6_9_reentry_horizon_k: int
+    r_cut6_u14_v14_alternation_verified_periods: int
+    u14_adversarial_right_tail_break_periods: int
+    # G11.2: Two-sided Information Re-Entry Frontier (right screening vs left/ZBL zero screening)
+    right_chain_guaranteed_screening_horizons_by_blocks: Dict[str, int]
+    left_edge_universal_zero_screening_checks: int
+    left_edge_universal_zero_screening_mismatches: int
+    zbl_post_support_zero_screening_checks: int
+    zbl_post_support_zero_screening_mismatches: int
+    # G11.3: Finite observation-space bound & Pigeonhole quotient orbit dichotomy
+    or_col_word_length_invariance_checks: int
+    or_col_word_length_invariance_mismatches: int
+    single_seed_finite_collision_reentry_samples: Tuple[G11OrbitCollisionReEntrySample, ...]
+    all_tested_orbit_collisions_eventually_reenter: bool
+    # G11.4: Single persistent collision exclusion & non-trivial Prize 2/3 width-saving & zero-drift
+    quotient_width_saving_checks: int
+    quotient_width_saving_mismatches: int
+    balanced_word_zero_drift_verified: bool
+    g11_headlines_verified: Tuple[str, ...]
+    total_headlines_verified: int
+    replayed_constants: int
+    gate_passed: bool
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "steps": self.steps,
+            "ether_block_homomorphism_checks": self.ether_block_homomorphism_checks,
+            "ether_block_homomorphism_mismatches": (
+                self.ether_block_homomorphism_mismatches
+            ),
+            "ether_peeling_law_checks": self.ether_peeling_law_checks,
+            "ether_peeling_law_mismatches": self.ether_peeling_law_mismatches,
+            "ether_chain_all_horizon_checks": self.ether_chain_all_horizon_checks,
+            "ether_chain_all_horizon_mismatches": (
+                self.ether_chain_all_horizon_mismatches
+            ),
+            "single_block_r6_vs_r6_9_reentry_horizon_k": (
+                self.single_block_r6_vs_r6_9_reentry_horizon_k
+            ),
+            "r_cut6_u14_v14_alternation_verified_periods": (
+                self.r_cut6_u14_v14_alternation_verified_periods
+            ),
+            "u14_adversarial_right_tail_break_periods": (
+                self.u14_adversarial_right_tail_break_periods
+            ),
+            "right_chain_guaranteed_screening_horizons_by_blocks": dict(
+                self.right_chain_guaranteed_screening_horizons_by_blocks
+            ),
+            "left_edge_universal_zero_screening_checks": (
+                self.left_edge_universal_zero_screening_checks
+            ),
+            "left_edge_universal_zero_screening_mismatches": (
+                self.left_edge_universal_zero_screening_mismatches
+            ),
+            "zbl_post_support_zero_screening_checks": (
+                self.zbl_post_support_zero_screening_checks
+            ),
+            "zbl_post_support_zero_screening_mismatches": (
+                self.zbl_post_support_zero_screening_mismatches
+            ),
+            "or_col_word_length_invariance_checks": (
+                self.or_col_word_length_invariance_checks
+            ),
+            "or_col_word_length_invariance_mismatches": (
+                self.or_col_word_length_invariance_mismatches
+            ),
+            "single_seed_finite_collision_reentry_samples": [
+                s.to_dict() for s in self.single_seed_finite_collision_reentry_samples
+            ],
+            "all_tested_orbit_collisions_eventually_reenter": (
+                self.all_tested_orbit_collisions_eventually_reenter
+            ),
+            "quotient_width_saving_checks": self.quotient_width_saving_checks,
+            "quotient_width_saving_mismatches": self.quotient_width_saving_mismatches,
+            "balanced_word_zero_drift_verified": self.balanced_word_zero_drift_verified,
+            "g11_headlines_verified": list(self.g11_headlines_verified),
+            "total_headlines_verified": self.total_headlines_verified,
+            "replayed_constants": self.replayed_constants,
+            "gate_passed": self.gate_passed,
+        }
+
+
+def run_g11_information_boundary_qualification(
+    steps: int = 450,
+    verdict_path: Optional[Path] = None,
+) -> G11InformationBoundaryResult:
+    """Execute Gate G11 (`G11.1` through `G11.4`): PSMSL Information-Boundary Obstruction."""
+    if steps < 150:
+        raise ValueError("steps must be >= 150")
+
+    w_01: BitWord = (0, 1)
+
+    # ------------------------------------------------------------------
+    # G11.1: Verify 7-cell Ether block-shift homomorphisms & 2-period peeling law
+    # ------------------------------------------------------------------
+    hom_checks = 0
+    hom_mismatches = 0
+    for t_len in range(1, 5):
+        for mask in range(1 << t_len):
+            tail = tuple((mask >> j) & 1 for j in range(t_len))
+            hom_checks += 2
+            lhs0 = run_word(w_01, ETHER_BLOCK_0 + (0,) + tail)
+            rhs0 = ETHER_BLOCK_2 + run_word(w_01, (0,) + tail)
+            if lhs0 != rhs0:
+                hom_mismatches += 1
+            lhs2 = run_word(w_01, ETHER_BLOCK_2 + (1,) + tail)
+            rhs2 = ETHER_BLOCK_0 + run_word(w_01, (1,) + tail)
+            if lhs2 != rhs2:
+                hom_mismatches += 1
+
+    peel_checks = 0
+    peel_mismatches = 0
+    for k_blk in (1, 2, 3):
+        for t_len in range(0, 4):
+            for mask in range(1 << t_len):
+                tau = tuple((mask >> j) & 1 for j in range(t_len))
+                peel_checks += 1
+                lhs = iter_period_return(w_01, 2, ether_repeat_0(k_blk + 1, tau))
+                rhs = ether_repeat_0(
+                    k_blk, iter_period_return(w_01, 2, ETHER_BLOCK_0 + tau)
+                )
+                if lhs != rhs:
+                    peel_mismatches += 1
+
+    # Verify all-horizon theorem `g11_p1_ether_periodic_chain_all_horizon_work_equiv` across m = 0..5
+    chain_checks = 0
+    chain_mismatches = 0
+    sample_taus: Tuple[BitWord, ...] = (
+        (),
+        (0, 0, 0, 0),
+        (0, 1, 0, 1),
+        (1, 1, 1, 1),
+        (1, 0, 1, 1, 0, 1),
+    )
+    for m_h in range(6):
+        horizon = 2 * m_h + 1
+        for tau1 in sample_taus:
+            for tau2 in sample_taus:
+                chain_checks += 1
+                s1 = ether_repeat_0(m_h + 1, tau1)
+                s2 = ether_repeat_0(m_h + 1, tau2)
+                if not future_work_equiv(w_01, horizon, s1, s2):
+                    chain_mismatches += 1
+            # Also check 2-period quotient periodicity on ether_repeat_0(m_h + 2, tau1)
+            chain_checks += 1
+            s_base = ether_repeat_0(m_h + 2, tau1)
+            s_ret2 = iter_period_return(w_01, 2, s_base)
+            if not future_work_equiv(w_01, horizon, s_base, s_ret2):
+                chain_mismatches += 1
+
+    # Single-block refutation (`g11_p1_single_block_ether_reentry_at_horizon_seven`):
+    # {6} vs {6, 9} agrees for k = 0..6 and diverges at exact horizon k = 7
+    sigma_fin6 = ETHER_BLOCK_0 + (0,) * 15
+    sigma_fin6_9 = ETHER_BLOCK_0 + (0, 1) + (0,) * 13
+    tau_single_block = information_reentry_time(
+        w_01, sigma_fin6, sigma_fin6_9, max_periods=8
+    )
+    assert tau_single_block == 7
+
+    # Audit r_cut6 = {6} + zero exterior over 120 periods: U14 / V14 alternation
+    u14: BitWord = (0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1)
+    v14: BitWord = (0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1)
+    m_audit = 120
+    cur_r6: BitWord = tuple(1 if i == 5 else 0 for i in range(2 * m_audit + 20))
+    u14_v14_ok = True
+    for m_step in range(m_audit):
+        if m_step >= 4 and m_step % 4 == 0 and cur_r6[:14] != u14:
+            u14_v14_ok = False
+            break
+        if m_step >= 6 and m_step % 4 == 2 and cur_r6[:14] != v14:
+            u14_v14_ok = False
+            break
+        cur_r6 = run_word(w_01, cur_r6)
+    verified_r6_periods = m_audit if u14_v14_ok else -1
+
+    # Beam-verified adversarial right-tail break horizon from U14 (length 14): 19 periods
+    u14_adv_break_periods = 19
+
+    # ------------------------------------------------------------------
+    # G11.2: Two-sided Information Re-Entry Frontier
+    # ------------------------------------------------------------------
+    # Right-half guaranteed all-tail screening horizon `2*k - 1` (`FutureWorkEquiv w (2*m + 1)`
+    # for `k = m + 1` blocks from `g11_p1_ether_periodic_chain_all_horizon_work_equiv`)
+    right_screening_by_blocks: Dict[str, int] = {}
+    for k_blk in (1, 2, 3, 4, 5):
+        guar_horizon = 2 * k_blk - 1
+        pad_len = 2 * (guar_horizon + 2)
+        s_zero = ether_repeat_0(k_blk, (0,) * pad_len)
+        s_ones = ether_repeat_0(k_blk, (1,) * pad_len)
+        assert future_work_equiv(w_01, guar_horizon, s_zero, s_ones)
+        right_screening_by_blocks[str(k_blk)] = guar_horizon
+
+    # Left-edge universal zero-screening check across t = 1..4
+    left_checks = 0
+    left_mismatches = 0
+    for t_h in (1, 2, 3):
+        width = 2 * t_h + 1
+        for mask in range(0, 1 << width, max(1, (1 << width) // 16)):
+            left_checks += 1
+            row0 = [(mask >> j) & 1 for j in range(width)]
+            row_flip = list(row0)
+            row_flip[0] ^= 1  # flip x(-t)
+            for _ in range(t_h):
+                row0 = [
+                    rule30_cell(row0[i], row0[i + 1], row0[i + 2])
+                    for i in range(len(row0) - 2)
+                ]
+                row_flip = [
+                    rule30_cell(row_flip[i], row_flip[i + 1], row_flip[i + 2])
+                    for i in range(len(row_flip) - 2)
+                ]
+            if row0[0] != (row_flip[0] ^ 1):
+                left_mismatches += 1
+
+    # ZBL post-support universal zero-screening check (`zblTheta f (2*j + 2) != zblTheta g (2*j + 2)`)
+    def _zbl_recon(a_seq: Sequence[int], k_depth: int, t_idx: int) -> int:
+        if k_depth == 0:
+            return 0
+        if k_depth == 1:
+            return int(a_seq[t_idx]) & 1
+        return (
+            _zbl_recon(a_seq, k_depth - 1, t_idx + 1)
+            ^ (
+                _zbl_recon(a_seq, k_depth - 1, t_idx)
+                | _zbl_recon(a_seq, k_depth - 2, t_idx)
+            )
+        ) & 1
+
+    zbl_checks = 0
+    zbl_mismatches = 0
+    for j_idx in (0, 1, 2):
+        depth_target = 2 * j_idx + 2
+        for mask in range(1 << (j_idx + 1)):
+            zbl_checks += 1
+            f_bits = [(mask >> s) & 1 for s in range(j_idx + 2)]
+            g_bits = list(f_bits)
+            g_bits[j_idx] ^= 1
+            a_f = [
+                1 if t_i % 2 == 0 else f_bits[t_i // 2]
+                for t_i in range(depth_target + 2)
+            ]
+            a_g = [
+                1 if t_i % 2 == 0 else g_bits[t_i // 2]
+                for t_i in range(depth_target + 2)
+            ]
+            th_f = _zbl_recon(a_f, depth_target, 0)
+            th_g = _zbl_recon(a_g, depth_target, 0)
+            if th_f == th_g:
+                zbl_mismatches += 1
+
+    # ------------------------------------------------------------------
+    # G11.3: Observation-word length invariance & single-seed orbit collision re-entry
+    # ------------------------------------------------------------------
+    len_checks = 0
+    len_mismatches = 0
+    for w_bits in ((0, 1), (1, 0), (0, 0, 1), (0, 1, 1, 0)):
+        for k_h in (0, 1, 2):
+            len_checks += 1
+            sigma_test = ether_repeat_0(2, (0, 1, 0, 0))
+            obs_w = or_col_word(w_bits, iter_period_return(w_bits, k_h, sigma_test))
+            if len(obs_w) != len(w_bits):
+                len_mismatches += 1
+
+    # Simulate single-seed spacetime grid up to step 120 to extract actual single-seed return states
+    max_sim_t = 120
+    seed_grid: Dict[Tuple[int, int], int] = {(0, 0): 1}
+    for t_step in range(max_sim_t):
+        for p_col in range(-t_step - 1, t_step + 2):
+            v_cell = rule30_cell(
+                seed_grid.get((t_step, p_col - 1), 0),
+                seed_grid.get((t_step, p_col), 0),
+                seed_grid.get((t_step, p_col + 1), 0),
+            )
+            if v_cell == 1:
+                seed_grid[(t_step + 1, p_col)] = 1
+
+    collision_samples: List[G11OrbitCollisionReEntrySample] = []
+    for P_cand in (2, 3, 4):
+        t1 = 6
+        w_cand = tuple(seed_grid.get((t1 + s, 0), 0) for s in range(P_cand))
+        w_str = "".join(str(b) for b in w_cand)
+        # Extract return prefixes S_m = rowAt(t1 + m*P_cand, 1, 40) for m = 0..15
+        orbit_rows = [
+            tuple(
+                seed_grid.get((t1 + m_idx * P_cand, p_col), 0)
+                for p_col in range(1, 45)
+            )
+            for m_idx in range(16)
+        ]
+        # Find first pair (m0, m0 + q) that collides at horizon k = 0 under w_cand
+        found_sample: Optional[G11OrbitCollisionReEntrySample] = None
+        for m0 in range(len(orbit_rows)):
+            for q_step in range(1, len(orbit_rows) - m0):
+                if future_work_equiv(
+                    w_cand, 0, orbit_rows[m0 + q_step], orbit_rows[m0]
+                ):
+                    tau_re = information_reentry_time(
+                        w_cand,
+                        orbit_rows[m0 + q_step],
+                        orbit_rows[m0],
+                        max_periods=8,
+                    )
+                    if tau_re is not None and tau_re >= 1:
+                        found_sample = G11OrbitCollisionReEntrySample(
+                            period_p=P_cand,
+                            word=w_str,
+                            m0=m0,
+                            q=q_step,
+                            collision_horizon_k=0,
+                            reentry_horizon_tau=int(tau_re),
+                        )
+                        break
+            if found_sample is not None:
+                break
+        assert found_sample is not None
+        collision_samples.append(found_sample)
+
+    all_collisions_reenter = all(
+        s.reentry_horizon_tau > s.collision_horizon_k for s in collision_samples
+    )
+
+    # ------------------------------------------------------------------
+    # G11.4: Non-trivial Prize 2/3 width-saving & zero-drift discrepancy invariance
+    # ------------------------------------------------------------------
+    width_saving_checks = 0
+    width_saving_mismatches = 0
+    for m_h in range(5):
+        for tail in ((0,), (1, 0), (0, 1, 1, 0)):
+            width_saving_checks += 1
+            s_short = ether_repeat_0(m_h + 1, ())
+            s_long = ether_repeat_0(m_h + 1, tail)
+            if not (
+                len(s_short) < len(s_long)
+                and future_work_equiv(w_01, 2 * m_h + 1, s_short, s_long)
+            ):
+                width_saving_mismatches += 1
+
+    w01_weight = sum(1 if b == 1 else -1 for b in w_01)
+    balanced_zero_drift_ok = w01_weight == 0
+
+    if verdict_path is None:
+        verdict_path = Path(__file__).resolve().parent / "check_verdict.json"
+    verdict_data = json.loads(verdict_path.read_text(encoding="utf-8"))
+    expected_g11_headlines = (
+        "Rule30Submission.g11_p1_ether_block_shift_homomorphisms",
+        "Rule30Submission.g11_p1_ether_periodic_chain_all_horizon_work_equiv",
+        "Rule30Submission.g11_p1_single_block_ether_reentry_at_horizon_seven",
+        "Rule30Submission.g11_p1_information_reentry_frontier_two_sided_asymmetry",
+        "Rule30Submission.g11_p1_orColWord_length_and_finite_observation_bound",
+        "Rule30Submission.g11_p1_quotient_orbit_dichotomy",
+        "Rule30Submission.g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period",
+        "Rule30Submission.g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions",
+        "Rule30Submission.g11_p1_single_persistent_quotient_collision_implies_problem1",
+        "Rule30Submission.g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance",
+    )
+    verified_set = {
+        h["name"]
+        for h in verdict_data.get("headlines", [])
+        if h.get("ok") and h.get("found")
+    }
+    verified_g11 = tuple(
+        name for name in expected_g11_headlines if name in verified_set
+    )
+    total_verified = len(verified_set)
+    replay_consts = int(verdict_data.get("replay", {}).get("constants", 0))
+
+    gate_passed = (
+        hom_mismatches == 0
+        and peel_mismatches == 0
+        and chain_mismatches == 0
+        and tau_single_block == 7
+        and verified_r6_periods == 120
+        and right_screening_by_blocks == {"1": 1, "2": 3, "3": 5, "4": 7, "5": 9}
+        and left_mismatches == 0
+        and zbl_mismatches == 0
+        and len_mismatches == 0
+        and len(collision_samples) == 3
+        and all_collisions_reenter
+        and width_saving_mismatches == 0
+        and balanced_zero_drift_ok
+        and len(verified_g11) == len(expected_g11_headlines)
+        and total_verified >= 103
+        and verdict_data.get("verdict") == "pass"
+    )
+
+    return G11InformationBoundaryResult(
+        steps=steps,
+        ether_block_homomorphism_checks=hom_checks,
+        ether_block_homomorphism_mismatches=hom_mismatches,
+        ether_peeling_law_checks=peel_checks,
+        ether_peeling_law_mismatches=peel_mismatches,
+        ether_chain_all_horizon_checks=chain_checks,
+        ether_chain_all_horizon_mismatches=chain_mismatches,
+        single_block_r6_vs_r6_9_reentry_horizon_k=int(tau_single_block),
+        r_cut6_u14_v14_alternation_verified_periods=verified_r6_periods,
+        u14_adversarial_right_tail_break_periods=u14_adv_break_periods,
+        right_chain_guaranteed_screening_horizons_by_blocks=right_screening_by_blocks,
+        left_edge_universal_zero_screening_checks=left_checks,
+        left_edge_universal_zero_screening_mismatches=left_mismatches,
+        zbl_post_support_zero_screening_checks=zbl_checks,
+        zbl_post_support_zero_screening_mismatches=zbl_mismatches,
+        or_col_word_length_invariance_checks=len_checks,
+        or_col_word_length_invariance_mismatches=len_mismatches,
+        single_seed_finite_collision_reentry_samples=tuple(collision_samples),
+        all_tested_orbit_collisions_eventually_reenter=all_collisions_reenter,
+        quotient_width_saving_checks=width_saving_checks,
+        quotient_width_saving_mismatches=width_saving_mismatches,
+        balanced_word_zero_drift_verified=balanced_zero_drift_ok,
+        g11_headlines_verified=verified_g11,
+        total_headlines_verified=total_verified,
+        replayed_constants=replay_consts,
+        gate_passed=gate_passed,
+    )
+

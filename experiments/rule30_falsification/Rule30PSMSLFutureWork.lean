@@ -417,4 +417,179 @@ theorem g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work
       (k : Int) * wordDiscrepancyWeight w = (k : Int) * wordDiscrepancyWeight w := by
   exact ⟨fun k hk => heq k hk, fun _ _ => rfl⟩
 
+/-! ### `G11.1` – `G11.4`: PSMSL Information-Boundary Obstruction -/
+
+def etherBlock0 : List Bool := [false, false, false, false, false, true, false]
+
+def etherBlock2 : List Bool := [true, false, false, true, true, false, false]
+
+def etherRepeat0 : Nat → List Bool → List Bool
+  | 0, τ => τ
+  | k + 1, τ => etherBlock0 ++ etherRepeat0 k τ
+
+def etherRepeat2 : Nat → List Bool → List Bool
+  | 0, τ => τ
+  | k + 1, τ => etherBlock2 ++ etherRepeat2 k τ
+
+theorem etherRepeat0_succ_right :
+    ∀ (k : Nat) (τ : List Bool),
+      etherRepeat0 (k + 1) τ = etherRepeat0 k (etherBlock0 ++ τ)
+  | 0, _ => rfl
+  | k + 1, τ => by
+    show etherBlock0 ++ etherRepeat0 (k + 1) τ = etherBlock0 ++ etherRepeat0 k (etherBlock0 ++ τ)
+    rw [etherRepeat0_succ_right k τ]
+
+theorem runWord_etherBlock0_cons (b : Bool) (rest : List Bool) :
+    runWord [false, true] (etherBlock0 ++ (false :: b :: rest)) =
+      etherBlock2 ++ runWord [false, true] (false :: b :: rest) := by
+  cases b <;> rfl
+
+theorem runWord_etherBlock2_cons (b : Bool) (rest : List Bool) :
+    runWord [false, true] (etherBlock2 ++ (true :: b :: rest)) =
+      etherBlock0 ++ runWord [false, true] (true :: b :: rest) := by
+  cases b <;> rfl
+
+theorem runWord_etherRepeat0_cons :
+    ∀ (k : Nat) (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherRepeat0 k (false :: b :: rest)) =
+        etherRepeat2 k (runWord [false, true] (false :: b :: rest))
+  | 0, _, _ => rfl
+  | 1, b, rest => runWord_etherBlock0_cons b rest
+  | k + 2, b, rest => by
+    have ih := runWord_etherRepeat0_cons (k + 1) b rest
+    show runWord [false, true] (etherBlock0 ++ (etherBlock0 ++ etherRepeat0 k (false :: b :: rest))) =
+      etherBlock2 ++ etherRepeat2 (k + 1) (runWord [false, true] (false :: b :: rest))
+    rw [← ih]
+    exact runWord_etherBlock0_cons false ([false, false, false, true, false] ++ etherRepeat0 k (false :: b :: rest))
+
+theorem runWord_etherRepeat2_cons :
+    ∀ (k : Nat) (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherRepeat2 k (true :: b :: rest)) =
+        etherRepeat0 k (runWord [false, true] (true :: b :: rest))
+  | 0, _, _ => rfl
+  | 1, b, rest => runWord_etherBlock2_cons b rest
+  | k + 2, b, rest => by
+    have ih := runWord_etherRepeat2_cons (k + 1) b rest
+    show runWord [false, true] (etherBlock2 ++ (etherBlock2 ++ etherRepeat2 k (true :: b :: rest))) =
+      etherBlock0 ++ etherRepeat0 (k + 1) (runWord [false, true] (true :: b :: rest))
+    rw [← ih]
+    exact runWord_etherBlock2_cons false ([false, true, true, false, false] ++ etherRepeat2 k (true :: b :: rest))
+
+theorem g11_p1_ether_block_shift_homomorphisms :
+    (∀ (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherBlock0 ++ (false :: b :: rest)) =
+        etherBlock2 ++ runWord [false, true] (false :: b :: rest)) ∧
+    (∀ (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherBlock2 ++ (true :: b :: rest)) =
+        etherBlock0 ++ runWord [false, true] (true :: b :: rest)) ∧
+    (∀ (k : Nat) (τ : List Bool),
+      iterPeriodReturn [false, true] 2 (etherRepeat0 (k + 1) τ) =
+        etherRepeat0 k (iterPeriodReturn [false, true] 2 (etherBlock0 ++ τ))) := by
+  refine ⟨runWord_etherBlock0_cons, runWord_etherBlock2_cons, fun k τ => ?_⟩
+  rw [etherRepeat0_succ_right k τ]
+  have h1 : runWord [false, true] (etherRepeat0 k (etherBlock0 ++ τ)) =
+      etherRepeat2 k (runWord [false, true] (etherBlock0 ++ τ)) :=
+    runWord_etherRepeat0_cons k false ([false, false, false, true, false] ++ τ)
+  have h2 : runWord [false, true] (etherRepeat2 k (runWord [false, true] (etherBlock0 ++ τ))) =
+      etherRepeat0 k (runWord [false, true] (runWord [false, true] (etherBlock0 ++ τ))) :=
+    runWord_etherRepeat2_cons k false
+      ([false, true, true] ++ stepRow true (stepRow false ([true, false] ++ τ)))
+  show runWord [false, true] (runWord [false, true] (etherRepeat0 k (etherBlock0 ++ τ))) =
+    etherRepeat0 k (runWord [false, true] (runWord [false, true] (etherBlock0 ++ τ)))
+  rw [h1, h2]
+
+theorem orColWord_etherRepeat0_one_step (k : Nat) (τ : List Bool) :
+    orColWord [false, true] (runWord [false, true] (etherRepeat0 (k + 1) τ)) = [true, true] := by
+  have h1 : runWord [false, true] (etherRepeat0 k (etherBlock0 ++ τ)) =
+      etherRepeat2 k (runWord [false, true] (etherBlock0 ++ τ)) :=
+    runWord_etherRepeat0_cons k false ([false, false, false, true, false] ++ τ)
+  rw [etherRepeat0_succ_right k τ, h1]
+  cases k <;> rfl
+
+theorem orColWord_iterPeriodReturn_etherRepeat0 :
+    ∀ (m : Nat) (τ : List Bool) (k : Nat),
+      k ≤ 2 * m + 1 →
+      orColWord [false, true] (iterPeriodReturn [false, true] k (etherRepeat0 (m + 1) τ)) =
+        [decide (k % 2 = 1), true]
+  | 0, τ, k, hk => by
+    have hcases : k = 0 ∨ k = 1 := by omega
+    rcases hcases with rfl | rfl
+    · rfl
+    · exact orColWord_etherRepeat0_one_step 0 τ
+  | m + 1, τ, 0, _ => rfl
+  | m + 1, τ, 1, _ => orColWord_etherRepeat0_one_step (m + 1) τ
+  | m + 1, τ, k + 2, hk => by
+    have hpeel := g11_p1_ether_block_shift_homomorphisms.2.2 (m + 1) τ
+    have hiter : iterPeriodReturn [false, true] (k + 2) (etherRepeat0 (m + 2) τ) =
+        iterPeriodReturn [false, true] k (iterPeriodReturn [false, true] 2 (etherRepeat0 (m + 2) τ)) := rfl
+    rw [hiter, hpeel,
+      orColWord_iterPeriodReturn_etherRepeat0 m (iterPeriodReturn [false, true] 2 (etherBlock0 ++ τ)) k (by omega)]
+    have hmod : (k + 2) % 2 = k % 2 := by omega
+    rw [hmod]
+
+theorem g11_p1_ether_periodic_chain_all_horizon_work_equiv :
+    (∀ (m : Nat) (τ₁ τ₂ : List Bool),
+      FutureWorkEquiv [false, true] (2 * m + 1)
+        (etherRepeat0 (m + 1) τ₁)
+        (etherRepeat0 (m + 1) τ₂)) ∧
+    (∀ (m : Nat) (τ : List Bool),
+      FutureWorkEquiv [false, true] (2 * m + 1)
+        (etherRepeat0 (m + 2) τ)
+        (iterPeriodReturn [false, true] 2 (etherRepeat0 (m + 2) τ))) := by
+  refine ⟨fun m τ₁ τ₂ k hk => ?_, fun m τ k hk => ?_⟩
+  · rw [orColWord_iterPeriodReturn_etherRepeat0 m τ₁ k hk,
+      orColWord_iterPeriodReturn_etherRepeat0 m τ₂ k hk]
+  · rw [g11_p1_ether_block_shift_homomorphisms.2.2 (m + 1) τ,
+      etherRepeat0_succ_right (m + 1) τ,
+      orColWord_iterPeriodReturn_etherRepeat0 m (etherBlock0 ++ τ) k hk,
+      orColWord_iterPeriodReturn_etherRepeat0 m (iterPeriodReturn [false, true] 2 (etherBlock0 ++ τ)) k hk]
+
+theorem g11_p1_single_block_ether_reentry_at_horizon_seven :
+    let w := [false, true]
+    let σ_fin6   := etherBlock0 ++ [false, false, false, false, false, false, false,
+                                    false, false, false, false, false, false, false, false]
+    let σ_fin6_9 := etherBlock0 ++ [false, true,  false, false, false, false, false,
+                                    false, false, false, false, false, false, false, false]
+    FutureWorkEquiv w 6 σ_fin6 σ_fin6_9 ∧
+    ReEntryAtHorizon w 7 σ_fin6 σ_fin6_9 := by
+  have h6 : ∀ j : Nat, j < 7 →
+      orColWord [false, true]
+        (iterPeriodReturn [false, true] j
+          (etherBlock0 ++ [false, false, false, false, false, false, false,
+                           false, false, false, false, false, false, false, false])) =
+      orColWord [false, true]
+        (iterPeriodReturn [false, true] j
+          (etherBlock0 ++ [false, true, false, false, false, false, false,
+                           false, false, false, false, false, false, false, false])) := by
+    intro j hj
+    have hcases : j = 0 ∨ j = 1 ∨ j = 2 ∨ j = 3 ∨ j = 4 ∨ j = 5 ∨ j = 6 := by omega
+    rcases hcases with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
+  refine ⟨fun k hk => h6 k (by omega), ⟨h6, by decide⟩⟩
+
+theorem length_orColWord :
+    ∀ (w σ : List Bool), (orColWord w σ).length = w.length
+  | [], _ => rfl
+  | c :: cs, σ => by
+    show ((c || σ.headD false) :: orColWord cs (stepRow c σ)).length = (c :: cs).length
+    simp [length_orColWord cs (stepRow c σ)]
+
+theorem g11_p1_orColWord_length_and_finite_observation_bound
+    (w σ : List Bool) (k : Nat) :
+    (orColWord w σ).length = w.length ∧
+    (orColWord w (iterPeriodReturn w k σ)).length = w.length := by
+  exact ⟨length_orColWord w σ, length_orColWord w (iterPeriodReturn w k σ)⟩
+
+theorem g11_p1_quotient_orbit_dichotomy
+    (w : List Bool) (S : Nat → Nat → List Bool) :
+    (∃ m₀ q : Nat, 0 < q ∧ ∀ k : Nat, FutureWorkEquiv w k (S (m₀ + q) k) (S m₀ k)) ∨
+    (∀ m₀ q : Nat, 0 < q →
+      ∀ k : Nat, FutureWorkEquiv w k (S (m₀ + q) k) (S m₀ k) →
+      ∃ k' : Nat, ¬ FutureWorkEquiv w k' (S (m₀ + q) k') (S m₀ k')) := by
+  by_cases h : ∃ m₀ q : Nat, 0 < q ∧ ∀ k : Nat, FutureWorkEquiv w k (S (m₀ + q) k) (S m₀ k)
+  · exact Or.inl h
+  · refine Or.inr (fun m₀ q hq _ _ => ?_)
+    have hnot : ¬ ∀ k' : Nat, FutureWorkEquiv w k' (S (m₀ + q) k') (S m₀ k') :=
+      fun hall => h ⟨m₀, q, hq, hall⟩
+    exact Classical.not_forall.mp hnot
+
 end Rule30PSMSLFutureWork

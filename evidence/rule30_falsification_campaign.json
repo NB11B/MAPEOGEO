@@ -788,7 +788,17 @@
       "Rule30Submission.g10_p1_single_seed_right_support_exact_frontier",
       "Rule30Submission.g10_p1_eventually_periodic_quotient_repetition_excludes_arbitrary_period",
       "Rule30Submission.g10_p1_psmsl_quotient_eventual_repetition_implies_problem1",
-      "Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work"
+      "Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work",
+      "Rule30Submission.g11_p1_ether_block_shift_homomorphisms",
+      "Rule30Submission.g11_p1_ether_periodic_chain_all_horizon_work_equiv",
+      "Rule30Submission.g11_p1_single_block_ether_reentry_at_horizon_seven",
+      "Rule30Submission.g11_p1_information_reentry_frontier_two_sided_asymmetry",
+      "Rule30Submission.g11_p1_orColWord_length_and_finite_observation_bound",
+      "Rule30Submission.g11_p1_quotient_orbit_dichotomy",
+      "Rule30Submission.g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period",
+      "Rule30Submission.g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions",
+      "Rule30Submission.g11_p1_single_persistent_quotient_collision_implies_problem1",
+      "Rule30Submission.g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance"
     ],
     "gate_passed": true
   },
@@ -1401,6 +1411,76 @@
       "Rule30Submission.g10_p1_psmsl_quotient_eventual_repetition_implies_problem1",
       "Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work"
     ],
+    "gate_passed": true
+  },
+  "g11_information_boundary": {
+    "steps": 450,
+    "ether_block_homomorphism_checks": 60,
+    "ether_block_homomorphism_mismatches": 0,
+    "ether_peeling_law_checks": 45,
+    "ether_peeling_law_mismatches": 0,
+    "ether_chain_all_horizon_checks": 180,
+    "ether_chain_all_horizon_mismatches": 0,
+    "single_block_r6_vs_r6_9_reentry_horizon_k": 7,
+    "r_cut6_u14_v14_alternation_verified_periods": 120,
+    "u14_adversarial_right_tail_break_periods": 19,
+    "right_chain_guaranteed_screening_horizons_by_blocks": {
+      "1": 1,
+      "2": 3,
+      "3": 5,
+      "4": 7,
+      "5": 9
+    },
+    "left_edge_universal_zero_screening_checks": 40,
+    "left_edge_universal_zero_screening_mismatches": 0,
+    "zbl_post_support_zero_screening_checks": 14,
+    "zbl_post_support_zero_screening_mismatches": 0,
+    "or_col_word_length_invariance_checks": 12,
+    "or_col_word_length_invariance_mismatches": 0,
+    "single_seed_finite_collision_reentry_samples": [
+      {
+        "period_p": 2,
+        "word": "00",
+        "m0": 0,
+        "q": 15,
+        "collision_horizon_k": 0,
+        "reentry_horizon_tau": 1
+      },
+      {
+        "period_p": 3,
+        "word": "001",
+        "m0": 0,
+        "q": 1,
+        "collision_horizon_k": 0,
+        "reentry_horizon_tau": 4
+      },
+      {
+        "period_p": 4,
+        "word": "0011",
+        "m0": 0,
+        "q": 2,
+        "collision_horizon_k": 0,
+        "reentry_horizon_tau": 4
+      }
+    ],
+    "all_tested_orbit_collisions_eventually_reenter": true,
+    "quotient_width_saving_checks": 15,
+    "quotient_width_saving_mismatches": 0,
+    "balanced_word_zero_drift_verified": true,
+    "g11_headlines_verified": [
+      "Rule30Submission.g11_p1_ether_block_shift_homomorphisms",
+      "Rule30Submission.g11_p1_ether_periodic_chain_all_horizon_work_equiv",
+      "Rule30Submission.g11_p1_single_block_ether_reentry_at_horizon_seven",
+      "Rule30Submission.g11_p1_information_reentry_frontier_two_sided_asymmetry",
+      "Rule30Submission.g11_p1_orColWord_length_and_finite_observation_bound",
+      "Rule30Submission.g11_p1_quotient_orbit_dichotomy",
+      "Rule30Submission.g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period",
+      "Rule30Submission.g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions",
+      "Rule30Submission.g11_p1_single_persistent_quotient_collision_implies_problem1",
+      "Rule30Submission.g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance"
+    ],
+    "total_headlines_verified": 103,
+    "replayed_constants": 693,
     "gate_passed": true
   },
   "all_gates_passed": true

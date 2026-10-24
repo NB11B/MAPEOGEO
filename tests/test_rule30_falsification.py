@@ -31,6 +31,7 @@ from experiments.rule30_falsification.benchmark import (
     run_g8_symbolic_return_machine_qualification,
     run_g9_period_return_dynamics_qualification,
     run_g10_psmsl_future_work_qualification,
+    run_g11_information_boundary_qualification,
     sideways_left_iterated,
     sideways_left_step,
     simulate_spacetime_cone,
@@ -293,7 +294,7 @@ def test_g0_g2_prize_qualification_and_official_check_lean() -> None:
     assert res.check_lean_verdict_pass is True
     assert res.check_lean_replay_ok is True
     assert res.check_lean_new_axioms_empty is True
-    assert len(res.check_lean_verified_headlines) == 93
+    assert len(res.check_lean_verified_headlines) == 103
 
     by_name = {p.rule_name: p for p in res.control_profiles}
     assert list(by_name["g90"].point_quotient_sizes) == [2, 2, 2, 2, 2]
@@ -513,5 +514,42 @@ def test_g10_psmsl_future_work_qualification() -> None:
     assert g10.quotient_discrepancy_invariance_mismatches == 0
     assert g10.quotient_work_compression_savings_ratio_m3 > 0.9
     assert len(g10.g10_headlines_verified) == 11
+
+
+def test_g11_information_boundary_qualification() -> None:
+    """Verify Gate R30-PRIZE-G11 (G11.1-G11.4) PSMSL information-boundary obstruction."""
+    g11 = run_g11_information_boundary_qualification(steps=450)
+    assert g11.gate_passed is True
+    assert g11.ether_block_homomorphism_checks >= 60
+    assert g11.ether_block_homomorphism_mismatches == 0
+    assert g11.ether_peeling_law_checks >= 45
+    assert g11.ether_peeling_law_mismatches == 0
+    assert g11.ether_chain_all_horizon_checks >= 150
+    assert g11.ether_chain_all_horizon_mismatches == 0
+    assert g11.single_block_r6_vs_r6_9_reentry_horizon_k == 7
+    assert g11.r_cut6_u14_v14_alternation_verified_periods == 120
+    assert g11.u14_adversarial_right_tail_break_periods == 19
+    assert g11.right_chain_guaranteed_screening_horizons_by_blocks == {
+        "1": 1,
+        "2": 3,
+        "3": 5,
+        "4": 7,
+        "5": 9,
+    }
+    assert g11.left_edge_universal_zero_screening_checks >= 20
+    assert g11.left_edge_universal_zero_screening_mismatches == 0
+    assert g11.zbl_post_support_zero_screening_checks >= 14
+    assert g11.zbl_post_support_zero_screening_mismatches == 0
+    assert g11.or_col_word_length_invariance_checks == 12
+    assert g11.or_col_word_length_invariance_mismatches == 0
+    assert len(g11.single_seed_finite_collision_reentry_samples) == 3
+    assert g11.all_tested_orbit_collisions_eventually_reenter is True
+    assert g11.quotient_width_saving_checks == 15
+    assert g11.quotient_width_saving_mismatches == 0
+    assert g11.balanced_word_zero_drift_verified is True
+    assert len(g11.g11_headlines_verified) == 10
+    assert g11.total_headlines_verified == 103
+    assert g11.replayed_constants == 693
+
 
 

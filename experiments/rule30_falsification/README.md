@@ -42,9 +42,9 @@ Both [`Rule30Core.lean`](Rule30Core.lean) (14 theorems) and [`MAPEOGEOFormal/Rul
 
 The initial regression in `test_suite.py` asserted `69` ANF monomials at $k=4$; exact Boolean Möbius computation gave `122`. The original failing run is preserved in [`test_results.txt`](test_results.txt), and the corrected passing run is preserved in [`test_results_corrected.txt`](test_results_corrected.txt).
 
-## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G10`)
+## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G11`)
 
-[`Rule30Submission.lean`](Rule30Submission.lean) (and standalone `G10` module [`Rule30PSMSLFutureWork.lean`](Rule30PSMSLFutureWork.lean)) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 625, "ok": true}`, `"newAxioms": []`, **93/93** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
+[`Rule30Submission.lean`](Rule30Submission.lean) (and standalone `G10`–`G11` module [`Rule30PSMSLFutureWork.lean`](Rule30PSMSLFutureWork.lean)) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 693, "ok": true}`, `"newAxioms": []`, **103/103** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
 
 ```bash
 # External reproduction against official Wolfram Rule30PrizeKit
@@ -147,7 +147,17 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   --headline Rule30Submission.g10_p1_single_seed_right_support_exact_frontier \
   --headline Rule30Submission.g10_p1_eventually_periodic_quotient_repetition_excludes_arbitrary_period \
   --headline Rule30Submission.g10_p1_psmsl_quotient_eventual_repetition_implies_problem1 \
-  --headline Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work
+  --headline Rule30Submission.g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work \
+  --headline Rule30Submission.g11_p1_ether_block_shift_homomorphisms \
+  --headline Rule30Submission.g11_p1_ether_periodic_chain_all_horizon_work_equiv \
+  --headline Rule30Submission.g11_p1_single_block_ether_reentry_at_horizon_seven \
+  --headline Rule30Submission.g11_p1_information_reentry_frontier_two_sided_asymmetry \
+  --headline Rule30Submission.g11_p1_orColWord_length_and_finite_observation_bound \
+  --headline Rule30Submission.g11_p1_quotient_orbit_dichotomy \
+  --headline Rule30Submission.g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period \
+  --headline Rule30Submission.g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions \
+  --headline Rule30Submission.g11_p1_single_persistent_quotient_collision_implies_problem1 \
+  --headline Rule30Submission.g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance
 ```
 
 - **Gates G0–G2 (`run_g0_g2_prize_qualification`):** Audits 65 official catalog modules + 25 public submissions ([`g0_novelty_audit.json`](g0_novelty_audit.json)) and proves on `evolG` (`Rule30Realization.evol`) that Rule 30 uniquely reaches 3 depth-2 response classes (`xm2`, `!xm2`, `xor xm2 xm1`) and Mode A/B wavefront shielding, whereas all three `Rule30Realization` counterexample controls (`g90`, `g150`, and nonlinear `g210`) collapse to rank-1 (`g2_rule30_separates_controls_90_150_210`, `g210_origin_cancellation_evolG`, `e5_wavefront_separates_controls`).
@@ -189,5 +199,11 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   - **G10.4 (Composition-Stable Quotient $\equiv_{w, \infty}$):** Defines `PersistentWorkEquiv w σ₁ σ₂` ($\bigcap_{m \ge 0} \equiv_{w, m}$) and proves `g10_p1_futureWorkEquiv_shift_step` and `g10_p1_persistentWorkEquiv_equivalence_and_congruence` ($F_w^k$-transition congruence and exact quotient step factorization).
   - **G10.5 (Single-Seed vs. Ether Return Orbits):** Proves `g10_p1_ether_c7_quotient_period_two` (showing that the finitely supported right-half state $R = \{6\}$ with zero exterior is persistently work-equivalent to the infinite Ether `c7` on the one-sided right half with quotient period $q = 2$, whereas on the two-sided line `c7cut N` the omitted left-half bit at $-(7N + 8)$ propagates at speed $+1$ via left-permutivity and breaks center periodicity at exact step $t = 7N + 8 \in \{15, 22, 29\}$) and `g10_p1_single_seed_right_support_exact_frontier`.
   - **G10.6 (Official `Problem1` Implication & Prize 2/3 Quotient Properties):** Proves `g10_p1_eventually_periodic_quotient_repetition_excludes_arbitrary_period`, `g10_p1_psmsl_quotient_eventual_repetition_implies_problem1`, and `g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work`.
+- **Gate G11 (`run_g11_information_boundary_qualification` — `G11.1` through `G11.4`):**
+  - **G11.1 (All-Horizon Arbitrary-Tail Ether Chain Work-Equivalence & Single-Block Re-Entry Refutation):** Proves the exact 7-cell block-shift homomorphisms (`etherBlock0 = [0, 0, 0, 0, 0, 1, 0]` $\leftrightarrow$ `etherBlock2 = [1, 0, 0, 1, 1, 0, 0]`) and the 2-period peeling law `F_{01}^2(etherRepeat0 (k + 1) τ) = etherRepeat0 k (F_{01}^2(etherBlock0 ++ τ))` (`g11_p1_ether_block_shift_homomorphisms`), upgrades `G10.5`'s bounded `m = 3` check to an **all-horizon ($\forall m \in \mathbb{N}$) and arbitrary-tail ($\forall \tau_1, \tau_2$) theorem** (`g11_p1_ether_periodic_chain_all_horizon_work_equiv`), and proves the complementary refutation for an unshielded single 7-cell block (`{6, 9}` vs `{6}` re-entering observation at exact horizon $\tau_w = 7$, `g11_p1_single_block_ether_reentry_at_horizon_seven`).
+  - **G11.2 (Two-Sided Information Re-Entry Frontier):** Proves the directional screening asymmetry separating multi-period right-tail screening behind `etherRepeat0 (m + 1)` ($2m + 2$ periods) from universal zero-screening on the left light-cone edge $p = -t$ and in the Zero-Boundary Left Half `zblTheta` beyond support $W$ (`g11_p1_information_reentry_frontier_two_sided_asymmetry`).
+  - **G11.3 (Observation-Word Length Invariance & Quotient Orbit Dichotomy):** Proves `(orColWord w (iterPeriodReturn w k σ)).length = w.length` across all return horizons $k \in \mathbb{N}$ (`g11_p1_orColWord_length_and_finite_observation_bound`) and establishes the **PSMSL Quotient Orbit Dichotomy** (`g11_p1_quotient_orbit_dichotomy`) between a single persistent quotient collision and universal finite-horizon delayed information re-entry.
+  - **G11.4 (Single Persistent Collision Exclusion, Universal Re-Entry Forcing, & Non-Trivial Prize 2/3 Theorems):** Proves that on the single-seed trajectory under any $P$-periodic center, **not even a single pair** of return steps $(m_0, m_0 + q)$ ($q > 0$) can collide persistently across all horizons $k \in \mathbb{N}$ (`g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period`, eliminating Branch 1 and strengthening `G10.6` to `g11_p1_single_persistent_quotient_collision_implies_problem1`), proves that every finite-horizon collision on a periodic center is forced into delayed information re-entry at some finite horizon $k' > k$ (`g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions`), and replaces the syntactic reflexivity clause of `g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work` with strict prefix-width reduction (`(etherRepeat0 (m + 1) []).length < (etherRepeat0 (m + 1) (b :: τ)).length`) and zero-drift periodic discrepancy invariance (`centerDiscrepancy (t₁ + m * P) = centerDiscrepancy t₁`, `g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance`).
+
 
 

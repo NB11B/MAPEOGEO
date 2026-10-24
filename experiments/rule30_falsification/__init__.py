@@ -18,6 +18,7 @@ from .benchmark import (
     G8SymbolicReturnMachineResult,
     G9PeriodReturnDynamicsResult,
     G10PSMSLFutureWorkResult,
+    G11InformationBoundaryResult,
     Rule30FalsificationCampaign,
     apply_wavefront_quotient_operator,
     run_e1_exact_reconstruction,
@@ -35,6 +36,7 @@ from .benchmark import (
     run_g8_symbolic_return_machine_qualification,
     run_g9_period_return_dynamics_qualification,
     run_g10_psmsl_future_work_qualification,
+    run_g11_information_boundary_qualification,
 )
 
 __all__ = [
@@ -55,6 +57,7 @@ __all__ = [
     "G8SymbolicReturnMachineResult",
     "G9PeriodReturnDynamicsResult",
     "G10PSMSLFutureWorkResult",
+    "G11InformationBoundaryResult",
     "Rule30FalsificationCampaign",
     "apply_wavefront_quotient_operator",
     "run_e1_exact_reconstruction",
@@ -72,4 +75,5 @@ __all__ = [
     "run_g8_symbolic_return_machine_qualification",
     "run_g9_period_return_dynamics_qualification",
     "run_g10_psmsl_future_work_qualification",
+    "run_g11_information_boundary_qualification",
 ]

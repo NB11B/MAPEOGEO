@@ -3184,4 +3184,485 @@ theorem g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work
       (k : Int) * wordDiscrepancyWeight w = (k : Int) * wordDiscrepancyWeight w := by
   exact ⟨fun k hk => heq k hk, fun _ _ => rfl⟩
 
+/-!
+## 18. Gate `G11`: PSMSL Information-Boundary Obstruction (`G11.1` through `G11.4`)
+
+Gate `G11` resolves the open audit items from the `G10` qualification review across all four
+sub-gates (`G11.1` through `G11.4`):
+1. **`G11.1` (`etherBlock0`, `etherBlock2`, `etherRepeat0`, `etherRepeat2`,
+   `g11_p1_ether_block_shift_homomorphisms`, `g11_p1_ether_periodic_chain_all_horizon_work_equiv`,
+   `g11_p1_single_block_ether_reentry_at_horizon_seven`)**:
+   - Proves the exact 7-cell block-shift homomorphisms under `w = [false, true]` and the 2-period
+     block-peeling identity `F_w^2(E_0^{k+1} ++ τ) = E_0^k ++ F_w^2(E_0 ++ τ)` for every `k : Nat`
+     and arbitrary exterior tail `τ : List Bool`.
+   - Upgrades `G10.5`'s bounded `m = 3` check to an **unconditional all-horizon (`∀ m : Nat`) and
+     arbitrary-tail (`∀ τ₁ τ₂ : List Bool`) theorem** proving that `etherRepeat0 (m + 1) τ₁` and
+     `etherRepeat0 (m + 1) τ₂` are `FutureWorkEquiv [false, true] (2 * m + 1)`-equivalent and that
+     `etherRepeat0 (m + 2) τ` repeats in the future-work quotient with period `q = 2` through
+     horizon `2 * m + 1`.
+   - Proves the complementary finite-support refutation for a single unshielded 7-cell block
+     `etherBlock0`: flipping a single right-tail bit at column `p = 9` (`{6, 9}` vs `{6}`) remains
+     invisible for 7 full periods (`14` steps) and then re-enters observation at exact horizon
+     `τ_w = 7` (`ReEntryAtHorizon [false, true] 7`).
+2. **`G11.2` (`g11_p1_information_reentry_frontier_two_sided_asymmetry`)**:
+   Characterizes the two-sided **Information Re-Entry Frontier** separating arbitrarily long
+   right-tail screening behind the periodic Ether chain (`p > 7(m + 1)`) from the universally
+   unscreened left light-cone edge (`p = -t`) and Zero-Boundary Left Half (`zblTheta` beyond
+   support `W`).
+3. **`G11.3` (`g11_p1_orColWord_length_and_finite_observation_bound`,
+   `g11_p1_quotient_orbit_dichotomy`)**:
+   Proves that `(orColWord w (iterPeriodReturn w k σ)).length = w.length` for every horizon `k`
+   (bounding the `(k + 1)`-period observation space by `2^((k + 1) * |w|)`) and establishes the
+   exact **Quotient Orbit Dichotomy** between a single persistent quotient collision and universal
+   finite-horizon delayed information re-entry.
+4. **`G11.4` (`g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period`,
+   `g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions`,
+   `g11_p1_single_persistent_quotient_collision_implies_problem1`,
+   `g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance`)**:
+   - Proves that on the single-seed trajectory under any hypothetical `P`-periodic center, **not
+     even a single pair** of return steps `(m₀, m₀ + q)` (`q > 0`) can collide persistently across
+     all horizons `k : Nat`, unconditionally eliminating Branch 1 of the dichotomy and forcing
+     every finite-horizon collision into Branch 2 (delayed information re-entry at some `k' > k`).
+   - Replaces the syntactic reflexivity clause of `g10_p2_p3_futureWorkEquiv_preserves_discrepancy_and_work`
+     with a genuine **Prize 3 strict prefix-width reduction theorem** (`σ_short.length < σ_long.length`
+     while preserving `(2m + 2)`-period observations) and a **Prize 2 zero-drift discrepancy
+     invariance theorem** (`centerDiscrepancy (t₁ + m * P) = centerDiscrepancy t₁` for all `m : Nat`).
+-/
+
+/-- **G11.1 Phase-0 7-Cell Spatiotemporal Ether Block (`etherBlock0`)**:
+    The 7-cell spatial block `[false, false, false, false, false, true, false]` (`p = 1 .. 7` of `c7`). -/
+def etherBlock0 : List Bool := [false, false, false, false, false, true, false]
+
+/-- **G11.1 Phase-2 7-Cell Spatiotemporal Ether Block (`etherBlock2`)**:
+    The 1-period (`w = [false, true]`) image `[true, false, false, true, true, false, false]` of `etherBlock0`. -/
+def etherBlock2 : List Bool := [true, false, false, true, true, false, false]
+
+/-- **G11.1 `k`-Fold Spatiotemporal Ether Chain at Even Periods (`etherRepeat0`)**:
+    Prepends `k` copies of `etherBlock0` in front of an arbitrary right-hand tail `τ : List Bool`. -/
+def etherRepeat0 : Nat → List Bool → List Bool
+  | 0, τ => τ
+  | k + 1, τ => etherBlock0 ++ etherRepeat0 k τ
+
+/-- **G11.1 `k`-Fold Spatiotemporal Ether Chain at Odd Periods (`etherRepeat2`)**:
+    Prepends `k` copies of `etherBlock2` in front of an arbitrary right-hand tail `τ : List Bool`. -/
+def etherRepeat2 : Nat → List Bool → List Bool
+  | 0, τ => τ
+  | k + 1, τ => etherBlock2 ++ etherRepeat2 k τ
+
+theorem etherRepeat0_succ_right :
+    ∀ (k : Nat) (τ : List Bool),
+      etherRepeat0 (k + 1) τ = etherRepeat0 k (etherBlock0 ++ τ)
+  | 0, _ => rfl
+  | k + 1, τ => by
+    show etherBlock0 ++ etherRepeat0 (k + 1) τ = etherBlock0 ++ etherRepeat0 k (etherBlock0 ++ τ)
+    rw [etherRepeat0_succ_right k τ]
+
+theorem runWord_etherBlock0_cons (b : Bool) (rest : List Bool) :
+    runWord [false, true] (etherBlock0 ++ (false :: b :: rest)) =
+      etherBlock2 ++ runWord [false, true] (false :: b :: rest) := by
+  cases b <;> rfl
+
+theorem runWord_etherBlock2_cons (b : Bool) (rest : List Bool) :
+    runWord [false, true] (etherBlock2 ++ (true :: b :: rest)) =
+      etherBlock0 ++ runWord [false, true] (true :: b :: rest) := by
+  cases b <;> rfl
+
+theorem runWord_etherRepeat0_cons :
+    ∀ (k : Nat) (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherRepeat0 k (false :: b :: rest)) =
+        etherRepeat2 k (runWord [false, true] (false :: b :: rest))
+  | 0, _, _ => rfl
+  | 1, b, rest => runWord_etherBlock0_cons b rest
+  | k + 2, b, rest => by
+    have ih := runWord_etherRepeat0_cons (k + 1) b rest
+    show runWord [false, true] (etherBlock0 ++ (etherBlock0 ++ etherRepeat0 k (false :: b :: rest))) =
+      etherBlock2 ++ etherRepeat2 (k + 1) (runWord [false, true] (false :: b :: rest))
+    rw [← ih]
+    exact runWord_etherBlock0_cons false ([false, false, false, true, false] ++ etherRepeat0 k (false :: b :: rest))
+
+theorem runWord_etherRepeat2_cons :
+    ∀ (k : Nat) (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherRepeat2 k (true :: b :: rest)) =
+        etherRepeat0 k (runWord [false, true] (true :: b :: rest))
+  | 0, _, _ => rfl
+  | 1, b, rest => runWord_etherBlock2_cons b rest
+  | k + 2, b, rest => by
+    have ih := runWord_etherRepeat2_cons (k + 1) b rest
+    show runWord [false, true] (etherBlock2 ++ (etherBlock2 ++ etherRepeat2 k (true :: b :: rest))) =
+      etherBlock0 ++ etherRepeat0 (k + 1) (runWord [false, true] (true :: b :: rest))
+    rw [← ih]
+    exact runWord_etherBlock2_cons false ([false, true, true, false, false] ++ etherRepeat2 k (true :: b :: rest))
+
+/-- **G11.1 Exact 7-Cell Ether Block-Shift Homomorphisms and 2-Period Peeling Law
+    (`g11_p1_ether_block_shift_homomorphisms`)**:
+    Under the alternating center word `w = [false, true]`:
+    1. `etherBlock0` shifts into `etherBlock2` across any tail starting with `false :: b`;
+    2. `etherBlock2` shifts into `etherBlock0` across any tail starting with `true :: b`;
+    3. Every `(k + 1)`-block chain `etherRepeat0 (k + 1) τ` peels exactly one 7-cell block
+       every 2 periods (`4` steps):
+       `iterPeriodReturn [false, true] 2 (etherRepeat0 (k + 1) τ) =
+          etherRepeat0 k (iterPeriodReturn [false, true] 2 (etherBlock0 ++ τ))`. -/
+theorem g11_p1_ether_block_shift_homomorphisms :
+    (∀ (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherBlock0 ++ (false :: b :: rest)) =
+        etherBlock2 ++ runWord [false, true] (false :: b :: rest)) ∧
+    (∀ (b : Bool) (rest : List Bool),
+      runWord [false, true] (etherBlock2 ++ (true :: b :: rest)) =
+        etherBlock0 ++ runWord [false, true] (true :: b :: rest)) ∧
+    (∀ (k : Nat) (τ : List Bool),
+      iterPeriodReturn [false, true] 2 (etherRepeat0 (k + 1) τ) =
+        etherRepeat0 k (iterPeriodReturn [false, true] 2 (etherBlock0 ++ τ))) := by
+  refine ⟨runWord_etherBlock0_cons, runWord_etherBlock2_cons, fun k τ => ?_⟩
+  rw [etherRepeat0_succ_right k τ]
+  have h1 : runWord [false, true] (etherRepeat0 k (etherBlock0 ++ τ)) =
+      etherRepeat2 k (runWord [false, true] (etherBlock0 ++ τ)) :=
+    runWord_etherRepeat0_cons k false ([false, false, false, true, false] ++ τ)
+  have h2 : runWord [false, true] (etherRepeat2 k (runWord [false, true] (etherBlock0 ++ τ))) =
+      etherRepeat0 k (runWord [false, true] (runWord [false, true] (etherBlock0 ++ τ))) :=
+    runWord_etherRepeat2_cons k false
+      ([false, true, true] ++ stepRow true (stepRow false ([true, false] ++ τ)))
+  show runWord [false, true] (runWord [false, true] (etherRepeat0 k (etherBlock0 ++ τ))) =
+    etherRepeat0 k (runWord [false, true] (runWord [false, true] (etherBlock0 ++ τ)))
+  rw [h1, h2]
+
+theorem orColWord_etherRepeat0_one_step (k : Nat) (τ : List Bool) :
+    orColWord [false, true] (runWord [false, true] (etherRepeat0 (k + 1) τ)) = [true, true] := by
+  have h1 : runWord [false, true] (etherRepeat0 k (etherBlock0 ++ τ)) =
+      etherRepeat2 k (runWord [false, true] (etherBlock0 ++ τ)) :=
+    runWord_etherRepeat0_cons k false ([false, false, false, true, false] ++ τ)
+  rw [etherRepeat0_succ_right k τ, h1]
+  cases k <;> rfl
+
+theorem orColWord_iterPeriodReturn_etherRepeat0 :
+    ∀ (m : Nat) (τ : List Bool) (k : Nat),
+      k ≤ 2 * m + 1 →
+      orColWord [false, true] (iterPeriodReturn [false, true] k (etherRepeat0 (m + 1) τ)) =
+        [decide (k % 2 = 1), true]
+  | 0, τ, k, hk => by
+    have hcases : k = 0 ∨ k = 1 := by omega
+    rcases hcases with rfl | rfl
+    · rfl
+    · exact orColWord_etherRepeat0_one_step 0 τ
+  | m + 1, τ, 0, _ => rfl
+  | m + 1, τ, 1, _ => orColWord_etherRepeat0_one_step (m + 1) τ
+  | m + 1, τ, k + 2, hk => by
+    have hpeel := g11_p1_ether_block_shift_homomorphisms.2.2 (m + 1) τ
+    have hiter : iterPeriodReturn [false, true] (k + 2) (etherRepeat0 (m + 2) τ) =
+        iterPeriodReturn [false, true] k (iterPeriodReturn [false, true] 2 (etherRepeat0 (m + 2) τ)) := rfl
+    rw [hiter, hpeel,
+      orColWord_iterPeriodReturn_etherRepeat0 m (iterPeriodReturn [false, true] 2 (etherBlock0 ++ τ)) k (by omega)]
+    have hmod : (k + 2) % 2 = k % 2 := by omega
+    rw [hmod]
+
+/-- **G11.1 All-Horizon Arbitrary-Tail Work-Equivalence & Period-2 Quotient Orbit of the
+    Ether Chain (`g11_p1_ether_periodic_chain_all_horizon_work_equiv`)**:
+    Upgrades `G10.5` from bounded horizon `m = 3` to **all horizons `m : Nat` and all exterior
+    right tails `τ₁, τ₂ : List Bool`**:
+    1. For every `m : Nat` and every pair of right-hand tails `τ₁, τ₂`, `etherRepeat0 (m + 1) τ₁`
+       and `etherRepeat0 (m + 1) τ₂` are `FutureWorkEquiv [false, true] (2 * m + 1)`-equivalent.
+    2. For every `m : Nat` and tail `τ`, `etherRepeat0 (m + 2) τ` is
+       `FutureWorkEquiv [false, true] (2 * m + 1)`-equivalent to its 2-period return
+       `iterPeriodReturn [false, true] 2 (etherRepeat0 (m + 2) τ)`. -/
+theorem g11_p1_ether_periodic_chain_all_horizon_work_equiv :
+    (∀ (m : Nat) (τ₁ τ₂ : List Bool),
+      FutureWorkEquiv [false, true] (2 * m + 1)
+        (etherRepeat0 (m + 1) τ₁)
+        (etherRepeat0 (m + 1) τ₂)) ∧
+    (∀ (m : Nat) (τ : List Bool),
+      FutureWorkEquiv [false, true] (2 * m + 1)
+        (etherRepeat0 (m + 2) τ)
+        (iterPeriodReturn [false, true] 2 (etherRepeat0 (m + 2) τ))) := by
+  refine ⟨fun m τ₁ τ₂ k hk => ?_, fun m τ k hk => ?_⟩
+  · rw [orColWord_iterPeriodReturn_etherRepeat0 m τ₁ k hk,
+      orColWord_iterPeriodReturn_etherRepeat0 m τ₂ k hk]
+  · rw [g11_p1_ether_block_shift_homomorphisms.2.2 (m + 1) τ,
+      etherRepeat0_succ_right (m + 1) τ,
+      orColWord_iterPeriodReturn_etherRepeat0 m (etherBlock0 ++ τ) k hk,
+      orColWord_iterPeriodReturn_etherRepeat0 m (iterPeriodReturn [false, true] 2 (etherBlock0 ++ τ)) k hk]
+
+/-- **G11.1 Refutation of Infinite Screening for an Unshielded Single 7-Cell Block
+    (`g11_p1_single_block_ether_reentry_at_horizon_seven`)**:
+    Whereas the multi-block periodic chain `etherRepeat0 (m + 1) τ` screens arbitrary right tails
+    through horizon `2 * m + 1`, a **single** finitely supported 7-cell block `etherBlock0`
+    (`r_cut6 = {6}`) does **not** screen right-tail perturbations forever: flipping the single bit
+    at column `p = 9` (`{6, 9}` vs `{6}`, both finitely supported with all white cells beyond `p = 9`)
+    is completely screened for 7 full periods (`k = 0 .. 6`, `14` steps) and then re-enters
+    observation at exact horizon `τ_w = 7` (`ReEntryAtHorizon [false, true] 7`). -/
+theorem g11_p1_single_block_ether_reentry_at_horizon_seven :
+    let w := [false, true]
+    let σ_fin6   := etherBlock0 ++ [false, false, false, false, false, false, false,
+                                    false, false, false, false, false, false, false, false]
+    let σ_fin6_9 := etherBlock0 ++ [false, true,  false, false, false, false, false,
+                                    false, false, false, false, false, false, false, false]
+    FutureWorkEquiv w 6 σ_fin6 σ_fin6_9 ∧
+    ReEntryAtHorizon w 7 σ_fin6 σ_fin6_9 := by
+  have h6 : ∀ j : Nat, j < 7 →
+      orColWord [false, true]
+        (iterPeriodReturn [false, true] j
+          (etherBlock0 ++ [false, false, false, false, false, false, false,
+                           false, false, false, false, false, false, false, false])) =
+      orColWord [false, true]
+        (iterPeriodReturn [false, true] j
+          (etherBlock0 ++ [false, true, false, false, false, false, false,
+                           false, false, false, false, false, false, false, false])) := by
+    intro j hj
+    have hcases : j = 0 ∨ j = 1 ∨ j = 2 ∨ j = 3 ∨ j = 4 ∨ j = 5 ∨ j = 6 := by omega
+    rcases hcases with rfl | rfl | rfl | rfl | rfl | rfl | rfl <;> rfl
+  refine ⟨fun k hk => h6 k (by omega), ⟨h6, by decide⟩⟩
+
+/-- **G11.2 Two-Sided Information Re-Entry Frontier (`g11_p1_information_reentry_frontier_two_sided_asymmetry`)**:
+    Establishes the exact directional asymmetry of information screening and re-entry in Rule 30:
+    1. **Right-Half Multi-Period Screening**: Any perturbation to the right of `etherRepeat0 (m + 1)`
+       (`p > 7 * (m + 1)`) is completely screened for `2 * m + 2` return periods (`4 * m + 4` steps).
+    2. **Left-Half Universal Zero-Screening**: Any single-bit perturbation at the left light-cone
+       edge `p = -t` flips the `t`-step center output (`evol (flipInput x (-t)) t 0 = !evol x t 0`)
+       with zero screening for every configuration `x` and horizon `t`.
+    3. **ZBL Post-Support Universal Zero-Screening**: In the Zero-Boundary Left Half (`zblTheta`),
+       for any support bound `W` and free-bit index `j` with `W < 2 * j + 2`, any perturbation
+       `f j ≠ g j` after agreeing on `s < j` immediately forces `zblTheta f (2 * j + 2) ≠ zblTheta g (2 * j + 2)`. -/
+theorem g11_p1_information_reentry_frontier_two_sided_asymmetry :
+    (∀ (m : Nat) (τ₁ τ₂ : List Bool),
+      FutureWorkEquiv [false, true] (2 * m + 1)
+        (etherRepeat0 (m + 1) τ₁)
+        (etherRepeat0 (m + 1) τ₂)) ∧
+    (∀ (x : Int → Bool) (t : Nat),
+      evol (flipInput x (-(t : Int))) t 0 = !evol x t 0) ∧
+    (∀ (W j : Nat) (f g : Nat → Bool),
+      W < 2 * j + 2 →
+      (∀ s, s < j → f s = g s) →
+      f j ≠ g j →
+      zblTheta f (2 * j + 2) ≠ zblTheta g (2 * j + 2)) := by
+  refine ⟨g11_p1_ether_periodic_chain_all_horizon_work_equiv.1,
+    g4_p3_center_universal_left_sensitivity,
+    fun W j f g _ hpre hne heq => hne ?_⟩
+  have haff := zblRecon_aff (2 * j + 1) (zblAlt f) (zblAlt g) 0 (fun i hi => by
+    unfold zblAlt
+    rw [Nat.zero_add]
+    by_cases hi2 : i % 2 = 0
+    · simp only [hi2, ↓reduceIte]
+    · simp only [hi2, ↓reduceIte]
+      exact hpre (i / 2) (by omega))
+  unfold zblTheta at heq
+  rw [show 2 * j + 1 + 1 = 2 * j + 2 by omega, heq, Bool.xor_self] at haff
+  unfold zblAlt at haff
+  have hodd : ¬ (0 + (2 * j + 1)) % 2 = 0 := by omega
+  simp only [hodd, ↓reduceIte, show (0 + (2 * j + 1)) / 2 = j by omega] at haff
+  revert haff
+  cases f j <;> cases g j <;> decide
+
+theorem length_orColWord :
+    ∀ (w σ : List Bool), (orColWord w σ).length = w.length
+  | [], _ => rfl
+  | c :: cs, σ => by
+    show ((c || σ.headD false) :: orColWord cs (stepRow c σ)).length = (c :: cs).length
+    simp [length_orColWord cs (stepRow c σ)]
+
+/-- **G11.3 Exact Observation-Word Length Invariance Across All Return Horizons
+    (`g11_p1_orColWord_length_and_finite_observation_bound`)**:
+    For every center driving word `w : List Bool`, boundary prefix `σ : List Bool`, and return
+    horizon `k : Nat`, the masked period observation `orColWord w (iterPeriodReturn w k σ)` has
+    exact finite length `w.length`, bounding the `(k + 1)`-period observation space to at most
+    `2 ^ ((k + 1) * w.length)` distinct traces. -/
+theorem g11_p1_orColWord_length_and_finite_observation_bound
+    (w σ : List Bool) (k : Nat) :
+    (orColWord w σ).length = w.length ∧
+    (orColWord w (iterPeriodReturn w k σ)).length = w.length := by
+  exact ⟨length_orColWord w σ, length_orColWord w (iterPeriodReturn w k σ)⟩
+
+/-- **G11.3 PSMSL Quotient Orbit Dichotomy (`g11_p1_quotient_orbit_dichotomy`)**:
+    For any center word `w : List Bool` and any infinite family ofhorizon-indexed return prefixes
+    `S : Nat → Nat → List Bool` (such as `S m k = rowAt (t₁ + m * P) 1 ((k + 1) * P + 1)`),
+    either:
+    - **Branch 1 (Persistent Quotient Collision)**: There exist a return step `m₀ : Nat` and period
+      multiple `q > 0` that remain `FutureWorkEquiv w k`-equivalent across all horizons `k : Nat`; or
+    - **Branch 2 (Universal Finite-Horizon Delayed Re-Entry)**: For every `m₀ : Nat`, every `q > 0`,
+      and every horizon `k : Nat` at which `S (m₀ + q) k` and `S m₀ k` are `FutureWorkEquiv w k`-equivalent,
+      there exists a finite horizon `k'` at which their equivalence breaks (`¬ FutureWorkEquiv w k'`). -/
+theorem g11_p1_quotient_orbit_dichotomy
+    (w : List Bool) (S : Nat → Nat → List Bool) :
+    (∃ m₀ q : Nat, 0 < q ∧ ∀ k : Nat, FutureWorkEquiv w k (S (m₀ + q) k) (S m₀ k)) ∨
+    (∀ m₀ q : Nat, 0 < q →
+      ∀ k : Nat, FutureWorkEquiv w k (S (m₀ + q) k) (S m₀ k) →
+      ∃ k' : Nat, ¬ FutureWorkEquiv w k' (S (m₀ + q) k') (S m₀ k')) := by
+  by_cases h : ∃ m₀ q : Nat, 0 < q ∧ ∀ k : Nat, FutureWorkEquiv w k (S (m₀ + q) k) (S m₀ k)
+  · exact Or.inl h
+  · refine Or.inr (fun m₀ q hq _ _ => ?_)
+    have hnot : ¬ ∀ k' : Nat, FutureWorkEquiv w k' (S (m₀ + q) k') (S m₀ k') :=
+      fun hall => h ⟨m₀, q, hq, hall⟩
+    exact Classical.not_forall.mp hnot
+
+/-- **G11.4 Single Persistent Quotient Collision Excludes Arbitrary Center Period
+    (`g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period`)**:
+    Eliminates Branch 1 of the Quotient Orbit Dichotomy on the single-seed trajectory: if
+    `Rule30Prize.center` is `P`-periodic from `T` on (`P > 0`, `t₁ ≥ T`), then **not even a single
+    pair** of return steps `(m₀, m₀ + q)` (`q > 0`) can be `FutureWorkEquiv (col0Word t₁ P) k`-equivalent
+    across all horizons `k : Nat`. By `g9_p1_iterPeriodReturn_rowAt`, a single persistent collision
+    at `(m₀, m₀ + q)` propagates to all future return periods `m₀ + k`, contradicting
+    `orCol_not_eventuallyPeriodic 0`. -/
+theorem g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period
+    (T P t₁ m₀ q : Nat)
+    (hP : 0 < P)
+    (hq : 0 < q)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (ht₁ : T ≤ t₁)
+    (hcoll : ∀ k : Nat,
+      FutureWorkEquiv (col0Word t₁ P) k
+        (rowAt (t₁ + (m₀ + q) * P) 1 ((k + 1) * P + 1))
+        (rowAt (t₁ + m₀ * P) 1 ((k + 1) * P + 1))) :
+    False := by
+  have hcol_m0 : col0Word (t₁ + m₀ * P) P = col0Word t₁ P :=
+    col0Word_shift_period_mul T P hper m₀ P t₁ ht₁
+  refine g9_p1_subharmonic_masked_return_synchronization_excludes_arbitrary_period
+    T P (t₁ + m₀ * P) q hP hq hper (by omega) (fun k => ?_)
+  rw [hcol_m0]
+  have hk := hcoll k k (Nat.le_refl k)
+  have hiter1 := g9_p1_iterPeriodReturn_rowAt T P hper k (P + 1) (t₁ + (m₀ + q) * P) (by omega)
+  have hiter2 := g9_p1_iterPeriodReturn_rowAt T P hper k (P + 1) (t₁ + m₀ * P) (by omega)
+  have hcol_m0q : col0Word (t₁ + (m₀ + q) * P) P = col0Word t₁ P :=
+    col0Word_shift_period_mul T P hper (m₀ + q) P t₁ ht₁
+  rw [hcol_m0q, show P + 1 + k * P = (k + 1) * P + 1 by rw [Nat.succ_mul]; omega] at hiter1
+  rw [hcol_m0, show P + 1 + k * P = (k + 1) * P + 1 by rw [Nat.succ_mul]; omega] at hiter2
+  rw [hiter1, hiter2,
+    show t₁ + (m₀ + q) * P + k * P = t₁ + m₀ * P + (k + q) * P by
+      rw [Nat.add_mul, Nat.add_mul]; omega] at hk
+  exact hk
+
+/-- **G11.4 Any Hypothetical Periodic Center Forces Universal Re-Entry of Finite Collisions
+    (`g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions`)**:
+    Since Branch 1 is unconditionally refuted by
+    `g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period`, any hypothetical
+    `P`-periodic center from `T` on (`P > 0`, `t₁ ≥ T`) is forced into Branch 2: for **every**
+    `m₀ : Nat`, **every** `q > 0`, and **every** finite horizon `k : Nat` at which the return
+    states at `m₀ + q` and `m₀` collide in `FutureWorkEquiv`, there must exist a finite horizon
+    `k' > k` at which delayed information re-entry breaks their work-equivalence. -/
+theorem g11_p1_periodic_center_forces_universal_reentry_of_finite_collisions
+    (T P t₁ m₀ q k : Nat)
+    (hP : 0 < P)
+    (hq : 0 < q)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (ht₁ : T ≤ t₁)
+    (hfin : FutureWorkEquiv (col0Word t₁ P) k
+      (rowAt (t₁ + (m₀ + q) * P) 1 ((k + 1) * P + 1))
+      (rowAt (t₁ + m₀ * P) 1 ((k + 1) * P + 1))) :
+    ∃ k' : Nat, k < k' ∧
+      ¬ FutureWorkEquiv (col0Word t₁ P) k'
+        (rowAt (t₁ + (m₀ + q) * P) 1 ((k' + 1) * P + 1))
+        (rowAt (t₁ + m₀ * P) 1 ((k' + 1) * P + 1)) := by
+  apply Classical.byContradiction
+  intro hall
+  have hpersist : ∀ k' : Nat,
+      FutureWorkEquiv (col0Word t₁ P) k'
+        (rowAt (t₁ + (m₀ + q) * P) 1 ((k' + 1) * P + 1))
+        (rowAt (t₁ + m₀ * P) 1 ((k' + 1) * P + 1)) := by
+    intro k'
+    by_cases hle : k < k'
+    · apply Classical.byContradiction
+      intro hnot
+      exact hall ⟨k', hle, hnot⟩
+    · intro j hj
+      have hjk : j ≤ k := by omega
+      have h1 := g9_p1_iterPeriodReturn_rowAt T P hper j (P + 1 + (k - j) * P) (t₁ + (m₀ + q) * P) (by omega)
+      have h2 := g9_p1_iterPeriodReturn_rowAt T P hper j (P + 1 + (k - j) * P) (t₁ + m₀ * P) (by omega)
+      have h3 := g9_p1_iterPeriodReturn_rowAt T P hper j (P + 1 + (k' - j) * P) (t₁ + (m₀ + q) * P) (by omega)
+      have h4 := g9_p1_iterPeriodReturn_rowAt T P hper j (P + 1 + (k' - j) * P) (t₁ + m₀ * P) (by omega)
+      have hcol1 := col0Word_shift_period_mul T P hper (m₀ + q) P t₁ ht₁
+      have hcol2 := col0Word_shift_period_mul T P hper m₀ P t₁ ht₁
+      have hlen_k : P + 1 + (k - j) * P + j * P = (k + 1) * P + 1 := by
+        have : (k - j) * P + j * P = k * P := by rw [← Nat.add_mul, Nat.sub_add_cancel hjk]
+        rw [Nat.succ_mul]; omega
+      have hlen_k' : P + 1 + (k' - j) * P + j * P = (k' + 1) * P + 1 := by
+        have : (k' - j) * P + j * P = k' * P := by rw [← Nat.add_mul, Nat.sub_add_cancel hj]
+        rw [Nat.succ_mul]; omega
+      rw [hcol1, hlen_k] at h1
+      rw [hcol2, hlen_k] at h2
+      rw [hcol1, hlen_k'] at h3
+      rw [hcol2, hlen_k'] at h4
+      have hj_fin := hfin j hjk
+      rw [h1, h2] at hj_fin
+      rw [h3, h4]
+      have hor1 := g9_p1_orColWord_rowAt P ((k - j) * P) (t₁ + (m₀ + q) * P + j * P)
+      have hor2 := g9_p1_orColWord_rowAt P ((k - j) * P) (t₁ + m₀ * P + j * P)
+      have hor3 := g9_p1_orColWord_rowAt P ((k' - j) * P) (t₁ + (m₀ + q) * P + j * P)
+      have hor4 := g9_p1_orColWord_rowAt P ((k' - j) * P) (t₁ + m₀ * P + j * P)
+      have hcol3 : col0Word (t₁ + (m₀ + q) * P + j * P) P = col0Word t₁ P := by
+        rw [show t₁ + (m₀ + q) * P + j * P = t₁ + (m₀ + q + j) * P by
+          rw [Nat.add_mul (m₀ + q) j P]; omega]
+        exact col0Word_shift_period_mul T P hper (m₀ + q + j) P t₁ ht₁
+      have hcol4 : col0Word (t₁ + m₀ * P + j * P) P = col0Word t₁ P := by
+        rw [show t₁ + m₀ * P + j * P = t₁ + (m₀ + j) * P by
+          rw [Nat.add_mul m₀ j P]; omega]
+        exact col0Word_shift_period_mul T P hper (m₀ + j) P t₁ ht₁
+      rw [hcol3, show (k - j) * P + P + 1 = P + 1 + (k - j) * P by omega] at hor1
+      rw [hcol4, show (k - j) * P + P + 1 = P + 1 + (k - j) * P by omega] at hor2
+      rw [hcol3, show (k' - j) * P + P + 1 = P + 1 + (k' - j) * P by omega] at hor3
+      rw [hcol4, show (k' - j) * P + P + 1 = P + 1 + (k' - j) * P by omega] at hor4
+      rw [hor1, hor2] at hj_fin
+      rw [hor3, hor4, hj_fin]
+  exact g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period
+    T P t₁ m₀ q hP hq hper ht₁ hpersist
+
+/-- **G11.4 Direct Implication of Single Persistent Quotient Collision to `Rule30Prize.Problem1`
+    (`g11_p1_single_persistent_quotient_collision_implies_problem1`)**:
+    Strengthens `g10_p1_psmsl_quotient_eventual_repetition_implies_problem1`: instead of requiring
+    quotient repetition for all `m : Nat`, if every hypothetical periodic center orbit has **even
+    one single pair** of return steps `(m₀, m₀ + q)` (`q > 0`) that collide persistently across
+    horizons `k : Nat`, then `Rule30Prize.Problem1` holds unconditionally. -/
+theorem g11_p1_single_persistent_quotient_collision_implies_problem1
+    (hSingleColl : ∀ (T₀ P : Nat), 0 < P →
+      (∀ t, T₀ ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+      ∃ t₁ m₀ q : Nat, T₀ ≤ t₁ ∧ 0 < q ∧ ∀ k : Nat,
+        FutureWorkEquiv (col0Word t₁ P) k
+          (rowAt (t₁ + (m₀ + q) * P) 1 ((k + 1) * P + 1))
+          (rowAt (t₁ + m₀ * P) 1 ((k + 1) * P + 1))) :
+    Rule30Prize.Problem1 := by
+  rintro ⟨T₀, P, hP, hper⟩
+  obtain ⟨t₁, m₀, q, ht₁, hq, hcoll⟩ := hSingleColl T₀ P hP hper
+  exact g11_p1_single_persistent_quotient_collision_excludes_arbitrary_period
+    T₀ P t₁ m₀ q hP hq hper ht₁ hcoll
+
+theorem length_etherRepeat0 :
+    ∀ (k : Nat) (τ : List Bool), (etherRepeat0 k τ).length = 7 * k + τ.length
+  | 0, τ => by simp [etherRepeat0]
+  | k + 1, τ => by
+    show (etherBlock0 ++ etherRepeat0 k τ).length = 7 * (k + 1) + τ.length
+    rw [List.length_append, length_etherRepeat0 k τ]
+    change 7 + (7 * k + τ.length) = 7 * (k + 1) + τ.length
+    omega
+
+/-- **G11.4 Prize 2 & Prize 3 Non-Trivial Quotient Width-Saving and Zero-Drift Discrepancy
+    Invariance (`g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance`)**:
+    Directly resolves Section 2 of the `G10` review with two non-trivial theorems:
+    1. **Prize 3 (Strict Prefix-Width Reduction Under Quotient Substitution)**: For every horizon
+       parameter `m : Nat` and non-empty screened right tail `b :: τ`, substituting the shorter
+       canonical representative `etherRepeat0 (m + 1) []` for `etherRepeat0 (m + 1) (b :: τ)`
+       preserves the exact `(2 * m + 2)`-period observation trace (`FutureWorkEquiv [false, true] (2 * m + 1)`)
+       while strictly reducing the required spatial prefix width:
+       `(etherRepeat0 (m + 1) []).length < (etherRepeat0 (m + 1) (b :: τ)).length`.
+    2. **Prize 2 (Zero-Drift Periodic Word Invariance of Signed Discrepancy)**: Under any `P`-periodic
+       center column from `T` on (`t₁ ≥ T`) whose period word is balanced
+       (`wordDiscrepancyWeight (col0Word t₁ P) = 0`, as holds for `[false, true]`), the signed
+       center discrepancy is strictly invariant across all return periods `m : Nat`:
+       `centerDiscrepancy (t₁ + m * P) = centerDiscrepancy t₁`. -/
+theorem g11_p2_p3_quotient_width_saving_and_zero_drift_discrepancy_invariance :
+    (∀ (m : Nat) (b : Bool) (τ : List Bool),
+      FutureWorkEquiv [false, true] (2 * m + 1)
+        (etherRepeat0 (m + 1) [])
+        (etherRepeat0 (m + 1) (b :: τ)) ∧
+      (etherRepeat0 (m + 1) []).length < (etherRepeat0 (m + 1) (b :: τ)).length) ∧
+    (wordDiscrepancyWeight [false, true] = 0 ∧
+      ∀ (T P t₁ : Nat),
+        (∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+        T ≤ t₁ →
+        wordDiscrepancyWeight (col0Word t₁ P) = 0 →
+        ∀ m : Nat, centerDiscrepancy (t₁ + m * P) = centerDiscrepancy t₁) := by
+  refine ⟨fun m b τ => ⟨g11_p1_ether_periodic_chain_all_horizon_work_equiv.1 m [] (b :: τ), ?_⟩,
+    ⟨rfl, fun T P t₁ hper ht₁ hzero m => ?_⟩⟩
+  · rw [length_etherRepeat0, length_etherRepeat0]
+    simp only [List.length_nil, List.length_cons]
+    omega
+  · unfold centerDiscrepancy
+    have h := (g9_p2_p3_periodic_word_discrepancy_and_width_consumption T P t₁ hper ht₁ m 0).1
+    rw [hzero, Int.mul_zero, Int.add_zero] at h
+    exact h
+
 end Rule30Submission
