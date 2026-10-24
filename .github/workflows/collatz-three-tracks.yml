@@ -3,7 +3,11 @@ on:
   push:
     branches: [research/collatz-three-tracks]
   pull_request:
-    paths: ['experiments/bbb17_lean/three_tracks.py', 'experiments/bbb17_lean/test_three_tracks.py']
+    paths:
+      - 'experiments/bbb17_lean/three_tracks.py'
+      - 'experiments/bbb17_lean/test_three_tracks.py'
+      - 'experiments/bbb17_lean/ThreeTracks.lean'
+      - '.github/workflows/collatz-three-tracks.yml'
 jobs:
   bounded-tests:
     runs-on: ubuntu-latest
@@ -17,3 +21,18 @@ jobs:
           cd experiments/bbb17_lean
           python -m unittest -v test_three_tracks.py
           python three_tracks.py --starts 10000 --cap 10000 --depth 8
+      - uses: leanprover/lean-action@v1
+        with:
+          lean-version: 'v4.21.0'
+      - name: Check Lean three-track theorems
+        run: |
+          cd experiments/bbb17_lean
+          lean -o BBB17.olean BBB17.lean
+          LEAN_PATH=. lean -o OperatorMacros.olean OperatorMacros.lean
+          LEAN_PATH=. lean -o TwoStepMacros.olean TwoStepMacros.lean
+          LEAN_PATH=. lean -o SweepMacros.olean SweepMacros.lean
+          LEAN_PATH=. lean -o CollatzBridge.olean CollatzBridge.lean
+          LEAN_PATH=. lean -o PhaseArithmetic.olean PhaseArithmetic.lean
+          LEAN_PATH=. lean -o ArithmeticOrbitBridge.olean ArithmeticOrbitBridge.lean
+          LEAN_PATH=. lean -o CollatzReduction.olean CollatzReduction.lean
+          LEAN_PATH=. lean ThreeTracks.lean
