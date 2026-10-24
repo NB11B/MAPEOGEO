@@ -3,6 +3,7 @@ from three_tracks import (
     Phase,phase,accelerated,register_step,affine_word,actual_word,
     orbit,run_campaign,classify_word_cycle,verify_envelope_and_drawdown,
     compare_binary_vs_base7,adaptive_residue_tree,verify_return_map_composition,
+    verify_minimal_crossing_pincer,
 )
 class TestTracks(unittest.TestCase):
     def test_register(self):
@@ -62,6 +63,10 @@ class TestTracks(unittest.TestCase):
     def test_return_map_composition(self):
         res=verify_return_map_composition(127,5)
         self.assertEqual(res["checked_odd_starts"],64)
+    def test_minimal_crossing_pincer(self):
+        res=verify_minimal_crossing_pincer(12)
+        self.assertEqual(res["exceptions"],0)
+        self.assertGreater(res["first_crossing_words"],30)
     def test_orbit_cap(self):
         self.assertEqual(orbit(27,1)["kind"],"limit")
         self.assertEqual(orbit(27,200)["kind"],"reached_one")

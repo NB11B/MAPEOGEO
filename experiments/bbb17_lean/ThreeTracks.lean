@@ -2360,4 +2360,221 @@ theorem eventuallyHitsContractingCylinder_iff_collatz :
       (contracting_word_descent_iff w n hv hgt).mp hlt_w
     exact ⟨r, hr, hgt, hgap⟩
 
+/-! ### COLLATZ-C8: Minimal-Crossing Inequality `(D(w) - A(w)) * m_min(w) > B(w)` & Pincer Certification
+    Formalizing the priority proof obligation from the C7 qualification review:
+    1. `wordOnes` and the inductive characterization `IsPrefixExpanding` & `IsFirstCrossing` (`w ∈ 𝓜`).
+    2. Universal Lean proof of the analytical offset bound (`three_mul_wordB_le_wordOnes_mul_wordA`):
+       `IsPrefixExpanding w → 3 * wordB w ≤ wordOnes w * wordA w` (`B(w) ≤ a(w) * 3^{a(w)-1}`).
+    3. Exact equivalence (`firstCrossing_inequality_iff_trajectory_descent`): for every `w` with
+       `wordD w > wordA w`, `(wordD w - wordA w) * m_min(w) > wordB w` holds if and only if
+       the constructive representative `m_min(w)` itself descends at step `|w|`
+       (`iterateAccelerated (m_min w) w.length < m_min w`).
+    4. Two-sided Pincer Theorem (`firstCrossing_spectral_pincer_descent`): whenever
+       `3 * (wordD w - wordA w) * m_min(w) > wordOnes w * wordA w`, every first-crossing word
+       `w ∈ 𝓜` satisfies `(wordD w - wordA w) * m_min(w) > wordB w` and discharges its entire
+       positive residue cylinder.
+    5. Constructive survival lower bound (`survival_past_depth7_forces_ge_27`): every integer
+       `2 ≤ n < 27` is discharged at depth `≤ 7`, so any residue class surviving depth `7`
+       satisfies `m_min(w) ≥ 27`.
+-/
+
+/-- Number of odd steps (`true` bits) in a parity word `w`. -/
+def wordOnes : List Bool → Nat
+  | [] => 0
+  | false :: bs => wordOnes bs
+  | true :: bs => wordOnes bs + 1
+
+/-- Additive law for `wordOnes` across concatenation `w₁ ++ w₂`. -/
+theorem wordOnes_append (w₁ w₂ : List Bool) :
+    wordOnes (w₁ ++ w₂) = wordOnes w₁ + wordOnes w₂ := by
+  induction w₁ with
+  | nil =>
+    dsimp [wordOnes]
+    omega
+  | cons b bs ih =>
+    cases b <;> dsimp [wordOnes] <;> omega
+
+/-- Exact power relation `wordA w = 3 ^ (wordOnes w)`. -/
+theorem wordA_eq_pow_three_wordOnes (w : List Bool) :
+    wordA w = 3 ^ wordOnes w := by
+  induction w with
+  | nil => rfl
+  | cons b bs ih =>
+    cases b with
+    | false =>
+      dsimp [wordA, wordOnes]
+      exact ih
+    | true =>
+      dsimp [wordA, wordOnes]
+      rw [ih, Nat.pow_succ, Nat.mul_comm]
+
+/-- Inductive family of parity words whose prefixes preceding every odd step are
+    spectrally non-contracting (`wordD w₁ ≤ wordA w₁`). -/
+inductive IsPrefixExpanding : List Bool → Prop where
+  | nil : IsPrefixExpanding []
+  | snoc_false (w : List Bool) :
+      IsPrefixExpanding w → IsPrefixExpanding (w ++ [false])
+  | snoc_true (w : List Bool) :
+      IsPrefixExpanding w → wordD w ≤ wordA w → IsPrefixExpanding (w ++ [true])
+
+/-- The family `𝓜` of first-crossing parity words: `w = w₁ ++ [false]` where `w₁` is
+    prefix-expanding with `wordD w₁ ≤ wordA w₁`, while `w` is contracting (`wordD w > wordA w`). -/
+def IsFirstCrossing (w : List Bool) : Prop :=
+  ∃ w₁ : List Bool,
+    w = w₁ ++ [false] ∧
+    IsPrefixExpanding w₁ ∧
+    wordD w₁ ≤ wordA w₁ ∧
+    wordD w > wordA w
+
+theorem isFirstCrossing_implies_isPrefixExpanding (w : List Bool)
+    (hw : IsFirstCrossing w) : IsPrefixExpanding w := by
+  rcases hw with ⟨w₁, rfl, hw₁, _, _⟩
+  exact IsPrefixExpanding.snoc_false w₁ hw₁
+
+/-- Universal Prefix-Expanding Offset Bound (`3 * B(w) ≤ a(w) * A(w)`):
+    For EVERY parity word `w` satisfying `IsPrefixExpanding w` (and in particular for
+    every first-crossing word `w ∈ 𝓜`),
+    `3 * wordB w ≤ wordOnes w * wordA w` (equivalently `B(w) ≤ a(w) * 3^{a(w)-1}`). -/
+theorem three_mul_wordB_le_wordOnes_mul_wordA (w : List Bool)
+    (hw : IsPrefixExpanding w) :
+    3 * wordB w ≤ wordOnes w * wordA w := by
+  induction hw with
+  | nil =>
+    dsimp [wordB, wordOnes, wordA]
+    omega
+  | snoc_false w _ ih =>
+    rw [wordB_append, wordOnes_append, wordA_append]
+    dsimp [wordB, wordOnes, wordA]
+    rw [Nat.mul_one]
+    omega
+  | snoc_true w _ hDA ih =>
+    rw [wordB_append, wordOnes_append, wordA_append]
+    dsimp [wordB, wordOnes, wordA]
+    have h1 : 3 * wordB w + wordD w ≤ wordOnes w * wordA w + wordA w := by omega
+    have h2 : (wordOnes w + 1) * wordA w = wordOnes w * wordA w + wordA w := by
+      rw [Nat.add_mul, Nat.one_mul]
+    have h3 : (wordOnes w + 1) * (wordA w * 3) = 3 * (wordOnes w * wordA w + wordA w) := by
+      rw [← h2, ← Nat.mul_assoc, Nat.mul_comm ((wordOnes w + 1) * wordA w) 3]
+    omega
+
+/-- Constructive minimal positive representative `m_min(w) > 1` of the residue cylinder of `w`. -/
+def minWordRep (w : List Bool) : Nat :=
+  minClassRep (wordD w) (wordResidue w)
+
+theorem minWordRep_gt_one (w : List Bool) (hne : w ≠ []) :
+    minWordRep w > 1 := by
+  unfold minWordRep minClassRep
+  have hD2 : wordD w ≥ 2 := wordD_ge_two_of_ne_nil w hne
+  by_cases hle1 : wordResidue w ≤ 1
+  · rw [if_pos hle1]; omega
+  · rw [if_neg hle1]; omega
+
+theorem minWordRep_valid (w : List Bool) :
+    validParityWord (minWordRep w) w := by
+  unfold minWordRep minClassRep
+  by_cases hle1 : wordResidue w ≤ 1
+  · rw [if_pos hle1]
+    have h := (parityWord_residue_shift w (wordResidue w) 1 (wordResidue_valid w)).1
+    simpa using h
+  · rw [if_neg hle1]
+    exact wordResidue_valid w
+
+theorem parityWordOf_minWordRep (w : List Bool) :
+    parityWordOf w.length (minWordRep w) = w :=
+  (validParityWord_iff_eq_parityWordOf w (minWordRep w)).mp (minWordRep_valid w)
+
+/-- Exact Trajectory Equivalence for the Minimal Representative `m_min(w)`:
+    For any contracting word `w` (`wordD w > wordA w`), the minimal-crossing inequality
+    `(wordD w - wordA w) * minWordRep w > wordB w` holds if and only if
+    `iterateAccelerated (minWordRep w) w.length < minWordRep w`. -/
+theorem firstCrossing_inequality_iff_trajectory_descent (w : List Bool)
+    (hgt : wordD w > wordA w) :
+    (wordD w - wordA w) * minWordRep w > wordB w ↔
+      iterateAccelerated (minWordRep w) w.length < minWordRep w := by
+  have hv := minWordRep_valid w
+  rw [← contracting_word_descent_iff w (minWordRep w) hv hgt]
+  have hp := applyParityWord_parityWordOf w.length (minWordRep w)
+  rw [parityWordOf_minWordRep w] at hp
+  rw [hp]
+
+/-- First-Crossing Spectral Pincer Theorem:
+    For EVERY first-crossing word `w ∈ 𝓜` (`IsFirstCrossing w`), if the constructive
+    minimal representative `minWordRep w` satisfies
+    `3 * (wordD w - wordA w) * minWordRep w > wordOnes w * wordA w`,
+    then `(wordD w - wordA w) * minWordRep w > wordB w` holds and every integer `n > 1`
+    in the residue class `n % wordD w = wordResidue w` strictly descends in `|w|` accelerated steps. -/
+theorem firstCrossing_spectral_pincer_descent (w : List Bool)
+    (hw : IsFirstCrossing w)
+    (hpincer : 3 * ((wordD w - wordA w) * minWordRep w) > wordOnes w * wordA w) :
+    (wordD w - wordA w) * minWordRep w > wordB w ∧
+    (∀ n : Nat, n > 1 → n % wordD w = wordResidue w →
+      applyParityWord n w < n) := by
+  have hpe : IsPrefixExpanding w := isFirstCrossing_implies_isPrefixExpanding w hw
+  have hB : 3 * wordB w ≤ wordOnes w * wordA w :=
+    three_mul_wordB_le_wordOnes_mul_wordA w hpe
+  rcases hw with ⟨w₁, hw_eq, _, _, hgt⟩
+  have hineq : (wordD w - wordA w) * minWordRep w > wordB w := by omega
+  refine ⟨hineq, ?_⟩
+  intro n hn1 hmod
+  have hv_n : validParityWord n w := (validParityWord_iff_mod_eq_wordResidue w n).mpr hmod
+  rw [contracting_word_descent_iff w n hv_n hgt]
+  obtain ⟨q, hq_eq⟩ : ∃ q : Nat, n = wordResidue w + q * wordD w := by
+    refine ⟨n / wordD w, ?_⟩
+    have hdiv := Nat.mod_add_div n (wordD w)
+    have hcomm : wordD w * (n / wordD w) = (n / wordD w) * wordD w := Nat.mul_comm _ _
+    omega
+  have hn_ge : n ≥ minWordRep w := by
+    unfold minWordRep minClassRep
+    by_cases hle1 : wordResidue w ≤ 1
+    · rw [if_pos hle1]
+      have hq_pos : q ≥ 1 := by
+        cases q with
+        | zero =>
+          rw [Nat.zero_mul, Nat.add_zero] at hq_eq
+          omega
+        | succ q' => omega
+      have hqD : q * wordD w ≥ 1 * wordD w := Nat.mul_le_mul_right (wordD w) hq_pos
+      omega
+    · rw [if_neg hle1]
+      omega
+  have hmul : (wordD w - wordA w) * minWordRep w ≤ (wordD w - wordA w) * n :=
+    Nat.mul_le_mul_left (wordD w - wordA w) hn_ge
+  omega
+
+/-- Exact Counterexample Obstruction Theorem for `w ∈ 𝓜`:
+    Any hypothetical first-crossing word `w ∈ 𝓜` that fails the minimal-crossing inequality
+    `(wordD w - wordA w) * minWordRep w > wordB w` must simultaneously satisfy:
+    1. `3 * ((wordD w - wordA w) * minWordRep w) ≤ wordOnes w * wordA w`, and
+    2. `iterateAccelerated (minWordRep w) w.length ≥ minWordRep w`. -/
+theorem firstCrossing_counterexample_obstruction (w : List Bool)
+    (hw : IsFirstCrossing w)
+    (hfail : ¬((wordD w - wordA w) * minWordRep w > wordB w)) :
+    3 * ((wordD w - wordA w) * minWordRep w) ≤ wordOnes w * wordA w ∧
+    iterateAccelerated (minWordRep w) w.length ≥ minWordRep w := by
+  have hpe : IsPrefixExpanding w := isFirstCrossing_implies_isPrefixExpanding w hw
+  have hB : 3 * wordB w ≤ wordOnes w * wordA w :=
+    three_mul_wordB_le_wordOnes_mul_wordA w hpe
+  rcases hw with ⟨w₁, _, _, _, hgt⟩
+  have hiff := firstCrossing_inequality_iff_trajectory_descent w hgt
+  omega
+
+/-- Kernel-checked verification that every integer `2 ≤ n < 27` is discharged by depth 8 (`dischargedByDepth8`). -/
+theorem all_lt_27_dischargedByDepth8 :
+    ((List.range 27).all (fun n => decide (n < 2) || dischargedByDepth8 (n % 256))) = true := by
+  decide
+
+/-- Survival Lower Bound Theorem (`n ≥ 27`):
+    Every integer `n > 1` whose modulo-256 residue lies in the surviving 19-class frontier
+    (`dischargedByDepth8 (n % 256) = false`) satisfies `n ≥ 27`. -/
+theorem survival_past_depth8_forces_ge_27 (n : Nat) (hn1 : n > 1)
+    (hsurv : dischargedByDepth8 (n % 256) = false) :
+    n ≥ 27 := by
+  by_cases hlt : n < 27
+  · have hmem : n ∈ List.range 27 := List.mem_range.mpr hlt
+    have hall := (List.all_eq_true.mp all_lt_27_dischargedByDepth8) n hmem
+    have hn2 : decide (n < 2) = false := decide_eq_false (by omega)
+    rw [hn2, hsurv] at hall
+    contradiction
+  · omega
+
 end BBB17

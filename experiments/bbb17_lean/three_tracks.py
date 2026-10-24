@@ -209,6 +209,52 @@ def verify_return_map_composition(max_odd: int = 255, steps: int = 5) -> dict:
         checked += 1
     return {"checked_odd_starts": checked, "steps": steps}
 
+def word_residue_of_bits(bits: tuple[int, ...]) -> int:
+    """Compute canonical wordResidue(w) < 2^|w| matching ThreeTracks.lean."""
+    R = 0
+    D = 1
+    for b in reversed(bits):
+        if b == 0:
+            R = 2 * R
+        else:
+            if R % 3 == 2:
+                q = 0
+            elif (R + D) % 3 == 2:
+                q = 1
+            else:
+                q = 2
+            R = 2 * ((R + q * D - 2) // 3) + 1
+        D *= 2
+    return R
+
+def verify_minimal_crossing_pincer(max_r: int = 12) -> dict:
+    """Verify C8 on all first-crossing words up to depth max_r:
+    1. 3 * B(w) <= a(w) * A(w) (three_mul_wordB_le_wordOnes_mul_wordA)
+    2. (D(w) - A(w)) * m_min(w) > B(w) (zero exceptions)
+    """
+    words = [()]
+    checked = 0
+    exceptions = 0
+    for r in range(1, max_r + 1):
+        D = 1 << r
+        next_words = []
+        for w in words:
+            for b in (0, 1):
+                w2 = w + (b,)
+                a = sum(w2)
+                A, B, D_w = affine_word(w2)
+                assert 3 * B <= a * A, (w2, a, A, B)
+                if A > D:
+                    next_words.append(w2)
+                else:
+                    checked += 1
+                    r0 = word_residue_of_bits(w2)
+                    m0 = r0 + D if r0 <= 1 else r0
+                    if (D - A) * m0 <= B:
+                        exceptions += 1
+        words = next_words
+    return {"max_r": max_r, "first_crossing_words": checked, "exceptions": exceptions}
+
 def run_campaign(max_start=10000, cap=10000, depth=8):
     kinds={}
     for n in range(1,max_start+1):
