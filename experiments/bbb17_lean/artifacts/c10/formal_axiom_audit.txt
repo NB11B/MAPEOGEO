@@ -78,10 +78,25 @@
 'BBB17.CollatzProofClosure.reservoir_threshold_iff_descent' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.strict_odd_excursion_step_bound' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.infinite_nondescent_reservoir_obstruction' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.even_run_pow_two_mul_eq' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.never_descending_always_has_next_odd_step' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.unbounded_odd_steps_of_never_descending' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.reservoir_offset_duality_identity' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.reservoir_complement_divisibility_and_lower_bound' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.arithmetic_compatibility_obstruction' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.periodic_orbit_strict_interior_excursion_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
 'BBB17.CollatzProofClosure.nondescent_lower_bound_power_ratio' depends on axioms: [propext, Quot.sound]
 'BBB17.CollatzProofClosure.infinite_nondescent_diophantine_obstruction_system' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
 'BBB17.CollatzProofClosure.c10_unified_convergence_criteria' depends on axioms: [propext, Classical.choice, Quot.sound]
 'BBB17.CollatzProofClosure.unified_transition_nondescent_laws' depends on axioms: [propext, Quot.sound]
-'BBB17.CollatzProofClosure.infinite_nondescent_reservoir_master' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.infinite_nondescent_reservoir_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -946,5 +946,312 @@ theorem infinite_nondescent_reservoir_obstruction (n r : Nat)
   rw [hlhs_comm]
   exact Nat.mul_le_mul_left (n ^ wordOnes (parityWordOf (1 + k) n)) hbound
 
+/-! ## 5. Unbounded Odd Operations (`a_r → ∞`), Reservoir-Offset Duality, and Arithmetic Compatibility
+
+    Addresses the three unified proof targets:
+    1. **Infinite-Path Exclusion & Unbounded Odd Operations (`unbounded_odd_steps_of_never_descending`)**:
+       A never-descending trajectory of `n > 0` cannot have only finitely many odd steps:
+       from any depth `r`, at most `F^r(n)` consecutive even steps can occur before the next
+       odd step, forcing `∀ M : Nat, ∃ R : Nat, wordOnes (parityWordOf R n) ≥ M`.
+    2. **Reservoir-Offset Duality & 2-Adic Divisibility Lower Bounds
+       (`reservoir_offset_duality_identity`, `reservoir_complement_divisibility_and_lower_bound`,
+        `arithmetic_compatibility_obstruction`)**:
+       Proves the exact duality identity
+       `deficitReservoir n r + n^{a_r} * B_r + n * (3n)^{a_r} = n * (3n + 1)^{a_r}`,
+       the exact 2-adic congruence `qNum n r % 2^r = qDen n r % 2^r`,
+       the exact divisibility `(qDen n r - qNum n r) % (2^r * n^{a_r}) = 0`,
+       and the resulting Arithmetic Compatibility Obstruction on `1 - Q_r`.
+    3. **Sharpened Cycle Exclusion (`periodic_orbit_strict_interior_excursion_bound`)**:
+       Any cycle of period `r ≥ 1` with strict minimum element `n > 1`
+       (`∀ 1 ≤ i < r, F^i(n) > n` and `F^r(n) = n`) must satisfy both `3^{a_r} < 2^r`
+       and `2^r * n * (n + 2)^{a_r - 1} ≤ (3n + 1) * (3n + 7)^{a_r - 1}`.
+-/
+
+/-- If `k` consecutive steps starting from `m` are even, then `2^k * F^k(m) = m`. -/
+theorem even_run_pow_two_mul_eq (k : Nat) :
+    ∀ m : Nat, (∀ j : Nat, j < k → iterateAccelerated m j % 2 = 0) →
+      2 ^ k * iterateAccelerated m k = m := by
+  induction k with
+  | zero =>
+    intro m _
+    dsimp [iterateAccelerated]
+    omega
+  | succ k ih =>
+    intro m hev_all
+    have hev_k : ∀ j : Nat, j < k → iterateAccelerated m j % 2 = 0 :=
+      fun j hj => hev_all j (by omega)
+    have h_ih := ih m hev_k
+    have hev_last : iterateAccelerated m k % 2 = 0 := hev_all k (by omega)
+    have hsucc : iterateAccelerated m (k + 1) = acceleratedCollatz (iterateAccelerated m k) :=
+      iterateAccelerated_succ_right m k
+    have hm : stepParityMatches (iterateAccelerated m k) false := by
+      dsimp [stepParityMatches]; exact hev_last
+    have hstep : 2 * acceleratedCollatz (iterateAccelerated m k) = iterateAccelerated m k := by
+      have hs := acceleratedCollatz_step_eq (iterateAccelerated m k) false hm
+      simpa using hs
+    rw [hsucc, Nat.pow_succ, Nat.mul_assoc (2 ^ k) 2 _, hstep, h_ih]
+
+/-- Elementary exponential growth `2^k > k` for all `k : Nat`. -/
+theorem two_pow_gt_self (k : Nat) : 2 ^ k > k := by
+  induction k with
+  | zero => decide
+  | succ k ih =>
+    rw [Nat.pow_succ]
+    omega
+
+/-- Semigroup property of `iterateAccelerated`: `F^{r + j}(n) = F^j(F^r(n))`. -/
+theorem iterateAccelerated_add (n r j : Nat) :
+    iterateAccelerated n (r + j) = iterateAccelerated (iterateAccelerated n r) j := by
+  induction r generalizing n with
+  | zero =>
+    rw [Nat.zero_add]
+    rfl
+  | succ r ih =>
+    rw [Nat.succ_add]
+    dsimp [iterateAccelerated]
+    exact ih (acceleratedCollatz n)
+
+/-- Along any never-descending trajectory of `n > 0` (`∀ i, F^i(n) ≥ n`), starting from any
+    depth `r`, there cannot be `F^r(n)` consecutive even steps; hence there exists `j < F^r(n)`
+    such that `F^{r + j}(n)` is odd (`iterateAccelerated n (r + j) % 2 = 1`). -/
+theorem never_descending_always_has_next_odd_step (n r : Nat)
+    (hn : n > 0)
+    (hnever_desc : ∀ i : Nat, iterateAccelerated n i ≥ n) :
+    ∃ j : Nat, j < iterateAccelerated n r ∧
+      iterateAccelerated n (r + j) % 2 = 1 := by
+  apply Classical.byContradiction
+  intro hno
+  have hall_even : ∀ j : Nat, j < iterateAccelerated n r →
+      iterateAccelerated (iterateAccelerated n r) j % 2 = 0 := by
+    intro j hj
+    have hadd : iterateAccelerated (iterateAccelerated n r) j =
+        iterateAccelerated n (r + j) :=
+      (iterateAccelerated_add n r j).symm
+    rw [hadd]
+    by_cases hev : iterateAccelerated n (r + j) % 2 = 0
+    · exact hev
+    · exfalso
+      exact hno ⟨j, hj, by omega⟩
+  let m := iterateAccelerated n r
+  have heq := even_run_pow_two_mul_eq m m hall_even
+  have hadd_m : iterateAccelerated m m = iterateAccelerated n (r + m) :=
+    (iterateAccelerated_add n r m).symm
+  rw [hadd_m] at heq
+  have hge_n : iterateAccelerated n (r + m) ≥ n := hnever_desc (r + m)
+  have hge_1 : iterateAccelerated n (r + m) ≥ 1 := by omega
+  have hpow_gt : 2 ^ m > m := two_pow_gt_self m
+  have hmul_ge : 2 ^ m * 1 ≤ 2 ^ m * iterateAccelerated n (r + m) :=
+    Nat.mul_le_mul_left (2 ^ m) hge_1
+  omega
+
+/-- Monotonicity of `wordOnes (parityWordOf r n)` with respect to `r`. -/
+theorem wordOnes_parityWordOf_mono (n r k : Nat) :
+    wordOnes (parityWordOf r n) ≤ wordOnes (parityWordOf (r + k) n) := by
+  rw [parityWordOf_add, wordOnes_append]
+  omega
+
+/-- Strict increase of `wordOnes (parityWordOf r n)` across an odd step at `r + j`. -/
+theorem wordOnes_parityWordOf_strict_step (n r j : Nat)
+    (hodd : iterateAccelerated n (r + j) % 2 = 1) :
+    wordOnes (parityWordOf (r + j + 1) n) ≥ wordOnes (parityWordOf r n) + 1 := by
+  have hmono := wordOnes_parityWordOf_mono n r j
+  have hsucc := parityWordOf_succ_eq_append (r + j) n
+  have hb : (iterateAccelerated n (r + j) % 2 == 1) = true := by
+    rw [beq_iff_eq]; exact hodd
+  rw [hsucc, hb, wordOnes_append]
+  dsimp [wordOnes]
+  omega
+
+/-- Unbounded Odd Operations Theorem (`unbounded_odd_steps_of_never_descending`):
+    For any hypothetical never-descending positive integer `n > 0`
+    (`∀ i, iterateAccelerated n i ≥ n`), the odd-step count `a_r = wordOnes (parityWordOf r n)`
+    grows without bound (`∀ M : Nat, ∃ r : Nat, wordOnes (parityWordOf r n) ≥ M`). -/
+theorem unbounded_odd_steps_of_never_descending (n : Nat)
+    (hn : n > 0)
+    (hnever_desc : ∀ i : Nat, iterateAccelerated n i ≥ n) :
+    ∀ M : Nat, ∃ r : Nat, wordOnes (parityWordOf r n) ≥ M := by
+  intro M
+  induction M with
+  | zero => exact ⟨0, by omega⟩
+  | succ M ih =>
+    rcases ih with ⟨r, hr⟩
+    rcases never_descending_always_has_next_odd_step n r hn hnever_desc with ⟨j, _, hodd⟩
+    refine ⟨r + j + 1, ?_⟩
+    have hinc := wordOnes_parityWordOf_strict_step n r j hodd
+    omega
+
+/-- Exact Reservoir-Offset Duality Identity (`reservoir_offset_duality_identity`):
+    Along any non-descending prefix (`∀ i < r, iterateAccelerated n i ≥ n`),
+    letting `w = parityWordOf r n` and `a = wordOnes w`:
+    1. `qDen n r - qNum n r = n * (3 * n)^a + n^a * wordB w`, and
+    2. `deficitReservoir n r + n^a * wordB w + n * (3 * n)^a = n * (3 * n + 1)^a`. -/
+theorem reservoir_offset_duality_identity (n r : Nat)
+    (hge : ∀ i : Nat, i < r → iterateAccelerated n i ≥ n) :
+    let w := parityWordOf r n
+    let a := wordOnes w
+    qDen n r - qNum n r = n * (3 * n) ^ a + n ^ a * wordB w ∧
+    deficitReservoir n r + n ^ a * wordB w + n * (3 * n) ^ a =
+      n * (3 * n + 1) ^ a := by
+  dsimp
+  have hcons := reservoir_surplus_conservation_law n r hge
+  dsimp at hcons
+  have hv := parityWordOf_valid r n
+  have hid := parityWord_affine_identity (parityWordOf r n) n hv
+  rw [applyParityWord_parityWordOf, wordD_eq_pow_two_length, parityWordOf_length,
+      wordA_eq_pow_three_wordOnes] at hid
+  have hmul_na : 2 ^ r * n ^ wordOnes (parityWordOf r n) * iterateAccelerated n r =
+      n ^ wordOnes (parityWordOf r n) * (2 ^ r * iterateAccelerated n r) := by
+    rw [Nat.mul_comm (2 ^ r) (n ^ _), Nat.mul_assoc]
+  have hrhs_aff : n ^ wordOnes (parityWordOf r n) *
+      (3 ^ wordOnes (parityWordOf r n) * n + wordB (parityWordOf r n)) =
+      n * (3 * n) ^ wordOnes (parityWordOf r n) +
+        n ^ wordOnes (parityWordOf r n) * wordB (parityWordOf r n) := by
+    rw [Nat.mul_add, ← Nat.mul_assoc (n ^ _) (3 ^ _) n,
+        Nat.mul_comm (n ^ _) (3 ^ _),
+        ← mul_pow_eq 3 n (wordOnes (parityWordOf r n)),
+        Nat.mul_comm ((3 * n) ^ _) n]
+  have hgap_eq : 2 ^ r * n ^ wordOnes (parityWordOf r n) * iterateAccelerated n r =
+      n * (3 * n) ^ wordOnes (parityWordOf r n) +
+        n ^ wordOnes (parityWordOf r n) * wordB (parityWordOf r n) := by
+    rw [hmul_na, hid, hrhs_aff]
+  unfold qDen qNum
+  constructor
+  · omega
+  · omega
+
+/-- Exact 2-Adic Congruence and Divisibility Lower Bound on `1 - Q_r`
+    (`reservoir_complement_divisibility_and_lower_bound`):
+    Along any non-descending prefix (`∀ i ≤ r, iterateAccelerated n i ≥ n`):
+    1. `(qDen n r - qNum n r) % (2^r * n^{a_r}) = 0`,
+    2. `(qDen n r - qNum n r) % 2^r = 0`,
+    3. `qDen n r - qNum n r ≥ 2^r * n^{a_r + 1}`, and
+    4. `qDen n r - qNum n r ≥ n * (3 * n)^{a_r} + n^{a_r} * wordB (parityWordOf r n)`. -/
+theorem reservoir_complement_divisibility_and_lower_bound (n r : Nat)
+    (hge : ∀ i : Nat, i ≤ r → iterateAccelerated n i ≥ n) :
+    let w := parityWordOf r n
+    let a := wordOnes w
+    (qDen n r - qNum n r) % (2 ^ r * n ^ a) = 0 ∧
+    (qDen n r - qNum n r) % (2 ^ r) = 0 ∧
+    qDen n r - qNum n r ≥ 2 ^ r * n ^ (a + 1) ∧
+    qDen n r - qNum n r = n * (3 * n) ^ a + n ^ a * wordB w := by
+  dsimp
+  have hge_lt : ∀ i : Nat, i < r → iterateAccelerated n i ≥ n :=
+    fun i hi => hge i (by omega)
+  have hcons := reservoir_surplus_conservation_law n r hge_lt
+  dsimp at hcons
+  have hdual := (reservoir_offset_duality_identity n r hge_lt).1
+  have hn_r : iterateAccelerated n r ≥ n := hge r (by omega)
+  have hsub : qDen n r - qNum n r =
+      (2 ^ r * n ^ wordOnes (parityWordOf r n)) * iterateAccelerated n r := by
+    unfold qDen qNum
+    omega
+  refine ⟨?_, ?_, ?_, hdual⟩
+  · rw [hsub, Nat.mul_mod_right]
+  · have hsub2 : qDen n r - qNum n r =
+        2 ^ r * (n ^ wordOnes (parityWordOf r n) * iterateAccelerated n r) := by
+      rw [hsub, Nat.mul_assoc]
+    rw [hsub2, Nat.mul_mod_right]
+  · rw [hsub, Nat.pow_succ, ← Nat.mul_assoc]
+    exact Nat.mul_le_mul_left _ hn_r
+
+/-- Arithmetic Compatibility Obstruction Theorem (`arithmetic_compatibility_obstruction`):
+    For any odd `n > 1` (`n % 2 = 1`) and any depth `r ≥ 1` along a non-returning
+    non-descending prefix (`∀ i, 1 ≤ i → i ≤ r → iterateAccelerated n i > n`),
+    combining the divisibility lower bound `qDen n r - qNum n r ≥ 2^r * n^{a_r} * F^r(n)`
+    with the exponential upper bound `infinite_nondescent_reservoir_obstruction` forces:
+    1. `2^r * n * (n + 2)^{a_r - 1} < (3 * n + 1) * (3 * n + 7)^{a_r - 1}`, and
+    2. Whenever `F^r(n)` is odd (`F^r(n) % 2 = 1`), `F^r(n) ≥ n + 2` and
+       `2^r * (n + 2)^{a_r} ≤ (3 * n + 1) * (3 * n + 7)^{a_r - 1} < (3 * n + 7)^{a_r}`. -/
+theorem arithmetic_compatibility_obstruction (n r : Nat)
+    (hn1 : n > 1) (hr1 : r ≥ 1) (hn_odd : n % 2 = 1)
+    (hstrict : ∀ i : Nat, 1 ≤ i → i ≤ r → iterateAccelerated n i > n) :
+    let a := wordOnes (parityWordOf r n)
+    2 ^ r * n * (n + 2) ^ (a - 1) <
+      (3 * n + 1) * (3 * n + 7) ^ (a - 1) ∧
+    (iterateAccelerated n r % 2 = 1 →
+      2 ^ r * (n + 2) ^ a ≤ (3 * n + 1) * (3 * n + 7) ^ (a - 1) ∧
+      2 ^ r * (n + 2) ^ a < (3 * n + 7) ^ a) := by
+  dsimp
+  rcases infinite_nondescent_reservoir_obstruction n r hn1 hr1 hn_odd
+    (fun i hi1 hik => hstrict i hi1 (by omega)) with ⟨ha_ge1, hbound, _⟩
+  have hgt_r : iterateAccelerated n r > n := hstrict r hr1 (by omega)
+  have hpos_pow : 2 ^ r * (n + 2) ^ (wordOnes (parityWordOf r n) - 1) > 0 :=
+    Nat.mul_pos (pow_pos_of_pos 2 r (by decide))
+      (pow_pos_of_pos (n + 2) (wordOnes (parityWordOf r n) - 1) (by omega))
+  have hlt_lhs : (2 ^ r * (n + 2) ^ (wordOnes (parityWordOf r n) - 1)) * n <
+      (2 ^ r * (n + 2) ^ (wordOnes (parityWordOf r n) - 1)) * iterateAccelerated n r :=
+    Nat.mul_lt_mul_of_pos_left hgt_r hpos_pow
+  have hcomm_n : 2 ^ r * n * (n + 2) ^ (wordOnes (parityWordOf r n) - 1) =
+      (2 ^ r * (n + 2) ^ (wordOnes (parityWordOf r n) - 1)) * n := by
+    rw [Nat.mul_assoc (2 ^ r) n _, Nat.mul_comm n ((n + 2) ^ _), ← Nat.mul_assoc]
+  refine ⟨by omega, ?_⟩
+  intro hodd_r
+  have hge_n2 : iterateAccelerated n r ≥ n + 2 := by omega
+  have hle_n2 : (2 ^ r * (n + 2) ^ (wordOnes (parityWordOf r n) - 1)) * (n + 2) ≤
+      (2 ^ r * (n + 2) ^ (wordOnes (parityWordOf r n) - 1)) * iterateAccelerated n r :=
+    Nat.mul_le_mul_left _ hge_n2
+  have ha_split : wordOnes (parityWordOf r n) =
+      (wordOnes (parityWordOf r n) - 1) + 1 := by omega
+  have hpow_n2 : 2 ^ r * (n + 2) ^ wordOnes (parityWordOf r n) =
+      (2 ^ r * (n + 2) ^ (wordOnes (parityWordOf r n) - 1)) * (n + 2) := by
+    conv => lhs; rw [ha_split, Nat.pow_succ]
+    rw [← Nat.mul_assoc]
+  have hle_odd : 2 ^ r * (n + 2) ^ wordOnes (parityWordOf r n) ≤
+      (3 * n + 1) * (3 * n + 7) ^ (wordOnes (parityWordOf r n) - 1) := by
+    rw [hpow_n2]
+    exact Nat.le_trans hle_n2 hbound
+  have hpos_3n7 : (3 * n + 7) ^ (wordOnes (parityWordOf r n) - 1) > 0 :=
+    pow_pos_of_pos (3 * n + 7) (wordOnes (parityWordOf r n) - 1) (by omega)
+  have hlt_3n7 : (3 * n + 1) * (3 * n + 7) ^ (wordOnes (parityWordOf r n) - 1) <
+      (3 * n + 7) * (3 * n + 7) ^ (wordOnes (parityWordOf r n) - 1) :=
+    Nat.mul_lt_mul_of_pos_right (by omega) hpos_3n7
+  have hpow_3n7 : (3 * n + 7) ^ wordOnes (parityWordOf r n) =
+      (3 * n + 7) * (3 * n + 7) ^ (wordOnes (parityWordOf r n) - 1) := by
+    conv => lhs; rw [ha_split, Nat.pow_succ]
+    rw [Nat.mul_comm]
+  exact ⟨hle_odd, by omega⟩
+
+/-- Sharpened Cycle Exclusion via Strict Interior Excursion (`periodic_orbit_strict_interior_excursion_bound`):
+    Suppose `n > 1` is the strict minimum element of a cycle of minimal period `r ≥ 1`
+    (`∀ i, 1 ≤ i → i < r → iterateAccelerated n i > n` and `iterateAccelerated n r = n`).
+    Then `a = wordOnes (parityWordOf r n) ≥ 1`, `3^a < 2^r`, and simultaneously:
+    `2^r * n * (n + 2)^{a - 1} ≤ (3 * n + 1) * (3 * n + 7)^{a - 1}`
+    (strictly sharpening Eliahou's `2^r * n^a ≤ (3 * n + 1)^a` at every odd step `i ≥ 1`!). -/
+theorem periodic_orbit_strict_interior_excursion_bound (n r : Nat)
+    (hn1 : n > 1) (hr1 : r ≥ 1)
+    (hstrict : ∀ i : Nat, 1 ≤ i → i < r → iterateAccelerated n i > n)
+    (hcycle : iterateAccelerated n r = n) :
+    let a := wordOnes (parityWordOf r n)
+    1 ≤ a ∧
+    3 ^ a < 2 ^ r ∧
+    2 ^ r * (n + 2) ^ (a - 1) * n ≤
+      (3 * n + 1) * (3 * n + 7) ^ (a - 1) := by
+  dsimp
+  have hmin : ∀ i : Nat, i ≤ r → iterateAccelerated n i ≥ n := by
+    intro i hi
+    cases i with
+    | zero => dsimp [iterateAccelerated]; omega
+    | succ i' =>
+      by_cases hlt : i' + 1 < r
+      · have hgt := hstrict (i' + 1) (by omega) hlt
+        omega
+      · have heq_r : i' + 1 = r := by omega
+        rw [heq_r, hcycle]
+        omega
+  rcases universal_cycle_minimum_element_bound n r n hn1 hr1 (by omega) (by omega) hmin hcycle with
+    ⟨ha1, hcont, _, _⟩
+  have hn_odd : n % 2 = 1 := by
+    have h1 := hmin 1 (by omega)
+    dsimp [iterateAccelerated] at h1
+    by_cases hev : n % 2 = 0
+    · unfold acceleratedCollatz at h1
+      rw [if_pos hev] at h1
+      omega
+    · omega
+  rcases infinite_nondescent_reservoir_obstruction n r hn1 hr1 hn_odd hstrict with
+    ⟨_, hbound, _⟩
+  rw [hcycle] at hbound
+  exact ⟨ha1, hcont, hbound⟩
+
 end CollatzProofClosure
 end BBB17

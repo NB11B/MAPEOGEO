@@ -204,6 +204,15 @@ def verify_normalized_reservoir_and_exponential_decay(limit_n: int = 2000) -> Di
                 decay_factor = Fraction(n * (3 * n + 7), (n + 2) * (3 * n + 1))
                 if (1 - q_curr) > (decay_factor ** (a - 1)):
                     exponential_decay_failures += 1
+                # Verify Reservoir-Offset Duality Identity and 2-adic divisibility of qDen - qNum
+                w_r = parity_word_of(r, n)
+                _, b_r, _ = affine_triple_exact(w_r)
+                if (q_den - reservoir) != n * ((3 * n) ** a) + (n ** a) * b_r:
+                    exponential_decay_failures += 1
+                if (q_den - reservoir) % ((1 << r) * (n ** a)) != 0:
+                    exponential_decay_failures += 1
+                if (nr & 1) == 1 and (1 << r) * ((n + 2) ** a) >= (3 * n + 7) ** a:
+                    exponential_decay_failures += 1
 
             omega = (1 << r) * (nr - n)
             bit = (nr & 1) == 1

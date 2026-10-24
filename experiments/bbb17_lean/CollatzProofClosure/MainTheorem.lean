@@ -217,11 +217,16 @@ theorem unified_transition_nondescent_laws (n : Nat)
 theorem infinite_nondescent_reservoir_master (n : Nat)
     (hn1 : n > 1)
     (hstrict : ∀ i : Nat, i ≥ 1 → iterateAccelerated n i > n) :
+    (∀ M : Nat, ∃ r : Nat, wordOnes (parityWordOf r n) ≥ M) ∧
     (∀ r : Nat,
+      let w := parityWordOf r n
+      let a := wordOnes w
       qNum n r < qDen n r ∧
       qNum n r * qDen n (r + 1) ≤ qNum n (r + 1) * qDen n r ∧
       qNum n (r + 1) * qDen n r =
-        qNum n r * qDen n (r + 1) + crossStepIncrement n r) ∧
+        qNum n r * qDen n (r + 1) + crossStepIncrement n r ∧
+      qDen n r - qNum n r = n * (3 * n) ^ a + n ^ a * wordB w ∧
+      (qDen n r - qNum n r) % (2 ^ r * n ^ a) = 0) ∧
     (∀ r : Nat, r ≥ 1 →
       let a := wordOnes (parityWordOf r n)
       a ≥ 1 ∧
@@ -240,12 +245,15 @@ theorem infinite_nondescent_reservoir_master (n : Nat)
     rcases nondescent_depth2_forces_mod4_eq_3_and_reservoir n hn1 (hge_all 1) (hge_all 2) with
       ⟨hm4, _, _⟩
     omega
-  constructor
+  refine ⟨unbounded_odd_steps_of_never_descending n (by omega) hge_all, ?_, ?_⟩
   · intro r
+    dsimp
     rcases normalized_reservoir_monotone_bounded n r (by omega) (fun i _ => hge_all i) with
       ⟨hlt, _, hmono⟩
     rcases normalized_reservoir_telescoping n r with ⟨_, htel⟩
-    exact ⟨hlt, hmono, htel⟩
+    rcases reservoir_complement_divisibility_and_lower_bound n r (fun i _ => hge_all i) with
+      ⟨hdiv, _, _, hdual⟩
+    exact ⟨hlt, hmono, htel, hdual, hdiv⟩
   · intro r hr1
     exact infinite_nondescent_reservoir_obstruction n r hn1 hr1 hn_odd
       (fun i hi1 _ => hstrict i hi1)
