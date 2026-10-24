@@ -42,9 +42,9 @@ Both [`Rule30Core.lean`](Rule30Core.lean) (14 theorems) and [`MAPEOGEOFormal/Rul
 
 The initial regression in `test_suite.py` asserted `69` ANF monomials at $k=4$; exact Boolean Möbius computation gave `122`. The original failing run is preserved in [`test_results.txt`](test_results.txt), and the corrected passing run is preserved in [`test_results_corrected.txt`](test_results_corrected.txt).
 
-## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G7`)
+## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G8`)
 
-[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 399, "ok": true}`, `"newAxioms": []`, **61/61** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
+[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 466, "ok": true}`, `"newAxioms": []`, **71/71** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
 
 ```bash
 # External reproduction against official Wolfram Rule30PrizeKit
@@ -115,7 +115,17 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   --headline Rule30Submission.g7_p1_right_cone_agree_bounded \
   --headline Rule30Submission.g7_p1_refined_window_state_closes_cycle_transition \
   --headline Rule30Submission.g7_p1_no_periodic_0r_1b_for_b_ge_9 \
-  --headline Rule30Submission.g7_p2_weighted_event_operator_composition
+  --headline Rule30Submission.g7_p2_weighted_event_operator_composition \
+  --headline Rule30Submission.g8_p1_every_step_realizes_symbolic_state \
+  --headline Rule30Submission.g8_p1_runWord_rowAt \
+  --headline Rule30Submission.g8_p1_rowAt_append_split \
+  --headline Rule30Submission.g8_p1_symbolic_refinement_preserves_realizability \
+  --headline Rule30Submission.g8_p1_symbolic_runWord_resolves_g7_collision \
+  --headline Rule30Submission.g8_p1_runWord_append \
+  --headline Rule30Submission.g8_p1_col0Word_append \
+  --headline Rule30Submission.g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period \
+  --headline Rule30Submission.g8_p1_multi_run_period_with_long_black_and_white_excluded \
+  --headline Rule30Submission.g8_p2_wordDiscrepancyWeight_append
 ```
 
 - **Gates G0–G2 (`run_g0_g2_prize_qualification`):** Audits 65 official catalog modules + 25 public submissions ([`g0_novelty_audit.json`](g0_novelty_audit.json)) and proves on `evolG` (`Rule30Realization.evol`) that Rule 30 uniquely reaches 3 depth-2 response classes (`xm2`, `!xm2`, `xor xm2 xm1`) and Mode A/B wavefront shielding, whereas all three `Rule30Realization` counterexample controls (`g90`, `g150`, and nonlinear `g210`) collapse to rank-1 (`g2_rule30_separates_controls_90_150_210`, `g210_origin_cancellation_evolG`, `e5_wavefront_separates_controls`).
@@ -138,5 +148,13 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   - **G7.3 (Closure of the Refined Window State):** Proves bounded right-cone agreement (`g7_p1_right_cone_agree_bounded`) and proves that refining the event state to $S = (\ell, \sigma_N)$ of width $N = \ell_{\text{next}} + 1 + L$ closes the $L$-step cycle transition deterministically (`g7_p1_refined_window_state_closes_cycle_transition`).
   - **G7.4 (Periodic-Word Exclusion):** Composes `g7_p1_long_black_run_resets_to_modeADepth_one` with `g6_p1_constant_onset_depth_excludes_white_black_period` to exclude every periodic word $0^r 1^b$ ($r \ge 1, b \ge 9$) after any transient $A$ (`g7_p1_no_periodic_0r_1b_for_b_ge_9`).
   - **G7.5 (Weighted & Costed Event Operators):** Proves additive composition of the discrepancy-weighted event operator `applyCycleWeight` (`g7_p2_weighted_event_operator_composition`) and accounts for the 4-part cost $C_{\text{total}} = C_{\text{construct}} + C_{\text{evaluate}} + C_{\text{recover}} + C_{\text{storage}}$, showing that maintaining the refined tail $\sigma_N$ requires $C_{\text{recover}} = \Theta(N^2)$ bit operations.
+- **Gate G8 (`run_g8_symbolic_return_machine_qualification` — `G8.1` through `G8.6`):**
+  - **G8.1 (Variable-Length Symbolic Event State):** Represents the event state as $S = (\ell, \tau)$ (`RealizesSymbolicState t ℓ τ`) where $\ell \in \mathbb{N}$ is the first-black right-boundary depth and $\tau : \mathrm{List\ Bool}$ is a variable-length right-neighbor tail word `rowAt t (ℓ + 2) τ.length`, proving universal realizability across all single-seed steps $t \ge 1$ (`g8_p1_every_step_realizes_symbolic_state`).
+  - **G8.2 (Certified Word-Driven Event Transitions & Three-Outcome Classifier):** Defines `stepRow` and `runWord`, proves exact soundness against Rule 30 spacetime evolution (`g8_p1_runWord_rowAt`: `runWord (col0Word t L) (rowAt t p (n + L)) = rowAt (t + L) p n`), and classifies candidate transitions into `EXACT_CLOSURE`, `AMBIGUOUS_CLOSURE`, and `CONTRADICTION`.
+  - **G8.3 (Counterexample-Guided Symbolic State Refinement):** Proves prefix splitting (`g8_p1_rowAt_append_split`), realizability preservation under prefix extension (`g8_p1_symbolic_refinement_preserves_realizability`), and exact `runWord` resolution of the G7 collision pair (`g8_p1_symbolic_runWord_resolves_g7_collision`), and verifies that iterative prefix refinement resolves all 7 ambiguous `(ell, r, b)` buckets across the 106 single-seed event cycles ($t \le 450$) with 0 remaining collisions.
+  - **G8.4 (Composing Arbitrary Multi-Run Periodic Center Words):** Proves associative composition of `runWord` (`g8_p1_runWord_append`: `runWord (w₁ ++ w₂) σ = runWord w₂ (runWord w₁ σ)`) and concatenation of center-column words (`g8_p1_col0Word_append`).
+  - **G8.5 (Cyclic Abstract Witness Search & Multi-Run Period Exclusions):** Proves that for **any** hypothetical period $P > 0$ of `Rule30Prize.center` (with arbitrarily many white and black runs), synchronizing the length-$P$ symbolic right-boundary prefix across periods forces column $1$ to be $P$-periodic and contradicts `not_adjacent 0` (`g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period`), and proves unconditional exclusion of multi-run periods containing a long black run $1^s$ ($s \ge 9$) followed by a white run $0^r$ even when arbitrary additional runs of total length $P - s - r$ follow in the period (`g8_p1_multi_run_period_with_long_black_and_white_excluded`).
+  - **G8.6 (Discrepancy & Cost Observables on the Symbolic Return Machine):** Defines `wordDiscrepancyWeight : List Bool → Int`, proves the exact additive homomorphism `wordDiscrepancyWeight (w₁ ++ w₂) = wordDiscrepancyWeight w₁ + wordDiscrepancyWeight w₂` (`g8_p2_wordDiscrepancyWeight_append`), and tracks step and cell evaluation costs across the symbolic machine.
+
 
 

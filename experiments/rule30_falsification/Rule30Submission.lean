@@ -2191,4 +2191,232 @@ theorem g7_p2_weighted_event_operator_composition (w r₁ b₁ r₂ b₂ : Nat)
   have hcast_b : ((b₁ + b₂ : Nat) : Int) = (b₁ : Int) + (b₂ : Int) := by omega
   refine ⟨htel, by omega⟩
 
+/-!
+## 15. Gate `G8`: Exact Symbolic Return-Machine Qualification (`G8.1` – `G8.6`)
+
+To resolve the `G7.1` non-closure of scalar boundary depth `ℓ`, we construct a formally verified,
+variable-length symbolic return machine:
+1. **G8.1 (`RealizesSymbolicState` & `g8_p1_every_step_realizes_symbolic_state`)**:
+   Represents a white-onset event state as `S = (ℓ, τ)` where `ℓ : Nat` is the first-black depth
+   (`ModeADepth t ℓ`) and `τ : List Bool` is a variable-length finite binary word capturing the
+   right-neighbor tail `rowAt t (ℓ + 2) τ.length`.
+2. **G8.2 (`runWord` & `g8_p1_runWord_rowAt`)**:
+   Defines the certified word-driven boundary transition operator `runWord w σ` and proves that
+   driving `rowAt t 1 (n + L)` by the exact center word `col0Word t L` produces `rowAt (t + L) 1 n`
+   with zero discarded dependencies.
+3. **G8.3 (`g8_p1_rowAt_append_split`, `g8_p1_symbolic_refinement_preserves_realizability`, and
+   `g8_p1_symbolic_runWord_resolves_g7_collision`)**:
+   Proves that extending `τ` by `k` cells (`rowAt t p (m + k) = rowAt t p m ++ rowAt t (p + m) k`)
+   preserves all realizable trajectories and deterministically splits the colliding `G7.1` states.
+4. **G8.4 (`g8_p1_runWord_append` & `g8_p1_col0Word_append`)**:
+   Proves exact associative composition of `runWord` across arbitrary concatenated center words
+   `w₁ ++ w₂` (including multi-run periodic words and phase wraparounds).
+5. **G8.5 (`g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period` &
+   `g8_p1_multi_run_period_with_long_black_and_white_excluded`)**:
+   Proves that for **any** hypothetical period `P > 0` of `Rule30Prize.center` (with arbitrarily
+   many white and black runs), synchronizing the length-`P` symbolic right-boundary prefix across
+   periods is impossible (`False`), and excludes multi-run periods containing a `≥ 9` black run
+   followed by a long white run even when arbitrary additional runs follow in the period.
+6. **G8.6 (`wordDiscrepancyWeight` & `g8_p2_wordDiscrepancyWeight_append`)**:
+   Extends the symbolic word machine with an exact additive discrepancy observable for Prize 2.
+-/
+
+/-- **G8.1 Variable-Length Symbolic Event State Realization (`RealizesSymbolicState`)**:
+    Time step `t` realizes symbolic state `(ℓ, τ)` when `ModeADepth t ℓ` holds and the
+    subsequent `τ.length` cells to the right of `ℓ + 1` equal the finite binary word `τ`. -/
+def RealizesSymbolicState (t ℓ : Nat) (τ : List Bool) : Prop :=
+  ModeADepth t ℓ ∧ rowAt t ((ℓ + 2 : Nat) : Int) τ.length = τ
+
+/-- **G8.1 Completeness of Variable-Length Symbolic Event States
+    (`g8_p1_every_step_realizes_symbolic_state`)**:
+    For every step `t ≥ 1` of the single-seed trajectory and every desired tail length `m : Nat`,
+    there exist `ℓ : Nat` and a binary word `τ : List Bool` of length `m` such that
+    `RealizesSymbolicState t ℓ τ` holds. -/
+theorem g8_p1_every_step_realizes_symbolic_state (t m : Nat) (ht : 1 ≤ t) :
+    ∃ (ℓ : Nat) (τ : List Bool), τ.length = m ∧ RealizesSymbolicState t ℓ τ := by
+  obtain ⟨ℓ, hM⟩ := g4_p1_every_step_has_modeADepth t ht
+  refine ⟨ℓ, rowAt t ((ℓ + 2 : Nat) : Int) m, length_rowAt t m _, ⟨hM, ?_⟩⟩
+  rw [length_rowAt]
+
+/-- **G8.2 Center-Column Driving Word Extractor (`col0Word`)**:
+    Extracts the length-`L` binary driving word `[cell t 0, cell (t + 1) 0, ..., cell (t + L - 1) 0]`
+    from column `0`. -/
+def col0Word (t : Nat) : Nat → List Bool
+  | 0 => []
+  | L + 1 => cell t 0 :: col0Word (t + 1) L
+
+/-- **G8.2 Certified Word-Driven Symbolic Boundary Operator (`runWord`)**:
+    Advances a finite right-boundary word `σ : List Bool` through an arbitrary sequence of
+    center-column driving bits `w : List Bool` using `stepRow`. -/
+def runWord : List Bool → List Bool → List Bool
+  | [], σ => σ
+  | c :: cs, σ => runWord cs (stepRow c σ)
+
+/-- **G8.2 Exact Soundness of `runWord` Against Rule 30 Evolution (`g8_p1_runWord_rowAt`)**:
+    For every horizon `L : Nat`, output prefix width `n : Nat`, and time `t : Nat`,
+    driving the length-`(n + L)` right-boundary prefix `rowAt t 1 (n + L)` by `col0Word t L`
+    produces the exact length-`n` right-boundary prefix `rowAt (t + L) 1 n`. -/
+theorem g8_p1_runWord_rowAt :
+    ∀ (L n t : Nat),
+      runWord (col0Word t L) (rowAt t 1 (n + L)) = rowAt (t + L) 1 n
+  | 0, n, t => by simp [col0Word, runWord]
+  | L + 1, n, t => by
+    have hstep : stepRow (cell t 0) (rowAt t 1 (n + L + 1)) = rowAt (t + 1) 1 (n + L) := by
+      have h := stepRow_rowAt t (n + L) 1
+      rwa [show (1 : Int) - 1 = 0 by rfl] at h
+    have ih := g8_p1_runWord_rowAt L n (t + 1)
+    show runWord (col0Word (t + 1) L) (stepRow (cell t 0) (rowAt t 1 (n + (L + 1)))) =
+      rowAt (t + (L + 1)) 1 n
+    rw [show n + (L + 1) = n + L + 1 by omega, hstep, ih,
+      show t + 1 + L = t + (L + 1) by omega]
+
+/-- **G8.3 Exact Prefix-Extension Identity for `rowAt` (`g8_p1_rowAt_append_split`)**:
+    Any right-boundary word of length `m + k` splits as the concatenation of the length-`m`
+    prefix and the length-`k` extension starting at `p + m`. -/
+theorem g8_p1_rowAt_append_split (t : Nat) :
+    ∀ (m k : Nat) (p : Int),
+      rowAt t p (m + k) = rowAt t p m ++ rowAt t (p + (m : Int)) k
+  | 0, k, p => by simp [rowAt]
+  | m + 1, k, p => by
+    have ih := g8_p1_rowAt_append_split t m k (p + 1)
+    rw [show p + 1 + (m : Int) = p + ((m + 1 : Nat) : Int) by omega] at ih
+    rw [show m + 1 + k = (m + k) + 1 by omega]
+    show cell t p :: rowAt t (p + 1) (m + k) =
+      cell t p :: (rowAt t (p + 1) m ++ rowAt t (p + ((m + 1 : Nat) : Int)) k)
+    rw [ih]
+
+/-- **G8.3 Soundness of Counterexample-Guided Symbolic State Refinement
+    (`g8_p1_symbolic_refinement_preserves_realizability`)**:
+    If time `t` realizes symbolic state `(ℓ, τ)`, then for every extension length `k : Nat`,
+    there exists a length-`k` suffix `τ_ext` such that `t` realizes the refined state
+    `(ℓ, τ ++ τ_ext)`. -/
+theorem g8_p1_symbolic_refinement_preserves_realizability (t ℓ k : Nat) (τ : List Bool)
+    (hR : RealizesSymbolicState t ℓ τ) :
+    ∃ τ_ext : List Bool, τ_ext.length = k ∧ RealizesSymbolicState t ℓ (τ ++ τ_ext) := by
+  let τ_ext := rowAt t (((ℓ + 2 : Nat) : Int) + (τ.length : Int)) k
+  have hlen : τ_ext.length = k := length_rowAt t k _
+  refine ⟨τ_ext, hlen, ⟨hR.1, ?_⟩⟩
+  rw [List.length_append, hlen, g8_p1_rowAt_append_split, hR.2]
+
+/-- **G8.3 Symbolic Prefix Refinement Resolves the `G7.1` Collision (`g8_p1_symbolic_runWord_resolves_g7_collision`)**:
+    Whereas scalar depth `ℓ = 0` (`p = 1` is `true`) is ambiguous under the cycle word
+    `w = [false, true]` (`(r = 1, b = 1)`), refining the right-boundary prefix to length `4`
+    deterministically separates the `G7.1` colliding configurations:
+    - `runWord [false, true] [true, false, false, false] = [false, false]` (`ℓ_next ≥ 2`),
+    - `runWord [false, true] [true, true, true, false] = [false, true]` (`ℓ_next = 1`). -/
+theorem g8_p1_symbolic_runWord_resolves_g7_collision :
+    runWord [false, true] [true, false, false, false] = [false, false] ∧
+    runWord [false, true] [true, true, true, false] = [false, true] := by
+  exact ⟨rfl, rfl⟩
+
+/-- **G8.4 Associative Composition of `runWord` Across Arbitrary Concatenated Words
+    (`g8_p1_runWord_append`)**:
+    For any two center driving words `w₁, w₂ : List Bool` and any symbolic boundary word
+    `σ : List Bool`, `runWord (w₁ ++ w₂) σ = runWord w₂ (runWord w₁ σ)`. -/
+theorem g8_p1_runWord_append :
+    ∀ (w₁ w₂ : List Bool) (σ : List Bool),
+      runWord (w₁ ++ w₂) σ = runWord w₂ (runWord w₁ σ)
+  | [], _, _ => rfl
+  | c :: cs, w₂, σ => g8_p1_runWord_append cs w₂ (stepRow c σ)
+
+/-- **G8.4 Exact Concatenation Law for `col0Word` (`g8_p1_col0Word_append`)**:
+    The center driving word of length `L₁ + L₂` at time `t` factors as the concatenation of
+    `col0Word t L₁` and `col0Word (t + L₁) L₂`. -/
+theorem g8_p1_col0Word_append :
+    ∀ (L₁ L₂ t : Nat),
+      col0Word t (L₁ + L₂) = col0Word t L₁ ++ col0Word (t + L₁) L₂
+  | 0, L₂, t => by simp [col0Word]
+  | L₁ + 1, L₂, t => by
+    have ih := g8_p1_col0Word_append L₁ L₂ (t + 1)
+    rw [show t + 1 + L₁ = t + (L₁ + 1) by omega] at ih
+    rw [show L₁ + 1 + L₂ = (L₁ + L₂) + 1 by omega]
+    show cell t 0 :: col0Word (t + 1) (L₁ + L₂) =
+      cell t 0 :: (col0Word (t + 1) L₁ ++ col0Word (t + (L₁ + 1)) L₂)
+    rw [ih]
+
+/-- **G8.5 Symbolic Prefix Synchronization Excludes Arbitrary Multi-Run Periodic Words
+    (`g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period`)**:
+    For **any** hypothetical period `P > 0` of `Rule30Prize.center` from time `T` on
+    (regardless of how many white and black runs the period contains), if there exists a phase
+    `t₁ ≥ T` at which the length-`P` symbolic right-boundary prefix synchronizes across all
+    periods `k` (`∀ k, ∀ p : Int, 1 ≤ p → p ≤ P → cell (t₁ + k * P) p = cell t₁ p`),
+    then column `1` is eventually periodic with period `P`, contradicting `not_adjacent 0`. -/
+theorem g8_p1_symbolic_prefix_synchronization_excludes_arbitrary_period
+    (T P t₁ : Nat)
+    (hP : 0 < P)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (ht₁ : T ≤ t₁)
+    (hsync : ∀ k : Nat, ∀ p : Int, 1 ≤ p → p ≤ (P : Int) →
+      cell (t₁ + k * P) p = cell t₁ p) :
+    False := by
+  have hperk : ∀ k t, T ≤ t → Rule30Prize.center (t + k * P) = Rule30Prize.center t :=
+    periodic_mul hper
+  have hdrv : ∀ k s, cell (t₁ + s) 0 = cell (t₁ + k * P + s) 0 := by
+    intro k s
+    have h := hperk k (t₁ + s) (by omega)
+    show Rule30Prize.center (t₁ + s) = Rule30Prize.center (t₁ + k * P + s)
+    rw [show t₁ + k * P + s = t₁ + s + k * P by omega, h]
+  have hcol1 : ∀ k s, s < P → cell (t₁ + s) 1 = cell (t₁ + k * P + s) 1 := by
+    intro k s hs
+    exact cone_agree t₁ (t₁ + k * P) P (hdrv k)
+      (fun p hp1 hpP => (hsync k p hp1 hpP).symm) s 1 (by omega) (by omega)
+  have hper1 : EventuallyPeriodic (fun t => cell t (0 + 1)) := by
+    refine ⟨t₁, P, hP, fun t ht => ?_⟩
+    show cell (t + P) (0 + 1) = cell t (0 + 1)
+    rw [show (0 : Int) + 1 = 1 by rfl]
+    have hdm := Nat.div_add_mod (t - t₁) P
+    generalize (t - t₁) / P = q at hdm
+    have hmod := Nat.mod_lt (t - t₁) hP
+    generalize (t - t₁) % P = s at hdm hmod
+    have hq1 : (q + 1) * P = q * P + P := Nat.succ_mul q P
+    have e1 := hcol1 q s hmod
+    have e2 := hcol1 (q + 1) s hmod
+    rw [hq1] at e2
+    have hcomm : P * q = q * P := Nat.mul_comm P q
+    rw [show t + P = t₁ + (q * P + P) + s by omega, ← e2, e1,
+      show t₁ + q * P + s = t by omega]
+  have hper0 : EventuallyPeriodic (fun t => cell t 0) := ⟨T, P, hP, hper⟩
+  exact not_adjacent 0 hper0 hper1
+
+/-- **G8.5 Exclusion of Multi-Run Periods Containing a `≥ 9` Black Run and Long White Run
+    (`g8_p1_multi_run_period_with_long_black_and_white_excluded`)**:
+    Generalizes `g7_p1_no_periodic_0r_1b_for_b_ge_9` to **multi-run** periods of length `P`:
+    if a period of length `P` contains a black run of length `s ≥ 9` followed by a white run
+    of length `r ≥ 1 + 9 * ((P - s - r + 9) / 2)`, then even when the remaining `P - s - r`
+    steps of the period contain arbitrary additional black and white runs, the periodic
+    trajectory is unconditionally impossible (`False`). -/
+theorem g8_p1_multi_run_period_with_long_black_and_white_excluded
+    (T P s r t₁ : Nat)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t)
+    (ht₁ : T ≤ t₁)
+    (hs : 9 ≤ s)
+    (hsr : s + r ≤ P)
+    (hblk : ∀ i, i < s → Rule30Prize.center (t₁ + i) = true)
+    (hwht : ∀ i, i < r → Rule30Prize.center (t₁ + s + i) = false)
+    (hlong : 1 + 9 * ((P - s - r + 9) / 2) ≤ r) :
+    False :=
+  no_black_white_run T P s r t₁ hper ht₁ hs hsr hblk hwht hlong
+
+/-- **G8.6 Word-Level Signed Discrepancy Observable (`wordDiscrepancyWeight`)**:
+    Computes the net signed discrepancy increment `∑_{c ∈ w} (if c then +1 else -1)` of any
+    symbolic center driving word `w : List Bool`. -/
+def wordDiscrepancyWeight : List Bool → Int
+  | [] => 0
+  | c :: cs => (if c then 1 else -1) + wordDiscrepancyWeight cs
+
+/-- **G8.6 Exact Additive Homomorphism of `wordDiscrepancyWeight` (`g8_p2_wordDiscrepancyWeight_append`)**:
+    For any two center driving words `w₁, w₂ : List Bool`, the discrepancy weight of the
+    concatenated word `w₁ ++ w₂` equals the sum of their individual discrepancy weights. -/
+theorem g8_p2_wordDiscrepancyWeight_append :
+    ∀ (w₁ w₂ : List Bool),
+      wordDiscrepancyWeight (w₁ ++ w₂) =
+        wordDiscrepancyWeight w₁ + wordDiscrepancyWeight w₂
+  | [], w₂ => by simp [wordDiscrepancyWeight]
+  | c :: cs, w₂ => by
+    have ih := g8_p2_wordDiscrepancyWeight_append cs w₂
+    show (if c then 1 else -1) + wordDiscrepancyWeight (cs ++ w₂) =
+      ((if c then 1 else -1) + wordDiscrepancyWeight cs) + wordDiscrepancyWeight w₂
+    rw [ih]
+    omega
+
 end Rule30Submission

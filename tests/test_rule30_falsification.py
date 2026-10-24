@@ -28,6 +28,7 @@ from experiments.rule30_falsification.benchmark import (
     run_g5_three_prize_continuation,
     run_g6_prize_mechanism_qualification,
     run_g7_collatz_return_map_transfer,
+    run_g8_symbolic_return_machine_qualification,
     sideways_left_iterated,
     sideways_left_step,
     simulate_spacetime_cone,
@@ -290,7 +291,7 @@ def test_g0_g2_prize_qualification_and_official_check_lean() -> None:
     assert res.check_lean_verdict_pass is True
     assert res.check_lean_replay_ok is True
     assert res.check_lean_new_axioms_empty is True
-    assert len(res.check_lean_verified_headlines) == 61
+    assert len(res.check_lean_verified_headlines) == 71
 
     by_name = {p.rule_name: p for p in res.control_profiles}
     assert list(by_name["g90"].point_quotient_sizes) == [2, 2, 2, 2, 2]
@@ -418,6 +419,33 @@ def test_g7_collatz_return_map_transfer() -> None:
     assert g7.weighted_operator_composition_mismatches == 0
     assert g7.honest_cost_prevents_unjustified_p3_shortcut is True
     assert len(g7.g7_headlines_verified) == 10
+
+
+def test_g8_symbolic_return_machine_qualification() -> None:
+    """Verify Gate R30-PRIZE-G8 (G8.1-G8.6) exact symbolic return-machine qualification."""
+    g8 = run_g8_symbolic_return_machine_qualification(steps=450)
+    assert g8.gate_passed is True
+    assert g8.symbolic_state_checks >= 500
+    assert g8.symbolic_state_mismatches == 0
+    assert g8.run_word_soundness_checks >= 100
+    assert g8.run_word_soundness_mismatches == 0
+    assert g8.exact_closure_transitions_count > 0
+    assert g8.ambiguous_closure_transitions_count > 0
+    assert g8.contradiction_transitions_rejected_count > 0
+    assert g8.initial_ambiguous_buckets_at_tau0 == 7
+    assert g8.remaining_ambiguous_buckets_after_refinement == 0
+    assert g8.max_refined_tail_length_needed >= 4
+    assert g8.refinement_preserves_all_realizable_trajectories is True
+    assert g8.multi_run_composition_checks >= 100
+    assert g8.multi_run_composition_mismatches == 0
+    assert g8.multi_run_periods_excluded_count >= 8
+    assert g8.spurious_coarse_cycles_eliminated_by_prefix_sync >= 8
+    assert g8.word_discrepancy_homomorphism_checks >= 100
+    assert g8.word_discrepancy_homomorphism_mismatches == 0
+    assert g8.symbolic_machine_step_evaluations > 0
+    assert g8.symbolic_machine_cell_updates > g8.symbolic_machine_step_evaluations
+    assert len(g8.g8_headlines_verified) == 10
+
 
 
 
