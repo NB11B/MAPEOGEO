@@ -524,5 +524,73 @@ def verify_mechanism_a_delayed_descent_and_quotient_collapse(
     }
 
 
+def verify_section9_trichotomy_and_two_point_shift(
+    max_n: int = 500,
+) -> Dict[str, object]:
+    """
+    Verify Section 9 Two-Point Temporal Self-Similarity and Interior Excursion laws:
+      1. For any pair of depths (i, j) along a trajectory with F^j(n) = F^i(n) + q * 2^k,
+         parityWordOf k (F^j(n)) == parityWordOf k (F^i(n)) and
+         F^{j+k}(n) == F^{i+k}(n) + q * 3^{a_k(F^i(n))}, with opposite parity when q is odd.
+      2. Along any non-descending prefix of n >= 1024 (checked up to max_n + sample >= 1024),
+         every intermediate step i with i + 2 <= r_max and 0 < s_i and 3 * s_i + 1 < n
+         satisfies s_i >= 4 and s_i % 4 == 0.
+    """
+    trajectories_checked = 0
+    two_point_pairs_checked = 0
+    two_point_shift_mismatches = 0
+    two_point_parity_flip_mismatches = 0
+    interior_gap_ge4_failures = 0
+
+    candidates = [n for n in range(3, max_n + 1, 4)] + [
+        n for n in range(1027, 1027 + 400, 4)
+    ]
+    for n in candidates:
+        trajectories_checked += 1
+        orbit = [n]
+        curr = n
+        while curr >= n:
+            curr = accelerated_collatz(curr)
+            orbit.append(curr)
+        r_max = len(orbit) - 2
+
+        for i in range(1, r_max + 1):
+            s_i = orbit[i] - n
+            if i + 2 <= r_max and 0 < s_i and 3 * s_i + 1 < n:
+                if s_i < 4 or (s_i % 4) != 0:
+                    interior_gap_ge4_failures += 1
+
+        limit_idx = min(len(orbit), 25)
+        for i in range(limit_idx):
+            for j in range(i + 1, limit_idx):
+                if orbit[j] <= orbit[i]:
+                    continue
+                diff = orbit[j] - orbit[i]
+                k = 0
+                while (diff % (1 << k)) == 0 and (j + k) < len(orbit):
+                    two_point_pairs_checked += 1
+                    q = diff >> k
+                    w_i = parity_word_of(k, orbit[i])
+                    w_j = parity_word_of(k, orbit[j])
+                    a_k = sum(1 for b in w_i if b)
+                    if w_j != w_i:
+                        two_point_shift_mismatches += 1
+                    if orbit[j + k] != orbit[i + k] + q * (3 ** a_k):
+                        two_point_shift_mismatches += 1
+                    if (q & 1) == 1:
+                        if (orbit[j + k] & 1) == (orbit[i + k] & 1):
+                            two_point_parity_flip_mismatches += 1
+                    k += 1
+
+    return {
+        "trajectories_checked": trajectories_checked,
+        "two_point_pairs_checked": two_point_pairs_checked,
+        "two_point_shift_mismatches": two_point_shift_mismatches,
+        "two_point_parity_flip_mismatches": two_point_parity_flip_mismatches,
+        "interior_gap_ge4_failures": interior_gap_ge4_failures,
+    }
+
+
+
 
 

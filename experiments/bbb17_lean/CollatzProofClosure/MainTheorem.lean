@@ -394,5 +394,54 @@ theorem mechanismA_delayed_descent_and_quotient_collapse_master (n i r : Nat)
   exact ⟨hev_elim (by omega), hmod4_elim hir2, hs4 hir2,
     fun hfc => hfc13 hfc hir2, hq_bound, hq_zero⟩
 
+/-- Unified Contradiction Trichotomy Master Theorem (`unified_contradiction_trichotomy_master`):
+    Synthesizes the Section 9 contradiction architecture for a hypothetical never-descending
+    orbit (`∀ r, iterateAccelerated n r ≥ n`):
+    1. **Case A → Case C Reduction**: Any bounded recurrence (`M - n + 2` visits to `[n, M]`)
+       repeats an iterate and constructively extracts a pure cycle minimum `m* ≥ n > 1` with
+       `iterateAccelerated m* p = m*` (`p ≥ 1`) and `∀ r, iterateAccelerated m* r ≥ m*`.
+    2. **Sharpened Case C Cycle Obstructions**: Any strict cycle minimum `n > 1` of minimal period `p ≥ 1`
+       satisfies `n ≥ 1024`, `p ≥ 65`, `iterateAccelerated n i ≥ n + 4` for all `1 ≤ i < p`,
+       `signedProjectiveGap (parityWordOf p n) n = 0`, `wordB (parityWordOf p n) % n = 0`, and
+       `deficitReservoir n p + 2^p * n^{a_p + 1} = n * (3 * n + 1)^{a_p}`.
+    3. **Two-Target Equivalence**: `CollatzConjecture` holds if and only if both Pure Cycle Exclusion
+       (Case C) and Injective / Escape-to-Infinity Non-Descent Exclusion (Case B) hold. -/
+theorem unified_contradiction_trichotomy_master :
+    (∀ (n M : Nat) (depthSeq : Nat → Nat),
+      n > 1 →
+      (∀ r : Nat, iterateAccelerated n r ≥ n) →
+      (∀ t₁ t₂ : Nat, t₁ < t₂ → depthSeq t₁ < depthSeq t₂) →
+      (∀ t : Nat, t ≤ M - n + 1 → iterateAccelerated n (depthSeq t) ≤ M) →
+      ∃ m_star p : Nat,
+        p ≥ 1 ∧ m_star ≥ n ∧ m_star > 1 ∧
+        iterateAccelerated m_star p = m_star ∧
+        ∀ r : Nat, iterateAccelerated m_star r ≥ m_star) ∧
+    (∀ (n p : Nat),
+      n > 1 → p ≥ 1 →
+      (∀ i : Nat, 1 ≤ i → i < p → iterateAccelerated n i > n) →
+      iterateAccelerated n p = n →
+      let w_p := parityWordOf p n
+      let a_p := wordOnes w_p
+      n ≥ 1024 ∧ p ≥ 65 ∧
+      (∀ i : Nat, 1 ≤ i → i < p → iterateAccelerated n i - n ≥ 4) ∧
+      signedProjectiveGap w_p n = 0 ∧
+      wordDelta w_p * n = wordB w_p ∧
+      wordB w_p % n = 0 ∧
+      deficitReservoir n p + 2 ^ p * n ^ (a_p + 1) = n * (3 * n + 1) ^ a_p) ∧
+    (CollatzConjecture ↔
+      (¬(∃ m p : Nat, m > 1 ∧ p ≥ 1 ∧
+          iterateAccelerated m p = m ∧ ∀ r : Nat, iterateAccelerated m r ≥ m) ∧
+       ¬(∃ n : Nat, n > 1 ∧
+          (∀ r : Nat, iterateAccelerated n r ≥ n) ∧
+          (∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j)))) := by
+  refine ⟨?_, ?_, collatz_iff_no_pure_cycle_and_no_divergent_nondescent⟩
+  · intro n M depthSeq hn1 hnever_desc hmono hbounded
+    exact (bounded_recurrence_reduces_to_pure_cycle n M depthSeq hn1 hnever_desc hmono hbounded).2
+  · intro n p hn1 hp1 hstrict hcycle
+    dsimp
+    rcases cycle_interior_gap_ge_four_and_reservoir_identity n p hn1 hp1 hstrict hcycle with
+      ⟨hn1024, hp65, hint, hgap0, hnd, hBmod, hcons⟩
+    exact ⟨hn1024, hp65, fun i hi1 hip => (hint i hi1 hip).1, hgap0, hnd, hBmod, hcons⟩
+
 end CollatzProofClosure
 end BBB17

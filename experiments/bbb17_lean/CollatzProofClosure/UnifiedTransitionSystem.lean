@@ -2398,5 +2398,460 @@ theorem survivingLiftSet_quotient_collapse_and_liftBit_lock (n i r : Nat)
     rw [hres_succ] at hmul_ge
     omega
 
+/-! ## Section 9: Unified Trichotomy Reduction, Two-Point Temporal Self-Similarity, and Sharpened Cycle Obstructions
+
+    We now organize the entire contradiction architecture around a hypothetical never-descending
+    integer `n > 1` (`∀ r ≥ 0, T^r(n) ≥ n`), partitioning its possible long-time behavior into
+    three cases:
+    - **Case A (Bounded Recurrence)**: Infinitely many iterates (or `M - n + 2` iterates) lie in a
+      bounded interval `[n, M]`, or a surplus `s = T^i(n) - n` recurs (`T^i(n) - n = T^j(n) - n` for `i < j`).
+    - **Case B (Escape to Infinity / Strictly Injective Non-Descent)**: No two iterates coincide
+      (`∀ i < j, T^i(n) ≠ T^j(n)`), and for every `M ≥ n`, at most `M - n + 1` iterates lie in `[n, M]`.
+    - **Case C (Pure Nontrivial Cycle)**: A periodic minimum `m* > 1` with `T^p(m*) = m*` (`p ≥ 1`)
+      and `∀ r ≥ 0, T^r(m*) ≥ m*`.
+
+    In this section we prove unconditionally in Lean 4:
+    1. **Two-Point Temporal Self-Similarity & 2-Adic Uniqueness (`two_point_orbit_shift_and_parity_divergence`)**:
+       For any two iterates `T^i(n)` and `T^j(n)` with `T^j(n) = T^i(n) + q * 2^k`, they share the
+       same `k`-step parity word, satisfy `T^{j+k}(n) = T^{i+k}(n) + q * 3^{a_k}`, and diverge onto
+       opposite parity branches at step `k` whenever `q` is odd. Conversely, sharing a `k`-step parity
+       word with `|T^j(n) - T^i(n)| < 2^k` forces `T^j(n) = T^i(n)`.
+    2. **Unconditional Reduction of Case A (Bounded Recurrence) to Case C (Pure Cycle Minimum)
+       (`recurrent_surplus_forces_pure_cycle_minimum`, `nat_pigeonhole_le`, `bounded_recurrence_reduces_to_pure_cycle`)**:
+       Any orbit visiting `[n, M]` at `M - n + 2` distinct depths repeats a surplus by the constructive
+       Pigeonhole Principle (`nat_pigeonhole_le`), which forces a periodic tail `T^{i+k}(n) = T^{j+k}(n)`
+       and extracts a pure cycle minimum `m* ≥ n > 1` satisfying `T^p(m*) = m*` and `∀ r, T^r(m*) ≥ m*`.
+    3. **Sharpened Case C Cycle Interior Excursion (`s_i ≥ 4`) and Exact Cycle Reservoir Identity
+       (`cycle_interior_gap_ge_four_and_reservoir_identity`)**:
+       Combining `descent_of_lt_1024` (`n ≥ 1024`) with `small_surplus_delayed_descent_elimination`
+       proves that along ANY nontrivial cycle of minimal period `p ≥ 1`, EVERY interior iterate
+       `1 ≤ i < p` must satisfy `T^i(n) ≥ n + 4` (ruling out `s_i ∈ {1, 2, 3}` globally!), while at
+       the period `p`, `G_p(n) = 0`, `B_{w_p} = (2^p - 3^{a_p}) * n`, and
+       `P_p(n) + 2^p * n^{a_p + 1} = n * (3 * n + 1)^{a_p}`.
+    4. **Exact Two-Target Reduction of the Collatz Conjecture (`collatz_iff_no_pure_cycle_and_no_divergent_nondescent`)**:
+       Because Case A reduces unconditionally to Case C, universal Collatz convergence is equivalent
+       to the conjunction of Pure Cycle Exclusion (Case C) and Divergent Non-Descent Exclusion (Case B).
+-/
+
+/-- Two-Point Temporal Self-Similarity and 2-Adic Valuation Divergence
+    (`two_point_orbit_shift_and_parity_divergence`):
+    For any `n i j k q : Nat`:
+    1. If `iterateAccelerated n j = iterateAccelerated n i + q * 2^k`, then:
+       - `parityWordOf k (iterateAccelerated n j) = parityWordOf k (iterateAccelerated n i)`,
+       - `iterateAccelerated n (j + k) = iterateAccelerated n (i + k) +
+           q * 3 ^ (wordOnes (parityWordOf k (iterateAccelerated n i)))`, and
+       - If `q % 2 = 1`, then `(iterateAccelerated n (j + k)) % 2 ≠ (iterateAccelerated n (i + k)) % 2`.
+    2. Conversely, if `parityWordOf k (iterateAccelerated n j) = parityWordOf k (iterateAccelerated n i)`,
+       `iterateAccelerated n i ≤ iterateAccelerated n j`, and
+       `iterateAccelerated n j - iterateAccelerated n i < 2^k`, then
+       `iterateAccelerated n j = iterateAccelerated n i`. -/
+theorem two_point_orbit_shift_and_parity_divergence (n i j k q : Nat) :
+    (iterateAccelerated n j = iterateAccelerated n i + q * 2 ^ k →
+      let w_ik := parityWordOf k (iterateAccelerated n i)
+      let a_ik := wordOnes w_ik
+      parityWordOf k (iterateAccelerated n j) = w_ik ∧
+      iterateAccelerated n (j + k) = iterateAccelerated n (i + k) + q * 3 ^ a_ik ∧
+      (q % 2 = 1 →
+        (iterateAccelerated n (j + k)) % 2 ≠ (iterateAccelerated n (i + k)) % 2)) ∧
+    (parityWordOf k (iterateAccelerated n j) = parityWordOf k (iterateAccelerated n i) →
+      iterateAccelerated n i ≤ iterateAccelerated n j →
+      iterateAccelerated n j - iterateAccelerated n i < 2 ^ k →
+      iterateAccelerated n j = iterateAccelerated n i) := by
+  refine ⟨?_, ?_⟩
+  · intro hshift
+    dsimp
+    have hv_i := parityWordOf_valid k (iterateAccelerated n i)
+    have hD_k : wordD (parityWordOf k (iterateAccelerated n i)) = 2 ^ k := by
+      rw [wordD_eq_pow_two_length, parityWordOf_length]
+    have hA_k : wordA (parityWordOf k (iterateAccelerated n i)) =
+        3 ^ wordOnes (parityWordOf k (iterateAccelerated n i)) :=
+      wordA_eq_pow_three_wordOnes (parityWordOf k (iterateAccelerated n i))
+    have hshift_D : iterateAccelerated n j =
+        iterateAccelerated n i + q * wordD (parityWordOf k (iterateAccelerated n i)) := by
+      rw [hD_k]; exact hshift
+    rcases parityWord_residue_shift (parityWordOf k (iterateAccelerated n i))
+      (iterateAccelerated n i) q hv_i with ⟨hv_j, hy_j⟩
+    rw [← hshift_D] at hv_j hy_j
+    have hw_eq : parityWordOf k (iterateAccelerated n j) =
+        parityWordOf k (iterateAccelerated n i) := by
+      have h := (validParityWord_iff_eq_parityWordOf
+        (parityWordOf k (iterateAccelerated n i)) (iterateAccelerated n j)).mp hv_j
+      rw [parityWordOf_length] at h
+      exact h
+    have hy_lhs : applyParityWord (iterateAccelerated n j)
+        (parityWordOf k (iterateAccelerated n i)) = iterateAccelerated n (j + k) := by
+      rw [← hw_eq, applyParityWord_parityWordOf, ← iterateAccelerated_add n j k]
+    have hy_rhs : applyParityWord (iterateAccelerated n i)
+        (parityWordOf k (iterateAccelerated n i)) = iterateAccelerated n (i + k) := by
+      rw [applyParityWord_parityWordOf, ← iterateAccelerated_add n i k]
+    rw [hy_lhs, hy_rhs, hA_k] at hy_j
+    refine ⟨hw_eq, hy_j, ?_⟩
+    intro hq_odd
+    have h3_odd := pow_three_mod_two_eq_one
+      (wordOnes (parityWordOf k (iterateAccelerated n i)))
+    have hprod_odd : (q * 3 ^ wordOnes (parityWordOf k (iterateAccelerated n i))) % 2 = 1 := by
+      rw [Nat.mul_mod, hq_odd, h3_odd]
+    rw [hy_j]
+    omega
+  · intro hw_eq hle hlt_pow
+    have hv_i := parityWordOf_valid k (iterateAccelerated n i)
+    have hv_j : validParityWord (iterateAccelerated n j)
+        (parityWordOf k (iterateAccelerated n i)) := by
+      rw [← hw_eq]
+      exact parityWordOf_valid k (iterateAccelerated n j)
+    have hmod0 := validParityWord_sub_mod_wordD_eq_zero
+      (parityWordOf k (iterateAccelerated n i))
+      (iterateAccelerated n i) (iterateAccelerated n j) hv_i hv_j hle
+    have hD_k : wordD (parityWordOf k (iterateAccelerated n i)) = 2 ^ k := by
+      rw [wordD_eq_pow_two_length, parityWordOf_length]
+    rw [hD_k, Nat.mod_eq_of_lt hlt_pow] at hmod0
+    omega
+
+/-- Helper lemma: periodicity of `iterateAccelerated x₀` across multiples of period `p`. -/
+theorem iterateAccelerated_add_mul_period (x₀ p : Nat)
+    (hper : iterateAccelerated x₀ p = x₀) :
+    ∀ (a q : Nat), iterateAccelerated x₀ (a + p * q) = iterateAccelerated x₀ a := by
+  intro a q
+  induction q with
+  | zero =>
+    rw [Nat.mul_zero, Nat.add_zero]
+  | succ q ih =>
+    have h1 : a + p * (q + 1) = p + (a + p * q) := by
+      rw [Nat.mul_add, Nat.mul_one]
+      omega
+    rw [h1, iterateAccelerated_add x₀ p (a + p * q), hper, ih]
+
+/-- Helper lemma: every non-empty prefix `0 ≤ t < p` (`p ≥ 1`) of `f : Nat → Nat` attains a minimum. -/
+theorem exists_min_on_prefix (f : Nat → Nat) :
+    ∀ p : Nat, p ≥ 1 → ∃ t_min : Nat, t_min < p ∧ ∀ t : Nat, t < p → f t_min ≤ f t
+  | 0, hp => by omega
+  | 1, _ => ⟨0, by omega, fun t ht => by
+      have heq : t = 0 := by omega
+      rw [heq]
+      omega⟩
+  | p' + 2, _ => by
+    rcases exists_min_on_prefix f (p' + 1) (by omega) with ⟨t₀, ht₀_lt, ht₀_min⟩
+    by_cases hle : f t₀ ≤ f (p' + 1)
+    · refine ⟨t₀, by omega, ?_⟩
+      intro t ht
+      by_cases hlt : t < p' + 1
+      · exact ht₀_min t hlt
+      · have heq : t = p' + 1 := by omega
+        rw [heq]
+        exact hle
+    · refine ⟨p' + 1, by omega, ?_⟩
+      intro t ht
+      by_cases hlt : t < p' + 1
+      · have h0 := ht₀_min t hlt
+        omega
+      · have heq : t = p' + 1 := by omega
+        rw [heq]
+        omega
+
+/-- Recurrent Surplus Forces a Pure Cycle Minimum (`recurrent_surplus_forces_pure_cycle_minimum`):
+    If a never-descending orbit of `n > 1` (`∀ r, iterateAccelerated n r ≥ n`) has a recurring
+    surplus `iterateAccelerated n i - n = iterateAccelerated n j - n` at two depths `i < j`,
+    then letting `p = j - i ≥ 1`:
+    1. `iterateAccelerated n i = iterateAccelerated n j`,
+    2. For all `k ≥ 0`, `iterateAccelerated n (i + k) = iterateAccelerated n (j + k)`, and
+    3. There exists a cycle minimum `m* = iterateAccelerated n (i + t*)` (`t* < p`) such that
+       `m* ≥ n > 1`, `iterateAccelerated m* p = m*`, and `∀ r : Nat, iterateAccelerated m* r ≥ m*`. -/
+theorem recurrent_surplus_forces_pure_cycle_minimum (n i j : Nat)
+    (hn1 : n > 1) (hij : i < j)
+    (hnever_desc : ∀ r : Nat, iterateAccelerated n r ≥ n)
+    (hsurp_eq : iterateAccelerated n i - n = iterateAccelerated n j - n) :
+    let p := j - i
+    p ≥ 1 ∧
+    iterateAccelerated n i = iterateAccelerated n j ∧
+    (∀ k : Nat, iterateAccelerated n (i + k) = iterateAccelerated n (j + k)) ∧
+    (∃ m_star : Nat,
+      m_star ≥ n ∧
+      m_star > 1 ∧
+      iterateAccelerated m_star p = m_star ∧
+      ∀ r : Nat, iterateAccelerated m_star r ≥ m_star) := by
+  dsimp
+  have hge_i := hnever_desc i
+  have hge_j := hnever_desc j
+  have heq_ij : iterateAccelerated n i = iterateAccelerated n j := by omega
+  have hp_pos : j - i ≥ 1 := by omega
+  have hj_eq : j = i + (j - i) := by omega
+  have hper_x0 : iterateAccelerated (iterateAccelerated n i) (j - i) =
+      iterateAccelerated n i := by
+    rw [← iterateAccelerated_add n i (j - i), ← hj_eq, heq_ij]
+  have htail : ∀ k : Nat, iterateAccelerated n (i + k) = iterateAccelerated n (j + k) := by
+    intro k
+    rw [iterateAccelerated_add n i k, iterateAccelerated_add n j k, heq_ij]
+  rcases exists_min_on_prefix (fun t => iterateAccelerated (iterateAccelerated n i) t)
+    (j - i) hp_pos with ⟨t_star, ht_lt, ht_min⟩
+  let m_star := iterateAccelerated (iterateAccelerated n i) t_star
+  have hm_eq : m_star = iterateAccelerated n (i + t_star) := by
+    unfold m_star
+    rw [← iterateAccelerated_add n i t_star]
+  have hm_ge_n : m_star ≥ n := by
+    rw [hm_eq]
+    exact hnever_desc (i + t_star)
+  have hm_per : iterateAccelerated m_star (j - i) = m_star := by
+    unfold m_star
+    rw [← iterateAccelerated_add (iterateAccelerated n i) t_star (j - i)]
+    have hmul1 : t_star + (j - i) = t_star + (j - i) * 1 := by omega
+    rw [hmul1]
+    exact iterateAccelerated_add_mul_period (iterateAccelerated n i) (j - i) hper_x0 t_star 1
+  have hm_min_all : ∀ r : Nat, iterateAccelerated m_star r ≥ m_star := by
+    intro r
+    unfold m_star
+    rw [← iterateAccelerated_add (iterateAccelerated n i) t_star r]
+    have hdiv := (Nat.mod_add_div (t_star + r) (j - i)).symm
+    have hper_div := iterateAccelerated_add_mul_period
+      (iterateAccelerated n i) (j - i) hper_x0
+      ((t_star + r) % (j - i)) ((t_star + r) / (j - i))
+    rw [← hdiv] at hper_div
+    rw [hper_div]
+    have hmod_lt : (t_star + r) % (j - i) < j - i := Nat.mod_lt _ (by omega)
+    exact ht_min ((t_star + r) % (j - i)) hmod_lt
+  exact ⟨hp_pos, heq_ij, htail, ⟨m_star, hm_ge_n, by omega, hm_per, hm_min_all⟩⟩
+
+/-- Helper lemma: decidable bounded search on `0 ≤ t ≤ K` for `f t = v`. -/
+theorem exists_le_eq_or_forall_ne (f : Nat → Nat) (v : Nat) :
+    ∀ K : Nat, (∃ t : Nat, t ≤ K ∧ f t = v) ∨ (∀ t : Nat, t ≤ K → f t ≠ v)
+  | 0 => by
+    by_cases h0 : f 0 = v
+    · exact Or.inl ⟨0, by omega, h0⟩
+    · exact Or.inr (fun t ht => by
+        have heq : t = 0 := by omega
+        rw [heq]
+        exact h0)
+  | K + 1 => by
+    rcases exists_le_eq_or_forall_ne f v K with ⟨t, ht, hft⟩ | hall
+    · exact Or.inl ⟨t, by omega, hft⟩
+    · by_cases hK1 : f (K + 1) = v
+      · exact Or.inl ⟨K + 1, by omega, hK1⟩
+      · refine Or.inr (fun t ht => ?_)
+        by_cases hle : t ≤ K
+        · exact hall t hle
+        · have heq : t = K + 1 := by omega
+          rw [heq]
+          exact hK1
+
+/-- Constructive Finite Pigeonhole Principle (`nat_pigeonhole_le`):
+    For every `K : Nat` and `f : Nat → Nat`, if `∀ t ≤ K + 1, f t ≤ K`
+    (`K + 2` values in `{0, 1, ..., K}`), then there exist `t₁ < t₂ ≤ K + 1` with `f t₁ = f t₂`. -/
+theorem nat_pigeonhole_le :
+    ∀ (K : Nat) (f : Nat → Nat),
+      (∀ t : Nat, t ≤ K + 1 → f t ≤ K) →
+      ∃ t₁ t₂ : Nat, t₁ < t₂ ∧ t₂ ≤ K + 1 ∧ f t₁ = f t₂
+  | 0, f, hbound => by
+    have h0 := hbound 0 (by omega)
+    have h1 := hbound 1 (by omega)
+    exact ⟨0, 1, by omega, by omega, by omega⟩
+  | K + 1, f, hbound => by
+    rcases exists_le_eq_or_forall_ne f (f (K + 2)) (K + 1) with ⟨t, ht, hft⟩ | hall_ne
+    · exact ⟨t, K + 2, by omega, by omega, hft⟩
+    · let g : Nat → Nat := fun t => if f t < f (K + 2) then f t else f t - 1
+      have hg_bound : ∀ t : Nat, t ≤ K + 1 → g t ≤ K := by
+        intro t ht
+        have hft_le := hbound t (by omega)
+        have hfK2_le := hbound (K + 2) (by omega)
+        have hne := hall_ne t ht
+        dsimp [g]
+        by_cases hlt : f t < f (K + 2)
+        · rw [if_pos hlt]; omega
+        · rw [if_neg hlt]; omega
+      rcases nat_pigeonhole_le K g hg_bound with ⟨t₁, t₂, hlt12, ht2_le, hg_eq⟩
+      refine ⟨t₁, t₂, hlt12, by omega, ?_⟩
+      have hne1 := hall_ne t₁ (by omega)
+      have hne2 := hall_ne t₂ ht2_le
+      dsimp [g] at hg_eq
+      by_cases h1 : f t₁ < f (K + 2) <;> by_cases h2 : f t₂ < f (K + 2)
+      · rw [if_pos h1, if_pos h2] at hg_eq; exact hg_eq
+      · rw [if_pos h1, if_neg h2] at hg_eq; omega
+      · rw [if_neg h1, if_pos h2] at hg_eq; omega
+      · rw [if_neg h1, if_neg h2] at hg_eq; omega
+
+/-- Unconditional Reduction of Case A (Bounded Recurrence) to Case C (Pure Cycle Minimum)
+    (`bounded_recurrence_reduces_to_pure_cycle`):
+    Suppose `n > 1` is never-descending (`∀ r, iterateAccelerated n r ≥ n`), and there exists a
+    bound `M ≥ n` and a strictly increasing sequence of depths `depthSeq : Nat → Nat`
+    (`∀ t₁ < t₂, depthSeq t₁ < depthSeq t₂`) such that `iterateAccelerated n (depthSeq t) ≤ M`
+    for all `0 ≤ t ≤ M - n + 1`. Then:
+    1. There exist `t₁ < t₂ ≤ M - n + 1` with `iterateAccelerated n (depthSeq t₁) = iterateAccelerated n (depthSeq t₂)`, and
+    2. There exists a pure cycle minimum `m* ≥ n > 1` and period `p = depthSeq t₂ - depthSeq t₁ ≥ 1`
+       such that `iterateAccelerated m* p = m*` and `∀ r : Nat, iterateAccelerated m* r ≥ m*`. -/
+theorem bounded_recurrence_reduces_to_pure_cycle (n M : Nat) (depthSeq : Nat → Nat)
+    (hn1 : n > 1)
+    (hnever_desc : ∀ r : Nat, iterateAccelerated n r ≥ n)
+    (hmono : ∀ t₁ t₂ : Nat, t₁ < t₂ → depthSeq t₁ < depthSeq t₂)
+    (hbounded : ∀ t : Nat, t ≤ M - n + 1 → iterateAccelerated n (depthSeq t) ≤ M) :
+    (∃ t₁ t₂ : Nat,
+      t₁ < t₂ ∧ t₂ ≤ M - n + 1 ∧
+      iterateAccelerated n (depthSeq t₁) = iterateAccelerated n (depthSeq t₂)) ∧
+    (∃ m_star p : Nat,
+      p ≥ 1 ∧ m_star ≥ n ∧ m_star > 1 ∧
+      iterateAccelerated m_star p = m_star ∧
+      ∀ r : Nat, iterateAccelerated m_star r ≥ m_star) := by
+  let f : Nat → Nat := fun t => iterateAccelerated n (depthSeq t) - n
+  have hf_bound : ∀ t : Nat, t ≤ M - n + 1 → f t ≤ M - n := by
+    intro t ht
+    have hle := hbounded t ht
+    dsimp [f]
+    omega
+  rcases nat_pigeonhole_le (M - n) f hf_bound with ⟨t₁, t₂, hlt12, ht2_le, hf_eq⟩
+  dsimp [f] at hf_eq
+  have hge1 := hnever_desc (depthSeq t₁)
+  have hge2 := hnever_desc (depthSeq t₂)
+  have hit_eq : iterateAccelerated n (depthSeq t₁) = iterateAccelerated n (depthSeq t₂) := by
+    omega
+  have hr_lt : depthSeq t₁ < depthSeq t₂ := hmono t₁ t₂ hlt12
+  rcases recurrent_surplus_forces_pure_cycle_minimum n (depthSeq t₁) (depthSeq t₂)
+    hn1 hr_lt hnever_desc hf_eq with ⟨hp_pos, _, _, ⟨m_star, hm_ge, hm1, hm_per, hm_min⟩⟩
+  exact ⟨⟨t₁, t₂, hlt12, ht2_le, hit_eq⟩,
+    ⟨m_star, depthSeq t₂ - depthSeq t₁, hp_pos, hm_ge, hm1, hm_per, hm_min⟩⟩
+
+/-- Sharpened Case C Cycle Interior Excursion (`s_i ≥ 4`) and Exact Cycle Reservoir Identity
+    (`cycle_interior_gap_ge_four_and_reservoir_identity`):
+    Suppose `n > 1` is the strict minimum element of a nontrivial cycle of minimal period `p ≥ 1`
+    (`∀ i, 1 ≤ i → i < p → iterateAccelerated n i > n` and `iterateAccelerated n p = n`).
+    Let `w_p = parityWordOf p n` and `a_p = wordOnes w_p`. Then:
+    1. `n ≥ 1024` and `p ≥ 65`,
+    2. For EVERY interior step `1 ≤ i < p`, the surplus `s_i = iterateAccelerated n i - n` satisfies
+       `s_i ≥ 4` (i.e. `iterateAccelerated n i ≥ n + 4`), `(s_i < n → s_i % 2 = 0)`, and
+       `(3 * s_i + 1 < n → s_i % 4 = 0)`,
+    3. At the period `p`, `signedProjectiveGap w_p n = 0`, `wordDelta w_p * n = wordB w_p`,
+       `wordB w_p % n = 0`, and
+    4. Exact Cycle Reservoir Identity:
+       `deficitReservoir n p + 2 ^ p * n ^ (a_p + 1) = n * (3 * n + 1) ^ a_p`. -/
+theorem cycle_interior_gap_ge_four_and_reservoir_identity (n p : Nat)
+    (hn1 : n > 1) (hp1 : p ≥ 1)
+    (hstrict : ∀ i : Nat, 1 ≤ i → i < p → iterateAccelerated n i > n)
+    (hcycle : iterateAccelerated n p = n) :
+    let w_p := parityWordOf p n
+    let a_p := wordOnes w_p
+    n ≥ 1024 ∧
+    p ≥ 65 ∧
+    (∀ i : Nat, 1 ≤ i → i < p →
+      let s_i := iterateAccelerated n i - n
+      s_i ≥ 4 ∧
+      (s_i < n → s_i % 2 = 0) ∧
+      (3 * s_i + 1 < n → s_i % 4 = 0)) ∧
+    signedProjectiveGap w_p n = 0 ∧
+    wordDelta w_p * n = wordB w_p ∧
+    wordB w_p % n = 0 ∧
+    deficitReservoir n p + 2 ^ p * n ^ (a_p + 1) = n * (3 * n + 1) ^ a_p := by
+  dsimp
+  have hmin : ∀ r : Nat, iterateAccelerated n r ≥ n := by
+    intro r
+    have hdiv := (Nat.mod_add_div r p).symm
+    have hper := iterateAccelerated_add_mul_period n p hcycle (r % p) (r / p)
+    rw [← hdiv] at hper
+    rw [hper]
+    have hmod_lt : r % p < p := Nat.mod_lt r hp1
+    cases hrem : r % p with
+    | zero => dsimp [iterateAccelerated]; omega
+    | succ i' =>
+      rw [hrem] at hmod_lt
+      have hgt := hstrict (i' + 1) (by omega) hmod_lt
+      omega
+  have hn_1024 : n ≥ 1024 := by
+    by_cases hlt : n < 1024
+    · rcases descent_of_lt_1024 n hn1 hlt with ⟨k, _, hk_lt⟩
+      have hge_k := hmin k
+      omega
+    · omega
+  have hp_65 : p ≥ 65 := by
+    by_cases hle64 : p ≤ 64
+    · exact False.elim (no_nontrivial_cycle_length_le_64 n p hn1 hp1 hle64 hmin hcycle)
+    · omega
+  have hint : ∀ i : Nat, 1 ≤ i → i < p →
+      let s_i := iterateAccelerated n i - n
+      s_i ≥ 4 ∧
+      (s_i < n → s_i % 2 = 0) ∧
+      (3 * s_i + 1 < n → s_i % 4 = 0) := by
+    intro i hi1 hip
+    dsimp
+    have hsurv : InSurvivingLiftSet n (i + 2) n := ⟨rfl, fun j _ => hmin j⟩
+    rcases small_surplus_delayed_descent_elimination n (i + 2) i hn1 (by omega) (by omega) hsurv with
+      ⟨hev, hmod4, hs4, _⟩
+    have hgt_i : iterateAccelerated n i > n := hstrict i hi1 hip
+    have hs_ge4 : iterateAccelerated n i - n ≥ 4 := by
+      by_cases hlt4 : iterateAccelerated n i - n < 4
+      · have hs3_lt : 3 * (iterateAccelerated n i - n) + 1 < n := by omega
+        exact hs4 (by omega) (by omega) hs3_lt
+      · omega
+    exact ⟨hs_ge4, hev (by omega), hmod4 (by omega)⟩
+  have hv_p := parityWordOf_valid p n
+  have hgap0 : signedProjectiveGap (parityWordOf p n) n = 0 := by
+    rw [(signedProjectiveGap_sign_trichotomy (parityWordOf p n) n hv_p).2.1,
+        applyParityWord_parityWordOf]
+    exact hcycle
+  rcases universal_cycle_minimum_element_bound n p n hn1 hp1 (by omega) (by omega)
+    (fun i _ => hmin i) hcycle with ⟨_, hcont, _, _⟩
+  have hDA : wordD (parityWordOf p n) ≥ wordA (parityWordOf p n) := by
+    rw [wordD_eq_pow_two_length, parityWordOf_length, wordA_eq_pow_three_wordOnes]
+    omega
+  have hge_p_ap : applyParityWord n (parityWordOf p n) ≥ n := by
+    rw [applyParityWord_parityWordOf, hcycle]
+    omega
+  have hnd := (discrete_deficit_nondescent_identity (parityWordOf p n) n hv_p hDA hge_p_ap).1
+  rw [applyParityWord_parityWordOf, hcycle, Nat.sub_self, Nat.mul_zero, Nat.add_zero] at hnd
+  have hB_mod : wordB (parityWordOf p n) % n = 0 := by
+    rw [hnd, Nat.mul_mod_left]
+  have hcons := reservoir_plus_surplus_eq_power_gap n p (fun i _ => hmin i)
+  dsimp at hcons
+  have hsurp0 : orbitSurplus n p = 0 := by
+    unfold orbitSurplus
+    rw [hcycle, Nat.sub_self, Nat.mul_zero]
+  rw [hsurp0, Nat.mul_zero, Nat.add_zero] at hcons
+  exact ⟨hn_1024, hp_65, hint, hgap0, hnd.symm, hB_mod, hcons⟩
+
+/-- Unified Two-Target Contradiction Theorem (`collatz_iff_no_pure_cycle_and_no_divergent_nondescent`):
+    Because Case A (bounded recurrence) reduces unconditionally to Case C (pure cycle minimum),
+    universal Collatz convergence (`CollatzConjecture`) is equivalent to the conjunction of:
+    1. **Pure Cycle Exclusion (Case C)**:
+       `¬(∃ m > 1, ∃ p ≥ 1, iterateAccelerated m p = m ∧ ∀ r, iterateAccelerated m r ≥ m)`, and
+    2. **Injective / Divergent Non-Descent Exclusion (Case B)**:
+       `¬(∃ n > 1, (∀ r, iterateAccelerated n r ≥ n) ∧ (∀ i j, i < j → iterateAccelerated n i ≠ iterateAccelerated n j))`. -/
+theorem collatz_iff_no_pure_cycle_and_no_divergent_nondescent :
+    CollatzConjecture ↔
+      (¬(∃ m p : Nat, m > 1 ∧ p ≥ 1 ∧
+          iterateAccelerated m p = m ∧ ∀ r : Nat, iterateAccelerated m r ≥ m) ∧
+       ¬(∃ n : Nat, n > 1 ∧
+          (∀ r : Nat, iterateAccelerated n r ≥ n) ∧
+          (∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j))) := by
+  constructor
+  · intro hcollatz
+    have hdesc : ∀ n : Nat, n > 1 → ∃ k : Nat, k > 0 ∧ iterateAccelerated n k < n :=
+      universalAcceleratedDescent_iff_collatz.mpr hcollatz
+    refine ⟨?_, ?_⟩
+    · rintro ⟨m, p, hm1, _, _, hm_min⟩
+      rcases hdesc m hm1 with ⟨k, _, hk_lt⟩
+      have hge := hm_min k
+      omega
+    · rintro ⟨n, hn1, hn_min, _⟩
+      rcases hdesc n hn1 with ⟨k, _, hk_lt⟩
+      have hge := hn_min k
+      omega
+  · rintro ⟨hno_cycle, hno_div⟩
+    apply universalAcceleratedDescent_iff_collatz.mp
+    intro n hn1
+    by_cases hex : ∃ k : Nat, k > 0 ∧ iterateAccelerated n k < n
+    · exact hex
+    · exfalso
+      have hnever_desc : ∀ r : Nat, iterateAccelerated n r ≥ n := by
+        intro r
+        cases r with
+        | zero => dsimp [iterateAccelerated]; omega
+        | succ r' =>
+          by_cases hge : iterateAccelerated n (r' + 1) ≥ n
+          · exact hge
+          · exfalso
+            exact hex ⟨r' + 1, by omega, by omega⟩
+      have hinj : ∀ i j : Nat, i < j → iterateAccelerated n i ≠ iterateAccelerated n j := by
+        intro i j hij heq_ij
+        have hsurp : iterateAccelerated n i - n = iterateAccelerated n j - n := by
+          rw [heq_ij]
+        rcases recurrent_surplus_forces_pure_cycle_minimum n i j hn1 hij hnever_desc hsurp with
+          ⟨hp_pos, _, _, ⟨m_star, _, hm1, hm_per, hm_min⟩⟩
+        exact hno_cycle ⟨m_star, j - i, hm1, hp_pos, hm_per, hm_min⟩
+      exact hno_div ⟨n, hn1, hnever_desc, hinj⟩
+
 end CollatzProofClosure
 end BBB17

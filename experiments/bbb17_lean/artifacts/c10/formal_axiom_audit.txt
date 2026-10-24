@@ -143,3 +143,19 @@
 'BBB17.CollatzProofClosure.mechanismA_delayed_descent_and_quotient_collapse_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.two_point_orbit_shift_and_parity_divergence' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.iterateAccelerated_add_mul_period' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.exists_min_on_prefix' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.recurrent_surplus_forces_pure_cycle_minimum' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.exists_le_eq_or_forall_ne' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.nat_pigeonhole_le' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.bounded_recurrence_reduces_to_pure_cycle' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.cycle_interior_gap_ge_four_and_reservoir_identity' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.collatz_iff_no_pure_cycle_and_no_divergent_nondescent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.unified_contradiction_trichotomy_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

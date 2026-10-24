@@ -42,6 +42,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_normalized_reservoir_and_exponential_decay,
     verify_projective_fixed_point_laws,
     verify_psmsl_matrix_algebra,
+    verify_section9_trichotomy_and_two_point_shift,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -134,6 +135,13 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(mech_a["orbit_shift_mismatches"], 0)
         self.assertEqual(mech_a["parity_flip_mismatches"], 0)
         self.assertEqual(mech_a["delayed_descent_lock_failures"], 0)
+
+    def test_ws6_section9_trichotomy_and_two_point_shift(self) -> None:
+        sec9 = verify_section9_trichotomy_and_two_point_shift(max_n=500)
+        self.assertGreater(sec9["two_point_pairs_checked"], 0)
+        self.assertEqual(sec9["two_point_shift_mismatches"], 0)
+        self.assertEqual(sec9["two_point_parity_flip_mismatches"], 0)
+        self.assertEqual(sec9["interior_gap_ge4_failures"], 0)
 
 
 def generate_c10_artifacts() -> None:
