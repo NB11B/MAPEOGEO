@@ -3,7 +3,7 @@ from three_tracks import (
     Phase,phase,accelerated,register_step,affine_word,actual_word,
     orbit,run_campaign,classify_word_cycle,verify_envelope_and_drawdown,
     compare_binary_vs_base7,adaptive_residue_tree,verify_return_map_composition,
-    verify_minimal_crossing_pincer,
+    verify_minimal_crossing_pincer,verify_discrete_deficit_c9,
 )
 class TestTracks(unittest.TestCase):
     def test_register(self):
@@ -67,6 +67,12 @@ class TestTracks(unittest.TestCase):
         res=verify_minimal_crossing_pincer(12)
         self.assertEqual(res["exceptions"],0)
         self.assertGreater(res["first_crossing_words"],30)
+    def test_discrete_deficit_c9(self):
+        res=verify_discrete_deficit_c9(12)
+        self.assertEqual(res["min_quantized_quotient"],1)
+        self.assertEqual(res["separation_witnesses"][47],{"r":54,"a":34,"ym":46,"q":1})
+        self.assertEqual(res["separation_witnesses"][63],{"r":54,"a":34,"ym":61,"q":2})
+        self.assertEqual(res["separation_witnesses"][27],{"r":59,"a":37,"ym":23,"q":4})
     def test_orbit_cap(self):
         self.assertEqual(orbit(27,1)["kind"],"limit")
         self.assertEqual(orbit(27,200)["kind"],"reached_one")

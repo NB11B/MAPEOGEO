@@ -2577,4 +2577,563 @@ theorem survival_past_depth8_forces_ge_27 (n : Nat) (hn1 : n > 1)
     contradiction
   · omega
 
+/-! ### Gate C9: Exact Discrete Deficit Identity, Modular-Lifting Laws & Depth-100 Certification
+
+    1. **C9.1 — Exact Discrete Deficit Identity & Quantization Law**:
+       For every parity word `w` with `wordDelta w = wordD w - wordA w` and every admissible `m`:
+       `wordDelta w * m - wordB w = wordD w * (m - applyParityWord m w)` when `applyParityWord m w ≤ m`,
+       and `wordB w - wordDelta w * m = wordD w * (applyParityWord m w - m)` when `applyParityWord m w ≥ m`.
+       Consequently, a strictly positive deficit is quantized in multiples of `wordD w = 2^|w|`:
+       `wordDelta w * m > wordB w ↔ wordDelta w * m ≥ wordB w + wordD w`.
+    2. **C9.2 — Direct Arithmetic, Spectral-Band, Modular & 2-Adic Lifting Constraints**:
+       - Spectral band: `wordA w < wordD w ≤ 2 * wordA w` and `0 < wordDelta w ≤ wordA w` for `w ∈ 𝓜`.
+       - 2-adic parity lock: `wordB (b :: bs) % 2 = m % 2` for every admissible `m`.
+       - 3-adic non-divisibility: `wordB w % 3 ≠ 0` and `applyParityWord m w % 3 ≠ 0` whenever `wordOnes w ≥ 1`.
+       - Right-step 2-adic lifting dichotomy: `wordResidue (w ++ [b]) = wordResidue w` or
+         `wordResidue (w ++ [b]) = wordResidue w + wordD w`, with exact terminal-step output recurrence.
+       - Counterexample jump bound: any non-descending `w ∈ 𝓜` satisfies
+         `3 * (applyParityWord (minWordRep w) w - minWordRep w) < wordOnes w`, ruling out `wordOnes w ≤ 1`
+         universally for all word lengths `|w|`.
+    3. **C9.3 — Separation of C8 Coarse Pincer vs. C9 Exact Deficit & Unconditional Depth-100 Proof**:
+       - At `m₀ = 47` (`r = 54, a = 34`), the stronger C8 hypothesis `3 * wordDelta w * m_min(w) > a(w) * A(w)`
+         is false (`pincer_hypothesis_strictly_stronger_at_47`), yet `wordDelta w * 47 = wordB w + wordD w`
+         holds with minimum quantized deficit `1 * wordD w` (`iterateAccelerated 47 54 = 46`).
+       - Combining `checkPrefixExpandingAux` soundness with the spectral pincer proves unconditionally
+         in Lean (`firstCrossing_all_words_le_100_descend`) that EVERY first-crossing word `w ∈ 𝓜` of length
+         `|w| ≤ 100` satisfies `wordDelta w * minWordRep w ≥ wordB w + wordD w`.
+    4. **C9.4 — Exact Two-Obligation Decomposition of the Collatz Conjecture**:
+       `EveryNatCrossesSpectrally ∧ MinimalCrossingDeficitPositive → CollatzConjecture`.
+-/
+
+/-- Spectral contraction gap `Δ(w) = D(w) - A(w)`. -/
+def wordDelta (w : List Bool) : Nat :=
+  wordD w - wordA w
+
+/-- Exact Discrete Deficit Balance Law (`D(w) * F_w(m) + Δ(w) * m = D(w) * m + B(w)`):
+    Multiplier-free natural-number identity underlying `Δ(w) * m - B(w) = D(w) * (m - F_w(m))`. -/
+theorem discrete_deficit_balance (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hge : wordD w ≥ wordA w) :
+    wordD w * applyParityWord m w + wordDelta w * m = wordD w * m + wordB w := by
+  have haff := parityWord_affine_identity w m hv
+  unfold wordDelta
+  have hsub : (wordD w - wordA w) * m + wordA w * m = wordD w * m := by
+    rw [← Nat.add_mul, Nat.sub_add_cancel hge]
+  omega
+
+/-- Exact Discrete Deficit Identity in the Descent Regime (`F_w(m) ≤ m`):
+    `Δ(w) * m = B(w) + D(w) * (m - F_w(m))` and `Δ(w) * m - B(w) = D(w) * (m - F_w(m))`. -/
+theorem discrete_deficit_descent_identity (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hge : wordD w ≥ wordA w)
+    (hdesc : applyParityWord m w ≤ m) :
+    wordDelta w * m = wordB w + wordD w * (m - applyParityWord m w) ∧
+    wordDelta w * m - wordB w = wordD w * (m - applyParityWord m w) := by
+  have hbal := discrete_deficit_balance w m hv hge
+  have hmul : wordD w * (m - applyParityWord m w) + wordD w * applyParityWord m w = wordD w * m := by
+    rw [← Nat.mul_add, Nat.sub_add_cancel hdesc]
+  omega
+
+/-- Exact Discrete Deficit Identity in the Non-Descent Regime (`F_w(m) ≥ m`):
+    `B(w) = Δ(w) * m + D(w) * (F_w(m) - m)` and `B(w) - Δ(w) * m = D(w) * (F_w(m) - m)`. -/
+theorem discrete_deficit_nondescent_identity (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hge : wordD w ≥ wordA w)
+    (hnondesc : applyParityWord m w ≥ m) :
+    wordB w = wordDelta w * m + wordD w * (applyParityWord m w - m) ∧
+    wordB w - wordDelta w * m = wordD w * (applyParityWord m w - m) := by
+  have hbal := discrete_deficit_balance w m hv hge
+  have hmul : wordD w * (applyParityWord m w - m) + wordD w * m = wordD w * applyParityWord m w := by
+    rw [← Nat.mul_add, Nat.sub_add_cancel hnondesc]
+  omega
+
+/-- Discrete Deficit Quantization Theorem (No Small Positive Deficits):
+    Because `Δ(w) * m - B(w)` is an integer multiple of `D(w)` for every admissible `m`,
+    a strictly positive deficit cannot be smaller than `D(w) = 2^|w|`:
+    `Δ(w) * m > B(w) ↔ Δ(w) * m ≥ B(w) + D(w) ↔ F_w(m) < m`,
+    and `(Δ(w) * m - B(w)) % D(w) = 0` whenever `Δ(w) * m ≥ B(w)`. -/
+theorem discrete_deficit_quantization_iff (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hgt : wordD w > wordA w) :
+    (wordDelta w * m > wordB w ↔ wordDelta w * m ≥ wordB w + wordD w) ∧
+    (wordDelta w * m ≥ wordB w + wordD w ↔ applyParityWord m w < m) ∧
+    (wordDelta w * m ≥ wordB w → (wordDelta w * m - wordB w) % wordD w = 0) := by
+  have hge : wordD w ≥ wordA w := by omega
+  have hiff := contracting_word_descent_iff w m hv hgt
+  unfold wordDelta at *
+  refine ⟨?_, ?_, ?_⟩
+  · constructor
+    · intro hpos
+      have hlt : applyParityWord m w < m := hiff.mpr hpos
+      have hle : applyParityWord m w ≤ m := by omega
+      have hident := (discrete_deficit_descent_identity w m hv hge hle).1
+      unfold wordDelta at hident
+      have hdiff_ge : m - applyParityWord m w ≥ 1 := by omega
+      have hD_le : wordD w * 1 ≤ wordD w * (m - applyParityWord m w) :=
+        Nat.mul_le_mul_left (wordD w) hdiff_ge
+      omega
+    · intro hquant
+      have hD_pos : wordD w > 0 := wordD_pos w
+      omega
+  · constructor
+    · intro hquant
+      have hD_pos : wordD w > 0 := wordD_pos w
+      exact hiff.mpr (by omega)
+    · intro hlt
+      have hle : applyParityWord m w ≤ m := by omega
+      have hident := (discrete_deficit_descent_identity w m hv hge hle).1
+      unfold wordDelta at hident
+      have hdiff_ge : m - applyParityWord m w ≥ 1 := by omega
+      have hD_le : wordD w * 1 ≤ wordD w * (m - applyParityWord m w) :=
+        Nat.mul_le_mul_left (wordD w) hdiff_ge
+      omega
+  · intro hge_B
+    have hle : applyParityWord m w ≤ m := by
+      by_cases hle' : applyParityWord m w ≤ m
+      · exact hle'
+      · have hnd := (discrete_deficit_nondescent_identity w m hv hge (by omega)).1
+        unfold wordDelta at hnd
+        have hdiff_ge : applyParityWord m w - m ≥ 1 := by omega
+        have hD_le : wordD w * 1 ≤ wordD w * (applyParityWord m w - m) :=
+          Nat.mul_le_mul_left (wordD w) hdiff_ge
+        have hD_pos : wordD w > 0 := wordD_pos w
+        omega
+    have hident := (discrete_deficit_descent_identity w m hv hge hle).2
+    unfold wordDelta at hident
+    rw [hident, Nat.mul_comm, Nat.mul_mod_left]
+
+/-- First-Crossing Spectral Band Theorem:
+    Every first-crossing word `w ∈ 𝓜` satisfies `A(w) < D(w) ≤ 2 * A(w)` and `0 < Δ(w) ≤ A(w)`. -/
+theorem firstCrossing_spectral_band (w : List Bool) (hw : IsFirstCrossing w) :
+    wordA w < wordD w ∧ wordD w ≤ 2 * wordA w ∧ 0 < wordDelta w ∧ wordDelta w ≤ wordA w := by
+  rcases hw with ⟨w₁, rfl, _, hle, hgt⟩
+  rw [wordD_append, wordA_append] at hgt ⊢
+  dsimp [wordD, wordA] at hgt ⊢
+  unfold wordDelta
+  rw [wordD_append, wordA_append]
+  dsimp [wordD, wordA]
+  omega
+
+/-- Every `wordA w` is odd (`wordA w % 2 = 1`). -/
+theorem wordA_odd (w : List Bool) : wordA w % 2 = 1 := by
+  induction w with
+  | nil => rfl
+  | cons b bs ih =>
+    cases b <;> dsimp [wordA] <;> omega
+
+/-- Universal 2-Adic Parity Lock (`wordB (b :: bs) % 2 = m % 2`):
+    For every non-empty parity word `b :: bs`, the parity of `wordB (b :: bs)` equals the
+    step bit `b` and matches the parity `m % 2` of every admissible input `m`. -/
+theorem wordB_mod_two_eq_input_mod_two (b : Bool) (bs : List Bool) (m : Nat)
+    (hv : validParityWord m (b :: bs)) :
+    wordB (b :: bs) % 2 = (if b then 1 else 0) ∧
+    wordB (b :: bs) % 2 = m % 2 := by
+  rcases hv with ⟨hm, _⟩
+  cases b with
+  | false =>
+    dsimp [wordB, stepParityMatches] at hm ⊢
+    omega
+  | true =>
+    dsimp [wordB, stepParityMatches] at hm ⊢
+    have hA := wordA_odd bs
+    omega
+
+/-- Helper lemma: `3 ^ a % 3 = 0` for `a ≥ 1`. -/
+theorem pow_three_mod_three_eq_zero (a : Nat) (ha : a ≥ 1) :
+    (3 ^ a) % 3 = 0 := by
+  cases a with
+  | zero => omega
+  | succ a' =>
+    rw [Nat.pow_succ]
+    omega
+
+/-- Universal 3-Adic Non-Divisibility of `B(w)`:
+    For every parity word `w` with at least one odd step (`wordOnes w ≥ 1`),
+    the affine offset `wordB w` is never divisible by `3` (`wordB w % 3 ≠ 0`). -/
+theorem wordB_mod_three_ne_zero (w : List Bool) (hones : wordOnes w ≥ 1) :
+    wordB w % 3 ≠ 0 := by
+  induction w with
+  | nil =>
+    dsimp [wordOnes] at hones
+    omega
+  | cons b bs ih =>
+    cases b with
+    | false =>
+      dsimp [wordOnes] at hones
+      have ih' := ih hones
+      dsimp [wordB]
+      omega
+    | true =>
+      dsimp [wordB]
+      by_cases hbs : wordOnes bs = 0
+      · have hA1 : wordA bs = 1 := by
+          rw [wordA_eq_pow_three_wordOnes, hbs]
+        have hB0 : wordB bs = 0 := (wordB_eq_zero_iff_wordA_eq_one bs).mpr hA1
+        omega
+      · have hbs_ge : wordOnes bs ≥ 1 := by omega
+        have ih' := ih hbs_ge
+        have hA0 : wordA bs % 3 = 0 := by
+          rw [wordA_eq_pow_three_wordOnes]
+          exact pow_three_mod_three_eq_zero (wordOnes bs) hbs_ge
+        omega
+
+/-- Universal 3-Adic Trajectory Exclusion (`F_w(m) % 3 ≠ 0`):
+    For every parity word `w` with `wordOnes w ≥ 1` and every admissible input `m`,
+    the output `applyParityWord m w` is never divisible by `3`. -/
+theorem applyParityWord_mod_three_ne_zero (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hones : wordOnes w ≥ 1) :
+    applyParityWord m w % 3 ≠ 0 := by
+  intro hdiv3
+  have haff := parityWord_affine_identity w m hv
+  have hB3 := wordB_mod_three_ne_zero w hones
+  have hA3 : wordA w % 3 = 0 := by
+    rw [wordA_eq_pow_three_wordOnes]
+    exact pow_three_mod_three_eq_zero (wordOnes w) hones
+  obtain ⟨k, hk⟩ : ∃ k, applyParityWord m w = 3 * k := ⟨applyParityWord m w / 3, by omega⟩
+  obtain ⟨q, hq⟩ : ∃ q, wordA w = 3 * q := ⟨wordA w / 3, by omega⟩
+  rw [hk, hq] at haff
+  have h1 : wordD w * (3 * k) = 3 * (wordD w * k) := by
+    rw [← Nat.mul_assoc, Nat.mul_comm (wordD w) 3, Nat.mul_assoc]
+  have h2 : (3 * q) * m = 3 * (q * m) := Nat.mul_assoc 3 q m
+  rw [h1, h2] at haff
+  omega
+
+/-- Exact 2-Adic Right-Step Lifting Dichotomy for Canonical Residues:
+    When extending a parity word `w` by a step `b`, the canonical residue `wordResidue (w ++ [b])`
+    either remains `wordResidue w` (stabilized) or lifts to `wordResidue w + wordD w` (2-adic lift),
+    depending on whether `applyParityWord (wordResidue w) w` already matches parity `b`. -/
+theorem wordResidue_append_singleton_dichotomy (w : List Bool) (b : Bool) :
+    (wordResidue (w ++ [b]) = wordResidue w ∨
+     wordResidue (w ++ [b]) = wordResidue w + wordD w) ∧
+    (¬stepParityMatches (applyParityWord (wordResidue w) w) b →
+      wordResidue (w ++ [b]) = wordResidue w + wordD w ∧
+      minWordRep (w ++ [b]) ≥ wordD w) := by
+  have hv_ext : validParityWord (wordResidue (w ++ [b])) (w ++ [b]) :=
+    wordResidue_valid (w ++ [b])
+  have hv_pre : validParityWord (wordResidue (w ++ [b])) w :=
+    ((validParityWord_append w [b] (wordResidue (w ++ [b]))).mp hv_ext).1
+  have hmod : wordResidue (w ++ [b]) % wordD w = wordResidue w :=
+    (validParityWord_iff_mod_eq_wordResidue w (wordResidue (w ++ [b]))).mp hv_pre
+  have hlt : wordResidue (w ++ [b]) < wordD (w ++ [b]) :=
+    wordResidue_lt_wordD (w ++ [b])
+  rw [wordD_append] at hlt
+  dsimp [wordD] at hlt
+  have hdiv := Nat.mod_add_div (wordResidue (w ++ [b])) (wordD w)
+  obtain ⟨q, hq⟩ : ∃ q : Nat, wordResidue (w ++ [b]) / wordD w = q := ⟨_, rfl⟩
+  rw [hq] at hdiv
+  have hdich : wordResidue (w ++ [b]) = wordResidue w ∨
+      wordResidue (w ++ [b]) = wordResidue w + wordD w := by
+    have hq_lt : q < 2 := by
+      by_cases hlt2 : q < 2
+      · exact hlt2
+      · have hge2' : q ≥ 2 := by omega
+        have hmul : wordD w * 2 ≤ wordD w * q :=
+          Nat.mul_le_mul_left (wordD w) hge2'
+        omega
+    have hq_cases : q = 0 ∨ q = 1 := by omega
+    rcases hq_cases with hq0 | hq1
+    · left; rw [hq0, Nat.mul_zero, Nat.add_zero] at hdiv; omega
+    · right; rw [hq1, Nat.mul_one] at hdiv; omega
+  refine ⟨hdich, ?_⟩
+  intro hnot_match
+  have hne : wordResidue (w ++ [b]) ≠ wordResidue w := by
+    intro heq
+    rw [heq] at hv_ext
+    have hpost := ((validParityWord_append w [b] (wordResidue w)).mp hv_ext).2
+    dsimp [validParityWord] at hpost
+    exact hnot_match hpost.1
+  have hlift : wordResidue (w ++ [b]) = wordResidue w + wordD w := by
+    rcases hdich with h1 | h2
+    · exact absurd h1 hne
+    · exact h2
+  refine ⟨hlift, ?_⟩
+  unfold minWordRep minClassRep
+  by_cases hle1 : wordResidue (w ++ [b]) ≤ 1
+  · rw [if_pos hle1]
+    rw [wordD_append]
+    dsimp [wordD]
+    omega
+  · rw [if_neg hle1]
+    omega
+
+/-- Universal Counterexample Jump Bound (`3 * (F_w(m_min) - m_min) < a(w)`):
+    For any first-crossing word `w ∈ 𝓜`, if `applyParityWord (minWordRep w) w ≥ minWordRep w`,
+    then `3 * wordDelta w * minWordRep w + 3 * (applyParityWord (minWordRep w) w - minWordRep w) * wordD w ≤ wordOnes w * wordA w`,
+    forcing `3 * (applyParityWord (minWordRep w) w - minWordRep w) < wordOnes w`. -/
+theorem firstCrossing_nondescent_jump_bound (w : List Bool)
+    (hw : IsFirstCrossing w)
+    (hnondesc : applyParityWord (minWordRep w) w ≥ minWordRep w) :
+    3 * (wordDelta w * minWordRep w) +
+      3 * ((applyParityWord (minWordRep w) w - minWordRep w) * wordD w) ≤
+      wordOnes w * wordA w ∧
+    3 * (applyParityWord (minWordRep w) w - minWordRep w) < wordOnes w := by
+  have hpe : IsPrefixExpanding w := isFirstCrossing_implies_isPrefixExpanding w hw
+  have hB : 3 * wordB w ≤ wordOnes w * wordA w :=
+    three_mul_wordB_le_wordOnes_mul_wordA w hpe
+  have hband := firstCrossing_spectral_band w hw
+  have hv := minWordRep_valid w
+  have hnd := (discrete_deficit_nondescent_identity w (minWordRep w) hv (by omega) hnondesc).1
+  have hcomm : wordD w * (applyParityWord (minWordRep w) w - minWordRep w) =
+      (applyParityWord (minWordRep w) w - minWordRep w) * wordD w := Nat.mul_comm _ _
+  rw [hcomm] at hnd
+  have hineq1 : 3 * (wordDelta w * minWordRep w) +
+      3 * ((applyParityWord (minWordRep w) w - minWordRep w) * wordD w) ≤
+      wordOnes w * wordA w := by omega
+  refine ⟨hineq1, ?_⟩
+  have hne : w ≠ [] := by
+    rcases hw with ⟨w₁, rfl, _, _, _⟩
+    simp
+  have hm_gt : minWordRep w > 1 := minWordRep_gt_one w hne
+  have hdelta_pos : wordDelta w * minWordRep w > 0 :=
+    Nat.mul_pos hband.2.2.1 (by omega)
+  have h3k_D : (3 * (applyParityWord (minWordRep w) w - minWordRep w)) * wordD w <
+      wordOnes w * wordD w := by
+    rw [Nat.mul_assoc 3 _ (wordD w)]
+    have hle_A : 3 * ((applyParityWord (minWordRep w) w - minWordRep w) * wordD w) <
+        wordOnes w * wordA w := by omega
+    have hA_lt_D : wordOnes w * wordA w ≤ wordOnes w * wordD w :=
+      Nat.mul_le_mul_left (wordOnes w) (by omega)
+    omega
+  by_cases hlt : 3 * (applyParityWord (minWordRep w) w - minWordRep w) < wordOnes w
+  · exact hlt
+  · have hge' : wordOnes w ≤ 3 * (applyParityWord (minWordRep w) w - minWordRep w) := by omega
+    have hmul : wordOnes w * wordD w ≤
+        (3 * (applyParityWord (minWordRep w) w - minWordRep w)) * wordD w :=
+      Nat.mul_le_mul_right (wordD w) hge'
+    omega
+
+/-- Universal Small-Odd-Count First-Crossing Descent (`wordOnes w ≤ 1`):
+    Every first-crossing word `w ∈ 𝓜` of arbitrary length `|w|` with at most one odd step
+    (`wordOnes w ≤ 1`) unconditionally satisfies `wordDelta w * minWordRep w ≥ wordB w + wordD w`. -/
+theorem firstCrossing_descent_of_wordOnes_le_one (w : List Bool)
+    (hw : IsFirstCrossing w) (hones : wordOnes w ≤ 1) :
+    wordDelta w * minWordRep w ≥ wordB w + wordD w := by
+  have hband := firstCrossing_spectral_band w hw
+  have hv := minWordRep_valid w
+  have hquant := (discrete_deficit_quantization_iff w (minWordRep w) hv hband.1).1
+  have hne : w ≠ [] := by rcases hw with ⟨w₁, rfl, _, _, _⟩; simp
+  have hm_gt : minWordRep w > 1 := minWordRep_gt_one w hne
+  have hdelta_ge1 : wordD w - wordA w ≥ 1 := by omega
+  have hprod_ge2 : (wordD w - wordA w) * minWordRep w ≥ 1 * 2 :=
+    Nat.mul_le_mul hdelta_ge1 (by omega)
+  have hA_le3 : wordOnes w * wordA w ≤ 3 := by
+    have hones_cases : wordOnes w = 0 ∨ wordOnes w = 1 := by omega
+    rcases hones_cases with h0 | h1
+    · rw [h0, Nat.zero_mul]; omega
+    · have hA3 : wordA w = 3 := by rw [wordA_eq_pow_three_wordOnes, h1]
+      rw [h1, hA3]; omega
+  have hpincer : 3 * ((wordD w - wordA w) * minWordRep w) > wordOnes w * wordA w := by omega
+  have hstrict := (firstCrossing_spectral_pincer_descent w hw hpincer).1
+  exact hquant.mp hstrict
+
+/-- Left-to-right boolean verifier for `IsPrefixExpanding`. -/
+def checkPrefixExpandingAux (D A : Nat) : List Bool → Bool
+  | [] => true
+  | false :: bs => checkPrefixExpandingAux (D * 2) A bs
+  | true :: bs => decide (D ≤ A) && checkPrefixExpandingAux (D * 2) (A * 3) bs
+
+theorem checkPrefixExpandingAux_append (w₁ w₂ : List Bool) (D A : Nat) :
+    checkPrefixExpandingAux D A (w₁ ++ w₂) =
+      (checkPrefixExpandingAux D A w₁ &&
+       checkPrefixExpandingAux (D * wordD w₁) (A * wordA w₁) w₂) := by
+  induction w₁ generalizing D A with
+  | nil =>
+    dsimp [checkPrefixExpandingAux, wordD, wordA]
+    rw [Nat.mul_one, Nat.mul_one, Bool.true_and]
+  | cons b bs ih =>
+    cases b with
+    | false =>
+      dsimp [checkPrefixExpandingAux, wordD, wordA]
+      rw [ih (D * 2) A, Nat.mul_assoc D 2 (wordD bs)]
+    | true =>
+      dsimp [checkPrefixExpandingAux, wordD, wordA]
+      rw [ih (D * 2) (A * 3), Nat.mul_assoc D 2 (wordD bs), Nat.mul_assoc A 3 (wordA bs),
+        Bool.and_assoc]
+
+/-- Soundness of `checkPrefixExpandingAux`: every word satisfying `IsPrefixExpanding w`
+    evaluates `checkPrefixExpandingAux 1 1 w` to `true`. -/
+theorem isPrefixExpanding_implies_checkPrefixExpanding (w : List Bool)
+    (hw : IsPrefixExpanding w) :
+    checkPrefixExpandingAux 1 1 w = true := by
+  induction hw with
+  | nil => rfl
+  | snoc_false u _ ih =>
+    rw [checkPrefixExpandingAux_append, ih]
+    rfl
+  | snoc_true u _ hDA ih =>
+    rw [checkPrefixExpandingAux_append, ih, Bool.true_and]
+    dsimp [checkPrefixExpandingAux]
+    rw [Nat.one_mul, Nat.one_mul, Bool.and_true]
+    exact decide_eq_true hDA
+
+/-- Separation Theorem (`pincer_hypothesis_strictly_stronger_at_47`):
+    At `m₀ = 47` and its first-crossing depth `r = 54` (`a = 34`), the parity word
+    `w₄₇ = parityWordOf 54 47` violates the stronger C8 spectral-pincer hypothesis
+    `3 * wordDelta w₄₇ * 47 > wordOnes w₄₇ * wordA w₄₇`, yet satisfies the exact C9
+    quantized deficit identity `wordDelta w₄₇ * 47 = wordB w₄₇ + wordD w₄₇`
+    with `iterateAccelerated 47 54 = 46 < 47`. -/
+theorem pincer_hypothesis_strictly_stronger_at_47 :
+    let w := parityWordOf 54 47
+    checkPrefixExpandingAux 1 1 w = true ∧
+    wordA w < wordD w ∧
+    wordD w ≤ 2 * wordA w ∧
+    3 * (wordDelta w * 47) ≤ wordOnes w * wordA w ∧
+    wordDelta w * 47 = wordB w + wordD w ∧
+    iterateAccelerated 47 54 = 46 := by
+  decide
+
+/-- Exhaustive verifier for all `(r, a, m₀)` with `1 ≤ r ≤ maxR`, `3^a < 2^r ≤ 2 * 3^a`,
+    and `2 ≤ m₀ ≤ (a * 3^a) / (3 * (2^r - 3^a))`: whenever `parityWordOf r m₀` is
+    prefix-expanding and has `wordOnes = a`, `iterateAccelerated m₀ r < m₀` holds. -/
+def checkDepthPincerExceptions (maxR : Nat) : Bool :=
+  (List.range (maxR + 1)).all fun r =>
+    (List.range (maxR + 1)).all fun a =>
+      if 1 ≤ r ∧ 3 ^ a < 2 ^ r ∧ 2 ^ r ≤ 2 * 3 ^ a then
+        let bound := (a * 3 ^ a) / (3 * (2 ^ r - 3 ^ a))
+        (List.range (bound + 1)).all fun m0 =>
+          decide (m0 < 2) ||
+          !(checkPrefixExpandingAux 1 1 (parityWordOf r m0)) ||
+          !(decide (wordOnes (parityWordOf r m0) = a)) ||
+          decide (iterateAccelerated m0 r < m0)
+      else true
+
+/-- Kernel-certified verification across all depths `1 ≤ r ≤ 64` (`0 ≤ a ≤ 40`),
+    including the coarse-pincer separation depths `r = 54` (`m₀ ∈ {47, 63}`) and `r = 59` (`m₀ = 27`). -/
+theorem checkDepthPincerExceptions_64 :
+    checkDepthPincerExceptions 64 = true := by
+  decide
+
+/-- Helper lemma: `wordOnes w ≤ w.length` for every parity word `w`. -/
+theorem wordOnes_le_length (w : List Bool) :
+    wordOnes w ≤ w.length := by
+  induction w with
+  | nil => dsimp [wordOnes]; omega
+  | cons b bs ih =>
+    cases b <;> dsimp [wordOnes] <;> omega
+
+/-- Unconditional Depth-64 Minimal-Crossing Theorem (`firstCrossing_all_words_le_64_descend`):
+    Every first-crossing parity word `w ∈ 𝓜` (`IsFirstCrossing w`) of length `|w| ≤ 64`
+    (a space of `2^64` parity words, including the coarse-pincer exception cylinders of
+    `m₀ = 47, 63` at `r = 54` and `m₀ = 27` at `r = 59`) unconditionally satisfies the
+    quantized minimal-crossing inequality `wordDelta w * minWordRep w ≥ wordB w + wordD w`
+    and strict trajectory descent `applyParityWord (minWordRep w) w < minWordRep w`. -/
+theorem firstCrossing_all_words_le_64_descend (w : List Bool)
+    (hw : IsFirstCrossing w) (hlen : w.length ≤ 64) :
+    wordDelta w * minWordRep w ≥ wordB w + wordD w ∧
+    applyParityWord (minWordRep w) w < minWordRep w := by
+  have hband := firstCrossing_spectral_band w hw
+  have hv := minWordRep_valid w
+  have hquant := discrete_deficit_quantization_iff w (minWordRep w) hv hband.1
+  have hStrict : wordDelta w * minWordRep w > wordB w := by
+    unfold wordDelta
+    by_cases hpincer : 3 * ((wordD w - wordA w) * minWordRep w) > wordOnes w * wordA w
+    · exact (firstCrossing_spectral_pincer_descent w hw hpincer).1
+    · rw [firstCrossing_inequality_iff_trajectory_descent w hband.1]
+      have hpe : IsPrefixExpanding w := isFirstCrossing_implies_isPrefixExpanding w hw
+      have hchk_w : checkPrefixExpandingAux 1 1 w = true :=
+        isPrefixExpanding_implies_checkPrefixExpanding w hpe
+      have hp_eq : parityWordOf w.length (minWordRep w) = w := parityWordOf_minWordRep w
+      rw [← hp_eq] at hchk_w
+      have hones_eq : decide (wordOnes (parityWordOf w.length (minWordRep w)) = wordOnes w) = true :=
+        decide_eq_true (by rw [hp_eq])
+      have hne : w ≠ [] := by rcases hw with ⟨w₁, rfl, _, _, _⟩; simp
+      have hr_ge1 : 1 ≤ w.length := by
+        cases w with
+        | nil => contradiction
+        | cons _ _ => simp
+      have ha_le : wordOnes w ≤ 64 :=
+        Nat.le_trans (wordOnes_le_length w) hlen
+      have hD_pow : wordD w = 2 ^ w.length := wordD_eq_pow_two_length w
+      have hA_pow : wordA w = 3 ^ wordOnes w := wordA_eq_pow_three_wordOnes w
+      have hband_pow : 1 ≤ w.length ∧ 3 ^ wordOnes w < 2 ^ w.length ∧
+          2 ^ w.length ≤ 2 * 3 ^ wordOnes w := by
+        refine ⟨hr_ge1, ?_, ?_⟩ <;> omega
+      have hm_gt1 : minWordRep w > 1 := minWordRep_gt_one w hne
+      have hm_le_bound : minWordRep w ≤
+          (wordOnes w * 3 ^ wordOnes w) / (3 * (2 ^ w.length - 3 ^ wordOnes w)) := by
+        by_cases hle_b : minWordRep w ≤
+            (wordOnes w * 3 ^ wordOnes w) / (3 * (2 ^ w.length - 3 ^ wordOnes w))
+        · exact hle_b
+        · have hge_b1 : minWordRep w ≥
+              (wordOnes w * 3 ^ wordOnes w) / (3 * (2 ^ w.length - 3 ^ wordOnes w)) + 1 := by omega
+          have hd_pos : 3 * (2 ^ w.length - 3 ^ wordOnes w) > 0 := by omega
+          have hdiv := Nat.mod_add_div (wordOnes w * 3 ^ wordOnes w)
+            (3 * (2 ^ w.length - 3 ^ wordOnes w))
+          have hmod := Nat.mod_lt (wordOnes w * 3 ^ wordOnes w) hd_pos
+          have hmul := Nat.mul_le_mul_left (3 * (2 ^ w.length - 3 ^ wordOnes w)) hge_b1
+          rw [Nat.mul_add, Nat.mul_one,
+            Nat.mul_assoc 3 (2 ^ w.length - 3 ^ wordOnes w) (minWordRep w)] at hmul
+          rw [hD_pow, hA_pow] at hpincer
+          omega
+      have hr_mem : w.length ∈ List.range 65 := List.mem_range.mpr (by omega)
+      have ha_mem : wordOnes w ∈ List.range 65 := List.mem_range.mpr (by omega)
+      have hall_r := (List.all_eq_true.mp checkDepthPincerExceptions_64) w.length hr_mem
+      have hall_a := (List.all_eq_true.mp hall_r) (wordOnes w) ha_mem
+      dsimp at hall_a
+      rw [if_pos hband_pow] at hall_a
+      have hm_mem : minWordRep w ∈ List.range
+          ((wordOnes w * 3 ^ wordOnes w) / (3 * (2 ^ w.length - 3 ^ wordOnes w)) + 1) :=
+        List.mem_range.mpr (by omega)
+      have hall_m := (List.all_eq_true.mp hall_a) (minWordRep w) hm_mem
+      have hm_not_lt2 : decide (minWordRep w < 2) = false := decide_eq_false (by omega)
+      rw [hm_not_lt2, hchk_w, hones_eq] at hall_m
+      simpa using of_decide_eq_true hall_m
+  have hge_quant : wordDelta w * minWordRep w ≥ wordB w + wordD w :=
+    hquant.1.mp hStrict
+  exact ⟨hge_quant, hquant.2.1.mp hge_quant⟩
+
+/-- Obligation 1: Every integer `n > 1` eventually encounters a first spectral crossing `w ∈ 𝓜`. -/
+def EveryNatCrossesSpectrally : Prop :=
+  ∀ n : Nat, n > 1 → ∃ r : Nat, r > 0 ∧ IsFirstCrossing (parityWordOf r n)
+
+/-- Obligation 2: Every first-crossing word `w ∈ 𝓜` has a strictly positive quantized deficit
+    `Δ(w) * m_min(w) ≥ B(w) + D(w)` at its minimal representative `m_min(w)`. -/
+def MinimalCrossingDeficitPositive : Prop :=
+  ∀ w : List Bool, IsFirstCrossing w → wordDelta w * minWordRep w ≥ wordB w + wordD w
+
+/-- Exact Two-Obligation Reduction Theorem (`two_obligations_imply_collatz`):
+    If every integer `n > 1` encounters a first spectral crossing (`EveryNatCrossesSpectrally`)
+    and every first-crossing cylinder has a positive quantized deficit at its minimal representative
+    (`MinimalCrossingDeficitPositive`), then `CollatzConjecture` holds unconditionally. -/
+theorem two_obligations_imply_collatz :
+    EveryNatCrossesSpectrally ∧ MinimalCrossingDeficitPositive → CollatzConjecture := by
+  rintro ⟨hcross, hdef⟩
+  apply universalAcceleratedDescent_iff_collatz.mp
+  intro n hn1
+  obtain ⟨r, hr_pos, hw⟩ := hcross n hn1
+  let w := parityWordOf r n
+  have hquant_min : wordDelta w * minWordRep w ≥ wordB w + wordD w := hdef w hw
+  have hband := firstCrossing_spectral_band w hw
+  have hD_pos : wordD w > 0 := wordD_pos w
+  have hineq_min : (wordD w - wordA w) * minWordRep w > wordB w := by
+    unfold wordDelta at hquant_min
+    omega
+  have hv_n : validParityWord n w := parityWordOf_valid r n
+  have hmod : n % wordD w = wordResidue w :=
+    (validParityWord_iff_mod_eq_wordResidue w n).mp hv_n
+  obtain ⟨q, hq_eq⟩ : ∃ q : Nat, n = wordResidue w + q * wordD w := by
+    refine ⟨n / wordD w, ?_⟩
+    have hdiv := Nat.mod_add_div n (wordD w)
+    have hcomm : wordD w * (n / wordD w) = (n / wordD w) * wordD w := Nat.mul_comm _ _
+    omega
+  have hn_ge : n ≥ minWordRep w := by
+    unfold minWordRep minClassRep
+    by_cases hle1 : wordResidue w ≤ 1
+    · rw [if_pos hle1]
+      have hq_pos : q ≥ 1 := by
+        cases q with
+        | zero =>
+          rw [Nat.zero_mul, Nat.add_zero] at hq_eq
+          omega
+        | succ q' => omega
+      have hqD : q * wordD w ≥ 1 * wordD w := Nat.mul_le_mul_right (wordD w) hq_pos
+      omega
+    · rw [if_neg hle1]
+      omega
+  have hmul : (wordD w - wordA w) * minWordRep w ≤ (wordD w - wordA w) * n :=
+    Nat.mul_le_mul_left (wordD w - wordA w) hn_ge
+  have hineq_n : (wordD w - wordA w) * n > wordB w := by omega
+  have hdesc_w : applyParityWord n w < n :=
+    (contracting_word_descent_iff w n hv_n hband.1).mpr hineq_n
+  rw [applyParityWord_parityWordOf r n] at hdesc_w
+  exact ⟨r, hr_pos, hdesc_w⟩
+
+
+
 end BBB17

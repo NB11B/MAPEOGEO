@@ -255,6 +255,70 @@ def verify_minimal_crossing_pincer(max_r: int = 12) -> dict:
         words = next_words
     return {"max_r": max_r, "first_crossing_words": checked, "exceptions": exceptions}
 
+def verify_discrete_deficit_c9(max_r: int = 12) -> dict:
+    """Verify COLLATZ-C9 laws on all first-crossing words up to depth max_r and key exceptions:
+    1. Exact discrete deficit identity: (D(w) - A(w)) * m_min(w) - B(w) == D(w) * (m_min(w) - F_w(m_min(w)))
+    2. Quantization law: (D(w) - A(w)) * m_min(w) >= B(w) + D(w)
+    3. 2-adic parity lock and 3-adic non-divisibility (B(w) % 3 != 0, F_w(m_min(w)) % 3 != 0 for a >= 1)
+    4. Separation of C8 coarse pincer vs C9 exact deficit at m_0 in {27, 47, 63}
+    """
+    words = [()]
+    checked = 0
+    min_q = None
+    for r in range(1, max_r + 1):
+        D = 1 << r
+        next_words = []
+        for w in words:
+            for b in (0, 1):
+                w2 = w + (b,)
+                a = sum(w2)
+                A, B, D_w = affine_word(w2)
+                if a >= 1:
+                    assert B % 3 != 0, (w2, B)
+                if A > D:
+                    next_words.append(w2)
+                else:
+                    checked += 1
+                    r0 = word_residue_of_bits(w2)
+                    m0 = r0 + D if r0 <= 1 else r0
+                    ym = (A * m0 + B) // D
+                    delta = D - A
+                    deficit = delta * m0 - B
+                    q = m0 - ym
+                    assert deficit == D * q, (w2, m0, ym, deficit, D * q)
+                    assert q >= 1 and deficit >= D, (w2, m0, ym, q)
+                    assert B % 2 == m0 % 2, (w2, B, m0)
+                    if a >= 1:
+                        assert ym % 3 != 0, (w2, m0, ym)
+                    if min_q is None or q < min_q:
+                        min_q = q
+        words = next_words
+    # Verify C8 pincer separation witnesses {27, 47, 63}
+    separation_witnesses = {}
+    for m0 in (27, 47, 63):
+        curr = m0
+        bits = []
+        while True:
+            b = curr & 1
+            bits.append(b)
+            curr = (3 * curr + 1) // 2 if b else curr // 2
+            r = len(bits)
+            a = sum(bits)
+            if (1 << r) > (3 ** a):
+                break
+        A, B, D = affine_word(tuple(bits))
+        delta = D - A
+        q = m0 - curr
+        assert 3 * delta * m0 <= a * A
+        assert delta * m0 - B == D * q and q >= 1
+        separation_witnesses[m0] = {"r": r, "a": a, "ym": curr, "q": q}
+    return {
+        "max_r": max_r,
+        "checked_words": checked,
+        "min_quantized_quotient": min_q,
+        "separation_witnesses": separation_witnesses,
+    }
+
 def run_campaign(max_start=10000, cap=10000, depth=8):
     kinds={}
     for n in range(1,max_start+1):
