@@ -585,4 +585,156 @@ theorem spatiotemporal_101010_quadratic_cancellation_depth5 (t : Nat)
     cases cell t (-5) <;> cases cell (t + 1) (-1) <;> cases cell (t + 3) (-1) <;> decide
   exact ⟨hm3_t', hm4_t, hm4_t1, hm5_t, hm5_t.trans hm3_t'.symm⟩
 
+/-- **Track A (`EXACT`, New in `R30-FLUX-CORR-001`) — Strictly Interior Characteristic OR-Flux
+    (`interiorCharacteristicFlux`)**:
+    Accumulates the strictly left-half disjunctions `cell (t + j) (-(d + 1) + 1 + j) || cell (t + j) (-(d + 1) + 2 + j)`
+    for `j = 0 .. d - 1` along the characteristic ray `t + (d + 1) = N`, excluding the leading
+    center-right boundary step `orCol 0 (t + d)` at `(t + d, 0)`. -/
+def interiorCharacteristicFlux : Nat → Nat → Bool
+  | _, 0 => false
+  | t, d + 1 =>
+      xor (interiorCharacteristicFlux (t + 1) d)
+          (cell t (-(↑(d + 1) : Int)) || cell t (-(↑(d + 1) : Int) + 1))
+
+/-- **Track A/B (`EXACT`, New in `R30-FLUX-CORR-001`) — All-Depth Spatiotemporal Isolation of the
+    Leading PSMSL Right-Boundary Observation (`characteristicFlux_decomp_leading_orCol`)**:
+    Proves by induction on `d : Nat` that for every `t, d : Nat`, `leftCharacteristicFlux t (d + 1)`
+    splits into the leading PSMSL right-boundary work `orCol 0 (t + d)` at apex time `t + d` XORed
+    with the strictly lower-offset interior flux `interiorCharacteristicFlux t d`:
+    1. `leftCharacteristicFlux t (d + 1) = xor (orCol 0 (t + d)) (interiorCharacteristicFlux t d)`
+    2. `cell t (-(d + 1)) = xor (center (t + d + 1)) (xor (orCol 0 (t + d)) (interiorCharacteristicFlux t d))` -/
+theorem characteristicFlux_decomp_leading_orCol :
+    ∀ (d t : Nat),
+      leftCharacteristicFlux t (d + 1) =
+        xor (orCol 0 (t + d)) (interiorCharacteristicFlux t d) ∧
+      cell t (-(↑(d + 1) : Int)) =
+        xor (Rule30Prize.center (t + d + 1))
+            (xor (orCol 0 (t + d)) (interiorCharacteristicFlux t d))
+  | 0, t => by
+      have hf1 : leftCharacteristicFlux t 1 =
+          xor (leftCharacteristicFlux (t + 1) 0)
+              (cell t (-(↑(0 : Nat) : Int)) || cell t (-(↑(0 : Nat) : Int) + 1)) := rfl
+      have hf0 : leftCharacteristicFlux (t + 1) 0 = false := rfl
+      have hi0 : interiorCharacteristicFlux t 0 = false := rfl
+      have hor : (cell t (-(↑(0 : Nat) : Int)) || cell t (-(↑(0 : Nat) : Int) + 1)) =
+          orCol 0 (t + 0) := by
+        rw [Nat.add_zero]; rfl
+      have hdecomp : leftCharacteristicFlux t 1 =
+          xor (orCol 0 (t + 0)) (interiorCharacteristicFlux t 0) := by
+        rw [hf1, hf0, hi0, hor]
+        cases orCol 0 (t + 0) <;> rfl
+      have hcell := (cell_neg_eq_center_xor_characteristicFlux 1 t).1
+      have hcenter : Rule30Prize.center (t + 1) = Rule30Prize.center (t + 0 + 1) := by
+        rw [Nat.add_zero]
+      rw [hdecomp, hcenter] at hcell
+      exact ⟨hdecomp, hcell⟩
+  | d + 1, t => by
+      have ih := (characteristicFlux_decomp_leading_orCol d (t + 1)).1
+      have hf : leftCharacteristicFlux t (d + 2) =
+          xor (leftCharacteristicFlux (t + 1) (d + 1))
+              (cell t (-(↑(d + 1) : Int)) || cell t (-(↑(d + 1) : Int) + 1)) := rfl
+      have hi : interiorCharacteristicFlux t (d + 1) =
+          xor (interiorCharacteristicFlux (t + 1) d)
+              (cell t (-(↑(d + 1) : Int)) || cell t (-(↑(d + 1) : Int) + 1)) := rfl
+      have hor_shift : orCol 0 (t + 1 + d) = orCol 0 (t + (d + 1)) := by
+        rw [show t + 1 + d = t + (d + 1) by omega]
+      have hdecomp : leftCharacteristicFlux t (d + 2) =
+          xor (orCol 0 (t + (d + 1))) (interiorCharacteristicFlux t (d + 1)) := by
+        rw [hf, ih, hor_shift, hi]
+        cases orCol 0 (t + (d + 1)) <;>
+          cases interiorCharacteristicFlux (t + 1) d <;>
+          cases (cell t (-(↑(d + 1) : Int)) || cell t (-(↑(d + 1) : Int) + 1)) <;> rfl
+      have hcell := (cell_neg_eq_center_xor_characteristicFlux (d + 2) t).1
+      have hcenter : Rule30Prize.center (t + (d + 2)) = Rule30Prize.center (t + (d + 1) + 1) := by
+        rw [show t + (d + 2) = t + (d + 1) + 1 by omega]
+      rw [hdecomp, hcenter] at hcell
+      exact ⟨hdecomp, hcell⟩
+
+/-- **Track A/B (`EXACT`, New in `R30-FLUX-CORR-001`) — All-Depth Isolation of `orCol 0` at the
+    Single-Seed Wavefront Onset (`spatiotemporal_leading_orCol_onset_isolation`)**:
+    Evaluates `characteristicFlux_decomp_leading_orCol` at `(t = k + 1, d = k)` (where
+    `cell (k + 1) (-(k + 1)) = true`) and `(t = k + 2, d = k)` (where `cell (k + 2) (-(k + 1)) = true`),
+    proving that for every `k : Nat`, the PSMSL right-boundary work `orCol 0` at both odd (`2k + 1`)
+    and even (`2k + 2`) apex times equals `!center (τ + 1) xor interiorCharacteristicFlux`:
+    1. `orCol 0 (k + 1 + k) = xor (!center (k + 1 + k + 1)) (interiorCharacteristicFlux (k + 1) k)`
+    2. `orCol 0 (k + 2 + k) = xor (!center (k + 2 + k + 1)) (interiorCharacteristicFlux (k + 2) k)` -/
+theorem spatiotemporal_leading_orCol_onset_isolation (k : Nat) :
+    orCol 0 (k + 1 + k) =
+      xor (!Rule30Prize.center (k + 1 + k + 1)) (interiorCharacteristicFlux (k + 1) k) ∧
+    orCol 0 (k + 2 + k) =
+      xor (!Rule30Prize.center (k + 2 + k + 1)) (interiorCharacteristicFlux (k + 2) k) := by
+  have h_odd := (characteristicFlux_decomp_leading_orCol k (k + 1)).2
+  have h_even := (characteristicFlux_decomp_leading_orCol k (k + 2)).2
+  have hc_odd : cell (k + 1) (-(↑(k + 1) : Int)) = true :=
+    (universal_column_onset_signature (k + 1)).1
+  have hc_even : cell (k + 2) (-(↑(k + 1) : Int)) = true := by
+    have h := (universal_column_onset_signature (k + 1)).2.1
+    rw [show k + 1 + 1 = k + 2 by omega] at h
+    exact h
+  rw [hc_odd] at h_odd
+  rw [hc_even] at h_even
+  refine ⟨?_, ?_⟩
+  · revert h_odd
+    cases orCol 0 (k + 1 + k) <;>
+      cases Rule30Prize.center (k + 1 + k + 1) <;>
+      cases interiorCharacteristicFlux (k + 1) k <;> decide
+  · revert h_even
+    cases orCol 0 (k + 2 + k) <;>
+      cases Rule30Prize.center (k + 2 + k + 1) <;>
+      cases interiorCharacteristicFlux (k + 2) k <;> decide
+
+/-- **Track A/B/C (`EXACT`, New in `R30-FLUX-CORR-001`) — PSMSL Screening vs. Leading-Variable
+    Isolation Dichotomy at Every Characteristic Ray Apex (`spatiotemporal_black_white_apex_dichotomy`)**:
+    Combines PSMSL right-boundary screening (`orCol 0 τ = center τ || cell τ 1`) with
+    `spatiotemporal_leading_orCol_onset_isolation` to establish the two exact regimes at every depth `k`:
+    - **Black apex step (`center τ = true`):** `orCol 0 τ = true` screens out the leading right-half
+      variable `cell τ 1`, forcing the lower-offset interior flux to match `center (τ + 1)` directly:
+      `interiorCharacteristicFlux = center (τ + 1)`.
+    - **White apex step (`center τ = false`):** `orCol 0 τ = cell τ 1` isolates the leading right-half
+      variable linearly with coefficient `1`:
+      `cell τ 1 = xor (!center (τ + 1)) interiorCharacteristicFlux`. -/
+theorem spatiotemporal_black_white_apex_dichotomy (k : Nat) :
+    (Rule30Prize.center (k + 1 + k) = true →
+      interiorCharacteristicFlux (k + 1) k = Rule30Prize.center (k + 1 + k + 1)) ∧
+    (Rule30Prize.center (k + 1 + k) = false →
+      cell (k + 1 + k) 1 =
+        xor (!Rule30Prize.center (k + 1 + k + 1)) (interiorCharacteristicFlux (k + 1) k)) ∧
+    (Rule30Prize.center (k + 2 + k) = true →
+      interiorCharacteristicFlux (k + 2) k = Rule30Prize.center (k + 2 + k + 1)) ∧
+    (Rule30Prize.center (k + 2 + k) = false →
+      cell (k + 2 + k) 1 =
+        xor (!Rule30Prize.center (k + 2 + k + 1)) (interiorCharacteristicFlux (k + 2) k)) := by
+  rcases spatiotemporal_leading_orCol_onset_isolation k with ⟨h_odd, h_even⟩
+  have hor_odd : orCol 0 (k + 1 + k) =
+      (Rule30Prize.center (k + 1 + k) || cell (k + 1 + k) 1) := rfl
+  have hor_even : orCol 0 (k + 2 + k) =
+      (Rule30Prize.center (k + 2 + k) || cell (k + 2 + k) 1) := rfl
+  rw [hor_odd] at h_odd
+  rw [hor_even] at h_even
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro hb
+    rw [hb] at h_odd
+    revert h_odd
+    cases cell (k + 1 + k) 1 <;>
+      cases Rule30Prize.center (k + 1 + k + 1) <;>
+      cases interiorCharacteristicFlux (k + 1) k <;> decide
+  · intro hw
+    rw [hw] at h_odd
+    revert h_odd
+    cases cell (k + 1 + k) 1 <;>
+      cases Rule30Prize.center (k + 1 + k + 1) <;>
+      cases interiorCharacteristicFlux (k + 1) k <;> decide
+  · intro hb
+    rw [hb] at h_even
+    revert h_even
+    cases cell (k + 2 + k) 1 <;>
+      cases Rule30Prize.center (k + 2 + k + 1) <;>
+      cases interiorCharacteristicFlux (k + 2) k <;> decide
+  · intro hw
+    rw [hw] at h_even
+    revert h_even
+    cases cell (k + 2 + k) 1 <;>
+      cases Rule30Prize.center (k + 2 + k + 1) <;>
+      cases interiorCharacteristicFlux (k + 2) k <;> decide
+
 end Rule30ProofClosure

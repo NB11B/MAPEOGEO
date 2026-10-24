@@ -1,12 +1,12 @@
 {
-  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001",
+  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001",
   "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-  "outcome_classification": "OUTCOME_B_AND_C_SPATIOTEMPORAL_RELATION_ALGEBRA_AND_CHARACTERISTIC_FLUX_ESTABLISHED",
-  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, and R30-SPATIOTEMPORAL-001 are unconditionally verified (35/35 Lean 4.35.0 headlines in Rule30PrizeClosure, 43 replayed constants, 0 new axioms). 1. Onset Signature Correction & Characteristic Flux: universal_column_onset_signature proves cell (k+5) (-k) = cell (k+3) (-k) (since D5(k+5) = !D3(k+4) = D3(k+3)), and cell_neg_eq_center_xor_characteristicFlux + periodic_center_forces_characteristic_flux_depth_periodicity establish an independent all-depth spatiotemporal transport invariant without assuming a contradiction premise. 2. Spatiotemporal Quadratic Cancellation at Depth -5: spatiotemporal_101010_quadratic_cancellation_depth5 proves that while single-time transport breaks at depth -4 via cell (t+1) (-4) = (!cell (t+1) (-1)) && (!cell (t+3) (-1)), retaining temporal offsets cancels that quadratic cross-term identically against cell t (-4) || cell t (-3) at depth -5, restoring degree-1 linearity cell t (-5) = cell (t+1) (-1) = cell t (-3) (and degree 1 at depth -6).",
+  "outcome_classification": "OUTCOME_B_AND_C_RIGHT_HISTORY_CHARACTERISTIC_FLUX_CORRELATION_AND_LEADING_ISOLATION_ESTABLISHED",
+  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, R30-SPATIOTEMPORAL-001, and R30-FLUX-CORR-001 are unconditionally verified (39/39 Lean 4.35.0 headlines in Rule30PrizeClosure, 49 replayed constants, 0 new axioms). 1. Leading PSMSL Boundary Isolation: characteristicFlux_decomp_leading_orCol, spatiotemporal_leading_orCol_onset_isolation, and spatiotemporal_black_white_apex_dichotomy prove for all depths k that the top step (k + m + k, 0) of the characteristic ray is screened when center(2k + m) = true (forcing interiorCharacteristicFlux = center(2k + m + 1)) and linearly isolates cell(2k + m, 1) = xor (!center(2k + m + 1)) interiorCharacteristicFlux when center(2k + m) = false. 2. Pure Left-Onset vs Right-Coupled Unsatisfiability at Depths k >= T: For k >= T, the sideways reconstruction of the left onset window cell(k+m, -k) reaches the left wavefront with ZERO unknown left-cone transient variables l_i. Across all 132 mixed hypotheses (T in 1..6, P in 2..4), 127/132 (96.21%) are already unsatisfiable in the pure left-onset spatiotemporal algebra alone under unconstrained y_s, and coupling the right-half transition equations y_s = Y_s(r_1..r_{T-2}) refutes the remaining 5/5 white-run (G4) cases at depth k = T (132/132 = 100% unsat).",
   "checkpoint_01_reconstruction_completeness": true,
   "checkpoint_02_bilateral_soundness": true,
-  "checkpoint_03_universal_contradiction_status": "EXACT_FOR_CHARACTERISTIC_FLUX_AND_DEPTH_5_QUADRATIC_CANCELLATION__ARBITRARY_DEPTH_NONLINEAR_FLUX_OPEN",
-  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_35_OF_35__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+  "checkpoint_03_universal_contradiction_status": "EXACT_FOR_LEADING_ORCOL_ISOLATION_AND_BLACK_WHITE_APEX_DICHOTOMY__ARBITRARY_PERIOD_RIGHT_COUPLED_FLUX_OPEN",
+  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_39_OF_39__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
   "conditional_closure_claims_automatically_rejected": true,
   "hypotheses_tested": 180,
   "hypotheses_unsat_count": 180,
@@ -35,8 +35,8 @@
   },
   "r30_cert_001_campaign": {
     "campaign_id": "R30-CERT-001",
-    "headline_theorems_verified_in_check_lean": 35,
-    "replayed_constants_in_check_lean": 43,
+    "headline_theorems_verified_in_check_lean": 39,
+    "replayed_constants_in_check_lean": 49,
     "parallel_operator_inventory": [
       {
         "capability_id": "MAPEOGEO_CERTIFIABLE_GF2_IDEAL_KERNEL",
@@ -255,9 +255,9 @@
     ]
   },
   "r30_transport_001_campaign": {
-    "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001",
-    "headline_theorems_verified_in_check_lean": 35,
-    "replayed_constants_in_check_lean": 43,
+    "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001",
+    "headline_theorems_verified_in_check_lean": 39,
+    "replayed_constants_in_check_lean": 49,
     "deliverable_1_diagonal_ablation": {
       "experiment_id": "R30-TRANSPORT-001-DIAGONAL-ABLATION",
       "mixed_words_per_transient": 22,
@@ -2114,6 +2114,38 @@
           ]
         }
       ]
+    },
+    "deliverable_5_right_coupled_characteristic_flux": {
+      "leading_orCol_decomposition_theorem": "Rule30ProofClosure.characteristicFlux_decomp_leading_orCol",
+      "leading_orCol_onset_isolation_theorem": "Rule30ProofClosure.spatiotemporal_leading_orCol_onset_isolation",
+      "black_white_apex_dichotomy_theorem": "Rule30ProofClosure.spatiotemporal_black_white_apex_dichotomy",
+      "right_history_flux_incompatibility_reduction": "Rule30ProofClosure.right_history_characteristic_flux_incompatibility_implies_problem1",
+      "verification_report": {
+        "transients_tested": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "periods_tested": [
+          2,
+          3,
+          4
+        ],
+        "total_hypotheses_tested": 132,
+        "pure_left_onset_unsat_count": 127,
+        "right_coupled_flux_unsat_count": 132,
+        "white_run_cases_closed_by_right_correlation": [
+          "T=3, w=[1, 0, 0] -> refuted at k=3 by right-half correlation (n_right_vars=1)",
+          "T=4, w=[0, 0, 0, 1] -> refuted at k=4 by right-half correlation (n_right_vars=2)",
+          "T=6, w=[0, 0, 1, 0] -> refuted at k=6 by right-half correlation (n_right_vars=4)",
+          "T=1, w=[0, 1, 0, 0] -> refuted at k=1 by right-half correlation (n_right_vars=0)",
+          "T=1, w=[1, 0, 0, 0] -> refuted at k=1 by right-half correlation (n_right_vars=0)"
+        ],
+        "max_free_right_variables_at_t6": 4
+      }
     }
   },
   "left_reconstruction": {
@@ -2539,6 +2571,58 @@
       "source_attribution": "R30_SPATIOTEMPORAL_001_NEW"
     },
     {
+      "name": "Rule30ProofClosure.characteristicFlux_decomp_leading_orCol",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A/B",
+      "dependencies": [
+        "Rule30ProofClosure.cell_neg_eq_center_xor_characteristicFlux"
+      ],
+      "summary": "New in R30-FLUX-CORR-001: proves by induction on d that leftCharacteristicFlux t (d+1) = xor (orCol 0 (t+d)) (interiorCharacteristicFlux t d), isolating the leading PSMSL right-boundary observation at apex time t+d.",
+      "source_attribution": "R30_FLUX_CORR_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.spatiotemporal_leading_orCol_onset_isolation",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track A/B",
+      "dependencies": [
+        "Rule30ProofClosure.characteristicFlux_decomp_leading_orCol",
+        "Rule30ProofClosure.universal_column_onset_signature"
+      ],
+      "summary": "New in R30-FLUX-CORR-001: proves for all k that orCol 0 (2k+1) = xor (!center (2k+2)) (interiorCharacteristicFlux (k+1) k) and orCol 0 (2k+2) = xor (!center (2k+3)) (interiorCharacteristicFlux (k+2) k) at the left wavefront onset.",
+      "source_attribution": "R30_FLUX_CORR_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.spatiotemporal_black_white_apex_dichotomy",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track A/B/C",
+      "dependencies": [
+        "Rule30ProofClosure.spatiotemporal_leading_orCol_onset_isolation"
+      ],
+      "summary": "New in R30-FLUX-CORR-001: proves the exact PSMSL black-step screening law (center tau = true => interiorCharacteristicFlux = center (tau+1)) and white-step linear isolation law (center tau = false => cell tau 1 = xor (!center (tau+1)) interiorCharacteristicFlux).",
+      "source_attribution": "R30_FLUX_CORR_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.right_history_characteristic_flux_incompatibility_implies_problem1",
+      "module": "Rule30PrizeClosure",
+      "classification": "CONDITIONAL",
+      "obligation_id": "M5",
+      "track": "Track A/B/C",
+      "dependencies": [
+        "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
+        "Rule30ProofClosure.spatiotemporal_leading_orCol_onset_isolation",
+        "Rule30ProofClosure.spatiotemporal_black_white_apex_dichotomy",
+        "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals"
+      ],
+      "summary": "New in R30-FLUX-CORR-001: reduces Problem1 to the incompatibility between the finite-support right-half evolution (cell T T = true, cell T p = false for p > T) and the characteristic-flux onset isolation law at k >= T.",
+      "source_attribution": "R30_FLUX_CORR_001_NEW"
+    },
+    {
       "name": "Rule30ProofClosure.spatial_transport_step_dichotomy",
       "module": "Rule30LeftReconstruction",
       "classification": "EXACT",
@@ -2928,6 +3012,15 @@
       ],
       "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
     },
+    "right_history_flux_incompatibility_reduction": {
+      "target": "Rule30ProofClosure.right_history_characteristic_flux_incompatibility_implies_problem1",
+      "accepted_as_unconditional_closure": false,
+      "non_exact_dependencies": [
+        "Rule30ProofClosure.right_history_characteristic_flux_incompatibility_implies_problem1 (CONDITIONAL)",
+        "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals (UNRESOLVED)"
+      ],
+      "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
+    },
     "track_b_reduction": {
       "target": "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
       "accepted_as_unconditional_closure": false,
@@ -2963,6 +3056,12 @@
     },
     "exact_depth5_quadratic_cancellation": {
       "target": "Rule30ProofClosure.spatiotemporal_101010_quadratic_cancellation_depth5",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    },
+    "exact_black_white_apex_dichotomy": {
+      "target": "Rule30ProofClosure.spatiotemporal_black_white_apex_dichotomy",
       "accepted_as_unconditional_closure": true,
       "non_exact_dependencies": [],
       "reason": "All transitive dependencies are EXACT."

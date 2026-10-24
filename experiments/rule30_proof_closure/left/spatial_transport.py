@@ -18,7 +18,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Sequence, Tuple
 
-from ..core.symbolic_constraints import ANFPolynomial
+from ..core.symbolic_constraints import ANFPolynomial, rule30_anf
 
 
 @dataclass(frozen=True)
@@ -404,4 +404,148 @@ def analyze_spatiotemporal_relation_algebra(
         psmsl_and_operator_pruning_ratio=pruning_ratio,
         onset_signature_unsat_at_transient_t=onset_unsat_by_t,
         phase_relations=tuple(phase_rels),
+    )
+
+
+@dataclass(frozen=True)
+class RightCoupledFluxVerificationReport:
+    """Combines the arbitrary-depth characteristic-flux onset laws (`k >= T`, zero left-cone variables)
+    with the right-half evolution `Y_s(r_1, ..., r_{max(0, T-2)})` from the finite-support single-seed
+    right slice (`R_0(T) = 1`, `R_1(T) = T mod 2`, `cell(T, p) = 0` for `p > T`).
+    """
+
+    transients_tested: Tuple[int, ...]
+    periods_tested: Tuple[int, ...]
+    total_hypotheses_tested: int
+    pure_left_onset_unsat_count: int
+    right_coupled_flux_unsat_count: int
+    white_run_cases_closed_by_right_correlation: Tuple[str, ...]
+    max_free_right_variables_at_t6: int
+
+
+def analyze_right_coupled_characteristic_flux(
+    transients: Sequence[int] = (1, 2, 3, 4, 5, 6),
+    periods: Sequence[int] = (2, 3),
+    max_depth: int = 8,
+) -> RightCoupledFluxVerificationReport:
+    """Evaluate all mixed-word hypotheses across `transients` and `periods` at depths `k >= T`
+    (where sideways characteristic rays reach the left wavefront `D_0..D_5` without touching row `T`
+    on the left), both before and after substituting the right-half transition polynomials
+    `y_s = Y_s(r_1, ..., r_{max(0, T-2)})` generated from the finite-support right boundary.
+    """
+    import itertools
+
+    mixed_words = [
+        tuple(w)
+        for p_val in periods
+        for w in itertools.product((0, 1), repeat=p_val)
+        if (0 in w and 1 in w)
+    ]
+
+    total_tested = 0
+    pure_left_unsat = 0
+    right_coupled_unsat = 0
+    closed_by_right: List[str] = []
+
+    for w in mixed_words:
+        p = len(w)
+        st_rep = analyze_spatiotemporal_relation_algebra(
+            w, max_depth=max_depth, transients_to_test=transients
+        )
+        for t_val in transients:
+            total_tested += 1
+            left_only_k = st_rep.onset_signature_unsat_at_transient_t.get(f"T={t_val}")
+            if left_only_k is not None:
+                pure_left_unsat += 1
+                right_coupled_unsat += 1
+                continue
+
+            # For any case where pure left-onset (unconstrained y_s) had a surviving assignment,
+            # evolve the right-half polynomial system from the finite-support initial condition at row T
+            # (R_0(T) = 1, R_1(T) = T % 2, cell(T, q) = 0 for q > T) and test compatibility with
+            # the characteristic-flux onset equations!
+            horizon = 2 * max_depth + 4
+            c_seq = [w[s % p] for s in range(horizon + 4)]
+            right_vars = [f"r_{j}" for j in range(1, max(1, t_val - 1))]
+            cur_right: Dict[int, ANFPolynomial] = {}
+            for j in range(1, t_val):
+                if j == t_val - 1:
+                    cur_right[j] = ANFPolynomial.const(0 if (t_val % 2 == 0) else 1)
+                else:
+                    cur_right[j] = ANFPolynomial.var(f"r_{j}")
+            cur_right[t_val] = ANFPolynomial.one()
+
+            y_polys: List[ANFPolynomial] = []
+            for s in range(horizon + 2):
+                y_polys.append(cur_right.get(1, ANFPolynomial.zero()))
+                c_poly = ANFPolynomial.const(c_seq[s])
+                extent = t_val + s + 1
+                nxt_right: Dict[int, ANFPolynomial] = {}
+                for col in range(1, extent + 1):
+                    lp = cur_right.get(col - 1, ANFPolynomial.zero()) if col - 1 >= 1 else c_poly
+                    cp = cur_right.get(col, ANFPolynomial.zero())
+                    rp = cur_right.get(col + 1, ANFPolynomial.zero())
+                    nxt_right[col] = rule30_anf(lp, cp, rp)
+                cur_right = nxt_right
+
+            # Reconstruct left columns X_{s, -d}(r) directly using y_s = y_polys[s]
+            cols_r: Dict[int, List[ANFPolynomial]] = {
+                0: [ANFPolynomial.const(c_seq[s]) for s in range(horizon + 2)]
+            }
+            cols_r[1] = [
+                ANFPolynomial.const(c_seq[s + 1])
+                ^ (ANFPolynomial.const(1) if c_seq[s] == 1 else y_polys[s])
+                for s in range(horizon + 1)
+            ]
+            for d in range(1, max_depth):
+                limit = len(cols_r[d]) - 1
+                cols_r[d + 1] = [
+                    cols_r[d][s + 1] ^ (cols_r[d][s] | cols_r[d - 1][s]) for s in range(limit)
+                ]
+
+            n_r = len(right_vars)
+            num_m = 1 << n_r
+            all_ones = (1 << num_m) - 1
+            v_mask = {
+                vn: sum(1 << mask for mask in range(num_m) if (mask >> bp) & 1)
+                for bp, vn in enumerate(right_vars)
+            }
+            cov = 0
+            coupled_ok = False
+            for k_depth in range(t_val, max_depth + 1):
+                base_s = k_depth - t_val
+                if base_s + 5 >= len(cols_r[k_depth]):
+                    break
+                c_list = [
+                    cols_r[k_depth][base_s + 0] ^ ANFPolynomial.one(),
+                    cols_r[k_depth][base_s + 1] ^ ANFPolynomial.one(),
+                    cols_r[k_depth][base_s + 2],
+                    cols_r[k_depth][base_s + 4] ^ ANFPolynomial.one(),
+                    cols_r[k_depth][base_s + 5] ^ cols_r[k_depth][base_s + 3],
+                ]
+                for cp in c_list:
+                    cm = 0
+                    for m in cp.monomials:
+                        mm = all_ones
+                        for v in m:
+                            mm &= v_mask[v]
+                        cm ^= mm
+                    cov |= cm
+                if cov == all_ones:
+                    coupled_ok = True
+                    closed_by_right.append(
+                        f"T={t_val}, w={list(w)} -> refuted at k={k_depth} by right-half correlation (n_right_vars={n_r})"
+                    )
+                    break
+            if coupled_ok:
+                right_coupled_unsat += 1
+
+    return RightCoupledFluxVerificationReport(
+        transients_tested=tuple(transients),
+        periods_tested=tuple(periods),
+        total_hypotheses_tested=total_tested,
+        pure_left_onset_unsat_count=pure_left_unsat,
+        right_coupled_flux_unsat_count=right_coupled_unsat,
+        white_run_cases_closed_by_right_correlation=tuple(closed_by_right),
+        max_free_right_variables_at_t6=max(0, max(transients) - 2),
     )

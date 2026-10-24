@@ -168,6 +168,45 @@ theorem transport_adjacent_xor_to_onset_implies_problem1
   · rw [hfalse] at hbad1; contradiction
   · rw [htrue] at hbad2; contradiction
 
+/-- **End-to-End Composition (`CONDITIONAL`, New in `R30-FLUX-CORR-001`) — Right-History Characteristic-Flux
+    Incompatibility Reduction (`right_history_characteristic_flux_incompatibility_implies_problem1`)**:
+    Combines:
+    1. `periodic_center_has_black_and_white_in_every_period` (`EXACT`),
+    2. `spatiotemporal_leading_orCol_onset_isolation` (`EXACT` — all-depth isolation of `orCol 0` at
+       odd apex times `2k + 1` and even apex times `2k + 2`),
+    3. `spatiotemporal_black_white_apex_dichotomy` (`EXACT` — PSMSL black-step screening vs.
+       white-step linear isolation of `cell τ 1`), and
+    4. The finite-support right initial condition (`R_zero T : cell T T = true`, `cell_eq_false_of_gt T`).
+    If no single-seed right-half history can satisfy both the black-step interior-flux equations and
+    the white-step `cell τ 1` equations for all `k ≥ T`, `Rule30Prize.Problem1` holds unconditionally. -/
+theorem right_history_characteristic_flux_incompatibility_implies_problem1
+    (hFluxIncompat :
+      ∀ (T P sb sw : Nat), 0 < P → sb < P → sw < P →
+        (∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+        Rule30Prize.center (T + sb) = true →
+        Rule30Prize.center (T + sw) = false →
+        (cell T (T : Int) = true ∧ ∀ p : Int, (T : Int) < p → cell T p = false) →
+        ∃ k : Nat, T ≤ k ∧
+          (orCol 0 (k + 1 + k) ≠
+             xor (!Rule30Prize.center (k + 1 + k + 1)) (interiorCharacteristicFlux (k + 1) k) ∨
+           orCol 0 (k + 2 + k) ≠
+             xor (!Rule30Prize.center (k + 2 + k + 1)) (interiorCharacteristicFlux (k + 2) k))) :
+    Rule30Prize.Problem1 := by
+  rintro ⟨T, P, hP, hper⟩
+  rcases periodic_center_has_black_and_white_in_every_period T P T hP hper (Nat.le_refl T) with
+    ⟨⟨sb, hsb, hb⟩, ⟨sw, hsw, hw⟩⟩
+  have hRightSeed : cell T (T : Int) = true ∧ ∀ p : Int, (T : Int) < p → cell T p = false := by
+    refine ⟨?_, fun p hp => cell_eq_false_of_gt T p hp⟩
+    have hr0 := R_zero T
+    unfold R at hr0
+    rw [show (T : Int) - (0 : Nat) = (T : Int) by omega] at hr0
+    exact hr0
+  obtain ⟨k, _, hmismatch⟩ := hFluxIncompat T P sb sw hP hsb hsw hper hb hw hRightSeed
+  rcases spatiotemporal_leading_orCol_onset_isolation k with ⟨h_odd, h_even⟩
+  rcases hmismatch with hbad_odd | hbad_even
+  · exact hbad_odd h_odd
+  · exact hbad_even h_even
+
 /-- **Bounded Verification (`BOUNDED` — `bounded_T0_periods_one_to_four_excluded`)**:
     Certifies on the single-seed trajectory at `T = 0` that no period `P ∈ {1, 2, 3, 4}` holds
     even across the first period return `t = 0 .. 2`. -/
@@ -314,6 +353,49 @@ theorem closure_spatiotemporal_101010_quadratic_cancellation_depth5 (t : Nat)
     cell t (-5) = cell (t + 1) (-1) ∧
     cell t (-5) = cell t (-3) :=
   spatiotemporal_101010_quadratic_cancellation_depth5 t hc0 hc1 hc2 hc3 hc4 hc5
+
+theorem closure_characteristicFlux_decomp_leading_orCol (d t : Nat) :
+    leftCharacteristicFlux t (d + 1) =
+      xor (orCol 0 (t + d)) (interiorCharacteristicFlux t d) ∧
+    cell t (-(↑(d + 1) : Int)) =
+      xor (Rule30Prize.center (t + d + 1))
+          (xor (orCol 0 (t + d)) (interiorCharacteristicFlux t d)) :=
+  characteristicFlux_decomp_leading_orCol d t
+
+theorem closure_spatiotemporal_leading_orCol_onset_isolation (k : Nat) :
+    orCol 0 (k + 1 + k) =
+      xor (!Rule30Prize.center (k + 1 + k + 1)) (interiorCharacteristicFlux (k + 1) k) ∧
+    orCol 0 (k + 2 + k) =
+      xor (!Rule30Prize.center (k + 2 + k + 1)) (interiorCharacteristicFlux (k + 2) k) :=
+  spatiotemporal_leading_orCol_onset_isolation k
+
+theorem closure_spatiotemporal_black_white_apex_dichotomy (k : Nat) :
+    (Rule30Prize.center (k + 1 + k) = true →
+      interiorCharacteristicFlux (k + 1) k = Rule30Prize.center (k + 1 + k + 1)) ∧
+    (Rule30Prize.center (k + 1 + k) = false →
+      cell (k + 1 + k) 1 =
+        xor (!Rule30Prize.center (k + 1 + k + 1)) (interiorCharacteristicFlux (k + 1) k)) ∧
+    (Rule30Prize.center (k + 2 + k) = true →
+      interiorCharacteristicFlux (k + 2) k = Rule30Prize.center (k + 2 + k + 1)) ∧
+    (Rule30Prize.center (k + 2 + k) = false →
+      cell (k + 2 + k) 1 =
+        xor (!Rule30Prize.center (k + 2 + k + 1)) (interiorCharacteristicFlux (k + 2) k)) :=
+  spatiotemporal_black_white_apex_dichotomy k
+
+theorem closure_right_history_characteristic_flux_incompatibility_implies_problem1
+    (hFluxIncompat :
+      ∀ (T P sb sw : Nat), 0 < P → sb < P → sw < P →
+        (∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+        Rule30Prize.center (T + sb) = true →
+        Rule30Prize.center (T + sw) = false →
+        (cell T (T : Int) = true ∧ ∀ p : Int, (T : Int) < p → cell T p = false) →
+        ∃ k : Nat, T ≤ k ∧
+          (orCol 0 (k + 1 + k) ≠
+             xor (!Rule30Prize.center (k + 1 + k + 1)) (interiorCharacteristicFlux (k + 1) k) ∨
+           orCol 0 (k + 2 + k) ≠
+             xor (!Rule30Prize.center (k + 2 + k + 1)) (interiorCharacteristicFlux (k + 2) k))) :
+    Rule30Prize.Problem1 :=
+  right_history_characteristic_flux_incompatibility_implies_problem1 hFluxIncompat
 
 theorem closure_stepLeftRow_rowAtLeft (t n : Nat) (p : Int) :
     stepLeftRow (cell t (p + 1)) (rowAtLeft t p (n + 1)) = rowAtLeft (t + 1) p n :=

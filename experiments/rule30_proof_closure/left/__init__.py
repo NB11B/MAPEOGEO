@@ -16,10 +16,12 @@ from .initial_seed_constraints import (
     evaluate_left_cone_elimination,
 )
 from .spatial_transport import (
+    RightCoupledFluxVerificationReport,
     SpatialDepthRelationStep,
     SpatialTransportTrajectoryReport,
     SpatiotemporalAlgebraReport,
     SpatiotemporalPhaseRelation,
+    analyze_right_coupled_characteristic_flux,
     analyze_spatiotemporal_relation_algebra,
     trace_spatial_relation_transport,
 )
@@ -34,10 +36,12 @@ __all__ = [
     "evaluate_autonomous_no11_left_evolution",
     "LeftConeEliminationSample",
     "evaluate_left_cone_elimination",
+    "RightCoupledFluxVerificationReport",
     "SpatialDepthRelationStep",
     "SpatialTransportTrajectoryReport",
     "SpatiotemporalAlgebraReport",
     "SpatiotemporalPhaseRelation",
+    "analyze_right_coupled_characteristic_flux",
     "analyze_spatiotemporal_relation_algebra",
     "trace_spatial_relation_transport",
 ]
