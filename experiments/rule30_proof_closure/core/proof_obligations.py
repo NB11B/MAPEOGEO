@@ -29,6 +29,7 @@ class FormalDeclarationRecord:
     track: str
     dependencies: Tuple[str, ...]
     summary: str
+    source_attribution: str = "R30_CLOSE_001_NEW"
 
     def to_dict(self) -> Dict[str, object]:
         d = asdict(self)
@@ -100,7 +101,8 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             obligation_id="M3",
             track="Track A",
             dependencies=("Rule30Prize.center_not_eventually_constant",),
-            summary="Unconditional exclusion of eventually all-white center tails for all transients T.",
+            summary="Baseline wrapper: exclusion of eventually all-white center tails (already in Rule30PrizeKit).",
+            source_attribution="PRIZE_KIT_BASELINE_WRAPPER",
         ),
         FormalDeclarationRecord(
             name="Rule30ProofClosure.no_eventually_all_black_center",
@@ -109,7 +111,8 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             obligation_id="M3",
             track="Track A",
             dependencies=("Rule30Prize.center_not_eventually_constant",),
-            summary="Unconditional exclusion of eventually all-black center tails for all transients T.",
+            summary="Baseline wrapper: exclusion of eventually all-black center tails (already in Rule30PrizeKit).",
+            source_attribution="PRIZE_KIT_BASELINE_WRAPPER",
         ),
         FormalDeclarationRecord(
             name="Rule30ProofClosure.no_period_one_center_all_transients",
@@ -118,7 +121,8 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             obligation_id="M3",
             track="Track A",
             dependencies=("Rule30Prize.center_not_eventually_period_one",),
-            summary="Unconditional exclusion of period P=1 center tails for all transients T.",
+            summary="Baseline wrapper: exclusion of period P=1 center tails (already in Rule30PrizeKit).",
+            source_attribution="PRIZE_KIT_BASELINE_WRAPPER",
         ),
         FormalDeclarationRecord(
             name="Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
@@ -131,6 +135,7 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
                 "Rule30ProofClosure.no_eventually_all_black_center",
             ),
             summary="Every period window [t1, t1+P) of a periodic center contains both black and white cells.",
+            source_attribution="R30_CLOSE_001_NEW",
         ),
         FormalDeclarationRecord(
             name="Rule30ProofClosure.left_light_cone_support_bound",
@@ -139,7 +144,68 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             obligation_id="M1",
             track="Track A",
             dependencies=("Rule30Jen.cell_left_edge", "Rule30Jen.cell_eq_false_of_lt"),
-            summary="At time T, cell T (-T) = true and cell T p = false for all p < -T.",
+            summary="Baseline wrapper: at time T, cell T (-T) = true and cell T p = false for all p < -T (already in Rule30PrizeKit).",
+            source_attribution="PRIZE_KIT_BASELINE_WRAPPER",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.left_diag_D2_eq_false",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M1",
+            track="Track A",
+            dependencies=("Rule30Diagonals.D_step", "Rule30Diagonals.D_zero", "Rule30Diagonals.D_one"),
+            summary="Permanent whiteness of 3rd left diagonal: D 2 (t + 2) = false for all t.",
+            source_attribution="G0_G11_CAMPAIGN",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.left_diag_D4_eq_true",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M3",
+            track="Track A",
+            dependencies=("Rule30ProofClosure.left_diag_D2_eq_false", "Rule30Diagonals.D_step"),
+            summary="New in R30-CERT-001: permanent blackness of 5th left diagonal D 4 (t + 3) = true for all t.",
+            source_attribution="R30_CERT_001_NEW",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.left_diag_D5_eq_not_D3",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M3",
+            track="Track A",
+            dependencies=("Rule30ProofClosure.left_diag_D4_eq_true", "Rule30Diagonals.D_step"),
+            summary="New in R30-CERT-001: D 4 = true screens out D 5, forcing D 5 (t + 4) = !D 3 (t + 3) (period 2).",
+            source_attribution="R30_CERT_001_NEW",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.double_black_step_depth2_forcing",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M1",
+            track="Track A",
+            dependencies=("Rule30ProofClosure.left_black_step_screened_forcing",),
+            summary="New in R30-CERT-001 (Law L2): under 11 center pattern, right half is screened to depth -2: cell t (-2) = center (t+2).",
+            source_attribution="R30_CERT_001_NEW",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.local_101_pattern_conserved_left_xor",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M2",
+            track="Track A/B",
+            dependencies=("Rule30ProofClosure.left_black_step_screened_forcing",),
+            summary="New in R30-CERT-001 (Law L3): under 101 center pattern, the unscreened right variable cancels out of xor (cell t (-2)) (cell t (-3)) = !center (t+3).",
+            source_attribution="R30_CERT_001_NEW",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.local_1010_complement_cancellation_depth4",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M2",
+            track="Track A/B",
+            dependencies=("Rule30ProofClosure.local_101_pattern_conserved_left_xor",),
+            summary="New in R30-CERT-001 (Law L3b): under 1010 center pattern, cell t (-3) = !cell t (-2) collapses cell t (-3) || cell t (-2) = true and linearizes depth -4.",
+            source_attribution="R30_CERT_001_NEW",
         ),
         FormalDeclarationRecord(
             name="Rule30ProofClosure.bilateral_center_conservation",
@@ -261,6 +327,21 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             summary="Reduces Problem1 to a single FutureWorkEquiv collision at linear horizon k = t1 + (m0+q)P.",
         ),
         FormalDeclarationRecord(
+            name="Rule30ProofClosure.spatial_bridge_to_left_diagonals_implies_problem1",
+            module="Rule30PrizeClosure",
+            classification=DeclarationClass.CONDITIONAL,
+            obligation_id="M5",
+            track="Track A/C",
+            dependencies=(
+                "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
+                "Rule30ProofClosure.left_diag_D2_eq_false",
+                "Rule30ProofClosure.left_diag_D4_eq_true",
+                "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals",
+            ),
+            summary="New in R30-CERT-001: reduces Problem1 to bridging near-center cancellation laws L1-L3 to left diagonal invariants D2=false / D4=true.",
+            source_attribution="R30_CERT_001_NEW",
+        ),
+        FormalDeclarationRecord(
             name="REFUTED.decoupled_one_sided_right_quotient_closes_problem1",
             module="Rule30BilateralCompatibility",
             classification=DeclarationClass.REFUTED,
@@ -268,6 +349,7 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             track="Track B",
             dependencies=("Rule30Submission.g11_p1_ether_periodic_chain_all_horizon_work_equiv",),
             summary="Refuted assumption that one-sided right-half quotient analysis alone can eliminate all periodic centers.",
+            source_attribution="R30_CLOSE_001_NEW",
         ),
         FormalDeclarationRecord(
             name="UNRESOLVED.M4_universal_f2_cone_polynomial_unsat",
@@ -276,7 +358,18 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             obligation_id="M4",
             track="Track A/C",
             dependencies=(),
-            summary="Prove that for all T and mixed words w, the overdetermined degree-2 F_2 polynomial system on the 2T-2 cone variables has no common root.",
+            summary="Prove that for all T and mixed words w, the overdetermined degree-2 F_2 polynomial system on the reduced cone variables has no common root.",
+            source_attribution="CAMPAIGN_REDUCTION",
+        ),
+        FormalDeclarationRecord(
+            name="UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals",
+            module="Rule30PrizeClosure",
+            classification=DeclarationClass.UNRESOLVED,
+            obligation_id="M4",
+            track="Track A/C",
+            dependencies=(),
+            summary="Prove that for all T>=7 and mixed words w, the near-center cancellation laws L1-L3 bridge the remaining max(0, T-6) free left-cone variables to contradict (D2, D4) = (false, true).",
+            source_attribution="R30_CERT_001_NEW",
         ),
         FormalDeclarationRecord(
             name="UNRESOLVED.M4_sublinear_futureWork_class_bound",
@@ -286,7 +379,61 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             track="Track B",
             dependencies=(),
             summary="Prove that a periodically driven single-seed return orbit cannot realize M pairwise distinct FutureWorkEquiv classes at linear horizon k = t1 + MP.",
+            source_attribution="CAMPAIGN_REDUCTION",
         ),
+    ]
+
+
+def build_parallel_operator_inventory() -> List[Dict[str, object]]:
+    """Return the exhaustive dependency inventory mapping existing parallel capabilities to M4-A and M4-B."""
+    return [
+        {
+            "capability_id": "MAPEOGEO_CERTIFIABLE_GF2_IDEAL_KERNEL",
+            "source_modules": [
+                "mapeogeo.gfyproof_bridge (canonical_sha256, GFY.POLYNOMIAL_IDEAL_MEMBERSHIP.v1)",
+                "experiments.rule30_proof_closure.core.symbolic_constraints (ANFPolynomial)",
+                "experiments.rule30_proof_closure.certificates.ideal_normalizer",
+            ],
+            "mathematical_responsibility": "Normalize composed Boolean transformations in F_2[z]/<z^2-z>, compute explicit Nullstellensatz certificates 1 = sum q_r(z)*g_r(z), and replay them independently.",
+            "targets_m4_a": True,
+            "targets_m4_b": False,
+            "achieved_reduction": "Eliminates representation-induced degree explosion at depths -1, -2 (all words) and -3, -4 (101/1010 words), producing degree-0 MUS=1 certificates for 151/154 (98.05%) tested mixed hypotheses across T=0..6, P=2..4 (77/77 in G2 and 28/28 in G3).",
+        },
+        {
+            "capability_id": "PSMSL_OBSERVATIONAL_PROJECTION_QUOTIENT",
+            "source_modules": [
+                "experiments.rule30_falsification.psmsl_future_work (FutureWorkEquiv, or_col_word)",
+                "experiments.rule30_proof_closure.right.future_work_quotient",
+                "experiments.rule30_proof_closure.formal.Rule30RightInformation",
+            ],
+            "mathematical_responsibility": "Project out screened right-half variables at black center steps (c_t = 1 => 1 | x_1 = 1) and enforce the constructive linear re-entry bound via window_jen.",
+            "targets_m4_a": True,
+            "targets_m4_b": True,
+            "achieved_reduction": "Kills all right-half dependence at black steps (Law L1), cancels the unscreened white-step variable out of X_{t,-2} XOR X_{t,-3} on 101 patterns (Law L3), and proves universal_linear_reentry_horizon_bound.",
+        },
+        {
+            "capability_id": "BBB17_COLLATZ_ARITHMETIC_PHASE_MACROS",
+            "source_modules": [
+                "experiments.rule30_proof_closure.left.arithmetic_phase_macros",
+                "experiments.rule30_proof_closure.formal.Rule30LeftReconstruction",
+            ],
+            "mathematical_responsibility": "Replace step-by-step updates with parameterized phase laws L1 (1*), L2 (11*), L3 (101*), L3b (1010*), and white-run erosion across exhaustive word grammar clusters {G1, G2, G3, G4}.",
+            "targets_m4_a": True,
+            "targets_m4_b": True,
+            "achieved_reduction": "Partitions all periodic words w in {0,1}^P into 4 exact operator-grammar clusters {G1, G2, G3, G4} with kernel-verified depth-2, depth-3, and depth-4 cancellation laws.",
+        },
+        {
+            "capability_id": "GEOMETRIC_DIAGONAL_RECONSTRUCTION_AND_MUS_EXTRACTOR",
+            "source_modules": [
+                "mapeogeo.pct.reconstruction",
+                "experiments.rule30_proof_closure.left.triangular_reconstruction",
+                "experiments.rule30_proof_closure.certificates.ideal_normalizer",
+            ],
+            "mathematical_responsibility": "Fix the first 6 left light-cone diagonals (D0=1, D1=1, D2=0, D3=parity, D4=1, D5=!D3) and right diagonal R1=parity for all t, and extract minimal unsatisfiable cores (MUS).",
+            "targets_m4_a": True,
+            "targets_m4_b": False,
+            "achieved_reduction": "Reduces free left-cone slice variables at transient T from T-1 to max(0, T-6) (zero free left variables for all T <= 6!), isolating the surviving M4 gap to the spatial bridge for T >= 7.",
+        },
     ]
 
 

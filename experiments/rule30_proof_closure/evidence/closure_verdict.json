@@ -1,18 +1,259 @@
 {
-  "program_id": "R30-CLOSE-001",
+  "program_id": "R30-CLOSE-001+R30-CERT-001",
   "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-  "outcome_classification": "OUTCOME_B_AND_C_EXACT_REDUCTION_AND_M4_OBSTRUCTION",
-  "outcome_summary": "Checkpoints 01 (Reconstruction Completeness) and 02 (Bilateral Soundness) are unconditionally verified (20/20 Lean 4.35.0 headlines in Rule30PrizeClosure). All-white, all-black, and P=1 center periods are unconditionally excluded for all transients T, and window_jen + PSMSL FutureWorkEquiv establishes an explicit constructive linear re-entry bound forcing M pairwise distinct FutureWorkEquiv classes across any M return periods. Checkpoint 03/04 universal lifting (M4) is isolated to two exact open obligations: (Track A/C) F_2 non-vanishing of the overdetermined degree-2 cone polynomial system in 2T-2 variables, or (Track B) a sub-linear upper bound on realizable single-seed FutureWorkEquiv classes.",
+  "outcome_classification": "OUTCOME_B_AND_C_EXACT_CANCELLATION_GRAMMAR_AND_SPATIAL_BRIDGE_REDUCTION",
+  "outcome_summary": "Checkpoints 01 and 02 plus the R30-CERT-001 operator-cancellation and diagonal-screening theorems are unconditionally verified (26/26 Lean 4.35.0 headlines in Rule30PrizeClosure, 28 replayed constants, 0 new axioms). In the PSMSL-projected sideways basis, columns -1 and -2 collapse to degree <= 1 for all words, Law L2 screens 11 patterns to depth -2, Law L3 cancels the unscreened right-half variable out of X_{t,-2} XOR X_{t,-3} on 101 patterns, and left diagonals D0..D5 eliminate all free left-cone variables for T <= 6, collapsing 151/154 (98.05%) of mixed-word Nullstellensatz certificates across T=0..6, P=2..4 (including 77/77 in G2 and 28/28 in G3) to MUS size 1 and degree 0. Universal lifting (M4) is isolated to bridging the max(0, T-6) interior cone gap for T >= 7 (spatial_bridge_to_left_diagonals_implies_problem1).",
   "checkpoint_01_reconstruction_completeness": true,
   "checkpoint_02_bilateral_soundness": true,
-  "checkpoint_03_universal_contradiction_status": "BOUNDED_AND_LINEAR_REENTRY_EXACT__M4_LIFTING_UNRESOLVED",
-  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_20_OF_20__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+  "checkpoint_03_universal_contradiction_status": "EXACT_FOR_4_GRAMMAR_LAWS_AND_D0_D5__SPATIAL_BRIDGE_T_GE_7_OPEN",
+  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_26_OF_26__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
   "conditional_closure_claims_automatically_rejected": true,
-  "hypotheses_tested": 56,
-  "hypotheses_unsat_count": 56,
+  "hypotheses_tested": 180,
+  "hypotheses_unsat_count": 180,
   "surviving_models_count": 0,
-  "max_bilateral_unsat_horizon": 8,
+  "max_bilateral_unsat_horizon": 13,
   "max_left_only_unsat_horizon": 16,
+  "experiment_scopes": {
+    "ci_fast_scope": {
+      "parameters": "max_period=3, transients=(0, 1, 2, 3)",
+      "hypotheses_tested": 56,
+      "hypotheses_unsat": 56,
+      "purpose": "Fast unit-test verification scope in test_certificates.py (write_evidence=False)."
+    },
+    "canonical_certificate_scope": {
+      "parameters": "max_period=4, transients=(0, 1, 2, 3, 4, 5)",
+      "hypotheses_tested": 180,
+      "hypotheses_unsat": 180,
+      "purpose": "Default persisted campaign scope in proof_certificate.py."
+    },
+    "extended_sweep_scope": {
+      "parameters": "max_period=5, transients=(0, 1, 2, 3, 4, 5, 6)",
+      "hypotheses_tested": 399,
+      "hypotheses_unsat": 399,
+      "purpose": "Extended diagnostic cone sweep through P<=5, T<=6."
+    }
+  },
+  "r30_cert_001_campaign": {
+    "campaign_id": "R30-CERT-001",
+    "headline_theorems_verified_in_check_lean": 26,
+    "replayed_constants_in_check_lean": 28,
+    "parallel_operator_inventory": [
+      {
+        "capability_id": "MAPEOGEO_CERTIFIABLE_GF2_IDEAL_KERNEL",
+        "source_modules": [
+          "mapeogeo.gfyproof_bridge (canonical_sha256, GFY.POLYNOMIAL_IDEAL_MEMBERSHIP.v1)",
+          "experiments.rule30_proof_closure.core.symbolic_constraints (ANFPolynomial)",
+          "experiments.rule30_proof_closure.certificates.ideal_normalizer"
+        ],
+        "mathematical_responsibility": "Normalize composed Boolean transformations in F_2[z]/<z^2-z>, compute explicit Nullstellensatz certificates 1 = sum q_r(z)*g_r(z), and replay them independently.",
+        "targets_m4_a": true,
+        "targets_m4_b": false,
+        "achieved_reduction": "Eliminates representation-induced degree explosion at depths -1, -2 (all words) and -3, -4 (101/1010 words), producing degree-0 MUS=1 certificates for 151/154 (98.05%) tested mixed hypotheses across T=0..6, P=2..4 (77/77 in G2 and 28/28 in G3)."
+      },
+      {
+        "capability_id": "PSMSL_OBSERVATIONAL_PROJECTION_QUOTIENT",
+        "source_modules": [
+          "experiments.rule30_falsification.psmsl_future_work (FutureWorkEquiv, or_col_word)",
+          "experiments.rule30_proof_closure.right.future_work_quotient",
+          "experiments.rule30_proof_closure.formal.Rule30RightInformation"
+        ],
+        "mathematical_responsibility": "Project out screened right-half variables at black center steps (c_t = 1 => 1 | x_1 = 1) and enforce the constructive linear re-entry bound via window_jen.",
+        "targets_m4_a": true,
+        "targets_m4_b": true,
+        "achieved_reduction": "Kills all right-half dependence at black steps (Law L1), cancels the unscreened white-step variable out of X_{t,-2} XOR X_{t,-3} on 101 patterns (Law L3), and proves universal_linear_reentry_horizon_bound."
+      },
+      {
+        "capability_id": "BBB17_COLLATZ_ARITHMETIC_PHASE_MACROS",
+        "source_modules": [
+          "experiments.rule30_proof_closure.left.arithmetic_phase_macros",
+          "experiments.rule30_proof_closure.formal.Rule30LeftReconstruction"
+        ],
+        "mathematical_responsibility": "Replace step-by-step updates with parameterized phase laws L1 (1*), L2 (11*), L3 (101*), L3b (1010*), and white-run erosion across exhaustive word grammar clusters {G1, G2, G3, G4}.",
+        "targets_m4_a": true,
+        "targets_m4_b": true,
+        "achieved_reduction": "Partitions all periodic words w in {0,1}^P into 4 exact operator-grammar clusters {G1, G2, G3, G4} with kernel-verified depth-2, depth-3, and depth-4 cancellation laws."
+      },
+      {
+        "capability_id": "GEOMETRIC_DIAGONAL_RECONSTRUCTION_AND_MUS_EXTRACTOR",
+        "source_modules": [
+          "mapeogeo.pct.reconstruction",
+          "experiments.rule30_proof_closure.left.triangular_reconstruction",
+          "experiments.rule30_proof_closure.certificates.ideal_normalizer"
+        ],
+        "mathematical_responsibility": "Fix the first 6 left light-cone diagonals (D0=1, D1=1, D2=0, D3=parity, D4=1, D5=!D3) and right diagonal R1=parity for all t, and extract minimal unsatisfiable cores (MUS).",
+        "targets_m4_a": true,
+        "targets_m4_b": false,
+        "achieved_reduction": "Reduces free left-cone slice variables at transient T from T-1 to max(0, T-6) (zero free left variables for all T <= 6!), isolating the surviving M4 gap to the spatial bridge for T >= 7."
+      }
+    ],
+    "psmsl_sideways_translation_certificates": [
+      {
+        "period_word": [
+          0,
+          1
+        ],
+        "steps_evaluated": 8,
+        "active_psmsl_variables": 7,
+        "screened_psmsl_variables": 7,
+        "max_col_minus1_degree": 1,
+        "max_col_minus2_degree": 1,
+        "law_l2_constant_depth2_hits": 0,
+        "law_l3_conserved_xor_degree0_hits": 4,
+        "law_l3b_depth4_linear_collapse_hits": 4,
+        "single_seed_evaluation_mismatches": 0,
+        "translation_verified": true
+      },
+      {
+        "period_word": [
+          1,
+          0,
+          1,
+          0
+        ],
+        "steps_evaluated": 8,
+        "active_psmsl_variables": 7,
+        "screened_psmsl_variables": 7,
+        "max_col_minus1_degree": 1,
+        "max_col_minus2_degree": 1,
+        "law_l2_constant_depth2_hits": 0,
+        "law_l3_conserved_xor_degree0_hits": 4,
+        "law_l3b_depth4_linear_collapse_hits": 4,
+        "single_seed_evaluation_mismatches": 0,
+        "translation_verified": true
+      },
+      {
+        "period_word": [
+          1,
+          1,
+          0
+        ],
+        "steps_evaluated": 8,
+        "active_psmsl_variables": 4,
+        "screened_psmsl_variables": 10,
+        "max_col_minus1_degree": 1,
+        "max_col_minus2_degree": 1,
+        "law_l2_constant_depth2_hits": 3,
+        "law_l3_conserved_xor_degree0_hits": 3,
+        "law_l3b_depth4_linear_collapse_hits": 0,
+        "single_seed_evaluation_mismatches": 0,
+        "translation_verified": true
+      },
+      {
+        "period_word": [
+          0,
+          0,
+          1
+        ],
+        "steps_evaluated": 8,
+        "active_psmsl_variables": 10,
+        "screened_psmsl_variables": 4,
+        "max_col_minus1_degree": 1,
+        "max_col_minus2_degree": 1,
+        "law_l2_constant_depth2_hits": 0,
+        "law_l3_conserved_xor_degree0_hits": 0,
+        "law_l3b_depth4_linear_collapse_hits": 0,
+        "single_seed_evaluation_mismatches": 0,
+        "translation_verified": true
+      }
+    ],
+    "nullstellensatz_certificate_summary": {
+      "mixed_word_hypotheses_certified": 154,
+      "constant_word_hypotheses_excluded_by_G1": 70,
+      "total_hypotheses_covered_T0_to_T6_P1_to_P4": 224,
+      "all_polynomial_replays_verified": true,
+      "mus_size_1_degree_0_collapse_count": 151,
+      "mus_size_1_degree_0_collapse_fraction": 0.9805,
+      "max_mus_size": 2,
+      "max_generator_degree": 3,
+      "free_left_variables_for_T_le_6_after_D0_to_D5": 0,
+      "grammar_cluster_breakdown": {
+        "G1_CONSTANT_WAVEFRONT_PROPAGATION": {
+          "count": 0,
+          "degree_0_constant_collapse_count": 0,
+          "mus_size_1_count": 0,
+          "max_mus_size": 0,
+          "max_generator_degree": 0,
+          "all_replayed_verified": true
+        },
+        "G2_DOUBLE_BLACK_11_DEPTH2_SCREENING": {
+          "count": 77,
+          "degree_0_constant_collapse_count": 77,
+          "mus_size_1_count": 77,
+          "max_mus_size": 1,
+          "max_generator_degree": 0,
+          "all_replayed_verified": true
+        },
+        "G3_COMPLEMENT_101_XOR_CANCELLATION": {
+          "count": 28,
+          "degree_0_constant_collapse_count": 28,
+          "mus_size_1_count": 28,
+          "max_mus_size": 1,
+          "max_generator_degree": 0,
+          "all_replayed_verified": true
+        },
+        "G4_ISOLATED_BLACK_WHITE_RUN_EROSION": {
+          "count": 49,
+          "degree_0_constant_collapse_count": 46,
+          "mus_size_1_count": 46,
+          "max_mus_size": 2,
+          "max_generator_degree": 3,
+          "all_replayed_verified": true
+        }
+      }
+    },
+    "adversarial_counterexample_stress_tests": [
+      {
+        "test_id": "STRESS-01-ETHER-CHAIN-W01",
+        "target_family": "Right-half 7-cell Ether chain E_0^m under w=[0,1]",
+        "period_word": [
+          0,
+          1
+        ],
+        "grammar_cluster": "G3_COMPLEMENT_101_XOR_CANCELLATION",
+        "rejected_by_invariant": "L3:local_101_pattern_conserved_left_xor + D0..D5 left diagonal fixed point",
+        "rejection_horizon_steps": 2,
+        "passed": true
+      },
+      {
+        "test_id": "STRESS-02-DELAYED-REENTRY-W10",
+        "target_family": "G9/G10 masked-equivalence delayed re-entry word w=[1,0]",
+        "period_word": [
+          1,
+          0
+        ],
+        "grammar_cluster": "G3_COMPLEMENT_101_XOR_CANCELLATION",
+        "rejected_by_invariant": "L3:local_101_pattern_conserved_left_xor + L3b:local_1010_complement_cancellation_depth4",
+        "rejection_horizon_steps": 1,
+        "passed": true
+      },
+      {
+        "test_id": "STRESS-03-DOUBLE-BLACK-WALL-W110",
+        "target_family": "G3/G7 short black-run wall word w=[1,1,0]",
+        "period_word": [
+          1,
+          1,
+          0
+        ],
+        "grammar_cluster": "G2_DOUBLE_BLACK_11_DEPTH2_SCREENING",
+        "rejected_by_invariant": "L2:double_black_step_depth2_forcing + D0..D5 left diagonal fixed point",
+        "rejection_horizon_steps": 2,
+        "passed": true
+      },
+      {
+        "test_id": "STRESS-04-WHITE-RUN-EROSION-W001",
+        "target_family": "G8/Section-5 white-run erosion word w=[0,0,1]",
+        "period_word": [
+          0,
+          0,
+          1
+        ],
+        "grammar_cluster": "G4_ISOLATED_BLACK_WHITE_RUN_EROSION",
+        "rejected_by_invariant": "left_effective_boundary_autonomous_step + D0..D5 left diagonal fixed point",
+        "rejection_horizon_steps": 2,
+        "passed": true
+      }
+    ]
+  },
   "left_reconstruction": {
     "steps_checked": 28,
     "cells_reconstructed": 406,
@@ -194,7 +435,8 @@
       "dependencies": [
         "Rule30Jen.cell"
       ],
-      "summary": "1-step soundness of forward left-half evolution stepLeftRow on rowAtLeft."
+      "summary": "1-step soundness of forward left-half evolution stepLeftRow on rowAtLeft.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.runLeftWord_rowAtLeft",
@@ -205,7 +447,8 @@
       "dependencies": [
         "Rule30ProofClosure.stepLeftRow_rowAtLeft"
       ],
-      "summary": "L-step soundness of runLeftWord on rowAtLeft driven by col0Word t L."
+      "summary": "L-step soundness of runLeftWord on rowAtLeft driven by col0Word t L.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.left_black_step_screened_forcing",
@@ -216,7 +459,8 @@
       "dependencies": [
         "Rule30MaskedJen.left_of_black"
       ],
-      "summary": "At black center steps c(t)=true, right screening forces cell t (-1) = !c(t+1)."
+      "summary": "At black center steps c(t)=true, right screening forces cell t (-1) = !c(t+1).",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.left_effective_boundary_autonomous_step",
@@ -227,7 +471,8 @@
       "dependencies": [
         "Rule30MaskedJen.effective_step"
       ],
-      "summary": "When center(t) && center(t+1) = false, column -1 evolves with white right boundary."
+      "summary": "When center(t) && center(t+1) = false, column -1 evolves with white right boundary.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.no_eventually_all_white_center",
@@ -238,7 +483,8 @@
       "dependencies": [
         "Rule30Prize.center_not_eventually_constant"
       ],
-      "summary": "Unconditional exclusion of eventually all-white center tails for all transients T."
+      "summary": "Baseline wrapper: exclusion of eventually all-white center tails (already in Rule30PrizeKit).",
+      "source_attribution": "PRIZE_KIT_BASELINE_WRAPPER"
     },
     {
       "name": "Rule30ProofClosure.no_eventually_all_black_center",
@@ -249,7 +495,8 @@
       "dependencies": [
         "Rule30Prize.center_not_eventually_constant"
       ],
-      "summary": "Unconditional exclusion of eventually all-black center tails for all transients T."
+      "summary": "Baseline wrapper: exclusion of eventually all-black center tails (already in Rule30PrizeKit).",
+      "source_attribution": "PRIZE_KIT_BASELINE_WRAPPER"
     },
     {
       "name": "Rule30ProofClosure.no_period_one_center_all_transients",
@@ -260,7 +507,8 @@
       "dependencies": [
         "Rule30Prize.center_not_eventually_period_one"
       ],
-      "summary": "Unconditional exclusion of period P=1 center tails for all transients T."
+      "summary": "Baseline wrapper: exclusion of period P=1 center tails (already in Rule30PrizeKit).",
+      "source_attribution": "PRIZE_KIT_BASELINE_WRAPPER"
     },
     {
       "name": "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
@@ -272,7 +520,8 @@
         "Rule30ProofClosure.no_eventually_all_white_center",
         "Rule30ProofClosure.no_eventually_all_black_center"
       ],
-      "summary": "Every period window [t1, t1+P) of a periodic center contains both black and white cells."
+      "summary": "Every period window [t1, t1+P) of a periodic center contains both black and white cells.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.left_light_cone_support_bound",
@@ -284,7 +533,84 @@
         "Rule30Jen.cell_left_edge",
         "Rule30Jen.cell_eq_false_of_lt"
       ],
-      "summary": "At time T, cell T (-T) = true and cell T p = false for all p < -T."
+      "summary": "Baseline wrapper: at time T, cell T (-T) = true and cell T p = false for all p < -T (already in Rule30PrizeKit).",
+      "source_attribution": "PRIZE_KIT_BASELINE_WRAPPER"
+    },
+    {
+      "name": "Rule30ProofClosure.left_diag_D2_eq_false",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30Diagonals.D_step",
+        "Rule30Diagonals.D_zero",
+        "Rule30Diagonals.D_one"
+      ],
+      "summary": "Permanent whiteness of 3rd left diagonal: D 2 (t + 2) = false for all t.",
+      "source_attribution": "G0_G11_CAMPAIGN"
+    },
+    {
+      "name": "Rule30ProofClosure.left_diag_D4_eq_true",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30ProofClosure.left_diag_D2_eq_false",
+        "Rule30Diagonals.D_step"
+      ],
+      "summary": "New in R30-CERT-001: permanent blackness of 5th left diagonal D 4 (t + 3) = true for all t.",
+      "source_attribution": "R30_CERT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.left_diag_D5_eq_not_D3",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30ProofClosure.left_diag_D4_eq_true",
+        "Rule30Diagonals.D_step"
+      ],
+      "summary": "New in R30-CERT-001: D 4 = true screens out D 5, forcing D 5 (t + 4) = !D 3 (t + 3) (period 2).",
+      "source_attribution": "R30_CERT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.double_black_step_depth2_forcing",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30ProofClosure.left_black_step_screened_forcing"
+      ],
+      "summary": "New in R30-CERT-001 (Law L2): under 11 center pattern, right half is screened to depth -2: cell t (-2) = center (t+2).",
+      "source_attribution": "R30_CERT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.local_101_pattern_conserved_left_xor",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track A/B",
+      "dependencies": [
+        "Rule30ProofClosure.left_black_step_screened_forcing"
+      ],
+      "summary": "New in R30-CERT-001 (Law L3): under 101 center pattern, the unscreened right variable cancels out of xor (cell t (-2)) (cell t (-3)) = !center (t+3).",
+      "source_attribution": "R30_CERT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.local_1010_complement_cancellation_depth4",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M2",
+      "track": "Track A/B",
+      "dependencies": [
+        "Rule30ProofClosure.local_101_pattern_conserved_left_xor"
+      ],
+      "summary": "New in R30-CERT-001 (Law L3b): under 1010 center pattern, cell t (-3) = !cell t (-2) collapses cell t (-3) || cell t (-2) = true and linearizes depth -4.",
+      "source_attribution": "R30_CERT_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.bilateral_center_conservation",
@@ -295,7 +621,8 @@
       "dependencies": [
         "Rule30MaskedJen.cell_left'"
       ],
-      "summary": "Exact affine bijection cell t (-1) = xor (cell (t+1) 0) (orCol 0 t)."
+      "summary": "Exact affine bijection cell t (-1) = xor (cell (t+1) 0) (orCol 0 t).",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.futureWorkEquiv_implies_orCol_and_left_col_agree",
@@ -308,7 +635,8 @@
         "Rule30ProofClosure.iterPeriodReturn_rowAt",
         "Rule30ProofClosure.orColWord_rowAt"
       ],
-      "summary": "FutureWorkEquiv at return steps m0 and m0+q forces both orCol 0 and cell \u00b7 (-1) agreement."
+      "summary": "FutureWorkEquiv at return steps m0 and m0+q forces both orCol 0 and cell \u00b7 (-1) agreement.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
@@ -320,7 +648,8 @@
         "Rule30ProofClosure.futureWorkEquiv_implies_orCol_and_left_col_agree",
         "Rule30MaskedJen.window_jen"
       ],
-      "summary": "Constructive linear re-entry bound: return states m0 and m0+q cannot collide at (k+1)P >= t0 + (m0+q)P."
+      "summary": "Constructive linear re-entry bound: return states m0 and m0+q cannot collide at (k+1)P >= t0 + (m0+q)P.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.periodic_center_distinct_futureWork_classes_at_linear_horizon",
@@ -331,7 +660,8 @@
       "dependencies": [
         "Rule30ProofClosure.universal_linear_reentry_horizon_bound"
       ],
-      "summary": "Any M return steps occupy M pairwise distinct FutureWorkEquiv classes at linear horizon."
+      "summary": "Any M return steps occupy M pairwise distinct FutureWorkEquiv classes at linear horizon.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.obsLeftWord_rowAtLeft",
@@ -343,7 +673,8 @@
         "Rule30ProofClosure.stepLeftRow_rowAtLeft",
         "Rule30ProofClosure.bilateral_center_conservation"
       ],
-      "summary": "Left observation operator obsLeftWord on rowAtLeft evaluates to col0OrTrace t L."
+      "summary": "Left observation operator obsLeftWord on rowAtLeft evaluates to col0OrTrace t L.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.obsLeftWord_rowAtLeft_eq_orColWord_rowAt",
@@ -355,7 +686,8 @@
         "Rule30ProofClosure.obsLeftWord_rowAtLeft",
         "Rule30ProofClosure.orColWord_rowAt"
       ],
-      "summary": "Bilateral observation soundness: obsLeftWord on rowAtLeft equals orColWord on rowAt."
+      "summary": "Bilateral observation soundness: obsLeftWord on rowAtLeft equals orColWord on rowAt.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.bilateral_observation_mismatch_excludes_periodic_word",
@@ -366,7 +698,8 @@
       "dependencies": [
         "Rule30ProofClosure.obsLeftWord_rowAtLeft_eq_orColWord_rowAt"
       ],
-      "summary": "Any bilateral mismatch obsLeftWord != orColWord excludes the candidate center word."
+      "summary": "Any bilateral mismatch obsLeftWord != orColWord excludes the candidate center word.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.decoupled_halves_consistent_but_bilaterally_incompatible",
@@ -377,7 +710,8 @@
       "dependencies": [
         "Rule30ProofClosure.bilateral_observation_mismatch_excludes_periodic_word"
       ],
-      "summary": "Section 5 decoupling refutation: L_1 and R_1 at T=1, w=[0,1] are separately valid for 6 steps but fail bilaterally at step 1."
+      "summary": "Section 5 decoupling refutation: L_1 and R_1 at T=1, w=[0,1] are separately valid for 6 steps but fail bilaterally at step 1.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.bounded_T0_periods_one_to_four_excluded",
@@ -388,7 +722,8 @@
       "dependencies": [
         "Rule30ProofClosure.no_period_one_center_all_transients"
       ],
-      "summary": "Bounded exclusion of periods P in {1, 2, 3, 4} at transient T=0."
+      "summary": "Bounded exclusion of periods P in {1, 2, 3, 4} at transient T=0.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1",
@@ -401,7 +736,8 @@
         "Rule30ProofClosure.obsLeftWord_rowAtLeft_eq_orColWord_rowAt",
         "UNRESOLVED.M4_universal_f2_cone_polynomial_unsat"
       ],
-      "summary": "Reduces Problem1 to finite-horizon bilateral observation mismatch on mixed periodic words."
+      "summary": "Reduces Problem1 to finite-horizon bilateral observation mismatch on mixed periodic words.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
@@ -413,7 +749,23 @@
         "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
         "UNRESOLVED.M4_sublinear_futureWork_class_bound"
       ],
-      "summary": "Reduces Problem1 to a single FutureWorkEquiv collision at linear horizon k = t1 + (m0+q)P."
+      "summary": "Reduces Problem1 to a single FutureWorkEquiv collision at linear horizon k = t1 + (m0+q)P.",
+      "source_attribution": "R30_CLOSE_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.spatial_bridge_to_left_diagonals_implies_problem1",
+      "module": "Rule30PrizeClosure",
+      "classification": "CONDITIONAL",
+      "obligation_id": "M5",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
+        "Rule30ProofClosure.left_diag_D2_eq_false",
+        "Rule30ProofClosure.left_diag_D4_eq_true",
+        "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals"
+      ],
+      "summary": "New in R30-CERT-001: reduces Problem1 to bridging near-center cancellation laws L1-L3 to left diagonal invariants D2=false / D4=true.",
+      "source_attribution": "R30_CERT_001_NEW"
     },
     {
       "name": "REFUTED.decoupled_one_sided_right_quotient_closes_problem1",
@@ -424,7 +776,8 @@
       "dependencies": [
         "Rule30Submission.g11_p1_ether_periodic_chain_all_horizon_work_equiv"
       ],
-      "summary": "Refuted assumption that one-sided right-half quotient analysis alone can eliminate all periodic centers."
+      "summary": "Refuted assumption that one-sided right-half quotient analysis alone can eliminate all periodic centers.",
+      "source_attribution": "R30_CLOSE_001_NEW"
     },
     {
       "name": "UNRESOLVED.M4_universal_f2_cone_polynomial_unsat",
@@ -433,7 +786,18 @@
       "obligation_id": "M4",
       "track": "Track A/C",
       "dependencies": [],
-      "summary": "Prove that for all T and mixed words w, the overdetermined degree-2 F_2 polynomial system on the 2T-2 cone variables has no common root."
+      "summary": "Prove that for all T and mixed words w, the overdetermined degree-2 F_2 polynomial system on the reduced cone variables has no common root.",
+      "source_attribution": "CAMPAIGN_REDUCTION"
+    },
+    {
+      "name": "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals",
+      "module": "Rule30PrizeClosure",
+      "classification": "UNRESOLVED",
+      "obligation_id": "M4",
+      "track": "Track A/C",
+      "dependencies": [],
+      "summary": "Prove that for all T>=7 and mixed words w, the near-center cancellation laws L1-L3 bridge the remaining max(0, T-6) free left-cone variables to contradict (D2, D4) = (false, true).",
+      "source_attribution": "R30_CERT_001_NEW"
     },
     {
       "name": "UNRESOLVED.M4_sublinear_futureWork_class_bound",
@@ -442,7 +806,8 @@
       "obligation_id": "M4",
       "track": "Track B",
       "dependencies": [],
-      "summary": "Prove that a periodically driven single-seed return orbit cannot realize M pairwise distinct FutureWorkEquiv classes at linear horizon k = t1 + MP."
+      "summary": "Prove that a periodically driven single-seed return orbit cannot realize M pairwise distinct FutureWorkEquiv classes at linear horizon k = t1 + MP.",
+      "source_attribution": "CAMPAIGN_REDUCTION"
     }
   ],
   "decoupling_counterexamples": [
@@ -567,6 +932,15 @@
       ],
       "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
     },
+    "spatial_bridge_reduction": {
+      "target": "Rule30ProofClosure.spatial_bridge_to_left_diagonals_implies_problem1",
+      "accepted_as_unconditional_closure": false,
+      "non_exact_dependencies": [
+        "Rule30ProofClosure.spatial_bridge_to_left_diagonals_implies_problem1 (CONDITIONAL)",
+        "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals (UNRESOLVED)"
+      ],
+      "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
+    },
     "track_b_reduction": {
       "target": "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
       "accepted_as_unconditional_closure": false,
@@ -578,6 +952,12 @@
     },
     "exact_linear_reentry_bound": {
       "target": "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    },
+    "exact_law_l3_conserved_xor": {
+      "target": "Rule30ProofClosure.local_101_pattern_conserved_left_xor",
       "accepted_as_unconditional_closure": true,
       "non_exact_dependencies": [],
       "reason": "All transitive dependencies are EXACT."

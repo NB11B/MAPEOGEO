@@ -78,6 +78,35 @@ theorem linear_horizon_quotient_collision_implies_problem1
     omega
   exact universal_linear_reentry_horizon_bound T P t₁ m₀ q k hP hq hper ht₁ hbound hcoll
 
+/-- **M5 Track A/C Structural Spatial-Bridge Reduction (`CONDITIONAL` —
+    `spatial_bridge_to_left_diagonals_implies_problem1`)**:
+    Exposes the exact surviving proposition for universal certificate generalization:
+    Every periodic center word `P > 0` contains both black and white steps in `[T, T + P)`
+    (`periodic_center_has_black_and_white_in_every_period`), while the left cone boundary satisfies
+    the universal invariants `D 2 (t + 2) = false` and `D 4 (t + 3) = true` (`left_diag_D4_eq_true`).
+    If the sideways operator-cancellation laws (`L1`–`L3`: `left_black_step_screened_forcing`,
+    `double_black_step_depth2_forcing`, `local_101_pattern_conserved_left_xor`) bridge the spatial
+    cone gap from `p ∈ {-1, -2, -3}` to force a contradiction with `(D 2, D 4) = (false, true)` at
+    some step `t ≥ T`, then `Rule30Prize.Problem1` holds unconditionally. -/
+theorem spatial_bridge_to_left_diagonals_implies_problem1
+    (hSpatialBridge :
+      ∀ (T P : Nat), 0 < P →
+        (∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+        (∃ sb < P, Rule30Prize.center (T + sb) = true) →
+        (∃ sw < P, Rule30Prize.center (T + sw) = false) →
+        ∃ t : Nat, (D 2 (t + 2) = true ∨ D 4 (t + 3) = false)) :
+    Rule30Prize.Problem1 := by
+  rintro ⟨T, P, hP, hper⟩
+  obtain ⟨hb, hw⟩ := periodic_center_has_black_and_white_in_every_period T P T hP hper (Nat.le_refl T)
+  obtain ⟨t, hbad⟩ := hSpatialBridge T P hP hper hb hw
+  rcases hbad with hd2 | hd4
+  · have h := left_diag_D2_eq_false t
+    rw [h] at hd2
+    contradiction
+  · have h := left_diag_D4_eq_true t
+    rw [h] at hd4
+    contradiction
+
 /-- **Bounded Verification (`BOUNDED` — `bounded_T0_periods_one_to_four_excluded`)**:
     Certifies on the single-seed trajectory at `T = 0` that no period `P ∈ {1, 2, 3, 4}` holds
     even across the first period return `t = 0 .. 2`. -/
@@ -98,6 +127,52 @@ theorem bounded_T0_periods_one_to_four_excluded :
     revert h; decide
 
 /-! ### Top-Level Re-Exports for Single-Module `Check.lean Rule30PrizeClosure` Verification -/
+
+theorem closure_left_diag_D4_eq_true (t : Nat) :
+    D 4 (t + 3) = true :=
+  left_diag_D4_eq_true t
+
+theorem closure_left_diag_D5_eq_not_D3 (t : Nat) :
+    D 5 (t + 4) = !D 3 (t + 3) :=
+  left_diag_D5_eq_not_D3 t
+
+theorem closure_double_black_step_depth2_forcing (t : Nat)
+    (hb0 : Rule30Prize.center t = true)
+    (hb1 : Rule30Prize.center (t + 1) = true) :
+    cell t (-1) = false ∧
+    cell (t + 1) (-1) = !Rule30Prize.center (t + 2) ∧
+    cell t (-2) = Rule30Prize.center (t + 2) :=
+  double_black_step_depth2_forcing t hb0 hb1
+
+theorem closure_local_101_pattern_conserved_left_xor (t : Nat)
+    (hc0 : Rule30Prize.center t = true)
+    (hc1 : Rule30Prize.center (t + 1) = false)
+    (hc2 : Rule30Prize.center (t + 2) = true) :
+    cell t (-1) = true ∧
+    cell t (-2) = !cell (t + 1) (-1) ∧
+    cell t (-3) = xor (cell (t + 1) (-1)) (Rule30Prize.center (t + 3)) ∧
+    xor (cell t (-2)) (cell t (-3)) = !Rule30Prize.center (t + 3) :=
+  local_101_pattern_conserved_left_xor t hc0 hc1 hc2
+
+theorem closure_local_1010_complement_cancellation_depth4 (t : Nat)
+    (hc0 : Rule30Prize.center t = true)
+    (hc1 : Rule30Prize.center (t + 1) = false)
+    (hc2 : Rule30Prize.center (t + 2) = true)
+    (hc3 : Rule30Prize.center (t + 3) = false) :
+    cell t (-3) = !cell t (-2) ∧
+    (cell t (-3) || cell t (-2)) = true ∧
+    cell t (-4) = !cell (t + 1) (-3) :=
+  local_1010_complement_cancellation_depth4 t hc0 hc1 hc2 hc3
+
+theorem closure_spatial_bridge_to_left_diagonals_implies_problem1
+    (hSpatialBridge :
+      ∀ (T P : Nat), 0 < P →
+        (∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+        (∃ sb < P, Rule30Prize.center (T + sb) = true) →
+        (∃ sw < P, Rule30Prize.center (T + sw) = false) →
+        ∃ t : Nat, (D 2 (t + 2) = true ∨ D 4 (t + 3) = false)) :
+    Rule30Prize.Problem1 :=
+  spatial_bridge_to_left_diagonals_implies_problem1 hSpatialBridge
 
 theorem closure_stepLeftRow_rowAtLeft (t n : Nat) (p : Int) :
     stepLeftRow (cell t (p + 1)) (rowAtLeft t p (n + 1)) = rowAtLeft (t + 1) p n :=
