@@ -1,0 +1,173 @@
+{
+  "gate": "R30-PRIZE-G0-G4",
+  "audit_timestamp": "2026-10-23T23:00:00-04:00",
+  "official_environment": {
+    "kit_repo": "https://github.com/WolframInstitute/Rule30PrizeKit",
+    "kit_commit": "cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554",
+    "lean_version": "4.35.0",
+    "mathlib_rev": "56a005855ea17e0b0958f73ec801ae140b0a1679",
+    "verifier_image": "rule30-verifier:5",
+    "catalog_module_count": 65,
+    "public_submission_count_audited": 25
+  },
+  "result_classifications": [
+    {
+      "local_id": "R30-E1",
+      "local_theorems": [
+        "MAPEOGEOFormal.Rule30Falsification.rule30_left_reconstruction",
+        "MAPEOGEOFormal.Rule30Falsification.rule30_left_cone_nat_reconstruction",
+        "Rule30Submission.sidewaysLeftStep_eq_evolG"
+      ],
+      "classification": "KNOWN_BASELINE_EQUIVALENT",
+      "claimed_as_novel": false,
+      "official_overlaps": [
+        "Ruliology.CellularAutomata.Rule30Jen.cell_left",
+        "Ruliology.CellularAutomata.Rule30Realization.lc",
+        "Ruliology.CellularAutomata.Rule30Realization.unique",
+        "Ruliology.CellularAutomata.Rule30Realization.lc_congr",
+        "Submission R30-20261023-7e9e6e (tlf_left_cone_unique_all_depths)"
+      ],
+      "audit_note": "Left-permutive sideways reconstruction and finite-horizon cone uniqueness are already formalized in Rule30Realization.lean and R30-20261023-7e9e6e. Retained strictly as Gate G1 formal adapter bridges."
+    },
+    {
+      "local_id": "R30-E2-TRACE-BIJECTION",
+      "local_theorems": [
+        "MAPEOGEOFormal.Rule30Falsification.rule30_cone_leftmost_xor_bridge",
+        "MAPEOGEOFormal.Rule30Falsification.rule30_central_trace_bijection_all_k"
+      ],
+      "classification": "KNOWN_BASELINE_EQUIVALENT",
+      "claimed_as_novel": false,
+      "official_overlaps": [
+        "Ruliology.CellularAutomata.Rule30Realization.realize",
+        "Ruliology.CellularAutomata.Rule30Realization.column_realizable_unique",
+        "Submission R30-20261023-603218 (rule30_anf_degree_and_walsh_spectrum)"
+      ],
+      "audit_note": "Uniform 2^(k+1) central trace realization on L x R is the finite-horizon counterpart of Rule30Realization.realize and holds identically for all left-permutive rules (including controls 90, 150, 210). Not claimed as a novel prize contribution."
+    },
+    {
+      "local_id": "R30-G2-CROSS-ORIGIN-RANK-SEPARATION",
+      "local_theorems": [
+        "Rule30Submission.evolG_g90_two_zero",
+        "Rule30Submission.evolG_g150_two_zero",
+        "Rule30Submission.evolG_g210_two_zero",
+        "Rule30Submission.g210_origin_cancellation_evolG",
+        "Rule30Submission.g2_controls_exclude_wall_response",
+        "Rule30Submission.g2_rule30_reaches_three_response_classes",
+        "Rule30Submission.g2_rule30_separates_controls_90_150_210"
+      ],
+      "classification": "NEW_PARTIAL_RESULT",
+      "claimed_as_novel": true,
+      "claim_level": "partial",
+      "official_overlaps": [],
+      "audit_note": "Proves that for EVERY infinite initial configuration x : Int -> Bool, the depth-2 center observation evolG g x 2 0 of all three counterexample rules in Rule30Realization (g90, g150, and nonlinear g210) factors through a 1-bit right-half bottleneck, with x 0 cancelling identically in g210 via x0 && !x0 = false."
+    },
+    {
+      "local_id": "R30-E5-G2-WAVEFRONT-CONGRUENCE-SHIELD",
+      "local_theorems": [
+        "Rule30Submission.e5_modeA_to_modeB_evol",
+        "Rule30Submission.e5_modeB_to_modeA_evol",
+        "Rule30Submission.e5_two_step_wavefront_shield_evol",
+        "Rule30Submission.e5_wavefront_separates_controls"
+      ],
+      "classification": "NEW_PARTIAL_RESULT",
+      "claimed_as_novel": true,
+      "claim_level": "partial",
+      "official_overlaps": [],
+      "audit_note": "Proves on Rule30Realization.evol that a localized Mode A wavefront (false, true) at (p, p+1) absorbs x(p+2) at time t+1 and shields columns p-1 and p at time t+2, and separates g30 from g90, g150, g210."
+    },
+    {
+      "local_id": "R30-G3-INFINITE-HORIZON-WAVEFRONT-QUALIFICATION",
+      "local_theorems": [
+        "Rule30Submission.g3_modeA_next_step_iff",
+        "Rule30Submission.g3_modeA_step_dichotomy",
+        "Rule30Submission.g3_modeA_persists_during_black_run",
+        "Rule30Submission.g3_single_seed_infinite_diagonal_modeA_modeB_cycles",
+        "Rule30Submission.g3_modeA_white_run_lock",
+        "Rule30Submission.g3_modeA_at_center_white_onsets_implies_problem1",
+        "Rule30Submission.g3_pre_onset_wavefront_implies_problem1",
+        "Rule30Submission.g3_single_seed_white_onset_counterexample_t6"
+      ],
+      "classification": "NEW_PARTIAL_RESULT",
+      "claimed_as_novel": true,
+      "claim_level": "partial",
+      "official_overlaps": [
+        "Refines Ruliology.CellularAutomata.Rule30BlackRuns.not_eventuallyPeriodic_of_long_one_runs by factoring out Mode A / pre-onset wavefronts as the direct structural sufficient condition for Rule30Prize.Problem1"
+      ],
+      "audit_note": "Establishes (1) infinite-horizon Mode A <-> Mode B 2-cycles on both single-seed diagonals for all k, (2) exact necessary and sufficient (iff) 1-step precursor and dichotomy laws for Mode A regeneration vs termination into a double-black wall, (3) direct formal implication from eventual Mode A / pre-onset wavefront occurrence at white onsets of Rule30Prize.center to Rule30Prize.Problem1, and (4) the exact single-seed counterexample at t = 6 showing why short black runs (< 9) do not unconditionally force Mode A at fixed column p = 1."
+    },
+    {
+      "local_id": "R30-G4-P1-GENERALIZED-BOUNDARY-GRAMMAR",
+      "local_theorems": [
+        "Rule30Submission.g4_p1_modeADepth_one_iff_modeA",
+        "Rule30Submission.g4_p1_every_step_has_modeADepth",
+        "Rule30Submission.g4_p1_t6_counterexample_resolved_by_modeADepth",
+        "Rule30Submission.g4_p1_modeADepth_white_run_lock",
+        "Rule30Submission.g4_p1_modeADepth_at_white_onsets_implies_problem1",
+        "Rule30Submission.g4_p1_modeADepth_unique",
+        "Rule30Submission.g4_p1_white_onset_depths_vary_on_single_seed",
+        "Rule30Submission.g4_p1_composed_reduction_of_problem1"
+      ],
+      "classification": "NEW_PARTIAL_RESULT",
+      "claimed_as_novel": true,
+      "claim_level": "partial",
+      "official_overlaps": [
+        "Builds on Ruliology.CellularAutomata.Rule30BlackRuns.first_black, front_moves, and black_stays to unify short white runs (k < ell) and locked runs (k >= ell) into the exact formula cell (w + k) 1 = decide (ell <= k) and isolate the exact period-alignment premise hAlign for Rule30Prize.Problem1"
+      ],
+      "audit_note": "Resolves the G3 t = 6 counterexample via ModeADepth 6 2 -> ModeADepth 7 1, proves uniqueness and 100% completeness of ModeADepth across all t >= 1, audits the forall-u-exists-ell vs exists-ell-forall-u quantifier alternation via g4_p1_white_onset_depths_vary_on_single_seed (ell(2)=1 vs ell(6)=2), and composes g4_p1_every_step_has_modeADepth with g4_p1_modeADepth_white_run_lock in g4_p1_composed_reduction_of_problem1."
+    },
+    {
+      "local_id": "R30-G4-P2-DISCREPANCY-AND-BILATERAL-NEIGHBOR-LOCK",
+      "local_theorems": [
+        "Rule30Submission.g4_p2_blackCount_succ",
+        "Rule30Submission.g4_p2_discrepancy_succ",
+        "Rule30Submission.g4_p2_blackCount_add_whiteCount",
+        "Rule30Submission.g4_p2_modeADepth_locks_both_neighbors",
+        "Rule30Submission.g4_p2_locked_white_interior_forces_double_black_neighbors",
+        "Rule30Submission.g4_p2_sublinear_rate_implies_problem2",
+        "Rule30Submission.g4_p2_bounded_discrepancy_implies_problem2"
+      ],
+      "classification": "NEW_PARTIAL_RESULT",
+      "claimed_as_novel": true,
+      "claim_level": "partial",
+      "official_overlaps": [
+        "Connects Rule30Prize.blackCount, Rule30Prize.Problem2, and Rule30MaskedJen.cell_left' with ModeADepth"
+      ],
+      "audit_note": "Establishes exact recurrence, signed discrepancy, sublinear envelope sufficiency (g4_p2_sublinear_rate_implies_problem2), and black/white partition identities for Rule30Prize.blackCount, and proves that ModeADepth w ell forces double-black neighbors (true, true) on columns (-1, +1) across the interior of every locked white run."
+    },
+    {
+      "local_id": "R30-G4-P3-LIGHT-CONE-SENSITIVITY-LOWER-BOUND",
+      "local_theorems": [
+        "Rule30Submission.g4_p3_evol_causal_cone",
+        "Rule30Submission.g4_p3_left_edge_universal_sensitivity",
+        "Rule30Submission.g4_p3_center_universal_left_sensitivity",
+        "Rule30Submission.g4_p3_center_right_edge_sensitivity",
+        "Rule30Submission.g4_p3_evol_add",
+        "Rule30Submission.g4_p3_evolBlock2_eq_evol_double"
+      ],
+      "classification": "NEW_PARTIAL_RESULT",
+      "claimed_as_novel": true,
+      "claim_level": "partial",
+      "official_overlaps": [],
+      "audit_note": "Formalizes the single-bit perturbation operator flipInput and the 2-step block-composition operator evolBlock2 on Rule30Realization.evol, proving causal light-cone locality [-t, +t], universal left-edge sensitivity for all x and t, active right-edge sensitivity at +t, and exact 2-step macro-block evaluation evolBlock2 x k p = evol x (2 * k) p."
+    },
+    {
+      "local_id": "R30-G5-THREE-PRIZE-CONTINUATION",
+      "local_theorems": [
+        "Rule30Submission.g5_p1_modeADepth_after_white_run",
+        "Rule30Submission.g5_p1_clipped_depth_observational_equivalence",
+        "Rule30Submission.g5_p1_clipped_depth_alignment_implies_problem1",
+        "Rule30Submission.g5_p2_white_run_discrepancy_shift",
+        "Rule30Submission.g5_p2_black_run_discrepancy_shift",
+        "Rule30Submission.g5_p2_white_black_cycle_discrepancy",
+        "Rule30Submission.g5_p2_first_white_black_cycle_net_drift_plus_two",
+        "Rule30Submission.g5_p3_evolPow2_eq_evol_pow2",
+        "Rule30Submission.g5_p3_evolPow2_universal_left_sensitivity"
+      ],
+      "classification": "NEW_PARTIAL_RESULT",
+      "claimed_as_novel": true,
+      "claim_level": "partial",
+      "official_overlaps": [],
+      "audit_note": "Establishes (G5-P1) the universal monus transition law ModeADepth (w + r) (ell - r) after any white run of length r and the clipped-depth observational equivalence theorem reducing hAlign to the finite state space {0, ..., k + 1}; (G5-P2) exact run-based discrepancy formulas (-r on white runs, +b on black runs, +(b - r) on cycles) and formal falsification of per-cycle cancellation at w = 2; and (G5-P3) the recursive operator-doubling hierarchy evolPow2 d = evol (2^d) and its universal left-edge sensitivity across all doubling scales."
+    }
+  ]
+}

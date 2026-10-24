@@ -1,0 +1,135 @@
+{
+  "parameters": {
+    "depth": 6,
+    "benchmark": 256
+  },
+  "E1": {
+    "identity_checks": 36,
+    "boundary_checks": 42,
+    "screened_sites": 13,
+    "unscreened_sites": 23,
+    "sideways_columns": 6,
+    "status": "PASS"
+  },
+  "E2": {
+    "status": "PASS",
+    "definition": "equal central-cell traces over times 0..k, from zero-padded initial finite windows",
+    "series": [
+      {
+        "k": 1,
+        "raw_states": 8,
+        "observational_classes": 4,
+        "ratio": 0.5,
+        "largest_class": 2,
+        "smallest_class": 2
+      },
+      {
+        "k": 2,
+        "raw_states": 32,
+        "observational_classes": 8,
+        "ratio": 0.25,
+        "largest_class": 4,
+        "smallest_class": 4
+      },
+      {
+        "k": 3,
+        "raw_states": 128,
+        "observational_classes": 16,
+        "ratio": 0.125,
+        "largest_class": 8,
+        "smallest_class": 8
+      },
+      {
+        "k": 4,
+        "raw_states": 512,
+        "observational_classes": 32,
+        "ratio": 0.0625,
+        "largest_class": 16,
+        "smallest_class": 16
+      },
+      {
+        "k": 5,
+        "raw_states": 2048,
+        "observational_classes": 64,
+        "ratio": 0.03125,
+        "largest_class": 32,
+        "smallest_class": 32
+      },
+      {
+        "k": 6,
+        "raw_states": 8192,
+        "observational_classes": 128,
+        "ratio": 0.015625,
+        "largest_class": 64,
+        "smallest_class": 64
+      }
+    ]
+  },
+  "E3": {
+    "status": "PASS",
+    "model": "Boolean-ring ANF exact Mobius transform; no inferred BDD/tensor-rank results",
+    "series": [
+      {
+        "k": 0,
+        "variables": 1,
+        "degree": 1,
+        "monomials": 1,
+        "total_monomials": 2
+      },
+      {
+        "k": 1,
+        "variables": 3,
+        "degree": 2,
+        "monomials": 4,
+        "total_monomials": 8
+      },
+      {
+        "k": 2,
+        "variables": 5,
+        "degree": 3,
+        "monomials": 10,
+        "total_monomials": 32
+      },
+      {
+        "k": 3,
+        "variables": 7,
+        "degree": 5,
+        "monomials": 30,
+        "total_monomials": 128
+      },
+      {
+        "k": 4,
+        "variables": 9,
+        "degree": 7,
+        "monomials": 122,
+        "total_monomials": 512
+      },
+      {
+        "k": 5,
+        "variables": 11,
+        "degree": 9,
+        "monomials": 346,
+        "total_monomials": 2048
+      },
+      {
+        "k": 6,
+        "variables": 13,
+        "degree": 11,
+        "monomials": 1360,
+        "total_monomials": 8192
+      }
+    ]
+  },
+  "E4": {
+    "status": "PASS",
+    "benchmark_depth": 256,
+    "central_cells_agree": 257,
+    "scalar_cell_updates": 131840,
+    "packed_bigint_shifts": 512,
+    "packed_bigint_bitwise": 768,
+    "packed_bit_width": 515,
+    "scalar_seconds": 0.045205,
+    "packed_seconds": 0.000117,
+    "qualification": "No asymptotic speedup claim: Python arbitrary-precision operations have nonconstant bit cost"
+  }
+}

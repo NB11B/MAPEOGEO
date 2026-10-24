@@ -1,0 +1,32 @@
+test_anf (test_suite.TestRule30.test_anf) ... FAIL
+test_packed (test_suite.TestRule30.test_packed) ... ok
+test_quotient (test_suite.TestRule30.test_quotient) ... ok
+test_seed_boundary (test_suite.TestRule30.test_seed_boundary) ... ok
+test_sideways_all_inputs (test_suite.TestRule30.test_sideways_all_inputs) ... ok
+test_trace_exact (test_suite.TestRule30.test_trace_exact) ... ok
+test_truth_table (test_suite.TestRule30.test_truth_table) ... ok
+
+======================================================================
+FAIL: test_anf (test_suite.TestRule30.test_anf)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/rule30_falsification/test_suite.py", line 25, in test_anf
+    self.assertEqual([x['monomials'] for x in e3(4)['series']],[1,4,10,30,69])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [1, 4, 10, 30, 122] != [1, 4, 10, 30, 69]
+
+First differing element 4:
+122
+69
+
+- [1, 4, 10, 30, 122]
+?                ^^^
+
++ [1, 4, 10, 30, 69]
+?                ^^
+
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.020s
+
+FAILED (failures=1)

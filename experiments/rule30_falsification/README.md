@@ -1,0 +1,109 @@
+# Rule 30 Falsification Suite (MAPEOGEO Integration — E1 through R30-E5)
+
+Python 3.10+, no third-party runtime dependencies; Lean 4 (`v4.33.1`) kernel-verified.
+
+```bash
+# Run the standalone suite and 7-test unittest regression
+python experiments/rule30_falsification/rule30_suite.py --depth 6 --benchmark 256
+python -m unittest discover -s experiments/rule30_falsification -p "test_suite.py" -v
+
+# Run the extended MAPEOGEO E1–E5 qualification suite (including live Lean 4 kernel checks)
+pytest tests/test_rule30_falsification.py -v
+
+# Run the Lean 4 kernel directly on both formal modules
+lean experiments/rule30_falsification/Rule30Core.lean
+lean MAPEOGEOFormal/Rule30Falsification.lean
+```
+
+## Five Bounded Falsification Studies
+
+- **E1 (`e1` / `run_e1_exact_reconstruction`):** Exact local forward and left-permutive sideways identities, right-neighbor screening ($x_i(t)=1$), seed-cone boundary checks, and recursive left-column reconstruction $\mathcal{S}_L^k$ from the two central columns $(\mathbf{c}_0, \mathbf{c}_1)$.
+- **E2 (`e2` / `run_e2_geometric_quotient`):**
+  1. **Temporal Central-Trace Readout Quotient (`rule30_suite.py`):** Evaluates equivalence of width-$(2k+1)$ initial states producing the same central-cell trace $(x_0(0), \dots, x_0(k))$ over $t=0 \dots k$. Across all $2^{2k+1}$ initial states, there are **always** $2^{k+1}$ reachable traces, each with a uniform preimage class size of exactly $2^k$.
+  2. **Observationally Scoped Single-Step Spatial Quotient (`benchmark.py`):** Compares Left-to-Right vs. Right-to-Left variable orderings for the single target cell $c_k = x_0(k)$, demonstrating directional asymmetry from $x_i(t)=1$ rightward screening (e.g., $8 \to 3$ at $k=2$, $128 \to 20$ at $k=6$).
+- **E3 (`e3` / `run_e3_composition_closure`):** Exact Algebraic Normal Form (ANF) over $\mathbb{F}_2$ via Boolean Möbius transform (`rule30_suite.py`) and symbolic polynomial composition (`benchmark.py`). Forward ANF degree satisfies $\deg(\Psi \circ \mathcal{F}^k) = 2k - 1$ for $k \ge 2$ with monomial counts $1, 4, 10, 30, 122, 346, 1360, 4852$ ($k=0 \dots 7$), while sideways ANF $\mathcal{S}_L^k$ has strictly lower degree and up to $4.5\times$ fewer monomials ($4, 7, 18, 31, 112, 337, 1088$ for $k=1 \dots 7$).
+- **E4 (`e4` / `run_e4_computational_shortcut`):** Exact central-cell agreement through step $256$ across fixed-width scalar simulation, causal-diamond + right-screen short-circuit pruning, and bit-packed integer evolution, with separate primitive-operation counts and wall-clock timings.
+- **R30-E5 (`run_e5_persistent_equivalence`):** Distinguishes transient single-step screening from persistent multi-step observational equivalence across horizons $k=1 \dots N$:
+  1. **Single-Time vs. Full Temporal-Trace Classes on $R_k \in \{0,1\}^{k+1}$:** At every horizon $k=1 \dots 6$, full temporal trace equivalence ($3, 5, 7, 11, 16, 25$ classes) is a strict refinement of single-time readout equivalence ($2, 3, 4, 9, 11, 20$ classes).
+  2. **Refinement vs. Stabilization on Fixed Spatial Patches $P_m = (x_0, \dots, x_m)$:**
+     - Under an **unrestricted outer right environment** ($x_{>m}(0) \in \{0,1\}$), single-step classes **refine until complete separation** (for $m=2$, $3 \to 5 \to 7 \to 8$ trace classes by $k=4$), falsifying naive persistence when external right inputs reflect hidden bits back toward the center.
+     - Under a **zero-vacuum right exterior** ($x_{>m}(0) = 0$), the equivalence classes refine once ($5 \to 6$ at $k=3$ for $m=2$; $7 \to 10$ at $k=4$ for $m=3$) and **permanently stabilize** ($6$ classes for all $k \ge 3$ at $m=2$; $10$ classes for all $k \ge 4$ at $m=3$).
+  3. **Proven 2-Cycle Wavefront Congruence & PSMSL Work-Equivalence Reduction:** Connects permanent stabilization under a zero exterior to the analytic $O(1)$ wavefront projection operator $\Pi_{\text{wavefront}}$ (`apply_wavefront_quotient_operator`), verified against MAPEOGEO's `work_relative_information_loss == 0.0` across all horizons.
+
+## Lean 4 Kernel Verification (`KERNEL_VERIFIED`)
+
+Both [`Rule30Core.lean`](Rule30Core.lean) (14 theorems) and [`MAPEOGEOFormal/Rule30Falsification.lean`](../../MAPEOGEOFormal/Rule30Falsification.lean) (19 theorems) are **compiled and verified by the Lean 4.33.1 kernel** with **zero `sorry`s and zero axioms** (`does not depend on any axioms`):
+
+1. **Arbitrary-Depth E1 Finite-Cone Sideways Reconstruction (`rule30_left_cone_nat_reconstruction`):** Proves by induction on $k \in \mathbb{N}$ that $k$ iterations of `sidewaysColumnIter` starting from $(X_0, X_1)$ reconstruct $(X_{-k}, X_{-(k-1)})$ for all $k, t \in \mathbb{N}$.
+2. **Complete Arbitrary-Depth E2 Bridge (`rule30_cone_leftmost_xor_bridge` & `rule30_central_trace_bijection_all_k`):** Proves for **every** depth $k \in \mathbb{N}$ that `rule30ConeEval k w = bne (w 0) (rule30ConeEval k (clearLeftmost w))` ($c_k = x_{-k}(0) \oplus F_k$ with $F_k$ independent of $x_{-k}(0)$), and connects `rule30ConeEval` directly to `e2_triangular_step_bijection` to prove that `rule30CentralTraceDirect k R` is a two-sided bijection on `BoolVec k` ($\{0,1\}^{k+1}$) for every $k \in \mathbb{N}$ and every right-half state $R$.
+3. **R30-E5 Persistent 2-Cycle Wavefront Congruence (`e5_persistent_wavefront_modeA_to_modeB` & `e5_persistent_wavefront_modeB_to_modeA`):** Proves that the right-wavefront pairs Mode A $((0,1,0,0,\dots) \text{ vs } (0,1,1,0,\dots))$ at anchor $m$ and Mode B $((1,1,0,0,\dots) \text{ vs } (1,0,1,0,\dots))$ at anchor $m+1$ form a closed 2-periodic transition congruence under Rule 30 that advects the discrepancy rightward at speed $+1$ ($m \to m+1 \to m+2 \to \dots$) while keeping all interior cells $\le m+t$ identical forever.
+
+## Preserved Failure Ledger
+
+The initial regression in `test_suite.py` asserted `69` ANF monomials at $k=4$; exact Boolean Möbius computation gave `122`. The original failing run is preserved in [`test_results.txt`](test_results.txt), and the corrected passing run is preserved in [`test_results_corrected.txt`](test_results_corrected.txt).
+
+## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G5`)
+
+[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 289, "ok": true}`, `"newAxioms": []`, **39/39** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
+
+```bash
+# External reproduction against official Wolfram Rule30PrizeKit
+git clone https://github.com/WolframInstitute/Rule30PrizeKit.git experiments/rule30_falsification/Rule30PrizeKit
+cd experiments/rule30_falsification/Rule30PrizeKit
+git checkout cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554
+cp ../Rule30Submission.lean ./Rule30Submission.lean
+cd lean && lake build Ruliology.CellularAutomata.Rule30Prize Ruliology.CellularAutomata.Rule30Realization Ruliology.CellularAutomata.Rule30MaskedJen Ruliology.CellularAutomata.Rule30Diagonals Ruliology.CellularAutomata.Rule30BlackRuns && cd ..
+LEAN_PATH="lean/.lake/build/lib/lean" lean -R . -o lean/.lake/build/lib/lean/Rule30Submission.olean Rule30Submission.lean
+LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --claim partial \
+  --headline Rule30Submission.g2_rule30_separates_controls_90_150_210 \
+  --headline Rule30Submission.g210_origin_cancellation_evolG \
+  --headline Rule30Submission.e5_two_step_wavefront_shield_evol \
+  --headline Rule30Submission.e5_wavefront_separates_controls \
+  --headline Rule30Submission.g3_modeA_next_step_iff \
+  --headline Rule30Submission.g3_modeA_step_dichotomy \
+  --headline Rule30Submission.g3_modeA_persists_during_black_run \
+  --headline Rule30Submission.g3_single_seed_infinite_diagonal_modeA_modeB_cycles \
+  --headline Rule30Submission.g3_modeA_at_center_white_onsets_implies_problem1 \
+  --headline Rule30Submission.g3_pre_onset_wavefront_implies_problem1 \
+  --headline Rule30Submission.g3_single_seed_white_onset_counterexample_t6 \
+  --headline Rule30Submission.evol_seed_zero_eq_prize_center \
+  --headline Rule30Submission.g4_p1_every_step_has_modeADepth \
+  --headline Rule30Submission.g4_p1_t6_counterexample_resolved_by_modeADepth \
+  --headline Rule30Submission.g4_p1_modeADepth_white_run_lock \
+  --headline Rule30Submission.g4_p1_modeADepth_at_white_onsets_implies_problem1 \
+  --headline Rule30Submission.g4_p1_modeADepth_unique \
+  --headline Rule30Submission.g4_p1_white_onset_depths_vary_on_single_seed \
+  --headline Rule30Submission.g4_p1_composed_reduction_of_problem1 \
+  --headline Rule30Submission.g4_p2_discrepancy_succ \
+  --headline Rule30Submission.g4_p2_blackCount_add_whiteCount \
+  --headline Rule30Submission.g4_p2_modeADepth_locks_both_neighbors \
+  --headline Rule30Submission.g4_p2_locked_white_interior_forces_double_black_neighbors \
+  --headline Rule30Submission.g4_p2_sublinear_rate_implies_problem2 \
+  --headline Rule30Submission.g4_p2_bounded_discrepancy_implies_problem2 \
+  --headline Rule30Submission.g4_p3_evol_causal_cone \
+  --headline Rule30Submission.g4_p3_center_universal_left_sensitivity \
+  --headline Rule30Submission.g4_p3_center_right_edge_sensitivity \
+  --headline Rule30Submission.g4_p3_evol_add \
+  --headline Rule30Submission.g4_p3_evolBlock2_eq_evol_double \
+  --headline Rule30Submission.g5_p1_modeADepth_after_white_run \
+  --headline Rule30Submission.g5_p1_clipped_depth_observational_equivalence \
+  --headline Rule30Submission.g5_p1_clipped_depth_alignment_implies_problem1 \
+  --headline Rule30Submission.g5_p2_white_run_discrepancy_shift \
+  --headline Rule30Submission.g5_p2_black_run_discrepancy_shift \
+  --headline Rule30Submission.g5_p2_white_black_cycle_discrepancy \
+  --headline Rule30Submission.g5_p2_first_white_black_cycle_net_drift_plus_two \
+  --headline Rule30Submission.g5_p3_evolPow2_eq_evol_pow2 \
+  --headline Rule30Submission.g5_p3_evolPow2_universal_left_sensitivity
+```
+
+- **Gates G0–G2 (`run_g0_g2_prize_qualification`):** Audits 65 official catalog modules + 25 public submissions ([`g0_novelty_audit.json`](g0_novelty_audit.json)) and proves on `evolG` (`Rule30Realization.evol`) that Rule 30 uniquely reaches 3 depth-2 response classes (`xm2`, `!xm2`, `xor xm2 xm1`) and Mode A/B wavefront shielding, whereas all three `Rule30Realization` counterexample controls (`g90`, `g150`, and nonlinear `g210`) collapse to rank-1 (`g2_rule30_separates_controls_90_150_210`, `g210_origin_cancellation_evolG`, `e5_wavefront_separates_controls`).
+- **Gate G3 (`run_g3_infinite_horizon_wavefront`):** Proves infinite-horizon Mode A $\leftrightarrow$ Mode B 2-cycles on both single-seed diagonals (`g3_single_seed_infinite_diagonal_modeA_modeB_cycles`), exact 1-step precursor and dichotomy `iff` laws (`g3_modeA_next_step_iff`, `g3_modeA_step_dichotomy`), conditional implications to `Rule30Prize.Problem1` (`g3_modeA_at_center_white_onsets_implies_problem1`, `g3_pre_onset_wavefront_implies_problem1`), and the preserved fixed-column counterexample at $t=6$ (`g3_single_seed_white_onset_counterexample_t6`).
+- **Gate G4 (`run_g4_multi_prize_qualification`):**
+  - **Prize 1 (`G4-P1`):** Generalizes `ModeA` ($\ell=1$) to the depth-indexed boundary grammar `ModeADepth t ℓ`, proving uniqueness (`g4_p1_modeADepth_unique`), 100% single-seed completeness for all $t \ge 1$ (`g4_p1_every_step_has_modeADepth`), resolution of the $t=6$ counterexample (`g4_p1_t6_counterexample_resolved_by_modeADepth`), the quantifier alternation audit (`g4_p1_white_onset_depths_vary_on_single_seed`), the unified white-run lock formula `cell (w + k) 1 = decide (ℓ ≤ k)` (`g4_p1_modeADepth_white_run_lock`), and the composed reduction of `Rule30Prize.Problem1` (`g4_p1_composed_reduction_of_problem1`).
+  - **Prize 2 (`G4-P2`):** Establishes exact step recurrence, signed discrepancy, sublinear envelope sufficiency (`g4_p2_sublinear_rate_implies_problem2`, `g4_p2_bounded_discrepancy_implies_problem2`), and black/white partition laws for `Rule30Prize.blackCount`, and proves that `ModeADepth w ℓ` locks both neighbor columns $+1$ and $-1$ (`g4_p2_modeADepth_locks_both_neighbors`, `g4_p2_locked_white_interior_forces_double_black_neighbors`).
+  - **Prize 3 (`G4-P3`):** Formalizes single-bit input perturbation `flipInput` and 2-step block composition `evolBlock2` on `Rule30Realization.evol`, proving causal light-cone locality $[-t, +t]$ (`g4_p3_evol_causal_cone`), universal left-edge sensitivity (`g4_p3_center_universal_left_sensitivity`), active right-edge sensitivity (`g4_p3_center_right_edge_sensitivity`), semigroup composition (`g4_p3_evol_add`), and `evolBlock2 x k p = evol x (2 * k) p` (`g4_p3_evolBlock2_eq_evol_double`).
+- **Gate G5 (`run_g5_three_prize_continuation`):**
+  - **Prize 1 (`G5-P1`):** Proves the white-run monus transition law `ModeADepth (w + r) (ℓ - r)` (`g5_p1_modeADepth_after_white_run`), clipped-depth observational equivalence `clipDepth ℓ (K + 1)` (`g5_p1_clipped_depth_observational_equivalence`), and the finite-state clipped-depth reduction of `Rule30Prize.Problem1` (`g5_p1_clipped_depth_alignment_implies_problem1`).
+  - **Prize 2 (`G5-P2`):** Proves exact white-run (`-r`), black-run (`+b`), and full-cycle (`+(b - r)`) discrepancy shift formulas (`g5_p2_white_black_cycle_discrepancy`) and falsifies strict cycle-by-cycle cancellation (`g5_p2_first_white_black_cycle_net_drift_plus_two`).
+  - **Prize 3 (`G5-P3`):** Formalizes the recursive operator-doubling hierarchy `evolPow2 d` ($T, T^2, T^4, T^8, \dots$), proves `evolPow2 d x p = evol x (2^d) p` (`g5_p3_evolPow2_eq_evol_pow2`) and universal left-edge sensitivity (`g5_p3_evolPow2_universal_left_sensitivity`), and demonstrates empirically that representation growth ($2^{2b+1}$ table entries and $3^b$ unmemoized tree calls vs. $b^2$ causal-diamond updates) eliminates naive logarithmic-depth doubling shortcuts.
+

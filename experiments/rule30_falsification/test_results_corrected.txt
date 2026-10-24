@@ -1,0 +1,12 @@
+test_anf (test_suite.TestRule30.test_anf) ... ok
+test_packed (test_suite.TestRule30.test_packed) ... ok
+test_quotient (test_suite.TestRule30.test_quotient) ... ok
+test_seed_boundary (test_suite.TestRule30.test_seed_boundary) ... ok
+test_sideways_all_inputs (test_suite.TestRule30.test_sideways_all_inputs) ... ok
+test_trace_exact (test_suite.TestRule30.test_trace_exact) ... ok
+test_truth_table (test_suite.TestRule30.test_truth_table) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.017s
+
+OK
