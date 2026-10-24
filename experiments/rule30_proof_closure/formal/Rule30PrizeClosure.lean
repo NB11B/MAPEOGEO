@@ -107,6 +107,67 @@ theorem spatial_bridge_to_left_diagonals_implies_problem1
     rw [h] at hd4
     contradiction
 
+/-- **Track A/C (`EXACT`, New in `R30-TRANSPORT-001`) — Universal Adjacent-Column XOR Onset Law
+    (`universal_adjacent_xor_onset_law`)**:
+    For every spatial depth `k : Nat`, at adjacent columns `-(k : Int)` and `-(k + 1 : Int)`:
+    1. At step `t = k + 1`: `xor (cell (k + 1) (-(k : Int))) (cell (k + 1) (-(k + 1 : Int))) = false`
+       (both cells are black: `(true, true)`), and
+    2. At step `t = k + 2`: `xor (cell (k + 2) (-(k : Int))) (cell (k + 2) (-(k + 1 : Int))) = true`
+       (the cells form the Mode A complement pair `(false, true)`). -/
+theorem universal_adjacent_xor_onset_law (k : Nat) :
+    xor (cell (k + 1) (-(k : Int))) (cell (k + 1) (-(k + 1 : Int))) = false ∧
+    xor (cell (k + 2) (-(k : Int))) (cell (k + 2) (-(k + 1 : Int))) = true := by
+  have hk := universal_column_onset_signature k
+  have hk1 := universal_column_onset_signature (k + 1)
+  have h1 : cell (k + 1) (-(k : Int)) = true := hk.2.1
+  have h2 : cell (k + 1) (-(k + 1 : Int)) = true := by
+    simpa [show (-(k + 1 : Int)) = -((k + 1 : Nat) : Int) by omega] using hk1.1
+  have h3 : cell (k + 2) (-(k : Int)) = false := hk.2.2.1
+  have h4 : cell (k + 2) (-(k + 1 : Int)) = true := by
+    simpa [show (-(k + 1 : Int)) = -((k + 1 : Nat) : Int) by omega] using hk1.2.1
+  rw [h1, h2, h3, h4]
+  exact ⟨rfl, rfl⟩
+
+/-- **Deliverable 3 Direct Closure Attempt With Exposed Transport Goal (`CONDITIONAL` —
+    `transport_adjacent_xor_to_onset_implies_problem1`)**:
+    Carries out the unconditional proof structure from:
+    - `periodic_center_has_black_and_white_in_every_period` (every period has a black step `T + sb`),
+    - `left_black_step_screened_forcing` (locking column `-1` at every periodic return `T + sb + m * P`),
+    - `spatial_transport_step_dichotomy` (transporting relations leftward column by column), and
+    - `universal_adjacent_xor_onset_law` (`xor = false` at `t = k + 1` and `xor = true` at `t = k + 2`),
+    isolating the exact single unsolved spatial-transport proposition (`hTransportParity`):
+    whether transporting the periodic depth-1 lock `∀ m, cell (T + sb + m * P) (-1) = !center (T + sb + 1)`
+    outward to some column `k` flips the onset adjacent-column XOR parity at `t = k + 1` or `t = k + 2`
+    (generalizing `transport_onset_excludes_1010_at_t3`, where `k = 2` flips `t = 3`). -/
+theorem transport_adjacent_xor_to_onset_implies_problem1
+    (hTransportParity :
+      ∀ (T P sb : Nat), 0 < P → sb < P →
+        (∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+        (∀ m : Nat, cell (T + sb + m * P) (-1) = !Rule30Prize.center (T + sb + 1)) →
+        ∃ k : Nat,
+          xor (cell (k + 1) (-(k : Int))) (cell (k + 1) (-(k + 1 : Int))) = true ∨
+          xor (cell (k + 2) (-(k : Int))) (cell (k + 2) (-(k + 1 : Int))) = false) :
+    Rule30Prize.Problem1 := by
+  rintro ⟨T, P, hP, hper⟩
+  obtain ⟨⟨sb, hsb, hb⟩, _⟩ :=
+    periodic_center_has_black_and_white_in_every_period T P T hP hper (Nat.le_refl T)
+  have hperk : ∀ m t, T ≤ t → Rule30Prize.center (t + m * P) = Rule30Prize.center t :=
+    periodic_mul hper
+  have hlock : ∀ m : Nat, cell (T + sb + m * P) (-1) = !Rule30Prize.center (T + sb + 1) := by
+    intro m
+    have hbm : Rule30Prize.center (T + sb + m * P) = true := by
+      rw [hperk m (T + sb) (by omega), hb]
+    have hnext : Rule30Prize.center (T + sb + m * P + 1) = Rule30Prize.center (T + sb + 1) := by
+      have h := hperk m (T + sb + 1) (by omega)
+      rwa [show T + sb + 1 + m * P = T + sb + m * P + 1 by omega] at h
+    have hforce := (left_black_step_screened_forcing (T + sb + m * P) hbm).1
+    rwa [hnext] at hforce
+  obtain ⟨k, hflip⟩ := hTransportParity T P sb hP hsb hper hlock
+  rcases universal_adjacent_xor_onset_law k with ⟨hfalse, htrue⟩
+  rcases hflip with hbad1 | hbad2
+  · rw [hfalse] at hbad1; contradiction
+  · rw [htrue] at hbad2; contradiction
+
 /-- **Bounded Verification (`BOUNDED` — `bounded_T0_periods_one_to_four_excluded`)**:
     Certifies on the single-seed trajectory at `T = 0` that no period `P ∈ {1, 2, 3, 4}` holds
     even across the first period return `t = 0 .. 2`. -/
@@ -173,6 +234,46 @@ theorem closure_spatial_bridge_to_left_diagonals_implies_problem1
         ∃ t : Nat, (D 2 (t + 2) = true ∨ D 4 (t + 3) = false)) :
     Rule30Prize.Problem1 :=
   spatial_bridge_to_left_diagonals_implies_problem1 hSpatialBridge
+
+theorem closure_universal_column_onset_signature (k : Nat) :
+    cell k (-(k : Int)) = true ∧
+    cell (k + 1) (-(k : Int)) = true ∧
+    cell (k + 2) (-(k : Int)) = false ∧
+    cell (k + 4) (-(k : Int)) = true ∧
+    cell (k + 5) (-(k : Int)) = cell (k + 3) (-(k : Int)) :=
+  universal_column_onset_signature k
+
+theorem closure_spatial_transport_step_dichotomy (t : Nat) (p : Int) :
+    (cell t p = true → cell t (p - 1) = !cell (t + 1) p) ∧
+    (cell t (p + 1) = true → cell t (p - 1) = !cell (t + 1) p) ∧
+    (cell t p = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t (p + 1))) ∧
+    (cell t (p + 1) = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t p)) ∧
+    (xor (cell t p) (cell t (p + 1)) = true → cell t (p - 1) = !cell (t + 1) p) ∧
+    (xor (cell t p) (cell t (p + 1)) = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t p)) :=
+  spatial_transport_step_dichotomy t p
+
+theorem closure_transport_onset_excludes_1010_at_t3 :
+    ¬ (Rule30Prize.center 3 = true ∧
+       Rule30Prize.center 4 = false ∧
+       Rule30Prize.center 5 = true ∧
+       Rule30Prize.center 6 = false) :=
+  transport_onset_excludes_1010_at_t3
+
+theorem closure_universal_adjacent_xor_onset_law (k : Nat) :
+    xor (cell (k + 1) (-(k : Int))) (cell (k + 1) (-(k + 1 : Int))) = false ∧
+    xor (cell (k + 2) (-(k : Int))) (cell (k + 2) (-(k + 1 : Int))) = true :=
+  universal_adjacent_xor_onset_law k
+
+theorem closure_transport_adjacent_xor_to_onset_implies_problem1
+    (hTransportParity :
+      ∀ (T P sb : Nat), 0 < P → sb < P →
+        (∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t) →
+        (∀ m : Nat, cell (T + sb + m * P) (-1) = !Rule30Prize.center (T + sb + 1)) →
+        ∃ k : Nat,
+          xor (cell (k + 1) (-(k : Int))) (cell (k + 1) (-(k + 1 : Int))) = true ∨
+          xor (cell (k + 2) (-(k : Int))) (cell (k + 2) (-(k + 1 : Int))) = false) :
+    Rule30Prize.Problem1 :=
+  transport_adjacent_xor_to_onset_implies_problem1 hTransportParity
 
 theorem closure_stepLeftRow_rowAtLeft (t n : Nat) (p : Int) :
     stepLeftRow (cell t (p + 1)) (rowAtLeft t p (n + 1)) = rowAtLeft (t + 1) p n :=

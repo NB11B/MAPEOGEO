@@ -1,12 +1,12 @@
 {
-  "program_id": "R30-CLOSE-001+R30-CERT-001",
+  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001",
   "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-  "outcome_classification": "OUTCOME_B_AND_C_EXACT_CANCELLATION_GRAMMAR_AND_SPATIAL_BRIDGE_REDUCTION",
-  "outcome_summary": "Checkpoints 01 and 02 plus the R30-CERT-001 operator-cancellation and diagonal-screening theorems are unconditionally verified (26/26 Lean 4.35.0 headlines in Rule30PrizeClosure, 28 replayed constants, 0 new axioms). In the PSMSL-projected sideways basis, columns -1 and -2 collapse to degree <= 1 for all words, Law L2 screens 11 patterns to depth -2, Law L3 cancels the unscreened right-half variable out of X_{t,-2} XOR X_{t,-3} on 101 patterns, and left diagonals D0..D5 eliminate all free left-cone variables for T <= 6, collapsing 151/154 (98.05%) of mixed-word Nullstellensatz certificates across T=0..6, P=2..4 (including 77/77 in G2 and 28/28 in G3) to MUS size 1 and degree 0. Universal lifting (M4) is isolated to bridging the max(0, T-6) interior cone gap for T >= 7 (spatial_bridge_to_left_diagonals_implies_problem1).",
+  "outcome_classification": "OUTCOME_B_AND_C_SPATIAL_TRANSPORT_AND_DIAGONAL_ABLATION_CHARACTERIZED",
+  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, and R30-TRANSPORT-001 are unconditionally verified (31/31 Lean 4.35.0 headlines in Rule30PrizeClosure, 39 replayed constants, 0 new axioms). Deliverable 1 (Diagonal Ablation) proves that fixing exterior zeros and outer edge D_0(T)=1 alone self-regenerates D_1, D_2, D_4 during forward evolution (universal_column_onset_signature), collapsing 90/154 mixed-word hypotheses to degree-0 MUS=1 with D_0 alone and 151/154 with D_0..D_5 via the unbridged spatial gap law G(T, d_diag, d_cancel) = max(0, T - d_diag - d_cancel). Deliverable 2 (Spatial Relation Transport) proves the 6-case transport step law (spatial_transport_step_dichotomy) and shows that the finite single-step grammar R_d = {Const, AdjXor} is closed through d <= 3..4 (1010) or d <= 2..3 (110) before time-shifted white-step variables (y_{t_1} != y_{t_2}) spawn quadratic cross-terms y_{t_1}*y_{t_2}. Deliverable 3 replaces the tautological bridge premise with transport_adjacent_xor_to_onset_implies_problem1 and proves the zero-decide structural exclusion transport_onset_excludes_1010_at_t3.",
   "checkpoint_01_reconstruction_completeness": true,
   "checkpoint_02_bilateral_soundness": true,
-  "checkpoint_03_universal_contradiction_status": "EXACT_FOR_4_GRAMMAR_LAWS_AND_D0_D5__SPATIAL_BRIDGE_T_GE_7_OPEN",
-  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_26_OF_26__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+  "checkpoint_03_universal_contradiction_status": "EXACT_FOR_ONSET_SIGNATURE_AND_DEPTH_LE_4_TRANSPORT__MULTI_STEP_CORRELATION_OPEN",
+  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_31_OF_31__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
   "conditional_closure_claims_automatically_rejected": true,
   "hypotheses_tested": 180,
   "hypotheses_unsat_count": 180,
@@ -35,8 +35,8 @@
   },
   "r30_cert_001_campaign": {
     "campaign_id": "R30-CERT-001",
-    "headline_theorems_verified_in_check_lean": 26,
-    "replayed_constants_in_check_lean": 28,
+    "headline_theorems_verified_in_check_lean": 31,
+    "replayed_constants_in_check_lean": 39,
     "parallel_operator_inventory": [
       {
         "capability_id": "MAPEOGEO_CERTIFIABLE_GF2_IDEAL_KERNEL",
@@ -161,10 +161,10 @@
       "constant_word_hypotheses_excluded_by_G1": 70,
       "total_hypotheses_covered_T0_to_T6_P1_to_P4": 224,
       "all_polynomial_replays_verified": true,
-      "mus_size_1_degree_0_collapse_count": 151,
-      "mus_size_1_degree_0_collapse_fraction": 0.9805,
+      "mus_size_1_degree_0_collapse_count": 153,
+      "mus_size_1_degree_0_collapse_fraction": 0.9935,
       "max_mus_size": 2,
-      "max_generator_degree": 3,
+      "max_generator_degree": 2,
       "free_left_variables_for_T_le_6_after_D0_to_D5": 0,
       "grammar_cluster_breakdown": {
         "G1_CONSTANT_WAVEFRONT_PROPAGATION": {
@@ -193,10 +193,10 @@
         },
         "G4_ISOLATED_BLACK_WHITE_RUN_EROSION": {
           "count": 49,
-          "degree_0_constant_collapse_count": 46,
-          "mus_size_1_count": 46,
+          "degree_0_constant_collapse_count": 48,
+          "mus_size_1_count": 48,
           "max_mus_size": 2,
-          "max_generator_degree": 3,
+          "max_generator_degree": 2,
           "all_replayed_verified": true
         }
       }
@@ -253,6 +253,733 @@
         "passed": true
       }
     ]
+  },
+  "r30_transport_001_campaign": {
+    "campaign_id": "R30-TRANSPORT-001",
+    "headline_theorems_verified_in_check_lean": 31,
+    "replayed_constants_in_check_lean": 39,
+    "deliverable_1_diagonal_ablation": {
+      "experiment_id": "R30-TRANSPORT-001-DIAGONAL-ABLATION",
+      "mixed_words_per_transient": 22,
+      "transients_tested": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "total_hypotheses_evaluated": 154,
+      "dependency_category_counts": {
+        "PREPERIOD_DIRECT_MISMATCH": 22,
+        "OPERATOR_IDENTITY_AND_EXTERIOR_CONE_ONLY": 26,
+        "SINGLE_FINITE_DIAGONAL_D0_OR_D1": 51,
+        "INTERACTING_DIAGONAL_CONSTRAINTS_D2_TO_D5": 54,
+        "MULTIVARIATE_CONE_POLYNOMIAL_COMBINATION": 1
+      },
+      "ablation_sweep_by_max_diagonal_d": {
+        "no_diagonals": {
+          "max_diagonal_d": -1,
+          "total_hypotheses": 154,
+          "degree_0_mus_1_count": 48,
+          "degree_0_mus_1_fraction": 0.3117,
+          "degree_0_mus_1_by_transient": {
+            "T=0": 22,
+            "T=1": 18,
+            "T=2": 8,
+            "T=3": 0,
+            "T=4": 0,
+            "T=5": 0,
+            "T=6": 0
+          },
+          "max_mus_size": 8,
+          "max_generator_degree": 6
+        },
+        "D0_to_D0": {
+          "max_diagonal_d": 0,
+          "total_hypotheses": 154,
+          "degree_0_mus_1_count": 77,
+          "degree_0_mus_1_fraction": 0.5,
+          "degree_0_mus_1_by_transient": {
+            "T=0": 22,
+            "T=1": 22,
+            "T=2": 20,
+            "T=3": 11,
+            "T=4": 2,
+            "T=5": 0,
+            "T=6": 0
+          },
+          "max_mus_size": 7,
+          "max_generator_degree": 5
+        },
+        "D0_to_D1": {
+          "max_diagonal_d": 1,
+          "total_hypotheses": 154,
+          "degree_0_mus_1_count": 99,
+          "degree_0_mus_1_fraction": 0.6429,
+          "degree_0_mus_1_by_transient": {
+            "T=0": 22,
+            "T=1": 22,
+            "T=2": 22,
+            "T=3": 21,
+            "T=4": 11,
+            "T=5": 1,
+            "T=6": 0
+          },
+          "max_mus_size": 6,
+          "max_generator_degree": 4
+        },
+        "D0_to_D2": {
+          "max_diagonal_d": 2,
+          "total_hypotheses": 154,
+          "degree_0_mus_1_count": 118,
+          "degree_0_mus_1_fraction": 0.7662,
+          "degree_0_mus_1_by_transient": {
+            "T=0": 22,
+            "T=1": 22,
+            "T=2": 22,
+            "T=3": 22,
+            "T=4": 19,
+            "T=5": 9,
+            "T=6": 2
+          },
+          "max_mus_size": 6,
+          "max_generator_degree": 3
+        },
+        "D0_to_D3": {
+          "max_diagonal_d": 3,
+          "total_hypotheses": 154,
+          "degree_0_mus_1_count": 143,
+          "degree_0_mus_1_fraction": 0.9286,
+          "degree_0_mus_1_by_transient": {
+            "T=0": 22,
+            "T=1": 22,
+            "T=2": 22,
+            "T=3": 22,
+            "T=4": 22,
+            "T=5": 21,
+            "T=6": 12
+          },
+          "max_mus_size": 4,
+          "max_generator_degree": 2
+        },
+        "D0_to_D4": {
+          "max_diagonal_d": 4,
+          "total_hypotheses": 154,
+          "degree_0_mus_1_count": 152,
+          "degree_0_mus_1_fraction": 0.987,
+          "degree_0_mus_1_by_transient": {
+            "T=0": 22,
+            "T=1": 22,
+            "T=2": 22,
+            "T=3": 22,
+            "T=4": 22,
+            "T=5": 21,
+            "T=6": 21
+          },
+          "max_mus_size": 2,
+          "max_generator_degree": 2
+        },
+        "D0_to_D5": {
+          "max_diagonal_d": 5,
+          "total_hypotheses": 154,
+          "degree_0_mus_1_count": 153,
+          "degree_0_mus_1_fraction": 0.9935,
+          "degree_0_mus_1_by_transient": {
+            "T=0": 22,
+            "T=1": 22,
+            "T=2": 22,
+            "T=3": 22,
+            "T=4": 22,
+            "T=5": 21,
+            "T=6": 22
+          },
+          "max_mus_size": 2,
+          "max_generator_degree": 2
+        }
+      },
+      "t7_with_d0_to_d5_degree0_mus1_count": 19,
+      "t7_with_d0_to_d5_total": 22,
+      "self_regeneration_theorem": "universal_column_onset_signature (Rule30LeftReconstruction.lean): Fixation of the exterior zero cells (p < -T) and outer edge D_0(T) = 1 alone automatically regenerates D_1(T+1) = 1 in 1 step, D_2(T+2) = 0 in 2 steps, and D_4(T+4) = 1 in 4 steps during forward Rule 30 evolution.",
+      "unbridged_spatial_gap_law": "G(T, d_diag, d_cancel) = max(0, T - d_diag - d_cancel). Degree-0 MUS=1 collapse occurs when G = 0 (151/154 for T<=6 with d_diag=5, and 19/22 even at T=7 because d_cancel in {2,3,4} reaches column -(T-5) = -2). When G > 0, no single time-step generator can cross the G unbridged interior columns without combining multiple steps."
+    },
+    "deliverable_2_spatial_relation_transport": {
+      "transport_step_theorem": "Rule30ProofClosure.spatial_transport_step_dichotomy",
+      "finite_relation_grammar": [
+        "T_BLACK_LEFT",
+        "T_BLACK_RIGHT",
+        "T_WHITE_LEFT",
+        "T_WHITE_RIGHT",
+        "T_COMP_XOR1",
+        "T_IDEMP_XOR0"
+      ],
+      "trajectories": [
+        {
+          "period_word": [
+            1,
+            0
+          ],
+          "max_depth_evaluated": 6,
+          "max_closed_affine_depth": 3,
+          "first_non_closed_depth": 4,
+          "obstruction_mechanism": "At depth d=4, adjacent columns X_{t, -3} and X_{t, -2} depend on distinct time-shifted white-step variables (max 2 variables per cell), breaking AdjXor constancy and spawning degree-2 quadratic cross-terms.",
+          "depth_certificates": [
+            {
+              "depth_d": 1,
+              "transport_rules_applied": [
+                "T_BLACK_RIGHT",
+                "T_WHITE_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "1",
+                "1 ^ y_1"
+              ],
+              "adjacent_xor_constants": [
+                0,
+                null
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 2,
+              "transport_rules_applied": [
+                "T_BLACK_LEFT",
+                "T_WHITE_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "y_1",
+                "y_1"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                1
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 3,
+              "transport_rules_applied": [
+                "T_BLACK_RIGHT",
+                "T_COMP_XOR1"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_1",
+                "1 ^ y_3"
+              ],
+              "adjacent_xor_constants": [
+                1,
+                null
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 4,
+              "transport_rules_applied": [
+                "T_COMP_XOR1",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "y_3",
+                "y_1*y_3"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 2,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 5,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_1",
+                "1 ^ y_3 ^ y_5 ^ y_1*y_3"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 3,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 6,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "y_1 ^ y_3 ^ y_5",
+                "y_5 ^ y_1*y_3 ^ y_1*y_3*y_5"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null
+              ],
+              "max_polynomial_degree": 3,
+              "distinct_white_vars_per_cell_max": 3,
+              "grammar_closed_at_depth": false
+            }
+          ]
+        },
+        {
+          "period_word": [
+            1,
+            1,
+            0
+          ],
+          "max_depth_evaluated": 6,
+          "max_closed_affine_depth": 4,
+          "first_non_closed_depth": 5,
+          "obstruction_mechanism": "At depth d=5, adjacent columns X_{t, -4} and X_{t, -3} depend on distinct time-shifted white-step variables (max 2 variables per cell), breaking AdjXor constancy and spawning degree-2 quadratic cross-terms.",
+          "depth_certificates": [
+            {
+              "depth_d": 1,
+              "transport_rules_applied": [
+                "T_BLACK_RIGHT",
+                "T_BLACK_RIGHT",
+                "T_WHITE_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "0",
+                "1",
+                "1 ^ y_2"
+              ],
+              "adjacent_xor_constants": [
+                1,
+                0,
+                null
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 2,
+              "transport_rules_applied": [
+                "T_BLACK_RIGHT",
+                "T_BLACK_LEFT",
+                "T_WHITE_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "0",
+                "y_2",
+                "1 ^ y_2"
+              ],
+              "adjacent_xor_constants": [
+                0,
+                null,
+                0
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 3,
+              "transport_rules_applied": [
+                "T_WHITE_LEFT",
+                "T_BLACK_RIGHT",
+                "T_IDEMP_XOR0"
+              ],
+              "column_polynomials_str": [
+                "y_2",
+                "y_2",
+                "1 ^ y_2"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                0,
+                0
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 4,
+              "transport_rules_applied": [
+                "T_WHITE_RIGHT",
+                "T_IDEMP_XOR0",
+                "T_IDEMP_XOR0"
+              ],
+              "column_polynomials_str": [
+                "0",
+                "1",
+                "1 ^ y_2 ^ y_5"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 2,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 5,
+              "transport_rules_applied": [
+                "T_WHITE_LEFT",
+                "T_BLACK_LEFT",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_2",
+                "y_2 ^ y_5",
+                "1 ^ y_2 ^ y_2*y_5"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 2,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 6,
+              "transport_rules_applied": [
+                "T_WHITE_RIGHT",
+                "T_BLACK_RIGHT",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_5",
+                "y_2 ^ y_2*y_5",
+                "y_2 ^ y_5 ^ y_2*y_5"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 2,
+              "grammar_closed_at_depth": false
+            }
+          ]
+        },
+        {
+          "period_word": [
+            0,
+            0,
+            1
+          ],
+          "max_depth_evaluated": 6,
+          "max_closed_affine_depth": 2,
+          "first_non_closed_depth": 3,
+          "obstruction_mechanism": "At depth d=3, adjacent columns X_{t, -2} and X_{t, -1} depend on distinct time-shifted white-step variables (max 2 variables per cell), breaking AdjXor constancy and spawning degree-2 quadratic cross-terms.",
+          "depth_certificates": [
+            {
+              "depth_d": 1,
+              "transport_rules_applied": [
+                "T_WHITE_RIGHT",
+                "T_WHITE_RIGHT",
+                "T_BLACK_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "y_0",
+                "1 ^ y_1",
+                "1"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                0
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 2,
+              "transport_rules_applied": [
+                "T_WHITE_RIGHT",
+                "T_WHITE_RIGHT",
+                "T_BLACK_LEFT"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_0 ^ y_1",
+                "y_1",
+                "1 ^ y_3"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                1,
+                null
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 2,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 3,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_COMP_XOR1",
+                "T_BLACK_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_0*y_1",
+                "y_3",
+                "y_3 ^ y_4"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 2,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 4,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_3",
+                "y_1 ^ y_4 ^ y_1*y_3",
+                "0"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 3,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 5,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_WHITE_LEFT"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_1 ^ y_4 ^ y_1*y_3 ^ y_0*y_1*y_3",
+                "y_1 ^ y_3 ^ y_4 ^ y_1*y_3 ^ y_3*y_4",
+                "1 ^ y_3 ^ y_4 ^ y_6"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 3,
+              "distinct_white_vars_per_cell_max": 4,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 6,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_WHITE_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_1 ^ y_3 ^ y_4 ^ y_1*y_3 ^ y_0*y_1*y_3",
+                "1 ^ y_1 ^ y_6 ^ y_1*y_3 ^ y_3*y_4",
+                "y_3 ^ y_6 ^ y_7 ^ y_4*y_6 ^ y_3*y_4*y_6"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 3,
+              "distinct_white_vars_per_cell_max": 4,
+              "grammar_closed_at_depth": false
+            }
+          ]
+        },
+        {
+          "period_word": [
+            1,
+            0,
+            1,
+            0
+          ],
+          "max_depth_evaluated": 6,
+          "max_closed_affine_depth": 3,
+          "first_non_closed_depth": 4,
+          "obstruction_mechanism": "At depth d=4, adjacent columns X_{t, -3} and X_{t, -2} depend on distinct time-shifted white-step variables (max 2 variables per cell), breaking AdjXor constancy and spawning degree-2 quadratic cross-terms.",
+          "depth_certificates": [
+            {
+              "depth_d": 1,
+              "transport_rules_applied": [
+                "T_BLACK_RIGHT",
+                "T_WHITE_RIGHT",
+                "T_BLACK_RIGHT",
+                "T_WHITE_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "1",
+                "1 ^ y_1",
+                "1",
+                "1 ^ y_3"
+              ],
+              "adjacent_xor_constants": [
+                0,
+                null,
+                0,
+                null
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 2,
+              "transport_rules_applied": [
+                "T_BLACK_LEFT",
+                "T_WHITE_RIGHT",
+                "T_BLACK_LEFT",
+                "T_WHITE_RIGHT"
+              ],
+              "column_polynomials_str": [
+                "y_1",
+                "y_1",
+                "y_3",
+                "y_3"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                1,
+                null,
+                1
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 3,
+              "transport_rules_applied": [
+                "T_BLACK_RIGHT",
+                "T_COMP_XOR1",
+                "T_BLACK_RIGHT",
+                "T_COMP_XOR1"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_1",
+                "1 ^ y_3",
+                "1 ^ y_3",
+                "1 ^ y_5"
+              ],
+              "adjacent_xor_constants": [
+                1,
+                null,
+                1,
+                null
+              ],
+              "max_polynomial_degree": 1,
+              "distinct_white_vars_per_cell_max": 1,
+              "grammar_closed_at_depth": true
+            },
+            {
+              "depth_d": 4,
+              "transport_rules_applied": [
+                "T_COMP_XOR1",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_COMP_XOR1",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "y_3",
+                "y_1*y_3",
+                "y_5",
+                "y_3*y_5"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 2,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 5,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "1 ^ y_1",
+                "1 ^ y_3 ^ y_5 ^ y_1*y_3",
+                "1 ^ y_3",
+                "1 ^ y_5 ^ y_7 ^ y_3*y_5"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 2,
+              "distinct_white_vars_per_cell_max": 3,
+              "grammar_closed_at_depth": false
+            },
+            {
+              "depth_d": 6,
+              "transport_rules_applied": [
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM",
+                "T_NON_CLOSED_CROSS_TERM"
+              ],
+              "column_polynomials_str": [
+                "y_1 ^ y_3 ^ y_5",
+                "y_5 ^ y_1*y_3 ^ y_1*y_3*y_5",
+                "y_3 ^ y_5 ^ y_7",
+                "y_7 ^ y_3*y_5 ^ y_3*y_5*y_7"
+              ],
+              "adjacent_xor_constants": [
+                null,
+                null,
+                null,
+                null
+              ],
+              "max_polynomial_degree": 3,
+              "distinct_white_vars_per_cell_max": 3,
+              "grammar_closed_at_depth": false
+            }
+          ]
+        }
+      ]
+    },
+    "deliverable_3_direct_closure_attempt": {
+      "universal_column_onset_theorem": "Rule30ProofClosure.universal_column_onset_signature",
+      "universal_adjacent_xor_onset_theorem": "Rule30ProofClosure.universal_adjacent_xor_onset_law",
+      "zero_decide_1010_exclusion_theorem": "Rule30ProofClosure.transport_onset_excludes_1010_at_t3",
+      "non_tautological_closure_reduction": "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1",
+      "exact_surviving_goal": "\u2200 T P \u2265 1, (\u2200 m, cell (T + sb + m * P) (-1) = !center (T + sb + 1)) \u2192 \u2203 k \u2265 1, (xor (cell (k + 1) (-k)) (cell (k + 1) (-(k + 1))) = true) \u2228 (xor (cell (k + 2) (-k)) (cell (k + 2) (-(k + 1))) = false)"
+    }
   },
   "left_reconstruction": {
     "steps_checked": 28,
@@ -613,6 +1340,72 @@
       "source_attribution": "R30_CERT_001_NEW"
     },
     {
+      "name": "Rule30ProofClosure.universal_column_onset_signature",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30ProofClosure.left_diag_D2_eq_false",
+        "Rule30ProofClosure.left_diag_D4_eq_true",
+        "Rule30ProofClosure.left_diag_D5_eq_not_D3"
+      ],
+      "summary": "New in R30-TRANSPORT-001: every left column p = -k starts with the exact 6-step vertical onset signature (true, true, false, s, true, !s) at times t = k .. k + 5.",
+      "source_attribution": "R30_TRANSPORT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.spatial_transport_step_dichotomy",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M1",
+      "track": "Track A",
+      "dependencies": [
+        "Rule30MaskedJen.cell_left'"
+      ],
+      "summary": "New in R30-TRANSPORT-001: 6-case spatial relation transport step law (T_black_left, T_black_right, T_white_left, T_white_right, T_comp, T_idemp) from column (p, p+1) to p-1.",
+      "source_attribution": "R30_TRANSPORT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.transport_onset_excludes_1010_at_t3",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.local_101_pattern_conserved_left_xor",
+        "Rule30ProofClosure.universal_column_onset_signature"
+      ],
+      "summary": "New in R30-TRANSPORT-001: zero-decide structural refutation of (center 3, center 4, center 5, center 6) = (1, 0, 1, 0) by colliding Law L3 with the universal column onset signature at k=2, 3.",
+      "source_attribution": "R30_TRANSPORT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.universal_adjacent_xor_onset_law",
+      "module": "Rule30PrizeClosure",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.universal_column_onset_signature"
+      ],
+      "summary": "New in R30-TRANSPORT-001: for every depth k, adjacent-column XOR satisfies xor (cell (k+1) (-k)) (cell (k+1) (-(k+1))) = false and xor (cell (k+2) (-k)) (cell (k+2) (-(k+1))) = true.",
+      "source_attribution": "R30_TRANSPORT_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1",
+      "module": "Rule30PrizeClosure",
+      "classification": "CONDITIONAL",
+      "obligation_id": "M5",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.periodic_center_has_black_and_white_in_every_period",
+        "Rule30ProofClosure.left_black_step_screened_forcing",
+        "Rule30ProofClosure.universal_adjacent_xor_onset_law",
+        "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals"
+      ],
+      "summary": "New in R30-TRANSPORT-001: non-tautological spatial-transport closure reduction that proves the base case cell (T+sb+m*P) (-1) = !center (T+sb+1) and exposes the exact surviving spatial-transport parity goal at the light-cone onset.",
+      "source_attribution": "R30_TRANSPORT_001_NEW"
+    },
+    {
       "name": "Rule30ProofClosure.bilateral_center_conservation",
       "module": "Rule30RightInformation",
       "classification": "EXACT",
@@ -941,6 +1734,15 @@
       ],
       "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
     },
+    "transport_onset_reduction": {
+      "target": "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1",
+      "accepted_as_unconditional_closure": false,
+      "non_exact_dependencies": [
+        "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1 (CONDITIONAL)",
+        "UNRESOLVED.M4_spatial_bridge_from_near_center_to_left_diagonals (UNRESOLVED)"
+      ],
+      "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
+    },
     "track_b_reduction": {
       "target": "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
       "accepted_as_unconditional_closure": false,
@@ -958,6 +1760,12 @@
     },
     "exact_law_l3_conserved_xor": {
       "target": "Rule30ProofClosure.local_101_pattern_conserved_left_xor",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    },
+    "exact_universal_column_onset": {
+      "target": "Rule30ProofClosure.universal_column_onset_signature",
       "accepted_as_unconditional_closure": true,
       "non_exact_dependencies": [],
       "reason": "All transitive dependencies are EXACT."

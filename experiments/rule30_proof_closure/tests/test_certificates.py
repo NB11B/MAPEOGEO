@@ -8,10 +8,13 @@ from pathlib import Path
 from experiments.rule30_proof_closure.certificates import (
     build_nullstellensatz_certificate,
     build_psmsl_sideways_ideal_and_verify,
+    reconstruct_primitive_contradiction_provenance,
     run_adversarial_counterexample_stress_tests,
+    run_diagonal_ablation_experiment,
     run_proof_closure_campaign,
     verify_closure_certificates_and_lean_modules,
 )
+from experiments.rule30_proof_closure.left import trace_spatial_relation_transport
 
 
 def test_proof_closure_campaign_and_obligation_auditor():
@@ -59,11 +62,38 @@ def test_r30_cert_001_psmsl_sideways_ideal_and_nullstellensatz_replay():
     assert all(st.passed for st in stress_results)
 
 
+def test_r30_transport_001_diagonal_ablation_and_spatial_transport():
+    # Deliverable 1: Diagonal ablation & primitive provenance
+    ablation = run_diagonal_ablation_experiment(transients=(0, 1, 2, 3), periods=(2, 3), max_horizon=14)
+    assert ablation["total_hypotheses_evaluated"] == 32
+    sweep = ablation["ablation_sweep_by_max_diagonal_d"]
+    assert sweep["D0_to_D5"]["degree_0_mus_1_count"] == 32
+    assert sweep["D0_to_D2"]["degree_0_mus_1_count"] == 32
+    assert (
+        sweep["no_diagonals"]["degree_0_mus_1_count"]
+        < sweep["D0_to_D0"]["degree_0_mus_1_count"]
+        < sweep["D0_to_D2"]["degree_0_mus_1_count"]
+    )
+
+    prov_t3 = reconstruct_primitive_contradiction_provenance(3, (1, 0), max_horizon=14)
+    assert prov_t3.dependency_category == "SINGLE_FINITE_DIAGONAL_D0_OR_D1"
+    assert prov_t3.min_diagonal_d_for_degree0_mus1 == 0
+    assert prov_t3.mus_size_at_d0_only == 1
+    assert prov_t3.max_deg_at_d0_only == 0
+
+    # Deliverable 2: Spatial relation transport
+    tr_10 = trace_spatial_relation_transport((1, 0), max_depth=6)
+    assert tr_10.max_closed_affine_depth == 3
+    # Under w=(1,0), depths 1, 2, 3 remain degree<=1 across all steps; depth 4 breaks on odd steps
+    assert tr_10.first_non_closed_depth == 4
+    assert "time-shifted white-step variables" in tr_10.obstruction_mechanism
+
+
 def test_formal_lean_modules_and_official_check_lean():
     ver = verify_closure_certificates_and_lean_modules(run_live_lean=True)
     assert ver.formal_files_clean_no_sorry_or_axiom is True
     assert ver.lean_compilation_succeeded is True
     assert ver.check_lean_verdict == "pass"
-    assert ver.headlines_verified == 26
-    assert ver.replayed_constants == 28
+    assert ver.headlines_verified == 31
+    assert ver.replayed_constants == 39
     assert ver.new_axioms == []

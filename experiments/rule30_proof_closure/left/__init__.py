@@ -15,6 +15,11 @@ from .initial_seed_constraints import (
     LeftConeEliminationSample,
     evaluate_left_cone_elimination,
 )
+from .spatial_transport import (
+    SpatialDepthRelationStep,
+    SpatialTransportTrajectoryReport,
+    trace_spatial_relation_transport,
+)
 
 __all__ = [
     "LeftTriangularReconstructionResult",
@@ -26,4 +31,7 @@ __all__ = [
     "evaluate_autonomous_no11_left_evolution",
     "LeftConeEliminationSample",
     "evaluate_left_cone_elimination",
+    "SpatialDepthRelationStep",
+    "SpatialTransportTrajectoryReport",
+    "trace_spatial_relation_transport",
 ]

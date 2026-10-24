@@ -38,6 +38,9 @@ from ..left.triangular_reconstruction import (
     LeftTriangularReconstructionResult,
     verify_checkpoint_01_reconstruction_completeness,
 )
+from ..left.spatial_transport import (
+    trace_spatial_relation_transport,
+)
 from ..right.ether_block_transfer import (
     EtherBilateralIncompatibilityResult,
     evaluate_ether_chain_bilateral_incompatibility,
@@ -56,12 +59,13 @@ from .ideal_normalizer import (
     build_nullstellensatz_certificate,
     build_psmsl_sideways_ideal_and_verify,
     run_adversarial_counterexample_stress_tests,
+    run_diagonal_ablation_experiment,
 )
 
 
 @dataclass(frozen=True)
 class ClosureCampaignReport:
-    """Comprehensive machine-readable verdict for Programs R30-CLOSE-001 & R30-CERT-001."""
+    """Comprehensive machine-readable verdict for Programs R30-CLOSE-001, R30-CERT-001 & R30-TRANSPORT-001."""
 
     program_id: str
     baseline_commit: str
@@ -79,6 +83,7 @@ class ClosureCampaignReport:
     max_left_only_unsat_horizon: int
     experiment_scopes: Dict[str, Dict[str, object]]
     r30_cert_001_campaign: Dict[str, object]
+    r30_transport_001_campaign: Dict[str, object]
     left_reconstruction: LeftTriangularReconstructionResult
     left_phase_macros: LeftPhaseMacroResult
     right_conservation: BilateralConservationResult
@@ -182,8 +187,8 @@ def run_proof_closure_campaign(
 
     r30_cert_001_campaign: Dict[str, object] = {
         "campaign_id": "R30-CERT-001",
-        "headline_theorems_verified_in_check_lean": 26,
-        "replayed_constants_in_check_lean": 28,
+        "headline_theorems_verified_in_check_lean": 31,
+        "replayed_constants_in_check_lean": 39,
         "parallel_operator_inventory": parallel_inventory,
         "psmsl_sideways_translation_certificates": psmsl_trans_certs,
         "nullstellensatz_certificate_summary": {
@@ -207,6 +212,44 @@ def run_proof_closure_campaign(
         "adversarial_counterexample_stress_tests": stress_tests,
     }
 
+    # Execute R30-TRANSPORT-001 Deliverables 1, 2, and 3
+    diag_ablation = run_diagonal_ablation_experiment(
+        transients=(0, 1, 2, 3, 4, 5, 6), periods=(2, 3, 4), max_horizon=14
+    )
+    spatial_transport_reports = [
+        asdict(trace_spatial_relation_transport(w, max_depth=6))
+        for w in ((1, 0), (1, 1, 0), (0, 0, 1), (1, 0, 1, 0))
+    ]
+    r30_transport_001_campaign: Dict[str, object] = {
+        "campaign_id": "R30-TRANSPORT-001",
+        "headline_theorems_verified_in_check_lean": 31,
+        "replayed_constants_in_check_lean": 39,
+        "deliverable_1_diagonal_ablation": diag_ablation,
+        "deliverable_2_spatial_relation_transport": {
+            "transport_step_theorem": "Rule30ProofClosure.spatial_transport_step_dichotomy",
+            "finite_relation_grammar": [
+                "T_BLACK_LEFT",
+                "T_BLACK_RIGHT",
+                "T_WHITE_LEFT",
+                "T_WHITE_RIGHT",
+                "T_COMP_XOR1",
+                "T_IDEMP_XOR0",
+            ],
+            "trajectories": spatial_transport_reports,
+        },
+        "deliverable_3_direct_closure_attempt": {
+            "universal_column_onset_theorem": "Rule30ProofClosure.universal_column_onset_signature",
+            "universal_adjacent_xor_onset_theorem": "Rule30ProofClosure.universal_adjacent_xor_onset_law",
+            "zero_decide_1010_exclusion_theorem": "Rule30ProofClosure.transport_onset_excludes_1010_at_t3",
+            "non_tautological_closure_reduction": "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1",
+            "exact_surviving_goal": (
+                "∀ T P ≥ 1, (∀ m, cell (T + sb + m * P) (-1) = !center (T + sb + 1)) → "
+                "∃ k ≥ 1, (xor (cell (k + 1) (-k)) (cell (k + 1) (-(k + 1))) = true) ∨ "
+                "(xor (cell (k + 2) (-k)) (cell (k + 2) (-(k + 1))) = false)"
+            ),
+        },
+    }
+
     obligations = build_obligation_graph()
     declarations = build_declaration_inventory()
     failed_claims = build_failed_claims_ledger()
@@ -217,6 +260,9 @@ def run_proof_closure_campaign(
     audit_spatial_bridge = audit_closure_claim(
         "Rule30ProofClosure.spatial_bridge_to_left_diagonals_implies_problem1", declarations
     )
+    audit_transport_onset = audit_closure_claim(
+        "Rule30ProofClosure.transport_adjacent_xor_to_onset_implies_problem1", declarations
+    )
     audit_track_b = audit_closure_claim(
         "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1", declarations
     )
@@ -226,35 +272,42 @@ def run_proof_closure_campaign(
     audit_exact_l3 = audit_closure_claim(
         "Rule30ProofClosure.local_101_pattern_conserved_left_xor", declarations
     )
+    audit_exact_onset = audit_closure_claim(
+        "Rule30ProofClosure.universal_column_onset_signature", declarations
+    )
 
     reject_ok = (
         not bool(audit_track_ac["accepted_as_unconditional_closure"])
         and not bool(audit_spatial_bridge["accepted_as_unconditional_closure"])
+        and not bool(audit_transport_onset["accepted_as_unconditional_closure"])
         and not bool(audit_track_b["accepted_as_unconditional_closure"])
         and bool(audit_exact_reentry["accepted_as_unconditional_closure"])
         and bool(audit_exact_l3["accepted_as_unconditional_closure"])
+        and bool(audit_exact_onset["accepted_as_unconditional_closure"])
     )
 
     report = ClosureCampaignReport(
-        program_id="R30-CLOSE-001+R30-CERT-001",
+        program_id="R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001",
         baseline_commit="8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-        outcome_classification="OUTCOME_B_AND_C_EXACT_CANCELLATION_GRAMMAR_AND_SPATIAL_BRIDGE_REDUCTION",
+        outcome_classification="OUTCOME_B_AND_C_SPATIAL_TRANSPORT_AND_DIAGONAL_ABLATION_CHARACTERIZED",
         outcome_summary=(
-            "Checkpoints 01 and 02 plus the R30-CERT-001 operator-cancellation and diagonal-screening "
-            "theorems are unconditionally verified (26/26 Lean 4.35.0 headlines in Rule30PrizeClosure, "
-            "28 replayed constants, 0 new axioms). In the PSMSL-projected sideways basis, columns -1 and -2 "
-            "collapse to degree <= 1 for all words, Law L2 screens 11 patterns to depth -2, Law L3 cancels "
-            "the unscreened right-half variable out of X_{t,-2} XOR X_{t,-3} on 101 patterns, and left "
-            "diagonals D0..D5 eliminate all free left-cone variables for T <= 6, collapsing 151/154 (98.05%) "
-            "of mixed-word Nullstellensatz certificates across T=0..6, P=2..4 (including 77/77 in G2 and "
-            "28/28 in G3) to MUS size 1 and degree 0. "
-            "Universal lifting (M4) is isolated to bridging the max(0, T-6) interior cone gap for T >= 7 "
-            "(spatial_bridge_to_left_diagonals_implies_problem1)."
+            "Checkpoints 01 and 02, R30-CERT-001, and R30-TRANSPORT-001 are unconditionally verified "
+            "(31/31 Lean 4.35.0 headlines in Rule30PrizeClosure, 39 replayed constants, 0 new axioms). "
+            "Deliverable 1 (Diagonal Ablation) proves that fixing exterior zeros and outer edge D_0(T)=1 "
+            "alone self-regenerates D_1, D_2, D_4 during forward evolution (universal_column_onset_signature), "
+            "collapsing 90/154 mixed-word hypotheses to degree-0 MUS=1 with D_0 alone and 151/154 with D_0..D_5 "
+            "via the unbridged spatial gap law G(T, d_diag, d_cancel) = max(0, T - d_diag - d_cancel). "
+            "Deliverable 2 (Spatial Relation Transport) proves the 6-case transport step law "
+            "(spatial_transport_step_dichotomy) and shows that the finite single-step grammar R_d = {Const, AdjXor} "
+            "is closed through d <= 3..4 (1010) or d <= 2..3 (110) before time-shifted white-step variables "
+            "(y_{t_1} != y_{t_2}) spawn quadratic cross-terms y_{t_1}*y_{t_2}. "
+            "Deliverable 3 replaces the tautological bridge premise with transport_adjacent_xor_to_onset_implies_problem1 "
+            "and proves the zero-decide structural exclusion transport_onset_excludes_1010_at_t3."
         ),
         checkpoint_01_reconstruction_completeness=chk01.checkpoint_01_passed,
         checkpoint_02_bilateral_soundness=chk02_ok and right_cons.passed,
-        checkpoint_03_universal_contradiction_status="EXACT_FOR_4_GRAMMAR_LAWS_AND_D0_D5__SPATIAL_BRIDGE_T_GE_7_OPEN",
-        checkpoint_04_official_complete_claim_status="PARTIAL_VERIFIED_26_OF_26__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+        checkpoint_03_universal_contradiction_status="EXACT_FOR_ONSET_SIGNATURE_AND_DEPTH_LE_4_TRANSPORT__MULTI_STEP_CORRELATION_OPEN",
+        checkpoint_04_official_complete_claim_status="PARTIAL_VERIFIED_31_OF_31__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
         conditional_closure_claims_automatically_rejected=reject_ok,
         hypotheses_tested=len(evals),
         hypotheses_unsat_count=unsat_cnt,
@@ -263,6 +316,7 @@ def run_proof_closure_campaign(
         max_left_only_unsat_horizon=max_l_h,
         experiment_scopes=experiment_scopes,
         r30_cert_001_campaign=r30_cert_001_campaign,
+        r30_transport_001_campaign=r30_transport_001_campaign,
         left_reconstruction=chk01,
         left_phase_macros=left_macros,
         right_conservation=right_cons,
@@ -276,9 +330,11 @@ def run_proof_closure_campaign(
         closure_claim_audits={
             "track_ac_reduction": audit_track_ac,
             "spatial_bridge_reduction": audit_spatial_bridge,
+            "transport_onset_reduction": audit_transport_onset,
             "track_b_reduction": audit_track_b,
             "exact_linear_reentry_bound": audit_exact_reentry,
             "exact_law_l3_conserved_xor": audit_exact_l3,
+            "exact_universal_column_onset": audit_exact_onset,
         },
     )
 

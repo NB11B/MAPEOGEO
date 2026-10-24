@@ -12,11 +12,14 @@ from .ideal_normalizer import (
     CounterexampleStressTestResult,
     GRAMMAR_CLUSTERS,
     NullstellensatzContradictionCertificate,
+    PrimitiveContradictionProvenance,
     PSMSLSidewaysTranslationCertificate,
     build_nullstellensatz_certificate,
     build_psmsl_sideways_ideal_and_verify,
     classify_word_operator_grammar,
+    reconstruct_primitive_contradiction_provenance,
     run_adversarial_counterexample_stress_tests,
+    run_diagonal_ablation_experiment,
 )
 
 __all__ = [
@@ -25,11 +28,14 @@ __all__ = [
     "GRAMMAR_CLUSTERS",
     "IndependentVerificationResult",
     "NullstellensatzContradictionCertificate",
+    "PrimitiveContradictionProvenance",
     "PSMSLSidewaysTranslationCertificate",
     "build_nullstellensatz_certificate",
     "build_psmsl_sideways_ideal_and_verify",
     "classify_word_operator_grammar",
+    "reconstruct_primitive_contradiction_provenance",
     "run_adversarial_counterexample_stress_tests",
+    "run_diagonal_ablation_experiment",
     "run_proof_closure_campaign",
     "verify_closure_certificates_and_lean_modules",
 ]

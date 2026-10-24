@@ -313,4 +313,90 @@ theorem local_1010_complement_cancellation_depth4 (t : Nat)
     cases cell t (-4) <;> cases cell (t + 1) (-3) <;> decide
   exact ⟨hcomp, hor, hm4⟩
 
+/-- **Track A (`EXACT`, `R30-TRANSPORT-001`) — Alternating Step Law for `D 3`
+    (`left_diag_D3_succ`)**:
+    For every `t : Nat`, `D 3 (t + 3) = !D 3 (t + 2)` follows from `D_step 1`, `D_one`, and
+    `left_diag_D2_eq_false`. -/
+theorem left_diag_D3_succ (t : Nat) : D 3 (t + 3) = !D 3 (t + 2) := by
+  rw [show t + 3 = (t + 2) + 1 by omega, D_step 1 (t + 2), D_one (t + 1), left_diag_D2_eq_false t]
+  cases D 3 (t + 2) <;> rfl
+
+/-- **Track A (`EXACT`, New in `R30-TRANSPORT-001`) — Universal 6-Step Column-Onset Signature
+    (`universal_column_onset_signature`)**:
+    For every spatial depth `k : Nat`, the vertical time trace of column `p = -k` across its first
+    6 steps inside the light cone (`t = k .. k + 5`) satisfies the universal invariant:
+    1. `cell k (-k) = true`,
+    2. `cell (k + 1) (-k) = true`,
+    3. `cell (k + 2) (-k) = false`,
+    4. `cell (k + 4) (-k) = true`, and
+    5. `cell (k + 5) (-k) = cell (k + 3) (-k)`. -/
+theorem universal_column_onset_signature (k : Nat) :
+    cell k (-(k : Int)) = true ∧
+    cell (k + 1) (-(k : Int)) = true ∧
+    cell (k + 2) (-(k : Int)) = false ∧
+    cell (k + 4) (-(k : Int)) = true ∧
+    cell (k + 5) (-(k : Int)) = cell (k + 3) (-(k : Int)) := by
+  have h0 : cell k (-(k : Int)) = D 0 k := by unfold D; exact cell_congr (by omega)
+  have h1 : cell (k + 1) (-(k : Int)) = D 1 (k + 1) := by unfold D; exact cell_congr (by omega)
+  have h2 : cell (k + 2) (-(k : Int)) = D 2 (k + 2) := by unfold D; exact cell_congr (by omega)
+  have h3 : cell (k + 3) (-(k : Int)) = D 3 (k + 3) := by unfold D; exact cell_congr (by omega)
+  have h4 : cell (k + 4) (-(k : Int)) = D 4 (k + 4) := by unfold D; exact cell_congr (by omega)
+  have h5 : cell (k + 5) (-(k : Int)) = D 5 (k + 5) := by unfold D; exact cell_congr (by omega)
+  have hd4 : D 4 (k + 4) = true := by
+    rw [show k + 4 = (k + 1) + 3 by omega]
+    exact left_diag_D4_eq_true (k + 1)
+  have hd5 : D 5 (k + 5) = D 3 (k + 3) := by
+    have hs5 : D 5 (k + 5) = !D 3 (k + 4) := by
+      rw [show k + 5 = (k + 1) + 4 by omega, show k + 4 = (k + 1) + 3 by omega]
+      exact left_diag_D5_eq_not_D3 (k + 1)
+    have hs3 : D 3 (k + 4) = !D 3 (k + 3) := by
+      rw [show k + 4 = (k + 1) + 3 by omega, show k + 3 = (k + 1) + 2 by omega]
+      exact left_diag_D3_succ (k + 1)
+    rw [hs5, hs3, Bool.not_not]
+  rw [h0, h1, h2, h3, h4, h5, D_zero k, D_one k, left_diag_D2_eq_false k, hd4, hd5]
+  exact ⟨rfl, rfl, rfl, rfl, rfl⟩
+
+/-- **Track A (`EXACT`, New in `R30-TRANSPORT-001`) — 6-Case Spatial Relation Transport Theorem
+    (`spatial_transport_step_dichotomy`)**:
+    Certifies the 6 exact algebraic cases by which a relation at spatial depth `(p, p + 1)`
+    transports one column outward to `p - 1` without increasing polynomial degree:
+    1. `T_black_left`: `cell t p = true → cell t (p - 1) = !cell (t + 1) p`
+    2. `T_black_right`: `cell t (p + 1) = true → cell t (p - 1) = !cell (t + 1) p`
+    3. `T_white_left`: `cell t p = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t (p + 1))`
+    4. `T_white_right`: `cell t (p + 1) = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t p)`
+    5. `T_comp` (`xor = true`): `xor (cell t p) (cell t (p + 1)) = true → cell t (p - 1) = !cell (t + 1) p`
+    6. `T_idemp` (`xor = false`): `xor (cell t p) (cell t (p + 1)) = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t p)` -/
+theorem spatial_transport_step_dichotomy (t : Nat) (p : Int) :
+    (cell t p = true → cell t (p - 1) = !cell (t + 1) p) ∧
+    (cell t (p + 1) = true → cell t (p - 1) = !cell (t + 1) p) ∧
+    (cell t p = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t (p + 1))) ∧
+    (cell t (p + 1) = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t p)) ∧
+    (xor (cell t p) (cell t (p + 1)) = true → cell t (p - 1) = !cell (t + 1) p) ∧
+    (xor (cell t p) (cell t (p + 1)) = false → cell t (p - 1) = xor (cell (t + 1) p) (cell t p)) := by
+  have hstep : cell (t + 1) p = rule (cell t (p - 1)) (cell t p) (cell t (p + 1)) := rfl
+  unfold rule at hstep
+  revert hstep
+  cases cell (t + 1) p <;> cases cell t (p - 1) <;> cases cell t p <;> cases cell t (p + 1) <;> decide
+
+/-- **Track A (`EXACT`, New in `R30-TRANSPORT-001`) — Pure Structural Exclusion of `1010` at `t = 3`
+    via Spatial Transport + Column-Onset Signature (`transport_onset_excludes_1010_at_t3`)**:
+    Demonstrates with zero brute-force trajectory evaluation how composing Law L3
+    (`local_101_pattern_conserved_left_xor`) with `universal_column_onset_signature` at depths
+    `k = 2` and `k = 3` directly refutes `(center 3, center 4, center 5, center 6) = (true, false, true, false)`:
+    - Law L3 transports `(center 3..6) = (1, 0, 1, 0)` to `xor (cell 3 (-2)) (cell 3 (-3)) = true`,
+    - Whereas `universal_column_onset_signature 2` gives `cell 3 (-2) = true` and
+      `universal_column_onset_signature 3` gives `cell 3 (-3) = true`, so `xor true true = false`. -/
+theorem transport_onset_excludes_1010_at_t3 :
+    ¬ (Rule30Prize.center 3 = true ∧
+       Rule30Prize.center 4 = false ∧
+       Rule30Prize.center 5 = true ∧
+       Rule30Prize.center 6 = false) := by
+  rintro ⟨hc3, hc4, hc5, hc6⟩
+  have hxor := (local_101_pattern_conserved_left_xor 3 hc3 hc4 hc5).2.2.2
+  rw [hc6] at hxor
+  have hm2 : cell 3 (-2) = true := (universal_column_onset_signature 2).2.1
+  have hm3 : cell 3 (-3) = true := (universal_column_onset_signature 3).1
+  rw [hm2, hm3] at hxor
+  contradiction
+
 end Rule30ProofClosure
