@@ -181,4 +181,90 @@ theorem col0Word_getD :
     rw [show t + 1 + s = t + (s + 1) by omega] at ih
     exact ih
 
+/-! ### `R30-EXHAUST-001` Obligation 2 — Run-Schedule Composition Algebra -/
+
+theorem runWord_append :
+    ∀ (w₁ w₂ σ : List Bool), runWord (w₁ ++ w₂) σ = runWord w₂ (runWord w₁ σ)
+  | [], _, _ => rfl
+  | c :: cs, w₂, σ => runWord_append cs w₂ (stepRow c σ)
+
+theorem runLeftWord_append :
+    ∀ (w₁ w₂ lam : List Bool), runLeftWord (w₁ ++ w₂) lam = runLeftWord w₂ (runLeftWord w₁ lam)
+  | [], _, _ => rfl
+  | c :: cs, w₂, lam => runLeftWord_append cs w₂ (stepLeftRow c lam)
+
+theorem orColWord_append :
+    ∀ (w₁ w₂ σ : List Bool),
+      orColWord (w₁ ++ w₂) σ = orColWord w₁ σ ++ orColWord w₂ (runWord w₁ σ)
+  | [], _, _ => rfl
+  | c :: cs, w₂, σ => by
+    show (c || σ.headD false) :: orColWord (cs ++ w₂) (stepRow c σ) =
+      (c || σ.headD false) :: (orColWord cs (stepRow c σ) ++ orColWord w₂ (runWord cs (stepRow c σ)))
+    rw [orColWord_append cs w₂ (stepRow c σ)]
+
+theorem runBlack_eq_runWord :
+    ∀ (b : Nat) (σ : List Bool), runBlack b σ = runWord (List.replicate b true) σ
+  | 0, _ => rfl
+  | b + 1, σ => runBlack_eq_runWord b (stepRow true σ)
+
+/-- Advances a finite right-half prefix through a white center run `0^r`. -/
+def runWhite (r : Nat) (σ : List Bool) : List Bool :=
+  runWord (List.replicate r false) σ
+
+/-- Advances a finite right-half prefix through a composite `(0^r, 1^b)` run block. -/
+def runBlock (r b : Nat) (σ : List Bool) : List Bool :=
+  runBlack b (runWhite r σ)
+
+theorem runBlock_eq_runWord (r b : Nat) (σ : List Bool) :
+    runBlock r b σ = runWord (List.replicate r false ++ List.replicate b true) σ := by
+  unfold runBlock runWhite
+  rw [runBlack_eq_runWord, runWord_append]
+
+/-- Expands a run schedule `[(r₁, b₁), ..., (rₘ, bₘ)]` into the center word `0^{r₁} 1^{b₁} ... 0^{rₘ} 1^{bₘ}`. -/
+def scheduleWord : List (Nat × Nat) → List Bool
+  | [] => []
+  | (r, b) :: rest => List.replicate r false ++ List.replicate b true ++ scheduleWord rest
+
+/-- Composes `runBlock rᵢ bᵢ` sequentially across an arbitrary run schedule. -/
+def runSchedule : List (Nat × Nat) → List Bool → List Bool
+  | [], σ => σ
+  | (r, b) :: rest, σ => runSchedule rest (runBlock r b σ)
+
+theorem runSchedule_eq_runWord :
+    ∀ (sched : List (Nat × Nat)) (σ : List Bool),
+      runSchedule sched σ = runWord (scheduleWord sched) σ
+  | [], _ => rfl
+  | (r, b) :: rest, σ => by
+    show runSchedule rest (runBlock r b σ) =
+      runWord (List.replicate r false ++ List.replicate b true ++ scheduleWord rest) σ
+    rw [runSchedule_eq_runWord rest (runBlock r b σ), runBlock_eq_runWord, ← runWord_append]
+
+theorem scheduleWord_append :
+    ∀ (s₁ s₂ : List (Nat × Nat)),
+      scheduleWord (s₁ ++ s₂) = scheduleWord s₁ ++ scheduleWord s₂
+  | [], _ => rfl
+  | (r, b) :: rest, s₂ => by
+    show List.replicate r false ++ List.replicate b true ++ scheduleWord (rest ++ s₂) =
+      (List.replicate r false ++ List.replicate b true ++ scheduleWord rest) ++ scheduleWord s₂
+    simp only [scheduleWord_append rest s₂, List.append_assoc]
+
+/-- **Obligation 2 (`EXACT`, New in `R30-EXHAUST-001`) — Run-Schedule Compositional Semantics
+    (`runSchedule_compositional_semantics`)**:
+    Proves that arbitrary compositions of white/black run blocks (`runBlock r b = runBlack b ∘ runWhite r`)
+    form a strict monoid homomorphism into `runWord`, and when `col0Word t L = scheduleWord s₁`,
+    `runSchedule s₁` and `orColWord (scheduleWord s₁)` exactly realize the cellular right-half state
+    `rowAt (t + L) 1 n` and PSMSL boundary observation trace `col0OrTrace t L`. -/
+theorem runSchedule_compositional_semantics
+    (s₁ s₂ : List (Nat × Nat)) (σ : List Bool) (t L n : Nat)
+    (hsched : col0Word t L = scheduleWord s₁) :
+    runSchedule s₁ σ = runWord (scheduleWord s₁) σ ∧
+    runSchedule (s₁ ++ s₂) σ = runSchedule s₂ (runSchedule s₁ σ) ∧
+    runSchedule s₁ (rowAt t 1 (n + L)) = rowAt (t + L) 1 n ∧
+    orColWord (scheduleWord s₁) (rowAt t 1 (n + L + 1)) = col0OrTrace t L := by
+  refine ⟨runSchedule_eq_runWord s₁ σ, ?_, ?_, ?_⟩
+  · rw [runSchedule_eq_runWord, runSchedule_eq_runWord, runSchedule_eq_runWord,
+      scheduleWord_append, runWord_append]
+  · rw [runSchedule_eq_runWord, ← hsched, runWord_rowAt]
+  · rw [← hsched, orColWord_rowAt]
+
 end Rule30ProofClosure

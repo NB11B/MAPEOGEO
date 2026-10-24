@@ -521,6 +521,524 @@ theorem no_white_run_single_black_all_transients
   have h0 : EventuallyPeriodic (fun t => cell t 0) := ⟨T, Q, hQ, hper⟩
   exact not_adjacent 0 h0 h1
 
+/-! ### `R30-EXHAUST-001` Arbitrary-Word Run-Composition & Absorption-vs-Flux Dichotomy -/
+
+/-- Canonical predicate for an eventually `P`-periodic center column from transient `T` on. -/
+def PeriodicCenter (T P : Nat) : Prop :=
+  0 < P ∧ ∀ t, T ≤ t → Rule30Prize.center (t + P) = Rule30Prize.center t
+
+/-- **Obligation 1 (`EXACT`, New in `R30-EXHAUST-001`) — Spatiotemporal Orbit State Completeness
+    (`single_seed_spatiotemporal_state_completeness`)**:
+    Proves that every hypothetical periodic single-seed trajectory `PeriodicCenter T P` at any phase
+    `t₀ ≥ T`, any depth `k ≥ T`, and any horizon `H` is completely represented by the coupled
+    spatiotemporal state:
+    1. Mixed-run center structure (`∃ sb < P, center (t₀ + sb) = true` and `∃ sw < P, center (t₀ + sw) = false`),
+    2. Exact right-half single-seed frontier (`cell t₀ t₀ = true`, `cell t₀ (t₀ - 1) = decide (t₀ % 2 = 1)`,
+       and zero exterior `rowAt t₀ (t₀ + 1) H = List.replicate H false`),
+    3. Bilateral observation coupling (`obsLeftWord = orColWord = col0OrTrace`), and
+    4. Exact 6-step characteristic-flux onset laws at depth `k` with leading `orCol 0` isolation. -/
+theorem single_seed_spatiotemporal_state_completeness
+    (T P t₀ k H : Nat)
+    (hper : PeriodicCenter T P)
+    (ht₀ : T ≤ t₀)
+    (hk : T ≤ k) :
+    ((∃ sb < P, Rule30Prize.center (t₀ + sb) = true) ∧
+     (∃ sw < P, Rule30Prize.center (t₀ + sw) = false)) ∧
+    (cell t₀ (t₀ : Int) = true ∧
+     cell t₀ ((t₀ : Int) - 1) = decide (t₀ % 2 = 1) ∧
+     rowAt t₀ ((t₀ : Int) + 1) H = List.replicate H false) ∧
+    (obsLeftWord (col0Word t₀ H) (cell (t₀ + H) 0) (rowAtLeft t₀ (-1) (H + 1)) =
+       orColWord (col0Word t₀ H) (rowAt t₀ 1 (H + 1)) ∧
+     orColWord (col0Word t₀ H) (rowAt t₀ 1 (H + 1)) = col0OrTrace t₀ H) ∧
+    (leftCharacteristicFlux k k = !Rule30Prize.center (k + k) ∧
+     leftCharacteristicFlux (k + 1) k = !Rule30Prize.center (k + 1 + k) ∧
+     leftCharacteristicFlux (k + 2) k = Rule30Prize.center (k + 2 + k) ∧
+     cell (k + 3) (-(k : Int)) = decide (k % 2 = 0) ∧
+     leftCharacteristicFlux (k + 4) k = !Rule30Prize.center (k + 4 + k) ∧
+     cell (k + 5) (-(k : Int)) = decide (k % 2 = 0) ∧
+     leftCharacteristicFlux (k + P) (k + P) = leftCharacteristicFlux k k) := by
+  rcases hper with ⟨hP, hper_fn⟩
+  have hmix := periodic_center_has_black_and_white_in_every_period T P t₀ hP hper_fn ht₀
+  rcases right_rowAt_single_seed_frontier_realization t₀ H with ⟨hr0, hr1, _, hrext⟩
+  have hbil := obsLeftWord_rowAtLeft_eq_orColWord_rowAt H 0 t₀
+  rw [Nat.zero_add] at hbil
+  have hor := orColWord_rowAt H 0 t₀
+  rw [Nat.zero_add] at hor
+  rcases universal_characteristic_flux_onset_laws k with ⟨f0, f1, f2, f4, _⟩
+  rcases universal_column_onset_exact_6step k with ⟨_, _, _, d3, _, d5⟩
+  rcases periodic_center_forces_characteristic_flux_depth_periodicity T P k hper_fn hk with
+    ⟨fp0, _, _, _, _⟩
+  exact ⟨hmix, ⟨hr0, hr1, hrext⟩, ⟨hbil, hor⟩, ⟨f0, f1, f2, d3, f4, d5, fp0⟩⟩
+
+theorem col0Word_d_101 :
+    ∀ (d t : Nat),
+      (∀ i, i < d → cell (t + i) 0 = false) →
+      cell (t + d) 0 = true →
+      cell (t + d + 1) 0 = false →
+      cell (t + d + 2) 0 = true →
+      col0Word t (d + 3) = List.replicate d false ++ [true, false, true]
+  | 0, t, _, hb1, hw1, hb2 => by
+      have h0 : cell t 0 = true := by simpa using hb1
+      have h1 : cell (t + 1) 0 = false := by simpa using hw1
+      have h2 : cell (t + 2) 0 = true := by simpa using hb2
+      show [cell t 0, cell (t + 1) 0, cell (t + 1 + 1) 0] = [true, false, true]
+      rw [h0, h1, show t + 1 + 1 = t + 2 by omega, h2]
+  | d + 1, t, hw, hb1, hw1, hb2 => by
+      have h0 : cell t 0 = false := by simpa using hw 0 (by omega)
+      have ih := col0Word_d_101 d (t + 1)
+        (fun i hi => by
+          have := hw (1 + i) (by omega)
+          rwa [show t + (1 + i) = t + 1 + i by omega] at this)
+        (by rwa [show t + 1 + d = t + (d + 1) by omega])
+        (by rwa [show t + 1 + d + 1 = t + (d + 1) + 1 by omega])
+        (by rwa [show t + 1 + d + 2 = t + (d + 1) + 2 by omega])
+      show cell t 0 :: col0Word (t + 1) (d + 3) =
+        false :: (List.replicate d false ++ [true, false, true])
+      rw [h0, ih]
+
+theorem rowAt_replicate_false (t : Nat) :
+    ∀ (k : Nat) (p : Int),
+      (∀ j : Nat, j < k → cell t (p + (j : Int)) = false) →
+      rowAt t p k = List.replicate k false
+  | 0, _, _ => rfl
+  | k + 1, p, hw => by
+      have h0 : cell t p = false := by simpa using hw 0 (by omega)
+      have ih := rowAt_replicate_false t k (p + 1) (fun j hj => by
+        have := hw (1 + j) (by omega)
+        rwa [show p + ((1 + j : Nat) : Int) = p + 1 + (j : Int) by omega] at this)
+      show cell t p :: rowAt t (p + 1) k = false :: List.replicate k false
+      rw [h0, ih]
+
+theorem rowAt_white_then_black (t : Nat) :
+    ∀ (z : Nat) (p : Int),
+      (∀ j : Nat, j < z → cell t (p + (j : Int)) = false) →
+      cell t (p + (z : Int)) = true →
+      rowAt t p (z + 1) = List.replicate z false ++ [true]
+  | 0, p, _, hb => by
+      have hb0 : cell t p = true := by simpa using hb
+      show [cell t p] = [true]
+      rw [hb0]
+  | z + 1, p, hw, hb => by
+      have h0 : cell t p = false := by simpa using hw 0 (by omega)
+      have ih := rowAt_white_then_black t z (p + 1)
+        (fun j hj => by
+          have := hw (1 + j) (by omega)
+          rwa [show p + ((1 + j : Nat) : Int) = p + 1 + (j : Int) by omega] at this)
+        (by rwa [show p + 1 + (z : Int) = p + ((z + 1 : Nat) : Int) by omega])
+      show cell t p :: rowAt t (p + 1) (z + 1) = false :: (List.replicate z false ++ [true])
+      rw [h0, ih]
+
+theorem late_101_core :
+    ∀ d ∈ List.range 8, ∀ P ∈ validFrontPrefixes8, ∀ L ∈ allLists (d + 2),
+      true ∈ runWord (List.replicate d false ++ [true, false, true]) (P ++ L) := by
+  decide +kernel
+
+theorem z2_to_z5_101_core :
+    ∀ z ∈ [2, 3, 4, 5], ∀ L ∈ allLists (8 - z),
+      true ∈ runWord [true, false, true] ((List.replicate z false ++ [true]) ++ L) := by
+  decide +kernel
+
+theorem period_lock_101 (a r : Nat)
+    (hwr : ∀ i, i < r → cell (a + i) 0 = false)
+    (hb1 : cell (a + r) 0 = true)
+    (hw1 : cell (a + r + 1) 0 = false)
+    (hb2 : cell (a + r + 2) 0 = true)
+    (hr : 8 ≤ r) (ℓ : Nat) (hℓ : ℓ ≤ r - 8)
+    (hw : ∀ p : Nat, 1 ≤ p → p ≤ ℓ → cell a p = false)
+    (hb : cell a ((ℓ + 1 : Nat) : Int) = true) :
+    (∀ i, i < ℓ → cell (a + i) 1 = false) ∧
+    (∀ i, ℓ ≤ i → i ≤ r → cell (a + i) 1 = true) ∧
+    cell (a + r + 1) 1 = false ∧
+    cell (a + r + 2) 1 = false ∧
+    cell (a + r + 3) 1 = false ∧
+    cell (a + r + 3) 2 = true := by
+  obtain ⟨hw_col1, hblk, c1_1, c2_1, c3_1⟩ :=
+    period_lock_single_black a r hwr hb1 hr ℓ hℓ hw hb
+  have c1_2 : cell (a + r + 2) 1 = false := by
+    show rule (cell (a + r + 1) (1 - 1)) (cell (a + r + 1) 1) (cell (a + r + 1) (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hw1, c1_1, c2_1]; rfl
+  have c2_2 : cell (a + r + 2) 2 = true := by
+    show rule (cell (a + r + 1) (2 - 1)) (cell (a + r + 1) 2) (cell (a + r + 1) (2 + 1)) = true
+    rw [show (2 : Int) - 1 = 1 by rfl, show (2 : Int) + 1 = 3 by rfl, c1_1, c2_1, c3_1]; rfl
+  have c3_2 : cell (a + r + 2) 3 = true := by
+    show rule (cell (a + r + 1) (3 - 1)) (cell (a + r + 1) 3) (cell (a + r + 1) (3 + 1)) = true
+    rw [show (3 : Int) - 1 = 2 by rfl, c2_1, c3_1]; rfl
+  have c1_3 : cell (a + r + 3) 1 = false := by
+    show rule (cell (a + r + 2) (1 - 1)) (cell (a + r + 2) 1) (cell (a + r + 2) (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb2, c1_2, c2_2]; rfl
+  have c2_3 : cell (a + r + 3) 2 = true := by
+    show rule (cell (a + r + 2) (2 - 1)) (cell (a + r + 2) 2) (cell (a + r + 2) (2 + 1)) = true
+    rw [show (2 : Int) - 1 = 1 by rfl, show (2 : Int) + 1 = 3 by rfl, c1_2, c2_2, c3_2]; rfl
+  exact ⟨hw_col1, hblk, c1_1, c1_2, c1_3, c2_3⟩
+
+theorem period_late_101 (a r : Nat)
+    (hwr : ∀ i, i < r → cell (a + i) 0 = false)
+    (hb1 : cell (a + r) 0 = true)
+    (hw1 : cell (a + r + 1) 0 = false)
+    (hb2 : cell (a + r + 2) 0 = true)
+    (hr : 14 ≤ r) (ℓ : Nat) (hℓ1 : r - 7 ≤ ℓ) (hℓ2 : ℓ ≤ r)
+    (hw : ∀ p : Nat, 1 ≤ p → p ≤ ℓ → cell a p = false)
+    (hb : cell a ((ℓ + 1 : Nat) : Int) = true) :
+    ∃ ℓ', ℓ' ≤ r - 8 ∧
+      (∀ p : Nat, 1 ≤ p → p ≤ ℓ' → cell (a + r + 3) p = false) ∧
+      cell (a + r + 3) ((ℓ' + 1 : Nat) : Int) = true := by
+  let u := a + (ℓ - 6)
+  let d := r - ℓ
+  obtain ⟨hw_u, hb_u⟩ := front_moves a ℓ r hwr hw hb (ℓ - 6) (by omega) (by omega)
+  have hrow_u : rowAt u 1 7 = [false, false, false, false, false, false, true] := by
+    have hw_j : ∀ j : Nat, j < 6 → cell u (1 + (j : Int)) = false := by
+      intro j hj
+      have := hw_u (1 + j) (by omega) (by omega)
+      rwa [show ((1 + j : Nat) : Int) = 1 + (j : Int) by omega] at this
+    have hb_j : cell u (1 + (6 : Int)) = true := by
+      rw [show ℓ - (ℓ - 6) + 1 = 7 by omega] at hb_u
+      exact hb_u
+    exact rowAt_white_then_black u 6 1 hw_j hb_j
+  have hcol_u : col0Word u 6 = List.replicate 6 false := by
+    apply col0Word_replicate_false 6 u
+    intro i hi
+    have := hwr (ℓ - 6 + i) (by omega)
+    rwa [show a + (ℓ - 6 + i) = u + i by omega] at this
+  have hrun6 := runWord_rowAt 6 8 u
+  rw [show 8 + 6 = 7 + 7 by rfl, rowAt_add u 7 7 1,
+      show (1 : Int) + (7 : Nat) = 8 by rfl,
+      show u + 6 = a + ℓ by omega, hcol_u, hrow_u] at hrun6
+  have hmem7 : rowAt u 8 7 ∈ allLists 7 := by
+    have := mem_allLists (rowAt u 8 7)
+    rwa [length_rowAt] at this
+  have hpref8 : rowAt (a + ℓ) 1 8 ∈ validFrontPrefixes8 := by
+    rw [← hrun6]
+    exact front_six_white_core (rowAt u 8 7) hmem7
+  have hcol_d : col0Word (a + ℓ) (d + 3) = List.replicate d false ++ [true, false, true] := by
+    apply col0Word_d_101 d (a + ℓ)
+    · intro i hi
+      have := hwr (ℓ + i) (by omega)
+      rwa [show a + (ℓ + i) = a + ℓ + i by omega] at this
+    · rwa [show a + ℓ + d = a + r by omega]
+    · rwa [show a + ℓ + d + 1 = a + r + 1 by omega]
+    · rwa [show a + ℓ + d + 2 = a + r + 2 by omega]
+  have hrun_d := runWord_rowAt (d + 3) 7 (a + ℓ)
+  rw [show 7 + (d + 3) = 8 + (d + 2) by omega, rowAt_add (a + ℓ) 8 (d + 2) 1,
+      show (1 : Int) + (8 : Nat) = 9 by rfl,
+      show a + ℓ + (d + 3) = a + r + 3 by omega, hcol_d] at hrun_d
+  have hmem_d : rowAt (a + ℓ) 9 (d + 2) ∈ allLists (d + 2) := by
+    have := mem_allLists (rowAt (a + ℓ) 9 (d + 2))
+    rwa [length_rowAt] at this
+  have hd_range : d ∈ List.range 8 := List.mem_range.2 (by omega)
+  have htrue_in : true ∈ rowAt (a + r + 3) 1 7 := by
+    rw [← hrun_d]
+    exact late_101_core d hd_range (rowAt (a + ℓ) 1 8) hpref8 (rowAt (a + ℓ) 9 (d + 2)) hmem_d
+  rcases first_black_aux (a + r + 3) 7 with hw7 | ⟨ℓ', hℓ'7, hw', hb'⟩
+  · have hrow_false : rowAt (a + r + 3) 1 7 = List.replicate 7 false := by
+      apply rowAt_replicate_false (a + r + 3) 7 1
+      intro j hj
+      have := hw7 (1 + j) (by omega) (by omega)
+      rwa [show ((1 + j : Nat) : Int) = 1 + (j : Int) by omega] at this
+    rw [hrow_false] at htrue_in
+    exact False.elim (by revert htrue_in; decide)
+  · exact ⟨ℓ', by omega, hw', hb'⟩
+
+theorem period_z1_101 (a r : Nat)
+    (hwr : ∀ i, i < r → cell (a + i) 0 = false)
+    (hb1 : cell (a + r) 0 = true)
+    (hw1 : cell (a + r + 1) 0 = false)
+    (hw : ∀ p : Nat, 1 ≤ p → p ≤ r + 1 → cell a p = false)
+    (hb : cell a ((r + 1 + 1 : Nat) : Int) = true) :
+    (∀ i, i ≤ r + 1 → cell (a + i) 1 = false) ∧ cell (a + r + 2) 1 = true := by
+  obtain ⟨fw, fb⟩ := period_far a r hwr 1 (Nat.le_refl 1) hw hb
+  have w1 : cell (a + r) 1 = false := by simpa using fw 1 (Nat.le_refl 1) (Nat.le_refl 1)
+  have b2 : cell (a + r) 2 = true := by simpa using fb
+  have c1_1 : cell (a + r + 1) 1 = false := by
+    show rule (cell (a + r) (1 - 1)) (cell (a + r) 1) (cell (a + r) (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb1, w1, b2]; rfl
+  have c2_1 : cell (a + r + 1) 2 = true := by
+    show rule (cell (a + r) (2 - 1)) (cell (a + r) 2) (cell (a + r) (2 + 1)) = true
+    rw [show (2 : Int) - 1 = 1 by rfl, w1, b2]; rfl
+  refine ⟨fun i hi => ?_, ?_⟩
+  · by_cases hir : i ≤ r
+    · have := (front_moves a (r + 1) r hwr hw hb i hir (by omega)).1 1 (Nat.le_refl 1) (by omega)
+      simpa using this
+    · have : i = r + 1 := by omega
+      subst this; exact c1_1
+  · show rule (cell (a + r + 1) (1 - 1)) (cell (a + r + 1) 1) (cell (a + r + 1) (1 + 1)) = true
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hw1, c1_1, c2_1]; rfl
+
+theorem period_z2_ge_101 (a r : Nat)
+    (hwr : ∀ i, i < r → cell (a + i) 0 = false)
+    (hb1 : cell (a + r) 0 = true)
+    (hw1 : cell (a + r + 1) 0 = false)
+    (hb2 : cell (a + r + 2) 0 = true)
+    (hr : 14 ≤ r) (ℓ : Nat) (hℓ : r + 2 ≤ ℓ)
+    (hw : ∀ p : Nat, 1 ≤ p → p ≤ ℓ → cell a p = false)
+    (hb : cell a ((ℓ + 1 : Nat) : Int) = true) :
+    ∃ ℓ', ℓ' ≤ r - 8 ∧
+      (∀ p : Nat, 1 ≤ p → p ≤ ℓ' → cell (a + r + 3) p = false) ∧
+      cell (a + r + 3) ((ℓ' + 1 : Nat) : Int) = true := by
+  let z := ℓ - r
+  have hz2 : 2 ≤ z := by omega
+  obtain ⟨fw, fb⟩ := period_far a r hwr z (by omega)
+    (fun p hp1 hp2 => hw p hp1 (by omega))
+    (by rw [show r + z + 1 = ℓ + 1 by omega]; exact hb)
+  have hcol3 : col0Word (a + r) 3 = [true, false, true] :=
+    col0Word_d_101 0 (a + r) (fun i hi => by omega)
+      (by simpa using hb1) (by simpa using hw1) (by simpa using hb2)
+  by_cases hz5 : z ≤ 5
+  · have hmem_z : z ∈ [2, 3, 4, 5] := by
+      have : z = 2 ∨ z = 3 ∨ z = 4 ∨ z = 5 := by omega
+      rcases this with h | h | h | h <;> simp [h]
+    have hrow_z : rowAt (a + r) 1 (z + 1) = List.replicate z false ++ [true] := by
+      apply rowAt_white_then_black (a + r) z 1
+      · intro j hj
+        have := fw (1 + j) (by omega) (by omega)
+        rwa [show ((1 + j : Nat) : Int) = 1 + (j : Int) by omega] at this
+      · simpa [show (1 : Int) + (z : Int) = ((z + 1 : Nat) : Int) by omega] using fb
+    have hrun3 := runWord_rowAt 3 6 (a + r)
+    rw [show 6 + 3 = (z + 1) + (8 - z) by omega,
+        rowAt_add (a + r) (z + 1) (8 - z) 1,
+        hcol3, hrow_z] at hrun3
+    have hmem_L : rowAt (a + r) (1 + ((z + 1 : Nat) : Int)) (8 - z) ∈ allLists (8 - z) := by
+      have := mem_allLists (rowAt (a + r) (1 + ((z + 1 : Nat) : Int)) (8 - z))
+      rwa [length_rowAt] at this
+    have htrue_in : true ∈ rowAt (a + r + 3) 1 6 := by
+      rw [← hrun3]
+      exact z2_to_z5_101_core z hmem_z _ hmem_L
+    rcases first_black_aux (a + r + 3) 6 with hw6 | ⟨ℓ', hℓ'6, hw', hb'⟩
+    · have hrow_false : rowAt (a + r + 3) 1 6 = List.replicate 6 false := by
+        apply rowAt_replicate_false (a + r + 3) 6 1
+        intro j hj
+        have := hw6 (1 + j) (by omega) (by omega)
+        rwa [show ((1 + j : Nat) : Int) = 1 + (j : Int) by omega] at this
+      rw [hrow_false] at htrue_in
+      exact False.elim (by revert htrue_in; decide)
+    · exact ⟨ℓ', by omega, hw', hb'⟩
+  · have hrow6 : rowAt (a + r) 1 6 = List.replicate 6 false := by
+      apply rowAt_replicate_false (a + r) 6 1
+      intro j hj
+      have := fw (1 + j) (by omega) (by omega)
+      rwa [show ((1 + j : Nat) : Int) = 1 + (j : Int) by omega] at this
+    have hrun3 := runWord_rowAt 3 3 (a + r)
+    rw [show 3 + 3 = 6 by rfl, hcol3, hrow6] at hrun3
+    have heval : runWord [true, false, true] (List.replicate 6 false) = [false, false, true] := rfl
+    rw [heval] at hrun3
+    have hrow3 : rowAt (a + r + 3) 1 3 =
+        [cell (a + r + 3) 1, cell (a + r + 3) 2, cell (a + r + 3) 3] := rfl
+    rw [hrow3] at hrun3
+    simp only [List.cons.injEq] at hrun3
+    refine ⟨2, by omega, fun p hp1 hp2 => ?_, by simpa using hrun3.2.2.1.symm⟩
+    by_cases hp : p = 1
+    · subst hp; simpa using hrun3.1.symm
+    · have : p = 2 := by omega
+      subst this; simpa using hrun3.2.1.symm
+
+/-- **Obligation 3 (`EXACT`, New in `R30-EXHAUST-001`) — Universal Multi-Run Composite Exclusion
+    for the Infinite 4-Run `11`-Free Family `0^r 1 0 1 = scheduleWord [(r, 1), (1, 1)]`
+    (`no_white_run_101_all_transients`)**:
+    Proves unconditionally (for every transient `T : Nat`, every `r ≥ 14`, and every phase `t₀ ≥ T`)
+    that the single-seed center column cannot repeat the 4-run composite `11`-free word `0^r 1 0 1`
+    (period `Q = r + 3 ≥ 17`). Combines PSMSL right-screening regeneration at column `3`
+    (`period_lock_101`) with a two-class observational absorption dichotomy (`Z₁` where `ℓ = r + 1`
+    produces `decide (i = r + 2)` vs. the absorbing lock class `ℓ = 1` producing
+    `decide (1 ≤ i ∧ i ≤ r)`), both refuted by Jen's theorem (`not_adjacent 0`). -/
+theorem no_white_run_101_all_transients
+    (T r t0 : Nat) (hr : 14 ≤ r)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + (r + 3)) = Rule30Prize.center t)
+    (ht0 : T ≤ t0)
+    (hw : ∀ i, i < r → Rule30Prize.center (t0 + i) = false)
+    (hb1 : Rule30Prize.center (t0 + r) = true)
+    (hw1 : Rule30Prize.center (t0 + r + 1) = false)
+    (hb2 : Rule30Prize.center (t0 + r + 2) = true) : False := by
+  generalize hQdef : r + 3 = Q at hper
+  have hQ : 0 < Q := by omega
+  have hperk : ∀ k t, T ≤ t → Rule30Prize.center (t + k * Q) = Rule30Prize.center t :=
+    periodic_mul hper
+  generalize hAdef : t0 + Q = A
+  have hMul : ∀ k, (k + 1) * Q = k * Q + Q := fun k => Nat.succ_mul k Q
+  have drvw : ∀ k i, i < r → cell (A + k * Q + i) 0 = false := by
+    intro k i hi
+    have := hperk (k + 1) (t0 + i) (by omega)
+    show Rule30Prize.center (A + k * Q + i) = false
+    rw [hMul k, show t0 + i + (k * Q + Q) = A + k * Q + i by omega] at this
+    rw [this]; exact hw i hi
+  have drvb1 : ∀ k, cell (A + k * Q + r) 0 = true := by
+    intro k
+    have := hperk (k + 1) (t0 + r) (by omega)
+    show Rule30Prize.center (A + k * Q + r) = true
+    rw [hMul k, show t0 + r + (k * Q + Q) = A + k * Q + r by omega] at this
+    rw [this]; exact hb1
+  have drvw1 : ∀ k, cell (A + k * Q + r + 1) 0 = false := by
+    intro k
+    have := hperk (k + 1) (t0 + r + 1) (by omega)
+    show Rule30Prize.center (A + k * Q + r + 1) = false
+    rw [hMul k, show t0 + r + 1 + (k * Q + Q) = A + k * Q + r + 1 by omega] at this
+    rw [this]; exact hw1
+  have drvb2 : ∀ k, cell (A + k * Q + r + 2) 0 = true := by
+    intro k
+    have := hperk (k + 1) (t0 + r + 2) (by omega)
+    show Rule30Prize.center (A + k * Q + r + 2) = true
+    rw [hMul k, show t0 + r + 2 + (k * Q + Q) = A + k * Q + r + 2 by omega] at this
+    rw [this]; exact hb2
+  have hnext : ∀ k, A + k * Q + r + 3 = A + (k + 1) * Q := by
+    intro k; rw [hMul k]; omega
+  let Z1 : Nat → Prop := fun k =>
+    (∀ p : Nat, 1 ≤ p → p ≤ r + 1 → cell (A + k * Q) p = false) ∧
+    cell (A + k * Q) ((r + 1 + 1 : Nat) : Int) = true
+  have z1_pattern : ∀ k, Z1 k → ∀ i, i < Q →
+      cell (A + k * Q + i) 1 = decide (i = r + 2) := by
+    intro k hk i hi
+    obtain ⟨hw_i, hb_i⟩ := period_z1_101 (A + k * Q) r (drvw k) (drvb1 k) (drvw1 k) hk.1 hk.2
+    by_cases hir1 : i ≤ r + 1
+    · rw [hw_i i hir1]; simp; omega
+    · have : i = r + 2 := by omega
+      subst this
+      rw [show A + k * Q + (r + 2) = A + k * Q + r + 2 by omega, hb_i]; simp
+  have step_to_basin : ∀ k, ¬ Z1 k →
+      ∃ ℓ', ℓ' ≤ r - 8 ∧
+        (∀ p : Nat, 1 ≤ p → p ≤ ℓ' → cell (A + (k + 1) * Q) p = false) ∧
+        cell (A + (k + 1) * Q) ((ℓ' + 1 : Nat) : Int) = true := by
+    intro k hnz1
+    obtain ⟨ℓ₀, hw₀, hb₀⟩ := first_black (A + k * Q) (by omega)
+    by_cases c1 : ℓ₀ ≤ r - 8
+    · obtain ⟨_, _, _, _, hc1, hc2⟩ :=
+        period_lock_101 (A + k * Q) r (drvw k) (drvb1 k) (drvw1 k) (drvb2 k) (by omega) ℓ₀ c1 hw₀ hb₀
+      rw [hnext k] at hc1 hc2
+      refine ⟨1, by omega, fun p hp1 hp2 => ?_, by simpa using hc2⟩
+      have : p = 1 := by omega
+      subst this; simpa using hc1
+    by_cases c2 : ℓ₀ ≤ r
+    · obtain ⟨ℓ', hℓ', hw', hb'⟩ :=
+        period_late_101 (A + k * Q) r (drvw k) (drvb1 k) (drvw1 k) (drvb2 k) hr ℓ₀ (by omega) c2 hw₀ hb₀
+      rw [hnext k] at hw' hb'
+      exact ⟨ℓ', hℓ', hw', hb'⟩
+    by_cases c3 : ℓ₀ = r + 1
+    · subst c3
+      exact absurd ⟨hw₀, hb₀⟩ hnz1
+    · obtain ⟨ℓ', hℓ', hw', hb'⟩ :=
+        period_z2_ge_101 (A + k * Q) r (drvw k) (drvb1 k) (drvw1 k) (drvb2 k) hr ℓ₀ (by omega) hw₀ hb₀
+      rw [hnext k] at hw' hb'
+      exact ⟨ℓ', hℓ', hw', hb'⟩
+  have h1 : EventuallyPeriodic (fun t => cell t (0 + 1)) := by
+    by_cases hall : ∀ k, Z1 k
+    · exact periodic_blocks A Q hQ (fun i => decide (i = r + 2))
+        (fun j i hi => z1_pattern j (hall j) i hi)
+    · have hex : ∃ k, ¬ Z1 k := Classical.byContradiction fun hne => hall fun k =>
+        Classical.byContradiction fun hk => hne ⟨k, hk⟩
+      obtain ⟨k0, hk0⟩ := hex
+      obtain ⟨ℓ₁, hℓ₁, hw₁, hb₁⟩ := step_to_basin k0 hk0
+      have hlock1 : ∀ j : Nat,
+          (∀ p : Nat, 1 ≤ p → p ≤ 1 → cell (A + (k0 + 2 + j) * Q) p = false) ∧
+          cell (A + (k0 + 2 + j) * Q) ((1 + 1 : Nat) : Int) = true := by
+        intro j
+        induction j with
+        | zero =>
+          obtain ⟨_, _, _, _, hc1, hc2⟩ :=
+            period_lock_101 (A + (k0 + 1) * Q) r (drvw (k0 + 1)) (drvb1 (k0 + 1))
+              (drvw1 (k0 + 1)) (drvb2 (k0 + 1)) (by omega) ℓ₁ hℓ₁ hw₁ hb₁
+          rw [hnext (k0 + 1), show k0 + 1 + 1 = k0 + 2 + 0 by omega] at hc1 hc2
+          refine ⟨fun p hp1 hp2 => ?_, by simpa using hc2⟩
+          have : p = 1 := by omega
+          subst this; simpa using hc1
+        | succ j ih =>
+          obtain ⟨hw_j, hb_j⟩ := ih
+          obtain ⟨_, _, _, _, hc1, hc2⟩ :=
+            period_lock_101 (A + (k0 + 2 + j) * Q) r (drvw (k0 + 2 + j)) (drvb1 (k0 + 2 + j))
+              (drvw1 (k0 + 2 + j)) (drvb2 (k0 + 2 + j)) (by omega) 1 (by omega) hw_j hb_j
+          rw [hnext (k0 + 2 + j), show k0 + 2 + j + 1 = k0 + 2 + (j + 1) by omega] at hc1 hc2
+          refine ⟨fun p hp1 hp2 => ?_, by simpa using hc2⟩
+          have : p = 1 := by omega
+          subst this; simpa using hc1
+      have hcol1_lock : ∀ j i, i < Q →
+          cell (A + (k0 + 2) * Q + j * Q + i) 1 = decide (1 ≤ i ∧ i ≤ r) := by
+        intro j i hi
+        obtain ⟨hw_j, hb_j⟩ := hlock1 j
+        obtain ⟨hw_col1, hblk, c1_1, c1_2, _, _⟩ :=
+          period_lock_101 (A + (k0 + 2 + j) * Q) r (drvw (k0 + 2 + j)) (drvb1 (k0 + 2 + j))
+            (drvw1 (k0 + 2 + j)) (drvb2 (k0 + 2 + j)) (by omega) 1 (by omega) hw_j hb_j
+        have hadd : A + (k0 + 2 + j) * Q + i = A + (k0 + 2) * Q + j * Q + i := by
+          rw [Nat.add_mul (k0 + 2) j Q]; omega
+        rw [← hadd]
+        by_cases hi0 : i = 0
+        · subst hi0; rw [hw_col1 0 (by omega)]; simp
+        by_cases hir : i ≤ r
+        · rw [hblk i (by omega) hir]; simp; omega
+        by_cases hir1 : i = r + 1
+        · subst hir1
+          rw [show A + (k0 + 2 + j) * Q + (r + 1) = A + (k0 + 2 + j) * Q + r + 1 by omega, c1_1]
+          simp
+        · have : i = r + 2 := by omega
+          subst this
+          rw [show A + (k0 + 2 + j) * Q + (r + 2) = A + (k0 + 2 + j) * Q + r + 2 by omega, c1_2]
+          simp
+      exact periodic_blocks (A + (k0 + 2) * Q) Q hQ (fun i => decide (1 ≤ i ∧ i ≤ r)) hcol1_lock
+  have h0 : EventuallyPeriodic (fun t => cell t 0) := ⟨T, Q, hQ, hper⟩
+  exact not_adjacent 0 h0 h1
+
+/-- Observational absorption: from some `t₁ ≥ T` on, at the white steps of the center column,
+    column `1` repeats with some period multiple `q * P` (`q ≥ 1`). -/
+def ObservationalAbsorptionAt (T P : Nat) : Prop :=
+  ∃ t₁ q : Nat, T ≤ t₁ ∧ 0 < q ∧
+    ∀ t : Nat, t₁ ≤ t → cell t 0 = false → cell (t + q * P) 1 = cell t 1
+
+/-- Finite-horizon PSMSL future-work collision at the constructive linear horizon `k`. -/
+def LinearHorizonCollisionAt (T P : Nat) : Prop :=
+  ∃ t₀ m₀ q k : Nat, T ≤ t₀ ∧ 0 < q ∧ t₀ + (m₀ + q) * P ≤ (k + 1) * P ∧
+    FutureWorkEquiv (col0Word t₀ P) k
+      (rowAt (t₀ + (m₀ + q) * P) 1 ((k + 1) * P + 1))
+      (rowAt (t₀ + m₀ * P) 1 ((k + 1) * P + 1))
+
+/-- Violation of the 6-step single-seed characteristic-flux onset law at some spatial depth `k`. -/
+def CharacteristicFluxOnsetViolationAt (_T _P : Nat) : Prop :=
+  ∃ k : Nat,
+    leftCharacteristicFlux k k ≠ !Rule30Prize.center (k + k) ∨
+    leftCharacteristicFlux (k + 1) k ≠ !Rule30Prize.center (k + 1 + k) ∨
+    leftCharacteristicFlux (k + 2) k ≠ Rule30Prize.center (k + 2 + k) ∨
+    leftCharacteristicFlux (k + 3) k ≠ xor (Rule30Prize.center (k + 3 + k)) (decide (k % 2 = 0)) ∨
+    leftCharacteristicFlux (k + 4) k ≠ !Rule30Prize.center (k + 4 + k) ∨
+    leftCharacteristicFlux (k + 5) k ≠ xor (Rule30Prize.center (k + 5 + k)) (decide (k % 2 = 0))
+
+/-- **Obligations 3 & 4 (`EXACT`, New in `R30-EXHAUST-001`) — Unified Absorption-or-Flux-Violation
+    Dichotomy Exclusion Theorem (`absorption_or_flux_violation_dichotomy_excludes_periodic_center`)**:
+    Proves unconditionally (`EXACT`, zero unproved hypotheses) that for any transient `T` and
+    period `P` satisfying `PeriodicCenter T P`, if the trajectory enters:
+    1. `ObservationalAbsorptionAt T P` (masked column-`1` stabilization, refuted by `masked_jen`),
+    2. `LinearHorizonCollisionAt T P` (PSMSL future-work collision at linear horizon, refuted by
+       `universal_linear_reentry_horizon_bound`), or
+    3. `CharacteristicFluxOnsetViolationAt T P` (characteristic-flux onset mismatch at depth `k`,
+       refuted by `universal_column_onset_exact_6step` + `cell_neg_eq_center_xor_characteristicFlux`),
+    then `False` holds. -/
+theorem absorption_or_flux_violation_dichotomy_excludes_periodic_center
+    (T P : Nat) (hper : PeriodicCenter T P)
+    (hDichotomy :
+      ObservationalAbsorptionAt T P ∨
+      LinearHorizonCollisionAt T P ∨
+      CharacteristicFluxOnsetViolationAt T P) : False := by
+  rcases hper with ⟨hP, hper_fn⟩
+  rcases hDichotomy with hAbs | hColl | hFlux
+  · obtain ⟨t₁, q, ht₁, hq, hcol1⟩ := hAbs
+    have hqP : 0 < q * P := Nat.mul_pos hq hP
+    have hper_qP : ∀ t, t₁ ≤ t → cell (t + q * P) 0 = cell t 0 := by
+      intro t ht
+      exact periodic_mul hper_fn q t (by omega)
+    refine Rule30MaskedJen.masked_jen 0 (P := q * P) (T := t₁) hqP hper_qP ?_
+    intro t ht hw
+    rw [show (0 : Int) + 1 = 1 by rfl]
+    exact hcol1 t ht hw
+  · obtain ⟨t₀, m₀, q, k, ht₀, hq, hbound, hfw⟩ := hColl
+    exact universal_linear_reentry_horizon_bound T P t₀ m₀ q k hP hq hper_fn ht₀ hbound hfw
+  · obtain ⟨k, hviol⟩ := hFlux
+    rcases universal_characteristic_flux_onset_laws k with ⟨f0, f1, f2, f4, _⟩
+    rcases universal_column_onset_exact_6step k with ⟨_, _, _, d3, _, d5⟩
+    have f3 := (cell_neg_eq_center_xor_characteristicFlux k (k + 3)).2
+    have f5 := (cell_neg_eq_center_xor_characteristicFlux k (k + 5)).2
+    rw [d3] at f3
+    rw [d5] at f5
+    rcases hviol with v0 | v1 | v2 | v3 | v4 | v5
+    · exact v0 f0
+    · exact v1 f1
+    · exact v2 f2
+    · exact v3 f3
+    · exact v4 f4
+    · exact v5 f5
+
 /-! ### Top-Level Re-Exports for Single-Module `Check.lean Rule30PrizeClosure` Verification -/
 
 theorem closure_left_diag_D4_eq_true (t : Nat) :
@@ -858,5 +1376,73 @@ theorem closure_no_white_run_single_black_all_transients
     (hw : ∀ i, i < r → Rule30Prize.center (t0 + i) = false)
     (hb1 : Rule30Prize.center (t0 + r) = true) : False :=
   no_white_run_single_black_all_transients T r t0 hr hper ht0 hw hb1
+
+theorem closure_runSchedule_compositional_semantics
+    (s₁ s₂ : List (Nat × Nat)) (σ : List Bool) (t L n : Nat)
+    (hsched : col0Word t L = scheduleWord s₁) :
+    runSchedule s₁ σ = runWord (scheduleWord s₁) σ ∧
+    runSchedule (s₁ ++ s₂) σ = runSchedule s₂ (runSchedule s₁ σ) ∧
+    runSchedule s₁ (rowAt t 1 (n + L)) = rowAt (t + L) 1 n ∧
+    orColWord (scheduleWord s₁) (rowAt t 1 (n + L + 1)) = col0OrTrace t L :=
+  runSchedule_compositional_semantics s₁ s₂ σ t L n hsched
+
+theorem closure_spatiotemporal_001001_and_011011_depth4_constant_collapse (t : Nat) :
+    ((Rule30Prize.center t = false ∧
+      Rule30Prize.center (t + 1) = false ∧
+      Rule30Prize.center (t + 2) = true ∧
+      Rule30Prize.center (t + 3) = false ∧
+      Rule30Prize.center (t + 4) = false ∧
+      Rule30Prize.center (t + 5) = true ∧
+      Rule30Prize.center (t + 6) = false) →
+      cell (t + 2) (-4) = false) ∧
+    ((Rule30Prize.center t = false ∧
+      Rule30Prize.center (t + 1) = true ∧
+      Rule30Prize.center (t + 2) = true ∧
+      Rule30Prize.center (t + 3) = false ∧
+      Rule30Prize.center (t + 4) = true ∧
+      Rule30Prize.center (t + 5) = true ∧
+      Rule30Prize.center (t + 6) = false) →
+      cell (t + 1) (-4) = false ∧ cell (t + 2) (-4) = true) :=
+  spatiotemporal_001001_and_011011_depth4_constant_collapse t
+
+theorem closure_single_seed_spatiotemporal_state_completeness
+    (T P t₀ k H : Nat)
+    (hper : PeriodicCenter T P)
+    (ht₀ : T ≤ t₀)
+    (hk : T ≤ k) :
+    ((∃ sb < P, Rule30Prize.center (t₀ + sb) = true) ∧
+     (∃ sw < P, Rule30Prize.center (t₀ + sw) = false)) ∧
+    (cell t₀ (t₀ : Int) = true ∧
+     cell t₀ ((t₀ : Int) - 1) = decide (t₀ % 2 = 1) ∧
+     rowAt t₀ ((t₀ : Int) + 1) H = List.replicate H false) ∧
+    (obsLeftWord (col0Word t₀ H) (cell (t₀ + H) 0) (rowAtLeft t₀ (-1) (H + 1)) =
+       orColWord (col0Word t₀ H) (rowAt t₀ 1 (H + 1)) ∧
+     orColWord (col0Word t₀ H) (rowAt t₀ 1 (H + 1)) = col0OrTrace t₀ H) ∧
+    (leftCharacteristicFlux k k = !Rule30Prize.center (k + k) ∧
+     leftCharacteristicFlux (k + 1) k = !Rule30Prize.center (k + 1 + k) ∧
+     leftCharacteristicFlux (k + 2) k = Rule30Prize.center (k + 2 + k) ∧
+     cell (k + 3) (-(k : Int)) = decide (k % 2 = 0) ∧
+     leftCharacteristicFlux (k + 4) k = !Rule30Prize.center (k + 4 + k) ∧
+     cell (k + 5) (-(k : Int)) = decide (k % 2 = 0) ∧
+     leftCharacteristicFlux (k + P) (k + P) = leftCharacteristicFlux k k) :=
+  single_seed_spatiotemporal_state_completeness T P t₀ k H hper ht₀ hk
+
+theorem closure_no_white_run_101_all_transients
+    (T r t0 : Nat) (hr : 14 ≤ r)
+    (hper : ∀ t, T ≤ t → Rule30Prize.center (t + (r + 3)) = Rule30Prize.center t)
+    (ht0 : T ≤ t0)
+    (hw : ∀ i, i < r → Rule30Prize.center (t0 + i) = false)
+    (hb1 : Rule30Prize.center (t0 + r) = true)
+    (hw1 : Rule30Prize.center (t0 + r + 1) = false)
+    (hb2 : Rule30Prize.center (t0 + r + 2) = true) : False :=
+  no_white_run_101_all_transients T r t0 hr hper ht0 hw hb1 hw1 hb2
+
+theorem closure_absorption_or_flux_violation_dichotomy_excludes_periodic_center
+    (T P : Nat) (hper : PeriodicCenter T P)
+    (hDichotomy :
+      ObservationalAbsorptionAt T P ∨
+      LinearHorizonCollisionAt T P ∨
+      CharacteristicFluxOnsetViolationAt T P) : False :=
+  absorption_or_flux_violation_dichotomy_excludes_periodic_center T P hper hDichotomy
 
 end Rule30ProofClosure

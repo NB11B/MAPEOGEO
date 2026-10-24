@@ -62,6 +62,11 @@ CLOSURE_HEADLINES = (
     "Rule30ProofClosure.closure_right_rowAt_single_seed_frontier_realization",
     "Rule30ProofClosure.closure_symbolic_right_evolution_realizes_cell_and_orCol",
     "Rule30ProofClosure.closure_no_white_run_single_black_all_transients",
+    "Rule30ProofClosure.closure_runSchedule_compositional_semantics",
+    "Rule30ProofClosure.closure_spatiotemporal_001001_and_011011_depth4_constant_collapse",
+    "Rule30ProofClosure.closure_single_seed_spatiotemporal_state_completeness",
+    "Rule30ProofClosure.closure_no_white_run_101_all_transients",
+    "Rule30ProofClosure.closure_absorption_or_flux_violation_dichotomy_excludes_periodic_center",
     "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1",
     "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
     "Rule30ProofClosure.bounded_T0_periods_one_to_four_excluded",
@@ -128,6 +133,8 @@ def verify_closure_certificates_and_lean_modules(run_live_lean: bool = True) -> 
             env=env,
             capture_output=True,
             text=True,
+            encoding="utf-8",
+            errors="replace",
             check=False,
         )
         if res.returncode != 0:
@@ -144,7 +151,15 @@ def verify_closure_certificates_and_lean_modules(run_live_lean: bool = True) -> 
     for hl in CLOSURE_HEADLINES:
         cmd.extend(["--headline", hl])
 
-    chk = subprocess.run(cmd, env=env, capture_output=True, text=True, check=False)
+    chk = subprocess.run(
+        cmd,
+        env=env,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
     # Clean up temporary .olean files inside kit_lib and formal_dir
     for mod in FORMAL_MODULES:
         for folder in (kit_lib, formal_dir):

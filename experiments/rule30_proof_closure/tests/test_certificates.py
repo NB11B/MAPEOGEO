@@ -125,6 +125,6 @@ def test_formal_lean_modules_and_official_check_lean():
     assert ver.formal_files_clean_no_sorry_or_axiom is True
     assert ver.lean_compilation_succeeded is True
     assert ver.check_lean_verdict == "pass"
-    assert ver.headlines_verified == 45
-    assert ver.replayed_constants == 157
+    assert ver.headlines_verified == 50
+    assert ver.replayed_constants == 270
     assert ver.new_axioms == []

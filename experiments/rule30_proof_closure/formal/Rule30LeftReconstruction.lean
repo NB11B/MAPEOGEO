@@ -869,4 +869,94 @@ theorem double_white_step_depth2_forcing (t : Nat)
     cases cell t 2 <;>
     cases cell (t + 2) 0 <;> decide
 
+/-- **Track A/B (`EXACT`, New in `R30-EXHAUST-001`) — Depth-`-4` Degree-`0` Constant Collapse for
+    the Short-Run Period-`3` Blocks `0010010` and `0110110`
+    (`spatiotemporal_001001_and_011011_depth4_constant_collapse`)**:
+    Proves that for both fundamental period-`3` short-run center patterns:
+    1. Under `0010010` (`(center t, ..., center (t + 6)) = (0, 0, 1, 0, 0, 1, 0)`), the quadratic
+       cross-term `cell (t + 3) (-3) = !(cell (t + 3) (-1) && !cell (t + 4) (-1))` cancels
+       identically against `cell (t + 2) (-3) || cell (t + 2) (-2)` at depth `-4`, forcing the
+       degree-`0` constant `cell (t + 2) (-4) = false` (independent of all right-boundary bits `y_s`), and
+    2. Under `0110110` (`(center t, ..., center (t + 6)) = (0, 1, 1, 0, 1, 1, 0)`), all boundary
+       variables cancel at depth `-4`, forcing `cell (t + 1) (-4) = false` and `cell (t + 2) (-4) = true`. -/
+theorem spatiotemporal_001001_and_011011_depth4_constant_collapse (t : Nat) :
+    ((Rule30Prize.center t = false ∧
+      Rule30Prize.center (t + 1) = false ∧
+      Rule30Prize.center (t + 2) = true ∧
+      Rule30Prize.center (t + 3) = false ∧
+      Rule30Prize.center (t + 4) = false ∧
+      Rule30Prize.center (t + 5) = true ∧
+      Rule30Prize.center (t + 6) = false) →
+      cell (t + 2) (-4) = false) ∧
+    ((Rule30Prize.center t = false ∧
+      Rule30Prize.center (t + 1) = true ∧
+      Rule30Prize.center (t + 2) = true ∧
+      Rule30Prize.center (t + 3) = false ∧
+      Rule30Prize.center (t + 4) = true ∧
+      Rule30Prize.center (t + 5) = true ∧
+      Rule30Prize.center (t + 6) = false) →
+      cell (t + 1) (-4) = false ∧ cell (t + 2) (-4) = true) := by
+  refine ⟨?_, ?_⟩
+  · rintro ⟨_, _, hc2, hc3, hc4, hc5, hc6⟩
+    have hm1_t2 : cell (t + 2) (-1) = true := by
+      have h := (left_black_step_screened_forcing (t + 2) hc2).1
+      rw [show t + 2 + 1 = t + 3 by omega, hc3] at h
+      exact h
+    have hm1_t5 : cell (t + 5) (-1) = true := by
+      have h := (left_black_step_screened_forcing (t + 5) hc5).1
+      rw [show t + 5 + 1 = t + 6 by omega, hc6] at h
+      exact h
+    have s_m1_t2 : cell (t + 3) (-1) = rule (cell (t + 2) (-2)) (cell (t + 2) (-1)) (cell (t + 2) 0) := rfl
+    have s_m1_t3 : cell (t + 4) (-1) = rule (cell (t + 3) (-2)) (cell (t + 3) (-1)) (cell (t + 3) 0) := rfl
+    have s_m1_t4 : cell (t + 5) (-1) = rule (cell (t + 4) (-2)) (cell (t + 4) (-1)) (cell (t + 4) 0) := rfl
+    have s_m2_t2 : cell (t + 3) (-2) = rule (cell (t + 2) (-3)) (cell (t + 2) (-2)) (cell (t + 2) (-1)) := rfl
+    have s_m2_t3 : cell (t + 4) (-2) = rule (cell (t + 3) (-3)) (cell (t + 3) (-2)) (cell (t + 3) (-1)) := rfl
+    have s_m3_t2 : cell (t + 3) (-3) = rule (cell (t + 2) (-4)) (cell (t + 2) (-3)) (cell (t + 2) (-2)) := rfl
+    unfold Rule30Prize.center at hc2 hc3 hc4
+    rw [hm1_t2, hc2] at s_m1_t2
+    rw [hc3] at s_m1_t3
+    rw [hm1_t5, hc4] at s_m1_t4
+    rw [hm1_t2] at s_m2_t2
+    unfold rule at s_m1_t2 s_m1_t3 s_m1_t4 s_m2_t2 s_m2_t3 s_m3_t2
+    revert s_m1_t2 s_m1_t3 s_m1_t4 s_m2_t2 s_m2_t3 s_m3_t2
+    cases cell (t + 3) (-1) <;>
+      cases cell (t + 4) (-1) <;>
+      cases cell (t + 2) (-2) <;>
+      cases cell (t + 3) (-2) <;>
+      cases cell (t + 4) (-2) <;>
+      cases cell (t + 2) (-3) <;>
+      cases cell (t + 3) (-3) <;>
+      cases cell (t + 2) (-4) <;> decide
+  · rintro ⟨_, hd1, hd2, hd3, hd4, hd5, hd6⟩
+    have hdb1 := double_black_step_depth2_forcing (t + 1) hd1 (by rwa [show t + 1 + 1 = t + 2 by omega])
+    rw [show t + 1 + 1 = t + 2 by omega, show t + 1 + 2 = t + 3 by omega, hd3] at hdb1
+    rcases hdb1 with ⟨hm1_t1, hm1_t2, hm2_t1⟩
+    have hdb4 := double_black_step_depth2_forcing (t + 4) hd4 (by rwa [show t + 4 + 1 = t + 5 by omega])
+    rw [show t + 4 + 1 = t + 5 by omega, show t + 4 + 2 = t + 6 by omega, hd6] at hdb4
+    rcases hdb4 with ⟨hm1_t4, _, hm2_t4⟩
+    have s_m1_t2 : cell (t + 3) (-1) = rule (cell (t + 2) (-2)) (cell (t + 2) (-1)) (cell (t + 2) 0) := rfl
+    have s_m1_t3 : cell (t + 4) (-1) = rule (cell (t + 3) (-2)) (cell (t + 3) (-1)) (cell (t + 3) 0) := rfl
+    have s_m2_t1 : cell (t + 2) (-2) = rule (cell (t + 1) (-3)) (cell (t + 1) (-2)) (cell (t + 1) (-1)) := rfl
+    have s_m2_t2 : cell (t + 3) (-2) = rule (cell (t + 2) (-3)) (cell (t + 2) (-2)) (cell (t + 2) (-1)) := rfl
+    have s_m2_t3 : cell (t + 4) (-2) = rule (cell (t + 3) (-3)) (cell (t + 3) (-2)) (cell (t + 3) (-1)) := rfl
+    have s_m3_t1 : cell (t + 2) (-3) = rule (cell (t + 1) (-4)) (cell (t + 1) (-3)) (cell (t + 1) (-2)) := rfl
+    have s_m3_t2 : cell (t + 3) (-3) = rule (cell (t + 2) (-4)) (cell (t + 2) (-3)) (cell (t + 2) (-2)) := rfl
+    unfold Rule30Prize.center at hd2 hd3
+    rw [hm1_t2, hd2] at s_m1_t2
+    rw [hm1_t4, hd3] at s_m1_t3
+    rw [hm2_t1, hm1_t1] at s_m2_t1
+    rw [hm1_t2] at s_m2_t2
+    rw [hm2_t4] at s_m2_t3
+    rw [hm2_t1] at s_m3_t1
+    unfold rule at s_m1_t2 s_m1_t3 s_m2_t1 s_m2_t2 s_m2_t3 s_m3_t1 s_m3_t2
+    revert s_m1_t2 s_m1_t3 s_m2_t1 s_m2_t2 s_m2_t3 s_m3_t1 s_m3_t2
+    cases cell (t + 3) (-1) <;>
+      cases cell (t + 2) (-2) <;>
+      cases cell (t + 3) (-2) <;>
+      cases cell (t + 1) (-3) <;>
+      cases cell (t + 2) (-3) <;>
+      cases cell (t + 3) (-3) <;>
+      cases cell (t + 1) (-4) <;>
+      cases cell (t + 2) (-4) <;> decide
+
 end Rule30ProofClosure
