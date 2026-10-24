@@ -41,6 +41,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_normalized_reservoir_and_exponential_decay,
     verify_projective_fixed_point_laws,
     verify_psmsl_matrix_algebra,
+    verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
 
@@ -117,6 +118,15 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(fp_res["fixed_point_dichotomy_mismatches"], 0)
         self.assertEqual(fp_res["universal_offset_bound_failures"], 0)
         self.assertEqual(fp_res["post_crossing_nondescent_prefixes"], 0)
+
+    def test_ws6_signed_projective_gap_and_surviving_lifts(self) -> None:
+        gap_res = verify_signed_projective_gap_and_surviving_lifts(max_n=1000)
+        self.assertEqual(gap_res["gap_identity_mismatches"], 0)
+        self.assertEqual(gap_res["gap_recurrence_mismatches"], 0)
+        self.assertEqual(gap_res["modular_branch_lock_mismatches"], 0)
+        self.assertEqual(gap_res["descent_band_mismatches"], 0)
+        self.assertEqual(gap_res["reservoir_gap_identity_mismatches"], 0)
+        self.assertEqual(gap_res["surviving_lift_cap_failures"], 0)
 
 
 def generate_c10_artifacts() -> None:

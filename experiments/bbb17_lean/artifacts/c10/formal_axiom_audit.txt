@@ -114,3 +114,21 @@
 'BBB17.CollatzProofClosure.projective_fixedPoint_and_congruence_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_factored' depends on axioms: [propext]
+'BBB17.CollatzProofClosure.signedProjectiveGap_eq_wordD_mul_sub' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_sign_trichotomy' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_even_step' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_odd_step' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_shift_law' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_modular_branch_lock' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_even_step_descent_band' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_reservoir_conservation' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.mod_pow_two_eq_implies_shared_parityWord_prefix' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.survivingLiftSet_antitone' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.survivingLiftSet_intermediate_contracting_cap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.collatz_iff_signedProjectiveGap_eventually_pos' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.signedProjectiveGap_and_survivingLiftSet_master' depends on axioms: [propext, Quot.sound]

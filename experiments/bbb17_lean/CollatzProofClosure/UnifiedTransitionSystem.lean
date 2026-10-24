@@ -1560,5 +1560,567 @@ theorem universal_nondescent_offset_and_fixedPoint_bound (n r : Nat)
     Nat.le_of_mul_le_mul_left hdelta_coarse_mul hpos_na1
   exact ⟨ha1, hres_B_le, hB_le, hdelta_na_le, hdelta_na_le_rhs, hdelta_4⟩
 
+/-! ## Section 7: Signed Projective Gap over `Int`, 2-Adic Modular Branch Lock, and Surviving Lift Sets `𝓢_r(n)`
+
+    Because `wordDelta w = wordD w - wordA w` uses truncated natural-number subtraction,
+    it vanishes at expanding depths (`wordD w ≤ wordA w`). Defining the **Signed Projective Gap**
+    over `Int`:
+    `signedProjectiveGap w n = ((wordD w : Int) - (wordA w : Int)) * (n : Int) - (wordB w : Int)`
+    retains complete sign and magnitude information across **both** expanding and contracting regimes:
+    1. **Uniform Identity & Sign Trichotomy (`signedProjectiveGap_eq_wordD_mul_sub`, `signedProjectiveGap_sign_trichotomy`)**:
+       For every admissible word `w` of `n` (regardless of spectral regime!),
+       `G_w(n) = D_w * (n - F_w(n))`. Thus `G_w(n) > 0 ↔ F_w(n) < n`, `G_w(n) = 0 ↔ F_w(n) = n`,
+       and `G_w(n) < 0 ↔ F_w(n) > n`.
+    2. **Exact Step Update Recurrences (`signedProjectiveGap_even_step`, `signedProjectiveGap_odd_step`)**:
+       For every word `w` and integer `n`:
+       `G_{w ++ [false]}(n) = G_w(n) + D_w * n` and
+       `G_{w ++ [true]}(n) = 3 * G_w(n) - D_w * (n + 1)`.
+    3. **2-Adic Modular Branch Lock & Autonomous Recurrence (`signedProjectiveGap_modular_branch_lock`, `signedProjectiveGap_even_step_descent_band`)**:
+       For any admissible prefix `w` of `n`, `G_{w0}(n) = D_w * (2n - F_w(n))` and
+       `G_{w1}(n) = D_w * (2n - (3 F_w(n) + 1))`. Moreover, for odd `n`, the trajectory gap
+       `G_r(n) = G_{w_r(n)}(n)` satisfies an autonomous 2-adic recurrence determined solely by
+       whether `2^{r+1} ∣ G_r(n)`. Whenever `-2^r * n < G_r(n) ≤ 0`, any even step forces
+       immediate strict descent `G_{r+1}(n) > 0`.
+    4. **Surviving Prefix-Non-Descending Lift Sets `𝓢_r(n)` (`InSurvivingLiftSet`, `survivingLiftSet_intermediate_contracting_cap`)**:
+       For `𝓢_r(n) = { m ∈ ℕ : m ≡ n (mod 2^r) ∧ ∀ i ≤ r, F^i(m) ≥ m }`, every member `m ∈ 𝓢_r(n)`
+       shares the exact parity prefix `w_i(n)` for all `i ≤ r`, satisfies `G_{w_i(n)}(m) ≤ 0` and
+       the Reservoir-Offset Duality Identity at every intermediate depth `i ≤ r`, and is bounded above
+       by the projective fixed point `B_{w_i} / (2^i - 3^{a_i})` at **every** intermediate contracting
+       depth `i ≤ r` (even if the trajectory re-expands at depth `r`).
+-/
+
+/-- Signed projective gap `G_w(n) = D_w * n - A_w * n - B_w = (D_w - A_w) * n - B_w` over `Int`.
+    Retains full sign and magnitude across both expanding (`D_w < A_w`) and
+    contracting (`D_w > A_w`) regimes without natural-number truncation. -/
+def signedProjectiveGap (w : List Bool) (n : Nat) : Int :=
+  (wordD w : Int) * (n : Int) - (wordA w : Int) * (n : Int) - (wordB w : Int)
+
+/-- Factored form `G_w(n) = (D_w - A_w) * n - B_w` over `Int`. -/
+theorem signedProjectiveGap_factored (w : List Bool) (n : Nat) :
+    signedProjectiveGap w n =
+      ((wordD w : Int) - (wordA w : Int)) * (n : Int) - (wordB w : Int) := by
+  unfold signedProjectiveGap
+  rw [Int.sub_mul]
+
+/-- Exact Trajectory Identity for the Signed Projective Gap (`signedProjectiveGap_eq_wordD_mul_sub`):
+    For EVERY parity word `w` (expanding, neutral, or contracting) and EVERY admissible `n`
+    (`validParityWord n w`), `G_w(n) = D_w * (n - F_w(n))`. -/
+theorem signedProjectiveGap_eq_wordD_mul_sub (w : List Bool) (n : Nat)
+    (hv : validParityWord n w) :
+    signedProjectiveGap w n =
+      (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) := by
+  have haff := parityWord_affine_identity w n hv
+  have haffInt : (wordD w : Int) * (applyParityWord n w : Int) =
+      (wordA w : Int) * (n : Int) + (wordB w : Int) := by
+    exact_mod_cast haff
+  unfold signedProjectiveGap
+  rw [Int.mul_sub]
+  omega
+
+/-- Uniform Sign Trichotomy for the Signed Projective Gap (`signedProjectiveGap_sign_trichotomy`):
+    For EVERY admissible parity word `w` of `n` (regardless of whether `D_w > A_w` or `D_w ≤ A_w`):
+    1. `G_w(n) > 0 ↔ F_w(n) < n` (strict descent),
+    2. `G_w(n) = 0 ↔ F_w(n) = n` (return to starting value),
+    3. `G_w(n) < 0 ↔ F_w(n) > n` (net expansion), and
+    4. `G_w(n) ≤ 0 ↔ F_w(n) ≥ n` (non-descent). -/
+theorem signedProjectiveGap_sign_trichotomy (w : List Bool) (n : Nat)
+    (hv : validParityWord n w) :
+    (signedProjectiveGap w n > 0 ↔ applyParityWord n w < n) ∧
+    (signedProjectiveGap w n = 0 ↔ applyParityWord n w = n) ∧
+    (signedProjectiveGap w n < 0 ↔ applyParityWord n w > n) ∧
+    (signedProjectiveGap w n ≤ 0 ↔ applyParityWord n w ≥ n) := by
+  have heq := signedProjectiveGap_eq_wordD_mul_sub w n hv
+  have hD_pos : wordD w > 0 := wordD_pos w
+  have hD_int_pos : (wordD w : Int) > 0 := by omega
+  rw [heq]
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · constructor
+    · intro hpos
+      by_cases hlt : applyParityWord n w < n
+      · exact hlt
+      · have hle : (n : Int) - (applyParityWord n w : Int) ≤ 0 := by omega
+        have hmul_le : (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) ≤
+            (wordD w : Int) * 0 := Int.mul_le_mul_of_nonneg_left hle (by omega)
+        omega
+    · intro hlt
+      have hge1 : (n : Int) - (applyParityWord n w : Int) ≥ 1 := by omega
+      have hmul_ge : (wordD w : Int) * 1 ≤
+          (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) :=
+        Int.mul_le_mul_of_nonneg_left hge1 (by omega)
+      omega
+  · constructor
+    · intro hz
+      rcases Int.mul_eq_zero.mp hz with hD0 | hsub0 <;> omega
+    · intro heq_n
+      have hsub0 : (n : Int) - (applyParityWord n w : Int) = 0 := by omega
+      rw [hsub0, Int.mul_zero]
+  · constructor
+    · intro hneg
+      by_cases hgt : applyParityWord n w > n
+      · exact hgt
+      · have hge0 : (n : Int) - (applyParityWord n w : Int) ≥ 0 := by omega
+        have hmul_ge : (wordD w : Int) * 0 ≤
+            (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) :=
+          Int.mul_le_mul_of_nonneg_left hge0 (by omega)
+        omega
+    · intro hgt
+      have hle_m1 : (n : Int) - (applyParityWord n w : Int) ≤ -1 := by omega
+      have hmul_le : (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) ≤
+          (wordD w : Int) * (-1) :=
+        Int.mul_le_mul_of_nonneg_left hle_m1 (by omega)
+      omega
+  · constructor
+    · intro hle0
+      by_cases hge : applyParityWord n w ≥ n
+      · exact hge
+      · have hge1 : (n : Int) - (applyParityWord n w : Int) ≥ 1 := by omega
+        have hmul_ge : (wordD w : Int) * 1 ≤
+            (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) :=
+          Int.mul_le_mul_of_nonneg_left hge1 (by omega)
+        omega
+    · intro hge
+      have hle0 : (n : Int) - (applyParityWord n w : Int) ≤ 0 := by omega
+      have hmul_le : (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) ≤
+          (wordD w : Int) * 0 :=
+        Int.mul_le_mul_of_nonneg_left hle0 (by omega)
+      omega
+
+/-- Exact Even-Step Affine Update for the Signed Projective Gap (`signedProjectiveGap_even_step`):
+    For EVERY parity word `w` and EVERY `n : Nat` (without requiring admissibility),
+    `G_{w ++ [false]}(n) = G_w(n) + D_w * n`. -/
+theorem signedProjectiveGap_even_step (w : List Bool) (n : Nat) :
+    signedProjectiveGap (w ++ [false]) n =
+      signedProjectiveGap w n + (wordD w : Int) * (n : Int) := by
+  have hD : (wordD (w ++ [false]) : Int) = 2 * (wordD w : Int) := by
+    rw [wordD_append]; dsimp [wordD]; omega
+  have hA : (wordA (w ++ [false]) : Int) = (wordA w : Int) := by
+    rw [wordA_append]; dsimp [wordA]; omega
+  have hB : (wordB (w ++ [false]) : Int) = (wordB w : Int) := by
+    rw [wordB_append]; dsimp [wordB, wordA]; omega
+  unfold signedProjectiveGap
+  rw [hD, hA, hB, Int.mul_assoc]
+  omega
+
+/-- Exact Odd-Step Affine Update for the Signed Projective Gap (`signedProjectiveGap_odd_step`):
+    For EVERY parity word `w` and EVERY `n : Nat` (without requiring admissibility),
+    `G_{w ++ [true]}(n) = 3 * G_w(n) - D_w * (n + 1)`. -/
+theorem signedProjectiveGap_odd_step (w : List Bool) (n : Nat) :
+    signedProjectiveGap (w ++ [true]) n =
+      3 * signedProjectiveGap w n - (wordD w : Int) * ((n : Int) + 1) := by
+  have hD : (wordD (w ++ [true]) : Int) = 2 * (wordD w : Int) := by
+    rw [wordD_append]; dsimp [wordD]; omega
+  have hA : (wordA (w ++ [true]) : Int) = 3 * (wordA w : Int) := by
+    rw [wordA_append]; dsimp [wordA]; omega
+  have hB : (wordB (w ++ [true]) : Int) = 3 * (wordB w : Int) + (wordD w : Int) := by
+    rw [wordB_append]; dsimp [wordB, wordA]; omega
+  unfold signedProjectiveGap
+  rw [hD, hA, hB, Int.mul_assoc 2, Int.mul_assoc 3, Int.mul_add, Int.mul_one]
+  omega
+
+/-- Exact Shift Linearity of the Signed Projective Gap (`signedProjectiveGap_shift_law`):
+    For any parity word `w` and any `m₁ m₂ : Nat`:
+    `G_w(m₂) - G_w(m₁) = (D_w - A_w) * (m₂ - m₁)`.
+    In particular, for any residue lift `m = m₁ + q * D_w`:
+    `G_w(m₁ + q * D_w) = G_w(m₁) + (D_w - A_w) * (q * D_w)`. -/
+theorem signedProjectiveGap_shift_law (w : List Bool) (m₁ m₂ q : Nat) :
+    signedProjectiveGap w m₂ - signedProjectiveGap w m₁ =
+      ((wordD w : Int) - (wordA w : Int)) * ((m₂ : Int) - (m₁ : Int)) ∧
+    signedProjectiveGap w (m₁ + q * wordD w) =
+      signedProjectiveGap w m₁ +
+        ((wordD w : Int) - (wordA w : Int)) * ((q * wordD w : Nat) : Int) := by
+  unfold signedProjectiveGap
+  have hcast : ((m₁ + q * wordD w : Nat) : Int) = (m₁ : Int) + ((q * wordD w : Nat) : Int) := by
+    omega
+  constructor
+  · rw [Int.sub_mul, Int.mul_sub, Int.mul_sub]
+    omega
+  · rw [hcast, Int.sub_mul, Int.mul_add (wordD w : Int), Int.mul_add (wordA w : Int)]
+    omega
+
+/-- 2-Adic Modular Branch Lock and Autonomous Signed-Gap Recurrence
+    (`signedProjectiveGap_modular_branch_lock`):
+    For any admissible prefix `w` of `n` (`validParityWord n w`), let `y = applyParityWord n w`:
+    1. Candidate branch formulas:
+       `G_{w ++ [false]}(n) = D_w * (2n - y)` and
+       `G_{w ++ [true]}(n) = D_w * (2n - (3y + 1))`,
+    2. Cross-branch parity separation:
+       `G_{w ++ [false]}(n) - G_{w ++ [true]}(n) + 2 * G_w(n) = D_w * (2n + 1)`,
+    3. Autonomous 2-adic step recurrence for odd `n` (`n % 2 = 1`):
+       - Step `w ++ [true]` is taken (`y % 2 = 1`) IF AND ONLY IF `G_w(n) % (2 * D_w) = 0`, and
+       - Step `w ++ [false]` is taken (`y % 2 = 0`) IF AND ONLY IF `G_w(n) % (2 * D_w) ≠ 0`. -/
+theorem signedProjectiveGap_modular_branch_lock (w : List Bool) (n : Nat)
+    (hv : validParityWord n w) :
+    let y := applyParityWord n w
+    let D := (wordD w : Int)
+    signedProjectiveGap (w ++ [false]) n = D * (2 * (n : Int) - (y : Int)) ∧
+    signedProjectiveGap (w ++ [true]) n = D * (2 * (n : Int) - (3 * (y : Int) + 1)) ∧
+    signedProjectiveGap (w ++ [false]) n - signedProjectiveGap (w ++ [true]) n +
+      2 * signedProjectiveGap w n = D * (2 * (n : Int) + 1) ∧
+    (n % 2 = 1 →
+      (y % 2 = 1 ↔ signedProjectiveGap w n % (2 * D) = 0) ∧
+      (y % 2 = 0 ↔ signedProjectiveGap w n % (2 * D) ≠ 0)) := by
+  dsimp
+  have heq := signedProjectiveGap_eq_wordD_mul_sub w n hv
+  have hev := signedProjectiveGap_even_step w n
+  have hodd := signedProjectiveGap_odd_step w n
+  have h1 : signedProjectiveGap (w ++ [false]) n =
+      (wordD w : Int) * (2 * (n : Int) - (applyParityWord n w : Int)) := by
+    rw [hev, heq, Int.mul_sub, Int.mul_sub, ← Int.mul_assoc (wordD w : Int) 2,
+        Int.mul_comm (wordD w : Int) 2, Int.mul_assoc 2]
+    omega
+  have h2 : signedProjectiveGap (w ++ [true]) n =
+      (wordD w : Int) * (2 * (n : Int) - (3 * (applyParityWord n w : Int) + 1)) := by
+    rw [hodd, heq, Int.mul_sub (wordD w : Int), Int.mul_add (wordD w : Int),
+        Int.mul_one, Int.mul_sub (wordD w : Int), Int.mul_add (wordD w : Int),
+        Int.mul_one, ← Int.mul_assoc (wordD w : Int) 2,
+        Int.mul_comm (wordD w : Int) 2, Int.mul_assoc 2,
+        ← Int.mul_assoc (wordD w : Int) 3,
+        Int.mul_comm (wordD w : Int) 3, Int.mul_assoc 3]
+    omega
+  have h3 : signedProjectiveGap (w ++ [false]) n - signedProjectiveGap (w ++ [true]) n +
+      2 * signedProjectiveGap w n = (wordD w : Int) * (2 * (n : Int) + 1) := by
+    rw [hev, hodd, Int.mul_add (wordD w : Int), Int.mul_one,
+        Int.mul_add (wordD w : Int), Int.mul_one,
+        ← Int.mul_assoc (wordD w : Int) 2,
+        Int.mul_comm (wordD w : Int) 2, Int.mul_assoc 2]
+    omega
+  refine ⟨h1, h2, h3, ?_⟩
+  intro hn_odd
+  have hD_pos : (wordD w : Int) > 0 := by
+    have hp := wordD_pos w
+    omega
+  have hodd_imp : applyParityWord n w % 2 = 1 →
+      signedProjectiveGap w n % (2 * (wordD w : Int)) = 0 := by
+    intro hy_odd
+    rw [heq]
+    let k : Int := (n : Int) / 2 - (applyParityWord n w : Int) / 2
+    have hsub : (n : Int) - (applyParityWord n w : Int) = 2 * k := by omega
+    have hmul : (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) =
+        (2 * (wordD w : Int)) * k := by
+      rw [hsub, ← Int.mul_assoc, Int.mul_comm (wordD w : Int) 2, Int.mul_assoc]
+    rw [hmul, Int.mul_emod_right]
+  have hev_imp : applyParityWord n w % 2 = 0 →
+      signedProjectiveGap w n % (2 * (wordD w : Int)) ≠ 0 := by
+    intro hy_ev
+    rw [heq]
+    let k : Int := (n : Int) / 2 - (applyParityWord n w : Int) / 2
+    have hsub : (n : Int) - (applyParityWord n w : Int) = 1 + 2 * k := by omega
+    have hmul : (wordD w : Int) * ((n : Int) - (applyParityWord n w : Int)) =
+        (wordD w : Int) + (2 * (wordD w : Int)) * k := by
+      rw [hsub, Int.mul_add, Int.mul_one,
+          ← Int.mul_assoc, Int.mul_comm (wordD w : Int) 2, Int.mul_assoc]
+    rw [hmul, Int.add_mul_emod_self_left]
+    have hmod_eq : (wordD w : Int) % (2 * (wordD w : Int)) = (wordD w : Int) :=
+      Int.emod_eq_of_lt (by omega) (by omega)
+    omega
+  constructor
+  · constructor
+    · exact hodd_imp
+    · intro hmod0
+      by_cases hy1 : applyParityWord n w % 2 = 1
+      · exact hy1
+      · exfalso
+        exact hev_imp (by omega) hmod0
+  · constructor
+    · exact hev_imp
+    · intro hne0
+      by_cases hy0 : applyParityWord n w % 2 = 0
+      · exact hy0
+      · exfalso
+        exact hne0 (hodd_imp (by omega))
+
+/-- Even-Step Descent Band Theorem (`signedProjectiveGap_even_step_descent_band`):
+    For any depth `r` and integer `n`, let `w = parityWordOf r n`:
+    1. If `F^r(n)` is even (`iterateAccelerated n r % 2 = 0`), then step `r` is an even step and
+       strict descent at depth `r + 1` (`signedProjectiveGap (parityWordOf (r + 1) n) n > 0`)
+       holds IF AND ONLY IF `signedProjectiveGap w n + (wordD w : Int) * (n : Int) > 0`
+       (equivalently `iterateAccelerated n r < 2 * n`).
+    2. Consequently, whenever `signedProjectiveGap w n + (wordD w : Int) * (n : Int) > 0`
+       (`F^r(n) < 2 * n`), non-descent at depth `r + 1` FORCES step `r` to be an odd step
+       (`iterateAccelerated n r % 2 = 1`). -/
+theorem signedProjectiveGap_even_step_descent_band (n r : Nat) :
+    let w := parityWordOf r n
+    let w_succ := parityWordOf (r + 1) n
+    (iterateAccelerated n r % 2 = 0 →
+      (signedProjectiveGap w_succ n > 0 ↔
+        signedProjectiveGap w n + (wordD w : Int) * (n : Int) > 0) ∧
+      (signedProjectiveGap w_succ n > 0 ↔ iterateAccelerated n r < 2 * n)) ∧
+    (signedProjectiveGap w n + (wordD w : Int) * (n : Int) > 0 →
+      signedProjectiveGap w_succ n ≤ 0 →
+      iterateAccelerated n r % 2 = 1) := by
+  dsimp
+  have hv_r := parityWordOf_valid r n
+  have hD_pos : (wordD (parityWordOf r n) : Int) > 0 := by
+    have hp := wordD_pos (parityWordOf r n)
+    omega
+  have hlock := (signedProjectiveGap_modular_branch_lock (parityWordOf r n) n hv_r).1
+  rw [applyParityWord_parityWordOf] at hlock
+  have hsucc_eq := parityWordOf_succ_eq_append r n
+  have hstep := signedProjectiveGap_even_step (parityWordOf r n) n
+  refine ⟨?_, ?_⟩
+  · intro hev
+    have hnot1 : ¬(iterateAccelerated n r % 2 = 1) := by omega
+    have hb_false : (iterateAccelerated n r % 2 == 1) = false := by
+      rw [beq_eq_false_iff_ne]; exact hnot1
+    have hw_succ : parityWordOf (r + 1) n = parityWordOf r n ++ [false] := by
+      rw [hsucc_eq, hb_false]
+    rw [hw_succ]
+    refine ⟨by rw [hstep], ?_⟩
+    rw [hlock]
+    constructor
+    · intro hpos
+      by_cases hlt : iterateAccelerated n r < 2 * n
+      · exact hlt
+      · have hle : 2 * (n : Int) - (iterateAccelerated n r : Int) ≤ 0 := by omega
+        have hmul_le : (wordD (parityWordOf r n) : Int) *
+            (2 * (n : Int) - (iterateAccelerated n r : Int)) ≤
+            (wordD (parityWordOf r n) : Int) * 0 :=
+          Int.mul_le_mul_of_nonneg_left hle (by omega)
+        omega
+    · intro hlt
+      have hge1 : 2 * (n : Int) - (iterateAccelerated n r : Int) ≥ 1 := by omega
+      have hmul_ge : (wordD (parityWordOf r n) : Int) * 1 ≤
+          (wordD (parityWordOf r n) : Int) *
+            (2 * (n : Int) - (iterateAccelerated n r : Int)) :=
+        Int.mul_le_mul_of_nonneg_left hge1 (by omega)
+      omega
+  · intro hband hle0
+    by_cases hev : iterateAccelerated n r % 2 = 0
+    · have hnot1 : ¬(iterateAccelerated n r % 2 = 1) := by omega
+      have hb_false : (iterateAccelerated n r % 2 == 1) = false := by
+        rw [beq_eq_false_iff_ne]; exact hnot1
+      have hw_succ : parityWordOf (r + 1) n = parityWordOf r n ++ [false] := by
+        rw [hsucc_eq, hb_false]
+      rw [hw_succ, hstep] at hle0
+      omega
+    · omega
+
+/-- Exact Coupling of the Signed Projective Gap with the Cumulative Deficit Reservoir
+    (`signedProjectiveGap_reservoir_conservation`):
+    Along any non-descending prefix (`∀ i ≤ r, iterateAccelerated n i ≥ n`),
+    letting `w = parityWordOf r n` and `a = wordOnes w`:
+    1. `signedProjectiveGap w n = - (orbitSurplus n r : Int) ≤ 0`, and
+    2. `(deficitReservoir n r : Int) - ((n ^ a : Nat) : Int) * signedProjectiveGap w n +
+          ((2 ^ r * n ^ (a + 1) : Nat) : Int) =
+          ((n * (3 * n + 1) ^ a : Nat) : Int)`. -/
+theorem signedProjectiveGap_reservoir_conservation (n r : Nat)
+    (hge : ∀ i : Nat, i ≤ r → iterateAccelerated n i ≥ n) :
+    let w := parityWordOf r n
+    let a := wordOnes w
+    signedProjectiveGap w n = - (orbitSurplus n r : Int) ∧
+    signedProjectiveGap w n ≤ 0 ∧
+    (deficitReservoir n r : Int) - ((n ^ a : Nat) : Int) * signedProjectiveGap w n +
+      ((2 ^ r * n ^ (a + 1) : Nat) : Int) =
+      ((n * (3 * n + 1) ^ a : Nat) : Int) := by
+  dsimp
+  have hv := parityWordOf_valid r n
+  have hD : wordD (parityWordOf r n) = 2 ^ r := by
+    rw [wordD_eq_pow_two_length, parityWordOf_length]
+  have hgap := signedProjectiveGap_eq_wordD_mul_sub (parityWordOf r n) n hv
+  rw [hD, applyParityWord_parityWordOf] at hgap
+  have hn_r : iterateAccelerated n r ≥ n := hge r (by omega)
+  have hsurp_nat : orbitSurplus n r + 2 ^ r * n = 2 ^ r * iterateAccelerated n r := by
+    unfold orbitSurplus
+    rw [← Nat.mul_add, Nat.sub_add_cancel hn_r]
+  have hsurp_int : (orbitSurplus n r : Int) + (2 ^ r : Nat) * (n : Int) =
+      (2 ^ r : Nat) * (iterateAccelerated n r : Int) := by
+    exact_mod_cast hsurp_nat
+  have hgap_neg : signedProjectiveGap (parityWordOf r n) n = - (orbitSurplus n r : Int) := by
+    rw [hgap, Int.mul_sub]
+    omega
+  have hcons := reservoir_plus_surplus_eq_power_gap n r hge
+  dsimp at hcons
+  have hcons_int : (deficitReservoir n r : Int) +
+      (n : Int) ^ wordOnes (parityWordOf r n) * (orbitSurplus n r : Int) +
+      (2 : Int) ^ r * (n : Int) ^ (wordOnes (parityWordOf r n) + 1) =
+      (n : Int) * (3 * (n : Int) + 1) ^ wordOnes (parityWordOf r n) := by
+    exact_mod_cast hcons
+  have hmul_neg : (n : Int) ^ wordOnes (parityWordOf r n) *
+      signedProjectiveGap (parityWordOf r n) n =
+      - ((n : Int) ^ wordOnes (parityWordOf r n) * (orbitSurplus n r : Int)) := by
+    rw [hgap_neg, Int.mul_neg]
+  refine ⟨hgap_neg, by omega, by omega⟩
+
+/-- Helper lemma: equality of list prefixes of equal length from equality of appends. -/
+theorem list_eq_of_append_eq_of_length_eq :
+    ∀ (u₁ u₂ v₁ v₂ : List Bool),
+      u₁.length = u₂.length → u₁ ++ v₁ = u₂ ++ v₂ → u₁ = u₂
+  | [], [], _, _, _, _ => rfl
+  | _ :: _, [], _, _, hlen, _ => by dsimp at hlen; omega
+  | [], _ :: _, _, _, hlen, _ => by dsimp at hlen; omega
+  | b₁ :: bs₁, b₂ :: bs₂, v₁, v₂, hlen, happ => by
+    dsimp at hlen happ
+    injection happ with hb hbs
+    rw [hb, list_eq_of_append_eq_of_length_eq bs₁ bs₂ v₁ v₂ (by omega) hbs]
+
+/-- Membership in the depth-`r` surviving prefix-non-descending residue lift set `𝓢_r(n)`:
+    `m ≡ n (mod 2^r)` and `F^i(m) ≥ m` for all `0 ≤ i ≤ r`. -/
+def InSurvivingLiftSet (n r m : Nat) : Prop :=
+  m % (2 ^ r) = n % (2 ^ r) ∧ ∀ i : Nat, i ≤ r → iterateAccelerated m i ≥ m
+
+/-- Any two integers `m ≡ n (mod 2^r)` share the exact same parity word prefix
+    `parityWordOf i m = parityWordOf i n` and residue `m % 2^i = n % 2^i` for all `i ≤ r`. -/
+theorem mod_pow_two_eq_implies_shared_parityWord_prefix (n r m : Nat)
+    (hmod : m % (2 ^ r) = n % (2 ^ r)) :
+    ∀ i : Nat, i ≤ r →
+      parityWordOf i m = parityWordOf i n ∧
+      m % (2 ^ i) = n % (2 ^ i) := by
+  have hD_r : wordD (parityWordOf r n) = 2 ^ r := by
+    rw [wordD_eq_pow_two_length, parityWordOf_length]
+  have hn_res : n % wordD (parityWordOf r n) = wordResidue (parityWordOf r n) :=
+    (validParityWord_iff_mod_eq_wordResidue (parityWordOf r n) n).mp (parityWordOf_valid r n)
+  have hm_res : m % wordD (parityWordOf r n) = wordResidue (parityWordOf r n) := by
+    rw [hD_r] at hn_res ⊢
+    omega
+  have hv_m : validParityWord m (parityWordOf r n) :=
+    (validParityWord_iff_mod_eq_wordResidue (parityWordOf r n) m).mpr hm_res
+  have hw_r : parityWordOf r m = parityWordOf r n := by
+    have h := (validParityWord_iff_eq_parityWordOf (parityWordOf r n) m).mp hv_m
+    rw [parityWordOf_length] at h
+    exact h
+  intro i hi
+  have hr_split : r = i + (r - i) := by omega
+  have happ_m := parityWordOf_add i (r - i) m
+  have happ_n := parityWordOf_add i (r - i) n
+  rw [← hr_split] at happ_m happ_n
+  have heq_app : parityWordOf i m ++ parityWordOf (r - i) (iterateAccelerated m i) =
+      parityWordOf i n ++ parityWordOf (r - i) (iterateAccelerated n i) := by
+    rw [← happ_m, ← happ_n, hw_r]
+  have hlen_eq : (parityWordOf i m).length = (parityWordOf i n).length := by
+    rw [parityWordOf_length, parityWordOf_length]
+  have hw_i : parityWordOf i m = parityWordOf i n :=
+    list_eq_of_append_eq_of_length_eq _ _ _ _ hlen_eq heq_app
+  have hD_i : wordD (parityWordOf i n) = 2 ^ i := by
+    rw [wordD_eq_pow_two_length, parityWordOf_length]
+  have hn_i : n % wordD (parityWordOf i n) = wordResidue (parityWordOf i n) :=
+    (validParityWord_iff_mod_eq_wordResidue (parityWordOf i n) n).mp (parityWordOf_valid i n)
+  have hm_i : m % wordD (parityWordOf i n) = wordResidue (parityWordOf i n) := by
+    have hvm_i : validParityWord m (parityWordOf i n) := by
+      rw [← hw_i]
+      exact parityWordOf_valid i m
+    exact (validParityWord_iff_mod_eq_wordResidue (parityWordOf i n) m).mp hvm_i
+  rw [hD_i] at hn_i hm_i
+  exact ⟨hw_i, by omega⟩
+
+/-- Nested Antitone Property of `𝓢_r(n)` (`survivingLiftSet_antitone`):
+    Whenever `r₁ ≤ r₂`, `𝓢_{r₂}(n) ⊆ 𝓢_{r₁}(n)`. -/
+theorem survivingLiftSet_antitone (n r₁ r₂ m : Nat)
+    (hle : r₁ ≤ r₂) (hm : InSurvivingLiftSet n r₂ m) :
+    InSurvivingLiftSet n r₁ m := by
+  rcases hm with ⟨hmod, hge⟩
+  have hshared := (mod_pow_two_eq_implies_shared_parityWord_prefix n r₂ m hmod r₁ hle).2
+  exact ⟨hshared, fun i hi => hge i (by omega)⟩
+
+/-- Surviving Lift Set Structural and Projective Fixed-Point Exclusion Theorem
+    (`survivingLiftSet_intermediate_contracting_cap`):
+    For any `m ∈ 𝓢_r(n)` with `m > 1`, at EVERY intermediate depth `i ≤ r`
+    (letting `w_i = parityWordOf i n` and `a_i = wordOnes w_i`):
+    1. `parityWordOf i m = w_i` and `signedProjectiveGap w_i m ≤ 0`,
+    2. `deficitReservoir m i + m^{a_i} * wordB w_i + m * (3 * m)^{a_i} = m * (3 * m + 1)^{a_i}`,
+    3. At every intermediate depth `1 ≤ i ≤ r` (even if `w_r` re-expands at depth `r`!),
+       `wordDelta w_i * m ≤ wordB w_i`,
+       `m^{a_i - 1} * wordB w_i ≤ a_i * (3 * m + 1)^{a_i - 1}`, and
+       `wordDelta w_i * m^{a_i} ≤ a_i * (3 * m + 1)^{a_i - 1}`. -/
+theorem survivingLiftSet_intermediate_contracting_cap (n r m : Nat)
+    (hm1 : m > 1) (hm : InSurvivingLiftSet n r m) :
+    ∀ i : Nat, i ≤ r →
+      let w_i := parityWordOf i n
+      let a_i := wordOnes w_i
+      parityWordOf i m = w_i ∧
+      signedProjectiveGap w_i m ≤ 0 ∧
+      deficitReservoir m i + m ^ a_i * wordB w_i + m * (3 * m) ^ a_i =
+        m * (3 * m + 1) ^ a_i ∧
+      (i ≥ 1 →
+        wordDelta w_i * m ≤ wordB w_i ∧
+        m ^ (a_i - 1) * wordB w_i ≤ a_i * (3 * m + 1) ^ (a_i - 1) ∧
+        wordDelta w_i * m ^ a_i ≤ a_i * (3 * m + 1) ^ (a_i - 1)) := by
+  rcases hm with ⟨hmod, hge_m⟩
+  intro i hi
+  dsimp
+  have hshared := (mod_pow_two_eq_implies_shared_parityWord_prefix n r m hmod i hi).1
+  have hv_m : validParityWord m (parityWordOf i n) := by
+    rw [← hshared]
+    exact parityWordOf_valid i m
+  have hge_mi : applyParityWord m (parityWordOf i n) ≥ m := by
+    rw [← hshared, applyParityWord_parityWordOf]
+    exact hge_m i hi
+  have hgap_le : signedProjectiveGap (parityWordOf i n) m ≤ 0 :=
+    (signedProjectiveGap_sign_trichotomy (parityWordOf i n) m hv_m).2.2.2.mpr hge_mi
+  have hdual_m := (reservoir_offset_duality_identity m i (fun j hj => hge_m j (by omega))).2
+  rw [hshared] at hdual_m
+  refine ⟨hshared, hgap_le, hdual_m, ?_⟩
+  intro hi1
+  rcases universal_nondescent_offset_and_fixedPoint_bound m i hm1 hi1
+    (fun j hj => hge_m j (by omega)) with ⟨_, _, hB_le, _, hdelta_na_le, _⟩
+  rw [hshared] at hB_le hdelta_na_le
+  have hdelta_m_le_B : wordDelta (parityWordOf i n) * m ≤ wordB (parityWordOf i n) := by
+    by_cases hDA : wordD (parityWordOf i n) ≥ wordA (parityWordOf i n)
+    · have hnd := (discrete_deficit_nondescent_identity (parityWordOf i n) m hv_m hDA hge_mi).1
+      omega
+    · unfold wordDelta
+      have h0 : wordD (parityWordOf i n) - wordA (parityWordOf i n) = 0 := by omega
+      rw [h0, Nat.zero_mul]
+      omega
+  exact ⟨hdelta_m_le_B, hB_le, hdelta_na_le⟩
+
+/-- Equivalence of Universal Collatz Descent with Eventual Positive Signed Projective Gap
+    and Empty Infinite Self-Survival in `𝓢_r(n)` (`collatz_iff_signedProjectiveGap_eventually_pos`):
+    1. `(∀ n > 1, ∃ r ≥ 1, iterateAccelerated n r < n) ↔
+        (∀ n > 1, ∃ r ≥ 1, signedProjectiveGap (parityWordOf r n) n > 0)`, and
+    2. `(∀ n > 1, ∃ r ≥ 1, signedProjectiveGap (parityWordOf r n) n > 0) ↔
+        ¬(∃ n > 1, ∀ r ≥ 1, InSurvivingLiftSet n r n)`. -/
+theorem collatz_iff_signedProjectiveGap_eventually_pos :
+    ((∀ n : Nat, n > 1 → ∃ r : Nat, r ≥ 1 ∧ iterateAccelerated n r < n) ↔
+      (∀ n : Nat, n > 1 → ∃ r : Nat, r ≥ 1 ∧
+        signedProjectiveGap (parityWordOf r n) n > 0)) ∧
+    ((∀ n : Nat, n > 1 → ∃ r : Nat, r ≥ 1 ∧
+        signedProjectiveGap (parityWordOf r n) n > 0) ↔
+      ¬(∃ n : Nat, n > 1 ∧ ∀ r : Nat, r ≥ 1 → InSurvivingLiftSet n r n)) := by
+  refine ⟨?_, ?_⟩
+  · constructor
+    · intro hdesc n hn1
+      rcases hdesc n hn1 with ⟨r, hr1, hlt⟩
+      refine ⟨r, hr1, ?_⟩
+      have hv := parityWordOf_valid r n
+      rw [(signedProjectiveGap_sign_trichotomy (parityWordOf r n) n hv).1,
+          applyParityWord_parityWordOf]
+      exact hlt
+    · intro hgap n hn1
+      rcases hgap n hn1 with ⟨r, hr1, hpos⟩
+      refine ⟨r, hr1, ?_⟩
+      have hv := parityWordOf_valid r n
+      rw [← applyParityWord_parityWordOf r n]
+      exact (signedProjectiveGap_sign_trichotomy (parityWordOf r n) n hv).1.mp hpos
+  · constructor
+    · intro hgap ⟨n, hn1, hsurv⟩
+      rcases hgap n hn1 with ⟨r, hr1, hpos⟩
+      have hv := parityWordOf_valid r n
+      have hlt : iterateAccelerated n r < n := by
+        rw [← applyParityWord_parityWordOf r n]
+        exact (signedProjectiveGap_sign_trichotomy (parityWordOf r n) n hv).1.mp hpos
+      have hge := (hsurv r hr1).2 r (by omega)
+      omega
+    · intro hno_surv n hn1
+      by_cases hex : ∃ r : Nat, r ≥ 1 ∧ signedProjectiveGap (parityWordOf r n) n > 0
+      · exact hex
+      · exfalso
+        apply hno_surv
+        refine ⟨n, hn1, ?_⟩
+        intro r hr1
+        refine ⟨rfl, ?_⟩
+        intro i hi
+        cases i with
+        | zero => dsimp [iterateAccelerated]; omega
+        | succ i' =>
+          by_cases hge : iterateAccelerated n (i' + 1) ≥ n
+          · exact hge
+          · exfalso
+            apply hex
+            refine ⟨i' + 1, by omega, ?_⟩
+            have hv := parityWordOf_valid (i' + 1) n
+            rw [(signedProjectiveGap_sign_trichotomy (parityWordOf (i' + 1) n) n hv).1,
+                applyParityWord_parityWordOf]
+            omega
+
 end CollatzProofClosure
 end BBB17

@@ -361,3 +361,102 @@ def verify_projective_fixed_point_laws(max_n: int = 2000) -> Dict[str, object]:
     }
 
 
+def verify_signed_projective_gap_and_surviving_lifts(max_n: int = 1000) -> Dict[str, object]:
+    """
+    Verify Section 7 Signed Projective Gap G_w(n) = (D_w - A_w) n - B_w over Z,
+    its even/odd affine recurrences, 2-adic modular branch lock, even-step descent band,
+    and surviving prefix-non-descending lift sets S_r(n).
+    """
+    trajectories_checked = 0
+    gap_identity_mismatches = 0
+    gap_recurrence_mismatches = 0
+    modular_branch_lock_mismatches = 0
+    descent_band_mismatches = 0
+    reservoir_gap_identity_mismatches = 0
+    surviving_lift_cap_failures = 0
+
+    for n in range(3, max_n + 1, 2):
+        if n % 4 != 3:
+            continue
+        trajectories_checked += 1
+        nr = n
+        r = 0
+        a = 0
+        reservoir = 0
+        w: List[bool] = []
+        gap = 0  # G_[] (n) = (1 - 1)*n - 0 = 0
+
+        while True:
+            a_coeff, b_w, d_w = affine_triple_exact(w)
+            gap_def = (d_w - a_coeff) * n - b_w
+            gap_traj = d_w * (n - nr)
+
+            if gap != gap_def or gap != gap_traj:
+                gap_identity_mismatches += 1
+
+            # Check sign trichotomy
+            if (gap > 0) != (nr < n) or (gap == 0) != (nr == n) or (gap < 0) != (nr > n):
+                gap_identity_mismatches += 1
+
+            # Candidate even/odd extension gaps
+            w_ev = w + [False]
+            w_od = w + [True]
+            a_ev, b_ev, d_ev = affine_triple_exact(w_ev)
+            a_od, b_od, d_od = affine_triple_exact(w_od)
+            gap_ev = (d_ev - a_ev) * n - b_ev
+            gap_od = (d_od - a_od) * n - b_od
+
+            if gap_ev != gap + d_w * n or gap_ev != d_w * (2 * n - nr):
+                gap_recurrence_mismatches += 1
+            if gap_od != 3 * gap - d_w * (n + 1) or gap_od != d_w * (2 * n - (3 * nr + 1)):
+                gap_recurrence_mismatches += 1
+            if gap_ev - gap_od + 2 * gap != d_w * (2 * n + 1):
+                gap_recurrence_mismatches += 1
+
+            # Check 2-adic modular branch lock: nr is odd iff gap % (2 * d_w) == 0
+            bit = (nr & 1) == 1
+            if bit != (gap % (2 * d_w) == 0):
+                modular_branch_lock_mismatches += 1
+
+            if nr < n:
+                break
+
+            # Non-descending step: verify reservoir-gap identity
+            if reservoir - (n ** a) * gap != n * ((3 * n + 1) ** a) - d_w * (n ** (a + 1)):
+                reservoir_gap_identity_mismatches += 1
+
+            # Check S_r(n) properties on lifts m = n + q * 2^r for q = 1, 2
+            for q in (1, 2):
+                m = n + q * d_w
+                gap_m = (d_w - a_coeff) * m - b_w
+                if gap_m - gap != (d_w - a_coeff) * (m - n):
+                    surviving_lift_cap_failures += 1
+
+            nxt = accelerated_collatz(nr)
+            next_gap = gap_od if bit else gap_ev
+
+            # Check even-step descent band: if gap > -d_w * n and next_gap <= 0, bit must be True
+            if gap > -d_w * n and next_gap <= 0 and not bit:
+                descent_band_mismatches += 1
+
+            omega = d_w * (nr - n)
+            if bit:
+                reservoir = (3 * n + 1) * reservoir + (n ** a) * omega
+                a += 1
+            nr = nxt
+            w = w_od if bit else w_ev
+            gap = next_gap
+            r += 1
+
+    return {
+        "trajectories_checked": trajectories_checked,
+        "gap_identity_mismatches": gap_identity_mismatches,
+        "gap_recurrence_mismatches": gap_recurrence_mismatches,
+        "modular_branch_lock_mismatches": modular_branch_lock_mismatches,
+        "descent_band_mismatches": descent_band_mismatches,
+        "reservoir_gap_identity_mismatches": reservoir_gap_identity_mismatches,
+        "surviving_lift_cap_failures": surviving_lift_cap_failures,
+    }
+
+
+

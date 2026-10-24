@@ -293,5 +293,68 @@ theorem projective_fixedPoint_and_congruence_master (n : Nat)
     ⟨ha1, hres_B_le, hB_le, hdelta_na_le, hdelta_na_rhs, hdelta_4⟩
   exact ⟨ha1, hdual, hres_B_le, hB_le, hdelta_na_le, hdelta_na_rhs, hdelta_4⟩
 
+/-- Signed Projective Gap, 2-Adic Modular Branch Lock, and Surviving Lift Set Master Synthesis
+    (`signedProjectiveGap_and_survivingLiftSet_master`):
+    For any hypothetical never-descending integer `n > 1` (`∀ i, iterateAccelerated n i ≥ n`),
+    at every depth `r : Nat`, letting `w = parityWordOf r n` and `a = wordOnes w`:
+    1. Signed Projective Gap Nonpositivity and Negated Surplus Identity:
+       `signedProjectiveGap w n = - (orbitSurplus n r : Int) ≤ 0`,
+    2. Exact Even/Odd Step Update Laws:
+       `signedProjectiveGap (w ++ [false]) n = signedProjectiveGap w n + (wordD w : Int) * (n : Int)` and
+       `signedProjectiveGap (w ++ [true]) n = 3 * signedProjectiveGap w n - (wordD w : Int) * ((n : Int) + 1)`,
+    3. Autonomous 2-Adic Modular Branch Lock:
+       `iterateAccelerated n r % 2 = 1 ↔ signedProjectiveGap w n % (2 * (wordD w : Int)) = 0`,
+    4. Even-Step Descent Band Obstruction:
+       Whenever `signedProjectiveGap w n > -((2 ^ r : Nat) : Int) * (n : Int)` (`F^r(n) < 2 * n`),
+       step `r` is forced to be an odd step (`iterateAccelerated n r % 2 = 1`),
+    5. Global Reservoir-Gap Identity:
+       `(deficitReservoir n r : Int) - ((n ^ a : Nat) : Int) * signedProjectiveGap w n =
+         (n : Int) * (((3 * n + 1) ^ a : Nat) : Int) - ((2 ^ r * n ^ (a + 1) : Nat) : Int)`,
+    6. Self-Membership in `𝓢_r(n)` (`InSurvivingLiftSet n r n`) and Intermediate Contracting Cap
+       for all `m ∈ 𝓢_r(n)` with `m > 1`. -/
+theorem signedProjectiveGap_and_survivingLiftSet_master (n : Nat)
+    (hn1 : n > 1)
+    (hnever_desc : ∀ i : Nat, iterateAccelerated n i ≥ n) :
+    ∀ r : Nat,
+      let w := parityWordOf r n
+      let a := wordOnes w
+      signedProjectiveGap w n = - (orbitSurplus n r : Int) ∧
+      signedProjectiveGap w n ≤ 0 ∧
+      signedProjectiveGap (w ++ [false]) n =
+        signedProjectiveGap w n + (wordD w : Int) * (n : Int) ∧
+      signedProjectiveGap (w ++ [true]) n =
+        3 * signedProjectiveGap w n - (wordD w : Int) * ((n : Int) + 1) ∧
+      (iterateAccelerated n r % 2 = 1 ↔
+        signedProjectiveGap w n % (2 * (wordD w : Int)) = 0) ∧
+      (signedProjectiveGap w n + (wordD w : Int) * (n : Int) > 0 →
+        iterateAccelerated n r % 2 = 1) ∧
+      (deficitReservoir n r : Int) - ((n ^ a : Nat) : Int) * signedProjectiveGap w n +
+        ((2 ^ r * n ^ (a + 1) : Nat) : Int) =
+        ((n * (3 * n + 1) ^ a : Nat) : Int) ∧
+      InSurvivingLiftSet n r n := by
+  have hn_odd : n % 2 = 1 := by
+    rcases nondescent_depth2_forces_mod4_eq_3_and_reservoir n hn1 (hnever_desc 1) (hnever_desc 2) with
+      ⟨hm4, _, _⟩
+    omega
+  intro r
+  dsimp
+  have hv := parityWordOf_valid r n
+  rcases signedProjectiveGap_reservoir_conservation n r (fun i _ => hnever_desc i) with
+    ⟨hgap_surp, hgap_le0, hres_gap⟩
+  have hev_step := signedProjectiveGap_even_step (parityWordOf r n) n
+  have hodd_step := signedProjectiveGap_odd_step (parityWordOf r n) n
+  have hlock := (signedProjectiveGap_modular_branch_lock (parityWordOf r n) n hv).2.2.2 hn_odd
+  rw [applyParityWord_parityWordOf] at hlock
+  have hv_succ := parityWordOf_valid (r + 1) n
+  have hge_succ : applyParityWord n (parityWordOf (r + 1) n) ≥ n := by
+    rw [applyParityWord_parityWordOf]
+    exact hnever_desc (r + 1)
+  have hgap_succ_le0 : signedProjectiveGap (parityWordOf (r + 1) n) n ≤ 0 :=
+    (signedProjectiveGap_sign_trichotomy (parityWordOf (r + 1) n) n hv_succ).2.2.2.mpr hge_succ
+  have hband := (signedProjectiveGap_even_step_descent_band n r).2
+  have hsurv : InSurvivingLiftSet n r n := ⟨rfl, fun i _ => hnever_desc i⟩
+  exact ⟨hgap_surp, hgap_le0, hev_step, hodd_step, hlock.1,
+    fun hgt => hband hgt hgap_succ_le0, hres_gap, hsurv⟩
+
 end CollatzProofClosure
 end BBB17
