@@ -28,5 +28,6 @@ jobs:
           lean -o BBB17.olean BBB17.lean
           LEAN_PATH=. lean -o OperatorMacros.olean OperatorMacros.lean
           LEAN_PATH=. lean -o TwoStepMacros.olean TwoStepMacros.lean
-          LEAN_PATH=. lean SweepMacros.lean
-          LEAN_PATH=. lean CollatzBridge.lean
+          LEAN_PATH=. lean -o SweepMacros.olean SweepMacros.lean
+          LEAN_PATH=. lean -o CollatzBridge.olean CollatzBridge.lean
+          LEAN_PATH=. lean PhaseArithmetic.lean
