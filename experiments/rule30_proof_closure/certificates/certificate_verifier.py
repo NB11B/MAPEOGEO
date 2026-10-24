@@ -71,6 +71,8 @@ CLOSURE_HEADLINES = (
     "Rule30ProofClosure.closure_unavoidable_spatiotemporal_orbit_configuration",
     "Rule30ProofClosure.closure_forbidden_unavoidable_family_excludes_periodic_center",
     "Rule30ProofClosure.closure_goodstein_four_color_well_founded_no_counterexample",
+    "Rule30ProofClosure.closure_orbit_1010_depth2_vertical_lock_and_onset_exclusion",
+    "Rule30ProofClosure.closure_orbit_110_and_100_depth4_onset_exclusion",
     "Rule30ProofClosure.bilateral_cone_unsat_implies_problem1",
     "Rule30ProofClosure.linear_horizon_quotient_collision_implies_problem1",
     "Rule30ProofClosure.bounded_T0_periods_one_to_four_excluded",

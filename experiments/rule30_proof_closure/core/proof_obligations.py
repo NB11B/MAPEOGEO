@@ -515,14 +515,42 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
         FormalDeclarationRecord(
             name="Rule30ProofClosure.goodstein_four_color_well_founded_no_counterexample",
             module="Rule30PrizeClosure",
-            classification=DeclarationClass.EXACT,
-            obligation_id="M3",
+            classification=DeclarationClass.CONDITIONAL,
+            obligation_id="M5",
             track="Track A/B/C",
             dependencies=(
                 "Rule30ProofClosure.forbidden_unavoidable_family_excludes_periodic_center",
+                "UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge",
             ),
-            summary="New in R30-UNAVOIDABLE-REDUCTION: proves by triple well-founded induction on the Goodstein rank w^2*a + w*b + c (GoodsteinRankLt) that any counterexample predicate A whose states either fall into InForbiddenUnavoidableFamily or admit a rank-decreasing reduction is identically empty (forall s, not A s).",
-            source_attribution="R30_UNAVOIDABLE_REDUCTION_NEW",
+            summary="Updated in R30-REDUCTION-SOUNDNESS-001 (Section 3 Audit): classified as CONDITIONAL on hStep (UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge); proves by triple well-founded induction on the Goodstein rank w^2*a + w*b + c (GoodsteinRankLt) that any counterexample predicate A whose states either fall into InForbiddenUnavoidableFamily or admit a rank-decreasing reduction is identically empty (forall s, not A s).",
+            source_attribution="R30_REDUCTION_SOUNDNESS_001_UPDATED",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.orbit_1010_depth2_vertical_lock_and_onset_exclusion",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M3",
+            track="Track A/C",
+            dependencies=(
+                "Rule30ProofClosure.local_101_pattern_conserved_left_xor",
+                "Rule30ProofClosure.left_black_step_screened_forcing",
+                "Rule30ProofClosure.universal_column_onset_exact_6step",
+            ),
+            summary="New in R30-REDUCTION-SOUNDNESS-001 (Section 6 Family 1010): proves that (center t, ..., center (t+3)) = (1, 0, 1, 0) locks cell t (-2) = !cell (t+1) (-1) and cell (t+1) (-2) = !cell (t+1) (-1), forcing the tail-independent vertical equality cell t (-2) = cell (t+1) (-2) and refuting 1010 at BOTH onset phases t=3 and t=4 via universal_column_onset_exact_6step 2.",
+            source_attribution="R30_REDUCTION_SOUNDNESS_001_NEW",
+        ),
+        FormalDeclarationRecord(
+            name="Rule30ProofClosure.orbit_110_and_100_depth4_onset_exclusion",
+            module="Rule30LeftReconstruction",
+            classification=DeclarationClass.EXACT,
+            obligation_id="M3",
+            track="Track A/C",
+            dependencies=(
+                "Rule30ProofClosure.spatiotemporal_001001_and_011011_depth4_constant_collapse",
+                "Rule30ProofClosure.universal_column_onset_exact_6step",
+            ),
+            summary="New in R30-REDUCTION-SOUNDNESS-001 (Section 6 Families 11 and 100): proves cell 7 (-4) = true, cell 8 (-4) = true, cell 9 (-4) = true from universal_column_onset_exact_6step 4 and combines it with spatiotemporal_001001_and_011011_depth4_constant_collapse to refute all 3 cyclic phases of 0010010 at t in {5, 6, 7} and all 3 cyclic phases of 0110110 at t in {6, 7, 8} without trajectory evaluation.",
+            source_attribution="R30_REDUCTION_SOUNDNESS_001_NEW",
         ),
         FormalDeclarationRecord(
             name="Rule30ProofClosure.spatial_transport_step_dichotomy",
@@ -745,6 +773,16 @@ def build_declaration_inventory() -> List[FormalDeclarationRecord]:
             dependencies=(),
             summary="Prove that a periodically driven single-seed return orbit cannot realize M pairwise distinct FutureWorkEquiv classes at linear horizon k = t1 + MP.",
             source_attribution="CAMPAIGN_REDUCTION",
+        ),
+        FormalDeclarationRecord(
+            name="UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge",
+            module="Rule30PrizeClosure",
+            classification=DeclarationClass.UNRESOLVED,
+            obligation_id="M4",
+            track="Track A/B/C",
+            dependencies=(),
+            summary="Prove for arbitrary symbolic transient T >> d and period P >= 2 that each of the 3 unavoidable configurations (11, 100, 1010) forces the spatial bridge offset (T - d) to contract or fall into InForbiddenUnavoidableFamily (satisfying hStep in goodstein_four_color_well_founded_no_counterexample).",
+            source_attribution="R30_REDUCTION_SOUNDNESS_001_NEW",
         ),
     ]
 

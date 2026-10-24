@@ -959,4 +959,105 @@ theorem spatiotemporal_001001_and_011011_depth4_constant_collapse (t : Nat) :
       cases cell (t + 1) (-4) <;>
       cases cell (t + 2) (-4) <;> decide
 
+/-- **`R30-REDUCTION-SOUNDNESS-001` (`EXACT`) — Family `1010` Depth-`-2` Vertical Pair Lock and
+    Both-Phase Onset Exclusion (`orbit_1010_depth2_vertical_lock_and_onset_exclusion`)**:
+    Proves that whenever `(center t, center (t+1), center (t+2), center (t+3)) = (true, false, true, false)`:
+    1. Both `cell t (-2)` and `cell (t + 1) (-2)` equal `!cell (t + 1) (-1)`, forcing the exact
+       tail-independent vertical equality `cell t (-2) = cell (t + 1) (-2)` at column `-2`, and
+    2. Colliding this vertical equality with `universal_column_onset_exact_6step 2`
+       (`cell 3 (-2) = true`, `cell 4 (-2) = false`, `cell 5 (-2) = true`) refutes `1010` at BOTH
+       onset phases `t = 3` and `t = 4` with zero trajectory evaluation. -/
+theorem orbit_1010_depth2_vertical_lock_and_onset_exclusion (t : Nat) :
+    ((Rule30Prize.center t = true ∧
+      Rule30Prize.center (t + 1) = false ∧
+      Rule30Prize.center (t + 2) = true ∧
+      Rule30Prize.center (t + 3) = false) →
+      cell t (-2) = !cell (t + 1) (-1) ∧
+      cell (t + 1) (-2) = !cell (t + 1) (-1) ∧
+      cell t (-2) = cell (t + 1) (-2)) ∧
+    ¬ (Rule30Prize.center 3 = true ∧
+       Rule30Prize.center 4 = false ∧
+       Rule30Prize.center 5 = true ∧
+       Rule30Prize.center 6 = false) ∧
+    ¬ (Rule30Prize.center 4 = true ∧
+       Rule30Prize.center 5 = false ∧
+       Rule30Prize.center 6 = true ∧
+       Rule30Prize.center 7 = false) := by
+  have hlock : ∀ τ : Nat,
+      Rule30Prize.center τ = true →
+      Rule30Prize.center (τ + 1) = false →
+      Rule30Prize.center (τ + 2) = true →
+      Rule30Prize.center (τ + 3) = false →
+      cell τ (-2) = !cell (τ + 1) (-1) ∧
+      cell (τ + 1) (-2) = !cell (τ + 1) (-1) ∧
+      cell τ (-2) = cell (τ + 1) (-2) := by
+    intro τ hc0 hc1 hc2 hc3
+    have hm2_0 : cell τ (-2) = !cell (τ + 1) (-1) :=
+      (local_101_pattern_conserved_left_xor τ hc0 hc1 hc2).2.1
+    have hm1_2 : cell (τ + 2) (-1) = true := by
+      have h := (left_black_step_screened_forcing (τ + 2) hc2).1
+      rw [show τ + 2 + 1 = τ + 3 by omega, hc3] at h
+      exact h
+    have hstep : cell (τ + 2) (-1) = rule (cell (τ + 1) (-2)) (cell (τ + 1) (-1)) (cell (τ + 1) 0) := rfl
+    have hc1' : cell (τ + 1) 0 = false := hc1
+    rw [hm1_2, hc1'] at hstep
+    unfold rule at hstep
+    have hm2_1 : cell (τ + 1) (-2) = !cell (τ + 1) (-1) := by
+      revert hstep
+      cases cell (τ + 1) (-2) <;> cases cell (τ + 1) (-1) <;> decide
+    exact ⟨hm2_0, hm2_1, hm2_0.trans hm2_1.symm⟩
+  have c3 : cell 3 (-2) = true := (universal_column_onset_exact_6step 2).2.1
+  have c4 : cell 4 (-2) = false := (universal_column_onset_exact_6step 2).2.2.1
+  have c5 : cell 5 (-2) = true := (universal_column_onset_exact_6step 2).2.2.2.1
+  refine ⟨fun ⟨hc0, hc1, hc2, hc3⟩ => hlock t hc0 hc1 hc2 hc3, ?_, ?_⟩
+  · rintro ⟨hc3, hc4, hc5, hc6⟩
+    have heq : cell 3 (-2) = cell 4 (-2) := (hlock 3 hc3 hc4 hc5 hc6).2.2
+    rw [c3, c4] at heq
+    exact Bool.noConfusion heq
+  · rintro ⟨hc4, hc5, hc6, hc7⟩
+    have heq : cell 4 (-2) = cell 5 (-2) := (hlock 4 hc4 hc5 hc6 hc7).2.2
+    rw [c4, c5] at heq
+    exact Bool.noConfusion heq
+
+/-- **`R30-REDUCTION-SOUNDNESS-001` (`EXACT`) — Families `11` (`0110110`) and `100` (`0010010`)
+    All-Phase Depth-`-4` Onset Exclusion (`orbit_110_and_100_depth4_onset_exclusion`)**:
+    Combines `spatiotemporal_001001_and_011011_depth4_constant_collapse` with
+    `universal_column_onset_exact_6step 4` (`cell 7 (-4) = true ∧ cell 8 (-4) = true ∧ cell 9 (-4) = true`)
+    to refute all three cyclic phases of `0010010` at `t ∈ {5, 6, 7}` and all three cyclic phases
+    of `0110110` at `t ∈ {6, 7, 8}` without brute-force trajectory evaluation. -/
+theorem orbit_110_and_100_depth4_onset_exclusion :
+    (cell 7 (-4) = true ∧ cell 8 (-4) = true ∧ cell 9 (-4) = true) ∧
+    (∀ t : Nat, (t = 5 ∨ t = 6 ∨ t = 7) →
+      ¬ (Rule30Prize.center t = false ∧
+         Rule30Prize.center (t + 1) = false ∧
+         Rule30Prize.center (t + 2) = true ∧
+         Rule30Prize.center (t + 3) = false ∧
+         Rule30Prize.center (t + 4) = false ∧
+         Rule30Prize.center (t + 5) = true ∧
+         Rule30Prize.center (t + 6) = false)) ∧
+    (∀ t : Nat, (t = 6 ∨ t = 7 ∨ t = 8) →
+      ¬ (Rule30Prize.center t = false ∧
+         Rule30Prize.center (t + 1) = true ∧
+         Rule30Prize.center (t + 2) = true ∧
+         Rule30Prize.center (t + 3) = false ∧
+         Rule30Prize.center (t + 4) = true ∧
+         Rule30Prize.center (t + 5) = true ∧
+         Rule30Prize.center (t + 6) = false)) := by
+  have c7 : cell 7 (-4) = true := (universal_column_onset_exact_6step 4).2.2.2.1
+  have c8 : cell 8 (-4) = true := (universal_column_onset_exact_6step 4).2.2.2.2.1
+  have c9 : cell 9 (-4) = true := (universal_column_onset_exact_6step 4).2.2.2.2.2
+  refine ⟨⟨c7, c8, c9⟩, ?_, ?_⟩
+  · intro t ht hpat
+    have hfalse := (spatiotemporal_001001_and_011011_depth4_constant_collapse t).1 hpat
+    rcases ht with rfl | rfl | rfl
+    · change cell 7 (-4) = false at hfalse; rw [c7] at hfalse; exact Bool.noConfusion hfalse
+    · change cell 8 (-4) = false at hfalse; rw [c8] at hfalse; exact Bool.noConfusion hfalse
+    · change cell 9 (-4) = false at hfalse; rw [c9] at hfalse; exact Bool.noConfusion hfalse
+  · intro t ht hpat
+    have hfalse := ((spatiotemporal_001001_and_011011_depth4_constant_collapse t).2 hpat).1
+    rcases ht with rfl | rfl | rfl
+    · change cell 7 (-4) = false at hfalse; rw [c7] at hfalse; exact Bool.noConfusion hfalse
+    · change cell 8 (-4) = false at hfalse; rw [c8] at hfalse; exact Bool.noConfusion hfalse
+    · change cell 9 (-4) = false at hfalse; rw [c9] at hfalse; exact Bool.noConfusion hfalse
+
 end Rule30ProofClosure

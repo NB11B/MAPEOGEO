@@ -1,12 +1,12 @@
 {
-  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001+R30-UNAVOIDABLE-REDUCTION",
+  "program_id": "R30-CLOSE-001+R30-CERT-001+R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001+R30-UNAVOIDABLE-REDUCTION+R30-REDUCTION-SOUNDNESS-001",
   "baseline_commit": "8cb32c288f78bd04dbfd1b9e5e4883ed960d4c51",
-  "outcome_classification": "OUTCOME_B_AND_C_UNAVOIDABLE_ORBIT_COVERAGE_AND_GOODSTEIN_REDUCTION_VERIFIED",
-  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, R30-SPATIOTEMPORAL-001, R30-FLUX-CORR-001, R30-UNIVERSAL-001, R30-EXHAUST-001, R30-QUOTIENT-GEOM-001, and R30-UNAVOIDABLE-REDUCTION are unconditionally verified (54/54 Lean 4.35.0 headlines in Rule30PrizeClosure, 319 replayed constants, 0 new axioms). 1. Unavoidable Spatiotemporal Orbit Coverage (Acceptance Test 1, EXACT in Lean): unavoidable_spatiotemporal_orbit_configuration proves unconditionally that every PeriodicCenter T P trajectory has P >= 2 and in every window [t0, t0 + 2P) encounters a phase tau satisfying UnavoidableOrbitConfigAt tau (OrbitConfigDoubleBlack11 (tau+2), OrbitConfigDoubleWhite00 tau, or OrbitConfigAlternating1010 tau). 2. Forbidden Unavoidable Family Exclusion (EXACT in Lean): forbidden_unavoidable_family_excludes_periodic_center proves that any (T, P) in InForbiddenUnavoidableFamily T P (all-white, all-black, P=1, 0^r 1 for r>=14, 0^r 1 0 1 for r>=14, ObservationalAbsorptionAt, LinearHorizonCollisionAt, or CharacteristicFluxOnsetViolationAt) yields False. 3. Goodstein Well-Founded Contradiction Architecture (EXACT in Lean): goodstein_four_color_well_founded_no_counterexample proves by triple well-founded induction on the Goodstein rank w^2*a + w*b + c (GoodsteinRankLt) that any counterexample predicate A whose states either belong to InForbiddenUnavoidableFamily or reduce to a state of strictly smaller Goodstein rank is identically empty (forall s, not A s). 4. Directed Reduction Graph & SCC Verification: Across all 114 mixed words up to P<=6 (100% covered) and 352 counterexample reduction states, Tarjan SCC analysis confirms 0 directed cycles, strict Goodstein rank descent along all 264 edges, and 100% reduction to terminal contradiction.",
+  "outcome_classification": "OUTCOME_B_AND_C_UNAVOIDABLE_ORBIT_COVERAGE_AND_SOUND_WITNESS_REDUCTION_VERIFIED",
+  "outcome_summary": "Checkpoints 01 and 02, R30-CERT-001, R30-TRANSPORT-001, R30-SPATIOTEMPORAL-001, R30-FLUX-CORR-001, R30-UNIVERSAL-001, R30-EXHAUST-001, R30-QUOTIENT-GEOM-001, R30-UNAVOIDABLE-REDUCTION, and R30-REDUCTION-SOUNDNESS-001 are unconditionally verified (56/56 Lean 4.35.0 headlines in Rule30PrizeClosure, 321 replayed constants, 0 new axioms). 1. Unavoidable Spatiotemporal Orbit Coverage (Acceptance Test 1, EXACT in Lean): unavoidable_spatiotemporal_orbit_configuration proves unconditionally that every PeriodicCenter T P trajectory has P >= 2 and in every window [t0, t0 + 2P) encounters a phase tau satisfying UnavoidableOrbitConfigAt tau (OrbitConfigDoubleBlack11 (tau+2), OrbitConfigDoubleWhite00 tau, or OrbitConfigAlternating1010 tau). 2. Section 6 Family Structural Reductions & Onset Exclusions (EXACT in Lean): orbit_1010_depth2_vertical_lock_and_onset_exclusion proves that 1010 locks cell t (-2) = cell (t+1) (-2) and refutes 1010 at both onset phases t=3 and t=4; orbit_110_and_100_depth4_onset_exclusion proves cell 7 (-4) = cell 8 (-4) = cell 9 (-4) = true and refutes all 3 cyclic phases of 0010010 and 0110110. 3. Epistemic Classification of Goodstein Framework (CONDITIONAL in proof_obligations.py): goodstein_four_color_well_founded_no_counterexample is classified as CONDITIONAL on hStep (UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge) and automatically rejected as an unconditional closure claim until arbitrary symbolic transients T >> d are bridged. 4. Sound Witness-Set Reduction Engine (Zero Artificial Clamping): Across all 88 bounded hypotheses, 88 WORK_EQUIVALENCE edges and 95 COUNTEREXAMPLE_REDUCTION edges are separated, every a(S) equals the exact cardinality len(W(S)), witness inclusion W(S') subseteq W(S) and discarded-witness violation are explicitly verified on 100% of edges, and terminal contradiction (0,0,0) is recorded only when len(W(S)) == 0. For arbitrary symbolic transients T >> 4, surviving quotient classes at d=4 (4 for 011, 7 for 001, 5 for 10) and the missing spatial_bridge_depth_offset (T - d) are preserved.",
   "checkpoint_01_reconstruction_completeness": true,
   "checkpoint_02_bilateral_soundness": true,
   "checkpoint_03_universal_contradiction_status": "EXACT_UNAVOIDABLE_ORBIT_COVERAGE_FOR_ALL_MIXED_WORDS__FORBIDDEN_ON_INFINITE_FAMILIES_REDUCIBLE_ON_BOUNDED_DAG",
-  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_54_OF_54__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
+  "checkpoint_04_official_complete_claim_status": "PARTIAL_VERIFIED_56_OF_56__COMPLETE_CLAIM_REJECTED_BY_M4_AUDIT",
   "conditional_closure_claims_automatically_rejected": true,
   "hypotheses_tested": 180,
   "hypotheses_unsat_count": 180,
@@ -35,8 +35,8 @@
   },
   "r30_cert_001_campaign": {
     "campaign_id": "R30-CERT-001",
-    "headline_theorems_verified_in_check_lean": 54,
-    "replayed_constants_in_check_lean": 319,
+    "headline_theorems_verified_in_check_lean": 56,
+    "replayed_constants_in_check_lean": 321,
     "parallel_operator_inventory": [
       {
         "capability_id": "MAPEOGEO_CERTIFIABLE_GF2_IDEAL_KERNEL",
@@ -255,9 +255,9 @@
     ]
   },
   "r30_transport_001_campaign": {
-    "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001+R30-UNAVOIDABLE-REDUCTION",
-    "headline_theorems_verified_in_check_lean": 54,
-    "replayed_constants_in_check_lean": 319,
+    "campaign_id": "R30-TRANSPORT-001+R30-SPATIOTEMPORAL-001+R30-FLUX-CORR-001+R30-UNIVERSAL-001+R30-EXHAUST-001+R30-QUOTIENT-GEOM-001+R30-UNAVOIDABLE-REDUCTION+R30-REDUCTION-SOUNDNESS-001",
+    "headline_theorems_verified_in_check_lean": 56,
+    "replayed_constants_in_check_lean": 321,
     "deliverable_1_diagonal_ablation": {
       "experiment_id": "R30-TRANSPORT-001-DIAGONAL-ABLATION",
       "mixed_words_per_transient": 22,
@@ -2337,6 +2337,8 @@
       "acceptance_test_1_unavoidable_orbit_theorem": "Rule30ProofClosure.unavoidable_spatiotemporal_orbit_configuration",
       "forbidden_family_exclusion_theorem": "Rule30ProofClosure.forbidden_unavoidable_family_excludes_periodic_center",
       "goodstein_well_founded_contradiction_theorem": "Rule30ProofClosure.goodstein_four_color_well_founded_no_counterexample",
+      "section6_family_1010_vertical_lock_and_onset_exclusion_theorem": "Rule30ProofClosure.orbit_1010_depth2_vertical_lock_and_onset_exclusion",
+      "section6_families_11_and_100_depth4_onset_exclusion_theorem": "Rule30ProofClosure.orbit_110_and_100_depth4_onset_exclusion",
       "verification_report": {
         "mixed_words_tested_up_to_p6": 114,
         "unavoidable_coverage_count": 114,
@@ -2349,14 +2351,70 @@
           "U_REDUCIBLE_ORBIT_DOUBLE_WHITE_00": 62,
           "U_REDUCIBLE_ORBIT_ALTERNATING_1010": 24
         },
-        "reduction_graph_nodes_count": 352,
-        "reduction_graph_edges_count": 264,
-        "scc_count": 352,
+        "reduction_graph_nodes_count": 271,
+        "reduction_graph_edges_count": 183,
+        "work_equivalence_edges_count": 88,
+        "counterexample_reduction_edges_count": 95,
+        "scc_count": 271,
         "cyclic_scc_count": 0,
         "dag_acyclicity_verified": true,
         "all_edges_strict_goodstein_descent": true,
+        "all_witness_preservations_explicitly_verified": true,
         "all_hypotheses_reduced_to_contradiction": true,
         "max_reverse_topological_rank": 3,
+        "symbolic_family_audit_records": [
+          {
+            "family_name": "FAMILY_11_DOUBLE_BLACK",
+            "representative_word": "011",
+            "lean_structural_theorem": "Rule30ProofClosure.orbit_110_and_100_depth4_onset_exclusion",
+            "verified_near_center_invariant": "cell(t+1, -4) = false & cell(t+2, -4) = true (self-similar depth-1 -> depth-4 reset)",
+            "bounded_onset_contradiction_verified": true,
+            "arbitrary_transient_surviving_quotient_classes_at_d4": 4,
+            "sample_surviving_symbolic_orcol_witness": [
+              0,
+              1,
+              1,
+              0,
+              1,
+              1
+            ],
+            "missing_state_coordinate_for_universal_closure": "spatial_bridge_depth_offset (T - d): near-center invariants lock columns -2..-5, while single-seed onset D0..D5 lies at column -T; closing arbitrary T > 5 requires either right-frontier absorption (proved for b>=9, 0^r 1, 0^r 101) or inductively propagating the depth-4 invariant across d -> d + 3 up to d = T."
+          },
+          {
+            "family_name": "FAMILY_100_DOUBLE_WHITE",
+            "representative_word": "001",
+            "lean_structural_theorem": "Rule30ProofClosure.orbit_110_and_100_depth4_onset_exclusion",
+            "verified_near_center_invariant": "cell(t+2, -4) = false (degree-0 quadratic cancellation at depth -4)",
+            "bounded_onset_contradiction_verified": true,
+            "arbitrary_transient_surviving_quotient_classes_at_d4": 7,
+            "sample_surviving_symbolic_orcol_witness": [
+              0,
+              0,
+              1,
+              0,
+              0,
+              1
+            ],
+            "missing_state_coordinate_for_universal_closure": "spatial_bridge_depth_offset (T - d): near-center invariants lock columns -2..-5, while single-seed onset D0..D5 lies at column -T; closing arbitrary T > 5 requires either right-frontier absorption (proved for b>=9, 0^r 1, 0^r 101) or inductively propagating the depth-4 invariant across d -> d + 3 up to d = T."
+          },
+          {
+            "family_name": "FAMILY_1010_ALTERNATING",
+            "representative_word": "10",
+            "lean_structural_theorem": "Rule30ProofClosure.orbit_1010_depth2_vertical_lock_and_onset_exclusion",
+            "verified_near_center_invariant": "cell(t, -2) = cell(t+1, -2) = !cell(t+1, -1) & cell(t, -5) = cell(t, -3)",
+            "bounded_onset_contradiction_verified": true,
+            "arbitrary_transient_surviving_quotient_classes_at_d4": 5,
+            "sample_surviving_symbolic_orcol_witness": [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0
+            ],
+            "missing_state_coordinate_for_universal_closure": "spatial_bridge_depth_offset (T - d): near-center invariants lock columns -2..-5, while single-seed onset D0..D5 lies at column -T; closing arbitrary T > 5 requires either right-frontier absorption (proved for b>=9, 0^r 1, 0^r 101) or inductively propagating the depth-4 invariant across d -> d + 3 up to d = T."
+          }
+        ],
         "countermodel_falsifier_checks": [
           {
             "abstraction_name": "SPATIAL_ONLY_GRAMMAR_WITHOUT_TEMPORAL_OFFSETS",
@@ -2380,53 +2438,39 @@
         "sample_reduction_trajectories": [
           [
             {
-              "state_id": "T1_w01_S0_INIT",
+              "state_id": "T1_w01_RAW_CONE",
               "transient_t": 1,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S0_INITIAL_COUNTEREXAMPLE",
+              "stage": "RAW_CONE_REPRESENTATION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 64,
-              "b_onset_depth": 6,
-              "c_phase_residual": 3,
-              "goodstein_ordinal_repr": "w^2*64 + w*6 + 3",
-              "reverse_topological_rank": 3,
-              "is_terminal_contradiction": false
-            },
-            {
-              "state_id": "T1_w01_S1_QUOTIENT",
-              "transient_t": 1,
-              "period_p": 2,
-              "word_label": "01",
-              "stage": "S1_UNAVOIDABLE_ORBIT_QUOTIENT_PULLBACK",
-              "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 5,
-              "b_onset_depth": 4,
-              "c_phase_residual": 2,
-              "goodstein_ordinal_repr": "w^2*5 + w*4 + 2",
+              "a_quotient_classes": 256,
+              "b_onset_depth": 3,
+              "c_phase_residual": 4,
+              "goodstein_ordinal_repr": "w^2*256 + w*3 + 4",
               "reverse_topological_rank": 2,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T1_w01_S2_ONSET",
+              "state_id": "T1_w01_QUOTIENT_W8",
               "transient_t": 1,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S2_SPATIOTEMPORAL_ONSET_REDUCTION",
+              "stage": "WORK_EQUIVALENCE_QUOTIENT",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 0,
-              "b_onset_depth": 1,
-              "c_phase_residual": 0,
-              "goodstein_ordinal_repr": "w^2*0 + w*1 + 0",
+              "a_quotient_classes": 8,
+              "b_onset_depth": 3,
+              "c_phase_residual": 4,
+              "goodstein_ordinal_repr": "w^2*8 + w*3 + 4",
               "reverse_topological_rank": 1,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T1_w01_S3_BOT",
+              "state_id": "T1_w01_ONSET_K2_W0",
               "transient_t": 1,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S3_TERMINAL_CONTRADICTION",
+              "stage": "DEPTH_K_ONSET_REDUCTION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
               "a_quotient_classes": 0,
               "b_onset_depth": 0,
@@ -2438,53 +2482,39 @@
           ],
           [
             {
-              "state_id": "T2_w01_S0_INIT",
+              "state_id": "T2_w01_RAW_CONE",
               "transient_t": 2,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S0_INITIAL_COUNTEREXAMPLE",
+              "stage": "RAW_CONE_REPRESENTATION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 64,
-              "b_onset_depth": 6,
-              "c_phase_residual": 3,
-              "goodstein_ordinal_repr": "w^2*64 + w*6 + 3",
-              "reverse_topological_rank": 3,
-              "is_terminal_contradiction": false
-            },
-            {
-              "state_id": "T2_w01_S1_QUOTIENT",
-              "transient_t": 2,
-              "period_p": 2,
-              "word_label": "01",
-              "stage": "S1_UNAVOIDABLE_ORBIT_QUOTIENT_PULLBACK",
-              "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 5,
-              "b_onset_depth": 4,
-              "c_phase_residual": 2,
-              "goodstein_ordinal_repr": "w^2*5 + w*4 + 2",
+              "a_quotient_classes": 256,
+              "b_onset_depth": 3,
+              "c_phase_residual": 4,
+              "goodstein_ordinal_repr": "w^2*256 + w*3 + 4",
               "reverse_topological_rank": 2,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T2_w01_S2_ONSET",
+              "state_id": "T2_w01_QUOTIENT_W8",
               "transient_t": 2,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S2_SPATIOTEMPORAL_ONSET_REDUCTION",
+              "stage": "WORK_EQUIVALENCE_QUOTIENT",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 0,
-              "b_onset_depth": 1,
-              "c_phase_residual": 0,
-              "goodstein_ordinal_repr": "w^2*0 + w*1 + 0",
+              "a_quotient_classes": 8,
+              "b_onset_depth": 3,
+              "c_phase_residual": 4,
+              "goodstein_ordinal_repr": "w^2*8 + w*3 + 4",
               "reverse_topological_rank": 1,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T2_w01_S3_BOT",
+              "state_id": "T2_w01_ONSET_K2_W0",
               "transient_t": 2,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S3_TERMINAL_CONTRADICTION",
+              "stage": "DEPTH_K_ONSET_REDUCTION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
               "a_quotient_classes": 0,
               "b_onset_depth": 0,
@@ -2496,53 +2526,39 @@
           ],
           [
             {
-              "state_id": "T3_w01_S0_INIT",
+              "state_id": "T3_w01_RAW_CONE",
               "transient_t": 3,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S0_INITIAL_COUNTEREXAMPLE",
+              "stage": "RAW_CONE_REPRESENTATION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 64,
-              "b_onset_depth": 6,
-              "c_phase_residual": 3,
-              "goodstein_ordinal_repr": "w^2*64 + w*6 + 3",
-              "reverse_topological_rank": 3,
-              "is_terminal_contradiction": false
-            },
-            {
-              "state_id": "T3_w01_S1_QUOTIENT",
-              "transient_t": 3,
-              "period_p": 2,
-              "word_label": "01",
-              "stage": "S1_UNAVOIDABLE_ORBIT_QUOTIENT_PULLBACK",
-              "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 5,
+              "a_quotient_classes": 512,
               "b_onset_depth": 4,
-              "c_phase_residual": 2,
-              "goodstein_ordinal_repr": "w^2*5 + w*4 + 2",
+              "c_phase_residual": 5,
+              "goodstein_ordinal_repr": "w^2*512 + w*4 + 5",
               "reverse_topological_rank": 2,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T3_w01_S2_ONSET",
+              "state_id": "T3_w01_QUOTIENT_W12",
               "transient_t": 3,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S2_SPATIOTEMPORAL_ONSET_REDUCTION",
+              "stage": "WORK_EQUIVALENCE_QUOTIENT",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 0,
-              "b_onset_depth": 1,
-              "c_phase_residual": 0,
-              "goodstein_ordinal_repr": "w^2*0 + w*1 + 0",
+              "a_quotient_classes": 12,
+              "b_onset_depth": 4,
+              "c_phase_residual": 5,
+              "goodstein_ordinal_repr": "w^2*12 + w*4 + 5",
               "reverse_topological_rank": 1,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T3_w01_S3_BOT",
+              "state_id": "T3_w01_ONSET_K3_W0",
               "transient_t": 3,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S3_TERMINAL_CONTRADICTION",
+              "stage": "DEPTH_K_ONSET_REDUCTION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
               "a_quotient_classes": 0,
               "b_onset_depth": 0,
@@ -2554,53 +2570,39 @@
           ],
           [
             {
-              "state_id": "T4_w01_S0_INIT",
+              "state_id": "T4_w01_RAW_CONE",
               "transient_t": 4,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S0_INITIAL_COUNTEREXAMPLE",
+              "stage": "RAW_CONE_REPRESENTATION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 64,
-              "b_onset_depth": 6,
-              "c_phase_residual": 3,
-              "goodstein_ordinal_repr": "w^2*64 + w*6 + 3",
-              "reverse_topological_rank": 3,
-              "is_terminal_contradiction": false
-            },
-            {
-              "state_id": "T4_w01_S1_QUOTIENT",
-              "transient_t": 4,
-              "period_p": 2,
-              "word_label": "01",
-              "stage": "S1_UNAVOIDABLE_ORBIT_QUOTIENT_PULLBACK",
-              "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 5,
-              "b_onset_depth": 4,
-              "c_phase_residual": 2,
-              "goodstein_ordinal_repr": "w^2*5 + w*4 + 2",
+              "a_quotient_classes": 1024,
+              "b_onset_depth": 5,
+              "c_phase_residual": 5,
+              "goodstein_ordinal_repr": "w^2*1024 + w*5 + 5",
               "reverse_topological_rank": 2,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T4_w01_S2_ONSET",
+              "state_id": "T4_w01_QUOTIENT_W12",
               "transient_t": 4,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S2_SPATIOTEMPORAL_ONSET_REDUCTION",
+              "stage": "WORK_EQUIVALENCE_QUOTIENT",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
-              "a_quotient_classes": 0,
-              "b_onset_depth": 1,
-              "c_phase_residual": 0,
-              "goodstein_ordinal_repr": "w^2*0 + w*1 + 0",
+              "a_quotient_classes": 12,
+              "b_onset_depth": 5,
+              "c_phase_residual": 5,
+              "goodstein_ordinal_repr": "w^2*12 + w*5 + 5",
               "reverse_topological_rank": 1,
               "is_terminal_contradiction": false
             },
             {
-              "state_id": "T4_w01_S3_BOT",
+              "state_id": "T4_w01_ONSET_K4_W0",
               "transient_t": 4,
               "period_p": 2,
               "word_label": "01",
-              "stage": "S3_TERMINAL_CONTRADICTION",
+              "stage": "DEPTH_K_ONSET_REDUCTION",
               "unavoidable_class": "U_REDUCIBLE_ORBIT_ALTERNATING_1010",
               "a_quotient_classes": 0,
               "b_onset_depth": 0,
@@ -3292,14 +3294,42 @@
     {
       "name": "Rule30ProofClosure.goodstein_four_color_well_founded_no_counterexample",
       "module": "Rule30PrizeClosure",
-      "classification": "EXACT",
-      "obligation_id": "M3",
+      "classification": "CONDITIONAL",
+      "obligation_id": "M5",
       "track": "Track A/B/C",
       "dependencies": [
-        "Rule30ProofClosure.forbidden_unavoidable_family_excludes_periodic_center"
+        "Rule30ProofClosure.forbidden_unavoidable_family_excludes_periodic_center",
+        "UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge"
       ],
-      "summary": "New in R30-UNAVOIDABLE-REDUCTION: proves by triple well-founded induction on the Goodstein rank w^2*a + w*b + c (GoodsteinRankLt) that any counterexample predicate A whose states either fall into InForbiddenUnavoidableFamily or admit a rank-decreasing reduction is identically empty (forall s, not A s).",
-      "source_attribution": "R30_UNAVOIDABLE_REDUCTION_NEW"
+      "summary": "Updated in R30-REDUCTION-SOUNDNESS-001 (Section 3 Audit): classified as CONDITIONAL on hStep (UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge); proves by triple well-founded induction on the Goodstein rank w^2*a + w*b + c (GoodsteinRankLt) that any counterexample predicate A whose states either fall into InForbiddenUnavoidableFamily or admit a rank-decreasing reduction is identically empty (forall s, not A s).",
+      "source_attribution": "R30_REDUCTION_SOUNDNESS_001_UPDATED"
+    },
+    {
+      "name": "Rule30ProofClosure.orbit_1010_depth2_vertical_lock_and_onset_exclusion",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.local_101_pattern_conserved_left_xor",
+        "Rule30ProofClosure.left_black_step_screened_forcing",
+        "Rule30ProofClosure.universal_column_onset_exact_6step"
+      ],
+      "summary": "New in R30-REDUCTION-SOUNDNESS-001 (Section 6 Family 1010): proves that (center t, ..., center (t+3)) = (1, 0, 1, 0) locks cell t (-2) = !cell (t+1) (-1) and cell (t+1) (-2) = !cell (t+1) (-1), forcing the tail-independent vertical equality cell t (-2) = cell (t+1) (-2) and refuting 1010 at BOTH onset phases t=3 and t=4 via universal_column_onset_exact_6step 2.",
+      "source_attribution": "R30_REDUCTION_SOUNDNESS_001_NEW"
+    },
+    {
+      "name": "Rule30ProofClosure.orbit_110_and_100_depth4_onset_exclusion",
+      "module": "Rule30LeftReconstruction",
+      "classification": "EXACT",
+      "obligation_id": "M3",
+      "track": "Track A/C",
+      "dependencies": [
+        "Rule30ProofClosure.spatiotemporal_001001_and_011011_depth4_constant_collapse",
+        "Rule30ProofClosure.universal_column_onset_exact_6step"
+      ],
+      "summary": "New in R30-REDUCTION-SOUNDNESS-001 (Section 6 Families 11 and 100): proves cell 7 (-4) = true, cell 8 (-4) = true, cell 9 (-4) = true from universal_column_onset_exact_6step 4 and combines it with spatiotemporal_001001_and_011011_depth4_constant_collapse to refute all 3 cyclic phases of 0010010 at t in {5, 6, 7} and all 3 cyclic phases of 0110110 at t in {6, 7, 8} without trajectory evaluation.",
+      "source_attribution": "R30_REDUCTION_SOUNDNESS_001_NEW"
     },
     {
       "name": "Rule30ProofClosure.spatial_transport_step_dichotomy",
@@ -3549,6 +3579,16 @@
       "dependencies": [],
       "summary": "Prove that a periodically driven single-seed return orbit cannot realize M pairwise distinct FutureWorkEquiv classes at linear horizon k = t1 + MP.",
       "source_attribution": "CAMPAIGN_REDUCTION"
+    },
+    {
+      "name": "UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge",
+      "module": "Rule30PrizeClosure",
+      "classification": "UNRESOLVED",
+      "obligation_id": "M4",
+      "track": "Track A/B/C",
+      "dependencies": [],
+      "summary": "Prove for arbitrary symbolic transient T >> d and period P >= 2 that each of the 3 unavoidable configurations (11, 100, 1010) forces the spatial bridge offset (T - d) to contract or fall into InForbiddenUnavoidableFamily (satisfying hStep in goodstein_four_color_well_founded_no_counterexample).",
+      "source_attribution": "R30_REDUCTION_SOUNDNESS_001_NEW"
     }
   ],
   "decoupling_counterexamples": [
@@ -3709,6 +3749,15 @@
       ],
       "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
     },
+    "conditional_goodstein_four_color_well_founded_reduction": {
+      "target": "Rule30ProofClosure.goodstein_four_color_well_founded_no_counterexample",
+      "accepted_as_unconditional_closure": false,
+      "non_exact_dependencies": [
+        "Rule30ProofClosure.goodstein_four_color_well_founded_no_counterexample (CONDITIONAL)",
+        "UNRESOLVED.M4_unavoidable_orbit_to_forbidden_or_reducible_bridge (UNRESOLVED)"
+      ],
+      "reason": "Rejected complete-closure claim: depends on CONDITIONAL/BOUNDED/UNRESOLVED premises."
+    },
     "exact_linear_reentry_bound": {
       "target": "Rule30ProofClosure.universal_linear_reentry_horizon_bound",
       "accepted_as_unconditional_closure": true,
@@ -3829,8 +3878,14 @@
       "non_exact_dependencies": [],
       "reason": "All transitive dependencies are EXACT."
     },
-    "exact_goodstein_four_color_well_founded_no_counterexample": {
-      "target": "Rule30ProofClosure.goodstein_four_color_well_founded_no_counterexample",
+    "exact_orbit_1010_depth2_vertical_lock_and_onset_exclusion": {
+      "target": "Rule30ProofClosure.orbit_1010_depth2_vertical_lock_and_onset_exclusion",
+      "accepted_as_unconditional_closure": true,
+      "non_exact_dependencies": [],
+      "reason": "All transitive dependencies are EXACT."
+    },
+    "exact_orbit_110_and_100_depth4_onset_exclusion": {
+      "target": "Rule30ProofClosure.orbit_110_and_100_depth4_onset_exclusion",
       "accepted_as_unconditional_closure": true,
       "non_exact_dependencies": [],
       "reason": "All transitive dependencies are EXACT."

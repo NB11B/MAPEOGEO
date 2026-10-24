@@ -1695,4 +1695,42 @@ theorem closure_goodstein_four_color_well_founded_no_counterexample
     ∀ s, ¬ A s :=
   goodstein_four_color_well_founded_no_counterexample A hPer hStep
 
+theorem closure_orbit_1010_depth2_vertical_lock_and_onset_exclusion (t : Nat) :
+    ((Rule30Prize.center t = true ∧
+      Rule30Prize.center (t + 1) = false ∧
+      Rule30Prize.center (t + 2) = true ∧
+      Rule30Prize.center (t + 3) = false) →
+      cell t (-2) = !cell (t + 1) (-1) ∧
+      cell (t + 1) (-2) = !cell (t + 1) (-1) ∧
+      cell t (-2) = cell (t + 1) (-2)) ∧
+    ¬ (Rule30Prize.center 3 = true ∧
+       Rule30Prize.center 4 = false ∧
+       Rule30Prize.center 5 = true ∧
+       Rule30Prize.center 6 = false) ∧
+    ¬ (Rule30Prize.center 4 = true ∧
+       Rule30Prize.center 5 = false ∧
+       Rule30Prize.center 6 = true ∧
+       Rule30Prize.center 7 = false) :=
+  orbit_1010_depth2_vertical_lock_and_onset_exclusion t
+
+theorem closure_orbit_110_and_100_depth4_onset_exclusion :
+    (cell 7 (-4) = true ∧ cell 8 (-4) = true ∧ cell 9 (-4) = true) ∧
+    (∀ t : Nat, (t = 5 ∨ t = 6 ∨ t = 7) →
+      ¬ (Rule30Prize.center t = false ∧
+         Rule30Prize.center (t + 1) = false ∧
+         Rule30Prize.center (t + 2) = true ∧
+         Rule30Prize.center (t + 3) = false ∧
+         Rule30Prize.center (t + 4) = false ∧
+         Rule30Prize.center (t + 5) = true ∧
+         Rule30Prize.center (t + 6) = false)) ∧
+    (∀ t : Nat, (t = 6 ∨ t = 7 ∨ t = 8) →
+      ¬ (Rule30Prize.center t = false ∧
+         Rule30Prize.center (t + 1) = true ∧
+         Rule30Prize.center (t + 2) = true ∧
+         Rule30Prize.center (t + 3) = false ∧
+         Rule30Prize.center (t + 4) = true ∧
+         Rule30Prize.center (t + 5) = true ∧
+         Rule30Prize.center (t + 6) = false)) :=
+  orbit_110_and_100_depth4_onset_exclusion
+
 end Rule30ProofClosure

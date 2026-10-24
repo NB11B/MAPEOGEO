@@ -135,17 +135,22 @@ def test_r30_transport_001_diagonal_ablation_and_spatial_transport():
         assert prof.single_seed_T3_in_admissible_left_variety is False
         assert prof.single_seed_T3_bilateral_compatible is False
 
-    # Deliverable 9: Goodstein-Four-Color Unavoidable Reduction Campaign (R30-UNAVOIDABLE-REDUCTION)
+    # Deliverable 9: Goodstein-Four-Color Unavoidable Reduction Campaign (R30-UNAVOIDABLE-REDUCTION + R30-REDUCTION-SOUNDNESS-001)
     unav_rep = run_unavoidable_reduction_campaign(
         max_word_period=6, reduction_transients=(1, 2, 3, 4), reduction_periods=(2, 3, 4)
     )
     assert unav_rep.mixed_words_tested_up_to_p6 == 114
     assert unav_rep.unavoidable_coverage_count == 114
     assert unav_rep.unavoidable_coverage_complete is True
+    assert unav_rep.work_equivalence_edges_count == 88
+    assert unav_rep.counterexample_reduction_edges_count == 95
     assert unav_rep.cyclic_scc_count == 0
     assert unav_rep.dag_acyclicity_verified is True
     assert unav_rep.all_edges_strict_goodstein_descent is True
+    assert unav_rep.all_witness_preservations_explicitly_verified is True
     assert unav_rep.all_hypotheses_reduced_to_contradiction is True
+    assert len(unav_rep.symbolic_family_audit_records) == 3
+    assert [r.arbitrary_transient_surviving_quotient_classes_at_d4 for r in unav_rep.symbolic_family_audit_records] == [4, 7, 5]
     assert all(fc.rejected_by_falsifier for fc in unav_rep.countermodel_falsifier_checks)
 
 
@@ -154,6 +159,6 @@ def test_formal_lean_modules_and_official_check_lean():
     assert ver.formal_files_clean_no_sorry_or_axiom is True
     assert ver.lean_compilation_succeeded is True
     assert ver.check_lean_verdict == "pass"
-    assert ver.headlines_verified == 54
-    assert ver.replayed_constants == 319
+    assert ver.headlines_verified == 56
+    assert ver.replayed_constants == 321
     assert ver.new_axioms == []
