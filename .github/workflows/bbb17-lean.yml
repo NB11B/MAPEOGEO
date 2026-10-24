@@ -26,4 +26,5 @@ jobs:
         run: |
           cd experiments/bbb17_lean
           lean -o BBB17.olean BBB17.lean
+          LEAN_PATH=. lean OperatorMacros.lean
           LEAN_PATH=. lean CollatzBridge.lean
