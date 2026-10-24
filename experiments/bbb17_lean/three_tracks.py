@@ -124,6 +124,51 @@ def compare_binary_vs_base7(max_r: int = 6) -> dict:
         "base7_lcm_7x2r_preserved": base7_lcm_preserved,
     }
 
+def parity_word_of(m: int, r: int) -> tuple[int, ...]:
+    bits = []
+    x = m
+    for _ in range(r):
+        bits.append(x % 2)
+        x = x // 2 if x % 2 == 0 else (3 * x + 1) // 2
+    return tuple(bits)
+
+def cylinder_cert(r: int, r0: int) -> bool:
+    D = 1 << r
+    m0 = r0 + D if r0 <= 1 else r0
+    bits = parity_word_of(r0, r)
+    A, B, D_w = affine_word(bits)
+    return r > 0 and r0 < D and D_w > A and (D_w - A) * m0 > B
+
+def adaptive_residue_tree(max_r: int = 8) -> dict:
+    """Build the COLLATZ-C6 adaptive residue refinement tree up to depth max_r."""
+    surviving = [0, 1]
+    levels = {}
+    for r in range(1, max_r + 1):
+        half = 1 << (r - 1)
+        candidates = sorted(
+            [x for s in surviving for x in (s, s + half)] if r > 1 else [0, 1]
+        )
+        discharged = []
+        next_surviving = []
+        contracting_exceptions = []
+        for r0 in candidates:
+            if cylinder_cert(r, r0):
+                discharged.append(r0)
+            else:
+                next_surviving.append(r0)
+                A, B, D = affine_word(parity_word_of(r0, r))
+                if D > A:
+                    contracting_exceptions.append(r0)
+        surviving = next_surviving
+        levels[r] = {
+            "modulus": 1 << r,
+            "newly_discharged": discharged,
+            "surviving_frontier": surviving,
+            "surviving_count": len(surviving),
+            "contracting_exceptions": contracting_exceptions,
+        }
+    return levels
+
 def run_campaign(max_start=10000, cap=10000, depth=8):
     kinds={}
     for n in range(1,max_start+1):
@@ -157,10 +202,12 @@ def run_campaign(max_start=10000, cap=10000, depth=8):
             if t.u+t.v > s.u+s.v: growth+=1
             checked+=1
     b7 = compare_binary_vs_base7(min(depth, 6))
+    c6 = adaptive_residue_tree(min(depth, 8))
     return {"starts":max_start,"orbit_results":kinds,
             "affine_valid_cases":matched,"geometry_cases":checked,
             "strict_S_growth_cases":growth,"cycle_classification":cycle_classes,
-            "binary_vs_base7":b7,"universal_claim":False}
+            "binary_vs_base7":b7,"c6_frontier_counts":{r: c6[r]["surviving_count"] for r in c6},
+            "universal_claim":False}
 
 if __name__=="__main__":
     import argparse,json

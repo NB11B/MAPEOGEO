@@ -1,7 +1,7 @@
 name: Collatz three-track falsification
 on:
   push:
-    branches: [research/collatz-three-tracks]
+    branches: [research/collatz-three-tracks, research/collatz-c6-adaptive-descent]
   pull_request:
     paths:
       - 'experiments/bbb17_lean/three_tracks.py'

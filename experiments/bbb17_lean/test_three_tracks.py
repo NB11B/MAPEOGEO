@@ -2,7 +2,7 @@ import unittest
 from three_tracks import (
     Phase,phase,accelerated,register_step,affine_word,actual_word,
     orbit,run_campaign,classify_word_cycle,verify_envelope_and_drawdown,
-    compare_binary_vs_base7,
+    compare_binary_vs_base7,adaptive_residue_tree,
 )
 class TestTracks(unittest.TestCase):
     def test_register(self):
@@ -45,6 +45,20 @@ class TestTracks(unittest.TestCase):
         self.assertEqual(b7["binary_2r_preserved"],b7["total_nonempty_valid"])
         self.assertEqual(b7["base7_unit_shift_preserved"],0)
         self.assertEqual(b7["base7_lcm_7x2r_preserved"],b7["total_nonempty_valid"])
+    def test_adaptive_residue_tree(self):
+        tree=adaptive_residue_tree(8)
+        self.assertEqual(tree[4]["newly_discharged"],[3])
+        self.assertEqual(tree[4]["surviving_frontier"],[7,11,15])
+        self.assertEqual(tree[5]["newly_discharged"],[11,23])
+        self.assertEqual(tree[5]["surviving_frontier"],[7,15,27,31])
+        self.assertEqual(tree[6]["newly_discharged"],[])
+        self.assertEqual(tree[6]["surviving_count"],8)
+        self.assertEqual(tree[7]["newly_discharged"],[7,15,59])
+        self.assertEqual(tree[7]["surviving_count"],13)
+        self.assertEqual(tree[8]["newly_discharged"],[39,79,95,123,175,199,219])
+        self.assertEqual(tree[8]["surviving_count"],19)
+        for r in range(1,9):
+            self.assertEqual(tree[r]["contracting_exceptions"],[])
     def test_orbit_cap(self):
         self.assertEqual(orbit(27,1)["kind"],"limit")
         self.assertEqual(orbit(27,200)["kind"],"reached_one")

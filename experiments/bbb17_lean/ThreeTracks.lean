@@ -1697,4 +1697,357 @@ theorem collatz_iff_mod32_frontier_descent :
                 omega
               exact hfront n hn1 hrem
 
+/-! #### Gate C5 Obstruction Analysis: Why Finite 2-Adic Sieves Cannot Close C5 Alone -/
+
+/-- Expanding-Word Strict Growth Theorem:
+    For EVERY parity word `w` in the expanding regime (`wordA w ≥ wordD w` with `wordB w > 0`)
+    and EVERY admissible integer `m` (`validParityWord m w`), the `|w|`-step output is
+    strictly larger than `m` (`applyParityWord m w > m`). -/
+theorem expanding_word_strict_growth (w : List Bool) (m : Nat)
+    (hv : validParityWord m w) (hge : wordA w ≥ wordD w) (hB : wordB w > 0) :
+    applyParityWord m w > m := by
+  have hid := parityWord_affine_identity w m hv
+  have hmul : wordD w * m ≤ wordA w * m := Nat.mul_le_mul_right m hge
+  by_cases hle : applyParityWord m w ≤ m
+  · have hout : wordD w * applyParityWord m w ≤ wordD w * m :=
+      Nat.mul_le_mul_left (wordD w) hle
+    omega
+  · omega
+
+/-- The all-odd parity word `replicate r true` of arbitrary length `r`. -/
+def allTrueWord (r : Nat) : List Bool :=
+  List.replicate r true
+
+theorem wordA_ge_wordD_allTrueWord (r : Nat) :
+    wordA (allTrueWord r) ≥ wordD (allTrueWord r) := by
+  induction r with
+  | zero =>
+    dsimp [allTrueWord, List.replicate, wordA, wordD]
+    omega
+  | succ r ih =>
+    dsimp [allTrueWord, List.replicate, wordA, wordD] at ih ⊢
+    omega
+
+theorem wordB_pos_allTrueWord (r : Nat) (hr : r > 0) :
+    wordB (allTrueWord r) > 0 := by
+  cases r with
+  | zero => omega
+  | succ r =>
+    dsimp [allTrueWord, List.replicate, wordB]
+    have hA := wordA_pos (List.replicate r true)
+    omega
+
+/-- Finite-Depth Sieve Obstruction Theorem:
+    At EVERY finite depth `r > 0`, the residue class `m ≡ wordResidue (allTrueWord r) (mod 2^r)`
+    (which equals `2^r - 1 (mod 2^r)`) is non-empty and EVERY integer `m` in this residue class
+    strictly grows after `r` accelerated steps (`applyParityWord m (allTrueWord r) > m`).
+    Consequently, no finite 2-adic modulus `2^r` can bound the stopping time across all residues. -/
+theorem allTrueWord_never_descends_at_depth (r q : Nat) (hr : r > 0) :
+    let w := allTrueWord r
+    let m := wordResidue w + q * wordD w
+    validParityWord m w ∧ applyParityWord m w > m := by
+  intro w m
+  have hv : validParityWord m w :=
+    (parityWord_residue_shift w (wordResidue w) q (wordResidue_valid w)).1
+  exact ⟨hv, expanding_word_strict_growth w m hv
+    (wordA_ge_wordD_allTrueWord r) (wordB_pos_allTrueWord r hr)⟩
+
+/-! ### COLLATZ-C6: Adaptive Residue Descent & Tree Well-Foundedness Analysis
+    1. Discharge of `n ≡ 19 (mod 32)` and reduction of the modulo-32 frontier to the
+       4 spectrally expanding classes `{7, 15, 27, 31} (mod 32)`.
+    2. Universal decidable cylinder descent certificate `cylinderCert` and its soundness
+       theorem `cylinderCert_sound`.
+    3. Adaptive refinement across moduli `64`, `128`, and `256`, discharging `237 / 256`
+       residue classes (`92.58%`) and reducing `CollatzConjecture` to the 19-class
+       expanding frontier modulo `256` (`collatz_iff_mod256_frontier_descent`).
+    4. Exact well-foundedness vs. 2-adic escape analysis: proving that while `allTrueWord r`
+       is an infinite expanding path in the 2-adic tree over `ℤ₂`, every natural number `n ∈ ℕ`
+       satisfies `2^r ∣ (n + 1)` along `allTrueWord r` and therefore exits the branch in
+       at most `n` steps (`every_nat_exits_allTrue_branch`).
+-/
+
+/-- Unconditional 8-step descent for all integers `n` with `n ≡ 19 (mod 32)`:
+    `32k + 19 → 96k + 58 → 48k + 29 → 144k + 88 → 72k + 44 → 36k + 22 → 18k + 11 → 54k + 34 → 27k + 17 < 32k + 19`. -/
+theorem collatz_descent_mod32_eq19 (n : Nat) (hmod : n % 32 = 19) :
+    iterateCollatz n 8 < n := by
+  change collatz (collatz (collatz (collatz (collatz (collatz (collatz (collatz n))))))) < n
+  have h1 : ¬(n % 2 = 0) := by omega
+  have h2 : (3 * n + 1) % 2 = 0 := by omega
+  have h3 : ¬(((3 * n + 1) / 2) % 2 = 0) := by omega
+  have h4 : (3 * ((3 * n + 1) / 2) + 1) % 2 = 0 := by omega
+  have h5 : (((3 * ((3 * n + 1) / 2) + 1) / 2)) % 2 = 0 := by omega
+  have h6 : ((((3 * ((3 * n + 1) / 2) + 1) / 2) / 2)) % 2 = 0 := by omega
+  have h7 : ¬(((((3 * ((3 * n + 1) / 2) + 1) / 2) / 2) / 2) % 2 = 0) := by omega
+  have h8 : (3 * (((((3 * ((3 * n + 1) / 2) + 1) / 2) / 2) / 2)) + 1) % 2 = 0 := by omega
+  unfold collatz
+  rw [if_neg h1, if_pos h2, if_neg h3, if_pos h4, if_pos h5, if_pos h6, if_neg h7, if_pos h8]
+  omega
+
+/-- Refined Modulo-32 Four-Class Frontier Theorem:
+    Discharging `19 (mod 32)` reduces `CollatzConjecture` to the 4 spectrally expanding
+    residue classes `n % 32 ∈ {7, 15, 27, 31}`. -/
+theorem collatz_iff_mod32_four_class_frontier :
+    CollatzConjecture ↔
+      (∀ n : Nat, n > 1 →
+        (n % 32 = 7 ∨ n % 32 = 15 ∨ n % 32 = 27 ∨ n % 32 = 31) →
+        ∃ k : Nat, k > 0 ∧ iterateCollatz n k < n) := by
+  rw [collatz_iff_mod32_frontier_descent]
+  constructor
+  · intro h n hn1 h4
+    rcases h4 with h7 | h15 | h27 | h31
+    · exact h n hn1 (Or.inl h7)
+    · exact h n hn1 (Or.inr (Or.inl h15))
+    · exact h n hn1 (Or.inr (Or.inr (Or.inr (Or.inl h27))))
+    · exact h n hn1 (Or.inr (Or.inr (Or.inr (Or.inr h31))))
+  · intro h4 n hn1 h5
+    rcases h5 with h7 | h15 | h19 | h27 | h31
+    · exact h4 n hn1 (Or.inl h7)
+    · exact h4 n hn1 (Or.inr (Or.inl h15))
+    · exact ⟨8, by omega, collatz_descent_mod32_eq19 n h19⟩
+    · exact h4 n hn1 (Or.inr (Or.inr (Or.inl h27)))
+    · exact h4 n hn1 (Or.inr (Or.inr (Or.inr h31)))
+
+/-- Minimum integer `> 1` in the residue class `r₀ (mod D)` for `r₀ < D`. -/
+def minClassRep (D r₀ : Nat) : Nat :=
+  if r₀ ≤ 1 then r₀ + D else r₀
+
+/-- Decidable certificate that every integer `n > 1` in the residue class `r₀ (mod 2^r)`
+    strictly descends after `r` accelerated steps. -/
+def cylinderCert (r r₀ : Nat) : Bool :=
+  let w := parityWordOf r r₀
+  let D := wordD w
+  let A := wordA w
+  let B := wordB w
+  let m₀ := minClassRep D r₀
+  decide (r > 0) && decide (r₀ < D) && decide (D > A) && decide ((D - A) * m₀ > B)
+
+theorem wordD_parityWordOf (r m : Nat) :
+    wordD (parityWordOf r m) = 2 ^ r := by
+  rw [wordD_eq_pow_two_length, parityWordOf_length]
+
+/-- Soundness of `cylinderCert`: if `cylinderCert r r₀ = true`, then every `n > 1`
+    with `n % 2^r = r₀` strictly descends in `k ≥ r > 0` standard `collatz` steps. -/
+theorem cylinderCert_sound (r r₀ n : Nat)
+    (hcert : cylinderCert r r₀ = true) (hn1 : n > 1) (hmod : n % (2 ^ r) = r₀) :
+    ∃ k : Nat, k > 0 ∧ iterateCollatz n k < n := by
+  unfold cylinderCert at hcert
+  simp only [Bool.and_eq_true, decide_eq_true_eq] at hcert
+  rcases hcert with ⟨⟨⟨hr, hr₀⟩, hgt⟩, hgap₀⟩
+  have hD_pow : wordD (parityWordOf r r₀) = 2 ^ r := wordD_parityWordOf r r₀
+  have hmod_w : n % wordD (parityWordOf r r₀) = r₀ := by rw [hD_pow]; exact hmod
+  obtain ⟨q, hq_eq⟩ : ∃ q : Nat, n = r₀ + q * wordD (parityWordOf r r₀) := by
+    refine ⟨n / wordD (parityWordOf r r₀), ?_⟩
+    have hdiv := Nat.mod_add_div n (wordD (parityWordOf r r₀))
+    have hcomm : wordD (parityWordOf r r₀) * (n / wordD (parityWordOf r r₀)) =
+        (n / wordD (parityWordOf r r₀)) * wordD (parityWordOf r r₀) := Nat.mul_comm _ _
+    omega
+  have hv_r₀ : validParityWord r₀ (parityWordOf r r₀) := parityWordOf_valid r r₀
+  have hv_n : validParityWord n (parityWordOf r r₀) := by
+    rw [hq_eq]
+    exact (parityWord_residue_shift (parityWordOf r r₀) r₀ q hv_r₀).1
+  have hn_ge : n ≥ minClassRep (wordD (parityWordOf r r₀)) r₀ := by
+    unfold minClassRep
+    by_cases hle1 : r₀ ≤ 1
+    · rw [if_pos hle1]
+      have hq_pos : q ≥ 1 := by
+        cases q with
+        | zero =>
+          rw [Nat.zero_mul, Nat.add_zero] at hq_eq
+          omega
+        | succ q' => omega
+      have hqD : q * wordD (parityWordOf r r₀) ≥ 1 * wordD (parityWordOf r r₀) :=
+        Nat.mul_le_mul_right (wordD (parityWordOf r r₀)) hq_pos
+      omega
+    · rw [if_neg hle1]
+      omega
+  have hgap_n : (wordD (parityWordOf r r₀) - wordA (parityWordOf r r₀)) * n >
+      wordB (parityWordOf r r₀) := by
+    have hmul : (wordD (parityWordOf r r₀) - wordA (parityWordOf r r₀)) *
+        minClassRep (wordD (parityWordOf r r₀)) r₀ ≤
+        (wordD (parityWordOf r r₀) - wordA (parityWordOf r r₀)) * n :=
+      Nat.mul_le_mul_left (wordD (parityWordOf r r₀) - wordA (parityWordOf r r₀)) hn_ge
+    omega
+  have hlt_w : applyParityWord n (parityWordOf r r₀) < n :=
+    (contracting_word_descent_iff (parityWordOf r r₀) n hv_n hgt).mpr hgap_n
+  have hw_eq : parityWordOf r n = parityWordOf r r₀ := by
+    have h := (validParityWord_iff_eq_parityWordOf (parityWordOf r r₀) n).mp hv_n
+    rw [parityWordOf_length r r₀] at h
+    exact h
+  have hacc_lt : iterateAccelerated n r < n := by
+    rw [← applyParityWord_parityWordOf r n, hw_eq]
+    exact hlt_w
+  rcases iterateAccelerated_to_iterateCollatz n r with ⟨k, hk, heq⟩
+  refine ⟨k, by omega, ?_⟩
+  omega
+
+/-- Multi-depth adaptive cylinder certificate up to depth 8 (`mod 256`). -/
+def dischargedByDepth8 (r₂₅₆ : Nat) : Bool :=
+  cylinderCert 1 (r₂₅₆ % 2) ||
+  cylinderCert 2 (r₂₅₆ % 4) ||
+  cylinderCert 3 (r₂₅₆ % 8) ||
+  cylinderCert 4 (r₂₅₆ % 16) ||
+  cylinderCert 5 (r₂₅₆ % 32) ||
+  cylinderCert 6 (r₂₅₆ % 64) ||
+  cylinderCert 7 (r₂₅₆ % 128) ||
+  cylinderCert 8 (r₂₅₆ % 256)
+
+/-- Soundness of `dischargedByDepth8`: any `n > 1` whose mod-256 residue satisfies
+    `dischargedByDepth8 (n % 256) = true` reaches a strictly smaller integer under `collatz`. -/
+theorem dischargedByDepth8_sound (n : Nat) (hn1 : n > 1)
+    (h : dischargedByDepth8 (n % 256) = true) :
+    ∃ k : Nat, k > 0 ∧ iterateCollatz n k < n := by
+  unfold dischargedByDepth8 at h
+  simp only [Bool.or_eq_true] at h
+  rcases h with ((((((h1 | h2) | h3) | h4) | h5) | h6) | h7) | h8
+  · exact cylinderCert_sound 1 ((n % 256) % 2) n h1 hn1 (by omega)
+  · exact cylinderCert_sound 2 ((n % 256) % 4) n h2 hn1 (by omega)
+  · exact cylinderCert_sound 3 ((n % 256) % 8) n h3 hn1 (by omega)
+  · exact cylinderCert_sound 4 ((n % 256) % 16) n h4 hn1 (by omega)
+  · exact cylinderCert_sound 5 ((n % 256) % 32) n h5 hn1 (by omega)
+  · exact cylinderCert_sound 6 ((n % 256) % 64) n h6 hn1 (by omega)
+  · exact cylinderCert_sound 7 ((n % 256) % 128) n h7 hn1 (by omega)
+  · exact cylinderCert_sound 8 ((n % 256) % 256) n h8 hn1 (by omega)
+
+/-- The 4 surviving expanding residue classes modulo 32 (depth 5). -/
+def frontier32 : List Nat := [7, 15, 27, 31]
+
+/-- The 8 surviving expanding residue classes modulo 64 (depth 6). -/
+def frontier64 : List Nat := [7, 15, 27, 31, 39, 47, 59, 63]
+
+/-- The 3 residue classes modulo 128 newly discharged at depth 7 (`2^7 = 128 > 81 = 3^4`). -/
+def discharged128 : List Nat := [7, 15, 59]
+
+/-- The 13 surviving expanding residue classes modulo 128 (depth 7). -/
+def frontier128 : List Nat := [27, 31, 39, 47, 63, 71, 79, 91, 95, 103, 111, 123, 127]
+
+/-- The 7 residue classes modulo 256 newly discharged at depth 8 (`2^8 = 256 > 243 = 3^5`). -/
+def discharged256 : List Nat := [39, 79, 95, 123, 175, 199, 219]
+
+/-- The 19 surviving expanding residue classes modulo 256 (depth 8). -/
+def frontier256 : List Nat :=
+  [27, 31, 47, 63, 71, 91, 103, 111, 127, 155, 159, 167, 191, 207, 223, 231, 239, 251, 255]
+
+/-- Kernel-checked verification of the newly discharged classes at depths 7 and 8,
+    and verification that all surviving frontier classes at depths 5, 6, 7, 8 are expanding. -/
+theorem adaptive_refinement_catalog_certified :
+    (discharged128.all (cylinderCert 7)) = true ∧
+    (discharged256.all (cylinderCert 8)) = true ∧
+    (frontier32.all (fun r₀ => decide (wordA (parityWordOf 5 r₀) > wordD (parityWordOf 5 r₀)))) = true ∧
+    (frontier64.all (fun r₀ => decide (wordA (parityWordOf 6 r₀) > wordD (parityWordOf 6 r₀)))) = true ∧
+    (frontier128.all (fun r₀ => decide (wordA (parityWordOf 7 r₀) > wordD (parityWordOf 7 r₀)))) = true ∧
+    (frontier256.all (fun r₀ => decide (wordA (parityWordOf 8 r₀) > wordD (parityWordOf 8 r₀)))) = true := by
+  decide
+
+/-- Kernel-checked partition of all 256 residue classes modulo 256 into the 237 discharged
+    classes (`dischargedByDepth8 r = true`) and the 19 surviving classes (`r ∈ frontier256`). -/
+theorem mod256_partition_certified :
+    ((List.range 256).all (fun r => dischargedByDepth8 r != frontier256.elem r)) = true ∧
+    frontier256.length = 19 := by
+  decide
+
+/-- Exhaustive modulo-256 coverage lemma: every residue `r < 256` either satisfies
+    `dischargedByDepth8 r = true` or belongs to `frontier256`. -/
+theorem mod256_discharged_or_in_frontier256 :
+    ((List.range 256).all (fun r => dischargedByDepth8 r || decide (r ∈ frontier256))) = true := by
+  decide
+
+/-- Exact Modulo-256 Frontier Reduction Theorem (COLLATZ-C6):
+    `CollatzConjecture` is logically equivalent to descent on the 19 surviving
+    expanding residue classes modulo 256 (`237 / 256 = 92.58%` unconditionally discharged). -/
+theorem collatz_iff_mod256_frontier_descent :
+    CollatzConjecture ↔
+      (∀ n : Nat, n > 1 → (n % 256) ∈ frontier256 →
+        ∃ k : Nat, k > 0 ∧ iterateCollatz n k < n) := by
+  rw [← universalCollatzDescent_iff_collatz]
+  constructor
+  · intro h n hn1 _
+    exact h n hn1
+  · intro hfront n hn1
+    have hlt : n % 256 < 256 := Nat.mod_lt n (by decide)
+    have hmem : (n % 256) ∈ List.range 256 := List.mem_range.mpr hlt
+    have hor : (dischargedByDepth8 (n % 256) || decide ((n % 256) ∈ frontier256)) = true :=
+      (List.all_eq_true.mp mod256_discharged_or_in_frontier256) (n % 256) hmem
+    rw [Bool.or_eq_true] at hor
+    rcases hor with hdisc | hfelem
+    · exact dischargedByDepth8_sound n hn1 hdisc
+    · exact hfront n hn1 (of_decide_eq_true hfelem)
+
+/-! #### C6 Well-Foundedness vs. 2-Adic Escape Analysis -/
+
+/-- Staircase Depth Obstruction: if a parity word `w` has `wordA w > 2 * wordD w`,
+    then even after appending an even step (`false :: w` or `w` extended by one step),
+    its multiplicative factor remains strictly greater than the doubled denominator `2 * wordD w`. -/
+theorem staircase_no_discharge_when_wordA_gt_two_wordD (w : List Bool)
+    (h : wordA w > 2 * wordD w) (b : Bool) :
+    wordA (b :: w) > wordD (b :: w) := by
+  cases b <;> dsimp [wordA, wordD] <;> omega
+
+/-- Exact 2-adic divisibility law for the infinite `allTrueWord` branch:
+    For every `r : Nat` and `n : Nat`, if `validParityWord n (allTrueWord r)` holds,
+    then `wordD (allTrueWord r) = 2^r` divides `n + 1` (`(n + 1) % wordD (allTrueWord r) = 0`). -/
+theorem validParityWord_allTrueWord_div (r : Nat) :
+    ∀ n : Nat, validParityWord n (allTrueWord r) →
+      (n + 1) % wordD (allTrueWord r) = 0 := by
+  induction r with
+  | zero =>
+    intro n _
+    dsimp [allTrueWord, List.replicate, wordD]
+    omega
+  | succ r ih =>
+    intro n hv
+    dsimp [allTrueWord, List.replicate, validParityWord] at hv
+    rcases hv with ⟨hp, htail⟩
+    dsimp [stepParityMatches] at hp
+    have hne0 : ¬(n % 2 = 0) := by omega
+    have hacc : acceleratedCollatz n = 3 * (n / 2) + 2 := by
+      unfold acceleratedCollatz
+      rw [if_neg hne0]
+      omega
+    rw [hacc] at htail
+    have hih := ih (3 * (n / 2) + 2) htail
+    have h3 : (3 * (n / 2 + 1)) % wordD (allTrueWord r) = 0 := by
+      have heq : 3 * (n / 2) + 2 + 1 = 3 * (n / 2 + 1) := by omega
+      rw [← heq]
+      exact hih
+    have hd := three_mul_mod_wordD_eq_zero (allTrueWord r) (n / 2 + 1) h3
+    dsimp [allTrueWord, List.replicate, wordD]
+    have hn1 : n + 1 = 2 * (n / 2 + 1) := by omega
+    rw [hn1, Nat.mul_mod_mul_left]
+    change 2 * ((n / 2 + 1) % wordD (allTrueWord r)) = 0
+    rw [hd]
+
+/-- Lower bound for integers remaining on `allTrueWord r`:
+    any `n : Nat` satisfying `validParityWord n (allTrueWord r)` must satisfy
+    `n + 1 ≥ wordD (allTrueWord r) = 2^r`. -/
+theorem validParityWord_allTrueWord_ge (r n : Nat)
+    (hv : validParityWord n (allTrueWord r)) :
+    n + 1 ≥ wordD (allTrueWord r) := by
+  have hmod := validParityWord_allTrueWord_div r n hv
+  by_cases hlt : n + 1 < wordD (allTrueWord r)
+  · have heq : (n + 1) % wordD (allTrueWord r) = n + 1 := Nat.mod_eq_of_lt hlt
+    omega
+  · omega
+
+/-- Exponential growth `wordD (allTrueWord r) > r` for all `r : Nat`. -/
+theorem wordD_allTrueWord_gt_self (r : Nat) :
+    wordD (allTrueWord r) > r := by
+  induction r with
+  | zero =>
+    dsimp [allTrueWord, List.replicate, wordD]
+    omega
+  | succ r ih =>
+    dsimp [allTrueWord, List.replicate, wordD] at ih ⊢
+    omega
+
+/-- Individual Escape Theorem from the Infinite 2-Adic Branch:
+    While `allTrueWord r` is an infinite unresolved branch in the 2-adic residue tree,
+    NO natural number `n ∈ ℕ` can remain on `allTrueWord (n + 1)`: every positive integer `n`
+    must exit the all-odd branch in at most `n` accelerated steps. -/
+theorem every_nat_exits_allTrue_branch (n : Nat) :
+    ¬ validParityWord n (allTrueWord (n + 1)) := by
+  intro hv
+  have hge := validParityWord_allTrueWord_ge (n + 1) n hv
+  have hgt := wordD_allTrueWord_gt_self (n + 1)
+  omega
+
 end BBB17
