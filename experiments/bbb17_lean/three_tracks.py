@@ -56,34 +56,111 @@ def actual_word(n: int,bits: tuple[int,...]) -> Optional[int]:
         n=accelerated(n)
     return n
 
+def classify_word_cycle(bits: tuple[int,...]) -> dict:
+    """Classify cycle admissibility of a parity word using exact Diophantine & cylinder gates."""
+    if not bits:
+        return {"status": "empty_identity", "candidate": None}
+    A, B, D = affine_word(bits)
+    if B == 0:
+        return {"status": "all_even_zero_fixed", "candidate": 0}
+    if A >= D:
+        return {"status": "rejected_expanding", "candidate": None}
+    gap = D - A
+    if B % gap != 0:
+        return {"status": "rejected_non_integer", "candidate": None}
+    m0 = B // gap
+    out = actual_word(m0, bits) if m0 >= 1 else None
+    if out != m0:
+        return {"status": "rejected_parity_mismatch", "candidate": m0}
+    if m0 in (1, 2):
+        return {"status": "trivial_one_two_cycle", "candidate": m0}
+    return {"status": "nontrivial_cycle", "candidate": m0}
+
+def verify_envelope_and_drawdown(u0: int, v0: int, max_steps: int = 32) -> dict:
+    """Verify S_t = max(S_0, u_1, ..., u_t) and v_t = S_t - u_t across positive-register steps."""
+    s = Phase(0, u0, v0)
+    s0 = u0 + v0
+    running_max = s0
+    steps = 0
+    exhaustions = 0
+    while s.u > 0 and steps < max_steps:
+        prev_s = s.u + s.v
+        s = phase(s)
+        steps += 1
+        running_max = max(running_max, s.u)
+        assert s.u + s.v == running_max, (u0, v0, steps, s, running_max)
+        assert s.v == running_max - s.u, (u0, v0, steps, s, running_max)
+        if s.u + s.v > prev_s:
+            exhaustions += 1
+    return {"steps": steps, "final_S": s.u + s.v, "exhaustions": exhaustions}
+
+def compare_binary_vs_base7(max_r: int = 6) -> dict:
+    """Test Base-7 shifts (+7 vs +7*2^r) against the certified 2^r binary parity filtration."""
+    binary_preserved = 0
+    base7_unit_preserved = 0
+    base7_lcm_preserved = 0
+    total_nonempty_valid = 0
+    for r in range(1, max_r + 1):
+        D = 1 << r
+        for word in range(D):
+            bits = tuple((word >> i) & 1 for i in range(r))
+            A, _, _ = affine_word(bits)
+            for m in range(1, D + 1):
+                out = actual_word(m, bits)
+                if out is not None:
+                    total_nonempty_valid += 1
+                    out_bin = actual_word(m + D, bits)
+                    if out_bin == out + A:
+                        binary_preserved += 1
+                    if actual_word(m + 7, bits) is not None:
+                        base7_unit_preserved += 1
+                    out_lcm = actual_word(m + 7 * D, bits)
+                    if out_lcm == out + 7 * A:
+                        base7_lcm_preserved += 1
+    return {
+        "total_nonempty_valid": total_nonempty_valid,
+        "binary_2r_preserved": binary_preserved,
+        "base7_unit_shift_preserved": base7_unit_preserved,
+        "base7_lcm_7x2r_preserved": base7_lcm_preserved,
+    }
+
 def run_campaign(max_start=10000, cap=10000, depth=8):
     kinds={}
     for n in range(1,max_start+1):
         k=orbit(n,cap)["kind"]; kinds[k]=kinds.get(k,0)+1
     words=0; matched=0
+    cycle_classes={}
     for r in range(depth+1):
         for word in range(1<<r):
             bits=tuple((word>>i)&1 for i in range(r))
             A,B,D=affine_word(bits)
+            if r >= 1:
+                cstatus = classify_word_cycle(bits)["status"]
+                cycle_classes[cstatus] = cycle_classes.get(cstatus, 0) + 1
             for n in range(1,min(max_start,128)+1):
                 out=actual_word(n,bits)
                 if out is not None:
                     words+=1
                     assert D*out==A*n+B,(bits,n,A,B,D,out)
                     matched+=1
-    # Geometry: S=u+v is unchanged on even-integer phases, nondecreasing on odd-integer phases.
+    # Geometry: S=u+v is unchanged on even-integer phases, nondecreasing on odd-integer phases,
+    # and satisfies S' = max(S, u') on all positive-register steps.
     checked=0; growth=0
     for u in range(1,128):
         for v in range(128):
             s=Phase(0,u,v); t=phase(s)
             assert t.beeps==0 and t.j==0
             assert t.u+ t.v >= s.u+s.v
+            assert t.u + t.v == max(s.u + s.v, t.u)
+            assert t.v == max(s.u + s.v, t.u) - t.u
             if u%2: assert t.u+t.v==s.u+s.v
             if t.u+t.v > s.u+s.v: growth+=1
             checked+=1
+    b7 = compare_binary_vs_base7(min(depth, 6))
     return {"starts":max_start,"orbit_results":kinds,
             "affine_valid_cases":matched,"geometry_cases":checked,
-            "strict_S_growth_cases":growth,"universal_claim":False}
+            "strict_S_growth_cases":growth,"cycle_classification":cycle_classes,
+            "binary_vs_base7":b7,"universal_claim":False}
 
 if __name__=="__main__":
     import argparse,json
