@@ -42,9 +42,9 @@ Both [`Rule30Core.lean`](Rule30Core.lean) (14 theorems) and [`MAPEOGEOFormal/Rul
 
 The initial regression in `test_suite.py` asserted `69` ANF monomials at $k=4$; exact Boolean Möbius computation gave `122`. The original failing run is preserved in [`test_results.txt`](test_results.txt), and the corrected passing run is preserved in [`test_results_corrected.txt`](test_results_corrected.txt).
 
-## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G5`)
+## Official Wolfram Rule 30 Prize Qualification (`R30-PRIZE-G0` through `G6`)
 
-[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 289, "ok": true}`, `"newAxioms": []`, **39/39** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
+[`Rule30Submission.lean`](Rule30Submission.lean) is compiled against official `Rule30PrizeKit` commit `cc1e0e0e7c1ae8c971aec5c14aaabb47c7b8c554` in `leanprover/lean4:v4.35.0` and verified by `Check.lean` (`"verdict": "pass"`, `"replay": {"constants": 350, "ok": true}`, `"newAxioms": []`, **51/51** headline theorems verified in [`check_verdict.json`](check_verdict.json)):
 
 ```bash
 # External reproduction against official Wolfram Rule30PrizeKit
@@ -93,7 +93,19 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   --headline Rule30Submission.g5_p2_white_black_cycle_discrepancy \
   --headline Rule30Submission.g5_p2_first_white_black_cycle_net_drift_plus_two \
   --headline Rule30Submission.g5_p3_evolPow2_eq_evol_pow2 \
-  --headline Rule30Submission.g5_p3_evolPow2_universal_left_sensitivity
+  --headline Rule30Submission.g5_p3_evolPow2_universal_left_sensitivity \
+  --headline Rule30Submission.g6_p1_one_black_step_from_overshoot_ge2 \
+  --headline Rule30Submission.g6_p1_one_black_step_from_z1 \
+  --headline Rule30Submission.g6_p1_cycle_return_map_0r1_early_lock \
+  --headline Rule30Submission.g6_p1_cycle_return_map_0r1_overshoot \
+  --headline Rule30Submission.g6_p1_modeADepth_two_is_fixed_point_of_0r1 \
+  --headline Rule30Submission.g6_p1_constant_onset_depth_excludes_white_black_period \
+  --headline Rule30Submission.g6_p1_no_periodic_0r1_from_outside_window \
+  --headline Rule30Submission.g6_p2_two_cycle_discrepancy_telescoping \
+  --headline Rule30Submission.g6_p2_periodic_cycle_linear_discrepancy_drift \
+  --headline Rule30Submission.g6_p2_locked_white_run_neighbor_black_window \
+  --headline Rule30Submission.g6_p3_evol_left_edge_xor_decomposition \
+  --headline Rule30Submission.g6_p3_evolPow2_left_linear_decomposition
 ```
 
 - **Gates G0–G2 (`run_g0_g2_prize_qualification`):** Audits 65 official catalog modules + 25 public submissions ([`g0_novelty_audit.json`](g0_novelty_audit.json)) and proves on `evolG` (`Rule30Realization.evol`) that Rule 30 uniquely reaches 3 depth-2 response classes (`xm2`, `!xm2`, `xor xm2 xm1`) and Mode A/B wavefront shielding, whereas all three `Rule30Realization` counterexample controls (`g90`, `g150`, and nonlinear `g210`) collapse to rank-1 (`g2_rule30_separates_controls_90_150_210`, `g210_origin_cancellation_evolG`, `e5_wavefront_separates_controls`).
@@ -106,4 +118,8 @@ LEAN_PATH="lean/.lake/build/lib/lean" lean --run Check.lean Rule30Submission --c
   - **Prize 1 (`G5-P1`):** Proves the white-run monus transition law `ModeADepth (w + r) (ℓ - r)` (`g5_p1_modeADepth_after_white_run`), clipped-depth observational equivalence `clipDepth ℓ (K + 1)` (`g5_p1_clipped_depth_observational_equivalence`), and the finite-state clipped-depth reduction of `Rule30Prize.Problem1` (`g5_p1_clipped_depth_alignment_implies_problem1`).
   - **Prize 2 (`G5-P2`):** Proves exact white-run (`-r`), black-run (`+b`), and full-cycle (`+(b - r)`) discrepancy shift formulas (`g5_p2_white_black_cycle_discrepancy`) and falsifies strict cycle-by-cycle cancellation (`g5_p2_first_white_black_cycle_net_drift_plus_two`).
   - **Prize 3 (`G5-P3`):** Formalizes the recursive operator-doubling hierarchy `evolPow2 d` ($T, T^2, T^4, T^8, \dots$), proves `evolPow2 d x p = evol x (2^d) p` (`g5_p3_evolPow2_eq_evol_pow2`) and universal left-edge sensitivity (`g5_p3_evolPow2_universal_left_sensitivity`), and demonstrates empirically that representation growth ($2^{2b+1}$ table entries and $3^b$ unmemoized tree calls vs. $b^2$ causal-diamond updates) eliminates naive logarithmic-depth doubling shortcuts.
+- **Gate G6 (`run_g6_prize_mechanism_qualification`):**
+  - **Prize 1 (`G6-P1`):** Establishes the complete white/black cycle return map on `ModeADepth` across 1-step black runs (`g6_p1_one_black_step_from_overshoot_ge2`, `g6_p1_one_black_step_from_z1`, `g6_p1_cycle_return_map_0r1_early_lock`, `g6_p1_cycle_return_map_0r1_overshoot`), proves that $\ell = 2$ (`ModeADepth · 2`) is an absorbing fixed point for every `0^r 1` cycle with $r \ge 10$ (`g6_p1_modeADepth_two_is_fixed_point_of_0r1`), proves that any `0^r 1^b` periodic trajectory with eventually constant onset depth is impossible (`g6_p1_constant_onset_depth_excludes_white_black_period`), and proves that no `0^r 1` trajectory ($r \ge 10$) can ever visit `[0, r - 8] ∪ [r + 1, ∞)` (`g6_p1_no_periodic_0r1_from_outside_window`).
+  - **Prize 2 (`G6-P2`):** Proves two-cycle and multi-cycle periodic discrepancy telescoping $\Delta(A + M(r+b)) = \Delta(A) + M(b - r)$ (`g6_p2_two_cycle_discrepancy_telescoping`, `g6_p2_periodic_cycle_linear_discrepancy_drift`) and proves that every locked white run forces simultaneous bilateral neighbor black runs of length $r - \ell - 1$ on columns $+1$ and $-1$ (`g6_p2_locked_white_run_neighbor_black_window`).
+  - **Prize 3 (`G6-P3`):** Proves the exact left-edge XOR linear decomposition `evol x t 0 = xor (x (-t)) (evol (setInputFalse x (-t)) t 0)` for all $t$ and all doubling scales `evolPow2 d` (`g6_p3_evol_left_edge_xor_decomposition`, `g6_p3_evolPow2_left_linear_decomposition`), and benchmarks shared pyramid DAG evaluation ($b^2$ `rule` gates vs. $(3^b-1)/2$ unmemoized tree gates) and canonical ROBDD decision-node growth ($5 \to 11 \to 53$ left-to-right; $4 \to 7 \to 28$ right-to-left).
 

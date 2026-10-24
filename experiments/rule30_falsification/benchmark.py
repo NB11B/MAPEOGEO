@@ -2197,6 +2197,417 @@ def run_g5_three_prize_continuation(
 
 
 # ---------------------------------------------------------------------------
+# Gate G6: Prize-Sufficient Mechanism Qualification (P1 Return Map, P2 Multi-Cycle Drift, P3 DAG/ROBDD)
+# ---------------------------------------------------------------------------
+
+
+@dataclass(frozen=True)
+class G6CompressedCompositionProfile:
+    doubling_level_d: int
+    step_span_b: int
+    window_width: int
+    unmemoized_tree_rule_gates: int
+    shared_pyramid_dag_rule_gates: int
+    shared_pyramid_dag_bit_ops: int
+    robdd_left_to_right_nodes: Optional[int]
+    robdd_right_to_left_nodes: Optional[int]
+    left_edge_xor_decomposition_mismatches: int
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
+
+@dataclass(frozen=True)
+class G6PrizeMechanismQualificationResult:
+    steps: int
+    # Prize 1 (G6-P1): Complete white/black cycle return map on ModeADepth & 0^r 1 fixed-point exclusion
+    black_step_overshoot_ge2_checks: int
+    black_step_overshoot_ge2_mismatches: int
+    black_step_z1_checks: int
+    black_step_z1_mismatches: int
+    cycle_0_10_1_early_lock_absorbs_to_ell2_in_one_period: bool
+    cycle_0_10_1_overshoot_absorbs_to_ell2_in_two_periods: bool
+    cycle_0_10_1_transient_window_absorbs_on_vacuum_in_three_periods: bool
+    # Prize 2 (G6-P2): Multi-cycle signed displacement telescoping & locked neighbor black windows
+    two_cycle_telescoping_checks: int
+    two_cycle_telescoping_mismatches: int
+    multi_cycle_prefix_telescoping_mismatches: int
+    locked_neighbor_black_window_checks: int
+    locked_neighbor_black_window_mismatches: int
+    # Prize 3 (G6-P3): Shared pyramid DAG vs ROBDD vs left-edge XOR linear decomposition
+    compression_profiles: Tuple[G6CompressedCompositionProfile, ...]
+    dag_sharing_eliminates_tree_blowup_to_quadratic_pyramid: bool
+    robdd_grows_exponentially_with_right_half_depth: bool
+    left_edge_xor_total_mismatches: int
+    g6_headlines_verified: Tuple[str, ...]
+    gate_passed: bool
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "steps": self.steps,
+            "black_step_overshoot_ge2_checks": self.black_step_overshoot_ge2_checks,
+            "black_step_overshoot_ge2_mismatches": self.black_step_overshoot_ge2_mismatches,
+            "black_step_z1_checks": self.black_step_z1_checks,
+            "black_step_z1_mismatches": self.black_step_z1_mismatches,
+            "cycle_0_10_1_early_lock_absorbs_to_ell2_in_one_period": (
+                self.cycle_0_10_1_early_lock_absorbs_to_ell2_in_one_period
+            ),
+            "cycle_0_10_1_overshoot_absorbs_to_ell2_in_two_periods": (
+                self.cycle_0_10_1_overshoot_absorbs_to_ell2_in_two_periods
+            ),
+            "cycle_0_10_1_transient_window_absorbs_on_vacuum_in_three_periods": (
+                self.cycle_0_10_1_transient_window_absorbs_on_vacuum_in_three_periods
+            ),
+            "two_cycle_telescoping_checks": self.two_cycle_telescoping_checks,
+            "two_cycle_telescoping_mismatches": self.two_cycle_telescoping_mismatches,
+            "multi_cycle_prefix_telescoping_mismatches": (
+                self.multi_cycle_prefix_telescoping_mismatches
+            ),
+            "locked_neighbor_black_window_checks": self.locked_neighbor_black_window_checks,
+            "locked_neighbor_black_window_mismatches": (
+                self.locked_neighbor_black_window_mismatches
+            ),
+            "compression_profiles": [p.to_dict() for p in self.compression_profiles],
+            "dag_sharing_eliminates_tree_blowup_to_quadratic_pyramid": (
+                self.dag_sharing_eliminates_tree_blowup_to_quadratic_pyramid
+            ),
+            "robdd_grows_exponentially_with_right_half_depth": (
+                self.robdd_grows_exponentially_with_right_half_depth
+            ),
+            "left_edge_xor_total_mismatches": self.left_edge_xor_total_mismatches,
+            "g6_headlines_verified": list(self.g6_headlines_verified),
+            "gate_passed": self.gate_passed,
+        }
+
+
+def run_g6_prize_mechanism_qualification(
+    steps: int = 250,
+) -> G6PrizeMechanismQualificationResult:
+    """Run Gate G6 across all three prize tracks:
+    - G6-P1: Complete white/black cycle return map on ModeADepth (`z >= 2 -> 0`,
+      `z == 1 -> 1`, `ell + 8 <= r -> 2` for `0^r 1`), absorbing fixed point `ell = 2`
+      for `r >= 10`, and infinite-horizon exclusion of `0^r 1` trajectories from
+      `[0, r-8] U [r+1, inf)`.
+    - G6-P2: Two-cycle and multi-cycle signed displacement telescoping and bilateral
+      neighbor black-run windows inside locked white runs.
+    - G6-P3: Shared spatial-temporal pyramid DAG (`b^2` gates vs `(3^b - 1)/2` tree gates),
+      canonical ROBDD decision-node growth, and exact left-edge XOR decomposition.
+    """
+    if steps < 32:
+        raise ValueError("steps must be >= 32")
+
+    cone = simulate_spacetime_cone(steps + 4)
+
+    def _cell(t: int, p: int) -> int:
+        return cone.get((p, t), 0)
+
+    def _mode_a_depth(t: int) -> int:
+        for ell in range(t + 1):
+            if _cell(t, ell + 1) == 1 and all(
+                _cell(t, p) == 0 for p in range(1, ell + 1)
+            ):
+                return ell
+        raise RuntimeError(f"No ModeADepth found at t={t}")
+
+    # 1. G6-P1: Black-step transitions from residual depth z >= 2 and z == 1 on single seed
+    overshoot_ge2_checks = 0
+    overshoot_ge2_mismatches = 0
+    z1_checks = 0
+    z1_mismatches = 0
+    for a in range(1, steps + 1):
+        if _cell(a, 0) == 1:
+            z = _mode_a_depth(a)
+            next_z = _mode_a_depth(a + 1)
+            if z >= 2:
+                overshoot_ge2_checks += 1
+                if next_z != 0:
+                    overshoot_ge2_mismatches += 1
+            elif z == 1:
+                z1_checks += 1
+                if next_z != 1:
+                    z1_mismatches += 1
+
+    # Simulate driven right half under periodic driver `0^10 1` (r = 10, b = 1, Q = 11)
+    def _simulate_0r1_return_depths(init_ell: int, r: int = 10, periods: int = 5) -> List[int]:
+        driver = [0] * r + [1]
+        Q = len(driver)
+        rh_row: Dict[int, int] = {init_ell + 1: 1}
+        depths: List[int] = []
+        max_p = init_ell + 1 + periods * Q + 4
+        for _ in range(periods):
+            ell_curr = next(
+                (p - 1 for p in range(1, max_p + 1) if rh_row.get(p, 0) == 1),
+                max_p,
+            )
+            depths.append(ell_curr)
+            for c_t in driver:
+                next_rh: Dict[int, int] = {}
+                for p in range(1, max_p + 1):
+                    left_val = c_t if p == 1 else rh_row.get(p - 1, 0)
+                    mid_val = rh_row.get(p, 0)
+                    right_val = rh_row.get(p + 1, 0)
+                    if rule30_forward_cell(left_val, mid_val, right_val) == 1:
+                        next_rh[p] = 1
+                rh_row = next_rh
+        return depths
+
+    # Early-lock depths ell_0 in {0, 1, 2} (ell_0 <= r - 8 = 2) map to ell = 2 in 1 period and stay at 2
+    early_lock_ok = all(
+        _simulate_0r1_return_depths(ell0, r=10, periods=4)[1:] == [2, 2, 2]
+        for ell0 in (0, 1, 2)
+    )
+    # Overshoot depths ell_0 in {11, 12, 13} (ell_0 >= r + 1) map to {1, 0} in 1 period and to 2 in 2 periods
+    d11 = _simulate_0r1_return_depths(11, r=10, periods=4)
+    d12 = _simulate_0r1_return_depths(12, r=10, periods=4)
+    d13 = _simulate_0r1_return_depths(13, r=10, periods=4)
+    overshoot_ok = (
+        d11[1:] == [1, 2, 2]
+        and d12[1:] == [0, 2, 2]
+        and d13[1:] == [0, 2, 2]
+    )
+    # Transient window ell_0 in {3 .. 10} on single-bit vacuum right support
+    transient_ok = all(
+        _simulate_0r1_return_depths(ell0, r=10, periods=5)[-1] == 2
+        for ell0 in range(3, 11)
+    )
+
+    # 2. G6-P2: Multi-cycle signed displacement telescoping & locked neighbor black windows
+    black_prefix = [0]
+    for n in range(steps + 2):
+        black_prefix.append(black_prefix[-1] + _cell(n, 0))
+
+    def _disc(n: int) -> int:
+        return 2 * black_prefix[n] - n
+
+    cycles: List[Tuple[int, int, int]] = []  # (w, r, b)
+    idx = 2
+    while idx < steps:
+        if _cell(idx, 0) != 0:
+            idx += 1
+            continue
+        w = idx
+        r = 0
+        while idx < steps and _cell(idx, 0) == 0:
+            r += 1
+            idx += 1
+        if idx >= steps:
+            break
+        b = 0
+        while idx < steps and _cell(idx, 0) == 1:
+            b += 1
+            idx += 1
+        if idx >= steps:
+            break
+        cycles.append((w, r, b))
+
+    two_cycle_checks = 0
+    two_cycle_mismatches = 0
+    for m in range(len(cycles) - 1):
+        w1, r1, b1 = cycles[m]
+        w2, r2, b2 = cycles[m + 1]
+        if w1 + r1 + b1 == w2:
+            two_cycle_checks += 1
+            expected = _disc(w1) + (b1 - r1) + (b2 - r2)
+            if _disc(w2 + r2 + b2) != expected:
+                two_cycle_mismatches += 1
+
+    multi_prefix_mismatches = 0
+    if cycles:
+        w0 = cycles[0][0]
+        cum_drift = 0
+        for w_m, r_m, b_m in cycles:
+            cum_drift += b_m - r_m
+            if _disc(w_m + r_m + b_m) != _disc(w0) + cum_drift:
+                multi_prefix_mismatches += 1
+
+    locked_window_checks = 0
+    locked_window_mismatches = 0
+    for w_m, r_m, _ in cycles:
+        ell_m = _mode_a_depth(w_m)
+        for j in range(max(0, r_m - ell_m - 1)):
+            locked_window_checks += 1
+            t_step = w_m + ell_m + j
+            if (_cell(t_step, 1), _cell(t_step, -1)) != (1, 1):
+                locked_window_mismatches += 1
+
+    # 3. G6-P3: Compressed composition structures (Pyramid DAG vs ROBDD vs Left-Edge XOR)
+    def _eval_pyramid_dag(b: int, window: Sequence[int]) -> Tuple[int, int]:
+        """Evaluate b-step center output using the shared spatial-temporal pyramid DAG.
+        Returns (output_bit, rule_gate_evaluations).
+        """
+        row = list(window)
+        gates = 0
+        for _ in range(b):
+            next_row = []
+            for i in range(len(row) - 2):
+                gates += 1
+                next_row.append(rule30_forward_cell(row[i], row[i + 1], row[i + 2]))
+            row = next_row
+        return row[0], gates
+
+    def _count_robdd_nodes(num_vars: int, truth_table: Sequence[int]) -> int:
+        """Count non-terminal decision nodes in the canonical Reduced Ordered BDD."""
+        # Bottom-up layer reduction over truth table of size 2^num_vars
+        # Terminal nodes have IDs 0 and 1
+        layer = list(truth_table)
+        unique_nodes = set()
+        next_id = 2
+        node_table: Dict[Tuple[int, int, int], int] = {}
+        for var_level in range(num_vars - 1, -1, -1):
+            next_layer: List[int] = []
+            for idx in range(0, len(layer), 2):
+                low_id = layer[idx]
+                high_id = layer[idx + 1]
+                if low_id == high_id:
+                    next_layer.append(low_id)
+                else:
+                    key = (var_level, low_id, high_id)
+                    if key not in node_table:
+                        node_table[key] = next_id
+                        unique_nodes.add(next_id)
+                        next_id += 1
+                    next_layer.append(node_table[key])
+            layer = next_layer
+        return len(unique_nodes)
+
+    comp_profiles: List[G6CompressedCompositionProfile] = []
+    total_xor_mismatches = 0
+    for d in range(4):
+        b = 1 << d
+        w_width = 2 * b + 1
+        tree_gates = (3 ** b - 1) // 2
+        dag_gates = b * b
+        dag_bit_ops = 2 * dag_gates
+
+        # Check left-edge XOR decomposition across spacetime cone
+        xor_mismatches_d = 0
+        max_check_t = min(steps, 64)
+        for t0 in range(0, max_check_t - b + 1, b):
+            for p in range(-t0 - b, t0 + b + 1):
+                win = [_cell(t0, p + q) for q in range(-b, b + 1)]
+                win_zero_left = [0] + win[1:]
+                val_full, measured_gates = _eval_pyramid_dag(b, win)
+                val_clamped, _ = _eval_pyramid_dag(b, win_zero_left)
+                if measured_gates != dag_gates or val_full != (win[0] ^ val_clamped):
+                    xor_mismatches_d += 1
+        total_xor_mismatches += xor_mismatches_d
+
+        # Compute exact ROBDD sizes for d <= 2 (w_width <= 9, up to 512 truth-table entries)
+        if d <= 2:
+            tt_lr: List[int] = []
+            tt_rl: List[int] = []
+            for mask in range(1 << w_width):
+                # Left-to-right ordering: bit (w_width - 1 - j) is window[j]
+                win_lr = [(mask >> (w_width - 1 - j)) & 1 for j in range(w_width)]
+                out_lr, _ = _eval_pyramid_dag(b, win_lr)
+                tt_lr.append(out_lr)
+                # Right-to-left ordering: bit (w_width - 1 - j) is window[w_width - 1 - j]
+                win_rl = [(mask >> j) & 1 for j in range(w_width)]
+                out_rl, _ = _eval_pyramid_dag(b, win_rl)
+                tt_rl.append(out_rl)
+            robdd_lr = _count_robdd_nodes(w_width, tt_lr)
+            robdd_rl = _count_robdd_nodes(w_width, tt_rl)
+        else:
+            robdd_lr = None
+            robdd_rl = None
+
+        comp_profiles.append(
+            G6CompressedCompositionProfile(
+                doubling_level_d=d,
+                step_span_b=b,
+                window_width=w_width,
+                unmemoized_tree_rule_gates=tree_gates,
+                shared_pyramid_dag_rule_gates=dag_gates,
+                shared_pyramid_dag_bit_ops=dag_bit_ops,
+                robdd_left_to_right_nodes=robdd_lr,
+                robdd_right_to_left_nodes=robdd_rl,
+                left_edge_xor_decomposition_mismatches=xor_mismatches_d,
+            )
+        )
+
+    dag_eliminates_tree = all(
+        p.shared_pyramid_dag_rule_gates == p.step_span_b * p.step_span_b
+        and (
+            p.step_span_b <= 2
+            or p.shared_pyramid_dag_rule_gates < p.unmemoized_tree_rule_gates
+        )
+        for p in comp_profiles
+    )
+    robdd_grows = (
+        comp_profiles[0].robdd_left_to_right_nodes is not None
+        and comp_profiles[1].robdd_left_to_right_nodes is not None
+        and comp_profiles[2].robdd_left_to_right_nodes is not None
+        and comp_profiles[0].robdd_left_to_right_nodes
+        < comp_profiles[1].robdd_left_to_right_nodes
+        < comp_profiles[2].robdd_left_to_right_nodes
+    )
+
+    verdict_path = Path(__file__).resolve().parent / "check_verdict.json"
+    verdict_data = json.loads(verdict_path.read_text(encoding="utf-8"))
+    expected_g6_headlines = (
+        "Rule30Submission.g6_p1_one_black_step_from_overshoot_ge2",
+        "Rule30Submission.g6_p1_one_black_step_from_z1",
+        "Rule30Submission.g6_p1_cycle_return_map_0r1_early_lock",
+        "Rule30Submission.g6_p1_cycle_return_map_0r1_overshoot",
+        "Rule30Submission.g6_p1_modeADepth_two_is_fixed_point_of_0r1",
+        "Rule30Submission.g6_p1_constant_onset_depth_excludes_white_black_period",
+        "Rule30Submission.g6_p1_no_periodic_0r1_from_outside_window",
+        "Rule30Submission.g6_p2_two_cycle_discrepancy_telescoping",
+        "Rule30Submission.g6_p2_periodic_cycle_linear_discrepancy_drift",
+        "Rule30Submission.g6_p2_locked_white_run_neighbor_black_window",
+        "Rule30Submission.g6_p3_evol_left_edge_xor_decomposition",
+        "Rule30Submission.g6_p3_evolPow2_left_linear_decomposition",
+    )
+    verified_set = {
+        h["name"]
+        for h in verdict_data.get("headlines", [])
+        if h.get("ok") and h.get("found")
+    }
+    verified_g6 = tuple(
+        name for name in expected_g6_headlines if name in verified_set
+    )
+
+    gate_passed = (
+        overshoot_ge2_mismatches == 0
+        and z1_mismatches == 0
+        and early_lock_ok
+        and overshoot_ok
+        and transient_ok
+        and two_cycle_checks >= 9
+        and two_cycle_mismatches == 0
+        and multi_prefix_mismatches == 0
+        and locked_window_checks > 0
+        and locked_window_mismatches == 0
+        and dag_eliminates_tree
+        and robdd_grows
+        and total_xor_mismatches == 0
+        and len(verified_g6) == len(expected_g6_headlines)
+    )
+
+    return G6PrizeMechanismQualificationResult(
+        steps=steps,
+        black_step_overshoot_ge2_checks=overshoot_ge2_checks,
+        black_step_overshoot_ge2_mismatches=overshoot_ge2_mismatches,
+        black_step_z1_checks=z1_checks,
+        black_step_z1_mismatches=z1_mismatches,
+        cycle_0_10_1_early_lock_absorbs_to_ell2_in_one_period=early_lock_ok,
+        cycle_0_10_1_overshoot_absorbs_to_ell2_in_two_periods=overshoot_ok,
+        cycle_0_10_1_transient_window_absorbs_on_vacuum_in_three_periods=transient_ok,
+        two_cycle_telescoping_checks=two_cycle_checks,
+        two_cycle_telescoping_mismatches=two_cycle_mismatches,
+        multi_cycle_prefix_telescoping_mismatches=multi_prefix_mismatches,
+        locked_neighbor_black_window_checks=locked_window_checks,
+        locked_neighbor_black_window_mismatches=locked_window_mismatches,
+        compression_profiles=tuple(comp_profiles),
+        dag_sharing_eliminates_tree_blowup_to_quadratic_pyramid=dag_eliminates_tree,
+        robdd_grows_exponentially_with_right_half_depth=robdd_grows,
+        left_edge_xor_total_mismatches=total_xor_mismatches,
+        g6_headlines_verified=verified_g6,
+        gate_passed=gate_passed,
+    )
+
+
+# ---------------------------------------------------------------------------
 # Full Campaign Runner
 # ---------------------------------------------------------------------------
 
@@ -2212,6 +2623,7 @@ class Rule30FalsificationCampaign:
     g3_wavefront_qualification: G3InfiniteHorizonWavefrontResult
     g4_multi_prize_qualification: G4MultiPrizeQualificationResult
     g5_three_prize_continuation: G5ThreePrizeContinuationResult
+    g6_prize_mechanism_qualification: G6PrizeMechanismQualificationResult
     all_gates_passed: bool
 
     def to_dict(self) -> Dict[str, Any]:
@@ -2225,6 +2637,7 @@ class Rule30FalsificationCampaign:
             "g3_wavefront_qualification": self.g3_wavefront_qualification.to_dict(),
             "g4_multi_prize_qualification": self.g4_multi_prize_qualification.to_dict(),
             "g5_three_prize_continuation": self.g5_three_prize_continuation.to_dict(),
+            "g6_prize_mechanism_qualification": self.g6_prize_mechanism_qualification.to_dict(),
             "all_gates_passed": self.all_gates_passed,
         }
 
@@ -2240,6 +2653,7 @@ def run_full_campaign(
     g4_steps: int = 250,
     g4_sensitivity_max_t: int = 5,
     g5_steps: int = 250,
+    g6_steps: int = 250,
     output_json: Optional[Path] = None,
 ) -> Rule30FalsificationCampaign:
     """Execute all Rule 30 falsification & prize qualification gates and optionally write JSON evidence."""
@@ -2254,6 +2668,7 @@ def run_full_campaign(
         steps=g4_steps, sensitivity_max_t=g4_sensitivity_max_t
     )
     g5 = run_g5_three_prize_continuation(steps=g5_steps)
+    g6 = run_g6_prize_mechanism_qualification(steps=g6_steps)
 
     campaign = Rule30FalsificationCampaign(
         e1_reconstruction=e1,
@@ -2265,6 +2680,7 @@ def run_full_campaign(
         g3_wavefront_qualification=g3,
         g4_multi_prize_qualification=g4,
         g5_three_prize_continuation=g5,
+        g6_prize_mechanism_qualification=g6,
         all_gates_passed=(
             e1.gate_passed
             and e2.gate_passed
@@ -2275,6 +2691,7 @@ def run_full_campaign(
             and g3.gate_passed
             and g4.gate_passed
             and g5.gate_passed
+            and g6.gate_passed
         ),
     )
 

@@ -11,6 +11,9 @@ from .benchmark import (
     G0G2PrizeQualificationResult,
     G2ControlRuleProfile,
     G3InfiniteHorizonWavefrontResult,
+    G4MultiPrizeQualificationResult,
+    G5ThreePrizeContinuationResult,
+    G6PrizeMechanismQualificationResult,
     Rule30FalsificationCampaign,
     apply_wavefront_quotient_operator,
     run_e1_exact_reconstruction,
@@ -21,6 +24,9 @@ from .benchmark import (
     run_full_campaign,
     run_g0_g2_prize_qualification,
     run_g3_infinite_horizon_wavefront,
+    run_g4_multi_prize_qualification,
+    run_g5_three_prize_continuation,
+    run_g6_prize_mechanism_qualification,
 )
 
 __all__ = [
@@ -34,6 +40,9 @@ __all__ = [
     "G0G2PrizeQualificationResult",
     "G2ControlRuleProfile",
     "G3InfiniteHorizonWavefrontResult",
+    "G4MultiPrizeQualificationResult",
+    "G5ThreePrizeContinuationResult",
+    "G6PrizeMechanismQualificationResult",
     "Rule30FalsificationCampaign",
     "apply_wavefront_quotient_operator",
     "run_e1_exact_reconstruction",
@@ -44,4 +53,7 @@ __all__ = [
     "run_full_campaign",
     "run_g0_g2_prize_qualification",
     "run_g3_infinite_horizon_wavefront",
+    "run_g4_multi_prize_qualification",
+    "run_g5_three_prize_continuation",
+    "run_g6_prize_mechanism_qualification",
 ]

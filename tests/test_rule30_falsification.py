@@ -26,6 +26,7 @@ from experiments.rule30_falsification.benchmark import (
     run_g3_infinite_horizon_wavefront,
     run_g4_multi_prize_qualification,
     run_g5_three_prize_continuation,
+    run_g6_prize_mechanism_qualification,
     sideways_left_iterated,
     sideways_left_step,
     simulate_spacetime_cone,
@@ -288,7 +289,7 @@ def test_g0_g2_prize_qualification_and_official_check_lean() -> None:
     assert res.check_lean_verdict_pass is True
     assert res.check_lean_replay_ok is True
     assert res.check_lean_new_axioms_empty is True
-    assert len(res.check_lean_verified_headlines) == 39
+    assert len(res.check_lean_verified_headlines) == 51
 
     by_name = {p.rule_name: p for p in res.control_profiles}
     assert list(by_name["g90"].point_quotient_sizes) == [2, 2, 2, 2, 2]
@@ -367,6 +368,28 @@ def test_g5_three_prize_continuation() -> None:
     assert [lvl.anf_degree for lvl in g5.doubling_hierarchy] == [2, 3, 7, 15]
     assert g5.representation_growth_eliminates_naive_shortcut is True
     assert len(g5.g5_headlines_verified) == 9
+
+
+def test_g6_prize_mechanism_qualification() -> None:
+    """Verify Gate G6: P1 cycle return map & 0^r 1 fixed-point exclusion, P2 multi-cycle drift, P3 DAG/ROBDD."""
+    g6 = run_g6_prize_mechanism_qualification(steps=180)
+    assert g6.gate_passed is True
+    assert g6.black_step_overshoot_ge2_mismatches == 0
+    assert g6.black_step_z1_mismatches == 0
+    assert g6.cycle_0_10_1_early_lock_absorbs_to_ell2_in_one_period is True
+    assert g6.cycle_0_10_1_overshoot_absorbs_to_ell2_in_two_periods is True
+    assert g6.cycle_0_10_1_transient_window_absorbs_on_vacuum_in_three_periods is True
+    assert g6.two_cycle_telescoping_mismatches == 0
+    assert g6.multi_cycle_prefix_telescoping_mismatches == 0
+    assert g6.locked_neighbor_black_window_checks > 0
+    assert g6.locked_neighbor_black_window_mismatches == 0
+    assert [p.unmemoized_tree_rule_gates for p in g6.compression_profiles] == [1, 4, 40, 3280]
+    assert [p.shared_pyramid_dag_rule_gates for p in g6.compression_profiles] == [1, 4, 16, 64]
+    assert g6.dag_sharing_eliminates_tree_blowup_to_quadratic_pyramid is True
+    assert g6.robdd_grows_exponentially_with_right_half_depth is True
+    assert g6.left_edge_xor_total_mismatches == 0
+    assert len(g6.g6_headlines_verified) == 12
+
 
 
 

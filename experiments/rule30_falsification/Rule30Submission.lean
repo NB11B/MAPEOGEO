@@ -1432,4 +1432,417 @@ theorem g5_p3_evolPow2_universal_left_sensitivity (d : Nat) (x : Int → Bool) :
   rw [g5_p3_evolPow2_eq_evol_pow2, g5_p3_evolPow2_eq_evol_pow2]
   exact g4_p3_center_universal_left_sensitivity x (2 ^ d)
 
+/-!
+## 11. Gate `G6-P1`: Complete White/Black Cycle Return Map on `ModeADepth` & Exclusion of `0^r 1` Fixed-Point Cycles
+
+We extend the `G5-P1` white-run transition law (`ModeADepth w ℓ → ModeADepth (w + r) (ℓ - r)`)
+across black runs to establish the complete white/black cycle return map on `ModeADepth`:
+1. `g6_p1_one_black_step_from_overshoot_ge2`: if a white run ends with residual depth `z ≥ 2`
+   (`ModeADepth a z` with `2 ≤ z`), a single black step (`cell a 0 = true`) immediately resets
+   the boundary depth to `0` (`ModeADepth (a + 1) 0`).
+2. `g6_p1_one_black_step_from_z1`: if a white run ends with residual depth `z = 1`
+   (`ModeADepth a 1`), a single black step (`cell a 0 = true`) preserves depth `1`
+   (`ModeADepth (a + 1) 1`).
+3. `g6_p1_cycle_return_map_0r1_early_lock`: for a white run of length `r ≥ 8` followed by a
+   single black step (`0^r 1`), every starting depth `ℓ` with `ℓ + 8 ≤ r` maps at the next
+   white onset `w + r + 1` to `ModeADepth (w + r + 1) 2` (`ℓ_next = 2`).
+4. `g6_p1_modeADepth_two_is_fixed_point_of_0r1`: for every `r ≥ 10`, `ModeADepth · 2` (`ℓ = 2`)
+   is an absorbing fixed point of the `0^r 1` cycle return map (`2 + 8 ≤ r`), and every
+   initial depth `ℓ ∈ [0, r - 8] ∪ [r + 1, ∞)` is absorbed into `ℓ = 2` within at most `2` cycles.
+5. `g6_p1_constant_onset_depth_excludes_white_black_period` and
+   `g6_p1_no_periodic_0r1_from_outside_window`: any periodic `0^r 1^b` trajectory whose white-onset
+   depths stabilize is unconditionally impossible (`False`) by `orCol_not_eventuallyPeriodic 0`,
+   which excludes every `0^r 1` trajectory (`r ≥ 10`) that ever visits `[0, r - 8] ∪ [r + 1, ∞)`.
+-/
+
+/-- **G6-P1 Black-Step Reset from Residual Depth `z ≥ 2`
+    (`g6_p1_one_black_step_from_overshoot_ge2`)**:
+    If `ModeADepth a z` holds with `2 ≤ z` at a black center step (`cell a 0 = true`),
+    then `cell a 1 = false` and `cell a 2 = false`, so at step `a + 1` column `1` turns black
+    (`rule true false false = true`), resetting the boundary to `ModeADepth (a + 1) 0`. -/
+theorem g6_p1_one_black_step_from_overshoot_ge2 (a z : Nat)
+    (hM : ModeADepth a z)
+    (hz : 2 ≤ z)
+    (hb : cell a 0 = true) :
+    ModeADepth (a + 1) 0 := by
+  refine ⟨fun p hp1 hp2 => by omega, ?_⟩
+  have h1 : cell a 1 = false := by
+    simpa using hM.1 1 (by omega) (by omega)
+  have h2 : cell a 2 = false := by
+    simpa using hM.1 2 (by omega) (by omega)
+  show rule (cell a (1 - 1)) (cell a 1) (cell a (1 + 1)) = true
+  rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb, h1, h2]
+  rfl
+
+/-- **G6-P1 Black-Step Preservation of Residual Depth `z = 1`
+    (`g6_p1_one_black_step_from_z1`)**:
+    If `ModeADepth a 1` holds (`cell a 1 = false ∧ cell a 2 = true`) at a black center step
+    (`cell a 0 = true`), then at step `a + 1`:
+    - `cell (a + 1) 1 = rule true false true = false`, and
+    - `cell (a + 1) 2 = rule false true (cell a 3) = true`,
+    preserving `ModeADepth (a + 1) 1`. -/
+theorem g6_p1_one_black_step_from_z1 (a : Nat)
+    (hM : ModeADepth a 1)
+    (hb : cell a 0 = true) :
+    ModeADepth (a + 1) 1 := by
+  have h1 : cell a 1 = false := by
+    simpa using hM.1 1 (Nat.le_refl 1) (Nat.le_refl 1)
+  have h2 : cell a 2 = true := by
+    simpa using hM.2
+  refine ⟨fun p hp1 hp2 => ?_, ?_⟩
+  · have hp : p = 1 := by omega
+    subst hp
+    show rule (cell a (1 - 1)) (cell a 1) (cell a (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb, h1, h2]
+    rfl
+  · show rule (cell a (2 - 1)) (cell a 2) (cell a (2 + 1)) = true
+    rw [show (2 : Int) - 1 = 1 by rfl, show (2 : Int) + 1 = 3 by rfl, h1, h2]
+    cases cell a 3 <;> rfl
+
+/-- **G6-P1 Complete Cycle Return Map for `0^r 1` on Early-Lock Depths `ℓ + 8 ≤ r`
+    (`g6_p1_cycle_return_map_0r1_early_lock`)**:
+    If `ModeADepth w ℓ` holds with `ℓ + 8 ≤ r`, followed by `r` white center steps
+    (`∀ i < r, cell (w + i) 0 = false`) and one black center step (`cell (w + r) 0 = true`),
+    then:
+    1. Column `1` locks to black from `w + ℓ` through `w + r` (at least `9` consecutive steps,
+       covering `w + r - 8 .. w + r`).
+    2. By `nine_black` applied to column `1`, at step `w + r + 1` columns `(2, 3)` are `(false, true)`.
+    3. At step `w + r + 1`, column `1` is `rule (cell (w + r) 0) (cell (w + r) 1) (cell (w + r) 2) = rule true true _ = false`.
+    Consequently, the next cycle starts in `ModeADepth (w + r + 1) 2` (`ℓ_next = 2`). -/
+theorem g6_p1_cycle_return_map_0r1_early_lock (w r ℓ : Nat)
+    (hM : ModeADepth w ℓ)
+    (hlr : ℓ + 8 ≤ r)
+    (hw : ∀ i, i < r → cell (w + i) 0 = false)
+    (hb : cell (w + r) 0 = true) :
+    ModeADepth (w + r + 1) 2 := by
+  have hfront : cell (w + ℓ) 1 = true := by
+    have hf := (front_moves w ℓ r hw hM.1 hM.2 ℓ (by omega) (Nat.le_refl ℓ)).2
+    rwa [show ℓ - ℓ + 1 = 1 by omega] at hf
+  have hstay : ∀ j, j ≤ r - ℓ → cell (w + ℓ + j) 1 = true := by
+    intro j hj
+    exact black_stays (w + ℓ) (r - ℓ) (fun s hs => by
+      have := hw (ℓ + s) (by omega)
+      rwa [show w + (ℓ + s) = w + ℓ + s by omega] at this) hfront j hj
+  have h9 : ∀ s, s < 9 → cell (w + r - 8 + s) 1 = true := by
+    intro s hs
+    have hst := hstay (r - 8 - ℓ + s) (by omega)
+    rwa [show w + ℓ + (r - 8 - ℓ + s) = w + r - 8 + s by omega] at hst
+  have hnine := nine_black (w + r - 8) 1 h9
+  rw [show w + r - 8 + 9 = w + r + 1 by omega,
+    show (1 : Int) + 1 = 2 by rfl, show (1 : Int) + 2 = 3 by rfl] at hnine
+  have h1_wr : cell (w + r) 1 = true := by
+    have hst := hstay (r - ℓ) (Nat.le_refl _)
+    rwa [show w + ℓ + (r - ℓ) = w + r by omega] at hst
+  have h1_next : cell (w + r + 1) 1 = false := by
+    show rule (cell (w + r) (1 - 1)) (cell (w + r) 1) (cell (w + r) (1 + 1)) = false
+    rw [show (1 : Int) - 1 = 0 by rfl, show (1 : Int) + 1 = 2 by rfl, hb, h1_wr]
+    cases cell (w + r) 2 <;> rfl
+  refine ⟨fun p hp1 hp2 => ?_, by simpa using hnine.2⟩
+  by_cases hp : p = 1
+  · subst hp; simpa using h1_next
+  · have hp2' : p = 2 := by omega
+    subst hp2'; simpa using hnine.1
+
+/-- **G6-P1 Complete Cycle Return Map for `0^r 1` on Overshoot Depths `ℓ ≥ r + 1`
+    (`g6_p1_cycle_return_map_0r1_overshoot`)**:
+    Across a `0^r 1` cycle (`r` white steps followed by `1` black step):
+    - If `ℓ = r + 1`, `ModeADepth w (r + 1)` maps to `ModeADepth (w + r + 1) 1`.
+    - If `ℓ ≥ r + 2`, `ModeADepth w ℓ` maps to `ModeADepth (w + r + 1) 0`. -/
+theorem g6_p1_cycle_return_map_0r1_overshoot (w r ℓ : Nat)
+    (hM : ModeADepth w ℓ)
+    (hw : ∀ i, i < r → cell (w + i) 0 = false)
+    (hb : cell (w + r) 0 = true) :
+    (ℓ = r + 1 → ModeADepth (w + r + 1) 1) ∧
+    (r + 2 ≤ ℓ → ModeADepth (w + r + 1) 0) := by
+  have hafter := g5_p1_modeADepth_after_white_run w r ℓ hM hw
+  refine ⟨fun h1 => ?_, fun h2 => ?_⟩
+  · rw [show ℓ - r = 1 by omega] at hafter
+    exact g6_p1_one_black_step_from_z1 (w + r) hafter hb
+  · exact g6_p1_one_black_step_from_overshoot_ge2 (w + r) (ℓ - r) hafter (by omega) hb
+
+/-- **G6-P1 Absorbing Fixed-Point Theorem for `0^r 1` Cycles (`r ≥ 10`)
+    (`g6_p1_modeADepth_two_is_fixed_point_of_0r1`)**:
+    Whenever `r ≥ 10`, `ModeADepth · 2` (`ℓ = 2`) is an exact fixed point of every `0^r 1`
+    cycle (`ModeADepth w 2 → ModeADepth (w + r + 1) 2`), because `2 + 8 ≤ r`. -/
+theorem g6_p1_modeADepth_two_is_fixed_point_of_0r1 (w r : Nat)
+    (hr : 10 ≤ r)
+    (hM : ModeADepth w 2)
+    (hw : ∀ i, i < r → cell (w + i) 0 = false)
+    (hb : cell (w + r) 0 = true) :
+    ModeADepth (w + r + 1) 2 :=
+  g6_p1_cycle_return_map_0r1_early_lock w r 2 hM (by omega) hw hb
+
+/-- **G6-P1 Constant Onset Depth Excludes Any Periodic `0^r 1^b` Trajectory
+    (`g6_p1_constant_onset_depth_excludes_white_black_period`)**:
+    For any white-run length `r ≥ 1` and black-run length `b ≥ 1` (period `Q = r + b`),
+    if a periodic `0^r 1^b` center trajectory starting at `A` ever stabilizes to a constant
+    onset depth `ℓ_star` (`∀ k, ModeADepth (A + k * (r + b)) ℓ_star`), then `orCol 0` is eventually
+    periodic with period `r + b`, contradicting `orCol_not_eventuallyPeriodic 0`. -/
+theorem g6_p1_constant_onset_depth_excludes_white_black_period (A r b ℓ_star : Nat)
+    (hr : 1 ≤ r)
+    (hb_pos : 1 ≤ b)
+    (hw : ∀ k i, i < r → cell (A + k * (r + b) + i) 0 = false)
+    (hb : ∀ k j, j < b → cell (A + k * (r + b) + r + j) 0 = true)
+    (hM : ∀ k, ModeADepth (A + k * (r + b)) ℓ_star) :
+    False := by
+  have hQ : 0 < r + b := by omega
+  have hcell : ∀ t, A ≤ t → cell t 0 =
+      !decide ((t - A) % (r + b) < r) := by
+    intro t ht
+    have hdiv : A + (t - A) / (r + b) * (r + b) + (t - A) % (r + b) = t := by
+      have := Nat.div_add_mod (t - A) (r + b)
+      rw [Nat.mul_comm] at this
+      omega
+    have hrem : (t - A) % (r + b) < r + b := Nat.mod_lt (t - A) hQ
+    by_cases hlt : (t - A) % (r + b) < r
+    · have hw' := hw ((t - A) / (r + b)) ((t - A) % (r + b)) hlt
+      rw [hdiv] at hw'
+      simp [hw', hlt]
+    · have hj : (t - A) % (r + b) - r < b := by omega
+      have hb' := hb ((t - A) / (r + b)) ((t - A) % (r + b) - r) hj
+      rw [show A + (t - A) / (r + b) * (r + b) + r + ((t - A) % (r + b) - r) =
+        A + (t - A) / (r + b) * (r + b) + (t - A) % (r + b) by omega, hdiv] at hb'
+      simp [hb', hlt]
+  have hper0 : EventuallyPeriodic (fun t => cell t 0) := by
+    refine ⟨A, r + b, hQ, fun t ht => ?_⟩
+    show cell (t + (r + b)) 0 = cell t 0
+    rw [hcell (t + (r + b)) (by omega), hcell t ht,
+      show t + (r + b) - A = (t - A) + (r + b) by omega, Nat.add_mod_right]
+  have hor_form : ∀ t, A ≤ t → orCol 0 t =
+      (if (t - A) % (r + b) < r then decide (ℓ_star ≤ (t - A) % (r + b)) else true) := by
+    intro t ht
+    have hdiv : A + (t - A) / (r + b) * (r + b) + (t - A) % (r + b) = t := by
+      have := Nat.div_add_mod (t - A) (r + b)
+      rw [Nat.mul_comm] at this
+      omega
+    have hrem : (t - A) % (r + b) < r + b := Nat.mod_lt (t - A) hQ
+    by_cases hlt : (t - A) % (r + b) < r
+    · have hw' := hw ((t - A) / (r + b)) ((t - A) % (r + b)) hlt
+      have hlock := g4_p1_modeADepth_white_run_lock ℓ_star ((t - A) % (r + b))
+        (A + (t - A) / (r + b) * (r + b)) (hM ((t - A) / (r + b)))
+        (fun j hj => hw ((t - A) / (r + b)) j (by omega))
+      rw [hdiv] at hw' hlock
+      unfold orCol
+      rw [hw', Bool.false_or, Int.zero_add, hlock]
+      simp [hlt]
+    · have hj : (t - A) % (r + b) - r < b := by omega
+      have hb' := hb ((t - A) / (r + b)) ((t - A) % (r + b) - r) hj
+      rw [show A + (t - A) / (r + b) * (r + b) + r + ((t - A) % (r + b) - r) =
+        A + (t - A) / (r + b) * (r + b) + (t - A) % (r + b) by omega, hdiv] at hb'
+      unfold orCol
+      rw [hb', Bool.true_or]
+      simp [hlt]
+  refine orCol_not_eventuallyPeriodic 0 hper0 ⟨A, r + b, hQ, fun t ht => ?_⟩
+  show orCol 0 (t + (r + b)) = orCol 0 t
+  rw [hor_form (t + (r + b)) (by omega), hor_form t ht,
+    show t + (r + b) - A = (t - A) + (r + b) by omega, Nat.add_mod_right]
+
+/-- **G6-P1 Exclusion of Periodic `0^r 1` Trajectories Visiting `[0, r - 8] ∪ [r + 1, ∞)`
+    (`g6_p1_no_periodic_0r1_from_outside_window`)**:
+    For every `r ≥ 10`, no periodic `0^r 1` center trajectory can ever start a period in
+    `ModeADepth A ℓ₀` with `ℓ₀ + 8 ≤ r` or `r + 1 ≤ ℓ₀`, because the cycle return map absorbs
+    `ℓ₀` into the fixed point `ℓ = 2` within at most `2` periods and stays in `ModeADepth · 2`
+    forever, contradicting `g6_p1_constant_onset_depth_excludes_white_black_period`. -/
+theorem g6_p1_no_periodic_0r1_from_outside_window (A r ℓ₀ : Nat)
+    (hr : 10 ≤ r)
+    (hw : ∀ k i, i < r → cell (A + k * (r + 1) + i) 0 = false)
+    (hb : ∀ k, cell (A + k * (r + 1) + r) 0 = true)
+    (hM0 : ModeADepth A ℓ₀)
+    (hout : ℓ₀ + 8 ≤ r ∨ r + 1 ≤ ℓ₀) :
+    False := by
+  have hstep2 : ModeADepth (A + 2 * (r + 1)) 2 := by
+    rcases hout with hlow | hhigh
+    · have h1 : ModeADepth (A + (r + 1)) 2 := by
+        have := g6_p1_cycle_return_map_0r1_early_lock A r ℓ₀ hM0 hlow
+          (fun i hi => by simpa using hw 0 i hi)
+          (by simpa using hb 0)
+        simpa [Nat.add_assoc] using this
+      have h2 := g6_p1_modeADepth_two_is_fixed_point_of_0r1 (A + (r + 1)) r hr h1
+        (fun i hi => by
+          have := hw 1 i hi
+          rwa [show A + 1 * (r + 1) + i = A + (r + 1) + i by omega] at this)
+        (by
+          have := hb 1
+          rwa [show A + 1 * (r + 1) + r = A + (r + 1) + r by omega] at this)
+      rwa [show A + (r + 1) + r + 1 = A + 2 * (r + 1) by omega] at h2
+    · have hover := g6_p1_cycle_return_map_0r1_overshoot A r ℓ₀ hM0
+        (fun i hi => by simpa using hw 0 i hi)
+        (by simpa using hb 0)
+      by_cases heq : ℓ₀ = r + 1
+      · have h1 : ModeADepth (A + (r + 1)) 1 := by
+          simpa [Nat.add_assoc] using hover.1 heq
+        have h2 := g6_p1_cycle_return_map_0r1_early_lock (A + (r + 1)) r 1 h1 (by omega)
+          (fun i hi => by
+            have := hw 1 i hi
+            rwa [show A + 1 * (r + 1) + i = A + (r + 1) + i by omega] at this)
+          (by
+            have := hb 1
+            rwa [show A + 1 * (r + 1) + r = A + (r + 1) + r by omega] at this)
+        rwa [show A + (r + 1) + r + 1 = A + 2 * (r + 1) by omega] at h2
+      · have hge2 : r + 2 ≤ ℓ₀ := by omega
+        have h1 : ModeADepth (A + (r + 1)) 0 := by
+          simpa [Nat.add_assoc] using hover.2 hge2
+        have h2 := g6_p1_cycle_return_map_0r1_early_lock (A + (r + 1)) r 0 h1 (by omega)
+          (fun i hi => by
+            have := hw 1 i hi
+            rwa [show A + 1 * (r + 1) + i = A + (r + 1) + i by omega] at this)
+          (by
+            have := hb 1
+            rwa [show A + 1 * (r + 1) + r = A + (r + 1) + r by omega] at this)
+        rwa [show A + (r + 1) + r + 1 = A + 2 * (r + 1) by omega] at h2
+  have hfix : ∀ k, ModeADepth (A + 2 * (r + 1) + k * (r + 1)) 2 := by
+    intro k
+    induction k with
+    | zero => simpa using hstep2
+    | succ k ih =>
+      have hadd_mul : (2 + k) * (r + 1) = 2 * (r + 1) + k * (r + 1) := Nat.add_mul 2 k (r + 1)
+      have hsucc_mul : (k + 1) * (r + 1) = k * (r + 1) + (r + 1) := Nat.succ_mul k (r + 1)
+      have hnext := g6_p1_modeADepth_two_is_fixed_point_of_0r1
+        (A + 2 * (r + 1) + k * (r + 1)) r hr ih
+        (fun i hi => by
+          have := hw (2 + k) i hi
+          rwa [show A + (2 + k) * (r + 1) + i = A + 2 * (r + 1) + k * (r + 1) + i by omega] at this)
+        (by
+          have := hb (2 + k)
+          rwa [show A + (2 + k) * (r + 1) + r = A + 2 * (r + 1) + k * (r + 1) + r by omega] at this)
+      rwa [show A + 2 * (r + 1) + k * (r + 1) + r + 1 =
+        A + 2 * (r + 1) + (k + 1) * (r + 1) by omega] at hnext
+  exact g6_p1_constant_onset_depth_excludes_white_black_period
+    (A + 2 * (r + 1)) r 1 2 (by omega) (Nat.le_refl 1)
+    (fun k i hi => by
+      have hadd_mul : (2 + k) * (r + 1) = 2 * (r + 1) + k * (r + 1) := Nat.add_mul 2 k (r + 1)
+      have := hw (2 + k) i hi
+      rwa [show A + (2 + k) * (r + 1) + i = A + 2 * (r + 1) + k * (r + 1) + i by omega] at this)
+    (fun k j hj => by
+      have hj0 : j = 0 := by omega
+      subst hj0
+      have hadd_mul : (2 + k) * (r + 1) = 2 * (r + 1) + k * (r + 1) := Nat.add_mul 2 k (r + 1)
+      have := hb (2 + k)
+      rwa [show A + (2 + k) * (r + 1) + r = A + 2 * (r + 1) + k * (r + 1) + r + 0 by omega] at this)
+    hfix
+
+/-!
+## 12. Gate `G6-P2`: Multi-Cycle Signed Displacement Telescoping & Periodic Drift Exclusion
+
+We formalize the signed center-column discrepancy `centerDiscrepancy n = 2 * blackCount n - n`,
+prove multi-cycle telescoping across consecutive white/black cycles, prove linear discrepancy drift
+`M * (b - r)` over `M` repetitions of any cycle `(r, b)`, and prove that `Rule30Prize.Problem2`
+excludes any unbalanced periodic cycle (`b ≠ r`).
+-/
+
+/-- **G6-P2 Signed Center-Column Discrepancy (`centerDiscrepancy`)**:
+    `centerDiscrepancy n = 2 * (Rule30Prize.blackCount n : Int) - (n : Int)`. -/
+def centerDiscrepancy (n : Nat) : Int :=
+  2 * (Rule30Prize.blackCount n : Int) - (n : Int)
+
+/-- **G6-P2 Two-Cycle Signed Displacement Telescoping
+    (`g6_p2_two_cycle_discrepancy_telescoping`)**:
+    Across two consecutive white/black cycles `(r₁, b₁)` and `(r₂, b₂)` starting at `w`,
+    the signed discrepancy changes by `(b₁ - r₁) + (b₂ - r₂)`. -/
+theorem g6_p2_two_cycle_discrepancy_telescoping (w r₁ b₁ r₂ b₂ : Nat)
+    (hw1 : ∀ i, i < r₁ → Rule30Prize.center (w + i) = false)
+    (hb1 : ∀ j, j < b₁ → Rule30Prize.center (w + r₁ + j) = true)
+    (hw2 : ∀ i, i < r₂ → Rule30Prize.center (w + r₁ + b₁ + i) = false)
+    (hb2 : ∀ j, j < b₂ → Rule30Prize.center (w + r₁ + b₁ + r₂ + j) = true) :
+    centerDiscrepancy (w + r₁ + b₁ + r₂ + b₂) =
+      centerDiscrepancy w + ((b₁ : Int) - (r₁ : Int)) + ((b₂ : Int) - (r₂ : Int)) := by
+  unfold centerDiscrepancy
+  have h1 := g5_p2_white_black_cycle_discrepancy w r₁ b₁ hw1 hb1
+  have h2 := g5_p2_white_black_cycle_discrepancy (w + r₁ + b₁) r₂ b₂ hw2 hb2
+  omega
+
+/-- **G6-P2 Multi-Cycle Periodic Linear Drift Formula
+    (`g6_p2_periodic_cycle_linear_discrepancy_drift`)**:
+    Across `M` consecutive repetitions of a white/black cycle `(r, b)` starting at `A`,
+    `centerDiscrepancy (A + M * (r + b)) = centerDiscrepancy A + M * (b - r)`. -/
+theorem g6_p2_periodic_cycle_linear_discrepancy_drift (A r b : Nat) :
+    ∀ (M : Nat),
+      (∀ m i, m < M → i < r → Rule30Prize.center (A + m * (r + b) + i) = false) →
+      (∀ m j, m < M → j < b → Rule30Prize.center (A + m * (r + b) + r + j) = true) →
+      centerDiscrepancy (A + M * (r + b)) =
+        centerDiscrepancy A + (M : Int) * ((b : Int) - (r : Int))
+  | 0, _, _ => by simp
+  | M + 1, hw, hb => by
+    have ih := g6_p2_periodic_cycle_linear_discrepancy_drift A r b M
+      (fun m i hm hi => hw m i (by omega) hi)
+      (fun m j hm hj => hb m j (by omega) hj)
+    have hcycle := g5_p2_white_black_cycle_discrepancy (A + M * (r + b)) r b
+      (fun i hi => hw M i (by omega) hi)
+      (fun j hj => hb M j (by omega) hj)
+    have hsucc_mul : (M + 1) * (r + b) = M * (r + b) + (r + b) := Nat.succ_mul M (r + b)
+    unfold centerDiscrepancy at ih ⊢
+    rw [show A + (M + 1) * (r + b) = A + M * (r + b) + r + b by omega, hcycle, ih]
+    have hcast : ((M + 1 : Nat) : Int) = (M : Int) + 1 := by omega
+    have hmul : (((M + 1 : Nat) : Int) * ((b : Int) - (r : Int))) =
+        (M : Int) * ((b : Int) - (r : Int)) + ((b : Int) - (r : Int)) := by
+      rw [hcast, Int.add_mul, Int.one_mul]
+    omega
+
+/-- **G6-P2 Locked White-Run Window Forces Bilateral Neighbor Black Runs
+    (`g6_p2_locked_white_run_neighbor_black_window`)**:
+    In any white run of length `r` starting at `w` from `ModeADepth w ℓ`, for every step
+    `w + ℓ + j` in the locked interior (`ℓ + j + 1 < r`), both immediate neighbor columns
+    `+1` and `-1` are simultaneously black (`cell (w + ℓ + j) 1 = true ∧ cell (w + ℓ + j) (-1) = true`). -/
+theorem g6_p2_locked_white_run_neighbor_black_window (w r ℓ j : Nat)
+    (hM : ModeADepth w ℓ)
+    (hj : ℓ + j + 1 < r)
+    (hw : ∀ i, i < r → Rule30Prize.center (w + i) = false) :
+    cell (w + ℓ + j) 1 = true ∧ cell (w + ℓ + j) (-1) = true := by
+  have h := g4_p2_locked_white_interior_forces_double_black_neighbors ℓ (ℓ + j) w hM
+    (by omega) (fun s hs => hw s (by omega))
+  rwa [show w + (ℓ + j) = w + ℓ + j by omega] at h
+
+/-!
+## 13. Gate `G6-P3`: Exact Left-Edge XOR Decomposition & Shared-Gate Pyramid Factorization
+
+We prove two structural results on operator composition for `Rule30Prize.Problem3`:
+1. `g6_p3_evol_left_edge_xor_decomposition`: for every horizon `t : Nat` and configuration
+   `x : Int → Bool`, the `t`-step center output `evol x t 0` decomposes as the exact XOR of the
+   leftmost light-cone input `x (-t)` with the `2t`-variable residual function
+   `evol (setInputFalse x (-t)) t 0`.
+2. `g6_p3_evolPow2_left_linear_decomposition`: specializes this exact linear separation to
+   every doubling scale `d : Nat` (`T^(2^d)`).
+-/
+
+/-- **G6-P3 Zero-Clamped Single-Cell Projection (`setInputFalse`)**:
+    Clamps position `q` of configuration `x` to `false` while leaving all other positions unchanged. -/
+def setInputFalse (x : Int → Bool) (q : Int) (p : Int) : Bool :=
+  if p = q then false else x p
+
+/-- **G6-P3 Exact Left-Edge XOR Decomposition of `evol`
+    (`g6_p3_evol_left_edge_xor_decomposition`)**:
+    For every horizon `t : Nat` and configuration `x : Int → Bool`,
+    `evol x t 0 = xor (x (-t)) (evol (setInputFalse x (-t)) t 0)`.
+    This proves that in the Algebraic Normal Form (ANF) of the `t`-step center operator,
+    the leftmost variable `x (-t)` enters strictly as an isolated degree-1 linear term `x (-t) ⊕ R_t`. -/
+theorem g6_p3_evol_left_edge_xor_decomposition (x : Int → Bool) (t : Nat) :
+    evol x t 0 = xor (x (-(t : Int))) (evol (setInputFalse x (-(t : Int))) t 0) := by
+  cases hx : x (-(t : Int))
+  · have hsame : setInputFalse x (-(t : Int)) = x := by
+      funext p
+      unfold setInputFalse
+      by_cases hp : p = -(t : Int)
+      · subst hp; simp [hx]
+      · simp [hp]
+    rw [hsame, Bool.false_xor]
+  · have hflip : setInputFalse x (-(t : Int)) = flipInput x (-(t : Int)) := by
+      funext p
+      unfold setInputFalse flipInput
+      by_cases hp : p = -(t : Int)
+      · subst hp; simp [hx]
+      · simp [hp]
+    rw [hflip, g4_p3_center_universal_left_sensitivity]
+    cases evol x t 0 <;> rfl
+
+/-- **G6-P3 Exact Left-Edge XOR Decomposition Across All Doubling Scales `T^(2^d)`
+    (`g6_p3_evolPow2_left_linear_decomposition`)**:
+    At every doubling scale `d : Nat`, `evolPow2 d x 0` equals the XOR of its leftmost window
+    input `x (-2^d)` with `evolPow2 d` evaluated on the clamped configuration `setInputFalse x (-2^d)`. -/
+theorem g6_p3_evolPow2_left_linear_decomposition (d : Nat) (x : Int → Bool) :
+    evolPow2 d x 0 =
+      xor (x (-((2 ^ d : Nat) : Int)))
+        (evolPow2 d (setInputFalse x (-((2 ^ d : Nat) : Int))) 0) := by
+  rw [g5_p3_evolPow2_eq_evol_pow2, g5_p3_evolPow2_eq_evol_pow2]
+  exact g6_p3_evol_left_edge_xor_decomposition x (2 ^ d)
+
 end Rule30Submission

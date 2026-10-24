@@ -734,7 +734,19 @@
       "Rule30Submission.g5_p2_white_black_cycle_discrepancy",
       "Rule30Submission.g5_p2_first_white_black_cycle_net_drift_plus_two",
       "Rule30Submission.g5_p3_evolPow2_eq_evol_pow2",
-      "Rule30Submission.g5_p3_evolPow2_universal_left_sensitivity"
+      "Rule30Submission.g5_p3_evolPow2_universal_left_sensitivity",
+      "Rule30Submission.g6_p1_one_black_step_from_overshoot_ge2",
+      "Rule30Submission.g6_p1_one_black_step_from_z1",
+      "Rule30Submission.g6_p1_cycle_return_map_0r1_early_lock",
+      "Rule30Submission.g6_p1_cycle_return_map_0r1_overshoot",
+      "Rule30Submission.g6_p1_modeADepth_two_is_fixed_point_of_0r1",
+      "Rule30Submission.g6_p1_constant_onset_depth_excludes_white_black_period",
+      "Rule30Submission.g6_p1_no_periodic_0r1_from_outside_window",
+      "Rule30Submission.g6_p2_two_cycle_discrepancy_telescoping",
+      "Rule30Submission.g6_p2_periodic_cycle_linear_discrepancy_drift",
+      "Rule30Submission.g6_p2_locked_white_run_neighbor_black_window",
+      "Rule30Submission.g6_p3_evol_left_edge_xor_decomposition",
+      "Rule30Submission.g6_p3_evolPow2_left_linear_decomposition"
     ],
     "gate_passed": true
   },
@@ -884,6 +896,85 @@
       "Rule30Submission.g5_p2_first_white_black_cycle_net_drift_plus_two",
       "Rule30Submission.g5_p3_evolPow2_eq_evol_pow2",
       "Rule30Submission.g5_p3_evolPow2_universal_left_sensitivity"
+    ],
+    "gate_passed": true
+  },
+  "g6_prize_mechanism_qualification": {
+    "steps": 250,
+    "black_step_overshoot_ge2_checks": 33,
+    "black_step_overshoot_ge2_mismatches": 0,
+    "black_step_z1_checks": 35,
+    "black_step_z1_mismatches": 0,
+    "cycle_0_10_1_early_lock_absorbs_to_ell2_in_one_period": true,
+    "cycle_0_10_1_overshoot_absorbs_to_ell2_in_two_periods": true,
+    "cycle_0_10_1_transient_window_absorbs_on_vacuum_in_three_periods": true,
+    "two_cycle_telescoping_checks": 57,
+    "two_cycle_telescoping_mismatches": 0,
+    "multi_cycle_prefix_telescoping_mismatches": 0,
+    "locked_neighbor_black_window_checks": 30,
+    "locked_neighbor_black_window_mismatches": 0,
+    "compression_profiles": [
+      {
+        "doubling_level_d": 0,
+        "step_span_b": 1,
+        "window_width": 3,
+        "unmemoized_tree_rule_gates": 1,
+        "shared_pyramid_dag_rule_gates": 1,
+        "shared_pyramid_dag_bit_ops": 2,
+        "robdd_left_to_right_nodes": 5,
+        "robdd_right_to_left_nodes": 4,
+        "left_edge_xor_decomposition_mismatches": 0
+      },
+      {
+        "doubling_level_d": 1,
+        "step_span_b": 2,
+        "window_width": 5,
+        "unmemoized_tree_rule_gates": 4,
+        "shared_pyramid_dag_rule_gates": 4,
+        "shared_pyramid_dag_bit_ops": 8,
+        "robdd_left_to_right_nodes": 11,
+        "robdd_right_to_left_nodes": 7,
+        "left_edge_xor_decomposition_mismatches": 0
+      },
+      {
+        "doubling_level_d": 2,
+        "step_span_b": 4,
+        "window_width": 9,
+        "unmemoized_tree_rule_gates": 40,
+        "shared_pyramid_dag_rule_gates": 16,
+        "shared_pyramid_dag_bit_ops": 32,
+        "robdd_left_to_right_nodes": 53,
+        "robdd_right_to_left_nodes": 28,
+        "left_edge_xor_decomposition_mismatches": 0
+      },
+      {
+        "doubling_level_d": 3,
+        "step_span_b": 8,
+        "window_width": 17,
+        "unmemoized_tree_rule_gates": 3280,
+        "shared_pyramid_dag_rule_gates": 64,
+        "shared_pyramid_dag_bit_ops": 128,
+        "robdd_left_to_right_nodes": null,
+        "robdd_right_to_left_nodes": null,
+        "left_edge_xor_decomposition_mismatches": 0
+      }
+    ],
+    "dag_sharing_eliminates_tree_blowup_to_quadratic_pyramid": true,
+    "robdd_grows_exponentially_with_right_half_depth": true,
+    "left_edge_xor_total_mismatches": 0,
+    "g6_headlines_verified": [
+      "Rule30Submission.g6_p1_one_black_step_from_overshoot_ge2",
+      "Rule30Submission.g6_p1_one_black_step_from_z1",
+      "Rule30Submission.g6_p1_cycle_return_map_0r1_early_lock",
+      "Rule30Submission.g6_p1_cycle_return_map_0r1_overshoot",
+      "Rule30Submission.g6_p1_modeADepth_two_is_fixed_point_of_0r1",
+      "Rule30Submission.g6_p1_constant_onset_depth_excludes_white_black_period",
+      "Rule30Submission.g6_p1_no_periodic_0r1_from_outside_window",
+      "Rule30Submission.g6_p2_two_cycle_discrepancy_telescoping",
+      "Rule30Submission.g6_p2_periodic_cycle_linear_discrepancy_drift",
+      "Rule30Submission.g6_p2_locked_white_run_neighbor_black_window",
+      "Rule30Submission.g6_p3_evol_left_edge_xor_decomposition",
+      "Rule30Submission.g6_p3_evolPow2_left_linear_decomposition"
     ],
     "gate_passed": true
   },
