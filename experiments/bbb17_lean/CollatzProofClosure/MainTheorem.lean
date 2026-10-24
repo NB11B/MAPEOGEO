@@ -549,5 +549,69 @@ theorem section11_ordered_valuation_goodstein_fourColor_master :
    oneCircuitWord_reducible_descent,
    contracting_odd_block_survives_above_initial_at_27⟩
 
+/-- Master Section 12 Cyclic Rotation, Multi-Circuit Reducibility, Goodstein Run-Exit,
+    and Targeted Falsification Synthesis (`section12_rotation_reducibility_and_goodstein_falsification_master`):
+    Synthesizes the Section 12 architecture:
+    1. **Universal Cyclic Rotation Algebra (`wordB_cyclic_shift_identity`, `returnMap_cyclic_rotate_one_offset_law`)**:
+       `D(w1) * B(w2 ++ w1) = A(w1) * B(w1 ++ w2) + Δ(w1 ++ w2) * B(w1)`, and for one return block,
+       `2^(k+1) * B(tl ++ [k]) = 3 * B(k :: tl) + (2^K - 3^s)`.
+    2. **Cycle Quotient Shift & Extremal Rotation Valuation Dichotomy**:
+       Every cyclic rotation of a cycle word automatically satisfies `Δ(w2 ++ w1) * n1 = B(w2 ++ w1)`
+       with `n0 ≤ n1 ↔ B(w1 ++ w2) ≤ B(w2 ++ w1)`, while at the minimum odd element `n0 > 1` (`n0 ≤ n1`)
+       the first valuation is forced to be `k = 0`, and at the maximum odd element (`n1 ≤ n0`) `k ≥ 1`.
+    3. **Universal Multi-Circuit Sandwich & Reservoir-Threshold Reducibility**:
+       Every contracting `returnMapWord ks` with `(2^K - 3^s) * (2^s * n) > 2^K * (3^s - 2^s)` forces `F(n) < n`
+       for all block orderings, and on any non-descending prefix (`∀ j < r, T^j(n) ≥ n`), crossing the
+       reservoir threshold `2^r * n^{a_r} > (3n + 1)^{a_r}` unconditionally forces `T^r(n) < n`.
+    4. **Goodstein Run-Exit Modulo 4 Dichotomy & Adversarial Falsifications (`CE-C10-07..09`)**:
+       `u % 4 = 3 ↔ k = 0` and `u % 4 = 1 ↔ k ≥ 1`, paired with formal counterexamples at `ks = [0, 1, 2]`,
+       `n = 165` (`s = 17, K = 27, u_17 = 167 > 165`), and `n = 27` (`v_2(u_2 + 1) = 5 > 2 = v_2(u_0 + 1)`). -/
+theorem section12_rotation_reducibility_and_goodstein_falsification_master :
+    (∀ (w1 w2 : List Bool),
+      wordD (w1 ++ w2) ≥ wordA (w1 ++ w2) →
+      wordD w1 * wordB (w2 ++ w1) =
+        wordA w1 * wordB (w1 ++ w2) + wordDelta (w1 ++ w2) * wordB w1) ∧
+    (∀ (k : Nat) (tl : List Nat),
+      2 ^ totalValuation (k :: tl) ≥ 3 ^ (k :: tl).length →
+      2 ^ (k + 1) * wordB (returnMapWord (tl ++ [k])) =
+        3 * wordB (returnMapWord (k :: tl)) +
+          (2 ^ totalValuation (k :: tl) - 3 ^ (k :: tl).length)) ∧
+    (∀ (w1 w2 : List Bool) (n0 : Nat),
+      wordD (w1 ++ w2) > wordA (w1 ++ w2) →
+      wordDelta (w1 ++ w2) * n0 = wordB (w1 ++ w2) →
+      let n1 := applyParityWord n0 w1
+      wordDelta (w2 ++ w1) * n1 = wordB (w2 ++ w1) ∧
+      wordB (w2 ++ w1) % wordDelta (w2 ++ w1) = 0 ∧
+      (n0 ≤ n1 ↔ wordB (w1 ++ w2) ≤ wordB (w2 ++ w1))) ∧
+    (∀ (k n0 : Nat),
+      n0 > 1 →
+      validParityWord n0 (singleOddWord k) →
+      let n1 := applyParityWord n0 (singleOddWord k)
+      (n0 ≤ n1 → k = 0) ∧ (n1 ≤ n0 → k ≥ 1)) ∧
+    (∀ (ks : List Nat) (n : Nat),
+      validParityWord n (returnMapWord ks) →
+      2 ^ totalValuation ks > 3 ^ ks.length →
+      (2 ^ totalValuation ks - 3 ^ ks.length) * (2 ^ ks.length * n) >
+        2 ^ totalValuation ks * (3 ^ ks.length - 2 ^ ks.length) →
+      applyParityWord n (returnMapWord ks) < n) ∧
+    (∀ (n r : Nat),
+      n ≥ 1 →
+      (∀ j : Nat, j < r → iterateAccelerated n j ≥ n) →
+      2 ^ r * n ^ wordOnes (parityWordOf r n) >
+        (3 * n + 1) ^ wordOnes (parityWordOf r n) →
+      iterateAccelerated n r < n) ∧
+    (∀ u : Nat,
+      u % 2 = 1 →
+      2 * (acceleratedCollatz u + 1) = 3 * (u + 1) ∧
+      (u % 4 = 3 ↔ acceleratedCollatz u % 2 = 1) ∧
+      (u % 4 = 1 ↔ acceleratedCollatz u % 2 = 0)) :=
+  ⟨wordB_cyclic_shift_identity,
+   returnMap_cyclic_rotate_one_offset_law,
+   cycle_rotation_quotient_shift_and_divisibility,
+   cycle_extremal_rotation_first_valuation_dichotomy,
+   returnMap_universal_sandwich_reducible_descent,
+   nondescent_prefix_reservoir_threshold_reducible_descent,
+   odd_step_goodstein_branch_dichotomy⟩
+
 end CollatzProofClosure
 end BBB17

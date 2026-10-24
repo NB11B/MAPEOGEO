@@ -774,6 +774,131 @@ def verify_section11_ordered_valuation_goodstein_four_color_and_falsification(
     }
 
 
+def verify_section12_rotation_reducibility_and_goodstein_falsification(
+    max_s: int = 7,
+) -> Dict[str, object]:
+    """
+    Verify Section 12 Cyclic Rotation Algebra, Multi-Circuit Reducibility, Goodstein Run-Exit
+    Dichotomy, and Targeted Falsifications (CE-C10-07..09):
+      1. Cyclic shift identity: D1 * B(w2 + w1) == A1 * B(w1 + w2) + Delta * B1, and
+         one-block rotation law 2^(k+1) * B(tl + [k]) == 3 * B(k :: tl) + (2^K - 3^s).
+      2. Universal multi-circuit sandwich reducibility and reservoir-threshold reducibility
+         (zero pincer exceptions across all odd n in [3, 5000] on non-descending prefixes).
+      3. Goodstein mod-4 run-exit dichotomy: u % 4 == 3 <=> k == 0; u % 4 == 1 <=> k >= 1.
+      4. Formal falsification witnesses CE-C10-07 (ks=[0, 1, 2] rotations), CE-C10-08
+         (n=165, s=17, K=27, u_17=167 > 165), and CE-C10-09 (n=27, v_2(31+1)=5 > 2=v_2(27+1)).
+    """
+    def return_map_word(ks):
+        w = []
+        for k in ks:
+            w.extend([True] + [False] * k)
+        return w
+
+    def compositions(total: int, parts: int):
+        if parts == 1:
+            yield (total,)
+            return
+        for first in range(total + 1):
+            for rest in compositions(total - first, parts - 1):
+                yield (first,) + rest
+
+    cyclic_shift_mismatches = 0
+    one_block_rotation_mismatches = 0
+    universal_sandwich_reducible_mismatches = 0
+    nondescent_odd_return_crossing_exceptions = 0
+    goodstein_mod4_dichotomy_mismatches = 0
+
+    for s in range(2, max_s + 1):
+        for K in range(s + 1, 2 * s + 1):
+            if (1 << K) <= (3 ** s):
+                continue
+            delta = (1 << K) - (3 ** s)
+            for ks in compositions(K - s, s):
+                w = return_map_word(ks)
+                k0 = ks[0]
+                tl = list(ks[1:])
+                w_rot = return_map_word(tl + [k0])
+                A, B, D = affine_triple_exact(w)
+                _, B_rot, _ = affine_triple_exact(w_rot)
+                if (1 << (k0 + 1)) * B_rot != 3 * B + delta:
+                    one_block_rotation_mismatches += 1
+                # General split check
+                w1 = return_map_word(list(ks[: s // 2]))
+                w2 = return_map_word(list(ks[s // 2 :]))
+                A1, B1, D1 = affine_triple_exact(w1)
+                _, B12, _ = affine_triple_exact(w1 + w2)
+                _, B21, _ = affine_triple_exact(w2 + w1)
+                if D1 * B21 != A1 * B12 + delta * B1:
+                    cyclic_shift_mismatches += 1
+                # Universal sandwich reducibility check
+                invA = pow(A, -1, 2 * D)
+                n0 = ((D - B) * invA) % (2 * D)
+                if n0 <= 1:
+                    n0 += 2 * D
+                if delta * ((1 << s) * n0) > (1 << K) * ((3 ** s) - (1 << s)):
+                    u_s = (A * n0 + B) // D
+                    if not (u_s < n0):
+                        universal_sandwich_reducible_mismatches += 1
+
+    # Check non-descending odd-return prefixes and Goodstein mod-4 dichotomy across odd n in [3, 5001]
+    for n in range(3, 5001, 2):
+        u = n
+        K = 0
+        s = 0
+        while u >= n:
+            s += 1
+            val = 3 * u + 1
+            tz = (val & -val).bit_length() - 1
+            k = tz - 1
+            if ((u % 4 == 3) != (k == 0)) or ((u % 4 == 1) != (k >= 1)):
+                goodstein_mod4_dichotomy_mismatches += 1
+            K += tz
+            u = val >> tz
+            if (1 << K) > (3 ** s) and u >= n:
+                nondescent_odd_return_crossing_exceptions += 1
+                break
+
+    # Verify CE-C10-07 on ks = [0, 1, 2]
+    B_012 = affine_triple_exact(return_map_word([0, 1, 2]))[1]
+    B_120 = affine_triple_exact(return_map_word([1, 2, 0]))[1]
+    B_201 = affine_triple_exact(return_map_word([2, 0, 1]))[1]
+    ce07_verified = (B_012 == 23 and B_120 == 53 and B_201 == 49 and B_012 < B_201 < B_120)
+
+    # Verify CE-C10-08 at n = 165, s = 17, K = 27
+    ks_165 = [3, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 2]
+    A_165, B_165, D_165 = affine_triple_exact(return_map_word(ks_165))
+    u1_165 = (3 * 165 + 1) >> 4
+    u17_165 = (A_165 * 165 + B_165) // D_165
+    ce08_verified = (
+        len(ks_165) == 17
+        and sum(k + 1 for k in ks_165) == 27
+        and D_165 > A_165
+        and u1_165 == 31 < 165
+        and u17_165 == 167 > 165
+    )
+
+    # Verify CE-C10-09 at n = 27
+    u0_27 = 27
+    u1_27 = 41
+    u2_27 = 31
+    v2_u0 = ((u0_27 + 1) & -(u0_27 + 1)).bit_length() - 1
+    v2_u1 = ((u1_27 + 1) & -(u1_27 + 1)).bit_length() - 1
+    v2_u2 = ((u2_27 + 1) & -(u2_27 + 1)).bit_length() - 1
+    ce09_verified = (v2_u0 == 2 and v2_u1 == 1 and v2_u2 == 5 and u2_27 > u0_27 and v2_u2 > v2_u0)
+
+    return {
+        "cyclic_shift_mismatches": cyclic_shift_mismatches,
+        "one_block_rotation_mismatches": one_block_rotation_mismatches,
+        "universal_sandwich_reducible_mismatches": universal_sandwich_reducible_mismatches,
+        "nondescent_odd_return_crossing_exceptions": nondescent_odd_return_crossing_exceptions,
+        "goodstein_mod4_dichotomy_mismatches": goodstein_mod4_dichotomy_mismatches,
+        "ce07_rotation_order_verified": ce07_verified,
+        "ce08_contracting_survival_at_165_verified": ce08_verified,
+        "ce09_goodstein_tail_reset_at_27_verified": ce09_verified,
+    }
+
+
+
 
 
 

@@ -45,6 +45,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section9_trichotomy_and_two_point_shift,
     verify_section10_divergent_orbit_and_valuation_laws,
     verify_section11_ordered_valuation_goodstein_four_color_and_falsification,
+    verify_section12_rotation_reducibility_and_goodstein_falsification,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -163,6 +164,17 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(sec11["goodstein_plus_one_mismatches"], 0)
         self.assertEqual(sec11["four_color_one_circuit_descent_failures"], 0)
         self.assertTrue(sec11["ce06_contracting_block_survival_verified"])
+
+    def test_ws6_section12_rotation_reducibility_and_goodstein_falsification(self) -> None:
+        sec12 = verify_section12_rotation_reducibility_and_goodstein_falsification(max_s=7)
+        self.assertEqual(sec12["cyclic_shift_mismatches"], 0)
+        self.assertEqual(sec12["one_block_rotation_mismatches"], 0)
+        self.assertEqual(sec12["universal_sandwich_reducible_mismatches"], 0)
+        self.assertEqual(sec12["nondescent_odd_return_crossing_exceptions"], 0)
+        self.assertEqual(sec12["goodstein_mod4_dichotomy_mismatches"], 0)
+        self.assertTrue(sec12["ce07_rotation_order_verified"])
+        self.assertTrue(sec12["ce08_contracting_survival_at_165_verified"])
+        self.assertTrue(sec12["ce09_goodstein_tail_reset_at_27_verified"])
 
 
 def generate_c10_artifacts() -> None:

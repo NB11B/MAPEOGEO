@@ -3871,5 +3871,327 @@ theorem contracting_odd_block_survives_above_initial_at_27 :
          stepParityMatches, acceleratedCollatz, applyParityWord]
   decide
 
+/-! ## Section 12: Cyclic Rotation Algebra, Unavoidable Reducibility Thresholds,
+    Goodstein Run-Exit Dichotomy, and Targeted Falsifications (CE-C10-07..09) -/
+
+/-- Cyclic invariance of `wordD` (`wordD_append_comm`):
+    `wordD (w1 ++ w2) = wordD (w2 ++ w1)`. -/
+theorem wordD_append_comm (w1 w2 : List Bool) :
+    wordD (w1 ++ w2) = wordD (w2 ++ w1) := by
+  rw [wordD_append, wordD_append, Nat.mul_comm]
+
+/-- Cyclic invariance of `wordA` (`wordA_append_comm`):
+    `wordA (w1 ++ w2) = wordA (w2 ++ w1)`. -/
+theorem wordA_append_comm (w1 w2 : List Bool) :
+    wordA (w1 ++ w2) = wordA (w2 ++ w1) := by
+  rw [wordA_append, wordA_append, Nat.mul_comm]
+
+/-- Cyclic invariance of the cycle denominator `wordDelta` (`wordDelta_append_comm`):
+    `wordDelta (w1 ++ w2) = wordDelta (w2 ++ w1)`. -/
+theorem wordDelta_append_comm (w1 w2 : List Bool) :
+    wordDelta (w1 ++ w2) = wordDelta (w2 ++ w1) := by
+  unfold wordDelta
+  rw [wordD_append_comm, wordA_append_comm]
+
+/-- Universal Cyclic Shift Identity for Parity-Word Offsets (`wordB_cyclic_shift_identity`):
+    Rotating a split parity word `w1 ++ w2` to `w2 ++ w1` (when `wordD (w1 ++ w2) ≥ wordA (w1 ++ w2)`)
+    transforms the affine offset by the exact linear law:
+    `wordD w1 * wordB (w2 ++ w1) = wordA w1 * wordB (w1 ++ w2) + wordDelta (w1 ++ w2) * wordB w1`. -/
+theorem wordB_cyclic_shift_identity (w1 w2 : List Bool)
+    (hcont : wordD (w1 ++ w2) ≥ wordA (w1 ++ w2)) :
+    wordD w1 * wordB (w2 ++ w1) =
+      wordA w1 * wordB (w1 ++ w2) + wordDelta (w1 ++ w2) * wordB w1 := by
+  unfold wordDelta
+  rw [wordB_append w2 w1, wordB_append w1 w2,
+      wordD_append w1 w2, wordA_append w1 w2,
+      Nat.mul_add (wordD w1), Nat.mul_add (wordA w1),
+      Nat.sub_mul]
+  rw [wordD_append w1 w2, wordA_append w1 w2] at hcont
+  have hle : (wordA w1 * wordA w2) * wordB w1 ≤ (wordD w1 * wordD w2) * wordB w1 :=
+    Nat.mul_le_mul_right (wordB w1) hcont
+  have h1 : wordD w1 * (wordA w1 * wordB w2) = wordA w1 * (wordD w1 * wordB w2) := by
+    rw [← Nat.mul_assoc (wordD w1) (wordA w1) (wordB w2),
+        Nat.mul_comm (wordD w1) (wordA w1),
+        Nat.mul_assoc (wordA w1) (wordD w1) (wordB w2)]
+  have h2 : wordD w1 * (wordD w2 * wordB w1) = (wordD w1 * wordD w2) * wordB w1 := by
+    rw [Nat.mul_assoc]
+  have h3 : wordA w1 * (wordA w2 * wordB w1) = (wordA w1 * wordA w2) * wordB w1 := by
+    rw [Nat.mul_assoc]
+  omega
+
+/-- Single-Block Cyclic Rotation Law for Return-Map Offsets (`returnMap_cyclic_rotate_one_offset_law`):
+    Rotating the head block `k` of `k :: tl` to the tail `tl ++ [k]` preserves length `s = tl.length + 1`
+    and total valuation `K = totalValuation (k :: tl)`, and when `2^K ≥ 3^s`, satisfies:
+    `2 ^ (k + 1) * wordB (returnMapWord (tl ++ [k])) = 3 * wordB (returnMapWord (k :: tl)) + (2 ^ K - 3 ^ s)`. -/
+theorem returnMap_cyclic_rotate_one_offset_law (k : Nat) (tl : List Nat)
+    (hcont : 2 ^ totalValuation (k :: tl) ≥ 3 ^ (k :: tl).length) :
+    2 ^ (k + 1) * wordB (returnMapWord (tl ++ [k])) =
+      3 * wordB (returnMapWord (k :: tl)) +
+        (2 ^ totalValuation (k :: tl) - 3 ^ (k :: tl).length) := by
+  have hcons_eq : returnMapWord (k :: tl) = singleOddWord k ++ returnMapWord tl := rfl
+  have hsnoc_eq : returnMapWord (tl ++ [k]) = returnMapWord tl ++ singleOddWord k :=
+    returnMapWord_snoc tl k
+  have hD_cons : wordD (singleOddWord k ++ returnMapWord tl) = 2 ^ totalValuation (k :: tl) :=
+    wordD_returnMapWord (k :: tl)
+  have hA_cons : wordA (singleOddWord k ++ returnMapWord tl) = 3 ^ (k :: tl).length :=
+    wordA_returnMapWord (k :: tl)
+  have hcont_w : wordD (singleOddWord k ++ returnMapWord tl) ≥
+      wordA (singleOddWord k ++ returnMapWord tl) := by
+    rw [hD_cons, hA_cons]; exact hcont
+  have hshift := wordB_cyclic_shift_identity (singleOddWord k) (returnMapWord tl) hcont_w
+  have hD1 : wordD (singleOddWord k) = 2 ^ (k + 1) := by
+    rw [wordD_eq_pow_two_length]; dsimp [singleOddWord]; rw [List.length_replicate]
+  have hA1 : wordA (singleOddWord k) = 3 := wordA_singleOddWord k
+  have hB1 : wordB (singleOddWord k) = 1 := by
+    dsimp [singleOddWord, wordB]; rw [wordA_replicate_false, wordB_replicate_false]
+  unfold wordDelta at hshift
+  rw [hD1, hA1, hB1, hD_cons, hA_cons, ← hcons_eq, ← hsnoc_eq, Nat.mul_one] at hshift
+  exact hshift
+
+/-- Cycle Rotation Quotient Shift & Automatic Rotated Divisibility
+    (`cycle_rotation_quotient_shift_and_divisibility`):
+    If `n0` is an integer cycle fixed point of `w1 ++ w2` (`wordDelta (w1 ++ w2) * n0 = wordB (w1 ++ w2)`
+    with `wordD (w1 ++ w2) > wordA (w1 ++ w2)`), then the intermediate orbit state
+    `n1 = applyParityWord n0 w1` is an exact integer cycle fixed point of the rotated word `w2 ++ w1`:
+    1. `wordDelta (w2 ++ w1) * n1 = wordB (w2 ++ w1)`,
+    2. `wordB (w2 ++ w1) % wordDelta (w2 ++ w1) = 0`, and
+    3. `n0 ≤ n1 ↔ wordB (w1 ++ w2) ≤ wordB (w2 ++ w1)`. -/
+theorem cycle_rotation_quotient_shift_and_divisibility (w1 w2 : List Bool) (n0 : Nat)
+    (hcont : wordD (w1 ++ w2) > wordA (w1 ++ w2))
+    (hcyc : wordDelta (w1 ++ w2) * n0 = wordB (w1 ++ w2)) :
+    let n1 := applyParityWord n0 w1
+    wordDelta (w2 ++ w1) * n1 = wordB (w2 ++ w1) ∧
+    wordB (w2 ++ w1) % wordDelta (w2 ++ w1) = 0 ∧
+    (n0 ≤ n1 ↔ wordB (w1 ++ w2) ≤ wordB (w2 ++ w1)) := by
+  dsimp
+  have haff : wordD (w1 ++ w2) * n0 = wordA (w1 ++ w2) * n0 + wordB (w1 ++ w2) := by
+    unfold wordDelta at hcyc
+    have hsub := Nat.sub_mul (wordD (w1 ++ w2)) (wordA (w1 ++ w2)) n0
+    have hle : wordA (w1 ++ w2) * n0 ≤ wordD (w1 ++ w2) * n0 :=
+      Nat.mul_le_mul_right n0 (by omega)
+    omega
+  have hv12 : validParityWord n0 (w1 ++ w2) :=
+    ((affine_identity_iff_validParityWord_and_output (w1 ++ w2) n0 n0).mp haff).1
+  have hv1 : validParityWord n0 w1 := ((validParityWord_append w1 w2 n0).mp hv12).1
+  have hid1 := parityWord_affine_identity w1 n0 hv1
+  have hshift := wordB_cyclic_shift_identity w1 w2 (by omega)
+  have hmul : wordD w1 * (wordDelta (w1 ++ w2) * applyParityWord n0 w1) =
+      wordD w1 * wordB (w2 ++ w1) := by
+    have hstep1 : wordD w1 * (wordDelta (w1 ++ w2) * applyParityWord n0 w1) =
+        wordDelta (w1 ++ w2) * (wordD w1 * applyParityWord n0 w1) := by
+      rw [← Nat.mul_assoc (wordD w1) (wordDelta (w1 ++ w2)) (applyParityWord n0 w1),
+          Nat.mul_comm (wordD w1) (wordDelta (w1 ++ w2)),
+          Nat.mul_assoc (wordDelta (w1 ++ w2)) (wordD w1) (applyParityWord n0 w1)]
+    have hstep2 : wordDelta (w1 ++ w2) * (wordA w1 * n0) =
+        wordA w1 * (wordDelta (w1 ++ w2) * n0) := by
+      rw [← Nat.mul_assoc (wordDelta (w1 ++ w2)) (wordA w1) n0,
+          Nat.mul_comm (wordDelta (w1 ++ w2)) (wordA w1),
+          Nat.mul_assoc (wordA w1) (wordDelta (w1 ++ w2)) n0]
+    rw [hstep1, hid1, Nat.mul_add, hstep2, hcyc, ← hshift]
+  have hD1_pos : wordD w1 > 0 := wordD_pos w1
+  have hrot_eq1 : wordDelta (w1 ++ w2) * applyParityWord n0 w1 = wordB (w2 ++ w1) :=
+    Nat.eq_of_mul_eq_mul_left hD1_pos hmul
+  have hrot_eq : wordDelta (w2 ++ w1) * applyParityWord n0 w1 = wordB (w2 ++ w1) := by
+    rw [← wordDelta_append_comm w1 w2]
+    exact hrot_eq1
+  have hdiv : wordB (w2 ++ w1) % wordDelta (w2 ++ w1) = 0 := by
+    rw [← hrot_eq, Nat.mul_comm, Nat.mul_mod_left]
+  have hdelta_pos : wordDelta (w1 ++ w2) > 0 := by
+    unfold wordDelta; omega
+  have hord : n0 ≤ applyParityWord n0 w1 ↔ wordB (w1 ++ w2) ≤ wordB (w2 ++ w1) := by
+    rw [← hcyc, ← hrot_eq1]
+    constructor
+    · intro hle
+      exact Nat.mul_le_mul_left (wordDelta (w1 ++ w2)) hle
+    · intro hle
+      exact Nat.le_of_mul_le_mul_left hle hdelta_pos
+  exact ⟨hrot_eq, hdiv, hord⟩
+
+/-- Cycle Minimum vs. Maximum Rotation Valuation Dichotomy
+    (`cycle_extremal_rotation_first_valuation_dichotomy`):
+    For any odd integer `n0 > 1` realizing `singleOddWord k` with output
+    `n1 = applyParityWord n0 (singleOddWord k)`:
+    1. If `n0 ≤ n1` (e.g., at the minimum odd element of a nontrivial cycle), then `k = 0`
+       (`2 ^ (k + 1) * n1 = 3 * n0 + 1` forces an expanding block `k = 0`).
+    2. If `n1 ≤ n0` (e.g., at the maximum odd element of a cycle), then `k ≥ 1`. -/
+theorem cycle_extremal_rotation_first_valuation_dichotomy (k n0 : Nat)
+    (hn0 : n0 > 1)
+    (hv : validParityWord n0 (singleOddWord k)) :
+    let n1 := applyParityWord n0 (singleOddWord k)
+    (n0 ≤ n1 → k = 0) ∧ (n1 ≤ n0 → k ≥ 1) := by
+  dsimp
+  rcases singleOddWord_step_dichotomy k n0 hn0 hv with ⟨_, h0, h1⟩
+  constructor
+  · intro hle
+    cases k with
+    | zero => rfl
+    | succ k' =>
+      have hlt := h1 (by omega)
+      omega
+  · intro hle
+    cases k with
+    | zero =>
+      have hgt := h0 rfl
+      omega
+    | succ k' => omega
+
+/-- Universal Multi-Circuit Sandwich Reducibility (`returnMap_universal_sandwich_reducible_descent`):
+    For ANY valuation sequence `ks : List Nat` (arbitrary number of circuits and arbitrary block
+    ordering) with `s = ks.length`, `K = totalValuation ks`, and `2 ^ K > 3 ^ s`:
+    every integer `n` realizing `returnMapWord ks` that satisfies
+    `(2 ^ K - 3 ^ s) * (2 ^ s * n) > 2 ^ K * (3 ^ s - 2 ^ s)`
+    strictly descends below `n` (`applyParityWord n (returnMapWord ks) < n`). -/
+theorem returnMap_universal_sandwich_reducible_descent (ks : List Nat) (n : Nat)
+    (hv : validParityWord n (returnMapWord ks))
+    (hcont : 2 ^ totalValuation ks > 3 ^ ks.length)
+    (hred : (2 ^ totalValuation ks - 3 ^ ks.length) * (2 ^ ks.length * n) >
+      2 ^ totalValuation ks * (3 ^ ks.length - 2 ^ ks.length)) :
+    applyParityWord n (returnMapWord ks) < n := by
+  have hD := wordD_returnMapWord ks
+  have hA := wordA_returnMapWord ks
+  have hcont_w : wordD (returnMapWord ks) > wordA (returnMapWord ks) := by
+    rw [hD, hA]; exact hcont
+  rw [contracting_word_descent_iff (returnMapWord ks) n hv hcont_w, hD, hA]
+  rcases returnMap_offset_extremal_sandwich ks with ⟨_, _, hhigh⟩
+  have h2_le_3 : 2 ^ ks.length ≤ 3 ^ ks.length :=
+    pow_le_pow_of_le 2 3 ks.length (by decide)
+  have hsub : 2 ^ totalValuation ks * (3 ^ ks.length - 2 ^ ks.length) =
+      2 ^ totalValuation ks * 3 ^ ks.length - 2 ^ totalValuation ks * 2 ^ ks.length :=
+    Nat.mul_sub (2 ^ totalValuation ks) (3 ^ ks.length) (2 ^ ks.length)
+  have hle_B : 2 ^ ks.length * wordB (returnMapWord ks) ≤
+      2 ^ totalValuation ks * (3 ^ ks.length - 2 ^ ks.length) := by
+    omega
+  have hlt_mul : 2 ^ ks.length * wordB (returnMapWord ks) <
+      2 ^ ks.length * ((2 ^ totalValuation ks - 3 ^ ks.length) * n) := by
+    have hcomm : (2 ^ totalValuation ks - 3 ^ ks.length) * (2 ^ ks.length * n) =
+        2 ^ ks.length * ((2 ^ totalValuation ks - 3 ^ ks.length) * n) := by
+      rw [← Nat.mul_assoc (2 ^ totalValuation ks - 3 ^ ks.length) (2 ^ ks.length) n,
+          Nat.mul_comm (2 ^ totalValuation ks - 3 ^ ks.length) (2 ^ ks.length),
+          Nat.mul_assoc (2 ^ ks.length) (2 ^ totalValuation ks - 3 ^ ks.length) n]
+    omega
+  exact Nat.lt_of_mul_lt_mul_left hlt_mul
+
+/-- Reservoir-Threshold Unconditional Reducibility on Non-Descending Prefixes
+    (`nondescent_prefix_reservoir_threshold_reducible_descent`):
+    If a trajectory starting at `n ≥ 1` remains non-descending up to step `r`
+    (`∀ j < r, iterateAccelerated n j ≥ n`), and its cumulative parameters `(r, a_r)`
+    cross the reservoir threshold `2 ^ r * n ^ a_r > (3 * n + 1) ^ a_r`, then
+    strict descent `iterateAccelerated n r < n` is unconditionally forced at step `r`
+    with ZERO pincer exceptions. -/
+theorem nondescent_prefix_reservoir_threshold_reducible_descent (n r : Nat)
+    (hn : n ≥ 1)
+    (hnd : ∀ j : Nat, j < r → iterateAccelerated n j ≥ n)
+    (hthr : 2 ^ r * n ^ wordOnes (parityWordOf r n) >
+      (3 * n + 1) ^ wordOnes (parityWordOf r n)) :
+    iterateAccelerated n r < n := by
+  let a := wordOnes (parityWordOf r n)
+  have hcons : deficitReservoir n r + 2 ^ r * n ^ a * iterateAccelerated n r =
+      n * (3 * n + 1) ^ a :=
+    reservoir_surplus_conservation_law n r hnd
+  have hmul_lt : n * (3 * n + 1) ^ a < n * (2 ^ r * n ^ a) :=
+    Nat.mul_lt_mul_of_pos_left hthr (by omega)
+  have hlt : (2 ^ r * n ^ a) * iterateAccelerated n r < (2 ^ r * n ^ a) * n := by
+    have hcomm : n * (2 ^ r * n ^ a) = (2 ^ r * n ^ a) * n := Nat.mul_comm _ _
+    omega
+  exact Nat.lt_of_mul_lt_mul_left hlt
+
+/-- Exact Goodstein Branch & Run-Exit Dichotomy Modulo 4 (`odd_step_goodstein_branch_dichotomy`):
+    For every odd integer `u` (`u % 2 = 1`):
+    1. `u % 4 = 3 ↔ acceleratedCollatz u % 2 = 1` (so `k = 0`, the Goodstein odd run continues,
+       and `2 * (acceleratedCollatz u + 1) = 3 * (u + 1)`),
+    2. `u % 4 = 1 ↔ acceleratedCollatz u % 2 = 0` (so `k ≥ 1`, the Goodstein odd run terminates
+       and forces at least one even division). -/
+theorem odd_step_goodstein_branch_dichotomy (u : Nat) (hodd : u % 2 = 1) :
+    2 * (acceleratedCollatz u + 1) = 3 * (u + 1) ∧
+    (u % 4 = 3 ↔ acceleratedCollatz u % 2 = 1) ∧
+    (u % 4 = 1 ↔ acceleratedCollatz u % 2 = 0) := by
+  unfold acceleratedCollatz
+  rw [if_neg (by omega : ¬(u % 2 = 0))]
+  omega
+
+/-- Shifted `u + 1` Identity Across a General Return Block (`singleOddWord_shifted_plus_one_identity`):
+    Across `singleOddWord k` realized by `u`, the shifted state `u + 1` satisfies
+    `2 ^ (k + 1) * (applyParityWord u (singleOddWord k) + 1) = 3 * (u + 1) + 2 ^ (k + 1) - 2`. -/
+theorem singleOddWord_shifted_plus_one_identity (k u : Nat)
+    (hv : validParityWord u (singleOddWord k)) :
+    2 ^ (k + 1) * (applyParityWord u (singleOddWord k) + 1) =
+      3 * (u + 1) + 2 ^ (k + 1) - 2 := by
+  have hid := parityWord_affine_identity (singleOddWord k) u hv
+  have hD : wordD (singleOddWord k) = 2 ^ (k + 1) := by
+    rw [wordD_eq_pow_two_length]; dsimp [singleOddWord]; rw [List.length_replicate]
+  have hA : wordA (singleOddWord k) = 3 := wordA_singleOddWord k
+  have hB : wordB (singleOddWord k) = 1 := by
+    dsimp [singleOddWord, wordB]; rw [wordA_replicate_false, wordB_replicate_false]
+  rw [hD, hA, hB] at hid
+  have hpow : 2 ^ (k + 1) ≥ 2 := by
+    have h1 := two_pow_le_two_pow 1 (k + 1) (by omega)
+    omega
+  rw [Nat.mul_add, Nat.mul_one, Nat.mul_add, Nat.mul_one]
+  omega
+
+/-- Formal Falsification Witness CE-C10-07
+    (`cyclic_rotation_preserves_divisibility_and_shifts_offset_witness`):
+    Demonstrates on `ks = [0, 1, 2]` and its cyclic rotations `[1, 2, 0]` and `[2, 0, 1]`
+    (`s = 3, K = 6, Δ = 64 - 27 = 37`) that:
+    1. Every cyclic rotation satisfies `2 ^ (k + 1) * B(rot_1(ks)) = 3 * B(ks) + Δ`,
+    2. Because `gcd(2 ^ (k + 1), Δ) = 1`, modular divisibility `d | B(ks)` is invariant across all
+       rotations (so cyclic rotation does not create new modular divisors on `1`-cycle repeats like
+       `ks = [1, 1, 1]` where `Δ = 37, B = 37`),
+    3. Instead, cyclic rotation breaks symmetry through the strict integer ordering of the offsets:
+       `B([0, 1, 2]) = 23 < B([2, 0, 1]) = 49 < B([1, 2, 0]) = 53`. -/
+theorem cyclic_rotation_preserves_divisibility_and_shifts_offset_witness :
+    let ks0 := [0, 1, 2]
+    let ks1 := [1, 2, 0]
+    let ks2 := [2, 0, 1]
+    wordDelta (returnMapWord ks0) = 37 ∧
+    wordB (returnMapWord ks0) = 23 ∧
+    wordB (returnMapWord ks1) = 53 ∧
+    wordB (returnMapWord ks2) = 49 ∧
+    2 ^ 1 * wordB (returnMapWord ks1) = 3 * wordB (returnMapWord ks0) + 37 ∧
+    2 ^ 2 * wordB (returnMapWord ks2) = 3 * wordB (returnMapWord ks1) + 37 ∧
+    2 ^ 3 * wordB (returnMapWord ks0) = 3 * wordB (returnMapWord ks2) + 37 ∧
+    wordB (returnMapWord ks0) < wordB (returnMapWord ks2) ∧
+    wordB (returnMapWord ks2) < wordB (returnMapWord ks1) := by
+  decide
+
+/-- Formal Falsification Witness CE-C10-08
+    (`contracting_odd_return_word_survives_at_165_witness`):
+    Falsifies the naive strengthening that EVERY globally contracting complete odd-to-odd
+    return sequence (`validOddReturnSeq n ks` with `2 ^ K_s > 3 ^ s` and `n > 1`) forces `u_s < n`:
+    at `n = 165`, `ks = [3, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 2]` has `s = 17`,
+    `K_17 = 27`, and `2 ^ 27 = 134217728 > 129140163 = 3 ^ 17`, yet `u_17 = 167 > 165`
+    (because the first block `k_0 = 3` drops `165 → 31 < 165`, violating prefix non-descent). -/
+theorem contracting_odd_return_word_survives_at_165_witness :
+    let ks := [3, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 2]
+    ks.length = 17 ∧
+    totalValuation ks = 27 ∧
+    2 ^ 27 > 3 ^ 17 ∧
+    validOddReturnSeq 165 ks ∧
+    applyParityWord 165 (returnMapWord [3]) = 31 ∧
+    31 < 165 ∧
+    applyParityWord 165 (returnMapWord ks) = 167 ∧
+    167 > 165 := by
+  dsimp [validOddReturnSeq, totalValuation, returnMapWord, singleOddWord, validParityWord,
+         stepParityMatches, acceleratedCollatz, applyParityWord]
+  decide
+
+/-- Formal Falsification Witness CE-C10-09
+    (`goodstein_tail_rank_resets_above_initial_at_27_witness`):
+    Falsifies any purely local lexicographic rank built solely from `(u_s, v_2(u_s + 1))`
+    across completed odd-to-odd circuits: at `n = 27` (`u_0 = 27`, where `27 + 1 = 28 = 4 * 7`
+    has `v_2(u_0 + 1) = 2`), after the 2-block circuit `ks = [0, 1]` (`27 → 41 → 31`),
+    `u_2 = 31 > 27` AND `u_2 + 1 = 32 = 2 ^ 5` resets the 2-adic tail valuation to
+    `v_2(u_2 + 1) = 5 > 2 = v_2(u_0 + 1)`. -/
+theorem goodstein_tail_rank_resets_above_initial_at_27_witness :
+    let u0 := 27
+    let u1 := applyParityWord 27 (returnMapWord [0])
+    let u2 := applyParityWord 27 (returnMapWord [0, 1])
+    u1 = 41 ∧ u2 = 31 ∧
+    (u0 + 1) % 4 = 0 ∧ (u0 + 1) % 8 ≠ 0 ∧
+    (u1 + 1) % 2 = 0 ∧ (u1 + 1) % 4 ≠ 0 ∧
+    (u2 + 1) = 2 ^ 5 ∧
+    u2 > u0 := by
+  decide
+
 end CollatzProofClosure
 end BBB17
