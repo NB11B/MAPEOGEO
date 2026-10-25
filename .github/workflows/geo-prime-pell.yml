@@ -1,0 +1,32 @@
+name: GEO-PRIME Pell recurrence proof
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths:
+      - 'experiments/geo_prime_geom_002/**'
+      - 'MAPEOGEOFormal/GeoPrimePell.lean'
+      - '.github/workflows/geo-prime-pell.yml'
+  pull_request:
+    paths:
+      - 'experiments/geo_prime_geom_002/**'
+      - 'MAPEOGEOFormal/GeoPrimePell.lean'
+      - '.github/workflows/geo-prime-pell.yml'
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Execute independent finite geometry and prime checks
+        run: |
+          cd experiments/geo_prime_geom_002
+          python -m unittest discover -v
+          python experiment.py
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+      - name: Verify exact Pell transformation in Lean kernel
+        run: lake env lean MAPEOGEOFormal/GeoPrimePell.lean
