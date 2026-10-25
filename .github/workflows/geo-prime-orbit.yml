@@ -1,0 +1,18 @@
+name: GEO-PRIME operational orbit Lean
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['MAPEOGEOFormal/GeoPrimeOrbit.lean','.github/workflows/geo-prime-orbit.yml']
+  pull_request:
+    paths: ['MAPEOGEOFormal/GeoPrimeOrbit.lean','.github/workflows/geo-prime-orbit.yml']
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+      - run: lake build MAPEOGEOFormal.GeoEuler MAPEOGEOFormal.GeoEulerPrime MAPEOGEOFormal.GeoPrimeCycle
+      - run: lake env lean MAPEOGEOFormal/GeoPrimeOrbit.lean
