@@ -11,7 +11,7 @@ theorem nine_step_three_not_full :
   have hv : ((t.val : ZMod 9) * (3 : ZMod 9)) = 1 := by
     simpa [iterateStep_eq] using ht
   have htlt : t.val < 9 := t.isLt
-  interval_cases t.val <;> norm_num at hv
+  interval_cases t.val <;> norm_num at hv ⊢
 
 end MAPEOGEOFormal.GeoPrimeOrbit
 #print axioms MAPEOGEOFormal.GeoPrimeOrbit.nine_step_three_not_full
