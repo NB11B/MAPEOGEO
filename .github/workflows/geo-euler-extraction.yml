@@ -36,3 +36,5 @@ jobs:
         run: |
           lake build MAPEOGEOFormal.GeoEuler MAPEOGEOFormal.GeoEulerCertificate
           lake env lean MAPEOGEOFormal/GeoEulerSelected.lean
+      - name: Falsify changed grammar with kernel
+        run: python experiments/geo_euler_005/lean_mutations.py
