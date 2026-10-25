@@ -1,0 +1,32 @@
+name: GEO-PRIME geometric candidate qualification
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths:
+      - 'experiments/geo_prime_geom_001/**'
+      - 'MAPEOGEOFormal/GeoPrimeGeometry.lean'
+      - '.github/workflows/geo-prime-geometry.yml'
+  pull_request:
+    paths:
+      - 'experiments/geo_prime_geom_001/**'
+      - 'MAPEOGEOFormal/GeoPrimeGeometry.lean'
+      - '.github/workflows/geo-prime-geometry.yml'
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Exact integer geometry test
+        run: |
+          cd experiments/geo_prime_geom_001
+          python -m unittest discover -v
+          python experiment.py
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+      - name: Lean geometric counterexample
+        run: lake env lean MAPEOGEOFormal/GeoPrimeGeometry.lean
