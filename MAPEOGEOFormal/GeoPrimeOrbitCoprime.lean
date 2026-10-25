@@ -12,7 +12,7 @@ theorem orbitSurjective_iff_coprime (n k : Nat) [NeZero n] :
     obtain ⟨u,hu⟩ := hs 1
     have hunit : IsUnit (k : ZMod n) := by
       exact isUnit_iff_exists_inv.mpr ⟨u, by simpa [mul_comm] using hu⟩
-    exact (ZMod.isUnit_iff_coprime k n).mp hunit
+    exact (Nat.coprime_comm).mp ((ZMod.isUnit_iff_coprime k n).mp hunit)
   · intro hc
     have hunit : IsUnit (k : ZMod n) :=
       (ZMod.isUnit_iff_coprime k n).mpr (by simpa [Nat.coprime_comm] using hc)
