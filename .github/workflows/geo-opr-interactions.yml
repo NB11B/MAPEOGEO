@@ -22,5 +22,8 @@ jobs:
           cd experiments/geo_opr_005
           python -m unittest discover -v
           python discover.py
+          python emit_lean.py
       - name: Verify interaction identities in Lean
-        run: lake env lean MAPEOGEOFormal/GeoOPRInteractions.lean
+        run: |
+          lake env lean MAPEOGEOFormal/GeoOPRInteractions.lean
+          lake env lean MAPEOGEOFormal/GeoOPRInferred.lean
