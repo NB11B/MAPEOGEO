@@ -28,7 +28,7 @@ theorem geometricPrime_iff_prime (n : Nat) :
     have ⟨p, hpp, hpn, hpk⟩ :=
       (Nat.Prime.not_coprime_iff_dvd).mp (by
         simpa [FullStep, Nat.coprime_comm] using hc)
-    have heq : n = p :=
+    have heq : p = n :=
       (Nat.Prime.dvd_iff_eq hpp (by have := hpp.two_le; omega)).mp hpn
     subst p
     have hle := Nat.le_of_dvd hk hpk
