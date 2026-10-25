@@ -1,0 +1,32 @@
+{
+  "basel_error": 0.00009999500016655283,
+  "basel_partial_10000": 1.6448340718480599,
+  "basel_reference": 1.6449340668482264,
+  "broken_cycle_rejected": true,
+  "disconnected_cycles_rejected": true,
+  "fitted_a": 0.08333333333333333,
+  "fitted_b": -0.0833333333333353,
+  "holdout_sizes": [
+    6,
+    8,
+    11,
+    14,
+    18,
+    25,
+    32,
+    48
+  ],
+  "max_holdout_absolute_error": 4.433786671143025e-12,
+  "path_rejected": true,
+  "permuted_holdout_pass": true,
+  "training_sizes": [
+    5,
+    7,
+    9,
+    12,
+    16,
+    21
+  ],
+  "weighted_cycle_rejected": true,
+  "execution_note": "Local standalone equivalent benchmark run; GitHub workflow qualification not yet observed"
+}
