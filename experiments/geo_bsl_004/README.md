@@ -1,0 +1,6 @@
+# GEO-BSL-004: compositional digit contribution inference
+Local run: 2026-10-25. 8/8 tests passed. Train integer 1..320, bases 3,5,7,10,12. Test 321..640 with bases 2,4,8,11,16 (1600 pairs).
+Unknown additive per-digit contributions are estimated from the integer outputs with a digit-count design matrix. The estimator then selects the lowest polynomial degree 0..4 fitting the inferred digit contribution table. It discovers degree 2; 1600 unseen-base evaluations have max abs error approximately 6.35e-13. Position-dependent and adjacent-digit-interaction adversarial rules cannot fit the additive model (training max residuals ~124.9 and ~45.08).
+Execute: `python -m unittest discover -s experiments/geo_bsl_004 -p 'test_*.py' -v` and `python experiments/geo_bsl_004/experiment.py`.
+**Interpretation:** This is restricted symbolic factorization, NOT native MAPEOGEO autonomy: base-b digit parsing and per-digit additivity are given. Polynomial extrapolation past max training digit 11 depends on that supplied function class. The negative controls show model misspecification, not inference of their correct operators.
+Next: introduce grammar search over position, digit interactions, and alternative encodings, with independent datasets and operator identifiability checks.
