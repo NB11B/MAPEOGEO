@@ -36,8 +36,7 @@ theorem orbitSurjective_iff_mul_surjective (n : Nat) (k : ZMod n) :
     simpa [iterateStep_eq] using ht
   · intro h x
     rcases h x with ⟨j,hj⟩
-    obtain ⟨t,rfl⟩ := ZMod.natCast_surjective j
-    exact ⟨t, by simpa [iterateStep_eq] using hj⟩
+    exact ⟨j.val, by simpa [iterateStep_eq] using hj⟩
 
 end MAPEOGEOFormal.GeoPrimeOrbit
 #print axioms MAPEOGEOFormal.GeoPrimeOrbit.iterateStep_eq
