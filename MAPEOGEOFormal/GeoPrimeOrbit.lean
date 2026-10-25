@@ -27,7 +27,7 @@ theorem iterateStep_eq (n : Nat) (k : ZMod n) (t : Nat) :
 def OrbitSurjective (n : Nat) (k : ZMod n) : Prop :=
   ∀ x : ZMod n, ∃ t : Nat, iterateStep n k t = x
 
-theorem orbitSurjective_iff_mul_surjective (n : Nat) (k : ZMod n) :
+theorem orbitSurjective_iff_mul_surjective (n : Nat) [NeZero n] (k : ZMod n) :
     OrbitSurjective n k ↔ Function.Surjective (fun x : ZMod n => x*k) := by
   constructor
   · intro h x
