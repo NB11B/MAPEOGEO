@@ -4,12 +4,14 @@ on:
     paths:
       - 'experiments/geo_bsl_006/**'
       - 'experiments/geo_bsl_007/**'
+      - 'experiments/geo_bsl_008/**'
       - '.github/workflows/geo-bsl-native.yml'
   push:
     branches: ['experiments/geo-bsl-001']
     paths:
       - 'experiments/geo_bsl_006/**'
       - 'experiments/geo_bsl_007/**'
+      - 'experiments/geo_bsl_008/**'
       - '.github/workflows/geo-bsl-native.yml'
 jobs:
   native:
@@ -30,3 +32,8 @@ jobs:
           cd experiments/geo_bsl_007
           python -m unittest discover -v
           python trajectory.py
+      - name: Unlabeled generator recovery and native basis
+        run: |
+          cd experiments/geo_bsl_008
+          python -m unittest discover -v
+          python mixture.py
