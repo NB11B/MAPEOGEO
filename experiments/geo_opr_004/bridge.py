@@ -37,7 +37,7 @@ def selected (a b : Nat) : Nat := {expr}
 
 theorem selected_spec (a b : Nat) : selected a b = a + a*b := by
   simp only [selected]
-  ring
+  try ring
 
 end MAPEOGEOFormal.GeoOPR
 #print axioms MAPEOGEOFormal.GeoOPR.selected_spec
