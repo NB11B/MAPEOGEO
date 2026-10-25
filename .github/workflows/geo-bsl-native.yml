@@ -3,11 +3,13 @@ on:
   pull_request:
     paths:
       - 'experiments/geo_bsl_006/**'
+      - 'experiments/geo_bsl_007/**'
       - '.github/workflows/geo-bsl-native.yml'
   push:
     branches: ['experiments/geo-bsl-001']
     paths:
       - 'experiments/geo_bsl_006/**'
+      - 'experiments/geo_bsl_007/**'
       - '.github/workflows/geo-bsl-native.yml'
 jobs:
   native:
@@ -23,3 +25,8 @@ jobs:
           cd experiments/geo_bsl_006
           python -m unittest discover -v
           python adapter.py
+      - name: Unknown-generator reconstruction
+        run: |
+          cd experiments/geo_bsl_007
+          python -m unittest discover -v
+          python trajectory.py
