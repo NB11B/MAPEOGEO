@@ -1,0 +1,20 @@
+name: GEO-EULER prime closure qualification
+on:
+  pull_request:
+    paths: ['experiments/geo_euler_001/**', '.github/workflows/geo-euler.yml']
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['experiments/geo_euler_001/**', '.github/workflows/geo-euler.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Run prime closure and ablation controls
+        run: |
+          cd experiments/geo_euler_001
+          python -m unittest discover -v
+          python experiment.py
