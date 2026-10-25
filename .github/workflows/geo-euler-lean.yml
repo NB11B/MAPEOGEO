@@ -4,6 +4,7 @@ on:
     branches: ['experiments/geo-bsl-001']
     paths:
       - 'MAPEOGEOFormal/GeoEuler.lean'
+      - 'MAPEOGEOFormal/GeoEulerPrime.lean'
       - 'experiments/geo_euler_004/LEAN_BRIDGE.md'
       - '.github/workflows/geo-euler-lean.yml'
   pull_request:
@@ -20,4 +21,6 @@ jobs:
           test: false
           build: false
       - name: Verify GEO-EULER proofs and audit axioms
-        run: lake env lean MAPEOGEOFormal/GeoEuler.lean
+        run: |
+          lake build MAPEOGEOFormal.GeoEuler
+          lake env lean MAPEOGEOFormal/GeoEulerPrime.lean
