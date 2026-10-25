@@ -19,13 +19,16 @@ theorem addR_eq_add (a b : Nat) : addR a b = a + b := by
   induction b with
   | zero => rfl
   | succ b ih =>
-      simp [addR, ih, Nat.add_succ]
+      change Nat.succ (addR a b) = a + Nat.succ b
+      rw [ih]
+      exact (Nat.add_succ a b).symm
 
 theorem mulR_eq_mul (a b : Nat) : mulR a b = a * b := by
   induction b with
   | zero => rfl
   | succ b ih =>
-      simp [mulR, addR_eq_add, ih, Nat.mul_succ, Nat.add_comm]
+      change addR (mulR a b) a = a * Nat.succ b
+      rw [addR_eq_add, ih, Nat.mul_succ]
 
 theorem addR_swap (a b : Nat) : addR a b = addR b a := by
   simp [addR_eq_add, Nat.add_comm]
