@@ -1,0 +1,20 @@
+name: GEO-PRIME exponential obstruction tests
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['experiments/geo_prime_exp_001/**','.github/workflows/geo-prime-exp.yml']
+  pull_request:
+    paths: ['experiments/geo_prime_exp_001/**','.github/workflows/geo-prime-exp.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install sympy
+      - run: |
+          cd experiments/geo_prime_exp_001
+          python -m unittest discover -v
+          python experiment.py
