@@ -1,0 +1,26 @@
+name: GEO-OPR interaction identities
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['experiments/geo_opr_005/**','MAPEOGEOFormal/GeoOPRInteractions.lean','.github/workflows/geo-opr-interactions.yml']
+  pull_request:
+    paths: ['experiments/geo_opr_005/**','MAPEOGEOFormal/GeoOPRInteractions.lean','.github/workflows/geo-opr-interactions.yml']
+jobs:
+  discover-and-prove:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+      - name: Evaluate recovered interaction coefficients
+        run: |
+          cd experiments/geo_opr_005
+          python -m unittest discover -v
+          python discover.py
+      - name: Verify interaction identities in Lean
+        run: lake env lean MAPEOGEOFormal/GeoOPRInteractions.lean
