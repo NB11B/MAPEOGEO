@@ -5,6 +5,7 @@ on:
     paths:
       - 'experiments/geo_prime_geom_002/**'
       - 'MAPEOGEOFormal/GeoPrimePell.lean'
+      - 'MAPEOGEOFormal/GeoPrimeGeomBridge.lean'
       - '.github/workflows/geo-prime-pell.yml'
   pull_request:
     paths:
@@ -36,3 +37,7 @@ jobs:
           lake env lean MAPEOGEOFormal/GeoPrimePellInferred.lean
       - name: Reject mutated inferred Pell generator
         run: python experiments/geo_prime_geom_002/negative_kernel.py
+      - name: Kernel qualify Pell candidates against prime theorem
+        run: |
+          lake build MAPEOGEOFormal.GeoEuler MAPEOGEOFormal.GeoEulerPrime MAPEOGEOFormal.GeoPrimePell
+          lake env lean MAPEOGEOFormal/GeoPrimeGeomBridge.lean
