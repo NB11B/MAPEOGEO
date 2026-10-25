@@ -15,10 +15,11 @@ theorem boundedCoverage_iff_orbitSurjective (n : Nat) [NeZero n]
     exact ⟨t.val, ht⟩
   · intro h x
     rcases h x with ⟨t, ht⟩
-    have hperiod : iterateStep n k (t % n) = iterateStep n k t := by
-      rw [iterateStep_eq, iterateStep_eq]
-      simp only [Nat.cast_mod, ZMod.natCast_self, mod_zero]
-    exact ⟨⟨t % n, Nat.mod_lt t (NeZero.pos n)⟩, hperiod.trans ht⟩
+    let j : ZMod n := t
+    have hcast : (j.val : ZMod n) = j := ZMod.natCast_zmod_val j
+    refine ⟨⟨j.val, ZMod.val_lt j⟩, ?_⟩
+    rw [iterateStep_eq, hcast]
+    simpa [j, iterateStep_eq] using ht
 
 end MAPEOGEOFormal.GeoPrimeOrbit
 #print axioms MAPEOGEOFormal.GeoPrimeOrbit.boundedCoverage_iff_orbitSurjective
