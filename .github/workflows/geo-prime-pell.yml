@@ -24,9 +24,15 @@ jobs:
           cd experiments/geo_prime_geom_002
           python -m unittest discover -v
           python experiment.py
+          python infer.py
+          python emit_lean.py
       - uses: leanprover/lean-action@v1
         with:
           build: false
           test: false
       - name: Verify exact Pell transformation in Lean kernel
-        run: lake env lean MAPEOGEOFormal/GeoPrimePell.lean
+        run: |
+          lake env lean MAPEOGEOFormal/GeoPrimePell.lean
+          lake env lean MAPEOGEOFormal/GeoPrimePellInferred.lean
+      - name: Reject mutated inferred Pell generator
+        run: python experiments/geo_prime_geom_002/negative_kernel.py
