@@ -46,6 +46,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section10_divergent_orbit_and_valuation_laws,
     verify_section11_ordered_valuation_goodstein_four_color_and_falsification,
     verify_section12_rotation_reducibility_and_goodstein_falsification,
+    verify_section13_adversarial_first_crossing_and_no_crossing_branch,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -175,6 +176,17 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertTrue(sec12["ce07_rotation_order_verified"])
         self.assertTrue(sec12["ce08_contracting_survival_at_165_verified"])
         self.assertTrue(sec12["ce09_goodstein_tail_reset_at_27_verified"])
+
+    def test_ws6_section13_adversarial_first_crossing_and_no_crossing_branch(self) -> None:
+        sec13 = verify_section13_adversarial_first_crossing_and_no_crossing_branch(
+            max_s_words=12, max_s_cap=306
+        )
+        self.assertEqual(sec13["first_crossing_words_checked"], 8806)
+        self.assertEqual(sec13["offset_cap_violations"], 0)
+        self.assertEqual(sec13["surviving_representatives_found"], 0)
+        self.assertEqual(sec13["pre_crossing_growth_violations"], 0)
+        self.assertEqual(sec13["benchmark_mismatches"], 0)
+        self.assertEqual(sec13["max_survivor_cap_le_306"], 99567)
 
 
 def generate_c10_artifacts() -> None:

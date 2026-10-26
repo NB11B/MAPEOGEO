@@ -613,5 +613,50 @@ theorem section12_rotation_reducibility_and_goodstein_falsification_master :
    nondescent_prefix_reservoir_threshold_reducible_descent,
    odd_step_goodstein_branch_dichotomy⟩
 
+/-- Master Section 13 First-Crossing Offset Cap, Linear Exclusion Trap, and Two-Branch Dichotomy
+    Synthesis (`section13_first_crossing_cap_and_two_branch_master`):
+    Synthesizes the Section 13 architecture:
+    1. **Universal Pre-Crossing Offset Cap (`preCrossing_returnMap_offset_upper_bound`)**:
+       Every valuation sequence `ks` whose proper prefixes have not yet crossed
+       (`PreCrossingReturnSeq ks`) satisfies `3 * wordB (returnMapWord ks) ≤ s * 3^s`
+       and `wordB (returnMapWord ks) ≤ s * 3^{s-1}`, completely independent of the final valuation `k_{s-1}`.
+    2. **First-Crossing Linear Offset Exclusion & Finite Survivor Trap (`first_crossing_linear_offset_exclusion`)**:
+       For every first-crossing return word `ks` (`PreCrossingReturnSeq ks` and `2^K_s > 3^s`),
+       `3 * ((2^K_s - 3^s) * n) > s * 3^s` unconditionally forces `F(n) < n` (without even requiring
+       intermediate non-descent `u_j ≥ n`), trapping any hypothetical survivor in `n ≤ s * 3^{s-1} / (2^{K_s} - 3^s)`.
+    3. **Branch 2 (No-First-Crossing) Shifted Growth & Non-Descent (`no_first_crossing_shifted_growth_and_nondescent`)**:
+       `2^K_s * (F(n) + 1) ≥ 3^s * (n + 1)`, so whenever `s ≥ 1` and `2^K_s ≤ 3^s`, `F(n) > n`.
+    4. **Infinite-Horizon Two-Branch Dichotomy (`infinite_valuation_first_crossing_or_indefinite_expansion`)**:
+       Every valuation trajectory `K : Nat → Nat` either hits a unique first spectral crossing
+       `2^K(s) > 3^s` with `∀ j < s, 2^K(j) ≤ 3^j` (Branch 1) or remains spectrally expanding
+       `∀ s ≥ 1, 2^K(s) ≤ 3^s` (Branch 2). -/
+theorem section13_first_crossing_cap_and_two_branch_master :
+    (∀ ks : List Nat,
+      PreCrossingReturnSeq ks →
+      3 * wordB (returnMapWord ks) ≤ ks.length * 3 ^ ks.length ∧
+      wordB (returnMapWord ks) ≤ ks.length * 3 ^ (ks.length - 1)) ∧
+    (∀ (ks : List Nat) (n : Nat),
+      validParityWord n (returnMapWord ks) →
+      PreCrossingReturnSeq ks →
+      2 ^ totalValuation ks > 3 ^ ks.length →
+      (3 * ((2 ^ totalValuation ks - 3 ^ ks.length) * n) > ks.length * 3 ^ ks.length →
+        applyParityWord n (returnMapWord ks) < n) ∧
+      (applyParityWord n (returnMapWord ks) ≥ n →
+        3 * ((2 ^ totalValuation ks - 3 ^ ks.length) * n) ≤ ks.length * 3 ^ ks.length)) ∧
+    (∀ (ks : List Nat) (n : Nat),
+      validParityWord n (returnMapWord ks) →
+      2 ^ totalValuation ks * (applyParityWord n (returnMapWord ks) + 1) ≥
+        3 ^ ks.length * (n + 1) ∧
+      (ks.length ≥ 1 → 2 ^ totalValuation ks ≤ 3 ^ ks.length →
+        applyParityWord n (returnMapWord ks) > n)) ∧
+    (∀ K : Nat → Nat,
+      (∃ s : Nat, s ≥ 1 ∧ 2 ^ K s > 3 ^ s ∧
+        ∀ j : Nat, 1 ≤ j → j < s → 2 ^ K j ≤ 3 ^ j) ∨
+      (∀ s : Nat, s ≥ 1 → 2 ^ K s ≤ 3 ^ s)) :=
+  ⟨preCrossing_returnMap_offset_upper_bound,
+   first_crossing_linear_offset_exclusion,
+   no_first_crossing_shifted_growth_and_nondescent,
+   infinite_valuation_first_crossing_or_indefinite_expansion⟩
+
 end CollatzProofClosure
 end BBB17

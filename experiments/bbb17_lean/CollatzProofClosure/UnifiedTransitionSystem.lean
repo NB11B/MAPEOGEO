@@ -4193,5 +4193,258 @@ theorem goodstein_tail_rank_resets_above_initial_at_27_witness :
     u2 > u0 := by
   decide
 
+/-! ## Section 13: Two-Branch First-Crossing vs. Indefinite-Expansion Architecture,
+    Universal First-Crossing Offset Cap, and Finite Survivor Trap -/
+
+/-- Recursive predicate `preCrossingFrom j K ks` checking that every proper prefix of `ks`
+    (starting at block index `j` and cumulative valuation `K`) satisfies `2 ^ K_m ≤ 3 ^ m`. -/
+def preCrossingFrom (j K : Nat) : List Nat → Prop
+  | [] => True
+  | k :: tl => (2 ^ K ≤ 3 ^ j) ∧ preCrossingFrom (j + 1) (K + k + 1) tl
+
+/-- `PreCrossingReturnSeq ks` holds when every proper prefix `0 ≤ j < ks.length` of `ks`
+    remains spectrally non-contracting (`2 ^ K_j ≤ 3 ^ j`). -/
+def PreCrossingReturnSeq (ks : List Nat) : Prop :=
+  preCrossingFrom 0 0 ks
+
+/-- Right-append (`snoc`) decomposition for `preCrossingFrom` (`preCrossingFrom_snoc`). -/
+theorem preCrossingFrom_snoc (ks : List Nat) (k : Nat) :
+    ∀ j K : Nat,
+      preCrossingFrom j K (ks ++ [k]) ↔
+        (preCrossingFrom j K ks ∧ 2 ^ (K + totalValuation ks) ≤ 3 ^ (j + ks.length)) := by
+  induction ks with
+  | nil =>
+    intro j K
+    dsimp [preCrossingFrom, totalValuation, returnMapWord, singleOddWord]
+    constructor
+    · intro h; exact ⟨trivial, h.1⟩
+    · intro h; exact ⟨h.2, trivial⟩
+  | cons x tl ih =>
+    intro j K
+    dsimp [preCrossingFrom]
+    rw [ih (j + 1) (K + x + 1), totalValuation_cons x tl]
+    have hK : K + x + 1 + totalValuation tl = K + (x + 1 + totalValuation tl) := by omega
+    have hj : j + 1 + tl.length = j + (tl.length + 1) := by omega
+    rw [hK, hj]
+    constructor
+    · intro h; exact ⟨⟨h.1, h.2.1⟩, h.2.2⟩
+    · intro h; exact ⟨h.1.1, ⟨h.1.2, h.2⟩⟩
+
+/-- Right-append (`snoc`) characterization of `PreCrossingReturnSeq` (`preCrossingReturnSeq_snoc`):
+    `PreCrossingReturnSeq (ks ++ [k]) ↔ PreCrossingReturnSeq ks ∧ 2 ^ totalValuation ks ≤ 3 ^ ks.length`. -/
+theorem preCrossingReturnSeq_snoc (ks : List Nat) (k : Nat) :
+    PreCrossingReturnSeq (ks ++ [k]) ↔
+      (PreCrossingReturnSeq ks ∧ 2 ^ totalValuation ks ≤ 3 ^ ks.length) := by
+  unfold PreCrossingReturnSeq
+  rw [preCrossingFrom_snoc ks k 0 0, Nat.zero_add, Nat.zero_add]
+
+/-- Universal Pre-Crossing Return-Map Offset Cap (`preCrossing_returnMap_offset_upper_bound`):
+    Whereas a general return word of length `s` and valuation `K` can have offset as large as
+    `2 ^ (K - s) * (3 ^ s - 2 ^ s)`, ANY return word `ks` whose proper prefixes have not yet
+    crossed (`PreCrossingReturnSeq ks`, i.e., `∀ j < s, 2 ^ K_j ≤ 3 ^ j`) satisfies the
+    valuation-independent linear-exponential cap:
+    `3 * wordB (returnMapWord ks) ≤ ks.length * 3 ^ ks.length`
+    and `wordB (returnMapWord ks) ≤ ks.length * 3 ^ (ks.length - 1)`. -/
+theorem preCrossing_returnMap_offset_upper_bound (ks : List Nat)
+    (hpre : PreCrossingReturnSeq ks) :
+    3 * wordB (returnMapWord ks) ≤ ks.length * 3 ^ ks.length ∧
+    wordB (returnMapWord ks) ≤ ks.length * 3 ^ (ks.length - 1) := by
+  let P := fun (l : List Nat) =>
+    PreCrossingReturnSeq l →
+      3 * wordB (returnMapWord l) ≤ l.length * 3 ^ l.length
+  have hnil : P [] := by
+    intro _
+    dsimp [returnMapWord, wordB]
+    omega
+  have hsnoc : ∀ (l : List Nat) (k : Nat), P l → P (l ++ [k]) := by
+    intro l k ih hpre_lk
+    rcases (preCrossingReturnSeq_snoc l k).mp hpre_lk with ⟨hpre_l, hK_le⟩
+    have hB_l := ih hpre_l
+    have hlen : (l ++ [k]).length = l.length + 1 := by
+      rw [List.length_append]; rfl
+    have hB_snoc := wordB_returnMapWord_snoc l k
+    rw [hlen, hB_snoc, Nat.pow_succ 3 l.length]
+    have hstep1 : wordB (returnMapWord (l ++ [k])) ≤ (l.length + 1) * 3 ^ l.length := by
+      rw [hB_snoc, Nat.add_mul, Nat.one_mul]
+      omega
+    have hmul : (l.length + 1) * (3 ^ l.length * 3) =
+        3 * ((l.length + 1) * 3 ^ l.length) := by
+      rw [← Nat.mul_assoc (l.length + 1) (3 ^ l.length) 3,
+          Nat.mul_comm ((l.length + 1) * 3 ^ l.length) 3]
+    omega
+  have hacc : ∀ (rem pfx : List Nat), P pfx → P (pfx ++ rem) := by
+    intro rem
+    induction rem with
+    | nil =>
+      intro pfx hp
+      rw [List.append_nil]
+      exact hp
+    | cons k tl ih =>
+      intro pfx hp
+      have hcons : pfx ++ (k :: tl) = (pfx ++ [k]) ++ tl := by simp
+      rw [hcons]
+      exact ih (pfx ++ [k]) (hsnoc pfx k hp)
+  have hmain : 3 * wordB (returnMapWord ks) ≤ ks.length * 3 ^ ks.length :=
+    hacc ks [] hnil hpre
+  refine ⟨hmain, ?_⟩
+  cases hlen_cases : ks.length with
+  | zero =>
+    have hnil_ks : ks = [] := List.eq_nil_of_length_eq_zero hlen_cases
+    subst hnil_ks
+    dsimp [returnMapWord, wordB]
+    omega
+  | succ m =>
+    rw [hlen_cases] at hmain
+    rw [Nat.add_sub_cancel, Nat.pow_succ 3 m] at *
+    have hcomm : (m + 1) * (3 ^ m * 3) = 3 * ((m + 1) * 3 ^ m) := by
+      rw [← Nat.mul_assoc (m + 1) (3 ^ m) 3, Nat.mul_comm ((m + 1) * 3 ^ m) 3]
+    omega
+
+/-- First-Crossing Linear Offset Exclusion & Finite Survivor Trap
+    (`first_crossing_linear_offset_exclusion`):
+    For EVERY first-crossing return word `ks` (`PreCrossingReturnSeq ks` and `2 ^ K_s > 3 ^ s`),
+    1. Every integer `n` realizing `returnMapWord ks` with `3 * ((2 ^ K_s - 3 ^ s) * n) > s * 3 ^ s`
+       strictly descends below `n` (`applyParityWord n (returnMapWord ks) < n`), EVEN WITHOUT
+       requiring intermediate non-descent `u_j ≥ n`.
+    2. Conversely, any hypothetical survivor (`applyParityWord n (returnMapWord ks) ≥ n`) is trapped
+       in the finite interval `3 * ((2 ^ K_s - 3 ^ s) * n) ≤ s * 3 ^ s` (`n ≤ s * 3^{s-1} / (2^{K_s} - 3^s)`). -/
+theorem first_crossing_linear_offset_exclusion (ks : List Nat) (n : Nat)
+    (hv : validParityWord n (returnMapWord ks))
+    (hpre : PreCrossingReturnSeq ks)
+    (hcont : 2 ^ totalValuation ks > 3 ^ ks.length) :
+    (3 * ((2 ^ totalValuation ks - 3 ^ ks.length) * n) > ks.length * 3 ^ ks.length →
+      applyParityWord n (returnMapWord ks) < n) ∧
+    (applyParityWord n (returnMapWord ks) ≥ n →
+      3 * ((2 ^ totalValuation ks - 3 ^ ks.length) * n) ≤ ks.length * 3 ^ ks.length) := by
+  have hD := wordD_returnMapWord ks
+  have hA := wordA_returnMapWord ks
+  have hcont_w : wordD (returnMapWord ks) > wordA (returnMapWord ks) := by
+    rw [hD, hA]; exact hcont
+  have hiff := contracting_word_descent_iff (returnMapWord ks) n hv hcont_w
+  rw [hD, hA] at hiff
+  have hcap := (preCrossing_returnMap_offset_upper_bound ks hpre).1
+  constructor
+  · intro hgt
+    rw [hiff]
+    omega
+  · intro hge
+    have hnot : ¬(applyParityWord n (returnMapWord ks) < n) := by omega
+    rw [hiff] at hnot
+    omega
+
+/-- Branch 2 (No-First-Crossing / Indefinite Expansion) Shifted Growth & Non-Descent Law
+    (`no_first_crossing_shifted_growth_and_nondescent`):
+    For EVERY return word `ks` realized by `n`:
+    1. `2 ^ K_s * (applyParityWord n (returnMapWord ks) + 1) ≥ 3 ^ s * (n + 1)`, and
+    2. Whenever `s = ks.length ≥ 1` and `2 ^ K_s ≤ 3 ^ s` (in particular, at every step along the
+       no-first-crossing branch `∀ s ≥ 1, 2 ^ K_s < 3 ^ s`), the odd return strictly exceeds `n`
+       (`applyParityWord n (returnMapWord ks) > n`). -/
+theorem no_first_crossing_shifted_growth_and_nondescent (ks : List Nat) (n : Nat)
+    (hv : validParityWord n (returnMapWord ks)) :
+    2 ^ totalValuation ks * (applyParityWord n (returnMapWord ks) + 1) ≥
+      3 ^ ks.length * (n + 1) ∧
+    (ks.length ≥ 1 → 2 ^ totalValuation ks ≤ 3 ^ ks.length →
+      applyParityWord n (returnMapWord ks) > n) := by
+  have hid := parityWord_affine_identity (returnMapWord ks) n hv
+  rw [wordD_returnMapWord, wordA_returnMapWord] at hid
+  rcases returnMap_offset_extremal_sandwich ks with ⟨hK_ge_s, hlow, _⟩
+  have hpow_le : 2 ^ ks.length ≤ 2 ^ totalValuation ks :=
+    two_pow_le_two_pow ks.length (totalValuation ks) hK_ge_s
+  have hshifted : 2 ^ totalValuation ks * (applyParityWord n (returnMapWord ks) + 1) ≥
+      3 ^ ks.length * (n + 1) := by
+    rw [Nat.mul_add, Nat.mul_one, Nat.mul_add, Nat.mul_one]
+    omega
+  refine ⟨hshifted, ?_⟩
+  intro hs1 hle_exp
+  have hB_pos : wordB (returnMapWord ks) ≥ 1 := by
+    cases ks with
+    | nil => dsimp at hs1; omega
+    | cons k0 tl =>
+      rw [wordB_returnMapWord_cons k0 tl]
+      have h3_pos : 3 ^ tl.length ≥ 1 := Nat.one_le_pow tl.length 3 (by decide)
+      omega
+  have hmul_le : 2 ^ totalValuation ks * n ≤ 3 ^ ks.length * n :=
+    Nat.mul_le_mul_right n hle_exp
+  have hlt_mul : 2 ^ totalValuation ks * n <
+      2 ^ totalValuation ks * applyParityWord n (returnMapWord ks) := by
+    omega
+  exact Nat.lt_of_mul_lt_mul_left hlt_mul
+
+/-- Finite-Horizon First-Crossing vs. No-Crossing Dichotomy
+    (`finite_valuation_first_crossing_or_no_crossing`):
+    For any cumulative valuation sequence `K : Nat → Nat` and any horizon `S : Nat`, either:
+    1. `(∀ s : Nat, 1 ≤ s → s ≤ S → 2 ^ K s ≤ 3 ^ s)` (No spectral crossing up to `S`), or
+    2. `(∃ s : Nat, 1 ≤ s ∧ s ≤ S ∧ 2 ^ K s > 3 ^ s ∧ ∀ j : Nat, 1 ≤ j → j < s → 2 ^ K j ≤ 3 ^ j)`
+       (A unique first spectral crossing occurs at some `1 ≤ s ≤ S`). -/
+theorem finite_valuation_first_crossing_or_no_crossing (K : Nat → Nat) :
+    ∀ S : Nat,
+      (∀ s : Nat, 1 ≤ s → s ≤ S → 2 ^ K s ≤ 3 ^ s) ∨
+      (∃ s : Nat, 1 ≤ s ∧ s ≤ S ∧ 2 ^ K s > 3 ^ s ∧
+        ∀ j : Nat, 1 ≤ j → j < s → 2 ^ K j ≤ 3 ^ j)
+  | 0 => Or.inl (fun s hs1 hs0 => by omega)
+  | S + 1 => by
+    rcases finite_valuation_first_crossing_or_no_crossing K S with hno | ⟨s, hs1, hsS, hgt, hpre⟩
+    · by_cases hcur : 2 ^ K (S + 1) ≤ 3 ^ (S + 1)
+      · left
+        intro s hs1 hs_le
+        by_cases h_eq : s = S + 1
+        · subst h_eq; exact hcur
+        · exact hno s hs1 (by omega)
+      · right
+        refine ⟨S + 1, by omega, by omega, by omega, ?_⟩
+        intro j hj1 hj_lt
+        exact hno j hj1 (by omega)
+    · right
+      exact ⟨s, hs1, by omega, hgt, hpre⟩
+
+/-- Infinite-Horizon Two-Branch Dichotomy for Valuation Sequences
+    (`infinite_valuation_first_crossing_or_indefinite_expansion`):
+    Every infinite valuation trajectory `K : Nat → Nat` falls into one of two disjoint branches:
+    1. **Branch 1 (First Spectral Crossing Occurs)**:
+       `∃ s ≥ 1, 2 ^ K s > 3 ^ s ∧ ∀ j, 1 ≤ j → j < s → 2 ^ K j ≤ 3 ^ j`, or
+    2. **Branch 2 (Indefinite Spectral Expansion / No First Crossing)**:
+       `∀ s ≥ 1, 2 ^ K s ≤ 3 ^ s`. -/
+theorem infinite_valuation_first_crossing_or_indefinite_expansion (K : Nat → Nat) :
+    (∃ s : Nat, s ≥ 1 ∧ 2 ^ K s > 3 ^ s ∧
+      ∀ j : Nat, 1 ≤ j → j < s → 2 ^ K j ≤ 3 ^ j) ∨
+    (∀ s : Nat, s ≥ 1 → 2 ^ K s ≤ 3 ^ s) := by
+  by_cases hall : ∀ s : Nat, s ≥ 1 → 2 ^ K s ≤ 3 ^ s
+  · exact Or.inr hall
+  · left
+    have hex : ∃ S : Nat, ¬(∀ s : Nat, 1 ≤ s → s ≤ S → 2 ^ K s ≤ 3 ^ s) := by
+      exact Classical.byContradiction (fun hno =>
+        hall (fun s hs1 =>
+          Classical.byContradiction (fun hnot_le =>
+            hno ⟨s, fun h => hnot_le (h s hs1 (by omega))⟩)))
+    rcases hex with ⟨S, hnot_all⟩
+    rcases finite_valuation_first_crossing_or_no_crossing K S with hno | ⟨s, hs1, _, hgt, hpre⟩
+    · exact False.elim (hnot_all hno)
+    · exact ⟨s, hs1, hgt, hpre⟩
+
+/-- Formal Benchmark & Cap Separation Witness (`first_crossing_benchmarks_and_cap_witness`):
+    1. At `n = 165`, the true first odd-endpoint spectral crossing is `ks = [3]` (`s = 1, K = 4`),
+       which satisfies `PreCrossingReturnSeq [3]`, `2 ^ 4 > 3 ^ 1`, and descends to `31 < 165`.
+    2. At `s = 5, K = 8` (`Δ = 256 - 243 = 13`), the first-crossing words `[0, 0, 0, 0, 3]`
+       (`B = 211`) and `[0, 1, 0, 1, 1]` (`B = 319`) satisfy `PreCrossingReturnSeq` and obey the
+       linear cap `B ≤ 5 * 3^4 = 405`, whereas the non-first-crossing permutation `[3, 0, 0, 0, 0]`
+       violates `PreCrossingReturnSeq` and has `B = 1121 > 405`. -/
+theorem first_crossing_benchmarks_and_cap_witness :
+    (PreCrossingReturnSeq [3] ∧
+     validOddReturnSeq 165 [3] ∧
+     applyParityWord 165 (returnMapWord [3]) = 31 ∧
+     31 < 165) ∧
+    (PreCrossingReturnSeq [0, 0, 0, 0, 3] ∧
+     wordB (returnMapWord [0, 0, 0, 0, 3]) = 211 ∧
+     211 ≤ 5 * 3 ^ 4) ∧
+    (PreCrossingReturnSeq [0, 1, 0, 1, 1] ∧
+     wordB (returnMapWord [0, 1, 0, 1, 1]) = 319 ∧
+     319 ≤ 5 * 3 ^ 4) ∧
+    (¬PreCrossingReturnSeq [3, 0, 0, 0, 0] ∧
+     wordB (returnMapWord [3, 0, 0, 0, 0]) = 1121 ∧
+     1121 > 5 * 3 ^ 4) := by
+  dsimp [PreCrossingReturnSeq, preCrossingFrom, validOddReturnSeq, returnMapWord,
+         singleOddWord, validParityWord, stepParityMatches, acceleratedCollatz, applyParityWord]
+  decide
+
 end CollatzProofClosure
 end BBB17

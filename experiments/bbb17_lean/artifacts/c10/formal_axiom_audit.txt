@@ -226,3 +226,18 @@
 'BBB17.CollatzProofClosure.section12_rotation_reducibility_and_goodstein_falsification_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.preCrossingFrom_snoc' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.preCrossingReturnSeq_snoc' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.preCrossing_returnMap_offset_upper_bound' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_linear_offset_exclusion' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.no_first_crossing_shifted_growth_and_nondescent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.finite_valuation_first_crossing_or_no_crossing' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.infinite_valuation_first_crossing_or_indefinite_expansion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_benchmarks_and_cap_witness' does not depend on any axioms
+'BBB17.CollatzProofClosure.section13_first_crossing_cap_and_two_branch_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

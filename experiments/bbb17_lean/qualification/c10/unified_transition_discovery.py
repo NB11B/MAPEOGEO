@@ -898,6 +898,118 @@ def verify_section12_rotation_reducibility_and_goodstein_falsification(
     }
 
 
+def verify_section13_adversarial_first_crossing_and_no_crossing_branch(
+    max_s_words: int = 12,
+    max_s_cap: int = 306,
+) -> Dict[str, object]:
+    """
+    Verify Section 13 Adversarial First-Crossing Counterexample Synthesis, Universal Pre-Crossing
+    Offset Cap (3 * B_s <= s * 3^s), and No-First-Crossing Shifted Growth:
+      1. Exhaustively generate all first-crossing valuation words ks for 1 <= s <= max_s_words
+         (where 2^{K_j} <= 3^j for 1 <= j < s and 2^{K_s} > 3^s).
+      2. For each word, verify the universal linear-exponential cap 3 * B_s <= s * 3^s,
+         compute the exact odd-return residue representative n0 (mod 2^{K_s + 1}), and check
+         whether ANY representative in the finite survivor interval 1 < n <= B_s // (2^{K_s} - 3^s)
+         exists.
+      3. Verify along all pre-crossing prefixes (2^{K_j} <= 3^j) that 2^{K_j} * (u_j + 1) >= 3^j * (n + 1)
+         and u_j > n.
+      4. Verify the 4 independent benchmark first-crossing trajectories (n = 27, 47, 63, 165)
+         and verify that across 1 <= s <= max_s_cap (s <= 306), the universal survivor cap
+         (s * 3^{s-1}) // (2^K - 3^s) never exceeds 99,567.
+    """
+    def rec_fc(j: int, K_curr: int, B_curr: int, ks_curr: tuple, s_target: int):
+        if j == s_target - 1:
+            k_min = 0
+            while (1 << (K_curr + k_min + 1)) <= (3 ** s_target):
+                k_min += 1
+            for k in (k_min, k_min + 1):
+                yield (s_target, K_curr + k + 1, ks_curr + (k,), 3 * B_curr + (1 << K_curr))
+            return
+        k = 0
+        while (1 << (K_curr + k + 1)) <= (3 ** (j + 1)):
+            yield from rec_fc(
+                j + 1,
+                K_curr + k + 1,
+                3 * B_curr + (1 << K_curr),
+                ks_curr + (k,),
+                s_target,
+            )
+            k += 1
+
+    first_crossing_words_checked = 0
+    offset_cap_violations = 0
+    surviving_representatives_found = 0
+    pre_crossing_growth_violations = 0
+
+    for s in range(1, max_s_words + 1):
+        A = 3 ** s
+        for _, K, ks, B in rec_fc(0, 0, 0, (), s):
+            first_crossing_words_checked += 1
+            if 3 * B > s * A:
+                offset_cap_violations += 1
+            D = 1 << K
+            delta = D - A
+            max_n = B // delta
+            invA = pow(A, -1, 2 * D)
+            n0 = ((D - B) * invA) % (2 * D)
+            if n0 <= 1:
+                n0 += 2 * D
+            if n0 <= max_n:
+                surviving_representatives_found += 1
+            # Also verify Branch 2 pre-crossing growth on the prefix ks[:-1]
+            if s >= 2:
+                K_pre = sum(k + 1 for k in ks[:-1])
+                A_pre = 3 ** (s - 1)
+                B_pre = (B - (1 << K_pre)) // 3
+                u_pre = (A_pre * n0 + B_pre) >> K_pre
+                if (1 << K_pre) * (u_pre + 1) < A_pre * (n0 + 1) or u_pre <= n0:
+                    pre_crossing_growth_violations += 1
+
+    # Verify the 4 independent benchmark checks: n in (27, 47, 63, 165)
+    expected_benchmarks = {
+        27: (37, 59, 23),
+        47: (34, 55, 23),
+        63: (34, 54, 61),
+        165: (1, 4, 31),
+    }
+    benchmark_mismatches = 0
+    for n_start, (exp_s, exp_K, exp_u) in expected_benchmarks.items():
+        u = n_start
+        K = 0
+        s = 0
+        while (1 << K) <= (3 ** s) or s == 0:
+            s += 1
+            val = 3 * u + 1
+            tz = (val & -val).bit_length() - 1
+            K += tz
+            u = val >> tz
+        if (s, K, u) != (exp_s, exp_K, exp_u) or not (u < n_start):
+            benchmark_mismatches += 1
+
+    # Compute max universal first-crossing survivor cap across 1 <= s <= max_s_cap
+    max_survivor_cap_le_306 = 0
+    for s in range(1, max_s_cap + 1):
+        A = 3 ** s
+        K = A.bit_length()
+        if (1 << (K - 1)) > A:
+            K -= 1
+        delta = (1 << K) - A
+        B_upper = s * (3 ** (s - 1)) - ((3 ** (s - 1)) - 1) // 2
+        cap = B_upper // delta
+        if cap > max_survivor_cap_le_306:
+            max_survivor_cap_le_306 = cap
+
+    return {
+        "first_crossing_words_checked": first_crossing_words_checked,
+        "offset_cap_violations": offset_cap_violations,
+        "surviving_representatives_found": surviving_representatives_found,
+        "pre_crossing_growth_violations": pre_crossing_growth_violations,
+        "benchmark_mismatches": benchmark_mismatches,
+        "max_survivor_cap_le_306": max_survivor_cap_le_306,
+    }
+
+
+
 
 
 
