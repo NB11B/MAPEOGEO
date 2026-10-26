@@ -278,3 +278,20 @@
 'BBB17.CollatzProofClosure.section15_surplus_diophantine_and_self_similarity_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_endpoint_decomposition_and_surplus_reduced_cap' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_final_block_valuation_and_mod3_lock' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.wordABD_append_replicate_false' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.post_crossing_self_similarity_even_run_operator' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_surplus_v2_eq_two_four_step_descent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.nondescent_orbit_no_v2_eq_one_surplus_le_1023' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

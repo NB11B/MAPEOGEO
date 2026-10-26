@@ -795,5 +795,84 @@ theorem section15_surplus_diophantine_and_self_similarity_master :
    first_crossing_surplus_v2_eq_one_forced_two_step_descent,
    first_crossing_s_le_12_positive_even_surplus_forced_descent⟩
 
+/-- Master Section 16 Surplus-Reduced Survivor Cap, 3-Adic Final-Block Lock, and Multi-Step
+    Post-Crossing Self-Similarity Operator Synthesis
+    (`section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator_master`):
+    Synthesizes the Section 16 architecture:
+    1. **Exact `u_s`-Decomposition & Surplus-Reduced Cap (`first_crossing_endpoint_decomposition_and_surplus_reduced_cap`)**:
+       Rewrites `Δ_s * n + 2^{K_s} * t = B_s` as `Δ_s * (n + t) + 3^s * t = B_s`, reducing the effective
+       block budget from `s` to `s - 3 * t` in both the coarse and sharpened survivor caps.
+    2. **Final-Block Valuation `k ≥ 1`, Offset Reduction, and 3-Adic Lock (`first_crossing_final_block_valuation_and_mod3_lock`)**:
+       At any first crossing `ks ++ [k]`, `k ≥ 1`, `2^{k+1} * B_s = 3 * (2^{k+1} * B_{s-1} + 3^{s-1}) + Δ_s`,
+       and every solution `(n ≥ 1, t ≥ 0)` satisfies `2^{k+1} * (n + t) = 3 * u_{s-1} + 1`,
+       `(2^{k+1} * (n + t)) % 3 = 1`, and `(n + t) % 3 ≠ 0` (so in particular `n % 3 ≠ 0` for `t = 0`).
+    3. **General Post-Crossing Self-Similarity Operator (`post_crossing_self_similarity_even_run_operator`)**:
+       For arbitrary prefix `w` (`v = w.length`), odd `q`, and post-divergence even run length `d`,
+       `u = n + q * D_w` realizes `w ++ replicate d false` with offset-invariant affine identity
+       `(D_w * 2^d) * F(u) = A_w * u + B_w`, forcing `F(u) < n` whenever `(D_w * 2^d - A_w) * n > A_w * q * D_w + B_w`.
+    4. **Unconditional `v_2(t) = 1` Exclusion Across `2 ≤ s ≤ 1023` Without Assuming `n > s`
+       (`nondescent_orbit_no_v2_eq_one_surplus_le_1023`)**:
+       Combining `descent_of_lt_1024` (`n ≥ 1024`) with `first_crossing_surplus_v2_eq_one_forced_two_step_descent`
+       eliminates all `v_2(t) = 1` surpluses across `2 ≤ s ≤ 1023` on any never-descending orbit starting at `n > 1`. -/
+theorem section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator_master :
+    (∀ (ks : List Nat) (n t : Nat),
+      ks.length ≥ 1 →
+      PreCrossingReturnSeq ks →
+      2 ^ totalValuation ks > 3 ^ ks.length →
+      (2 ^ totalValuation ks - 3 ^ ks.length) * n +
+        2 ^ totalValuation ks * t = wordB (returnMapWord ks) →
+      let s := ks.length
+      let K := totalValuation ks
+      let delta := 2 ^ K - 3 ^ s
+      let B := wordB (returnMapWord ks)
+      delta * (n + t) + 3 ^ s * t = B ∧
+      3 * (delta * (n + t)) + 3 * t * 3 ^ s ≤ s * 3 ^ s ∧
+      2 * (delta * (n + t)) + 6 * t * 3 ^ (s - 1) + 3 ^ (s - 1) ≤
+        2 * s * 3 ^ (s - 1) + 1) ∧
+    (∀ (ks : List Nat) (k : Nat),
+      PreCrossingReturnSeq (ks ++ [k]) →
+      2 ^ totalValuation (ks ++ [k]) > 3 ^ (ks ++ [k]).length →
+      let s := (ks ++ [k]).length
+      let K_s := totalValuation (ks ++ [k])
+      let delta := 2 ^ K_s - 3 ^ s
+      let B_s := wordB (returnMapWord (ks ++ [k]))
+      let B_prev := wordB (returnMapWord ks)
+      k ≥ 1 ∧
+      2 ^ (k + 1) * B_s = 3 * (2 ^ (k + 1) * B_prev + 3 ^ ks.length) + delta ∧
+      (2 ^ (k + 1) * B_s - delta) % 3 = 0 ∧
+      (∀ n t : Nat,
+        n ≥ 1 →
+        delta * n + 2 ^ K_s * t = B_s →
+          let u_prev := applyParityWord n (returnMapWord ks)
+          2 ^ (k + 1) * (n + t) = 3 * u_prev + 1 ∧
+          (2 ^ (k + 1) * (n + t)) % 3 = 1 ∧
+          (n + t) % 3 ≠ 0)) ∧
+    (∀ (w : List Bool) (n q d : Nat),
+      validParityWord n w →
+      let u := n + q * wordD w
+      let w_ext := w ++ List.replicate d false
+      validParityWord u w ∧
+      applyParityWord u w = applyParityWord n w + q * wordA w ∧
+      (q % 2 = 1 → (applyParityWord u w) % 2 ≠ (applyParityWord n w) % 2) ∧
+      (validParityWord (applyParityWord u w) (List.replicate d false) →
+        validParityWord u w_ext ∧
+        (wordD w * 2 ^ d) * applyParityWord u w_ext = wordA w * u + wordB w ∧
+        (wordD w * 2 ^ d > wordA w →
+          (wordD w * 2 ^ d - wordA w) * n > wordA w * (q * wordD w) + wordB w →
+            applyParityWord u w_ext < n))) ∧
+    (∀ (n : Nat) (k₀ k₁ : Nat) (tl : List Nat) (q : Nat),
+      n > 1 →
+      (∀ r : Nat, iterateAccelerated n r ≥ n) →
+      (k₀ :: k₁ :: tl).length ≤ 1023 →
+      validParityWord n (returnMapWord (k₀ :: k₁ :: tl)) →
+      PreCrossingReturnSeq (k₀ :: k₁ :: tl) →
+      2 ^ totalValuation (k₀ :: k₁ :: tl) > 3 ^ (k₀ :: k₁ :: tl).length →
+      q % 2 = 1 →
+      applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)) ≠ n + 2 * q) :=
+  ⟨first_crossing_endpoint_decomposition_and_surplus_reduced_cap,
+   first_crossing_final_block_valuation_and_mod3_lock,
+   post_crossing_self_similarity_even_run_operator,
+   nondescent_orbit_no_v2_eq_one_surplus_le_1023⟩
+
 end CollatzProofClosure
 end BBB17

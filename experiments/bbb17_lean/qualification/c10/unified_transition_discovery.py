@@ -1200,6 +1200,84 @@ def verify_section15_surplus_diophantine_and_self_similarity_coupling(
     }
 
 
+def verify_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator(
+    max_s: int = 12,
+) -> Dict[str, object]:
+    """
+    Verify Section 16 Final-Block Offset Reduction, 3-Adic Endpoint Lock, Surplus-Reduced Cap,
+    and Multi-Step Post-Crossing Self-Similarity Operator (v_2(t) = 2 Four-Step Descent):
+      1. Across all 4,403 pre-crossing prefixes for 1 <= s <= 12 and all minimal crossing k >= 1:
+         verify k >= 1, 2^(k+1) * B_s == 3 * (2^(k+1) * B_{s-1} + 3^{s-1}) + delta_s,
+         and (2^(k+1) * B_s - delta_s) % 3 == 0.
+      2. Verify the v_2(t) = 2 (t = 4*q, q odd) 4-step post-crossing descent operator on all n ≡ 3 (mod 4)
+         where T^2(n + 4*q) ≡ 0 (mod 4): 16 * T^4(n + 4*q) == 9*n + 36*q + 5, and T^4(n + 4*q) < n
+         whenever 7*n > 36*q + 5.
+      3. Verify the concrete witness n = 15, q = 1, t = 4, u_s = 19 (T^3(19) = 22 > 15, T^4(19) = 11 < 15).
+    """
+    def gen_precrossing_prefixes(s: int):
+        if s == 1:
+            yield (0,), 0, 0
+            return
+        for Ks, B_prev, B_curr in gen_precrossing_prefixes(s - 1):
+            j = s - 1
+            if j == 1:
+                B_base = 1
+            else:
+                B_base = B_curr
+            max_K = (3 ** j).bit_length() - 1
+            for K_next in range(Ks[-1] + 1, max_K + 1):
+                yield Ks + (K_next,), B_base, 3 * B_base + (1 << K_next)
+
+    final_block_reduction_mismatches = 0
+    mod3_lock_mismatches = 0
+    prefixes_verified = 0
+    for s in range(1, max_s + 1):
+        K_min = (3 ** s).bit_length()
+        for Ks, B_prev, B_curr in gen_precrossing_prefixes(s):
+            prefixes_verified += 1
+            B_s = 1 if s == 1 else B_curr
+            B_s_minus_1 = 0 if s == 1 else B_prev
+            K_s_minus_1 = Ks[-1]
+            k = K_min - K_s_minus_1 - 1
+            if k < 1:
+                final_block_reduction_mismatches += 1
+            delta = (1 << K_min) - (3 ** s)
+            lhs = (1 << (k + 1)) * B_s
+            rhs = 3 * ((1 << (k + 1)) * B_s_minus_1 + (3 ** (s - 1))) + delta
+            if lhs != rhs:
+                final_block_reduction_mismatches += 1
+            if (lhs - delta) % 3 != 0:
+                mod3_lock_mismatches += 1
+
+    v2_eq_two_four_step_mismatches = 0
+    v2_eq_two_branches_checked = 0
+    for n in range(3, 500, 4):
+        for q in range(1, 16, 2):
+            u_s = n + 4 * q
+            t2_u = accelerated_collatz(accelerated_collatz(u_s))
+            if t2_u % 4 == 0:
+                v2_eq_two_branches_checked += 1
+                t4_u = accelerated_collatz(accelerated_collatz(t2_u))
+                if 16 * t4_u != 9 * n + 36 * q + 5:
+                    v2_eq_two_four_step_mismatches += 1
+                if 7 * n > 36 * q + 5 and not (t4_u < n):
+                    v2_eq_two_four_step_mismatches += 1
+
+    t3_19 = accelerated_collatz(accelerated_collatz(accelerated_collatz(19)))
+    t4_19 = accelerated_collatz(t3_19)
+    witness_15_19_verified = (t3_19 == 22 and t3_19 > 15 and t4_19 == 11 and t4_19 < 15)
+
+    return {
+        "prefixes_verified": prefixes_verified,
+        "final_block_reduction_mismatches": final_block_reduction_mismatches,
+        "mod3_lock_mismatches": mod3_lock_mismatches,
+        "v2_eq_two_branches_checked": v2_eq_two_branches_checked,
+        "v2_eq_two_four_step_mismatches": v2_eq_two_four_step_mismatches,
+        "witness_15_19_verified": witness_15_19_verified,
+    }
+
+
+
 
 
 

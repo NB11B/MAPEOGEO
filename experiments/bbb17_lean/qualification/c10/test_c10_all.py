@@ -49,6 +49,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section13_adversarial_first_crossing_and_no_crossing_branch,
     verify_section14_sharpened_cap_s40_certificate_and_excess_valuation,
     verify_section15_surplus_diophantine_and_self_similarity_coupling,
+    verify_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -210,6 +211,15 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(sec15["v2_eq_one_two_step_descent_mismatches"], 0)
         self.assertTrue(sec15["ce11_v2_ge_two_no_three_step_descent_verified"])
         self.assertTrue(sec15["ce12_non_precrossing_diophantine_witness_verified"])
+
+    def test_ws6_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator(self) -> None:
+        sec16 = verify_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator(max_s=12)
+        self.assertEqual(sec16["prefixes_verified"], 4403)
+        self.assertEqual(sec16["final_block_reduction_mismatches"], 0)
+        self.assertEqual(sec16["mod3_lock_mismatches"], 0)
+        self.assertGreater(sec16["v2_eq_two_branches_checked"], 0)
+        self.assertEqual(sec16["v2_eq_two_four_step_mismatches"], 0)
+        self.assertTrue(sec16["witness_15_19_verified"])
 
 
 def generate_c10_artifacts() -> None:
