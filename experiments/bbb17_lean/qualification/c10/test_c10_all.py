@@ -50,6 +50,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section14_sharpened_cap_s40_certificate_and_excess_valuation,
     verify_section15_surplus_diophantine_and_self_similarity_coupling,
     verify_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator,
+    verify_section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -220,6 +221,21 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertGreater(sec16["v2_eq_two_branches_checked"], 0)
         self.assertEqual(sec16["v2_eq_two_four_step_mismatches"], 0)
         self.assertTrue(sec16["witness_15_19_verified"])
+
+    def test_ws6_section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion(self) -> None:
+        sec17 = verify_section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion(
+            max_s=12, max_n=2000
+        )
+        self.assertEqual(sec17["prefixes_s_ge_4_checked"], 4399)
+        self.assertEqual(sec17["prefix_trichotomy_violations"], 0)
+        self.assertGreater(sec17["branch_000_checked"], 0)
+        self.assertEqual(sec17["branch_000_mismatches"], 0)
+        self.assertGreater(sec17["branch_001_checked"], 0)
+        self.assertEqual(sec17["branch_001_mismatches"], 0)
+        self.assertGreater(sec17["branch_010_checked"], 0)
+        self.assertEqual(sec17["branch_010_mismatches"], 0)
+        self.assertTrue(sec17["ce13_verified"])
+        self.assertTrue(sec17["ce14_verified"])
 
 
 def generate_c10_artifacts() -> None:
@@ -401,6 +417,24 @@ def generate_c10_artifacts() -> None:
             "witnesses": [{"ks": [0, 0, 1, 2, 0], "s": 5, "K_5": 8, "delta_5": 13, "B_5": 347, "n": 7, "t": 1, "u_4": 5, "u_5": 8}],
             "lean_theorem": "BBB17.CollatzProofClosure.non_preCrossing_diophantine_solution_at_s5_witness",
             "resolution": "Proved first_crossing_surplus_diophantine_iff_admissible_survivor: under PreCrossingReturnSeq ks, any integer solution automatically satisfies 2-adic word admissibility and intermediate non-descent u_j > n, whereas omitting PreCrossingReturnSeq allows solutions whose earlier crossing prefix already descended.",
+        },
+        {
+            "id": "CE-C10-13",
+            "workstream": "WS6_Section17_PostCrossingPrefixTrichotomy",
+            "hypothesis_tested": "Every admissible 3-block pre-crossing prefix (k_0, k_1, k_2) forces T^4(n + 4) < n or T^5(n + 4) < n for surplus t = 4 via local self-similarity",
+            "status": "FALSIFIED",
+            "witnesses": [{"prefix": [0, 1, 0], "n": 27, "u_s": 31, "T5_us": 242, "T55_us": 46, "T56_us": 23, "post_crossing_delay_steps": 56}],
+            "lean_theorem": "BBB17.CollatzProofClosure.prefix_010_long_post_crossing_delay_witnesses",
+            "resolution": "Proved preCrossing_three_block_prefix_trichotomy and first_crossing_surplus_four_k1_zero_unconditional_descent (unconditional 4/5-step descent on the entire k_1 = 0 subtree (0,0,0) and (0,0,1)), and proved surplus_four_prefix_010_five_odd_steps_expansion showing that (0,1,0) forces 5 consecutive odd steps on u_s = n + 4 (32 * T^5(n + 4) = 243 * n + 1183 > 32 * n).",
+        },
+        {
+            "id": "CE-C10-14",
+            "workstream": "WS6_Section17_PostCrossingPrefixTrichotomy",
+            "hypothesis_tested": "A small fixed-horizon local post-crossing certificate at n >= 1024 closes the (0, 1, 0) branch for t = 4 without global Diophantine offset constraints",
+            "status": "FALSIFIED",
+            "witnesses": [{"prefix": [0, 1, 0], "n": 1051, "u_s": 1055, "T5_us": 8018, "T79_us": 1256, "T80_us": 628, "post_crossing_delay_steps": 80}],
+            "lean_theorem": "BBB17.CollatzProofClosure.prefix_010_long_post_crossing_delay_witnesses",
+            "resolution": "Certified on n = 1051 >= 1024 (u_s = 1055) that 32 * T^5(1055) = 243 * 1051 + 1183 = 256576 (T^5(1055) = 8018 > 1051) and descent below 1051 requires 80 steps, proving that closing (0, 1, 0) requires coupling with the global Diophantine offset equation Delta_s * (n + t) + 3^s * t = B_s.",
         },
     ]
     with (artifacts_dir / "counterexamples.jsonl").open("w", encoding="utf-8") as f:

@@ -874,5 +874,81 @@ theorem section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator_maste
    post_crossing_self_similarity_even_run_operator,
    nondescent_orbit_no_v2_eq_one_surplus_le_1023⟩
 
+/-- Master Section 17 3-Block Pre-Crossing Prefix Trichotomy, Unconditional `k_1 = 0` Multi-Branch
+    Exhaustion, and `(0, 1, 0)` 5-Odd-Step Expansion Synthesis
+    (`section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion_master`):
+    Synthesizes the Section 17 architecture:
+    1. **Exact 3-Block Pre-Crossing Prefix Trichotomy (`preCrossing_three_block_prefix_trichotomy`)**:
+       Every pre-crossing sequence `k₀ :: k₁ :: k₂ :: k₃ :: tl` (`s ≥ 4`) restricts `(k₀, k₁, k₂)` to
+       `{(0, 0, 0), (0, 0, 1), (0, 1, 0)}`.
+    2. **Step-3 Coupling & Parity Opposition on `k_1 = 0` (`surplus_four_k1_zero_step3_coupling`)**:
+       Whenever `k₀ = 0` and `k₁ = 0`, `3 * T^3(n + 4) = T^3(n) + 13`, locking `T^3(n + 4)` and `T^3(n)`
+       to opposite parities.
+    3. **Unconditional Multi-Branch Exhaustion on the Entire `k_1 = 0` Subtree (`first_crossing_surplus_four_k1_zero_unconditional_descent`)**:
+       Eliminates the external post-crossing even-run hypothesis on the entire `k_1 = 0` subtree (`(0, 0, 0)` and `(0, 0, 1)`):
+       - `k₂ = 0` forces `T^3(u_s)` even and 4-step descent `T^4(u_s) < n` for all `n ≥ 6` (`16 * T^4(u_s) = 9 * n + 41`),
+       - `k₂ = 1` forces `T^4(u_s) = T^4(n) + 7` even and 5-step descent `T^5(u_s) < n` for all `n ≥ 27` (`32 * T^5(u_s) = 27 * n + 131`),
+       so every `n ≥ 27` with `u_s = n + 4` on `k_1 = 0` satisfies `T^4(u_s) < n ∨ T^5(u_s) < n`.
+    4. **Forced 5-Odd-Step Expansion on `(0, 1, 0)` (`surplus_four_prefix_010_five_odd_steps_expansion` & `prefix_010_long_post_crossing_delay_witnesses`)**:
+       On `(0, 1, 0)`, `u_s = n + 4` takes 5 consecutive odd steps (`32 * T^5(n + 4) = 243 * n + 1183 > 32 * n`),
+       with formal long-delay witnesses `CE-C10-13` (`n = 27, u_s = 31`, 56-step delay) and `CE-C10-14`
+       (`n = 1051, u_s = 1055`, 80-step delay). -/
+theorem section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion_master :
+    (∀ (k₀ k₁ k₂ k₃ : Nat) (tl : List Nat),
+      PreCrossingReturnSeq (k₀ :: k₁ :: k₂ :: k₃ :: tl) →
+      k₀ = 0 ∧
+      ((k₁ = 0 ∧ (k₂ = 0 ∨ k₂ = 1)) ∨ (k₁ = 1 ∧ k₂ = 0)) ∧
+      ((k₀ = 0 ∧ k₁ = 0 ∧ k₂ = 0) ∨
+       (k₀ = 0 ∧ k₁ = 0 ∧ k₂ = 1) ∨
+       (k₀ = 0 ∧ k₁ = 1 ∧ k₂ = 0))) ∧
+    (∀ (k₂ : Nat) (tl : List Nat) (n : Nat),
+      validParityWord n (returnMapWord (0 :: 0 :: k₂ :: tl)) →
+      n % 2 = 1 ∧
+      (acceleratedCollatz n) % 2 = 1 ∧
+      (iterateAccelerated n 2) % 2 = 1 ∧
+      8 * iterateAccelerated n 3 = 27 * n + 19 ∧
+      8 * iterateAccelerated (n + 4) 3 = 9 * n + 41 ∧
+      3 * iterateAccelerated (n + 4) 3 = iterateAccelerated n 3 + 13 ∧
+      (iterateAccelerated (n + 4) 3) % 2 ≠ (iterateAccelerated n 3) % 2) ∧
+    (∀ (k₀ k₂ k₃ : Nat) (tl : List Nat) (n : Nat),
+      PreCrossingReturnSeq (k₀ :: 0 :: k₂ :: k₃ :: tl) →
+      validParityWord n (returnMapWord (k₀ :: 0 :: k₂ :: k₃ :: tl)) →
+      applyParityWord n (returnMapWord (k₀ :: 0 :: k₂ :: k₃ :: tl)) = n + 4 →
+      let ks := k₀ :: 0 :: k₂ :: k₃ :: tl
+      let u_s := applyParityWord n (returnMapWord ks)
+      k₀ = 0 ∧
+      (k₂ = 0 ∨ k₂ = 1) ∧
+      (k₂ = 0 →
+        (iterateAccelerated u_s 3) % 2 = 0 ∧
+        16 * iterateAccelerated u_s 4 = 9 * n + 41 ∧
+        (n ≥ 6 → iterateAccelerated u_s 4 < n)) ∧
+      (k₂ = 1 →
+        (iterateAccelerated u_s 3) % 2 = 1 ∧
+        iterateAccelerated u_s 4 = iterateAccelerated n 4 + 7 ∧
+        (iterateAccelerated u_s 4) % 2 = 0 ∧
+        32 * iterateAccelerated u_s 5 = 27 * n + 131 ∧
+        (n ≥ 27 → iterateAccelerated u_s 5 < n)) ∧
+      (n ≥ 27 → iterateAccelerated u_s 4 < n ∨ iterateAccelerated u_s 5 < n)) ∧
+    (∀ (k₃ : Nat) (tl : List Nat) (n : Nat),
+      validParityWord n (returnMapWord (0 :: 1 :: 0 :: k₃ :: tl)) →
+      let u_s := n + 4
+      n % 2 = 1 ∧
+      (acceleratedCollatz n) % 2 = 1 ∧
+      (iterateAccelerated n 2) % 2 = 0 ∧
+      (iterateAccelerated n 3) % 2 = 1 ∧
+      (iterateAccelerated n 4) % 2 = 1 ∧
+      iterateAccelerated u_s 2 = iterateAccelerated n 2 + 9 ∧
+      (iterateAccelerated u_s 2) % 2 = 1 ∧
+      iterateAccelerated u_s 3 = 3 * iterateAccelerated n 3 + 14 ∧
+      (iterateAccelerated u_s 3) % 2 = 1 ∧
+      iterateAccelerated u_s 4 = 3 * iterateAccelerated n 4 + 20 ∧
+      (iterateAccelerated u_s 4) % 2 = 1 ∧
+      32 * iterateAccelerated u_s 5 = 243 * n + 1183 ∧
+      iterateAccelerated u_s 5 > n) :=
+  ⟨preCrossing_three_block_prefix_trichotomy,
+   surplus_four_k1_zero_step3_coupling,
+   first_crossing_surplus_four_k1_zero_unconditional_descent,
+   surplus_four_prefix_010_five_odd_steps_expansion⟩
+
 end CollatzProofClosure
 end BBB17

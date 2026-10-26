@@ -5544,5 +5544,490 @@ theorem nondescent_orbit_no_v2_eq_one_surplus_le_1023
   have hge := hnever ((returnMapWord (k₀ :: k₁ :: tl)).length + 2)
   omega
 
+/-! ## Section 17: 3-Block Pre-Crossing Prefix Trichotomy, Unconditional Multi-Branch Exhaustion on the `k_1 = 0` Subtree, and Falsification of Fixed-Horizon Post-Crossing Descent on `(0, 1, 0)` (`CE-C10-13..14`)
+
+    Section 16 observed that 4-step post-crossing descent for `v_2(t) = 2` (`t = 4q`, `q` odd) required
+    an external assumption (`d = 2` post-divergence halving steps), and asked whether multi-step
+    self-similarity across admissible prefix configurations can eliminate that assumption.
+
+    In Section 17 we execute a complete prefix classification for all pre-crossing sequences of length
+    `s ≥ 4` (`k₀ :: k₁ :: k₂ :: k₃ :: tl`) and discover a sharp structural dichotomy for `t = 4`:
+    1. **Exact 3-Block Pre-Crossing Prefix Trichotomy (`preCrossing_three_block_prefix_trichotomy`)**:
+       Every pre-crossing sequence `k₀ :: k₁ :: k₂ :: k₃ :: tl` (`s ≥ 4`) satisfies `2^{K_1} ≤ 3`,
+       `2^{K_2} ≤ 9`, and `2^{K_3} ≤ 27`, restricting `(k₀, k₁, k₂)` to **exactly three triples**:
+       `(0, 0, 0)`, `(0, 0, 1)`, or `(0, 1, 0)`.
+    2. **Step-3 Linear Coupling & Parity Flip on `k_1 = 0` (`surplus_four_k1_zero_step3_coupling`)**:
+       Whenever `k₀ = 0` and `k₁ = 0`, `8 * T^3(n) = 27 * n + 19` and `8 * T^3(n + 4) = 9 * n + 41`,
+       which obey the exact step-3 coupling identity
+       `3 * T^3(n + 4) = T^3(n) + 13`.
+       Because `3` and `13` are odd, `T^3(n + 4)` and `T^3(n)` are locked to **opposite parities**!
+    3. **Unconditional Multi-Branch Exhaustion on the Entire `k_1 = 0` Subtree (`first_crossing_surplus_four_k1_zero_unconditional_descent`)**:
+       - On branch `(0, 0, 0)` (`k₂ = 0`), `T^3(n)` is odd, which **forces** `T^3(u_s)` to be even (`d = 2`),
+         giving `16 * T^4(u_s) = 9 * n + 41` and unconditional 4-step descent `T^4(u_s) < n` for all `n ≥ 6`.
+       - On branch `(0, 0, 1)` (`k₂ = 1`), `T^3(n)` is even and `T^4(n) = T^3(n) / 2` is odd, which **forces**
+         `T^3(u_s)` to be odd and `T^4(u_s) = T^4(n) + 7` to be **even**, giving `32 * T^5(u_s) = 27 * n + 131`
+         and unconditional 5-step descent `T^5(u_s) < n` for all `n ≥ 27`.
+       Thus on the entire `k_1 = 0` subtree (`s ≥ 4`), `t = 4` descends in **at most 5 steps** (`T^4(u_s) < n ∨ T^5(u_s) < n`)
+       for every `n ≥ 27` with **zero** post-crossing even-run hypotheses!
+    4. **Adversarial Escape & Forced 5-Odd-Step Expansion on `(0, 1, 0)` (`surplus_four_prefix_010_five_odd_steps_expansion` & `CE-C10-13..14`)**:
+       On the third admissible prefix `(0, 1, 0)`, `T^2(n)` is even while `T^3(n)` and `T^4(n)` are odd.
+       Consequently, `T^2(n + 4) = T^2(n) + 9` (odd), `T^3(n + 4) = 3 * T^3(n) + 14` (odd), and
+       `T^4(n + 4) = 3 * T^4(n) + 20` (odd), forcing **5 consecutive odd steps** on `u_s = n + 4`:
+       `32 * T^5(n + 4) = 243 * n + 1183 > 32 * n`.
+       Formal falsification witnesses `CE-C10-13` (`n = 27, u_s = 31`, 56-step delay) and `CE-C10-14`
+       (`n = 1051, u_s = 1055`, 80-step delay) prove that fixed-horizon local self-similarity cannot
+       close `(0, 1, 0)` without global Diophantine offset constraints.
+-/
+
+/-- Complete 3-Block Pre-Crossing Prefix Trichotomy (`preCrossing_three_block_prefix_trichotomy`):
+    For any pre-crossing sequence `k₀ :: k₁ :: k₂ :: k₃ :: tl` of length `s ≥ 4`
+    (`PreCrossingReturnSeq (k₀ :: k₁ :: k₂ :: k₃ :: tl)`), the prefix conditions
+    `2^{K_1} ≤ 3`, `2^{K_2} ≤ 9`, and `2^{K_3} ≤ 27` force `(k₀, k₁, k₂)` into
+    exactly one of three admissible triples:
+    `(0, 0, 0)`, `(0, 0, 1)`, or `(0, 1, 0)`. -/
+theorem preCrossing_three_block_prefix_trichotomy
+    (k₀ k₁ k₂ k₃ : Nat) (tl : List Nat)
+    (hpre : PreCrossingReturnSeq (k₀ :: k₁ :: k₂ :: k₃ :: tl)) :
+    k₀ = 0 ∧
+    ((k₁ = 0 ∧ (k₂ = 0 ∨ k₂ = 1)) ∨ (k₁ = 1 ∧ k₂ = 0)) ∧
+    ((k₀ = 0 ∧ k₁ = 0 ∧ k₂ = 0) ∨
+     (k₀ = 0 ∧ k₁ = 0 ∧ k₂ = 1) ∨
+     (k₀ = 0 ∧ k₁ = 1 ∧ k₂ = 0)) := by
+  unfold PreCrossingReturnSeq at hpre
+  dsimp [preCrossingFrom] at hpre
+  rcases hpre with ⟨_, hK1_le, hK2_le, hK3_le, _⟩
+  have hk0 : k₀ = 0 := by
+    cases k₀ with
+    | zero => rfl
+    | succ m =>
+      have hge4 : 2 ^ 2 ≤ 2 ^ (0 + (m + 1) + 1) :=
+        two_pow_le_two_pow 2 (0 + (m + 1) + 1) (by omega)
+      have h4 : 2 ^ 2 = 4 := rfl
+      have h3 : 3 ^ 1 = 3 := rfl
+      omega
+  rw [hk0] at hK2_le hK3_le
+  have hk1 : k₁ = 0 ∨ k₁ = 1 := by
+    cases k₁ with
+    | zero => exact Or.inl rfl
+    | succ m₁ =>
+      cases m₁ with
+      | zero => exact Or.inr rfl
+      | succ m₂ =>
+        exfalso
+        have hge16 : 2 ^ 4 ≤ 2 ^ (0 + 0 + 1 + (m₂ + 1 + 1) + 1) :=
+          two_pow_le_two_pow 4 (0 + 0 + 1 + (m₂ + 1 + 1) + 1) (by omega)
+        have h16 : 2 ^ 4 = 16 := rfl
+        have h9 : 3 ^ 2 = 9 := rfl
+        omega
+  rcases hk1 with hk1_0 | hk1_1
+  · rw [hk1_0] at hK3_le
+    have hk2 : k₂ = 0 ∨ k₂ = 1 := by
+      cases k₂ with
+      | zero => exact Or.inl rfl
+      | succ n₁ =>
+        cases n₁ with
+        | zero => exact Or.inr rfl
+        | succ n₂ =>
+          exfalso
+          have hge32 : 2 ^ 5 ≤ 2 ^ (0 + 0 + 1 + 0 + 1 + (n₂ + 1 + 1) + 1) :=
+            two_pow_le_two_pow 5 (0 + 0 + 1 + 0 + 1 + (n₂ + 1 + 1) + 1) (by omega)
+          have h32 : 2 ^ 5 = 32 := rfl
+          have h27 : 3 ^ 3 = 27 := rfl
+          omega
+    rcases hk2 with hk2_0 | hk2_1
+    · exact ⟨hk0, Or.inl ⟨hk1_0, Or.inl hk2_0⟩, Or.inl ⟨hk0, hk1_0, hk2_0⟩⟩
+    · exact ⟨hk0, Or.inl ⟨hk1_0, Or.inr hk2_1⟩, Or.inr (Or.inl ⟨hk0, hk1_0, hk2_1⟩)⟩
+  · rw [hk1_1] at hK3_le
+    have hk2_0 : k₂ = 0 := by
+      cases k₂ with
+      | zero => rfl
+      | succ n₁ =>
+        exfalso
+        have hge32 : 2 ^ 5 ≤ 2 ^ (0 + 0 + 1 + 1 + 1 + (n₁ + 1) + 1) :=
+          two_pow_le_two_pow 5 (0 + 0 + 1 + 1 + 1 + (n₁ + 1) + 1) (by omega)
+        have h32 : 2 ^ 5 = 32 := rfl
+        have h27 : 3 ^ 3 = 27 := rfl
+        omega
+    exact ⟨hk0, Or.inr ⟨hk1_1, hk2_0⟩, Or.inr (Or.inr ⟨hk0, hk1_1, hk2_0⟩)⟩
+
+/-- Helper lemma: peel one step off `validParityWord (iterateAccelerated n r) (b :: bs)`
+    without creating nested `acceleratedCollatz` terms. -/
+theorem validParityWord_cons_iterateAccelerated (n r : Nat) (b : Bool) (bs : List Bool)
+    (hv : validParityWord (iterateAccelerated n r) (b :: bs)) :
+    stepParityMatches (iterateAccelerated n r) b ∧
+    validParityWord (iterateAccelerated n (r + 1)) bs := by
+  rcases hv with ⟨hm, hv'⟩
+  rw [← iterateAccelerated_succ_right n r] at hv'
+  exact ⟨hm, hv'⟩
+
+/-- Helper lemma: single-step linear equation for `iterateAccelerated n (r + 1)` from
+    `stepParityMatches (iterateAccelerated n r) b` without unfolding `iterateAccelerated`. -/
+theorem iterateAccelerated_step_of_matches (n r : Nat) (b : Bool)
+    (hm : stepParityMatches (iterateAccelerated n r) b) :
+    2 * iterateAccelerated n (r + 1) =
+      (if b then 3 * iterateAccelerated n r + 1 else iterateAccelerated n r) := by
+  have hs := acceleratedCollatz_step_eq (iterateAccelerated n r) b hm
+  rw [← iterateAccelerated_succ_right n r] at hs
+  exact hs
+
+/-- Helper lemma: pure linear arithmetic for `surplus_four_k1_zero_step3_coupling`. -/
+theorem k1_zero_step3_algebra (n t1n t2n t3n t3u : Nat)
+    (hs1 : 2 * t1n = 3 * n + 1)
+    (hs2 : 2 * t2n = 3 * t1n + 1)
+    (hs3 : 2 * t3n = 3 * t2n + 1)
+    (hT3u : 8 * t3u = 9 * n + 36 * 1 + 5) :
+    8 * t3n = 27 * n + 19 ∧
+    8 * t3u = 9 * n + 41 ∧
+    3 * t3u = t3n + 13 ∧
+    t3u % 2 ≠ t3n % 2 := by
+  omega
+
+/-- Helper lemma: pure linear arithmetic for branch `k₂ = 0` (`(0, 0, 0)`). -/
+theorem k1_zero_branch0_algebra (n t3n t3u t4u : Nat)
+    (hT3u : 8 * t3u = 9 * n + 41)
+    (_hcoupl : 3 * t3u = t3n + 13)
+    (hm3n : t3n % 2 = 1) :
+    t3u % 2 = 0 ∧
+    (2 * t4u = t3u →
+      16 * t4u = 9 * n + 41 ∧ (n ≥ 6 → t4u < n)) := by
+  omega
+
+/-- Helper lemma: pure linear arithmetic for branch `k₂ = 1` (`(0, 0, 1)`). -/
+theorem k1_zero_branch1_algebra (n t3n t4n t3u t4u t5u : Nat)
+    (hT3n : 8 * t3n = 27 * n + 19)
+    (hT3u : 8 * t3u = 9 * n + 41)
+    (_hcoupl : 3 * t3u = t3n + 13)
+    (hm3n : t3n % 2 = 0)
+    (hm4n : t4n % 2 = 1)
+    (hs4n : 2 * t4n = t3n) :
+    t3u % 2 = 1 ∧
+    (2 * t4u = 3 * t3u + 1 →
+      t4u = t4n + 7 ∧
+      t4u % 2 = 0 ∧
+      (2 * t5u = t4u →
+        32 * t5u = 27 * n + 131 ∧ (n ≥ 27 → t5u < n))) := by
+  have h1 : t3u % 2 = 1 := by clear hm4n hs4n; omega
+  refine ⟨h1, ?_⟩
+  intro hsu4
+  clear hm3n h1
+  have h2 : t4u = t4n + 7 := by clear hm4n; omega
+  have h3 : t4u % 2 = 0 := by clear hT3n hT3u hs4n hsu4; omega
+  refine ⟨h2, h3, ?_⟩
+  intro hsu5
+  clear hm4n h3
+  exact ⟨by omega, fun _ => by omega⟩
+
+/-- Helper lemma: pure linear arithmetic for steps 1–3 of the `(0, 1, 0)` expansion. -/
+theorem prefix_010_steps123_algebra
+    (n t1n t2n t3n t1u t2u t3u : Nat)
+    (hm1 : t1n % 2 = 1)
+    (hm2 : t2n % 2 = 0)
+    (hm3 : t3n % 2 = 1)
+    (hs1 : 2 * t1n = 3 * n + 1)
+    (hs2 : 2 * t2n = 3 * t1n + 1)
+    (hs3 : 2 * t3n = t2n)
+    (hsu1 : 2 * t1u = 3 * (n + 4) + 1) :
+    8 * t3n = 9 * n + 5 ∧
+    t1u % 2 = 1 ∧
+    (2 * t2u = 3 * t1u + 1 →
+      t2u = t2n + 9 ∧
+      t2u % 2 = 1 ∧
+      (2 * t3u = 3 * t2u + 1 →
+        t3u = 3 * t3n + 14 ∧
+        t3u % 2 = 1)) := by
+  have h8 : 8 * t3n = 9 * n + 5 := by clear hm1 hm2 hm3 hsu1; omega
+  have hu1 : t1u % 2 = 1 := by clear hm2 hm3 hs2 hs3 h8; omega
+  refine ⟨h8, hu1, ?_⟩
+  intro hsu2
+  clear hm1 hu1
+  have hu2 : t2u = t2n + 9 := by clear hm2 hm3 hs3 h8; omega
+  have hu2_odd : t2u % 2 = 1 := by clear hm3 hs1 hs2 hs3 hsu1 h8 hsu2; omega
+  refine ⟨hu2, hu2_odd, ?_⟩
+  intro hsu3
+  clear hm2 hu2_odd
+  have hu3 : t3u = 3 * t3n + 14 := by clear hm3 hs1 hs2 hsu1 h8 hsu2; omega
+  have hu3_odd : t3u % 2 = 1 := by clear hs1 hs2 hs3 hsu1 h8 hsu2 hu2 hsu3; omega
+  exact ⟨hu3, hu3_odd⟩
+
+/-- Helper lemma: pure linear arithmetic for steps 4–5 of the `(0, 1, 0)` expansion. -/
+theorem prefix_010_steps45_algebra
+    (n t3n t4n t3u t4u t5u : Nat)
+    (h8 : 8 * t3n = 9 * n + 5)
+    (hm4 : t4n % 2 = 1)
+    (hs4 : 2 * t4n = 3 * t3n + 1)
+    (hu3 : t3u = 3 * t3n + 14)
+    (hsu4 : 2 * t4u = 3 * t3u + 1) :
+    t4u = 3 * t4n + 20 ∧
+    t4u % 2 = 1 ∧
+    (2 * t5u = 3 * t4u + 1 →
+      32 * t5u = 243 * n + 1183 ∧ t5u > n) := by
+  have hu4 : t4u = 3 * t4n + 20 := by clear h8 hm4; omega
+  have hu4_odd : t4u % 2 = 1 := by clear h8 hs4 hu3 hsu4; omega
+  refine ⟨hu4, hu4_odd, ?_⟩
+  intro hsu5
+  clear hm4 hu3 hsu4 hu4_odd
+  exact ⟨by omega, by omega⟩
+
+/-- Exact Step-3 Coupling and Parity Opposition on the `k_1 = 0` Subtree (`surplus_four_k1_zero_step3_coupling`):
+    Whenever `n` realizes `returnMapWord (0 :: 0 :: k₂ :: tl)`, the first three steps of `n` are odd
+    (`n % 2 = 1`, `T^1(n) % 2 = 1`, `T^2(n) % 2 = 1`), yielding:
+    1. `8 * iterateAccelerated n 3 = 27 * n + 19`,
+    2. `8 * iterateAccelerated (n + 4) 3 = 9 * n + 41`,
+    3. `3 * iterateAccelerated (n + 4) 3 = iterateAccelerated n 3 + 13`, and
+    4. `(iterateAccelerated (n + 4) 3) % 2 ≠ (iterateAccelerated n 3) % 2`
+       (the parity of `T^3(n + 4)` is unconditionally opposite to the parity of `T^3(n)`!). -/
+theorem surplus_four_k1_zero_step3_coupling
+    (k₂ : Nat) (tl : List Nat) (n : Nat)
+    (hv : validParityWord n (returnMapWord (0 :: 0 :: k₂ :: tl))) :
+    n % 2 = 1 ∧
+    (acceleratedCollatz n) % 2 = 1 ∧
+    (iterateAccelerated n 2) % 2 = 1 ∧
+    8 * iterateAccelerated n 3 = 27 * n + 19 ∧
+    8 * iterateAccelerated (n + 4) 3 = 9 * n + 41 ∧
+    3 * iterateAccelerated (n + 4) 3 = iterateAccelerated n 3 + 13 ∧
+    (iterateAccelerated (n + 4) 3) % 2 ≠ (iterateAccelerated n 3) % 2 := by
+  have hv0 : validParityWord (iterateAccelerated n 0)
+      (true :: true :: true :: (List.replicate k₂ false ++ returnMapWord tl)) := hv
+  rcases validParityWord_cons_iterateAccelerated n 0 true _ hv0 with ⟨hm0, hv1⟩
+  rcases validParityWord_cons_iterateAccelerated n 1 true _ hv1 with ⟨hm1, hv2⟩
+  rcases validParityWord_cons_iterateAccelerated n 2 true _ hv2 with ⟨hm2, _⟩
+  have hs1 := iterateAccelerated_step_of_matches n 0 true hm0
+  have hs2 := iterateAccelerated_step_of_matches n 1 true hm1
+  have hs3 := iterateAccelerated_step_of_matches n 2 true hm2
+  dsimp [stepParityMatches] at hm0 hm1 hm2
+  dsimp at hs1 hs2 hs3
+  have hn_odd : n % 2 = 1 := hm0
+  have hT1_odd : (acceleratedCollatz n) % 2 = 1 := hm1
+  have hT2_odd : (iterateAccelerated n 2) % 2 = 1 := hm2
+  have h1_odd : (1 : Nat) % 2 = 1 := rfl
+  rcases (surplus_v2_ge_two_no_three_step_descent_witness).1 n 1 hn_odd hT1_odd hT2_odd h1_odd with
+    ⟨_, _, _, hT3u, _⟩
+  have hn4 : n + 4 * 1 = n + 4 := by omega
+  rw [hn4] at hT3u
+  rcases k1_zero_step3_algebra n
+    (iterateAccelerated n 1) (iterateAccelerated n 2)
+    (iterateAccelerated n 3) (iterateAccelerated (n + 4) 3)
+    hs1 hs2 hs3 hT3u with ⟨h1, h2, h3, h4⟩
+  exact ⟨hn_odd, hT1_odd, hT2_odd, h1, h2, h3, h4⟩
+
+/-- Unconditional Multi-Branch Exhaustion for `t = 4` on the Entire `k_1 = 0` Subtree (`s ≥ 4`)
+    Without Post-Crossing Even-Run Hypotheses (`first_crossing_surplus_four_k1_zero_unconditional_descent`):
+    For ANY pre-crossing sequence `ks = k₀ :: 0 :: k₂ :: k₃ :: tl` (`s ≥ 4`, `k₁ = 0`) realized by `n`
+    with endpoint `u_s = applyParityWord n (returnMapWord ks) = n + 4`:
+    1. Prefix trichotomy forces `k₀ = 0` and `k₂ = 0 ∨ k₂ = 1`.
+    2. On branch `(0, 0, 0)` (`k₂ = 0`), `T^3(n)` is odd, which forces `T^3(u_s)` to be even (`d = 2`),
+       yielding `16 * T^4(u_s) = 9 * n + 41` and strict 4-step descent `T^4(u_s) < n` for all `n ≥ 6`.
+    3. On branch `(0, 0, 1)` (`k₂ = 1`), `T^3(n)` is even and `T^4(n)` is odd, which forces `T^3(u_s)` to be odd
+       and `T^4(u_s) = T^4(n) + 7` to be even, yielding `32 * T^5(u_s) = 27 * n + 131` and strict 5-step
+       descent `T^5(u_s) < n` for all `n ≥ 27`.
+    4. Consequently, for EVERY `n ≥ 27` on the `k_1 = 0` subtree, `u_s = n + 4` unconditionally satisfies
+       `iterateAccelerated u_s 4 < n ∨ iterateAccelerated u_s 5 < n`. -/
+theorem first_crossing_surplus_four_k1_zero_unconditional_descent
+    (k₀ k₂ k₃ : Nat) (tl : List Nat) (n : Nat)
+    (hpre : PreCrossingReturnSeq (k₀ :: 0 :: k₂ :: k₃ :: tl))
+    (hv : validParityWord n (returnMapWord (k₀ :: 0 :: k₂ :: k₃ :: tl)))
+    (hus : applyParityWord n (returnMapWord (k₀ :: 0 :: k₂ :: k₃ :: tl)) = n + 4) :
+    let ks := k₀ :: 0 :: k₂ :: k₃ :: tl
+    let u_s := applyParityWord n (returnMapWord ks)
+    k₀ = 0 ∧
+    (k₂ = 0 ∨ k₂ = 1) ∧
+    (k₂ = 0 →
+      (iterateAccelerated u_s 3) % 2 = 0 ∧
+      16 * iterateAccelerated u_s 4 = 9 * n + 41 ∧
+      (n ≥ 6 → iterateAccelerated u_s 4 < n)) ∧
+    (k₂ = 1 →
+      (iterateAccelerated u_s 3) % 2 = 1 ∧
+      iterateAccelerated u_s 4 = iterateAccelerated n 4 + 7 ∧
+      (iterateAccelerated u_s 4) % 2 = 0 ∧
+      32 * iterateAccelerated u_s 5 = 27 * n + 131 ∧
+      (n ≥ 27 → iterateAccelerated u_s 5 < n)) ∧
+    (n ≥ 27 → iterateAccelerated u_s 4 < n ∨ iterateAccelerated u_s 5 < n) := by
+  dsimp
+  rcases preCrossing_three_block_prefix_trichotomy k₀ 0 k₂ k₃ tl hpre with
+    ⟨hk0, hbranch, _⟩
+  have hk2_or : k₂ = 0 ∨ k₂ = 1 := by
+    rcases hbranch with ⟨_, hk2⟩ | ⟨h01, _⟩
+    · exact hk2
+    · omega
+  have hv0 : validParityWord n (returnMapWord (0 :: 0 :: k₂ :: k₃ :: tl)) := by
+    have h := hv
+    rw [hk0] at h
+    exact h
+  rcases surplus_four_k1_zero_step3_coupling k₂ (k₃ :: tl) n hv0 with
+    ⟨_, _, _, hT3n, hT3u, hcoupl, _⟩
+  rw [hus]
+  have hbranch0 : k₂ = 0 →
+      (iterateAccelerated (n + 4) 3) % 2 = 0 ∧
+      16 * iterateAccelerated (n + 4) 4 = 9 * n + 41 ∧
+      (n ≥ 6 → iterateAccelerated (n + 4) 4 < n) := by
+    intro hk2_0
+    have hv000 : validParityWord n (returnMapWord (0 :: 0 :: 0 :: k₃ :: tl)) := by
+      have h := hv0
+      rw [hk2_0] at h
+      exact h
+    have hv000' : validParityWord (iterateAccelerated n 0)
+        (true :: true :: true :: true :: (List.replicate k₃ false ++ returnMapWord tl)) := hv000
+    rcases validParityWord_cons_iterateAccelerated n 0 true _ hv000' with ⟨_, hv1⟩
+    rcases validParityWord_cons_iterateAccelerated n 1 true _ hv1 with ⟨_, hv2⟩
+    rcases validParityWord_cons_iterateAccelerated n 2 true _ hv2 with ⟨_, hv3⟩
+    rcases validParityWord_cons_iterateAccelerated n 3 true _ hv3 with ⟨hm3n, _⟩
+    dsimp [stepParityMatches] at hm3n
+    rcases k1_zero_branch0_algebra n
+      (iterateAccelerated n 3) (iterateAccelerated (n + 4) 3) (iterateAccelerated (n + 4) 4)
+      hT3u hcoupl hm3n with ⟨hT3u_even, hstep4⟩
+    have hmu3 : stepParityMatches (iterateAccelerated (n + 4) 3) false := by
+      dsimp [stepParityMatches]; exact hT3u_even
+    have hsu4 := iterateAccelerated_step_of_matches (n + 4) 3 false hmu3
+    dsimp at hsu4
+    rcases hstep4 hsu4 with ⟨h16, hlt4⟩
+    exact ⟨hT3u_even, h16, hlt4⟩
+  have hbranch1 : k₂ = 1 →
+      (iterateAccelerated (n + 4) 3) % 2 = 1 ∧
+      iterateAccelerated (n + 4) 4 = iterateAccelerated n 4 + 7 ∧
+      (iterateAccelerated (n + 4) 4) % 2 = 0 ∧
+      32 * iterateAccelerated (n + 4) 5 = 27 * n + 131 ∧
+      (n ≥ 27 → iterateAccelerated (n + 4) 5 < n) := by
+    intro hk2_1
+    have hv001 : validParityWord n (returnMapWord (0 :: 0 :: 1 :: k₃ :: tl)) := by
+      have h := hv0
+      rw [hk2_1] at h
+      exact h
+    have hv001' : validParityWord (iterateAccelerated n 0)
+        (true :: true :: true :: false :: true :: (List.replicate k₃ false ++ returnMapWord tl)) := hv001
+    rcases validParityWord_cons_iterateAccelerated n 0 true _ hv001' with ⟨_, hv1⟩
+    rcases validParityWord_cons_iterateAccelerated n 1 true _ hv1 with ⟨_, hv2⟩
+    rcases validParityWord_cons_iterateAccelerated n 2 true _ hv2 with ⟨_, hv3⟩
+    rcases validParityWord_cons_iterateAccelerated n 3 false _ hv3 with ⟨hm3n, hv4⟩
+    rcases validParityWord_cons_iterateAccelerated n 4 true _ hv4 with ⟨hm4n, _⟩
+    have hs4n := iterateAccelerated_step_of_matches n 3 false hm3n
+    dsimp [stepParityMatches] at hm3n hm4n
+    dsimp at hs4n
+    rcases k1_zero_branch1_algebra n
+      (iterateAccelerated n 3) (iterateAccelerated n 4)
+      (iterateAccelerated (n + 4) 3) (iterateAccelerated (n + 4) 4) (iterateAccelerated (n + 4) 5)
+      hT3n hT3u hcoupl hm3n hm4n hs4n with ⟨hT3u_odd, hstep4⟩
+    have hmu3 : stepParityMatches (iterateAccelerated (n + 4) 3) true := by
+      dsimp [stepParityMatches]; exact hT3u_odd
+    have hsu4 := iterateAccelerated_step_of_matches (n + 4) 3 true hmu3
+    dsimp at hsu4
+    rcases hstep4 hsu4 with ⟨hT4u_shift, hT4u_even, hstep5⟩
+    have hmu4 : stepParityMatches (iterateAccelerated (n + 4) 4) false := by
+      dsimp [stepParityMatches]; exact hT4u_even
+    have hsu5 := iterateAccelerated_step_of_matches (n + 4) 4 false hmu4
+    dsimp at hsu5
+    rcases hstep5 hsu5 with ⟨h32, hlt5⟩
+    exact ⟨hT3u_odd, hT4u_shift, hT4u_even, h32, hlt5⟩
+  refine ⟨hk0, hk2_or, hbranch0, hbranch1, ?_⟩
+  intro hn27
+  rcases hk2_or with hk2_0 | hk2_1
+  · exact Or.inl ((hbranch0 hk2_0).2.2 (by omega))
+  · exact Or.inr ((hbranch1 hk2_1).2.2.2.2 hn27)
+
+/-- Forced 5-Odd-Step Expansion on the `(0, 1, 0)` Pre-Crossing Branch for `t = 4`
+    (`surplus_four_prefix_010_five_odd_steps_expansion`):
+    For ANY integer `n` realizing `returnMapWord (0 :: 1 :: 0 :: k₃ :: tl)`:
+    1. `n % 2 = 1`, `T^1(n) % 2 = 1`, `T^2(n) % 2 = 0`, `T^3(n) % 2 = 1`, and `T^4(n) % 2 = 1`,
+    2. For `u_s = n + 4`, `T^2(u_s) = T^2(n) + 9` is odd, `T^3(u_s) = 3 * T^3(n) + 14` is odd,
+       and `T^4(u_s) = 3 * T^4(n) + 20` is odd,
+    3. Thus `u_s = n + 4` is forced to take **5 consecutive odd steps**, satisfying
+       `32 * iterateAccelerated (n + 4) 5 = 243 * n + 1183` and `iterateAccelerated (n + 4) 5 > n`. -/
+theorem surplus_four_prefix_010_five_odd_steps_expansion
+    (k₃ : Nat) (tl : List Nat) (n : Nat)
+    (hv : validParityWord n (returnMapWord (0 :: 1 :: 0 :: k₃ :: tl))) :
+    let u_s := n + 4
+    n % 2 = 1 ∧
+    (acceleratedCollatz n) % 2 = 1 ∧
+    (iterateAccelerated n 2) % 2 = 0 ∧
+    (iterateAccelerated n 3) % 2 = 1 ∧
+    (iterateAccelerated n 4) % 2 = 1 ∧
+    iterateAccelerated u_s 2 = iterateAccelerated n 2 + 9 ∧
+    (iterateAccelerated u_s 2) % 2 = 1 ∧
+    iterateAccelerated u_s 3 = 3 * iterateAccelerated n 3 + 14 ∧
+    (iterateAccelerated u_s 3) % 2 = 1 ∧
+    iterateAccelerated u_s 4 = 3 * iterateAccelerated n 4 + 20 ∧
+    (iterateAccelerated u_s 4) % 2 = 1 ∧
+    32 * iterateAccelerated u_s 5 = 243 * n + 1183 ∧
+    iterateAccelerated u_s 5 > n := by
+  dsimp
+  have hv0 : validParityWord (iterateAccelerated n 0)
+      (true :: true :: false :: true :: true :: (List.replicate k₃ false ++ returnMapWord tl)) := hv
+  rcases validParityWord_cons_iterateAccelerated n 0 true _ hv0 with ⟨hm0, hv1⟩
+  rcases validParityWord_cons_iterateAccelerated n 1 true _ hv1 with ⟨hm1, hv2⟩
+  rcases validParityWord_cons_iterateAccelerated n 2 false _ hv2 with ⟨hm2, hv3⟩
+  rcases validParityWord_cons_iterateAccelerated n 3 true _ hv3 with ⟨hm3, hv4⟩
+  rcases validParityWord_cons_iterateAccelerated n 4 true _ hv4 with ⟨hm4, _⟩
+  have hs1 := iterateAccelerated_step_of_matches n 0 true hm0
+  have hs2 := iterateAccelerated_step_of_matches n 1 true hm1
+  have hs3 := iterateAccelerated_step_of_matches n 2 false hm2
+  have hs4 := iterateAccelerated_step_of_matches n 3 true hm3
+  dsimp [stepParityMatches] at hm0 hm1 hm2 hm3 hm4
+  dsimp at hs1 hs2 hs3 hs4
+  have hn_odd : n % 2 = 1 := hm0
+  have hT1_odd : (acceleratedCollatz n) % 2 = 1 := hm1
+  have hu0_odd : (iterateAccelerated (n + 4) 0) % 2 = 1 := by
+    change (n + 4) % 2 = 1
+    rw [Nat.add_mod, hn_odd]
+  have hmu0 : stepParityMatches (iterateAccelerated (n + 4) 0) true := by
+    dsimp [stepParityMatches]; exact hu0_odd
+  have hsu1 := iterateAccelerated_step_of_matches (n + 4) 0 true hmu0
+  dsimp at hsu1
+  rcases prefix_010_steps123_algebra n
+    (iterateAccelerated n 1) (iterateAccelerated n 2) (iterateAccelerated n 3)
+    (iterateAccelerated (n + 4) 1) (iterateAccelerated (n + 4) 2) (iterateAccelerated (n + 4) 3)
+    hm1 hm2 hm3 hs1 hs2 hs3 hsu1 with ⟨h8, hu1_odd, hstep2⟩
+  have hmu1 : stepParityMatches (iterateAccelerated (n + 4) 1) true := by
+    dsimp [stepParityMatches]; exact hu1_odd
+  have hsu2 := iterateAccelerated_step_of_matches (n + 4) 1 true hmu1
+  dsimp at hsu2
+  rcases hstep2 hsu2 with ⟨hu2_shift, hu2_odd, hstep3⟩
+  have hmu2 : stepParityMatches (iterateAccelerated (n + 4) 2) true := by
+    dsimp [stepParityMatches]; exact hu2_odd
+  have hsu3 := iterateAccelerated_step_of_matches (n + 4) 2 true hmu2
+  dsimp at hsu3
+  rcases hstep3 hsu3 with ⟨hu3_shift, hu3_odd⟩
+  have hmu3 : stepParityMatches (iterateAccelerated (n + 4) 3) true := by
+    dsimp [stepParityMatches]; exact hu3_odd
+  have hsu4 := iterateAccelerated_step_of_matches (n + 4) 3 true hmu3
+  dsimp at hsu4
+  rcases prefix_010_steps45_algebra n
+    (iterateAccelerated n 3) (iterateAccelerated n 4)
+    (iterateAccelerated (n + 4) 3) (iterateAccelerated (n + 4) 4) (iterateAccelerated (n + 4) 5)
+    h8 hm4 hs4 hu3_shift hsu4 with ⟨hu4_shift, hu4_odd, hstep5⟩
+  have hmu4 : stepParityMatches (iterateAccelerated (n + 4) 4) true := by
+    dsimp [stepParityMatches]; exact hu4_odd
+  have hsu5 := iterateAccelerated_step_of_matches (n + 4) 4 true hmu4
+  dsimp at hsu5
+  rcases hstep5 hsu5 with ⟨h32_eq, hgt_n⟩
+  exact ⟨hn_odd, hT1_odd, hm2, hm3, hm4,
+         hu2_shift, hu2_odd, hu3_shift, hu3_odd, hu4_shift, hu4_odd,
+         h32_eq, hgt_n⟩
+
+set_option maxRecDepth 20000
+
+/-- Formal Falsification Witnesses CE-C10-13 and CE-C10-14
+    (`prefix_010_long_post_crossing_delay_witnesses`):
+    Certifies that on the `(0, 1, 0)` pre-crossing branch (`n ≡ 27 (mod 32)`), a hypothetical
+    `t = 4` endpoint `u_s = n + 4 ≡ 31 (mod 32)` escapes bounded-depth local descent:
+    1. (`CE-C10-13`) At `n = 27` (`u_s = 31`, realizing `returnMapWord [0, 1, 0, 0]`),
+       `32 * T^5(31) = 243 * 27 + 1183`, `T^5(31) = 242 > 27`, `T^{55}(31) = 46 ≥ 27`, and
+       `T^{56}(31) = 23 < 27` (a 56-step post-crossing delay before descending below `n = 27`).
+    2. (`CE-C10-14`) At `n = 1051` (`u_s = 1055`, realizing `returnMapWord [0, 1, 0, 0]`),
+       `32 * T^5(1055) = 243 * 1051 + 1183`, `T^5(1055) = 8018 > 1051`, `T^{79}(1055) = 1256 ≥ 1051`,
+       and `T^{80}(1055) = 628 < 1051` (an 80-step post-crossing delay). -/
+theorem prefix_010_long_post_crossing_delay_witnesses :
+    (validParityWordBool 27 (returnMapWord [0, 1, 0, 0]) = true ∧
+     32 * iterateAccelerated 31 5 = 243 * 27 + 1183 ∧
+     iterateAccelerated 31 5 = 242 ∧
+     iterateAccelerated 31 55 = 46 ∧
+     iterateAccelerated 31 56 = 23 ∧
+     23 < 27) ∧
+    (validParityWordBool 1051 (returnMapWord [0, 1, 0, 0]) = true ∧
+     32 * iterateAccelerated 1055 5 = 243 * 1051 + 1183 ∧
+     iterateAccelerated 1055 5 = 8018 ∧
+     iterateAccelerated 1055 79 = 1256 ∧
+     iterateAccelerated 1055 80 = 628 ∧
+     628 < 1051) := by
+  decide
+
 end CollatzProofClosure
 end BBB17

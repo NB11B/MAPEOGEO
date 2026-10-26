@@ -1277,13 +1277,140 @@ def verify_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator(
     }
 
 
+def verify_section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion(
+    max_s: int = 12,
+    max_n: int = 2000,
+) -> Dict[str, object]:
+    """
+    Verify Section 17 3-Block Pre-Crossing Prefix Trichotomy, Unconditional Multi-Branch
+    Exhaustion on the k_1 = 0 Subtree, and Falsifications CE-C10-13..14 on (0, 1, 0):
+      1. Across all pre-crossing prefixes of length 4 <= s <= max_s (4,399 prefixes at s <= 12):
+         verify that 100% of 3-block prefixes (k_0, k_1, k_2) belong to {(0, 0, 0), (0, 0, 1), (0, 1, 0)}.
+      2. Across all odd integers n <= max_n on each of the three branches:
+         - (0, 0, 0): verify 3 * T^3(n + 4) == T^3(n) + 13, T^3(n + 4) % 2 == 0,
+           16 * T^4(n + 4) == 9 * n + 41, and T^4(n + 4) < n for all n >= 6.
+         - (0, 0, 1): verify 3 * T^3(n + 4) == T^3(n) + 13, T^3(n + 4) % 2 == 1,
+           T^4(n + 4) == T^4(n) + 7 (even), 32 * T^5(n + 4) == 27 * n + 131,
+           and T^5(n + 4) < n for all n >= 27.
+         - (0, 1, 0): verify T^2(n + 4) == T^2(n) + 9 (odd), T^3(n + 4) == 3 * T^3(n) + 14 (odd),
+           T^4(n + 4) == 3 * T^4(n) + 20 (odd), 32 * T^5(n + 4) == 243 * n + 1183, and T^5(n + 4) > n.
+      3. Verify CE-C10-13 (n = 27, u_s = 31: 56-step post-crossing delay) and
+         CE-C10-14 (n = 1051, u_s = 1055: 80-step post-crossing delay).
+    """
+    def gen_precrossing_prefixes(s: int):
+        if s == 1:
+            yield (0,)
+            return
+        for Ks in gen_precrossing_prefixes(s - 1):
+            j = s - 1
+            max_K = (3 ** j).bit_length() - 1
+            for K_next in range(Ks[-1] + 1, max_K + 1):
+                yield Ks + (K_next,)
 
+    admissible_triples = {(0, 0, 0), (0, 0, 1), (0, 1, 0)}
+    prefixes_s_ge_4_checked = 0
+    prefix_trichotomy_violations = 0
+    branch_counts = {(0, 0, 0): 0, (0, 0, 1): 0, (0, 1, 0): 0}
 
+    for s in range(4, max_s + 1):
+        for Ks in gen_precrossing_prefixes(s):
+            prefixes_s_ge_4_checked += 1
+            k0 = Ks[1] - Ks[0] - 1
+            k1 = Ks[2] - Ks[1] - 1
+            k2 = Ks[3] - Ks[2] - 1
+            triple = (k0, k1, k2)
+            if triple not in admissible_triples:
+                prefix_trichotomy_violations += 1
+            else:
+                branch_counts[triple] += 1
 
+    def iter_acc(x: int, steps: int) -> int:
+        for _ in range(steps):
+            x = accelerated_collatz(x)
+        return x
 
+    branch_000_checked = 0
+    branch_000_mismatches = 0
+    branch_001_checked = 0
+    branch_001_mismatches = 0
+    branch_010_checked = 0
+    branch_010_mismatches = 0
 
+    for n in range(3, max_n + 1, 2):
+        t1n = iter_acc(n, 1)
+        t2n = iter_acc(n, 2)
+        t3n = iter_acc(n, 3)
+        t4n = iter_acc(n, 4)
+        u = n + 4
+        t2u = iter_acc(u, 2)
+        t3u = iter_acc(u, 3)
+        t4u = iter_acc(u, 4)
+        t5u = iter_acc(u, 5)
 
+        if (n % 2 == 1) and (t1n % 2 == 1) and (t2n % 2 == 1) and (t3n % 2 == 1):
+            branch_000_checked += 1
+            if (
+                8 * t3n != 27 * n + 19
+                or 8 * t3u != 9 * n + 41
+                or 3 * t3u != t3n + 13
+                or t3u % 2 != 0
+                or 16 * t4u != 9 * n + 41
+                or (n >= 6 and not (t4u < n))
+            ):
+                branch_000_mismatches += 1
 
+        if (n % 2 == 1) and (t1n % 2 == 1) and (t2n % 2 == 1) and (t3n % 2 == 0) and (t4n % 2 == 1):
+            branch_001_checked += 1
+            if (
+                8 * t3n != 27 * n + 19
+                or 8 * t3u != 9 * n + 41
+                or 3 * t3u != t3n + 13
+                or t3u % 2 != 1
+                or t4u != t4n + 7
+                or t4u % 2 != 0
+                or 32 * t5u != 27 * n + 131
+                or (n >= 27 and not (t5u < n))
+            ):
+                branch_001_mismatches += 1
 
+        if (n % 2 == 1) and (t1n % 2 == 1) and (t2n % 2 == 0) and (t3n % 2 == 1) and (t4n % 2 == 1):
+            branch_010_checked += 1
+            if (
+                t2u != t2n + 9
+                or t2u % 2 != 1
+                or t3u != 3 * t3n + 14
+                or t3u % 2 != 1
+                or t4u != 3 * t4n + 20
+                or t4u % 2 != 1
+                or 32 * t5u != 243 * n + 1183
+                or not (t5u > n)
+            ):
+                branch_010_mismatches += 1
 
+    ce13_verified = (
+        iter_acc(31, 5) == 242
+        and all(iter_acc(31, r) >= 27 for r in range(56))
+        and iter_acc(31, 55) == 46
+        and iter_acc(31, 56) == 23
+    )
+    ce14_verified = (
+        iter_acc(1055, 5) == 8018
+        and all(iter_acc(1055, r) >= 1051 for r in range(80))
+        and iter_acc(1055, 79) == 1256
+        and iter_acc(1055, 80) == 628
+    )
+
+    return {
+        "prefixes_s_ge_4_checked": prefixes_s_ge_4_checked,
+        "prefix_trichotomy_violations": prefix_trichotomy_violations,
+        "branch_counts": {str(k): v for k, v in branch_counts.items()},
+        "branch_000_checked": branch_000_checked,
+        "branch_000_mismatches": branch_000_mismatches,
+        "branch_001_checked": branch_001_checked,
+        "branch_001_mismatches": branch_001_mismatches,
+        "branch_010_checked": branch_010_checked,
+        "branch_010_mismatches": branch_010_mismatches,
+        "ce13_verified": ce13_verified,
+        "ce14_verified": ce14_verified,
+    }
 
