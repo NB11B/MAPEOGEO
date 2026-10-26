@@ -1,0 +1,39 @@
+name: GEO-PRIME interaction proof qualification
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths:
+      - 'MAPEOGEOFormal/GeoPrimeInteraction.lean'
+      - 'experiments/geo_prime_lean_002/**'
+      - '.github/workflows/geo-prime-interaction.yml'
+  pull_request:
+    paths:
+      - 'MAPEOGEOFormal/GeoPrimeInteraction.lean'
+      - 'experiments/geo_prime_lean_002/**'
+      - '.github/workflows/geo-prime-interaction.yml'
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Independent numerical and mutation qualification
+        run: |
+          cd experiments/geo_prime_lean_002
+          python -m unittest discover -v
+          python experiment.py
+          python emit_lean.py
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+      - name: Build verified source modules
+        run: lake build MAPEOGEOFormal.GeoEuler MAPEOGEOFormal.GeoEulerPrime
+      - name: Kernel verify interaction derived prime equivalence
+        run: |
+          lake env lean MAPEOGEOFormal/GeoPrimeInteraction.lean
+          lake env lean MAPEOGEOFormal/GeoPrimeInferred.lean
+      - name: Falsify wrong inferred coefficient in Lean
+        run: python experiments/geo_prime_lean_002/negative_kernel.py

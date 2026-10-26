@@ -1,0 +1,19 @@
+name: GEO-PRIME timestamped operator reconstruction
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['experiments/geo_prime_universal_004/**','.github/workflows/geo-prime-streams.yml']
+  pull_request:
+    paths: ['experiments/geo_prime_universal_004/**','.github/workflows/geo-prime-streams.yml']
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          cd experiments/geo_prime_universal_004
+          python -m unittest discover -v
+          python reconstruction.py

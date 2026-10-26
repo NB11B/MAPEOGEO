@@ -1,0 +1,22 @@
+name: GEO-EULER symbolic recurrence discovery
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['experiments/geo_euler_003/**', 'experiments/geo_euler_004/**', '.github/workflows/geo-euler-grammar.yml']
+  pull_request:
+    paths: ['experiments/geo_euler_003/**', 'experiments/geo_euler_004/**', '.github/workflows/geo-euler-grammar.yml']
+jobs:
+  grammar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          cd experiments/geo_euler_003
+          python -m unittest discover -v
+      - run: |
+          cd experiments/geo_euler_004
+          python -m unittest discover -v
+          python grammar.py

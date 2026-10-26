@@ -1,0 +1,19 @@
+name: GEO-OPR compositional grammar
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['experiments/geo_opr_003/**', '.github/workflows/geo-opr-grammar.yml']
+  pull_request:
+    paths: ['experiments/geo_opr_003/**', '.github/workflows/geo-opr-grammar.yml']
+jobs:
+  operator-search:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: |
+          cd experiments/geo_opr_003
+          python -m unittest discover -v
+          python grammar.py

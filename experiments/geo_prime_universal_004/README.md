@@ -1,0 +1,6 @@
+# GEO-PRIME-UNIVERSAL-004
+Recover permutation matrices from shuffled timestamped transition events with opaque operator-stream IDs. The estimator admits an operator only if every source vertex has been observed and transition outputs are consistent. It then qualifies exact group closure, presence of identity, cyclicity and orbit partitions without gcd/divisibility/prime labels. Independent oracle is used only in tests.
+Local sandbox: 7/7 tests passed on n=2..20, zero primality disagreements; reversed event order invariant; missing and contradictory observations refused.
+Limits: stream identifiers are supplied and all transitions for every operator are required; not fully unsupervised mode discovery nor gap filling. Refusal on missing edges is a deliberate identifiability safeguard. No speedup or new prime theorem is claimed.
+Run: cd experiments/geo_prime_universal_004 && python -m unittest discover -v && python reconstruction.py
+Next: mixed unlabeled streams; multiple consistent completions; explicit ambiguity certificates; native PSMSL matrices from reconstructed operators; chronological out-of-sample prediction and Lean semantic bridge.

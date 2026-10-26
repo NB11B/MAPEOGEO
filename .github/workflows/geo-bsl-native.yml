@@ -1,0 +1,39 @@
+name: GEO-BSL native operator qualification
+on:
+  pull_request:
+    paths:
+      - 'experiments/geo_bsl_006/**'
+      - 'experiments/geo_bsl_007/**'
+      - 'experiments/geo_bsl_008/**'
+      - '.github/workflows/geo-bsl-native.yml'
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths:
+      - 'experiments/geo_bsl_006/**'
+      - 'experiments/geo_bsl_007/**'
+      - 'experiments/geo_bsl_008/**'
+      - '.github/workflows/geo-bsl-native.yml'
+jobs:
+  native:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install numpy
+      - name: Native PSMSL basis qualification
+        run: |
+          cd experiments/geo_bsl_006
+          python -m unittest discover -v
+          python adapter.py
+      - name: Unknown-generator reconstruction
+        run: |
+          cd experiments/geo_bsl_007
+          python -m unittest discover -v
+          python trajectory.py
+      - name: Unlabeled generator recovery and native basis
+        run: |
+          cd experiments/geo_bsl_008
+          python -m unittest discover -v
+          python mixture.py

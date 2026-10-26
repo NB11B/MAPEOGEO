@@ -1,0 +1,28 @@
+name: GEO-OPR exact AST Lean verification
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths: ['experiments/geo_opr_003/**','experiments/geo_opr_004/**','.github/workflows/geo-opr-lean.yml']
+  pull_request:
+    paths: ['experiments/geo_opr_003/**','experiments/geo_opr_004/**','.github/workflows/geo-opr-lean.yml']
+jobs:
+  proof:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+      - name: Validate and emit selected AST
+        run: |
+          cd experiments/geo_opr_004
+          python -m unittest discover -v
+          python bridge.py
+      - name: Kernel-check selected expression identity
+        run: lake env lean MAPEOGEOFormal/GeoOPRSelected.lean
+      - name: Reject false identity
+        run: python experiments/geo_opr_004/negative_kernel.py

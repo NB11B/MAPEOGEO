@@ -1,0 +1,26 @@
+name: GEO-EULER recurrence certificate
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths:
+      - 'MAPEOGEOFormal/GeoEuler.lean'
+      - 'MAPEOGEOFormal/GeoEulerCertificate.lean'
+      - '.github/workflows/geo-euler-certificate.yml'
+  pull_request:
+    paths:
+      - 'MAPEOGEOFormal/GeoEuler.lean'
+      - 'MAPEOGEOFormal/GeoEulerCertificate.lean'
+      - '.github/workflows/geo-euler-certificate.yml'
+jobs:
+  certificate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          build: false
+          test: false
+      - name: Build source arithmetic module
+        run: lake build MAPEOGEOFormal.GeoEuler
+      - name: Verify universal recurrence certificate
+        run: lake env lean MAPEOGEOFormal/GeoEulerCertificate.lean

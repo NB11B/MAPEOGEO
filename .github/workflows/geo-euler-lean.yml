@@ -1,0 +1,26 @@
+name: GEO-EULER Lean proofs
+on:
+  push:
+    branches: ['experiments/geo-bsl-001']
+    paths:
+      - 'MAPEOGEOFormal/GeoEuler.lean'
+      - 'MAPEOGEOFormal/GeoEulerPrime.lean'
+      - 'experiments/geo_euler_004/LEAN_BRIDGE.md'
+      - '.github/workflows/geo-euler-lean.yml'
+  pull_request:
+    paths:
+      - 'MAPEOGEOFormal/GeoEuler.lean'
+      - '.github/workflows/geo-euler-lean.yml'
+jobs:
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean-action@v1
+        with:
+          test: false
+          build: false
+      - name: Verify GEO-EULER proofs and audit axioms
+        run: |
+          lake build MAPEOGEOFormal.GeoEuler
+          lake env lean MAPEOGEOFormal/GeoEulerPrime.lean
