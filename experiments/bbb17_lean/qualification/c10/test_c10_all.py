@@ -51,6 +51,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section15_surplus_diophantine_and_self_similarity_coupling,
     verify_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator,
     verify_section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion,
+    verify_section18_c10_cert_stream_adaptive_exclusion_pipeline,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -236,6 +237,29 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(sec17["branch_010_mismatches"], 0)
         self.assertTrue(sec17["ce13_verified"])
         self.assertTrue(sec17["ce14_verified"])
+
+    def test_ws6_section18_c10_cert_stream_adaptive_exclusion_pipeline(self) -> None:
+        sec18 = verify_section18_c10_cert_stream_adaptive_exclusion_pipeline(
+            max_s_enclosure=12, max_s_benchmark=14
+        )
+        self.assertEqual(sec18["enclosure_splits_checked"], 45327)
+        self.assertEqual(sec18["enclosure_violations"], 0)
+        self.assertEqual(sec18["monotone_contraction_violations"], 0)
+        self.assertEqual(sec18["point_collapse_violations"], 0)
+        self.assertEqual(sec18["total_benchmark_candidates"], 187805)
+        self.assertEqual(sec18["false_exclusions"], 0)
+        self.assertEqual(sec18["unresolved_candidates"], 0)
+        self.assertGreater(
+            sec18["stage_stats_by_n_min"]["2"]["exact_divisions_avoided_pct"], 85.0
+        )
+        self.assertGreater(
+            sec18["stage_stats_by_n_min"]["8"]["exact_divisions_avoided_pct"], 99.0
+        )
+        self.assertEqual(
+            sec18["stage_stats_by_n_min"]["27"]["exact_divisions_avoided_pct"], 100.0
+        )
+        self.assertTrue(sec18["ce15_verified"])
+        self.assertTrue(sec18["ce16_verified"])
 
 
 def generate_c10_artifacts() -> None:
@@ -435,6 +459,24 @@ def generate_c10_artifacts() -> None:
             "witnesses": [{"prefix": [0, 1, 0], "n": 1051, "u_s": 1055, "T5_us": 8018, "T79_us": 1256, "T80_us": 628, "post_crossing_delay_steps": 80}],
             "lean_theorem": "BBB17.CollatzProofClosure.prefix_010_long_post_crossing_delay_witnesses",
             "resolution": "Certified on n = 1051 >= 1024 (u_s = 1055) that 32 * T^5(1055) = 243 * 1051 + 1183 = 256576 (T^5(1055) = 8018 > 1051) and descent below 1051 requires 80 steps, proving that closing (0, 1, 0) requires coupling with the global Diophantine offset equation Delta_s * (n + t) + 3^s * t = B_s.",
+        },
+        {
+            "id": "CE-C10-15",
+            "workstream": "WS6_Section18_C10CertStreamAdaptiveExclusion",
+            "hypothesis_tested": "Uncertified IEEE-754 float64 division/modulo can sound-check Delta_s | (B_s - 3^s * t) across moderate block depths s >= 35 without exact integer or verified interval enclosures",
+            "status": "FALSIFIED",
+            "witnesses": [{"s": 35, "K_35": 56, "three_pow_35": 50031545098999707, "two_pow_53": 9007199254740992, "delta_35": 22026048938928229}],
+            "lean_theorem": "BBB17.CollatzProofClosure.c10_cert_stream_falsification_witnesses",
+            "resolution": "Proved in c10_cert_stream_falsification_witnesses that 3^35 = 50031545098999707 > 2^53 and 2^56 - 3^35 = 22026048938928229 > 2^53, exceeding IEEE-754 float64 53-bit significand precision and requiring exact integer or verified interval enclosures.",
+        },
+        {
+            "id": "CE-C10-16",
+            "workstream": "WS6_Section18_C10CertStreamAdaptiveExclusion",
+            "hypothesis_tested": "Coarse word-free envelope bounds (Stage 1) and exact prefix/word offset upper bounds (Stage 2) alone retire every candidate (ks, t) at small thresholds n_min = 2 without Stage 4 exact residual non-divisibility",
+            "status": "FALSIFIED",
+            "witnesses": [{"ks": [0, 0, 0, 0, 3], "s": 5, "K_5": 8, "delta_5": 13, "B_5": 211, "t": 0, "n_min": 2, "B_5_mod_delta_5": 3}],
+            "lean_theorem": "BBB17.CollatzProofClosure.c10_cert_stream_falsification_witnesses",
+            "resolution": "Proved in c10_cert_stream_falsification_witnesses and staged_adaptive_exclusion_certificate_soundness that at ks = [0,0,0,0,3], t = 0, n_min = 2, B_5 = 211 >= 26 = 13 * 2 survives both Stage 1 and Stage 2, and is retired at Stage 4 via 211 % 13 = 3 != 0.",
         },
     ]
     with (artifacts_dir / "counterexamples.jsonl").open("w", encoding="utf-8") as f:

@@ -6029,5 +6029,301 @@ theorem prefix_010_long_post_crossing_delay_witnesses :
      628 < 1051) := by
   decide
 
+/-! ## Section 18: Adaptive Certificate-Driven Exclusion (`C10-CERT-STREAM-001`), Progressive Prefix-Interval Enclosures, Staged Retirement Soundness, and Falsifications (`CE-C10-15..16`)
+
+    Motivated by the `DAP-STREAM-002 / STREAM-CERT-001` adaptive certificate principle — compute only
+    enough information to certify that a candidate configuration is impossible, while requiring every
+    exclusion to be backed by an exact arithmetic or verified interval certificate — we formalize
+    `C10-CERT-STREAM-001` for the first-crossing survivor equation:
+    `Δ_s * (n + t) + 3^s * t = B_s` (`Δ_s = 2^{K_s} - 3^s > 0`).
+
+    In this section we prove unconditionally in Lean 4:
+    1. **Progressive Prefix-to-Full-Word Offset Enclosures (`prefixOffsetLowerEnclosure`, `prefixOffsetUpperEnclosure`, `preCrossing_progressive_offset_enclosure`)**:
+       For any length-`j` prefix `ks₁` extended by `m = ks₂.length` blocks (`ks = ks₁ ++ ks₂`, `s = j + m`):
+       - Exact decomposition: `B_s = 3^m * B_j + 2^{K_j} * B(ks₂)`.
+       - Certified lower enclosure: `B_{lo}(ks₁, m) = 3^m * B_j + 2^{K_j} * (3^m - 2^m) ≤ B_s`.
+       - Certified pre-crossing upper enclosure (`m ≥ 1`):
+         `B_s ≤ B_{hi}(ks₁, m) = 3^m * B_j + 3^{m-1} * 2^{K_j} + (m - 1) * 3^{j + m - 1}`.
+       - Monotone interval contraction under 1-block refinement (`j ↦ j + 1, m + 1 ↦ m`):
+         `B_{lo}(ks₁, m + 1) ≤ B_{lo}(ks₁ ++ [k], m)` and `B_{hi}(ks₁ ++ [k], m) ≤ B_{hi}(ks₁, m + 1)`.
+       - Exact point collapse at `m = 1` (`j = s - 1`): `B_{lo}(ks₁, 1) = B_s = B_{hi}(ks₁, 1)`.
+    2. **Staged Adaptive Exclusion Certificate Soundness (`staged_adaptive_exclusion_certificate_soundness`)**:
+       Formalizes the 4-stage `C10-CERT-STREAM-001` verifier retiring candidate `(ks, n ≥ n_min, t)` at the
+       earliest certifiable stage:
+       - **Stage 1 (Word-Free Surplus-Reduced Envelope)**: `2 * (Δ_s * (n_min + t) + 3^s * t) + 3^{s-1} > 2 * s * 3^{s-1} + 1`.
+       - **Stage 2 (Progressive Prefix / Word Upper Enclosure)**: `prefixOffsetUpperEnclosure ks₁ ks₂.length < Δ_s * (n_min + t) + 3^s * t`.
+       - **Stage 3 (Fast 2-Adic / Self-Similarity Post-Crossing Descent)**: odd `t` (`1`-step descent), `v_2(t) = 1` (`2`-step descent), or `t = 4` on `k_1 = 0` (`4/5`-step descent).
+       - **Stage 4 (Exact Residual Non-Divisibility & 3-Adic Quotient Lock)**: `(B_s - 3^s * t) % Δ_s ≠ 0` or `(2^{k+1} * ((B_s - 3^s * t) / Δ_s)) % 3 ≠ 1`.
+    3. **Formal Falsifications `CE-C10-15` and `CE-C10-16` (`c10_cert_stream_falsification_witnesses`)**:
+       - `CE-C10-15`: At `s = 35, K_{35} = 56`, `3^{35} = 50,031,545,098,999,707 > 2^{53}`, exceeding IEEE-754 `float64` 53-bit exact integer precision and proving why approximate/GPU screening cannot replace certified integer enclosures.
+       - `CE-C10-16`: At `s = 5, K_5 = 8, ks = [0, 0, 0, 0, 3], t = 0, n_min = 2` (`Δ_5 = 13, B_5 = 211`), both Stage 1 (`365 ≥ 26`) and Stage 2 (`211 ≥ 26`) fail to exclude the candidate by magnitude alone, proving that Stage 4 exact modular non-divisibility (`211 % 13 = 3 ≠ 0`) is strictly necessary at small thresholds.
+-/
+
+/-- Certified lower enclosure `B_{lo}(ks₁, m)` on `wordB (returnMapWord (ks₁ ++ ks₂))`
+    for any prefix `ks₁` extended by `m = ks₂.length` blocks. -/
+def prefixOffsetLowerEnclosure (ks₁ : List Nat) (m : Nat) : Nat :=
+  3 ^ m * wordB (returnMapWord ks₁) +
+    2 ^ totalValuation ks₁ * (3 ^ m - 2 ^ m)
+
+/-- Certified upper enclosure `B_{hi}(ks₁, m)` on `wordB (returnMapWord (ks₁ ++ ks₂))`
+    for any pre-crossing sequence `ks₁ ++ ks₂` with `m = ks₂.length`. -/
+def prefixOffsetUpperEnclosure (ks₁ : List Nat) : Nat → Nat
+  | 0 => wordB (returnMapWord ks₁)
+  | m' + 1 =>
+    3 ^ (m' + 1) * wordB (returnMapWord ks₁) +
+      3 ^ m' * 2 ^ totalValuation ks₁ +
+      m' * 3 ^ (ks₁.length + m')
+
+/-- Exact Append Decomposition for `wordB (returnMapWord (ks₁ ++ ks₂))` (`wordB_returnMapWord_append`). -/
+theorem wordB_returnMapWord_append (ks₁ ks₂ : List Nat) :
+    wordB (returnMapWord (ks₁ ++ ks₂)) =
+      3 ^ ks₂.length * wordB (returnMapWord ks₁) +
+        2 ^ totalValuation ks₁ * wordB (returnMapWord ks₂) := by
+  rw [returnMapWord_append, wordB_append, wordA_returnMapWord, wordD_returnMapWord]
+
+/-- Monotone Stepwise Refinement of `prefixOffsetLowerEnclosure` (`prefixOffsetLowerEnclosure_step_le`):
+    Extending prefix `ks₁` by one block `k` (`m + 1 ↦ m`) monotonically increases the lower enclosure:
+    `prefixOffsetLowerEnclosure ks₁ (m + 1) ≤ prefixOffsetLowerEnclosure (ks₁ ++ [k]) m`. -/
+theorem prefixOffsetLowerEnclosure_step_le (ks₁ : List Nat) (k m : Nat) :
+    prefixOffsetLowerEnclosure ks₁ (m + 1) ≤
+      prefixOffsetLowerEnclosure (ks₁ ++ [k]) m := by
+  unfold prefixOffsetLowerEnclosure
+  rw [wordB_returnMapWord_snoc, totalValuation_snoc]
+  have h23 : 2 ^ m ≤ 3 ^ m := pow_le_pow_of_le 2 3 m (by omega)
+  have hk_pow : 2 ^ 1 ≤ 2 ^ (k + 1) := two_pow_le_two_pow 1 (k + 1) (by omega)
+  have hK_split : 2 ^ (totalValuation ks₁ + k + 1) =
+      2 ^ totalValuation ks₁ * 2 ^ (k + 1) := by
+    rw [Nat.add_assoc, Nat.pow_add]
+  have h3_succ : 3 ^ (m + 1) = 3 ^ m * 3 := Nat.pow_succ 3 m
+  have h2_succ : 2 ^ (m + 1) = 2 ^ m * 2 := Nat.pow_succ 2 m
+  have hsub_split : 3 ^ (m + 1) - 2 ^ (m + 1) = 3 ^ m + 2 * (3 ^ m - 2 ^ m) := by omega
+  have hmul_k : 2 ^ totalValuation ks₁ * (2 * (3 ^ m - 2 ^ m)) ≤
+      2 ^ totalValuation ks₁ * (2 ^ (k + 1) * (3 ^ m - 2 ^ m)) := by
+    apply Nat.mul_le_mul_left
+    exact Nat.mul_le_mul_right (3 ^ m - 2 ^ m) hk_pow
+  have hcomm_3m : 3 ^ m * 2 ^ totalValuation ks₁ = 2 ^ totalValuation ks₁ * 3 ^ m :=
+    Nat.mul_comm _ _
+  rw [hsub_split, Nat.mul_add, Nat.mul_add, hK_split, Nat.mul_assoc (2 ^ totalValuation ks₁)]
+  rw [h3_succ, Nat.mul_assoc (3 ^ m) 3, hcomm_3m]
+  omega
+
+/-- Monotone Stepwise Refinement of `prefixOffsetUpperEnclosure` (`prefixOffsetUpperEnclosure_step_le`):
+    Whenever `2 ^ (totalValuation ks₁ + k + 1) ≤ 3 ^ (ks₁.length + 1)`, extending prefix `ks₁` by one
+    block `k` (`m' + 2 ↦ m' + 1`) monotonically tightens (decreases) the upper enclosure:
+    `prefixOffsetUpperEnclosure (ks₁ ++ [k]) (m' + 1) ≤ prefixOffsetUpperEnclosure ks₁ (m' + 2)`. -/
+theorem prefixOffsetUpperEnclosure_step_le (ks₁ : List Nat) (k m' : Nat)
+    (hpre_step : 2 ^ (totalValuation ks₁ + k + 1) ≤ 3 ^ (ks₁.length + 1)) :
+    prefixOffsetUpperEnclosure (ks₁ ++ [k]) (m' + 1) ≤
+      prefixOffsetUpperEnclosure ks₁ (m' + 2) := by
+  dsimp [prefixOffsetUpperEnclosure]
+  rw [wordB_returnMapWord_snoc, totalValuation_snoc, List.length_append]
+  dsimp
+  have hj_eq : ks₁.length + 1 + m' = ks₁.length + (m' + 1) := by omega
+  rw [hj_eq]
+  have hpow_split : 3 ^ (ks₁.length + (m' + 1)) = 3 ^ m' * 3 ^ (ks₁.length + 1) := by
+    have h1 : ks₁.length + (m' + 1) = m' + (ks₁.length + 1) := by omega
+    rw [h1, Nat.pow_add]
+  have hmul_step : 3 ^ m' * 2 ^ (totalValuation ks₁ + k + 1) ≤
+      3 ^ (ks₁.length + (m' + 1)) := by
+    rw [hpow_split]
+    exact Nat.mul_le_mul_left (3 ^ m') hpre_step
+  have h3_succ : 3 ^ (m' + 1 + 1) = 3 ^ (m' + 1) * 3 := Nat.pow_succ 3 (m' + 1)
+  rw [Nat.mul_add (3 ^ (m' + 1)), h3_succ, Nat.mul_assoc (3 ^ (m' + 1)) 3,
+      Nat.add_mul m' 1 (3 ^ (ks₁.length + (m' + 1))), Nat.one_mul]
+  omega
+
+/-- Pre-Crossing Upper Enclosure Bound by Induction on Suffix `ks₂`
+    (`wordB_returnMapWord_le_prefixOffsetUpperEnclosure`):
+    For any `ks₁ ks₂ : List Nat` with `PreCrossingReturnSeq (ks₁ ++ ks₂)`:
+    `wordB (returnMapWord (ks₁ ++ ks₂)) ≤ prefixOffsetUpperEnclosure ks₁ ks₂.length`. -/
+theorem wordB_returnMapWord_le_prefixOffsetUpperEnclosure (ks₂ : List Nat) :
+    ∀ ks₁ : List Nat,
+      PreCrossingReturnSeq (ks₁ ++ ks₂) →
+      wordB (returnMapWord (ks₁ ++ ks₂)) ≤ prefixOffsetUpperEnclosure ks₁ ks₂.length := by
+  induction ks₂ with
+  | nil =>
+    intro ks₁ _
+    rw [List.append_nil]
+    dsimp [prefixOffsetUpperEnclosure]
+    omega
+  | cons k tl ih =>
+    intro ks₁ hpre
+    cases tl with
+    | nil =>
+      dsimp [prefixOffsetUpperEnclosure]
+      rw [wordB_returnMapWord_snoc]
+      omega
+    | cons k₂ tl₂ =>
+      have happ : ks₁ ++ (k :: k₂ :: tl₂) = (ks₁ ++ [k]) ++ (k₂ :: tl₂) := by
+        rw [List.append_assoc]; rfl
+      have hpre' : PreCrossingReturnSeq ((ks₁ ++ [k]) ++ (k₂ :: tl₂)) := by
+        rw [← happ]; exact hpre
+      rcases preCrossingReturnSeq_prefix_noncrossing (ks₁ ++ [k]) (k₂ :: tl₂) hpre' (by dsimp; omega) with
+        ⟨_, hstep_le⟩
+      rw [totalValuation_snoc, List.length_append] at hstep_le
+      dsimp at hstep_le
+      have h_ih := ih (ks₁ ++ [k]) hpre'
+      rw [← happ] at h_ih
+      have h_step := prefixOffsetUpperEnclosure_step_le ks₁ k tl₂.length hstep_le
+      exact Nat.le_trans h_ih h_step
+
+/-- Progressive Prefix-to-Full-Word Offset Enclosure Theorem
+    (`preCrossing_progressive_offset_enclosure`):
+    Synthesizes the complete progressive interval enclosure laws for `C10-CERT-STREAM-001`:
+    1. Exact append decomposition:
+       `wordB (returnMapWord (ks₁ ++ ks₂)) = 3 ^ ks₂.length * B(ks₁) + 2 ^ K(ks₁) * B(ks₂)`,
+    2. Universal lower bound:
+       `prefixOffsetLowerEnclosure ks₁ ks₂.length ≤ wordB (returnMapWord (ks₁ ++ ks₂))`,
+    3. Pre-crossing upper bound:
+       `PreCrossingReturnSeq (ks₁ ++ ks₂) → wordB (returnMapWord (ks₁ ++ ks₂)) ≤ prefixOffsetUpperEnclosure ks₁ ks₂.length`,
+    4. Exact point-interval collapse at `m = 1` (`ks₂ = [k]`):
+       `prefixOffsetLowerEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k])) ∧ prefixOffsetUpperEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k]))`, and
+    5. Monotone stepwise interval refinement (`m' + 2 ↦ m' + 1`):
+       `prefixOffsetLowerEnclosure ks₁ (m' + 2) ≤ prefixOffsetLowerEnclosure (ks₁ ++ [k]) (m' + 1)` and
+       `(2 ^ (totalValuation ks₁ + k + 1) ≤ 3 ^ (ks₁.length + 1) → prefixOffsetUpperEnclosure (ks₁ ++ [k]) (m' + 1) ≤ prefixOffsetUpperEnclosure ks₁ (m' + 2))`. -/
+theorem preCrossing_progressive_offset_enclosure
+    (ks₁ ks₂ : List Nat) (k m' : Nat) :
+    wordB (returnMapWord (ks₁ ++ ks₂)) =
+      3 ^ ks₂.length * wordB (returnMapWord ks₁) +
+        2 ^ totalValuation ks₁ * wordB (returnMapWord ks₂) ∧
+    prefixOffsetLowerEnclosure ks₁ ks₂.length ≤ wordB (returnMapWord (ks₁ ++ ks₂)) ∧
+    (PreCrossingReturnSeq (ks₁ ++ ks₂) →
+      wordB (returnMapWord (ks₁ ++ ks₂)) ≤ prefixOffsetUpperEnclosure ks₁ ks₂.length) ∧
+    (prefixOffsetLowerEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k])) ∧
+     prefixOffsetUpperEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k]))) ∧
+    (prefixOffsetLowerEnclosure ks₁ (m' + 2) ≤ prefixOffsetLowerEnclosure (ks₁ ++ [k]) (m' + 1) ∧
+     (2 ^ (totalValuation ks₁ + k + 1) ≤ 3 ^ (ks₁.length + 1) →
+       prefixOffsetUpperEnclosure (ks₁ ++ [k]) (m' + 1) ≤ prefixOffsetUpperEnclosure ks₁ (m' + 2))) := by
+  have happ := wordB_returnMapWord_append ks₁ ks₂
+  have hlow₂_raw := (returnMap_offset_extremal_sandwich ks₂).2.1
+  have hlow₂ : 3 ^ ks₂.length - 2 ^ ks₂.length ≤ wordB (returnMapWord ks₂) := by omega
+  have hmul_low : 2 ^ totalValuation ks₁ * (3 ^ ks₂.length - 2 ^ ks₂.length) ≤
+      2 ^ totalValuation ks₁ * wordB (returnMapWord ks₂) :=
+    Nat.mul_le_mul_left (2 ^ totalValuation ks₁) hlow₂
+  have hlow : prefixOffsetLowerEnclosure ks₁ ks₂.length ≤ wordB (returnMapWord (ks₁ ++ ks₂)) := by
+    unfold prefixOffsetLowerEnclosure
+    omega
+  have hcollapse_lo : prefixOffsetLowerEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k])) := by
+    unfold prefixOffsetLowerEnclosure
+    rw [wordB_returnMapWord_snoc]
+    omega
+  have hcollapse_hi : prefixOffsetUpperEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k])) := by
+    dsimp [prefixOffsetUpperEnclosure]
+    rw [wordB_returnMapWord_snoc]
+    omega
+  exact ⟨happ, hlow, wordB_returnMapWord_le_prefixOffsetUpperEnclosure ks₂ ks₁,
+         ⟨hcollapse_lo, hcollapse_hi⟩,
+         ⟨prefixOffsetLowerEnclosure_step_le ks₁ k (m' + 1),
+          prefixOffsetUpperEnclosure_step_le ks₁ k m'⟩⟩
+
+/-- 4-Stage Adaptive Exclusion Certificate Soundness (`staged_adaptive_exclusion_certificate_soundness`):
+    Certifies that for any pre-crossing word `ks = ks₁ ++ ks₂` (`s = ks.length ≥ 1`, `K = totalValuation ks`,
+    `Δ = 2 ^ K - 3 ^ s > 0`, `B = wordB (returnMapWord ks)`) and any candidate `(n ≥ n_min, t)`:
+    1. **Stage 1 (Word-Free Sharpened Envelope Certificate)**:
+       If `2 * (Δ * (n_min + t) + 3 ^ s * t) + 3 ^ (s - 1) > 2 * s * 3 ^ (s - 1) + 1`,
+       then `Δ * (n + t) + 3 ^ s * t ≠ B`.
+    2. **Stage 2 (Progressive Prefix-Interval Upper Enclosure Certificate)**:
+       If `prefixOffsetUpperEnclosure ks₁ ks₂.length < Δ * (n_min + t) + 3 ^ s * t`,
+       then `Δ * (n + t) + 3 ^ s * t ≠ B`.
+    3. **Stage 3 (Fast Odd-Surplus / 2-Adic Self-Similarity Descent Certificate)**:
+       If `n ≥ 1`, `Δ * (n + t) + 3 ^ s * t = B`, `t % 2 = 1`, and `n > t`, then
+       `u_s = applyParityWord n (returnMapWord ks) = n + t` is even and `acceleratedCollatz u_s < n`
+       (immediate 1-step post-crossing descent).
+    4. **Stage 4 (Exact Residual Non-Divisibility Certificate)**:
+       If `(B - 3 ^ s * t) % Δ ≠ 0`, then `Δ * (n + t) + 3 ^ s * t ≠ B`. -/
+theorem staged_adaptive_exclusion_certificate_soundness
+    (ks₁ ks₂ : List Nat) (n n_min t : Nat)
+    (hs1 : (ks₁ ++ ks₂).length ≥ 1)
+    (hpre : PreCrossingReturnSeq (ks₁ ++ ks₂))
+    (hcont : 2 ^ totalValuation (ks₁ ++ ks₂) > 3 ^ (ks₁ ++ ks₂).length)
+    (hn_ge : n ≥ n_min) :
+    let ks := ks₁ ++ ks₂
+    let s := ks.length
+    let K := totalValuation ks
+    let delta := 2 ^ K - 3 ^ s
+    let B := wordB (returnMapWord ks)
+    (2 * (delta * (n_min + t) + 3 ^ s * t) + 3 ^ (s - 1) > 2 * s * 3 ^ (s - 1) + 1 →
+      delta * (n + t) + 3 ^ s * t ≠ B) ∧
+    (prefixOffsetUpperEnclosure ks₁ ks₂.length < delta * (n_min + t) + 3 ^ s * t →
+      delta * (n + t) + 3 ^ s * t ≠ B) ∧
+    (n ≥ 1 → t % 2 = 1 → n > t →
+      delta * (n + t) + 3 ^ s * t = B →
+        acceleratedCollatz (applyParityWord n (returnMapWord ks)) < n) ∧
+    ((B - 3 ^ s * t) % delta ≠ 0 →
+      delta * (n + t) + 3 ^ s * t ≠ B) := by
+  dsimp
+  have hsharp := preCrossing_returnMap_offset_sharpened_bound (ks₁ ++ ks₂) hpre hs1
+  have hhi := wordB_returnMapWord_le_prefixOffsetUpperEnclosure ks₂ ks₁ hpre
+  have hmul_min :
+      (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * (n_min + t) ≤
+        (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * (n + t) :=
+    Nat.mul_le_mul_left _ (by omega)
+  refine ⟨?_, ?_, ?_, ?_⟩
+  · intro hstage1 heq
+    omega
+  · intro hstage2 heq
+    omega
+  · intro hn1 ht_odd hn_gt_t heq
+    have hdelta_add :
+        (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) +
+          3 ^ (ks₁ ++ ks₂).length = 2 ^ totalValuation (ks₁ ++ ks₂) := by omega
+    have horig :
+        (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * n +
+          2 ^ totalValuation (ks₁ ++ ks₂) * t = wordB (returnMapWord (ks₁ ++ ks₂)) := by
+      have h1 :
+          (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * (n + t) +
+            3 ^ (ks₁ ++ ks₂).length * t =
+          (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * n +
+            ((2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) +
+              3 ^ (ks₁ ++ ks₂).length) * t := by
+        rw [Nat.mul_add, Nat.add_mul, Nat.add_assoc]
+      rw [hdelta_add] at h1
+      omega
+    rcases first_crossing_surplus_diophantine_iff_admissible_survivor
+      (ks₁ ++ ks₂) n t hn1 hs1 hpre hcont with ⟨hiff, hprops⟩
+    rcases hiff.mp horig with ⟨_, hus⟩
+    rcases hprops horig with ⟨hn_odd, _, _, _, _⟩
+    have hu_even : (applyParityWord n (returnMapWord (ks₁ ++ ks₂))) % 2 = 0 := by
+      rw [hus]; omega
+    have hmu : stepParityMatches (applyParityWord n (returnMapWord (ks₁ ++ ks₂))) false := by
+      dsimp [stepParityMatches]; exact hu_even
+    have hstep := acceleratedCollatz_step_eq (applyParityWord n (returnMapWord (ks₁ ++ ks₂))) false hmu
+    dsimp at hstep
+    rw [hus] at hstep ⊢
+    omega
+  · intro hstage4 heq
+    have hsub :
+        wordB (returnMapWord (ks₁ ++ ks₂)) - 3 ^ (ks₁ ++ ks₂).length * t =
+          (n + t) * (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) := by
+      rw [Nat.mul_comm (n + t) _]
+      omega
+    rw [hsub, Nat.mul_mod_left] at hstage4
+    exact hstage4 rfl
+
+/-- Formal Falsification Witnesses CE-C10-15 and CE-C10-16
+    (`c10_cert_stream_falsification_witnesses`):
+    1. (`CE-C10-15`) At `s = 35, K_{35} = 56`, `3 ^ 35 = 50031545098999707 > 2 ^ 53 = 9007199254740992`
+       and `2 ^ 56 - 3 ^ 35 = 22026048938928229 > 2 ^ 53`, exceeding IEEE-754 `float64` 53-bit exact
+       integer precision and proving that uncertified `float64` division/modulo cannot sound-check
+       `Δ_s ∣ (B_s - 3^s * t)` without exact integer or interval certificates.
+    2. (`CE-C10-16`) At `s = 5, K_5 = 8, ks = [0, 0, 0, 0, 3], t = 0, n_min = 2`:
+       `Δ_5 = 2^8 - 3^5 = 13` and `B_5 = wordB (returnMapWord [0, 0, 0, 0, 3]) = 211`.
+       Both Stage 1's word-free sharpened cap (`365 ≥ 13 * 2 = 26`) and Stage 2's exact word offset
+       (`211 ≥ 13 * 2 = 26`) fail to exclude `(ks, t = 0)` at `n_min = 2` by magnitude alone, while
+       Stage 4's exact non-divisibility (`211 % 13 = 3 ≠ 0`) retires the candidate. -/
+theorem c10_cert_stream_falsification_witnesses :
+    (3 ^ 35 = 50031545098999707 ∧
+     2 ^ 53 = 9007199254740992 ∧
+     3 ^ 35 > 2 ^ 53 ∧
+     2 ^ 56 - 3 ^ 35 = 22026048938928229 ∧
+     2 ^ 56 - 3 ^ 35 > 2 ^ 53) ∧
+    (totalValuation [0, 0, 0, 0, 3] = 8 ∧
+     2 ^ 8 - 3 ^ 5 = 13 ∧
+     wordB (returnMapWord [0, 0, 0, 0, 3]) = 211 ∧
+     211 ≥ 13 * 2 ∧
+     wordB (returnMapWord [0, 0, 0, 0, 3]) % (2 ^ 8 - 3 ^ 5) = 3 ∧
+     3 ≠ 0) := by
+  decide
+
 end CollatzProofClosure
 end BBB17

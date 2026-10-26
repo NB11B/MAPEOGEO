@@ -950,5 +950,75 @@ theorem section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion_master 
    first_crossing_surplus_four_k1_zero_unconditional_descent,
    surplus_four_prefix_010_five_odd_steps_expansion⟩
 
+/-- Master Section 18 Adaptive Certificate-Driven Exclusion (`C10-CERT-STREAM-001`),
+    Progressive Prefix-Interval Enclosures, Staged Retirement Soundness, and Falsifications Synthesis
+    (`section18_c10_cert_stream_adaptive_enclosure_and_staged_exclusion_master`):
+    Synthesizes the Section 18 architecture:
+    1. **Progressive Prefix-to-Full-Word Offset Enclosures (`preCrossing_progressive_offset_enclosure`)**:
+       For any split `ks = ks₁ ++ ks₂`, proves the exact decomposition
+       `B(ks₁ ++ ks₂) = 3^{ks₂.length} * B(ks₁) + 2^{K(ks₁)} * B(ks₂)`,
+       the certified lower enclosure `prefixOffsetLowerEnclosure ks₁ ks₂.length ≤ B(ks₁ ++ ks₂)`,
+       the certified pre-crossing upper enclosure `B(ks₁ ++ ks₂) ≤ prefixOffsetUpperEnclosure ks₁ ks₂.length`,
+       exact point-interval collapse at `m = 1` (`ks₂ = [k]`), and monotone stepwise interval refinement.
+    2. **4-Stage Adaptive Exclusion Certificate Soundness (`staged_adaptive_exclusion_certificate_soundness`)**:
+       Proves that any candidate `(ks = ks₁ ++ ks₂, n ≥ n_min, t)` for `Δ_s * (n + t) + 3^s * t = B_s`
+       is certified impossible or immediately descending at the earliest stage that triggers:
+       - Stage 1: Word-free sharpened envelope (`2 * (Δ_s * (n_min + t) + 3^s * t) + 3^{s-1} > 2 * s * 3^{s-1} + 1`),
+       - Stage 2: Progressive prefix upper enclosure (`prefixOffsetUpperEnclosure ks₁ ks₂.length < Δ_s * (n_min + t) + 3^s * t`),
+       - Stage 3: Fast odd-surplus 1-step post-crossing descent (`t % 2 = 1 ∧ n > t → T(u_s) < n`),
+       - Stage 4: Exact residual non-divisibility (`(B_s - 3^s * t) % Δ_s ≠ 0`).
+    3. **Formal Falsifications `CE-C10-15` and `CE-C10-16` (`c10_cert_stream_falsification_witnesses`)**:
+       - `CE-C10-15`: At `s = 35, K_{35} = 56`, `3^{35} = 50031545098999707 > 2^{53}`, exceeding IEEE-754 `float64`
+         53-bit exact integer precision and proving why approximate/GPU screening cannot replace certified integer enclosures.
+       - `CE-C10-16`: At `s = 5, K_5 = 8, ks = [0, 0, 0, 0, 3], t = 0, n_min = 2` (`Δ_5 = 13, B_5 = 211`),
+         both Stage 1 and Stage 2 fail by magnitude alone (`211 ≥ 26`), proving that Stage 4 exact non-divisibility
+         (`211 % 13 = 3 ≠ 0`) is strictly necessary at small thresholds. -/
+theorem section18_c10_cert_stream_adaptive_enclosure_and_staged_exclusion_master :
+    (∀ (ks₁ ks₂ : List Nat) (k m' : Nat),
+      wordB (returnMapWord (ks₁ ++ ks₂)) =
+        3 ^ ks₂.length * wordB (returnMapWord ks₁) +
+          2 ^ totalValuation ks₁ * wordB (returnMapWord ks₂) ∧
+      prefixOffsetLowerEnclosure ks₁ ks₂.length ≤ wordB (returnMapWord (ks₁ ++ ks₂)) ∧
+      (PreCrossingReturnSeq (ks₁ ++ ks₂) →
+        wordB (returnMapWord (ks₁ ++ ks₂)) ≤ prefixOffsetUpperEnclosure ks₁ ks₂.length) ∧
+      (prefixOffsetLowerEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k])) ∧
+       prefixOffsetUpperEnclosure ks₁ 1 = wordB (returnMapWord (ks₁ ++ [k]))) ∧
+      (prefixOffsetLowerEnclosure ks₁ (m' + 2) ≤ prefixOffsetLowerEnclosure (ks₁ ++ [k]) (m' + 1) ∧
+       (2 ^ (totalValuation ks₁ + k + 1) ≤ 3 ^ (ks₁.length + 1) →
+         prefixOffsetUpperEnclosure (ks₁ ++ [k]) (m' + 1) ≤ prefixOffsetUpperEnclosure ks₁ (m' + 2)))) ∧
+    (∀ (ks₁ ks₂ : List Nat) (n n_min t : Nat),
+      (ks₁ ++ ks₂).length ≥ 1 →
+      PreCrossingReturnSeq (ks₁ ++ ks₂) →
+      2 ^ totalValuation (ks₁ ++ ks₂) > 3 ^ (ks₁ ++ ks₂).length →
+      n ≥ n_min →
+      let ks := ks₁ ++ ks₂
+      let s := ks.length
+      let K := totalValuation ks
+      let delta := 2 ^ K - 3 ^ s
+      let B := wordB (returnMapWord ks)
+      (2 * (delta * (n_min + t) + 3 ^ s * t) + 3 ^ (s - 1) > 2 * s * 3 ^ (s - 1) + 1 →
+        delta * (n + t) + 3 ^ s * t ≠ B) ∧
+      (prefixOffsetUpperEnclosure ks₁ ks₂.length < delta * (n_min + t) + 3 ^ s * t →
+        delta * (n + t) + 3 ^ s * t ≠ B) ∧
+      (n ≥ 1 → t % 2 = 1 → n > t →
+        delta * (n + t) + 3 ^ s * t = B →
+          acceleratedCollatz (applyParityWord n (returnMapWord ks)) < n) ∧
+      ((B - 3 ^ s * t) % delta ≠ 0 →
+        delta * (n + t) + 3 ^ s * t ≠ B)) ∧
+    ((3 ^ 35 = 50031545098999707 ∧
+      2 ^ 53 = 9007199254740992 ∧
+      3 ^ 35 > 2 ^ 53 ∧
+      2 ^ 56 - 3 ^ 35 = 22026048938928229 ∧
+      2 ^ 56 - 3 ^ 35 > 2 ^ 53) ∧
+     (totalValuation [0, 0, 0, 0, 3] = 8 ∧
+      2 ^ 8 - 3 ^ 5 = 13 ∧
+      wordB (returnMapWord [0, 0, 0, 0, 3]) = 211 ∧
+      211 ≥ 13 * 2 ∧
+      wordB (returnMapWord [0, 0, 0, 0, 3]) % (2 ^ 8 - 3 ^ 5) = 3 ∧
+      3 ≠ 0)) :=
+  ⟨preCrossing_progressive_offset_enclosure,
+   staged_adaptive_exclusion_certificate_soundness,
+   c10_cert_stream_falsification_witnesses⟩
+
 end CollatzProofClosure
 end BBB17
