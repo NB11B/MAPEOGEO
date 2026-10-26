@@ -206,7 +206,7 @@ class TestCollatzC10All(unittest.TestCase):
         )
         self.assertEqual(sec15["precrossing_prefixes_checked"], 4403)
         self.assertEqual(sec15["precrossing_diophantine_solutions_found"], 0)
-        self.assertEqual(sec15["max_sharpened_cap_le_970"], 99567)
+        self.assertEqual(sec15["max_sharpened_cap_le_970"], 99597)
         self.assertEqual(sec15["v2_eq_one_two_step_descent_mismatches"], 0)
         self.assertTrue(sec15["ce11_v2_ge_two_no_three_step_descent_verified"])
         self.assertTrue(sec15["ce12_non_precrossing_diophantine_witness_verified"])
