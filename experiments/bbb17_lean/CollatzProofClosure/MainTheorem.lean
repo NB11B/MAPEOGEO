@@ -658,5 +658,71 @@ theorem section13_first_crossing_cap_and_two_branch_master :
    no_first_crossing_shifted_growth_and_nondescent,
    infinite_valuation_first_crossing_or_indefinite_expansion⟩
 
+/-- Master Section 14 Sharpened Offset Cap, Surplus Decomposition, Kernel-Certified `s ≤ 40`
+    Exclusion, and No-Crossing Excess Valuation Synthesis
+    (`section14_sharpened_cap_s40_certificate_and_excess_valuation_master`):
+    Synthesizes the Section 14 architecture:
+    1. **Sharpened Pre-Crossing Offset Cap (`preCrossing_returnMap_offset_sharpened_bound`)**:
+       Using `2^K_j + 1 ≤ 3^j` for `1 ≤ j < s`, sharpens `B_s ≤ s * 3^{s-1}` to
+       `2 * B_s + 3^{s-1} ≤ 2 * s * 3^{s-1} + 1` (`B_s ≤ s * 3^{s-1} - (3^{s-1} - 1) / 2`),
+       reconciling the coarse (`99,729`) and sharpened (`99,567`) universal survivor caps.
+    2. **Exact First-Crossing Surplus Decomposition & `s ≤ 6` Strict-Growth Exclusion**:
+       `(2^K_s - 3^s) * n + 2^K_s * (u_s - n) = B_s`, forcing `3 * (u_s - n) < s` and excluding
+       strict growth `u_s > n` for all odd-to-odd first crossings at `1 ≤ s ≤ 6`.
+    3. **Mathematically Exhaustive Final-Valuation Cutoff (`first_crossing_large_valuation_forced_descent`)**:
+       Whenever `6 * (2^K_s - 3^s) > s * 3^s` (or `9 * (2^K_s - 3^s) > s * 3^s` for `n ≥ 3`),
+       `F(n) < n` is unconditionally forced for all `n > 1`, reducing each fixed `s` to a finite set of `K_s`.
+    4. **Kernel-Certified `1 ≤ s ≤ 40` Exclusion for Never-Descending Orbits (`nondescent_orbit_no_first_crossing_le_40`)**:
+       Combines `descent_of_lt_1024` (`n ≥ 1024`) with the finite exact-power certificate
+       `checkFirstCrossingCap1024_40_true` to prove that no never-descending orbit starting at `n > 1`
+       can have a first odd-return spectral crossing at `1 ≤ s ≤ 40`.
+    5. **No-Crossing Excess Valuation Bound & Non-Monotone Odd-Return Witness (`CE-C10-10`)**:
+       In the no-crossing branch `2^K_s ≤ 3^s`, `excessValuation ks < s` (`2^s * 2^E ≤ 3^s`), while
+       `ks = [0, 1]` at `n = 27` certifies that consecutive odd returns (`41 → 31`) are not stepwise monotone. -/
+theorem section14_sharpened_cap_s40_certificate_and_excess_valuation_master :
+    (∀ ks : List Nat,
+      PreCrossingReturnSeq ks →
+      ks.length ≥ 1 →
+      2 * wordB (returnMapWord ks) + 3 ^ (ks.length - 1) ≤
+        2 * ks.length * 3 ^ (ks.length - 1) + 1) ∧
+    (∀ (ks : List Nat) (n : Nat),
+      validParityWord n (returnMapWord ks) →
+      2 ^ totalValuation ks > 3 ^ ks.length →
+      applyParityWord n (returnMapWord ks) ≥ n →
+      let s := ks.length
+      let K := totalValuation ks
+      let u_s := applyParityWord n (returnMapWord ks)
+      (2 ^ K - 3 ^ s) * n + 2 ^ K * (u_s - n) = wordB (returnMapWord ks) ∧
+      (PreCrossingReturnSeq ks → 3 * (u_s - n) < s) ∧
+      (PreCrossingReturnSeq ks → validOddReturnSeq n ks → s ≤ 6 → u_s = n)) ∧
+    (∀ (ks : List Nat) (n : Nat),
+      validParityWord n (returnMapWord ks) →
+      PreCrossingReturnSeq ks →
+      2 ^ totalValuation ks > 3 ^ ks.length →
+      (n > 1 → 6 * (2 ^ totalValuation ks - 3 ^ ks.length) > ks.length * 3 ^ ks.length →
+        applyParityWord n (returnMapWord ks) < n) ∧
+      (n ≥ 3 → 9 * (2 ^ totalValuation ks - 3 ^ ks.length) > ks.length * 3 ^ ks.length →
+        applyParityWord n (returnMapWord ks) < n)) ∧
+    (∀ (n : Nat) (ks : List Nat),
+      n > 1 →
+      (∀ r : Nat, iterateAccelerated n r ≥ n) →
+      ks.length ≥ 1 →
+      ks.length ≤ 40 →
+      validParityWord n (returnMapWord ks) →
+      PreCrossingReturnSeq ks →
+      ¬(2 ^ totalValuation ks > 3 ^ ks.length)) ∧
+    (∀ ks : List Nat,
+      let s := ks.length
+      let K := totalValuation ks
+      let E := excessValuation ks
+      K = s + E ∧
+      2 ^ K = 2 ^ s * 2 ^ E ∧
+      (s ≥ 1 → 2 ^ K ≤ 3 ^ s → E < s)) :=
+  ⟨preCrossing_returnMap_offset_sharpened_bound,
+   first_crossing_surplus_decomposition_and_s_le_6_exclusion,
+   first_crossing_large_valuation_forced_descent,
+   nondescent_orbit_no_first_crossing_le_40,
+   excessValuation_no_crossing_bound⟩
+
 end CollatzProofClosure
 end BBB17

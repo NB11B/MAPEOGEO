@@ -241,3 +241,20 @@
 'BBB17.CollatzProofClosure.section13_first_crossing_cap_and_two_branch_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.three_pow_mod_two' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.two_pow_lt_three_pow_of_le' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.preCrossing_returnMap_offset_sharpened_bound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_surplus_decomposition_and_s_le_6_exclusion' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_large_valuation_forced_descent' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.checkFirstCrossingCap1024_40_true' does not depend on any axioms
+'BBB17.CollatzProofClosure.first_crossing_descent_for_ge_1024_and_s_le_40' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.nondescent_orbit_no_first_crossing_le_40' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.excessValuation_no_crossing_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BBB17.CollatzProofClosure.no_crossing_branch_not_stepwise_monotone_at_27_witness' does not depend on any axioms
+'BBB17.CollatzProofClosure.section14_sharpened_cap_s40_certificate_and_excess_valuation_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

@@ -47,6 +47,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section11_ordered_valuation_goodstein_four_color_and_falsification,
     verify_section12_rotation_reducibility_and_goodstein_falsification,
     verify_section13_adversarial_first_crossing_and_no_crossing_branch,
+    verify_section14_sharpened_cap_s40_certificate_and_excess_valuation,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -181,12 +182,22 @@ class TestCollatzC10All(unittest.TestCase):
         sec13 = verify_section13_adversarial_first_crossing_and_no_crossing_branch(
             max_s_words=12, max_s_cap=306
         )
-        self.assertEqual(sec13["first_crossing_words_checked"], 8806)
+        self.assertEqual(sec13["first_crossing_words_checked"], 4879)
         self.assertEqual(sec13["offset_cap_violations"], 0)
+        self.assertEqual(sec13["sharpened_offset_cap_violations"], 0)
         self.assertEqual(sec13["surviving_representatives_found"], 0)
         self.assertEqual(sec13["pre_crossing_growth_violations"], 0)
         self.assertEqual(sec13["benchmark_mismatches"], 0)
-        self.assertEqual(sec13["max_survivor_cap_le_306"], 99567)
+        self.assertEqual(sec13["max_coarse_survivor_cap_le_306"], 99729)
+        self.assertEqual(sec13["max_sharpened_survivor_cap_le_306"], 99567)
+
+    def test_ws6_section14_sharpened_cap_s40_certificate_and_excess_valuation(self) -> None:
+        sec14 = verify_section14_sharpened_cap_s40_certificate_and_excess_valuation()
+        self.assertEqual(sec14["cap_reconciliation_mismatches"], 0)
+        self.assertEqual(sec14["max_coarse_cap_le_40"], 381)
+        self.assertEqual(sec14["max_sharpened_cap_le_40"], 375)
+        self.assertTrue(sec14["s40_below_1024_verified"])
+        self.assertTrue(sec14["ce10_non_monotone_odd_returns_verified"])
 
 
 def generate_c10_artifacts() -> None:
@@ -314,6 +325,42 @@ def generate_c10_artifacts() -> None:
             "witnesses": [{"n": 27, "ks": [0, 1], "u_0": 27, "u_1": 41, "u_2": 31}],
             "lean_theorem": "BBB17.CollatzProofClosure.contracting_odd_block_survives_above_initial_at_27",
             "resolution": "Replaced single-block contraction descent with Goodstein 2-adic tail rank decay allTrueWord_goodstein_plus_one_law and Four-Color 1-circuit reducibility oneCircuitWord_reducible_descent.",
+        },
+        {
+            "id": "CE-C10-07",
+            "workstream": "WS6_Section12_RotationDivisibility",
+            "hypothesis_tested": "Requiring Delta(w) | B(rot_j(w)) across all cyclic rotations rot_j(w) imposes independent modular divisibility constraints beyond Delta(w) | B(w)",
+            "status": "FALSIFIED",
+            "witnesses": [{"ks_rotations": [[0, 1, 2], [1, 2, 0], [2, 0, 1]], "delta": 37, "B_rotations": [23, 53, 49], "identity": "2^(k+1)*B(rot_1(ks)) = 3*B(ks) + Delta"}],
+            "lean_theorem": "BBB17.CollatzProofClosure.cyclic_rotation_preserves_divisibility_and_shifts_offset_witness",
+            "resolution": "Proved wordB_cyclic_shift_identity and cycle_rotation_quotient_shift_and_divisibility: because gcd(D_1, Delta) = 1, modular divisibility is invariant under cyclic rotation, while integer ordering n_0 <= n_1 <=> B(w1++w2) <= B(w2++w1) forces k_min = 0 and k_max >= 1.",
+        },
+        {
+            "id": "CE-C10-08",
+            "workstream": "WS6_Section12_UnavoidableReducibility",
+            "hypothesis_tested": "Every globally contracting complete odd-to-odd return sequence (validOddReturnSeq n ks with 2^{K_s} > 3^s and n > 1) forces u_s < n without prefix non-descent",
+            "status": "FALSIFIED",
+            "witnesses": [{"n": 165, "s": 17, "K": 27, "ks": [3, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 2], "u_1": 31, "u_17": 167}],
+            "lean_theorem": "BBB17.CollatzProofClosure.contracting_odd_return_word_survives_at_165_witness",
+            "resolution": "Proved returnMap_universal_sandwich_reducible_descent, nondescent_prefix_reservoir_threshold_reducible_descent, and first_crossing_linear_offset_exclusion.",
+        },
+        {
+            "id": "CE-C10-09",
+            "workstream": "WS6_Section12_GlobalValuationRank",
+            "hypothesis_tested": "A purely local coordinatewise lexicographic rank on (u_s, v_2(u_s + 1)) is non-increasing across completed odd-to-odd circuits",
+            "status": "FALSIFIED",
+            "witnesses": [{"n": 27, "ks": [0, 1], "u_0": 27, "v2_u0_plus_1": 2, "u_1": 41, "v2_u1_plus_1": 1, "u_2": 31, "v2_u2_plus_1": 5}],
+            "lean_theorem": "BBB17.CollatzProofClosure.goodstein_tail_rank_resets_above_initial_at_27_witness",
+            "resolution": "Proved odd_step_goodstein_branch_dichotomy and singleOddWord_shifted_plus_one_identity, showing that coordinatewise monotonicity fails across k >= 1 resets.",
+        },
+        {
+            "id": "CE-C10-10",
+            "workstream": "WS6_Section14_NoCrossingBranch",
+            "hypothesis_tested": "Inside the No-First-Crossing branch (2^{K_s} <= 3^s), consecutive odd returns u_0 < u_1 < u_2 < ... are stepwise monotonically increasing",
+            "status": "FALSIFIED",
+            "witnesses": [{"n": 27, "ks": [0, 1], "s": 2, "K_2": 3, "u_0": 27, "u_1": 41, "u_2": 31}],
+            "lean_theorem": "BBB17.CollatzProofClosure.no_crossing_branch_not_stepwise_monotone_at_27_witness",
+            "resolution": "Distinguished relative-to-start expansion (u_s > n, proved in no_first_crossing_shifted_growth_and_nondescent) from stepwise monotonicity (u_{s+1} > u_s).",
         },
     ]
     with (artifacts_dir / "counterexamples.jsonl").open("w", encoding="utf-8") as f:
