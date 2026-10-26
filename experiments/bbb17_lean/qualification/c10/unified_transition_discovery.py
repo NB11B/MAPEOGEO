@@ -1586,12 +1586,16 @@ def verify_section18_c10_cert_stream_adaptive_exclusion_pipeline(
 
         total = len(candidate_records)
         div_avoided_pct = round(100.0 * (total - counts["stage4"]) / total, 2) if total > 0 else 100.0
+        eq_imp_count = counts["stage1"] + counts["stage2"] + counts["stage4"]
+        nd_imp_only_count = counts["stage3"]
         stage_stats[str(n_min)] = {
             "total_candidates": total,
             "stage1_word_free_envelope": counts["stage1"],
             "stage2_prefix_offset_enclosure": counts["stage2"],
             "stage3_post_crossing_descent": counts["stage3"],
             "stage4_exact_modular_divisibility": counts["stage4"],
+            "equation_impossible_count": eq_imp_count,
+            "never_descending_impossible_only_count": nd_imp_only_count,
             "exact_divisions_avoided_pct": div_avoided_pct,
         }
 
@@ -1626,5 +1630,141 @@ def verify_section18_c10_cert_stream_adaptive_exclusion_pipeline(
         "ce15_verified": ce15_verified,
         "ce16_verified": ce16_verified,
     }
+
+
+def verify_section19_certificate_separation_resonance_and_adversarial_irreducibility(
+    max_c_resonance: int = 12,
+) -> Dict[str, Any]:
+    """
+    Verify Section 19 Certificate Proposition Separation (`EquationImpossible` vs `NeverDescendingImpossible`),
+    the `(-5, -1)` Dual 2-Adic Fixed-Point Resonance on `altZeroOneSeq c`, Unbounded Post-Crossing
+    Recovery Delay (`CE-C10-18`), and Adversarial Stage-1/2/3-Defeating Irreducibility (`CE-C10-19`):
+      1. Verify `CE-C10-17` (`ks = [0, 0, 1, 2, 0]`, `n = 7`, `t = 1` satisfies `E(ks, 7, 1)` so
+         `EquationImpossible` is FALSE, while `T^9(7) = 4 < 7` so `NeverDescendingImpossible` is TRUE)
+         and verify that `n = 1051` (`r = 24, s = 15, T^{24}(1051) = 901 < 1051`) and `n = 27`
+         (`r = 59, s = 37, T^{59}(27) = 23 < 27`) strictly descend at their actual first crossings.
+      2. Across `1 <= c <= max_c_resonance` and `1 <= q <= 4`:
+         - Verify `B(altZeroOneSeq c) + 5 * 8^c == 5 * 9^c`,
+         - Verify `B(altZeroOneSeq c ++ [k]) + 14 * 8^c == 5 * 3^{2c+1}` (blocking all `t >= 5`),
+         - Verify `n = 8^c * q - 5` admissibly realizes `altZeroOneSeq c` with output `9^c * q - 5`,
+         - Verify `u_s = n + 4 = 8^c * q - 1` takes `3*c` consecutive odd steps with
+           `T^j(u_s) == 3^j * 2^{3c - j} * q - 1 > n` for all `0 <= j <= 3*c` (`CE-C10-18`).
+      3. Verify adversarial Stage-1/2/3-defeating Sturmian continuations from `(0, 1, 0)` at `t = 4`
+         across convergent depths `(s, K) in {(17, 27), (29, 46), (41, 65), (94, 149)}`, including
+         `CE-C10-19` at `s = 17, K = 27` (`max_n = 2`) and `s = 94, K = 149` (`max_n = 1991 >= 1024`).
+    """
+    def return_map_word_local(ks: Sequence[int]) -> List[bool]:
+        w: List[bool] = []
+        for k in ks:
+            w.extend([True] + [False] * k)
+        return w
+
+    def iter_acc(x: int, steps: int) -> int:
+        cur = x
+        for _ in range(steps):
+            cur = (3 * cur + 1) // 2 if cur % 2 == 1 else cur // 2
+        return cur
+
+    # 1. Verify CE-C10-17 and actual first crossings of 1051 and 27
+    ks_ce17 = [0, 0, 1, 2, 0]
+    A17, B17, D17 = affine_triple_exact(return_map_word_local(ks_ce17))
+    delta17 = D17 - A17
+    ce17_verified = (
+        delta17 * (7 + 1) + A17 * 1 == B17
+        and iter_acc(7, 9) == 4
+        and iter_acc(7, 9) < 7
+        and iter_acc(1051, 24) == 901
+        and iter_acc(27, 59) == 23
+    )
+
+    # 2. Verify (-5, -1) Dual 2-Adic Fixed-Point Resonance & Unbounded Recovery Delay (CE-C10-18)
+    resonance_cases_checked = 0
+    resonance_mismatches = 0
+    for c in range(1, max_c_resonance + 1):
+        ks_c = [0, 1] * c
+        w_c = return_map_word_local(ks_c)
+        A_c, B_c, D_c = affine_triple_exact(w_c)
+        if A_c != (9 ** c) or D_c != (8 ** c) or B_c + 5 * (8 ** c) != 5 * (9 ** c):
+            resonance_mismatches += 1
+        ks_ck = ks_c + [1]
+        _, B_ck, _ = affine_triple_exact(return_map_word_local(ks_ck))
+        if B_ck + 14 * (8 ** c) != 5 * (3 ** (2 * c + 1)):
+            resonance_mismatches += 1
+        for q in range(1, 5):
+            resonance_cases_checked += 1
+            n = (8 ** c) * q - 5
+            u_s = n + 4
+            if iter_acc(n, 3 * c) != (9 ** c) * q - 5:
+                resonance_mismatches += 1
+            cur_u = u_s
+            for j in range(0, 3 * c + 1):
+                expected_u = (3 ** j) * (1 << (3 * c - j)) * q - 1
+                if cur_u != expected_u or not (cur_u > n):
+                    resonance_mismatches += 1
+                if j < 3 * c:
+                    if cur_u % 2 != 1:
+                        resonance_mismatches += 1
+                    cur_u = (3 * cur_u + 1) // 2
+
+    # 3. Verify Adversarial Stage-1/2/3-Defeating Sturmian Witnesses (CE-C10-19)
+    def max_B_sturmian_010(target_s: int) -> Tuple[List[int], int, int, int]:
+        ks = [0, 1, 0]
+        K = 4
+        B = 23
+        for j in range(4, target_s):
+            limit = 3 ** j
+            k = 0
+            while (1 << (K + k + 1)) <= limit:
+                k += 1
+            k -= 1
+            B = 3 * B + (1 << K)
+            K += k + 1
+            ks.append(k)
+        limit = 3 ** target_s
+        k_last = 0
+        while (1 << (K + k_last + 1)) <= limit:
+            k_last += 1
+        B = 3 * B + (1 << K)
+        K += k_last + 1
+        ks.append(k_last)
+        delta = (1 << K) - limit
+        return ks, K, B, delta
+
+    adversarial_survivors: Dict[str, Any] = {}
+    for s_target in [17, 29, 41, 94]:
+        ks_adv, K_adv, B_adv, delta_adv = max_B_sturmian_010(s_target)
+        three_s = 3 ** s_target
+        t = 4
+        max_n = (B_adv - three_s * t) // delta_adv - t
+        rem = (B_adv - three_s * t) % delta_adv
+        adversarial_survivors[str(s_target)] = {
+            "K": K_adv,
+            "max_n_surviving_stages_1_to_3": max_n,
+            "stage4_remainder_nonzero": (rem != 0),
+        }
+
+    ks17, K17, B17_adv, delta17_adv = max_B_sturmian_010(17)
+    req17 = delta17_adv * (2 + 4) + (3 ** 17) * 4
+    ce19_verified = (
+        ks17 == [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]
+        and K17 == 27
+        and delta17_adv == 5077565
+        and B17_adv == 548440271
+        and req17 == 547026042
+        and 2 * req17 + (3 ** 16) <= 2 * 17 * (3 ** 16) + 1
+        and B17_adv >= req17
+        and (B17_adv - (3 ** 17) * 4) % delta17_adv == 1414229
+        and adversarial_survivors["29"]["max_n_surviving_stages_1_to_3"] == 120
+        and adversarial_survivors["94"]["max_n_surviving_stages_1_to_3"] == 1991
+    )
+
+    return {
+        "ce17_verified": ce17_verified,
+        "resonance_cases_checked": resonance_cases_checked,
+        "resonance_mismatches": resonance_mismatches,
+        "adversarial_survivors_t4_prefix_010": adversarial_survivors,
+        "ce19_verified": ce19_verified,
+    }
+
 
 

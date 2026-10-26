@@ -52,6 +52,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section16_surplus_reduced_cap_mod3_lock_and_post_crossing_operator,
     verify_section17_post_crossing_prefix_trichotomy_and_k1_zero_exhaustion,
     verify_section18_c10_cert_stream_adaptive_exclusion_pipeline,
+    verify_section19_certificate_separation_resonance_and_adversarial_irreducibility,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -260,6 +261,23 @@ class TestCollatzC10All(unittest.TestCase):
         )
         self.assertTrue(sec18["ce15_verified"])
         self.assertTrue(sec18["ce16_verified"])
+
+    def test_ws6_section19_certificate_separation_resonance_and_adversarial_irreducibility(
+        self,
+    ) -> None:
+        sec19 = verify_section19_certificate_separation_resonance_and_adversarial_irreducibility(
+            max_c_resonance=12
+        )
+        self.assertTrue(sec19["ce17_verified"])
+        self.assertEqual(sec19["resonance_cases_checked"], 48)
+        self.assertEqual(sec19["resonance_mismatches"], 0)
+        self.assertTrue(sec19["ce19_verified"])
+        self.assertEqual(
+            sec19["adversarial_survivors_t4_prefix_010"]["94"][
+                "max_n_surviving_stages_1_to_3"
+            ],
+            1991,
+        )
 
 
 def generate_c10_artifacts() -> None:
@@ -477,6 +495,37 @@ def generate_c10_artifacts() -> None:
             "witnesses": [{"ks": [0, 0, 0, 0, 3], "s": 5, "K_5": 8, "delta_5": 13, "B_5": 211, "t": 0, "n_min": 2, "B_5_mod_delta_5": 3}],
             "lean_theorem": "BBB17.CollatzProofClosure.c10_cert_stream_falsification_witnesses",
             "resolution": "Proved in c10_cert_stream_falsification_witnesses and staged_adaptive_exclusion_certificate_soundness that at ks = [0,0,0,0,3], t = 0, n_min = 2, B_5 = 211 >= 26 = 13 * 2 survives both Stage 1 and Stage 2, and is retired at Stage 4 via 211 % 13 = 3 != 0.",
+        },
+        {
+            "id": "CE-C10-17",
+            "workstream": "WS6_Section19_CertificateSeparationAndResonance",
+            "hypothesis_tested": "The certificate propositions EquationImpossible (~E(ks,n,t)) and NeverDescendingImpossible (~H(ks,n,t)) are interchangeable across all stages",
+            "status": "FALSIFIED",
+            "witnesses": [{"ks": [0, 0, 1, 2, 0], "n": 7, "t": 1, "delta_5": 13, "B_5": 347, "T9_7": 4}],
+            "lean_theorem": "BBB17.CollatzProofClosure.witnesses_27_and_1051_and_ce17_separation",
+            "resolution": "Formally separated SurplusEquationSol / EquationImpossibleFrom from NeverDescendingSurvivor / NeverDescendingImpossibleFrom in certificate_proposition_hierarchy_and_stage_classification, proving EquationImpossibleFrom -> NeverDescendingImpossibleFrom and classifying Stages 1, 2, 4 under EquationImpossibleFrom and Stage 3 under NeverDescendingImpossibleFrom.",
+        },
+        {
+            "id": "CE-C10-18",
+            "workstream": "WS6_Section19_CertificateSeparationAndResonance",
+            "hypothesis_tested": "A finite-state certificate closure scheme using only bounded prefixes and a fixed post-crossing rollout horizon H closes the (0, 1, 0) branch at t = 4 without the global Diophantine offset B_s",
+            "status": "FALSIFIED",
+            "witnesses": [{"family": "n = 8^c * q - 5, u_s = n + 4 = 8^c * q - 1", "pre_crossing_word": "altZeroOneSeq c", "post_crossing_odd_run_length": "3*c", "T_j_us": "3^j * 2^(3*c - j) * q - 1 > n"}],
+            "lean_theorem": "BBB17.CollatzProofClosure.unbounded_post_crossing_recovery_delay_resonance",
+            "resolution": "Proved in unbounded_post_crossing_recovery_delay_resonance and altZeroOneSeq_shifted_plus_five_and_surplus_cap that the (-5, -1) dual 2-adic fixed-point resonance produces arbitrarily long 3*c-step post-crossing odd runs above n, while the global Diophantine offset law B([0,1]^c ++ [k]) + 14*8^c = 5*3^(2c+1) caps t <= 4 and reduces t = 4 to Delta_s*(n+4) + 14*8^c = 3^(2c+1).",
+        },
+        {
+            "id": "CE-C10-19",
+            "workstream": "WS6_Section19_CertificateSeparationAndResonance",
+            "hypothesis_tested": "Stages 1, 2, and 3 (global envelope, exact prefix/word upper enclosure, and local post-crossing parity descent) suffice to retire all pre-crossing first-crossing candidates at t = 4 without Stage 4 global modular non-divisibility",
+            "status": "FALSIFIED",
+            "witnesses": [
+                {"s": 17, "K_17": 27, "ks": [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1], "t": 4, "n_min": 2, "delta_17": 5077565, "B_17": 548440271, "req": 547026042, "rem_mod_delta": 1414229},
+                {"s": 29, "K_29": 46, "t": 4, "max_n_surviving_stages_1_to_3": 120},
+                {"s": 94, "K_94": 149, "t": 4, "max_n_surviving_stages_1_to_3": 1991},
+            ],
+            "lean_theorem": "BBB17.CollatzProofClosure.adversarial_stage123_defeating_witness_ce19",
+            "resolution": "Proved in adversarial_stage123_defeating_witness_ce19 that Sturmian continuations from (0, 1, 0) at t = 4 defeat Stages 1, 2, and 3 (up to n = 2 at s = 17, n = 120 at s = 29, and n = 1991 >= 1024 at s = 94) and are retired exclusively by Stage 4 exact global non-divisibility.",
         },
     ]
     with (artifacts_dir / "counterexamples.jsonl").open("w", encoding="utf-8") as f:

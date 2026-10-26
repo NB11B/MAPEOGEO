@@ -1020,5 +1020,82 @@ theorem section18_c10_cert_stream_adaptive_enclosure_and_staged_exclusion_master
    staged_adaptive_exclusion_certificate_soundness,
    c10_cert_stream_falsification_witnesses⟩
 
+/-- Master Section 19 Certificate Proposition Separation (`EquationImpossibleFrom` vs. `NeverDescendingImpossibleFrom`),
+    the `(-5, -1)` Dual 2-Adic Fixed-Point Resonance, Unbounded Recovery Delay (`CE-C10-18`), and
+    Stage-1/2/3 Certificate Irreducibility (`CE-C10-19`) Synthesis
+    (`section19_certificate_separation_resonance_and_adversarial_irreducibility_master`):
+    Synthesizes the Section 19 architecture:
+    1. **Certificate Proposition Hierarchy & Stage Classification (`certificate_proposition_hierarchy_and_stage_classification`)**:
+       Formally separates `EquationImpossibleFrom ks n_min t` (`¬ E(ks, n, t)`) from
+       `NeverDescendingImpossibleFrom ks n_min t` (`¬ H(ks, n, t)`), proving `EquationImpossibleFrom → NeverDescendingImpossibleFrom`,
+       that Stages 1, 2, and 4 certify `EquationImpossibleFrom`, and that Stage 3 certifies `NeverDescendingImpossibleFrom`.
+    2. **The `(-5, -1)` Dual 2-Adic Fixed-Point Resonance & Global Surplus Cap `t ≤ 4` on `altZeroOneSeq c ++ [k]`
+       (`altZeroOneSeq_shifted_plus_five_and_surplus_cap`)**:
+       Proves `wordB (returnMapWord (altZeroOneSeq c ++ [k])) + 14 * 8 ^ c = 5 * 3 ^ (2 * c + 1)`,
+       excluding all surpluses `t ≥ 5` unconditionally across the entire infinite family `altZeroOneSeq c ++ [k]`
+       and reducing `t = 4` to `(2^{3c+k+1} - 3^{2c+1}) * (n + 4) + 14 * 8^c = 3^{2c+1}`.
+    3. **Unbounded Post-Crossing Recovery Delay (`unbounded_post_crossing_recovery_delay_resonance` / `CE-C10-18`)**:
+       Proves that for every `c ≥ 1` and `q ≥ 1`, `n = 8 ^ c * q - 5` admissibly realizes `altZeroOneSeq c`
+       while `u_s = n + 4 = 8 ^ c * q - 1` admissibly realizes `allTrueWord j` for all `0 ≤ j ≤ 3 * c`
+       with `T^j(n + 4) = 3^j * 2^{3c - j} * q - 1 > n`, falsifying bounded-horizon local post-crossing closure.
+    4. **Adversarial Stage-1/2/3-Defeating Witness (`adversarial_stage123_defeating_witness_ce19` / `CE-C10-19`)**:
+       Certifies at `s = 17, K_{17} = 27, t = 4, n_min = 2` that the Sturmian continuation from `(0, 1, 0)`
+       defeats Stages 1, 2, and 3 and is retired exclusively by Stage 4 (`1414229 ≠ 0`). -/
+theorem section19_certificate_separation_resonance_and_adversarial_irreducibility_master :
+    (∀ (ks₁ ks₂ : List Nat) (n_min t : Nat),
+      (ks₁ ++ ks₂).length ≥ 1 →
+      PreCrossingReturnSeq (ks₁ ++ ks₂) →
+      2 ^ totalValuation (ks₁ ++ ks₂) > 3 ^ (ks₁ ++ ks₂).length →
+      let ks := ks₁ ++ ks₂
+      let s := ks.length
+      let K := totalValuation ks
+      let delta := 2 ^ K - 3 ^ s
+      let B := wordB (returnMapWord ks)
+      (EquationImpossibleFrom ks n_min t → NeverDescendingImpossibleFrom ks n_min t) ∧
+      (2 * (delta * (n_min + t) + 3 ^ s * t) + 3 ^ (s - 1) > 2 * s * 3 ^ (s - 1) + 1 →
+        EquationImpossibleFrom ks n_min t) ∧
+      (prefixOffsetUpperEnclosure ks₁ ks₂.length < delta * (n_min + t) + 3 ^ s * t →
+        EquationImpossibleFrom ks n_min t) ∧
+      ((B - 3 ^ s * t) % delta ≠ 0 →
+        EquationImpossibleFrom ks n_min t) ∧
+      (n_min ≥ 1 → t % 2 = 1 → n_min > t →
+        NeverDescendingImpossibleFrom ks n_min t)) ∧
+    (∀ (c k : Nat),
+      let ks := altZeroOneSeq c ++ [k]
+      PreCrossingReturnSeq ks ∧
+      wordB (returnMapWord ks) + 14 * 8 ^ c = 5 * 3 ^ (2 * c + 1) ∧
+      (∀ t : Nat, t ≥ 5 → EquationImpossibleFrom ks 0 t) ∧
+      (∀ n : Nat,
+        SurplusEquationSol ks n 4 →
+        (2 ^ (3 * c + k + 1) - 3 ^ (2 * c + 1)) * (n + 4) + 14 * 8 ^ c = 3 ^ (2 * c + 1))) ∧
+    (∀ (c q : Nat),
+      c ≥ 1 →
+      q ≥ 1 →
+      let n := 8 ^ c * q - 5
+      let u_s := n + 4
+      validParityWord n (returnMapWord (altZeroOneSeq c)) ∧
+      applyParityWord n (returnMapWord (altZeroOneSeq c)) = 9 ^ c * q - 5 ∧
+      (∀ j : Nat, j ≤ 3 * c →
+        validParityWord u_s (allTrueWord j) ∧
+        applyParityWord u_s (allTrueWord j) = 3 ^ j * 2 ^ (3 * c - j) * q - 1 ∧
+        iterateAccelerated u_s j = 3 ^ j * 2 ^ (3 * c - j) * q - 1 ∧
+        iterateAccelerated u_s j > n)) ∧
+    (PreCrossingReturnSeq [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1] ∧
+     ([0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1] : List Nat).length = 17 ∧
+     totalValuation [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1] = 27 ∧
+     2 ^ 27 - 3 ^ 17 = 5077565 ∧
+     wordB (returnMapWord [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]) = 548440271 ∧
+     (2 ^ 27 - 3 ^ 17) * (2 + 4) + 3 ^ 17 * 4 = 547026042 ∧
+     2 * ((2 ^ 27 - 3 ^ 17) * (2 + 4) + 3 ^ 17 * 4) + 3 ^ 16 ≤ 2 * 17 * 3 ^ 16 + 1 ∧
+     wordB (returnMapWord [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]) ≥
+       (2 ^ 27 - 3 ^ 17) * (2 + 4) + 3 ^ 17 * 4 ∧
+     (wordB (returnMapWord [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]) - 3 ^ 17 * 4) %
+       (2 ^ 27 - 3 ^ 17) = 1414229 ∧
+     1414229 ≠ 0) :=
+  ⟨certificate_proposition_hierarchy_and_stage_classification,
+   altZeroOneSeq_shifted_plus_five_and_surplus_cap,
+   unbounded_post_crossing_recovery_delay_resonance,
+   adversarial_stage123_defeating_witness_ce19⟩
+
 end CollatzProofClosure
 end BBB17

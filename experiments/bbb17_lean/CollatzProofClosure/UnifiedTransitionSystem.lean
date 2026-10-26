@@ -6325,5 +6325,418 @@ theorem c10_cert_stream_falsification_witnesses :
      3 ≠ 0) := by
   decide
 
+/-! ## Section 19: Certificate Proposition Separation (`EquationImpossible` vs. `NeverDescendingImpossible`), the `(-5, -1)` Dual 2-Adic Fixed-Point Resonance, Unbounded Recovery Delay (`CE-C10-18`), and Stage-1/2/3 Certificate Irreducibility (`CE-C10-19`)
+
+    Directly addresses the Section 17–18 technical review:
+    1. **Formal Separation of Certificate Propositions (`SurplusEquationSol`, `EquationImpossibleFrom`, `NeverDescendingSurvivor`, `NeverDescendingImpossibleFrom`, `certificate_proposition_hierarchy_and_stage_classification`, `witnesses_27_and_1051_and_ce17_separation`)**:
+       - Distinguishes the finite Diophantine survivor equation `E(ks, n, t) : Δ_s * (n + t) + 3^s * t = B_s`
+         (`SurplusEquationSol ks n t`) from the infinite never-descending orbit hypothesis
+         `H(ks, n, t) : E(ks, n, t) ∧ n > 1 ∧ ∀ r, T^r(n) ≥ n` (`NeverDescendingSurvivor ks n t`).
+       - Proves that Stages 1, 2, and 4 establish `EquationImpossibleFrom ks n_min t` (which implies
+         `NeverDescendingImpossibleFrom ks n_min t`), whereas Stage 3 establishes
+         `NeverDescendingImpossibleFrom ks n_min t` directly via post-crossing descent.
+       - Proves formal non-equivalence (`CE-C10-17`) and certifies that the Section 17 delayed-descent
+         starting integers `n = 27` and `n = 1051` strictly descend at their actual first spectral
+         crossings (`s = 37, K = 59, T^{59}(27) = 23 < 27` and `s = 15, K = 24, T^{24}(1051) = 901 < 1051`).
+    2. **The `(-5, -1)` Dual 2-Adic Fixed-Point Resonance & Global Surplus Cap on `[0, 1]^c ++ [k]`
+       (`altZeroOneSeq`, `altZeroOneSeq_properties`, `altZeroOneSeq_shifted_plus_five_and_surplus_cap`)**:
+       - Explains why `t = 4` on `(0, 1, 0)` is the unique adversarial bottleneck of local self-similarity:
+         the 2-block circuit `[0, 1]` (`D = 8, A = 9, B = 5`) has 2-adic fixed point `n* = -5`
+         (`8 * (F(n) + 5) = 9 * (n + 5)`), while the post-crossing odd step `[0]` (`D = 2, A = 3, B = 1`)
+         has 2-adic fixed point `u* = -1` (`2 * (F(u) + 1) = 3 * (u + 1)`), with exact separation
+         `u* - n* = (-1) - (-5) = +4 = t`.
+       - Proves that for every `c ≥ 1`, `altZeroOneSeq c` (`c` copies of `[0, 1]`, length `2c`, `K = 3c`)
+         satisfies `PreCrossingReturnSeq (altZeroOneSeq c)` and exact offset laws:
+         `wordB (returnMapWord (altZeroOneSeq c)) + 5 * 8 ^ c = 5 * 9 ^ c` and
+         `wordB (returnMapWord (altZeroOneSeq c ++ [k])) + 14 * 8 ^ c = 5 * 3 ^ (2 * c + 1)`.
+       - Consequently, on the entire infinite family `altZeroOneSeq c ++ [k]`, EVERY surplus `t ≥ 5` is
+         unconditionally impossible (`EquationImpossibleFrom (altZeroOneSeq c ++ [k]) 0 t`), and at
+         `t = 4`, the survivor equation reduces to `Δ_s * (n + 4) + 14 * 8 ^ c = 3 ^ (2 * c + 1)`.
+    3. **Unbounded Post-Crossing Recovery Delay & Falsification of Fixed-Horizon Local Certificate Closure
+       (`unbounded_post_crossing_recovery_delay_resonance` / `CE-C10-18`)**:
+       - Proves that for every `c ≥ 1` and `q ≥ 1`, `n = 8 ^ c * q - 5` simultaneously:
+         (a) admissibly realizes the pre-crossing word `returnMapWord (altZeroOneSeq c)` of length `2c`
+             with exact output `9 ^ c * q - 5`, and
+         (b) forces the shifted state `u_s = n + 4 = 8 ^ c * q - 1` to realize `allTrueWord (3 * c)`
+             (`3c` consecutive odd steps), staying strictly above `n` (`T^j(n + 4) = 3^j * 2^{3c - j} * q - 1 > n`)
+             for every `0 ≤ j ≤ 3c`.
+       - This falsifies any finite-state certificate closure scheme that relies solely on bounded prefixes
+         and a fixed post-crossing rollout horizon without coupling to the global Diophantine offset `B_s`.
+    4. **Certificate Irreducibility & Adversarial Stage-1/2/3-Defeating Witness
+       (`adversarial_stage123_defeating_witness_ce19` / `CE-C10-19`)**:
+       - At `s = 17, K_{17} = 27`, the Sturmian pre-crossing continuation from `(0, 1, 0)`:
+         `ks₁₇ = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]` with `t = 4, n_min = 2`
+         defeats Stage 1 (`1137098805 ≤ 1466444012`), defeats Stage 2 (`B₁₇ = 548440271 ≥ 547026042`),
+         and defeats Stage 3 (`t = 4` has `v_2(t) = 2` and `k_1 = 1 ≠ 0`), requiring Stage 4's exact
+         global Diophantine non-divisibility (`(B₁₇ - 3^{17} * 4) % Δ₁₇ = 1414229 ≠ 0`).
+-/
+
+/-- Exact finite Diophantine survivor equation `E(ks, n, t)`:
+    `(2^{K_s} - 3^s) * (n + t) + 3^s * t = wordB (returnMapWord ks)`. -/
+def SurplusEquationSol (ks : List Nat) (n t : Nat) : Prop :=
+  (2 ^ totalValuation ks - 3 ^ ks.length) * (n + t) + 3 ^ ks.length * t =
+    wordB (returnMapWord ks)
+
+/-- Certificate proposition `EquationImpossibleFrom ks n_min t`:
+    No integer `n ≥ n_min` satisfies the finite Diophantine equation `E(ks, n, t)`. -/
+def EquationImpossibleFrom (ks : List Nat) (n_min t : Nat) : Prop :=
+  ∀ n : Nat, n ≥ n_min → ¬ SurplusEquationSol ks n t
+
+/-- Hypothetical never-descending counterexample survivor `H(ks, n, t)`:
+    `n` satisfies `E(ks, n, t)`, `n > 1`, and the trajectory of `n` never descends below `n`. -/
+def NeverDescendingSurvivor (ks : List Nat) (n t : Nat) : Prop :=
+  SurplusEquationSol ks n t ∧ n > 1 ∧ ∀ r : Nat, iterateAccelerated n r ≥ n
+
+/-- Certificate proposition `NeverDescendingImpossibleFrom ks n_min t`:
+    No integer `n ≥ n_min` can be a never-descending counterexample survivor `H(ks, n, t)`. -/
+def NeverDescendingImpossibleFrom (ks : List Nat) (n_min t : Nat) : Prop :=
+  ∀ n : Nat, n ≥ n_min → ¬ NeverDescendingSurvivor ks n t
+
+/-- Certificate Proposition Hierarchy and Stage Classification Theorem
+    (`certificate_proposition_hierarchy_and_stage_classification`):
+    1. `EquationImpossibleFrom ks n_min t → NeverDescendingImpossibleFrom ks n_min t`,
+    2. Stages 1, 2, and 4 certify `EquationImpossibleFrom (ks₁ ++ ks₂) n_min t`
+       (and therefore also `NeverDescendingImpossibleFrom (ks₁ ++ ks₂) n_min t`),
+    3. Stage 3 (odd surplus `t % 2 = 1` with `n_min ≥ 1` and `n_min > t`) certifies
+       `NeverDescendingImpossibleFrom (ks₁ ++ ks₂) n_min t` via 1-step post-crossing descent. -/
+theorem certificate_proposition_hierarchy_and_stage_classification
+    (ks₁ ks₂ : List Nat) (n_min t : Nat)
+    (hs1 : (ks₁ ++ ks₂).length ≥ 1)
+    (hpre : PreCrossingReturnSeq (ks₁ ++ ks₂))
+    (hcont : 2 ^ totalValuation (ks₁ ++ ks₂) > 3 ^ (ks₁ ++ ks₂).length) :
+    let ks := ks₁ ++ ks₂
+    let s := ks.length
+    let K := totalValuation ks
+    let delta := 2 ^ K - 3 ^ s
+    let B := wordB (returnMapWord ks)
+    (EquationImpossibleFrom ks n_min t → NeverDescendingImpossibleFrom ks n_min t) ∧
+    (2 * (delta * (n_min + t) + 3 ^ s * t) + 3 ^ (s - 1) > 2 * s * 3 ^ (s - 1) + 1 →
+      EquationImpossibleFrom ks n_min t) ∧
+    (prefixOffsetUpperEnclosure ks₁ ks₂.length < delta * (n_min + t) + 3 ^ s * t →
+      EquationImpossibleFrom ks n_min t) ∧
+    ((B - 3 ^ s * t) % delta ≠ 0 →
+      EquationImpossibleFrom ks n_min t) ∧
+    (n_min ≥ 1 → t % 2 = 1 → n_min > t →
+      NeverDescendingImpossibleFrom ks n_min t) := by
+  dsimp
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro heq n hn ⟨hsol, _, _⟩
+    exact heq n hn hsol
+  · intro hstage1 n hn
+    exact (staged_adaptive_exclusion_certificate_soundness ks₁ ks₂ n n_min t hs1 hpre hcont hn).1 hstage1
+  · intro hstage2 n hn
+    exact (staged_adaptive_exclusion_certificate_soundness ks₁ ks₂ n n_min t hs1 hpre hcont hn).2.1 hstage2
+  · intro hstage4 n hn
+    exact (staged_adaptive_exclusion_certificate_soundness ks₁ ks₂ n n_min t hs1 hpre hcont hn).2.2.2 hstage4
+  · intro hn1 ht_odd hn_gt_t n hn ⟨hsol, _, hnever⟩
+    have hdesc :=
+      (staged_adaptive_exclusion_certificate_soundness ks₁ ks₂ n n_min t hs1 hpre hcont hn).2.2.1
+        (by omega) ht_odd (by omega) hsol
+    have hdelta_add :
+        (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) +
+          3 ^ (ks₁ ++ ks₂).length = 2 ^ totalValuation (ks₁ ++ ks₂) := by omega
+    have horig :
+        (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * n +
+          2 ^ totalValuation (ks₁ ++ ks₂) * t = wordB (returnMapWord (ks₁ ++ ks₂)) := by
+      unfold SurplusEquationSol at hsol
+      have h1 :
+          (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * (n + t) +
+            3 ^ (ks₁ ++ ks₂).length * t =
+          (2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) * n +
+            ((2 ^ totalValuation (ks₁ ++ ks₂) - 3 ^ (ks₁ ++ ks₂).length) +
+              3 ^ (ks₁ ++ ks₂).length) * t := by
+        rw [Nat.mul_add, Nat.add_mul, Nat.add_assoc]
+      rw [hdelta_add] at h1
+      omega
+    rcases first_crossing_surplus_diophantine_iff_admissible_survivor
+      (ks₁ ++ ks₂) n t (by omega) hs1 hpre hcont with ⟨hiff, _⟩
+    rcases hiff.mp horig with ⟨hv, _⟩
+    have hw_eq : returnMapWord (ks₁ ++ ks₂) =
+        parityWordOf (returnMapWord (ks₁ ++ ks₂)).length n :=
+      ((validParityWord_iff_eq_parityWordOf (returnMapWord (ks₁ ++ ks₂)) n).mp hv).symm
+    have hit : applyParityWord n (returnMapWord (ks₁ ++ ks₂)) =
+        iterateAccelerated n (returnMapWord (ks₁ ++ ks₂)).length := by
+      rw [hw_eq, applyParityWord_parityWordOf (returnMapWord (ks₁ ++ ks₂)).length n, ← hw_eq]
+    rw [hit, ← iterateAccelerated_succ_right n (returnMapWord (ks₁ ++ ks₂)).length] at hdesc
+    have hge := hnever ((returnMapWord (ks₁ ++ ks₂)).length + 1)
+    omega
+
+/-- Formal Separation Witness CE-C10-17 and Actual First-Crossing Descent of `n = 27` and `n = 1051`
+    (`witnesses_27_and_1051_and_ce17_separation`):
+    1. (`CE-C10-17`) For `ks = [0, 0, 1, 2, 0]`, `n = 7`, `t = 1`, the finite Diophantine equation
+       `SurplusEquationSol [0, 0, 1, 2, 0] 7 1` holds (`13 * 8 + 243 * 1 = 347`), so
+       `¬ EquationImpossibleFrom [0, 0, 1, 2, 0] 2 1`, yet `iterateAccelerated 7 9 = 4 < 7`
+       (so `¬ NeverDescendingSurvivor [0, 0, 1, 2, 0] 7 1`).
+    2. For `n = 1051`, the actual trajectory reaches its first spectral crossing at `r = 24` steps
+       (`s = 15` odd steps, `2 ^ 24 > 3 ^ 15`) with `iterateAccelerated 1051 24 = 901 < 1051`.
+    3. For `n = 27`, the actual trajectory reaches its first spectral crossing at `r = 59` steps
+       (`s = 37` odd steps, `2 ^ 59 > 3 ^ 37`) with `iterateAccelerated 27 59 = 23 < 27`. -/
+theorem witnesses_27_and_1051_and_ce17_separation :
+    ((2 ^ totalValuation [0, 0, 1, 2, 0] - 3 ^ ([0, 0, 1, 2, 0] : List Nat).length) * (7 + 1) +
+       3 ^ ([0, 0, 1, 2, 0] : List Nat).length * 1 =
+       wordB (returnMapWord [0, 0, 1, 2, 0]) ∧
+     iterateAccelerated 7 9 = 4 ∧
+     iterateAccelerated 7 9 < 7) ∧
+    (wordOnes (parityWordOf 24 1051) = 15 ∧
+     2 ^ 24 > 3 ^ 15 ∧
+     iterateAccelerated 1051 24 = 901 ∧
+     iterateAccelerated 1051 24 < 1051) ∧
+    (wordOnes (parityWordOf 59 27) = 37 ∧
+     2 ^ 59 > 3 ^ 37 ∧
+     iterateAccelerated 27 59 = 23 ∧
+     iterateAccelerated 27 59 < 27) := by
+  decide
+
+/-- Alternating 2-block pre-crossing valuation sequence `altZeroOneSeq c` (`c` copies of `[0, 1]`),
+    corresponding to the 2-adic rational periodic cycle `-5 ↦ -7 ↦ -5`. -/
+def altZeroOneSeq : Nat → List Nat
+  | 0 => []
+  | c + 1 => altZeroOneSeq c ++ [0, 1]
+
+/-- Exact Length, Valuation, Pre-Crossing Admissibility, and Shifted `+5` Offset Law for `altZeroOneSeq c`
+    (`altZeroOneSeq_properties`):
+    For every `c : Nat`:
+    1. `(altZeroOneSeq c).length = 2 * c`,
+    2. `totalValuation (altZeroOneSeq c) = 3 * c`,
+    3. `2 ^ totalValuation (altZeroOneSeq c) = 8 ^ c` and `3 ^ (altZeroOneSeq c).length = 9 ^ c`,
+    4. `PreCrossingReturnSeq (altZeroOneSeq c)` holds unconditionally for all `c`,
+    5. `wordB (returnMapWord (altZeroOneSeq c)) + 5 * 8 ^ c = 5 * 9 ^ c`. -/
+theorem altZeroOneSeq_properties (c : Nat) :
+    (altZeroOneSeq c).length = 2 * c ∧
+    totalValuation (altZeroOneSeq c) = 3 * c ∧
+    2 ^ totalValuation (altZeroOneSeq c) = 8 ^ c ∧
+    3 ^ (altZeroOneSeq c).length = 9 ^ c ∧
+    PreCrossingReturnSeq (altZeroOneSeq c) ∧
+    wordB (returnMapWord (altZeroOneSeq c)) + 5 * 8 ^ c = 5 * 9 ^ c := by
+  induction c with
+  | zero =>
+    dsimp [altZeroOneSeq, PreCrossingReturnSeq, preCrossingFrom]
+    decide
+  | succ c ih =>
+    rcases ih with ⟨hlen, hK, h2K, h3len, hpre, hB⟩
+    have happ : altZeroOneSeq (c + 1) = (altZeroOneSeq c ++ [0]) ++ [1] := by
+      dsimp [altZeroOneSeq]
+      rw [List.append_assoc]
+      rfl
+    have hlen0 : (altZeroOneSeq c ++ [0]).length = 2 * c + 1 := by
+      rw [List.length_append, hlen]; rfl
+    have hlen1 : (altZeroOneSeq (c + 1)).length = 2 * (c + 1) := by
+      rw [happ, List.length_append, hlen0]; dsimp; omega
+    have hK0 : totalValuation (altZeroOneSeq c ++ [0]) = 3 * c + 1 := by
+      rw [totalValuation_snoc, hK]
+    have hK1 : totalValuation (altZeroOneSeq (c + 1)) = 3 * (c + 1) := by
+      rw [happ, totalValuation_snoc, hK0]; omega
+    have h2K1 : 2 ^ totalValuation (altZeroOneSeq (c + 1)) = 8 ^ (c + 1) := by
+      rw [hK1, Nat.mul_add 3 c 1, Nat.mul_one, Nat.pow_add 2 (3 * c) 3, ← hK, h2K, Nat.pow_succ 8 c]
+    have h3len1 : 3 ^ (altZeroOneSeq (c + 1)).length = 9 ^ (c + 1) := by
+      rw [hlen1, Nat.mul_add 2 c 1, Nat.mul_one, Nat.pow_add 3 (2 * c) 2, ← hlen, h3len, Nat.pow_succ 9 c]
+    have h8_le_9 : 8 ^ c ≤ 9 ^ c := pow_le_pow_of_le 8 9 c (by omega)
+    have hpre0 : PreCrossingReturnSeq (altZeroOneSeq c ++ [0]) := by
+      rw [preCrossingReturnSeq_snoc]
+      refine ⟨hpre, ?_⟩
+      rw [h2K, h3len]
+      exact h8_le_9
+    have hpre1 : PreCrossingReturnSeq (altZeroOneSeq (c + 1)) := by
+      rw [happ, preCrossingReturnSeq_snoc]
+      refine ⟨hpre0, ?_⟩
+      rw [hK0, hlen0, Nat.pow_succ 2 (3 * c), ← hK, h2K, Nat.pow_succ 3 (2 * c), ← hlen, h3len]
+      omega
+    have hB0 : wordB (returnMapWord (altZeroOneSeq c ++ [0])) =
+        3 * wordB (returnMapWord (altZeroOneSeq c)) + 8 ^ c := by
+      rw [wordB_returnMapWord_snoc, h2K]
+    have hB1 : wordB (returnMapWord (altZeroOneSeq (c + 1))) + 5 * 8 ^ (c + 1) = 5 * 9 ^ (c + 1) := by
+      rw [happ, wordB_returnMapWord_snoc, hB0, hK0, Nat.pow_succ 2 (3 * c), ← hK, h2K,
+          Nat.pow_succ 8 c, Nat.pow_succ 9 c]
+      omega
+    exact ⟨hlen1, hK1, h2K1, h3len1, hpre1, hB1⟩
+
+/-- Exact Offset Law & Global Surplus Cap `t ≤ 4` on `altZeroOneSeq c ++ [k]`
+    (`altZeroOneSeq_shifted_plus_five_and_surplus_cap`):
+    For every `c : Nat` and final block `k : Nat`, let `ks = altZeroOneSeq c ++ [k]` (`s = 2c + 1`):
+    1. `PreCrossingReturnSeq ks` holds,
+    2. `wordB (returnMapWord ks) + 14 * 8 ^ c = 5 * 3 ^ (2 * c + 1)`,
+    3. For every `t ≥ 5`, `EquationImpossibleFrom ks 0 t` holds unconditionally,
+    4. At `t = 4`, any solution `SurplusEquationSol ks n 4` satisfies
+       `(2 ^ (3 * c + k + 1) - 3 ^ (2 * c + 1)) * (n + 4) + 14 * 8 ^ c = 3 ^ (2 * c + 1)`. -/
+theorem altZeroOneSeq_shifted_plus_five_and_surplus_cap (c k : Nat) :
+    let ks := altZeroOneSeq c ++ [k]
+    PreCrossingReturnSeq ks ∧
+    wordB (returnMapWord ks) + 14 * 8 ^ c = 5 * 3 ^ (2 * c + 1) ∧
+    (∀ t : Nat, t ≥ 5 → EquationImpossibleFrom ks 0 t) ∧
+    (∀ n : Nat,
+      SurplusEquationSol ks n 4 →
+      (2 ^ (3 * c + k + 1) - 3 ^ (2 * c + 1)) * (n + 4) + 14 * 8 ^ c = 3 ^ (2 * c + 1)) := by
+  dsimp
+  rcases altZeroOneSeq_properties c with ⟨hlen, hK, h2K, h3len, hpre, hB⟩
+  have h8_le_9 : 8 ^ c ≤ 9 ^ c := pow_le_pow_of_le 8 9 c (by omega)
+  have h8_pos : 8 ^ c ≥ 1 := pow_pos_of_pos 8 c (by omega)
+  have hpre_k : PreCrossingReturnSeq (altZeroOneSeq c ++ [k]) := by
+    rw [preCrossingReturnSeq_snoc]
+    refine ⟨hpre, ?_⟩
+    rw [h2K, h3len]
+    exact h8_le_9
+  have hlen_k : (altZeroOneSeq c ++ [k]).length = 2 * c + 1 := by
+    rw [List.length_append, hlen]; rfl
+  have hK_k : totalValuation (altZeroOneSeq c ++ [k]) = 3 * c + k + 1 := by
+    rw [totalValuation_snoc, hK]
+  have h3_s : 3 ^ (2 * c + 1) = 3 * 9 ^ c := by
+    rw [Nat.pow_succ 3 (2 * c), ← hlen, h3len, Nat.mul_comm]
+  have hB_k : wordB (returnMapWord (altZeroOneSeq c ++ [k])) + 14 * 8 ^ c = 5 * 3 ^ (2 * c + 1) := by
+    rw [wordB_returnMapWord_snoc, h2K, h3_s]
+    omega
+  refine ⟨hpre_k, hB_k, ?_, ?_⟩
+  · intro t ht5 n _ hsol
+    unfold SurplusEquationSol at hsol
+    rw [hlen_k] at hsol
+    have h5_le : 5 * 3 ^ (2 * c + 1) ≤ 3 ^ (2 * c + 1) * t := by
+      rw [Nat.mul_comm (3 ^ (2 * c + 1)) t]
+      exact Nat.mul_le_mul_right (3 ^ (2 * c + 1)) ht5
+    omega
+  · intro n hsol
+    unfold SurplusEquationSol at hsol
+    rw [hlen_k, hK_k] at hsol
+    omega
+
+/-- The `(-5, -1)` Dual 2-Adic Fixed-Point Resonance & Unbounded Post-Crossing Recovery Delay (`CE-C10-18`)
+    (`unbounded_post_crossing_recovery_delay_resonance`):
+    For EVERY `c ≥ 1` and `q ≥ 1`, let `n = 8 ^ c * q - 5` and `u_s = n + 4 = 8 ^ c * q - 1`:
+    1. `n` admissibly realizes the pre-crossing word `returnMapWord (altZeroOneSeq c)` of length `2c`
+       (`validParityWord n (returnMapWord (altZeroOneSeq c))`) with exact output
+       `applyParityWord n (returnMapWord (altZeroOneSeq c)) = 9 ^ c * q - 5`,
+    2. For every step `0 ≤ j ≤ 3 * c`, the shifted post-crossing state `u_s = n + 4 = 8 ^ c * q - 1`
+       admissibly realizes `allTrueWord j` (`j` consecutive odd steps) with exact iterate
+       `iterateAccelerated u_s j = 3 ^ j * 2 ^ (3 * c - j) * q - 1 > n`.
+    Consequently, no bounded-horizon local post-crossing rollout can close the `(0, 1, 0)` subtree
+    for `t = 4` without the global Diophantine offset equation. -/
+theorem unbounded_post_crossing_recovery_delay_resonance (c q : Nat)
+    (hc : c ≥ 1) (hq : q ≥ 1) :
+    let n := 8 ^ c * q - 5
+    let u_s := n + 4
+    validParityWord n (returnMapWord (altZeroOneSeq c)) ∧
+    applyParityWord n (returnMapWord (altZeroOneSeq c)) = 9 ^ c * q - 5 ∧
+    (∀ j : Nat, j ≤ 3 * c →
+      validParityWord u_s (allTrueWord j) ∧
+      applyParityWord u_s (allTrueWord j) = 3 ^ j * 2 ^ (3 * c - j) * q - 1 ∧
+      iterateAccelerated u_s j = 3 ^ j * 2 ^ (3 * c - j) * q - 1 ∧
+      iterateAccelerated u_s j > n) := by
+  dsimp
+  rcases altZeroOneSeq_properties c with ⟨hlen, hK, h2K, h3len, _, hB⟩
+  have h8_ge_8 : 8 ^ c ≥ 8 := by
+    obtain ⟨c', rfl⟩ : ∃ c', c = c' + 1 := ⟨c - 1, by omega⟩
+    have hc'_pos : 8 ^ c' ≥ 1 := pow_pos_of_pos 8 c' (by omega)
+    rw [Nat.pow_succ 8 c']
+    omega
+  have h8q_ge_8 : 8 ^ c * q ≥ 8 := by
+    have h1 := Nat.mul_le_mul_left (8 ^ c) hq
+    omega
+  have h9_ge_8 : 9 ^ c ≥ 8 ^ c := pow_le_pow_of_le 8 9 c (by omega)
+  have h9q_ge_8 : 9 ^ c * q ≥ 8 ^ c * q := Nat.mul_le_mul_right q h9_ge_8
+  -- Part 1: Pre-crossing admissibility of n = 8^c * q - 5 on altZeroOneSeq c via affine_identity_iff_validParityWord_and_output
+  have haff_pre :
+      wordD (returnMapWord (altZeroOneSeq c)) * (9 ^ c * q - 5) =
+        wordA (returnMapWord (altZeroOneSeq c)) * (8 ^ c * q - 5) +
+          wordB (returnMapWord (altZeroOneSeq c)) := by
+    rw [wordD_returnMapWord, wordA_returnMapWord, h2K, h3len]
+    have hcomm : 8 ^ c * (9 ^ c * q) = 9 ^ c * (8 ^ c * q) := by
+      rw [← Nat.mul_assoc, Nat.mul_comm (8 ^ c) (9 ^ c), Nat.mul_assoc]
+    have h1 : 8 ^ c * (9 ^ c * q - 5) + 8 ^ c * 5 = 8 ^ c * (9 ^ c * q) := by
+      rw [← Nat.mul_add]
+      have hsub : 9 ^ c * q - 5 + 5 = 9 ^ c * q := by omega
+      rw [hsub]
+    have h2 : 9 ^ c * (8 ^ c * q - 5) + 9 ^ c * 5 = 9 ^ c * (8 ^ c * q) := by
+      rw [← Nat.mul_add]
+      have hsub : 8 ^ c * q - 5 + 5 = 8 ^ c * q := by omega
+      rw [hsub]
+    have h8_5 : 8 ^ c * 5 = 5 * 8 ^ c := Nat.mul_comm _ _
+    have h9_5 : 9 ^ c * 5 = 5 * 9 ^ c := Nat.mul_comm _ _
+    omega
+  rcases (affine_identity_iff_validParityWord_and_output
+    (returnMapWord (altZeroOneSeq c)) (8 ^ c * q - 5) (9 ^ c * q - 5)).mp haff_pre with
+    ⟨hv_pre, hout_pre⟩
+  refine ⟨hv_pre, hout_pre, ?_⟩
+  -- Part 2: Post-crossing expansion of u_s = 8^c * q - 5 + 4 = 2^(3c) * q - 1 for all j ≤ 3c
+  intro j hj
+  have h2_3c : 2 ^ (3 * c) = 8 ^ c := by
+    rw [← hK, h2K]
+  have hpow_split : 2 ^ j * 2 ^ (3 * c - j) = 8 ^ c := by
+    rw [← Nat.pow_add, Nat.add_sub_of_le hj, h2_3c]
+  have h2_le_3 : 2 ^ j ≤ 3 ^ j := pow_le_pow_of_le 2 3 j (by omega)
+  have hprod_ge : 3 ^ j * 2 ^ (3 * c - j) ≥ 8 ^ c := by
+    rw [← hpow_split]
+    exact Nat.mul_le_mul_right (2 ^ (3 * c - j)) h2_le_3
+  have hy_ge : 3 ^ j * 2 ^ (3 * c - j) * q ≥ 8 ^ c * q :=
+    Nat.mul_le_mul_right q hprod_ge
+  have haff_post :
+      wordD (allTrueWord j) * (3 ^ j * 2 ^ (3 * c - j) * q - 1) =
+        wordA (allTrueWord j) * (8 ^ c * q - 5 + 4) + wordB (allTrueWord j) := by
+    have hD_j := wordD_allTrueWord_eq j
+    have hA_j := wordA_allTrueWord_eq j
+    have hB_j := wordB_allTrueWord_add_wordD j
+    rw [hD_j, hA_j] at hB_j ⊢
+    have hmul_lhs :
+        2 ^ j * (3 ^ j * 2 ^ (3 * c - j) * q) = 3 ^ j * (8 ^ c * q) := by
+      rw [Nat.mul_assoc (3 ^ j) (2 ^ (3 * c - j)) q,
+          ← Nat.mul_assoc (2 ^ j) (3 ^ j) _,
+          Nat.mul_comm (2 ^ j) (3 ^ j),
+          Nat.mul_assoc (3 ^ j) (2 ^ j) _,
+          ← Nat.mul_assoc (2 ^ j) (2 ^ (3 * c - j)) q,
+          hpow_split]
+    have h1 : 2 ^ j * (3 ^ j * 2 ^ (3 * c - j) * q - 1) + 2 ^ j =
+        2 ^ j * (3 ^ j * 2 ^ (3 * c - j) * q) := by
+      have hsub : 3 ^ j * 2 ^ (3 * c - j) * q - 1 + 1 = 3 ^ j * 2 ^ (3 * c - j) * q := by omega
+      have hmul1 := Nat.mul_add (2 ^ j) (3 ^ j * 2 ^ (3 * c - j) * q - 1) 1
+      rw [hsub, Nat.mul_one] at hmul1
+      omega
+    have h2 : 3 ^ j * (8 ^ c * q - 5 + 4) + 3 ^ j = 3 ^ j * (8 ^ c * q) := by
+      have hsub : (8 ^ c * q - 5 + 4) + 1 = 8 ^ c * q := by omega
+      have hmul1 := Nat.mul_add (3 ^ j) (8 ^ c * q - 5 + 4) 1
+      rw [hsub, Nat.mul_one] at hmul1
+      omega
+    omega
+  rcases (affine_identity_iff_validParityWord_and_output
+    (allTrueWord j) (8 ^ c * q - 5 + 4) (3 ^ j * 2 ^ (3 * c - j) * q - 1)).mp haff_post with
+    ⟨hv_post, hout_post⟩
+  have hlen_j : (allTrueWord j).length = j := by
+    dsimp [allTrueWord]; simp
+  have hw_eq : allTrueWord j = parityWordOf j (8 ^ c * q - 5 + 4) := by
+    have h1 := ((validParityWord_iff_eq_parityWordOf (allTrueWord j) (8 ^ c * q - 5 + 4)).mp hv_post).symm
+    rw [hlen_j] at h1
+    exact h1
+  have hit_post : iterateAccelerated (8 ^ c * q - 5 + 4) j =
+      3 ^ j * 2 ^ (3 * c - j) * q - 1 := by
+    rw [← applyParityWord_parityWordOf j (8 ^ c * q - 5 + 4), ← hw_eq, hout_post]
+  exact ⟨hv_post, hout_post, hit_post, by omega⟩
+
+/-- Adversarial Stage-1/2/3-Defeating Witness CE-C10-19 (`adversarial_stage123_defeating_witness_ce19`):
+    At `s = 17, K_{17} = 27`, the Sturmian pre-crossing continuation from `(0, 1, 0)`:
+    `ks₁₇ = [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]` with `t = 4, n_min = 2`
+    satisfies:
+    1. `PreCrossingReturnSeq ks₁₇`, `ks₁₇.length = 17`, `totalValuation ks₁₇ = 27`,
+       `Δ₁₇ = 2^27 - 3^17 = 5077565`, `B₁₇ = wordB (returnMapWord ks₁₇) = 548440271`,
+    2. **Defeats Stage 1 (Word-Free Sharpened Envelope)**:
+       `2 * (Δ₁₇ * (2 + 4) + 3^17 * 4) + 3^16 = 1137098805 ≤ 1466444012 = 2 * 17 * 3^16 + 1`,
+    3. **Defeats Stage 2 (Exact Prefix/Word Offset Upper Enclosure)**:
+       `B₁₇ = 548440271 ≥ 547026042 = Δ₁₇ * (2 + 4) + 3^17 * 4`,
+    4. **Defeats Stage 3 (All Local Post-Crossing Parity/Self-Similarity Certificates)**:
+       `t = 4` has `4 % 2 = 0` and `4 % 4 = 0` (`v_2(4) = 2 ≠ 1`), and the 3-block prefix of `ks₁₇`
+       is `[0, 1, 0]` (`k_1 = 1 ≠ 0`),
+    5. **Retired Exclusively by Stage 4 (Exact Global Diophantine Non-Divisibility)**:
+       `(B₁₇ - 3^17 * 4) % Δ₁₇ = 1414229 ≠ 0`. -/
+theorem adversarial_stage123_defeating_witness_ce19 :
+    PreCrossingReturnSeq [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1] ∧
+    ([0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1] : List Nat).length = 17 ∧
+    totalValuation [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1] = 27 ∧
+    2 ^ 27 - 3 ^ 17 = 5077565 ∧
+    wordB (returnMapWord [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]) = 548440271 ∧
+    (2 ^ 27 - 3 ^ 17) * (2 + 4) + 3 ^ 17 * 4 = 547026042 ∧
+    2 * ((2 ^ 27 - 3 ^ 17) * (2 + 4) + 3 ^ 17 * 4) + 3 ^ 16 ≤ 2 * 17 * 3 ^ 16 + 1 ∧
+    wordB (returnMapWord [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]) ≥
+      (2 ^ 27 - 3 ^ 17) * (2 + 4) + 3 ^ 17 * 4 ∧
+    (wordB (returnMapWord [0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1]) - 3 ^ 17 * 4) %
+      (2 ^ 27 - 3 ^ 17) = 1414229 ∧
+    1414229 ≠ 0 := by
+  dsimp [PreCrossingReturnSeq, preCrossingFrom]
+  decide
+
 end CollatzProofClosure
 end BBB17
