@@ -724,5 +724,76 @@ theorem section14_sharpened_cap_s40_certificate_and_excess_valuation_master :
    nondescent_orbit_no_first_crossing_le_40,
    excessValuation_no_crossing_bound⟩
 
+/-- Master Section 15 Surplus Diophantine Equivalence, Temporal Self-Similarity Coupling,
+    and Targeted Falsification Synthesis
+    (`section15_surplus_diophantine_and_self_similarity_master`):
+    Synthesizes the Section 15 architecture:
+    1. **Exact Diophantine-to-Trajectory Equivalence (`first_crossing_surplus_diophantine_iff_admissible_survivor`)**:
+       For any pre-crossing word `ks` (`PreCrossingReturnSeq ks` and `2 ^ K_s > 3 ^ s`), a formal
+       integer solution `(n ≥ 1, t ≥ 0)` to `(2 ^ K_s - 3 ^ s) * n + 2 ^ K_s * t = B_s` is logically
+       equivalent to `validParityWord n (returnMapWord ks) ∧ applyParityWord n (returnMapWord ks) = n + t`,
+       and automatically forces `n % 2 = 1`, `3 * t < s`, the sharpened survivor cap, and strict
+       intermediate odd-return expansion `u_j > n` for every proper split `ks = ks₁ ++ ks₂`.
+    2. **Forced First Valuation `k_0 = 0` and `n ≡ 3 (mod 4)` (`preCrossing_first_valuation_eq_zero_and_first_step_odd`)**:
+       Every pre-crossing sequence of length `s ≥ 2` has `k_0 = 0`, forcing both `n` and `T^1(n)` to be odd.
+    3. **Universal Two-Step Self-Similarity Descent for `v_2(t) = 1` (`first_crossing_surplus_v2_eq_one_forced_two_step_descent`)**:
+       For arbitrary `s ≥ 2`, whenever `u_s = n + 2 * q` with `q` odd (`v_2(t) = 1`), `T^1(u_s) = T^1(n) + 3 * q`
+       is forced to be even, yielding `4 * T^2(u_s) = 3 * n + 6 * q + 1` and strict descent `T^2(u_s) < n`
+       for all `n > 6 * q + 1` (and for all `n > s` at a first crossing).
+    4. **Complete Exclusion of Positive Even Surpluses for `1 ≤ s ≤ 12` (`first_crossing_s_le_12_positive_even_surplus_forced_descent`)**:
+       For `1 ≤ s ≤ 12` and `n ≥ 8`, any positive even first-crossing surplus forces `7 ≤ s`, `t = 2`,
+       and `T^2(u_s) < n`. -/
+theorem section15_surplus_diophantine_and_self_similarity_master :
+    (∀ (ks : List Nat) (n t : Nat),
+      n ≥ 1 →
+      ks.length ≥ 1 →
+      PreCrossingReturnSeq ks →
+      2 ^ totalValuation ks > 3 ^ ks.length →
+      let s := ks.length
+      let K := totalValuation ks
+      let delta := 2 ^ K - 3 ^ s
+      let B := wordB (returnMapWord ks)
+      (delta * n + 2 ^ K * t = B ↔
+        (validParityWord n (returnMapWord ks) ∧
+         applyParityWord n (returnMapWord ks) = n + t)) ∧
+      (delta * n + 2 ^ K * t = B →
+        n % 2 = 1 ∧
+        (applyParityWord n (returnMapWord ks) % 2 = 1 ↔ t % 2 = 0) ∧
+        3 * t < s ∧
+        2 * (delta * n) + 3 ^ (s - 1) ≤ 2 * s * 3 ^ (s - 1) + 1 ∧
+        (∀ ks₁ ks₂ : List Nat,
+          ks = ks₁ ++ ks₂ → ks₁.length ≥ 1 → ks₂.length ≥ 1 →
+            validParityWord n (returnMapWord ks₁) ∧
+            applyParityWord n (returnMapWord ks₁) > n))) ∧
+    (∀ (k₀ k₁ : Nat) (tl : List Nat) (n q : Nat),
+      PreCrossingReturnSeq (k₀ :: k₁ :: tl) →
+      validParityWord n (returnMapWord (k₀ :: k₁ :: tl)) →
+      q % 2 = 1 →
+      applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)) = n + 2 * q →
+      let ks := k₀ :: k₁ :: tl
+      let u_s := applyParityWord n (returnMapWord ks)
+      u_s % 2 = 1 ∧
+      acceleratedCollatz u_s = acceleratedCollatz n + 3 * q ∧
+      (acceleratedCollatz u_s) % 2 = 0 ∧
+      4 * iterateAccelerated u_s 2 = 3 * n + 6 * q + 1 ∧
+      (n > 6 * q + 1 → iterateAccelerated u_s 2 < n) ∧
+      (2 ^ totalValuation ks > 3 ^ ks.length → n > ks.length → iterateAccelerated u_s 2 < n)) ∧
+    (∀ (ks : List Nat) (n t : Nat),
+      n ≥ 8 →
+      ks.length ≥ 1 →
+      ks.length ≤ 12 →
+      validParityWord n (returnMapWord ks) →
+      PreCrossingReturnSeq ks →
+      2 ^ totalValuation ks > 3 ^ ks.length →
+      t > 0 →
+      t % 2 = 0 →
+      applyParityWord n (returnMapWord ks) = n + t →
+      ks.length ≥ 7 ∧
+      t = 2 ∧
+      iterateAccelerated (applyParityWord n (returnMapWord ks)) 2 < n) :=
+  ⟨first_crossing_surplus_diophantine_iff_admissible_survivor,
+   first_crossing_surplus_v2_eq_one_forced_two_step_descent,
+   first_crossing_s_le_12_positive_even_surplus_forced_descent⟩
+
 end CollatzProofClosure
 end BBB17

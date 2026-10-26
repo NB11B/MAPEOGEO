@@ -48,6 +48,7 @@ from qualification.c10.unified_transition_discovery import (
     verify_section12_rotation_reducibility_and_goodstein_falsification,
     verify_section13_adversarial_first_crossing_and_no_crossing_branch,
     verify_section14_sharpened_cap_s40_certificate_and_excess_valuation,
+    verify_section15_surplus_diophantine_and_self_similarity_coupling,
     verify_signed_projective_gap_and_surviving_lifts,
     verify_unified_transition_conservation,
 )
@@ -198,6 +199,17 @@ class TestCollatzC10All(unittest.TestCase):
         self.assertEqual(sec14["max_sharpened_cap_le_40"], 375)
         self.assertTrue(sec14["s40_below_1024_verified"])
         self.assertTrue(sec14["ce10_non_monotone_odd_returns_verified"])
+
+    def test_ws6_section15_surplus_diophantine_and_self_similarity_coupling(self) -> None:
+        sec15 = verify_section15_surplus_diophantine_and_self_similarity_coupling(
+            max_s_direct=12, max_s_duality=970
+        )
+        self.assertEqual(sec15["precrossing_prefixes_checked"], 4403)
+        self.assertEqual(sec15["precrossing_diophantine_solutions_found"], 0)
+        self.assertEqual(sec15["max_sharpened_cap_le_970"], 99567)
+        self.assertEqual(sec15["v2_eq_one_two_step_descent_mismatches"], 0)
+        self.assertTrue(sec15["ce11_v2_ge_two_no_three_step_descent_verified"])
+        self.assertTrue(sec15["ce12_non_precrossing_diophantine_witness_verified"])
 
 
 def generate_c10_artifacts() -> None:
@@ -361,6 +373,24 @@ def generate_c10_artifacts() -> None:
             "witnesses": [{"n": 27, "ks": [0, 1], "s": 2, "K_2": 3, "u_0": 27, "u_1": 41, "u_2": 31}],
             "lean_theorem": "BBB17.CollatzProofClosure.no_crossing_branch_not_stepwise_monotone_at_27_witness",
             "resolution": "Distinguished relative-to-start expansion (u_s > n, proved in no_first_crossing_shifted_growth_and_nondescent) from stepwise monotonicity (u_{s+1} > u_s).",
+        },
+        {
+            "id": "CE-C10-11",
+            "workstream": "WS6_Section15_SelfSimilarityCoupling",
+            "hypothesis_tested": "Forced parity divergence at step v = v_2(t) of a first-crossing surplus u_s = n + t immediately forces descent T^{v+1}(u_s) < n for all v >= 1",
+            "status": "FALSIFIED",
+            "witnesses": [{"n": 7, "t": 4, "v": 2, "u_s": 11, "T2_n": 17, "T2_us": 26, "T3_us": 13}],
+            "lean_theorem": "BBB17.CollatzProofClosure.surplus_v2_ge_two_no_three_step_descent_witness",
+            "resolution": "Proved first_crossing_surplus_v2_eq_one_forced_two_step_descent for v_2(t) = 1 (where 2^2 = 4 > 3^1 forces T^2(u_s) < n for all n > 3t + 1), while for v_2(t) >= 2, k_0 = 0 forces a_2 = 2 so 3^2 = 9 > 8 = 2^3 prevents 3-step descent.",
+        },
+        {
+            "id": "CE-C10-12",
+            "workstream": "WS6_Section15_SurplusDiophantine",
+            "hypothesis_tested": "Formal solutions to B_s = Delta_s * n + 2^{K_s} * t with n > 1 and 0 <= t < s/3 do not exist even when PreCrossingReturnSeq ks is omitted",
+            "status": "FALSIFIED",
+            "witnesses": [{"ks": [0, 0, 1, 2, 0], "s": 5, "K_5": 8, "delta_5": 13, "B_5": 347, "n": 7, "t": 1, "u_4": 5, "u_5": 8}],
+            "lean_theorem": "BBB17.CollatzProofClosure.non_preCrossing_diophantine_solution_at_s5_witness",
+            "resolution": "Proved first_crossing_surplus_diophantine_iff_admissible_survivor: under PreCrossingReturnSeq ks, any integer solution automatically satisfies 2-adic word admissibility and intermediate non-descent u_j > n, whereas omitting PreCrossingReturnSeq allows solutions whose earlier crossing prefix already descended.",
         },
     ]
     with (artifacts_dir / "counterexamples.jsonl").open("w", encoding="utf-8") as f:

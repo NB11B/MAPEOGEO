@@ -4822,5 +4822,372 @@ theorem no_crossing_branch_not_stepwise_monotone_at_27_witness :
   dsimp [PreCrossingReturnSeq, preCrossingFrom]
   decide
 
+/-! ## Section 15: First-Crossing Surplus Diophantine Equivalence, Temporal Self-Similarity
+    Coupling (`v_2(t) = 1` Forced Two-Step Descent), and Falsifications (CE-C10-11..12) -/
+
+/-- General append decomposition for `preCrossingFrom` (`preCrossingFrom_append`). -/
+theorem preCrossingFrom_append (ks₁ ks₂ : List Nat) :
+    ∀ j K : Nat,
+      preCrossingFrom j K (ks₁ ++ ks₂) ↔
+        (preCrossingFrom j K ks₁ ∧
+         preCrossingFrom (j + ks₁.length) (K + totalValuation ks₁) ks₂) := by
+  induction ks₁ with
+  | nil =>
+    intro j K
+    dsimp [preCrossingFrom, totalValuation, returnMapWord]
+    constructor
+    · intro h; exact ⟨trivial, h⟩
+    · intro h; exact h.2
+  | cons x tl ih =>
+    intro j K
+    dsimp [preCrossingFrom]
+    rw [ih (j + 1) (K + x + 1), totalValuation_cons x tl]
+    have hK : K + x + 1 + totalValuation tl = K + (x + 1 + totalValuation tl) := by omega
+    have hj : j + 1 + tl.length = j + (tl.length + 1) := by omega
+    rw [hK, hj]
+    constructor
+    · intro h; exact ⟨⟨h.1, h.2.1⟩, h.2.2⟩
+    · intro h; exact ⟨h.1.1, ⟨h.1.2, h.2⟩⟩
+
+/-- Every proper prefix `ks₁` of a `PreCrossingReturnSeq (ks₁ ++ ks₂)` with `ks₂.length ≥ 1`
+    satisfies both `PreCrossingReturnSeq ks₁` and `2 ^ totalValuation ks₁ ≤ 3 ^ ks₁.length`
+    (`preCrossingReturnSeq_prefix_noncrossing`). -/
+theorem preCrossingReturnSeq_prefix_noncrossing (ks₁ ks₂ : List Nat)
+    (hpre : PreCrossingReturnSeq (ks₁ ++ ks₂))
+    (hne : ks₂.length ≥ 1) :
+    PreCrossingReturnSeq ks₁ ∧ 2 ^ totalValuation ks₁ ≤ 3 ^ ks₁.length := by
+  unfold PreCrossingReturnSeq at hpre ⊢
+  rcases (preCrossingFrom_append ks₁ ks₂ 0 0).mp hpre with ⟨hpre1, hpre2⟩
+  rw [Nat.zero_add, Nat.zero_add] at hpre2
+  cases ks₂ with
+  | nil =>
+    dsimp at hne
+    omega
+  | cons k tl₂ =>
+    dsimp [preCrossingFrom] at hpre2
+    exact ⟨hpre1, hpre2.1⟩
+
+/-- Exact Equivalence of the Surplus Diophantine Equation and Admissible First-Crossing Survivors
+    (`first_crossing_surplus_diophantine_iff_admissible_survivor`):
+    For ANY pre-crossing valuation sequence `ks` (`PreCrossingReturnSeq ks`, `s = ks.length ≥ 1`,
+    `Δ_s = 2 ^ K_s - 3 ^ s > 0`) and any `n ≥ 1`, `t : Nat`:
+    1. The single Diophantine equation `(2 ^ K_s - 3 ^ s) * n + 2 ^ K_s * t = B(returnMapWord ks)`
+       holds if and only if `validParityWord n (returnMapWord ks)` AND
+       `applyParityWord n (returnMapWord ks) = n + t` (so integrality of `n = (B_s - 2^{K_s} t)/Δ_s`
+       ALREADY forces the exact 2-adic word-admissibility congruence!).
+    2. Moreover, any solution `(n, t)` automatically satisfies:
+       - `n % 2 = 1` (`n` is odd),
+       - `applyParityWord n (returnMapWord ks) % 2 = 1 ↔ t % 2 = 0` (`u_s = n + t` is odd iff `t` is even),
+       - `3 * t < s` (`0 ≤ t < s / 3`),
+       - `2 * ((2 ^ K_s - 3 ^ s) * n) + 3 ^ (s - 1) ≤ 2 * s * 3 ^ (s - 1) + 1`, and
+       - Automatic intermediate odd-return expansion: for every proper split `ks = ks₁ ++ ks₂`
+         with `ks₁.length ≥ 1` and `ks₂.length ≥ 1`,
+         `validParityWord n (returnMapWord ks₁) ∧ applyParityWord n (returnMapWord ks₁) > n`. -/
+theorem first_crossing_surplus_diophantine_iff_admissible_survivor
+    (ks : List Nat) (n t : Nat)
+    (_hn1 : n ≥ 1)
+    (hs1 : ks.length ≥ 1)
+    (hpre : PreCrossingReturnSeq ks)
+    (hcont : 2 ^ totalValuation ks > 3 ^ ks.length) :
+    let s := ks.length
+    let K := totalValuation ks
+    let delta := 2 ^ K - 3 ^ s
+    let B := wordB (returnMapWord ks)
+    (delta * n + 2 ^ K * t = B ↔
+      (validParityWord n (returnMapWord ks) ∧
+       applyParityWord n (returnMapWord ks) = n + t)) ∧
+    (delta * n + 2 ^ K * t = B →
+      n % 2 = 1 ∧
+      (applyParityWord n (returnMapWord ks) % 2 = 1 ↔ t % 2 = 0) ∧
+      3 * t < s ∧
+      2 * (delta * n) + 3 ^ (s - 1) ≤ 2 * s * 3 ^ (s - 1) + 1 ∧
+      (∀ ks₁ ks₂ : List Nat,
+        ks = ks₁ ++ ks₂ → ks₁.length ≥ 1 → ks₂.length ≥ 1 →
+          validParityWord n (returnMapWord ks₁) ∧
+          applyParityWord n (returnMapWord ks₁) > n)) := by
+  dsimp
+  have hD := wordD_returnMapWord ks
+  have hA := wordA_returnMapWord ks
+  have hle_pow : 3 ^ ks.length * n ≤ 2 ^ totalValuation ks * n :=
+    Nat.mul_le_mul_right n (by omega)
+  have hsub_mul : (2 ^ totalValuation ks - 3 ^ ks.length) * n =
+      2 ^ totalValuation ks * n - 3 ^ ks.length * n :=
+    Nat.sub_mul (2 ^ totalValuation ks) (3 ^ ks.length) n
+  have hmul_add : 2 ^ totalValuation ks * (n + t) =
+      2 ^ totalValuation ks * n + 2 ^ totalValuation ks * t :=
+    Nat.mul_add (2 ^ totalValuation ks) n t
+  have heq_iff : (2 ^ totalValuation ks - 3 ^ ks.length) * n + 2 ^ totalValuation ks * t =
+      wordB (returnMapWord ks) ↔
+      wordD (returnMapWord ks) * (n + t) =
+        wordA (returnMapWord ks) * n + wordB (returnMapWord ks) := by
+    rw [hD, hA]
+    omega
+  have hmain_iff : (2 ^ totalValuation ks - 3 ^ ks.length) * n + 2 ^ totalValuation ks * t =
+      wordB (returnMapWord ks) ↔
+      (validParityWord n (returnMapWord ks) ∧
+       applyParityWord n (returnMapWord ks) = n + t) := by
+    rw [heq_iff]
+    exact affine_identity_iff_validParityWord_and_output (returnMapWord ks) n (n + t)
+  refine ⟨hmain_iff, ?_⟩
+  intro hdioph
+  rcases hmain_iff.mp hdioph with ⟨hv, hout⟩
+  have hn_odd : n % 2 = 1 := by
+    cases ks with
+    | nil => dsimp at hs1; omega
+    | cons k tl =>
+      dsimp [returnMapWord, singleOddWord, validParityWord, stepParityMatches] at hv
+      exact hv.1
+  have hout_parity : applyParityWord n (returnMapWord ks) % 2 = 1 ↔ t % 2 = 0 := by
+    rw [hout]
+    omega
+  have hge_n : applyParityWord n (returnMapWord ks) ≥ n := by omega
+  rcases first_crossing_surplus_decomposition_and_s_le_6_exclusion ks n hv hcont hge_n with
+    ⟨_, hsurp_fn, _⟩
+  have hsurp_lt := hsurp_fn hpre
+  have ht_eq : applyParityWord n (returnMapWord ks) - n = t := by omega
+  rw [ht_eq] at hsurp_lt
+  have hsharp := preCrossing_returnMap_offset_sharpened_bound ks hpre hs1
+  have hdn_le : (2 ^ totalValuation ks - 3 ^ ks.length) * n ≤ wordB (returnMapWord ks) := by omega
+  have hsharp_n : 2 * ((2 ^ totalValuation ks - 3 ^ ks.length) * n) + 3 ^ (ks.length - 1) ≤
+      2 * ks.length * 3 ^ (ks.length - 1) + 1 := by omega
+  refine ⟨hn_odd, hout_parity, hsurp_lt, hsharp_n, ?_⟩
+  intro ks₁ ks₂ hsplit hlen1 hlen2
+  have hv_split : validParityWord n (returnMapWord ks₁ ++ returnMapWord ks₂) := by
+    rw [← returnMapWord_append, ← hsplit]
+    exact hv
+  have hv₁ : validParityWord n (returnMapWord ks₁) :=
+    ((validParityWord_append (returnMapWord ks₁) (returnMapWord ks₂) n).mp hv_split).1
+  have hpre_split : PreCrossingReturnSeq (ks₁ ++ ks₂) := by
+    rw [← hsplit]; exact hpre
+  rcases preCrossingReturnSeq_prefix_noncrossing ks₁ ks₂ hpre_split hlen2 with ⟨_, hnoncross₁⟩
+  have hgt₁ : applyParityWord n (returnMapWord ks₁) > n :=
+    (no_first_crossing_shifted_growth_and_nondescent ks₁ n hv₁).2 hlen1 hnoncross₁
+  exact ⟨hv₁, hgt₁⟩
+
+/-- Forced First Block Valuation `k_0 = 0` and `n ≡ 3 (mod 4)` for All Pre-Crossing Words with `s ≥ 2`
+    (`preCrossing_first_valuation_eq_zero_and_first_step_odd`):
+    For EVERY pre-crossing sequence `k₀ :: k₁ :: tl` (`s ≥ 2`, `PreCrossingReturnSeq (k₀ :: k₁ :: tl)`):
+    1. The first block valuation is forced to be `k₀ = 0` (`K_1 = 1`, since `2^{k₀ + 1} ≤ 3^1 = 3`),
+    2. For every integer `n` realizing `returnMapWord (k₀ :: k₁ :: tl)`, both `n` and
+       `acceleratedCollatz n` are odd (`n % 2 = 1` and `(acceleratedCollatz n) % 2 = 1`, i.e. `n ≡ 3 (mod 4)`),
+       with `2 * acceleratedCollatz n = 3 * n + 1`. -/
+theorem preCrossing_first_valuation_eq_zero_and_first_step_odd
+    (k₀ k₁ : Nat) (tl : List Nat) (n : Nat)
+    (hpre : PreCrossingReturnSeq (k₀ :: k₁ :: tl)) :
+    k₀ = 0 ∧
+    (validParityWord n (returnMapWord (k₀ :: k₁ :: tl)) →
+      n % 2 = 1 ∧
+      (acceleratedCollatz n) % 2 = 1 ∧
+      2 * acceleratedCollatz n = 3 * n + 1) := by
+  unfold PreCrossingReturnSeq at hpre
+  dsimp [preCrossingFrom] at hpre
+  rcases hpre with ⟨_, hK1_le, _⟩
+  have hk0 : k₀ = 0 := by
+    cases k₀ with
+    | zero => rfl
+    | succ m =>
+      have hge4 : 2 ^ 2 ≤ 2 ^ (0 + (m + 1) + 1) :=
+        two_pow_le_two_pow 2 (0 + (m + 1) + 1) (by omega)
+      have h4 : 2 ^ 2 = 4 := rfl
+      have h3 : 3 ^ 1 = 3 := rfl
+      omega
+  refine ⟨hk0, ?_⟩
+  intro hv
+  rw [hk0] at hv
+  dsimp [returnMapWord, singleOddWord, List.replicate, validParityWord, stepParityMatches] at hv
+  rcases hv with ⟨hn_odd, hT1_odd, _⟩
+  have hm_n : stepParityMatches n true := by
+    dsimp [stepParityMatches]; exact hn_odd
+  have hstep1 : 2 * acceleratedCollatz n = 3 * n + 1 := by
+    have hs := acceleratedCollatz_step_eq n true hm_n
+    simpa using hs
+  exact ⟨hn_odd, hT1_odd, hstep1⟩
+
+/-- Universal Two-Step Self-Similarity Descent for `v_2(t) = 1` Surpluses (`t = 2 * q`, `q` odd)
+    at Arbitrary Block Count `s ≥ 2` (`first_crossing_surplus_v2_eq_one_forced_two_step_descent`):
+    For ANY pre-crossing sequence `ks = k₀ :: k₁ :: tl` (`s = ks.length ≥ 2`, `PreCrossingReturnSeq ks`)
+    realized by `n` (`validParityWord n (returnMapWord ks)`), if the endpoint `u_s = applyParityWord n (returnMapWord ks)`
+    has surplus `t = 2 * q` with `q` odd (`u_s = n + 2 * q`, `q % 2 = 1`, so `v_2(t) = 1`):
+    1. `u_s % 2 = 1` (`u_s` is odd),
+    2. `acceleratedCollatz u_s = acceleratedCollatz n + 3 * q` (exact 1-step self-similarity shift),
+    3. `(acceleratedCollatz u_s) % 2 = 0` (forced parity divergence at `v = 1`: `T^1(n)` is odd, so `T^1(u_s)` is even!),
+    4. `4 * iterateAccelerated u_s 2 = 3 * n + 6 * q + 1`, and
+    5. Whenever `n > 6 * q + 1` (and in particular whenever `2 ^ K_s > 3 ^ s` and `n > s`),
+       `iterateAccelerated u_s 2 < n` (strict descent below `n` two steps after the crossing!). -/
+theorem first_crossing_surplus_v2_eq_one_forced_two_step_descent
+    (k₀ k₁ : Nat) (tl : List Nat) (n q : Nat)
+    (hpre : PreCrossingReturnSeq (k₀ :: k₁ :: tl))
+    (hv : validParityWord n (returnMapWord (k₀ :: k₁ :: tl)))
+    (hq_odd : q % 2 = 1)
+    (hus : applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)) = n + 2 * q) :
+    let ks := k₀ :: k₁ :: tl
+    let u_s := applyParityWord n (returnMapWord ks)
+    u_s % 2 = 1 ∧
+    acceleratedCollatz u_s = acceleratedCollatz n + 3 * q ∧
+    (acceleratedCollatz u_s) % 2 = 0 ∧
+    4 * iterateAccelerated u_s 2 = 3 * n + 6 * q + 1 ∧
+    (n > 6 * q + 1 → iterateAccelerated u_s 2 < n) ∧
+    (2 ^ totalValuation ks > 3 ^ ks.length → n > ks.length → iterateAccelerated u_s 2 < n) := by
+  dsimp
+  rcases (preCrossing_first_valuation_eq_zero_and_first_step_odd k₀ k₁ tl n hpre).2 hv with
+    ⟨hn_odd, hT1_odd, hT1_eq⟩
+  have hu_odd : applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)) % 2 = 1 := by
+    rw [hus]
+    omega
+  have hm_u : stepParityMatches (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) true := by
+    dsimp [stepParityMatches]; exact hu_odd
+  have hTu1_step : 2 * acceleratedCollatz (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) =
+      3 * (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) + 1 := by
+    have hs := acceleratedCollatz_step_eq (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) true hm_u
+    simpa using hs
+  have hTu1_shift : acceleratedCollatz (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) =
+      acceleratedCollatz n + 3 * q := by omega
+  have hTu1_even : (acceleratedCollatz (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)))) % 2 = 0 := by omega
+  have hm_Tu1 : stepParityMatches (acceleratedCollatz (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)))) false := by
+    dsimp [stepParityMatches]; exact hTu1_even
+  have hTu2_step : 2 * iterateAccelerated (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) 2 =
+      acceleratedCollatz (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) := by
+    have hs := acceleratedCollatz_step_eq
+      (acceleratedCollatz (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)))) false hm_Tu1
+    exact hs
+  have hit2_eq : 4 * iterateAccelerated (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) 2 =
+      3 * n + 6 * q + 1 := by omega
+  have hdesc_of_gt : n > 6 * q + 1 →
+      iterateAccelerated (applyParityWord n (returnMapWord (k₀ :: k₁ :: tl))) 2 < n := by
+    intro hn_gt
+    omega
+  refine ⟨hu_odd, hTu1_shift, hTu1_even, hit2_eq, hdesc_of_gt, ?_⟩
+  · intro hcont hn_gt_s
+    have hge_n : applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)) ≥ n := by omega
+    rcases first_crossing_surplus_decomposition_and_s_le_6_exclusion
+      (k₀ :: k₁ :: tl) n hv hcont hge_n with ⟨_, hsurp_fn, _⟩
+    have hsurp_lt := hsurp_fn hpre
+    have hsub_eq : applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)) - n = 2 * q := by omega
+    have hlen_eq : (k₀ :: k₁ :: tl).length = tl.length + 2 := rfl
+    rw [hsub_eq, hlen_eq] at hsurp_lt
+    exact hdesc_of_gt (by omega)
+
+/-- Complete Exclusion of Positive Even First-Crossing Surpluses for `1 ≤ s ≤ 12` and `n ≥ 8`
+    (`first_crossing_s_le_12_positive_even_surplus_forced_descent`):
+    For any first-crossing sequence `ks` (`PreCrossingReturnSeq ks` and `2 ^ K_s > 3 ^ s`) with
+    `1 ≤ s ≤ 12` and any `n ≥ 8` realizing `returnMapWord ks`:
+    if `u_s = applyParityWord n (returnMapWord ks) = n + t` with `t > 0` and `t % 2 = 0`, then:
+    1. `7 ≤ ks.length` and `t = 2` (since `3 * t < s ≤ 12` with `t > 0` even forces `t = 2`), and
+    2. `iterateAccelerated u_s 2 < n` (strict descent below `n` two steps after the crossing). -/
+theorem first_crossing_s_le_12_positive_even_surplus_forced_descent
+    (ks : List Nat) (n t : Nat)
+    (hn8 : n ≥ 8)
+    (_hs1 : ks.length ≥ 1)
+    (hs12 : ks.length ≤ 12)
+    (hv : validParityWord n (returnMapWord ks))
+    (hpre : PreCrossingReturnSeq ks)
+    (hcont : 2 ^ totalValuation ks > 3 ^ ks.length)
+    (ht_pos : t > 0)
+    (ht_even : t % 2 = 0)
+    (hus : applyParityWord n (returnMapWord ks) = n + t) :
+    ks.length ≥ 7 ∧
+    t = 2 ∧
+    iterateAccelerated (applyParityWord n (returnMapWord ks)) 2 < n := by
+  have hge_n : applyParityWord n (returnMapWord ks) ≥ n := by omega
+  rcases first_crossing_surplus_decomposition_and_s_le_6_exclusion ks n hv hcont hge_n with
+    ⟨_, hsurp_fn, _⟩
+  have hsurp_lt := hsurp_fn hpre
+  have hsub : applyParityWord n (returnMapWord ks) - n = t := by omega
+  rw [hsub] at hsurp_lt
+  have hs7 : ks.length ≥ 7 := by omega
+  have ht2 : t = 2 := by omega
+  cases ks with
+  | nil => dsimp at hs7; omega
+  | cons k₀ tl₀ =>
+    cases tl₀ with
+    | nil => dsimp at hs7; omega
+    | cons k₁ tl =>
+      have hus_q1 : applyParityWord n (returnMapWord (k₀ :: k₁ :: tl)) = n + 2 * 1 := by omega
+      have hdesc := (first_crossing_surplus_v2_eq_one_forced_two_step_descent
+        k₀ k₁ tl n 1 hpre hv rfl hus_q1).2.2.2.2.1 (by omega)
+      exact ⟨hs7, ht2, hdesc⟩
+
+/-- Formal Falsification Witness CE-C10-11
+    (`surplus_v2_ge_two_no_three_step_descent_witness`):
+    Proves why `v_2(t) ≥ 2` (`t = 4 * q` with `q` odd, first allowed at `s = 13` where `3 * 4 < 13`)
+    does NOT automatically descend at step `v + 1 = 3`:
+    when `k_0 = 0` (`n` odd and `T^1(n)` odd), the first `v = 2` steps of both `n` and `n + 4 * q`
+    are odd (`a_2 = 2`), giving `4 * T^2(n) = 9 * n + 5` and `T^2(n + 4 * q) = T^2(n) + 9 * q`.
+    Even when `T^2(n)` is odd (`k_1 = 0`) so that `T^2(n + 4 * q)` is even and step 3 halves,
+    `8 * T^3(n + 4 * q) = 9 * n + 36 * q + 5 > 8 * n` (because `3 ^ 2 = 9 > 8 = 2 ^ 3`).
+    Certified both generally and on `(n = 7, t = 4, u_s = 11)`, where `T^2(7) = 17`, `T^2(11) = 26`,
+    and `T^3(11) = 13 > 7`. -/
+theorem surplus_v2_ge_two_no_three_step_descent_witness :
+    (∀ n q : Nat,
+      n % 2 = 1 →
+      (acceleratedCollatz n) % 2 = 1 →
+      (iterateAccelerated n 2) % 2 = 1 →
+      q % 2 = 1 →
+      4 * iterateAccelerated n 2 = 9 * n + 5 ∧
+      iterateAccelerated (n + 4 * q) 2 = iterateAccelerated n 2 + 9 * q ∧
+      (iterateAccelerated (n + 4 * q) 2) % 2 = 0 ∧
+      8 * iterateAccelerated (n + 4 * q) 3 = 9 * n + 36 * q + 5 ∧
+      iterateAccelerated (n + 4 * q) 3 > n) ∧
+    (iterateAccelerated 7 2 = 17 ∧
+     iterateAccelerated 11 2 = 26 ∧
+     iterateAccelerated 11 3 = 13 ∧
+     13 > 7) := by
+  refine ⟨?_, by decide⟩
+  intro n q hn_odd hT1_odd hT2_odd hq_odd
+  have hm0 : stepParityMatches n true := by dsimp [stepParityMatches]; exact hn_odd
+  have hs1 : 2 * acceleratedCollatz n = 3 * n + 1 := by
+    have hs := acceleratedCollatz_step_eq n true hm0; simpa using hs
+  have hm1 : stepParityMatches (acceleratedCollatz n) true := by
+    dsimp [stepParityMatches]; exact hT1_odd
+  have hs2 : 2 * iterateAccelerated n 2 = 3 * acceleratedCollatz n + 1 := by
+    have hs := acceleratedCollatz_step_eq (acceleratedCollatz n) true hm1
+    exact hs
+  have hT2_eq : 4 * iterateAccelerated n 2 = 9 * n + 5 := by omega
+  have hu_odd : (n + 4 * q) % 2 = 1 := by omega
+  have hmu0 : stepParityMatches (n + 4 * q) true := by dsimp [stepParityMatches]; exact hu_odd
+  have hsu1 : 2 * acceleratedCollatz (n + 4 * q) = 3 * (n + 4 * q) + 1 := by
+    have hs := acceleratedCollatz_step_eq (n + 4 * q) true hmu0; simpa using hs
+  have hTu1_odd : (acceleratedCollatz (n + 4 * q)) % 2 = 1 := by omega
+  have hmu1 : stepParityMatches (acceleratedCollatz (n + 4 * q)) true := by
+    dsimp [stepParityMatches]; exact hTu1_odd
+  have hsu2 : 2 * iterateAccelerated (n + 4 * q) 2 =
+      3 * acceleratedCollatz (n + 4 * q) + 1 := by
+    have hs := acceleratedCollatz_step_eq (acceleratedCollatz (n + 4 * q)) true hmu1
+    exact hs
+  have hTu2_shift : iterateAccelerated (n + 4 * q) 2 = iterateAccelerated n 2 + 9 * q := by omega
+  have hTu2_even : (iterateAccelerated (n + 4 * q) 2) % 2 = 0 := by omega
+  have hmu2 : stepParityMatches (iterateAccelerated (n + 4 * q) 2) false := by
+    dsimp [stepParityMatches]; exact hTu2_even
+  have hsu3 : 2 * iterateAccelerated (n + 4 * q) 3 = iterateAccelerated (n + 4 * q) 2 := by
+    have hs := acceleratedCollatz_step_eq (iterateAccelerated (n + 4 * q) 2) false hmu2
+    exact hs
+  refine ⟨hT2_eq, hTu2_shift, hTu2_even, by omega, by omega⟩
+
+/-- Formal Falsification Witness CE-C10-12
+    (`non_preCrossing_diophantine_solution_at_s5_witness`):
+    Proves that if `PreCrossingReturnSeq ks` is omitted, formal integer solutions to
+    `B_s = Δ_s * n + 2^{K_s} * t` with `n > 1` and `0 ≤ t < s / 3` DO exist already at
+    `s = 5, K_5 = 8, Δ_5 = 13`: for `ks = [0, 0, 1, 2, 0]`, `B_5 = 347 = 13 * 7 + 256 * 1`
+    (`n = 7 > 1, t = 1`), `validParityWord 7 (returnMapWord ks)` holds and
+    `applyParityWord 7 (returnMapWord ks) = 8 = 7 + 1`, but `ks` is eliminated by the prefix
+    crossing at `j = 4` (`K_4 = 7, 2^7 = 128 > 81 = 3^4`), where `u_4 = 5 < 7` already descended. -/
+theorem non_preCrossing_diophantine_solution_at_s5_witness :
+    let ks := [0, 0, 1, 2, 0]
+    ks.length = 5 ∧
+    totalValuation ks = 8 ∧
+    2 ^ totalValuation ks - 3 ^ ks.length = 13 ∧
+    wordB (returnMapWord ks) = 347 ∧
+    13 * 7 + 2 ^ 8 * 1 = 347 ∧
+    3 * 1 < 5 ∧
+    validParityWord 7 (returnMapWord ks) ∧
+    applyParityWord 7 (returnMapWord ks) = 8 ∧
+    ¬PreCrossingReturnSeq ks ∧
+    applyParityWord 7 (returnMapWord [0, 0, 1, 2]) = 5 ∧
+    5 < 7 := by
+  dsimp [PreCrossingReturnSeq, preCrossingFrom, totalValuation, returnMapWord,
+         singleOddWord, wordB, validParityWord, stepParityMatches,
+         acceleratedCollatz, applyParityWord]
+  decide
+
 end CollatzProofClosure
 end BBB17

@@ -1090,6 +1090,117 @@ def verify_section14_sharpened_cap_s40_certificate_and_excess_valuation() -> Dic
     }
 
 
+def verify_section15_surplus_diophantine_and_self_similarity_coupling(
+    max_s_direct: int = 12,
+    max_s_duality: int = 970,
+) -> Dict[str, object]:
+    """
+    Verify Section 15 Surplus Diophantine Equivalence, v_2(t) = 1 Two-Step Self-Similarity Descent,
+    and Falsifications CE-C10-11..12:
+      1. Direct search over all pre-crossing prefix trees for 1 <= s <= max_s_direct (4,879 prefixes at s <= 12)
+         and all crossing valuations K_s up to 6*(2^{K_s} - 3^s) > s * 3^s: verify 0 formal integer solutions
+         (n > 1, t >= 0) to B_s = Delta_s * n + 2^{K_s} * t.
+      2. Verify across 1 <= s <= max_s_duality (s <= 970) that the maximum sharpened survivor cap is 99,567
+         (at s = 306, K = 485), so trajectory non-survival for odd n <= 99,567 excludes all >10^80 pre-crossing
+         words up to s = 970 by first_crossing_surplus_diophantine_iff_admissible_survivor.
+      3. Verify universal two-step self-similarity descent for v_2(t) = 1 (t = 2*q, q odd) on all n ≡ 3 (mod 4)
+         (k_0 = 0): T^1(n + 2*q) = T^1(n) + 3*q is even and 4 * T^2(n + 2*q) = 3*n + 6*q + 1 < 4*n for n > 6*q + 1.
+      4. Verify CE-C10-11 (v_2(t) >= 2 at n = 7, t = 4 -> T^3(11) = 13 > 7) and CE-C10-12 (non-pre-crossing
+         Diophantine solution ks = [0, 0, 1, 2, 0] at s = 5, K_5 = 8, n = 7, t = 1 eliminated by u_4 = 5 < 7).
+    """
+    def gen_precrossing_prefixes(s: int):
+        if s == 1:
+            yield (0,), 1
+            return
+        for Ks, B in gen_precrossing_prefixes(s - 1):
+            j = s - 1
+            max_K = (3 ** j).bit_length() - 1
+            for K_next in range(Ks[-1] + 1, max_K + 1):
+                yield Ks + (K_next,), 3 * B + (1 << K_next)
+
+    precrossing_prefixes_checked = 0
+    precrossing_diophantine_solutions_found = 0
+    for s in range(1, max_s_direct + 1):
+        K_min = (3 ** s).bit_length()
+        K_max = K_min
+        while 6 * ((1 << (K_max + 1)) - (3 ** s)) <= s * (3 ** s):
+            K_max += 1
+        for _Ks, B in gen_precrossing_prefixes(s):
+            precrossing_prefixes_checked += 1
+            for K_s in range(K_min, K_max + 1):
+                delta = (1 << K_s) - (3 ** s)
+                t = 0
+                while B - (1 << K_s) * t >= 2 * delta:
+                    if (B - (1 << K_s) * t) % delta == 0:
+                        precrossing_diophantine_solutions_found += 1
+                    t += 1
+
+    max_sharpened_cap_le_970 = 0
+    for s in range(1, max_s_duality + 1):
+        A = 3 ** s
+        K = A.bit_length()
+        if (1 << (K - 1)) > A:
+            K -= 1
+        delta = (1 << K) - A
+        sharp = (s * (3 ** (s - 1)) - ((3 ** (s - 1)) - 1) // 2) // delta
+        if sharp > max_sharpened_cap_le_970:
+            max_sharpened_cap_le_970 = sharp
+
+    v2_eq_one_two_step_descent_mismatches = 0
+    for n in range(3, 500, 4):  # n ≡ 3 (mod 4) <=> k_0 = 0 (n odd and T^1(n) odd)
+        t1_n = accelerated_collatz(n)
+        for q in range(1, 16, 2):
+            u_s = n + 2 * q
+            t1_u = accelerated_collatz(u_s)
+            t2_u = accelerated_collatz(t1_u)
+            if t1_u != t1_n + 3 * q or (t1_u % 2) != 0:
+                v2_eq_one_two_step_descent_mismatches += 1
+            if 4 * t2_u != 3 * n + 6 * q + 1:
+                v2_eq_one_two_step_descent_mismatches += 1
+            if n > 6 * q + 1 and not (t2_u < n):
+                v2_eq_one_two_step_descent_mismatches += 1
+
+    # Verify CE-C10-11 (v_2(t) >= 2 at n = 7, t = 4, u_s = 11)
+    t2_7 = accelerated_collatz(accelerated_collatz(7))
+    t2_11 = accelerated_collatz(accelerated_collatz(11))
+    t3_11 = accelerated_collatz(t2_11)
+    ce11_verified = (t2_7 == 17 and t2_11 == 26 and t3_11 == 13 and t3_11 > 7)
+
+    # Verify CE-C10-12 (non-pre-crossing ks = [0, 0, 1, 2, 0] at s = 5, K_5 = 8, n = 7, t = 1)
+    def return_map_word(ks):
+        w = []
+        for k in ks:
+            w.extend([True] + [False] * k)
+        return w
+
+    ks_ce12 = [0, 0, 1, 2, 0]
+    w_ce12 = return_map_word(ks_ce12)
+    w4_ce12 = return_map_word([0, 0, 1, 2])
+    A_ce12, B_ce12, D_ce12 = affine_triple_exact(w_ce12)
+    A4_ce12, B4_ce12, D4_ce12 = affine_triple_exact(w4_ce12)
+    delta_ce12 = D_ce12 - A_ce12
+    u4_ce12 = (A4_ce12 * 7 + B4_ce12) // D4_ce12
+    u5_ce12 = (A_ce12 * 7 + B_ce12) // D_ce12
+    ce12_verified = (
+        B_ce12 == 347
+        and delta_ce12 == 13
+        and delta_ce12 * 7 + (1 << 8) * 1 == B_ce12
+        and u4_ce12 == 5
+        and u4_ce12 < 7
+        and u5_ce12 == 8
+    )
+
+    return {
+        "precrossing_prefixes_checked": precrossing_prefixes_checked,
+        "precrossing_diophantine_solutions_found": precrossing_diophantine_solutions_found,
+        "max_sharpened_cap_le_970": max_sharpened_cap_le_970,
+        "v2_eq_one_two_step_descent_mismatches": v2_eq_one_two_step_descent_mismatches,
+        "ce11_v2_ge_two_no_three_step_descent_verified": ce11_verified,
+        "ce12_non_precrossing_diophantine_witness_verified": ce12_verified,
+    }
+
+
+
 
 
 

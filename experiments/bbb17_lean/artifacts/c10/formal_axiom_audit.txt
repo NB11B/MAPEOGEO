@@ -258,3 +258,23 @@
 'BBB17.CollatzProofClosure.section14_sharpened_cap_s40_certificate_and_excess_valuation_master' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'BBB17.CollatzProofClosure.preCrossingFrom_append' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.preCrossingReturnSeq_prefix_noncrossing' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_surplus_diophantine_iff_admissible_survivor' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.preCrossing_first_valuation_eq_zero_and_first_step_odd' depends on axioms: [propext,
+ Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_surplus_v2_eq_one_forced_two_step_descent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.first_crossing_s_le_12_positive_even_surplus_forced_descent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'BBB17.CollatzProofClosure.surplus_v2_ge_two_no_three_step_descent_witness' depends on axioms: [propext, Quot.sound]
+'BBB17.CollatzProofClosure.non_preCrossing_diophantine_solution_at_s5_witness' does not depend on any axioms
+'BBB17.CollatzProofClosure.section15_surplus_diophantine_and_self_similarity_master' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
