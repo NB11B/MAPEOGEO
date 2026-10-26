@@ -1,0 +1,5 @@
+# GEO-PRIME-SPECTRAL-002: exact identification boundary
+
+For an unknown arbitrary permutation on n labeled vertices with m observed distinct nonconflicting source→destination edges, the number of completions is (n-m)!. The **complete cycle type / permutation spectrum is unique iff n-m≤1**. If two or more unmatched source and destination vertices remain, at least two possible completions have different cycle types: close the remaining open path components separately vs join two paths before closing. Thus under this unconstrained permutation hypothesis class, spectral identification does not precede full permutation identification. It could under additional independently qualified operator-grammar restrictions; those must be stated and tested explicitly.
+
+An independent exhaustive completion oracle verified all 15,123 partial injections for n=2..6 with zero discrepancies. This corrects the preceding exploratory suggestion that spectral recovery may happen earlier with arbitrary partial observations. Does not imply a limit under structural assumptions or probabilistic evidence. Run: cd experiments/geo_prime_spectral_partial_002 && python -m unittest discover -v.
