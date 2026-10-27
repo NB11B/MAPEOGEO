@@ -22,7 +22,7 @@ class TestExactContraction(unittest.TestCase):
         a = Tensor(("x", "y"), (2, 2), tuple(map(Fraction, (1, 2, 3, 4))))
         b = Tensor(("y", "z"), (2, 2), tuple(map(Fraction, (2, 0, 1, 3))))
         c = Tensor(("z", "x"), (2, 2), tuple(map(Fraction, (1, 1, 0, 2))))
-        self.assertEqual(contract((a, b, c)), 29)
+        self.assertEqual(contract((a, b, c)), 38)
         self.assertGreater(symbolic_search((a, b, c))["estimated_scalar_operations"], 0)
 
 
