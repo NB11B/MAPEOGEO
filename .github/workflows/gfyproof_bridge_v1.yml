@@ -8,9 +8,16 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      PYTHONPATH: \${{ github.workspace }}/gfyproof:\${{ github.workspace }}
     steps:
       - name: Checkout MAPEOGEO
         uses: actions/checkout@v4
+      - name: Checkout independent GFYProof verifier
+        uses: actions/checkout@v4
+        with:
+          repository: NB11B/GFYProof
+          path: gfyproof
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
