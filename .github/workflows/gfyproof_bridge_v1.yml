@@ -9,14 +9,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:
-      PYTHONPATH: \${{ github.workspace }}/gfyproof:\${{ github.workspace }}
+      PYTHONPATH: ${{ github.workspace }}/gfyproof:${{ github.workspace }}
     steps:
       - name: Checkout MAPEOGEO
         uses: actions/checkout@v4
-      - name: Require GFYProof read credential\n        env:\n          GFYPROOF_READ_TOKEN: \${{ secrets.GFYPROOF_READ_TOKEN }}\n        run: |\n          if [ -z "$GFYPROOF_READ_TOKEN" ]; then\n            echo "::error::Missing GFYPROOF_READ_TOKEN with read access to NB11B/GFYProof"\n            exit 1\n          fi\n      - name: Checkout independent GFYProof verifier
+      - name: Require GFYProof read credential
+        env:
+          GFYPROOF_READ_TOKEN: ${{ secrets.GFYPROOF_READ_TOKEN }}
+        run: |
+          if [ -z "$GFYPROOF_READ_TOKEN" ]; then
+            echo "::error::Missing GFYPROOF_READ_TOKEN with read access to NB11B/GFYProof"
+            exit 1
+          fi
+      - name: Checkout independent GFYProof verifier
         uses: actions/checkout@v4
         with:
-          repository: NB11B/GFYProof\n          token: \${{ secrets.GFYPROOF_READ_TOKEN }}
+          repository: NB11B/GFYProof
+          token: ${{ secrets.GFYPROOF_READ_TOKEN }}
           path: gfyproof
       - uses: actions/setup-python@v5
         with:
