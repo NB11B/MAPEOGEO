@@ -22,7 +22,7 @@ jobs:
             tests/test_gfyproof_bridge.py \
             tests/test_foundation_grounding_rigor.py \
             tests/test_gfyproof_endpoint_contracts_v03.py \
-            tests/audit/test_gfyproof_ingestion_known_gap.py
+            tests/test_gfyproof_real_demorgan_roundtrip.py
       - name: Reconstruct foundation graph
         run: python scripts/reconstruct_pipeline.py --target-stage foundation
       - name: Run Farkas semantic-binding gate
