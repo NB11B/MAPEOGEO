@@ -1,0 +1,227 @@
+{
+  "schema": "mapeogeo.external_proof_source_graph.v1",
+  "corpus_id": "ANTHROPIC_FORMAL_MATH_ETH_2026",
+  "provenance": {
+    "repository": "anthropics/formal-math",
+    "commit": "16a5ce41304fcdaea4e0be7c132e1c361dc26da5",
+    "folder": "eth",
+    "license": "Apache-2.0",
+    "semantic_grounding": "Direct inspection of README.md, MainResults.lean, Solution.lean, proof/PaperIndex.lean and eight-square source",
+    "certification_note": "FORMAL_LINKED is not KERNEL_VERIFIED. No local Lean kernel run performed. Source-index dependencies are not promoted to registered edge evidence."
+  },
+  "scope": {
+    "counting": "one finite-alphabet deterministic Mathlib FinTM2 Turing machine",
+    "conditions": "k>=1,n>=4,m>=2,all variables occur,no repeated clause lists",
+    "eth": "not (0<s_3)",
+    "logs": "base 2"
+  },
+  "nodes": [
+    {
+      "id": "eth:definition:swap",
+      "type": "SOURCE_DECLARATION",
+      "label": "Swap operator S(u⊗v)=v⊗u",
+      "expression": "S(u⊗v)=v⊗u",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/README.md",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:identity:singlet_swap",
+      "type": "SOURCE_DECLARATION",
+      "label": "Swap/singlet decomposition",
+      "expression": "S=I-2P_minus; P_minus=(I-S)/2",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/README.md",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:bound:rank_product",
+      "type": "SOURCE_DECLARATION",
+      "label": "Row/column rank product bound",
+      "expression": "rank_row*rank_col<=12^lambda",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/README.md",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:bound:recursive_exponent",
+      "type": "SOURCE_DECLARATION",
+      "label": "Contraction normalized exponent recurrence",
+      "expression": "e(9*K^16)<=0.9*e(K)+O(1/K)",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/README.md",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:identity:eight_square",
+      "type": "SOURCE_DECLARATION",
+      "label": "Eight-square sign identity and cancellation",
+      "expression": "(sum_i=1^8 a_i^2)*(sum_i=1^8 b_i^2)=sum_i=1^8 c_i(a,b)^2",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/proof/networks/Eight/SecCrossing_Identity.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:definition:kcnf",
+      "type": "FORMAL",
+      "label": "IsKCNF predicate",
+      "expression": "IsKCNF k phi := (forall C in phi, C.length <= k) and phi.Nodup",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/MainResults.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:definition:count",
+      "type": "FORMAL",
+      "label": "Exact satisfying-assignment cardinality",
+      "expression": "numSat phi := card {a : Fin n -> Bool | forall C in phi, exists l in C, a(l.index)=l.sign}",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/MainResults.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:bound:time_min",
+      "type": "FORMAL",
+      "label": "Uniform exact-count runtime",
+      "expression": "timeMin C k m n = floor(2^(C*min(k*m/sqrt(log2(m)), k^2*n*log2(log2(n))/sqrt(log2(n)))))",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/MainResults.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:theorem:main",
+      "type": "FORMAL_LINKED",
+      "label": "One finite-alphabet TM counts all admissible k-CNFs",
+      "expression": "MainResults.mainTheorem : MainResults.MainTheorem",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/Solution.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:theorem:eth_false",
+      "type": "FORMAL_LINKED",
+      "label": "Negation of ETH for 3-SAT",
+      "expression": "MainResults.ethIsFalse : MainResults.ETHIsFalse",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/Solution.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:proof:pieces",
+      "type": "FORMAL_LINKED",
+      "label": "Half pieces construction",
+      "expression": "PiecesCounted.halfPieces",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/proof/PaperIndex.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:proof:recursion",
+      "type": "FORMAL_LINKED",
+      "label": "Counted recursion",
+      "expression": "ExplicitCost.recursionSolves",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/proof/PaperIndex.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:proof:bridge",
+      "type": "FORMAL_LINKED",
+      "label": "Counted operations to padded machine",
+      "expression": "QueryMachines.Bridge.solverOfMachineLevels",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/proof/PaperIndex.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:proof:bounds",
+      "type": "FORMAL_LINKED",
+      "label": "Variable and clause bound",
+      "expression": "CountedRoute.mainTheoremHolds",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/proof/PaperIndex.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    },
+    {
+      "id": "eth:proof:wrap",
+      "type": "FORMAL_LINKED",
+      "label": "Counting implies ETH failure",
+      "expression": "Wrap.countingBoundImpliesFailureOfETH",
+      "source_locator": "https://github.com/anthropics/formal-math/blob/16a5ce41304fcdaea4e0be7c132e1c361dc26da5/eth/Solution.lean",
+      "verification_status": "UPSTREAM_REPORTED_NOT_LOCALLY_KERNEL_VERIFIED"
+    }
+  ],
+  "edges": [
+    {
+      "source": "eth:definition:swap",
+      "target": "eth:identity:singlet_swap",
+      "relation": "ALGEBRAIC_IDENTITY_BASIS",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:identity:singlet_swap",
+      "target": "eth:bound:rank_product",
+      "relation": "PROOF_MECHANISM",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:identity:eight_square",
+      "target": "eth:proof:pieces",
+      "relation": "PROOF_DEPENDENCY",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:bound:rank_product",
+      "target": "eth:bound:recursive_exponent",
+      "relation": "PROOF_MECHANISM",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:proof:pieces",
+      "target": "eth:proof:recursion",
+      "relation": "PROOF_DEPENDENCY",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:proof:recursion",
+      "target": "eth:proof:bridge",
+      "relation": "PROOF_DEPENDENCY",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:proof:bridge",
+      "target": "eth:proof:bounds",
+      "relation": "PROOF_DEPENDENCY",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:bound:time_min",
+      "target": "eth:theorem:main",
+      "relation": "STATEMENT_DEFINITION",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:definition:kcnf",
+      "target": "eth:theorem:main",
+      "relation": "STATEMENT_DEFINITION",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:definition:count",
+      "target": "eth:theorem:main",
+      "relation": "STATEMENT_DEFINITION",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:proof:bounds",
+      "target": "eth:theorem:main",
+      "relation": "PROOF_DEPENDENCY",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:theorem:main",
+      "target": "eth:proof:wrap",
+      "relation": "PROOF_DEPENDENCY",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    },
+    {
+      "source": "eth:proof:wrap",
+      "target": "eth:theorem:eth_false",
+      "relation": "PROOF_DEPENDENCY",
+      "status": "SOURCE_INDEX_OR_MATHEMATICAL_RELATION_UNCERTIFIED"
+    }
+  ],
+  "tests": {
+    "unique_node_ids": true,
+    "closed_edge_endpoints": true,
+    "requires_upstream_commit": true,
+    "forbid_kernel_verified_without_evidence": true
+  },
+  "integration_status": "SOURCE_GRAPH_STAGED_NOT_MERGED_INTO_SEALED_REGISTRY"
+}

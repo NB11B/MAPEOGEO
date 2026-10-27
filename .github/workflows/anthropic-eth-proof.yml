@@ -1,0 +1,46 @@
+name: Anthropic ETH pinned Lean proof verification
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/anthropic-eth-proof.yml"
+      - "formal/external_sources/anthropic_eth_2026_graph.json"
+      - "scripts/external_sources/validate_anthropic_eth.py"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  graph-and-lean:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate staged MAPEOGEO source graph
+        run: python3 scripts/external_sources/validate_anthropic_eth.py
+      - name: Checkout immutable Anthropic source
+        run: |
+          git clone --filter=blob:none https://github.com/anthropics/formal-math.git upstream-formal-math
+          cd upstream-formal-math
+          git checkout --detach 16a5ce41304fcdaea4e0be7c132e1c361dc26da5
+          test "$(git rev-parse HEAD)" = "16a5ce41304fcdaea4e0be7c132e1c361dc26da5"
+      - name: Install Lean toolchain via elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch mathlib cache
+        working-directory: upstream-formal-math/eth
+        run: lake exe cache get
+      - name: Kernel-check proof
+        working-directory: upstream-formal-math/eth
+        run: lake build
+      - name: Print headline axioms
+        working-directory: upstream-formal-math/eth
+        run: |
+          lake env lean scripts/PrintAxioms.lean | tee "$RUNNER_TEMP/eth_axioms.txt"
+          grep -F "'MainResults.ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]" "$RUNNER_TEMP/eth_axioms.txt"
+          grep -F "'MainResults.mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]" "$RUNNER_TEMP/eth_axioms.txt"
+      - name: Independent comparator and nanoda verification
+        working-directory: upstream-formal-math/eth
+        run: bash ../.github/scripts/comparator-check.sh
