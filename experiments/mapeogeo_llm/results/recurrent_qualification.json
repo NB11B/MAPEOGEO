@@ -1,0 +1,30 @@
+{
+  "R1_L4": {
+    "exact_trace_rate": 1.0,
+    "exact_answer_rate": 1.0,
+    "fault_rate": 0.0
+  },
+  "R2_L5_8": {
+    "exact_trace_rate": 1.0,
+    "exact_answer_rate": 1.0,
+    "fault_rate": 0.0
+  },
+  "R3_Reuse": {
+    "exact_trace_rate": 1.0,
+    "exact_answer_rate": 1.0,
+    "fault_rate": 0.0
+  },
+  "R4_Nested": {
+    "exact_trace_rate": 1.0,
+    "exact_answer_rate": 1.0,
+    "fault_rate": 0.0
+  },
+  "R5_Preconditions": {
+    "rejection_rate": 1.0,
+    "total": 6
+  },
+  "R6_GeoPauli": {
+    "agreement_rate": 1.0,
+    "total": 64
+  }
+}
