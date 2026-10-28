@@ -1,0 +1,15 @@
+{
+  "schema": "mapeogeo.graph.snapshot",
+  "schema_version": 1,
+  "snapshot_id": "task2-fixture-v1",
+  "state_hash": "0f486e1e3acd09099aa1dece4560e278f8f879e07a43142f1bd28e4cb930e2b3",
+  "nodes": [
+    {"node_id": "candidate", "kind": "QUERY", "role": "ATOMIC_JUDGMENT", "scope_hash": "scope-candidate", "metadata": {"status": "candidate"}},
+    {"node_id": "result", "kind": "DECIDE", "role": "POLICY_DECISION", "scope_hash": "scope-result", "metadata": {}},
+    {"node_id": "theorem", "kind": "COMPOSE", "role": "DETERMINISTIC_COMPOSE", "scope_hash": "scope-theorem", "metadata": {}}
+  ],
+  "edges": [
+    {"source_id": "candidate", "target_id": "result", "relation": "CANDIDATE_REPRESENTS", "port_binding": "default", "contract": null, "metadata": {}},
+    {"source_id": "result", "target_id": "theorem", "relation": "EQUIVALENT_TO", "port_binding": "proof", "contract": {"contract_id": "contract-eq", "required_relation": "EQUIVALENT_TO", "is_certified": true, "certificate_id": "metadata-only-certificate"}, "metadata": {}}
+  ]
+}

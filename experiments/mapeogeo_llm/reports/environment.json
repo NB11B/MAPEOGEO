@@ -1,0 +1,130 @@
+{
+  "schema": "mapeogeo.llm.environment.v1",
+  "date": "2026-10-28",
+  "python": "3.13.11 (tags/v3.13.11:6278944, Dec  5 2025, 16:26:58) [MSC v.1944 64 bit (AMD64)]",
+  "executable": "C:\\Users\\nateb\\Documents\\Codex\\2026-10-28\\mapeogeo-llm-full-engineering-handoff-for\\work\\.venv\\Scripts\\python.exe",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "torch": "2.11.0.dev20260127+cu128",
+  "cuda": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+  "vram_bytes": 8546484224,
+  "handoff_vram_discrepancy": "Handoff says 12 GB; observed physical GPU exposes 8546484224 bytes.",
+  "packages": {
+    "torch": "2.11.0.dev20260127+cu128",
+    "numpy": "2.4.6",
+    "sentencepiece": "0.2.1",
+    "pytest": "9.0.2",
+    "PyYAML": "6.0.3"
+  },
+  "git_head": {
+    "argv": [
+      "git",
+      "rev-parse",
+      "HEAD"
+    ],
+    "returncode": 0,
+    "stdout": "28e56892f7965805c9689c3b423cdbb9d399a96e",
+    "stderr": ""
+  },
+  "branch": {
+    "argv": [
+      "git",
+      "branch",
+      "--show-current"
+    ],
+    "returncode": 0,
+    "stdout": "experiment/mapeogeo-llm-recurrent",
+    "stderr": ""
+  },
+  "baseline_branch": {
+    "argv": [
+      "git",
+      "rev-parse",
+      "experiment/mapeogeo-llm-compositional"
+    ],
+    "returncode": 0,
+    "stdout": "28e56892f7965805c9689c3b423cdbb9d399a96e",
+    "stderr": ""
+  },
+  "dependencies": {
+    "geo": {
+      "path": "C:\\Users\\nateb\\Documents\\GeometricElementaryOperators",
+      "head": {
+        "argv": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "returncode": 0,
+        "stdout": "c590bd7a01f316971722053faf8626458958f820",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "status",
+          "--short"
+        ],
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    "graph": {
+      "path": "C:\\Users\\nateb\\Documents\\MAPEOGEOv2",
+      "head": {
+        "argv": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "returncode": 0,
+        "stdout": "64a36dce10000e47bc4c651e7b92f14e28c68652",
+        "stderr": ""
+      },
+      "status": {
+        "argv": [
+          "git",
+          "status",
+          "--short"
+        ],
+        "returncode": 0,
+        "stdout": "?? FLINT_HILLS_FORMAL_CERTIFICATION_REPORT.md\n?? artifacts/flint_hills_certification/",
+        "stderr": ""
+      }
+    }
+  },
+  "preserved_source_sha256": {
+    "experiments\\mapeogeo_llm\\operators.py": "bd3ec9b573bcdf2bdb6b239b52251e1cc5972a82dfaa3db0875ad38888cebf62",
+    "experiments\\mapeogeo_llm\\compositional.py": "0582bbd1570cd7ea002980f5d8de066c8335cbf5a63927e389d1d40c52bf3db1",
+    "experiments\\mapeogeo_llm\\tests\\test_recurrent.py": "62b8d1ceb2d19fab886eba1dc86d38c7a77cb7004d3063c451b358a283c1ad57",
+    "experiments\\mapeogeo_llm\\recurrent\\machine.py": "8fde6ce67d7799c165d4a62d9183e8d6cb27950c18864382acdb43702eaead33",
+    "experiments\\mapeogeo_llm\\recurrent\\policy.py": "cdfe1ea366a36624b8d408253f1a9e3a780c71e8cb1b5d797e6d98f16ac204df",
+    "experiments\\mapeogeo_llm\\recurrent\\qualification.py": "173403101bf739fc7b905f34b72289270c8f0f84e98c2fa5fba1ccee9b8c37ff"
+  },
+  "baseline_validation": {
+    "existing_tests": {
+      "result": "PASS",
+      "passed": 18,
+      "seconds": 2.82,
+      "command": "python -m pytest -q -p no:cacheprovider experiments/mapeogeo_llm/tests experiments/mapeogeo_llm/pilot/test_pilot.py"
+    },
+    "smoke": {
+      "eo_exact_pairs": 393216,
+      "learned_program_exact_each_split": "0/32",
+      "epochs": 1,
+      "seed": 0,
+      "scope": "execution smoke, not historic accuracy reproduction"
+    },
+    "full_baseline": "running; consult baseline_reproduction.json when complete"
+  },
+  "lean": {
+    "argv": [
+      "lean",
+      "--version"
+    ],
+    "returncode": 0,
+    "stdout": "Lean (version 4.33.1, x86_64-w64-windows-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "stderr": ""
+  }
+}
