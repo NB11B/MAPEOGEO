@@ -8,9 +8,25 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      PYTHONPATH: ${{ github.workspace }}/gfyproof:${{ github.workspace }}
     steps:
       - name: Checkout MAPEOGEO
         uses: actions/checkout@v4
+      - name: Require GFYProof read credential
+        env:
+          GFYPROOF_READ_TOKEN: ${{ secrets.GFYPROOF_READ_TOKEN }}
+        run: |
+          if [ -z "$GFYPROOF_READ_TOKEN" ]; then
+            echo "::error::Missing GFYPROOF_READ_TOKEN with read access to NB11B/GFYProof"
+            exit 1
+          fi
+      - name: Checkout independent GFYProof verifier
+        uses: actions/checkout@v4
+        with:
+          repository: NB11B/GFYProof
+          token: ${{ secrets.GFYPROOF_READ_TOKEN }}
+          path: gfyproof
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -22,7 +38,7 @@ jobs:
             tests/test_gfyproof_bridge.py \
             tests/test_foundation_grounding_rigor.py \
             tests/test_gfyproof_endpoint_contracts_v03.py \
-            tests/audit/test_gfyproof_ingestion_known_gap.py
+            tests/test_gfyproof_real_demorgan_roundtrip.py
       - name: Reconstruct foundation graph
         run: python scripts/reconstruct_pipeline.py --target-stage foundation
       - name: Run Farkas semantic-binding gate

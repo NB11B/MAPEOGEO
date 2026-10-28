@@ -245,6 +245,7 @@ def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
         "eligible_edges"
     ] == 0
 
+    payload = _robdd_demorgan_payload()
     certificate = build_edge_certificate(
         edge_id=(
             f"e:rep:{DE_MORGAN_ID}:{FOUNDATION_ID}"
@@ -257,7 +258,7 @@ def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
             "independent ROBDD canonical equivalence"
         ),
         verifier_semantic_id="GFY.ROBDD_EQUIVALENCE.v1",
-        proof_payload=_robdd_demorgan_payload(),
+        proof_payload=payload,
         producer_commit=GFYPROOF_COMMIT,
         artifact_ref=(
             "MAPEOGEO:"
@@ -269,6 +270,7 @@ def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
         graph,
         registry,
         certificate,
+        proof_payload=payload,
     )
 
     promoted = next(
