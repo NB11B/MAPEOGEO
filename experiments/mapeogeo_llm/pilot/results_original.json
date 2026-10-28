@@ -1,0 +1,46 @@
+{
+  "compiled_operator_tests": {
+    "add": 65536,
+    "xor": 65536,
+    "eq": 65536,
+    "geo": 64,
+    "associativity": 512
+  },
+  "training": {
+    "train_examples": 5668,
+    "test_examples": 1420,
+    "controller_accuracy": 1.0,
+    "confusion": [
+      [
+        355,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        355,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        355,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        355
+      ]
+    ]
+  },
+  "integration": {
+    "correct_end_to_end": 1420,
+    "total_end_to_end": 1420,
+    "end_to_end_rate": 1.0
+  },
+  "scope": "CPU prototype, 8-bit modular logic and Clifford(3,0) basis products; no Lean or Spectral LM integration"
+}
