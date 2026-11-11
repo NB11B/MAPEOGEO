@@ -34,3 +34,13 @@ jobs:
         run: |
           python -m pytest -q \
             tests/test_gfyproof_farkas_endpoint_contracts.py
+      - name: Run supporting repository regression tests
+        run: |
+          python -m pytest -q \
+            tests/test_intelligence_import_boundary.py \
+            tests/test_c10_scale_benchmark.py \
+            tests/test_c12_cli_interfaces.py \
+            tests/test_pinch_intake_v0_11.py \
+            tests/test_mathematical_integrity_provenance.py \
+            tests/test_mathematical_integrity_amendments.py \
+            tests/test_current_integrity_reporting.py
