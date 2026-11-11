@@ -39,6 +39,46 @@ Actual pinned Anthropic Lean compilation, axiom inspection, comparator and
 nanoda checks run in `.github/workflows/anthropic-eth-proof.yml`. Passing the
 Python orchestration tests must never be described as passing those checks.
 
+The v0.11 intake workflow in `.github/workflows/math-intake-v0-11.yml`
+runs unrestricted root `pytest` and real source/proof verification as separate,
+independent jobs. Python discovery failures stay visible and fail qualification,
+but cannot prevent the separate source/proof job from starting. That job builds
+Lean and runs leanchecker before downloading the source and regenerating
+v0.6–v0.11 evidence. After v0.9 regeneration and validation, the source-binding
+audit receives that exact fresh graph via `--graph`; an existence check prevents
+the auditor from falling back to an older checked-in graph. This audit checks
+graph identities, detector states and dependencies, not the PDF argument that its
+CLI ignores. All audits and downstream validators remain required and stop the
+job on failure; moving Lean earlier does not certify those gates. The original
+`math-intake-v0-11` check succeeds only when **both** jobs succeed; failure,
+cancellation or a skipped dependency does not qualify evidence. Preserve that
+aggregate check in branch protection.
+
+Only the proof job builds Lean. It transfers derived v0.11 output through a
+one-day `mapeogeo-pinch-intake-v0.11-unqualified-<run attempt>` staging artifact.
+This staging artifact can exist after a Python failure and is **not qualified
+workflow evidence**. The aggregate downloads the exact artifact ID emitted by
+the successful proof job, so rerunning only failed jobs does not accidentally
+look for evidence under a new run-attempt name. Missing or malformed artifact IDs
+fail qualification rather than letting the downloader select unrelated artifacts.
+The original `mapeogeo-pinch-intake-v0.11` artifact is
+published only after both jobs pass. This transfer avoids a second expensive
+proof build; it uploads neither the transient source PDF nor the Lean build tree
+and does not rewrite generated certificate contents or hashes.
+
+The legacy best-effort leanchecker log-collection command is unchanged. Its log
+is not an additional trusted validation; the required pinned Lean action still
+performs the build and independent checker before downstream evidence generation.
+The workflow regression tests inspect job dependencies, preserved scientific
+commands and artifact routing, and execute the real aggregate shell gate for all
+success/failure/cancelled/skipped/missing-result combinations. They are included
+in the GFYProof supporting regressions and can be run independently:
+
+```bash
+python -m pip install pytest 'pyyaml>=6,<7'
+python -m pytest -q tests/test_math_intake_workflow.py
+```
+
 The integrity report is generated rather than edited by hand:
 
 ```bash

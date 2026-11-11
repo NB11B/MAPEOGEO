@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies
-        run: python -m pip install --upgrade pip pytest numpy pandas sympy scipy pymupdf
+        run: python -m pip install --upgrade pip pytest numpy pandas sympy scipy pymupdf "pyyaml>=6,<7"
       - name: Run independent local replay and ingestion audit tests
         run: |
           python -m pytest -q \
@@ -41,6 +41,7 @@ jobs:
             tests/test_c10_scale_benchmark.py \
             tests/test_c12_cli_interfaces.py \
             tests/test_pinch_intake_v0_11.py \
+            tests/test_math_intake_workflow.py \
             tests/test_mathematical_integrity_provenance.py \
             tests/test_mathematical_integrity_amendments.py \
             tests/test_current_integrity_reporting.py
