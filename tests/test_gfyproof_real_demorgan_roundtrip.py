@@ -1,15 +1,15 @@
 """Real cross-repository De Morgan bridge round trip.
 
 This uses the actual MAPEOGEO foundation declaration generator and alignment
-metadata, then calls the GFYProof E091 bridge implementation from the sibling
-checkout supplied by CI.
+metadata, then replays a certificate locally. An optional second case checks the real
+GFYProof producer when its sibling checkout is available.
 """
 
 from __future__ import annotations
 
 import json
 from pathlib import Path
-import unittest
+import pytest
 
 try:
     from math2.bridge.mapeogeo import build_edge_certificate
@@ -18,7 +18,10 @@ except ImportError:
     build_edge_certificate = None
     HAS_MATH2 = False
 
-from mapeogeo.gfyproof_bridge import apply_gfyproof_certificate
+from mapeogeo.gfyproof_bridge import (
+    apply_gfyproof_certificate, canonical_sha256, claim_contract_digest,
+)
+from scripts.compute_foundation_depth import node_identity_sha256
 from scripts.compute_foundation_depth import compute_foundation_metrics
 from scripts.foundation_contracts import build_foundation_contract_evidence
 from scripts.foundation_intake import (
@@ -211,8 +214,38 @@ def _real_foundation_slice() -> tuple[dict, dict, dict]:
     )
 
 
-@unittest.skipIf(not HAS_MATH2, "math2 bridge not available in this environment")
-def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
+def _local_fixture_certificate(**kwargs) -> dict:
+    """A synthetic envelope over real endpoints; not an authenticated producer."""
+    source, target = kwargs["source_node"], kwargs["target_node"]
+    claim = {
+        "edge_type": kwargs["edge_type"],
+        "source_id": source["id"], "target_id": target["id"],
+        "source_identity_sha256": node_identity_sha256(source),
+        "target_identity_sha256": node_identity_sha256(target),
+        "claim_scope": kwargs["claim_scope"],
+    }
+    body = {
+        **claim, "schema": "mapeogeo.gfyproof.edge-certificate.v2",
+        "edge_id": kwargs["edge_id"],
+        "claim_contract_digest": claim_contract_digest(**claim),
+        "verifier_semantic_id": kwargs["verifier_semantic_id"],
+        "verifier_scope": "finite Boolean equivalence fixture",
+        "implementation_provenance": {"class": "local integration fixture"},
+        "hardware_coverage": {"status": "HARDWARE_NOT_BOUND"},
+        "proof_payload_digest": canonical_sha256(kwargs["proof_payload"], domain="gfyproof-mapeogeo-semantic-proof-payload-v2"),
+        "proof_verdict": "PASS", "promotion_class": "PROOF_ELIGIBLE",
+        "artifact_ref": kwargs["artifact_ref"],
+        "producer": {"repository": "NB11B/GFYProof", "commit": kwargs["producer_commit"],
+                     "verifier_id": "GFYPROOF_MAPEOGEO_SEMANTIC_BRIDGE_V2"},
+    }
+    return {**body, "certificate_digest": canonical_sha256(body, domain="gfyproof-mapeogeo-semantic-edge-certificate-v2")}
+
+
+@pytest.mark.parametrize("producer", ["local_fixture", "external_gfyproof"])
+def test_real_demorgan_round_trip_promotes_only_the_supported_edge(producer: str) -> None:
+    if producer == "external_gfyproof" and not HAS_MATH2:
+        pytest.skip("Optional external GFYProof producer is not installed; local replay is tested separately")
+    make_certificate = build_edge_certificate if producer == "external_gfyproof" else _local_fixture_certificate
     (
         graph,
         source_node,
@@ -245,7 +278,7 @@ def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
         "eligible_edges"
     ] == 0
 
-    certificate = build_edge_certificate(
+    certificate = make_certificate(
         edge_id=(
             f"e:rep:{DE_MORGAN_ID}:{FOUNDATION_ID}"
         ),
@@ -269,6 +302,7 @@ def test_real_demorgan_round_trip_promotes_only_the_supported_edge() -> None:
         graph,
         registry,
         certificate,
+        proof_payload=_robdd_demorgan_payload(),
     )
 
     promoted = next(

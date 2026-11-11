@@ -157,10 +157,10 @@ def _statement_hash(
     return None
 
 
-def _shared_endpoint_contract_roles(
+def _shared_endpoint_contract_pairs(
     source: Mapping[str, Any],
     target: Mapping[str, Any],
-) -> tuple[str, str] | None:
+) -> list[tuple[Mapping[str, Any], Mapping[str, Any]]]:
     def records(node: Mapping[str, Any]) -> list[Mapping[str, Any]]:
         attrs = node.get("attributes", {})
         if not isinstance(attrs, dict):
@@ -170,17 +170,58 @@ def _shared_endpoint_contract_roles(
             return []
         return [item for item in raw if isinstance(item, dict)]
 
+    pairs = []
     for left in records(source):
         for right in records(target):
             if (
-                left.get("binding_mode") == "ENDPOINT_CONTRACT_BOUND"
+                isinstance(left.get("contract_id"), str)
+                and bool(left["contract_id"].strip())
+                and isinstance(left.get("contract_digest"), str)
+                and SHA256_RE.fullmatch(left["contract_digest"])
+                and isinstance(left.get("semantic_id"), str)
+                and left["semantic_id"] in SEMANTIC_VERIFIER_EDGE_TYPES
+                and left.get("binding_mode") == "ENDPOINT_CONTRACT_BOUND"
                 and right.get("binding_mode") == "ENDPOINT_CONTRACT_BOUND"
                 and left.get("contract_id") == right.get("contract_id")
                 and left.get("contract_digest") == right.get("contract_digest")
                 and left.get("semantic_id") == right.get("semantic_id")
             ):
-                return str(left.get("role", "")), str(right.get("role", ""))
-    return None
+                pairs.append((left, right))
+    return pairs
+
+
+def _shared_endpoint_contract_roles(
+    source: Mapping[str, Any], target: Mapping[str, Any],
+) -> set[tuple[str, str]]:
+    return {(str(left.get("role", "")), str(right.get("role", "")))
+            for left, right in _shared_endpoint_contract_pairs(source, target)}
+
+
+def _validate_contract_payload_binding(
+    source: Mapping[str, Any], target: Mapping[str, Any],
+    edge_type: str, semantic_id: str, payload: Mapping[str, Any],
+) -> None:
+    """An existing endpoint contract cannot be replaced by an unrelated true proof."""
+    has_contracts = any(node.get("attributes", {}).get("semantic_contracts")
+                        for node in (source, target))
+    if not has_contracts:
+        # Legacy source-hash bindings retain their existing, narrower trust model.
+        return
+    allowed_roles = {
+        "REPRESENTS": {("eo", "object"), ("geo", "object")},
+        "SAME_SEMANTICS": {("eo", "geo"), ("geo", "eo")},
+        "UPWARD_FOUNDATION_DEPENDENCY": {("premise", "conclusion")},
+        "PROOF_DEPENDENCY": {("premise", "conclusion")},
+    }.get(edge_type, set())
+    payload_sha = canonical_sha256(payload, domain="mapeogeo-endpoint-semantic-payload-v1")
+    for left, right in _shared_endpoint_contract_pairs(source, target):
+        if ((left.get("role"), right.get("role")) in allowed_roles
+                and left["semantic_id"] == semantic_id
+                and all(record.get("semantic_payload") == payload
+                        and record.get("semantic_payload_sha256") == payload_sha
+                        for record in (left, right))):
+            return
+    raise GFYProofBridgeError("proof payload does not match endpoint semantic contract")
 
 
 def _validate_endpoint_semantics(
@@ -197,7 +238,7 @@ def _validate_endpoint_semantics(
 
     if edge_type == "REPRESENTS":
         roles = _shared_endpoint_contract_roles(source, target)
-        if roles in {("eo", "object"), ("geo", "object")}:
+        if roles & {("eo", "object"), ("geo", "object")}:
             return
 
         if source_type not in {
@@ -226,7 +267,7 @@ def _validate_endpoint_semantics(
 
     elif edge_type == "SAME_SEMANTICS":
         roles = _shared_endpoint_contract_roles(source, target)
-        if roles is not None and set(roles) == {"eo", "geo"}:
+        if roles & {("eo", "geo"), ("geo", "eo")}:
             return
 
         if (
@@ -559,14 +600,24 @@ def validate_gfyproof_certificate(
             "proof payload digest mismatch with supplied proof payload"
         )
 
-    # Independent mathematical verification replay:
-    # MAPEOGEO independently executes the decision procedure on the supplied payload.
-    try:
-        from math2.bridge.mapeogeo import verify_proof_payload
-    except ImportError as exc:
-        raise GFYProofBridgeError(
-            "GFYProof verifier engine is required for independent proof replay"
-        ) from exc
+    _validate_contract_payload_binding(
+        source_node, target_node, edge_type, verifier_semantic_id, actual_payload,
+    )
+
+    # CI can replay the documented finite families from this repository alone.
+    # Families outside that bounded subset still require the external engine.
+    from mapeogeo.gfyproof_replay import LOCAL_SEMANTIC_IDS, verify_proof_payload
+
+    replay_backend = "MAPEOGEO_LOCAL_FINITE_V1"
+    if verifier_semantic_id not in LOCAL_SEMANTIC_IDS:
+        replay_backend = "GFYPROOF_EXTERNAL"
+        try:
+            from math2.bridge.mapeogeo import verify_proof_payload
+        except ImportError as exc:
+            raise GFYProofBridgeError(
+                "GFYProof verifier engine is required for independent proof replay "
+                "of this semantic family"
+            ) from exc
 
     if not verify_proof_payload(verifier_semantic_id, actual_payload):
         raise GFYProofBridgeError(
@@ -580,6 +631,7 @@ def validate_gfyproof_certificate(
     validated[
         "certificate_digest"
     ] = digest
+    validated["replay_backend"] = replay_backend
     return validated
 
 
@@ -703,6 +755,7 @@ def materialize_gfyproof_edge(
         ],
         "endpoint_identity_sha256": endpoint_hashes,
         "external_verifier": "GFYPROOF",
+        "gfyproof_replay_backend": validated["replay_backend"],
         "gfyproof_certificate_digest": certificate_digest,
         "gfyproof_verifier_semantic_id": validated[
             "verifier_semantic_id"
@@ -788,6 +841,7 @@ def materialize_gfyproof_edge(
         "type": "EXECUTABLE_EVIDENCE",
         "attributes": {
             "verifier": "GFYPROOF",
+            "replay_backend": validated["replay_backend"],
             "verifier_id": VERIFIER_ID,
             "certificate_digest": certificate_digest,
             "verifier_semantic_id": validated[
@@ -886,10 +940,13 @@ def _merge_promotable_existing_edge(
             )
 
     if str(attrs.get("evidence_status", "")).upper() == "VERIFIED":
-        if existing != verified:
+        verified_attrs = verified.get("attributes", {})
+        if any(attrs.get(key) != value for key, value in verified_attrs.items()):
             raise GFYProofBridgeError(
                 "existing edge is already verified under different evidence"
             )
+        # Candidate metadata survives first promotion and must not make an
+        # otherwise identical certificate non-idempotent on the second call.
         return dict(existing)
 
     merged = dict(existing)
