@@ -55,7 +55,28 @@ def contract_convex():
    if eo!=geo:return False,z
  return True,z
 
+def validate_positive_1d_lp_witness(a, b, c, x, y):
+ """Check exact rational witnesses for max c*x with a_i*x <= b_i, x >= 0.
+
+ Scope: nonempty positive a, nonnegative b and c, one primal variable.
+ Feasible primal/dual witnesses with equal objectives certify this instance
+ by weak duality, not the general four-case linear-programming theorem.
+ """
+ if not a or len(a) != len(b) or len(a) != len(y):
+  return False
+ values = (*a, *b, c, x, *y)
+ if any(isinstance(v, bool) or not isinstance(v, (int, Fraction)) for v in values):
+  return False
+ if any(ai <= 0 for ai in a) or any(bi < 0 for bi in b) or c < 0:
+  return False
+ return (x >= 0
+         and all(ai*x <= bi for ai, bi in zip(a, b))
+         and all(yi >= 0 for yi in y)
+         and sum(ai*yi for ai, yi in zip(a, y)) >= c
+         and c*x == sum(bi*yi for bi, yi in zip(b, y)))
+
 def contract_lp():
+ """Check 2,457 positive one-variable rational LP instances, not general duality."""
  vals=(1,2,3); z=0
  def prod(k,p=()):
   if not k: yield p
@@ -65,8 +86,8 @@ def contract_lp():
   for a in prod(m):
    for b in prod(m):
     for c in vals:
-     ratios=[Fraction(bi,ai) for ai,bi in zip(a,b)]; j=min(range(m),key=ratios.__getitem__); p=Fraction(c)*ratios[j]; y=Fraction(c,a[j]); d=Fraction(b[j])*y; z+=1
-     if p!=d:return False,z
+     ratios=[Fraction(bi,ai) for ai,bi in zip(a,b)]; j=min(range(m),key=ratios.__getitem__); x=ratios[j]; y=[Fraction(0) for _ in range(m)]; y[j]=Fraction(c,a[j]); z+=1
+     if not validate_positive_1d_lp_witness(a,b,c,x,y):return False,z
  return True,z
 
 def contract_gauss():

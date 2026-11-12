@@ -43,6 +43,8 @@ jobs:
             tests/test_pinch_intake_v0_11.py \
             tests/test_math_intake_workflow.py \
             tests/test_source_pdf_identity.py \
+            tests/test_lp_contract.py \
+            tests/test_lp_pagination_binding.py \
             tests/test_mathematical_integrity_provenance.py \
             tests/test_mathematical_integrity_amendments.py \
             tests/test_current_integrity_reporting.py
