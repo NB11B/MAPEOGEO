@@ -130,3 +130,28 @@ checks and an independent countercalculation. See its README and
 `ngc_geometry_lab/docs/RELEASE_VERIFICATION.md`. Do not replace pinned vendor
 sources, globally redirect imports or broadly suppress tests to manufacture a
 green monolithic pytest run.
+
+## Accepted source identity and upstream drift
+
+The v0.11 replay now checks the downloaded PDF against the SHA-256 and byte
+count in `evidence/v0_7_acceptance_manifest.json` before regenerating v0.6.
+A mismatch stops reconstruction explicitly; it does not change the accepted
+statement bindings or lower the four-certificate threshold. Real Lean checking
+still runs independently before source acquisition.
+
+On 2026-11-12, the upstream URL served SHA-256
+`9c7574c8880b463a113c332ecc80b759d700f8dfe9f6d2e0db6cfbee9ef52af2`
+(25,323,685 bytes, 2,238 pages), rather than accepted SHA-256
+`a1f91e337445851d27f2f4adb61e8ccc0f8fac941f9e0254ad94ba6b91c7c49b`
+(24,629,575 bytes, 2,204 pages). Fresh extraction found that Theorem 47.9's
+statement hash differs from its accepted binding. The other three target
+statement hashes match; all four recognizers and executable contracts pass.
+That explains the three-of-four certificate result without treating it as a
+mathematical counterexample. The guard deliberately does not accept the new
+source merely because its bounded contract passes.
+
+Reproducing the accepted campaign requires the exact original source bytes.
+Using a new edition requires a separate reviewed requalification of source
+bindings and downstream evidence; do not overwrite historical acceptance
+manifests or substitute hashes to obtain a green run. No source PDF is committed
+or uploaded by this change.

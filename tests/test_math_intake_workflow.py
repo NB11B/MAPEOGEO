@@ -68,6 +68,7 @@ def test_python_and_proof_jobs_are_independent_and_fail_closed(jobs):
 # Scientific thresholds and graph/certificate connections are qualification
 # boundaries: moving jobs must not change these commands or their order.
 PROOF_COMMANDS = [
+    'python scripts/check_source_pdf_identity.py "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" --manifest evidence/v0_7_acceptance_manifest.json',
     '''python scripts/independent_dual_view_v0_6.py "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
        --base-graph data/gallier_quaintance_graph_v0_3.json.gz --out-dir "$RUNNER_TEMP/mapeogeo-v06"
        --min-declarations 1355 --min-definitions 463 --min-proofs 609 --min-resolved-deps 638
@@ -252,3 +253,20 @@ def test_workflow_regression_runs_in_ci_with_declared_parser_dependency(workflow
     for job in (jobs["python-tests"], bridge["jobs"]["verify"]):
         assert any(argv[:4] == ["python", "-m", "pip", "install"] and
                    any(arg.lower().startswith("pyyaml") for arg in argv) for _, argv in commands(job))
+
+
+def test_source_identity_gate_is_required_before_reconstruction(workflow, jobs):
+    proof = jobs['proof-verification']
+    guard_index, guard = next((i, s) for i, s in enumerate(proof['steps'])
+        if s.get('name') == 'Require accepted source PDF identity')
+    download_index = next(i for i,s in enumerate(proof['steps']) if s.get('name') == 'Download reference PDF transiently')
+    reconstruction_index = next(i for i,s in enumerate(proof['steps']) if s.get('name') == 'Regenerate accepted v0.6 representation')
+    assert download_index < guard_index < reconstruction_index
+    assert 'if' not in guard and 'continue-on-error' not in guard
+    assert list(commands({'steps':[guard]})) == [(0, ['python', 'scripts/check_source_pdf_identity.py',
+        '$RUNNER_TEMP/mapeogeo-source/math-deep.pdf', '--manifest', 'evidence/v0_7_acceptance_manifest.json'])]
+    for event in ('push', 'pull_request'):
+        for path in ('scripts/check_source_pdf_identity.py','tests/test_source_pdf_identity.py','evidence/v0_7_acceptance_manifest.json'):
+            assert path in workflow['on'][event]['paths']
+    bridge = yaml.load((ROOT/'.github/workflows/gfyproof_bridge_v1.yml').read_text(), Loader=yaml.BaseLoader)
+    assert any('tests/test_source_pdf_identity.py' in argv for _,argv in commands(bridge['jobs']['verify']))

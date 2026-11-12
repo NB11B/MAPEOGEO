@@ -14,6 +14,9 @@ on:
       - "tests/test_pinch_source_audit_v0_11.py"
       - "tests/test_pinch_intake_v0_11.py"
       - "tests/test_math_intake_workflow.py"
+      - "scripts/check_source_pdf_identity.py"
+      - "tests/test_source_pdf_identity.py"
+      - "evidence/v0_7_acceptance_manifest.json"
       - "requirements-map-goal-v0-7.txt"
       - "requirements-pct-v0-10.txt"
       - "ngc_geometry_lab/requirements.txt"
@@ -35,6 +38,9 @@ on:
       - "tests/test_pinch_source_audit_v0_11.py"
       - "tests/test_pinch_intake_v0_11.py"
       - "tests/test_math_intake_workflow.py"
+      - "scripts/check_source_pdf_identity.py"
+      - "tests/test_source_pdf_identity.py"
+      - "evidence/v0_7_acceptance_manifest.json"
       - "requirements-map-goal-v0-7.txt"
       - "requirements-pct-v0-10.txt"
       - "ngc_geometry_lab/requirements.txt"
@@ -129,6 +135,12 @@ jobs:
             --connect-timeout 20 --max-time 180 \
             "$SOURCE_URL" -o "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
           test -s "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
+
+      - name: Require accepted source PDF identity
+        run: |
+          python scripts/check_source_pdf_identity.py \
+            "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" \
+            --manifest evidence/v0_7_acceptance_manifest.json
 
       - name: Regenerate accepted v0.6 representation
         run: |
