@@ -54,6 +54,13 @@ job on failure; moving Lean earlier does not certify those gates. The original
 cancellation or a skipped dependency does not qualify evidence. Preserve that
 aggregate check in branch protection.
 
+The pinned Lean action alone sets `LEAN_NUM_THREADS: "1"` to reduce concurrent
+module replay. This is a resource-pressure experiment after repeated hosted
+runner shutdowns, not a proven fix or evidence of out-of-memory failure. The
+checker, complete default project module discovery, required source/proof checks,
+and fail-closed qualification are unchanged. Local workflow regressions do not
+establish that hosted Lean verification now completes.
+
 Only the proof job builds Lean. It transfers derived v0.11 output through a
 one-day `mapeogeo-pinch-intake-v0.11-unqualified-<run attempt>` staging artifact.
 This staging artifact can exist after a Python failure and is **not qualified
@@ -68,7 +75,9 @@ and does not rewrite generated certificate contents or hashes.
 
 The legacy best-effort leanchecker log-collection command is unchanged. Its log
 is not an additional trusted validation; the required pinned Lean action still
-performs the build and independent checker before downstream evidence generation.
+performs the build and kernel-replay checker before downstream evidence generation.
+Lean's bundled leanchecker detects environment manipulation; it is not an external
+verifier.
 The workflow regression tests inspect job dependencies, preserved scientific
 commands and artifact routing, and execute the real aggregate shell gate for all
 success/failure/cancelled/skipped/missing-result combinations. They are included

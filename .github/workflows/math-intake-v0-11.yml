@@ -111,6 +111,8 @@ jobs:
       # Build first so source download/audit failures cannot hide real Lean results.
       - name: Install Lean, build all formalizations, and run leanchecker
         uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9 # v1.5.0
+        env:
+          LEAN_NUM_THREADS: "1"
         with:
           auto-config: false
           build: true

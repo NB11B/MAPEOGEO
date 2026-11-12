@@ -110,6 +110,15 @@ def test_proof_job_preserves_scientific_checks_and_real_checker_order(jobs, work
         assert "||" not in proof["steps"][index]["run"]
     [(lean_index, lean)] = action_steps(proof, "leanprover/lean-action")
     assert lean["uses"] == "leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9"
+    # Limit concurrency only: the unchanged inputs below keep the full default
+    # project build/module discovery and the same required leanchecker.
+    assert lean.get("env") == {"LEAN_NUM_THREADS": "1"}
+    assert "LEAN_NUM_THREADS" not in workflow.get("env", {})
+    for job in jobs.values():
+        assert "LEAN_NUM_THREADS" not in job.get("env", {})
+        for step in job["steps"]:
+            if step is not lean:
+                assert "LEAN_NUM_THREADS" not in step.get("env", {})
     assert lean["with"] == {
         "auto-config": "false", "build": "true", "test": "false",
         "use-mathlib-cache": "true", "use-github-cache": "true",
