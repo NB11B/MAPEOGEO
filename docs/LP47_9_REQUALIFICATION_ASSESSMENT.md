@@ -19,7 +19,10 @@ SHA256 exactly. Independent review reproduced both hashes. Under standard
 SHA256 collision resistance this establishes equality of the normalized span
 apart from that page token, including the theorem's wording and assumptions.
 It does not establish raw-PDF equality, equivalence of other declarations, or
-whole-edition qualification. The historical PDF itself has not been recovered.
+whole-edition qualification. The historical PDF was subsequently recovered privately from an existing archive
+snapshot and its original identity verified; see the accepted-edition replay
+in `TESTING.md`. This diagnostic remains a separate record of the changed live
+edition, not a qualification of that edition.
 
 `evidence/lp47_9_pagination_diagnostic_v1.json` records only hashes and metadata.
 `scripts/audit_lp_pagination_binding.py` implements the deliberately narrow

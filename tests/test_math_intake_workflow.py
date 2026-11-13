@@ -128,7 +128,7 @@ def test_proof_job_preserves_scientific_checks_and_real_checker_order(jobs, work
     assert "if" not in lean
     assert lean_index < actual[0][0]
     assert sum(len(action_steps(job, "leanprover/lean-action")) for job in jobs.values()) == 1
-    assert workflow["env"]["SOURCE_URL"] == "https://www.cis.upenn.edu/~jean/math-deep.pdf"
+    assert workflow["env"]["SOURCE_URL"] == "https://web.archive.org/web/20250429162547id_/https://www.cis.upenn.edu/~jean/math-deep.pdf"
     download = next(step for step in proof["steps"] if "curl " in step.get("run", ""))
     assert "if" not in download
     assert "--fail" in shlex.split(download["run"])
@@ -270,3 +270,17 @@ def test_source_identity_gate_is_required_before_reconstruction(workflow, jobs):
             assert path in workflow['on'][event]['paths']
     bridge = yaml.load((ROOT/'.github/workflows/gfyproof_bridge_v1.yml').read_text(), Loader=yaml.BaseLoader)
     assert any('tests/test_source_pdf_identity.py' in argv for _,argv in commands(bridge['jobs']['verify']))
+
+
+def test_accepted_source_and_extractor_are_reproducibly_retrieved(workflow, jobs):
+    assert workflow['env']['SOURCE_URL'] == (
+        'https://web.archive.org/web/20250429162547id_/'
+        'https://www.cis.upenn.edu/~jean/math-deep.pdf'
+    )
+    requirements = (ROOT / 'requirements-map-goal-v0-7.txt').read_text().splitlines()
+    assert 'PyMuPDF==1.28.2' in requirements
+    proof = jobs['proof-verification']
+    download = next(s for s in proof['steps'] if s['name']=='Download reference PDF transiently')
+    assert '--location' in download['run'] and '--fail' in download['run']
+    assert '$RUNNER_TEMP/mapeogeo-source/math-deep.pdf' in download['run']
+    assert not any(s.get('uses','').startswith('actions/cache@') for s in proof['steps'])

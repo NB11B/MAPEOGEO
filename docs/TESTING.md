@@ -155,3 +155,29 @@ Using a new edition requires a separate reviewed requalification of source
 bindings and downstream evidence; do not overwrite historical acceptance
 manifests or substitute hashes to obtain a green run. No source PDF is committed
 or uploaded by this change.
+
+### Replaying the accepted source edition
+
+The accepted PDF was recovered from the Internet Archive snapshot dated
+2025-04-29 16:25:47 UTC. The v0.11 workflow now retrieves that existing archived
+copy directly into `RUNNER_TEMP`, rather than downloading the changed live
+edition. The original SHA256 and byte-count guard remains mandatory before any
+source processing. Retrieval is not permission to repost the book: the PDF must
+not be committed, cached, or uploaded as an artifact. The existing `always()`
+cleanup removes the runner's transient copy. Only derived, prose-free evidence
+is eligible for the existing artifact stages, and the aggregate Python/proof
+gate remains unchanged. Archive outages or incorrect bytes fail closed.
+
+The extraction dependency is pinned to PyMuPDF 1.28.2, the version recorded in
+the original accepted CI run. With identical source bytes, local 1.26.6 produced
+636 resolved references and failed the unchanged minimum of 638. Version
+1.28.2 reproduced v0.6 exactly: 1,355 declarations, 638 resolved references,
+66 unresolved references. v0.7 and both artifact validators passed, with all
+reported baseline retrieval/filter metrics exactly matching acceptance:
+126 holdout edges, 4/4 original-hash certificates, 2 SAME_SEMANTICS promotions,
+recall 0.8888888888888888, reduction 0.36026705118285623, and graph 2226/23305.
+The strengthened bounded LP witness checker was used in that replay.
+
+This local replay verifies v0.6/v0.7 source qualification only. It does not stand
+in for a new hosted Lean run or resolve unrelated full-Python collection errors.
+No source-file pin, statement binding, or scientific threshold was changed.

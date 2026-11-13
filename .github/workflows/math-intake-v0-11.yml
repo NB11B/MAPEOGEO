@@ -55,7 +55,9 @@ permissions:
   contents: read
 
 env:
-  SOURCE_URL: https://www.cis.upenn.edu/~jean/math-deep.pdf
+  # Retrieve the accepted edition transiently; never cache or redistribute the PDF.
+  # The unchanged mandatory identity guard authenticates these archived bytes.
+  SOURCE_URL: https://web.archive.org/web/20250429162547id_/https://www.cis.upenn.edu/~jean/math-deep.pdf
 
 jobs:
   python-tests:
