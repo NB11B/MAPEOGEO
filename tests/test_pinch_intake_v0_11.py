@@ -8,11 +8,37 @@ import sys
 from pathlib import Path
 from typing import Any
 
+import pytest
+
 from scripts.formal_bridge_v0_8 import proof_escape_hits
 from scripts.pinch_contracts_v0_11 import run_contract
 from tests.validate_pinch_intake_v0_11 import FORBIDDEN_PERSISTED_KEYS
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+@pytest.fixture
+def simulated_kernel_success(tmp_path: Path, monkeypatch) -> None:
+    """Simulate only the external process boundary for graph orchestration tests.
+
+    This is not Lean evidence. All resulting certificates stay in tmp_path;
+    these tests exercise promotion/scope logic, not mathematical correctness.
+    """
+    bin_dir = tmp_path / "bin"
+    bin_dir.mkdir()
+    lake = bin_dir / "lake"
+    lake.write_text(
+        f"#!{sys.executable}\n"
+        "import sys\n"
+        "if sys.argv[1:] == ['env', 'lean', '--version']:\n"
+        "    print('TEST-ONLY simulated Lean process; not kernel evidence')\n"
+        "elif len(sys.argv) != 4 or sys.argv[1:3] != ['env', 'lean']:\n"
+        "    sys.exit(2)\n",
+        encoding="utf-8",
+    )
+    lake.chmod(0o755)
+    monkeypatch.setenv("PATH", str(bin_dir))
+
 
 FROZEN_TARGET_HASHES = {
     "srcdecl:proposition:3_14": "6e09e18756aefdaf8cdd2c03aca61548d1126fb3d30d70b49c58359f37c64b8e",
@@ -369,7 +395,7 @@ def test_negative_absent_expected_dependency_fails(tmp_path: Path):
     assert res.get("gates", {}).get("explicit_dependencies_present") is False
 
 
-def test_negative_refused_scope_cannot_receive_kernel_verified(tmp_path: Path):
+def test_negative_refused_scope_cannot_receive_kernel_verified(tmp_path: Path, simulated_kernel_success):
     """Proves that a REFUSED_SCOPE_MISMATCH target cannot receive KERNEL_VERIFIED or formal nodes."""
     graph = make_mock_v09_graph()
     bindings = json.loads((ROOT / "formal" / "pinch_bindings_v0_11.json").read_text(encoding="utf-8"))
@@ -406,7 +432,7 @@ def test_negative_refused_scope_cannot_receive_kernel_verified(tmp_path: Path):
         "--allow-unverified-checker-pass",
     ]
     proc = subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, check=False)
-    assert proc.returncode == 0
+    assert proc.returncode == 0, proc.stdout + proc.stderr
 
     certs = json.loads((out_dir / "pinch_v0_11_certificates.json").read_text(encoding="utf-8"))
     cert_ids = {c["source_id"] for c in certs}
@@ -420,12 +446,14 @@ def test_negative_refused_scope_cannot_receive_kernel_verified(tmp_path: Path):
     assert "cert:v011:lean:proposition_3_14" not in out_node_ids
 
 
-def test_negative_lean_success_alone_creates_no_equivalent_to(tmp_path: Path):
-    """Proves that Lean kernel verification alone creates NO automatic EQUIVALENT_TO edges."""
+def test_negative_lean_success_alone_creates_no_equivalent_to(tmp_path: Path, simulated_kernel_success):
+    """Simulated kernel success exercises graph logic, never real proof evidence."""
     graph = make_mock_v09_graph()
     rc, res = run_intake_test_helper(graph, tmp_path)
     assert rc == 0
     assert res.get("status") == "PASS"
+    assert res["gates"]["lean_kernel_pass"] is True
+    assert len(res["certificates"]) == 4
 
     with gzip.open(tmp_path / "artifacts" / "mapeogeo_v0_11_graph.json.gz", "rt", encoding="utf-8") as f:
         out_graph = json.load(f)
@@ -493,12 +521,20 @@ def test_negative_pre_v09_base_graph_fails(tmp_path: Path):
     assert res.get("gates", {}).get("base_graph_is_v09_accepted") is False
 
 
-def test_v09_wounds_survive_regression(tmp_path: Path):
+@pytest.mark.parametrize("checker_status", ["PASS", "NOT_RUN"])
+def test_v09_wounds_survive_regression(tmp_path: Path, checker_status: str, simulated_kernel_success):
     """Regression test: proves all v0.9 WOUND nodes and rejected/corrected reference edges survive in v0.11."""
     graph = make_mock_v09_graph()
-    rc, res = run_intake_test_helper(graph, tmp_path)
-    assert rc == 0
-    assert res.get("status") == "PASS"
+    rc, res = run_intake_test_helper(graph, tmp_path, [
+        "--independent-checker-status", checker_status,
+        "--allow-unverified-checker-pass",
+    ])
+    assert rc == (0 if checker_status == "PASS" else 1)
+    assert res["status"] == ("PASS" if checker_status == "PASS" else "FAIL")
+    assert res["gates"]["historical_fields_preserved_byte_for_byte"] is True
+    if checker_status == "NOT_RUN":
+        assert res["gates"]["independent_checker_pass"] is False
+        assert res["certificates"] == []
 
     with gzip.open(tmp_path / "artifacts" / "mapeogeo_v0_11_graph.json.gz", "rt", encoding="utf-8") as f:
         out_graph = json.load(f)
@@ -527,3 +563,49 @@ def test_v09_wounds_survive_regression(tmp_path: Path):
     assert wounds_file.is_file()
     wounds_data = json.loads(wounds_file.read_text(encoding="utf-8"))
     assert len(wounds_data) >= 2
+
+
+def test_checker_override_cannot_replace_failed_kernel(tmp_path: Path, simulated_kernel_success):
+    """A simulated kernel rejection cannot be overridden by checker PASS."""
+    lake = tmp_path / "bin" / "lake"
+    with lake.open("a", encoding="utf-8") as f:
+        f.write("if sys.argv[-1] != '--version': sys.exit(1)\n")
+    invalid_lean = tmp_path / "InvalidPinch.lean"
+    invalid_lean.write_text(
+        "\n".join(
+            f"theorem {name}_v011 : False := by rfl"
+            for name in ("proposition_3_14", "proposition_3_13", "theorem_27_10", "proposition_4_4")
+        ),
+        encoding="utf-8",
+    )
+    graph = make_mock_v09_graph()
+    rc, res = run_intake_test_helper(graph, tmp_path, [
+        "--lean-file", str(invalid_lean),
+        "--independent-checker-status", "PASS",
+        "--allow-unverified-checker-pass",
+    ])
+    assert rc == 1
+    assert res["status"] == "FAIL"
+    assert res["gates"]["declarations_present"] is True
+    assert res["gates"]["no_proof_escape_hatches"] is True
+    assert res["gates"]["independent_checker_pass"] is True
+    assert res["gates"]["lean_kernel_pass"] is False
+    assert res["certificates"] == []
+    with gzip.open(tmp_path / "artifacts" / "mapeogeo_v0_11_graph.json.gz", "rt", encoding="utf-8") as f:
+        assert json.load(f) == graph
+
+
+def test_missing_kernel_cannot_be_replaced_by_checker_override(tmp_path: Path, monkeypatch):
+    """A missing lake must fail closed even when checker PASS is overridden."""
+    # Hide PATH tools and the intake's fallback ~/.elan/bin/lake locations.
+    monkeypatch.setenv("PATH", str(tmp_path))
+    monkeypatch.setenv("HOME", str(tmp_path))
+    graph = make_mock_v09_graph()
+    rc, res = run_intake_test_helper(graph, tmp_path)
+    assert rc == 1
+    assert res["status"] == "FAIL"
+    assert res["gates"]["independent_checker_pass"] is True
+    assert res["gates"]["lean_kernel_pass"] is False
+    assert res["certificates"] == []
+    with gzip.open(tmp_path / "artifacts" / "mapeogeo_v0_11_graph.json.gz", "rt", encoding="utf-8") as f:
+        assert json.load(f) == graph

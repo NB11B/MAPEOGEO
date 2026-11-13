@@ -1,0 +1,25 @@
+{
+  "accepted_page_end": 1621,
+  "accepted_source_pdf": {
+    "bytes": 24629575,
+    "pages": 2204,
+    "redistributed": false,
+    "sha256": "a1f91e337445851d27f2f4adb61e8ccc0f8fac941f9e0254ad94ba6b91c7c49b",
+    "url": "https://www.cis.upenn.edu/~jean/math-deep.pdf"
+  },
+  "accepted_statement_sha256": "40f6f2ced2811e74cf5ba7e189488b6f415e0e3980e06d3806aaddcfd364bbfb",
+  "audit_id": "MAPEOGEO-LP47_9-PAGINATION-DIAGNOSTIC-V1",
+  "baseline_graph_sha256": "409a648d8563bc4a027dc3dc29fc53722d11bc489462a0f3d1f71bd4f272544d",
+  "claim": "Accepted normalized span reconstructed by changing only the terminal running-header page number. No whole-edition qualification or general LP-duality proof.",
+  "current_page_end": 1655,
+  "current_statement_sha256": "2a1b9cc7242af9686408da1f054e104801090d02bdf4ed2a7f22341bb044c22b",
+  "historical_span_reconstructed": true,
+  "normalization_version": "LP47_9_TRAILING_RUNNING_HEADER_PAGE_V1",
+  "pagination_normalized_sha256": "9d75b7207969e20b6ab64622026684800b796ac48d3a9b86f0d12fc3b06cfc30",
+  "qualifies_source_edition": false,
+  "reconstructed_historical_sha256": "40f6f2ced2811e74cf5ba7e189488b6f415e0e3980e06d3806aaddcfd364bbfb",
+  "source_pdf_bytes": 25323685,
+  "source_pdf_sha256": "9c7574c8880b463a113c332ecc80b759d700f8dfe9f6d2e0db6cfbee9ef52af2",
+  "statement_chars": 787,
+  "status": "DIAGNOSTIC_ONLY"
+}

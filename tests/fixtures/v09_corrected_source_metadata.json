@@ -1,0 +1,413 @@
+{
+  "fixture_kind": "SYNTHETIC_METADATA_ONLY_NOT_QUALIFICATION_EVIDENCE",
+  "nodes": [
+    {
+      "id": "src:chapter:03",
+      "type": "SOURCE",
+      "label": "Chapter 3: Vector Spaces, Bases, Linear Maps",
+      "attributes": {
+        "chapter_number": 3,
+        "title": "Vector Spaces, Bases, Linear Maps"
+      }
+    },
+    {
+      "id": "ontology:concept:vector_space",
+      "type": "OBJECT",
+      "label": "VECTOR_SPACE",
+      "attributes": {
+        "ontology": "MAPEOGEO_CONTROLLED_CONCEPT_V0_5"
+      }
+    },
+    {
+      "id": "ontology:eo:linear_operator",
+      "type": "OPERATOR",
+      "label": "LINEAR_OPERATOR",
+      "view": "EO",
+      "attributes": {
+        "ontology": "MAPEOGEO_EO_FAMILY_V0_5",
+        "status": "CANDIDATE_FAMILY"
+      }
+    },
+    {
+      "id": "ontology:geo:subspace_geometry",
+      "type": "OPERATOR",
+      "label": "SUBSPACE_GEOMETRY",
+      "view": "GEO",
+      "attributes": {
+        "ontology": "MAPEOGEO_GEO_FAMILY_V0_5",
+        "status": "CANDIDATE_FAMILY"
+      }
+    },
+    {
+      "id": "srcdecl:lemma:3_6",
+      "type": "STATEMENT",
+      "label": "Lemma 3.6",
+      "attributes": {
+        "declaration_kind": "Lemma",
+        "number": "3.6",
+        "chapter": 3,
+        "pdf_page_start": 77,
+        "pdf_page_end": 77,
+        "heading_mode": "SAME_LINE",
+        "source_segment_sha256": "81d32dea618aa9d5eaa7b1ec254052632e4f9e92bf55a7be31cb4f931938df8b",
+        "source_segment_chars": 635,
+        "proof_present": true,
+        "proof_sha256": "c69f7b6d625ee206a14eed6da8b8ceee01b3646d49035cb3e4ec607cd75ba67b",
+        "proof_chars": 386,
+        "semantic_profile": {
+          "direct_concepts": [
+            "VECTOR_SPACE"
+          ],
+          "chapter_prior_concepts": [
+            "VECTOR_SPACE"
+          ],
+          "selected_concepts": [
+            "VECTOR_SPACE"
+          ],
+          "evidence": "DIRECT_TEXT",
+          "eo_candidate_families": [
+            "LINEAR_OPERATOR"
+          ],
+          "geo_candidate_families": [
+            "SUBSPACE_GEOMETRY"
+          ],
+          "dualization_status": "DUAL_CANDIDATE"
+        },
+        "dualization_status": "DUAL_CANDIDATE",
+        "source": "GALLIER_QUAINTANCE_MATH_DEEP",
+        "source_url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+        "independent_profile": {
+          "statement_sha256": "7b23d4bb370df45d743d82405c8339622c804dee0a3d0575ace2638bde9fd955",
+          "statement_chars": 248,
+          "eo_direct_families": [
+            "EO_LINEAR_TRANSFORM"
+          ],
+          "geo_direct_families": [
+            "GEO_SUBSPACE"
+          ],
+          "direct_status": "DUAL_DIRECT"
+        }
+      }
+    },
+    {
+      "id": "srcdecl:theorem:3_7",
+      "type": "STATEMENT",
+      "label": "Theorem 3.7",
+      "attributes": {
+        "declaration_kind": "Theorem",
+        "number": "3.7",
+        "chapter": 3,
+        "pdf_page_start": 78,
+        "pdf_page_end": 78,
+        "heading_mode": "SAME_LINE",
+        "source_segment_sha256": "6e59f2e869c942f3a2b27e44ea43f326a8e2680dde439dec4a6e3c2a47727da5",
+        "source_segment_chars": 1598,
+        "proof_present": true,
+        "proof_sha256": "f516008c9f6c600bc51bfef9c4fd1b22a2d3e1780378868ba318e89018defa6b",
+        "proof_chars": 1408,
+        "semantic_profile": {
+          "direct_concepts": [
+            "ALGEBRAIC_STRUCTURE",
+            "VECTOR_SPACE"
+          ],
+          "chapter_prior_concepts": [
+            "VECTOR_SPACE"
+          ],
+          "selected_concepts": [
+            "ALGEBRAIC_STRUCTURE",
+            "VECTOR_SPACE"
+          ],
+          "evidence": "DIRECT_TEXT",
+          "eo_candidate_families": [
+            "COMPOSITION_OPERATOR",
+            "LINEAR_OPERATOR"
+          ],
+          "geo_candidate_families": [
+            "ACTION_CAYLEY_GEOMETRY",
+            "SUBSPACE_GEOMETRY"
+          ],
+          "dualization_status": "DUAL_CANDIDATE"
+        },
+        "dualization_status": "DUAL_CANDIDATE",
+        "source": "GALLIER_QUAINTANCE_MATH_DEEP",
+        "source_url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+        "independent_profile": {
+          "statement_sha256": "308a9240278368e4f17acc97d6385aa540d05688bda5d8aae87a5b75a11333de",
+          "statement_chars": 189,
+          "eo_direct_families": [
+            "EO_LINEAR_TRANSFORM"
+          ],
+          "geo_direct_families": [
+            "GEO_SUBSPACE"
+          ],
+          "direct_status": "DUAL_DIRECT"
+        }
+      }
+    },
+    {
+      "id": "srcdecl:proposition:6_7",
+      "type": "STATEMENT",
+      "label": "Proposition 6.7",
+      "attributes": {
+        "declaration_kind": "Proposition",
+        "number": "6.7",
+        "chapter": 6,
+        "pdf_page_start": 176,
+        "pdf_page_end": 177,
+        "heading_mode": "SAME_LINE",
+        "source_segment_sha256": "ed9e437c8a539615e0759d0f6ccfea972afe87ad106a304c780d9e6ff59895d3",
+        "source_segment_chars": 1009,
+        "proof_present": false,
+        "proof_sha256": null,
+        "proof_chars": 0,
+        "semantic_profile": {
+          "direct_concepts": [
+            "DIRECT_SUM",
+            "HILBERT_PROJECTION",
+            "VECTOR_SPACE"
+          ],
+          "chapter_prior_concepts": [
+            "DIRECT_SUM",
+            "VECTOR_SPACE"
+          ],
+          "selected_concepts": [
+            "DIRECT_SUM",
+            "HILBERT_PROJECTION",
+            "VECTOR_SPACE"
+          ],
+          "evidence": "DIRECT_TEXT",
+          "eo_candidate_families": [
+            "DECOMPOSITION_OPERATOR",
+            "LINEAR_OPERATOR",
+            "PROJECTION_OPERATOR"
+          ],
+          "geo_candidate_families": [
+            "ORTHOGONAL_PROJECTION_GEOMETRY",
+            "SUBSPACE_DECOMPOSITION_GEOMETRY",
+            "SUBSPACE_GEOMETRY"
+          ],
+          "dualization_status": "DUAL_CANDIDATE"
+        },
+        "dualization_status": "DUAL_CANDIDATE",
+        "source": "GALLIER_QUAINTANCE_MATH_DEEP",
+        "source_url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+        "independent_profile": {
+          "statement_sha256": "ed9e437c8a539615e0759d0f6ccfea972afe87ad106a304c780d9e6ff59895d3",
+          "statement_chars": 1009,
+          "eo_direct_families": [
+            "EO_LINEAR_TRANSFORM"
+          ],
+          "geo_direct_families": [
+            "GEO_SUBSPACE"
+          ],
+          "direct_status": "DUAL_DIRECT"
+        }
+      }
+    },
+    {
+      "id": "ontology:independent-eo:eo_linear_transform",
+      "type": "OPERATOR",
+      "label": "EO_LINEAR_TRANSFORM",
+      "view": "EO",
+      "attributes": {
+        "ontology": "MAPEOGEO_INDEPENDENT_EO_V0_6"
+      }
+    },
+    {
+      "id": "ontology:independent-geo:geo_subspace",
+      "type": "OPERATOR",
+      "label": "GEO_SUBSPACE",
+      "view": "GEO",
+      "attributes": {
+        "ontology": "MAPEOGEO_INDEPENDENT_GEO_V0_6"
+      }
+    },
+    {
+      "id": "proof:lemma:3_6",
+      "type": "PROOF_STEP",
+      "label": "Proof block for Lemma 3.6",
+      "attributes": {
+        "status": "SOURCE_PROOF_BLOCK",
+        "proof_sha256": "c69f7b6d625ee206a14eed6da8b8ceee01b3646d49035cb3e4ec607cd75ba67b",
+        "proof_chars": 386,
+        "source_statement": "srcdecl:lemma:3_6"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e:source:lemma:3_6:chapter",
+      "type": "SOURCED_FROM",
+      "source": "srcdecl:lemma:3_6",
+      "target": "src:chapter:03"
+    },
+    {
+      "id": "e:concept:lemma:3_6:vector_space",
+      "type": "HAS_CONCEPT",
+      "source": "srcdecl:lemma:3_6",
+      "target": "ontology:concept:vector_space",
+      "attributes": {
+        "evidence": "DIRECT_TEXT"
+      }
+    },
+    {
+      "id": "e:candidate:eo:lemma:3_6:linear_operator",
+      "type": "CANDIDATE_EO",
+      "source": "srcdecl:lemma:3_6",
+      "target": "ontology:eo:linear_operator",
+      "attributes": {
+        "status": "HEURISTIC_CANDIDATE",
+        "evidence": "DIRECT_TEXT"
+      }
+    },
+    {
+      "id": "e:candidate:geo:lemma:3_6:subspace_geometry",
+      "type": "CANDIDATE_GEO",
+      "source": "srcdecl:lemma:3_6",
+      "target": "ontology:geo:subspace_geometry",
+      "attributes": {
+        "status": "HEURISTIC_CANDIDATE",
+        "evidence": "DIRECT_TEXT"
+      }
+    },
+    {
+      "id": "e:proofref:theorem:3_7:lemma:3_6",
+      "type": "DEPENDS_ON",
+      "source": "srcdecl:theorem:3_7",
+      "target": "srcdecl:lemma:3_6",
+      "attributes": {
+        "evidence": "SOURCE_PROOF_CROSS_REFERENCE",
+        "proof_node": "proof:theorem:3_7"
+      }
+    },
+    {
+      "id": "e:independent:eo:lemma:3_6:eo_linear_transform",
+      "type": "INDEPENDENT_EO_EVIDENCE",
+      "source": "srcdecl:lemma:3_6",
+      "target": "ontology:independent-eo:eo_linear_transform",
+      "attributes": {
+        "evidence": "STATEMENT_DIRECT"
+      }
+    },
+    {
+      "id": "e:independent:geo:lemma:3_6:geo_subspace",
+      "type": "INDEPENDENT_GEO_EVIDENCE",
+      "source": "srcdecl:lemma:3_6",
+      "target": "ontology:independent-geo:geo_subspace",
+      "attributes": {
+        "evidence": "STATEMENT_DIRECT"
+      }
+    },
+    {
+      "id": "e:proof:lemma:3_6:produces",
+      "type": "PRODUCES",
+      "source": "proof:lemma:3_6",
+      "target": "srcdecl:lemma:3_6",
+      "attributes": {
+        "evidence": "SOURCE_PROOF_BLOCK"
+      }
+    }
+  ],
+  "source_correction_audit": {
+    "schema": "V09_SOURCE_CORRECTION_V1",
+    "status": "PASS",
+    "qualification_variant": "CORRECTED_SOURCE_V1",
+    "source_pdf": {
+      "sha256": "a1f91e337445851d27f2f4adb61e8ccc0f8fac941f9e0254ad94ba6b91c7c49b",
+      "bytes": 24629575
+    },
+    "extractor_version": "1.28.2",
+    "semantic_profile_scope": "CORRECTED_STATEMENT_ONLY",
+    "base_graph_sha256": "39e1abbb0b5eb6fcf9d29f030f40601b76d08df222f81e353185256131c69b19",
+    "bindings_sha256": "5da926d0ebde85e6b403c7fb58a85e1a2f58608ab14dd0d259520acfcc3bbc16",
+    "superseded_node": {
+      "id": "srcdecl:lemma:3_6",
+      "type": "STATEMENT",
+      "label": "Lemma 3.6",
+      "attributes": {
+        "declaration_kind": "Lemma",
+        "number": "3.6",
+        "chapter": 3,
+        "pdf_page_start": 97,
+        "pdf_page_end": 98,
+        "heading_mode": "SAME_LINE",
+        "source_segment_sha256": "8c777553c7ec6a145870e89011cdfa811bd9fbb7d04b666620c963849224cbb3",
+        "source_segment_chars": 1777,
+        "proof_present": false,
+        "proof_sha256": null,
+        "proof_chars": 0,
+        "semantic_profile": {
+          "direct_concepts": [
+            "VECTOR_SPACE"
+          ],
+          "chapter_prior_concepts": [
+            "VECTOR_SPACE"
+          ],
+          "selected_concepts": [
+            "VECTOR_SPACE"
+          ],
+          "evidence": "DIRECT_TEXT",
+          "eo_candidate_families": [
+            "LINEAR_OPERATOR"
+          ],
+          "geo_candidate_families": [
+            "SUBSPACE_GEOMETRY"
+          ],
+          "dualization_status": "DUAL_CANDIDATE"
+        },
+        "dualization_status": "DUAL_CANDIDATE",
+        "source": "GALLIER_QUAINTANCE_MATH_DEEP",
+        "source_url": "https://www.cis.upenn.edu/~jean/math-deep.pdf",
+        "independent_profile": {
+          "statement_sha256": "8c777553c7ec6a145870e89011cdfa811bd9fbb7d04b666620c963849224cbb3",
+          "statement_chars": 1777,
+          "eo_direct_families": [
+            "EO_LINEAR_TRANSFORM"
+          ],
+          "geo_direct_families": [
+            "GEO_SUBSPACE"
+          ],
+          "direct_status": "DUAL_DIRECT"
+        }
+      }
+    },
+    "invalid_reason": "CITATION_MISPARSED_AS_DECLARATION",
+    "corrected_statement_sha256": "7b23d4bb370df45d743d82405c8339622c804dee0a3d0575ace2638bde9fd955",
+    "corrected_proof_sha256": "c69f7b6d625ee206a14eed6da8b8ceee01b3646d49035cb3e4ec607cd75ba67b",
+    "corrected_segment_sha256": "81d32dea618aa9d5eaa7b1ec254052632e4f9e92bf55a7be31cb4f931938df8b",
+    "boundaries": {
+      "statement": {
+        "pdf_page": 77,
+        "lines_zero_based_half_open": [
+          35,
+          38
+        ]
+      },
+      "proof": {
+        "pdf_page": 77,
+        "lines_zero_based_half_open": [
+          38,
+          44
+        ]
+      },
+      "theorem_statement": {
+        "pdf_page": 78,
+        "lines_zero_based_half_open": [
+          7,
+          10
+        ]
+      },
+      "theorem_proof": {
+        "pdf_page": 78,
+        "lines_zero_based_half_open": [
+          10,
+          17
+        ]
+      }
+    },
+    "theorem_statement_sha256": "308a9240278368e4f17acc97d6385aa540d05688bda5d8aae87a5b75a11333de",
+    "theorem_proof_sha256": "78344260dd7d2b6119687907f86fe4f0f82980b84107a3da3b3de3bfd0c43190",
+    "claim_scope": "SCOPED_EXISTING_LEAN_CONTRACT_NOT_FULL_SOURCE_THEOREM",
+    "canonical_graph_sha256": "a78a643790fb250808e3503f37821b874de8fba5ec27b1fe87ed5846d89311e6"
+  }
+}

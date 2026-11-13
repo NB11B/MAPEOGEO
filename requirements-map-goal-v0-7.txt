@@ -1,3 +1,4 @@
-PyMuPDF>=1.26,<2
+# Accepted extraction baseline; older 1.26.6 changes dependency-reference counts.
+PyMuPDF==1.28.2
 pytest>=8,<9
 sympy>=1.13,<2
