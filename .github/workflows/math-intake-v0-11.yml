@@ -15,6 +15,10 @@ on:
       - "tests/test_pinch_intake_v0_11.py"
       - "tests/test_math_intake_workflow.py"
       - "scripts/check_source_pdf_identity.py"
+      - "scripts/correct_v09_source_binding.py"
+      - "formal/proof_paths_v0_9_corrected_v1.json"
+      - "tests/test_v09_source_correction.py"
+      - "tests/test_v09_correction_provenance.py"
       - "tests/test_source_pdf_identity.py"
       - "evidence/v0_7_acceptance_manifest.json"
       - "requirements-map-goal-v0-7.txt"
@@ -39,6 +43,10 @@ on:
       - "tests/test_pinch_intake_v0_11.py"
       - "tests/test_math_intake_workflow.py"
       - "scripts/check_source_pdf_identity.py"
+      - "scripts/correct_v09_source_binding.py"
+      - "formal/proof_paths_v0_9_corrected_v1.json"
+      - "tests/test_v09_source_correction.py"
+      - "tests/test_v09_correction_provenance.py"
       - "tests/test_source_pdf_identity.py"
       - "evidence/v0_7_acceptance_manifest.json"
       - "requirements-map-goal-v0-7.txt"
@@ -189,12 +197,28 @@ jobs:
             --nanoda-status TOOLING_BLOCKED
           python tests/validate_formal_bridge_v0_8.py "$RUNNER_TEMP/mapeogeo-v08"
 
+      - name: Test exact-source correction before requalification
+        env:
+          MAPEOGEO_TEST_PDF: ${{ runner.temp }}/mapeogeo-source/math-deep.pdf
+          MAPEOGEO_TEST_GRAPH: ${{ runner.temp }}/mapeogeo-v08/mapeogeo_formal_v0_8_graph.json.gz
+        run: python -m pytest -q tests/test_v09_source_correction.py
+
+      - name: Apply separately versioned source-binding correction
+        run: |
+          mkdir -p "$RUNNER_TEMP/mapeogeo-v09-input"
+          python scripts/correct_v09_source_binding.py \
+            --pdf "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf" \
+            --base-graph "$RUNNER_TEMP/mapeogeo-v08/mapeogeo_formal_v0_8_graph.json.gz" \
+            --bindings formal/proof_paths_v0_9_corrected_v1.json \
+            --out-graph "$RUNNER_TEMP/mapeogeo-v09-input/corrected_graph.json.gz" \
+            --out-audit "$RUNNER_TEMP/mapeogeo-v09-input/source_correction_audit.json"
+
       - name: Regenerate v0.9 S5 proof-path graph
         run: |
           rm -rf "$RUNNER_TEMP/mapeogeo-v09"
           python scripts/proof_paths_v0_9.py \
-            --base-graph "$RUNNER_TEMP/mapeogeo-v08/mapeogeo_formal_v0_8_graph.json.gz" \
-            --bindings formal/proof_paths_v0_9.json \
+            --base-graph "$RUNNER_TEMP/mapeogeo-v09-input/corrected_graph.json.gz" \
+            --bindings formal/proof_paths_v0_9_corrected_v1.json \
             --lean-file MAPEOGEOFormal/ProofPaths.lean \
             --out-dir "$RUNNER_TEMP/mapeogeo-v09" \
             --independent-checker leanchecker \

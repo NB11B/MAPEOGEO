@@ -104,6 +104,27 @@ def add_edge(edges, edge_ids, edge):
         edge_ids.add(edge["id"])
 
 
+def source_correction_gate(graph: dict, cfg: dict, bindings_path: Path) -> bool:
+    """Keep corrected-source qualification distinct from frozen historical acceptance."""
+    audit = graph.get("source_correction_audit")
+    variant = cfg.get("qualification_variant")
+    if variant is None:
+        return audit is None
+    if variant != "CORRECTED_SOURCE_V1" or not isinstance(audit, dict):
+        return False
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "v09_source_correction", Path(__file__).with_name("correct_v09_source_binding.py")
+    )
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    try:
+        return module.validate_corrected_graph(graph, bindings_path)
+    except (ValueError, OSError, KeyError, TypeError):
+        return False
+
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--base-graph", type=Path, required=True)
@@ -118,6 +139,7 @@ def main() -> int:
     args.out_dir.mkdir(parents=True, exist_ok=True)
     graph = load_graph(args.base_graph)
     cfg = json.loads(args.bindings.read_text(encoding="utf-8"))
+    correction_ok = source_correction_gate(graph, cfg, args.bindings)
     nodes, edges = graph["nodes"], graph["edges"]
     by_id = {n["id"]: n for n in nodes}
     node_ids = set(by_id)
@@ -232,7 +254,7 @@ def main() -> int:
 
     # S4 each cited support declaration at its declared formal scope.
     support_certs = []
-    if kernel_ok and hashes_ok and not prohibited and all(decl_presence.values()):
+    if kernel_ok and hashes_ok and correction_ok and not prohibited and all(decl_presence.values()):
         for item in cfg["support_frontier"]:
             slug = item["source_id"].replace("srcdecl:", "").replace(":", "_")
             formal_id = f"formal:lean:v09:{slug}"
@@ -411,6 +433,7 @@ def main() -> int:
     }
 
     gates = {
+        "source_correction_provenance": correction_ok,
         "source_hashes_match": hashes_ok,
         "support_declarations_present": all(decl_presence.values()),
         "no_proof_escape_hatches": not prohibited,
@@ -438,6 +461,9 @@ def main() -> int:
             "independent_checker_status": args.independent_checker_status,
             "proof_escape_hits": prohibited,
         },
+        "qualification_variant": cfg.get("qualification_variant", "FROZEN_V0_9"),
+        "source_bindings_sha256": sha256_file(args.bindings),
+        "source_correction_audit": graph.get("source_correction_audit"),
         "source_hash_checks": hash_checks,
         "path_edge_checks": path_edge_checks,
         "wounds": wounds,

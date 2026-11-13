@@ -63,6 +63,8 @@ def test_python_and_proof_jobs_are_independent_and_fail_closed(jobs):
                  "tests/test_pinch_intake_v0_11.py", "tests/validate_pinch_intake_v0_11.py"):
         assert ["python", "-m", "py_compile", path] in python_commands
     assert not any(command[:1] == ["pytest"] for _, command in commands(jobs["proof-verification"]))
+    proof_tests = [argv for _, argv in commands(jobs["proof-verification"]) if argv[:3] == ["python", "-m", "pytest"]]
+    assert proof_tests == [["python", "-m", "pytest", "-q", "tests/test_v09_source_correction.py"]]
 
 
 # Scientific thresholds and graph/certificate connections are qualification
@@ -84,9 +86,15 @@ PROOF_COMMANDS = [
        --out-dir "$RUNNER_TEMP/mapeogeo-v08" --independent-checker leanchecker
        --independent-checker-status PASS --nanoda-status TOOLING_BLOCKED''',
     'python tests/validate_formal_bridge_v0_8.py "$RUNNER_TEMP/mapeogeo-v08"',
-    '''python scripts/proof_paths_v0_9.py
+    '''python scripts/correct_v09_source_binding.py
+       --pdf "$RUNNER_TEMP/mapeogeo-source/math-deep.pdf"
        --base-graph "$RUNNER_TEMP/mapeogeo-v08/mapeogeo_formal_v0_8_graph.json.gz"
-       --bindings formal/proof_paths_v0_9.json --lean-file MAPEOGEOFormal/ProofPaths.lean
+       --bindings formal/proof_paths_v0_9_corrected_v1.json
+       --out-graph "$RUNNER_TEMP/mapeogeo-v09-input/corrected_graph.json.gz"
+       --out-audit "$RUNNER_TEMP/mapeogeo-v09-input/source_correction_audit.json"''',
+    '''python scripts/proof_paths_v0_9.py
+       --base-graph "$RUNNER_TEMP/mapeogeo-v09-input/corrected_graph.json.gz"
+       --bindings formal/proof_paths_v0_9_corrected_v1.json --lean-file MAPEOGEOFormal/ProofPaths.lean
        --out-dir "$RUNNER_TEMP/mapeogeo-v09" --independent-checker leanchecker
        --independent-checker-status PASS''',
     'python tests/validate_proof_paths_v0_9.py "$RUNNER_TEMP/mapeogeo-v09"',
@@ -284,3 +292,13 @@ def test_accepted_source_and_extractor_are_reproducibly_retrieved(workflow, jobs
     assert '--location' in download['run'] and '--fail' in download['run']
     assert '$RUNNER_TEMP/mapeogeo-source/math-deep.pdf' in download['run']
     assert not any(s.get('uses','').startswith('actions/cache@') for s in proof['steps'])
+
+
+def test_source_correction_tests_require_actual_transient_inputs(jobs):
+    steps=jobs['proof-verification']['steps']
+    test_index,step=next((i,s) for i,s in enumerate(steps) if s.get('name')=='Test exact-source correction before requalification')
+    assert step['env']=={'MAPEOGEO_TEST_PDF':'${{ runner.temp }}/mapeogeo-source/math-deep.pdf', 'MAPEOGEO_TEST_GRAPH':'${{ runner.temp }}/mapeogeo-v08/mapeogeo_formal_v0_8_graph.json.gz'}
+    v08=next(i for i,s in enumerate(steps) if s.get('name')=='Regenerate accepted v0.8 formal graph')
+    correction=next(i for i,s in enumerate(steps) if s.get('name')=='Apply separately versioned source-binding correction')
+    assert v08 < test_index < correction
+    assert 'if' not in step and 'continue-on-error' not in step
